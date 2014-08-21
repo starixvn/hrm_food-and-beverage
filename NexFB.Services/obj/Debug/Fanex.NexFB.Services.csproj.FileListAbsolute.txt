@@ -1,5 +1,0 @@
-C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Services\bin\Debug\Fanex.NexFB.Services.dll
-C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Services\bin\Debug\Fanex.NexFB.Services.pdb
-C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Services\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Services\obj\Debug\Fanex.NexFB.Services.dll
-C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Services\obj\Debug\Fanex.NexFB.Services.pdb

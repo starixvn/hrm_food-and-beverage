@@ -1,5 +1,0 @@
-C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Core\bin\Debug\NexFB.Core.dll
-C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Core\bin\Debug\NexFB.Core.pdb
-C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Core\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Core\obj\Debug\NexFB.Core.dll
-C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Core\obj\Debug\NexFB.Core.pdb
