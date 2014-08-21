@@ -1,0 +1,15 @@
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Criteria\bin\Debug\NexFB.Criteria.dll
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Criteria\bin\Debug\NexFB.Criteria.pdb
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Criteria\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Criteria\obj\Debug\NexFB.Criteria.dll
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Criteria\obj\Debug\NexFB.Criteria.pdb
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Criteria\bin\Debug\NexFB.Criteria.dll
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Criteria\bin\Debug\NexFB.Criteria.pdb
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Criteria\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Criteria\obj\Debug\NexFB.Criteria.dll
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Criteria\obj\Debug\NexFB.Criteria.pdb
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\bin\Debug\NexFB.Criteria.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\bin\Debug\NexFB.Criteria.pdb
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\obj\Debug\ResolveAssemblyReference.cache
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\obj\Debug\NexFB.Criteria.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\obj\Debug\NexFB.Criteria.pdb

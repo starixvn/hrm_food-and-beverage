@@ -1,0 +1,5 @@
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Repositories\bin\Debug\Fanex.NexFB.Repositories.dll
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Repositories\bin\Debug\Fanex.NexFB.Repositories.pdb
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Repositories\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Repositories\obj\Debug\Fanex.NexFB.Repositories.dll
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Repositories\obj\Debug\Fanex.NexFB.Repositories.pdb

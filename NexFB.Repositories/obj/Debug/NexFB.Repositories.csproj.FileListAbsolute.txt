@@ -1,0 +1,15 @@
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Repositories\bin\Debug\NexFB.Repositories.dll
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Repositories\bin\Debug\NexFB.Repositories.pdb
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Repositories\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Repositories\obj\Debug\NexFB.Repositories.dll
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Repositories\obj\Debug\NexFB.Repositories.pdb
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Repositories\bin\Debug\NexFB.Repositories.dll
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Repositories\bin\Debug\NexFB.Repositories.pdb
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Repositories\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Repositories\obj\Debug\NexFB.Repositories.dll
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Repositories\obj\Debug\NexFB.Repositories.pdb
+D:\Source\NexFB\food-and-beverage\NexFB.Repositories\bin\Debug\NexFB.Repositories.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Repositories\bin\Debug\NexFB.Repositories.pdb
+D:\Source\NexFB\food-and-beverage\NexFB.Repositories\obj\Debug\ResolveAssemblyReference.cache
+D:\Source\NexFB\food-and-beverage\NexFB.Repositories\obj\Debug\NexFB.Repositories.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Repositories\obj\Debug\NexFB.Repositories.pdb

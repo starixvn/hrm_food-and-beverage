@@ -1,0 +1,5 @@
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Criteria\bin\Debug\Fanex.NexFB.Criteria.dll
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Criteria\bin\Debug\Fanex.NexFB.Criteria.pdb
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Criteria\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Criteria\obj\Debug\Fanex.NexFB.Criteria.dll
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Criteria\obj\Debug\Fanex.NexFB.Criteria.pdb

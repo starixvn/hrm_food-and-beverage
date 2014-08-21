@@ -1,0 +1,15 @@
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Resources\bin\Debug\NexFB.Resources.dll
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Resources\bin\Debug\NexFB.Resources.pdb
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Resources\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Resources\obj\Debug\NexFB.Resources.dll
+C:\Users\josh.phan\documents\visual studio 2010\Projects\NexFB\Fanex.NexFB.Resources\obj\Debug\NexFB.Resources.pdb
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Resources\bin\Debug\NexFB.Resources.dll
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Resources\bin\Debug\NexFB.Resources.pdb
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Resources\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Resources\obj\Debug\NexFB.Resources.dll
+C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Resources\obj\Debug\NexFB.Resources.pdb
+D:\Source\NexFB\food-and-beverage\NexFB.Resources\bin\Debug\NexFB.Resources.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Resources\bin\Debug\NexFB.Resources.pdb
+D:\Source\NexFB\food-and-beverage\NexFB.Resources\obj\Debug\ResolveAssemblyReference.cache
+D:\Source\NexFB\food-and-beverage\NexFB.Resources\obj\Debug\NexFB.Resources.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Resources\obj\Debug\NexFB.Resources.pdb
