@@ -113,6 +113,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Data\SpNames.xml" />
     <Content Include="Global.asax" />
     <Content Include="Src\App\EmployeeOrder\controllers.js" />
     <Content Include="Src\App\EmployeeRegistration\controllers.js" />
@@ -121,6 +122,17 @@
     <Content Include="Src\App\EmployeeRegistration\routes.js" />
     <Content Include="Src\App\EmployeeRegistration\services.js" />
     <Content Include="Src\App\EmployeeRegistration\Templates\index.tpl.html" />
+    <Content Include="Src\Components\Libs\angular-resource.js" />
+    <Content Include="Src\Components\Libs\angular-route.js" />
+    <Content Include="Src\Components\Libs\angular-translate.js" />
+    <Content Include="Src\Components\Libs\angular.min.js" />
+    <Content Include="Src\Components\Libs\bootstrap.min.js" />
+    <Content Include="Src\Components\Libs\jquery-2.1.0-vsdoc.js" />
+    <Content Include="Src\Components\Libs\jquery-2.1.0.min.js" />
+    <Content Include="Src\Components\Libs\ui-bootstrap-tpls-0.10.0.js" />
+    <Content Include="Src\Content\Common\bootstrap-theme.min.css" />
+    <Content Include="Src\Content\Common\bootstrap.min.css" />
+    <Content Include="Src\Content\Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -131,22 +143,27 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
+    <Folder Include="Controllers\API\" />
     <Folder Include="Src\App\EmployeeOrder\Templates\" />
-    <Folder Include="Src\Assets\Fonts\" />
     <Folder Include="Src\Components\Extensions\Common\" />
     <Folder Include="Src\Components\Extensions\Directives\" />
     <Folder Include="Src\Components\Extensions\Filters\" />
     <Folder Include="Src\Components\Extensions\Services\" />
-    <Folder Include="Src\Components\Libs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\App\EmployeeRegistration\employeeRegistration.less" />
-    <None Include="Src\Less\layout.less" />
+    <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
+    <None Include="Src\Content\Common\bootstrap-theme.css.map" />
+    <None Include="Src\Content\Common\bootstrap.css.map" />
+    <None Include="Src\Content\Fonts\big_noodle_titling.ttf" />
+    <None Include="Src\Content\Fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Src\Content\Fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Src\Content\Fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Src\Content\Site\layout.less" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

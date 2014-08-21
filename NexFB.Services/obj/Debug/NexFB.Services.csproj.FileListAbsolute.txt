@@ -8,8 +8,3 @@ C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Services\bi
 C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Services\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Services\obj\Debug\NexFB.Services.dll
 C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Services\obj\Debug\NexFB.Services.pdb
-D:\Source\NexFB\food-and-beverage\NexFB.Services\bin\Debug\NexFB.Services.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Services\bin\Debug\NexFB.Services.pdb
-D:\Source\NexFB\food-and-beverage\NexFB.Services\obj\Debug\ResolveAssemblyReference.cache
-D:\Source\NexFB\food-and-beverage\NexFB.Services\obj\Debug\NexFB.Services.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Services\obj\Debug\NexFB.Services.pdb

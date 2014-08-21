@@ -58,33 +58,3 @@ C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Site\bin\Sy
 C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Site\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Site\obj\Debug\NexFB.Site.dll
 C:\Users\josh.phan\Documents\Visual Studio 2010\Projects\NexFB\NexFB.Site\obj\Debug\NexFB.Site.pdb
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\NexFB.Site.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\NexFB.Site.pdb
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\Microsoft.Web.Infrastructure.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\Newtonsoft.Json.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Net.Http.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Net.Http.Formatting.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Net.Http.WebRequest.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.Helpers.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.Http.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.Http.WebHost.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.Mvc.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.Razor.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.WebPages.Deployment.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.WebPages.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.WebPages.Razor.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\Newtonsoft.Json.xml
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Net.Http.xml
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Net.Http.Formatting.xml
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Net.Http.WebRequest.xml
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.Helpers.xml
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.Http.xml
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.Http.WebHost.xml
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.Mvc.xml
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.Razor.xml
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.WebPages.xml
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.WebPages.Deployment.xml
-D:\Source\NexFB\food-and-beverage\NexFB.Site\bin\System.Web.WebPages.Razor.xml
-D:\Source\NexFB\food-and-beverage\NexFB.Site\obj\Debug\ResolveAssemblyReference.cache
-D:\Source\NexFB\food-and-beverage\NexFB.Site\obj\Debug\NexFB.Site.dll
-D:\Source\NexFB\food-and-beverage\NexFB.Site\obj\Debug\NexFB.Site.pdb
