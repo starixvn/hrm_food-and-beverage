@@ -1,4 +1,13 @@
-﻿namespace NexFB.Site.App_Start
+﻿// ----------------------------------------------------------------------
+// <copyright file="BundleExtensions.cs" company="Nexcel Solutions Viet Nam">
+// Copyright statement. All right reserved
+// </copyright>
+// ------------------------------------------------------------------------
+// <history>
+//   <change who="Josh.Phan" date="8/21/2014 3:29:31 PM">Created.</change>
+// </history>
+
+namespace NexFB.Site.App_Start
 {
     using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
@@ -13,7 +22,7 @@
         {
             bundles.Add(new Bundle(bundleVirtualPath)
             {
-                Transforms = { new CssTransformer(), new CssMinify() },
+                Transforms = { new StyleTransformer(), new CssMinify() },
                 Orderer = new NullOrderer()
             }.Include(virtualPaths));
         }

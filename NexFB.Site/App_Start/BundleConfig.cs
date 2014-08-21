@@ -1,9 +1,14 @@
-﻿namespace NexFB.Site.App_Start
+﻿// ----------------------------------------------------------------------
+// <copyright file="BundleConfig.cs" company="Nexcel Solutions Viet Nam">
+// Copyright statement. All right reserved
+// </copyright>
+// ------------------------------------------------------------------------
+// <history>
+//   <change who="Josh.Phan" date="8/21/2014 3:28:12 PM">Created.</change>
+// </history>
+
+namespace NexFB.Site.App_Start
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
     using System.Web.Optimization;
 
     /// <summary>
