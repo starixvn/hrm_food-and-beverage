@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6BFD76A4-3016-4845-B510-F99CDEA6510B}</ProjectGuid>
+    <ProjectGuid>{0F13DE23-E3B7-466B-84AD-2EB79E5E4D6A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NexFB.WinApp</RootNamespace>
@@ -37,6 +37,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Data">
+      <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -56,11 +65,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\ManageOrder\DeliveredFood.xaml.cs">
+      <DependentUpon>DeliveredFood.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageOrder\PendingFood.xaml.cs">
+      <DependentUpon>PendingFood.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="DependencyProperties\ControlBox.cs" />
+    <Compile Include="ViewModels\DeliveredFoodViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\PendingFoodViewModel.cs" />
+    <Compile Include="ViewModels\StatisticViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -69,6 +90,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ManageOrder\DeliveredFood.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageOrder\PendingFood.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -95,11 +124,16 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="SpNames.xml" />
+    <ProjectReference Include="..\NexFB.WinApp.Core\NexFB.WinApp.Core.csproj">
+      <Project>{64A4E7F4-92F1-4DE3-8C03-687496864BB8}</Project>
+      <Name>NexFB.WinApp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexFB.WinApp.Models\NexFB.WinApp.Models.csproj">
+      <Project>{D61A3DE4-2C25-4140-847C-ABC072F25E9D}</Project>
+      <Name>NexFB.WinApp.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

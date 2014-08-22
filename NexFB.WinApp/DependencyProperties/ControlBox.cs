@@ -99,7 +99,6 @@ namespace NexFB.WinApp.DependencyProperties
                 else
                 {
                     UpdateStyle(window, windowHandler);
-                    UpdateExtendedStyle(window, windowHandler);
                 }
             }
         }
@@ -110,7 +109,6 @@ namespace NexFB.WinApp.DependencyProperties
 
             var windowHandler = new WindowInteropHelper(window).Handle;
             UpdateStyle(window, windowHandler);
-            UpdateExtendedStyle(window, windowHandler);
 
             window.SourceInitialized -= OnWindowSourceInitialized;
         }
@@ -143,28 +141,6 @@ namespace NexFB.WinApp.DependencyProperties
             }
 
             NativeMethods.SetWindowLong(windowHandler, Style, style);
-        }
-
-        /// <summary>
-        /// Update External Style.
-        /// </summary>
-        /// <param name="window">Working window.</param>
-        /// <param name="windowHandler">Data type represent to a pointer or handle.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SA1003:SymbolsMustBeSpacedCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        private static void UpdateExtendedStyle(Window window, IntPtr windowHandler)
-        {
-            var style = NativeMethods.GetWindowLong(windowHandler, ExtStyle);
-
-            if (GetHasHelpButton(window))
-            {
-                style |= ContextHelp;
-            }
-            else
-            {
-                style &= -~ContextHelp;
-            }
-
-            NativeMethods.SetWindowLong(windowHandler, ExtStyle, style);
         }
 
         /// <summary>
