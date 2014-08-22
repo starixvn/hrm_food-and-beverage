@@ -1,13 +1,13 @@
 ﻿// ----------------------------------------------------------------------
 // <copyright file="FilterConfig.cs" company="Nexcel Solutions Viet Nam">
-// Copyright statement. All right reserved
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // ------------------------------------------------------------------------
 // <history>
 //   <change who="Josh.Phan" date="8/21/2014 3:30:14 PM">Created.</change>
 // </history>
 
-namespace Fanex.NexFB.Site
+namespace NexFB.Site.App_Start
 {
     using System.Web.Mvc;
 

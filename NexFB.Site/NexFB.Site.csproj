@@ -126,6 +126,8 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\BundleExtensions.cs" />
+    <Compile Include="Controllers\API\RegistrationMealController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -137,17 +139,15 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Data\SpNames.xml" />
     <Content Include="Global.asax" />
-    <Content Include="Src\App\EmployeeOrder\controllers.js" />
+    <Content Include="Src\App\app.js" />
     <Content Include="Src\App\EmployeeRegistration\controllers.js" />
-    <Content Include="Src\App\EmployeeRegistration\directives.js" />
-    <Content Include="Src\App\EmployeeRegistration\filters.js" />
     <Content Include="Src\App\EmployeeRegistration\routes.js" />
-    <Content Include="Src\App\EmployeeRegistration\services.js" />
+    <Content Include="Src\App\EmployeeRegistration\factory.js" />
     <Content Include="Src\App\EmployeeRegistration\Templates\index.tpl.html" />
     <Content Include="Src\Components\Libs\angular-resource.js" />
     <Content Include="Src\Components\Libs\angular-route.js" />
     <Content Include="Src\Components\Libs\angular-translate.js" />
-    <Content Include="Src\Components\Libs\angular.min.js" />
+    <Content Include="Src\Components\Libs\angular.js" />
     <Content Include="Src\Components\Libs\bootstrap.min.js" />
     <Content Include="Src\Components\Libs\jquery-2.1.0-vsdoc.js" />
     <Content Include="Src\Components\Libs\jquery-2.1.0.min.js" />
@@ -166,8 +166,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\API\" />
-    <Folder Include="Src\App\EmployeeOrder\Templates\" />
     <Folder Include="Src\Components\Extensions\Common\" />
     <Folder Include="Src\Components\Extensions\Directives\" />
     <Folder Include="Src\Components\Extensions\Filters\" />
@@ -190,6 +188,17 @@
     <None Include="Src\Content\Fonts\glyphicons-halflings-regular.woff" />
     <None Include="Src\Content\Site\layout.less" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NexFB.Models\NexFB.Models.csproj">
+      <Project>{487D35C7-B5F4-4CA5-902B-7C300569912F}</Project>
+      <Name>NexFB.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexFB.Resources\NexFB.Resources.csproj">
+      <Project>{79FB6864-4696-4CC2-B94D-842C09CFAC0E}</Project>
+      <Name>NexFB.Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

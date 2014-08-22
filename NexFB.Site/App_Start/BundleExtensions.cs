@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
 // <copyright file="BundleExtensions.cs" company="Nexcel Solutions Viet Nam">
-// Copyright statement. All right reserved
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // ------------------------------------------------------------------------
 // <history>

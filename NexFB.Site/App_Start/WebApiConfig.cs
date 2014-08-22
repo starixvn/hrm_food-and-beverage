@@ -1,13 +1,13 @@
 ﻿// ----------------------------------------------------------------------
 // <copyright file="WebApiConfig.cs" company="Nexcel Solutions Viet Nam">
-// Copyright statement. All right reserved
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // ------------------------------------------------------------------------
 // <history>
 //   <change who="Josh.Phan" date="8/21/2014 3:32:16 PM">Created.</change>
 // </history>
  
-namespace Fanex.NexFB.Site
+namespace NexFB.Site.App_Start
 {
     using System.Web.Http;
 
@@ -23,7 +23,7 @@ namespace Fanex.NexFB.Site
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
+                name: "CustomApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional });
 

@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
 // <copyright file="BundleConfig.cs" company="Nexcel Solutions Viet Nam">
-// Copyright statement. All right reserved
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // ------------------------------------------------------------------------
 // <history>
@@ -20,20 +20,26 @@ namespace NexFB.Site.App_Start
         /// Register Bundles.
         /// </summary>
         /// <param name="bundles">The bundle collection.</param>
-        public static void ResgisterBundles(BundleCollection bundles)
+        public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/Src/Content/Common/css").Include(
                 "~/Src/Content/Common/bootstrap.min.css",
                 "~/Src/Content/Common/bootstrap-theme.min.css"));
 
-            bundles.Add(new StyleBundle("~/Src/Components/Libs/vendor").Include(
+            bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Src/Components/Libs/jquery-2.1.0.min.js",
-                "~/Src/Components/Libs/angular.min.js",
-                "~/Src/Components/Libs/bootstrap.min.js",
-                "~/Src/Components/Libs/ui-bootstrap-tpls-0.10.0.min.js",
+                "~/Src/Components/Libs/angular.js",
                 "~/Src/Components/Libs/angular-resource.js",
                 "~/Src/Components/Libs/angular-route.js",
-                "~/Src/Components/Libs/angular-translate.js"));
+                "~/Src/Components/Libs/angular-translate.js",
+                "~/Src/Components/Libs/bootstrap.min.js",
+                "~/Src/Components/Libs/ui-bootstrap-tpls-0.10.0.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                "~/Src/App/app.js",
+                "~/Src/App/EmployeeRegistration/routes.js",
+                "~/Src/App/EmployeeRegistration/controllers.js",
+                "~/Src/App/EmployeeRegistration/factory.js"));
         }
     }
 }
