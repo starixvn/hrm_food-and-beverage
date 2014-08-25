@@ -35,6 +35,10 @@ namespace NexFB.Site.App_Start
                 "~/Src/Components/Libs/bootstrap.min.js",
                 "~/Src/Components/Libs/ui-bootstrap-tpls-0.10.0.min.js"));
 
+            bundles.AddAndInclude(
+                "~/NexFB/less",
+                "~/Src/App/EmployeeRegistration/employeeRegistration.less");
+
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Src/App/app.js",
                 "~/Src/App/EmployeeRegistration/routes.js",
