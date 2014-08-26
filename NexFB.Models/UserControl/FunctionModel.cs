@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="8/26/2014 10:33:37 AM">Created.</change>
 // </history>
 
-namespace NexFB.Models.ManageRole
+namespace NexFB.Models.UserControl
 {
     using System.Collections.Generic;
 

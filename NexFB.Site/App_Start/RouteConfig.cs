@@ -31,6 +31,11 @@ namespace NexFB.Site.App_Start
                defaults: new { controller = "Auth", action = "Login" });
 
             routes.MapRoute(
+               name: "Manage Role",
+               url: "ManageRole/Index",
+               defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Auth", action = "Login", id = UrlParameter.Optional });

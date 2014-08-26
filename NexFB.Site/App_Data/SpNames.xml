@@ -8,4 +8,9 @@
       <Mapping DataField="EmpId" ObjectProperty="UserId"/>
     </Setting>
   </Function>
+	<Function Name="ManageRole">
+		<Setting Key="Function_GetByRole" SpName="Function_GetByRole" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="SystemRole_GetAll" SpName="SystemRole_GetAll" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="RoleFunction_Assign" SpName="RoleFunction_Assign" DbName="NexFB" Plain="0" ></Setting>
+	</Function>
 </Functions>

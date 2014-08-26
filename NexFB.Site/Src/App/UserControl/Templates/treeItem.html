@@ -1,0 +1,7 @@
+﻿<span class="relative-icon" ng-if="data.ParentFunctionId">&#9492;&#9472;&#9472;
+</span>
+{{data.Name}}
+<div class="child-function-name" ng-repeat="data in data.ChildFunctions"
+     ng-include src="'/Src/App/UserControl/Templates/treeItem.html'">
+</div>
+

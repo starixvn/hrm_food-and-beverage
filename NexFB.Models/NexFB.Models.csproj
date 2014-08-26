@@ -48,7 +48,8 @@
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Authority\SystemRole.cs" />
     <Compile Include="Authority\UserSession.cs" />
-    <Compile Include="ManageRole\FunctionModel.cs" />
+    <Compile Include="UserControl\FunctionModel.cs" />
+    <Compile Include="UserControl\RoleSystemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

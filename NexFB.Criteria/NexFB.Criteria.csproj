@@ -59,9 +59,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ManageRole\GetAllFunctionByRoleCriteria.cs" />
+    <Compile Include="UserControl\AssignPermissionToRoleCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByCodeCriteria.cs" />
-
+    <Compile Include="UserControl\GetAllSystemRoleCriteria.cs" />
+    <Compile Include="UserControl\GetFunctionByRoleCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByDomainCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

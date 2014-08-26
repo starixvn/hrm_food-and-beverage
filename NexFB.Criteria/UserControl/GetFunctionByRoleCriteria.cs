@@ -1,5 +1,5 @@
 ﻿// ----------------------------------------------------------------------
-// <copyright file="GetAllFunctionByRoleCriteria.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="GetFunctionByRoleCriteria.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // ------------------------------------------------------------------------
@@ -7,18 +7,25 @@
 //   <change who="Josh.Phan" date="8/26/2014 12:51:32 PM">Created.</change>
 // </history>
 
-namespace NexFB.Criteria.ManageRole
+namespace NexFB.Criteria.UserControl
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Get all function by role criteria.
     /// </summary>
-    public class GetAllFunctionByRoleCriteria : CriteriaBase
+    public class GetFunctionByRoleCriteria : CriteriaBase
     {
+        public int RoleId { get; set; }
+
+        public override string GetSettingKey()
+        {
+            return "Function_GetByRole";
+        }
+
+        public override bool IsValid()
+        {
+            return RoleId > 0;
+        }
     }
 }

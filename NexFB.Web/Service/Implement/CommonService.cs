@@ -10,7 +10,7 @@
 namespace NexFB.Web.Service.Implement
 {
     using NexFB.Core.Enums;
-    using NexFB.Models.ManageRole;
+    using NexFB.Models.UserControl;
     using NexFB.Web.Service.Interface;
 
     /// <summary>

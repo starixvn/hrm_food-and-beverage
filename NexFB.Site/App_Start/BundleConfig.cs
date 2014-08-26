@@ -24,7 +24,8 @@ namespace NexFB.Site.App_Start
         {
             bundles.Add(new StyleBundle("~/Src/Content/Common/css").Include(
                 "~/Src/Content/Common/bootstrap.min.css",
-                "~/Src/Content/Common/bootstrap-theme.min.css"));
+                "~/Src/Content/Common/bootstrap-theme.min.css",
+                "~/Src/Content/Common/toastr.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Src/Components/Libs/jquery-2.1.0.min.js",
@@ -33,7 +34,8 @@ namespace NexFB.Site.App_Start
                 "~/Src/Components/Libs/angular-route.js",
                 "~/Src/Components/Libs/angular-translate.js",
                 "~/Src/Components/Libs/bootstrap.min.js",
-                "~/Src/Components/Libs/ui-bootstrap-tpls-0.10.0.min.js"));
+                "~/Src/Components/Libs/ui-bootstrap-tpls-0.10.0.min.js",
+                "~/Src/Components/Libs/toastr.js"));
 
             bundles.AddAndInclude(
                 "~/NexFB/less",
@@ -44,7 +46,15 @@ namespace NexFB.Site.App_Start
                 "~/Src/App/app.js",
                 "~/Src/App/EmployeeRegistration/routes.js",
                 "~/Src/App/EmployeeRegistration/controllers.js",
-                "~/Src/App/EmployeeRegistration/factory.js"));
+                "~/Src/App/EmployeeRegistration/factory.js",
+                "~/Src/App/UserControl/routes.js",
+                "~/Src/App/UserControl/controllers.js",
+                "~/Src/App/UserControl/factory.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/extensions").Include(
+                "~/Src/Components/Extensions/Common/error-factory.js",
+                "~/Src/Components/Extensions/Common/notification-factory.js",
+                "~/Src/Components/Extensions/Directives/fb-directives.js"));
         }
     }
 }

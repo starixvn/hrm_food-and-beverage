@@ -170,6 +170,7 @@
     <Compile Include="App_Start\BundleExtensions.cs" />
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\API\RegistrationMealController.cs" />
+    <Compile Include="Controllers\API\UserControlController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -188,6 +189,16 @@
     <Content Include="Src\App\EmployeeRegistration\routes.js" />
     <Content Include="Src\App\EmployeeRegistration\factory.js" />
     <Content Include="Src\App\EmployeeRegistration\Templates\index.tpl.html" />
+    <Content Include="Src\App\UserControl\factory.js" />
+    <Content Include="Src\App\UserControl\routes.js" />
+    <Content Include="Src\App\UserControl\controllers.js" />
+    <Content Include="Src\App\UserControl\Templates\index.html" />
+    <Content Include="Src\App\UserControl\Templates\treeHostCheckbox.html" />
+    <Content Include="Src\App\UserControl\Templates\treeItem.html" />
+    <Content Include="Src\App\UserControl\Templates\treeReadCheckbox.html" />
+    <Content Include="Src\Components\Extensions\Common\error-factory.js" />
+    <Content Include="Src\Components\Extensions\Common\notification-factory.js" />
+    <Content Include="Src\Components\Extensions\Directives\fb-directives.js" />
     <Content Include="Src\Components\Libs\angular-resource.js" />
     <Content Include="Src\Components\Libs\angular-route.js" />
     <Content Include="Src\Components\Libs\angular-translate.js" />
@@ -195,10 +206,12 @@
     <Content Include="Src\Components\Libs\bootstrap.min.js" />
     <Content Include="Src\Components\Libs\jquery-2.1.0-vsdoc.js" />
     <Content Include="Src\Components\Libs\jquery-2.1.0.min.js" />
+    <Content Include="Src\Components\Libs\toastr.js" />
     <Content Include="Src\Components\Libs\ui-bootstrap-tpls-0.10.0.min.js" />
     <Content Include="Src\Content\Common\bootstrap-spacelab.min.css" />
     <Content Include="Src\Content\Common\bootstrap-theme.min.css" />
     <Content Include="Src\Content\Common\bootstrap.min.css" />
+    <Content Include="Src\Content\Common\toastr.css" />
     <Content Include="Src\Content\Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -212,8 +225,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Src\Components\Extensions\Common\" />
-    <Folder Include="Src\Components\Extensions\Directives\" />
     <Folder Include="Src\Components\Extensions\Filters\" />
     <Folder Include="Src\Components\Extensions\Services\" />
   </ItemGroup>
@@ -263,6 +274,10 @@
     <ProjectReference Include="..\NexFB.Services\NexFB.Services.csproj">
       <Project>{C6EF79D3-5127-4DA2-A334-44109F771D33}</Project>
       <Name>NexFB.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexFB.Web\NexFB.Web.csproj">
+      <Project>{931AF2DB-8B59-4494-B450-D451CFC0AAB5}</Project>
+      <Name>NexFB.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
