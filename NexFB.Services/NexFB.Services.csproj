@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\BaseService.cs" />
+    <Compile Include="Implement\EmployeeService.cs" />
+    <Compile Include="Interface\IEmployeeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
