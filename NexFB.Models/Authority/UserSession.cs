@@ -12,7 +12,7 @@ namespace NexFB.Models.Authority
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Security;
-    using NexFB.Models.ManageRole;
+    using NexFB.Models.UserControl;
 
     /// <summary>
     /// User Session.
