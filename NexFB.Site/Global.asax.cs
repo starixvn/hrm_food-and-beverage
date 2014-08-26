@@ -15,6 +15,7 @@ namespace NexFB.Site
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using Fanex.Data.Configuration;
     using Fanex.Logging;
     using NexFB.Site.App_Start;
 
@@ -30,6 +31,8 @@ namespace NexFB.Site
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            DbSettingProviderManager.Current.Start();
         }
 
         /// <summary>
