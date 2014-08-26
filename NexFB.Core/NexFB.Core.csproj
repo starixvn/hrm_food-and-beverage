@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Criteria\ResultCriteria.cs" />
+    <Compile Include="Enums\Policy.cs" />
     <Compile Include="Extensions\OutputAttribute.cs" />
     <Compile Include="Models\CommandResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

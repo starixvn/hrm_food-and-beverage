@@ -37,6 +37,7 @@ namespace NexFB.Site.App_Start
 
             bundles.AddAndInclude(
                 "~/NexFB/less",
+                "~/Src/Content/Site/layout.less",
                 "~/Src/App/EmployeeRegistration/employeeRegistration.less");
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(

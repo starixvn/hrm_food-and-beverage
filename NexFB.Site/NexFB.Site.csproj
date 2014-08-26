@@ -214,9 +214,11 @@
     <None Include="Src\Content\Fonts\glyphicons-halflings-regular.eot" />
     <None Include="Src\Content\Fonts\glyphicons-halflings-regular.ttf" />
     <None Include="Src\Content\Fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Src\Content\Site\layout.less" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <None Include="Src\Content\Site\layout.less" />
+    <None Include="Src\Content\Site\mixins.less" />
+    <None Include="Src\Content\Site\variables.less" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NexFB.Models\NexFB.Models.csproj">
