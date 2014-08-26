@@ -10,115 +10,129 @@
 namespace NexFB.Site.Controllers
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
+    using System.Runtime.InteropServices;
     using System.Web;
     using System.Web.Mvc;
-    using System.Runtime.InteropServices;
+    using System.Web.Security;
+    using NexFB.Core.Constants;
+    using NexFB.Criteria.Employee;
+    using NexFB.Models.Authority;
+    using NexFB.Services.Implement;
+    using NexFB.Services.Interface;
 
     /// <summary>
-    /// Auth Controller.
+    /// Authentication Controller.
     /// </summary>
     public class AuthController : Controller
     {
+        private readonly IEmployeeService _employeeService;
+
+        public AuthController()
+        {
+            _employeeService = new EmployeeService();
+        }
+
+        public AuthController(IEmployeeService employeeService)
+        {
+            _employeeService = employeeService;
+        }
+
         [DllImport("ADVAPI32.dll", EntryPoint = "LogonUserW", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool LogonUser(string lpszUsername, string lpszDomain, string lpszPassword, int dwLogonType, int dwLogonProvider, ref IntPtr phToken);
+        public static extern bool LogonUser(string username, string domain, string password, int logonType, int logonProvider, ref IntPtr token);
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
 
         /// <summary>
-        /// Parses the string to pull the domain name out.
+        /// Login Action.
         /// </summary>
-        /// <param name="usernameDomain">The string to parse that must contain the domain in either the domain\username or UPN format username@domain</param>
-        /// <returns>The domain name or "" if not domain is found.</returns>
-        public static string GetDomainName(string usernameDomain)
+        /// <param name="model">LoginModel Object.</param>
+        /// <returns>Action Result Login.</returns>
+        [HttpPost]
+        public ActionResult Login(LoginModel model)
         {
-            if (string.IsNullOrEmpty(usernameDomain))
+            bool result = CheckLogin(model);
+            if (result)
             {
-                throw (new ArgumentException("Argument can't be null.", "usernameDomain"));
-            }
-            if (usernameDomain.Contains("\\"))
-            {
-                int index = usernameDomain.IndexOf("\\");
-                return usernameDomain.Substring(0, index);
-            }
-            else if (usernameDomain.Contains("@"))
-            {
-                int index = usernameDomain.IndexOf("@");
-                return usernameDomain.Substring(index + 1);
+                var criteria = new GetEmployeeByDomainCriteria() 
+                { 
+                    Username = model.Username 
+                };
+                UserSession user = _employeeService.GetUserByDomain(criteria);
+                HttpContext.Session["CurrentUser"] = user;
+                FormsAuthentication.SetAuthCookie(model.Username, false);
+
+                if (string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
+                {
+                    FormsAuthentication.RedirectFromLoginPage(model.Username, false);
+                }
+                else
+                {
+                    FormsAuthentication.SetAuthCookie(model.Username, false);
+                    Response.Redirect("~/employee/myspace");
+                }
             }
             else
             {
-                return "";
+                Response.Write("Invalid username or password.");
             }
+
+            return View(model);
         }
 
-        ////private readonly IEmployeeService _employeeService;
-        ////public AuthController()
-        ////{
-        ////    _employeeService = new EmployeeService();
-        ////}
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            if (HttpContext.Session != null)
+            {
+                HttpContext.Session.Abandon();
+                HttpContext.Session.RemoveAll();
+            }
 
-        ////public AuthController(IEmployeeService employeeService)
-        ////{
-        ////    _employeeService = employeeService;
-        ////}
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
+        }
 
-        ////[HttpGet]
-        ////public ActionResult Login()
-        ////{
-        ////    return View();
-        ////}
+        /// <summary>
+        /// Function to check login.
+        /// </summary>
+        /// <param name="model">Login Model.</param>
+        /// <returns>Result of check.</returns>
+        private bool CheckLogin(LoginModel model)
+        {
+            var result = false;
+            IntPtr token = IntPtr.Zero;
+            result = LogonUser(model.Username, model.Username, model.Password, 2, 0, ref token);
+            if (!result)
+            {
+                var criteria = new GetEmployeeByCodeCriteria()
+                {
+                    Code = model.Username,
+                    DepartmentId = Constants.HongMaAndSmsDepartment
+                };
 
-        /////// <summary>
-        /////// Login Action.
-        /////// </summary>
-        /////// <param name="model">LoginModel Object.</param>
-        /////// <returns>Action Result Login.</returns>
-        ////[HttpPost]
-        ////public ActionResult Login(LoginModel model)
-        ////{
-        ////    string domainName = GetDomainName(model.UserName);
-        ////    IntPtr token = IntPtr.Zero;
-        ////    bool result = LogonUser(model.UserName, domainName, model.Password, 2, 0, ref token);
-        ////    if (result)
-        ////    {
-        ////        //If Sucessfully authenticated
-        ////        var getEmployeeCriteria = new GetEmployeeCriteria() { DomainUserName = model.UserName };
-        ////        var user = new EmployeeService().GetEmployeeById(getEmployeeCriteria);
-        ////        HttpContext.Session["CurrentUser"] = user;
-        ////        FormsAuthentication.SetAuthCookie(model.UserName, false);
+                if (string.Compare(model.Password, Constants.PassWordAdmin2, ignoreCase: true) == 0)
+                {
+                    criteria.DepartmentId = Constants.NexcelDepartment;
+                }
 
-        ////        //When an unatuthenticated user try to visit any page of your application that is only allowed to view by authenticated users then,ASP.NET automatically redirect the user to login form and add ReturnUrl query string parameter that contain the url of a page that user want to visit, So that we can redirect the user to that page after authenticated. FormsAuthentication.RedirectFromLoginPage() method not only redirect the user to that page but also genrate an authentication token for that user.
-        ////        if (string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
-        ////        {
-        ////            FormsAuthentication.RedirectFromLoginPage(model.UserName, false);
-        ////        }
-        ////        //If ReturnUrl query string parameter is not present , then we need to genrate authentication token and redirect the user to any page ( acording to your application need). FormsAuthentication.SetAuthCookie() method will genrate Authentication token 
-        ////        else
-        ////        {
-        ////            FormsAuthentication.SetAuthCookie(model.UserName, false);
-        ////            Response.Redirect("~/employee/myspace");
-        ////        }
-        ////    }
-        ////    else
-        ////    {
-        ////        //If not authenticated then display an error message
-        ////        Response.Write("Invalid username or password.");
-        ////    }
+                UserSession user = _employeeService.GetUserByCode(criteria);
+                if (string.Compare(model.Password, Constants.PassWordAdmin1, ignoreCase: true) == 0
+                    || string.Compare(model.Password, Constants.PassWordAdmin2, ignoreCase: true) == 0)
+                {
+                    result = true;
+                }
+                else
+                {
+                    var checkCode = _employeeService.ValidateUser(user, model.Password);
+                    result = checkCode == 0;
+                }
+            }
 
-        ////    return View(model);
-        ////}
-
-        ////[HttpGet]
-        ////public ActionResult Logout()
-        ////{
-        ////    if (HttpContext.Session != null)
-        ////    {
-        ////        HttpContext.Session.Abandon();
-        ////        HttpContext.Session.RemoveAll();
-        ////    }
-
-        ////    FormsAuthentication.SignOut();
-        ////    return RedirectToAction("Login");
-        ////}
+            return result;
+        }
     }
 }

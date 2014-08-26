@@ -9,13 +9,15 @@
 
 namespace NexFB.Services.Interface
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using NexFB.Criteria.Employee;
+    using NexFB.Models.Authority;
 
     public interface IEmployeeService
     {
+        UserSession GetUserByDomain(GetEmployeeByDomainCriteria criteria);
 
+        UserSession GetUserByCode(GetEmployeeByCodeCriteria criteria);
+
+        int ValidateUser(UserSession user, string password);
     }
 }

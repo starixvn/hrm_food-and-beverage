@@ -75,6 +75,14 @@
       <Project>{5815DC62-15BA-4E92-B0CC-E888BDA04E91}</Project>
       <Name>NexFB.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NexFB.Criteria\NexFB.Criteria.csproj">
+      <Project>{CF5EBF21-A3AA-4068-8149-CE1B8BD85C7C}</Project>
+      <Name>NexFB.Criteria</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexFB.Models\NexFB.Models.csproj">
+      <Project>{487D35C7-B5F4-4CA5-902B-7C300569912F}</Project>
+      <Name>NexFB.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NexFB.Repositories\NexFB.Repositories.csproj">
       <Project>{8A994326-E6CC-49A0-8A15-CBA9ED6FFD47}</Project>
       <Name>NexFB.Repositories</Name>

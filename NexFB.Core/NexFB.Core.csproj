@@ -59,12 +59,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Constants.cs" />
     <Compile Include="Criteria\ResultCriteria.cs" />
+    <Compile Include="Enums\HashProvider.cs" />
     <Compile Include="Enums\Policy.cs" />
     <Compile Include="Enums\RolesSystem.cs" />
     <Compile Include="Extensions\OutputAttribute.cs" />
     <Compile Include="Models\CommandResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\Encryptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

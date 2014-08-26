@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
   <Function Name="Employee">
-    <Setting Key="Employee_GetByDomainName" SpName="Employee_GetByDomainName" DbName="NexFB" Plain="0" ></Setting>
-    <Setting Key="Employee_GetByCode" SpName="Employee_GetByCode" DbName="NexFB" Plain="0" ></Setting>
+    <Setting Key="Employee_GetEmployeeByDomain" SpName="Employee_GetEmployeeByDomain" DbName="NexFB" Plain="0" >
+      <Mapping DataField="EmpId" ObjectProperty="UserId"/>
+    </Setting>
+    <Setting Key="Employee_GetEmployeeByCode" SpName="Employee_GetEmployeeByCode" DbName="NexFB" Plain="0" >
+      <Mapping DataField="EmpId" ObjectProperty="UserId"/>
+    </Setting>
   </Function>
 </Functions>

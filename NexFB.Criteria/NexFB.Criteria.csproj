@@ -60,6 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ManageRole\GetAllFunctionByRoleCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeByCodeCriteria.cs" />
+
+    <Compile Include="Employee\GetEmployeeByDomainCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

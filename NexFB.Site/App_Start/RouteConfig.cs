@@ -28,10 +28,15 @@ namespace NexFB.Site.App_Start
             routes.MapRoute(
                name: "Registration Meal Index",
                url: "RegistrationMeal/Index",
-               defaults: new { controller = "Home", action = "Index" });
+               defaults: new { controller = "Auth", action = "Login" });
 
             routes.MapRoute(
                 name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Auth", action = "Login", id = UrlParameter.Optional });
+
+            routes.MapRoute(
+                name: "Default1",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
         }
