@@ -5,11 +5,10 @@
 			   xmlns:vm="clr-namespace:NexFB.WinApp.ViewModels"
              StartupUri="MainWindow.xaml">
 	<Application.Resources>
-		<DataTemplate DataType="{x:Type vm:PendingFoodViewModel}">
-			<views:PendingFood />
-		</DataTemplate>
-		<DataTemplate DataType="{x:Type vm:DeliveredFoodViewModel}">
-			<views:DeliveredFood />
-		</DataTemplate>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="StaticResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
 	</Application.Resources>
 </Application>

@@ -7,7 +7,9 @@
 		l:ControlBox.HasMinimizeButton="False"
 		l:ControlBox.HasMaximizeButton="False">
 	<Window.Resources>
+		<!--Style for tile button-->
 		<Style x:Key="RoundButtonTemplate" TargetType="Button">
+			<Setter Property="FontSize" Value="18" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="Button">
@@ -35,6 +37,7 @@
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
 				</Setter.Value>
+
 			</Setter>
 		</Style>
 	</Window.Resources>
@@ -44,15 +47,16 @@
 	</Window.DataContext>
 	<Grid Background="Black">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="20" />
-			<RowDefinition Height="923*" />
+			<RowDefinition Height="78"/>
+			<RowDefinition Height="907*"/>
 		</Grid.RowDefinitions>
 
-		<Button Style="{StaticResource RoundButtonTemplate}" Content="Đang Chờ" Command="{Binding ViewPedingFoodCommand}" FontSize="15" Foreground="White" Background ="#3A95FC" Height="42" HorizontalAlignment="Left" Name="button1" VerticalAlignment="Top" Width="122" Margin="32,12,0,0" Grid.RowSpan="3" />
-		<Button Style="{StaticResource RoundButtonTemplate}" Content="Đã Xuất" Command="{Binding ViewDeliveredFoodCommand}" FontSize="15" Foreground="White" Background="#FA5934" Height="42" HorizontalAlignment="Left" Name="button2" VerticalAlignment="Top" Width="122" Margin="187,12,0,0" Grid.RowSpan="2" />
-		<Button Style="{StaticResource RoundButtonTemplate}" Content="Gọi Món" Height="42" FontSize="15" Foreground="White" Background="#47BF43" HorizontalAlignment="Left" Name="button3" VerticalAlignment="Top" Width="122" Margin="342,12,0,0" Grid.RowSpan="2" />
-		<Button Style="{StaticResource RoundButtonTemplate}" Content="Thống kê" Height="42" FontSize="15" Foreground="White" Background="#3A95FC" HorizontalAlignment="Left" Name="button4" VerticalAlignment="Top" Width="122" Margin="497,12,0,0" Grid.RowSpan="2" />
-		<ContentControl Content="{Binding CurrentViewModel}" Margin="-12,40,12,0" Grid.Row="2" />
-
+		<Button Style="{StaticResource RoundButtonTemplate}" Content="Đang Chờ" Command="{Binding ViewPedingFoodCommand}" Foreground="White" Background ="#3A95FC" Height="42" HorizontalAlignment="Left" Name="button1" VerticalAlignment="Top" Width="122" Margin="32,12,0,0" />
+		<Button Style="{StaticResource RoundButtonTemplate}" Content="Đã Xuất" Command="{Binding ViewDeliveredFoodCommand}" Foreground="White" Background="#FA5934" Height="42" HorizontalAlignment="Left" Name="button2" VerticalAlignment="Top" Width="122" Margin="187,12,0,0" />
+		<Button Style="{StaticResource RoundButtonTemplate}" Content="Gọi Món" Height="42" Foreground="White" Background="#47BF43" HorizontalAlignment="Left" Name="button3" VerticalAlignment="Top" Width="122" Margin="342,12,0,0" />
+		<Button Style="{StaticResource RoundButtonTemplate}" Content="Thống kê" Height="42" Foreground="White" Background="#3A95FC" HorizontalAlignment="Left" Name="button4" VerticalAlignment="Top" Width="122" Margin="497,12,0,0" />
+		<ContentControl Content="{Binding CurrentViewModel}" BorderBrush="Red" Grid.Row="1" Background="#3A95FC" />
 	</Grid>
+
+
 </Window>

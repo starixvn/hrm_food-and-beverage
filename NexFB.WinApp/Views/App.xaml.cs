@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using NexFB.WinApp.Core.Mapping;
+using System.Windows.Media;
 
 namespace NexFB.WinApp
 {

@@ -6,7 +6,57 @@
       mc:Ignorable="d" 
       d:DesignHeight="1024" d:DesignWidth="1280">
 
-    <Grid>
-		<Label Foreground="White" Name="label1" Content="THIS IS THE PENDING FOODS PAGE!" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" />
+
+	<Grid Height="150" VerticalAlignment="Top">
+		<ListBox Width="1280">
+			<Border BorderThickness="1" BorderBrush="#77B1FC" Margin="0" Padding="0" CornerRadius="0">
+				<Grid Background="White">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+
+					<!--Order number-->
+					<StackPanel Grid.Column="0" Height="150" Width="220" Background="Black">
+						<Label Content="{Binding Path=Test.Name}" Foreground="White" HorizontalAlignment="Center" FontSize="70" VerticalAlignment="Center"></Label>
+						<Label Content="{Binding Path=Test.OrderDate}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+					</StackPanel>
+
+					<Grid Grid.Column="1" Width="880" Margin="10, 10, 10, 10">
+						<StackPanel>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="auto"/>
+									<ColumnDefinition Width="auto"/>
+									<ColumnDefinition Width="auto"/>
+									<ColumnDefinition Width="auto"/>
+									<ColumnDefinition Width="auto"/>
+									<ColumnDefinition Width="auto"/>
+								</Grid.ColumnDefinitions>
+								<Border Style="{StaticResource roomNumberStyle}" Grid.Column="0">
+									<Label HorizontalAlignment="Center" Content="{Binding Path=Test.Room}" />
+								</Border>
+								<Label Grid.Column="1" Content="{Binding Path=Test.RoomDescription}" />
+								<Label Grid.Column="2" Content="-" />
+								<Label Grid.Column="3" Content="{Binding Path=Test.OrderOwner}" />
+								<Label Grid.Column="4" Content="{Binding Path=Test.EmployeeId}" ContentStringFormat="#{0}" />
+								<Label Grid.Column="5">
+									<StackPanel Orientation="Horizontal">
+										<Image Source="pack://application:,,,/Images/phone-icon.png" Stretch="Uniform"/>
+										<TextBlock Text="{Binding Path=Test.RoomPhone}" Margin="4,0,0,0"/>
+									</StackPanel>
+								</Label>
+							</Grid>
+
+						</StackPanel>
+					</Grid>
+
+
+					<!--Order status-->
+					<TextBlock Grid.Column="2" Text="{Binding Path=Age}" Width="150" Background="Aqua"/>
+				</Grid>
+			</Border>
+		</ListBox>
 	</Grid>
 </UserControl>

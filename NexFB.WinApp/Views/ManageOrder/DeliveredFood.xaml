@@ -7,6 +7,6 @@
       d:DesignHeight="1024" d:DesignWidth="1280">
 
     <Grid>
-		<Label Foreground="White" Name="label1" Content="THIS IS THE DELIVERED FOODS PAGE!" />
+		<Label Name="label1" Content="THIS IS THE DELIVERED FOODS PAGE!" />
 	</Grid>
 </UserControl>
