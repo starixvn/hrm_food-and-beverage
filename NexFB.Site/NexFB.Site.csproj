@@ -187,15 +187,15 @@
     <Content Include="App_Data\SpNames.xml" />
     <Content Include="Global.asax" />
     <Content Include="Src\App\app.js" />
-    <Content Include="Src\App\EmployeeRegistration\controllers.js" />
-    <Content Include="Src\App\EmployeeRegistration\routes.js" />
-    <Content Include="Src\App\EmployeeRegistration\factory.js" />
-    <Content Include="Src\App\EmployeeRegistration\Templates\index.tpl.html" />
-    <Content Include="Src\App\Resources\controllers.js" />
-    <Content Include="Src\App\Resources\factory.js" />
-    <Content Include="Src\App\UserControl\factory.js" />
-    <Content Include="Src\App\UserControl\routes.js" />
-    <Content Include="Src\App\UserControl\controllers.js" />
+    <Content Include="Src\App\EmployeeRegistration\employeeRegistration-controller.js" />
+    <Content Include="Src\App\EmployeeRegistration\employeeRegistration-route.js" />
+    <Content Include="Src\App\EmployeeRegistration\employeeRegistration-factory.js" />
+    <Content Include="Src\App\EmployeeRegistration\Templates\index.html" />
+    <Content Include="Src\App\Resources\resources-controller.js" />
+    <Content Include="Src\App\Resources\resources-factory.js" />
+    <Content Include="Src\App\UserControl\userControl-factory.js" />
+    <Content Include="Src\App\UserControl\userControl-route.js" />
+    <Content Include="Src\App\UserControl\userControl-controller.js" />
     <Content Include="Src\App\UserControl\Templates\index.html" />
     <Content Include="Src\App\UserControl\Templates\treeHostCheckbox.html" />
     <Content Include="Src\App\UserControl\Templates\treeItem.html" />
@@ -242,8 +242,8 @@
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Src\App\EmployeeRegistration\employeeRegistration.less" />
-    <None Include="Src\App\UserControl\userControl.less" />
+    <Content Include="Src\App\EmployeeRegistration\employeeRegistration.less" />
+    <Content Include="Src\App\UserControl\userControl.less" />
     <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />

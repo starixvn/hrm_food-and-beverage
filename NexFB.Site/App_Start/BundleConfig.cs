@@ -45,14 +45,14 @@ namespace NexFB.Site.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Src/App/app.js",
-                "~/Src/App/EmployeeRegistration/routes.js",
-                "~/Src/App/EmployeeRegistration/controllers.js",
-                "~/Src/App/EmployeeRegistration/factory.js",
-                "~/Src/App/UserControl/routes.js",
-                "~/Src/App/UserControl/controllers.js",
-                "~/Src/App/UserControl/factory.js",
-                "~/Src/App/Resources/controllers.js",
-                "~/Src/App/Resources/factory.js"));
+                "~/Src/App/EmployeeRegistration/employeeRegistration-route.js",
+                "~/Src/App/EmployeeRegistration/employeeRegistration-controller.js",
+                "~/Src/App/EmployeeRegistration/employeeRegistration-factory.js",
+                "~/Src/App/UserControl/userControl-route.js",
+                "~/Src/App/UserControl/userControl-controller.js",
+                "~/Src/App/UserControl/userControl-factory.js",
+                "~/Src/App/Resources/resources-controller.js",
+                "~/Src/App/Resources/resources-factory.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/extensions").Include(
                 "~/Src/Components/Extensions/Common/error-factory.js",
