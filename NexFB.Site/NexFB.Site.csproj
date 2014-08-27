@@ -253,9 +253,9 @@
     <None Include="Src\Content\Fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <None Include="Src\Content\Site\layout.less" />
-    <None Include="Src\Content\Site\mixins.less" />
-    <None Include="Src\Content\Site\variables.less" />
+    <Content Include="Src\Content\Site\layout.less" />
+    <Content Include="Src\Content\Site\mixins.less" />
+    <Content Include="Src\Content\Site\variables.less" />
     <Content Include="Views\Auth\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
