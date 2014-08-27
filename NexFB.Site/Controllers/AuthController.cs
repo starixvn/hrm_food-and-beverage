@@ -43,6 +43,7 @@ namespace NexFB.Site.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            FormsAuthentication.SignOut();
             return View();
         }
 
@@ -59,15 +60,7 @@ namespace NexFB.Site.Controllers
             {
                 HttpContext.Session["CurrentUser"] = user;
                 FormsAuthentication.SetAuthCookie(model.Username, false);
-                if (string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
-                {
-                    FormsAuthentication.RedirectFromLoginPage(model.Username, false);
-                }
-                else
-                {
-                    FormsAuthentication.SetAuthCookie(model.Username, false);
-                    Response.Redirect("~/Home/Index");
-                }
+                Response.Redirect("~/Home/Index");
             }
             else
             {

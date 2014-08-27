@@ -38,7 +38,7 @@ namespace NexFB.Site.App_Start
                 "~/Src/Components/Libs/toastr.js"));
 
             bundles.AddAndInclude(
-                "~/NexFB/less",
+                "~/NexFB/Src/Less",
                 "~/Src/Content/Site/layout.less",
                 "~/Src/App/EmployeeRegistration/employeeRegistration.less",
                 "~/Src/App/UserControl/userControl.less");
@@ -53,6 +53,7 @@ namespace NexFB.Site.App_Start
                 "~/Src/App/UserControl/userControl-factory.js",
                 "~/Src/App/Resources/resources-controller.js",
                 "~/Src/App/Resources/resources-factory.js"));
+                "~/Src/App/Logout/logout-controller.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/extensions").Include(
                 "~/Src/Components/Extensions/Common/error-factory.js",
