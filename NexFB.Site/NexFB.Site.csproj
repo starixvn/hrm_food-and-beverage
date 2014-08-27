@@ -170,6 +170,7 @@
     <Compile Include="App_Start\BundleExtensions.cs" />
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\API\RegistrationMealController.cs" />
+    <Compile Include="Controllers\API\ResourceController.cs" />
     <Compile Include="Controllers\API\UserControlController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -189,6 +190,8 @@
     <Content Include="Src\App\EmployeeRegistration\routes.js" />
     <Content Include="Src\App\EmployeeRegistration\factory.js" />
     <Content Include="Src\App\EmployeeRegistration\Templates\index.tpl.html" />
+    <Content Include="Src\App\Resources\controllers.js" />
+    <Content Include="Src\App\Resources\factory.js" />
     <Content Include="Src\App\UserControl\factory.js" />
     <Content Include="Src\App\UserControl\routes.js" />
     <Content Include="Src\App\UserControl\controllers.js" />
@@ -236,6 +239,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Src\App\EmployeeRegistration\employeeRegistration.less" />
+    <None Include="Src\App\UserControl\userControl.less" />
     <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />

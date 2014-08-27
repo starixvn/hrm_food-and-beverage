@@ -61,6 +61,24 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assign Permission To Role.
+        /// </summary>
+        public static string AssignPermissionToRole {
+            get {
+                return ResourceManager.GetString("AssignPermissionToRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Role.
+        /// </summary>
+        public static string ManageRole {
+            get {
+                return ResourceManager.GetString("ManageRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Food &amp; Beverage Management System.
         /// </summary>
         public static string TitlePage {
