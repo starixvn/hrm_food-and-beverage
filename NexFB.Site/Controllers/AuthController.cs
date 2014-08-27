@@ -105,7 +105,7 @@ namespace NexFB.Site.Controllers
         {
             var result = false;
             IntPtr token = IntPtr.Zero;
-            result = LogonUser(model.Username, model.Username, model.Password, 2, 0, ref token);
+            result = LogonUser(GetUsername(model.Username), GetDomainName(model.Username), model.Password, 2, 0, ref token);
             if (!result)
             {
                 var criteria = new GetEmployeeByCodeCriteria()
@@ -133,6 +133,50 @@ namespace NexFB.Site.Controllers
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Parses the string to pull the domain name out.
+        /// </summary>
+        /// <param name="usernameDomain">The string to parse that must contain the domain in either the domain\username or UPN format username@domain.</param>
+        /// <returns>The domain name or "" if not domain is found.</returns>
+        private string GetDomainName(string usernameDomain)
+        {
+            var domain = string.Empty;
+            if (usernameDomain.Contains("\\"))
+            {
+                int index = usernameDomain.IndexOf("\\");
+                domain = usernameDomain.Substring(0, index);
+            }
+            else if (usernameDomain.Contains("@"))
+            {
+                int index = usernameDomain.IndexOf("@");
+                domain = usernameDomain.Substring(index + 1);
+            }
+
+            return domain;
+        }
+
+        /// <summary>
+        /// Parses the string to pull the user name out.
+        /// </summary>
+        /// <param name="usernameDomain">The string to parse that must contain the username in either the domain\username or UPN format username@domain.</param>
+        /// <returns>The username or the string if no domain is found.</returns>
+        private string GetUsername(string usernameDomain)
+        {
+            var username = usernameDomain;
+            if (usernameDomain.Contains("\\"))
+            {
+                int index = usernameDomain.IndexOf("\\");
+                username = usernameDomain.Substring(index + 1);
+            }
+            else if (usernameDomain.Contains("@"))
+            {
+                int index = usernameDomain.IndexOf("@");
+                username = usernameDomain.Substring(0, index);
+            }
+
+            return username;
         }
     }
 }
