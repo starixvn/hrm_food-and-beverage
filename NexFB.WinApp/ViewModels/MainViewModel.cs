@@ -9,9 +9,9 @@
 
 namespace NexFB.WinApp.ViewModels
 {
+    using System.Windows;
     using System.Windows.Input;
     using NexFB.WinApp.Core.Commands;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Main ViewModel.
@@ -24,15 +24,16 @@ namespace NexFB.WinApp.ViewModels
 
         private ViewModelBase _currentViewModel;
 
-        
-
         public MainViewModel()
         {
             CurrentViewModel = MainViewModel.PendingFoodViewModel;
             
             ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
             ViewDeliveredFoodCommand = new RelayCommand((x) => CanExecuteViewDeliveredFood(), (y) => ExecuteViewDeliveredFood());
+            CloseWindow = new RelayCommand((x) => ((Window)x).Close());
         }
+
+        public ICommand CloseWindow { get; set; }
 
         public ICommand ViewPedingFoodCommand { get; set; }
 

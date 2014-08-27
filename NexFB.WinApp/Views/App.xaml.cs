@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Windows;
-using NexFB.WinApp.Core.Mapping;
-using System.Windows.Media;
+﻿// --------------------------------------------------------------------------
+// <copyright file="App.xaml.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Bradley.Mac" date="2014.8.27">Created</change>
+// </history>
 
 namespace NexFB.WinApp
 {
+    using System.Windows;
+    using NexFB.Resources;
+    using NexFB.WinApp.Core.Mapping;
+
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Interaction logic.
     /// </summary>
     public partial class App : Application
     {
@@ -19,6 +23,7 @@ namespace NexFB.WinApp
             base.OnStartup(e);
             IMappingRegister mappingRegister = new CoreMappingRegister();
             mappingRegister.Register();
+            WinFormMainResource.Culture = new System.Globalization.CultureInfo(string.Empty);
         }
     }
 }

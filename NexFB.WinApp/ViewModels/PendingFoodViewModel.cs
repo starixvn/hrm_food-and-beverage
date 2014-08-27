@@ -4,33 +4,79 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Bradley.Mac" date="2014.8.22">Created</change>
+//   <change who="Bradley.Mac" date="2014.8.27">Created</change>
 // </history>
 
-using System.Collections.Generic;
-using System;
 namespace NexFB.WinApp.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Windows;
+    using System.Windows.Input;
+    using NexFB.WinApp.Core.Commands;
+    using NexFB.WinApp.Models.ManageOrder;
+
     /// <summary>
     /// Pending Food ViewModel.
     /// </summary>
     public class PendingFoodViewModel : ViewModelBase
     {
+        private List<Order> _lstPerson;
+
         public PendingFoodViewModel()
         {
-            Persons = new List<Person>()
+            ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (x) => ShowMessage(x));
+            ExportOrderFoodCommand = new RelayCommand((x) => CanExecuteExportOrderFoodCommand(), (x) => ShowMessage(x));
+            Persons = new List<Order>()
             {
-                new Person() { Age = 10, Name = "01", OrderDate = DateTime.Now, EmployeeId = 02355, NonVegetarian= 1, Vegetarian = 10, Room="03A", OrderOwner="Rooney", RoomDescription="Phòng pantry", RoomPhone=123456},
-                new Person() { Age = 10, Name = "02", OrderDate = DateTime.Now, EmployeeId = 00399, NonVegetarian= 5, Vegetarian = 6, Room="03AB", OrderOwner="Messi", RoomDescription="Sân Nou-Camp", RoomPhone=6789},
-                new Person() { Age = 10, Name = "03", OrderDate = DateTime.Now, EmployeeId = 00126, NonVegetarian= 2, Vegetarian = 4, Room="03C", OrderOwner="Ronaldo", RoomDescription="Phòng tập gym", RoomPhone=354},
+                new Order()
+                {
+                    Age = 10,
+                    Name = "01",
+                    OrderDate = DateTime.Now,
+                    EmployeeCode = "02355",
+                    Room = "03A",
+                    OrderOwner = "Rooney",
+                    RoomDescription = "Phòng pantry", 
+                    RoomPhone = 123456,
+                    GeneralNote = "Một phần không giá, thêm canh",
+                    FoodOrderStatus = 1,
+                    MealType = new List<MealType>()
+                    {
+                        new MealType() { Quantity = 2, Total = 5, Type = "Trưa 1" },
+                        new MealType() { Quantity = 2, Total = 5, Type = "Trưa 2" },
+                        new MealType() { Quantity = 1, Total = 5, Type = "Chay" },
+                    }
+                },
+                new Order()
+                {
+                    Age = 10,
+                    Name = "02",
+                    OrderDate = DateTime.Now,
+                    EmployeeCode = "00399",
+                    Room = "03B",
+                    OrderOwner = "Ronaldo",
+                    RoomDescription = "Santiago Bernabeu", 
+                    RoomPhone = 123456,
+                    FoodOrderStatus = 2,
+                    MealType = new List<MealType>()
+                    {
+                        new MealType() { Quantity = 2, Total = 5, Type = "Trưa 1" }, 
+                        new MealType() { Quantity = 2, Total = 5, Type = "Trưa 2" },
+                        new MealType() { Quantity = 1, Total = 5, Type = "Chay" },
+                        new MealType() { Quantity = 2, Total = 5, Type = "Trưa 1" }, 
+                        new MealType() { Quantity = 2, Total = 5, Type = "Trưa 2" },
+                        new MealType() { Quantity = 1, Total = 5, Type = "Chay" },
+                    }
+                }
             };
-
-            Test = new Person() { Age = 10, Name = "01", OrderDate = DateTime.Now, EmployeeId = 02355, NonVegetarian = 1, Vegetarian = 10, Room = "03A", OrderOwner = "Rooney", RoomDescription = "Phòng pantry", RoomPhone = 123456 };
         }
 
-        private List<Person> _lstPerson;
+        public ICommand ExportOrderFoodCommand { get; set; }
 
-        public List<Person> Persons
+        public ICommand ReceiveOrderFoodCommand { get; set; }
+
+        public List<Order> Persons
         {
             get
             {
@@ -49,39 +95,26 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        private Person _test;
-
-        public Person Test
+        public bool CanExecuteReceiveOrderFoodCommand()
         {
-            get
+            return true;
+        }
+
+        public bool CanExecuteExportOrderFoodCommand()
+        {
+            return true;
+        }
+
+        public void ShowMessage(object obj)
+        {
+            if (obj == null)
             {
-                return _test;
+                MessageBox.Show("null");
             }
-
-            set
+            else
             {
-                if (_test == value)
-                {
-                    return;
-                }
-
-                _test = value;
-                OnPropertyChanged("Test");
+                MessageBox.Show(obj.ToString());
             }
         }
-    }
-
-    public class Person
-    {
-        public int Age { get; set; }
-        public string Name { get; set; }
-        public DateTime OrderDate { get; set; }
-        public string Room { get; set; }
-        public string RoomDescription { get; set; }
-        public string OrderOwner { get; set; }
-        public int EmployeeId { get; set; }
-        public int RoomPhone { get; set; }
-        public int Vegetarian { get; set; }
-        public int NonVegetarian { get; set; }
     }
 }

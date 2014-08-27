@@ -129,6 +129,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NexFB.Resources\NexFB.Resources.csproj">
+      <Project>{79FB6864-4696-4CC2-B94D-842C09CFAC0E}</Project>
+      <Name>NexFB.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NexFB.WinApp.Core\NexFB.WinApp.Core.csproj">
       <Project>{64A4E7F4-92F1-4DE3-8C03-687496864BB8}</Project>
       <Name>NexFB.WinApp.Core</Name>
@@ -140,6 +144,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\phone-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\alert.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\window_close.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

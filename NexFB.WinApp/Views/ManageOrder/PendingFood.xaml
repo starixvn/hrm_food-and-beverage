@@ -3,60 +3,113 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
       mc:Ignorable="d" 
       d:DesignHeight="1024" d:DesignWidth="1280">
 
 
-	<Grid Height="150" VerticalAlignment="Top">
-		<ListBox Width="1280">
-			<Border BorderThickness="1" BorderBrush="#77B1FC" Margin="0" Padding="0" CornerRadius="0">
-				<Grid Background="White">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition/>
-						<ColumnDefinition/>
-						<ColumnDefinition/>
-					</Grid.ColumnDefinitions>
+	<Grid VerticalAlignment="Top" x:Name="GridPendingFood">
+		<ListBox Margin="-1,0,0,0" BorderBrush="#77B1FC" ItemsSource="{Binding Path=Persons}" x:Name="ListPendingFood" ScrollViewer.VerticalScrollBarVisibility="Visible">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Border BorderThickness="1,1,0,1" BorderBrush="#77B1FC" Margin="0" Padding="0" CornerRadius="0" Height="150">
+						<Grid Background="White">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+							</Grid.ColumnDefinitions>
 
-					<!--Order number-->
-					<StackPanel Grid.Column="0" Height="150" Width="220" Background="Black">
-						<Label Content="{Binding Path=Test.Name}" Foreground="White" HorizontalAlignment="Center" FontSize="70" VerticalAlignment="Center"></Label>
-						<Label Content="{Binding Path=Test.OrderDate}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-					</StackPanel>
+							<!--Order number-->
+							<StackPanel Grid.Column="0" Height="150" Width="220" Background="Black" VerticalAlignment="Top" Margin="-9,0,0,0">
+								<Label Content="{Binding Path=No}" Foreground="White" HorizontalAlignment="Center" FontSize="70" VerticalAlignment="Center"></Label>
+								<Label Content="{Binding Path=OrderDate}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+							</StackPanel>
 
-					<Grid Grid.Column="1" Width="880" Margin="10, 10, 10, 10">
-						<StackPanel>
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="auto"/>
-									<ColumnDefinition Width="auto"/>
-									<ColumnDefinition Width="auto"/>
-									<ColumnDefinition Width="auto"/>
-									<ColumnDefinition Width="auto"/>
-									<ColumnDefinition Width="auto"/>
-								</Grid.ColumnDefinitions>
-								<Border Style="{StaticResource roomNumberStyle}" Grid.Column="0">
-									<Label HorizontalAlignment="Center" Content="{Binding Path=Test.Room}" />
-								</Border>
-								<Label Grid.Column="1" Content="{Binding Path=Test.RoomDescription}" />
-								<Label Grid.Column="2" Content="-" />
-								<Label Grid.Column="3" Content="{Binding Path=Test.OrderOwner}" />
-								<Label Grid.Column="4" Content="{Binding Path=Test.EmployeeId}" ContentStringFormat="#{0}" />
-								<Label Grid.Column="5">
-									<StackPanel Orientation="Horizontal">
-										<Image Source="pack://application:,,,/Images/phone-icon.png" Stretch="Uniform"/>
-										<TextBlock Text="{Binding Path=Test.RoomPhone}" Margin="4,0,0,0"/>
-									</StackPanel>
-								</Label>
+							<Grid Grid.Column="1" Width="875" Margin="10, 10, 10, 10" Height="150">
+								<StackPanel>
+									<Grid>
+										<Grid.RowDefinitions>
+											<RowDefinition/>
+										</Grid.RowDefinitions>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="auto"/>
+											<ColumnDefinition Width="auto"/>
+											<ColumnDefinition Width="auto"/>
+											<ColumnDefinition Width="auto"/>
+											<ColumnDefinition Width="auto"/>
+											<ColumnDefinition Width="auto"/>
+										</Grid.ColumnDefinitions>
+										<Border Style="{StaticResource RoomNumberStyle}" Grid.Column="0">
+											<Label HorizontalAlignment="Center" FontWeight="Bold" Content="{Binding Path=Room}">
+											</Label>
+										</Border>
+										<Label Grid.Column="1" Content="{Binding Path=RoomDescription}" />
+										<Label Grid.Column="2" Content="-" />
+										<Label Grid.Column="3" Content="{Binding Path=OrderOwner}" />
+										<Label Grid.Column="4" Content="{Binding Path=EmployeeId}" ContentStringFormat="#{0}" />
+										<Label Grid.Column="5">
+											<StackPanel Orientation="Horizontal">
+												<Image Width="20" Height="20" Source="pack://application:,,,/Images/phone-icon.png" Stretch="Uniform"/>
+												<TextBlock Text="{Binding Path=RoomPhone}" Margin="4,0,0,0"/>
+											</StackPanel>
+										</Label>
+									</Grid>
+
+									<Grid Height="60">
+										<ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=MealType}" BorderThickness="0">
+											<ListBox.ItemsPanel>
+												<ItemsPanelTemplate >
+													<WrapPanel Orientation="Horizontal" ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+												</ItemsPanelTemplate>
+											</ListBox.ItemsPanel>
+											<ListBox.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition/>
+															<ColumnDefinition/>
+														</Grid.ColumnDefinitions>
+														<Label FontSize="15" Grid.Column="0" Content="{Binding Path=Type}" ContentStringFormat=" {0} :"></Label>
+														<Label FontSize="15" Grid.Column="1" Content="{Binding Path=QuantityPerTotal}" Margin="0,0,20,0"></Label>
+													</Grid>
+												</DataTemplate>
+											</ListBox.ItemTemplate>
+										</ListBox>
+									</Grid>
+
+									<Label>
+										<StackPanel Orientation="Horizontal">
+											<Image Stretch="Uniform" Width="18" Height="18">
+												<Image.Style>
+													<Style TargetType="{x:Type Image}">
+														<Style.Triggers>
+															<DataTrigger Binding="{Binding Path=HasNote}" Value="True">
+																<Setter Property="Source" Value="pack://application:,,,/Images/alert.png"/>
+															</DataTrigger>
+														</Style.Triggers>
+													</Style>
+												</Image.Style>
+											</Image>
+											<TextBlock Foreground="Red" Text="{Binding Path=GeneralNote}" FontSize="14" Margin="4,0,0,0"/>
+										</StackPanel>
+									</Label>
+
+								</StackPanel>
 							</Grid>
 
-						</StackPanel>
-					</Grid>
+							<!--Order status-->
+							<Grid Grid.Column="2" Width="150" Height="150" VerticalAlignment="Top">
+								<Button
+								 Foreground="White" Style="{StaticResource TileButton}" Margin="32,7,25,107" Width="83" Height="36" />
+							</Grid>
 
-
-					<!--Order status-->
-					<TextBlock Grid.Column="2" Text="{Binding Path=Age}" Width="150" Background="Aqua"/>
-				</Grid>
-			</Border>
+						</Grid>
+					</Border>
+				</DataTemplate>
+				
+			</ListBox.ItemTemplate>
 		</ListBox>
+
 	</Grid>
 </UserControl>

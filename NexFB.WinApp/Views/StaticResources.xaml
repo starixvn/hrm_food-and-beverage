@@ -2,9 +2,10 @@
                     xmlns:col="clr-namespace:System.Collections;assembly=mscorlib" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	 xmlns:vm="clr-namespace:NexFB.WinApp.ViewModels"
+	 xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
 	 xmlns:views="clr-namespace:NexFB.WinApp.Views.ManageOrder">
 
-	 <!--Switch view according to ViewModel-->
+	<!--Switch view according to ViewModel-->
 	<DataTemplate DataType="{x:Type vm:PendingFoodViewModel}">
 		<views:PendingFood />
 	</DataTemplate>
@@ -13,69 +14,72 @@
 	</DataTemplate>
 
 	<!--Common Style-->
-	<Style TargetType="{x:Type Control}" x:Key="baseStyle">
+	<Style TargetType="{x:Type Control}" x:Key="BaseStyle">
 		<Setter Property="FontSize" Value="18" />
 	</Style>
-	<Style TargetType="{x:Type Button}" BasedOn="{StaticResource baseStyle}" />
-	<Style TargetType="{x:Type Label}" BasedOn="{StaticResource baseStyle}" />
+	<Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
+	<Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
 
-	<Style x:Key="roomNumberStyle" TargetType="Border">
+	<Style x:Key="RoomNumberStyle" TargetType="Border">
 		<Setter Property="CornerRadius" Value="9" />
-		<Setter Property="Background" Value="#C2FCEF" />
+		<Setter Property="Background" Value="#69E2FA" />
 		<Setter Property="Width" Value="70" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
 	</Style>
 
+	<Style TargetType="{x:Type Image}" x:Key="HasOrderNote">
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding Path=HasNote}" Value="True">
+				<Setter Property="Source" Value="pack://application:,,,/Images/alert.png"/>
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
 
-
-	<DataTemplate x:Key="foodItemTemplate">
-		<Border BorderThickness="1" BorderBrush="#77B1FC" Margin="0" Padding="0" CornerRadius="0">
-			<Grid Background="White" >
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-				</Grid.ColumnDefinitions>
-
-				<!--Order number-->
-				<StackPanel Grid.Column="0" Height="150" Width="220" Background="Black">
-					<Label Content="{Binding Path=Name}" Foreground="White" HorizontalAlignment="Center" FontSize="70" VerticalAlignment="Center"></Label>
-					<Label Content="{Binding Path=OrderDate}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-				</StackPanel>
-
-				<!--Order details-->
-				<Grid Grid.Column="1" Width="880" Margin="10, 10, 10, 10">
-					<StackPanel>
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="auto"/>
-									<ColumnDefinition Width="auto"/>
-									<ColumnDefinition Width="auto"/>
-									<ColumnDefinition Width="auto"/>
-									<ColumnDefinition Width="auto"/>
-									<ColumnDefinition Width="auto"/>
-								</Grid.ColumnDefinitions>
-								<Border Style="{StaticResource roomNumberStyle}" Grid.Column="0">
-									<Label HorizontalAlignment="Center" Content="{Binding Path=Room}" />
-								</Border>
-								<Label Grid.Column="1" Content="{Binding Path=RoomDescription}" />
-								<Label Grid.Column="2" Content="-" />
-								<Label Grid.Column="3" Content="{Binding Path=OrderOwner}" />
-								<Label Grid.Column="4" Content="{Binding Path=EmployeeId}" ContentStringFormat="#{0}" />
-								<Label Grid.Column="5">
-									<StackPanel Orientation="Horizontal">
-										<Image Source="pack://application:,,,/Images/phone-icon.png" Stretch="Uniform"/>
-										<TextBlock Text="{Binding Path=RoomPhone}" Margin="4,0,0,0"/>
-									</StackPanel>
-								</Label>
-							</Grid>
-					</StackPanel>
-				</Grid>
-
-				<!--Order status-->
-				<TextBlock Grid.Column="2" Text="{Binding Path=Age}" Width="150" Background="Aqua"/>
-			</Grid>
-		</Border>
-	</DataTemplate>
+	<!--Tile Button-->
+	<!--Style for tile button-->
+	<Style x:Key="TileButton" TargetType="Button">
+		<Setter Property="FontSize" Value="18" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Border Name="border" CornerRadius="0" Background="{TemplateBinding Background}" BorderThickness="1">
+						<ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center">
+						</ContentPresenter>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="Button.IsDefaulted" Value="True">
+							<Setter Property="BorderBrush" TargetName="border" Value="Red"/>
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
+							<Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+							<Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+							<Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+							<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
+						</Trigger>
+						<DataTrigger Binding="{Binding Path=FoodOrderStatus}" Value="1">
+							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Receive}"></Setter>
+							<Setter Property="Background" Value="#3A95FC"/>
+							<Setter Property="Command" Value="{Binding ElementName=ListPendingFood, Path=DataContext.ReceiveOrderFoodCommand}"/>
+							<!--<Setter Property="Command" Value="{Binding Path=DataContext.ReceiveOrderFoodCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>-->
+							<Setter Property="CommandParameter" Value="{Binding Path=EmployeeCode}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Path=FoodOrderStatus}" Value="2">
+							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Export}"></Setter>
+							<Setter Property="Background" Value="#FA5934"/>
+							<Setter Property="Command" Value="{Binding ElementName=ListPendingFood, Path=DataContext.ExportOrderFoodCommand}"/>
+							<Setter Property="CommandParameter" Value="{Binding Path=EmployeeCode}"/>
+						</DataTrigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
 </ResourceDictionary>
