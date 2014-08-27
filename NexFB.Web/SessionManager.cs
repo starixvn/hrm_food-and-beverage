@@ -14,6 +14,9 @@ namespace NexFB.Web
     using NexFB.Core.Constants;
     using NexFB.Models.Authority;
 
+    /// <summary>
+    /// Session Manager.
+    /// </summary>
     public class SessionManager
     {
         private static UserSession _currentUser;
@@ -34,11 +37,11 @@ namespace NexFB.Web
                 }
                 else
                 {
-                    //var criteria = new GetEmployeeByDomainUsernameCriteria()
-                    //{
-                    //    DomainUsername = HttpContext.Current.User.Identity.Name
-                    //};
-                    //_currentUser = new CommonService().GetUserByDomainUsername(criteria);
+                    ////var criteria = new GetEmployeeByDomainUsernameCriteria()
+                    ////{
+                    ////    DomainUsername = HttpContext.Current.User.Identity.Name
+                    ////};
+                    ////_currentUser = new CommonService().GetUserByDomainUsername(criteria);
 
                     if (_currentUser != null && !_currentUser.IsDisabled)
                     {

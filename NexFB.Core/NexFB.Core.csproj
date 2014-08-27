@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Constants\FBFunctionKey.cs" />
     <Compile Include="Criteria\ResultCriteria.cs" />
     <Compile Include="Enums\HashProvider.cs" />
     <Compile Include="Enums\Policy.cs" />

@@ -14,7 +14,7 @@ namespace NexFB.Models.Authority
     /// <summary>
     /// The Menu Group.
     /// </summary>
-    public class MenuGroup
+    public class MenuGroup : MenuItem
     {
         public IEnumerable<MenuItem> MenuItems { get; set; }
     }

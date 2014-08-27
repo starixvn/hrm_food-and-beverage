@@ -62,9 +62,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implement\CommonService.cs" />
     <Compile Include="Implement\UserControlService.cs" />
     <Compile Include="Implement\BaseService.cs" />
     <Compile Include="Implement\EmployeeService.cs" />
+    <Compile Include="Interface\ICommonService.cs" />
     <Compile Include="Interface\IUserControlService.cs" />
     <Compile Include="Interface\IEmployeeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

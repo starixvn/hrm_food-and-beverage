@@ -16,8 +16,11 @@ namespace NexFB.Web.Attributes
     using System.Web;
     using System.Web.Http;
     using System.Web.Http.Controllers;
+    using NexFB.Core.Constants;
     using NexFB.Core.Enums;
-    using NexFB.Web.Service.Implement;
+    using NexFB.Models.Authority;
+    using NexFB.Services.Implement;
+    using NexFB.Services.Interface;
 
     /// <summary>
     /// API authorize attribute.
@@ -29,14 +32,14 @@ namespace NexFB.Web.Attributes
 
         private Policy _policy;
 
-        private CommonService _commonService;
+        private ICommonService _commonService;
 
         public ApiAuthorizeAttribute()
             : this(null)
         {
         }
 
-        public ApiAuthorizeAttribute(CommonService commonService)
+        public ApiAuthorizeAttribute(ICommonService commonService)
         {
             _commonService = commonService ?? new CommonService();
         }
@@ -78,7 +81,24 @@ namespace NexFB.Web.Attributes
                 HandleUnauthorizedRequest(actionContext);
             }
 
-            CheckUserPermission(actionContext);
+            UserSession currentUser = null;
+
+            if (HttpContext.Current.Session[Constants.CurrentSessionKey] == null)
+            {
+                currentUser = SessionManager.CurrentUser;
+            }
+            else
+            {
+                currentUser = (UserSession)HttpContext.Current.Session[Constants.CurrentSessionKey];
+            }
+
+            if (currentUser != null)
+            {
+                CheckUserPermission(actionContext);
+                var responseMessage = new HttpResponseMessage(HttpStatusCode.OK);
+                actionContext.Response = responseMessage;
+                return;
+            }
         }
 
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)

@@ -12,6 +12,7 @@ namespace NexFB.Site.Controllers.API
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
+    using NexFB.Core.Constants;
     using NexFB.Core.Models;
     using NexFB.Criteria.UserControl;
     using NexFB.Models.UserControl;
@@ -25,17 +26,21 @@ namespace NexFB.Site.Controllers.API
     {
         private IUserControlService _userControlService;
 
+        private ICommonService _commonService;
+
         public UserControlController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public UserControlController(IUserControlService userControlService)
+        public UserControlController(IUserControlService userControlService, ICommonService commonService)
         {
             _userControlService = userControlService ?? new UserControlService();
+            _commonService = commonService ?? new CommonService();
         }
 
         [HttpGet]
+        ////[ApiAuthorize(FunctionKey = FBFunctionKey.ManageRole, Policy = Policy.Read)]
         public IEnumerable<FunctionModel> GetFunctionByRole(int roleId)
         {
             var criteria = new GetFunctionByRoleCriteria()
@@ -55,6 +60,7 @@ namespace NexFB.Site.Controllers.API
         }
 
         [HttpPost]
+        ////[ApiAuthorize(FunctionKey = FBFunctionKey.ManageRole, Policy = Policy.Host)]
         public CommandResult AssignPermissionToRole(AssignPermissionToRoleCriteria criteria)
         {
             if (criteria != null)
@@ -64,6 +70,17 @@ namespace NexFB.Site.Controllers.API
             }
 
             return _userControlService.AssignPermissionToRole(criteria);
+        }
+
+        /// <summary>
+        /// Get permission of user on current function.
+        /// </summary>
+        /// <returns>The policy.</returns>
+        [HttpGet]
+        public int GetManageRolePermission()
+        {
+            int policy = _commonService.GetPermission(FBFunctionKey.ManageRole);
+            return policy;
         }
     }
 }

@@ -25,7 +25,6 @@ function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory)
 
 	var getFunctionByRole = function (roleId) {
 		userControlFactory.getFunctionByRole(roleId).success(function (functionGroup) {
-			debugger;
 			$scope.functionGroup = functionGroup;
 		}).error(function (response, status) {
 			if (status === 405) {
@@ -45,7 +44,7 @@ function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory)
 		$scope.disabledSubmitButton = true;
 
 		userControlFactory.assignPermissionToRole(roleFunction).success(function (response) {
-			if (response.isSuccessful === true) {
+			if (response.IsSuccessful === true) {
 				notificationFactory.success("DataChangeSuccessfully");
 			}
 			else {

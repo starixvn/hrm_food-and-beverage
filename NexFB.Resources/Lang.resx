@@ -120,8 +120,32 @@
   <data name="AssignPermissionToRole" xml:space="preserve">
     <value>Assign Permission To Role</value>
   </data>
+  <data name="DataChangeFail" xml:space="preserve">
+    <value>Data changed unsuccessfully!</value>
+  </data>
+  <data name="DataChangeSuccessfully" xml:space="preserve">
+    <value>Data changed successfully!</value>
+  </data>
+  <data name="EmptyResult" xml:space="preserve">
+    <value>No information available!</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Sorry, an error occurred while processing your request, please notify the administrators!</value>
+  </data>
+  <data name="Function" xml:space="preserve">
+    <value>Function</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
   <data name="ManageRole" xml:space="preserve">
     <value>Manage Role</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>Read</value>
+  </data>
+  <data name="RolePermission" xml:space="preserve">
+    <value>Role Permission</value>
   </data>
   <data name="TitlePage" xml:space="preserve">
     <value>Food &amp; Beverage Management System</value>

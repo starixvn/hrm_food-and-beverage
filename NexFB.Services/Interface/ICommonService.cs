@@ -4,10 +4,10 @@
 // </copyright>
 // ------------------------------------------------------------------------
 // <history>
-//   <change who="Josh.Phan" date="8/26/2014 10:18:56 AM">Created.</change>
+//   <change who="Josh.Phan" date="8/27/2014 10:13:08 AM">Created.</change>
 // </history>
 
-namespace NexFB.Web.Service.Interface
+namespace NexFB.Services.Interface
 {
     using NexFB.Core.Enums;
 
@@ -16,6 +16,8 @@ namespace NexFB.Web.Service.Interface
     /// </summary>
     public interface ICommonService
     {
+        int GetPermission(string functionKey);
+
         bool HasPermissionOnFunction(string functionKey, Policy policy);
     }
 }

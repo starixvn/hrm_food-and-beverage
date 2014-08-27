@@ -32,10 +32,10 @@ namespace NexFB.Site.Controllers.API
             switch (lang)
             {
                 case "en":
-                    resourceManager = new ResourceManager(typeof(Labels)) { IgnoreCase = true };
+                    resourceManager = new ResourceManager(typeof(Lang)) { IgnoreCase = true };
                     break;
                 default:
-                    resourceManager = new ResourceManager(typeof(Labels)) { IgnoreCase = true };
+                    resourceManager = new ResourceManager(typeof(Lang)) { IgnoreCase = true };
                     break;
             }
 
