@@ -79,23 +79,11 @@ namespace NexFB.Services.Implement
             ////  1: wrong user or password
             ////  0: success
             int retCode = 1;
-            if (user != null)
+            if (user != null
+                && !string.IsNullOrWhiteSpace(user.Password) 
+                && Encryptor.CompareStringToHash(HashProvider.Sha1, password, user.Password))
             {
-                if (string.IsNullOrWhiteSpace(user.Password))
-                {
-                    retCode = 1;
-                }
-                else
-                {
-                    if (Encryptor.CompareStringToHash(HashProvider.Sha1, password, user.Password))
-                    {
-                        retCode = 0;
-                    }
-                    else
-                    {
-                        retCode = 1;
-                    }
-                }
+                retCode = 0;
             }
 
             return retCode;

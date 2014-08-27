@@ -35,13 +35,7 @@ namespace NexFB.Criteria.Employee
             } 
         }
 
-        public short DepartmentId
-        {
-            get
-            {
-                return 1;
-            }
-        }
+        public string DepartmentId { get; set; }
 
         public override string GetSettingKey()
         {

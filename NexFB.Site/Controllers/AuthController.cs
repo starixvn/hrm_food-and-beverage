@@ -54,17 +54,11 @@ namespace NexFB.Site.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
-            bool result = CheckLogin(model);
-            if (result)
+            UserSession user = GetUserLogin(model);
+            if (user != null)
             {
-                var criteria = new GetEmployeeByDomainCriteria() 
-                { 
-                    Username = model.Username 
-                };
-                UserSession user = _employeeService.GetUserByDomain(criteria);
                 HttpContext.Session["CurrentUser"] = user;
                 FormsAuthentication.SetAuthCookie(model.Username, false);
-
                 if (string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
                 {
                     FormsAuthentication.RedirectFromLoginPage(model.Username, false);
@@ -72,7 +66,7 @@ namespace NexFB.Site.Controllers
                 else
                 {
                     FormsAuthentication.SetAuthCookie(model.Username, false);
-                    Response.Redirect("~/employee/myspace");
+                    Response.Redirect("~/Home/Index");
                 }
             }
             else
@@ -101,38 +95,46 @@ namespace NexFB.Site.Controllers
         /// </summary>
         /// <param name="model">Login Model.</param>
         /// <returns>Result of check.</returns>
-        private bool CheckLogin(LoginModel model)
+        private UserSession GetUserLogin(LoginModel model)
         {
-            var result = false;
+            UserSession user = null;
             IntPtr token = IntPtr.Zero;
-            result = LogonUser(GetUsername(model.Username), GetDomainName(model.Username), model.Password, 2, 0, ref token);
-            if (!result)
+            bool result = LogonUser(GetUsername(model.Username), GetDomainName(model.Username), model.Password, 2, 0, ref token);
+            if (result)
+            {
+                var criteria = new GetEmployeeByDomainCriteria()
+                {
+                    Username = model.Username,
+                    DepartmentId = Constants.NexcelDepartment
+                };
+                user = _employeeService.GetUserByDomain(criteria);
+            }
+            else
             {
                 var criteria = new GetEmployeeByCodeCriteria()
                 {
                     Code = model.Username,
                     DepartmentId = Constants.HongMaAndSmsDepartment
                 };
-
                 if (string.Compare(model.Password, Constants.PassWordAdmin2, ignoreCase: true) == 0)
                 {
                     criteria.DepartmentId = Constants.NexcelDepartment;
                 }
 
-                UserSession user = _employeeService.GetUserByCode(criteria);
-                if (string.Compare(model.Password, Constants.PassWordAdmin1, ignoreCase: true) == 0
-                    || string.Compare(model.Password, Constants.PassWordAdmin2, ignoreCase: true) == 0)
-                {
-                    result = true;
-                }
-                else
+                user = _employeeService.GetUserByCode(criteria);
+                if (user != null
+                    && string.Compare(model.Password, Constants.PassWordAdmin1, ignoreCase: true) != 0
+                    && string.Compare(model.Password, Constants.PassWordAdmin2, ignoreCase: true) != 0)
                 {
                     var checkCode = _employeeService.ValidateUser(user, model.Password);
-                    result = checkCode == 0;
+                    if (checkCode != 0)
+                    {
+                        user = null;
+                    }
                 }
             }
 
-            return result;
+            return user;
         }
 
         /// <summary>
