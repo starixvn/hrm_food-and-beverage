@@ -21,6 +21,7 @@ namespace NexFB.Web.Attributes
     using NexFB.Models.Authority;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
+    using System.Web.Security;
 
     /// <summary>
     /// API authorize attribute.
@@ -76,14 +77,15 @@ namespace NexFB.Web.Attributes
         /// <param name="actionContext">HttpAction Context.</param>
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                HandleUnauthorizedRequest(actionContext);
-            }
+            //if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            //{
+            //    HandleUnauthorizedRequest(actionContext);
+            //}
 
             UserSession currentUser = null;
 
-            if (HttpContext.Current.Session[Constants.CurrentSessionKey] == null)
+            if (HttpContext.Current.Session == null 
+                || HttpContext.Current.Session[Constants.CurrentSessionKey] == null)
             {
                 currentUser = SessionManager.CurrentUser;
             }
@@ -98,6 +100,10 @@ namespace NexFB.Web.Attributes
                 var responseMessage = new HttpResponseMessage(HttpStatusCode.OK);
                 actionContext.Response = responseMessage;
                 return;
+            }
+            else
+            {
+                FormsAuthentication.SignOut();
             }
         }
 

@@ -9,8 +9,6 @@
 
 namespace NexFB.Site.Controllers
 {
-    using System;
-    using System.Runtime.InteropServices;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
@@ -19,6 +17,7 @@ namespace NexFB.Site.Controllers
     using NexFB.Models.Authority;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
+    using NexFB.Web;
 
     /// <summary>
     /// Authentication Controller.
@@ -36,9 +35,6 @@ namespace NexFB.Site.Controllers
         {
             _employeeService = employeeService;
         }
-
-        [DllImport("ADVAPI32.dll", EntryPoint = "LogonUserW", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool LogonUser(string username, string domain, string password, int logonType, int logonProvider, ref IntPtr token);
 
         [HttpGet]
         public ActionResult Login()
@@ -79,6 +75,7 @@ namespace NexFB.Site.Controllers
                 HttpContext.Session.RemoveAll();
             }
 
+            SessionManager.ClearAll();
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
@@ -91,8 +88,7 @@ namespace NexFB.Site.Controllers
         private UserSession GetUserLogin(LoginModel model)
         {
             UserSession user = null;
-            IntPtr token = IntPtr.Zero;
-            bool result = LogonUser(GetUsername(model.Username), GetDomainName(model.Username), model.Password, 2, 0, ref token);
+            bool result = Membership.ValidateUser(model.Username, model.Password);
             if (result)
             {
                 var criteria = new GetEmployeeByDomainCriteria()

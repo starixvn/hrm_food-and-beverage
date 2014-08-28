@@ -27,7 +27,7 @@ namespace NexFB.Site.App_Start
 
             routes.MapRoute(
                name: "Registration Meal Index",
-               url: "RegistrationMeal/Index",
+               url: "Auth/Login",
                defaults: new { controller = "Auth", action = "Login" });
 
             routes.MapRoute(

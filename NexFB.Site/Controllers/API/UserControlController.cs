@@ -22,7 +22,7 @@ namespace NexFB.Site.Controllers.API
     /// <summary>
     /// The user control controller.
     /// </summary>
-    public class UserControlController : ApiController
+    public class UserControlController : BaseController
     {
         private IUserControlService _userControlService;
 

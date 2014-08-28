@@ -14,7 +14,7 @@ namespace NexFB.Site.Controllers.API
     /// <summary>
     /// Registration Meal controller.
     /// </summary>
-    public class RegistrationMealController : ApiController
+    public class RegistrationMealController : BaseController
     {
     }
 }

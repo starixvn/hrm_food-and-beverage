@@ -14,6 +14,7 @@ namespace NexFB.Site.Controllers
     /// <summary>
     /// The home controller.
     /// </summary>
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()

@@ -25,11 +25,6 @@ namespace NexFB.Web
         {
             get
             {
-                if (!HttpContext.Current.User.Identity.IsAuthenticated)
-                {
-                    FormsAuthentication.RedirectToLoginPage();
-                }
-
                 var session = HttpContext.Current.Session;
                 if (session != null && session[Constants.CurrentSessionKey] != null)
                 {
@@ -37,16 +32,7 @@ namespace NexFB.Web
                 }
                 else
                 {
-                    ////var criteria = new GetEmployeeByDomainUsernameCriteria()
-                    ////{
-                    ////    DomainUsername = HttpContext.Current.User.Identity.Name
-                    ////};
-                    ////_currentUser = new CommonService().GetUserByDomainUsername(criteria);
-
-                    if (_currentUser != null && !_currentUser.IsDisabled)
-                    {
-                        HttpContext.Current.Session[Constants.CurrentSessionKey] = _currentUser;
-                    }
+                    FormsAuthentication.RedirectToLoginPage();
                 }
 
                 return _currentUser;
@@ -57,6 +43,7 @@ namespace NexFB.Web
         {
             if (HttpContext.Current != null && HttpContext.Current.Session != null)
             {
+                HttpContext.Current.Session[Constants.CurrentSessionKey] = null;
                 HttpContext.Current.Session.Clear();
                 HttpContext.Current.Session.Abandon();
                 HttpContext.Current.Response.Cookies.Clear();
