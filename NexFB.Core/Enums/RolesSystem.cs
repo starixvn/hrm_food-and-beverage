@@ -26,15 +26,20 @@ namespace NexFB.Core.Enums
         SA = 1,
 
         /// <summary>
-        /// The kitchen staff.
+        /// Admin item.
         /// </summary>
-        [Description("Kitchen Staff")]
-        KitchenStaff = 2,
+        Admin = 2,
+
+        /// <summary>
+        /// Kitchen item.
+        /// </summary>
+        [Description("Kitchen")]
+        Kitchen = 3,
 
         /// <summary>
         /// Employee item.
         /// </summary>
         [Description("Employee")]
-        Employee = 3,
+        Employee = 4,
     }
 }

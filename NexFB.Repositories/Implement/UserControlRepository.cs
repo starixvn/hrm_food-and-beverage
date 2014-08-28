@@ -1,0 +1,127 @@
+﻿// ----------------------------------------------------------------------
+// <copyright file="UserControlRepository.cs" company="Nexcel Solutions Viet Nam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// ------------------------------------------------------------------------
+// <history>
+//   <change who="Josh.Phan" date="8/28/2014 2:28:17 PM">Created.</change>
+// </history>
+
+namespace NexFB.Repositories.Implement
+{
+    using System.Collections.Generic;
+    using System.Linq;
+    using Fanex.Data;
+    using Fanex.Data.Repository;
+    using NexFB.Core.Enums;
+    using NexFB.Models.Employee;
+    using NexFB.Models.Entities;
+    using NexFB.Models.UserControl;
+    using NexFB.Repositories.Interface;
+
+    /// <summary>
+    /// The User Control repository.
+    /// </summary>
+    public class UserControlRepository : IUserControlRepository
+    {
+        /// <summary>
+        /// Get all employee role.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Employee Model.</returns>
+        public IEnumerable<EmployeeModel> GetAllEmployeeRole(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    IEnumerable<EmployeeModel> employees = multi.Read<EmployeeModel, Department, Team, EmployeeModel>(
+                        (emp, dep, te) =>
+                        {
+                            emp.Department = dep;
+                            emp.Team = te;
+                            return emp;
+                        },
+                        "DepartmentID, TeamID");
+
+                    IEnumerable<EmployeeRoleModel> roles = multi.Read<EmployeeRoleModel, Role, EmployeeRoleModel>(
+                        (empRo, ro) =>
+                        {
+                            empRo.Role = ro;
+                            return empRo;
+                        },
+                        "RoleId");
+
+                    IEnumerable<RoleDepartmentModel> rolesDepartment = multi.Read<RoleDepartmentModel, Department, RoleDepartmentModel>(
+                        (roDep, dep) =>
+                        {
+                            roDep.Department = dep;
+                            return roDep;
+                        },
+                        "DepartmentId");
+
+                    if (employees != null && roles != null)
+                    {
+                        if (rolesDepartment != null)
+                        {
+                            roles = GetAdminDepartment(roles, rolesDepartment);
+                        }
+
+                        employees = GetRolesOfEmployees(employees, roles);
+                    }
+
+                    return employees;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get roles of employees.
+        /// </summary>
+        /// <param name="employees">The enumerator employees.</param>
+        /// <param name="roles">The enumerator roles.</param>
+        /// <returns>The enumerator employee with roles.</returns>
+        private IEnumerable<EmployeeModel> GetRolesOfEmployees(
+            IEnumerable<EmployeeModel> employees,
+            IEnumerable<EmployeeRoleModel> roles)
+        {
+            foreach (EmployeeModel employee in employees)
+            {
+                IEnumerable<EmployeeRoleModel> rolesOfEmployee = roles.Where(item => item.SystemId == employee.SystemId);
+
+                foreach (EmployeeRoleModel role in rolesOfEmployee) 
+                {
+                    employee.Roles.Add(role.Role);
+                }
+            }
+
+            return employees;
+        }
+
+        /// <summary>
+        /// Get department of Admin role.
+        /// </summary>
+        /// <param name="roles">The enumerator roles.</param>
+        /// <param name="rolesDepartment">The enumerator role and department of role.</param>
+        /// <returns>The enumerator roles with department.</returns>
+        private IEnumerable<EmployeeRoleModel> GetAdminDepartment(
+            IEnumerable<EmployeeRoleModel> roles,
+            IEnumerable<RoleDepartmentModel> rolesDepartment)
+        {
+            foreach (EmployeeRoleModel role in roles)
+            {
+                if (role.Role != null && role.Role.RoleId == (int)RolesSystem.Admin)
+                {
+                    IEnumerable<RoleDepartmentModel> departments = rolesDepartment.Where(item => item.SystemId == role.SystemId);
+
+                    foreach (RoleDepartmentModel department in departments)
+                    {
+                        role.Departments.Add(department.Department);
+                    }
+                }
+            }
+
+            return roles;
+        }
+    }
+}

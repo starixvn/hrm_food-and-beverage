@@ -45,16 +45,20 @@
     <Compile Include="Authority\LoginModel.cs" />
     <Compile Include="Authority\MenuGroup.cs" />
     <Compile Include="Authority\MenuItem.cs" />
+    <Compile Include="Employee\EmployeeModel.cs" />
+    <Compile Include="Entities\Department.cs" />
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Authority\SystemRole.cs" />
     <Compile Include="Authority\UserSession.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Team.cs" />
+    <Compile Include="UserControl\EmployeeRoleModel.cs" />
     <Compile Include="UserControl\FunctionModel.cs" />
+    <Compile Include="UserControl\RoleDepartmentModel.cs" />
     <Compile Include="UserControl\RoleSystemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Employee\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

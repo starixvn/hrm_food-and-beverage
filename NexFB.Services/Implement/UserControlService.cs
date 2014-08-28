@@ -14,7 +14,10 @@ namespace NexFB.Services.Implement
     using Fanex.Common.Helper;
     using NexFB.Core.Models;
     using NexFB.Criteria.UserControl;
+    using NexFB.Models.Employee;
     using NexFB.Models.UserControl;
+    using NexFB.Repositories.Implement;
+    using NexFB.Repositories.Interface;
     using NexFB.Services.Interface;
 
     /// <summary>
@@ -22,6 +25,18 @@ namespace NexFB.Services.Implement
     /// </summary>
     public class UserControlService : BaseService, IUserControlService
     {
+        private readonly IUserControlRepository _userControlRepository;
+
+        public UserControlService()
+            : this(null)
+        {
+        }
+
+        public UserControlService(IUserControlRepository userControlRepository)
+        {
+            _userControlRepository = userControlRepository ?? new UserControlRepository();
+        }
+
         /// <summary>
         /// Get all function by role.
         /// </summary>
@@ -80,6 +95,24 @@ namespace NexFB.Services.Implement
             }
 
             return commandResult;
+        }
+
+        /// <summary>
+        /// Get all employee role.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Employee Model.</returns>
+        public IEnumerable<EmployeeModel> GetAllEmployeeRole(GetAllEmployeeRoleCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<EmployeeModel> employees = null;
+
+            if (criteria.IsValid())
+            {
+                employees = _userControlRepository.GetAllEmployeeRole(criteria);
+            }
+
+            return employees;
         }
 
         /// <summary>

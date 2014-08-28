@@ -9,11 +9,15 @@
 
 namespace NexFB.Models.Entities
 {
+    using System;
+
     /// <summary>
     /// Employee Model.
     /// </summary>
     public class Employee
     {
+        public int SystemId { get; set; }
+
         public int EmployeeId { get; set; }
 
         public string Code { get; set; }
@@ -27,5 +31,13 @@ namespace NexFB.Models.Entities
         public string Email { get; set; }
 
         public string Skype { get; set; }
+
+        public bool? Enabled { get; set; }
+
+        public string Password { get; set; }
+
+        public bool? IsDeleted { get; set; }
+
+        public DateTime JoinedDate { get; set; }
     }
 }
