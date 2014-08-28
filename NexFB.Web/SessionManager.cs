@@ -10,7 +10,6 @@
 namespace NexFB.Web
 {
     using System.Web;
-    using System.Web.Security;
     using NexFB.Core.Constants;
     using NexFB.Models.Authority;
 
@@ -19,23 +18,23 @@ namespace NexFB.Web
     /// </summary>
     public class SessionManager
     {
-        private static UserSession _currentUser;
-
         public static UserSession CurrentUser
         {
             get
             {
-                var session = HttpContext.Current.Session;
-                if (session != null && session[Constants.CurrentSessionKey] != null)
+                if (HttpContext.Current != null && HttpContext.Current.Session != null)
                 {
-                    _currentUser = (UserSession)session[Constants.CurrentSessionKey];
+                    return (UserSession)HttpContext.Current.Session[Constants.CurrentSessionKey];
                 }
                 else
                 {
-                    FormsAuthentication.RedirectToLoginPage();
+                    return null;
                 }
+            }
 
-                return _currentUser;
+            set
+            {
+                HttpContext.Current.Session[Constants.CurrentSessionKey] = value;
             }
         }
 
@@ -43,7 +42,6 @@ namespace NexFB.Web
         {
             if (HttpContext.Current != null && HttpContext.Current.Session != null)
             {
-                HttpContext.Current.Session[Constants.CurrentSessionKey] = null;
                 HttpContext.Current.Session.Clear();
                 HttpContext.Current.Session.Abandon();
                 HttpContext.Current.Response.Cookies.Clear();

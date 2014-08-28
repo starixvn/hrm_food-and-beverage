@@ -15,6 +15,7 @@ namespace NexFB.Site
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using System.Web.SessionState;
     using Fanex.Data.Configuration;
     using Fanex.Logging;
     using NexFB.Site.App_Start;
@@ -22,8 +23,11 @@ namespace NexFB.Site
     /// <summary>
     /// The MVC Application.
     /// </summary>
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
+        private const string _WebApiPrefix = "api";
+        private static string _webApiExecutionPath = string.Format("~/{0}", _WebApiPrefix);
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -53,6 +57,19 @@ namespace NexFB.Site
 
                 LogService.Error(message);
             }
+        }
+
+        protected void Application_PostAuthorizeRequest()
+        {
+            if (IsWebApiRequest())
+            {
+                HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+            }
+        }
+
+        private static bool IsWebApiRequest()
+        {
+            return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith(_webApiExecutionPath, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

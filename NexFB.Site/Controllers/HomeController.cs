@@ -10,6 +10,8 @@
 namespace NexFB.Site.Controllers
 {
     using System.Web.Mvc;
+    using NexFB.Models.Authority;
+    using NexFB.Web;
 
     /// <summary>
     /// The home controller.
@@ -19,7 +21,8 @@ namespace NexFB.Site.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            UserSession model = SessionManager.CurrentUser;
+            return View(model);
         }
     }
 }

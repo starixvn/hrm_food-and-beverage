@@ -1,4 +1,6 @@
-﻿@{
+﻿@using NexFB.Models.Authority
+@model UserSession
+@{
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -31,7 +33,7 @@
 			</div>
 		</nav>
 		<div id="user_utilities" class="user-info info" ng-controller="LogoutController">
-			<h2>Võ Kim Quang - Quinn.Vo
+			<h2>@Model.FullName - @Model.NickName
 			</h2>
 			<a class="dropdown-arrow" href="javascript:;">
 			</a>

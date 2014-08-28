@@ -9,6 +9,7 @@
 
 namespace NexFB.Models.Authority
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Security;
@@ -17,6 +18,7 @@ namespace NexFB.Models.Authority
     /// <summary>
     /// User Session.
     /// </summary>
+    [Serializable]
     public class UserSession
     {
         public int UserId { get; set; }

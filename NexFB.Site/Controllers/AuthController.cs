@@ -15,6 +15,7 @@ namespace NexFB.Site.Controllers
     using NexFB.Core.Constants;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
+    using NexFB.Resources;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.Web;
@@ -54,13 +55,13 @@ namespace NexFB.Site.Controllers
             UserSession user = GetUserLogin(model);
             if (user != null)
             {
-                HttpContext.Session["CurrentUser"] = user;
+                SessionManager.CurrentUser = user;
                 FormsAuthentication.SetAuthCookie(model.Username, false);
                 Response.Redirect("~/Home/Index");
             }
             else
             {
-                Response.Write("Invalid username or password.");
+                Response.Write(Lang.InvalidUsernameOrPassword);
             }
 
             return View(model);

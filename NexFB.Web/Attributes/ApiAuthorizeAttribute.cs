@@ -16,12 +16,10 @@ namespace NexFB.Web.Attributes
     using System.Web;
     using System.Web.Http;
     using System.Web.Http.Controllers;
-    using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Models.Authority;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
-    using System.Web.Security;
 
     /// <summary>
     /// API authorize attribute.
@@ -77,22 +75,7 @@ namespace NexFB.Web.Attributes
         /// <param name="actionContext">HttpAction Context.</param>
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            //if (!HttpContext.Current.User.Identity.IsAuthenticated)
-            //{
-            //    HandleUnauthorizedRequest(actionContext);
-            //}
-
-            UserSession currentUser = null;
-
-            if (HttpContext.Current.Session == null 
-                || HttpContext.Current.Session[Constants.CurrentSessionKey] == null)
-            {
-                currentUser = SessionManager.CurrentUser;
-            }
-            else
-            {
-                currentUser = (UserSession)HttpContext.Current.Session[Constants.CurrentSessionKey];
-            }
+            UserSession currentUser = SessionManager.CurrentUser;
 
             if (currentUser != null)
             {
@@ -103,17 +86,14 @@ namespace NexFB.Web.Attributes
             }
             else
             {
-                FormsAuthentication.SignOut();
+                HandleUnauthorizedRequest(actionContext);
             }
         }
 
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
         {
-            if (HttpContext.Current.Session.IsNewSession)
-            {
-                var responseMessage = new HttpResponseMessage(HttpStatusCode.Unauthorized);
-                actionContext.Response = responseMessage;
-            }
+            var responseMessage = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+            actionContext.Response = responseMessage;
         }
 
         private void HandlePermissionRequest(HttpActionContext actionContext)
