@@ -52,7 +52,7 @@ namespace NexFB.Site.App_Start
                 "~/Src/App/UserControl/userControl-controller.js",
                 "~/Src/App/UserControl/userControl-factory.js",
                 "~/Src/App/Resources/resources-controller.js",
-                "~/Src/App/Resources/resources-factory.js"));
+                "~/Src/App/Resources/resources-factory.js",
                 "~/Src/App/Logout/logout-controller.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/extensions").Include(
