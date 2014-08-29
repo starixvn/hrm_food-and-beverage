@@ -10,6 +10,7 @@
 namespace NexFB.WinApp
 {
     using System.Windows;
+    using Fanex.Data.Configuration;
     using NexFB.Resources;
     using NexFB.WinApp.Core.Mapping;
 
@@ -24,6 +25,7 @@ namespace NexFB.WinApp
             IMappingRegister mappingRegister = new CoreMappingRegister();
             mappingRegister.Register();
             WinFormMainResource.Culture = new System.Globalization.CultureInfo(string.Empty);
+            DbSettingProviderManager.Current.Start();
         }
     }
 }

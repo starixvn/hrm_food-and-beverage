@@ -13,6 +13,9 @@ namespace NexFB.WinApp.ViewModels
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Input;
+    using NexFB.Criteria.Employee;
+    using NexFB.Models.Authority;
+    using NexFB.Services.Implement;
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinApp.Models.ManageOrder;
 
@@ -25,50 +28,52 @@ namespace NexFB.WinApp.ViewModels
 
         public PendingFoodViewModel()
         {
+            Random rnd = new Random();
             ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (x) => ShowMessage(x));
             ExportOrderFoodCommand = new RelayCommand((x) => CanExecuteExportOrderFoodCommand(), (x) => ShowMessage(x));
+            var mealType1 = new MealType()
+            {
+                Quantity = 2,
+                Total = 5,
+                Type = "Trưa 1"
+            };
+
+            var listMealType = new List<MealType>()
+            {
+                mealType1, mealType1
+            };
+            var order1 = new Order()
+            {
+                Age = 10,
+                Name = "01",
+                OrderDate = DateTime.Now,
+                EmployeeCode = "02355",
+                Room = "03A",
+                OrderOwner = "Rooney",
+                RoomDescription = "Phòng pantry",
+                RoomPhone = 123456,
+                GeneralNote = "Một phần không giá, thêm canh",
+                FoodOrderStatus = 1,
+                MealType = listMealType
+            };
+            var order2 = new Order()
+            {
+                Age = 10,
+                Name = "01",
+                OrderDate = DateTime.Now,
+                EmployeeCode = "02355",
+                Room = "03A",
+                OrderOwner = "Rooney",
+                RoomDescription = "Phòng pantry",
+                RoomPhone = 123456,
+                GeneralNote = "Một phần không giá, thêm canh",
+                FoodOrderStatus = 2,
+                MealType = listMealType
+            };
+
             Persons = new List<Order>()
             {
-                new Order()
-                {
-                    Age = 10,
-                    Name = "01",
-                    OrderDate = DateTime.Now,
-                    EmployeeCode = "02355",
-                    Room = "03A",
-                    OrderOwner = "Rooney",
-                    RoomDescription = "Phòng pantry", 
-                    RoomPhone = 123456,
-                    GeneralNote = "Một phần không giá, thêm canh",
-                    FoodOrderStatus = 1,
-                    MealType = new List<MealType>()
-                    {
-                        new MealType() { Quantity = 2, Total = 5, Type = "Trưa 1" },
-                        new MealType() { Quantity = 2, Total = 5, Type = "Trưa 2" },
-                        new MealType() { Quantity = 1, Total = 5, Type = "Chay" },
-                    }
-                },
-                new Order()
-                {
-                    Age = 10,
-                    Name = "02",
-                    OrderDate = DateTime.Now,
-                    EmployeeCode = "00399",
-                    Room = "03B",
-                    OrderOwner = "Ronaldo",
-                    RoomDescription = "Santiago Bernabeu", 
-                    RoomPhone = 123456,
-                    FoodOrderStatus = 2,
-                    MealType = new List<MealType>()
-                    {
-                        new MealType() { Quantity = 2, Total = 5, Type = "Trưa 1" }, 
-                        new MealType() { Quantity = 2, Total = 5, Type = "Trưa 2" },
-                        new MealType() { Quantity = 1, Total = 5, Type = "Chay" },
-                        new MealType() { Quantity = 2, Total = 5, Type = "Trưa 1" }, 
-                        new MealType() { Quantity = 2, Total = 5, Type = "Trưa 2" },
-                        new MealType() { Quantity = 1, Total = 5, Type = "Chay" },
-                    }
-                }
+                order1, order1, order2, order1, order2, order2, order1, order1, order2, order1, order1,
             };
         }
 
@@ -105,16 +110,21 @@ namespace NexFB.WinApp.ViewModels
             return true;
         }
 
+        /// <summary>
+        /// Get Data from DB.
+        /// </summary>
+        /// <param name="obj">Parameter value.</param>
         public void ShowMessage(object obj)
         {
-            if (obj == null)
+            var criteria = new GetEmployeeByCodeCriteria()
             {
-                MessageBox.Show("null");
-            }
-            else
-            {
-                MessageBox.Show(obj.ToString());
-            }
+                Code = "02355",
+                DepartmentId = "1"
+            };
+            var _employeeService = new EmployeeService();
+
+            UserSession user = _employeeService.GetUserByCode(criteria);
+            MessageBox.Show(user.ToString());
         }
     }
 }

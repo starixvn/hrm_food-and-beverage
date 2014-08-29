@@ -9,35 +9,60 @@
 
 namespace NexFB.WinApp.ViewModels
 {
+    using System;
     using System.Windows;
+    using System.Windows.Documents;
     using System.Windows.Input;
     using NexFB.WinApp.Core.Commands;
+    using NexFB.WinApp.Core.PrintHelper;
+    using NexFB.WinApp.Models.ManageOrder;
 
     /// <summary>
     /// Main ViewModel.
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        #region Fields
+        private const string OrderFoodReceiptTemplate = "PrintingTemplates\\OrderFoodReceipt.xaml";
+
         private static readonly PendingFoodViewModel PendingFoodViewModel = new PendingFoodViewModel();
 
         private static readonly DeliveredFoodViewModel DeliveredFoodViewModel = new DeliveredFoodViewModel();
 
+        private static readonly OrderFoodViewModel OrderFoodViewModel = new OrderFoodViewModel();
+
+        private static readonly PrintHelper DocumentPrintingHelper = new PrintHelper();
+
         private ViewModelBase _currentViewModel;
+
+        #endregion
+
+        #region Contructor
 
         public MainViewModel()
         {
             CurrentViewModel = MainViewModel.PendingFoodViewModel;
-            
             ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
             ViewDeliveredFoodCommand = new RelayCommand((x) => CanExecuteViewDeliveredFood(), (y) => ExecuteViewDeliveredFood());
+            ViewOrderFoodCommand = new RelayCommand((x) => CanExecuteViewOrderFood(), (y) => ExecuteViewOrderFood());
             CloseWindow = new RelayCommand((x) => ((Window)x).Close());
+
+            TestPrint = new RelayCommand((x) => CanExecuteTestPrint(), (y) => ExecuteTestPrint());
         }
+
+        #endregion
+
+        #region Properties
 
         public ICommand CloseWindow { get; set; }
 
         public ICommand ViewPedingFoodCommand { get; set; }
 
         public ICommand ViewDeliveredFoodCommand { get; set; }
+
+        public ICommand ViewOrderFoodCommand { get; set; }
+
+        public ICommand TestPrint { get; set; }
 
         public ViewModelBase CurrentViewModel
         {
@@ -58,6 +83,10 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        #endregion
+
+        #region Command
+
         private bool CanExecuteViewPendingFoood()
         {
             return true;
@@ -75,8 +104,45 @@ namespace NexFB.WinApp.ViewModels
 
         private void ExecuteViewDeliveredFood()
         {
-            MainViewModel.DeliveredFoodViewModel.IsDeliveredDefault = true;
             CurrentViewModel = MainViewModel.DeliveredFoodViewModel;
+        }
+
+        private bool CanExecuteViewOrderFood()
+        {
+            return true;
+        }
+
+        private void ExecuteViewOrderFood()
+        {
+            CurrentViewModel = MainViewModel.OrderFoodViewModel;
+        }
+
+        #endregion
+
+        private bool CanExecuteTestPrint()
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Method Print Invoice.
+        /// </summary>
+        private void ExecuteTestPrint()
+        {
+            var template = (FixedDocument)DocumentPrintingHelper.LoadTemplate(OrderFoodReceiptTemplate);
+            var model = new DataPrint()
+            {
+                Address = "Viet Nam",
+                CustomerName = "Bradley",
+                Date = DateTime.Now,
+                PledgeNumber = "1234"
+            };
+
+            ////string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
+            ////DocumentPrintingHelper.ConvertToXps(template, receiptDocument);
+
+            DocumentPrintingHelper.InjectData(template, model);
+            DocumentPrintingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
         }
     }
 }

@@ -1,0 +1,14 @@
+﻿<FixedDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xml:lang="en-GB">
+	<PageContent>
+		<FixedPage Width="793.76" Height="1122.56" Margin="30">
+			<StackPanel Orientation="Vertical">
+				<TextBlock TextWrapping="Wrap" Width="733.76">
+                I <TextBlock Text="{Binding CustomerName}" /> of <TextBlock Text="{Binding Address}" /> request an affidavit for pledge <TextBlock Text="{Binding PledgeNumber}" />  as the original pledge contract has been lost / damaged / stolen</TextBlock>
+
+				<TextBlock TextWrapping="Wrap" Width="300" TextAlignment="Left">Signed _____________________ Date <TextBlock Text="{Binding Date, StringFormat='\{0:MM/dd/yyyy\}'}"/></TextBlock>
+			</StackPanel>
+		</FixedPage>
+	</PageContent>
+</FixedDocument>
