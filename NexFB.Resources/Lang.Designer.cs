@@ -124,7 +124,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid user name or password..
+        ///   Looks up a localized string similar to Invalid user name or password. Please try again..
         /// </summary>
         public static string InvalidUsernameOrPassword {
             get {

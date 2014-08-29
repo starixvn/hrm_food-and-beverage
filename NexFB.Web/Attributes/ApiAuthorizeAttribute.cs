@@ -79,8 +79,6 @@ namespace NexFB.Web.Attributes
             if (currentUser != null)
             {
                 CheckUserPermission(actionContext);
-                var responseMessage = new HttpResponseMessage(HttpStatusCode.OK);
-                actionContext.Response = responseMessage;
                 return;
             }
             else

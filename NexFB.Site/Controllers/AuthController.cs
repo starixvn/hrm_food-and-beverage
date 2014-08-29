@@ -57,11 +57,18 @@ namespace NexFB.Site.Controllers
             {
                 SessionManager.CurrentUser = user;
                 FormsAuthentication.SetAuthCookie(model.Username, false);
-                Response.Redirect("~/Home/Index");
+
+                var returnUrl = "/Home/Index";
+                if (!string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
+                {
+                    returnUrl = Request.QueryString["ReturnUrl"];
+                }
+
+                Response.Redirect(returnUrl);
             }
             else
             {
-                Response.Write(Lang.InvalidUsernameOrPassword);
+                model.IsLoginFail = true;
             }
 
             return View(model);

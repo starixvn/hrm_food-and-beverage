@@ -22,5 +22,7 @@ namespace NexFB.Models.Authority
 
         [Required]
         public string Password { get; set; }
+
+        public bool IsLoginFail { get; set; }
     }
 }
