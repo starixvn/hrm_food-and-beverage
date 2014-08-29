@@ -232,6 +232,11 @@
     <Content Include="Src\Content\Common\Images\ui-icons_ffffff_256x240.png" />
     <Content Include="Src\Content\Common\toastr.css" />
     <Content Include="Src\Content\Fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Src\Content\Site\auth\images\bg-login.jpg" />
+    <Content Include="Src\Content\Site\auth\images\icon-error.png" />
+    <Content Include="Src\Content\Site\auth\images\icon-pass.png" />
+    <Content Include="Src\Content\Site\auth\images\icon-user.png" />
+    <Content Include="Src\Content\Site\auth\images\logo.png" />
     <Content Include="Src\Content\Site\Images\line-menu.png" />
     <Content Include="Src\Content\Site\Images\success.png" />
     <Content Include="Src\Content\Site\Images\table_header_repeat.jpg" />
@@ -272,6 +277,7 @@
     <Content Include="Src\Content\Site\mixins.less" />
     <Content Include="Src\Content\Site\variables.less" />
     <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Src\Content\Site\auth\style.less" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NexFB.Core\NexFB.Core.csproj">

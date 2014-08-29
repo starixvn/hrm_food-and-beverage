@@ -1,4 +1,5 @@
-﻿@model NexFB.Models.Authority.LoginModel
+﻿@using System.Web.Optimization
+@model NexFB.Models.Authority.LoginModel
 @{
     Layout = null;
 }
@@ -7,40 +8,29 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Welcome to F&B</title>
+    @Styles.Render("~/Src/Content/login/css")
 </head>
 <body>
-    <div id="panel">
-        <div class="title">
-            <div class="nexHRMicon">
-            </div>
-            <div class="signinicon">
-            </div>
+    <div id="panel" class="container login">
+        <div class="header-login row">
         </div>
-        <div id="formContainer">
+        <div id="formContainer" class="row auth">
             @using (Html.BeginForm())
             {
-                <div class="textbox-outer">
-                    <div class="username-icon">
-                    </div>
-                    <div class="username-field">
-                        @Html.TextBoxFor(model => model.Username, new { placeholder = "Username" })
-                    </div>
-                </div>
-                <div class="textbox-outer">
-                    <div class="password-icon">
-                    </div>
-                    <div class="password-field">
-                        @Html.TextBoxFor(model => model.Password, new { placeholder = "Password", type = "Password" })
-                    </div>
-                </div>
-                <div class="signin-button">
-                    <input type="submit" name="submit" class="button" value="LOG IN" />
-                </div>
+                @Html.TextBoxFor(model => model.Username, new { placeholder = "Username", @class = "col-sm-12 username" })                  
+                  
+                @Html.TextBoxFor(model => model.Password, new { placeholder = "Password", type = "Password", @class = "col-sm-12 password" })                  
+                
+                <input type="submit" name="submit" class="col-sm-12 btn-submit" value="Log In" />
             }
+            <div class="message-error">
+                <i class="icon-error"></i>Invalid Username or Password. Please try again.
+            </div>
         </div>
+        
     </div>
-    <div id="copyright">
-        © @DateTime.Today.Year by Nexcel Solutions. All rights reserved
-    </div>
+    <footer id="copyright" class="copyright">
+             © @DateTime.Today.Year by Nexcel Solutions. All rights reserved
+        </footer>
 </body>
 </html>

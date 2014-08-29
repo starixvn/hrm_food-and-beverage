@@ -22,6 +22,12 @@ namespace NexFB.Site
         /// <param name="bundles">The bundle collection.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
+
+            bundles.AddAndInclude(
+                "~/Src/Content/login/css",
+                "~/Src/Content/Common/bootstrap.min.css",
+                "~/Src/Content/site/auth/style.less");
+
             bundles.Add(new StyleBundle("~/Src/Content/Common/css").Include(
                 "~/Src/Content/Common/bootstrap.min.css",
                 "~/Src/Content/Common/bootstrap-theme.min.css",
