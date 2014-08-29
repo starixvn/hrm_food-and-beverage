@@ -139,7 +139,7 @@
     <value>Host</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
-    <value>Invalid username or password.</value>
+    <value>Invalid user name or password.</value>
   </data>
   <data name="ManageRole" xml:space="preserve">
     <value>Manage Role</value>

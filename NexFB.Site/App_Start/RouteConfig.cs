@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="8/21/2014 3:31:02 PM">Created.</change>
 // </history>
 
-namespace NexFB.Site.App_Start
+namespace NexFB.Site
 {
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -15,7 +15,7 @@ namespace NexFB.Site.App_Start
     /// <summary>
     /// Route Config.
     /// </summary>
-    public class RouteConfig
+    public static class RouteConfig
     {
         /// <summary>
         /// Register Routes.

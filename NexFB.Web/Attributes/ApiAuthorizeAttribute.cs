@@ -11,9 +11,9 @@ namespace NexFB.Web.Attributes
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.Net;
     using System.Net.Http;
-    using System.Web;
     using System.Web.Http;
     using System.Web.Http.Controllers;
     using NexFB.Core.Enums;
@@ -25,12 +25,11 @@ namespace NexFB.Web.Attributes
     /// API authorize attribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.All)]
+    [SuppressMessage("Microsoft.Design", "CA1019:DefineAccessorsForAttributeArguments", Justification = "Reviewed. Suppression is OK here.")]
     public sealed class ApiAuthorizeAttribute : AuthorizeAttribute
     {
         private string _functionKey;
-
         private Policy _policy;
-
         private ICommonService _commonService;
 
         public ApiAuthorizeAttribute()

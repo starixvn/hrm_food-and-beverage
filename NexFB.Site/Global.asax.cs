@@ -18,7 +18,6 @@ namespace NexFB.Site
     using System.Web.SessionState;
     using Fanex.Data.Configuration;
     using Fanex.Logging;
-    using NexFB.Site.App_Start;
 
     /// <summary>
     /// The MVC Application.

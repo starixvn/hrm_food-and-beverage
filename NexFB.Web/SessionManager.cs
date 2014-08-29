@@ -16,7 +16,7 @@ namespace NexFB.Web
     /// <summary>
     /// Session Manager.
     /// </summary>
-    public class SessionManager
+    public static class SessionManager
     {
         public static UserSession CurrentUser
         {

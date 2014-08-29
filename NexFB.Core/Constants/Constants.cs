@@ -22,6 +22,10 @@ namespace NexFB.Core.Constants
 
         public const string NexcelDepartment = "1";
 
-        public const string HongMaAndSmsDepartment = "2,3";
+        public const string SmsAndHMDepartment = "2,3";
+
+        private Constants()
+        {
+        }
     }
 }

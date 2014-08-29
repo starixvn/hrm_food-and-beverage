@@ -7,14 +7,14 @@
 //   <change who="Josh.Phan" date="8/21/2014 3:30:14 PM">Created.</change>
 // </history>
 
-namespace NexFB.Site.App_Start
+namespace NexFB.Site
 {
     using System.Web.Mvc;
 
     /// <summary>
     /// Filter Config.
     /// </summary>
-    public class FilterConfig
+    public static class FilterConfig
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {

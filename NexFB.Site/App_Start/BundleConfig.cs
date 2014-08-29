@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="8/21/2014 3:28:12 PM">Created.</change>
 // </history>
 
-namespace NexFB.Site.App_Start
+namespace NexFB.Site
 {
     using System.Web.Optimization;
 

@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="8/25/2014 1:17:20 PM">Created.</change>
 // </history>
 
-namespace NexFB.Site.App_Start
+namespace NexFB.Site
 {
     using System;
     using System.Web;
@@ -18,7 +18,7 @@ namespace NexFB.Site.App_Start
     /// Exception Handling attribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.All)]
-    public class ExceptionHandlingAttribute : ExceptionFilterAttribute
+    public sealed class ExceptionHandlingAttribute : ExceptionFilterAttribute
     {
         /// <summary>
         /// Function to write log for API controller exception.

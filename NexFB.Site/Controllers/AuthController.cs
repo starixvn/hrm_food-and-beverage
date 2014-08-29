@@ -70,12 +70,6 @@ namespace NexFB.Site.Controllers
         [HttpGet]
         public ActionResult Logout()
         {
-            if (HttpContext.Session != null)
-            {
-                HttpContext.Session.Abandon();
-                HttpContext.Session.RemoveAll();
-            }
-
             SessionManager.ClearAll();
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
@@ -104,17 +98,17 @@ namespace NexFB.Site.Controllers
                 var criteria = new GetEmployeeByCodeCriteria()
                 {
                     Code = model.Username,
-                    DepartmentId = Constants.HongMaAndSmsDepartment
+                    DepartmentId = Constants.SmsAndHMDepartment
                 };
-                if (string.Compare(model.Password, Constants.PassWordAdmin2, ignoreCase: true) == 0)
+                if (string.Compare(model.Password, Constants.PassWordAdmin2, System.StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     criteria.DepartmentId = Constants.NexcelDepartment;
                 }
 
                 user = _employeeService.GetUserByCode(criteria);
                 if (user != null
-                    && string.Compare(model.Password, Constants.PassWordAdmin1, ignoreCase: true) != 0
-                    && string.Compare(model.Password, Constants.PassWordAdmin2, ignoreCase: true) != 0)
+                    && string.Compare(model.Password, Constants.PassWordAdmin1, System.StringComparison.OrdinalIgnoreCase) != 0
+                    && string.Compare(model.Password, Constants.PassWordAdmin2, System.StringComparison.OrdinalIgnoreCase) != 0)
                 {
                     var checkCode = _employeeService.ValidateUser(user, model.Password);
                     if (checkCode != 0)
@@ -125,50 +119,6 @@ namespace NexFB.Site.Controllers
             }
 
             return user;
-        }
-
-        /// <summary>
-        /// Parses the string to pull the domain name out.
-        /// </summary>
-        /// <param name="usernameDomain">The string to parse that must contain the domain in either the domain\username or UPN format username@domain.</param>
-        /// <returns>The domain name or "" if not domain is found.</returns>
-        private string GetDomainName(string usernameDomain)
-        {
-            var domain = string.Empty;
-            if (usernameDomain.Contains("\\"))
-            {
-                int index = usernameDomain.IndexOf("\\");
-                domain = usernameDomain.Substring(0, index);
-            }
-            else if (usernameDomain.Contains("@"))
-            {
-                int index = usernameDomain.IndexOf("@");
-                domain = usernameDomain.Substring(index + 1);
-            }
-
-            return domain;
-        }
-
-        /// <summary>
-        /// Parses the string to pull the user name out.
-        /// </summary>
-        /// <param name="usernameDomain">The string to parse that must contain the username in either the domain\username or UPN format username@domain.</param>
-        /// <returns>The username or the string if no domain is found.</returns>
-        private string GetUsername(string usernameDomain)
-        {
-            var username = usernameDomain;
-            if (usernameDomain.Contains("\\"))
-            {
-                int index = usernameDomain.IndexOf("\\");
-                username = usernameDomain.Substring(index + 1);
-            }
-            else if (usernameDomain.Contains("@"))
-            {
-                int index = usernameDomain.IndexOf("@");
-                username = usernameDomain.Substring(0, index);
-            }
-
-            return username;
         }
     }
 }
