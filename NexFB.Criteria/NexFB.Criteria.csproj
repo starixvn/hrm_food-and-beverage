@@ -59,6 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Department\GetAllDepartmentCriteria.cs" />
+    <Compile Include="Team\GetAllTeamByCompanyCriteria.cs" />
     <Compile Include="UserControl\AssignPermissionToRoleCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByCodeCriteria.cs" />
     <Compile Include="UserControl\GetAllEmployeeRoleCriteria.cs" />

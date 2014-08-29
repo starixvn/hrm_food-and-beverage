@@ -17,15 +17,8 @@ namespace NexFB.Models.UserControl
     /// </summary>
     public class EmployeeRoleModel
     {
-        public EmployeeRoleModel()
-        {
-            Departments = new List<Department>();
-        }
-
         public int SystemId { get; set; }
 
         public Role Role { get; set; }
-
-        public List<Department> Departments { get; set; }
     }
 }

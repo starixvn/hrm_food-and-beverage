@@ -162,6 +162,7 @@
     <Compile Include="App_Start\BundleExtensions.cs" />
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\API\BaseController.cs" />
+    <Compile Include="Controllers\API\CommonController.cs" />
     <Compile Include="Controllers\API\RegistrationMealController.cs" />
     <Compile Include="Controllers\API\ResourceController.cs" />
     <Compile Include="Controllers\API\UserControlController.cs" />
@@ -186,6 +187,7 @@
     <Content Include="Src\App\Resources\resources-controller.js" />
     <Content Include="Src\App\Logout\logout-controller.js" />
     <Content Include="Src\App\Resources\resources-factory.js" />
+    <Content Include="Src\App\UserControl\Templates\userIndex.html" />
     <Content Include="Src\App\UserControl\userControl-factory.js" />
     <Content Include="Src\App\UserControl\userControl-route.js" />
     <Content Include="Src\App\UserControl\userControl-controller.js" />
@@ -196,6 +198,7 @@
     <Content Include="Src\Components\Extensions\Common\error-factory.js" />
     <Content Include="Src\Components\Extensions\Common\notification-factory.js" />
     <Content Include="Src\Components\Extensions\Directives\fb-directives.js" />
+    <Content Include="Src\Components\Libs\angular-multi-select.js" />
     <Content Include="Src\Components\Libs\angular-resource.js" />
     <Content Include="Src\Components\Libs\angular-route.js" />
     <Content Include="Src\Components\Libs\angular-translate.js" />
@@ -205,6 +208,7 @@
     <Content Include="Src\Components\Libs\jquery-2.1.0.min.js" />
     <Content Include="Src\Components\Libs\toastr.js" />
     <Content Include="Src\Components\Libs\ui-bootstrap-tpls-0.10.0.min.js" />
+    <Content Include="Src\Content\Common\angular-multi-select.css" />
     <Content Include="Src\Content\Common\bootstrap-spacelab.min.css" />
     <Content Include="Src\Content\Common\bootstrap-theme.min.css" />
     <Content Include="Src\Content\Common\bootstrap.min.css" />

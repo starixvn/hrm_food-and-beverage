@@ -39,5 +39,7 @@ namespace NexFB.Models.Entities
         public bool? IsDeleted { get; set; }
 
         public DateTime JoinedDate { get; set; }
+
+        public string Roles { get; set; }
     }
 }

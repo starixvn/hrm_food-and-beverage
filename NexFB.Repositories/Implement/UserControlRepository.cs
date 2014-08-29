@@ -91,11 +91,48 @@ namespace NexFB.Repositories.Implement
 
                 foreach (EmployeeRoleModel role in rolesOfEmployee) 
                 {
-                    employee.Roles.Add(role.Role);
+                    employee.RoleItems.Add(role.Role);
+
+                    string roleNameWithDepartment = GetRolesWithDepartment(role.Role);
+                    employee.Roles = string.IsNullOrEmpty(employee.Roles)
+                                        ? roleNameWithDepartment
+                                        : employee.Roles + ", " + roleNameWithDepartment;
                 }
             }
 
             return employees;
+        }
+
+        /// <summary>
+        /// Get role name with department name.
+        /// </summary>
+        /// <param name="role">The role of employee.</param>
+        /// <returns>The string contain role name and department name.</returns>
+        private string GetRolesWithDepartment(Role role)
+        {
+            string roles = string.Empty;
+
+            if (role != null)
+            {
+                roles = role.Name;
+
+                if (role.Departments != null && role.Departments.Count > 0)
+                {
+                    roles += " (";
+                    string departmentName = string.Empty;
+
+                    foreach (Department department in role.Departments)
+                    {
+                        departmentName = string.IsNullOrEmpty(departmentName)
+                                            ? department.Name
+                                            : departmentName + ", " + department.Name;
+                    }
+
+                    roles += departmentName + ")";
+                }
+            }
+
+            return roles;
         }
 
         /// <summary>
@@ -116,7 +153,7 @@ namespace NexFB.Repositories.Implement
 
                     foreach (RoleDepartmentModel department in departments)
                     {
-                        role.Departments.Add(department.Department);
+                        role.Role.Departments.Add(department.Department);
                     }
                 }
             }

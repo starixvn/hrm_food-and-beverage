@@ -9,15 +9,22 @@
 
 namespace NexFB.Models.Entities
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// The Role entity.
     /// </summary>
     public class Role
     {
+        public Role()
+        {
+            Departments = new List<Department>();
+        }
+
         public int RoleId { get; set; }
 
         public string Name { get; set; }
 
-        public Department Department { get; set; }
+        public List<Department> Departments { get; set; }
     }
 }

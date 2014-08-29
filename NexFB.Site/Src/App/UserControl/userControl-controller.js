@@ -68,3 +68,69 @@ function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory)
 		$route.reload();
 	};
 } ]);
+
+userControlModule.controller("ManageUserController",
+['$scope', 'userControlFactory', 'notificationFactory',
+function ($scope, userControlFactory, notificationFactory) {
+	$scope.filter = {
+		keyword: '',
+		departmentId: '',
+		teamId: '',
+		roleId: ''
+	};
+
+	userControlFactory.getAllDepartment().success(function (departments) {
+		$scope.departmentOptions = departments;
+	}).error(function () {
+		// TODO
+	});
+
+	$scope.getTeamByCompany = function (departmentId) {
+		if (departmentId) {
+			userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
+				$scope.teamOptions = teams;
+			}).error(function () {
+				// TODO
+			});
+		}
+		else {
+			$scope.teamOptions = '';
+		}
+
+		$scope.filter.teamId = '';
+	};
+
+	userControlFactory.getAllSystemRole().success(function (roles) {
+		$scope.roleOptions = roles;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
+	function getAllEmployeeRole(filter) {
+		userControlFactory.getAllEmployeeRole(filter.keyword, filter.departmentId, filter.teamId, filter.roleId)
+		.success(function (employees) {
+			$scope.employees = employees;
+		})
+		.error(function () {
+			// TODO
+		});
+	}
+
+	getAllEmployeeRole($scope.filter);
+
+	function getSelectedRole(filter) {
+		filter.roleId = '';
+
+		angular.forEach($scope.roleOptions, function (value) {
+			if (value.ticked === true) {
+				var roleId = value.RoleId;
+				filter.roleId = filter.roleId !== '' ? filter.roleId + ',' + roleId : roleId;
+			}
+		});
+	}
+
+	$scope.query = function (filter) {
+		getSelectedRole(filter);
+		getAllEmployeeRole(filter);
+	};
+} ]);

@@ -9,15 +9,39 @@
 
 namespace NexFB.Services.Implement
 {
+    using System.Collections.Generic;
+    using Fanex.Common.Helper;
     using NexFB.Core.Enums;
+    using NexFB.Criteria.Department;
+    using NexFB.Criteria.Team;
+    using NexFB.Criteria.UserControl;
+    using NexFB.Models.Entities;
     using NexFB.Models.UserControl;
     using NexFB.Services.Interface;
 
     /// <summary>
     /// The common service.
     /// </summary>
-    public class CommonService : ICommonService
+    public class CommonService : BaseService, ICommonService
     {
+        /// <summary>
+        /// Get all role system.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Role System Model.</returns>
+        public IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<RoleSystemModel> roles = null;
+
+            if (criteria.IsValid())
+            {
+                roles = GetData<RoleSystemModel>(criteria);
+            }
+
+            return roles;
+        }
+
         /// <summary>
         /// Get permission on function.
         /// </summary>
@@ -65,6 +89,42 @@ namespace NexFB.Services.Implement
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Get all department.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Department.</returns>
+        public IEnumerable<Department> GetAllDepartment(GetAllDepartmentCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<Department> departments = null;
+
+            if (criteria.IsValid())
+            {
+                departments = GetData<Department>(criteria);
+            }
+
+            return departments;
+        }
+
+        /// <summary>
+        /// Get all team by company.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Team model.</returns>
+        public IEnumerable<Team> GetAllTeamByCompany(GetAllTeamByCompanyCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<Team> teams = null;
+
+            if (criteria.IsValid())
+            {
+                teams = GetData<Team>(criteria);
+            }
+
+            return teams;
         }
     }
 }

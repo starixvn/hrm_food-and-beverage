@@ -1,0 +1,110 @@
+﻿<div class="row sub-header">
+	<ul class="breadcrumb list-inline pull-left">
+        <li><a href="#" data-translate="ManageUser" ng-click="reload()"></a></li>
+        <li class="current" data-translate="AssignRoleToUser"></li>
+    </ul>
+</div>
+<div class="row">
+    <form novalidate class="form-inline filter">
+    <div class="form-group">
+        <label data-translate="Keyword">
+        </label>
+        <input class="form-control lstBox-limit" type="text" ng-model="filter.keyword" placeholder="full name or nick name" />
+    </div>
+    <div class="form-group">
+        <label data-translate="Company">
+        </label>
+        <select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
+            class="form-control lstBox-limit" ng-change="getTeamByCompany(filter.departmentId)">
+            <option value="">-- {{"AllCompanies" | translate}} --</option>
+        </select>
+    </div>
+	<div class="form-group">
+        <label data-translate="Team">
+        </label>
+        <select ng-model="filter.teamId" ng-options="opt.TeamId as opt.Name for opt in teamOptions"
+            class="form-control lstBox-limit">
+            <option value="">-- {{"AllTeam" | translate}} --</option>
+        </select>
+    </div>
+	<div class="form-group">
+        <label data-translate="Role">
+        </label>
+        <div multi-select input-model="roleOptions" button-label="Name" item-label="Name" tick-property="ticked"
+             max-labels="0" >
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="button" ng-click="query(filter)" ng-disabled="disabledSubmitButton" data-translate="Submit">
+        </button>
+    </div>
+    </form>
+</div>
+<div class="row">
+    <table class="table table-bordered table-striped" id="data" fixed-header>
+        <thead>
+<!--            <tr class="header-table">
+                <th colspan="8">
+                    <div class="pull-left table-entries">
+                        <span data-translate="Show"></span>
+                        <select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
+                            ng-options="entry for entry in entries">
+                        </select>
+                        <span data-translate="entries"></span>
+                    </div>
+                    <input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+                </th>
+            </tr>-->
+            <tr class="headerName">
+                <th class="employee-no" data-translate="SymbolCount">
+                </th>
+                <th class="employee-code" data-translate="Code">
+                </th>
+                <th class="authority-employee-nick" data-translate="NickName">
+                </th>
+                <th class="authority-employee-name" data-translate="FullName">
+                </th>
+                <th class="authority-employee-team" data-translate="Team">
+                </th>
+                <th class="authority-employee-job-title" data-translate="Company">
+                </th>
+                <th class="authority-employee-role" data-translate="Roles">
+                </th>
+                <th class="authority-employee-action" data-translate="Action">
+                </th>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            <tr ng-repeat="employee in employees">
+                <td class="index employee-no">
+                    {{$index + 1}}
+                </td>
+                <td class="code employee-code">
+                    {{employee.Code}}
+                </td>
+                <td class="nick-name authority-employee-nick">
+                    {{employee.NickName}}
+                </td>
+                <td class="authority-employee-name">
+                    {{employee.FullName}}
+                </td>
+               <td class="authority-employee-team">
+                    <span tooltip="{{employee.Team.Name}}">{{employee.Team.Code}}</span>
+                </td>
+                <td class="authority-employee-job-title">
+                    {{employee.Department.Name}}
+                </td>
+                <td class="authority-employee-role">
+					{{employee.Roles}}
+                </td>
+                <td class="index authority-employee-action" >
+                    <a class="glyphicon glyphicon-edit icon-edit" href="" title="Edit" ng-click="assignRole(employee)" />
+                </td>
+            </tr>
+            <tr ng-show="employees == '' || employees == 'null'">
+                <td class="empty-result" colspan="8" data-translate="EmptyResult">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

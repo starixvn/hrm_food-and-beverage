@@ -22,8 +22,6 @@ namespace NexFB.Services.Interface
     {
         IEnumerable<FunctionModel> GetFunctionByRole(GetFunctionByRoleCriteria criteria);
 
-        IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria);
-
         CommandResult AssignPermissionToRole(AssignPermissionToRoleCriteria criteria);
 
         IEnumerable<EmployeeModel> GetAllEmployeeRole(GetAllEmployeeRoleCriteria criteria);

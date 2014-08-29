@@ -9,15 +9,27 @@
 
 namespace NexFB.Services.Interface
 {
+    using System.Collections.Generic;
     using NexFB.Core.Enums;
+    using NexFB.Criteria.Department;
+    using NexFB.Criteria.Team;
+    using NexFB.Criteria.UserControl;
+    using NexFB.Models.Entities;
+    using NexFB.Models.UserControl;
 
     /// <summary>
     /// The common service.
     /// </summary>
     public interface ICommonService
     {
+        IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria);
+
         int GetPermission(string functionKey);
 
         bool HasPermissionOnFunction(string functionKey, Policy policy);
+
+        IEnumerable<Department> GetAllDepartment(GetAllDepartmentCriteria criteria);
+
+        IEnumerable<Team> GetAllTeamByCompany(GetAllTeamByCompanyCriteria criteria);
     }
 }

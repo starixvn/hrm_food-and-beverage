@@ -117,8 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="AllCompanies" xml:space="preserve">
+    <value>All Companies</value>
+  </data>
+  <data name="AllTeam" xml:space="preserve">
+    <value>All Team</value>
+  </data>
   <data name="AssignPermissionToRole" xml:space="preserve">
     <value>Assign Permission To Role</value>
+  </data>
+  <data name="AssignRoleToUser" xml:space="preserve">
+    <value>Assign Role To User</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
   </data>
   <data name="DataChangeFail" xml:space="preserve">
     <value>Data changed unsuccessfully!</value>
@@ -132,6 +150,9 @@
   <data name="ErrorMessage" xml:space="preserve">
     <value>Sorry, an error occurred while processing your request, please notify the administrators!</value>
   </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
   <data name="Function" xml:space="preserve">
     <value>Function</value>
   </data>
@@ -144,11 +165,26 @@
   <data name="ManageRole" xml:space="preserve">
     <value>Manage Role</value>
   </data>
+  <data name="ManageUser" xml:space="preserve">
+    <value>Manage User</value>
+  </data>
+  <data name="NickName" xml:space="preserve">
+    <value>Nick Name</value>
+  </data>
   <data name="Read" xml:space="preserve">
     <value>Read</value>
   </data>
   <data name="RolePermission" xml:space="preserve">
     <value>Role Permission</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Role(s)</value>
+  </data>
+  <data name="SymbolCount" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Team</value>
   </data>
   <data name="TitlePage" xml:space="preserve">
     <value>Food &amp; Beverage Management System</value>

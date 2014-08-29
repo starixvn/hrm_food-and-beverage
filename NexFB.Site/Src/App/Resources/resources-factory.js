@@ -7,7 +7,10 @@ appModule.factory('resourceFactory', ['$http', '$q', function ($http, $q) {
 
 		$http.get('/api/Resource/Get?lang=' + options.key)
 		.success(function (data) {
-			data = angular.fromJson(angular.fromJson(data));
+			if (data) {
+				data = angular.fromJson(angular.fromJson(data));
+			}
+
 			deferred.resolve(data);
 		})
 		.error(deferred.reject);

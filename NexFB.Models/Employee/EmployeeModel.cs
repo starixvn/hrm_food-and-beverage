@@ -19,13 +19,13 @@ namespace NexFB.Models.Employee
     {
         public EmployeeModel()
         {
-            Roles = new List<Role>();
+            RoleItems = new List<Role>();
         }
 
         public Department Department { get; set; }
 
         public Team Team { get; set; }
 
-        public List<Role> Roles { get; set; }
+        public List<Role> RoleItems { get; set; }
     }
 }

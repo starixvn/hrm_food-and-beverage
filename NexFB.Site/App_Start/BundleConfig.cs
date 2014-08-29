@@ -30,7 +30,8 @@ namespace NexFB.Site
             bundles.Add(new StyleBundle("~/Src/Content/Common/css").Include(
                 "~/Src/Content/Common/bootstrap.min.css",
                 "~/Src/Content/Common/bootstrap-theme.min.css",
-                "~/Src/Content/Common/toastr.css"));
+                "~/Src/Content/Common/toastr.css",
+                "~/Src/Content/Common/angular-multi-select.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Src/Components/Libs/jquery-2.1.0.min.js",
@@ -40,7 +41,8 @@ namespace NexFB.Site
                 "~/Src/Components/Libs/angular-translate.js",
                 "~/Src/Components/Libs/bootstrap.min.js",
                 "~/Src/Components/Libs/ui-bootstrap-tpls-0.10.0.min.js",
-                "~/Src/Components/Libs/toastr.js"));
+                "~/Src/Components/Libs/toastr.js",
+                "~/Src/Components/Libs/angular-multi-select.js"));
 
             bundles.AddAndInclude(
                 "~/NexFB/Src/Less",

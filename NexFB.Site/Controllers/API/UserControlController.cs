@@ -15,6 +15,7 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Core.Constants;
     using NexFB.Core.Models;
     using NexFB.Criteria.UserControl;
+    using NexFB.Models.Employee;
     using NexFB.Models.UserControl;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
@@ -22,7 +23,7 @@ namespace NexFB.Site.Controllers.API
     /// <summary>
     /// The user control controller.
     /// </summary>
-    public class UserControlController : BaseController
+    public class UserControlController : ApiController
     {
         private IUserControlService _userControlService;
 
@@ -56,7 +57,7 @@ namespace NexFB.Site.Controllers.API
         {
             var criteria = new GetAllSystemRoleCriteria();
 
-            return _userControlService.GetAllSystemRole(criteria);
+            return _commonService.GetAllSystemRole(criteria);
         }
 
         [HttpPost]
@@ -81,6 +82,32 @@ namespace NexFB.Site.Controllers.API
         {
             int policy = _commonService.GetPermission(FBFunctionKey.ManageRole);
             return policy;
+        }
+
+        /// <summary>
+        /// Get all employee role.
+        /// </summary>
+        /// <param name="keyword">The keyword to search.</param>
+        /// <param name="departmentId">The department ID.</param>
+        /// <param name="teamId">The team ID.</param>
+        /// <param name="roleId">The role ID.</param>
+        /// <returns>The enumerator Employee model.</returns>
+        [HttpGet]
+        public IEnumerable<EmployeeModel> GetAllEmployeeRole(
+            string keyword = null,
+            string departmentId = null,
+            string teamId = null,
+            string roleId = null)
+        {
+            var criteria = new GetAllEmployeeRoleCriteria
+            {
+                Keyword = keyword,
+                DepartmentId = departmentId,
+                TeamId = teamId,
+                RoleId = roleId
+            };
+
+            return _userControlService.GetAllEmployeeRole(criteria);
         }
     }
 }

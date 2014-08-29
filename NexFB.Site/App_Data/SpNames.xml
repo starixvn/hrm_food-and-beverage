@@ -23,4 +23,16 @@
 			<Mapping DataField="RoleName" ObjectProperty="Name"/>
 		</Setting>
 	</Function>
+	<Function Name="Department">
+		<Setting Key="Department_GetAll" SpName="Department_GetAll" DbName="NexFB" Plain="0" >
+			<Mapping DataField="DepartmentName" ObjectProperty="Name"/>
+		</Setting>
+	</Function>
+	<Function Name="Team">
+		<Setting Key="EmpTeam_GetByDepartmentID" SpName="EmpTeam_GetByDepartmentID" DbName="NexFB" Plain="0" >
+			<Mapping DataField="EmpTeamId" ObjectProperty="TeamId"/>
+			<Mapping DataField="EmpTeamName" ObjectProperty="Name"/>
+			<Mapping DataField="EmpTeamCode" ObjectProperty="Code"/>
+		</Setting>
+	</Function>
 </Functions>

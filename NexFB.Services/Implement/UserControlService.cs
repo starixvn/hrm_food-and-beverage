@@ -62,24 +62,6 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
-        /// Get all role system.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator Role System Model.</returns>
-        public IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<RoleSystemModel> roles = null;
-
-            if (criteria.IsValid())
-            {
-                roles = GetData<RoleSystemModel>(criteria);
-            }
-
-            return roles;
-        }
-
-        /// <summary>
         /// Assign permission to role.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
