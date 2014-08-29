@@ -20,7 +20,7 @@ namespace NexFB.Site.Controllers.API
     /// <summary>
     /// Common controller.
     /// </summary>
-    public class CommonController : ApiController
+    public class CommonController : BaseController
     {
         private readonly ICommonService _commonService;
 

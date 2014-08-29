@@ -19,7 +19,7 @@ namespace NexFB.Site.Controllers.API
     /// <summary>
     /// Resource controller.
     /// </summary>
-    public class ResourceController : ApiController
+    public class ResourceController : BaseController
     {
         /// <summary>
         /// Function to get resource by language.
