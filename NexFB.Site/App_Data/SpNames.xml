@@ -3,10 +3,14 @@
   <Function Name="Employee">
     <Setting Key="Employee_GetEmployeeByDomain" SpName="Employee_GetEmployeeByDomain" DbName="NexFB" Plain="0" >
       <Mapping DataField="EmpId" ObjectProperty="UserId"/>
+		<Mapping DataField="SysID" ObjectProperty="SystemId"/>
     </Setting>
     <Setting Key="Employee_GetEmployeeByCode" SpName="Employee_GetEmployeeByCode" DbName="NexFB" Plain="0" >
       <Mapping DataField="EmpId" ObjectProperty="UserId"/>
+		<Mapping DataField="SysID" ObjectProperty="SystemId"/>
     </Setting>
+	<Setting Key="UserCtrl_GetMenuFunctionBySysID" SpName="UserCtrl_GetMenuFunctionBySysID" DbName="NexFB" Plain="0" >
+	</Setting>
   </Function>
 	<Function Name="ManageRole">
 		<Setting Key="Function_GetByRole" SpName="Function_GetByRole" DbName="NexFB" Plain="0" ></Setting>

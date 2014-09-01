@@ -9,6 +9,7 @@
 
 namespace NexFB.Services.Interface
 {
+    using System.Collections.Generic;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
 
@@ -19,5 +20,7 @@ namespace NexFB.Services.Interface
         UserSession GetUserByCode(GetEmployeeByCodeCriteria criteria);
 
         int ValidateUser(UserSession user, string password);
+
+        IList<MenuGroup> GetEmployeeMenuById(GetEmployeeMenuBySystemIdCriteria criteria);
     }
 }

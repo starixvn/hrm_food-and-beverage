@@ -21,6 +21,8 @@ namespace NexFB.Models.Authority
     [Serializable]
     public class UserSession
     {
+        public int SystemId { get; set; }
+
         public int UserId { get; set; }
 
         public string Code { get; set; }
@@ -38,8 +40,6 @@ namespace NexFB.Models.Authority
         public IList<SystemRole> UserRoles { get; set; }
 
         public IList<FunctionModel> Functions { get; set; }
-
-        public IList<MenuItem> MenuItems { get; set; }
 
         public IList<MenuGroup> MenuGroups { get; set; }
 

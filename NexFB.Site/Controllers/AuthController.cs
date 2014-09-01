@@ -9,13 +9,11 @@
 
 namespace NexFB.Site.Controllers
 {
-    using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
     using NexFB.Core.Constants;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
-    using NexFB.Resources;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.Web;
@@ -124,6 +122,15 @@ namespace NexFB.Site.Controllers
                     }
                 }
             }
+
+            ////if (user != null)
+            ////{
+            ////    var getEmployeeMenuCriteria = new GetEmployeeMenuBySystemIdCriteria
+            ////    {
+            ////        SystemId = user.SystemId
+            ////    };
+            ////    //user.MenuGroups = _employeeService.GetEmployeeMenuById(getEmployeeMenuCriteria);
+            ////}
 
             return user;
         }

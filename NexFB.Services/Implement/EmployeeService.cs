@@ -9,6 +9,8 @@
 
 namespace NexFB.Services.Implement
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using NexFB.Core.Enums;
     using NexFB.Core.Security;
@@ -87,6 +89,51 @@ namespace NexFB.Services.Implement
             }
 
             return retCode;
+        }
+
+        /// <summary>
+        /// Get employee menu by Id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list group menu.</returns>
+        public IList<MenuGroup> GetEmployeeMenuById(GetEmployeeMenuBySystemIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<MenuGroup> menuGroups = null;
+
+            if (criteria.IsValid())
+            {
+                IEnumerable<MenuItem> menuItems = GetData<MenuItem>(criteria);
+                menuGroups = GroupMenuItem(menuItems);
+            }
+
+            return menuGroups;
+        }
+
+        /// <summary>
+        /// Group menu item.
+        /// </summary>
+        /// <param name="menuItems">The enumerator menu item.</param>
+        /// <returns>The list group menu.</returns>
+        private IList<MenuGroup> GroupMenuItem(IEnumerable<MenuItem> menuItems)
+        {
+            var menuGroups = new List<MenuGroup>();
+            IEnumerable<MenuItem> parentMenu = menuItems.Where(item => item.ParentId == null).ToList();
+
+            foreach (MenuItem parent in parentMenu)
+            {
+                var menuGroupItem = new MenuGroup
+                {
+                    MenuId = parent.MenuId,
+                    Name = parent.Name,
+                    MenuLink = parent.MenuLink
+                };
+
+                menuGroupItem.MenuItems = menuItems.Where(menuItem => menuItem.ParentId == menuGroupItem.MenuId);
+                menuGroups.Add(menuGroupItem);
+            }
+
+            return menuGroups;
         }
     }
 }

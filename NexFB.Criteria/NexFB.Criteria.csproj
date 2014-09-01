@@ -74,6 +74,7 @@
     <Compile Include="UserControl\GetEmployeeRoleByIdCriteria.cs" />
     <Compile Include="UserControl\GetFunctionByRoleCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByDomainCriteria.cs" />
+     <Compile Include="Employee\GetEmployeeMenuBySystemIdCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
