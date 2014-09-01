@@ -37,7 +37,7 @@ namespace NexFB.WinApp.ViewModels
         {
             ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (x) => ShowMessage(x));
             ExportOrderFoodCommand = new RelayCommand((x) => CanExecuteExportOrderFoodCommand(), (x) => ShowMessage(x));
-            DeliveredMeals = this.GetDeliveredMealOrder();
+            DeliveredMeals = this.GetDeliveredMealOrder;
         }
 
         public ICommand ExportOrderFoodCommand { get; set; }
@@ -63,6 +63,16 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        public List<Order> GetDeliveredMealOrder
+        {
+            get
+            {
+                var criteria = new GetDeliveredMealOrderCriteria();
+                List<Order> deliveredMeals = _kitchenService.GetDeliveredMealOrder(criteria);
+                return deliveredMeals;
+            }
+        }
+
         public bool CanExecuteReceiveOrderFoodCommand()
         {
             return true;
@@ -73,23 +83,16 @@ namespace NexFB.WinApp.ViewModels
             return true;
         }
 
-        public void ShowMessage(object obj)
+        public void ShowMessage(object value)
         {
-            if (obj == null)
+            if (value == null)
             {
                 MessageBox.Show("null");
             }
             else
             {
-                MessageBox.Show(obj.ToString());
+                MessageBox.Show(value.ToString());
             }
-        }
-
-        public List<Order> GetDeliveredMealOrder()
-        {
-            var criteria = new GetDeliveredMealOrderCriteria();
-            List<Order> deliveredMeals = _kitchenService.GetDeliveredMealOrder(criteria);
-            return deliveredMeals;
         }
     }
 }

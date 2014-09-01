@@ -40,7 +40,7 @@ namespace NexFB.WinApp.ViewModels
             ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (x) => ShowMessage(x));
             DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (x) => ShowMessage(x));
 
-            WaitingMeals = this.GetWaitingMealOrder();
+            WaitingMeals = this.GetWaitingMealOrder;
         }
 
         public ICommand DeliverOrderFoodCommand { get; set; }
@@ -66,6 +66,16 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        public List<Order> GetWaitingMealOrder
+        {
+            get
+            {
+                var criteria = new GetWaitingMealOrderCriteria();
+                List<Order> waitingMeals = _kitchenService.GetWaitngMealOrder(criteria);
+                return waitingMeals;
+            }
+        }
+
         public bool CanExecuteReceiveOrderFoodCommand()
         {
             return true;
@@ -79,25 +89,10 @@ namespace NexFB.WinApp.ViewModels
         /// <summary>
         /// Get Data from DB.
         /// </summary>
-        /// <param name="obj">Parameter value.</param>
-        public void ShowMessage(object obj)
+        /// <param name="value">Parameter value.</param>
+        public void ShowMessage(object value)
         {
-            var criteria = new GetEmployeeByCodeCriteria()
-            {
-                Code = "02355",
-                DepartmentId = "1"
-            };
-            var _employeeService = new EmployeeService();
-
-            UserSession user = _employeeService.GetUserByCode(criteria);
-            MessageBox.Show(user.ToString());
-        }
-
-        public List<Order> GetWaitingMealOrder()
-        {
-            var criteria = new GetWaitingMealOrderCriteria();
-            List<Order> waitingMeals = _kitchenService.GetWaitngMealOrder(criteria);
-            return waitingMeals;
+            MessageBox.Show(value.ToString());
         }
     }
 }

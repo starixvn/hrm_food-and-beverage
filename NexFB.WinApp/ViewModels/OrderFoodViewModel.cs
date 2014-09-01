@@ -46,10 +46,10 @@ namespace NexFB.WinApp.ViewModels
         /// <summary>
         /// Method Press virtual key pad.
         /// </summary>
-        /// <param name="obj">Object parameter.</param>
-        public void ExecutePressAndReleaseKey(object obj)
+        /// <param name="value">Object parameter.</param>
+        public void ExecutePressAndReleaseKey(object value)
         {
-            switch (obj.ToString())
+            switch (value.ToString())
             {
                 case "ESC":
                     break;

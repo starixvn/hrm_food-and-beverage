@@ -10,6 +10,7 @@
 namespace NexFB.WinApp.DependencyProperties
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Interop;
@@ -44,36 +45,42 @@ namespace NexFB.WinApp.DependencyProperties
         private const int MinimizeBox = 0x20000;
         private const int ContextHelp = 0x400;
 
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         [AttachedPropertyBrowsableForType(typeof(Window))]
         public static bool GetHasHelpButton(Window element)
         {
             return (bool)element.GetValue(HasHelpButtonProperty);
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         [AttachedPropertyBrowsableForType(typeof(Window))]
         public static void SetHasHelpButton(Window element, bool value)
         {
             element.SetValue(HasHelpButtonProperty, value);
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         [AttachedPropertyBrowsableForType(typeof(Window))]
         public static bool GetHasMaximizeButton(Window element)
         {
             return (bool)element.GetValue(HasMaximizeButtonProperty);
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         [AttachedPropertyBrowsableForType(typeof(Window))]
         public static void SetHasMaximizeButton(Window element, bool value)
         {
             element.SetValue(HasMaximizeButtonProperty, value);
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         [AttachedPropertyBrowsableForType(typeof(Window))]
         public static bool GetHasMinimizeButton(Window element)
         {
             return (bool)element.GetValue(HasMinimizeButtonProperty);
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         [AttachedPropertyBrowsableForType(typeof(Window))]
         public static void SetHasMinimizeButton(Window element, bool value)
         {
@@ -138,8 +145,6 @@ namespace NexFB.WinApp.DependencyProperties
             {
                 style &= ~MinimizeBox;
             }
-
-            NativeMethods.SetWindowLong(windowHandler, Style, style);
         }
 
         /// <summary>
@@ -150,8 +155,8 @@ namespace NexFB.WinApp.DependencyProperties
             [DllImport("user32.dll")]
             internal static extern int GetWindowLong(IntPtr hWnd, int index);
 
-            [DllImport("user32.dll")]
-            internal static extern int SetWindowLong(IntPtr hWnd, int index, int newLong);
+            ////[DllImport("user32.dll")]
+            ////internal static extern int SetWindowLong(IntPtr hWnd, int index, int newLong);
         }
     }
 }

@@ -20,10 +20,10 @@ namespace NexFB.WinApp.Core.Mapping
         {
         }
 
-        private void MapTwoWay<TLeft, TRight>()
-        {
-            Mapper.CreateMap<TLeft, TRight>();
-            Mapper.CreateMap<TRight, TLeft>();
-        }
+        ////private void MapTwoWay<TLeft, TRight>()
+        ////{
+        ////    Mapper.CreateMap<TLeft, TRight>();
+        ////    Mapper.CreateMap<TRight, TLeft>();
+        ////}
     }
 }
