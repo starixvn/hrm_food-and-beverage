@@ -22,6 +22,16 @@
 			<Mapping DataField="EmpTeamName" ObjectProperty="Name"/>
 			<Mapping DataField="RoleName" ObjectProperty="Name"/>
 		</Setting>
+		<Setting Key="UserCtrl_GetEmployeeBySysId" SpName="UserCtrl_GetEmployeeBySysId" DbName="NexFB" Plain="0" >
+			<Mapping DataField="SysID" ObjectProperty="SystemId"/>
+			<Mapping DataField="EmpId" ObjectProperty="EmployeeId"/>
+			<Mapping DataField="DepartmentName" ObjectProperty="Name"/>
+			<Mapping DataField="EmpTeamCode" ObjectProperty="Code"/>
+			<Mapping DataField="EmpTeamName" ObjectProperty="Name"/>
+			<Mapping DataField="RoleName" ObjectProperty="Name"/>
+		</Setting>
+		<Setting Key="UserCtrl_SetEmployee" SpName="UserCtrl_SetEmployee" DbName="NexFB" Plain="0" >
+		</Setting>
 	</Function>
 	<Function Name="Department">
 		<Setting Key="Department_GetAll" SpName="Department_GetAll" DbName="NexFB" Plain="0" >

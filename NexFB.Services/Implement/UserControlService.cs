@@ -98,6 +98,42 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
+        /// Get employee role by ID.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The employee model.</returns>
+        public EmployeeModel GetEmployeeRoleById(GetEmployeeRoleByIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            EmployeeModel employee = null;
+
+            if (criteria.IsValid())
+            {
+                employee = _userControlRepository.GetEmployeeRoleById(criteria);
+            }
+
+            return employee;
+        }
+
+        /// <summary>
+        /// Assign role to user.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult AssignRoleToUser(AssignRoleToUserCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
         /// Get function by role recursion.
         /// </summary>
         /// <param name="rawFunctions">The enumerator contain all functions.</param>

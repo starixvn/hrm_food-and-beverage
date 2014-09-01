@@ -191,7 +191,8 @@
     <Content Include="Src\App\Resources\resources-controller.js" />
     <Content Include="Src\App\Logout\logout-controller.js" />
     <Content Include="Src\App\Resources\resources-factory.js" />
-    <Content Include="Src\App\UserControl\Templates\userIndex.html" />
+    <Content Include="Src\App\UserControl\Templates\UserPermission\assignRole.html" />
+    <Content Include="Src\App\UserControl\Templates\UserPermission\index.html" />
     <Content Include="Src\App\UserControl\userControl-factory.js" />
     <Content Include="Src\App\UserControl\userControl-route.js" />
     <Content Include="Src\App\UserControl\userControl-controller.js" />
@@ -245,7 +246,10 @@
     <Content Include="Src\Content\Site\auth\images\icon-pass.png" />
     <Content Include="Src\Content\Site\auth\images\icon-user.png" />
     <Content Include="Src\Content\Site\auth\images\logo.png" />
+    <Content Include="Src\Content\Site\Images\icon-search.png" />
+    <Content Include="Src\Content\Site\Images\icon_sprite.png" />
     <Content Include="Src\Content\Site\Images\line-menu.png" />
+    <Content Include="Src\Content\Site\Images\sprite_ico_2012-05-15.png" />
     <Content Include="Src\Content\Site\Images\success.png" />
     <Content Include="Src\Content\Site\Images\table_header_repeat.jpg" />
     <Content Include="Web.config">

@@ -109,5 +109,33 @@ namespace NexFB.Site.Controllers.API
 
             return _userControlService.GetAllEmployeeRole(criteria);
         }
+
+        /// <summary>
+        /// Get employee role by Id.
+        /// </summary>
+        /// <param name="systemId">The system ID.</param>
+        /// <returns>The employee model.</returns>
+        [HttpGet]
+        public EmployeeModel GetEmployeeRoleById(int systemId)
+        {
+            var criteria = new GetEmployeeRoleByIdCriteria
+            {
+                SystemId = systemId
+            };
+
+            return _userControlService.GetEmployeeRoleById(criteria);
+        }
+
+        [HttpPost]
+        public CommandResult AssignRoleToUser(AssignRoleToUserCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _userControlService.AssignRoleToUser(criteria);
+        }
     }
 }

@@ -27,12 +27,12 @@
             <option value="">-- {{"AllTeam" | translate}} --</option>
         </select>
     </div>
-	<div class="form-group">
+	<div class="form-group" name="roleOption">
         <label data-translate="Role">
         </label>
-        <div multi-select input-model="roleOptions" button-label="Name" item-label="Name" tick-property="ticked"
+        <add-class-to-role-filter multi-select input-model="roleOptions" button-label="Name" item-label="Name" tick-property="ticked"
              max-labels="0" >
-        </div>
+        </add-class-to-role-filter>
     </div>
     <div class="form-group">
         <button class="button" ng-click="query(filter)" ng-disabled="disabledSubmitButton" data-translate="Submit">
@@ -43,18 +43,6 @@
 <div class="row">
     <table class="table table-bordered table-striped" id="data" fixed-header>
         <thead>
-<!--            <tr class="header-table">
-                <th colspan="8">
-                    <div class="pull-left table-entries">
-                        <span data-translate="Show"></span>
-                        <select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
-                            ng-options="entry for entry in entries">
-                        </select>
-                        <span data-translate="entries"></span>
-                    </div>
-                    <input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
-                </th>
-            </tr>-->
             <tr class="headerName">
                 <th class="employee-no" data-translate="SymbolCount">
                 </th>
@@ -66,7 +54,7 @@
                 </th>
                 <th class="authority-employee-team" data-translate="Team">
                 </th>
-                <th class="authority-employee-job-title" data-translate="Company">
+                <th class="authority-employee-company" data-translate="Company">
                 </th>
                 <th class="authority-employee-role" data-translate="Roles">
                 </th>
@@ -76,10 +64,10 @@
         </thead>
         <tbody class="table-body">
             <tr ng-repeat="employee in employees">
-                <td class="index employee-no">
+                <td class="employee-no">
                     {{$index + 1}}
                 </td>
-                <td class="code employee-code">
+                <td class="employee-code">
                     {{employee.Code}}
                 </td>
                 <td class="nick-name authority-employee-nick">
@@ -91,13 +79,13 @@
                <td class="authority-employee-team">
                     <span tooltip="{{employee.Team.Name}}">{{employee.Team.Code}}</span>
                 </td>
-                <td class="authority-employee-job-title">
+                <td class="authority-employee-company">
                     {{employee.Department.Name}}
                 </td>
                 <td class="authority-employee-role">
 					{{employee.Roles}}
                 </td>
-                <td class="index authority-employee-action" >
+                <td class="align-center authority-employee-action" >
                     <a class="glyphicon glyphicon-edit icon-edit" href="" title="Edit" ng-click="assignRole(employee)" />
                 </td>
             </tr>

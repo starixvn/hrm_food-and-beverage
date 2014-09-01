@@ -101,3 +101,126 @@ appModule.directive('getRolePermission', function () {
 		}
 	};
 });
+
+// assign permission to user
+appModule.directive('assignUserPermission', function () {
+	return {
+		restrict: "A",
+		link: function (scope, iElement) {
+			iElement.on("change", function () {
+				var currentId = $(this).val(),
+					checked = $(this).is(':checked'),
+					parentId = $(this).attr('pid');
+
+				if (parentId) {
+					var parent = $('#role' + parentId);
+
+					if (checked && !parent.is(':checked')) {
+						parent.prop('checked', true);
+					}
+					else {
+						var siblings = $("[name='department'][pid='" + parentId + "']:checked");
+
+						if (!siblings || (siblings && siblings.length === 0)) {
+							parent.prop('checked', false);
+						}
+					}
+				}
+				else if (currentId) {
+					$("[name='department'][pid='" + currentId + "']").prop('checked', checked);
+				}
+			});
+		}
+	};
+});
+
+// get user permission when click save button
+appModule.directive('getUserPermission', function () {
+	var getDepartmentTemplate = function (roleDiv, roleId) {
+		var result = '',
+		template = '<RoleDepartment RoleID="' + roleId + '"',
+		departments = $(roleDiv).find("[name='department'][pid='" + roleId + "']:checked");
+
+		if (departments) {
+			for (var i = 0; i < departments.length; i++) {
+				var department = departments[i],
+					departmentId = $(department).val(),
+					departmentTemplate = template + ' DepartmentID="' + departmentId + '"/>';
+				result = result !== '' ? result + departmentTemplate : departmentTemplate;
+			}
+		}
+
+		return result;
+	};
+
+	var getDepartmentName = function (roleDiv, roleId) {
+		var result = '',
+			departments = $(roleDiv).find("[name='department'][pid='" + roleId + "']:checked");
+
+		if (departments) {
+			for (var i = 0; i < departments.length; i++) {
+				var department = departments[i],
+					departmentId = $(department).val(),
+					departmentName = $('#departmentName' + departmentId).text();
+
+				result = result !== '' ? result + ', ' + departmentName : departmentName;
+			}
+		}
+
+		return result;
+	};
+
+	return {
+		restrict: "A",
+		link: function (scope, iElement) {
+			iElement.on("click", function () {
+				var roleDiv = $("[name='userRoles']"),
+				roleItems = $(roleDiv).find("[name='role']:checked"),
+				roles = '',
+				rolesName = '',
+				roleDepartments = '<ROOT>';
+
+				if (roleItems) {
+					for (var i = 0; i < roleItems.length; i++) {
+						var item = roleItems[i],
+							roleId = $(item).val(),
+							roleName = $('#roleName' + roleId).text();
+
+						roles = roles !== '' ? roles + ',' + roleId : roleId;
+						rolesName = rolesName !== '' ? rolesName + ', ' + roleName : roleName;
+
+						// get department of role if it has
+						var departmentTemplate = getDepartmentTemplate(roleDiv, roleId);
+						roleDepartments += departmentTemplate;
+
+						// get department name
+						var departmentsName = getDepartmentName(roleDiv, roleId);
+
+						if (departmentsName) {
+							rolesName += '(' + departmentsName + ')';
+						}
+					}
+				}
+
+				roleDepartments += '</ROOT>';
+
+				// call save function
+				scope.save.call(this, roles, roleDepartments, rolesName);
+			});
+		}
+	};
+});
+
+// Manage User: remove class button, add class form-control to role multi-select
+appModule.directive('addClassToRoleFilter',['$compile', function ($compile) {
+	return {
+		restrict: 'E',
+		link: function (scope) {
+			var roleGroup = $("[name='roleOption']"),
+				button = roleGroup.find("button.multiSelectButton");
+
+			button.removeClass('button').addClass('form-control');
+			$compile(button)(scope);
+		}
+	};
+}]);

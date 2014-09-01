@@ -76,6 +76,57 @@ namespace NexFB.Repositories.Implement
         }
 
         /// <summary>
+        /// Get employee role by ID.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The employee model.</returns>
+        public EmployeeModel GetEmployeeRoleById(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    IEnumerable<EmployeeModel> employees = multi.Read<EmployeeModel, Department, Team, EmployeeModel>(
+                        (emp, dep, te) =>
+                        {
+                            emp.Department = dep;
+                            emp.Team = te;
+                            return emp;
+                        },
+                        "DepartmentID, TeamID");
+
+                    IEnumerable<EmployeeRoleModel> roles = multi.Read<EmployeeRoleModel, Role, EmployeeRoleModel>(
+                        (empRo, ro) =>
+                        {
+                            empRo.Role = ro;
+                            return empRo;
+                        },
+                        "RoleId");
+
+                    IEnumerable<RoleDepartmentModel> rolesDepartment = multi.Read<RoleDepartmentModel, Department, RoleDepartmentModel>(
+                        (roDep, dep) =>
+                        {
+                            roDep.Department = dep;
+                            return roDep;
+                        },
+                        "DepartmentId");
+
+                    if (employees != null && roles != null)
+                    {
+                        if (rolesDepartment != null)
+                        {
+                            roles = GetAdminDepartment(roles, rolesDepartment);
+                        }
+
+                        employees = GetRolesOfEmployees(employees, roles);
+                    }
+
+                    return employees.FirstOrDefault();
+                }
+            }
+        }
+
+        /// <summary>
         /// Get roles of employees.
         /// </summary>
         /// <param name="employees">The enumerator employees.</param>

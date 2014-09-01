@@ -19,5 +19,7 @@ namespace NexFB.Repositories.Interface
     public interface IUserControlRepository
     {
         IEnumerable<EmployeeModel> GetAllEmployeeRole(ICriteria criteria);
+
+        EmployeeModel GetEmployeeRoleById(ICriteria criteria);
     }
 }

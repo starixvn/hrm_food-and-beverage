@@ -16,11 +16,17 @@ userControlModule.factory('userControlFactory', ['$http', function ($http) {
 			return $http.get('/api/UserControl/GetAllEmployeeRole',
 					{ params: { keyword: keyword, departmentId: departmentId, teamId: teamId, roleId: roleId} });
 		},
+		getEmployeeRoleById: function (systemId) {
+			return $http.get('/api/UserControl/GetEmployeeRoleById', { params: { systemId: systemId } });
+		},
 		getAllDepartment: function () {
 			return $http.get('/api/Common/GetAllDepartment');
 		},
 		getAllTeamByCompany: function (departmentId) {
 			return $http.get('/api/Common/GetAllTeamByCompany', { params: { departmentId: departmentId} });
+		},
+		assignRoleToUser: function (userRoles) {
+			return $http.post('/api/UserControl/AssignRoleToUser', userRoles);
 		}
 	};
 } ]);

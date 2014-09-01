@@ -25,5 +25,9 @@ namespace NexFB.Services.Interface
         CommandResult AssignPermissionToRole(AssignPermissionToRoleCriteria criteria);
 
         IEnumerable<EmployeeModel> GetAllEmployeeRole(GetAllEmployeeRoleCriteria criteria);
+
+        EmployeeModel GetEmployeeRoleById(GetEmployeeRoleByIdCriteria criteria);
+
+        CommandResult AssignRoleToUser(AssignRoleToUserCriteria criteria);
     }
 }

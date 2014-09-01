@@ -70,8 +70,8 @@ function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory)
 } ]);
 
 userControlModule.controller("ManageUserController",
-['$scope', 'userControlFactory', 'notificationFactory',
-function ($scope, userControlFactory, notificationFactory) {
+['$scope', 'userControlFactory', 'notificationFactory', '$route', '$modal', 'ErrorFactory',
+function ($scope, userControlFactory, notificationFactory, $route, $modal, ErrorFactory) {
 	$scope.filter = {
 		keyword: '',
 		departmentId: '',
@@ -82,7 +82,7 @@ function ($scope, userControlFactory, notificationFactory) {
 	userControlFactory.getAllDepartment().success(function (departments) {
 		$scope.departmentOptions = departments;
 	}).error(function () {
-		// TODO
+		notificationFactory.error("ErrorMessage");
 	});
 
 	$scope.getTeamByCompany = function (departmentId) {
@@ -90,7 +90,7 @@ function ($scope, userControlFactory, notificationFactory) {
 			userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
 				$scope.teamOptions = teams;
 			}).error(function () {
-				// TODO
+				notificationFactory.error("ErrorMessage");
 			});
 		}
 		else {
@@ -112,7 +112,12 @@ function ($scope, userControlFactory, notificationFactory) {
 			$scope.employees = employees;
 		})
 		.error(function () {
-			// TODO
+			if (status === 405) {
+				ErrorFactory.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
 		});
 	}
 
@@ -132,5 +137,106 @@ function ($scope, userControlFactory, notificationFactory) {
 	$scope.query = function (filter) {
 		getSelectedRole(filter);
 		getAllEmployeeRole(filter);
+	};
+
+	$scope.assignRole = function (employee) {
+
+		var modalAssignInstance = $modal.open({
+			templateUrl: '/src/app/UserControl/Templates/UserPermission/assignRole.html',
+			controller: "AssignRoleToUserController",
+			resolve: {
+				systemId: function () {
+					return employee.SystemId;
+				}
+			}
+		});
+
+		modalAssignInstance.result.then(function (userRoles) {
+
+			userControlFactory.assignRoleToUser(userRoles).success(function (response) {
+				if (response.IsSuccessful === true) {
+					employee.Roles = userRoles.rolesName;
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("DataChangeFail");
+				}
+			});
+		});
+	};
+
+	$scope.reload = function () {
+		$route.reload();
+	};
+} ]);
+
+userControlModule.controller('AssignRoleToUserController',
+['$scope', '$modalInstance', 'systemId', 'userControlFactory', 'notificationFactory',
+function ($scope, $modalInstance, systemId, userControlFactory, notificationFactory) {
+
+	userControlFactory.getEmployeeRoleById(systemId).success(function (employee) {
+		$scope.employee = employee;
+		$scope.roles = employee.RoleItems;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
+	userControlFactory.getAllSystemRole().success(function (systemRoles) {
+		$scope.systemRoles = systemRoles;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
+	userControlFactory.getAllDepartment().success(function (departments) {
+		$scope.departments = departments;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
+	$scope.checkRolePermission = function (roleId) {
+		var isChecked = false;
+		angular.forEach($scope.roles, function (role) {
+			if (role.RoleId === roleId) {
+				isChecked = true;
+			}
+		});
+
+		return isChecked;
+	};
+
+	$scope.checkDepartmentPermission = function (roleId, departmentId) {
+		var isChecked = false;
+		angular.forEach($scope.roles, function (role) {
+			if (role.RoleId === roleId) {
+				angular.forEach(role.Departments, function (department) {
+					if (department.DepartmentId === departmentId) {
+						isChecked = true;
+					}
+				});
+			}
+		});
+
+		return isChecked;
+	};
+
+	$scope.save = function (roles, roleDepartments, rolesName) {
+		var userRoles = {
+			systemID: systemId,
+			roleID: roles,
+			roleDepartments: roleDepartments,
+			rolesName: rolesName
+		};
+		$modalInstance.close(userRoles);
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
 	};
 } ]);
