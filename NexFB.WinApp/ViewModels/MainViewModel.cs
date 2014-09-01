@@ -25,7 +25,7 @@ namespace NexFB.WinApp.ViewModels
         #region Fields
         private const string OrderFoodReceiptTemplate = "PrintingTemplates\\OrderFoodReceipt.xaml";
 
-        private static readonly PendingFoodViewModel PendingFoodViewModel = new PendingFoodViewModel();
+        private static readonly WaitingMealViewModel WaitingMealViewModel = new WaitingMealViewModel();
 
         private static readonly DeliveredFoodViewModel DeliveredFoodViewModel = new DeliveredFoodViewModel();
 
@@ -41,7 +41,7 @@ namespace NexFB.WinApp.ViewModels
 
         public MainViewModel()
         {
-            CurrentViewModel = MainViewModel.PendingFoodViewModel;
+            CurrentViewModel = MainViewModel.WaitingMealViewModel;
             ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
             ViewDeliveredFoodCommand = new RelayCommand((x) => CanExecuteViewDeliveredFood(), (y) => ExecuteViewDeliveredFood());
             ViewOrderFoodCommand = new RelayCommand((x) => CanExecuteViewOrderFood(), (y) => ExecuteViewOrderFood());
@@ -94,7 +94,7 @@ namespace NexFB.WinApp.ViewModels
 
         private void ExecuteViewPendingFood()
         {
-            CurrentViewModel = MainViewModel.PendingFoodViewModel;
+            CurrentViewModel = MainViewModel.WaitingMealViewModel;
         }
 
         private bool CanExecuteViewDeliveredFood()
@@ -133,7 +133,7 @@ namespace NexFB.WinApp.ViewModels
             var model = new DataPrint()
             {
                 Address = "Viet Nam",
-                CustomerName = "Bradley",
+                CustomerName = "Nexcel",
                 Date = DateTime.Now,
                 PledgeNumber = "1234"
             };

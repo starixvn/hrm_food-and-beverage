@@ -52,6 +52,8 @@
     <Compile Include="Authority\UserSession.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Team.cs" />
+    <Compile Include="Kitchen\Menu.cs" />
+    <Compile Include="Kitchen\Order.cs" />
     <Compile Include="UserControl\EmployeeRoleModel.cs" />
     <Compile Include="UserControl\FunctionModel.cs" />
     <Compile Include="UserControl\RoleDepartmentModel.cs" />

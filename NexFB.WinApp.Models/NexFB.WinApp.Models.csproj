@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="ManageOrder\DataPrint.cs" />
     <Compile Include="ManageOrder\MealType.cs" />
-    <Compile Include="ManageOrder\Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

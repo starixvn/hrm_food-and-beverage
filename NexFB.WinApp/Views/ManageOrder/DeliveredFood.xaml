@@ -8,7 +8,7 @@
 	mc:Ignorable="d" d:DesignHeight="1024" d:DesignWidth="1280">
 
 	<Grid VerticalAlignment="Top" x:Name="GridDeliveredFood">
-		<ListBox Margin="-1,0,0,0" BorderBrush="#FA5934" ItemsSource="{Binding Path=Persons}" x:Name="ListDeliveredFood" ScrollViewer.VerticalScrollBarVisibility="Visible">
+		<ListBox Margin="-1,0,0,0" BorderBrush="#FA5934" ItemsSource="{Binding Path=DeliveredMeals}" x:Name="ListDeliveredFood" ScrollViewer.VerticalScrollBarVisibility="Visible">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<Border BorderThickness="1,1,0,1" BorderBrush="#FA5934" Margin="0" Padding="0" CornerRadius="0" Height="150">
@@ -21,8 +21,8 @@
 
 							<!--Order number-->
 							<StackPanel Grid.Column="0" Height="150" Width="180" Background="Black" VerticalAlignment="Top" Margin="-9,0,0,0">
-								<Label Content="{Binding Path=No}" Foreground="White" HorizontalAlignment="Center" FontSize="70" VerticalAlignment="Center"></Label>
-								<Label Content="{Binding Path=OrderDate}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+								<Label Content="{Binding Path=OrderId}" Foreground="White" HorizontalAlignment="Center" FontSize="70" VerticalAlignment="Center"></Label>
+								<Label Content="{Binding Path=RegisterDate}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
 							</StackPanel>
 
 							<!--Order details information-->
@@ -42,24 +42,24 @@
 											<ColumnDefinition Width="auto"/>
 										</Grid.ColumnDefinitions>
 										<Border Style="{StaticResource RoomNumberStyle}" Grid.Column="0">
-											<Label HorizontalAlignment="Center" FontWeight="Bold" Content="{Binding Path=Room}">
+											<Label HorizontalAlignment="Center" FontWeight="Bold" Content="{Binding Path=FloorName}">
 											</Label>
 										</Border>
-										<Label Grid.Column="1" Content="{Binding Path=RoomDescription}" />
+										<Label Grid.Column="1" Content="{Binding Path=VNMName}" />
 										<Label Grid.Column="2" Content="-" />
-										<Label Grid.Column="3" Content="{Binding Path=OrderOwner}" />
-										<Label Grid.Column="4" Content="{Binding Path=EmployeeId}" ContentStringFormat="#{0}" />
+										<Label Grid.Column="3" Content="{Binding Path=NickName}" />
+										<Label Grid.Column="4" Content="{Binding Path=Code}" ContentStringFormat="#{0}" />
 										<Label Grid.Column="5">
 											<StackPanel Orientation="Horizontal">
 												<Image Width="20" Height="20" Source="pack://application:,,,/Images/phone-icon.png" Stretch="Uniform"/>
-												<TextBlock Text="{Binding Path=RoomPhone}" Margin="4,0,0,0"/>
+												<TextBlock Text="{Binding Path=Phone}" Margin="4,0,0,0"/>
 											</StackPanel>
 										</Label>
 									</Grid>
 
 									<!--Display number of meals-->
 									<Grid Height="63">
-										<ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=MealType}" BorderThickness="0">
+										<ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=ListMenu}" BorderThickness="0">
 											<ListBox.ItemsPanel>
 												<ItemsPanelTemplate >
 													<WrapPanel Orientation="Horizontal" ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
@@ -72,7 +72,7 @@
 															<ColumnDefinition/>
 															<ColumnDefinition/>
 														</Grid.ColumnDefinitions>
-														<Label FontSize="15" Grid.Column="0" Content="{Binding Path=Type}" ContentStringFormat=" {0} :"></Label>
+														<Label FontSize="15" Grid.Column="0" Content="{Binding Path=MenuVNMName}" ContentStringFormat=" {0} :"></Label>
 														<Label FontSize="15" Grid.Column="1" Content="{Binding Path=QuantityPerTotal}" Margin="0,0,20,0"></Label>
 													</Grid>
 												</DataTemplate>
@@ -94,7 +94,7 @@
 													</Style>
 												</Image.Style>
 											</Image>
-											<TextBlock Foreground="Red" Text="{Binding Path=GeneralNote}" FontSize="14" Margin="4,0,0,0"/>
+											<TextBlock Foreground="Red" Text="{Binding Path=Remark}" FontSize="14" Margin="4,0,0,0"/>
 										</StackPanel>
 									</Label>
 								</StackPanel>
@@ -102,8 +102,11 @@
 
 							<!--Order status-->
 							<Grid Grid.Column="2" Width="170" Height="150" VerticalAlignment="Top">
-								<Button Foreground="White" Style="{StaticResource TileButton}" Margin="4,7,0,107" Width="83" Height="36" HorizontalAlignment="Left" />
-								<Button Background="#3A95FC"  Foreground="White" Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Edit}" Margin="0,7,15,107" Height="36" HorizontalAlignment="Right" Width="55" />
+								<Button Command="{Binding ElementName=ListDeliveredFood, Path=DataContext.UnDeliverMealCommand}" CommandParameter="{Binding Path=OrderId}"
+								 Background="#FA5934" Foreground="White" Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Back}" Margin="4,7,0,107" Width="83" Height="36" HorizontalAlignment="Left" />
+
+								<Button  Command="{Binding ElementName=ListDeliveredFood, Path=DataContext.EditMealCommand}" CommandParameter="{Binding Path=OrderId}"
+								Background="#3A95FC"  Foreground="White" Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Edit}" Margin="0,7,15,107" Height="36" HorizontalAlignment="Right" Width="55" />
 							</Grid>
 						</Grid>
 					</Border>

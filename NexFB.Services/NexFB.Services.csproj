@@ -62,6 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implement\KitchenService.cs" />
+    <Compile Include="Interface\IKitchenService.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Implement\CommonService.cs" />
     <Compile Include="Implement\UserControlService.cs" />

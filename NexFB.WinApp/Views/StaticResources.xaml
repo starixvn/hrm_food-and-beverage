@@ -7,8 +7,8 @@
 	xmlns:views="clr-namespace:NexFB.WinApp.Views.ManageOrder">
 
 	<!--Switch view according to Data Type-->
-	<DataTemplate DataType="{x:Type vm:PendingFoodViewModel}">
-		<views:PendingFood />
+	<DataTemplate DataType="{x:Type vm:WaitingMealViewModel}">
+		<views:WaitingMeal />
 	</DataTemplate>
 
 	<DataTemplate DataType="{x:Type vm:DeliveredFoodViewModel}">
@@ -72,28 +72,30 @@
 							<Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
 							<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
 						</Trigger>
-						<DataTrigger Binding="{Binding Path=FoodOrderStatus}" Value="1">
+						<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="1">
 							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Receive}"></Setter>
 							<Setter Property="Background" Value="#3A95FC"/>
 							<Setter Property="Command" Value="{Binding ElementName=ListPendingFood, Path=DataContext.ReceiveOrderFoodCommand}"/>
 							<!--<Setter Property="Command" Value="{Binding Path=DataContext.ReceiveOrderFoodCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>-->
-							<Setter Property="CommandParameter" Value="{Binding Path=EmployeeCode}"/>
+							<Setter Property="CommandParameter" Value="{Binding Path=OrderId}"/>
 						</DataTrigger>
-						<DataTrigger Binding="{Binding Path=FoodOrderStatus}" Value="2">
+
+						<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="2">
 							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Export}"></Setter>
 							<Setter Property="Background" Value="#FA5934"/>
-							<Setter Property="Command" Value="{Binding ElementName=ListPendingFood, Path=DataContext.ExportOrderFoodCommand}"/>
-							<Setter Property="CommandParameter" Value="{Binding Path=EmployeeCode}"/>
+							<Setter Property="Command" Value="{Binding ElementName=ListPendingFood, Path=DataContext.DeliverOrderFoodCommand}"/>
+							<Setter Property="CommandParameter" Value="{Binding Path=OrderId}"/>
 						</DataTrigger>
-						<DataTrigger Binding="{Binding Path=FoodOrderStatus}" Value="3">
-							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Back}"></Setter>
+						<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="3">
+							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Export}"></Setter>
 							<Setter Property="Background" Value="#FA5934"/>
-							<Setter Property="Command" Value="{Binding ElementName=ListDeliveredFood, Path=DataContext.ExportOrderFoodCommand}"/>
-							<Setter Property="CommandParameter" Value="{Binding Path=EmployeeCode}"/>
+							<Setter Property="Command" Value="{Binding ElementName=ListPendingFood, Path=DataContext.DeliverOrderFoodCommand}"/>
+							<Setter Property="CommandParameter" Value="{Binding Path=OrderId}"/>
 						</DataTrigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
+
 </ResourceDictionary>

@@ -7,8 +7,8 @@
 	xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
 	Title="Order Foods" Width="1280" Height="1024" WindowState="Maximized"
 	ResizeMode="NoResize"
-	l:ControlBox.HasMinimizeButton="False"
-	l:ControlBox.HasMaximizeButton="False">
+	l:ControlBox.HasMinimizeButton="True"
+	l:ControlBox.HasMaximizeButton="True">
 
 	<Window.Resources>
 		<!--AllowsTransparency="False"-->

@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="PendingFood.xaml.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="WaitingMeal.xaml.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Bradley.Mac" date="2014.8.27">Created</change>
+//   <change who="Bradley.Mac" date="2014.9.1">Created</change>
 // </history>
 
 namespace NexFB.WinApp.Views.ManageOrder
@@ -14,9 +14,9 @@ namespace NexFB.WinApp.Views.ManageOrder
     /// <summary>
     /// Interaction logic for PendingFood.
     /// </summary>
-    public partial class PendingFood : UserControl
+    public partial class WaitingMeal : UserControl
     {
-        public PendingFood()
+        public WaitingMeal()
         {
             InitializeComponent();
         }

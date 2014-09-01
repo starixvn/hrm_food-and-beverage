@@ -102,8 +102,8 @@
     <Compile Include="Views\ManageOrder\OrderFood.xaml.cs">
       <DependentUpon>OrderFood.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManageOrder\PendingFood.xaml.cs">
-      <DependentUpon>PendingFood.xaml</DependentUpon>
+    <Compile Include="Views\ManageOrder\WaitingMeal.xaml.cs">
+      <DependentUpon>WaitingMeal.xaml</DependentUpon>
     </Compile>
     <None Include="PrintingTemplates\OrderFoodReceipt.xaml">
       <SubType>Designer</SubType>
@@ -118,7 +118,7 @@
     <Compile Include="ViewModels\DeliveredFoodViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\OrderFoodViewModel.cs" />
-    <Compile Include="ViewModels\PendingFoodViewModel.cs" />
+    <Compile Include="ViewModels\WaitingMealViewModel.cs" />
     <Compile Include="ViewModels\StatisticViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\App.xaml.cs">
@@ -137,7 +137,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManageOrder\PendingFood.xaml">
+    <Page Include="Views\ManageOrder\WaitingMeal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

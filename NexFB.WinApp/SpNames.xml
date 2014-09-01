@@ -13,4 +13,10 @@
 		<Setting Key="SystemRole_GetAll" SpName="SystemRole_GetAll" DbName="NexFB" Plain="0" ></Setting>
 		<Setting Key="RoleFunction_Assign" SpName="RoleFunction_Assign" DbName="NexFB" Plain="0" ></Setting>
 	</Function>
+	<Function Name="Kitchen">
+		<Setting Key="POS_Get_ListRequestWaitingByPOS" SpName="POS_Get_ListRequestWaitingByPOS" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_Get_ListRequestDeliverByPOS" SpName="POS_Get_ListRequestDeliverByPOS" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_ReceiveOrder" SpName="POS_ReceiveOrder" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_DeliverOrder" SpName="POS_DeliverOrder" DbName="NexFB" Plain="0" ></Setting>
+	</Function>
 </Functions>
