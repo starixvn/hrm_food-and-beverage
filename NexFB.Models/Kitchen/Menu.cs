@@ -18,9 +18,9 @@ namespace NexFB.Models.Kitchen
 
         public int MenuId { get; set; }
 
-        public string MenuENGName { get; set; }
+        public string MenuEngName { get; set; }
 
-        public string MenuVNMName { get; set; }
+        public string MenuVnmName { get; set; }
 
         public int QtyOrd { get; set; }
 

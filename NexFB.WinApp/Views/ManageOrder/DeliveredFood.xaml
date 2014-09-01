@@ -45,7 +45,7 @@
 											<Label HorizontalAlignment="Center" FontWeight="Bold" Content="{Binding Path=FloorName}">
 											</Label>
 										</Border>
-										<Label Grid.Column="1" Content="{Binding Path=VNMName}" />
+										<Label Grid.Column="1" Content="{Binding Path=VnmName}" />
 										<Label Grid.Column="2" Content="-" />
 										<Label Grid.Column="3" Content="{Binding Path=NickName}" />
 										<Label Grid.Column="4" Content="{Binding Path=Code}" ContentStringFormat="#{0}" />
@@ -72,7 +72,7 @@
 															<ColumnDefinition/>
 															<ColumnDefinition/>
 														</Grid.ColumnDefinitions>
-														<Label FontSize="15" Grid.Column="0" Content="{Binding Path=MenuVNMName}" ContentStringFormat=" {0} :"></Label>
+														<Label FontSize="15" Grid.Column="0" Content="{Binding Path=MenuVnmName}" ContentStringFormat=" {0} :"></Label>
 														<Label FontSize="15" Grid.Column="1" Content="{Binding Path=QuantityPerTotal}" Margin="0,0,20,0"></Label>
 													</Grid>
 												</DataTemplate>

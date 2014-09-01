@@ -35,9 +35,9 @@ namespace NexFB.Models.Kitchen
 
         public int LocationId { get; set; }
 
-        public string VNMName { get; set; }
+        public string VnmName { get; set; }
 
-        public string ENGName { get; set; }
+        public string EngName { get; set; }
 
         public string FloorName { get; set; }
 
