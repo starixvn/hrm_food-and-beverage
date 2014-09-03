@@ -35,5 +35,7 @@ namespace NexFB.Core.Constants
         public const string Administrator = "Admin";
 
         public const string ManageRole = "ManageRole";
+
+        public const string ManageUser = "ManageUser";
     }
 }

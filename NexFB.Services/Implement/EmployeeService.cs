@@ -16,6 +16,7 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Security;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
+    using NexFB.Models.UserControl;
     using NexFB.Services.Interface;
 
     /// <summary>
@@ -97,6 +98,24 @@ namespace NexFB.Services.Implement
             }
 
             return menuGroups;
+        }
+
+        /// <summary>
+        /// Get all function of employee.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list Function model.</returns>
+        public IList<FunctionModel> GetAllEmployeeFunction(GetAllEmployeeFunctionCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<FunctionModel> functions = null;
+
+            if (criteria.IsValid())
+            {
+                functions = GetData<FunctionModel>(criteria).ToList();
+            }
+
+            return functions;
         }
 
         /// <summary>

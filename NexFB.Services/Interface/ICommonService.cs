@@ -10,7 +10,6 @@
 namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
-    using NexFB.Core.Enums;
     using NexFB.Criteria.Department;
     using NexFB.Criteria.Team;
     using NexFB.Criteria.UserControl;
@@ -22,11 +21,7 @@ namespace NexFB.Services.Interface
     /// </summary>
     public interface ICommonService
     {
-        IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria);
-
-        int GetPermission(string functionKey);
-
-        bool HasPermissionOnFunction(string functionKey, Policy policy);
+        IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria, bool exceptSystemAdmin = false);
 
         IEnumerable<Department> GetAllDepartment(GetAllDepartmentCriteria criteria);
 

@@ -18,8 +18,8 @@ namespace NexFB.Web.Attributes
     using System.Web.Http.Controllers;
     using NexFB.Core.Enums;
     using NexFB.Models.Authority;
-    using NexFB.Services.Implement;
-    using NexFB.Services.Interface;
+    using NexFB.Web.Services.Implement;
+    using NexFB.Web.Services.Interface;
 
     /// <summary>
     /// API authorize attribute.
@@ -30,16 +30,16 @@ namespace NexFB.Web.Attributes
     {
         private string _functionKey;
         private Policy _policy;
-        private ICommonService _commonService;
+        private IWebCommonService _webCommonService;
 
         public ApiAuthorizeAttribute()
             : this(null)
         {
         }
 
-        public ApiAuthorizeAttribute(ICommonService commonService)
+        public ApiAuthorizeAttribute(IWebCommonService webCommonService)
         {
-            _commonService = commonService ?? new CommonService();
+            _webCommonService = webCommonService ?? new WebCommonService();
         }
 
         public string FunctionKey
@@ -109,7 +109,7 @@ namespace NexFB.Web.Attributes
 
             foreach (ApiAuthorizeAttribute item in attributes)
             {
-                if (!_commonService.HasPermissionOnFunction(item.FunctionKey, item.Policy))
+                if (!_webCommonService.HasPermissionOnFunction(item.FunctionKey, item.Policy))
                 {
                     HandlePermissionRequest(actionContext);
                 }

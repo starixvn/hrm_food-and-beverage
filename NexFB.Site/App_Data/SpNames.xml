@@ -14,6 +14,8 @@
 		<Mapping DataField="Url" ObjectProperty="MenuLink"/>
 		<Mapping DataField="MenuDisabled" ObjectProperty="IsDisabled"/>
 	</Setting>
+	<Setting Key="Employee_GetAllFunctionBySysID" SpName="Employee_GetAllFunctionBySysID" DbName="NexFB" Plain="0" >
+	</Setting>
   </Function>
 	<Function Name="ManageRole">
 		<Setting Key="Function_GetByRole" SpName="Function_GetByRole" DbName="NexFB" Plain="0" ></Setting>

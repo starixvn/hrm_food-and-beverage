@@ -58,7 +58,7 @@
                 </th>
                 <th class="authority-employee-role" data-translate="Roles">
                 </th>
-                <th class="authority-employee-action" data-translate="Action">
+                <th class="authority-employee-action" data-translate="Action" ng-show="policy.permission == 2">
                 </th>
             </tr>
         </thead>
@@ -83,9 +83,9 @@
                     {{employee.Department.Name}}
                 </td>
                 <td class="authority-employee-role">
-					{{employee.Roles}}
+                    {{employee.Roles}}
                 </td>
-                <td class="align-center authority-employee-action" >
+                <td class="align-center authority-employee-action" ng-if="policy.permission == 2">
                     <a class="glyphicon glyphicon-edit icon-edit" href="" title="Edit" ng-click="assignRole(employee)" />
                 </td>
             </tr>

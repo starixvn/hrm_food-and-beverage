@@ -9,6 +9,7 @@
 
 namespace NexFB.Site.Controllers
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using System.Web.Security;
     using NexFB.Core.Constants;
@@ -85,6 +86,7 @@ namespace NexFB.Site.Controllers
         /// </summary>
         /// <param name="model">Login Model.</param>
         /// <returns>Result of check.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private UserSession GetUserLogin(LoginModel model)
         {
             UserSession user = null;
@@ -130,6 +132,12 @@ namespace NexFB.Site.Controllers
                     SystemId = user.SystemId
                 };
                 user.MenuGroups = _employeeService.GetEmployeeMenuById(getEmployeeMenuCriteria);
+
+                var getallFunctionCriteria = new GetAllEmployeeFunctionCriteria
+                {
+                    SystemId = user.SystemId
+                };
+                user.Functions = _employeeService.GetAllEmployeeFunction(getallFunctionCriteria);
             }
 
             return user;

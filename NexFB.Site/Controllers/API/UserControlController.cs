@@ -13,12 +13,16 @@ namespace NexFB.Site.Controllers.API
     using System.Collections.Generic;
     using System.Web.Http;
     using NexFB.Core.Constants;
+    using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.UserControl;
     using NexFB.Models.Employee;
     using NexFB.Models.UserControl;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
+    using NexFB.Web.Attributes;
+    using NexFB.Web.Services.Implement;
+    using NexFB.Web.Services.Interface;
 
     /// <summary>
     /// The user control controller.
@@ -29,19 +33,25 @@ namespace NexFB.Site.Controllers.API
 
         private ICommonService _commonService;
 
+        private IWebCommonService _webCommonService;
+
         public UserControlController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
-        public UserControlController(IUserControlService userControlService, ICommonService commonService)
+        public UserControlController(
+            IUserControlService userControlService, 
+            ICommonService commonService,
+            IWebCommonService webCommonService)
         {
             _userControlService = userControlService ?? new UserControlService();
             _commonService = commonService ?? new CommonService();
+            _webCommonService = webCommonService ?? new WebCommonService();
         }
 
         [HttpGet]
-        ////[ApiAuthorize(FunctionKey = FBFunctionKey.ManageRole, Policy = Policy.Read)]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.ManageRole, Policy = Policy.Read)]
         public IEnumerable<FunctionModel> GetFunctionByRole(int roleId)
         {
             var criteria = new GetFunctionByRoleCriteria()
@@ -53,15 +63,15 @@ namespace NexFB.Site.Controllers.API
         }
 
         [HttpGet]
-        public IEnumerable<RoleSystemModel> GetAllSystemRole()
+        public IEnumerable<RoleSystemModel> GetAllSystemRole(bool exceptSystemAdmin = false)
         {
             var criteria = new GetAllSystemRoleCriteria();
 
-            return _commonService.GetAllSystemRole(criteria);
+            return _commonService.GetAllSystemRole(criteria, exceptSystemAdmin);
         }
 
         [HttpPost]
-        ////[ApiAuthorize(FunctionKey = FBFunctionKey.ManageRole, Policy = Policy.Host)]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.ManageRole, Policy = Policy.Host)]
         public CommandResult AssignPermissionToRole(AssignPermissionToRoleCriteria criteria)
         {
             if (criteria != null)
@@ -73,14 +83,10 @@ namespace NexFB.Site.Controllers.API
             return _userControlService.AssignPermissionToRole(criteria);
         }
 
-        /// <summary>
-        /// Get permission of user on current function.
-        /// </summary>
-        /// <returns>The policy.</returns>
         [HttpGet]
         public int GetManageRolePermission()
         {
-            int policy = _commonService.GetPermission(FBFunctionKey.ManageRole);
+            int policy = _webCommonService.GetPermission(FBFunctionKey.ManageRole);
             return policy;
         }
 
@@ -93,6 +99,7 @@ namespace NexFB.Site.Controllers.API
         /// <param name="roleId">The role ID.</param>
         /// <returns>The enumerator Employee model.</returns>
         [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.ManageUser, Policy = Policy.Read)]
         public IEnumerable<EmployeeModel> GetAllEmployeeRole(
             string keyword = null,
             string departmentId = null,
@@ -127,6 +134,7 @@ namespace NexFB.Site.Controllers.API
         }
 
         [HttpPost]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.ManageUser, Policy = Policy.Host)]
         public CommandResult AssignRoleToUser(AssignRoleToUserCriteria criteria)
         {
             if (criteria != null)
@@ -136,6 +144,13 @@ namespace NexFB.Site.Controllers.API
             }
 
             return _userControlService.AssignRoleToUser(criteria);
+        }
+
+        [HttpGet]
+        public int GetManageUserPermission()
+        {
+            int policy = _webCommonService.GetPermission(FBFunctionKey.ManageUser);
+            return policy;
         }
     }
 }

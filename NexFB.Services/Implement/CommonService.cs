@@ -10,6 +10,7 @@
 namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using NexFB.Core.Enums;
     using NexFB.Criteria.Department;
@@ -28,67 +29,25 @@ namespace NexFB.Services.Implement
         /// Get all role system.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
+        /// <param name="exceptSystemAdmin">Except system admin role.</param>
         /// <returns>The enumerator Role System Model.</returns>
-        public IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria)
+        public IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria, bool exceptSystemAdmin = false)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<RoleSystemModel> roles = null;
+            List<RoleSystemModel> roles = null;
 
             if (criteria.IsValid())
             {
-                roles = GetData<RoleSystemModel>(criteria);
-            }
+                roles = GetData<RoleSystemModel>(criteria).ToList();
 
-            return roles;
-        }
-
-        /// <summary>
-        /// Get permission on function.
-        /// </summary>
-        /// <param name="functionKey">The function key.</param>
-        /// <returns>The permission.</returns>
-        public int GetPermission(string functionKey)
-        {
-            int policy = (int)Policy.None;
-
-            if (HasPermissionOnFunction(functionKey, Policy.Host))
-            {
-                policy = (int)Policy.Host;
-            }
-            else if (HasPermissionOnFunction(functionKey, Policy.Read))
-            {
-                policy = (int)Policy.Read;
-            }
-
-            return policy;
-        }
-
-        /// <summary>
-        /// Check current user has permission on current function or not.
-        /// </summary>
-        /// <param name="functionKey">The function key.</param>
-        /// <param name="policy">THe policy.</param>
-        /// <returns>True if has permission, false: otherwise.</returns>
-        public bool HasPermissionOnFunction(string functionKey, Policy policy)
-        {
-            FunctionModel currentFunction = new FunctionModel();
-
-            if (currentFunction != null)
-            {
-                switch (policy)
+                if (exceptSystemAdmin)
                 {
-                    case Policy.None:
-                        return true;
-
-                    case Policy.Read:
-                        return currentFunction.IsRead || currentFunction.IsHost;
-
-                    case Policy.Host:
-                        return currentFunction.IsHost;
+                    RoleSystemModel systemAdminRole = roles.Where(x => x.RoleId == (int)RolesSystem.SA).First();
+                    roles.Remove(systemAdminRole);
                 }
             }
 
-            return false;
+            return roles;
         }
 
         /// <summary>

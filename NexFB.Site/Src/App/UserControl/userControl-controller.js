@@ -9,7 +9,7 @@ function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory)
 		roleId: ''
 	};
 
-	userControlFactory.getAllSystemRole().success(function (roles) {
+	userControlFactory.getAllSystemRole(true).success(function (roles) {
 		if (roles) {
 			var roleId = roles[0].RoleId;
 			$scope.filter = {
@@ -19,6 +19,14 @@ function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory)
 			getFunctionByRole(roleId);
 			$scope.roleOptions = roles;
 		}
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
+	userControlFactory.getManageRolePermission().success(function (permission) {
+		$scope.policy = {
+			permission: permission
+		};
 	}).error(function () {
 		notificationFactory.error("ErrorMessage");
 	});
@@ -78,6 +86,14 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 		teamId: '',
 		roleId: ''
 	};
+
+	userControlFactory.getManageUserPermission().success(function (permission) {
+		$scope.policy = {
+			permission: parseInt(permission)
+		};
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
 
 	userControlFactory.getAllDepartment().success(function (departments) {
 		$scope.departmentOptions = departments;
@@ -188,7 +204,7 @@ function ($scope, $modalInstance, systemId, userControlFactory, notificationFact
 		notificationFactory.error("ErrorMessage");
 	});
 
-	userControlFactory.getAllSystemRole().success(function (systemRoles) {
+	userControlFactory.getAllSystemRole(false).success(function (systemRoles) {
 		$scope.systemRoles = systemRoles;
 	}).error(function () {
 		notificationFactory.error("ErrorMessage");

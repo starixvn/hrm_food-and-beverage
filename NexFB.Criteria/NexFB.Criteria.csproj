@@ -60,9 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Department\GetAllDepartmentCriteria.cs" />
-     <Compile Include="Department\GetAllLocationCriteria.cs" />
-      <Compile Include="Kitchen\GetOrderDetailsCriteria.cs" />
-
+    <Compile Include="Department\GetAllLocationCriteria.cs" />
+    <Compile Include="Employee\GetAllEmployeeFunctionCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeMenuBySystemIdCriteria.cs" />
+    <Compile Include="Kitchen\GetOrderDetailsCriteria.cs" />
     <Compile Include="Kitchen\ProcessDeliverOrderCriteria.cs" />
     <Compile Include="Kitchen\ProcessReceiveOrderCriteria.cs" />
     <Compile Include="Team\GetAllTeamByCompanyCriteria.cs" />
@@ -76,7 +77,6 @@
     <Compile Include="UserControl\GetEmployeeRoleByIdCriteria.cs" />
     <Compile Include="UserControl\GetFunctionByRoleCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByDomainCriteria.cs" />
-     <Compile Include="Employee\GetEmployeeMenuBySystemIdCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

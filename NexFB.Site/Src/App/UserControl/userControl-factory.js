@@ -6,8 +6,8 @@ userControlModule.factory('userControlFactory', ['$http', function ($http) {
 		getFunctionByRole: function (roleId) {
 			return $http.get('/api/UserControl/GetFunctionByRole', { params: { roleId: roleId} });
 		},
-		getAllSystemRole: function () {
-			return $http.get('/api/UserControl/GetAllSystemRole');
+		getAllSystemRole: function (exceptSystemAdmin) {
+			return $http.get('/api/UserControl/GetAllSystemRole', { params: { exceptSystemAdmin: exceptSystemAdmin } });
 		},
 		assignPermissionToRole: function (roleFunction) {
 			return $http.post('/api/UserControl/AssignPermissionToRole', roleFunction);
@@ -17,7 +17,7 @@ userControlModule.factory('userControlFactory', ['$http', function ($http) {
 					{ params: { keyword: keyword, departmentId: departmentId, teamId: teamId, roleId: roleId} });
 		},
 		getEmployeeRoleById: function (systemId) {
-			return $http.get('/api/UserControl/GetEmployeeRoleById', { params: { systemId: systemId } });
+			return $http.get('/api/UserControl/GetEmployeeRoleById', { params: { systemId: systemId} });
 		},
 		getAllDepartment: function () {
 			return $http.get('/api/Common/GetAllDepartment');
@@ -27,6 +27,12 @@ userControlModule.factory('userControlFactory', ['$http', function ($http) {
 		},
 		assignRoleToUser: function (userRoles) {
 			return $http.post('/api/UserControl/AssignRoleToUser', userRoles);
+		},
+		getManageRolePermission: function () {
+			return $http.get('/api/UserControl/GetManageRolePermission');
+		},
+		getManageUserPermission: function () {
+			return $http.get('/api/UserControl/GetManageUserPermission');
 		}
 	};
 } ]);

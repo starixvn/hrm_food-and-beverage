@@ -46,7 +46,7 @@
             </td>
         </tr>
     </table>
-    <div class="col-sm-5 clearfix save-button">
+    <div class="col-sm-5 clearfix save-button" ng-if="policy.permission == 2">
         <button class="button" get-role-permission ng-disabled="disabledSubmitButton" data-translate="Save">
         </button>
     </div>

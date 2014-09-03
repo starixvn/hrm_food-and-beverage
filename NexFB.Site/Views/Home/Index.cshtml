@@ -3,7 +3,7 @@
 @model UserSession
 @{
 	Layout = "~/Views/Shared/_Layout.cshtml";
-	var menuGroups = SessionManager.CurrentUser.MenuGroups as IList<MenuGroup>;
+	var menuGroups = Model.MenuGroups as IList<MenuGroup>;
 	var index = 1;
 }
 
