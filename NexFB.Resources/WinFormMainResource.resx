@@ -123,11 +123,17 @@
   <data name="Edit" xml:space="preserve">
     <value>Sửa</value>
   </data>
+  <data name="EditBilingual" xml:space="preserve">
+    <value>Sửa / Edited</value>
+  </data>
   <data name="Export" xml:space="preserve">
     <value>Xuất</value>
   </data>
   <data name="Exported" xml:space="preserve">
     <value>Đã xuất</value>
+  </data>
+  <data name="NameBilingual" xml:space="preserve">
+    <value>Tên / Name </value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Gọi món</value>
@@ -135,8 +141,23 @@
   <data name="Receive" xml:space="preserve">
     <value>Nhận</value>
   </data>
+  <data name="ReceiveBilingual" xml:space="preserve">
+    <value>Nhận / In : </value>
+  </data>
+  <data name="Ref" xml:space="preserve">
+    <value>Ref : </value>
+  </data>
+  <data name="RemarkBilingual" xml:space="preserve">
+    <value>Ghi chú / Remark : </value>
+  </data>
+  <data name="SetMenu" xml:space="preserve">
+    <value>Set Menu / Qty</value>
+  </data>
   <data name="Statistic" xml:space="preserve">
     <value>Thống kê</value>
+  </data>
+  <data name="TotalBilingual" xml:space="preserve">
+    <value>Tổng Cộng / Total : </value>
   </data>
   <data name="Waiting" xml:space="preserve">
     <value>Đang chờ</value>

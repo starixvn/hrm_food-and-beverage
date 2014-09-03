@@ -49,11 +49,28 @@ namespace NexFB.Models.Kitchen
 
         public int QtyOrd { get; set; }
 
+        public bool IsEdited { get; set; }
+
         public bool HasNote
         {
             get
             {
                 return !string.IsNullOrEmpty(Remark);
+            }
+        }
+
+        public string HasEdited
+        {
+            get
+            {
+                if (IsEdited)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Hidden";
+                }
             }
         }
 

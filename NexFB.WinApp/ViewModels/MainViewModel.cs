@@ -9,13 +9,15 @@
 
 namespace NexFB.WinApp.ViewModels
 {
-    using System;
     using System.Windows;
     using System.Windows.Documents;
     using System.Windows.Input;
+    using NexFB.Criteria.Kitchen;
+    using NexFB.Models.Kitchen;
+    using NexFB.Services.Implement;
+    using NexFB.Services.Interface;
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinApp.Core.PrintHelper;
-    using NexFB.WinApp.Models.ManageOrder;
 
     /// <summary>
     /// Main ViewModel.
@@ -27,19 +29,27 @@ namespace NexFB.WinApp.ViewModels
 
         private static readonly WaitingMealViewModel WaitingMealViewModel = new WaitingMealViewModel();
 
-        private static readonly DeliveredFoodViewModel DeliveredFoodViewModel = new DeliveredFoodViewModel();
+        ////private static readonly DeliveredFoodViewModel DeliveredFoodViewModel = new DeliveredFoodViewModel();
 
         private static readonly OrderFoodViewModel OrderFoodViewModel = new OrderFoodViewModel();
 
         private static readonly PrintHelper DocumentPrintingHelper = new PrintHelper();
 
         private ViewModelBase _currentViewModel;
+        
+        private IKitchenService _kitchenService;
 
         #endregion
 
         #region Contructor
 
+        public MainViewModel(IKitchenService kitchenService)
+        {
+            _kitchenService = kitchenService ?? new KitchenService();
+        }
+
         public MainViewModel()
+            : this(null)
         {
             CurrentViewModel = MainViewModel.WaitingMealViewModel;
             ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
@@ -130,13 +140,10 @@ namespace NexFB.WinApp.ViewModels
         private void ExecuteTestPrint()
         {
             var template = (FixedDocument)DocumentPrintingHelper.LoadTemplate(OrderFoodReceiptTemplate);
-            var model = new DataPrint()
-            {
-                Address = "Viet Nam",
-                CustomerName = "Nexcel",
-                Date = DateTime.Now,
-                PledgeNumber = "1234"
-            };
+
+            var criteria = new GetOrderDetailsCriteria() { OrderId = 6 };
+            Order model = _kitchenService.GetOrderDetails(criteria);
+
             DocumentPrintingHelper.InjectData(template, model);
 
             string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";

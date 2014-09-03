@@ -52,5 +52,31 @@ namespace NexFB.Models.Kitchen
                 }
             }
         }
+
+        public string SetMenuAndQuantity
+        {
+            get
+            {
+                string setName = "---";
+                if (!IsDeleted)
+                {
+                    setName = MenuVnmName + " x " + QtyOrd.ToString();
+                }
+                return setName;
+            }
+        }
+
+        public string DisplayName
+        {
+            get
+            {
+                string setName = NickName;
+                if (IsDeleted)
+                {
+                    setName += " (X)";
+                }
+                return setName;
+            }
+        }
     }
 }

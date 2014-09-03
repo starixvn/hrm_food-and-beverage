@@ -11,6 +11,7 @@
 namespace NexFB.Resources {
     using System;
     
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -78,6 +79,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sửa / Edited.
+        /// </summary>
+        public static string EditBilingual {
+            get {
+                return ResourceManager.GetString("EditBilingual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xuất.
         /// </summary>
         public static string Export {
@@ -92,6 +102,15 @@ namespace NexFB.Resources {
         public static string Exported {
             get {
                 return ResourceManager.GetString("Exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên / Name .
+        /// </summary>
+        public static string NameBilingual {
+            get {
+                return ResourceManager.GetString("NameBilingual", resourceCulture);
             }
         }
         
@@ -114,11 +133,56 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nhận / In : .
+        /// </summary>
+        public static string ReceiveBilingual {
+            get {
+                return ResourceManager.GetString("ReceiveBilingual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ref : .
+        /// </summary>
+        public static string Ref {
+            get {
+                return ResourceManager.GetString("Ref", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ghi chú / Remark : .
+        /// </summary>
+        public static string RemarkBilingual {
+            get {
+                return ResourceManager.GetString("RemarkBilingual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Menu / Qty.
+        /// </summary>
+        public static string SetMenu {
+            get {
+                return ResourceManager.GetString("SetMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thống kê.
         /// </summary>
         public static string Statistic {
             get {
                 return ResourceManager.GetString("Statistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tổng Cộng / Total : .
+        /// </summary>
+        public static string TotalBilingual {
+            get {
+                return ResourceManager.GetString("TotalBilingual", resourceCulture);
             }
         }
         
