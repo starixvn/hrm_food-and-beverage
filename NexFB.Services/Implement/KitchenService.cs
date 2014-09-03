@@ -11,6 +11,7 @@ namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
+    using NexFB.Core.Models;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
     using NexFB.Repositories.Implement;
@@ -20,7 +21,7 @@ namespace NexFB.Services.Implement
     /// <summary>
     /// Kitchen Service.
     /// </summary>
-    public class KitchenService : IKitchenService
+    public class KitchenService : BaseService, IKitchenService
     {
         private IKitchenRepository _kitchenRepository;
 
@@ -56,6 +57,41 @@ namespace NexFB.Services.Implement
             }
 
             return waitingMeals;
+        }
+
+        public CommandResult ReceiveOrder(ProcessReceiveOrderCriteria criteria)
+        {
+            CommandResult received = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                received = Repository.Update(criteria);
+            }
+
+            return received;
+        }
+
+        public CommandResult DeliverOrder(ProcessDeliverOrderCriteria criteria)
+        {
+            CommandResult received = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                received = Repository.Update(criteria);
+            }
+
+            return received;
+        }
+
+        public Order GetOrderDetails(GetOrderDetailsCriteria criteria)
+        {
+            Order orderDetails = null;
+            if (criteria.IsValid())
+            {
+                orderDetails = this._kitchenRepository.GetOrderDetails(criteria);
+            }
+
+            return orderDetails;
         }
     }
 }

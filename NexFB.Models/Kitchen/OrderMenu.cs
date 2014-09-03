@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="Menu.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="OrderMenu.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Bradley.Mac" date="2014.9.1">Created</change>
+//   <change who="Bradley.Mac" date="2014.9.3">Created</change>
 // </history>
 
 namespace NexFB.Models.Kitchen
@@ -12,7 +12,7 @@ namespace NexFB.Models.Kitchen
     /// <summary>
     /// Class Menu.
     /// </summary>
-    public class Menu
+    public class OrderMenu
     {
         public int OrderId { get; set; }
 
@@ -25,6 +25,16 @@ namespace NexFB.Models.Kitchen
         public int QtyOrd { get; set; }
 
         public int TotalOrder { get; set; }
+
+        public bool IsOwner { get; set; }
+
+        public int SysID { get; set; }
+
+        public string NickName { get; set; }
+
+        public string Code { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         public string QuantityPerTotal
         {

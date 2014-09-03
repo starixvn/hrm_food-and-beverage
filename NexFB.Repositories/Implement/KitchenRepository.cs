@@ -29,13 +29,13 @@ namespace NexFB.Repositories.Implement
         public List<Order> GetMealOrder(ICriteria criteria)
         {
             List<Order> waitingMeals = new List<Order>();
-            List<Menu> menus = new List<Menu>();
+            List<OrderMenu> menus = new List<OrderMenu>();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
                     waitingMeals = multi.Read<Order>().ToList();
-                    menus = multi.Read<Menu>().ToList();
+                    menus = multi.Read<OrderMenu>().ToList();
                     if (waitingMeals.Count > 0)
                     {
                         foreach (var item in waitingMeals)
@@ -53,6 +53,26 @@ namespace NexFB.Repositories.Implement
             }
 
             return waitingMeals;
+        }
+
+        public Order GetOrderDetails(ICriteria criteria)
+        {
+            Order orderDetails = new Order();
+            List<OrderMenu> menus = new List<OrderMenu>();
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    orderDetails = multi.Read<Order>().SingleOrDefault();
+                    menus = multi.Read<OrderMenu>().ToList();
+                    if (orderDetails != null)
+                    {
+                        orderDetails.ListMenu = menus;
+                    }
+                }
+            }
+
+            return orderDetails;
         }
     }
 }

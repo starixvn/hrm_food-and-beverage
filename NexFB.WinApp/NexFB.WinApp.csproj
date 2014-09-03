@@ -173,6 +173,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NexFB.Core\NexFB.Core.csproj">
+      <Project>{5815DC62-15BA-4E92-B0CC-E888BDA04E91}</Project>
+      <Name>NexFB.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NexFB.Criteria\NexFB.Criteria.csproj">
       <Project>{CF5EBF21-A3AA-4068-8149-CE1B8BD85C7C}</Project>
       <Name>NexFB.Criteria</Name>

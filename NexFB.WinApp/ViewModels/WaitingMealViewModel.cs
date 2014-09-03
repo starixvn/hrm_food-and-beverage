@@ -12,10 +12,10 @@ namespace NexFB.WinApp.ViewModels
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Input;
-    using NexFB.Criteria.Employee;
+    using NexFB.Core.Models;
     using NexFB.Criteria.Kitchen;
-    using NexFB.Models.Authority;
     using NexFB.Models.Kitchen;
+    using NexFB.Resources;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.WinApp.Core.Commands;
@@ -37,8 +37,8 @@ namespace NexFB.WinApp.ViewModels
         public WaitingMealViewModel()
             : this(null)
         {
-            ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (x) => ShowMessage(x));
-            DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (x) => ShowMessage(x));
+            ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (x) => ExecuteReceiveOrderFoodCommand(x));
+            DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (x) => ExecuteDeliverOrderFoodCommand(x));
 
             WaitingMeals = this.GetWaitingMealOrder;
         }
@@ -87,12 +87,57 @@ namespace NexFB.WinApp.ViewModels
         }
 
         /// <summary>
-        /// Get Data from DB.
+        /// Execute Receive Order Food Command.
         /// </summary>
         /// <param name="value">Parameter value.</param>
-        public void ShowMessage(object value)
+        public void ExecuteReceiveOrderFoodCommand(object value)
         {
-            MessageBox.Show(value.ToString());
+            CommandResult received = null;
+            if (value != null)
+            {
+                int orderId = (int)value;
+                var criteria = new ProcessReceiveOrderCriteria() { OrderId = orderId };
+                received = _kitchenService.ReceiveOrder(criteria);
+                if (received.Code != 0)
+                {
+                    MessageBox.Show(received.Message.ToString());
+                }
+                else
+                {
+                    WaitingMeals = this.GetWaitingMealOrder;
+                }
+            }
+            else
+            {
+                MessageBox.Show(Lang.ErrorMessage.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Execute Deliver Order Food Command.
+        /// </summary>
+        /// <param name="value">Parameter Value.</param>
+        public void ExecuteDeliverOrderFoodCommand(object value)
+        {
+            CommandResult received = null;
+            if (value != null)
+            {
+                int orderId = (int)value;
+                var criteria = new ProcessDeliverOrderCriteria() { OrderId = orderId };
+                received = _kitchenService.DeliverOrder(criteria);
+                if (received.Code != 0)
+                {
+                    MessageBox.Show(received.Message.ToString());
+                }
+                else
+                {
+                    WaitingMeals = this.GetWaitingMealOrder;
+                }
+            }
+            else
+            {
+                MessageBox.Show(Lang.ErrorMessage.ToString());
+            }
         }
     }
 }

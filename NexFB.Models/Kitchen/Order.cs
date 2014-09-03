@@ -57,6 +57,6 @@ namespace NexFB.Models.Kitchen
             }
         }
 
-        public List<Menu> ListMenu { get; set; }
+        public List<OrderMenu> ListMenu { get; set; }
     }
 }

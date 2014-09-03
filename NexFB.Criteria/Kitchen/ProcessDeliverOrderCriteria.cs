@@ -17,6 +17,8 @@ namespace NexFB.Criteria.Kitchen
     /// </summary>
     public class ProcessDeliverOrderCriteria : CriteriaBase
     {
+        public int OrderId { get; set; }
+
         public int? ModifiedBy { get; set; }
 
         public DateTime? ModifiedDate { get; set; }

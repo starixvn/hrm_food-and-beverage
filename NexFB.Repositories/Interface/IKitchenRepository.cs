@@ -19,5 +19,7 @@ namespace NexFB.Repositories.Interface
     public interface IKitchenRepository
     {
         List<Order> GetMealOrder(ICriteria criteria);
+
+        Order GetOrderDetails(ICriteria criteria);
     }
 }

@@ -94,7 +94,7 @@ namespace NexFB.WinApp.ViewModels
 
         private void ExecuteViewPendingFood()
         {
-            CurrentViewModel = MainViewModel.WaitingMealViewModel;
+            CurrentViewModel = new WaitingMealViewModel();
         }
 
         private bool CanExecuteViewDeliveredFood()
@@ -104,7 +104,7 @@ namespace NexFB.WinApp.ViewModels
 
         private void ExecuteViewDeliveredFood()
         {
-            CurrentViewModel = MainViewModel.DeliveredFoodViewModel;
+            CurrentViewModel = new DeliveredFoodViewModel();
         }
 
         private bool CanExecuteViewOrderFood()
@@ -121,7 +121,7 @@ namespace NexFB.WinApp.ViewModels
 
         private bool CanExecuteTestPrint()
         {
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -137,12 +137,12 @@ namespace NexFB.WinApp.ViewModels
                 Date = DateTime.Now,
                 PledgeNumber = "1234"
             };
-
-            ////string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
-            ////DocumentPrintingHelper.ConvertToXps(template, receiptDocument);
-
             DocumentPrintingHelper.InjectData(template, model);
-            DocumentPrintingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
+
+            string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
+            DocumentPrintingHelper.ConvertToXps(template, receiptDocument);
+
+            //DocumentPrintingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
         }
     }
 }

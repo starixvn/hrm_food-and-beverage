@@ -10,6 +10,7 @@
 namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
+    using NexFB.Core.Models;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
 
@@ -21,5 +22,11 @@ namespace NexFB.Services.Interface
         List<Order> GetWaitngMealOrder(GetWaitingMealOrderCriteria criteria);
 
         List<Order> GetDeliveredMealOrder(GetDeliveredMealOrderCriteria criteria);
+
+        CommandResult ReceiveOrder(ProcessReceiveOrderCriteria criteria);
+
+        CommandResult DeliverOrder(ProcessDeliverOrderCriteria criteria);
+
+        Order GetOrderDetails(GetOrderDetailsCriteria criteria);
     }
 }
