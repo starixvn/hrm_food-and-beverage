@@ -286,10 +286,10 @@
     <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
-    <None Include="Src\Content\Fonts\big_noodle_titling.ttf" />
-    <None Include="Src\Content\Fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Src\Content\Fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="Src\Content\Fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Src\Content\Fonts\big_noodle_titling.ttf" />
+    <Content Include="Src\Content\Fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Src\Content\Fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Src\Content\Fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Src\Content\Site\layout.less" />
