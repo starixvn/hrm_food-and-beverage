@@ -31,5 +31,7 @@ namespace NexFB.Services.Interface
         IEnumerable<Department> GetAllDepartment(GetAllDepartmentCriteria criteria);
 
         IEnumerable<Team> GetAllTeamByCompany(GetAllTeamByCompanyCriteria criteria);
+
+        IEnumerable<Location> GetAllLocation(GetAllLocationCriteria criteria);
     }
 }

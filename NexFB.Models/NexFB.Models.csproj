@@ -50,10 +50,13 @@
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Authority\SystemRole.cs" />
     <Compile Include="Authority\UserSession.cs" />
+    <Compile Include="Entities\Location.cs" />
+    <Compile Include="Entities\Menu.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Team.cs" />
-    <Compile Include="Kitchen\Menu.cs" />
     <Compile Include="Kitchen\Order.cs" />
+    <Compile Include="Ordering\MealOrderingModel.cs" />
+    <Compile Include="Ordering\OrderMemberModel.cs" />
     <Compile Include="UserControl\EmployeeRoleModel.cs" />
     <Compile Include="UserControl\FunctionModel.cs" />
     <Compile Include="UserControl\RoleDepartmentModel.cs" />

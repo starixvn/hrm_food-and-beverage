@@ -166,6 +166,7 @@
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\API\BaseController.cs" />
     <Compile Include="Controllers\API\CommonController.cs" />
+    <Compile Include="Controllers\API\OrderingController.cs" />
     <Compile Include="Controllers\API\RegistrationMealController.cs" />
     <Compile Include="Controllers\API\ResourceController.cs" />
     <Compile Include="Controllers\API\UserControlController.cs" />
@@ -188,6 +189,10 @@
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration-route.js" />
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration-factory.js" />
     <Content Include="Src\App\EmployeeRegistration\Templates\index.html" />
+    <Content Include="Src\App\Ordering\ordering-controller.js" />
+    <Content Include="Src\App\Ordering\ordering-factory.js" />
+    <Content Include="Src\App\Ordering\ordering-route.js" />
+    <Content Include="Src\App\Ordering\Templates\Create.html" />
     <Content Include="Src\App\Resources\resources-controller.js" />
     <Content Include="Src\App\Logout\logout-controller.js" />
     <Content Include="Src\App\Resources\resources-factory.js" />
@@ -276,6 +281,7 @@
     </None>
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration.less" />
     <Content Include="Src\App\UserControl\userControl.less" />
+    <Content Include="Src\App\Ordering\ordering.less" />
     <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />

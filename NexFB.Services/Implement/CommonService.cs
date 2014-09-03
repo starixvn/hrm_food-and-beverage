@@ -126,5 +126,18 @@ namespace NexFB.Services.Implement
 
             return teams;
         }
+
+        public IEnumerable<Location> GetAllLocation(GetAllLocationCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<Location> locations = null;
+
+            if (criteria.IsValid())
+            {
+                locations = GetData<Location>(criteria);
+            }
+
+            return locations;
+        }
     }
 }

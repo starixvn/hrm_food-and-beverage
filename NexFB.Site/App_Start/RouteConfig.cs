@@ -41,12 +41,12 @@ namespace NexFB.Site
                defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Auth", action = "Login", id = UrlParameter.Optional });
+               name: "Meal ordering",
+               url: "Ordering/Create",
+               defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
-                name: "Default1",
+                name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
         }

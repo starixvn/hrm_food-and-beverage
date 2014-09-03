@@ -120,6 +120,12 @@
   <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddMember" xml:space="preserve">
+    <value>Add member</value>
+  </data>
   <data name="AllCompanies" xml:space="preserve">
     <value>All Companies</value>
   </data>
@@ -137,6 +143,9 @@
   </data>
   <data name="Company" xml:space="preserve">
     <value>Company</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Create new</value>
   </data>
   <data name="DataChangeFail" xml:space="preserve">
     <value>Data changed unsuccessfully!</value>
@@ -162,23 +171,50 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Invalid user name or password. Please try again.</value>
   </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
   <data name="ManageRole" xml:space="preserve">
     <value>Manage Role</value>
   </data>
   <data name="ManageUser" xml:space="preserve">
     <value>Manage User</value>
   </data>
+  <data name="Members" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
   <data name="NickName" xml:space="preserve">
     <value>Nick Name</value>
   </data>
+  <data name="Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="OrderMeal" xml:space="preserve">
+    <value>Order meal</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Tel. No.</value>
+  </data>
   <data name="Read" xml:space="preserve">
     <value>Read</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
   </data>
   <data name="RolePermission" xml:space="preserve">
     <value>Role Permission</value>
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Role(s)</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
   </data>
   <data name="SymbolCount" xml:space="preserve">
     <value>#</value>

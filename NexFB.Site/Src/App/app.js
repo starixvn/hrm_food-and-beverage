@@ -2,7 +2,7 @@
 /*exported appModule*/
 
 var appModule = angular.module("appModule",
-['registrationMealModule', 'userControlModule', 'ui.bootstrap', 'pascalprecht.translate', 'multi-select'])
+['registrationMealModule', 'userControlModule', 'orderingModule', 'ui.bootstrap', 'pascalprecht.translate', 'multi-select'])
 .config(['$locationProvider', '$translateProvider',
 function ($locationProvider, $translateProvider) {
 	$translateProvider.useLoader('resourceFactory', {});

@@ -37,6 +37,9 @@
 		<Setting Key="Department_GetAll" SpName="Department_GetAll" DbName="NexFB" Plain="0" >
 			<Mapping DataField="DepartmentName" ObjectProperty="Name"/>
 		</Setting>
+    <Setting Key="Location_GetAll" SpName="Location_GetAll" DbName="NexFB" Plain="0" >
+      <Mapping DataField="LocationENGName" ObjectProperty="Name"/>
+    </Setting>
 	</Function>
 	<Function Name="Team">
 		<Setting Key="EmpTeam_GetByDepartmentID" SpName="EmpTeam_GetByDepartmentID" DbName="NexFB" Plain="0" >

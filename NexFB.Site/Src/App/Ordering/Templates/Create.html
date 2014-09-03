@@ -1,0 +1,66 @@
+﻿<div class="row">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li><a href="#" data-translate="OrderMeal" ng-click="reload()"></a></li>
+            <li class="current" data-translate="CreateNew"></li>
+        </ul>
+    </div>
+</div>
+<div>
+	<div class="row">
+		<div class="col-xs-7 tbl-member">
+			<a class="pull-right button button-icon btn-addMember" ng-click = "addMember">
+				<span class="icon plus"></span>
+				<span data-translate="Add"></span>
+			</a>
+			<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th data-translate="Members"></th>
+							<th data-translate="Menu"></th>
+							<th data-translate="Order"></th>
+							<th data-translate="Remove"></th>
+						</tr>
+					</thead>
+					<tbody ng-repeat = "member in order.Members">
+						<tr>
+							<td class="text-center">{{$index + 1}}</td>
+							<td>
+								<span>{{member.NickName}}</span>
+							</td>
+							<td>
+								<span>{{member.Menu.Name}}</span>
+							</td>
+							<td class="text-center">
+								<input type="checkbox" value="{{member.IsOrder}}" ng-model="member.IsOrder" />
+							</td>
+							<td class="text-center">
+								<a href="javascript:;" class="glyphicon glyphicon-remove icon-remove" ng-click="remove(member)"
+								title="Remove"></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-2">
+			<label data-translate="Remark"></label>
+			<input ng-model="order.Remark" type="text"/>
+		</div>
+		<div class="col-xs-3">
+			<label data-translate="Location"></label>
+			<select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.LocationId">
+			</select>
+		</div>
+		<div class="col-xs-2">
+			<label data-translate="Phone"></label>
+			<input ng-model="order.Phone" type="text"/>
+		</div>
+	</div>
+	<div class="row">
+		<input type="button" '{{"Submit" | translate}}' />
+		
+	</div>
+</div>

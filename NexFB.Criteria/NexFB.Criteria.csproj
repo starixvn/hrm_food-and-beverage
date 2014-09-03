@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Department\GetAllDepartmentCriteria.cs" />
+     <Compile Include="Department\GetAllLocationCriteria.cs" />
     <Compile Include="Kitchen\ProcessDeliverOrderCriteria.cs" />
     <Compile Include="Kitchen\ProcessReceiveOrderCriteria.cs" />
     <Compile Include="Team\GetAllTeamByCompanyCriteria.cs" />
