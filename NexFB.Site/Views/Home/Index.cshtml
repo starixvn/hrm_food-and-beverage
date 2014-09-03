@@ -3,22 +3,26 @@
 @model UserSession
 @{
 	Layout = "~/Views/Shared/_Layout.cshtml";
-	//var menuGroups = SessionManager.CurrentUser.MenuGroups as IList<MenuGroup>;
-	//var index = 1;
+	var menuGroups = SessionManager.CurrentUser.MenuGroups as IList<MenuGroup>;
+	var index = 1;
 }
 
 <div class="row header">
+	<a href="~/" class="col-xs-12 col-sm-2 logo">
+		@*<img src="~/content/site/images/logo.png" title="NexEPA" alt="NexEPA" />*@
+	</a>
 	<div class="col-xs-12 col-sm-12">
 		<nav id="navbar-example" class="navbar navbar-static top-menu" role="navigation">
 			<div class="bs-example-js-navbar-collapse">
-@*				@foreach (var menuParentItem in menuGroups)
+				<ul class="nav navbar-nav">
+				@foreach (var menuParentItem in menuGroups)
 					{
 						var childMenuItems = menuParentItem.MenuItems;
 
 						if (childMenuItems != null && childMenuItems.Count() > 0)
 						{
 							var id = "drop" + index;
-                            
+
 							<li class="dropdown">
 								<a id="@id" href="#" data-role="button" class="dropdown-toggle" data-toggle="dropdown">@menuParentItem.Name<b class="caret"></b>
 								</a>
@@ -38,7 +42,8 @@
 								<a href="@menuParentItem.MenuLink" >@menuParentItem.Name</a>
 							</li>
 						}
-					}*@
+					}
+
 			</div>
 		</nav>
 		<div id="user_utilities" class="user-info info" ng-controller="LogoutController">

@@ -10,6 +10,9 @@
 		<Mapping DataField="SysID" ObjectProperty="SystemId"/>
     </Setting>
 	<Setting Key="UserCtrl_GetMenuFunctionBySysID" SpName="UserCtrl_GetMenuFunctionBySysID" DbName="NexFB" Plain="0" >
+		<Mapping DataField="MenuName" ObjectProperty="Name"/>
+		<Mapping DataField="Url" ObjectProperty="MenuLink"/>
+		<Mapping DataField="MenuDisabled" ObjectProperty="IsDisabled"/>
 	</Setting>
   </Function>
 	<Function Name="ManageRole">

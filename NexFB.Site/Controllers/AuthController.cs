@@ -123,14 +123,14 @@ namespace NexFB.Site.Controllers
                 }
             }
 
-            ////if (user != null)
-            ////{
-            ////    var getEmployeeMenuCriteria = new GetEmployeeMenuBySystemIdCriteria
-            ////    {
-            ////        SystemId = user.SystemId
-            ////    };
-            ////    //user.MenuGroups = _employeeService.GetEmployeeMenuById(getEmployeeMenuCriteria);
-            ////}
+            if (user != null)
+            {
+                var getEmployeeMenuCriteria = new GetEmployeeMenuBySystemIdCriteria
+                {
+                    SystemId = user.SystemId
+                };
+                user.MenuGroups = _employeeService.GetEmployeeMenuById(getEmployeeMenuCriteria);
+            }
 
             return user;
         }
