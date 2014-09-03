@@ -21,8 +21,14 @@ namespace NexFB.Site.Controllers
     {
         public ActionResult Index()
         {
-            UserSession model = SessionManager.CurrentUser;
-            return View(model);
+            if (SessionManager.CurrentUser != null)
+            {
+                UserSession model = SessionManager.CurrentUser;
+                return View(model);
+            }
+
+            Response.Redirect("/auth/Login");
+            return View();
         }
     }
 }
