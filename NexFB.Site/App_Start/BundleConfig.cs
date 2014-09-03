@@ -9,6 +9,7 @@
 
 namespace NexFB.Site
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Optimization;
 
     /// <summary>
@@ -20,6 +21,7 @@ namespace NexFB.Site
         /// Register Bundles.
         /// </summary>
         /// <param name="bundles">The bundle collection.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.AddAndInclude(

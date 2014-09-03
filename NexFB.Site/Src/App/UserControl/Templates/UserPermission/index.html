@@ -63,7 +63,7 @@
             </tr>
         </thead>
         <tbody class="table-body">
-            <tr ng-repeat="employee in employees">
+            <tr ng-repeat="employee in employees track by employee.SystemId">
                 <td class="employee-no">
                     {{$index + 1}}
                 </td>

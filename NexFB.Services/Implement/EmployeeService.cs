@@ -16,8 +16,6 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Security;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
-    using NexFB.Repositories.Implement;
-    using NexFB.Repositories.Interface;
     using NexFB.Services.Interface;
 
     /// <summary>
@@ -25,13 +23,6 @@ namespace NexFB.Services.Implement
     /// </summary>
     public class EmployeeService : BaseService, IEmployeeService
     {
-        private IEmployeeRepository _employeeRepository;
-
-        public EmployeeService(IEmployeeRepository employeeRepository = null)
-        {
-            _employeeRepository = employeeRepository ?? new EmployeeRepository();
-        }
-
         /// <summary>
         /// Function to get user by domain.
         /// </summary>
@@ -44,7 +35,6 @@ namespace NexFB.Services.Implement
 
             if (criteria.IsValid())
             {
-                //// user = _employeeRepository.GetUserByDomain(criteria);
                 user = GetDataEntity<UserSession>(criteria);
             }
 
@@ -63,7 +53,6 @@ namespace NexFB.Services.Implement
 
             if (criteria.IsValid())
             {
-                //// user = _employeeRepository.GetUserByCode(criteria);
                 user = GetDataEntity<UserSession>(criteria);
             }
 

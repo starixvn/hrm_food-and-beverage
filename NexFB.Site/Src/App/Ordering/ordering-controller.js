@@ -2,8 +2,8 @@
 /*global orderingModule*/
 
 orderingModule.controller("OrderingController",
-['$scope', '$route', 'orderingFactory', 'notificationFactory', 'ErrorFactory',
-	function ($scope, $route, orderingFactory, notificationFactory, ErrorFactory) {
+['$scope', '$route', 'orderingFactory',
+	function ($scope, $route, orderingFactory) {
 		orderingFactory.getOrderForAddNew()
 		.success(function (data) {
 			$scope.order = data;

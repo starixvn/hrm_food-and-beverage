@@ -9,16 +9,20 @@
 
 namespace NexFB.Site.Controllers.API
 {
+    using System.Collections.Generic;
     using System.Web.Http;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Ordering Controller.
     /// </summary>
     public class OrderingController : BaseController
     {
+        /// <summary>
+        /// Add new order.
+        /// </summary>
+        /// <returns>The model meal ordering.</returns>
         [HttpGet]
         public MealOrderingModel GetAddNew()
         {

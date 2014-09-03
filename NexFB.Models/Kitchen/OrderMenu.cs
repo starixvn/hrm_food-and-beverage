@@ -28,7 +28,7 @@ namespace NexFB.Models.Kitchen
 
         public bool IsOwner { get; set; }
 
-        public int SysID { get; set; }
+        public int SysId { get; set; }
 
         public string NickName { get; set; }
 

@@ -16,7 +16,7 @@ namespace NexFB.Criteria.Team
     /// </summary>
     public class GetAllTeamByCompanyCriteria : CriteriaBase
     {
-        public int DepartmentID { get; set; }
+        public int DepartmentId { get; set; }
 
         public override string GetSettingKey()
         {
@@ -25,7 +25,7 @@ namespace NexFB.Criteria.Team
 
         public override bool IsValid()
         {
-            return DepartmentID > 0;
+            return DepartmentId > 0;
         }
     }
 }

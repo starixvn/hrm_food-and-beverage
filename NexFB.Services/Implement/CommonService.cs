@@ -127,6 +127,11 @@ namespace NexFB.Services.Implement
             return teams;
         }
 
+        /// <summary>
+        /// Get all location.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator location model.</returns>
         public IEnumerable<Location> GetAllLocation(GetAllLocationCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");

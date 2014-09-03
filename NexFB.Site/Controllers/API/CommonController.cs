@@ -10,7 +10,6 @@
 namespace NexFB.Site.Controllers.API
 {
     using System.Collections.Generic;
-    using System.Web.Http;
     using NexFB.Criteria.Department;
     using NexFB.Criteria.Team;
     using NexFB.Models.Entities;
@@ -44,7 +43,7 @@ namespace NexFB.Site.Controllers.API
         {
             var criteria = new GetAllTeamByCompanyCriteria
             {
-                DepartmentID = departmentId
+                DepartmentId = departmentId
             };
 
             return _commonService.GetAllTeamByCompany(criteria);

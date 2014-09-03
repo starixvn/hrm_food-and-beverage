@@ -18,9 +18,9 @@ namespace NexFB.Criteria.UserControl
     public class AssignRoleToUserCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "SysID")]
-        public int SystemID { get; set; }
+        public int SystemId { get; set; }
 
-        public string RoleID { get; set; }
+        public string RoleId { get; set; }
 
         public string RoleDepartments { get; set; }
 
@@ -35,7 +35,7 @@ namespace NexFB.Criteria.UserControl
 
         public override bool IsValid()
         {
-            return SystemID > 0;
+            return SystemId > 0;
         }
     }
 }
