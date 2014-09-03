@@ -62,6 +62,7 @@ namespace NexFB.Models.Kitchen
                 {
                     setName = MenuVnmName + " x " + QtyOrd.ToString();
                 }
+
                 return setName;
             }
         }
@@ -75,6 +76,7 @@ namespace NexFB.Models.Kitchen
                 {
                     setName += " (X)";
                 }
+
                 return setName;
             }
         }
