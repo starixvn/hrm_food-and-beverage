@@ -142,7 +142,7 @@ namespace NexFB.WinApp.ViewModels
             string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
             DocumentPrintingHelper.ConvertToXps(template, receiptDocument);
 
-            //DocumentPrintingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
+            ////DocumentPrintingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
         }
     }
 }

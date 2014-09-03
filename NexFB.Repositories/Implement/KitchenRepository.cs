@@ -55,6 +55,11 @@ namespace NexFB.Repositories.Implement
             return waitingMeals;
         }
 
+        /// <summary>
+        /// Get Order Details.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Order Entity.</returns>
         public Order GetOrderDetails(ICriteria criteria)
         {
             Order orderDetails = new Order();
