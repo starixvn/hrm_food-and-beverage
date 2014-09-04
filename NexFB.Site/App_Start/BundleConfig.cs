@@ -29,10 +29,9 @@ namespace NexFB.Site
                 "~/Src/Content/Less/bootstrap.less",
                 "~/Src/Content/site/auth/style.less");
 
-            bundles.Add(new StyleBundle("~/bundles/less").IncludeDirectory(
-                "~/Src/Content/Less",
-                "*.less",
-                true));
+            bundles.AddAndInclude(
+                "~/bundles/less",
+                "~/Src/Content/Less/bootstrap.less");
 
             bundles.Add(new StyleBundle("~/Src/Content/Common/css").Include(
                 "~/Src/Content/Common/bootstrap-theme.min.css",
