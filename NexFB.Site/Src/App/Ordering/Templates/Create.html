@@ -1,66 +1,236 @@
 ﻿<div class="row">
-    <div class="row sub-header">
-        <ul class="breadcrumb list-inline pull-left">
-            <li><a href="#" data-translate="OrderMeal" ng-click="reload()"></a></li>
-            <li class="current" data-translate="CreateNew"></li>
-        </ul>
+    <div class="col-xs-12 table-title">My Orders</div>
+	<div class="col-xs-12 tbl-member">
+		<table class="table table-bordered table-odering table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+                        <th>Status</th>
+                        <th>Order Person</th>
+                        <th>Nick Name</th>
+                        <th>Since</th>
+                        <th>Quantity</th>
+                        <th>Members</th>
+                        <th>My Meal</th>
+                        <th>Location</th>
+                        <th>Remark</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="text-center">20</td>
+                        <td class="lbl-preparing">Preparing...</td>
+                        <td>Võ Kim Quang</td>
+                        <td>Quinn.Vo</td>
+                        <td>11:32:06 AM</td>
+                        <td>
+                            <ul class="list-order list-unstyled">
+                                <li>2 - "Lunch 1"</li>
+                                <li>1 - "Vegetarian"</li>
+                            </ul>
+                        </td>
+						<td>3</td>
+						<td>Lunch 1</td>
+						<td> Dinning room</td>
+						<td></td>
+					</tr>
+                    <tr>
+						<td class="text-center">21</td>
+                        <td class="lbl-ready">Ready</td>
+                        <td>Trần Xuân Khánh</td>
+                        <td>Kahn.Tran</td>
+                        <td>11:32:06 AM</td>
+                        <td>
+                            <ul class="list-order list-unstyled">
+                                <li>1 - "Lunch 1"</li>
+                                <li>1 - "Lunch 2"</li>
+                                <li>1 - "Vegetarian"</li>
+                            </ul>
+                        </td>
+						<td>3</td>
+						<td>N/A</td>
+						<td> Dinning room</td>
+						<td></td>
+					</tr>
+                    <tr>
+						<td class="text-center">22</td>
+                        <td class="lbl-preparing">Preparing...</td>
+                        <td>Trần Xuân Khánh</td>
+                        <td>Kahn.Tran</td>
+                        <td>11:32:06 AM</td>
+                        <td>
+                            <ul class="list-order list-unstyled">
+                                <li>3 - "Lunch 2"</li>
+                            </ul>
+                        </td>
+						<td>3</td>
+						<td>N/A</td>
+						<td> Dinning room</td>
+						<td></td>
+					</tr>
+                    <tr>
+						<td class="text-center">23</td>
+                        <td>Ordered</td>
+                        <td>Trần Xuân Khánh</td>
+                        <td>Kahn.Tran</td>
+                        <td>11:32:06 AM</td>
+                        <td>
+                            <ul class="list-order list-unstyled">
+                                <li>3 - "Lunch 2"</li>
+                            </ul>
+                        </td>
+						<td>3</td>
+						<td>N/A</td>
+						<td> Dinning room</td>
+						<td></td>
+					</tr>
+                    
+				</tbody>
+			</table>
+	</div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="row table-title">Menu</div>
+        <table class="row table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Today's Menu: Lunch 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Canh Củ Sen</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Chả Cá Chiên</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Thịt Kho Trứng</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Bí Xanh Xào Thịt Xay</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Cải Ngồng Luộc</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Tráng Miệng: Thanh Long</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-6">
+        <div class="row table-title">Create An Order</div>
+        <div class="row list-group-item">
+            <div class="col-sm-12 boxtitle first">New Order</div>
+            <div class="col-sm-12 boxcontent">
+                <div class="row form-order">
+                    <label data-translate="Remark"></label>
+		            <input ng-model="order.Remark" type="text"/>
+                    <a href="#" class="button pull-right">
+                        <i class="glyphicon glyphicon-plus icon-plus"></i> Add
+                    </a>
+                </div>
+                <table class="table table-bordered table-striped table-member">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Member</th>
+                            <th>Menu</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td class="lbl-ordered">Kahn.Tran(Orderd)</td>
+                            <td></td>
+                            <td class="text-center"><a href="#" class="glyphicon glyphicon-remove margin-icon icon-remove"></a></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Logan.Luu</td>
+                            <td>Lunch 2</td>
+                            <td class="text-center"><a href="#" class="glyphicon glyphicon-remove margin-icon icon-remove"></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row form-order">
+                    <label data-translate="Location"></label>
+		            <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.LocationId">
+		            </select>
+                    <label data-translate="Phone"></label>
+		            <input ng-model="order.Phone" type="text"/>
+                </div>
+            </div>
+            <div class="col-sm-12 boxtitle">Saved Order</div>
+            <div class="col-sm-12 boxcontent"></div>
+        </div>
     </div>
 </div>
-<div>
-	<div class="row">
-		<div class="col-xs-7 tbl-member">
-			<a class="pull-right button button-icon btn-addMember" ng-click = "addMember">
-				<span class="icon plus"></span>
-				<span data-translate="Add"></span>
-			</a>
-			<table class="table table-bordered table-odering">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th data-translate="Members"></th>
-							<th data-translate="Menu"></th>
-							<th data-translate="Order"></th>
-							<th data-translate="Remove"></th>
-						</tr>
-					</thead>
-					<tbody ng-repeat = "member in order.Members">
-						<tr>
-							<td class="text-center">{{$index + 1}}</td>
-							<td>
-								<span>{{member.NickName}}</span>
-							</td>
-							<td>
-								<span>{{member.Menu.Name}}</span>
-							</td>
-							<td class="text-center">
-								<input type="checkbox" value="{{member.IsOrder}}" ng-model="member.IsOrder" />
-							</td>
-							<td class="text-center">
-								<a href="javascript:;" class="glyphicon glyphicon-remove icon-remove" ng-click="remove(member)"
-								title="Remove"></a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-2">
-			<label data-translate="Remark"></label>
-			<input ng-model="order.Remark" type="text"/>
-		</div>
-		<div class="col-xs-3">
-			<label data-translate="Location"></label>
-			<select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.LocationId">
-			</select>
-		</div>
-		<div class="col-xs-2">
-			<label data-translate="Phone"></label>
-			<input ng-model="order.Phone" type="text"/>
-		</div>
-	</div>
-	<div class="row">
-		<input type="button" '{{"Submit" | translate}}' />
-		
+
+<!--<div class="row">
+	<div class="col-xs-12 tbl-member">
+		<a class="pull-right button button-icon btn-addMember" ng-click = "addMember">
+			<span class="icon plus"></span>
+			<span data-translate="Add"></span>
+		</a>
+		<table class="table table-bordered table-odering">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th data-translate="Members"></th>
+						<th data-translate="Menu"></th>
+						<th data-translate="Order"></th>
+						<th data-translate="Remove"></th>
+					</tr>
+				</thead>
+				<tbody ng-repeat = "member in order.Members">
+					<tr>
+						<td class="text-center">{{$index + 1}}</td>
+						<td>
+							<span>{{member.NickName}}</span>
+						</td>
+						<td>
+							<span>{{member.Menu.Name}}</span>
+						</td>
+						<td class="text-center">
+							<input type="checkbox" value="{{member.IsOrder}}" ng-model="member.IsOrder" />
+						</td>
+						<td class="text-center">
+							<a href="javascript:;" class="glyphicon glyphicon-remove icon-remove" ng-click="remove(member)"
+							title="Remove"></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 	</div>
 </div>
+<div class="row">
+	<div class="col-xs-2">
+		<label data-translate="Remark"></label>
+		<input ng-model="order.Remark" type="text"/>
+	</div>
+	<div class="col-xs-3">
+		<label data-translate="Location"></label>
+		<select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.LocationId">
+		</select>
+	</div>
+	<div class="col-xs-2">
+		<label data-translate="Phone"></label>
+		<input ng-model="order.Phone" type="text"/>
+	</div>
+</div>
+<div class="row">
+	<input type="button" '{{"Submit" | translate}}' />
+</div>
+
+-->

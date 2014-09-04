@@ -1,26 +1,75 @@
 ﻿@import "/Src/Content/Site/variables.less";
 @import "/Src/Content/Site/mixins.less";
 
-.button-icon.btn-addMember, .button-icon.btn-boxTitle {
-        position: absolute;
-        top: -10px;
-        #gradient .vertical(#5EB2D5, #308FB7);
-        border: 1px solid #256F8E;
-        border-color: #256F8E #256F8E #1B5066;
-        .box-shadow(1px 1px 0 rgba(255, 255, 255, 0.3) inset);
-        color: #FFF;
-        text-shadow: 0 -1px 0 #256F8E;
+.table-title {
+	color: #5e5e5e;
+	margin: 10px 0 5px;
+	font-size: @font-size + 10;
+	font-family: @font-title;
+}
 
-        .icon.plus {
-            background-position: -198px -190px;
-        }
+.table-odering {
+	margin: 0 0 30px;
 
-        &:hover {
-            #gradient .vertical(#72BCDA, #369FCA);
-        }
+	.lbl-preparing {
+		color: #f79646;
+		font-weight: bold;
+	}
+
+	.lbl-ready {
+		color: #66b050;
+		font-weight: bold;
+	}
+}
+
+.table-member {
+	margin: 10px 0;
+
+	.lbl-ordered {
+		color: #7f7f7f;
+	}
+}
+
+.list-group-item {
+    padding: 0;
+}
+
+.boxtitle {
+    border-top: 1px solid #D2D2D2;
+    border-bottom: 1px solid #FAFAFA;
+    padding: 8px 12px;
+    font-family: @font-group;
+    font-size: @font-size + 1;
+    text-shadow: 0.05em 0.05em #fff;
+    color: #0F0F13;
+    cursor: pointer;
+    position: relative;
+    #gradient .vertical(#EBEBEB, #E5E5E5);
+
+    &.first {
+        border-top: 1px solid #FAFAFA;
     }
-.table-odering
-{
-    margin: 0 0% 10px;
-    width: 99%;
+
+    .button-icon.btn-boxTitle {
+        margin: 0;
+    }
+
+    .search-textbox {
+        border: 1px solid #ccc;
+        .border-radius(3px);
+        width: 30%;
+        height: 27px;
+        padding: 3px 5px;
+        border-color: C8C8C8;
+    }
+}
+
+.boxcontent {
+	padding: 10px;
+}
+
+.form-order {
+	label {
+		font-weight: normal;
+	}
 }
