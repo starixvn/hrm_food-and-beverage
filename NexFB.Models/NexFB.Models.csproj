@@ -71,6 +71,7 @@
     <ProjectReference Include="..\NexFB.Resources\NexFB.Resources.csproj">
       <Project>{79FB6864-4696-4CC2-B94D-842C09CFAC0E}</Project>
       <Name>NexFB.Resources</Name>
+	</ProjectReference>
     <ProjectReference Include="..\NexFB.Core\NexFB.Core.csproj">
       <Project>{5815DC62-15BA-4E92-B0CC-E888BDA04E91}</Project>
       <Name>NexFB.Core</Name>
