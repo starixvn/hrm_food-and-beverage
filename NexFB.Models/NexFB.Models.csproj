@@ -56,6 +56,9 @@
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Kitchen\OrderMenu.cs" />
     <Compile Include="Kitchen\Order.cs" />
+    <Compile Include="MealRegistration\MealDateModel.cs" />
+    <Compile Include="MealRegistration\MealModel.cs" />
+    <Compile Include="MealRegistration\RawMealDateModel.cs" />
     <Compile Include="Ordering\MealOrderingModel.cs" />
     <Compile Include="Ordering\OrderMemberModel.cs" />
     <Compile Include="UserControl\EmployeeRoleModel.cs" />
@@ -68,6 +71,9 @@
     <ProjectReference Include="..\NexFB.Resources\NexFB.Resources.csproj">
       <Project>{79FB6864-4696-4CC2-B94D-842C09CFAC0E}</Project>
       <Name>NexFB.Resources</Name>
+    <ProjectReference Include="..\NexFB.Core\NexFB.Core.csproj">
+      <Project>{5815DC62-15BA-4E92-B0CC-E888BDA04E91}</Project>
+      <Name>NexFB.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

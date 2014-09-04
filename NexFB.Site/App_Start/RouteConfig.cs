@@ -26,7 +26,7 @@ namespace NexFB.Site
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-               name: "Registration Meal Index",
+               name: "Login",
                url: "Auth/Login",
                defaults: new { controller = "Auth", action = "Login" });
 
@@ -43,6 +43,11 @@ namespace NexFB.Site
             routes.MapRoute(
                name: "Meal ordering",
                url: "Ordering/Create",
+               defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
+               name: "Registration Meal",
+               url: "Registration/Index",
                defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(

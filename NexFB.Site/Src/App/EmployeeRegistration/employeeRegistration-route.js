@@ -1,8 +1,8 @@
 ﻿'use strict';
-/*exported registrationMealModule*/
+/*exported mealRegistrationModule*/
 
-var registrationMealModule = angular.module("registrationMealModule", ['ngRoute'])
+var mealRegistrationModule = angular.module("mealRegistrationModule", ['ngRoute'])
 .config(['$routeProvider', function ($routeProvider) {
-	$routeProvider.when('/RegistrationMeal/Index',
+	$routeProvider.when('/Registration/Index',
 		{ templateUrl: '/src/app/employeeRegistration/templates/index.html', controller: 'EmployeeRegistrationMealController' });
 } ]);

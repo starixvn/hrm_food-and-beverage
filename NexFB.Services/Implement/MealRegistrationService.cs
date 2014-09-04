@@ -1,0 +1,55 @@
+﻿// ----------------------------------------------------------------------
+// <copyright file="MealRegistrationService.cs" company="Nexcel Solutions Viet Nam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// ------------------------------------------------------------------------
+// <history>
+//   <change who="Josh.Phan" date="9/4/2014 3:29:02 PM">Created.</change>
+// </history>
+
+namespace NexFB.Services.Implement
+{
+    using System.Collections.Generic;
+    using Fanex.Common.Helper;
+    using NexFB.Criteria.MealRegistration;
+    using NexFB.Models.MealRegistration;
+    using NexFB.Repositories.Implement;
+    using NexFB.Repositories.Interface;
+    using NexFB.Services.Interface;
+
+    /// <summary>
+    /// The meal registration service.
+    /// </summary>
+    public class MealRegistrationService : IMealRegistrationService
+    {
+        private readonly IMealRegistrationRepository _mealRegistrationRepository;
+
+        public MealRegistrationService()
+            : this(null)
+        {
+        }
+
+        public MealRegistrationService(IMealRegistrationRepository mealRegistrationRepository)
+        {
+            _mealRegistrationRepository = mealRegistrationRepository ?? new MealRegistrationRepository();
+        }
+
+        /// <summary>
+        /// Get register meal by range date.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list meal date model.</returns>
+        public IList<MealDateModel> GetRegisterMealByRangeDate(GetRegisterMealByRangeDateCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<MealDateModel> mealDates = new List<MealDateModel>();
+
+            if (criteria.IsValid())
+            {
+                mealDates = _mealRegistrationRepository.GetRegisterMealByRangeDate(criteria);
+            }
+
+            return mealDates;
+        }
+    }
+}

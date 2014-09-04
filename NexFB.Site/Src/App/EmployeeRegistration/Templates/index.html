@@ -1,1 +1,21 @@
-﻿<span class="test" ng-bind="Test"></span>
+﻿<div class="row">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li><a href="#" data-translate="Registration" ng-click="reload()"></a></li>
+            <li class="current" data-translate="RegistrationMeal"></li>
+        </ul>
+    </div>
+</div>
+<div class="row target-tabset">
+    <tabset>
+        <tab active="tabMonthly" heading="{{monthlyHeading}}">
+           <div ng-include src="'/Src/App/EmployeeRegistration/Templates/monthlyRegistration.html'">
+           </div>
+        </tab>
+
+        <tab active="tabDefault" heading="{{defaultHeading}}">
+           <div ng-include src="'/Src/App/EmployeeRegistration/Templates/defaultRegistration.html'">
+           </div>
+        </tab>
+    </tabset>
+</div>

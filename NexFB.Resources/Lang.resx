@@ -153,6 +153,9 @@
   <data name="DataChangeSuccessfully" xml:space="preserve">
     <value>Data changed successfully!</value>
   </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
   <data name="EmptyResult" xml:space="preserve">
     <value>No information available!</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
   </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
   <data name="NickName" xml:space="preserve">
     <value>Nick Name</value>
   </data>
@@ -200,6 +206,12 @@
   </data>
   <data name="Read" xml:space="preserve">
     <value>Read</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Registration</value>
+  </data>
+  <data name="RegistrationMeal" xml:space="preserve">
+    <value>Registration Meal</value>
   </data>
   <data name="Remark" xml:space="preserve">
     <value>Remark</value>

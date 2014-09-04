@@ -60,7 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\KitchenRepository.cs" />
+    <Compile Include="Implement\MealRegistrationRepository.cs" />
     <Compile Include="Interface\IKitchenRepository.cs" />
+    <Compile Include="Interface\IMealRegistrationRepository.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Implement\BaseRepository.cs" />
     <Compile Include="Implement\EmployeeRepository.cs" />

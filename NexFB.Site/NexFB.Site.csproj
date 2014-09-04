@@ -167,7 +167,7 @@
     <Compile Include="Controllers\API\BaseController.cs" />
     <Compile Include="Controllers\API\CommonController.cs" />
     <Compile Include="Controllers\API\OrderingController.cs" />
-    <Compile Include="Controllers\API\RegistrationMealController.cs" />
+    <Compile Include="Controllers\API\MealRegistrationController.cs" />
     <Compile Include="Controllers\API\ResourceController.cs" />
     <Compile Include="Controllers\API\UserControlController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
@@ -189,7 +189,9 @@
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration-controller.js" />
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration-route.js" />
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration-factory.js" />
+    <Content Include="Src\App\EmployeeRegistration\Templates\defaultRegistration.html" />
     <Content Include="Src\App\EmployeeRegistration\Templates\index.html" />
+    <Content Include="Src\App\EmployeeRegistration\Templates\monthlyRegistration.html" />
     <Content Include="Src\App\Ordering\ordering-controller.js" />
     <Content Include="Src\App\Ordering\ordering-factory.js" />
     <Content Include="Src\App\Ordering\ordering-route.js" />

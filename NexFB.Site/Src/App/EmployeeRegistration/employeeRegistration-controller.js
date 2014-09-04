@@ -1,8 +1,14 @@
 ﻿'use strict';
-/*global registrationMealModule*/
+/*global mealRegistrationModule*/
 
-registrationMealModule.controller('EmployeeRegistrationMealController',
-['$scope',
-function ($scope) {
-	$scope.Test = "Test";
+mealRegistrationModule.controller('EmployeeRegistrationMealController',
+['$scope', 'mealRegistrationFactory', 'mealRegistrationUtilities',
+function ($scope, mealRegistrationFactory, mealRegistrationUtilities) {
+	mealRegistrationUtilities.getTabHeading($scope);
+
+	mealRegistrationFactory.getRegisterMealByRangeDate(194, new Date().toDateString(), new Date().toDateString(), null).success(function (mealDates) {
+		$scope.mealDates = mealDates;
+	}).error(function () {
+		// TODO
+	});
 } ]);
