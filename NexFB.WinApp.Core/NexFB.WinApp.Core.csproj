@@ -52,6 +52,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Constant.cs" />
     <Compile Include="Mapping\CoreMappingRegister.cs" />
     <Compile Include="Mapping\IMappingRegister.cs" />
     <Compile Include="NotifyBase\CollectionChangedBase.cs" />

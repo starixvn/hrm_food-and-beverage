@@ -5,10 +5,10 @@
 	<PageContent>
 		<FixedPage Width="493.76" Height="1123" Margin="0,20,0,0" Name="GeneralInfo">
 			<Grid>
-				<Rectangle Fill="{Binding Path=Color}" Stroke="#FF000000" StrokeThickness="1" StrokeDashArray="{Binding Path=StrokeDash}" SnapsToDevicePixels="True"
+				<Rectangle Fill="{Binding Path=TicketBackground}" Stroke="#FF000000" StrokeThickness="1" StrokeDashArray="{Binding Path=TicketStrokeDash}" SnapsToDevicePixels="True"
 				Height="96" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="140" />
 				<Border BorderBrush="Transparent" BorderThickness="0" Height="96" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="140">
-					<TextBlock FontSize="75" Text="{Binding Path=OrderNo}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+					<TextBlock Foreground="{Binding Path=TicketForeground}" FontSize="75" Text="{Binding Path=OrderNo}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 				</Border>
 				<TextBlock Height="25" HorizontalAlignment="Left" Margin="165,50,0,0" VerticalAlignment="Top">
 				..........................................................................................................
@@ -55,7 +55,7 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<TextBlock FontSize="16" Height="34" HorizontalAlignment="Left" Margin="84,6,0,0" Text="{x:Static resx:WinFormMainResource.TotalBilingual}" VerticalAlignment="Top" />
-					<TextBlock FontSize="20" Text="{Binding Path=ListMenu.Count}" FontWeight="Bold" Grid.Column="1" Height="28" HorizontalAlignment="Left" Margin="43,2,0,0" VerticalAlignment="Top" />
+					<TextBlock FontSize="20" Text="{Binding ElementName=GeneralInfo, Path=DataContext.TotalOrder}" FontWeight="Bold" Grid.Column="1" Height="28" HorizontalAlignment="Left" Margin="43,2,0,0" VerticalAlignment="Top" />
 				</Grid>
 				<Grid Height="99" Width="450">
 					<Border x:Name="MyBorderedButton" Width="448" BorderThickness="0,1,0,1" Margin="1,0,1,18">

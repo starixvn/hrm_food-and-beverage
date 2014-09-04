@@ -9,6 +9,8 @@
 
 namespace NexFB.Models.Kitchen
 {
+    using NexFB.Resources;
+
     /// <summary>
     /// Class Menu.
     /// </summary>
@@ -22,7 +24,7 @@ namespace NexFB.Models.Kitchen
 
         public string MenuVnmName { get; set; }
 
-        public int QtyOrd { get; set; }
+        public int QuantityOrder { get; set; }
 
         public int TotalOrder { get; set; }
 
@@ -40,14 +42,14 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                if (QtyOrd == TotalOrder)
+                if (QuantityOrder == TotalOrder)
                 {
                     return TotalOrder.ToString();
                 }
                 else
                 {
                     string quantityPerTotal = string.Empty;
-                    quantityPerTotal = QtyOrd.ToString() + "/" + TotalOrder.ToString();
+                    quantityPerTotal = QuantityOrder.ToString() + WinFormMainResource.QuantityPerTotal + TotalOrder.ToString();
                     return quantityPerTotal;
                 }
             }
@@ -57,10 +59,10 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                string setName = "---";
+                string setName = WinFormMainResource.DisplayDeletedOrder;
                 if (!IsDeleted)
                 {
-                    setName = MenuVnmName + " x " + QtyOrd.ToString();
+                    setName = MenuVnmName + WinFormMainResource.QuantityPerOrder + QuantityOrder.ToString();
                 }
 
                 return setName;
@@ -74,7 +76,7 @@ namespace NexFB.Models.Kitchen
                 string setName = NickName;
                 if (IsDeleted)
                 {
-                    setName += " (X)";
+                    setName += WinFormMainResource.DisplayDeletedName;
                 }
 
                 return setName;

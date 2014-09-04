@@ -15,7 +15,6 @@ namespace NexFB.WinApp.ViewModels
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
     using NexFB.Services.Implement;
-    using NexFB.Services.Interface;
     using NexFB.WinApp.Core.Commands;
 
     /// <summary>
@@ -23,22 +22,24 @@ namespace NexFB.WinApp.ViewModels
     /// </summary>
     public class DeliveredFoodViewModel : ViewModelBase
     {
+        #region Fields
+
         private List<Order> _deliveredMeals;
 
-        private IKitchenService _kitchenService;
+        #endregion
 
-        public DeliveredFoodViewModel(IKitchenService kitchenService)
-        {
-            _kitchenService = kitchenService ?? new KitchenService();
-        }
+        #region Constructors
 
         public DeliveredFoodViewModel()
-            : this(null)
         {
             ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (x) => ShowMessage(x));
             ExportOrderFoodCommand = new RelayCommand((x) => CanExecuteExportOrderFoodCommand(), (x) => ShowMessage(x));
             DeliveredMeals = this.GetDeliveredMealOrder;
         }
+
+        #endregion
+
+        #region Properties
 
         public ICommand ExportOrderFoodCommand { get; set; }
 
@@ -68,11 +69,16 @@ namespace NexFB.WinApp.ViewModels
             get
             {
                 var criteria = new GetDeliveredMealOrderCriteria();
-                List<Order> deliveredMeals = _kitchenService.GetDeliveredMealOrder(criteria);
+                List<Order> deliveredMeals = KitchenService.GetDeliveredMealOrder(criteria);
                 return deliveredMeals;
             }
         }
 
+        #endregion
+
+        #region RelayCommands
+
+        // Can Execute Command.
         public bool CanExecuteReceiveOrderFoodCommand()
         {
             return true;
@@ -83,6 +89,7 @@ namespace NexFB.WinApp.ViewModels
             return true;
         }
 
+        // Execute Command.
         public void ShowMessage(object value)
         {
             if (value == null)
@@ -94,5 +101,7 @@ namespace NexFB.WinApp.ViewModels
                 MessageBox.Show(value.ToString());
             }
         }
+
+        #endregion
     }
 }

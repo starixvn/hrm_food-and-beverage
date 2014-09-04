@@ -11,31 +11,29 @@ namespace NexFB.WinApp.ViewModels
 {
     using System.Collections.Generic;
     using System.Windows;
+    using System.Windows.Documents;
     using System.Windows.Input;
     using NexFB.Core.Models;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
     using NexFB.Resources;
-    using NexFB.Services.Implement;
-    using NexFB.Services.Interface;
     using NexFB.WinApp.Core.Commands;
+    using NexFB.WinApp.Core.Constants;
 
     /// <summary>
     /// Pending Food ViewModel.
     /// </summary>
     public class WaitingMealViewModel : ViewModelBase
     {
+        #region Fields
+
         private List<Order> _waitingMeals;
 
-        private IKitchenService _kitchenService;
+        #endregion
 
-        public WaitingMealViewModel(IKitchenService kitchenService)
-        {
-            _kitchenService = kitchenService ?? new KitchenService();
-        }
+        #region Constructors
 
         public WaitingMealViewModel()
-            : this(null)
         {
             ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (x) => ExecuteReceiveOrderFoodCommand(x));
             DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (x) => ExecuteDeliverOrderFoodCommand(x));
@@ -43,9 +41,15 @@ namespace NexFB.WinApp.ViewModels
             WaitingMeals = this.GetWaitingMealOrder;
         }
 
+        #endregion
+
+        #region Properties
+
         public ICommand DeliverOrderFoodCommand { get; set; }
 
         public ICommand ReceiveOrderFoodCommand { get; set; }
+
+        public ICommand PrintInvoiceCommand { get; set; }
 
         public List<Order> WaitingMeals
         {
@@ -71,11 +75,16 @@ namespace NexFB.WinApp.ViewModels
             get
             {
                 var criteria = new GetWaitingMealOrderCriteria();
-                List<Order> waitingMeals = _kitchenService.GetWaitngMealOrder(criteria);
+                List<Order> waitingMeals = KitchenService.GetWaitngMealOrder(criteria);
                 return waitingMeals;
             }
         }
 
+        #endregion
+
+        #region RelayCommands
+
+        // Can Execute Command.
         public bool CanExecuteReceiveOrderFoodCommand()
         {
             return true;
@@ -85,6 +94,8 @@ namespace NexFB.WinApp.ViewModels
         {
             return true;
         }
+
+        // Execute Command.
 
         /// <summary>
         /// Execute Receive Order Food Command.
@@ -97,7 +108,7 @@ namespace NexFB.WinApp.ViewModels
             {
                 int orderId = (int)value;
                 var criteria = new ProcessReceiveOrderCriteria() { OrderId = orderId };
-                received = _kitchenService.ReceiveOrder(criteria);
+                received = KitchenService.ReceiveOrder(criteria);
                 if (received.Code != 0)
                 {
                     MessageBox.Show(received.Message.ToString());
@@ -105,6 +116,7 @@ namespace NexFB.WinApp.ViewModels
                 else
                 {
                     WaitingMeals = this.GetWaitingMealOrder;
+                    ExecutePrintInvoice(orderId, Constant.ReceiveOrderFoodInvoice);
                 }
             }
             else
@@ -124,7 +136,7 @@ namespace NexFB.WinApp.ViewModels
             {
                 int orderId = (int)value;
                 var criteria = new ProcessDeliverOrderCriteria() { OrderId = orderId };
-                received = _kitchenService.DeliverOrder(criteria);
+                received = KitchenService.DeliverOrder(criteria);
                 if (received.Code != 0)
                 {
                     MessageBox.Show(received.Message.ToString());
@@ -132,6 +144,7 @@ namespace NexFB.WinApp.ViewModels
                 else
                 {
                     WaitingMeals = this.GetWaitingMealOrder;
+                    ExecutePrintInvoice(orderId, Constant.DeliverOrderFoodInvoice);
                 }
             }
             else
@@ -139,5 +152,7 @@ namespace NexFB.WinApp.ViewModels
                 MessageBox.Show(Lang.ErrorMessage.ToString());
             }
         }
+
+        #endregion
     }
 }

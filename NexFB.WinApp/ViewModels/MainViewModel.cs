@@ -17,6 +17,7 @@ namespace NexFB.WinApp.ViewModels
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.WinApp.Core.Commands;
+    using NexFB.WinApp.Core.Constants;
     using NexFB.WinApp.Core.PrintHelper;
 
     /// <summary>
@@ -25,39 +26,23 @@ namespace NexFB.WinApp.ViewModels
     public class MainViewModel : ViewModelBase
     {
         #region Fields
-        private const string OrderFoodReceiptTemplate = "PrintingTemplates\\OrderFoodReceipt.xaml";
 
         private static readonly WaitingMealViewModel WaitingMealViewModel = new WaitingMealViewModel();
-
         ////private static readonly DeliveredFoodViewModel DeliveredFoodViewModel = new DeliveredFoodViewModel();
-
         private static readonly OrderFoodViewModel OrderFoodViewModel = new OrderFoodViewModel();
-
-        private static readonly PrintHelper DocumentPrintingHelper = new PrintHelper();
-
         private ViewModelBase _currentViewModel;
-        
-        private IKitchenService _kitchenService;
 
         #endregion
 
-        #region Contructor
-
-        public MainViewModel(IKitchenService kitchenService)
-        {
-            _kitchenService = kitchenService ?? new KitchenService();
-        }
+        #region Contructors
 
         public MainViewModel()
-            : this(null)
         {
             CurrentViewModel = MainViewModel.WaitingMealViewModel;
             ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
             ViewDeliveredFoodCommand = new RelayCommand((x) => CanExecuteViewDeliveredFood(), (y) => ExecuteViewDeliveredFood());
             ViewOrderFoodCommand = new RelayCommand((x) => CanExecuteViewOrderFood(), (y) => ExecuteViewOrderFood());
             CloseWindow = new RelayCommand((x) => ((Window)x).Close());
-
-            TestPrint = new RelayCommand((x) => CanExecuteTestPrint(), (y) => ExecuteTestPrint());
         }
 
         #endregion
@@ -71,8 +56,6 @@ namespace NexFB.WinApp.ViewModels
         public ICommand ViewDeliveredFoodCommand { get; set; }
 
         public ICommand ViewOrderFoodCommand { get; set; }
-
-        public ICommand TestPrint { get; set; }
 
         public ViewModelBase CurrentViewModel
         {
@@ -95,16 +78,12 @@ namespace NexFB.WinApp.ViewModels
 
         #endregion
 
-        #region Command
+        #region RelayCommands
 
+        // Can Execute Command
         private bool CanExecuteViewPendingFoood()
         {
             return true;
-        }
-
-        private void ExecuteViewPendingFood()
-        {
-            CurrentViewModel = new WaitingMealViewModel();
         }
 
         private bool CanExecuteViewDeliveredFood()
@@ -112,14 +91,20 @@ namespace NexFB.WinApp.ViewModels
             return true;
         }
 
-        private void ExecuteViewDeliveredFood()
-        {
-            CurrentViewModel = new DeliveredFoodViewModel();
-        }
-
         private bool CanExecuteViewOrderFood()
         {
             return true;
+        }
+
+        // Execute Command
+        private void ExecuteViewPendingFood()
+        {
+            CurrentViewModel = new WaitingMealViewModel();
+        }
+
+        private void ExecuteViewDeliveredFood()
+        {
+            CurrentViewModel = new DeliveredFoodViewModel();
         }
 
         private void ExecuteViewOrderFood()
@@ -128,28 +113,5 @@ namespace NexFB.WinApp.ViewModels
         }
 
         #endregion
-
-        private bool CanExecuteTestPrint()
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Method Print Invoice.
-        /// </summary>
-        private void ExecuteTestPrint()
-        {
-            var template = (FixedDocument)DocumentPrintingHelper.LoadTemplate(OrderFoodReceiptTemplate);
-
-            var criteria = new GetOrderDetailsCriteria() { OrderId = 6 };
-            Order model = _kitchenService.GetOrderDetails(criteria);
-
-            DocumentPrintingHelper.InjectData(template, model);
-
-            string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
-            DocumentPrintingHelper.ConvertToXps(template, receiptDocument);
-
-            ////DocumentPrintingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
-        }
     }
 }

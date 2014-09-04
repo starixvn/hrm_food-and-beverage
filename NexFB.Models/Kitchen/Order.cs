@@ -11,6 +11,8 @@ namespace NexFB.Models.Kitchen
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using NexFB.Resources;
 
     /// <summary>
     /// Order Meal.
@@ -47,9 +49,13 @@ namespace NexFB.Models.Kitchen
 
         public string Code { get; set; }
 
-        public int QtyOrd { get; set; }
+        public int QuantityOrder { get; set; }
 
         public bool IsEdited { get; set; }
+
+        public int InvoiceNumber { get; set; }
+
+        public List<OrderMenu> ListMenu { get; set; }
 
         public bool HasNote
         {
@@ -65,15 +71,61 @@ namespace NexFB.Models.Kitchen
             {
                 if (IsEdited)
                 {
-                    return "Visible";
+                    return WinFormMainResource.Visible;
                 }
                 else
                 {
-                    return "Hidden";
+                    return WinFormMainResource.Hidden;
                 }
             }
         }
 
-        public List<OrderMenu> ListMenu { get; set; }
+        public string TicketBackground
+        {
+            get
+            {
+                if (InvoiceNumber == 0 || InvoiceNumber == 1)
+                {
+                    return WinFormMainResource.Black;
+                }
+
+                return string.Empty;
+            }
+        }
+
+        public string TicketStrokeDash
+        {
+            get
+            {
+                if (InvoiceNumber == 2)
+                {
+                    return WinFormMainResource.StrokeDash;
+                }
+
+                return string.Empty;
+            }
+        }
+
+        public string TicketForeground
+        {
+            get
+            {
+                if (InvoiceNumber == 0 || InvoiceNumber == 1)
+                {
+                    return WinFormMainResource.White;
+                }
+
+                return string.Empty;
+            }
+        }
+
+        public int TotalOrder
+        {
+            get
+            {
+                int totalOrder = ListMenu.Where(x => x.IsDeleted == false).Count();
+                return totalOrder;
+            }
+        }
     }
 }

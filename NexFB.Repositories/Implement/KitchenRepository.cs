@@ -43,7 +43,7 @@ namespace NexFB.Repositories.Implement
                             var selectedMenus = menus.Where(x => x.OrderId == item.OrderId).ToList();
                             foreach (var selectedMenu in selectedMenus)
                             {
-                                selectedMenu.TotalOrder = item.QtyOrd;
+                                selectedMenu.TotalOrder = item.QuantityOrder;
                             }
 
                             item.ListMenu = selectedMenus;

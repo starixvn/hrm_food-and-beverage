@@ -120,6 +120,15 @@
   <data name="Back" xml:space="preserve">
     <value>Quay lại</value>
   </data>
+  <data name="Black" xml:space="preserve">
+    <value>Black</value>
+  </data>
+  <data name="DisplayDeletedName" xml:space="preserve">
+    <value>      (X) </value>
+  </data>
+  <data name="DisplayDeletedOrder" xml:space="preserve">
+    <value>---------------</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Sửa</value>
   </data>
@@ -132,11 +141,20 @@
   <data name="Exported" xml:space="preserve">
     <value>Đã xuất</value>
   </data>
+  <data name="Hidden" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
   <data name="NameBilingual" xml:space="preserve">
     <value>Tên / Name </value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Gọi món</value>
+  </data>
+  <data name="QuantityPerOrder" xml:space="preserve">
+    <value>  x  </value>
+  </data>
+  <data name="QuantityPerTotal" xml:space="preserve">
+    <value>/</value>
   </data>
   <data name="Receive" xml:space="preserve">
     <value>Nhận</value>
@@ -156,10 +174,19 @@
   <data name="Statistic" xml:space="preserve">
     <value>Thống kê</value>
   </data>
+  <data name="StrokeDash" xml:space="preserve">
+    <value>2,2</value>
+  </data>
   <data name="TotalBilingual" xml:space="preserve">
     <value>Tổng Cộng / Total : </value>
   </data>
+  <data name="Visible" xml:space="preserve">
+    <value>Visible</value>
+  </data>
   <data name="Waiting" xml:space="preserve">
     <value>Đang chờ</value>
+  </data>
+  <data name="White" xml:space="preserve">
+    <value>White</value>
   </data>
 </root>

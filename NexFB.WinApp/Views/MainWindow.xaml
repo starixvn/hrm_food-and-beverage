@@ -33,8 +33,6 @@
 		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Order}" Command="{Binding ViewOrderFoodCommand}" Height="42" Foreground="White" Background="#47BF43" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="268,12,0,0" />
 		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Statistic}" Height="42" Foreground="White" Background="#3A95FC" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="396,12,0,0" />
 
-		<Button Command="{Binding TestPrint}" Style="{StaticResource TileButton}" Content="test print" Height="42" Foreground="White" Background="#3A95FC" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="533,12,0,0" />
-
 		<!--Button close window-->
 		<Button Style="{StaticResource TileButton}" Command="{Binding CloseWindow}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
 		 Foreground="White" Background="Red" HorizontalAlignment="Right" VerticalAlignment="Top" Height="40">

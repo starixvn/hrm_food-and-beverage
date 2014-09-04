@@ -70,6 +70,33 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Black.
+        /// </summary>
+        public static string Black {
+            get {
+                return ResourceManager.GetString("Black", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to       (X) .
+        /// </summary>
+        public static string DisplayDeletedName {
+            get {
+                return ResourceManager.GetString("DisplayDeletedName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ---------------.
+        /// </summary>
+        public static string DisplayDeletedOrder {
+            get {
+                return ResourceManager.GetString("DisplayDeletedOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sửa.
         /// </summary>
         public static string Edit {
@@ -106,6 +133,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hidden.
+        /// </summary>
+        public static string Hidden {
+            get {
+                return ResourceManager.GetString("Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tên / Name .
         /// </summary>
         public static string NameBilingual {
@@ -120,6 +156,24 @@ namespace NexFB.Resources {
         public static string Order {
             get {
                 return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to   x  .
+        /// </summary>
+        public static string QuantityPerOrder {
+            get {
+                return ResourceManager.GetString("QuantityPerOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /.
+        /// </summary>
+        public static string QuantityPerTotal {
+            get {
+                return ResourceManager.GetString("QuantityPerTotal", resourceCulture);
             }
         }
         
@@ -178,6 +232,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 2,2.
+        /// </summary>
+        public static string StrokeDash {
+            get {
+                return ResourceManager.GetString("StrokeDash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tổng Cộng / Total : .
         /// </summary>
         public static string TotalBilingual {
@@ -187,11 +250,29 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Visible.
+        /// </summary>
+        public static string Visible {
+            get {
+                return ResourceManager.GetString("Visible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đang chờ.
         /// </summary>
         public static string Waiting {
             get {
                 return ResourceManager.GetString("Waiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to White.
+        /// </summary>
+        public static string White {
+            get {
+                return ResourceManager.GetString("White", resourceCulture);
             }
         }
     }
