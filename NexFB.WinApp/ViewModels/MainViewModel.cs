@@ -10,15 +10,8 @@
 namespace NexFB.WinApp.ViewModels
 {
     using System.Windows;
-    using System.Windows.Documents;
     using System.Windows.Input;
-    using NexFB.Criteria.Kitchen;
-    using NexFB.Models.Kitchen;
-    using NexFB.Services.Implement;
-    using NexFB.Services.Interface;
     using NexFB.WinApp.Core.Commands;
-    using NexFB.WinApp.Core.Constants;
-    using NexFB.WinApp.Core.PrintHelper;
 
     /// <summary>
     /// Main ViewModel.

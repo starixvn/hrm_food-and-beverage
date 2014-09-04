@@ -75,8 +75,10 @@ namespace NexFB.WinApp.ViewModels
         /// </summary>
         /// <param name="orderId">Id of printing order.</param>
         /// <param name="invoiceNumber">First or Second invoice.</param>
-        public void ExecutePrintInvoice(int orderId, int invoiceNumber)
+        /// <returns>Check is printed.</returns>
+        public bool ExecutePrintInvoice(int orderId, int invoiceNumber)
         {
+            ////bool printed = false;
             var template = (FixedDocument)_printingHelper.LoadTemplate(Constant.OrderFoodReceiptTemplate);
 
             var criteria = new GetOrderDetailsCriteria() { OrderId = orderId };
@@ -88,7 +90,9 @@ namespace NexFB.WinApp.ViewModels
             string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
             _printingHelper.ConvertToXps(template, receiptDocument);
 
-            ////DocumentPrintingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
+            ////printed = _printingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
+
+            return true;
         }
 
         #endregion

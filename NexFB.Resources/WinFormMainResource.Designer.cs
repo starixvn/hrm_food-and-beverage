@@ -142,6 +142,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Local printer error. Please notify the Administrators!.
+        /// </summary>
+        public static string LocalPrinterError {
+            get {
+                return ResourceManager.GetString("LocalPrinterError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tên / Name .
         /// </summary>
         public static string NameBilingual {

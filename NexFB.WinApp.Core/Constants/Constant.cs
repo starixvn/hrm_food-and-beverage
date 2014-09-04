@@ -19,5 +19,9 @@ namespace NexFB.WinApp.Core.Constants
         public const int ReceiveOrderFoodInvoice = 1;
 
         public const int DeliverOrderFoodInvoice = 2;
+
+        private Constant()
+        {
+        }
     }
 }

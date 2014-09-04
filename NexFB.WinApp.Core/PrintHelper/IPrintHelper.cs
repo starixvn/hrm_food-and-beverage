@@ -20,7 +20,7 @@ namespace NexFB.WinApp.Core.PrintHelper
 
         void ConvertToXps(FixedDocument fixedDoc, string outputFile);
 
-        void Print(DocumentPaginator documentPaginator);
+        bool Print(DocumentPaginator documentPaginator);
 
         object LoadTemplate(string templatePath);
     }

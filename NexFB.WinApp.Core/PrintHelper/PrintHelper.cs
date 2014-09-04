@@ -14,11 +14,13 @@ namespace NexFB.WinApp.Core.PrintHelper
     using System.IO.Packaging;
     using System.Printing;
     using System.Printing.IndexedProperties;
+    using System.Windows;
     using System.Windows.Documents;
     using System.Windows.Markup;
     using System.Windows.Threading;
     using System.Windows.Xps;
     using System.Windows.Xps.Packaging;
+    using NexFB.Resources;
 
     /// <summary>
     /// Print Helper.
@@ -64,16 +66,31 @@ namespace NexFB.WinApp.Core.PrintHelper
             }
         }
 
-        public void Print(DocumentPaginator documentPaginator)
+        /// <summary>
+        /// Print Invoice.
+        /// </summary>
+        /// <param name="documentPaginator">Document type.</param>
+        /// <returns>Check is printed.</returns>
+        public bool Print(DocumentPaginator documentPaginator)
         {
             LocalPrintServer localPrintServer = new LocalPrintServer(PrintSystemDesiredAccess.AdministrateServer);
             PrintQueue sourcePrintQueue = localPrintServer.DefaultPrintQueue;
-            PrintPropertyDictionary localPrintProperties = sourcePrintQueue.PropertiesCollection;
-            PrintBooleanProperty shared = new PrintBooleanProperty("IsShared", true);
-            localPrintProperties.Remove("IsShared");
-            localPrintProperties.Add("IsShared", shared);
+            if (sourcePrintQueue == null)
+            {
+                MessageBox.Show(WinFormMainResource.LocalPrinterError, "Errors", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            else
+            {
+                PrintPropertyDictionary localPrintProperties = sourcePrintQueue.PropertiesCollection;
+                PrintBooleanProperty shared = new PrintBooleanProperty("IsShared", true);
+                localPrintProperties.Remove("IsShared");
+                localPrintProperties.Add("IsShared", shared);
 
-            PrintFlowDocument(sourcePrintQueue, documentPaginator);
+                XpsDocumentWriter xpsDocumentWriter = PrintQueue.CreateXpsDocumentWriter(sourcePrintQueue);
+                xpsDocumentWriter.Write(documentPaginator);
+                return true;
+            }
         }
 
         /// <summary>
@@ -98,12 +115,6 @@ namespace NexFB.WinApp.Core.PrintHelper
             }
 
             return template;
-        }
-
-        private static void PrintFlowDocument(PrintQueue printQueue, DocumentPaginator document)
-        {
-            XpsDocumentWriter xpsDocumentWriter = PrintQueue.CreateXpsDocumentWriter(printQueue);
-            xpsDocumentWriter.Write(document);
         }
     }
 }
