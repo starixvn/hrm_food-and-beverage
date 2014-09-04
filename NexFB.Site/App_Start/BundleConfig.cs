@@ -26,11 +26,15 @@ namespace NexFB.Site
         {
             bundles.AddAndInclude(
                 "~/Src/Content/login/css",
-                "~/Src/Content/Common/bootstrap.min.css",
+                "~/Src/Content/Less/bootstrap.less",
                 "~/Src/Content/site/auth/style.less");
 
+            bundles.Add(new StyleBundle("~/bundles/less").IncludeDirectory(
+                "~/Src/Content/Less",
+                "*.less",
+                true));
+
             bundles.Add(new StyleBundle("~/Src/Content/Common/css").Include(
-                "~/Src/Content/Common/bootstrap.min.css",
                 "~/Src/Content/Common/bootstrap-theme.min.css",
                 "~/Src/Content/Common/toastr.css",
                 "~/Src/Content/Common/angular-multi-select.css"));
