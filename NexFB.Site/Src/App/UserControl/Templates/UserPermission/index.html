@@ -1,11 +1,11 @@
-﻿<div class="row sub-header">
-	<ul class="breadcrumb list-inline pull-left">
+﻿<div class="col-sm-12 sub-header">
+    <ul class="breadcrumb list-inline pull-left">
         <li><a href="#" data-translate="ManageUser" ng-click="reload()"></a></li>
         <li class="current" data-translate="AssignRoleToUser"></li>
     </ul>
 </div>
-<div class="row">
-    <form novalidate class="form-inline filter">
+<div class="col-sm-12">
+    <form novalidate class="row form-inline filter">
     <div class="form-group">
         <label data-translate="Keyword">
         </label>
@@ -19,7 +19,7 @@
             <option value="">-- {{"AllCompanies" | translate}} --</option>
         </select>
     </div>
-	<div class="form-group">
+    <div class="form-group">
         <label data-translate="Team">
         </label>
         <select ng-model="filter.teamId" ng-options="opt.TeamId as opt.Name for opt in teamOptions"
@@ -27,21 +27,20 @@
             <option value="">-- {{"AllTeam" | translate}} --</option>
         </select>
     </div>
-	<div class="form-group" name="roleOption">
+    <div class="form-group" name="roleOption">
         <label data-translate="Role">
         </label>
-        <add-class-to-role-filter multi-select input-model="roleOptions" button-label="Name" item-label="Name" tick-property="ticked"
-             max-labels="0" >
-        </add-class-to-role-filter>
+        <add-class-to-role-filter multi-select input-model="roleOptions" button-label="Name"
+            item-label="Name" tick-property="ticked" max-labels="0">
+                </add-class-to-role-filter>
     </div>
     <div class="form-group">
-        <button class="button" ng-click="query(filter)" ng-disabled="disabledSubmitButton" data-translate="Submit">
+        <button class="button" ng-click="query(filter)" ng-disabled="disabledSubmitButton"
+            data-translate="Submit">
         </button>
     </div>
     </form>
-</div>
-<div class="row">
-    <table class="table table-bordered table-striped" id="data" fixed-header>
+    <table class="row table table-bordered table-striped" id="data" fixed-header>
         <thead>
             <tr class="headerName">
                 <th class="employee-no" data-translate="SymbolCount">
@@ -76,7 +75,7 @@
                 <td class="authority-employee-name">
                     {{employee.FullName}}
                 </td>
-               <td class="authority-employee-team">
+                <td class="authority-employee-team">
                     <span tooltip="{{employee.Team.Name}}">{{employee.Team.Code}}</span>
                 </td>
                 <td class="authority-employee-company">
@@ -85,7 +84,7 @@
                 <td class="authority-employee-role">
                     {{employee.Roles}}
                 </td>
-                <td class="align-center authority-employee-action" ng-if="policy.permission == 2">
+                <td class="text-center authority-employee-action" ng-if="policy.permission == 2">
                     <a class="glyphicon glyphicon-edit icon-edit" href="" title="Edit" ng-click="assignRole(employee)" />
                 </td>
             </tr>

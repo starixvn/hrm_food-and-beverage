@@ -8,30 +8,28 @@ body {
     min-width: 760px;
 }
 
-.modal-confirm-center .modal-dialog {
-    margin-top: 13% !important;
-}
-
 .required .control-label:after {
     color: #FF0000;
     content: "*";
     padding-left: 5px;
 }
 
-.container.page {
+.container-fluid.page {
     width: 100%;
-    padding: 0;
     min-width: 760px;
-
-    .row {
-        margin: 0;
-    }
 	
+	/********************************************************/
+	/*					    Common                          */
+	/********************************************************/
 	.ico-tick {
 		background: url("/Content/Site/images/accept.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 		display: inline-block;
 		height: 16px;
 		width: 16px;
+	}
+
+	.row-cust {
+		margin: 0;
 	}
 
     a {
@@ -77,8 +75,20 @@ body {
     }
 
     select option {
-        padding: 4px 10px;
-    }
+		padding: 4px 10px;
+	}
+
+	input[type='text'], select {
+		.border-radius(3px);
+        border: 1px solid #C8C8C8;
+        box-shadow: 1px 1px 3px 3px #F2F2F2;
+        height: 30px;
+        padding: 3px 12px 6px;
+	}
+
+	/********************************************************/
+	/*					    Header                          */
+	/********************************************************/
 
     .header {
         #gradient .vertical(#E4E4E4, #DCDCDC);
@@ -242,7 +252,9 @@ body {
         }
     }
 
-    /* Title */
+	/********************************************************/
+	/*					    Title                          */
+	/********************************************************/
     .title {
         color: #313131;
         font-size: @font-size + 5;
@@ -251,30 +263,29 @@ body {
 
     .sub-header {
         margin-top: 7px;
-    }
+		.breadcrumb {
+			background: none;
+			margin: 0 20px 0 0;
+			font-family: BigNoodleTitling, @font-family;
+			font-size: @font-size + 9;
+			padding: 2px 0 0;
 
-    .breadcrumb {
-        background: none;
-        margin: 0 20px 0 0;
-        font-family: BigNoodleTitling, @font-family;
-        font-size: @font-size + 9;
-        padding: 2px 1% 0;
-
-        li {
-            padding: 0;
+			li {
+				padding: 0;
 
 
-            &.current {
-                color: @menu-color;
-                max-width: 100%;
-                word-wrap: break-word;
-            }
-        }
+				&.current {
+					color: @menu-color;
+					max-width: 100%;
+					word-wrap: break-word;
+				}
+			}
 
-        li + li:before {
-            padding: 0 8px;
-            color: @menu-color;
-        }
+			li + li:before {
+				padding: 0 8px;
+				color: @menu-color;
+			}
+		}
     }
 
     .button-icon {
@@ -329,7 +340,9 @@ body {
 		}
     }
 
-    /* Icon */
+    /********************************************************/
+	/*					     Icon                           */
+	/********************************************************/
 
     .icon.plus {
         background: url(images/sprite_ico_2012-05-15.png) 0 -72px no-repeat;
@@ -338,15 +351,16 @@ body {
         float: left;
     }
 
-    /* Filter form */
+    /********************************************************/
+	/*					     Filter                         */
+	/********************************************************/
     .filter {
         background-color: #F4F4F4;
-        border: 1px solid #ddd;
-        .border-radius(2px);
-        float: left;
+        border: 1px solid #ddd;        
         min-width: 600px;
         padding: 15px 25px;
-        margin: 7px 1% 10px 13px;
+        margin: 7px 0 10px;
+		.border-radius(2px);
 
 		.lstBox-limit
 		{
@@ -377,7 +391,9 @@ body {
         }
     }
 
-    /* Form */
+    /********************************************************/
+	/*					       Form                         */
+	/********************************************************/
 
     .common-form {
         border: 1px solid @border-light-color;
@@ -444,119 +460,17 @@ body {
         text-align: center;
         color: red;
     }
-
-    /* tab */
-    .target-tabset {
-        margin: 15px 1% 10px;
-
-        .common-form.info-form {
-            background: none;
-            border: none;
-            float: none;
-            margin: 0;
-            padding: 0;
-            .box-shadow(none);
-        }
-
-        .nav-tabs {
-            cursor: pointer;
-            border-color: @border-light-color;
-
-            li.active > a, > li.active > a:hover, li.active > a:focus {
-                border-color: @border-light-color @border-light-color rgba(0, 0, 0, 0);
-                color: #777;
-                font-weight: bold;
-                background-color: #fafafa;
-            }
-            
-            li > a {
-                .border-radius(3px 3px 0 0);
-                padding: 7px 15px;
-
-                &:hover {
-                    background-color: #fafafa;
-                    border-color: @border-light-color;
-                }
-            }
-        }
-
-        .tab-content {
-            border: 1px solid @border-light-color;
-            border-width: 0 1px 1px;
-            padding: 5px 0.5%;
-            background-color: #fafafa;
-
-            .filter {
-                margin-top: 12px;
-            }
-
-            .common-form {
-                margin-top: 10px;
-            }
-        }
-
-        .target-bold {
-            font-weight: bold;
-            color: #666;
-            padding-left: 0;
-        }
-
-        .target-kpi {
-            min-width: 612px;
-            margin-top: 10px;
-        }
-    }
-
-    /* Change Status*/
-    .changeStatus, a.changeStatus {
-         background: url(images/arrow-down.png) no-repeat left center;
-         padding-left: 13px;
-     
-         &:hover, &:focus {
-            text-decoration: none;
-         }
-    }
-
-    .dropdown-menu-width {
-        min-width: 50px;
-        text-align: left;
-        padding: 0;
-        top: 110%;
-        background-color: #f7f5f5;
-        .border-radius(3px);
-
-        li {
-            border-top: 1px solid #dfdfdf;
-
-            a {
-                color: #555;
-                background: url(images/arrow-left.png) no-repeat 9px 10px;
-                font-size: @font-size;
-                padding: 4px 21px 4px 20px;
-
-                &:hover {
-                    color: @link-color;
-                }
-            }
-
-            &:first-child {
-                border-top: none;
-            }
-        }
-    }
 }
 
-/* Table */
+
+/********************************************************/
+/*					       Table                        */
+/********************************************************/
 .table {
     margin: 0 0 10px;
     font-size: @font-size;
     border: none;
     background-color: #fff;
-
-    &.table-setting {
-        margin: 0;
-        width: 100%;
-    }
 
     thead tr {
         th {
@@ -663,7 +577,10 @@ body {
     }
 }
 
-/* Calendar */
+
+/********************************************************/
+/*					       Calendar                     */
+/********************************************************/
 
 .calendar-form-control {
     background-color: #FFF;
@@ -779,7 +696,10 @@ body {
     }
 }
 
-/* Button */
+
+/********************************************************/
+/*					     Button                         */
+/********************************************************/
 .button {
     #gradient .vertical(#5EB2D5, #308FB7);
     border: 1px solid #256F8E;
@@ -804,7 +724,10 @@ body {
     }
 }
 
-/* Modal */
+
+/********************************************************/
+/*					      Modal                         */
+/********************************************************/
 .modal-dialog {
     width: 620px;
     .modal-header {
@@ -878,15 +801,9 @@ body {
     }
 }
 
-/* Button of Bootstrap */
-
-.btn.customize {
-    font-size: @font-size - 1;
-    padding: 4px 15px;
-    .box-shadow(none);
-}
-
-/* Customize alert */
+/********************************************************/
+/*					   Customize alert                  */
+/********************************************************/
 .toast-top-right {
     right: 45%;
     top: 46px;
@@ -910,7 +827,7 @@ body {
 }
 
 @media (max-width: 770px) {
-    .container.page {
+    .container-fluid.page {
         .header {
             .logo {
                 background-color: #F4F4F4;
