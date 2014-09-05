@@ -78,8 +78,8 @@ function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory)
 } ]);
 
 userControlModule.controller("ManageUserController",
-['$scope', 'userControlFactory', 'notificationFactory', '$route', '$modal', 'ErrorFactory',
-function ($scope, userControlFactory, notificationFactory, $route, $modal, ErrorFactory) {
+['$scope', 'userControlFactory', 'notificationFactory', '$route', '$modal', 'ErrorFactory', 'commonFactory',
+function ($scope, userControlFactory, notificationFactory, $route, $modal, ErrorFactory, commonFactory) {
 	$scope.filter = {
 		keyword: '',
 		departmentId: '',
@@ -122,10 +122,18 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 		notificationFactory.error("ErrorMessage");
 	});
 
+	$scope.showEntries = function () {
+		commonFactory.tablePagination($scope, $scope.employees, $scope.entrySelected);
+	};
+
+	$scope.entrySelected = 20;
+	commonFactory.numberEntryList($scope);
+
 	function getAllEmployeeRole(filter) {
 		userControlFactory.getAllEmployeeRole(filter.keyword, filter.departmentId, filter.teamId, filter.roleId)
 		.success(function (employees) {
 			$scope.employees = employees;
+			commonFactory.tablePagination($scope, employees, $scope.entrySelected);
 		})
 		.error(function () {
 			if (status === 405) {

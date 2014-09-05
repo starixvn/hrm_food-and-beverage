@@ -75,7 +75,8 @@ namespace NexFB.Site
             bundles.Add(new ScriptBundle("~/bundles/extensions").Include(
                 "~/Src/Components/Extensions/Common/error-factory.js",
                 "~/Src/Components/Extensions/Common/notification-factory.js",
-                "~/Src/Components/Extensions/Directives/fb-directives.js"));
+                "~/Src/Components/Extensions/Directives/fb-directives.js",
+                "~/Src/Components/Extensions/Common/common-factory.js"));
         }
     }
 }

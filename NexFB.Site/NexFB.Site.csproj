@@ -208,6 +208,7 @@
     <Content Include="Src\App\UserControl\userControl-factory.js" />
     <Content Include="Src\App\UserControl\userControl-route.js" />
     <Content Include="Src\App\UserControl\userControl-controller.js" />
+    <Content Include="Src\Components\Extensions\Common\common-factory.js" />
     <Content Include="Src\Components\Extensions\Common\error-factory.js" />
     <Content Include="Src\Components\Extensions\Common\notification-factory.js" />
     <Content Include="Src\Components\Extensions\Directives\fb-directives.js" />

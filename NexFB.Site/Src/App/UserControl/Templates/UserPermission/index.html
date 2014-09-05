@@ -41,7 +41,20 @@
     </div>
     </form>
     <table class="row table table-bordered table-striped" id="data" fixed-header>
+    <table class="table table-bordered table-striped" id="data" >
         <thead>
+            <tr class="header-table">
+                <th colspan="8">
+                    <div class="pull-left table-entries">
+                        <span data-translate="Show"></span>
+                        <select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
+                            ng-options="entry for entry in entries">
+                        </select>
+                        <span data-translate="entries"></span>
+                    </div>
+                    <input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+                </th>
+            </tr>
             <tr class="headerName">
                 <th class="employee-no" data-translate="SymbolCount">
                 </th>
@@ -62,7 +75,7 @@
             </tr>
         </thead>
         <tbody class="table-body">
-            <tr ng-repeat="employee in employees track by employee.SystemId">
+            <tr ng-repeat="employee in pagedItems[currentPage]">
                 <td class="employee-no">
                     {{$index + 1}}
                 </td>
@@ -93,5 +106,12 @@
                 </td>
             </tr>
         </tbody>
+		<tfoot>
+			<tr>
+				<td colspan="8" class="paging">
+					<pagination-bar></pagination-bar>
+				</td>
+			</tr>
+		</tfoot>
     </table>
 </div>
