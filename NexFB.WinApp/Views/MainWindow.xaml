@@ -5,20 +5,15 @@
 	xmlns:l="clr-namespace:NexFB.WinApp.DependencyProperties"
 	xmlns:local="clr-namespace:NexFB.WinApp.ViewModels"
 	xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
-	Title="Order Foods" Width="1280" Height="1024" WindowState="Maximized"
-	ResizeMode="NoResize"
-	l:ControlBox.HasMinimizeButton="True"
-	l:ControlBox.HasMaximizeButton="True">
+	Title="Order Foods" Width="1280" Height="1024" WindowState="Maximized">
 
 	<Window.Resources>
 		<!--AllowsTransparency="False"-->
 		<!--WindowStyle="None"-->
+		<!--l:ControlBox.HasMinimizeButton="True"
+	l:ControlBox.HasMaximizeButton="True"-->
+		<!--ResizeMode="NoResize"-->
 	</Window.Resources>
-
-	<!--Initialize DataContext-->
-	<Window.DataContext>
-		<local:MainViewModel/>
-	</Window.DataContext>
 
 	<!--NexFB Main Grid-->
 	<Grid Background="Black">

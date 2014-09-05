@@ -12,8 +12,10 @@ namespace NexFB.WinApp.ViewModels
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Input;
+    using NexFB.Core.Models;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
+    using NexFB.Resources;
     using NexFB.Services.Implement;
     using NexFB.WinApp.Core.Commands;
 
@@ -32,8 +34,8 @@ namespace NexFB.WinApp.ViewModels
 
         public DeliveredFoodViewModel()
         {
-            ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (x) => ShowMessage(x));
-            ExportOrderFoodCommand = new RelayCommand((x) => CanExecuteExportOrderFoodCommand(), (x) => ShowMessage(x));
+            UndoOrderCommand = new RelayCommand((x) => CanExecuteUndoOrderCommand(), (x) => ExecuteUndoOrderCommand(x));
+            EditOrderCommand = new RelayCommand((x) => CanExecuteEditOrderCommand(), (x) => ExecuteEditOrderCommand(x));
             DeliveredMeals = this.GetDeliveredMealOrder;
         }
 
@@ -41,9 +43,9 @@ namespace NexFB.WinApp.ViewModels
 
         #region Properties
 
-        public ICommand ExportOrderFoodCommand { get; set; }
+        public ICommand UndoOrderCommand { get; set; }
 
-        public ICommand ReceiveOrderFoodCommand { get; set; }
+        public ICommand EditOrderCommand { get; set; }
 
         public List<Order> DeliveredMeals
         {
@@ -79,22 +81,49 @@ namespace NexFB.WinApp.ViewModels
         #region RelayCommands
 
         // Can Execute Command.
-        public bool CanExecuteReceiveOrderFoodCommand()
+        public bool CanExecuteUndoOrderCommand()
         {
             return true;
         }
 
-        public bool CanExecuteExportOrderFoodCommand()
+        public bool CanExecuteEditOrderCommand()
         {
             return true;
         }
 
         // Execute Command.
-        public void ShowMessage(object value)
+
+        /// <summary>
+        /// Execute Undo Order Command.
+        /// </summary>
+        /// <param name="value">Parameter value.</param>
+        public void ExecuteUndoOrderCommand(object value)
+        {
+            if (value != null)
+            {
+                int orderId = (int)value;
+                var criteria = new UndoOrderCriteria() { OrderId = orderId };
+                CommandResult result = KitchenService.UndoOrder(criteria);
+                if (result.Code != 0)
+                {
+                    MessageBox.Show(result.Message);
+                }
+                else
+                {
+                    DeliveredMeals = this.GetDeliveredMealOrder;
+                }
+            }
+            else
+            {
+                MessageBox.Show(Lang.ErrorMessage);
+            }
+        }
+
+        public void ExecuteEditOrderCommand(object value)
         {
             if (value == null)
             {
-                MessageBox.Show("null");
+                MessageBox.Show(Lang.ErrorMessage);
             }
             else
             {

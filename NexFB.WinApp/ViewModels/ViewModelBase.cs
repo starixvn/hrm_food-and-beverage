@@ -9,6 +9,7 @@
 
 namespace NexFB.WinApp.ViewModels
 {
+    using System;
     using System.Windows.Documents;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
@@ -88,7 +89,10 @@ namespace NexFB.WinApp.ViewModels
             _printingHelper.InjectData(template, model);
 
             string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
-            _printingHelper.ConvertToXps(template, receiptDocument);
+            string[] paths = receiptDocument.Split('\\');
+            var fileName = paths[paths.Length - 1];
+            string receiptDocumentCustom = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + fileName;
+            _printingHelper.ConvertToXps(template, receiptDocumentCustom);
 
             ////printed = _printingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
 

@@ -79,7 +79,7 @@
 							<TextBlock Height="23" HorizontalAlignment="Left" Margin="128,40,0,0" Text="{Binding ElementName=GeneralInfo, Path=DataContext.Remark}" VerticalAlignment="Top" />
 							<Grid Visibility="{Binding ElementName=GeneralInfo, Path=DataContext.HasEdited}">
 								<Rectangle Height="36" Fill="Black" HorizontalAlignment="Left" Margin="238,3,0,0" Stroke="Black" VerticalAlignment="Top" Width="200" />
-								<TextBlock FontWeight="Black" FontSize="20" Foreground="White" Height="31" HorizontalAlignment="Left" Margin="281,6,0,0" Text="{x:Static resx:WinFormMainResource.EditBilingual}" VerticalAlignment="Top" />
+								<TextBlock FontWeight="Black" FontSize="20" Foreground="White" Height="31" HorizontalAlignment="Left" Margin="281,6,0,0" Text="{x:Static resx:WinFormMainResource.ReduceBilingual}" VerticalAlignment="Top" />
 							</Grid>
 						</Grid>
 					</Border>

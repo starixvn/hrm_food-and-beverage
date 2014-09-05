@@ -27,6 +27,8 @@ namespace NexFB.Services.Interface
 
         CommandResult DeliverOrder(ProcessDeliverOrderCriteria criteria);
 
+        CommandResult UndoOrder(UndoOrderCriteria criteria);
+
         Order GetOrderDetails(GetOrderDetailsCriteria criteria);
     }
 }

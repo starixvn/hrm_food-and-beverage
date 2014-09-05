@@ -10,6 +10,7 @@
 namespace NexFB.WinApp
 {
     using System.Windows;
+    using NexFB.WinApp.ViewModels;
 
     /// <summary>
     /// Interaction logic for MainWindow.
@@ -19,6 +20,7 @@ namespace NexFB.WinApp
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainViewModel();
         }
     }
 }

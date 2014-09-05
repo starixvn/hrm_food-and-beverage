@@ -83,6 +83,18 @@ namespace NexFB.Services.Implement
             return received;
         }
 
+        public CommandResult UndoOrder(UndoOrderCriteria criteria)
+        {
+            CommandResult result = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
         public Order GetOrderDetails(GetOrderDetailsCriteria criteria)
         {
             Order orderDetails = null;

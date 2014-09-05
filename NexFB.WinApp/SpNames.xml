@@ -22,6 +22,7 @@
 		</Setting>
 		<Setting Key="POS_ReceiveOrder" SpName="POS_ReceiveOrder" DbName="NexFB" Plain="0" ></Setting>
 		<Setting Key="POS_DeliverOrder" SpName="POS_DeliverOrder" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_UndoOrder" SpName="POS_UndoOrder" DbName="NexFB" Plain="0" ></Setting>
 		<Setting Key="POS_Get_OrderDetail" SpName="POS_Get_OrderDetail" DbName="NexFB" Plain="0" >
 			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
 		</Setting>

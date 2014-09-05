@@ -102,10 +102,10 @@
 
 							<!--Order status-->
 							<Grid Grid.Column="2" Width="170" Height="150" VerticalAlignment="Top">
-								<Button Command="{Binding ElementName=ListDeliveredFood, Path=DataContext.UnDeliverMealCommand}" CommandParameter="{Binding Path=OrderId}"
+								<Button Command="{Binding ElementName=ListDeliveredFood, Path=DataContext.UndoOrderCommand}" CommandParameter="{Binding Path=OrderId}"
 								 Background="#FA5934" Foreground="White" Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Back}" Margin="4,7,0,107" Width="83" Height="36" HorizontalAlignment="Left" />
 
-								<Button  Command="{Binding ElementName=ListDeliveredFood, Path=DataContext.EditMealCommand}" CommandParameter="{Binding Path=OrderId}"
+								<Button  Command="{Binding ElementName=ListDeliveredFood, Path=DataContext.EditOrderCommand}" CommandParameter="{Binding Path=OrderId}"
 								Background="#3A95FC"  Foreground="White" Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Edit}" Margin="0,7,15,107" Height="36" HorizontalAlignment="Right" Width="55" />
 							</Grid>
 						</Grid>

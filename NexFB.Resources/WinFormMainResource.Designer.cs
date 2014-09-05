@@ -169,6 +169,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In.
+        /// </summary>
+        public static string Print {
+            get {
+                return ResourceManager.GetString("Print", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to   x  .
         /// </summary>
         public static string QuantityPerOrder {
@@ -201,6 +210,15 @@ namespace NexFB.Resources {
         public static string ReceiveBilingual {
             get {
                 return ResourceManager.GetString("ReceiveBilingual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giảm / Reduced.
+        /// </summary>
+        public static string ReduceBilingual {
+            get {
+                return ResourceManager.GetString("ReduceBilingual", resourceCulture);
             }
         }
         

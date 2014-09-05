@@ -103,16 +103,15 @@ namespace NexFB.WinApp.ViewModels
         /// <param name="value">Parameter value.</param>
         public void ExecuteReceiveOrderFoodCommand(object value)
         {
-            CommandResult received = null;
-            bool printed = false;
             if (value != null)
             {
                 int orderId = (int)value;
-                printed = ExecutePrintInvoice(orderId, Constant.ReceiveOrderFoodInvoice);
+                bool printed = ExecutePrintInvoice(orderId, Constant.ReceiveOrderFoodInvoice);
+
                 if (printed)
                 {
                     var criteria = new ProcessReceiveOrderCriteria() { OrderId = orderId };
-                    received = KitchenService.ReceiveOrder(criteria);
+                    CommandResult received = KitchenService.ReceiveOrder(criteria);
                     if (received.Code != 0)
                     {
                         MessageBox.Show(received.Message.ToString());
@@ -135,16 +134,14 @@ namespace NexFB.WinApp.ViewModels
         /// <param name="value">Parameter Value.</param>
         public void ExecuteDeliverOrderFoodCommand(object value)
         {
-            CommandResult received = null;
-            bool printed = false;
             if (value != null)
             {
                 int orderId = (int)value;
-                printed = ExecutePrintInvoice(orderId, Constant.DeliverOrderFoodInvoice);
+                bool printed = ExecutePrintInvoice(orderId, Constant.DeliverOrderFoodInvoice);
                 if (printed)
                 {
                     var criteria = new ProcessDeliverOrderCriteria() { OrderId = orderId };
-                    received = KitchenService.DeliverOrder(criteria);
+                    CommandResult received = KitchenService.DeliverOrder(criteria);
                     if (received.Code != 0)
                     {
                         MessageBox.Show(received.Message.ToString());

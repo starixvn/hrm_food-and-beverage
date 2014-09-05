@@ -153,6 +153,9 @@
   <data name="Order" xml:space="preserve">
     <value>Gọi món</value>
   </data>
+  <data name="Print" xml:space="preserve">
+    <value>In</value>
+  </data>
   <data name="QuantityPerOrder" xml:space="preserve">
     <value>  x  </value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="ReceiveBilingual" xml:space="preserve">
     <value>Nhận / In : </value>
+  </data>
+  <data name="ReduceBilingual" xml:space="preserve">
+    <value>Giảm / Reduced</value>
   </data>
   <data name="Ref" xml:space="preserve">
     <value>Ref : </value>
