@@ -127,5 +127,13 @@ namespace NexFB.Models.Kitchen
                 return totalOrder;
             }
         }
+
+        public string ThreeDigitOrderNo
+        {
+            get
+            {
+                return OrderNo.ToString().PadLeft(2, '0');
+            }
+        }
     }
 }

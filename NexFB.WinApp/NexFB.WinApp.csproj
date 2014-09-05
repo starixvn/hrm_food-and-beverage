@@ -96,6 +96,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DependencyProperties\InternetAvailability.cs" />
+    <Compile Include="DependencyProperties\NativeMethods.cs" />
     <Compile Include="Views\ManageOrder\DeliveredFood.xaml.cs">
       <DependentUpon>DeliveredFood.xaml</DependentUpon>
     </Compile>
@@ -216,6 +218,7 @@
     <Resource Include="Images\window_close.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Icon.ico" />
     <Content Include="SpNames.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

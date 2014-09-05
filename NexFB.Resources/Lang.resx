@@ -162,6 +162,9 @@
   <data name="ErrorMessage" xml:space="preserve">
     <value>Sorry, an error occurred while processing your request, please notify the administrators!</value>
   </data>
+  <data name="ErrorNetworkConnectionHeader" xml:space="preserve">
+    <value>Network Connection Errors</value>
+  </data>
   <data name="FullName" xml:space="preserve">
     <value>Full Name</value>
   </data>
@@ -191,6 +194,9 @@
   </data>
   <data name="Monthly" xml:space="preserve">
     <value>Monthly</value>
+  </data>
+  <data name="NetworkConnectionError" xml:space="preserve">
+    <value>There are problem with network connection. Please notify to administrators!</value>
   </data>
   <data name="NickName" xml:space="preserve">
     <value>Nick Name</value>

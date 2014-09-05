@@ -103,7 +103,7 @@ namespace NexFB.WinApp.Core.PrintHelper
             object template;
 
             // get the needed template paths
-            string absolutePath = Path.GetFullPath(templatePath);
+            string absolutePath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, templatePath);
             string directoryPath = Path.GetDirectoryName(absolutePath);
             using (FileStream inputStream = File.OpenRead(absolutePath))
             {
