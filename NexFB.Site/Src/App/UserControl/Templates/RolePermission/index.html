@@ -1,54 +1,55 @@
-﻿
-<div class="row">
-    <div class="row sub-header">
-        <ul class="breadcrumb list-inline pull-left">
-            <li><a href="#" data-translate="ManageRole" ng-click="reload()"></a></li>
-            <li class="current" data-translate="AssignPermissionToRole"></li>
-        </ul>
-    </div>
+﻿<div class="col-sm-12 sub-header">
+    <ul class="breadcrumb list-inline pull-left">
+        <li><a href="#" data-translate="ManageRole" ng-click="reload()"></a></li>
+        <li class="current" data-translate="AssignPermissionToRole"></li>
+    </ul>
 </div>
-<div class="row">
-    <form novalidate class="form-inline filter">
-    <div class="form-group">
-        <label data-translate="Role">
-        </label>
-        <select ng-model="filter.roleId" ng-options="opt.RoleId as opt.Name for opt in roleOptions"
-            required class="form-control">
-        </select>
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-6">
+            <form novalidate class="row form-inline filter filter-permission">
+            <div class="form-group">
+                <label data-translate="Role">
+                </label>
+                <select ng-model="filter.roleId" ng-options="opt.RoleId as opt.Name for opt in roleOptions"
+                    required class="form-control">
+                </select>
+            </div>
+            <button class="button" ng-click="query(filter.roleId)" ng-disabled="submitted" data-translate="Submit">
+            </button>
+            </form>
+        </div>
     </div>
-    <button class="button" ng-click="query(filter.roleId)" ng-disabled="submitted" data-translate="Submit">
-    </button>
-    </form>
-</div>
-<div class="row">
-    <form class="col-sm-5 authority-table clearfix" novalidate>
-    <table name="tableFunction" class="table table-bordered">
-        <thead>
-            <tr>
-                <th data-translate="Function" rowspan="2">
-                </th>
-                <th data-translate="RolePermission" colspan="2">
-                </th>
+    <div class="row">
+        <form class="col-sm-6 authority-table clearfix" novalidate>
+        <table name="tableFunction" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th data-translate="Function" rowspan="2">
+                    </th>
+                    <th data-translate="RolePermission" colspan="2">
+                    </th>
+                </tr>
+                <tr>
+                    <th data-translate="Read">
+                    </th>
+                    <th data-translate="Host">
+                    </th>
+                </tr>
+            </thead>
+            <tr ng-repeat="data in functionGroup">
+                <td ng-include src="'/Src/App/UserControl/Templates/RolePermission/treeItem.html'">
+                </td>
+                <td class="text-center" ng-include src="'/Src/App/UserControl/Templates/RolePermission/treeReadCheckbox.html'">
+                </td>
+                <td class="text-center" ng-include src="'/Src/App/UserControl/Templates/RolePermission/treeHostCheckbox.html'">
+                </td>
             </tr>
-            <tr>
-                <th data-translate="Read">
-                </th>
-                <th data-translate="Host">
-                </th>
-            </tr>
-        </thead>
-        <tr ng-repeat="data in functionGroup">
-            <td ng-include src="'/Src/App/UserControl/Templates/RolePermission/treeItem.html'">
-            </td>
-            <td ng-include src="'/Src/App/UserControl/Templates/RolePermission/treeReadCheckbox.html'">
-            </td>
-            <td ng-include src="'/Src/App/UserControl/Templates/RolePermission/treeHostCheckbox.html'">
-            </td>
-        </tr>
-    </table>
-    <div class="col-sm-5 clearfix save-button" ng-if="policy.permission == 2">
-        <button class="button" get-role-permission ng-disabled="disabledSubmitButton" data-translate="Save">
-        </button>
+        </table>
+        <div class="col-sm-12 btn-save" ng-if="policy.permission == 2">
+            <button class="button" get-role-permission ng-disabled="disabledSubmitButton" data-translate="Save">
+            </button>
+        </div>
+        </form>
     </div>
-    </form>
 </div>
