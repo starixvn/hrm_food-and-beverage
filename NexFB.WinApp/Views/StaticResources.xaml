@@ -87,13 +87,13 @@
 						<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="2">
 							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Export}"></Setter>
 							<Setter Property="Background" Value="#FA5934"/>
-							<Setter Property="Command" Value="{Binding ElementName=ListPendingFood, Path=DataContext.DeliverOrderFoodCommand}"/>
+							<Setter Property="Command" Value="{Binding ElementName=ListAwaitingDeliverFood, Path=DataContext.DeliverOrderFoodCommand}"/>
 							<Setter Property="CommandParameter" Value="{Binding Path=OrderId}"/>
 						</DataTrigger>
 						<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="3">
 							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Export}"></Setter>
 							<Setter Property="Background" Value="#FA5934"/>
-							<Setter Property="Command" Value="{Binding ElementName=ListPendingFood, Path=DataContext.DeliverOrderFoodCommand}"/>
+							<Setter Property="Command" Value="{Binding ElementName=ListAwaitingDeliverFood, Path=DataContext.DeliverOrderFoodCommand}"/>
 							<Setter Property="CommandParameter" Value="{Binding Path=OrderId}"/>
 						</DataTrigger>
 					</ControlTemplate.Triggers>
