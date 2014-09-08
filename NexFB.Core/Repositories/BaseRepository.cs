@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="8/25/2014 9:36:43 AM">Created.</change>
 // </history>
 
-namespace NexFB.Repositories.Implement
+namespace NexFB.Core.Repositories
 {
     using System;
     using System.Collections;
@@ -19,7 +19,6 @@ namespace NexFB.Repositories.Implement
     using NexFB.Core.Criteria;
     using NexFB.Core.Extensions;
     using NexFB.Core.Models;
-    using NexFB.Repositories.Interface;
 
     /// <summary>
     /// The base repository.

@@ -13,6 +13,7 @@ namespace NexFB.Services.Implement
     using System.Linq;
     using Fanex.Common.Helper;
     using NexFB.Core.Models;
+    using NexFB.Core.Services;
     using NexFB.Criteria.UserControl;
     using NexFB.Models.Employee;
     using NexFB.Models.UserControl;

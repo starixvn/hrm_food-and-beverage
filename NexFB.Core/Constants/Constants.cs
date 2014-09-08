@@ -20,9 +20,11 @@ namespace NexFB.Core.Constants
 
         public const string PassWordAdmin2 = "@dm!nf&bnexcel";
 
-        public const string NexcelDepartment = "1";
+        public const int NexcelDepartment = 1;
 
-        public const string SmsAndHMDepartment = "2,3";
+        public const int SmsDepartment = 2;
+
+        public const int HongMaDepartment = 3;
 
         private Constants()
         {

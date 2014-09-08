@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="8/25/2014 9:32:56 AM">Created.</change>
 // </history>
 
-namespace NexFB.Repositories.Interface
+namespace NexFB.Core.Repositories
 {
     using Fanex.Data.Repository;
     using NexFB.Core.Models;

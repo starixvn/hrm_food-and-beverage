@@ -7,13 +7,12 @@
 //   <change who="Josh.Phan" date="8/25/2014 9:48:18 AM">Created.</change>
 // </history>
 
-namespace NexFB.Services.Implement
+namespace NexFB.Core.Services
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
     using Fanex.Data.Repository;
-    using NexFB.Repositories.Implement;
-    using NexFB.Repositories.Interface;
+    using NexFB.Core.Repositories;
 
     /// <summary>
     /// The base service.

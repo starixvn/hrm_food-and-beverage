@@ -64,10 +64,8 @@
     <Compile Include="Interface\IKitchenRepository.cs" />
     <Compile Include="Interface\IMealRegistrationRepository.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
-    <Compile Include="Implement\BaseRepository.cs" />
     <Compile Include="Implement\EmployeeRepository.cs" />
     <Compile Include="Implement\UserControlRepository.cs" />
-    <Compile Include="Interface\IBaseRepository.cs" />
     <Compile Include="Interface\IEmployeeRepository.cs" />
     <Compile Include="Interface\IUserControlRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

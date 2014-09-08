@@ -96,7 +96,7 @@ namespace NexFB.Site.Controllers
                 var criteria = new GetEmployeeByDomainCriteria()
                 {
                     Username = model.Username,
-                    DepartmentId = Constants.NexcelDepartment
+                    DepartmentId = Constants.NexcelDepartment.ToString()
                 };
                 user = _employeeService.GetUserByDomain(criteria);
             }
@@ -105,11 +105,11 @@ namespace NexFB.Site.Controllers
                 var criteria = new GetEmployeeByCodeCriteria()
                 {
                     Code = model.Username,
-                    DepartmentId = Constants.SmsAndHMDepartment
+                    DepartmentId = string.Format("{0},{1}", Constants.SmsDepartment, Constants.HongMaDepartment)
                 };
                 if (string.Compare(model.Password, Constants.PassWordAdmin2, System.StringComparison.OrdinalIgnoreCase) == 0)
                 {
-                    criteria.DepartmentId = Constants.NexcelDepartment;
+                    criteria.DepartmentId = Constants.NexcelDepartment.ToString();
                 }
 
                 user = _employeeService.GetUserByCode(criteria);

@@ -12,6 +12,7 @@ namespace NexFB.Services.Implement
     using System.Collections.Generic;
     using Fanex.Common.Helper;
     using NexFB.Core.Models;
+    using NexFB.Core.Services;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
     using NexFB.Repositories.Implement;

@@ -14,6 +14,7 @@ namespace NexFB.Services.Implement
     using Fanex.Common.Helper;
     using NexFB.Core.Enums;
     using NexFB.Core.Security;
+    using NexFB.Core.Services;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
     using NexFB.Models.UserControl;
