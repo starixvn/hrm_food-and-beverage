@@ -66,7 +66,6 @@ namespace NexFB.WindowsService
         /// <summary>
         /// Function to update teams of NEXCEL.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Reviewed. Suppression is OK here.")]
         public void UpdateTeamForNexcel()
         {
             DateTime fromDate = GetDateFromBeforeUpdateTeam(Constants.NexcelDepartment);
