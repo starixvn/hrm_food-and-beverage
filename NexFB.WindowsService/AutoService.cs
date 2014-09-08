@@ -11,6 +11,7 @@ namespace NexFB.WindowsService
 {
     using System;
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.Reflection;
     using System.ServiceProcess;
     using System.Timers;
@@ -60,6 +61,7 @@ namespace NexFB.WindowsService
         /// </summary>
         /// <param name="sender">Object sender.</param>
         /// <param name="e">The ElapsedEventArgs.</param>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void ExecuteJob(object sender, ElapsedEventArgs e)
         {
             try
@@ -74,15 +76,16 @@ namespace NexFB.WindowsService
                     _service.UpdateUserForNexcel();
 
                     _LOG.Info("Update Teams Hong Ma started at " + DateTime.Now.ToString());
-                    _service.UpdateTeamForHongMa();
+                    _service.UpdateTeamForHM();
 
                     _LOG.Info("SUpdate user Hong Ma started at " + DateTime.Now.ToString());
-                    _service.UpdateUserForHongMa();
+                    _service.UpdateUserForHM();
                     _isBusy = false;
                 }
             }
             catch (Exception ex)
             {
+                _isBusy = false;
                 _LOG.Error("Error: " + ex.Message);
             }
         }

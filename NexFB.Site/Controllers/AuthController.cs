@@ -105,7 +105,7 @@ namespace NexFB.Site.Controllers
                 var criteria = new GetEmployeeByCodeCriteria()
                 {
                     Code = model.Username,
-                    DepartmentId = string.Format("{0},{1}", Constants.SmsDepartment, Constants.HongMaDepartment)
+                    DepartmentId = string.Format("{0},{1}", Constants.SmsDepartment, Constants.HMDepartment)
                 };
                 if (string.Compare(model.Password, Constants.PassWordAdmin2, System.StringComparison.OrdinalIgnoreCase) == 0)
                 {

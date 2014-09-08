@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="InsertAndUpdateUserHongMaCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="InsertAndUpdateUserHMCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -16,7 +16,7 @@ namespace NexFB.WindowsService.Criteria
     /// <summary>
     /// InsertAndUpdateUser Criteria.
     /// </summary>
-    public class InsertAndUpdateUserHongMaCriteria : CriteriaBase
+    public class InsertAndUpdateUserHMCriteria : CriteriaBase
     {
         private const string _UserTpl =
             "<User EmpId='{0}' Password='{1}' Code='{2}' "
@@ -29,7 +29,7 @@ namespace NexFB.WindowsService.Criteria
         [SpParam(Ignored = true)]
         public IList<HongMaService.UserModel> Users { get; set; }
 
-        public string UserXML
+        public string UserXml
         {
             get
             {

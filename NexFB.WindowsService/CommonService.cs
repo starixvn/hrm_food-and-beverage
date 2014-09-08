@@ -12,6 +12,7 @@ namespace NexFB.WindowsService
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using NexFB.Core.Constants;
     using NexFB.Core.Services;
@@ -27,8 +28,20 @@ namespace NexFB.WindowsService
 
         public CommonService()
         {
-            _nexcelService = new NexcelService.UserServiceClient();
-            _hongmaService = new HongMaService.UserServiceClient();
+            NexcelService = new NexcelService.UserServiceClient();
+            HongmaService = new HongMaService.UserServiceClient();
+        }
+
+        protected NexcelService.UserServiceClient NexcelService
+        {
+            get { return _nexcelService; }
+            set { _nexcelService = value; }
+        }
+
+        protected HongMaService.UserServiceClient HongmaService
+        {
+            get { return _hongmaService; }
+            set { _hongmaService = value; }
         }
 
         /// <summary>
@@ -37,7 +50,7 @@ namespace NexFB.WindowsService
         public void UpdateUserForNexcel()
         {
             DateTime fromDate = GetDateFromBeforeUpdateUser(Constants.NexcelDepartment);
-            IList<NexcelService.UserModel> users = _nexcelService.GetUser(fromDate);
+            IList<NexcelService.UserModel> users = NexcelService.GetUser(fromDate);
             if (users != null && users.Any())
             {
                 var insertCriteria = new InsertAndUpdateUserNexcelCriteria()
@@ -53,10 +66,11 @@ namespace NexFB.WindowsService
         /// <summary>
         /// Function to update teams of NEXCEL.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Reviewed. Suppression is OK here.")]
         public void UpdateTeamForNexcel()
         {
             DateTime fromDate = GetDateFromBeforeUpdateTeam(Constants.NexcelDepartment);
-            IList<NexcelService.TeamModel> teams = _nexcelService.GetTeam(fromDate);
+            IList<NexcelService.TeamModel> teams = NexcelService.GetTeam(fromDate);
             if (teams != null && teams.Any())
             {
                 var insertCriteria = new InsertAndUpdateTeamNexcelCriteria()
@@ -72,16 +86,16 @@ namespace NexFB.WindowsService
         /// <summary>
         /// Function to update users of Hong Ma.
         /// </summary>
-        public void UpdateUserForHongMa()
+        public void UpdateUserForHM()
         {
-            DateTime fromDate = GetDateFromBeforeUpdateUser(Constants.HongMaDepartment);
-            IList<HongMaService.UserModel> users = _hongmaService.GetUser(fromDate);
+            DateTime fromDate = GetDateFromBeforeUpdateUser(Constants.HMDepartment);
+            IList<HongMaService.UserModel> users = HongmaService.GetUser(fromDate);
 
             if (users != null && users.Any())
             {
-                var insertCriteria = new InsertAndUpdateUserHongMaCriteria()
+                var insertCriteria = new InsertAndUpdateUserHMCriteria()
                 {
-                    DepartmentId = Constants.HongMaDepartment,
+                    DepartmentId = Constants.HMDepartment,
                     Users = users
                 };
 
@@ -92,15 +106,15 @@ namespace NexFB.WindowsService
         /// <summary>
         /// Function to update teams of Hong Ma.
         /// </summary>
-        public void UpdateTeamForHongMa()
+        public void UpdateTeamForHM()
         {
-            DateTime fromDate = GetDateFromBeforeUpdateTeam(Constants.HongMaDepartment);
-            IList<HongMaService.TeamModel> teams = _hongmaService.GetTeam(fromDate);
+            DateTime fromDate = GetDateFromBeforeUpdateTeam(Constants.HMDepartment);
+            IList<HongMaService.TeamModel> teams = HongmaService.GetTeam(fromDate);
             if (teams != null && teams.Any())
             {
-                var insertCriteria = new InsertAndUpdateTeamHongMaCriteria()
+                var insertCriteria = new InsertAndUpdateTeamHMCriteria()
                 {
-                    DepartmentId = Constants.HongMaDepartment,
+                    DepartmentId = Constants.HMDepartment,
                     Teams = teams
                 };
 

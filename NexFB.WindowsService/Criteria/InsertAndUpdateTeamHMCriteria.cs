@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="InsertAndUpdateTeamHongMaCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="InsertAndUpdateTeamHMCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -16,7 +16,7 @@ namespace NexFB.WindowsService.Criteria
     /// <summary>
     /// InsertAndUpdateTeamHongMa Criteria.
     /// </summary>
-    public class InsertAndUpdateTeamHongMaCriteria : CriteriaBase
+    public class InsertAndUpdateTeamHMCriteria : CriteriaBase
     {
         private const string _UserTpl = "<Team TeamId='{0}' DepartmentId='{1}' Code='{2}' "
             + "Name='{3}' IsDeleted='{4}' ModifiedDate='{5}'></Team>";
@@ -27,7 +27,7 @@ namespace NexFB.WindowsService.Criteria
         [SpParam(Ignored = true)]
         public IList<HongMaService.TeamModel> Teams { get; set; }
 
-        public string TeamXML
+        public string TeamXml
         {
             get
             {

@@ -29,7 +29,7 @@ namespace NexFB.WindowsService.Criteria
         [SpParam(Ignored = true)]
         public IList<NexcelService.UserModel> Users { get; set; }
 
-        public string UserXML
+        public string UserXml
         {
             get
             {

@@ -24,7 +24,7 @@ namespace NexFB.Core.Constants
 
         public const int SmsDepartment = 2;
 
-        public const int HongMaDepartment = 3;
+        public const int HMDepartment = 3;
 
         private Constants()
         {

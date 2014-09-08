@@ -37,7 +37,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -119,11 +119,11 @@
       <DependentUpon>AutoService.cs</DependentUpon>
     </Compile>
     <Compile Include="CommonService.cs" />
-    <Compile Include="Criteria\InsertAndUpdateTeamHongMaCriteria.cs" />
+    <Compile Include="Criteria\InsertAndUpdateTeamHMCriteria.cs" />
     <Compile Include="Criteria\GetLastTeamModifiedDateCriteria.cs" />
     <Compile Include="Criteria\GetLastUserModifiedDateCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateTeamNexcelCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateUserHongMaCriteria.cs" />
+    <Compile Include="Criteria\InsertAndUpdateUserHMCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateUserNexcelCriteria.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">

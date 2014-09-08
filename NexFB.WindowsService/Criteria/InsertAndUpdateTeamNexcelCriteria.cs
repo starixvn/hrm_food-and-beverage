@@ -27,7 +27,7 @@ namespace NexFB.WindowsService.Criteria
         [SpParam(Ignored = true)]
         public IList<NexcelService.TeamModel> Teams { get; set; }
 
-        public string TeamXML
+        public string TeamXml
         {
             get
             {
