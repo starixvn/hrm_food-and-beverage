@@ -98,6 +98,10 @@
     </ApplicationDefinition>
     <Compile Include="DependencyProperties\InternetAvailability.cs" />
     <Compile Include="DependencyProperties\NativeMethods.cs" />
+    <Compile Include="ViewModels\AwaitingDeliverViewModel.cs" />
+    <Compile Include="Views\ManageOrder\AwaitingDeliver.xaml.cs">
+      <DependentUpon>AwaitingDeliver.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ManageOrder\DeliveredFood.xaml.cs">
       <DependentUpon>DeliveredFood.xaml</DependentUpon>
     </Compile>
@@ -107,11 +111,11 @@
     <Compile Include="Views\ManageOrder\WaitingMeal.xaml.cs">
       <DependentUpon>WaitingMeal.xaml</DependentUpon>
     </Compile>
-    <None Include="PrintingTemplates\OrderFoodReceipt.xaml">
+    <Content Include="PrintingTemplates\OrderFoodReceipt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -131,6 +135,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ManageOrder\AwaitingDeliver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ManageOrder\DeliveredFood.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -166,7 +174,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

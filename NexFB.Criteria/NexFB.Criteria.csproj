@@ -63,6 +63,7 @@
     <Compile Include="Department\GetAllLocationCriteria.cs" />
     <Compile Include="Employee\GetAllEmployeeFunctionCriteria.cs" />
     <Compile Include="Employee\GetEmployeeMenuBySystemIdCriteria.cs" />
+    <Compile Include="Kitchen\GetAwaitingDeliverMealOrderCriteria.cs" />
     <Compile Include="Kitchen\GetOrderDetailsCriteria.cs" />
     <Compile Include="Kitchen\ProcessDeliverOrderCriteria.cs" />
     <Compile Include="Kitchen\ProcessReceiveOrderCriteria.cs" />

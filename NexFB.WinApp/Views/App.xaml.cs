@@ -9,11 +9,14 @@
 
 namespace NexFB.WinApp
 {
+    using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Threading;
     using Fanex.Data.Configuration;
     using NexFB.Resources;
+    using NexFB.WinApp.Core.Constants;
     using NexFB.WinApp.Core.Mapping;
     using NexFB.WinApp.DependencyProperties;
 
@@ -29,15 +32,31 @@ namespace NexFB.WinApp
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         protected override void OnStartup(StartupEventArgs e)
         {
-            if (InternetAvailability.IsInternetAvailable())
+            try
             {
-                base.OnStartup(e);
-                IMappingRegister mappingRegister = new CoreMappingRegister();
-                mappingRegister.Register();
-                WinFormMainResource.Culture = new System.Globalization.CultureInfo(string.Empty);
-                DbSettingProviderManager.Current.Start();
+                if (InternetAvailability.IsInternetAvailable())
+                {
+                    base.OnStartup(e);
+                    string defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
+                    IMappingRegister mappingRegister = new CoreMappingRegister();
+                    if (string.IsNullOrEmpty(defaultLanguage))
+                    {
+                        WinFormMainResource.Culture = new CultureInfo(Constant.DefaultCulture);
+                    }
+                    else
+                    {
+                        WinFormMainResource.Culture = new CultureInfo(defaultLanguage);
+                    }
+
+                    mappingRegister.Register();
+                    DbSettingProviderManager.Current.Start();
+                }
+                else
+                {
+                    DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_NetworkConnectionException);
+                }
             }
-            else
+            catch
             {
                 DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);
             }
@@ -45,9 +64,18 @@ namespace NexFB.WinApp
 
         private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            string errorMessage = Lang.NetworkConnectionError + "\n\nError details:\n" + e.Exception.Message;
+            string errorMessage = Lang.ErrorMessage + "\n\nError details:\n" + e.Exception.Message;
             e.Handled = true;
             if (MessageBox.Show(errorMessage, Lang.ErrorNetworkConnectionHeader, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+            {
+                Shutdown();
+            }
+        }
+
+        private void App_NetworkConnectionException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+            if (MessageBox.Show(Lang.NetworkConnectionError, Lang.ErrorNetworkConnectionHeader, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
             {
                 Shutdown();
             }

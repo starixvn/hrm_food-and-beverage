@@ -48,6 +48,18 @@ namespace NexFB.Services.Implement
             return waitingMeals;
         }
 
+        public List<Order> GetAwaitingDeliverMealOrder(GetAwaitingDeliverMealOrderCriteria criteria)
+        {
+            List<Order> awaitingDeliverMeals = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                awaitingDeliverMeals = this._kitchenRepository.GetMealOrder(criteria);
+            }
+
+            return awaitingDeliverMeals;
+        }
+
         public List<Order> GetDeliveredMealOrder(GetDeliveredMealOrderCriteria criteria)
         {
             List<Order> waitingMeals = null;

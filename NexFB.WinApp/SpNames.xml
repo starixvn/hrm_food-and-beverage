@@ -14,7 +14,10 @@
 		<Setting Key="RoleFunction_Assign" SpName="RoleFunction_Assign" DbName="NexFB" Plain="0" ></Setting>
 	</Function>
 	<Function Name="Kitchen">
-		<Setting Key="POS_Get_ListRequestWaitingByPOS" SpName="POS_Get_ListRequestWaitingByPOS" DbName="NexFB" Plain="0" >
+		<Setting Key="POS_Get_ListRequestNewByPOS" SpName="POS_Get_ListRequestNewByPOS" DbName="NexFB" Plain="0" >
+			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
+		</Setting>
+		<Setting Key="POS_Get_ListRequestReceivedByPOS" SpName="POS_Get_ListRequestReceivedByPOS" DbName="NexFB" Plain="0" >
 			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
 		</Setting>
 		<Setting Key="POS_Get_ListRequestDeliverByPOS" SpName="POS_Get_ListRequestDeliverByPOS" DbName="NexFB" Plain="0" >

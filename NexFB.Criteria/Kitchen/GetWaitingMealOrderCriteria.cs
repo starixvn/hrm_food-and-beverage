@@ -23,7 +23,7 @@ namespace NexFB.Criteria.Kitchen
 
         public override string GetSettingKey()
         {
-            return "POS_Get_ListRequestWaitingByPOS";
+            return "POS_Get_ListRequestNewByPOS";
         }
     }
 }

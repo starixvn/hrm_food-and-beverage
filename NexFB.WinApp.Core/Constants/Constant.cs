@@ -20,6 +20,12 @@ namespace NexFB.WinApp.Core.Constants
 
         public const int DeliverOrderFoodInvoice = 2;
 
+        public const string DefaultLanguage = "DefaultLanguage";
+
+        public const string ReleaseMode = "ReleaseMode";
+
+        public const string DefaultCulture = "vi-VN";
+
         private Constant()
         {
         }

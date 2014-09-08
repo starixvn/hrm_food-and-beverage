@@ -10,6 +10,7 @@
 namespace NexFB.WinApp.ViewModels
 {
     using System;
+    using System.Configuration;
     using System.Windows.Documents;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
@@ -79,24 +80,33 @@ namespace NexFB.WinApp.ViewModels
         /// <returns>Check is printed.</returns>
         public bool ExecutePrintInvoice(int orderId, int invoiceNumber)
         {
-            ////bool printed = false;
+            string releaseMode = ConfigurationManager.AppSettings[Constant.ReleaseMode];
             var template = (FixedDocument)_printingHelper.LoadTemplate(Constant.OrderFoodReceiptTemplate);
-
             var criteria = new GetOrderDetailsCriteria() { OrderId = orderId };
             Order model = _kitchenService.GetOrderDetails(criteria);
             model.InvoiceNumber = invoiceNumber;
-
             _printingHelper.InjectData(template, model);
 
-            string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
-            string[] paths = receiptDocument.Split('\\');
-            var fileName = paths[paths.Length - 1];
-            string receiptDocumentCustom = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + fileName;
-            _printingHelper.ConvertToXps(template, receiptDocumentCustom);
+            if (!string.IsNullOrEmpty(releaseMode))
+            {
+                switch (releaseMode.ToUpper())
+                {
+                    case "DEV":
+                        string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
+                        string[] paths = receiptDocument.Split('\\');
+                        var fileName = paths[paths.Length - 1];
+                        string receiptDocumentCustom = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + fileName;
+                        _printingHelper.ConvertToXps(template, receiptDocumentCustom);
+                        return true;
 
-            ////printed = _printingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
+                    case "RELEASE":
+                        bool printed = false;
+                        printed = _printingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
+                        return printed;
+                }
+            }
 
-            return true;
+            return false;
         }
 
         #endregion

@@ -24,9 +24,10 @@
 
 		<!--Nex FB Menu-->
 		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Waiting}" Command="{Binding ViewPedingFoodCommand}" Foreground="White" Background ="#3A95FC" Height="42" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="12,12,0,0" />
-		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Exported}" Command="{Binding ViewDeliveredFoodCommand}" Foreground="White" Background="#FA5934" Height="42" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="140,12,0,0" />
-		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Order}" Command="{Binding ViewOrderFoodCommand}" Height="42" Foreground="White" Background="#47BF43" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="268,12,0,0" />
-		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Statistic}" Height="42" Foreground="White" Background="#3A95FC" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="396,12,0,0" />
+		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Pending}" Command="{Binding ViewAwaitingDeliverFoodCommand}" Foreground="White" Background="#FA5934" Height="42" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="141,12,0,0" />
+		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Delivered}" Command="{Binding ViewDeliveredFoodCommand}" Foreground="White" Background="#9247A1" Height="42" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="269,12,0,0" />
+		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Order}" Command="{Binding ViewOrderFoodCommand}" Height="42" Foreground="White" Background="#47BF43" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="397,12,0,0" />
+		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Statistic}" Height="42" Foreground="White" Background="#3A95FC" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="525,12,0,0" />
 
 		<!--Button close window-->
 		<Button Style="{StaticResource TileButton}" Command="{Binding CloseWindow}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"

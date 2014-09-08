@@ -21,7 +21,7 @@
 
 							<!--Order number-->
 							<StackPanel Grid.Column="0" Height="150" Width="180" Background="Black" VerticalAlignment="Top" Margin="-9,0,0,0">
-								<Label Content="{Binding Path=OrderId}" Foreground="White" HorizontalAlignment="Center" FontSize="70" VerticalAlignment="Center"></Label>
+								<Label Content="{Binding Path=ThreeDigitOrderNo}" Foreground="White" HorizontalAlignment="Center" FontSize="70" VerticalAlignment="Center"></Label>
 								<Label Content="{Binding Path=RegisterDate}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
 							</StackPanel>
 

@@ -123,8 +123,11 @@
   <data name="Black" xml:space="preserve">
     <value>Black</value>
   </data>
+  <data name="Delivered" xml:space="preserve">
+    <value>Đã xuất</value>
+  </data>
   <data name="DisplayDeletedName" xml:space="preserve">
-    <value>      (X) </value>
+    <value>     (X) </value>
   </data>
   <data name="DisplayDeletedOrder" xml:space="preserve">
     <value>---------------</value>
@@ -138,9 +141,6 @@
   <data name="Export" xml:space="preserve">
     <value>Xuất</value>
   </data>
-  <data name="Exported" xml:space="preserve">
-    <value>Đã xuất</value>
-  </data>
   <data name="Hidden" xml:space="preserve">
     <value>Hidden</value>
   </data>
@@ -152,6 +152,9 @@
   </data>
   <data name="Order" xml:space="preserve">
     <value>Gọi món</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Chờ xuất</value>
   </data>
   <data name="Print" xml:space="preserve">
     <value>In</value>
@@ -193,7 +196,7 @@
     <value>Visible</value>
   </data>
   <data name="Waiting" xml:space="preserve">
-    <value>Đang chờ</value>
+    <value>Chờ nhận</value>
   </data>
   <data name="White" xml:space="preserve">
     <value>White</value>

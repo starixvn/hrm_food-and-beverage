@@ -35,6 +35,7 @@ namespace NexFB.WinApp.ViewModels
             ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
             ViewDeliveredFoodCommand = new RelayCommand((x) => CanExecuteViewDeliveredFood(), (y) => ExecuteViewDeliveredFood());
             ViewOrderFoodCommand = new RelayCommand((x) => CanExecuteViewOrderFood(), (y) => ExecuteViewOrderFood());
+            ViewAwaitingDeliverFoodCommand = new RelayCommand((x) => CanExecuteViewAwaitingDeliverFood(), (y) => ExecuteViewAwaitingDeliverFood());
             CloseWindow = new RelayCommand((x) => ((Window)x).Close());
         }
 
@@ -43,6 +44,8 @@ namespace NexFB.WinApp.ViewModels
         #region Properties
 
         public ICommand CloseWindow { get; set; }
+
+        public ICommand ViewAwaitingDeliverFoodCommand { get; set; }
 
         public ICommand ViewPedingFoodCommand { get; set; }
 
@@ -79,6 +82,11 @@ namespace NexFB.WinApp.ViewModels
             return true;
         }
 
+        private bool CanExecuteViewAwaitingDeliverFood()
+        {
+            return true;
+        }
+
         private bool CanExecuteViewDeliveredFood()
         {
             return true;
@@ -93,6 +101,11 @@ namespace NexFB.WinApp.ViewModels
         private void ExecuteViewPendingFood()
         {
             CurrentViewModel = new WaitingMealViewModel();
+        }
+
+        private void ExecuteViewAwaitingDeliverFood()
+        {
+            CurrentViewModel = new AwaitingDeliverViewModel();
         }
 
         private void ExecuteViewDeliveredFood()

@@ -19,6 +19,10 @@
 		<views:OrderFood />
 	</DataTemplate>
 
+	<DataTemplate DataType="{x:Type vm:AwaitingDeliverViewModel}">
+		<views:AwaitingDeliver />
+	</DataTemplate>
+
 	<!--Common Style-->
 	<!--Default NexFB WinApp Style-->
 	<Style TargetType="{x:Type Control}" x:Key="BaseStyle">

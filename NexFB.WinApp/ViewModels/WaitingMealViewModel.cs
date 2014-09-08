@@ -36,8 +36,6 @@ namespace NexFB.WinApp.ViewModels
         public WaitingMealViewModel()
         {
             ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (x) => ExecuteReceiveOrderFoodCommand(x));
-            DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (x) => ExecuteDeliverOrderFoodCommand(x));
-
             WaitingMeals = this.GetWaitingMealOrder;
         }
 
@@ -45,11 +43,7 @@ namespace NexFB.WinApp.ViewModels
 
         #region Properties
 
-        public ICommand DeliverOrderFoodCommand { get; set; }
-
         public ICommand ReceiveOrderFoodCommand { get; set; }
-
-        public ICommand PrintInvoiceCommand { get; set; }
 
         public List<Order> WaitingMeals
         {
@@ -90,11 +84,6 @@ namespace NexFB.WinApp.ViewModels
             return true;
         }
 
-        public bool CanExecuteDeliverOrderFoodCommand()
-        {
-            return true;
-        }
-
         // Execute Command.
 
         /// <summary>
@@ -112,36 +101,6 @@ namespace NexFB.WinApp.ViewModels
                 {
                     var criteria = new ProcessReceiveOrderCriteria() { OrderId = orderId };
                     CommandResult received = KitchenService.ReceiveOrder(criteria);
-                    if (received.Code != 0)
-                    {
-                        MessageBox.Show(received.Message.ToString());
-                    }
-                    else
-                    {
-                        WaitingMeals = this.GetWaitingMealOrder;
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show(Lang.ErrorMessage.ToString());
-            }
-        }
-
-        /// <summary>
-        /// Execute Deliver Order Food Command.
-        /// </summary>
-        /// <param name="value">Parameter Value.</param>
-        public void ExecuteDeliverOrderFoodCommand(object value)
-        {
-            if (value != null)
-            {
-                int orderId = (int)value;
-                bool printed = ExecutePrintInvoice(orderId, Constant.DeliverOrderFoodInvoice);
-                if (printed)
-                {
-                    var criteria = new ProcessDeliverOrderCriteria() { OrderId = orderId };
-                    CommandResult received = KitchenService.DeliverOrder(criteria);
                     if (received.Code != 0)
                     {
                         MessageBox.Show(received.Message.ToString());

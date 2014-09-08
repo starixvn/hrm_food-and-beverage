@@ -79,7 +79,16 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to       (X) .
+        ///   Looks up a localized string similar to Đã xuất.
+        /// </summary>
+        public static string Delivered {
+            get {
+                return ResourceManager.GetString("Delivered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to      (X) .
         /// </summary>
         public static string DisplayDeletedName {
             get {
@@ -124,15 +133,6 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Đã xuất.
-        /// </summary>
-        public static string Exported {
-            get {
-                return ResourceManager.GetString("Exported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hidden.
         /// </summary>
         public static string Hidden {
@@ -165,6 +165,15 @@ namespace NexFB.Resources {
         public static string Order {
             get {
                 return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chờ xuất.
+        /// </summary>
+        public static string Pending {
+            get {
+                return ResourceManager.GetString("Pending", resourceCulture);
             }
         }
         
@@ -286,7 +295,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Đang chờ.
+        ///   Looks up a localized string similar to Chờ nhận.
         /// </summary>
         public static string Waiting {
             get {

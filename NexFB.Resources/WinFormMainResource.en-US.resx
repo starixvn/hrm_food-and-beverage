@@ -118,6 +118,87 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Back" xml:space="preserve">
-    <value>Back Back</value>
+    <value>Back</value>
+  </data>
+  <data name="Black" xml:space="preserve">
+    <value>Black</value>
+  </data>
+  <data name="Delivered" xml:space="preserve">
+    <value>Delivered</value>
+  </data>
+  <data name="DisplayDeletedName" xml:space="preserve">
+    <value>     (X)</value>
+  </data>
+  <data name="DisplayDeletedOrder" xml:space="preserve">
+    <value>---------------</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditBilingual" xml:space="preserve">
+    <value>Sửa / Edited</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Hidden" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
+  <data name="LocalPrinterError" xml:space="preserve">
+    <value>Local printer error. Please notify the Administrators!</value>
+  </data>
+  <data name="NameBilingual" xml:space="preserve">
+    <value>Tên / Name</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="QuantityPerOrder" xml:space="preserve">
+    <value>  x  </value>
+  </data>
+  <data name="QuantityPerTotal" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="Receive" xml:space="preserve">
+    <value>Receive</value>
+  </data>
+  <data name="ReceiveBilingual" xml:space="preserve">
+    <value>Nhận / In :</value>
+  </data>
+  <data name="ReduceBilingual" xml:space="preserve">
+    <value>ReduceBilingual</value>
+  </data>
+  <data name="Ref" xml:space="preserve">
+    <value>Ref :</value>
+  </data>
+  <data name="RemarkBilingual" xml:space="preserve">
+    <value>Ghi chú / Remark :</value>
+  </data>
+  <data name="SetMenu" xml:space="preserve">
+    <value>Set Menu / Qty</value>
+  </data>
+  <data name="Statistic" xml:space="preserve">
+    <value>Statistic</value>
+  </data>
+  <data name="StrokeDash" xml:space="preserve">
+    <value>2,2</value>
+  </data>
+  <data name="TotalBilingual" xml:space="preserve">
+    <value>Tổng Cộng / Total :</value>
+  </data>
+  <data name="Visible" xml:space="preserve">
+    <value>Visible</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Waiting</value>
+  </data>
+  <data name="White" xml:space="preserve">
+    <value>White</value>
   </data>
 </root>
