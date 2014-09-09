@@ -56,7 +56,7 @@ namespace NexFB.Site.Controllers
                 SessionManager.CurrentUser = user;
                 FormsAuthentication.SetAuthCookie(model.Username, false);
 
-                var returnUrl = "/Home/Index";
+                var returnUrl = "/Ordering/Index";
                 if (!string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
                 {
                     returnUrl = Request.QueryString["ReturnUrl"];

@@ -9,6 +9,8 @@
 
 namespace NexFB.Models.Entities
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Menu Entity.
     /// </summary>
@@ -17,5 +19,7 @@ namespace NexFB.Models.Entities
         public int MenuId { get; set; }
 
         public string Name { get; set; }
+
+        public IList<Food> FoodItems { get; set; }
     }
 }

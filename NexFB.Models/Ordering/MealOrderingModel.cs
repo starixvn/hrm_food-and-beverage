@@ -12,6 +12,7 @@ namespace NexFB.Models.Ordering
     using System;
     using System.Collections.Generic;
     using NexFB.Models.Entities;
+    using System.Linq;
 
     /// <summary>
     /// MealOrdering Model.
@@ -26,10 +27,20 @@ namespace NexFB.Models.Ordering
 
         public string Remark { get; set; }
 
-        public short LocationId { get; set; }
+        public Location Location { get; set; }
 
-        public int Status { get; set; }
+        public Status Status { get; set; }
 
         public DateTime ModifiedDate { get; set; }
+
+        public Menu MyMeal { get; set; }
+
+        public IList<MenuQuantityModel> MenuQuantity 
+        {
+            get
+            {
+                return new List<MenuQuantityModel>();
+            }
+        }
     }
 }

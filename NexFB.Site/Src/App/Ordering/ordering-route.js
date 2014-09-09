@@ -3,6 +3,6 @@
 
 var orderingModule = angular.module("orderingModule", ['ngRoute'])
 .config(['$routeProvider', function ($routeProvider) {
-	$routeProvider.when('/Ordering/Create',
-		{ templateUrl: '/src/app/ordering/templates/create.html', controller: 'OrderingController' });
+	$routeProvider.when('/Ordering/Index',
+		{ templateUrl: '/src/app/ordering/templates/index.html', controller: 'OrderingController' });
 } ]);

@@ -4,27 +4,44 @@
 orderingModule.controller("OrderingController",
 ['$scope', '$route', 'orderingFactory',
 function ($scope, $route, orderingFactory) {
+
+	orderingFactory.getMyOrder()
+		.success(function (data) {
+			$scope.myOrder = data;
+		})
+		.error(function () {
+			// TODO
+		});
+
 	orderingFactory.getAddNewOrder()
-	.success(function (data) {
-		$scope.newOrder = data;
-	})
-	.error(function () {
-		// TODO
-	});
+		.success(function (data) {
+			$scope.newOrder = data;
+		})
+		.error(function () {
+			// TODO
+		});
 
 	orderingFactory.getSavedOrder()
-	.success(function (data) {
-		$scope.savedOrder = data;
-	})
-	.error(function () {
-		// TODO
-	});
+		.success(function (data) {
+			$scope.savedOrder = data;
+		})
+		.error(function () {
+			// TODO
+		});
 
 	orderingFactory.getLocation()
-	.success(function (data) {
-		$scope.locations = data;
-	})
-	.error(function () {
-		// TODO
-	});
+		.success(function (data) {
+			$scope.locations = data;
+		})
+		.error(function () {
+			// TODO
+		});
+
+	orderingFactory.getMenu()
+		.success(function (data) {
+			$scope.menu = data;
+		})
+		.error(function () {
+			// TODO
+		});
 } ]);

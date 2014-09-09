@@ -42,7 +42,7 @@ namespace NexFB.Site
 
             routes.MapRoute(
                name: "Meal ordering",
-               url: "Ordering/Create",
+               url: "Ordering/Index",
                defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
