@@ -9,7 +9,9 @@
 
 namespace NexFB.Models.Ordering
 {
+    using System;
     using System.Collections.Generic;
+    using NexFB.Models.Entities;
 
     /// <summary>
     /// MealOrdering Model.
@@ -18,12 +20,16 @@ namespace NexFB.Models.Ordering
     {
         public IList<OrderMemberModel> Members { get; set; }
 
-        public int CreatorOrder { get; set; }
+        public Employee CreatorOrder { get; set; }
 
         public string Phone { get; set; }
 
         public string Remark { get; set; }
 
         public short LocationId { get; set; }
+
+        public int Status { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
     }
 }

@@ -144,6 +144,9 @@
   <data name="Company" xml:space="preserve">
     <value>Company</value>
   </data>
+  <data name="CreateAnOrder" xml:space="preserve">
+    <value>CREATE AN ORDER</value>
+  </data>
   <data name="CreateNew" xml:space="preserve">
     <value>Create new</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="ManageUser" xml:space="preserve">
     <value>Manage User</value>
   </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
   <data name="Members" xml:space="preserve">
     <value>Members</value>
   </data>
@@ -195,8 +201,17 @@
   <data name="Monthly" xml:space="preserve">
     <value>Monthly</value>
   </data>
+  <data name="MyMeal" xml:space="preserve">
+    <value>My Meal</value>
+  </data>
+  <data name="MyOrder" xml:space="preserve">
+    <value>My Order</value>
+  </data>
   <data name="NetworkConnectionError" xml:space="preserve">
     <value>There are problem with network connection. Please notify to administrators!</value>
+  </data>
+  <data name="NewOrder" xml:space="preserve">
+    <value>New Order</value>
   </data>
   <data name="NickName" xml:space="preserve">
     <value>Nick Name</value>
@@ -207,8 +222,14 @@
   <data name="OrderMeal" xml:space="preserve">
     <value>Order meal</value>
   </data>
+  <data name="OrderPerson" xml:space="preserve">
+    <value>Order Person</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>Tel. No.</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
   </data>
   <data name="Read" xml:space="preserve">
     <value>Read</value>
@@ -231,6 +252,12 @@
   <data name="Roles" xml:space="preserve">
     <value>Role(s)</value>
   </data>
+  <data name="SavedOrder" xml:space="preserve">
+    <value>Saved Order</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>
@@ -240,7 +267,16 @@
   <data name="Team" xml:space="preserve">
     <value>Team</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Since</value>
+  </data>
   <data name="TitlePage" xml:space="preserve">
     <value>Food &amp; Beverage Management System</value>
+  </data>
+  <data name="ToDayMenu" xml:space="preserve">
+    <value>Today' menu</value>
+  </data>
+  <data name="WarningGroupNotSave" xml:space="preserve">
+    <value>Group members wil not be save for next orders</value>
   </data>
 </root>

@@ -16,11 +16,7 @@ namespace NexFB.Models.Ordering
     /// </summary>
     public class OrderMemberModel
     {
-        public int UserId { get; set; }
-
-        public string NickName { get; set; }
-
-        public string FullName { get; set; }
+        public Employee Member { get; set; }
 
         public Menu Menu { get; set; }
 

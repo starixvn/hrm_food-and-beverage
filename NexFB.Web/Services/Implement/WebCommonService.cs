@@ -48,7 +48,7 @@ namespace NexFB.Web.Services.Implement
         /// <returns>True if has permission, false: otherwise.</returns>
         public bool HasPermissionOnFunction(string functionKey, Policy policy)
         {
-            FunctionModel currentFunction = SessionManager.CurrentUser.Functions
+            FunctionModel currentFunction = SessionManager.Functions
                         .Where(func => func.FunctionKey.Equals(functionKey)).FirstOrDefault();
 
             if (currentFunction != null)

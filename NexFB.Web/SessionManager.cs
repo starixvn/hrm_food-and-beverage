@@ -9,9 +9,11 @@
 
 namespace NexFB.Web
 {
+    using System.Collections.Generic;
     using System.Web;
     using NexFB.Core.Constants;
     using NexFB.Models.Authority;
+    using NexFB.Models.UserControl;
 
     /// <summary>
     /// Session Manager.
@@ -38,10 +40,22 @@ namespace NexFB.Web
             }
         }
 
+        public static IList<SystemRole> UserRoles { get; set; }
+
+        public static IList<FunctionModel> Functions { get; set; }
+
+        public static IList<MenuGroup> MenuGroups { get; set; }
+
+        /// <summary>
+        /// Function to clear session manager.
+        /// </summary>
         public static void ClearAll()
         {
             if (HttpContext.Current != null && HttpContext.Current.Session != null)
             {
+                UserRoles = null;
+                Functions = null;
+                MenuGroups = null;
                 HttpContext.Current.Session.Clear();
                 HttpContext.Current.Session.Abandon();
                 HttpContext.Current.Response.Cookies.Clear();

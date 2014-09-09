@@ -20,6 +20,52 @@ namespace NexFB.Site.Controllers.API
     public class OrderingController : BaseController
     {
         /// <summary>
+        /// Function to get my orders.
+        /// </summary>
+        /// <returns>MealOrdering Model.</returns>
+        [HttpGet]
+        public MealOrderingModel GetMyOrder()
+        {
+            MealOrderingModel order = new MealOrderingModel();
+            OrderMemberModel member = new OrderMemberModel()
+            {
+                Member = new Employee()
+                {
+                   UserId = this.CurrentUser.UserId,
+                   NickName = this.CurrentUser.NickName,
+                   FullName = this.CurrentUser.FullName
+                },
+                IsOrder = true,
+                Menu = new Menu()
+                {
+                    MenuId = 1,
+                    Name = "Lunch 3"
+                }
+            };
+            OrderMemberModel member2 = new OrderMemberModel()
+            {
+                Member = new Employee()
+                { 
+                    UserId = 1, NickName = "Bradley.Mac", FullName = "Mạc Đức Trọng",
+                },
+                IsOrder = true,
+                Menu = new Menu()
+                {
+                    MenuId = 1,
+                    Name = "Lunch 2"
+                }
+            };
+            order.Members = new List<OrderMemberModel>();
+            order.Remark = "Test 11";
+            order.LocationId = 11;
+            order.Phone = "0922121";
+            order.Members.Add(member);
+            order.Members.Add(member2);
+
+            return order;
+        }
+
+        /// <summary>
         /// Add new order.
         /// </summary>
         /// <returns>The model meal ordering.</returns>
@@ -30,9 +76,12 @@ namespace NexFB.Site.Controllers.API
 
             OrderMemberModel member = new OrderMemberModel()
             {
-                UserId = this.CurrentUser.UserId,
-                NickName = this.CurrentUser.NickName,
-                FullName = this.CurrentUser.FullName,
+                Member = new Employee()
+                {
+                    UserId = this.CurrentUser.UserId,
+                    NickName = this.CurrentUser.NickName,
+                    FullName = this.CurrentUser.FullName
+                },
                 IsOrder = true,
                 Menu = new Menu()
                 {
@@ -46,6 +95,57 @@ namespace NexFB.Site.Controllers.API
             order.LocationId = 10;
             order.Phone = "092212";
             order.Members.Add(member);
+
+            return order;
+        }
+
+        /// <summary>
+        /// Function to get saved order.
+        /// </summary>
+        /// <returns>MealOrdering Model.</returns>
+        [HttpGet]
+        public MealOrderingModel GetSavedOrder()
+        {
+            MealOrderingModel order = new MealOrderingModel();
+
+            OrderMemberModel member = new OrderMemberModel()
+            {
+                Member = new Employee()
+                {
+                    UserId = this.CurrentUser.UserId,
+                    NickName = this.CurrentUser.NickName,
+                    FullName = this.CurrentUser.FullName
+                },
+                IsOrder = true,
+                Menu = new Menu()
+                {
+                    MenuId = 1,
+                    Name = "Lunch 3"
+                }
+            };
+
+            OrderMemberModel member2 = new OrderMemberModel()
+            {
+                Member = new Employee()
+                {
+                    UserId = 1,
+                    NickName = "Bradley.Mac",
+                    FullName = "Mạc Đức Trọng",
+                },
+                IsOrder = true,
+                Menu = new Menu()
+                {
+                    MenuId = 1,
+                    Name = "Lunch 2"
+                }
+            };
+
+            order.Members = new List<OrderMemberModel>();
+            order.Remark = "Test 11";
+            order.LocationId = 10;
+            order.Phone = "0922121";
+            order.Members.Add(member);
+            order.Members.Add(member2);
 
             return order;
         }

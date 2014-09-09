@@ -7,8 +7,11 @@ orderingModule.factory("orderingFactory",
 			getLocation: function () {
 				return $http.get('/api/Common/GetAllLocation');
 			},
-			getOrderForAddNew: function () {
+			getAddNewOrder: function () {
 				return $http.get('/api/Ordering/GetAddNew');
+			},
+			getSavedOrder: function () {
+				return $http.get('/api/Ordering/GetSavedOrder');
 			}
 		};
 	} ]

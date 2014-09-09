@@ -1,38 +1,30 @@
 ﻿<div class="col-sm-12">
     <div class="row table-title">
-        My Orders</div>
+		<label data-translate="MyOrder"></label>
+    </div>
     <table class="row table table-bordered table-odering table-striped">
         <thead>
             <tr>
                 <th class="width-40">
                     #
                 </th>
-                <th class="width-100">
-                    Status
+                <th class="width-100" data-translate="Status">
                 </th>
-                <th>
-                    Order Person
+                <th data-translate="OrderPerson">
                 </th>
-                <th>
-                    Nick Name
+                <th data-translate="NickName">
                 </th>
-                <th class="width-100">
-                    Since
+                <th class="width-100" data-translate="Time">
                 </th>
-                <th class="width-150">
-                    Quantity
+                <th class="width-150" data-translate="Quantity">
                 </th>
-                <th class="width-80">
-                    Members
+                <th class="width-80" data-translate="Members">
                 </th>
-                <th class="width-100">
-                    My Meal
+                <th class="width-100" data-translate="MyMeal">
                 </th>
-                <th class="width-150">
-                    Location
+                <th class="width-150" data-translate="Location">
                 </th>
-                <th>
-                    Remark
+                <th data-translate="Remark">
                 </th>
             </tr>
         </thead>
@@ -177,7 +169,8 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="row table-title">
-                Menu</div>
+				<label data-translate="Menu"></label>
+            </div>
             <table class="row table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -185,7 +178,9 @@
                             #
                         </th>
                         <th>
-                            Today's Menu: Lunch 2
+							<label data-translate="ToDayMenu"></label>
+							:
+							<label>Lunch 2</label>
                         </th>
                     </tr>
                 </thead>
@@ -243,21 +238,24 @@
         </div>
         <div class="col-sm-6">
             <div class="row table-title">
-                Create An Order</div>
+                <label data-translate="CreateAnOrder"></label>
+			</div>
             <div class="row list-group-item">
                 <div class="col-sm-12 boxtitle first">
-                    New Order</div>
+					<label data-translate="NewOrder"></label>
+                </div>
                 <div class="col-sm-12 boxcontent">
                     <div class="row form-inline form-order">
                         <div class="form-group">
-                            <label data-translate="Location">
-                            </label>
-                            <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.LocationId">
+                            <label data-translate="Location"></label>
+                            <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="newOrder.LocationId">
                             </select>
                         </div>
                         <div class="form-group pull-right">
                             <a href="#" class="button"><i class="glyphicon glyphicon-plus icon-plus">
-                            </i>Add </a>
+                            </i>
+								<label data-translate="Add"></label>
+							</a>
                         </div>
                     </div>
                     <table class="table table-bordered table-striped table-member">
@@ -266,41 +264,23 @@
                                 <th class="width-40">
                                     #
                                 </th>
-                                <th>
-                                    Member
+                                <th data-translate="Member">
                                 </th>
-                                <th>
-                                    Menu
+                                <th data-translate="Menu">
                                 </th>
-                                <th class="col-action">
-                                    Action
+                                <th class="col-action" data-translate="Action">
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody ng-repeat = "member in newOrder.Members">
                             <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td class="lbl-ordered">
-                                    Kahn.Tran(Orderd)
-                                </td>
-                                <td>
-                                </td>
-                                <td class="text-center">
-                                    <a href="#" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    Logan.Luu
-                                </td>
-                                <td>
-                                    Lunch 2
-                                </td>
+								<td class="text-center">{{$index + 1}}</td>
+								<td>
+									<span>{{member.Member.NickName}}</span>
+								</td>
+								<td>
+									<span>{{member.Menu.Name}}</span>
+								</td>
                                 <td class="text-center">
                                     <a href="#" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
                                 </td>
@@ -309,39 +289,38 @@
                     </table>
                     <div class="row form-inline form-order">
                         <div class="form-group">
-                            <label data-translate="Remark">
-                            </label>
-                            <input ng-model="order.Remark" type="text" class="txt-remark" />
+                            <label data-translate="Remark"></label>
+                            <input ng-model="newOrder.Remark" type="text" class="txt-remark" />
                         </div>
                         <div class="form-group">
-                            <label data-translate="Phone">
-                            </label>
-                            <input ng-model="order.Phone" type="text" />
+                            <label data-translate="Phone"></label>
+                            <input ng-model="newOrder.Phone" type="text" />
                         </div>
                     </div>
                     <div class="row row-cust">
                         <p class="row txt-warning">
-                            <i class="glyphicon glyphicon-exclamation-sign icon-warning"></i>Group members wil
-                            not be save for next orders
+                            <i class="glyphicon glyphicon-exclamation-sign icon-warning"></i>
+							<label data-translate="WarningGroupNotSave"></label>
                         </p>
-                        <button href="#" class="button btn-order">
-                            Order
-                        </button>
+                        <button href="#" class="button btn-order" data-translate="Order"></button>
                     </div>
                 </div>
                 <div class="col-sm-12 boxtitle">
-                    Saved Order</div>
+					<label data-translate="SavedOrder"></label>
+				</div>
                 <div class="col-sm-12 boxcontent">
                     <div class="row form-inline form-order">
                         <div class="form-group">
                             <label data-translate="Location">
                             </label>
-                            <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.LocationId">
+                            <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="savedOrder.LocationId">
                             </select>
                         </div>
                         <div class="form-group pull-right">
                             <a href="#" class="button"><i class="glyphicon glyphicon-plus icon-plus">
-                            </i>Add </a>
+                            </i>
+							<label data-translate="Add"></label>	
+							</a>
                         </div>
                     </div>
                     <table class="table table-bordered table-striped table-member">
@@ -350,80 +329,26 @@
                                 <th class="width-40">
                                     #
                                 </th>
-                                <th>
-                                    Member
+								<th data-translate="Member">
                                 </th>
-                                <th>
-                                    Menu
+                                <th data-translate="Menu">
                                 </th>
-                                <th class="col-order">
-                                    Order
+								<th data-translate="Order">
                                 </th>
-                                <th class="col-action">
-                                    Action
+                                <th class="col-action" data-translate="Action">
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+						<tbody ng-repeat = "member in savedOrder.Members">
                             <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td class="lbl-ordered">
-                                    Kahn.Tran (Orderd)
-                                </td>
-                                <td>
-                                </td>
-                                <td class="text-center">
-                                    
-                                </td>
-                                <td class="text-center">
-                                    <a href="#" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    2
-                                </td>
-                                <td class="lbl-ordered">
-                                    Quinn.Vo (Orderd)
-                                </td>
-                                <td>
-                                </td>
-                                <td class="text-center">
-                                </td>
-                                <td class="text-center">
-                                    <a href="#" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    3
-                                </td>
-                                <td>
-                                    Quistie.Le
-                                </td>
-                                <td>
-                                    Vegetarian
-                                </td>
-                                <td class="text-center">
-                                    <input type="checkbox" />
-                                </td>
-                                <td class="text-center">
-                                    <a href="#" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
-                                </td>
-                            </tr>
-                             <tr>
-                                <td>
-                                   4
-                                </td>
-                                <td>
-                                    Selena.Nguyen
-                                </td>
-                                <td>
-                                    Lunch 2
-                                </td>
-                                <td class="text-center">
+								<td class="text-center">{{$index + 1}}</td>
+								<td>
+									<span>{{member.Member.NickName}}</span>
+								</td>
+								<td>
+									<span>{{member.Menu.Name}}</span>
+								</td>
+								<td class="text-center">
                                     <input type="checkbox" />
                                 </td>
                                 <td class="text-center">
@@ -436,17 +361,16 @@
                         <div class="form-group">
                             <label data-translate="Remark">
                             </label>
-                            <input ng-model="order.Remark" type="text" class="txt-remark" />
+                            <input ng-model="savedOrder.Remark" type="text" class="txt-remark" />
                         </div>
                         <div class="form-group">
                             <label data-translate="Phone">
                             </label>
-                            <input ng-model="order.Phone" type="text" />
+                            <input ng-model="savedOrder.Phone" type="text" />
                         </div>
                     </div>
                     <div class="row row-cust">
-                        <button href="#" class="button btn-order">
-                            Order
+                        <button href="#" class="button btn-order" data-translate="Order">
                         </button>
                     </div>
                 </div>
@@ -454,61 +378,3 @@
         </div>
     </div>
 </div>
-<!--<div class="row">
-	<div class="col-xs-12 tbl-member">
-		<a class="pull-right button button-icon btn-addMember" ng-click = "addMember">
-			<span class="icon plus"></span>
-			<span data-translate="Add"></span>
-		</a>
-		<table class="table table-bordered table-odering">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th data-translate="Members"></th>
-						<th data-translate="Menu"></th>
-						<th data-translate="Order"></th>
-						<th data-translate="Remove"></th>
-					</tr>
-				</thead>
-				<tbody ng-repeat = "member in order.Members">
-					<tr>
-						<td class="text-center">{{$index + 1}}</td>
-						<td>
-							<span>{{member.NickName}}</span>
-						</td>
-						<td>
-							<span>{{member.Menu.Name}}</span>
-						</td>
-						<td class="text-center">
-							<input type="checkbox" value="{{member.IsOrder}}" ng-model="member.IsOrder" />
-						</td>
-						<td class="text-center">
-							<a href="javascript:;" class="glyphicon glyphicon-remove icon-remove" ng-click="remove(member)"
-							title="Remove"></a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-	</div>
-</div>
-<div class="row">
-	<div class="col-xs-2">
-		<label data-translate="Remark"></label>
-		<input ng-model="order.Remark" type="text"/>
-	</div>
-	<div class="col-xs-3">
-		<label data-translate="Location"></label>
-		<select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.LocationId">
-		</select>
-	</div>
-	<div class="col-xs-2">
-		<label data-translate="Phone"></label>
-		<input ng-model="order.Phone" type="text"/>
-	</div>
-</div>
-<div class="row">
-	<input type="button" '{{"Submit" | translate}}' />
-		</div>
-</div>
-
--->
