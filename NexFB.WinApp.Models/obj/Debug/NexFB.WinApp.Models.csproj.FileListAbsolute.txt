@@ -1,5 +1,0 @@
-D:\Source\NexFB\food-and-beverage\NexFB.WinApp.Models\bin\Debug\NexFB.WinApp.Models.dll
-D:\Source\NexFB\food-and-beverage\NexFB.WinApp.Models\bin\Debug\NexFB.WinApp.Models.pdb
-D:\Source\NexFB\food-and-beverage\NexFB.WinApp.Models\obj\Debug\ResolveAssemblyReference.cache
-D:\Source\NexFB\food-and-beverage\NexFB.WinApp.Models\obj\Debug\NexFB.WinApp.Models.dll
-D:\Source\NexFB\food-and-beverage\NexFB.WinApp.Models\obj\Debug\NexFB.WinApp.Models.pdb
