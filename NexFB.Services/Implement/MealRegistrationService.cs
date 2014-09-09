@@ -38,11 +38,11 @@ namespace NexFB.Services.Implement
         /// Get register meal by range date.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The list meal date model.</returns>
-        public IList<MealDateModel> GetRegisterMealByRangeDate(GetRegisterMealByRangeDateCriteria criteria)
+        /// <returns>The list meal in week model.</returns>
+        public IList<MealRegisterModel> GetRegisterMealByRangeDate(GetRegisterMealByRangeDateCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<MealDateModel> mealDates = new List<MealDateModel>();
+            IList<MealRegisterModel> mealDates = new List<MealRegisterModel>();
 
             if (criteria.IsValid())
             {

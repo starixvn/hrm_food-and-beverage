@@ -129,13 +129,13 @@ namespace NexFB.Site.Controllers
             {
                 var getEmployeeMenuCriteria = new GetEmployeeMenuBySystemIdCriteria
                 {
-                    SystemId = user.SystemId
+                    SystemId = user.UserId
                 };
                 user.MenuGroups = _employeeService.GetEmployeeMenuById(getEmployeeMenuCriteria);
 
                 var getallFunctionCriteria = new GetAllEmployeeFunctionCriteria
                 {
-                    SystemId = user.SystemId
+                    SystemId = user.UserId
                 };
                 user.Functions = _employeeService.GetAllEmployeeFunction(getallFunctionCriteria);
             }

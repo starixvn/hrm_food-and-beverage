@@ -9,6 +9,7 @@
 
 namespace NexFB.Models.MealRegistration
 {
+    using System;
     using System.Collections.Generic;
     using NexFB.Core.Enums;
     using NexFB.Core.Utilities;
@@ -25,22 +26,26 @@ namespace NexFB.Models.MealRegistration
             var breakfast = new MealModel
             {
                 MealId = 1,
-                Name = Enumerations.GetDescripton(Meal.Breakfast)
+                Name = Enumerations.GetDescription(Meal.Breakfast),
+                ShortName = "B"
             };
             var lunch = new MealModel
             {
                 MealId = 2,
-                Name = Enumerations.GetDescripton(Meal.Lunch)
+                Name = Enumerations.GetDescription(Meal.Lunch),
+                ShortName = "L"
             };
             var dinner = new MealModel
             {
                 MealId = 3,
-                Name = Enumerations.GetDescripton(Meal.Dinner)
+                Name = Enumerations.GetDescription(Meal.Dinner),
+                ShortName = "D"
             };
             var supper = new MealModel
             {
                 MealId = 4,
-                Name = Enumerations.GetDescripton(Meal.Supper)
+                Name = Enumerations.GetDescription(Meal.Supper),
+                ShortName = "S"
             };
 
             Meals.Add(breakfast);
@@ -49,7 +54,11 @@ namespace NexFB.Models.MealRegistration
             Meals.Add(supper);
         }
 
-        public string WorkDate { get; set; }
+        public DateTime WorkDate { get; set; }
+
+        public int WeekDay { get; set; }
+
+        public bool IsDisabled { get; set; }
 
         public IList<MealModel> Meals { get; set; }
     }

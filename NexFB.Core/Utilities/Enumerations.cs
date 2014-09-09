@@ -23,7 +23,7 @@ namespace NexFB.Core.Utilities
         /// </summary>
         /// <param name="enumType">ENUM type.</param>
         /// <returns>String description of an ENUM.</returns>
-        public static string GetDescripton(Enum enumType)
+        public static string GetDescription(Enum enumType)
         {
             FieldInfo fi = enumType.GetType().GetField(enumType.ToString());
             DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);

@@ -41,7 +41,7 @@ namespace NexFB.Site.Controllers.API
         /// <param name="toDate">The to date.</param>
         /// <param name="mealId">The meal Id.</param>
         /// <returns>The list meal date model.</returns>
-        public IList<MealDateModel> GetRegisterMealByRangeDate(
+        public IList<MealRegisterModel> GetRegisterMealByRangeDate(
             int systemId,
             DateTime fromDate,
             DateTime toDate,

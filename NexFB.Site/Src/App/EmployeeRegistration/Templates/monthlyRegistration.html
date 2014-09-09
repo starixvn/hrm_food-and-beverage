@@ -1,2 +1,38 @@
 ﻿<div ng-controller="MonthlyRegistrationController">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Jul 2014
+				</th>
+				<th>Sun
+				</th>
+				<th>Mon
+				</th>
+				<th>Tue
+				</th>
+				<th>Wed
+				</th>
+				<th>Thu
+				</th>
+				<th>Fri
+				</th>
+				<th>Sat
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="week in weekMeals">
+				<td>Week {{$index + 1}}
+				</td>
+				<td ng-repeat="date in week.WeekMeals">
+					<span style="float:right;" ng-bind="date.WorkDate | date: 'd'"></span>
+					<div ng-repeat="meal in date.Meals">
+						<span ng-show="!meal.IsVegetarian">{{meal.ShortName}}:</span>
+						<span ng-bind="Vegatarian" ng-show="meal.IsVegetarian == true"></span>
+						<span ng-bind="Non-Vegatarian" ng-show="meal.IsVegetarian == false"></span>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>

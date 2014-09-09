@@ -9,12 +9,18 @@
 
 namespace NexFB.Models.MealRegistration
 {
+    using System;
+
     /// <summary>
     /// The raw meal date model contain data from database.
     /// </summary>
     public class RawMealDateModel
     {
-        public string WorkDate { get; set; }
+        public DateTime WorkDate { get; set; }
+
+        public int Week { get; set; }
+
+        public int WeekDay { get; set; }
 
         public bool? Breakfast { get; set; }
 
@@ -23,5 +29,7 @@ namespace NexFB.Models.MealRegistration
         public bool? Dinner { get; set; }
 
         public bool? Supper { get; set; }
+
+        public bool IsDisabled { get; set; }
     }
 }

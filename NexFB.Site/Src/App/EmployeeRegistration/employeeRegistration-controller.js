@@ -10,27 +10,14 @@ function ($scope, mealRegistrationFactory, mealRegistrationUtilities) {
 mealRegistrationModule.controller('MonthlyRegistrationController',
 ['$scope', 'mealRegistrationFactory',
 function ($scope, mealRegistrationFactory) {
+	var date = new Date(),
+		fromDate = new Date(date.getFullYear(), date.getMonth(), 1),
+		toDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-	mealRegistrationFactory.getRegisterMealByRangeDate(194, new Date().toDateString(), new Date().toDateString(), null).success(function (mealDates) {
-		$scope.mealDates = mealDates;
+
+	mealRegistrationFactory.getRegisterMealByRangeDate(194, fromDate.toDateString(), toDate.toDateString(), null).success(function (mealDates) {
+		$scope.weekMeals = mealDates;
 	}).error(function () {
 		// TODO
 	});
-
-	$scope.uiConfig = {
-		calendar: {
-			height: 450,
-			editable: true,
-			header: {
-				left: 'month week',
-				center: 'title',
-				right: 'prev,next'
-			},
-			dayClick: $scope.alertEventOnClick,
-			eventDrop: $scope.alertOnDrop,
-			eventResize: $scope.alertOnResize
-		}
-	};
-
-	$scope.eventSources = [];
 } ]);

@@ -76,7 +76,7 @@ namespace NexFB.Site.Controllers.API
         {
             if (criteria != null)
             {
-                criteria.ModifiedBy = this.CurrentUser.SystemId;
+                criteria.ModifiedBy = this.CurrentUser.UserId;
                 criteria.ModifiedDate = DateTime.Now;
             }
 
@@ -139,7 +139,7 @@ namespace NexFB.Site.Controllers.API
         {
             if (criteria != null)
             {
-                criteria.ModifiedBy = this.CurrentUser.SystemId;
+                criteria.ModifiedBy = this.CurrentUser.UserId;
                 criteria.ModifiedDate = DateTime.Now;
             }
 

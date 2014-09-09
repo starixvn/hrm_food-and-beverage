@@ -18,6 +18,6 @@ namespace NexFB.Services.Interface
     /// </summary>
     public interface IMealRegistrationService
     {
-        IList<MealDateModel> GetRegisterMealByRangeDate(GetRegisterMealByRangeDateCriteria criteria);
+        IList<MealRegisterModel> GetRegisterMealByRangeDate(GetRegisterMealByRangeDateCriteria criteria);
     }
 }

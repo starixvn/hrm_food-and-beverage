@@ -21,8 +21,6 @@ namespace NexFB.Models.Authority
     [Serializable]
     public class UserSession
     {
-        public int SystemId { get; set; }
-
         public int UserId { get; set; }
 
         public string Code { get; set; }

@@ -18,6 +18,6 @@ namespace NexFB.Repositories.Interface
     /// </summary>
     public interface IMealRegistrationRepository
     {
-        IList<MealDateModel> GetRegisterMealByRangeDate(ICriteria criteria);
+        IList<MealRegisterModel> GetRegisterMealByRangeDate(ICriteria criteria);
     }
 }

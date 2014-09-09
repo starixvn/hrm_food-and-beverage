@@ -9,7 +9,9 @@
 
 namespace NexFB.Repositories.Implement
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
     using NexFB.Models.MealRegistration;
@@ -25,7 +27,7 @@ namespace NexFB.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list meal date model.</returns>
-        public IList<MealDateModel> GetRegisterMealByRangeDate(ICriteria criteria)
+        public IList<MealRegisterModel> GetRegisterMealByRangeDate(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -34,7 +36,7 @@ namespace NexFB.Repositories.Implement
                     multi.Read();
                     IEnumerable<RawMealDateModel> rawMealDates = multi.Read<RawMealDateModel>();
 
-                    IList<MealDateModel> mealDates = ConvertMealDate(rawMealDates);
+                    IList<MealRegisterModel> mealDates = ConvertMealDate(rawMealDates);
                     return mealDates;
                 }
             }
@@ -44,26 +46,105 @@ namespace NexFB.Repositories.Implement
         /// Convert meal date.
         /// </summary>
         /// <param name="rawMealDates">The enumerator raw meal dates.</param>
+        /// <returns>The list meal date in week model.</returns>
+        private IList<MealRegisterModel> ConvertMealDate(IEnumerable<RawMealDateModel> rawMealDates)
+        {
+            var mealRegister = new List<MealRegisterModel>();
+            IEnumerable<int> numberWeeks = rawMealDates.Select(x => x.Week).Distinct();
+
+            foreach (int week in numberWeeks)
+            {
+                var weekMeal = new MealRegisterModel
+                {
+                    Week = week
+                };
+
+                List<RawMealDateModel> rawMealInWeek = rawMealDates.Where<RawMealDateModel>(x => x.Week == week).ToList();
+                weekMeal.WeekMeals = GetMealDateInWeek(rawMealInWeek);
+
+                mealRegister.Add(weekMeal);
+            }
+
+            return mealRegister;
+        }
+
+        /// <summary>
+        /// Get meal date in week.
+        /// </summary>
+        /// <param name="rawMealInWeek">The list meal date in week.</param>
         /// <returns>The list meal date model.</returns>
-        private IList<MealDateModel> ConvertMealDate(IEnumerable<RawMealDateModel> rawMealDates)
+        private IList<MealDateModel> GetMealDateInWeek(List<RawMealDateModel> rawMealInWeek)
         {
             IList<MealDateModel> mealDates = new List<MealDateModel>();
+            int numberDay = rawMealInWeek.Count();
 
-            foreach (RawMealDateModel rawMealDate in rawMealDates)
+            if (numberDay != 7)
+            {
+                rawMealInWeek = InsertMissingDateInWeek(rawMealInWeek.First());
+            }
+
+            foreach (RawMealDateModel rawMealDate in rawMealInWeek)
             {
                 var mealDate = new MealDateModel
                 {
-                    WorkDate = rawMealDate.WorkDate
+                    WorkDate = rawMealDate.WorkDate,
+                    WeekDay = rawMealDate.WeekDay,
+                    IsDisabled = rawMealDate.IsDisabled
                 };
+
                 mealDate.Meals[0].IsVegetarian = rawMealDate.Breakfast;
                 mealDate.Meals[1].IsVegetarian = rawMealDate.Lunch;
                 mealDate.Meals[2].IsVegetarian = rawMealDate.Dinner;
                 mealDate.Meals[3].IsVegetarian = rawMealDate.Supper;
 
+                if (rawMealDate.WorkDate < DateTime.Now)
+                {
+                    mealDate.IsDisabled = true;
+                }
+
                 mealDates.Add(mealDate);
             }
 
             return mealDates;
+        }
+
+        /// <summary>
+        /// Insert missing date in week.
+        /// </summary>
+        /// <param name="rawMealDate">The meal date in week.</param>
+        /// <returns>The list with new missing date in week.</returns>
+        private List<RawMealDateModel> InsertMissingDateInWeek(RawMealDateModel rawMealDate)
+        {
+            var newRawMealInWeek = new List<RawMealDateModel>();
+            int week = rawMealDate.Week;
+            DateTime fitstWorkDate = rawMealDate.WorkDate;
+            int firstWeekDay = rawMealDate.WeekDay;
+
+            for (int i = 0; i < 7; i++)
+            {
+                int weekDay = i + 1;
+                DateTime itemWorkDate;
+
+                if (i > 0)
+                {
+                    itemWorkDate = newRawMealInWeek[0].WorkDate.AddDays(i);
+                }
+                else
+                {
+                    itemWorkDate = fitstWorkDate.AddDays(weekDay - firstWeekDay);
+                }
+
+                var newDate = new RawMealDateModel
+                {
+                    WeekDay = weekDay,
+                    Week = week,
+                    WorkDate = itemWorkDate,
+                    IsDisabled = true
+                };
+                newRawMealInWeek.Add(newDate);
+            }
+
+            return newRawMealInWeek;
         }
     }
 }
