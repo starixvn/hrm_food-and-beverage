@@ -1,0 +1,11 @@
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\bin\Debug\NexFB.Criteria.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\bin\Debug\NexFB.Criteria.pdb
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\bin\Debug\Fanex.Data.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\obj\Debug\ResolveAssemblyReference.cache
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\obj\Debug\NexFB.Criteria.dll
+D:\Source\NexFB\food-and-beverage\NexFB.Criteria\obj\Debug\NexFB.Criteria.pdb

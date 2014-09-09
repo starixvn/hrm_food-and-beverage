@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeMetricsReport Version="10.0">
+  <Targets>
+    <Target Name="D:\Source\NexFB\food-and-beverage\NexFB.WinApp.Models\bin\Debug\NexFB.WinApp.Models.dll">
+      <Modules>
+        <Module Name="NexFB.WinApp.Models.dll" AssemblyVersion="1.0.0.0">
+          <Metrics>
+            <Metric Name="MaintainabilityIndex" Value="100" />
+            <Metric Name="CyclomaticComplexity" Value="0" />
+            <Metric Name="ClassCoupling" Value="0" />
+            <Metric Name="DepthOfInheritance" Value="0" />
+            <Metric Name="LinesOfCode" Value="0" />
+          </Metrics>
+        </Module>
+      </Modules>
+    </Target>
+  </Targets>
+</CodeMetricsReport>

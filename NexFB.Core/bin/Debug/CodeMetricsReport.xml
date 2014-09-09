@@ -1,0 +1,516 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeMetricsReport Version="10.0">
+  <Targets>
+    <Target Name="D:\Source\NexFB\food-and-beverage\NexFB.Core\bin\Debug\NexFB.Core.dll">
+      <Modules>
+        <Module Name="NexFB.Core.dll" AssemblyVersion="1.0.0.0" FileVersion="1.0.0.0">
+          <Metrics>
+            <Metric Name="MaintainabilityIndex" Value="91" />
+            <Metric Name="CyclomaticComplexity" Value="51" />
+            <Metric Name="ClassCoupling" Value="38" />
+            <Metric Name="DepthOfInheritance" Value="2" />
+            <Metric Name="LinesOfCode" Value="92" />
+          </Metrics>
+          <Namespaces>
+            <Namespace Name="NexFB.Core.Services">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="78" />
+                <Metric Name="CyclomaticComplexity" Value="8" />
+                <Metric Name="ClassCoupling" Value="8" />
+                <Metric Name="DepthOfInheritance" Value="1" />
+                <Metric Name="LinesOfCode" Value="14" />
+              </Metrics>
+              <Types>
+                <Type Name="BaseService">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="78" />
+                    <Metric Name="CyclomaticComplexity" Value="8" />
+                    <Metric Name="ClassCoupling" Value="8" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="14" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="BaseService(IDynamicRepository, IBaseRepository)" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Services\BaseService.cs" Line="25">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="78" />
+                        <Metric Name="CyclomaticComplexity" Value="3" />
+                        <Metric Name="ClassCoupling" Value="4" />
+                        <Metric Name="LinesOfCode" Value="3" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="Repository.get() : IBaseRepository" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Services\BaseService.cs" Line="34">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="91" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="1" />
+                        <Metric Name="LinesOfCode" Value="2" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetData&lt;T&gt;(ICriteria) : IEnumerable&lt;T&gt;" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Services\BaseService.cs" Line="46">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="72" />
+                        <Metric Name="CyclomaticComplexity" Value="2" />
+                        <Metric Name="ClassCoupling" Value="5" />
+                        <Metric Name="LinesOfCode" Value="5" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetDataEntity&lt;T&gt;(ICriteria) : T" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Services\BaseService.cs" Line="64">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="76" />
+                        <Metric Name="CyclomaticComplexity" Value="2" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="4" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+              </Types>
+            </Namespace>
+            <Namespace Name="NexFB.Core.Enums">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="100" />
+                <Metric Name="CyclomaticComplexity" Value="0" />
+                <Metric Name="ClassCoupling" Value="1" />
+                <Metric Name="DepthOfInheritance" Value="1" />
+                <Metric Name="LinesOfCode" Value="0" />
+              </Metrics>
+              <Types>
+                <Type Name="Policy">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="100" />
+                    <Metric Name="CyclomaticComplexity" Value="0" />
+                    <Metric Name="ClassCoupling" Value="1" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="0" />
+                  </Metrics>
+                  <Members />
+                </Type>
+                <Type Name="Meal">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="100" />
+                    <Metric Name="CyclomaticComplexity" Value="0" />
+                    <Metric Name="ClassCoupling" Value="1" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="0" />
+                  </Metrics>
+                  <Members />
+                </Type>
+                <Type Name="HashProvider">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="100" />
+                    <Metric Name="CyclomaticComplexity" Value="0" />
+                    <Metric Name="ClassCoupling" Value="0" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="0" />
+                  </Metrics>
+                  <Members />
+                </Type>
+                <Type Name="RolesSystem">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="100" />
+                    <Metric Name="CyclomaticComplexity" Value="0" />
+                    <Metric Name="ClassCoupling" Value="1" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="0" />
+                  </Metrics>
+                  <Members />
+                </Type>
+              </Types>
+            </Namespace>
+            <Namespace Name="NexFB.Core.Extensions">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="100" />
+                <Metric Name="CyclomaticComplexity" Value="1" />
+                <Metric Name="ClassCoupling" Value="2" />
+                <Metric Name="DepthOfInheritance" Value="2" />
+                <Metric Name="LinesOfCode" Value="1" />
+              </Metrics>
+              <Types>
+                <Type Name="OutputAttribute">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="100" />
+                    <Metric Name="CyclomaticComplexity" Value="1" />
+                    <Metric Name="ClassCoupling" Value="2" />
+                    <Metric Name="DepthOfInheritance" Value="2" />
+                    <Metric Name="LinesOfCode" Value="1" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="OutputAttribute()" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Extensions\OutputAttribute.cs" Line="20">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="1" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+              </Types>
+            </Namespace>
+            <Namespace Name="NexFB.Core.Constants">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="100" />
+                <Metric Name="CyclomaticComplexity" Value="1" />
+                <Metric Name="ClassCoupling" Value="0" />
+                <Metric Name="DepthOfInheritance" Value="1" />
+                <Metric Name="LinesOfCode" Value="1" />
+              </Metrics>
+              <Types>
+                <Type Name="Constants">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="100" />
+                    <Metric Name="CyclomaticComplexity" Value="1" />
+                    <Metric Name="ClassCoupling" Value="0" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="1" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="Constants()" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Constants\Constants.cs" Line="29">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+                <Type Name="FBFunctionKey">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="100" />
+                    <Metric Name="CyclomaticComplexity" Value="0" />
+                    <Metric Name="ClassCoupling" Value="0" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="0" />
+                  </Metrics>
+                  <Members />
+                </Type>
+              </Types>
+            </Namespace>
+            <Namespace Name="NexFB.Core.Security">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="61" />
+                <Metric Name="CyclomaticComplexity" Value="8" />
+                <Metric Name="ClassCoupling" Value="10" />
+                <Metric Name="DepthOfInheritance" Value="1" />
+                <Metric Name="LinesOfCode" Value="33" />
+              </Metrics>
+              <Types>
+                <Type Name="Encryptor">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="61" />
+                    <Metric Name="CyclomaticComplexity" Value="8" />
+                    <Metric Name="ClassCoupling" Value="10" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="33" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="CompareStringToHash(HashProvider, string, string, int) : bool" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Security\Encryptor.cs" Line="31">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="67" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="3" />
+                        <Metric Name="LinesOfCode" Value="7" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetHashProvider(HashProvider) : HashAlgorithm" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Security\Encryptor.cs" Line="49">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="61" />
+                        <Metric Name="CyclomaticComplexity" Value="6" />
+                        <Metric Name="ClassCoupling" Value="7" />
+                        <Metric Name="LinesOfCode" Value="13" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="ComputeHash(HashProvider, string, byte[]) : string" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Security\Encryptor.cs" Line="86">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="59" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="5" />
+                        <Metric Name="LinesOfCode" Value="13" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+              </Types>
+            </Namespace>
+            <Namespace Name="NexFB.Core.Repositories">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="87" />
+                <Metric Name="CyclomaticComplexity" Value="20" />
+                <Metric Name="ClassCoupling" Value="20" />
+                <Metric Name="DepthOfInheritance" Value="1" />
+                <Metric Name="LinesOfCode" Value="25" />
+              </Metrics>
+              <Types>
+                <Type Name="IBaseRepository">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="100" />
+                    <Metric Name="CyclomaticComplexity" Value="3" />
+                    <Metric Name="ClassCoupling" Value="2" />
+                    <Metric Name="DepthOfInheritance" Value="0" />
+                    <Metric Name="LinesOfCode" Value="0" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="Insert(ICriteria, bool) : CommandResult">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="0" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="Update(ICriteria, bool) : CommandResult">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="0" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="Delete(ICriteria, bool) : CommandResult">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="0" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+                <Type Name="BaseRepository">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="74" />
+                    <Metric Name="CyclomaticComplexity" Value="17" />
+                    <Metric Name="ClassCoupling" Value="20" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="25" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="Insert(ICriteria, bool) : CommandResult" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Repositories\BaseRepository.cs" Line="29">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="86" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="2" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="Update(ICriteria, bool) : CommandResult" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Repositories\BaseRepository.cs" Line="34">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="86" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="2" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="Delete(ICriteria, bool) : CommandResult" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Repositories\BaseRepository.cs" Line="39">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="86" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="2" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="ExecuteNonQuery(ICriteria, bool) : CommandResult" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Repositories\BaseRepository.cs" Line="50">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="64" />
+                        <Metric Name="CyclomaticComplexity" Value="4" />
+                        <Metric Name="ClassCoupling" Value="6" />
+                        <Metric Name="LinesOfCode" Value="8" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetCommandResult(Hashtable) : CommandResult" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Repositories\BaseRepository.cs" Line="67">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="71" />
+                        <Metric Name="CyclomaticComplexity" Value="3" />
+                        <Metric Name="ClassCoupling" Value="4" />
+                        <Metric Name="LinesOfCode" Value="4" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="SetValueForOutputProperty(ICriteria, Hashtable) : void" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Repositories\BaseRepository.cs" Line="84">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="65" />
+                        <Metric Name="CyclomaticComplexity" Value="6" />
+                        <Metric Name="ClassCoupling" Value="13" />
+                        <Metric Name="LinesOfCode" Value="6" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="BaseRepository()">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+              </Types>
+            </Namespace>
+            <Namespace Name="NexFB.Core.Criteria">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="94" />
+                <Metric Name="CyclomaticComplexity" Value="5" />
+                <Metric Name="ClassCoupling" Value="1" />
+                <Metric Name="DepthOfInheritance" Value="2" />
+                <Metric Name="LinesOfCode" Value="5" />
+              </Metrics>
+              <Types>
+                <Type Name="ResultCriteria">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="94" />
+                    <Metric Name="CyclomaticComplexity" Value="5" />
+                    <Metric Name="ClassCoupling" Value="1" />
+                    <Metric Name="DepthOfInheritance" Value="2" />
+                    <Metric Name="LinesOfCode" Value="5" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="ErrCode.get() : int">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="98" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="ErrCode.set(int) : void">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="95" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="ErrMsg.get() : string">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="98" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="ErrMsg.set(string) : void">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="95" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="ResultCriteria()">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="1" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+              </Types>
+            </Namespace>
+            <Namespace Name="NexFB.Core.Utilities">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="68" />
+                <Metric Name="CyclomaticComplexity" Value="2" />
+                <Metric Name="ClassCoupling" Value="5" />
+                <Metric Name="DepthOfInheritance" Value="1" />
+                <Metric Name="LinesOfCode" Value="6" />
+              </Metrics>
+              <Types>
+                <Type Name="Enumerations">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="68" />
+                    <Metric Name="CyclomaticComplexity" Value="2" />
+                    <Metric Name="ClassCoupling" Value="5" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="6" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="GetDescription(Enum) : string" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Utilities\Enumerations.cs" Line="27">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="68" />
+                        <Metric Name="CyclomaticComplexity" Value="2" />
+                        <Metric Name="ClassCoupling" Value="5" />
+                        <Metric Name="LinesOfCode" Value="6" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+              </Types>
+            </Namespace>
+            <Namespace Name="NexFB.Core.Models">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="93" />
+                <Metric Name="CyclomaticComplexity" Value="6" />
+                <Metric Name="ClassCoupling" Value="0" />
+                <Metric Name="DepthOfInheritance" Value="1" />
+                <Metric Name="LinesOfCode" Value="7" />
+              </Metrics>
+              <Types>
+                <Type Name="CommandResult">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="93" />
+                    <Metric Name="CyclomaticComplexity" Value="6" />
+                    <Metric Name="ClassCoupling" Value="0" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="7" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="Code.get() : int">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="98" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="Code.set(int) : void">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="95" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="Message.get() : string">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="98" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="Message.set(string) : void">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="95" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="IsSuccessful.get() : bool" File="D:\Source\NexFB\food-and-beverage\NexFB.Core\Models\CommandResult.cs" Line="24">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="87" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="2" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="CommandResult()">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+              </Types>
+            </Namespace>
+          </Namespaces>
+        </Module>
+      </Modules>
+    </Target>
+  </Targets>
+</CodeMetricsReport>

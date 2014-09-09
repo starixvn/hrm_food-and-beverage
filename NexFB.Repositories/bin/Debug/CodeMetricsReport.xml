@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeMetricsReport Version="10.0">
+  <Targets>
+    <Target Name="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\bin\Debug\NexFB.Repositories.dll">
+      <Modules>
+        <Module Name="NexFB.Repositories.dll" AssemblyVersion="1.0.0.0" FileVersion="1.0.0.0">
+          <Metrics>
+            <Metric Name="MaintainabilityIndex" Value="84" />
+            <Metric Name="CyclomaticComplexity" Value="91" />
+            <Metric Name="ClassCoupling" Value="35" />
+            <Metric Name="DepthOfInheritance" Value="1" />
+            <Metric Name="LinesOfCode" Value="151" />
+          </Metrics>
+          <Namespaces>
+            <Namespace Name="NexFB.Repositories.Interface">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="100" />
+                <Metric Name="CyclomaticComplexity" Value="7" />
+                <Metric Name="ClassCoupling" Value="8" />
+                <Metric Name="DepthOfInheritance" Value="0" />
+                <Metric Name="LinesOfCode" Value="0" />
+              </Metrics>
+              <Types>
+                <Type Name="IMealRegistrationRepository">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="100" />
+                    <Metric Name="CyclomaticComplexity" Value="1" />
+                    <Metric Name="ClassCoupling" Value="3" />
+                    <Metric Name="DepthOfInheritance" Value="0" />
+                    <Metric Name="LinesOfCode" Value="0" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="GetRegisterMealByRangeDate(ICriteria) : IList&lt;MealRegisterModel&gt;">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="3" />
+                        <Metric Name="LinesOfCode" Value="0" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+                <Type Name="IKitchenRepository">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="100" />
+                    <Metric Name="CyclomaticComplexity" Value="2" />
+                    <Metric Name="ClassCoupling" Value="3" />
+                    <Metric Name="DepthOfInheritance" Value="0" />
+                    <Metric Name="LinesOfCode" Value="0" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="GetMealOrder(ICriteria) : List&lt;Order&gt;">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="3" />
+                        <Metric Name="LinesOfCode" Value="0" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetOrderDetails(ICriteria) : Order">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="0" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+                <Type Name="IEmployeeRepository">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="100" />
+                    <Metric Name="CyclomaticComplexity" Value="2" />
+                    <Metric Name="ClassCoupling" Value="2" />
+                    <Metric Name="DepthOfInheritance" Value="0" />
+                    <Metric Name="LinesOfCode" Value="0" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="GetUserByDomain(ICriteria) : UserSession">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="0" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetUserByCode(ICriteria) : UserSession">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="0" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+                <Type Name="IUserControlRepository">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="100" />
+                    <Metric Name="CyclomaticComplexity" Value="2" />
+                    <Metric Name="ClassCoupling" Value="3" />
+                    <Metric Name="DepthOfInheritance" Value="0" />
+                    <Metric Name="LinesOfCode" Value="0" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="GetAllEmployeeRole(ICriteria) : IEnumerable&lt;EmployeeModel&gt;">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="3" />
+                        <Metric Name="LinesOfCode" Value="0" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetEmployeeRoleById(ICriteria) : EmployeeModel">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="0" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+              </Types>
+            </Namespace>
+            <Namespace Name="NexFB.Repositories.Implement">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="68" />
+                <Metric Name="CyclomaticComplexity" Value="84" />
+                <Metric Name="ClassCoupling" Value="35" />
+                <Metric Name="DepthOfInheritance" Value="1" />
+                <Metric Name="LinesOfCode" Value="151" />
+              </Metrics>
+              <Types>
+                <Type Name="EmployeeRepository">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="97" />
+                    <Metric Name="CyclomaticComplexity" Value="3" />
+                    <Metric Name="ClassCoupling" Value="3" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="5" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="GetUserByDomain(ICriteria) : UserSession" File="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\Implement\EmployeeRepository.cs" Line="23">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="91" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="2" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetUserByCode(ICriteria) : UserSession" File="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\Implement\EmployeeRepository.cs" Line="28">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="91" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="2" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="EmployeeRepository()">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+                <Type Name="UserControlRepository">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="58" />
+                    <Metric Name="CyclomaticComplexity" Value="48" />
+                    <Metric Name="ClassCoupling" Value="22" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="65" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="GetAllEmployeeRole(ICriteria) : IEnumerable&lt;EmployeeModel&gt;" File="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\Implement\UserControlRepository.cs" Line="33">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="51" />
+                        <Metric Name="CyclomaticComplexity" Value="12" />
+                        <Metric Name="ClassCoupling" Value="13" />
+                        <Metric Name="LinesOfCode" Value="18" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetEmployeeRoleById(ICriteria) : EmployeeModel" File="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\Implement\UserControlRepository.cs" Line="84">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="51" />
+                        <Metric Name="CyclomaticComplexity" Value="12" />
+                        <Metric Name="ClassCoupling" Value="14" />
+                        <Metric Name="LinesOfCode" Value="18" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetRolesOfEmployees(IEnumerable&lt;EmployeeModel&gt;, IEnumerable&lt;EmployeeRoleModel&gt;) : IEnumerable&lt;EmployeeModel&gt;" File="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\Implement\UserControlRepository.cs" Line="138">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="60" />
+                        <Metric Name="CyclomaticComplexity" Value="8" />
+                        <Metric Name="ClassCoupling" Value="11" />
+                        <Metric Name="LinesOfCode" Value="9" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetRolesWithDepartment(Role) : string" File="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\Implement\UserControlRepository.cs" Line="163">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="59" />
+                        <Metric Name="CyclomaticComplexity" Value="6" />
+                        <Metric Name="ClassCoupling" Value="5" />
+                        <Metric Name="LinesOfCode" Value="11" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetAdminDepartment(IEnumerable&lt;EmployeeRoleModel&gt;, IEnumerable&lt;RoleDepartmentModel&gt;) : IEnumerable&lt;EmployeeRoleModel&gt;" File="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\Implement\UserControlRepository.cs" Line="198">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="61" />
+                        <Metric Name="CyclomaticComplexity" Value="9" />
+                        <Metric Name="ClassCoupling" Value="11" />
+                        <Metric Name="LinesOfCode" Value="8" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="UserControlRepository()">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+                <Type Name="KitchenRepository">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="58" />
+                    <Metric Name="CyclomaticComplexity" Value="15" />
+                    <Metric Name="ClassCoupling" Value="12" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="33" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="GetMealOrder(ICriteria) : List&lt;Order&gt;" File="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\Implement\KitchenRepository.cs" Line="30">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="52" />
+                        <Metric Name="CyclomaticComplexity" Value="8" />
+                        <Metric Name="ClassCoupling" Value="11" />
+                        <Metric Name="LinesOfCode" Value="17" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetOrderDetails(ICriteria) : Order" File="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\Implement\KitchenRepository.cs" Line="64">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="55" />
+                        <Metric Name="CyclomaticComplexity" Value="6" />
+                        <Metric Name="ClassCoupling" Value="9" />
+                        <Metric Name="LinesOfCode" Value="15" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="KitchenRepository()">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+                <Type Name="MealRegistrationRepository">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="60" />
+                    <Metric Name="CyclomaticComplexity" Value="18" />
+                    <Metric Name="ClassCoupling" Value="20" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="48" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="GetRegisterMealByRangeDate(ICriteria) : IList&lt;MealRegisterModel&gt;" File="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\Implement\MealRegistrationRepository.cs" Line="31">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="65" />
+                        <Metric Name="CyclomaticComplexity" Value="3" />
+                        <Metric Name="ClassCoupling" Value="8" />
+                        <Metric Name="LinesOfCode" Value="7" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="ConvertMealDate(IEnumerable&lt;RawMealDateModel&gt;) : IList&lt;MealRegisterModel&gt;" File="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\Implement\MealRegistrationRepository.cs" Line="51">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="58" />
+                        <Metric Name="CyclomaticComplexity" Value="7" />
+                        <Metric Name="ClassCoupling" Value="10" />
+                        <Metric Name="LinesOfCode" Value="11" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="GetMealDateInWeek(List&lt;RawMealDateModel&gt;) : IList&lt;MealDateModel&gt;" File="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\Implement\MealRegistrationRepository.cs" Line="77">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="54" />
+                        <Metric Name="CyclomaticComplexity" Value="4" />
+                        <Metric Name="ClassCoupling" Value="10" />
+                        <Metric Name="LinesOfCode" Value="15" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="InsertMissingDateInWeek(RawMealDateModel) : List&lt;RawMealDateModel&gt;" File="D:\Source\NexFB\food-and-beverage\NexFB.Repositories\Implement\MealRegistrationRepository.cs" Line="117">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="56" />
+                        <Metric Name="CyclomaticComplexity" Value="3" />
+                        <Metric Name="ClassCoupling" Value="3" />
+                        <Metric Name="LinesOfCode" Value="14" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="MealRegistrationRepository()">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+              </Types>
+            </Namespace>
+          </Namespaces>
+        </Module>
+      </Modules>
+    </Target>
+  </Targets>
+</CodeMetricsReport>

@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeMetricsReport Version="10.0">
+  <Targets>
+    <Target Name="D:\Source\NexFB\food-and-beverage\NexFB.Web\bin\Debug\NexFB.Web.dll">
+      <Modules>
+        <Module Name="NexFB.Web.dll" AssemblyVersion="1.0.0.0" FileVersion="1.0.0.0">
+          <Metrics>
+            <Metric Name="MaintainabilityIndex" Value="82" />
+            <Metric Name="CyclomaticComplexity" Value="36" />
+            <Metric Name="ClassCoupling" Value="22" />
+            <Metric Name="DepthOfInheritance" Value="5" />
+            <Metric Name="LinesOfCode" Value="50" />
+          </Metrics>
+          <Namespaces>
+            <Namespace Name="NexFB.Web.Services.Interface">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="100" />
+                <Metric Name="CyclomaticComplexity" Value="2" />
+                <Metric Name="ClassCoupling" Value="1" />
+                <Metric Name="DepthOfInheritance" Value="0" />
+                <Metric Name="LinesOfCode" Value="0" />
+              </Metrics>
+              <Types>
+                <Type Name="IWebCommonService">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="100" />
+                    <Metric Name="CyclomaticComplexity" Value="2" />
+                    <Metric Name="ClassCoupling" Value="1" />
+                    <Metric Name="DepthOfInheritance" Value="0" />
+                    <Metric Name="LinesOfCode" Value="0" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="GetPermission(string) : int">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="0" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="HasPermissionOnFunction(string, Policy) : bool">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="1" />
+                        <Metric Name="LinesOfCode" Value="0" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+              </Types>
+            </Namespace>
+            <Namespace Name="NexFB.Web.Services.Implement">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="68" />
+                <Metric Name="CyclomaticComplexity" Value="11" />
+                <Metric Name="ClassCoupling" Value="7" />
+                <Metric Name="DepthOfInheritance" Value="1" />
+                <Metric Name="LinesOfCode" Value="19" />
+              </Metrics>
+              <Types>
+                <Type Name="WebCommonService">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="68" />
+                    <Metric Name="CyclomaticComplexity" Value="11" />
+                    <Metric Name="ClassCoupling" Value="7" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="19" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="GetPermission(string) : int" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\Services\Implement\WebCommonService.cs" Line="28">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="67" />
+                        <Metric Name="CyclomaticComplexity" Value="3" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="8" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="HasPermissionOnFunction(string, Policy) : bool" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\Services\Implement\WebCommonService.cs" Line="50">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="61" />
+                        <Metric Name="CyclomaticComplexity" Value="7" />
+                        <Metric Name="ClassCoupling" Value="6" />
+                        <Metric Name="LinesOfCode" Value="10" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="WebCommonService()">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="100" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+              </Types>
+            </Namespace>
+            <Namespace Name="NexFB.Web.Attributes">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="82" />
+                <Metric Name="CyclomaticComplexity" Value="16" />
+                <Metric Name="ClassCoupling" Value="15" />
+                <Metric Name="DepthOfInheritance" Value="5" />
+                <Metric Name="LinesOfCode" Value="22" />
+              </Metrics>
+              <Types>
+                <Type Name="ApiAuthorizeAttribute">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="82" />
+                    <Metric Name="CyclomaticComplexity" Value="16" />
+                    <Metric Name="ClassCoupling" Value="15" />
+                    <Metric Name="DepthOfInheritance" Value="5" />
+                    <Metric Name="LinesOfCode" Value="22" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="ApiAuthorizeAttribute()" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\Attributes\ApiAuthorizeAttribute.cs" Line="35">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="98" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="ApiAuthorizeAttribute(IWebCommonService)" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\Attributes\ApiAuthorizeAttribute.cs" Line="40">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="85" />
+                        <Metric Name="CyclomaticComplexity" Value="2" />
+                        <Metric Name="ClassCoupling" Value="3" />
+                        <Metric Name="LinesOfCode" Value="2" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="FunctionKey.get() : string" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\Attributes\ApiAuthorizeAttribute.cs" Line="48">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="88" />
+                        <Metric Name="CyclomaticComplexity" Value="2" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="2" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="FunctionKey.set(string) : void" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\Attributes\ApiAuthorizeAttribute.cs" Line="53">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="95" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="0" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="Policy.get() : Policy" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\Attributes\ApiAuthorizeAttribute.cs" Line="61">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="91" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="1" />
+                        <Metric Name="LinesOfCode" Value="2" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="Policy.set(Policy) : void" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\Attributes\ApiAuthorizeAttribute.cs" Line="66">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="95" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="1" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="OnAuthorization(HttpActionContext) : void" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\Attributes\ApiAuthorizeAttribute.cs" Line="76">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="74" />
+                        <Metric Name="CyclomaticComplexity" Value="2" />
+                        <Metric Name="ClassCoupling" Value="3" />
+                        <Metric Name="LinesOfCode" Value="5" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="HandleUnauthorizedRequest(HttpActionContext) : void" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\Attributes\ApiAuthorizeAttribute.cs" Line="91">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="84" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="2" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="HandlePermissionRequest(HttpActionContext) : void" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\Attributes\ApiAuthorizeAttribute.cs" Line="97">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="84" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="2" />
+                        <Metric Name="LinesOfCode" Value="2" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="CheckUserPermission(HttpActionContext) : void" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\Attributes\ApiAuthorizeAttribute.cs" Line="107">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="71" />
+                        <Metric Name="CyclomaticComplexity" Value="4" />
+                        <Metric Name="ClassCoupling" Value="7" />
+                        <Metric Name="LinesOfCode" Value="4" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+              </Types>
+            </Namespace>
+            <Namespace Name="NexFB.Web">
+              <Metrics>
+                <Metric Name="MaintainabilityIndex" Value="76" />
+                <Metric Name="CyclomaticComplexity" Value="7" />
+                <Metric Name="ClassCoupling" Value="5" />
+                <Metric Name="DepthOfInheritance" Value="1" />
+                <Metric Name="LinesOfCode" Value="9" />
+              </Metrics>
+              <Types>
+                <Type Name="SessionManager">
+                  <Metrics>
+                    <Metric Name="MaintainabilityIndex" Value="76" />
+                    <Metric Name="CyclomaticComplexity" Value="7" />
+                    <Metric Name="ClassCoupling" Value="5" />
+                    <Metric Name="DepthOfInheritance" Value="1" />
+                    <Metric Name="LinesOfCode" Value="9" />
+                  </Metrics>
+                  <Members>
+                    <Member Name="CurrentUser.get() : UserSession" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\SessionManager.cs" Line="24">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="74" />
+                        <Metric Name="CyclomaticComplexity" Value="3" />
+                        <Metric Name="ClassCoupling" Value="3" />
+                        <Metric Name="LinesOfCode" Value="4" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="CurrentUser.set(UserSession) : void" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\SessionManager.cs" Line="36">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="91" />
+                        <Metric Name="CyclomaticComplexity" Value="1" />
+                        <Metric Name="ClassCoupling" Value="3" />
+                        <Metric Name="LinesOfCode" Value="1" />
+                      </Metrics>
+                    </Member>
+                    <Member Name="ClearAll() : void" File="D:\Source\NexFB\food-and-beverage\NexFB.Web\SessionManager.cs" Line="42">
+                      <Metrics>
+                        <Metric Name="MaintainabilityIndex" Value="73" />
+                        <Metric Name="CyclomaticComplexity" Value="3" />
+                        <Metric Name="ClassCoupling" Value="4" />
+                        <Metric Name="LinesOfCode" Value="4" />
+                      </Metrics>
+                    </Member>
+                  </Members>
+                </Type>
+              </Types>
+            </Namespace>
+          </Namespaces>
+        </Module>
+      </Modules>
+    </Target>
+  </Targets>
+</CodeMetricsReport>
