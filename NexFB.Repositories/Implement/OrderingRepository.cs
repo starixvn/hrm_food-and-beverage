@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="OrderRepository.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="OrderingRepository.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -22,7 +22,7 @@ namespace NexFB.Repositories.Implement
     /// <summary>
     /// Order Repository.
     /// </summary>
-    public class OrderRepository : IOrderRepository
+    public class OrderingRepository : IOrderingRepository
     {
         /// <summary>
         /// Function to get menu in current meal by user id.
@@ -36,11 +36,10 @@ namespace NexFB.Repositories.Implement
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    var data = multi.Read<Menu>();
-                    if (data != null)
+                    menu = multi.Read<Menu>().FirstOrDefault();
+                    if (menu != null)
                     {
-                        menu = data.FirstOrDefault();
-                        var foods = multi.Read<Food>();
+                        var foods = multi.Read<Food>().ToList();
                         if (foods != null)
                         {
                             menu.FoodItems = foods.ToList();
@@ -79,10 +78,14 @@ namespace NexFB.Repositories.Implement
                     if (data != null)
                     {
                         orders = new List<MealOrderingModel>();
-                        var ordersQuatity = multi.Read<MenuQuantityModel, Menu, MenuQuantityModel>(
+                        var ordersQuatity = multi.Read<MenuQuantityModel, dynamic, MenuQuantityModel>(
                         (q, m) =>
                         {
-                            q.Menu = m;
+                            q.Menu = new Menu() 
+                            {
+                                NameEN = m.MealENGName,
+                                NameVN = m.MealVNMName
+                            };
                             return q;
                         }, 
                         "MealENGName");
@@ -112,6 +115,81 @@ namespace NexFB.Repositories.Implement
             }
 
             return orders;
+        }
+
+        /// <summary>
+        /// Function to get member for new order.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>MealOrdering Model.</returns>
+        public MealOrderingModel GetMemberNewOrder(ICriteria criteria)
+        {
+            MealOrderingModel order = null;
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                order = db.QueryEntity<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
+                    (od, e, s, m, l) =>
+                    {
+                        OrderMemberModel memberOrder = new OrderMemberModel()
+                        {
+                            IsOrder = true,
+                            Member = e,
+                            Menu = m,
+                        };
+                        od.Members = new List<OrderMemberModel>();
+                        od.Members.Add(memberOrder);
+
+                        od.CreatorOrder = e;
+                        od.MyMeal = m;
+                        od.Status = s;
+                        od.Location = l;
+                        return od;
+                    },
+                    "OrderBy, CurrentStatusID, MealENGName, LocationID",
+                    criteria.GetSpParams());
+            }
+
+            return order;
+        }
+
+        /// <summary>
+        /// Function to get member for new order.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>MealOrdering Model.</returns>
+        public MealOrderingModel GetMemberSavedOrder(ICriteria criteria)
+        {
+            MealOrderingModel order = null;
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                db.Query<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
+                    (od, e, s, m, l) =>
+                    {
+                        if (order == null)
+                        {
+                            order = od;
+                            od.CreatorOrder = e;
+                            od.MyMeal = m;
+                            od.Status = s;
+                            od.Location = l;
+                            od.Members = new List<OrderMemberModel>();
+                        }
+
+                        var memberOrder = new OrderMemberModel()
+                        {
+                            IsOrder = true,
+                            Member = e,
+                            Menu = m,
+                        };
+
+                        order.Members.Add(memberOrder);
+                        return od;
+                    },
+                    "SysId, CurrentStatusID, MealENGName, LocationID",
+                    criteria.GetSpParams());
+            }
+
+            return order;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="IOrderRepository.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="IOrderingRepository.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -14,10 +14,14 @@ namespace NexFB.Repositories.Interface
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
 
-    public interface IOrderRepository
+    public interface IOrderingRepository
     {
         Menu GetMenuByUserId(ICriteria criteria);
 
         IList<MealOrderingModel> GetMyOrderByCurrentDay(ICriteria criteria);
+
+        MealOrderingModel GetMemberNewOrder(ICriteria criteria);
+
+        MealOrderingModel GetMemberSavedOrder(ICriteria criteria);
     }
 }

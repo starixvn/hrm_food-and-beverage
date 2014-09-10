@@ -39,5 +39,7 @@ namespace NexFB.Models.Ordering
         public Menu MyMeal { get; set; }
 
         public IList<MenuQuantityModel> MenuQuantity { get; set; }
+
+        public bool IsSavedOrder { get; set; }
     }
 }

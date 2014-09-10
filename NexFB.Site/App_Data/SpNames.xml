@@ -45,7 +45,8 @@
 			<Mapping DataField="DepartmentName" ObjectProperty="Name"/>
 		</Setting>
 	<Setting Key="Location_GetAll" SpName="Location_GetAll" DbName="NexFB" Plain="0" >
-		<Mapping DataField="LocationENGName" ObjectProperty="Name"/>
+		<Mapping DataField="LocationVNMName" ObjectProperty="NameVN"/>
+    <Mapping DataField="LocationENGName" ObjectProperty="NameEN"/>
 	</Setting>
 	</Function>
 	<Function Name="Team">
@@ -75,20 +76,31 @@
     <Setting Key="MealOrder_Get_MyOrderSysID" SpName="MealOrder_Get_MyOrderSysID" DbName="NexFB" Plain="0" >
       <Mapping DataField="Members" ObjectProperty="MemberCount" Class="MealOrderingModel"/>
       <Mapping DataField="Since" ObjectProperty="ModifiedDate" Class="MealOrderingModel"/>
-      <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="MealOrderingModel"/>
-      <Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="MealOrderingModel"/>
-      <Mapping DataField="OrderBy" ObjectProperty="UserId" Class="MealOrderingModel"/>
-      <Mapping DataField="OrderNickName" ObjectProperty="NickName" Class="MealOrderingModel"/>
-      <Mapping DataField="OrderFullName" ObjectProperty="FullName" Class="MealOrderingModel"/>
-      <Mapping DataField="MealENGName" ObjectProperty="NameEN" Class="MealOrderingModel"/>
-      <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="MealOrderingModel"/>
+      <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status"/>
+      <Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status"/>
+      <Mapping DataField="OrderBy" ObjectProperty="UserId" Class="Employee"/>
+      <Mapping DataField="OrderNickName" ObjectProperty="NickName" Class="Employee"/>
+      <Mapping DataField="OrderFullName" ObjectProperty="FullName" Class="Employee"/>
+      <Mapping DataField="MealENGName" ObjectProperty="NameEN" Class="Menu"/>
+      <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location"/>
       <Mapping DataField="MealENGName" ObjectProperty="NameEN" Class="MenuQuantityModel"/>
       <Mapping DataField="MealVNMName" ObjectProperty="NameVN" Class="MenuQuantityModel"/>
       <Mapping DataField="QtyOrder" ObjectProperty="Quantity" Class="MenuQuantityModel"/>
     </Setting>
     <Setting Key="MealOrder_Get_MyStatusBySysID" SpName="MealOrder_Get_MyOrderSysID" DbName="NexFB" Plain="0" >
+      <Mapping DataField="Members" ObjectProperty="MemberCount" Class="MealOrderingModel"/>
+      <Mapping DataField="Since" ObjectProperty="ModifiedDate" Class="MealOrderingModel"/>
+      <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status"/>
+      <Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status"/>
+      <Mapping DataField="OrderBy" ObjectProperty="UserId" Class="Employee"/>
+      <Mapping DataField="OrderNickName" ObjectProperty="NickName" Class="Employee"/>
+      <Mapping DataField="OrderFullName" ObjectProperty="FullName" Class="Employee"/>
+      <Mapping DataField="MealENGName" ObjectProperty="NameEN" Class="Menu"/>
+      <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location"/>
     </Setting>
     <Setting Key="MealOrder_Get_OrderSaveOrderBySysID" SpName="MealOrder_Get_MyOrderSysID" DbName="NexFB" Plain="0" >
+    </Setting>
+    <Setting Key="MealOrder_Insert_RequestByWeb" SpName="MealOrder_Insert_RequestByWeb" DbName="NexFB" Plain="0" >
     </Setting>
   </Function>
 </Functions>

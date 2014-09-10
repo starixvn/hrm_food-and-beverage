@@ -37,8 +37,8 @@
                 </th>
             </tr>
         </thead>
-        <tbody ng-repeat = "order in myOrder">
-            <tr>
+        <tbody>
+            <tr ng-repeat = "order in myOrder">
                 <td class="text-center">
                     {{$index + 1}}
                 </td>
@@ -55,7 +55,7 @@
                     {{order.ModifiedDate}}
                 </td>
                 <td>
-                    <ul class="list-order list-unstyled" ng-repeat = "menu in myOrder.MenuQuantity">
+                    <ul class="list-order list-unstyled" ng-repeat = "menu in order.MenuQuantity">
                         <li>{{menu.Quantity}} - "{{menu.Menu.Name}}"</li>
                     </ul>
                 </td>
@@ -72,6 +72,10 @@
 					{{order.Remark}}
                 </td>
             </tr>
+			<tr ng-show="myOrder == ''">
+				<td class="empty-result" colspan="10" data-translate="EmptyResult">
+				</td>
+			</tr>
         </tbody>
     </table>
     <div class="row">
@@ -92,13 +96,24 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody ng-repeat = "food in menu.FoodItems">
-                    <tr>
+                <tbody >
+                    <tr ng-repeat = "food in menu.FoodItems">
                         <td class="text-center">{{$index + 1}}</td>
                         <td>
-                            {{food.Name}}
+							<ul class="list-order list-unstyled">
+								<li>
+									{{food.Name}}
+								</li>
+								<li>
+									{{food.NameEN}}
+								</li>
+							</ul>
                         </td>
                     </tr>
+					<tr ng-show="menu.FoodItems == ''">
+						<td class="empty-result" colspan="2" data-translate="EmptyResult">
+						</td>
+					</tr>
                 </tbody>
             </table>
         </div>
@@ -138,8 +153,8 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody ng-repeat = "member in newOrder.Members">
-                            <tr>
+                        <tbody>
+                            <tr ng-repeat = "member in newOrder.Members">
 								<td class="text-center">{{$index + 1}}</td>
 								<td>
 									<span>{{member.Member.NickName}}</span>
@@ -151,6 +166,10 @@
                                     <a href="#" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
                                 </td>
                             </tr>
+							<tr ng-show="newOrder.Members == ''">
+								<td class="empty-result" colspan="4" data-translate="EmptyResult">
+								</td>
+							</tr>
                         </tbody>
                     </table>
                     <div class="row form-inline form-order">
@@ -168,7 +187,7 @@
                             <i class="glyphicon glyphicon-exclamation-sign icon-warning"></i>
 							<label data-translate="WarningGroupNotSave"></label>
                         </p>
-                        <button href="#" class="button btn-order" data-translate="Order"></button>
+                        <button ng-click="SaveOrder()" class="button btn-order" data-translate="Order"></button>
                     </div>
                 </div>
                 <div class="col-sm-12 boxtitle">
@@ -205,8 +224,8 @@
                                 </th>
                             </tr>
                         </thead>
-						<tbody ng-repeat = "member in savedOrder.Members">
-                            <tr>
+						<tbody>
+                            <tr  ng-repeat = "member in savedOrder.Members">
 								<td class="text-center">{{$index + 1}}</td>
 								<td>
 									<span>{{member.Member.NickName}}</span>
@@ -236,7 +255,7 @@
                         </div>
                     </div>
                     <div class="row row-cust">
-                        <button href="#" class="button btn-order" data-translate="Order">
+                        <button ng-click="SaveOrder()" class="button btn-order" data-translate="Order">
                         </button>
                     </div>
                 </div>

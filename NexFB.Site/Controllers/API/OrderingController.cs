@@ -23,16 +23,16 @@ namespace NexFB.Site.Controllers.API
     /// </summary>
     public class OrderingController : BaseController
     {
-        private readonly IOrderService _orderService;
+        private readonly IOrderingService _orderService;
 
         public OrderingController()
             : this(null)
         {
         }
 
-        public OrderingController(IOrderService orderService)
+        public OrderingController(IOrderingService orderService)
         {
-            _orderService = orderService ?? new OrderService();
+            _orderService = orderService ?? new OrderingService();
         }
 
         /// <summary>
@@ -74,34 +74,12 @@ namespace NexFB.Site.Controllers.API
         [HttpGet]
         public MealOrderingModel GetAddNew()
         {
-            MealOrderingModel order = new MealOrderingModel();
-
-            OrderMemberModel member = new OrderMemberModel()
+            var criteria = new GetMemberNewOrderCriteria()
             {
-                Member = new Employee()
-                {
-                    UserId = this.CurrentUser.UserId,
-                    NickName = this.CurrentUser.NickName,
-                    FullName = this.CurrentUser.FullName
-                },
-                IsOrder = true,
-                Menu = new Menu()
-                {
-                    MenuId = 1,
-                    NameEN = "Lunch"
-                }
+                UserId = this.CurrentUser.UserId
             };
 
-            order.Members = new List<OrderMemberModel>();
-            order.Remark = "Test";
-            order.Location = new Location()
-            {
-                LocationId = 15,
-                NameEN = "AAAAAA"
-            };
-            order.Phone = "092212";
-            order.Members.Add(member);
-
+            MealOrderingModel order = _orderService.GetMemberNewOrder(criteria);
             return order;
         }
 
