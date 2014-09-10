@@ -16,6 +16,8 @@ namespace NexFB.Models.Ordering
     /// </summary>
     public class MenuQuantityModel
     {
+        public int OrderId { get; set; }
+
         public int Quantity { get; set; }
 
         public Menu Menu { get; set; }

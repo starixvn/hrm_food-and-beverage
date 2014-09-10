@@ -69,6 +69,8 @@
     <Compile Include="Kitchen\ProcessReceiveOrderCriteria.cs" />
     <Compile Include="MealRegistration\GetRegisterMealByRangeDateCriteria.cs" />
     <Compile Include="Kitchen\UndoOrderCriteria.cs" />
+    <Compile Include="Ordering\GetMenuByUserIdCriteria.cs" />
+    <Compile Include="Ordering\GetMyOrderInCurrentDayCriteria.cs" />
     <Compile Include="Team\GetAllTeamByCompanyCriteria.cs" />
     <Compile Include="Kitchen\GetDeliveredMealOrderCriteria.cs" />
     <Compile Include="Kitchen\GetWaitingMealOrderCriteria.cs" />

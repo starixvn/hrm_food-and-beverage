@@ -18,7 +18,17 @@ namespace NexFB.Models.Entities
     {
         public int MenuId { get; set; }
 
-        public string Name { get; set; }
+        public string NameVN { get; set; }
+
+        public string NameEN { get; set; }
+
+        public string Name
+        {
+            get
+            {
+                return NameEN;
+            }
+        }
 
         public IList<Food> FoodItems { get; set; }
     }

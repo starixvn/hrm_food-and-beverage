@@ -18,7 +18,11 @@ namespace NexFB.Models.Ordering
     /// </summary>
     public class MealOrderingModel
     {
+        public int OrderId { get; set; }
+
         public IList<OrderMemberModel> Members { get; set; }
+
+        public int MemberCount { get; set; }
 
         public Employee CreatorOrder { get; set; }
 
@@ -34,12 +38,6 @@ namespace NexFB.Models.Ordering
 
         public Menu MyMeal { get; set; }
 
-        public IList<MenuQuantityModel> MenuQuantity 
-        {
-            get
-            {
-                return new List<MenuQuantityModel>();
-            }
-        }
+        public IList<MenuQuantityModel> MenuQuantity { get; set; }
     }
 }

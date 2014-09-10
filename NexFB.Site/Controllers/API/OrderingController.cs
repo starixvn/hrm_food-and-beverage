@@ -11,94 +11,44 @@ namespace NexFB.Site.Controllers.API
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using System.Web.Http;
+    using NexFB.Criteria.Ordering;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
+    using NexFB.Services.Implement;
+    using NexFB.Services.Interface;
 
     /// <summary>
     /// Ordering Controller.
     /// </summary>
     public class OrderingController : BaseController
     {
+        private readonly IOrderService _orderService;
+
+        public OrderingController()
+            : this(null)
+        {
+        }
+
+        public OrderingController(IOrderService orderService)
+        {
+            _orderService = orderService ?? new OrderService();
+        }
+
         /// <summary>
         /// Function to get my orders.
         /// </summary>
         /// <returns>MealOrdering Model.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         [HttpGet]
         public IList<MealOrderingModel> GetMyOrder()
         {
-            IList<MealOrderingModel> ordering = new List<MealOrderingModel>();
-            MealOrderingModel order = new MealOrderingModel();
-            OrderMemberModel member = new OrderMemberModel()
+            var criteria = new GetMyOrderInCurrentDayCriteria()
             {
-                Member = new Employee()
-                {
-                   UserId = this.CurrentUser.UserId,
-                   NickName = this.CurrentUser.NickName,
-                   FullName = this.CurrentUser.FullName
-                },
-                IsOrder = true,
-                Menu = new Menu()
-                {
-                    MenuId = 1,
-                    Name = "Lunch 3"
-                }
-            };
-            OrderMemberModel member2 = new OrderMemberModel()
-            {
-                Member = new Employee()
-                { 
-                    UserId = 1, NickName = "Bradley.Mac", FullName = "Mạc Đức Trọng",
-                },
-                IsOrder = true,
-                Menu = new Menu()
-                {
-                    MenuId = 1,
-                    Name = "Lunch 2"
-                }
-            };
-            order.CreatorOrder = new Employee() 
-            { 
-                UserId = this.CurrentUser.UserId,
-                NickName = this.CurrentUser.NickName,
-                FullName = this.CurrentUser.FullName
+                UserId = this.CurrentUser.UserId
             };
 
-            order.Members = new List<OrderMemberModel>();
-            order.Remark = "Test 11";
-            order.Location = new Location() 
-            { 
-                LocationId = 11,
-                Name = "AAAAAA"
-            };
-            order.Phone = "0922121";
-            order.Members.Add(member);
-            order.Members.Add(member2);
-
-            var selfOrder = order.Members.Where(t => t.Member.UserId == this.CurrentUser.UserId);
-            if (selfOrder != null && selfOrder.Any())
-            {
-                order.MyMeal = selfOrder.SingleOrDefault().Menu;
-            }
-            else
-            {
-                order.MyMeal = new Menu()
-                {
-                    Name = "N/A"
-                };
-            }
-
-            order.Status = new Status()
-            {
-                StatusId = 1,
-                Name = "Preparing"
-            };
-
-            ordering.Add(order);
-
-            return ordering;
+            IList<MealOrderingModel> orders = _orderService.GetMyOrderByCurrentDay(criteria);
+            return orders;
         }
 
          /// <summary>
@@ -108,49 +58,12 @@ namespace NexFB.Site.Controllers.API
         [HttpGet]
         public Menu GetMenu()
         {
-            var menu = new Menu() 
+            var criteria = new GetMenuByUserIdCriteria()
             {
-                MenuId = 1,
-                Name = "Lunch 2"
+                UserId = this.CurrentUser.UserId
             };
 
-            var food1 = new Food()
-            {
-                FoodId = 1,
-                Name = "Canh Củ Sen"
-            };
-
-            var food2 = new Food()
-            {
-                FoodId = 2,
-                Name = "Chả Cá Chiên"
-            };
-
-            var food3 = new Food()
-            {
-                FoodId = 3,
-                Name = "Thịt Kho Trứng"
-            };
-
-            var food4 = new Food()
-            {
-                FoodId = 4,
-                Name = "Bí Xanh Xào Thịt Xay"
-            };
-
-            var food5 = new Food()
-            {
-                FoodId = 5,
-                Name = "Cải Ngồng Luộc "
-            };
-
-            menu.FoodItems = new List<Food>();
-            menu.FoodItems.Add(food1);
-            menu.FoodItems.Add(food2);
-            menu.FoodItems.Add(food3);
-            menu.FoodItems.Add(food4);
-            menu.FoodItems.Add(food5);
-
+            Menu menu = _orderService.GetMenuByUserId(criteria);
             return menu;
         }
 
@@ -175,7 +88,7 @@ namespace NexFB.Site.Controllers.API
                 Menu = new Menu()
                 {
                     MenuId = 1,
-                    Name = "Lunch"
+                    NameEN = "Lunch"
                 }
             };
 
@@ -184,7 +97,7 @@ namespace NexFB.Site.Controllers.API
             order.Location = new Location()
             {
                 LocationId = 15,
-                Name = "AAAAAA"
+                NameEN = "AAAAAA"
             };
             order.Phone = "092212";
             order.Members.Add(member);
@@ -213,7 +126,7 @@ namespace NexFB.Site.Controllers.API
                 Menu = new Menu()
                 {
                     MenuId = 1,
-                    Name = "Lunch 3"
+                    NameEN = "Lunch 3"
                 }
             };
 
@@ -229,7 +142,7 @@ namespace NexFB.Site.Controllers.API
                 Menu = new Menu()
                 {
                     MenuId = 1,
-                    Name = "Lunch 2"
+                    NameEN = "Lunch 2"
                 }
             };
 
@@ -238,7 +151,7 @@ namespace NexFB.Site.Controllers.API
             order.Location = new Location()
             {
                 LocationId = 11,
-                Name = "AAAAAA"
+                NameEN = "AAAAAA"
             };
             order.Phone = "0922121";
             order.Members.Add(member);

@@ -16,6 +16,16 @@ namespace NexFB.Models.Entities
     {
         public int LocationId { get; set; }
 
-        public string Name { get; set; }
+        public string NameVN { get; set; }
+
+        public string NameEN { get; set; }
+
+        public string Name
+        {
+            get
+            {
+                return NameEN;
+            }
+        }
     }
 }

@@ -63,4 +63,30 @@
 			<Mapping DataField="4" ObjectProperty="Supper"/>
 		</Setting>
 	</Function>
+  <Function Name="Ordering">
+    <Setting Key="MealOrder_Get_MenuBySysID" SpName="MealOrder_Get_MenuBySysID" DbName="NexFB" Plain="0" >
+      <Mapping DataField="MenuEngName" ObjectProperty="NameEN" Class="Menu"/>
+      <Mapping DataField="MenuVNMName" ObjectProperty="NameVN" Class="Menu"/>
+      <Mapping DataField="FoodEngName" ObjectProperty="NameEN" Class="Food"/>
+      <Mapping DataField="FoodVNMName" ObjectProperty="NameVN" Class="Food"/>
+    </Setting>
+    <Setting Key="MealOrder_Get_MyOrderSysID" SpName="MealOrder_Get_MyOrderSysID" DbName="NexFB" Plain="0" >
+      <Mapping DataField="Members" ObjectProperty="MemberCount" Class="MealOrderingModel"/>
+      <Mapping DataField="Since" ObjectProperty="ModifiedDate" Class="MealOrderingModel"/>
+      <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="MealOrderingModel"/>
+      <Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="MealOrderingModel"/>
+      <Mapping DataField="OrderBy" ObjectProperty="UserId" Class="MealOrderingModel"/>
+      <Mapping DataField="OrderNickName" ObjectProperty="NickName" Class="MealOrderingModel"/>
+      <Mapping DataField="OrderFullName" ObjectProperty="FullName" Class="MealOrderingModel"/>
+      <Mapping DataField="MealENGName" ObjectProperty="NameEN" Class="MealOrderingModel"/>
+      <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="MealOrderingModel"/>
+      <Mapping DataField="MealENGName" ObjectProperty="NameEN" Class="MenuQuantityModel"/>
+      <Mapping DataField="MealVNMName" ObjectProperty="NameVN" Class="MenuQuantityModel"/>
+      <Mapping DataField="QtyOrder" ObjectProperty="Quantity" Class="MenuQuantityModel"/>
+    </Setting>
+    <Setting Key="MealOrder_Get_MyStatusBySysID" SpName="MealOrder_Get_MyOrderSysID" DbName="NexFB" Plain="0" >
+    </Setting>
+    <Setting Key="MealOrder_Get_OrderSaveOrderBySysID" SpName="MealOrder_Get_MyOrderSysID" DbName="NexFB" Plain="0" >
+    </Setting>
+  </Function>
 </Functions>

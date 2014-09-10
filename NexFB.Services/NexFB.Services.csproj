@@ -64,8 +64,10 @@
   <ItemGroup>
     <Compile Include="Implement\KitchenService.cs" />
     <Compile Include="Implement\MealRegistrationService.cs" />
+    <Compile Include="Implement\OrderService.cs" />
     <Compile Include="Interface\IKitchenService.cs" />
     <Compile Include="Interface\IMealRegistrationService.cs" />
+    <Compile Include="Interface\IOrderService.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Implement\CommonService.cs" />
     <Compile Include="Implement\UserControlService.cs" />

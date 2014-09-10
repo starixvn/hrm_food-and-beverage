@@ -16,6 +16,16 @@ namespace NexFB.Models.Entities
     {
         public int FoodId { get; set; }
 
-        public string Name { get; set; }
+        public string Name 
+        {
+            get
+            {
+                return NameVN;
+            }
+        }
+
+        public string NameVN { get; set; }
+
+        public string NameEN { get; set; }
     }
 }
