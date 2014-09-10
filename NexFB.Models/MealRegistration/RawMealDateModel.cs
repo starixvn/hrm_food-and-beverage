@@ -22,13 +22,13 @@ namespace NexFB.Models.MealRegistration
 
         public int WeekDay { get; set; }
 
-        public bool? Breakfast { get; set; }
+        public int? Breakfast { get; set; }
 
-        public bool? Lunch { get; set; }
+        public int? Lunch { get; set; }
 
-        public bool? Dinner { get; set; }
+        public int? Dinner { get; set; }
 
-        public bool? Supper { get; set; }
+        public int? Supper { get; set; }
 
         public bool IsDisabled { get; set; }
     }

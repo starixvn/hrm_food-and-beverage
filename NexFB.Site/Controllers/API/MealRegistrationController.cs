@@ -12,11 +12,14 @@ namespace NexFB.Site.Controllers.API
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
+    using NexFB.Core.Constants;
+    using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Models.MealRegistration;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
+    using NexFB.Web.Attributes;
 
     /// <summary>
     /// Registration Meal controller.
@@ -66,6 +69,7 @@ namespace NexFB.Site.Controllers.API
         /// <param name="criteria">The criteria.</param>
         /// <returns>The command result.</returns>
         [HttpPost]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Host)]
         public CommandResult RegisterMealByRangeDate(RegisterMealByRangeDateCriteria criteria)
         {
             if (criteria != null)

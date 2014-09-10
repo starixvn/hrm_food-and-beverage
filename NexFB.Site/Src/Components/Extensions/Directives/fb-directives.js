@@ -269,3 +269,32 @@ appModule.directive('onlyOneCheck', function () {
 		}
 	};
 });
+
+appModule.directive('getMealRegistration', function () {
+	return {
+		restrict: 'A',
+		link: function (scope, iElement) {
+			iElement.on('click', function () {
+				var meals = scope.meals,
+					mealsTemplate = '<ROOT>',
+					registrationMealTable = $("[name='registrationMeal']"),
+					mealRegister = $(registrationMealTable).find('tbody tr');
+
+				for (var i = 0; i < mealRegister.length; i++) {
+					var rowMeal = mealRegister[i],
+					checkedElement = $(rowMeal).find('input:checked'),
+					mealId = checkedElement.val(),
+					checkedElementId = checkedElement.prop('id'),
+					isVegetarian = checkedElementId.replace('meal' + mealId, '') == '_non' ? 0 : 1,
+					template = '<Meal MealID="' + mealId + '" IsVeg="' + isVegetarian + '" />';
+
+					meals[i].IsVegetarian = isVegetarian;
+					mealsTemplate += template;
+				}
+
+				mealsTemplate += '</ROOT>';
+				scope.save.call(this, meals, mealsTemplate);
+			});
+		}
+	};
+});

@@ -20,6 +20,6 @@ namespace NexFB.Models.MealRegistration
 
         public string ShortName { get; set; }
 
-        public bool? IsVegetarian { get; set; }
+        public int? IsVegetarian { get; set; }
     }
 }

@@ -8,8 +8,8 @@ function ($scope, mealRegistrationFactory, mealRegistrationUtilities) {
 } ]);
 
 mealRegistrationModule.controller('MonthlyRegistrationController',
-['$scope', 'mealRegistrationFactory', '$modal',
-function ($scope, mealRegistrationFactory, $modal) {
+['$scope', 'mealRegistrationFactory', '$modal', 'notificationFactory', 'ErrorFactory',
+function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFactory) {
 	var date = new Date(),
 		fromDate = new Date(date.getFullYear(), date.getMonth(), 1),
 		toDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -35,25 +35,29 @@ function ($scope, mealRegistrationFactory, $modal) {
 			}
 		});
 
-		//		modalAssignInstance.result.then(function (userRoles) {
+		modalAssignInstance.result.then(function (registrationInfo) {
+			var mealRegistration = {
+				meal: registrationInfo.mealsTemplate,
+				onDate: '2014-9-10'
+			};
 
-		//			userControlFactory.assignRoleToUser(userRoles).success(function (response) {
-		//				if (response.IsSuccessful === true) {
-		//					employee.Roles = userRoles.rolesName;
-		//					notificationFactory.success("DataChangeSuccessfully");
-		//				}
-		//				else {
-		//					notificationFactory.error("", response.Message);
-		//				}
-		//			}).error(function (response, status) {
-		//				if (status === 405) {
-		//					ErrorFactory.errorHandle(status);
-		//				}
-		//				else {
-		//					notificationFactory.error("DataChangeFail");
-		//				}
-		//			});
-		//		});
+			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
+				if (response.IsSuccessful === true) {
+					date.Meals = registrationInfo.meals;
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("DataChangeFail");
+				}
+			});
+		});
 	};
 
 	$scope.registerMealWeek = function (week) {
@@ -67,8 +71,20 @@ function ($scope, mealRegistrationFactory, $modal) {
 } ]);
 
 mealRegistrationModule.controller('RegisterMealController',
-['meals', '$scope', 'isRegisterDate',
-function (meals, $scope, isRegisterDate) {
+['meals', '$scope', 'isRegisterDate', '$modalInstance',
+function (meals, $scope, isRegisterDate, $modalInstance) {
 	$scope.meals = meals;
 	$scope.isRegisterDate = isRegisterDate;
+
+	$scope.save = function (meals, mealsTemplate) {
+		var registrationInfo = {
+			meals: meals,
+			mealsTemplate: mealsTemplate
+		};
+		$modalInstance.close(registrationInfo);
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
+	};
 } ]);
