@@ -20,25 +20,25 @@
                     <tr>
                         <td data-translate="Roles" class="width-150 text-right bold"></td>
                         <td name="userRoles">
-                            <div class="form-control-static" ng-repeat="role in systemRoles" 
+                        <div class="form-control-static" ng-repeat="role in systemRoles" 
 							    ng-if="role.RoleId == 1 && checkRolePermission(role.RoleId)">
 						    <div>
-							    <input id="Checkbox2" name="role" type="checkbox" checked disabled value="{{role.RoleId}}"/>
-							    <span id="Span2" ng-bind="role.Name">
+							    <input id="role{{role.RoleId}}" name="role" type="checkbox" checked disabled value="{{role.RoleId}}"/>
+							    <span id="roleName{{role.RoleId}}" ng-bind="role.Name">
 							    </span>
 						    </div>
 					    </div>
 					    <div class="form-control-static" ng-repeat="role in systemRoles" ng-if="role.RoleId != 1">
 						    <div>
-							    <input id="Checkbox3" name="role" type="checkbox" assign-user-permission value="{{role.RoleId}}" 
+							    <input id="role{{role.RoleId}}" name="role" type="checkbox" assign-user-permission value="{{role.RoleId}}" 
 								    ng-checked="checkRolePermission(role.RoleId)"/>
-							    <span id="Span3" ng-bind="role.Name">
+							    <span id="roleName{{role.RoleId}}" ng-bind="role.Name">
 							    </span>
 						    </div>
 						    <div class="department" ng-repeat="department in departments track by department.DepartmentId" ng-if="role.RoleId == 2">
 							    <input type="checkbox" value="{{department.DepartmentId}}" pid="{{role.RoleId}}" name="department" assign-user-permission
 								    ng-checked="checkDepartmentPermission(role.RoleId, department.DepartmentId)"/>
-							    <span id="Span4" ng-bind="department.Name" >
+							    <span id="departmentName{{department.DepartmentId}}" ng-bind="department.Name" >
 							    </span>
 						    </div>
 					    </div>
@@ -46,48 +46,6 @@
                     </tr>
                 </tbody>
             </table>
-			<!--<div class="form-group">
-				<label class="col-sm-3 control-label bold" data-translate="Code">
-				</label>
-				<div class="col-sm-8">
-					<p class="form-control-static" ng-bind="employee.Code"></p>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label bold" data-translate="NickName">
-				</label>
-				<div class="col-sm-8">
-					<p class="form-control-static" ng-bind="employee.NickName"></p>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label bold" data-translate="Roles">
-				</label>
-				<div name="userRoles" class="col-sm-8">
-					<div class="form-control-static" ng-repeat="role in systemRoles" 
-							ng-if="role.RoleId == 1 && checkRolePermission(role.RoleId)">
-						<div>
-							<input id="Checkbox1" name="role" type="checkbox" checked disabled value="{{role.RoleId}}"/>
-							<span id="Span1" ng-bind="role.Name">
-							</span>
-						</div>
-					</div>
-					<div class="form-control-static" ng-repeat="role in systemRoles" ng-if="role.RoleId != 1">
-						<div>
-							<input id="role{{role.RoleId}}" name="role" type="checkbox" assign-user-permission value="{{role.RoleId}}" 
-								ng-checked="checkRolePermission(role.RoleId)"/>
-							<span id="roleName{{role.RoleId}}" ng-bind="role.Name">
-							</span>
-						</div>
-						<div class="department" ng-repeat="department in departments track by department.DepartmentId" ng-if="role.RoleId == 2">
-							<input type="checkbox" value="{{department.DepartmentId}}" pid="{{role.RoleId}}" name="department" assign-user-permission
-								ng-checked="checkDepartmentPermission(role.RoleId, department.DepartmentId)"/>
-							<span id="departmentName{{department.DepartmentId}}" ng-bind="department.Name" >
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>-->
 		</form>
 	</div>
 
