@@ -12,7 +12,6 @@ namespace NexFB.Models.Ordering
     using System;
     using System.Collections.Generic;
     using NexFB.Models.Entities;
-    using System.Linq;
 
     /// <summary>
     /// MealOrdering Model.

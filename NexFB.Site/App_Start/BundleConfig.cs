@@ -49,6 +49,9 @@ namespace NexFB.Site
                 "~/Src/Components/Libs/toastr.js",
                 "~/Src/Components/Libs/angular-multi-select.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
+                "~/Src/Components/Libs/jquery.signalR-1.1.4.min.js"));
+
             bundles.AddAndInclude(
                 "~/NexFB/Src/Less",
                 "~/Src/Content/Site/variables.less",

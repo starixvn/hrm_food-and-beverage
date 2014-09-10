@@ -9,4 +9,4 @@ function ($locationProvider, $translateProvider) {
 	$translateProvider.useLoader('resourceFactory', {});
 	$translateProvider.preferredLanguage('en');
 	$locationProvider.html5Mode(true);
-} ]); 
+} ]);

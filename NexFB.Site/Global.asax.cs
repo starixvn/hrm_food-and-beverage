@@ -31,6 +31,7 @@ namespace NexFB.Site
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            RouteTable.Routes.MapHubs();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
