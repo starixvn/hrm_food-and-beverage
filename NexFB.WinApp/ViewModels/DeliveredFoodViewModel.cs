@@ -9,6 +9,7 @@
 
 namespace NexFB.WinApp.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows;
@@ -82,7 +83,7 @@ namespace NexFB.WinApp.ViewModels
                 List<Order> deliveredMeals = KitchenService.GetDeliveredMealOrder(criteria);
                 if (!string.IsNullOrEmpty(SearchValue))
                 {
-                    deliveredMeals = deliveredMeals.Where(x => x.TwoDigitOrderNo.StartsWith(SearchValue)).ToList();
+                    deliveredMeals = deliveredMeals.Where(x => x.TwoDigitOrderNo.StartsWith(SearchValue, StringComparison.Ordinal)).ToList();
                 }
 
                 return deliveredMeals;

@@ -26,6 +26,18 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string DefaultCulture = "vi-VN";
 
+        public const string Menu1Color = "#3A95FC";
+
+        public const string Menu2Color = "#ef4339";
+
+        public const string Menu3Color = "#cf4fde";
+
+        public const string Menu4Color = "#39b54a";
+
+        public const string Menu5Color = "#f39c11";
+
+        public const string DefaultMenuColor = "#fff";
+
         private Constant()
         {
         }

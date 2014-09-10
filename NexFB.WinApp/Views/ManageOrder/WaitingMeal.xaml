@@ -10,12 +10,13 @@
 
 
 	<!--Main Manage Pending Food Screen-->
-		<Grid VerticalAlignment="Top" x:Name="GridPendingFood">
-			<ListBox Margin="-1,0,0,0" BorderBrush="#77B1FC" ItemsSource="{Binding Path=WaitingMeals}" x:Name="ListPendingFood" ScrollViewer.VerticalScrollBarVisibility="Visible">
+	<ScrollViewer>
+		<Grid Background="Red" VerticalAlignment="Top" x:Name="GridPendingFood" Margin="0,0,0,0">
+			<ListBox Margin="-1,-1,0,-3" BorderBrush="#fff" ItemsSource="{Binding Path=WaitingMeals}" x:Name="ListPendingFood">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<Border BorderThickness="1,1,0,1" BorderBrush="#77B1FC" Margin="0" Padding="0" CornerRadius="0" Height="150">
-							<Grid Background="White">
+						<Border BorderThickness="1,1,0,1" BorderBrush="#fff" Margin="0,-1,0,0" Padding="0" CornerRadius="0" Height="100">
+							<Grid Background="#e1e1e1">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition/>
 									<ColumnDefinition/>
@@ -23,16 +24,19 @@
 								</Grid.ColumnDefinitions>
 
 								<!--Order number-->
-								<StackPanel Grid.Column="0" Height="150" Width="180" Background="Black" VerticalAlignment="Top" Margin="-9,0,0,0">
-									<Label Content="{Binding Path=TwoDigitOrderNo}" Foreground="White" HorizontalAlignment="Center" FontSize="70" VerticalAlignment="Center"></Label>
-									<Label Content="{Binding Path=RegisterDate}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-								</StackPanel>
+								<Grid Grid.Column="0" Height="100" Width="120" Background="#464646" VerticalAlignment="Top" Margin="-9,0,0,0">
+									<Label Content="{Binding Path=TwoDigitOrderNo}" Foreground="White" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center" Margin="4,0,4,31" Height="69"></Label>
+									<Border BorderBrush="Transparent" BorderThickness="0" Height="34" HorizontalAlignment="Left" Margin="9,58,0,0" VerticalAlignment="Top" Width="107">
+										<TextBlock Foreground="White" FontSize="13" Text="{Binding Path=RegisterDateString}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+									</Border>
+
+								</Grid>
 
 								<!--Order details information-->
-								<Grid Grid.Column="1" Width="895" Margin="10, 10, 10, 10" Height="150">
+								<Grid Grid.Column="1" Width="1000" Margin="10, 5, 0, 0" Height="97">
 									<StackPanel>
 										<!--Display order owner, room...-->
-										<Grid>
+										<Grid Height="32">
 											<Grid.RowDefinitions>
 												<RowDefinition/>
 											</Grid.RowDefinitions>
@@ -44,9 +48,9 @@
 												<ColumnDefinition Width="auto"/>
 												<ColumnDefinition Width="auto"/>
 											</Grid.ColumnDefinitions>
-											<Border Style="{StaticResource RoomNumberStyle}" Grid.Column="0">
-												<Label HorizontalAlignment="Center" FontWeight="Bold" Content="{Binding Path=FloorName}">
-												</Label>
+
+											<Border HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource RoomNumberStyle}" Grid.Column="0">
+												<TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Text="{Binding Path=FloorName}" VerticalAlignment="Center"/>
 											</Border>
 											<Label Grid.Column="1" Content="{Binding Path=VnmName}" />
 											<Label Grid.Column="2" Content="-" />
@@ -54,15 +58,15 @@
 											<Label Grid.Column="4" Content="{Binding Path=Code}" ContentStringFormat="#{0}" />
 											<Label Grid.Column="5">
 												<StackPanel Orientation="Horizontal">
-													<Image Width="20" Height="20" Source="pack://application:,,,/Images/phone-icon.png" Stretch="Uniform"/>
+													<Image Width="25" Height="25" Source="pack://application:,,,/Images/phone-icon.png" Stretch="Uniform"/>
 													<TextBlock Text="{Binding Path=Phone}" Margin="4,0,0,0"/>
 												</StackPanel>
 											</Label>
 										</Grid>
 
 										<!--Display number of meals-->
-										<Grid Height="63">
-											<ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=ListMenu}" BorderThickness="0">
+										<Grid Height="33">
+											<ListBox Background="#e1e1e1" Margin="53,0,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=ListMenu}" BorderThickness="0">
 												<ListBox.ItemsPanel>
 													<ItemsPanelTemplate >
 														<WrapPanel Orientation="Horizontal" ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
@@ -75,8 +79,8 @@
 																<ColumnDefinition/>
 																<ColumnDefinition/>
 															</Grid.ColumnDefinitions>
-															<Label FontSize="15" Grid.Column="0" Content="{Binding Path=MenuVnmName}" ContentStringFormat=" {0} :"></Label>
-															<Label FontSize="15" Grid.Column="1" Content="{Binding Path=QuantityPerTotal}" Margin="0,0,20,0"></Label>
+															<Label Foreground="#e76957" FontSize="15" Grid.Column="0" Content="{Binding Path=MenuVnmName}" ContentStringFormat=" {0} :"></Label>
+															<Label FontWeight="Black" FontSize="15" Grid.Column="1" Content="{Binding Path=QuantityPerTotal}" Margin="0,0,20,0"></Label>
 														</Grid>
 													</DataTemplate>
 												</ListBox.ItemTemplate>
@@ -84,9 +88,9 @@
 										</Grid>
 
 										<!--Display general order note-->
-										<Label>
+										<Label Height="32">
 											<StackPanel Orientation="Horizontal">
-												<Image Stretch="Uniform" Width="18" Height="18">
+												<Image Stretch="Uniform" Width="15" Height="15">
 													<Image.Style>
 														<Style TargetType="{x:Type Image}">
 															<Style.Triggers>
@@ -104,13 +108,17 @@
 								</Grid>
 
 								<!--Order status-->
-								<Grid Grid.Column="2" Width="170" Height="150" VerticalAlignment="Top">
-									<Button Foreground="White" Style="{StaticResource TileButton}" Margin="32,7,25,107" Width="83" Height="36" />
+								<Grid Grid.Column="2" Width="153" Height="100" VerticalAlignment="Top">
+									<Button Height="33" Width="75" Foreground="White" Style="{StaticResource TileButton}" Margin="20,5,25,57" />
 								</Grid>
 							</Grid>
 						</Border>
+
 					</DataTemplate>
 				</ListBox.ItemTemplate>
+
 			</ListBox>
 		</Grid>
+
+	</ScrollViewer>
 </UserControl>

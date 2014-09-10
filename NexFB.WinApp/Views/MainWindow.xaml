@@ -16,33 +16,41 @@
 	</Window.Resources>
 
 	<!--NexFB Main Grid-->
-	<Grid Background="Black">
+	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="65"/>
-			<RowDefinition Height="920*"/>
+			<RowDefinition Height="44"/>
+			<RowDefinition/>
 		</Grid.RowDefinitions>
 
+		<Grid Background="#464646">
+			<Button Name="myStyle" Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Waiting}" Command="{Binding ViewPedingFoodCommand}" Foreground="White" Background ="#3A95FC" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="-1,3,0,0" />
+			<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Pending}" Command="{Binding ViewAwaitingDeliverFoodCommand}" Foreground="White" Background="#ef4339" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="123,3,0,0" />
+			<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Delivered}" Command="{Binding ViewDeliveredFoodCommand}" Foreground="White" Background="#cf4fde" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="247,3,0,0" />
+			<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Order}" Command="{Binding ViewOrderFoodCommand}" Height="44" Foreground="White" Background="#39b54a" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="371,3,0,0" />
+			<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Statistic}" Height="44" Foreground="White" Background="#f39c11" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="495,3,0,0" />
+			<TextBox Text="{Binding SearchResult}" Height="39" HorizontalAlignment="Left" Margin="717,3,0,0" Name="textBox1" VerticalAlignment="Top" Width="59" />
+
+			<!--Button close window-->
+			<Button Style="{StaticResource TileButton}" Command="{Binding CloseWindow}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+				Foreground="White" Background="Red" HorizontalAlignment="Right" VerticalAlignment="Top" Height="41" Margin="0,3,0,0">
+				<Button.Template>
+					<ControlTemplate>
+						<Border Width="50" Height="45" Background="#898989" HorizontalAlignment="Center" VerticalAlignment="Center" >
+							<Image Width="28" Height="28" Source="pack://application:,,,/Images/close.png" />
+						</Border>
+					</ControlTemplate>
+				</Button.Template>
+			</Button>
+			<Image Source="pack://application:,,,/Images/logo.jpg" Height="41" HorizontalAlignment="Left" Margin="913,3,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="313" />
+			<Label Content="{Binding Path=TodayTime}" FontSize="22" Foreground="#fff" HorizontalAlignment="Left" Margin="1157,-6,0,15" Name="label1" Width="76" />
+			<Label Content="{Binding Path=TodayDate}" Foreground="#fff" FontSize="14" Height="26" HorizontalAlignment="Left" Margin="1145,0,0,-1" Name="label2" VerticalAlignment="Bottom" Width="81" />
+		</Grid>
 		<!--Nex FB Menu-->
-		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Waiting}" Command="{Binding ViewPedingFoodCommand}" Foreground="White" Background ="#3A95FC" Height="42" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="12,12,0,0" />
-		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Pending}" Command="{Binding ViewAwaitingDeliverFoodCommand}" Foreground="White" Background="#FA5934" Height="42" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="141,12,0,0" />
-		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Delivered}" Command="{Binding ViewDeliveredFoodCommand}" Foreground="White" Background="#9247A1" Height="42" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="269,12,0,0" />
-		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Order}" Command="{Binding ViewOrderFoodCommand}" Height="42" Foreground="White" Background="#47BF43" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="397,12,0,0" />
-		<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Statistic}" Height="42" Foreground="White" Background="#3A95FC" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="525,12,0,0" />
-		<TextBox Text="{Binding SearchResult}" Height="42" HorizontalAlignment="Left" Margin="729,12,0,0" Name="textBox1" VerticalAlignment="Top" Width="122" />
 
-		<!--Button close window-->
-		<Button Style="{StaticResource TileButton}" Command="{Binding CloseWindow}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-		 Foreground="White" Background="Red" HorizontalAlignment="Right" VerticalAlignment="Top" Height="40">
-			<Button.Template>
-				<ControlTemplate>
-					<Border HorizontalAlignment="Center" VerticalAlignment="Center" >
-						<Image Source="pack://application:,,,/Images/window_close.png" />
-					</Border>
-				</ControlTemplate>
-			</Button.Template>
-		</Button>
-
-		<!--Content wrapper-->
-		<ContentControl Content="{Binding CurrentViewModel}" BorderBrush="Red" Grid.Row="1" Background="#3A95FC" />
+		<Grid Grid.Row="1" Margin="0,3,0,0">
+			<ContentControl Content="{Binding CurrentViewModel}"  Margin="0,0,0,7" Grid.Row="1" />
+		</Grid>
+		<Grid Grid.Row="1" Height="7" HorizontalAlignment="Left" Background="{Binding Path=GridColor}" 
+		VerticalAlignment="Top" Width="1280"/>
 	</Grid>
 </Window>

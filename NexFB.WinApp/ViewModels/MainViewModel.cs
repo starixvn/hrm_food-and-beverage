@@ -9,9 +9,12 @@
 
 namespace NexFB.WinApp.ViewModels
 {
+    using System;
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Threading;
     using NexFB.WinApp.Core.Commands;
+    using NexFB.WinApp.Core.Constants;
 
     /// <summary>
     /// Main ViewModel.
@@ -21,11 +24,15 @@ namespace NexFB.WinApp.ViewModels
         #region Fields
 
         private static readonly OrderFoodViewModel OrderFoodViewModel = new OrderFoodViewModel();
+        private static DispatcherTimer digitalClock = new DispatcherTimer();
         private ViewModelBase _currentViewModel;
         private string _searchResult;
         private string _waitingSearchResult;
         private string _awaitingDeliverSearchResult;
         private string _deliveredSearchResult;
+        private string _gridColor;
+        private string _todayDate;
+        private string _todayTime;
 
         #endregion
 
@@ -40,6 +47,10 @@ namespace NexFB.WinApp.ViewModels
             ViewOrderFoodCommand = new RelayCommand((x) => CanExecuteViewOrderFood(), (y) => ExecuteViewOrderFood());
             ViewAwaitingDeliverFoodCommand = new RelayCommand((x) => CanExecuteViewAwaitingDeliverFood(), (y) => ExecuteViewAwaitingDeliverFood());
             CloseWindow = new RelayCommand((x) => ((Window)x).Close());
+
+            digitalClock.Interval = new TimeSpan(0, 0, 1);
+            digitalClock.Tick += new EventHandler(Timer_Click);
+            digitalClock.Start();
         }
 
         #endregion
@@ -147,6 +158,49 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        public string GridColor
+        {
+            get
+            {
+                return _gridColor;
+            }
+
+            private set
+            {
+                _gridColor = value;
+                this.OnPropertyChanged("GridColor");
+            }
+        }
+
+        public string TodayDate
+        {
+            get
+            {
+                return _todayDate;
+            }
+
+            private set
+            {
+                _todayDate = value;
+                _todayDate = DateTime.Now.Date.ToString("dd/MM/yyyy");
+                this.OnPropertyChanged("TodayDate");
+            }
+        }
+
+        public string TodayTime
+        {
+            get
+            {
+                return _todayTime;
+            }
+
+            private set
+            {
+                _todayTime = value;
+                this.OnPropertyChanged("TodayTime");
+            }
+        }
+
         #endregion
 
         #region RelayCommands
@@ -194,6 +248,7 @@ namespace NexFB.WinApp.ViewModels
         private void ExecuteViewOrderFood()
         {
             CurrentViewModel = MainViewModel.OrderFoodViewModel;
+            CheckCurrentViewModel();
         }
 
         #endregion
@@ -209,6 +264,7 @@ namespace NexFB.WinApp.ViewModels
             switch (currentViewModel)
             {
                 case "WaitingMealViewModel":
+                    GridColor = Constant.DefaultMenuColor;
                     if (string.IsNullOrEmpty(WaitingSearchResult))
                     {
                         SearchResult = string.Empty;
@@ -220,6 +276,7 @@ namespace NexFB.WinApp.ViewModels
 
                     break;
                 case "AwaitingDeliverViewModel":
+                    GridColor = Constant.Menu2Color;
                     if (string.IsNullOrEmpty(AwaitingDeliverSearchResult))
                     {
                         SearchResult = string.Empty;
@@ -231,6 +288,7 @@ namespace NexFB.WinApp.ViewModels
 
                     break;
                 case "DeliveredFoodViewModel":
+                    GridColor = Constant.Menu3Color;
                     if (string.IsNullOrEmpty(DeliveredSearchResult))
                     {
                         SearchResult = string.Empty;
@@ -241,7 +299,20 @@ namespace NexFB.WinApp.ViewModels
                     }
 
                     break;
+                case "OrderFoodViewModel":
+                    GridColor = Constant.Menu4Color;
+                    break;
+                default:
+                    GridColor = Constant.DefaultMenuColor;
+                    break;
             }
+        }
+
+        private void Timer_Click(object sender, EventArgs e)
+        {
+            var dateTimeNow = DateTime.Now;
+            TodayDate = dateTimeNow.ToString("dd/MM/yyyy");
+            TodayTime = dateTimeNow.ToString("HH:mm");
         }
 
         #endregion

@@ -57,6 +57,14 @@ namespace NexFB.Models.Kitchen
 
         public List<OrderMenu> ListMenu { get; set; }
 
+        public string RegisterDateString
+        {
+            get
+            {
+                return String.Format("{0:MM/dd/yyyy HH:mm}", RegisterDate);
+            }
+        }
+
         public bool HasNote
         {
             get

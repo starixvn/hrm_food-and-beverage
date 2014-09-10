@@ -9,12 +9,15 @@
 
 namespace NexFB.WinApp
 {
+    using System;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
+    using System.Net;
     using System.Windows;
     using System.Windows.Threading;
     using Fanex.Data.Configuration;
+    using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.Resources;
     using NexFB.WinApp.Core.Constants;
     using NexFB.WinApp.Core.Mapping;
@@ -50,6 +53,11 @@ namespace NexFB.WinApp
 
                     mappingRegister.Register();
                     DbSettingProviderManager.Current.Start();
+                    var hubConnection = new HubConnection("http://localhost:50442/");
+                    var proxy = hubConnection.CreateHubProxy("Chat");
+                    proxy.On<string>("newMessage", hello => OnSendData("Recieved send " + hello));
+                    hubConnection.Credentials = CredentialCache.DefaultNetworkCredentials;
+                    hubConnection.Start().Wait();
                 }
                 else
                 {
@@ -79,6 +87,11 @@ namespace NexFB.WinApp
             {
                 Shutdown();
             }
+        }
+
+        private void OnSendData(string message)
+        {
+            Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => MessageBox.Show(message)));
         }
     }
 }
