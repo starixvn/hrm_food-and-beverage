@@ -38,7 +38,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		modalAssignInstance.result.then(function (registrationInfo) {
 			var mealRegistration = {
 				meal: registrationInfo.mealsTemplate,
-				onDate: '2014-9-10'
+				onDate: date.WorkDate.toString()
 			};
 
 			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {

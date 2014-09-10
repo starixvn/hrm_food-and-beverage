@@ -282,14 +282,17 @@ appModule.directive('getMealRegistration', function () {
 
 				for (var i = 0; i < mealRegister.length; i++) {
 					var rowMeal = mealRegister[i],
-					checkedElement = $(rowMeal).find('input:checked'),
-					mealId = checkedElement.val(),
-					checkedElementId = checkedElement.prop('id'),
-					isVegetarian = checkedElementId.replace('meal' + mealId, '') == '_non' ? 0 : 1,
-					template = '<Meal MealID="' + mealId + '" IsVeg="' + isVegetarian + '" />';
+					checkedElement = $(rowMeal).find('input:checked');
 
-					meals[i].IsVegetarian = isVegetarian;
-					mealsTemplate += template;
+					if (checkedElement != null && checkedElement.length > 0) {
+						var mealId = checkedElement.val(),
+							checkedElementId = checkedElement.prop('id'),
+							isVegetarian = checkedElementId.replace('meal' + mealId, '') == '_non' ? 0 : 1,
+							template = '<Meal MealID="' + mealId + '" IsVeg="' + isVegetarian + '" />';
+
+						meals[i].IsVegetarian = isVegetarian;
+						mealsTemplate += template;
+					}
 				}
 
 				mealsTemplate += '</ROOT>';
