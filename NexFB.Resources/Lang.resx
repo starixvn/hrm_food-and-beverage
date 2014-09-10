@@ -234,6 +234,9 @@
   <data name="Read" xml:space="preserve">
     <value>Read</value>
   </data>
+  <data name="RegisterMeal" xml:space="preserve">
+    <value>Register Meal</value>
+  </data>
   <data name="Registration" xml:space="preserve">
     <value>Registration</value>
   </data>
@@ -254,6 +257,12 @@
   </data>
   <data name="SavedOrder" xml:space="preserve">
     <value>Saved Order</value>
+  </data>
+  <data name="ShortNonVegetarian" xml:space="preserve">
+    <value>Non-Veg</value>
+  </data>
+  <data name="ShortVegetarian" xml:space="preserve">
+    <value>Veg</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>

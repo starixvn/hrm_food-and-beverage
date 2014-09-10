@@ -10,6 +10,7 @@
 namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
+    using NexFB.Core.Models;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Models.MealRegistration;
 
@@ -19,5 +20,7 @@ namespace NexFB.Services.Interface
     public interface IMealRegistrationService
     {
         IList<MealRegisterModel> GetRegisterMealByRangeDate(GetRegisterMealByRangeDateCriteria criteria);
+
+        CommandResult RegisterMealByRangeDate(RegisterMealByRangeDateCriteria criteria);
     }
 }

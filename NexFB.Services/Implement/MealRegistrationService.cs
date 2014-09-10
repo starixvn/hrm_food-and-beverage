@@ -11,6 +11,8 @@ namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
+    using NexFB.Core.Models;
+    using NexFB.Core.Services;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Models.MealRegistration;
     using NexFB.Repositories.Implement;
@@ -20,7 +22,7 @@ namespace NexFB.Services.Implement
     /// <summary>
     /// The meal registration service.
     /// </summary>
-    public class MealRegistrationService : IMealRegistrationService
+    public class MealRegistrationService : BaseService, IMealRegistrationService
     {
         private readonly IMealRegistrationRepository _mealRegistrationRepository;
 
@@ -50,6 +52,24 @@ namespace NexFB.Services.Implement
             }
 
             return mealDates;
+        }
+
+        /// <summary>
+        /// Register meal by range date.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult RegisterMealByRangeDate(RegisterMealByRangeDateCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+
+            return commandResult;
         }
     }
 }

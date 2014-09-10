@@ -201,6 +201,7 @@
     <Content Include="App_Data\SpNames.xml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Src\App\EmployeeRegistration\Templates\registerMeal.html" />
     <Content Include="Src\Components\Libs\jquery.signalR-1.1.4.js" />
     <Content Include="Src\Components\Libs\jquery.signalR-1.1.4.min.js" />
     <Content Include="Src\App\app.js" />

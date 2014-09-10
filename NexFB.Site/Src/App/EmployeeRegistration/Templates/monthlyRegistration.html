@@ -2,32 +2,42 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Jul 2014
+				<th>
+					<button class="button" ng-click="registerMealMonth(weekMeals)">Jul 2014</button>
 				</th>
-				<th>Sun
+				<th>
+					<button class="button" ng-click="registerMealDate('Sun')">Sun</button>
 				</th>
-				<th>Mon
+				<th>
+					<button class="button" ng-click="registerMealDate('Mon')">Mon</button>
 				</th>
-				<th>Tue
+				<th>
+					<button class="button" ng-click="registerMealDate('Tue')">Tue</button>
 				</th>
-				<th>Wed
+				<th>
+					<button class="button"ng-click="registerMealDate('Wed')">Wed</button>
 				</th>
-				<th>Thu
+				<th>
+					<button class="button" ng-click="registerMealDate('Thu')">Thu</button>
 				</th>
-				<th>Fri
+				<th>
+					<button class="button" ng-click="registerMealDate('Fri')">Fri</button>
 				</th>
-				<th>Sat
+				<th>
+					<button class="button" ng-click="registerMealDate('Sat')">Sat</button>
 				</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="week in weekMeals">
-				<td>Week {{$index + 1}}
+				<td>
+					<button class="button" ng-click="registerMealWeek(week)">Week {{$index + 1}}
+					</button>
 				</td>
-				<td ng-repeat="date in week.WeekMeals">
+				<td ng-repeat="date in week.WeekMeals" ng-click="registerMeal(date)">
 					<span style="float:right;" ng-bind="date.WorkDate | date: 'd'"></span>
 					<div ng-repeat="meal in date.Meals">
-						<span ng-show="!meal.IsVegetarian">{{meal.ShortName}}:</span>
+						<span ng-show="meal.IsVegetarian">{{meal.ShortName}}:</span>
 						<span ng-bind="Vegatarian" ng-show="meal.IsVegetarian == true"></span>
 						<span ng-bind="Non-Vegatarian" ng-show="meal.IsVegetarian == false"></span>
 					</div>

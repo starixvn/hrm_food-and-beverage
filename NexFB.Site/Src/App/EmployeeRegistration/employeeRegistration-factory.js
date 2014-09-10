@@ -5,7 +5,10 @@ mealRegistrationModule.factory('mealRegistrationFactory', ['$http', function ($h
 	return {
 		getRegisterMealByRangeDate: function (systemId, fromDate, toDate, mealId) {
 			return $http.get('/api/MealRegistration/GetRegisterMealByRangeDate',
-				{ params: { systemId: systemId, fromDate: fromDate, toDate: toDate, mealId: mealId } });
+				{ params: { systemId: systemId, fromDate: fromDate, toDate: toDate, mealId: mealId} });
+		},
+		registerMealByRangeDate: function (mealRegistration) {
+			return $http.get('/api/MealRegistration/RegisterMealByRangeDate', mealRegistration);
 		}
 	};
 } ]);

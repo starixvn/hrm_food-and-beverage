@@ -1,0 +1,45 @@
+﻿
+<div>
+	<div class="modal-header">
+		<div class="popup-header">
+			{{"RegisterMeal" | translate}}<span class="close-popup" ng-click="cancel()"></span>
+		</div>
+	</div>
+
+	<div class="modal-body assign-role-modal">
+		<form class="col-sm-12 form-horizontal table-popup" novalidate>
+			<table class="table table-bordered">
+				<thead>
+					<th data-translate="Meal">
+					</th>
+					<th>{{"ShortNonVegetarian" | translate}}.
+					</th>
+					<th>{{"ShortVegetarian" | translate}}.
+					</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="meal in meals">
+						<td ng-bind="meal.Name">
+						</td>
+						<td>
+							<input id="meal{{meal.MealId}}_non" type="checkbox" value="{{meal.MealId}}" only-one-check
+								 ng-checked="meal.IsVegetarian == false && isRegisterDate"/>
+						</td>
+						<td>
+							<input id="meal{{meal.MealId}}" type="checkbox" value="{{meal.MealId}}" only-one-check
+								 ng-checked="meal.IsVegetarian && isRegisterDate"/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+
+	<div class="modal-footer">
+		<button class="button" get-meal-registration data-translate="Save">
+		</button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		</button>
+	</div>
+</div>
+

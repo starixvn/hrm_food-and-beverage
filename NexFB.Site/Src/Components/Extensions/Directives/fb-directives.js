@@ -249,3 +249,23 @@ appModule.directive('paginationBar', function () {
 			'</ul>'
 	};
 });
+
+appModule.directive('onlyOneCheck', function () {
+	return {
+		restrict: 'A',
+		link: function (scope, iElement) {
+			iElement.on("click", function () {
+				var mealId = $(this).val(),
+					currentElementId = $(this).prop('id'),
+					currentChecked = $(this).prop('checked'),
+					isVegetarian = currentElementId.replace('meal' + mealId, '') == '_non' ? false : true,
+					anotherElementId = isVegetarian ? ('#meal' + mealId + '_non') : ('#meal' + mealId),
+					anotherChecked = $(anotherElementId).prop('checked');
+
+				if (currentChecked) {
+					$(anotherElementId).prop('checked', !currentChecked);
+				}
+			});
+		}
+	};
+});

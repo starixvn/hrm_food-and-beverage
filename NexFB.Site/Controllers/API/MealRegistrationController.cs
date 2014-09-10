@@ -11,6 +11,8 @@ namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
+    using System.Web.Http;
+    using NexFB.Core.Models;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Models.MealRegistration;
     using NexFB.Services.Implement;
@@ -56,6 +58,24 @@ namespace NexFB.Site.Controllers.API
             };
 
             return _mealRegistrationService.GetRegisterMealByRangeDate(criteria);
+        }
+
+        /// <summary>
+        /// Register meal by range date.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        [HttpPost]
+        public CommandResult RegisterMealByRangeDate(RegisterMealByRangeDateCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.SystemId = this.CurrentUser.UserId;
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _mealRegistrationService.RegisterMealByRangeDate(criteria);
         }
     }
 }
