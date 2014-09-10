@@ -10,6 +10,7 @@
 namespace NexFB.WinApp.ViewModels
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Input;
     using NexFB.Core.Models;
@@ -27,13 +28,20 @@ namespace NexFB.WinApp.ViewModels
         #region Fields
 
         private List<Order> _deliveredMeals;
+        private string _searchValue;
 
         #endregion
 
         #region Constructors
 
         public DeliveredFoodViewModel()
+            : this(null)
         {
+        }
+
+        public DeliveredFoodViewModel(string searchValue)
+        {
+            SearchValue = searchValue;
             UndoOrderCommand = new RelayCommand((x) => CanExecuteUndoOrderCommand(), (x) => ExecuteUndoOrderCommand(x));
             EditOrderCommand = new RelayCommand((x) => CanExecuteEditOrderCommand(), (x) => ExecuteEditOrderCommand(x));
             DeliveredMeals = this.GetDeliveredMealOrder;
@@ -72,7 +80,31 @@ namespace NexFB.WinApp.ViewModels
             {
                 var criteria = new GetDeliveredMealOrderCriteria();
                 List<Order> deliveredMeals = KitchenService.GetDeliveredMealOrder(criteria);
+                if (!string.IsNullOrEmpty(SearchValue))
+                {
+                    deliveredMeals = deliveredMeals.Where(x => x.TwoDigitOrderNo.StartsWith(SearchValue)).ToList();
+                }
+
                 return deliveredMeals;
+            }
+        }
+
+        public string SearchValue
+        {
+            get
+            {
+                return _searchValue;
+            }
+
+            set
+            {
+                if (_searchValue == value)
+                {
+                    return;
+                }
+
+                _searchValue = value;
+                OnPropertyChanged("SearchValue");
             }
         }
 

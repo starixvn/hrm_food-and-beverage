@@ -10,6 +10,7 @@
 namespace NexFB.WinApp.ViewModels
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Input;
     using NexFB.Core.Models;
@@ -27,13 +28,19 @@ namespace NexFB.WinApp.ViewModels
         #region Fields
 
         private List<Order> _awaitingDeliverMeals;
+        private string _searchValue;
 
         #endregion
 
         #region Constructors
-
         public AwaitingDeliverViewModel()
+            : this(null)
         {
+        }
+
+        public AwaitingDeliverViewModel(string searchValue)
+        {
+            SearchValue = searchValue;
             DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (x) => ExecuteDeliverOrderFoodCommand(x));
             AwaitingDeliverMeals = GetAwaitingDeliverMealOrder;
         }
@@ -63,13 +70,37 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        public string SearchValue
+        {
+            get
+            {
+                return _searchValue;
+            }
+
+            set
+            {
+                if (_searchValue == value)
+                {
+                    return;
+                }
+
+                _searchValue = value;
+                OnPropertyChanged("SearchValue");
+            }
+        }
+
         public List<Order> GetAwaitingDeliverMealOrder
         {
             get
             {
                 var criteria = new GetAwaitingDeliverMealOrderCriteria();
-                List<Order> waitingMeals = KitchenService.GetAwaitingDeliverMealOrder(criteria);
-                return waitingMeals;
+                List<Order> awaitingDeliverMeals = KitchenService.GetAwaitingDeliverMealOrder(criteria);
+                if (!string.IsNullOrEmpty(SearchValue))
+                {
+                    awaitingDeliverMeals = awaitingDeliverMeals.Where(x => x.TwoDigitOrderNo.StartsWith(SearchValue)).ToList();
+                }
+
+                return awaitingDeliverMeals;
             }
         }
 

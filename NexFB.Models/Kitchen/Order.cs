@@ -128,7 +128,7 @@ namespace NexFB.Models.Kitchen
             }
         }
 
-        public string ThreeDigitOrderNo
+        public string TwoDigitOrderNo
         {
             get
             {

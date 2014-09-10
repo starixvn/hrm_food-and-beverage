@@ -20,10 +20,12 @@ namespace NexFB.WinApp.ViewModels
     {
         #region Fields
 
-        private static readonly WaitingMealViewModel WaitingMealViewModel = new WaitingMealViewModel();
-        ////private static readonly DeliveredFoodViewModel DeliveredFoodViewModel = new DeliveredFoodViewModel();
         private static readonly OrderFoodViewModel OrderFoodViewModel = new OrderFoodViewModel();
         private ViewModelBase _currentViewModel;
+        private string _searchResult;
+        private string _waitingSearchResult;
+        private string _awaitingDeliverSearchResult;
+        private string _deliveredSearchResult;
 
         #endregion
 
@@ -31,7 +33,8 @@ namespace NexFB.WinApp.ViewModels
 
         public MainViewModel()
         {
-            CurrentViewModel = MainViewModel.WaitingMealViewModel;
+            CurrentViewModel = new WaitingMealViewModel();
+            CheckCurrentViewModel();
             ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
             ViewDeliveredFoodCommand = new RelayCommand((x) => CanExecuteViewDeliveredFood(), (y) => ExecuteViewDeliveredFood());
             ViewOrderFoodCommand = new RelayCommand((x) => CanExecuteViewOrderFood(), (y) => ExecuteViewOrderFood());
@@ -72,6 +75,78 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        public string SearchResult
+        {
+            get
+            {
+                return _searchResult;
+            }
+
+            private set
+            {
+                _searchResult = value;
+                string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+                if (currentViewModel == "WaitingMealViewModel")
+                {
+                    WaitingSearchResult = _searchResult;
+                }
+
+                if (currentViewModel == "AwaitingDeliverViewModel")
+                {
+                    AwaitingDeliverSearchResult = _searchResult;
+                }
+
+                if (currentViewModel == "DeliveredFoodViewModel")
+                {
+                    DeliveredSearchResult = _searchResult;
+                }
+
+                this.OnPropertyChanged("SearchResult");
+            }
+        }
+
+        public string WaitingSearchResult
+        {
+            get
+            {
+                return _waitingSearchResult;
+            }
+
+            private set
+            {
+                _waitingSearchResult = value;
+                this.OnPropertyChanged("WaitingSearchResult");
+            }
+        }
+
+        public string AwaitingDeliverSearchResult
+        {
+            get
+            {
+                return _awaitingDeliverSearchResult;
+            }
+
+            private set
+            {
+                _awaitingDeliverSearchResult = value;
+                this.OnPropertyChanged("AwaitingDeliverSearchResult");
+            }
+        }
+
+        public string DeliveredSearchResult
+        {
+            get
+            {
+                return _deliveredSearchResult;
+            }
+
+            private set
+            {
+                _deliveredSearchResult = value;
+                this.OnPropertyChanged("DeliveredSearchResult");
+            }
+        }
+
         #endregion
 
         #region RelayCommands
@@ -100,22 +175,73 @@ namespace NexFB.WinApp.ViewModels
         // Execute Command
         private void ExecuteViewPendingFood()
         {
-            CurrentViewModel = new WaitingMealViewModel();
+            CurrentViewModel = new WaitingMealViewModel(WaitingSearchResult);
+            CheckCurrentViewModel();
         }
 
         private void ExecuteViewAwaitingDeliverFood()
         {
-            CurrentViewModel = new AwaitingDeliverViewModel();
+            CurrentViewModel = new AwaitingDeliverViewModel(AwaitingDeliverSearchResult);
+            CheckCurrentViewModel();
         }
 
         private void ExecuteViewDeliveredFood()
         {
-            CurrentViewModel = new DeliveredFoodViewModel();
+            CurrentViewModel = new DeliveredFoodViewModel(DeliveredSearchResult);
+            CheckCurrentViewModel();
         }
 
         private void ExecuteViewOrderFood()
         {
             CurrentViewModel = MainViewModel.OrderFoodViewModel;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Check Current View model.
+        /// </summary>
+        private void CheckCurrentViewModel()
+        {
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+            switch (currentViewModel)
+            {
+                case "WaitingMealViewModel":
+                    if (string.IsNullOrEmpty(WaitingSearchResult))
+                    {
+                        SearchResult = string.Empty;
+                    }
+                    else
+                    {
+                        SearchResult = WaitingSearchResult;
+                    }
+
+                    break;
+                case "AwaitingDeliverViewModel":
+                    if (string.IsNullOrEmpty(AwaitingDeliverSearchResult))
+                    {
+                        SearchResult = string.Empty;
+                    }
+                    else
+                    {
+                        SearchResult = AwaitingDeliverSearchResult;
+                    }
+
+                    break;
+                case "DeliveredFoodViewModel":
+                    if (string.IsNullOrEmpty(DeliveredSearchResult))
+                    {
+                        SearchResult = string.Empty;
+                    }
+                    else
+                    {
+                        SearchResult = DeliveredSearchResult;
+                    }
+
+                    break;
+            }
         }
 
         #endregion
