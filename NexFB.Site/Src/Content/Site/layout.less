@@ -86,6 +86,10 @@ body {
         padding: 3px 12px 6px;
 	}
 
+	label {
+		font-weight: normal;
+	}
+
 	/********************************************************/
 	/*					    Header                          */
 	/********************************************************/
@@ -760,7 +764,7 @@ body {
             text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 
             .close-popup {
-                background: url(images/icon_sprite.png);
+                background: url(images/sprites.png);
                 height: 15px;
                 width: 16px;
                 position: absolute;
@@ -844,6 +848,71 @@ body {
         border: 1px solid #D3A03D;
         .box-shadow(0 0 9px #aaa);
         padding: 10px 15px 10px 50px;
+    }
+}
+
+/********************************************************/
+/*					         Tab                        */
+/********************************************************/
+.target-tabset {
+    margin: 15px 0 10px;
+
+    .common-form.info-form {
+        background: none;
+        border: none;
+        float: none;
+        margin: 0;
+        padding: 0;
+        .box-shadow(none);
+    }
+
+    .nav-tabs {
+        cursor: pointer;
+        border-color: @border-light-color;		
+
+        li.active > a, > li.active > a:hover, li.active > a:focus {
+            border-color: @border-light-color @border-light-color rgba(0, 0, 0, 0);
+            color: #777;
+            font-weight: bold;
+            background-color: #fafafa;
+        }
+            
+        li > a {
+            .border-radius(3px 3px 0 0);
+            padding: 7px 15px;
+			text-transform: uppercase;
+
+            &:hover {
+                background-color: #fafafa;
+                border-color: @border-light-color;
+            }
+        }
+    }
+
+    .tab-content {
+        border: 1px solid @border-light-color;
+        border-width: 0 1px 1px;
+        padding: 10px 15px;
+        background-color: #fafafa;
+
+        .filter {
+            margin-top: 12px;
+        }
+
+        .common-form {
+            margin-top: 10px;
+        }
+    }
+
+    .target-bold {
+        font-weight: bold;
+        color: #666;
+        padding-left: 0;
+    }
+
+    .target-kpi {
+        min-width: 612px;
+        margin-top: 10px;
     }
 }
 

@@ -21,11 +21,11 @@
 					<tr ng-repeat="meal in meals">
 						<td ng-bind="meal.Name">
 						</td>
-						<td>
+						<td class="text-center width-100">
 							<input id="meal{{meal.MealId}}_non" type="checkbox" value="{{meal.MealId}}" only-one-check
 								 ng-checked="meal.IsVegetarian == false && isRegisterDate"/>
 						</td>
-						<td>
+						<td class="text-center width-100">
 							<input id="meal{{meal.MealId}}" type="checkbox" value="{{meal.MealId}}" only-one-check
 								 ng-checked="meal.IsVegetarian && isRegisterDate"/>
 						</td>

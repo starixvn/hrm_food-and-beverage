@@ -1,4 +1,45 @@
-﻿
+﻿@import "../../content/site/variables.less";
+
 .test {
 	font-weight: bold;
+}
+
+.table {
+	&.table-register {
+		margin: 5px 0;
+
+		th {
+			background: none;
+			color: @font-color;
+			text-shadow: none;
+			font-weight: normal;
+
+			&.lbl-month {
+				color: #227fbb;
+				font-weight: bold;
+			}
+		}
+
+		&.table-bordered thead tr th {
+			border: 1px solid @table-border-color;
+		}
+
+		td {
+			background-color: #efefef;
+
+			&.disabled {
+				background-color: #e8e8e8;
+			}
+
+			&.lbl-week {
+				color: #227fbb;
+				font-weight: bold;
+			}
+
+		}
+	}
+}
+
+.width-100 {
+	width: 100px;
 }

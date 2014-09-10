@@ -1,38 +1,21 @@
 ﻿<div ng-controller="MonthlyRegistrationController">
-	<table class="table">
+	<table class="table table-bordered table-register">
 		<thead>
 			<tr>
-				<th>
-					<button class="button" ng-click="registerMealMonth(weekMeals)">Jul 2014</button>
-				</th>
-				<th>
-					<button class="button" ng-click="registerMealDate('Sun')">Sun</button>
-				</th>
-				<th>
-					<button class="button" ng-click="registerMealDate('Mon')">Mon</button>
-				</th>
-				<th>
-					<button class="button" ng-click="registerMealDate('Tue')">Tue</button>
-				</th>
-				<th>
-					<button class="button"ng-click="registerMealDate('Wed')">Wed</button>
-				</th>
-				<th>
-					<button class="button" ng-click="registerMealDate('Thu')">Thu</button>
-				</th>
-				<th>
-					<button class="button" ng-click="registerMealDate('Fri')">Fri</button>
-				</th>
-				<th>
-					<button class="button" ng-click="registerMealDate('Sat')">Sat</button>
-				</th>
+				<th ng-click="registerMealMonth(weekMeals)" class="lbl-month">Jul 2014</th>
+				<th ng-click="registerMealDate('Sun')">Sun</th>
+				<th ng-click="registerMealDate('Mon')">Mon</th>
+				<th ng-click="registerMealDate('Tue')">Tue</th>
+				<th ng-click="registerMealDate('Wed')">Wed</th>
+				<th ng-click="registerMealDate('Thu')">Thu</th>
+				<th ng-click="registerMealDate('Fri')">Fri</th>
+				<th ng-click="registerMealDate('Sat')">Sat</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="week in weekMeals">
-				<td>
-					<button class="button" ng-click="registerMealWeek(week)">Week {{$index + 1}}
-					</button>
+				<td class="text-center lbl-week" ng-click="registerMealWeek(week)">
+                    Week {{$index + 1}}
 				</td>
 				<td ng-repeat="date in week.WeekMeals" ng-click="registerMeal(date)">
 					<span style="float:right;" ng-bind="date.WorkDate | date: 'd'"></span>
