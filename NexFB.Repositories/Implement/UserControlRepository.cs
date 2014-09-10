@@ -138,7 +138,7 @@ namespace NexFB.Repositories.Implement
         {
             foreach (EmployeeModel employee in employees)
             {
-                IEnumerable<EmployeeRoleModel> rolesOfEmployee = roles.Where(item => item.SystemId == employee.UserId);
+                IEnumerable<EmployeeRoleModel> rolesOfEmployee = roles.Where(item => item.UserId == employee.UserId);
 
                 foreach (EmployeeRoleModel role in rolesOfEmployee) 
                 {
@@ -200,7 +200,7 @@ namespace NexFB.Repositories.Implement
             {
                 if (role.Role != null && role.Role.RoleId == (int)RolesSystem.Admin)
                 {
-                    IEnumerable<RoleDepartmentModel> departments = rolesDepartment.Where(item => item.SystemId == role.SystemId);
+                    IEnumerable<RoleDepartmentModel> departments = rolesDepartment.Where(item => item.UserId == role.UserId);
 
                     foreach (RoleDepartmentModel department in departments)
                     {

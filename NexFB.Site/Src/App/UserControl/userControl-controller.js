@@ -169,8 +169,8 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 			templateUrl: '/src/app/UserControl/Templates/UserPermission/assignRole.html',
 			controller: "AssignRoleToUserController",
 			resolve: {
-				systemId: function () {
-					return employee.SystemId;
+				userId: function () {
+					return employee.UserId;
 				}
 			}
 		});
@@ -202,10 +202,10 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 } ]);
 
 userControlModule.controller('AssignRoleToUserController',
-['$scope', '$modalInstance', 'systemId', 'userControlFactory', 'notificationFactory',
-function ($scope, $modalInstance, systemId, userControlFactory, notificationFactory) {
+['$scope', '$modalInstance', 'userId', 'userControlFactory', 'notificationFactory',
+function ($scope, $modalInstance, userId, userControlFactory, notificationFactory) {
 
-	userControlFactory.getEmployeeRoleById(systemId).success(function (employee) {
+	userControlFactory.getEmployeeRoleById(userId).success(function (employee) {
 		$scope.employee = employee;
 		$scope.roles = employee.RoleItems;
 	}).error(function () {
@@ -252,7 +252,7 @@ function ($scope, $modalInstance, systemId, userControlFactory, notificationFact
 
 	$scope.save = function (roles, roleDepartments, rolesName) {
 		var userRoles = {
-			systemID: systemId,
+			systemID: userId,
 			roleID: roles,
 			roleDepartments: roleDepartments,
 			rolesName: rolesName

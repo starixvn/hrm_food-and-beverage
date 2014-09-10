@@ -16,7 +16,7 @@ namespace NexFB.Models.UserControl
     /// </summary>
     public class RoleDepartmentModel
     {
-        public int SystemId { get; set; }
+        public int UserId { get; set; }
 
         public int RoleId { get; set; }
 

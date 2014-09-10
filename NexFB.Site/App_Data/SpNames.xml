@@ -22,7 +22,7 @@
 	</Function>
 	<Function Name="ManageUser">
 		<Setting Key="UserCtrl_GetEmployees" SpName="UserCtrl_GetEmployees" DbName="NexFB" Plain="0" >
-			<Mapping DataField="SysID" ObjectProperty="SystemId"/>
+			<Mapping DataField="SysID" ObjectProperty="UserId"/>
 			<Mapping DataField="EmpId" ObjectProperty="EmployeeId"/>
 			<Mapping DataField="DepartmentName" ObjectProperty="Name"/>
 			<Mapping DataField="EmpTeamCode" ObjectProperty="Code"/>
