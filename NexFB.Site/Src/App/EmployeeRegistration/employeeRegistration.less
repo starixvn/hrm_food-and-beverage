@@ -4,6 +4,22 @@
 	font-weight: bold;
 }
 
+.target-tabset.tabset-registration {
+	.nav-tabs {
+        
+        li.active > a, > li.active > a:hover, li.active > a:focus {
+            background-color: #fff;
+        }
+            
+        li > a:hover {
+			background-color: #fff;
+        }
+    }
+	.tab-content {
+        background-color: #fff;
+	}
+}
+
 .table {
 	&.table-register {
 		margin: 5px 0;
@@ -20,9 +36,17 @@
 
 		td {
 			background-color: #efefef;
+			height: 90px;
+			vertical-align: top;
 
 			&.disabled {
 				background-color: #e8e8e8;
+				color: #88888a;
+			}
+
+			&.current {
+				background-color: #c6d7ea;
+				color: @font-color;
 			}
 
 			&.lbl-week {
@@ -30,24 +54,74 @@
 				font-weight: bold;
 			}
 
-		}
-
-		.icon-none-veg {
-			background: url(../../content/site/images/sprites.png) -3px -24px no-repeat;
-			width: 18px;
-			height: 13px;
-			display: inline-block;
-		}
-
-		.icon-veg {
-			background: url(../../content/site/images/sprites.png) -38px -24px no-repeat;
-			width: 15px;
-			height: 15px;
-			display: inline-block;
+			.txt-name {
+				width: 14px;
+				display: inline-block;
+			}
 		}
 	}
 }
 
 .width-100 {
 	width: 100px;
+}
+
+
+/********************************************************/
+/*					       Icon                         */
+/********************************************************/
+.icon-none-veg {
+	background: url(../../content/site/images/sprites.png) -3px -22px no-repeat;
+	width: 22px;
+	height: 15px;
+	display: inline-block;
+	position: relative;
+	top: 3px;
+}
+
+.icon-veg {
+	.icon-none-veg;
+	background-position: -36px -24px;
+}
+
+/********************************************************/
+/*					       Meal                         */
+/********************************************************/
+.lbl-breakfast {
+	color: #f7941d;
+	font-weight: bold;
+}
+
+.lbl-lunch {
+	color: #00a651;
+	font-weight: bold;
+}
+
+.lbl-dinner {
+	color: #2c97de;
+	font-weight: bold;
+}
+
+.lbl-breakfast {
+	color: #f7941d;
+	font-weight: bold;
+}
+
+.lbl-supper {
+	color: #8f3faf;
+	font-weight: bold;
+}
+
+.note-meal {
+	margin-top: 15px;
+
+	ul {
+		li {
+			margin-right: 60px;
+		}
+	}
+
+	.icon-none-veg {
+		margin-right: 3px;
+	}
 }
