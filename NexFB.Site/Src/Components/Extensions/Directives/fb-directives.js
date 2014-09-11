@@ -301,3 +301,12 @@ appModule.directive('getMealRegistration', function () {
 		}
 	};
 });
+
+appModule.directive('checkMealTimesheet', function () {
+	return {
+		restrictL 'A',
+		link: function (scope) {
+			
+		}
+	};
+});

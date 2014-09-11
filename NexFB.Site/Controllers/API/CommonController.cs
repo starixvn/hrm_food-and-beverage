@@ -11,6 +11,7 @@ namespace NexFB.Site.Controllers.API
 {
     using System.Collections.Generic;
     using NexFB.Criteria.Department;
+    using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Team;
     using NexFB.Models.Entities;
     using NexFB.Services.Implement;
@@ -53,6 +54,12 @@ namespace NexFB.Site.Controllers.API
         {
             var criteria = new GetAllLocationCriteria();
             return _commonService.GetAllLocation(criteria);
+        }
+
+        public IEnumerable<MealTimesheet> GetAllMealTimesheet()
+        {
+            var criteria = new GetMealTimesheetCriteria();
+            return _commonService.GetAllMealTimesheet(criteria);
         }
     }
 }

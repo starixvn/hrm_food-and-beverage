@@ -11,6 +11,7 @@ namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
     using NexFB.Criteria.Department;
+    using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Team;
     using NexFB.Criteria.UserControl;
     using NexFB.Models.Entities;
@@ -28,5 +29,7 @@ namespace NexFB.Services.Interface
         IEnumerable<Team> GetAllTeamByCompany(GetAllTeamByCompanyCriteria criteria);
 
         IEnumerable<Location> GetAllLocation(GetAllLocationCriteria criteria);
+
+        IEnumerable<MealTimesheet> GetAllMealTimesheet(GetMealTimesheetCriteria criteria);
     }
 }

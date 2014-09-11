@@ -21,6 +21,12 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		// TODO
 	});
 
+	mealRegistrationFactory.getAllMealTimesheet().success(function (mealTimesheet) {
+		$scope.mealTimesheet = mealTimesheet;
+	}).error(function () {
+		// TODO
+	});
+
 	$scope.registerMeal = function (date) {
 		var modalAssignInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
@@ -31,6 +37,9 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				},
 				isRegisterDate: function () {
 					return true;
+				},
+				mealTimesheet: function () {
+					return $scope.mealTimesheet;
 				}
 			}
 		});
@@ -43,7 +52,6 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 
 			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
 				if (response.IsSuccessful === true) {
-					date.Meals = registrationInfo.meals;
 					notificationFactory.success("DataChangeSuccessfully");
 				}
 				else {
@@ -71,10 +79,11 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 } ]);
 
 mealRegistrationModule.controller('RegisterMealController',
-['meals', '$scope', 'isRegisterDate', '$modalInstance',
-function (meals, $scope, isRegisterDate, $modalInstance) {
+['meals', '$scope', 'isRegisterDate', '$modalInstance', 'mealTimesheet',
+function (meals, $scope, isRegisterDate, $modalInstance, mealTimesheet) {
 	$scope.meals = meals;
 	$scope.isRegisterDate = isRegisterDate;
+	$scope.mealTimesheet = mealTimesheet;
 
 	$scope.save = function (meals, mealsTemplate) {
 		var registrationInfo = {

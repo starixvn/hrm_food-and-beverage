@@ -15,6 +15,7 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Enums;
     using NexFB.Core.Services;
     using NexFB.Criteria.Department;
+    using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Team;
     using NexFB.Criteria.UserControl;
     using NexFB.Models.Entities;
@@ -103,6 +104,24 @@ namespace NexFB.Services.Implement
             }
 
             return locations;
+        }
+
+        /// <summary>
+        /// Get all meal timesheet.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator meal timesheet.</returns>
+        public IEnumerable<MealTimesheet> GetAllMealTimesheet(GetMealTimesheetCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<MealTimesheet> mealTimesheet = null;
+
+            if (criteria.IsValid())
+            {
+                mealTimesheet = GetData<MealTimesheet>(criteria);
+            }
+
+            return mealTimesheet;
         }
     }
 }

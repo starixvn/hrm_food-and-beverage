@@ -17,7 +17,7 @@
 				<td class="text-center lbl-week" ng-click="registerMealWeek(week)">
                     Week {{$index + 1}}
 				</td>
-				<td ng-repeat="date in week.WeekMeals" ng-click="registerMeal(date)">
+				<td ng-repeat="date in week.WeekMeals" ng-click="date.IsDisabled || registerMeal(date)">
 					<span style="float:right;" ng-bind="date.WorkDate | date: 'd'"></span>
 					<div ng-repeat="meal in date.Meals">
 						<span ng-show="meal.IsVegetarian != null">{{meal.ShortName}}:</span>

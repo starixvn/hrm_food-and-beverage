@@ -9,6 +9,9 @@ mealRegistrationModule.factory('mealRegistrationFactory', ['$http', function ($h
 		},
 		registerMealByRangeDate: function (mealRegistration) {
 			return $http.post('/api/MealRegistration/RegisterMealByRangeDate', mealRegistration);
+		},
+		getAllMealTimesheet: function () {
+			return $http.get('/api/Common/GetAllMealTimesheet');
 		}
 	};
 } ]);

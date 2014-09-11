@@ -80,7 +80,7 @@ namespace NexFB.Repositories.Implement
 
             if (numberDay != 7)
             {
-                rawMealInWeek = InsertMissingDateInWeek(rawMealInWeek.First());
+                rawMealInWeek = InsertMissingDateInWeek(rawMealInWeek);
             }
 
             foreach (RawMealDateModel rawMealDate in rawMealInWeek)
@@ -97,7 +97,7 @@ namespace NexFB.Repositories.Implement
                 mealDate.Meals[2].IsVegetarian = rawMealDate.Dinner;
                 mealDate.Meals[3].IsVegetarian = rawMealDate.Supper;
 
-                if (rawMealDate.WorkDate < DateTime.Now)
+                if (rawMealDate.WorkDate.Month != DateTime.Now.Month || rawMealDate.WorkDate.Date < DateTime.Now.Date)
                 {
                     mealDate.IsDisabled = true;
                 }
@@ -111,18 +111,19 @@ namespace NexFB.Repositories.Implement
         /// <summary>
         /// Insert missing date in week.
         /// </summary>
-        /// <param name="rawMealDate">The meal date in week.</param>
+        /// <param name="rawMealInWeek">The meal date in week.</param>
         /// <returns>The list with new missing date in week.</returns>
-        private List<RawMealDateModel> InsertMissingDateInWeek(RawMealDateModel rawMealDate)
+        private List<RawMealDateModel> InsertMissingDateInWeek(List<RawMealDateModel> rawMealInWeek)
         {
             var newRawMealInWeek = new List<RawMealDateModel>();
-            int week = rawMealDate.Week;
-            DateTime fitstWorkDate = rawMealDate.WorkDate;
-            int firstWeekDay = rawMealDate.WeekDay;
+            int week = rawMealInWeek.First().Week;
+            DateTime fitstWorkDate = rawMealInWeek.First().WorkDate;
+            int firstWeekDay = rawMealInWeek.First().WeekDay;
 
             for (int i = 0; i < 7; i++)
             {
                 int weekDay = i + 1;
+                int dateIndex = rawMealInWeek.FindIndex(x => x.WeekDay == weekDay);
                 DateTime itemWorkDate;
 
                 if (i > 0)
@@ -139,7 +140,7 @@ namespace NexFB.Repositories.Implement
                     WeekDay = weekDay,
                     Week = week,
                     WorkDate = itemWorkDate,
-                    IsDisabled = true
+                    IsDisabled = dateIndex >= 0 ? false : true
                 };
                 newRawMealInWeek.Add(newDate);
             }

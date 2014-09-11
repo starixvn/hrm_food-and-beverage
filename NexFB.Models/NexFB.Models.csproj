@@ -52,6 +52,7 @@
     <Compile Include="Authority\UserSession.cs" />
     <Compile Include="Entities\Food.cs" />
     <Compile Include="Entities\Location.cs" />
+    <Compile Include="Entities\MealTimesheet.cs" />
     <Compile Include="Entities\Menu.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Status.cs" />

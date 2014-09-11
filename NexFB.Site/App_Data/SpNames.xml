@@ -65,6 +65,8 @@
 		</Setting>
 		<Setting Key="RegisterMeal_SetByRangeDate" SpName="RegisterMeal_SetByRangeDate" DbName="NexFB" Plain="0" >
 		</Setting>
+		<Setting Key="Meal_GetAll" SpName="Meal_GetAll" DbName="NexFB" Plain="0" >
+		</Setting>
 	</Function>
   <Function Name="Ordering">
     <Setting Key="MealOrder_Get_MenuBySysID" SpName="MealOrder_Get_MenuBySysID" DbName="NexFB" Plain="0" >
