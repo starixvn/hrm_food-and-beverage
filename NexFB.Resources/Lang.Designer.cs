@@ -626,5 +626,14 @@ namespace NexFB.Resources {
                 return ResourceManager.GetString("WarningGroupNotSave", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Week.
+        /// </summary>
+        public static string Week {
+            get {
+                return ResourceManager.GetString("Week", resourceCulture);
+            }
+        }
     }
 }

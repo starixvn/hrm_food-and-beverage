@@ -14,8 +14,8 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="week in weekMeals">
-				<td class="text-center lbl-week" ng-click="registerMealWeek(week)">
-					Week {{$index + 1}}
+				<td class="text-center lbl-week" >
+					<a href="" ng-click="registerMealWeek(week)">{{"Week" | translate}} {{$index + 1}}</a>
                 </td>
                 <td ng-repeat="date in week.WeekMeals" ng-click="date.IsDisabled || registerMeal(date)"
 					ng-class="{disabled: date.IsDisabled, current: checkCurrentDate(date) }" >

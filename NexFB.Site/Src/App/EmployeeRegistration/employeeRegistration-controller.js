@@ -38,6 +38,22 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		return false;
 	};
 
+	var getRegisterDate = function (week) {
+		var onDate = '';
+		angular.forEach(week.WeekMeals, function (date) {
+			var workDate = !date.IsDisabled ? date.WorkDate.toString() : '';
+
+			if (!onDate) {
+				onDate = workDate;
+			}
+			else {
+				onDate += ',' + workDate;
+			}
+		});
+
+		return onDate;
+	};
+
 	$scope.registerMeal = function (date) {
 		var modalAssignInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
@@ -46,8 +62,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				meals: function () {
 					return date.Meals;
 				},
-				isRegisterDate: function () {
-					return true;
+				workDate: function () {
+					return date.WorkDate;
 				},
 				mealTimesheet: function () {
 					return $scope.mealTimesheet;
@@ -80,6 +96,45 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	};
 
 	$scope.registerMealWeek = function (week) {
+		var modalAssignInstance = $modal.open({
+			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+			controller: "RegisterMealController",
+			resolve: {
+				meals: function () {
+					return angular.copy(week.WeekMeals[0].Meals);
+				},
+				workDate: function () {
+					return '';
+				},
+				mealTimesheet: function () {
+					return $scope.mealTimesheet;
+				}
+			}
+		});
+
+		modalAssignInstance.result.then(function (registrationInfo) {
+			var mealRegistration = {
+				meal: registrationInfo.mealsTemplate,
+				onDate: getRegisterDate(week)
+			};
+
+			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
+				if (response.IsSuccessful === true) {
+					// TODO: updated meal registration in week
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("DataChangeFail");
+				}
+			});
+		});
 	};
 
 	$scope.registerMealMonth = function (weekMeals) {
@@ -90,10 +145,11 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 } ]);
 
 mealRegistrationModule.controller('RegisterMealController',
-['meals', '$scope', 'isRegisterDate', '$modalInstance', 'mealTimesheet',
-function (meals, $scope, isRegisterDate, $modalInstance, mealTimesheet) {
+['meals', '$scope', 'workDate', '$modalInstance', 'mealTimesheet',
+function (meals, $scope, workDate, $modalInstance, mealTimesheet) {
 	$scope.meals = meals;
-	$scope.isRegisterDate = isRegisterDate;
+	$scope.workDate = workDate;
+	$scope.isRegisterDate = workDate != '' ? true : false;
 	$scope.mealTimesheet = mealTimesheet;
 	$scope.rightMeal = {
 		1: true,

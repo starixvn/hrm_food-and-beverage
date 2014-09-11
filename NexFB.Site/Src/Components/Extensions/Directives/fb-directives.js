@@ -290,8 +290,14 @@ appModule.directive('getMealRegistration', function () {
 							template = '<Meal MealID="' + mealId + '" IsVeg="' + isVegetarian + '" />';
 
 						meals[i].IsVegetarian = isVegetarian;
-						mealsTemplate += template;
 					}
+					else {
+						var firstMealElement = $(rowMeal).find('input:first'),
+							mealId = firstMealElement.val(),
+							template = '<Meal MealID="' + mealId + '"/>';
+					}
+
+					mealsTemplate += template;
 				}
 
 				mealsTemplate += '</ROOT>';
@@ -315,25 +321,27 @@ appModule.directive('checkMealTimesheet', function () {
 		return currentTimesheet;
 	};
 
-	var convertToSecond = function (hour, minute) {
-		var newHour = hour > 12 ? hour - 12 : hour;
-		return newHour * 3600 + minute * 60;
-	};
+	var checkRightMeal = function (currentTimesheet, workDate, mealId) {
+		if (workDate) {
+			var toDay = new Date(),
+			currentWorkDate = new Date(workDate);
 
-	var checkRightMeal = function (currentTimesheet) {
-		var currentDate = new Date(),
-			currentHour = currentDate.getHours(),
-			currentMinute = currentDate.getMinutes(),
-			startHour = new Date(currentTimesheet.StartTime).getHours(),
-			startMinute = new Date(currentTimesheet.StartTime).getMinutes(),
-			endHour = new Date(currentTimesheet.EndTime).getHours(),
-			endMinute = new Date(currentTimesheet.EndTime).getMinutes();
+			if (toDay.getMonth() === currentWorkDate.getMonth() && toDay.getDate() === currentWorkDate.getDate()) {
+				var currentHour = toDay.getHours(),
+				currentMinute = toDay.getMinutes(),
+				registerHour = new Date(currentTimesheet.RegisterTime).getHours(),
+				registerMinute = new Date(currentTimesheet.RegisterTime).getMinutes();
 
-//		if (currentHour > startHour && currentHour <) {
-//			return true;
-//		}
+				if (currentHour > registerHour) {
+					return false;
+				}
+				else if (currentHour === registerHour && currentMinute > registerMinute) {
+					return false;
+				}
+			}
+		}
 
-		return false;
+		return true;
 	};
 
 	return {
@@ -341,8 +349,9 @@ appModule.directive('checkMealTimesheet', function () {
 		link: function (scope) {
 			var mealTimesheet = scope.mealTimesheet,
 				meal = scope.meal,
+				workDate = scope.workDate,
 				currentTimesheet = getCurrentTimesheet(mealTimesheet, meal.MealId),
-				rightMeal = checkRightMeal(currentTimesheet);
+				rightMeal = checkRightMeal(currentTimesheet, workDate, meal.MealId);
 
 			scope.rightMeal["" + meal.MealId] = rightMeal;
 		}

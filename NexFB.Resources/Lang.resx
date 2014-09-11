@@ -306,4 +306,7 @@
   <data name="WarningGroupNotSave" xml:space="preserve">
     <value>Group members wil not be save for next orders</value>
   </data>
+  <data name="Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
 </root>
