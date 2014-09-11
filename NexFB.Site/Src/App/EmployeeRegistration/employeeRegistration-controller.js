@@ -84,6 +84,12 @@ function (meals, $scope, isRegisterDate, $modalInstance, mealTimesheet) {
 	$scope.meals = meals;
 	$scope.isRegisterDate = isRegisterDate;
 	$scope.mealTimesheet = mealTimesheet;
+	$scope.rightMeal = {
+		1: true,
+		2: true,
+		3: true,
+		4: true
+	};
 
 	$scope.save = function (meals, mealsTemplate) {
 		var registrationInfo = {

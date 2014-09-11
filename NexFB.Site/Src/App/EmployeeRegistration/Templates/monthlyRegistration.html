@@ -1,37 +1,21 @@
 ﻿<div ng-controller="MonthlyRegistrationController">
-    <table class="table table-bordered table-register">
-        <thead>
-            <tr>
-                <th ng-click="registerMealMonth(weekMeals)" class="width-100">
-                    Jul 2014
-                </th>
-                <th ng-click="registerMealDate('Sun')">
-                    Sun
-                </th>
-                <th ng-click="registerMealDate('Mon')">
-                    Mon
-                </th>
-                <th ng-click="registerMealDate('Tue')">
-                    Tue
-                </th>
-                <th ng-click="registerMealDate('Wed')">
-                    Wed
-                </th>
-                <th ng-click="registerMealDate('Thu')">
-                    Thu
-                </th>
-                <th ng-click="registerMealDate('Fri')">
-                    Fri
-                </th>
-                <th ng-click="registerMealDate('Sat')">
-                    Sat
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="week in weekMeals">
-                <td class="text-center lbl-week" ng-click="registerMealWeek(week)">
-                    Week {{$index + 1}}
+ 	<table class="table table-bordered table-register">
+		<thead>
+			<tr>
+				<th ng-click="registerMealMonth(weekMeals)" class="width-100">Jul 2014</th>
+				<th ng-click="registerMealDate('Sun')">Sun</th>
+				<th ng-click="registerMealDate('Mon')">Mon</th>
+				<th ng-click="registerMealDate('Tue')">Tue</th>
+				<th ng-click="registerMealDate('Wed')">Wed</th>
+				<th ng-click="registerMealDate('Thu')">Thu</th>
+				<th ng-click="registerMealDate('Fri')">Fri</th>
+				<th ng-click="registerMealDate('Sat')">Sat</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="week in weekMeals">
+				<td class="text-center lbl-week" ng-click="registerMealWeek(week)">
+					Week {{$index + 1}}
                 </td>
                 <td ng-repeat="date in week.WeekMeals" ng-click="date.IsDisabled || registerMeal(date)">
                     <span class="pull-right" ng-bind="date.WorkDate | date: 'd'"></span>

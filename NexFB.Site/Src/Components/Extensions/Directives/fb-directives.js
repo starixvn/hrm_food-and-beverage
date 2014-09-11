@@ -258,9 +258,8 @@ appModule.directive('onlyOneCheck', function () {
 				var mealId = $(this).val(),
 					currentElementId = $(this).prop('id'),
 					currentChecked = $(this).prop('checked'),
-					isVegetarian = currentElementId.replace('meal' + mealId, '') == '_non' ? false : true,
-					anotherElementId = isVegetarian ? ('#meal' + mealId + '_non') : ('#meal' + mealId),
-					anotherChecked = $(anotherElementId).prop('checked');
+					isVegetarian = currentElementId.replace('meal' + mealId, '') === '_non' ? false : true,
+					anotherElementId = isVegetarian ? ('#meal' + mealId + '_non') : ('#meal' + mealId);
 
 				if (currentChecked) {
 					$(anotherElementId).prop('checked', !currentChecked);
@@ -287,7 +286,7 @@ appModule.directive('getMealRegistration', function () {
 					if (checkedElement != null && checkedElement.length > 0) {
 						var mealId = checkedElement.val(),
 							checkedElementId = checkedElement.prop('id'),
-							isVegetarian = checkedElementId.replace('meal' + mealId, '') == '_non' ? 0 : 1,
+							isVegetarian = checkedElementId.replace('meal' + mealId, '') === '_non' ? 0 : 1,
 							template = '<Meal MealID="' + mealId + '" IsVeg="' + isVegetarian + '" />';
 
 						meals[i].IsVegetarian = isVegetarian;
@@ -302,11 +301,33 @@ appModule.directive('getMealRegistration', function () {
 	};
 });
 
-//appModule.directive('checkMealTimesheet', function () {
-//	return {
-//		restrict 'A',
-//		link: function (scope) {
-//			
-//		}
-//	};
-//});
+appModule.directive('checkMealTimesheet', function () {
+	var getCurrentTimesheet = function (mealTimesheet, mealId) {
+		var currentTimesheet = '';
+
+		angular.forEach(mealTimesheet, function (timesheetItem) {
+			if (timesheetItem.MealId === mealId) {
+				currentTimesheet = timesheetItem;
+				return;
+			}
+		});
+
+		return currentTimesheet;
+	};
+
+	var checkRightMeal = function (currentTimesheet) {
+		var currentHour = new Date().getHours();
+	};
+
+	return {
+		restrict: 'A',
+		link: function (scope) {
+			var mealTimesheet = scope.mealTimesheet,
+				meal = scope.meal,
+				currentTimesheet = getCurrentTimesheet(mealTimesheet, meal.MealId),
+				rightMeal = checkRightMeal(currentTimesheet);
+
+			scope.rightMeal["" + meal.MealId] = rightMeal;
+		}
+	};
+});

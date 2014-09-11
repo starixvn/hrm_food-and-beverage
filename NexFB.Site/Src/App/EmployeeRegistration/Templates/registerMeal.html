@@ -18,16 +18,16 @@
 					</th>
 				</thead>
 				<tbody>
-					<tr ng-repeat="meal in meals" >
+					<tr ng-repeat="meal in meals" check-meal-timesheet>
 						<td ng-bind="meal.Name">
 						</td>
 						<td class="text-center width-100">
 							<input id="meal{{meal.MealId}}_non" type="checkbox" value="{{meal.MealId}}" only-one-check
-								 ng-checked="meal.IsVegetarian == false && isRegisterDate"/>
+								 ng-checked="meal.IsVegetarian == false && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}}" />
 						</td>
 						<td class="text-center width-100">
 							<input id="meal{{meal.MealId}}" type="checkbox" value="{{meal.MealId}}" only-one-check
-								 ng-checked="meal.IsVegetarian && isRegisterDate"/>
+								 ng-checked="meal.IsVegetarian && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}}"/>
 						</td>
 					</tr>
 				</tbody>

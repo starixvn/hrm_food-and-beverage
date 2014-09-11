@@ -140,7 +140,11 @@ namespace NexFB.Repositories.Implement
                     WeekDay = weekDay,
                     Week = week,
                     WorkDate = itemWorkDate,
-                    IsDisabled = dateIndex >= 0 ? false : true
+                    IsDisabled = dateIndex >= 0 ? false : true,
+                    Breakfast = dateIndex >= 0 ? rawMealInWeek[dateIndex].Breakfast : null,
+                    Lunch = dateIndex >= 0 ? rawMealInWeek[dateIndex].Lunch : null,
+                    Dinner = dateIndex >= 0 ? rawMealInWeek[dateIndex].Dinner : null,
+                    Supper = dateIndex >= 0 ? rawMealInWeek[dateIndex].Supper : null
                 };
                 newRawMealInWeek.Add(newDate);
             }
