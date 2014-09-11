@@ -95,6 +95,15 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		});
 	};
 
+	var updatedRegistrationMealToWeek = function (week, meals) {
+		angular.forEach(week.WeekMeals, function (date) {
+			if (!date.IsDisabled) {
+				// TODO : check if work date is today
+				date.Meals = meals;
+			}
+		});
+	};
+
 	$scope.registerMealWeek = function (week) {
 		var modalAssignInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
@@ -120,7 +129,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 
 			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
 				if (response.IsSuccessful === true) {
-					// TODO: updated meal registration in week
+					updatedRegistrationMealToWeek(week, registrationInfo.meals);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
 				else {

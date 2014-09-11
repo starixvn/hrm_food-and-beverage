@@ -174,6 +174,9 @@
   <data name="ErrorNetworkConnectionHeader" xml:space="preserve">
     <value>Network Connection Errors</value>
   </data>
+  <data name="Fri" xml:space="preserve">
+    <value>Fri</value>
+  </data>
   <data name="FullName" xml:space="preserve">
     <value>Full Name</value>
   </data>
@@ -206,6 +209,9 @@
   </data>
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
+  </data>
+  <data name="Mon" xml:space="preserve">
+    <value>Mon</value>
   </data>
   <data name="Monthly" xml:space="preserve">
     <value>Monthly</value>
@@ -267,6 +273,9 @@
   <data name="Roles" xml:space="preserve">
     <value>Role(s)</value>
   </data>
+  <data name="Sat" xml:space="preserve">
+    <value>Sat</value>
+  </data>
   <data name="SavedOrder" xml:space="preserve">
     <value>Saved Order</value>
   </data>
@@ -282,6 +291,9 @@
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="Sun" xml:space="preserve">
+    <value>Sun</value>
+  </data>
   <data name="Supper" xml:space="preserve">
     <value>Supper</value>
   </data>
@@ -290,6 +302,9 @@
   </data>
   <data name="Team" xml:space="preserve">
     <value>Team</value>
+  </data>
+  <data name="Thu" xml:space="preserve">
+    <value>Thu</value>
   </data>
   <data name="Time" xml:space="preserve">
     <value>Since</value>
@@ -300,11 +315,17 @@
   <data name="ToDayMenu" xml:space="preserve">
     <value>Today' menu</value>
   </data>
+  <data name="Tue" xml:space="preserve">
+    <value>Tue</value>
+  </data>
   <data name="Vegetarian" xml:space="preserve">
     <value>Vegetarian</value>
   </data>
   <data name="WarningGroupNotSave" xml:space="preserve">
     <value>Group members wil not be save for next orders</value>
+  </data>
+  <data name="Wed" xml:space="preserve">
+    <value>Wed</value>
   </data>
   <data name="Week" xml:space="preserve">
     <value>Week</value>
