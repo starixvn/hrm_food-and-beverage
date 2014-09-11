@@ -302,11 +302,11 @@ appModule.directive('getMealRegistration', function () {
 	};
 });
 
-appModule.directive('checkMealTimesheet', function () {
-	return {
-		restrictL 'A',
-		link: function (scope) {
-			
-		}
-	};
-});
+//appModule.directive('checkMealTimesheet', function () {
+//	return {
+//		restrict 'A',
+//		link: function (scope) {
+//			
+//		}
+//	};
+//});
