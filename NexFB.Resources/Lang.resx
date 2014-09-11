@@ -138,6 +138,9 @@
   <data name="AssignRoleToUser" xml:space="preserve">
     <value>Assign Role To User</value>
   </data>
+  <data name="Breakfast" xml:space="preserve">
+    <value>Breakfast</value>
+  </data>
   <data name="Code" xml:space="preserve">
     <value>Code</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Default" xml:space="preserve">
     <value>Default</value>
+  </data>
+  <data name="Dinner" xml:space="preserve">
+    <value>Dinner</value>
   </data>
   <data name="EmptyResult" xml:space="preserve">
     <value>No information available!</value>
@@ -182,6 +188,9 @@
   </data>
   <data name="Location" xml:space="preserve">
     <value>Location</value>
+  </data>
+  <data name="Lunch" xml:space="preserve">
+    <value>Lunch</value>
   </data>
   <data name="ManageRole" xml:space="preserve">
     <value>Manage Role</value>
@@ -215,6 +224,9 @@
   </data>
   <data name="NickName" xml:space="preserve">
     <value>Nick Name</value>
+  </data>
+  <data name="NonVegetarian" xml:space="preserve">
+    <value>Non-Vegetarian</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Order</value>
@@ -270,6 +282,9 @@
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="Supper" xml:space="preserve">
+    <value>Supper</value>
+  </data>
   <data name="SymbolCount" xml:space="preserve">
     <value>#</value>
   </data>
@@ -284,6 +299,9 @@
   </data>
   <data name="ToDayMenu" xml:space="preserve">
     <value>Today' menu</value>
+  </data>
+  <data name="Vegetarian" xml:space="preserve">
+    <value>Vegetarian</value>
   </data>
   <data name="WarningGroupNotSave" xml:space="preserve">
     <value>Group members wil not be save for next orders</value>

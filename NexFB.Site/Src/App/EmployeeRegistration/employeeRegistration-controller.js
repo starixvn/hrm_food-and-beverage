@@ -27,6 +27,17 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		// TODO
 	});
 
+	$scope.checkCurrentDate = function (date) {
+		var toDay = new Date(),
+			currentDate = new Date(date.WorkDate);
+
+		if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+			return true;
+		}
+
+		return false;
+	};
+
 	$scope.registerMeal = function (date) {
 		var modalAssignInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',

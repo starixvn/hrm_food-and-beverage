@@ -315,8 +315,25 @@ appModule.directive('checkMealTimesheet', function () {
 		return currentTimesheet;
 	};
 
+	var convertToSecond = function (hour, minute) {
+		var newHour = hour > 12 ? hour - 12 : hour;
+		return newHour * 3600 + minute * 60;
+	};
+
 	var checkRightMeal = function (currentTimesheet) {
-		var currentHour = new Date().getHours();
+		var currentDate = new Date(),
+			currentHour = currentDate.getHours(),
+			currentMinute = currentDate.getMinutes(),
+			startHour = new Date(currentTimesheet.StartTime).getHours(),
+			startMinute = new Date(currentTimesheet.StartTime).getMinutes(),
+			endHour = new Date(currentTimesheet.EndTime).getHours(),
+			endMinute = new Date(currentTimesheet.EndTime).getMinutes();
+
+//		if (currentHour > startHour && currentHour <) {
+//			return true;
+//		}
+
+		return false;
 	};
 
 	return {
@@ -328,6 +345,31 @@ appModule.directive('checkMealTimesheet', function () {
 				rightMeal = checkRightMeal(currentTimesheet);
 
 			scope.rightMeal["" + meal.MealId] = rightMeal;
+		}
+	};
+});
+
+appModule.directive('getClassByName', function () {
+	return {
+		restrict: 'A',
+		link: function (scope) {
+			var mealName = scope.meal.ShortName,
+				mealClass = '';
+
+			if (mealName === 'B') {
+				mealClass = 'lbl-breakfast';
+			}
+			else if (mealName === 'L') {
+				mealClass = 'lbl-lunch';
+			}
+			else if (mealName === 'D') {
+				mealClass = 'lbl-dinner';
+			}
+			else if (mealName === 'S') {
+				mealClass = 'lbl-supper';
+			}
+
+			scope.mealClass = mealClass;
 		}
 	};
 });

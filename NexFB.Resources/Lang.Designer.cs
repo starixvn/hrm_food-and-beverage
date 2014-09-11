@@ -124,6 +124,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Breakfast.
+        /// </summary>
+        public static string Breakfast {
+            get {
+                return ResourceManager.GetString("Breakfast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Code.
         /// </summary>
         public static string Code {
@@ -183,6 +192,15 @@ namespace NexFB.Resources {
         public static string Default {
             get {
                 return ResourceManager.GetString("Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dinner.
+        /// </summary>
+        public static string Dinner {
+            get {
+                return ResourceManager.GetString("Dinner", resourceCulture);
             }
         }
         
@@ -255,6 +273,15 @@ namespace NexFB.Resources {
         public static string Location {
             get {
                 return ResourceManager.GetString("Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lunch.
+        /// </summary>
+        public static string Lunch {
+            get {
+                return ResourceManager.GetString("Lunch", resourceCulture);
             }
         }
         
@@ -354,6 +381,15 @@ namespace NexFB.Resources {
         public static string NickName {
             get {
                 return ResourceManager.GetString("NickName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non-Vegetarian.
+        /// </summary>
+        public static string NonVegetarian {
+            get {
+                return ResourceManager.GetString("NonVegetarian", resourceCulture);
             }
         }
         
@@ -520,6 +556,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Supper.
+        /// </summary>
+        public static string Supper {
+            get {
+                return ResourceManager.GetString("Supper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to #.
         /// </summary>
         public static string SymbolCount {
@@ -561,6 +606,15 @@ namespace NexFB.Resources {
         public static string ToDayMenu {
             get {
                 return ResourceManager.GetString("ToDayMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vegetarian.
+        /// </summary>
+        public static string Vegetarian {
+            get {
+                return ResourceManager.GetString("Vegetarian", resourceCulture);
             }
         }
         
