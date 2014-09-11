@@ -275,7 +275,6 @@
     <Content Include="Src\Content\Site\auth\images\icon-user.png" />
     <Content Include="Src\Content\Site\auth\images\logo.png" />
     <Content Include="Src\Content\Site\Images\icon-search.png" />
-    <Content Include="Src\Content\Site\Images\icon_sprite.png" />
     <Content Include="Src\Content\Site\Images\line-menu.png" />
     <Content Include="Src\Content\Site\Images\sprites.png" />
     <Content Include="Src\Content\Site\Images\sprite_ico_2012-05-15.png" />
