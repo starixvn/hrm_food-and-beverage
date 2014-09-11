@@ -123,6 +123,9 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="AddContinue" xml:space="preserve">
+    <value>Add and continue</value>
+  </data>
   <data name="AddMember" xml:space="preserve">
     <value>Add member</value>
   </data>
@@ -314,6 +317,9 @@
   </data>
   <data name="ToDayMenu" xml:space="preserve">
     <value>Today' menu</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
   </data>
   <data name="Tue" xml:space="preserve">
     <value>Tue</value>

@@ -16,8 +16,25 @@ orderingModule.factory("orderingFactory",
 			getSavedOrder: function () {
 				return $http.get('/api/Ordering/GetSavedOrder');
 			},
-			getMenu: function () {
-				return $http.get('/api/Ordering/GetMenu');
+			getMyMenu: function () {
+				return $http.get('/api/Ordering/GetMyMenu');
+			},
+			getDepartment: function () {
+				return $http.get('/api/Common/GetAllDepartment');
+			},
+			getEmployees: function (departmentId, keyWord) {
+				return $http.get('/api/Ordering/GetEmployees',
+					{ 
+						params: { departmentId: departmentId, keyWord: keyWord } 
+					}
+				);
+			},
+			getMenuByUserId: function (userId) {
+				return $http.get('/api/Ordering/GetMenuByUserId',
+					{
+						params: { userId: userId }
+					}
+				);
 			}
 		};
 	} ]

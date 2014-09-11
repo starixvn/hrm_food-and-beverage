@@ -145,7 +145,7 @@ namespace NexFB.Repositories.Implement
                         od.Location = l;
                         return od;
                     },
-                    "OrderBy, CurrentStatusID, MealENGName, LocationID",
+                    "SysId, CurrentStatusID, MenuID, LocationID",
                     criteria.GetSpParams());
             }
 
@@ -185,7 +185,7 @@ namespace NexFB.Repositories.Implement
                         order.Members.Add(memberOrder);
                         return od;
                     },
-                    "SysId, CurrentStatusID, MealENGName, LocationID",
+                    "SysId, CurrentStatusID, MenuID, LocationID",
                     criteria.GetSpParams());
             }
 

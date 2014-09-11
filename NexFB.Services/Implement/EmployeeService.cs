@@ -17,6 +17,7 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Services;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
+    using NexFB.Models.Entities;
     using NexFB.Models.UserControl;
     using NexFB.Services.Interface;
 
@@ -117,6 +118,24 @@ namespace NexFB.Services.Implement
             }
 
             return functions;
+        }
+
+        /// <summary>
+        /// Function to get employees by query.
+        /// </summary>
+        /// <param name="criteria">GetEmployee Criteria.</param>
+        /// <returns>The List of employees.</returns>
+        public IList<Employee> GetEmployeeByQuery(GetEmployeeCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<Employee> employees = null;
+
+            if (criteria.IsValid())
+            {
+                employees = GetData<Employee>(criteria).ToList();
+            }
+
+            return employees;
         }
 
         /// <summary>

@@ -1,1 +1,47 @@
-﻿
+﻿<div>
+	<div class="modal-header">
+		<div class="popup-header">
+			{{"AddMember" | translate}}<span class="close-popup" ng-click="cancel()"></span>
+		</div>
+	</div>
+
+	<div class="modal-body assign-role-modal">
+		<form class="col-sm-12 form-horizontal table-popup" novalidate>
+		<!--<div class="col-sm-offset-3">
+			<div class="error-message buffer-error-message" ng-show="errors.length > 0" ng-repeat="error in errors">
+				{{error}}
+			</div>
+			<div class="error-message hide-errormessage buffer-error-message" id="memberValid">
+				Please input all required (*) fields.</div>
+		</div>-->
+		<div class="form-group popup-required">
+			<label class="col-sm-3 control-label">
+				{{"Company" | translate}}</label>
+			<div class="col-sm-8">
+				<select ng-options="lc.DepartmentId as lc.Name for lc in departments" ng-model="departmentId">
+					<option value="">-- All --</option>
+                </select>
+			</div>
+		</div>
+		<div class="form-group popup-required">
+			<label class="col-sm-3 control-label">
+				{{"User" | translate}}</label>
+			<div class="col-sm-8">
+				<input class="form-control custom-padding" ng-model="searchKey" placeholder="full name or nick name"
+					search-auto-complete search-employees="searchEmployees" ng-change="getEmployee(departmentId, searchKey)"
+					employee="newMember.employee" id="txtEmployee" />
+			</div>
+		</div>
+		</form>
+	</div>
+
+	<div class="modal-footer">
+		<button class="button" ng-click="add(true)" data-translate="AddContinue">
+		</button>
+		<button class="button" ng-click="add(false)" data-translate="Add">
+		</button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		</button>
+	</div>
+</div>
+

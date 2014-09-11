@@ -36,7 +36,8 @@ namespace NexFB.Site
             bundles.Add(new StyleBundle("~/Src/Content/Common/css").Include(
                 "~/Src/Content/Common/bootstrap-theme.min.css",
                 "~/Src/Content/Common/toastr.css",
-                "~/Src/Content/Common/angular-multi-select.css"));
+                "~/Src/Content/Common/angular-multi-select.css",
+                "~/Src/Content/Common/jquery-ui.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Src/Components/Libs/jquery-2.1.0.min.js",
@@ -47,7 +48,8 @@ namespace NexFB.Site
                 "~/Src/Components/Libs/bootstrap.min.js",
                 "~/Src/Components/Libs/ui-bootstrap-tpls-0.10.0.min.js",
                 "~/Src/Components/Libs/toastr.js",
-                "~/Src/Components/Libs/angular-multi-select.js"));
+                "~/Src/Components/Libs/angular-multi-select.js",
+                "~/Src/Components/Libs/jquery-ui.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
                 "~/Src/Components/Libs/jquery.signalR-1.1.4.min.js"));
@@ -79,6 +81,7 @@ namespace NexFB.Site
                 "~/Src/Components/Extensions/Common/error-factory.js",
                 "~/Src/Components/Extensions/Common/notification-factory.js",
                 "~/Src/Components/Extensions/Directives/fb-directives.js",
+                "~/Src/Components/Extensions/Services/fb-service.js",
                 "~/Src/Components/Extensions/Common/common-factory.js"));
         }
     }

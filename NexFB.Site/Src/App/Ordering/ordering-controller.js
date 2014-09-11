@@ -2,8 +2,8 @@
 /*global orderingModule*/
 
 orderingModule.controller("OrderingController",
-['$scope', '$route', '$timeout', 'orderingFactory',
-function ($scope, $route, $timeout, orderingFactory) {
+['$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService',
+function ($scope, $route, $timeout, $modal, orderingFactory, orderingService) {
 
 	//	$scope.counter = 0;
 	//	$scope.onTimeout = function () {
@@ -46,6 +46,7 @@ function ($scope, $route, $timeout, orderingFactory) {
 	orderingFactory.getAddNewOrder()
 		.success(function (data) {
 			$scope.newOrder = data;
+			orderingService.setMemberNewOrder(data.Members)
 		})
 		.error(function () {
 			// TODO
@@ -54,6 +55,7 @@ function ($scope, $route, $timeout, orderingFactory) {
 	orderingFactory.getSavedOrder()
 		.success(function (data) {
 			$scope.savedOrder = data;
+			orderingService.setMemberSavedOrder(data.Members)
 		})
 		.error(function () {
 			// TODO
@@ -67,11 +69,96 @@ function ($scope, $route, $timeout, orderingFactory) {
 			// TODO
 		});
 
-	orderingFactory.getMenu()
+	orderingFactory.getMyMenu()
 		.success(function (data) {
 			$scope.menu = data;
 		})
 		.error(function () {
 			// TODO
 		});
+
+	$scope.$watch(function () {
+		return orderingService.getMemberNewOrder();
+	}, function (value) {
+		$scope.newOrder.Members = value;
+	});
+
+	$scope.$watch(function () {
+		return orderingService.getMemberSavedOrder();
+	}, function (value) {
+		$scope.savedOrder.Members = value;
+	});
+
+	$scope.showAddMember = function (isSavedOrder) {
+		var addMemberModalInstance = $modal.open({
+			templateUrl: '/src/app/Ordering/Templates/AddMember.html',
+			controller: "AddMemberController",
+			resolve: {
+				isSavedOrder: function () {
+					return isSavedOrder;
+				},
+				action: function () {
+					return "delete";
+				}
+			}
+		});
+	}
+} ]);
+
+orderingModule.controller('AddMemberController',
+['$scope', '$modalInstance', 'orderingFactory', 'orderingService', 'isSavedOrder',
+function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder) {
+	$scope.newMember = {};
+	$scope.departmentId = '1';
+	$scope.add = function (isContinue) {
+		var newMember = $scope.newMember;
+		var member = []
+		member.Member = newMember.employee;
+		orderingFactory.getMenuByUserId(member.Member.UserId)
+			.success(function (data) {
+				member.Menu = data;
+				member.IsOrder = true;
+				if (!isSavedOrder) {
+					var members = orderingService.getMemberNewOrder();
+					members.push(member);
+					orderingService.setMemberNewOrder(members);
+				}
+				else {
+					var savedMembers = orderingService.getMemberSavedOrder();
+					savedMembers.push(member);
+					orderingService.setMemberSavedOrder(savedMembers);
+				}
+				if (isContinue) {
+					
+				}
+				else {
+					$modalInstance.close(newMember);
+				}
+			})
+			.error(function () {
+				// TODO
+			});
+
+
+
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
+	};
+
+	orderingFactory.getDepartment()
+		.success(function (data) {
+			$scope.departments = data;
+		})
+		.error(function () {
+			// TODO
+		});
+
+	$scope.getEmployee = function (departmentId, searchKey) {
+		orderingFactory.getEmployees(departmentId, searchKey).then(function (employees) {
+			$scope.searchEmployees = employees;
+		});
+	};
+
 } ]);

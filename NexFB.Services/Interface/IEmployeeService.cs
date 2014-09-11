@@ -12,6 +12,7 @@ namespace NexFB.Services.Interface
     using System.Collections.Generic;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
+    using NexFB.Models.Entities;
     using NexFB.Models.UserControl;
 
     public interface IEmployeeService
@@ -25,5 +26,7 @@ namespace NexFB.Services.Interface
         IList<MenuGroup> GetEmployeeMenuById(GetEmployeeMenuBySystemIdCriteria criteria);
 
         IList<FunctionModel> GetAllEmployeeFunction(GetAllEmployeeFunctionCriteria criteria);
+
+        IList<Employee> GetEmployeeByQuery(GetEmployeeCriteria criteria);
     }
 }

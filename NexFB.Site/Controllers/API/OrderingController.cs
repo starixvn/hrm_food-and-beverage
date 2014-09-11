@@ -10,8 +10,8 @@
 namespace NexFB.Site.Controllers.API
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Http;
+    using NexFB.Criteria.Employee;
     using NexFB.Criteria.Ordering;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
@@ -24,15 +24,17 @@ namespace NexFB.Site.Controllers.API
     public class OrderingController : BaseController
     {
         private readonly IOrderingService _orderService;
+        private readonly IEmployeeService _employeeService;
 
         public OrderingController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public OrderingController(IOrderingService orderService)
+        public OrderingController(IOrderingService orderService, IEmployeeService employeeService)
         {
             _orderService = orderService ?? new OrderingService();
+            _employeeService = employeeService ?? new EmployeeService();
         }
 
         /// <summary>
@@ -56,11 +58,23 @@ namespace NexFB.Site.Controllers.API
         /// </summary>
         /// <returns>MealOrdering Model.</returns>
         [HttpGet]
-        public Menu GetMenu()
+        public Menu GetMyMenu()
         {
             var criteria = new GetMenuByUserIdCriteria()
             {
                 UserId = this.CurrentUser.UserId
+            };
+
+            Menu menu = _orderService.GetMenuByUserId(criteria);
+            return menu;
+        }
+
+        [HttpGet]
+        public Menu GetMenuByUserId(int userId)
+        {
+            var criteria = new GetMenuByUserIdCriteria()
+            {
+                UserId = userId
             };
 
             Menu menu = _orderService.GetMenuByUserId(criteria);
@@ -90,52 +104,26 @@ namespace NexFB.Site.Controllers.API
         [HttpGet]
         public MealOrderingModel GetSavedOrder()
         {
-            MealOrderingModel order = new MealOrderingModel();
-
-            OrderMemberModel member = new OrderMemberModel()
+            var criteria = new GetMemberSavedOrderCriteria()
             {
-                Member = new Employee()
-                {
-                    UserId = this.CurrentUser.UserId,
-                    NickName = this.CurrentUser.NickName,
-                    FullName = this.CurrentUser.FullName
-                },
-                IsOrder = true,
-                Menu = new Menu()
-                {
-                    MenuId = 1,
-                    NameEN = "Lunch 3"
-                }
+                UserId = this.CurrentUser.UserId
             };
 
-            OrderMemberModel member2 = new OrderMemberModel()
-            {
-                Member = new Employee()
-                {
-                    UserId = 1,
-                    NickName = "Bradley.Mac",
-                    FullName = "Mạc Đức Trọng",
-                },
-                IsOrder = true,
-                Menu = new Menu()
-                {
-                    MenuId = 1,
-                    NameEN = "Lunch 2"
-                }
-            };
-
-            order.Members = new List<OrderMemberModel>();
-            order.Remark = "Test 11";
-            order.Location = new Location()
-            {
-                LocationId = 11,
-                NameEN = "AAAAAA"
-            };
-            order.Phone = "0922121";
-            order.Members.Add(member);
-            order.Members.Add(member2);
-
+            MealOrderingModel order = _orderService.GetMemberSavedOrder(criteria);
             return order;
+        }
+
+        [HttpGet]
+        public IList<Employee> GetEmployees(int departmentId, string keyWord)
+        {
+            var criteria = new GetEmployeeCriteria()
+            {
+                DepartmentId = departmentId.ToString(),
+                Keyword = keyWord
+            };
+
+            IList<Employee> employees = _employeeService.GetEmployeeByQuery(criteria);
+            return employees;
         }
     }
 }
