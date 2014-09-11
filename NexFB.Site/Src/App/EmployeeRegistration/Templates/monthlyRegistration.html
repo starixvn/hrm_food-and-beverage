@@ -21,8 +21,8 @@
 					<span style="float:right;" ng-bind="date.WorkDate | date: 'd'"></span>
 					<div ng-repeat="meal in date.Meals">
 						<span ng-show="meal.IsVegetarian != null">{{meal.ShortName}}:</span>
-						<span ng-bind="meal.IsVegetarian" ng-show="meal.IsVegetarian == 1"></span>
-						<span ng-bind="meal.IsVegetarian" ng-show="meal.IsVegetarian == 0"></span>
+						<span class="icon-veg" ng-show="meal.IsVegetarian == 1"></span>
+						<span class="icon-none-veg" ng-show="meal.IsVegetarian == 0"></span>
 					</div>
 				</td>
 			</tr>
