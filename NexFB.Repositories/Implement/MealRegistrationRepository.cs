@@ -97,7 +97,7 @@ namespace NexFB.Repositories.Implement
                 mealDate.Meals[2].IsVegetarian = rawMealDate.Dinner;
                 mealDate.Meals[3].IsVegetarian = rawMealDate.Supper;
 
-                if (rawMealDate.WorkDate.Month != DateTime.Now.Month || rawMealDate.WorkDate.Date < DateTime.Now.Date)
+                if (rawMealDate.WorkDate.Date < DateTime.Now.Date)
                 {
                     mealDate.IsDisabled = true;
                 }

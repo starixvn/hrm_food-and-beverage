@@ -281,20 +281,24 @@ appModule.directive('getMealRegistration', function () {
 
 				for (var i = 0; i < mealRegister.length; i++) {
 					var rowMeal = mealRegister[i],
-					checkedElement = $(rowMeal).find('input:checked');
+						checkedElement = $(rowMeal).find('input:checked'),
+						template = '',
+						mealId = '';
 
 					if (checkedElement != null && checkedElement.length > 0) {
-						var mealId = checkedElement.val(),
-							checkedElementId = checkedElement.prop('id'),
-							isVegetarian = checkedElementId.replace('meal' + mealId, '') === '_non' ? 0 : 1,
-							template = '<Meal MealID="' + mealId + '" IsVeg="' + isVegetarian + '" />';
+						mealId = checkedElement.val();
 
+						var checkedElementId = checkedElement.prop('id'),
+							isVegetarian = checkedElementId.replace('meal' + mealId, '') === '_non' ? 0 : 1;
+
+						template = '<Meal MealID="' + mealId + '" IsVeg="' + isVegetarian + '" />';
 						meals[i].IsVegetarian = isVegetarian;
 					}
 					else {
-						var firstMealElement = $(rowMeal).find('input:first'),
-							mealId = firstMealElement.val(),
-							template = '<Meal MealID="' + mealId + '"/>';
+						var firstMealElement = $(rowMeal).find('input:first');
+						mealId = firstMealElement.val();
+						template = '<Meal MealID="' + mealId + '"/>';
+						meals[i].IsVegetarian = null;
 					}
 
 					mealsTemplate += template;
@@ -314,17 +318,16 @@ appModule.directive('checkMealTimesheet', function () {
 		angular.forEach(mealTimesheet, function (timesheetItem) {
 			if (timesheetItem.MealId === mealId) {
 				currentTimesheet = timesheetItem;
-				return;
 			}
 		});
 
 		return currentTimesheet;
 	};
 
-	var checkRightMeal = function (currentTimesheet, workDate, mealId) {
+	var checkRightMeal = function (currentTimesheet, workDate) {
 		if (workDate) {
 			var toDay = new Date(),
-			currentWorkDate = new Date(workDate);
+				currentWorkDate = new Date(workDate);
 
 			if (toDay.getMonth() === currentWorkDate.getMonth() && toDay.getDate() === currentWorkDate.getDate()) {
 				var currentHour = toDay.getHours(),
@@ -347,13 +350,15 @@ appModule.directive('checkMealTimesheet', function () {
 	return {
 		restrict: 'A',
 		link: function (scope) {
-			var mealTimesheet = scope.mealTimesheet,
+			if (scope.mode === 'month') {
+				var mealTimesheet = scope.mealTimesheet,
 				meal = scope.meal,
 				workDate = scope.workDate,
 				currentTimesheet = getCurrentTimesheet(mealTimesheet, meal.MealId),
-				rightMeal = checkRightMeal(currentTimesheet, workDate, meal.MealId);
+				rightMeal = checkRightMeal(currentTimesheet, workDate);
 
-			scope.rightMeal["" + meal.MealId] = rightMeal;
+				scope.rightMeal["" + meal.MealId] = rightMeal;
+			}
 		}
 	};
 });

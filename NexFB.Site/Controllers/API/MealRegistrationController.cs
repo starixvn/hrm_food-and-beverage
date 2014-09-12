@@ -41,20 +41,19 @@ namespace NexFB.Site.Controllers.API
         /// <summary>
         /// Get register meal by range date.
         /// </summary>
-        /// <param name="systemId">The system Id.</param>
         /// <param name="fromDate">The from date.</param>
         /// <param name="toDate">The to date.</param>
         /// <param name="mealId">The meal Id.</param>
         /// <returns>The list meal date model.</returns>
+        [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Read)]
         public IList<MealRegisterModel> GetRegisterMealByRangeDate(
-            int systemId,
             DateTime fromDate,
             DateTime toDate,
             short? mealId = null)
         {
             var criteria = new GetRegisterMealByRangeDateCriteria
             {
-                SystemId = systemId,
+                SystemId = this.CurrentUser.UserId,
                 MealId = mealId,
                 FromDate = fromDate,
                 ToDate = toDate
@@ -80,6 +79,31 @@ namespace NexFB.Site.Controllers.API
             }
 
             return _mealRegistrationService.RegisterMealByRangeDate(criteria);
+        }
+
+        [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Read)]
+        public IList<MealDateModel> GetDefaultRegisterMeal()
+        {
+            var criteria = new GetRegisterMealByDefaultCriteria
+            {
+                SystemId = this.CurrentUser.UserId
+            };
+
+            return _mealRegistrationService.GetDefaultRegisterMeal(criteria);
+        }
+
+        [HttpPost]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Host)]
+        public CommandResult RegisterMealByDefault(SetRegisterMealByDefaultCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.UserId = this.CurrentUser.UserId;
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _mealRegistrationService.RegisterMealByDefault(criteria);
         }
     }
 }

@@ -1,35 +1,41 @@
 ﻿<div ng-controller="MonthlyRegistrationController">
- 	<table class="table table-bordered table-register">
+	<div>
+		<span class="monthlyHeader">{{currentDate | date:'MMM y'}}</span>
+		<span ng-click="changeMonth(-1)">Prev</span>
+		<span ng-click="changeMonth(1)">Next</span>
+	</div>
+
+	<table class="table table-bordered table-register">
 		<thead>
 			<tr>
 				<th class="width-100">
-					<a href="" ng-click="registerMealMonth(weekMeals)">Jul 2014</a>
+					<a href="" ng-click="registerMealMonth(allWeekMeals)">{{currentDate | date:'MMM y'}}</a>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Sun')" data-translate="Sun"></a>
+					<a href="" ng-click="registerMealDate('Sun', allWeekMeals)" data-translate="Sun"></a>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Mon')" data-translate="Mon"></a>
+					<a href="" ng-click="registerMealDate('Mon', allWeekMeals)" data-translate="Mon"></a>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Tue')" data-translate="Tue"></a>
+					<a href="" ng-click="registerMealDate('Tue', allWeekMeals)" data-translate="Tue"></a>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Wed')"" data-translate="Wed"></a>
+					<a href="" ng-click="registerMealDate('Wed', allWeekMeals)" data-translate="Wed"></a>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Thu')" data-translate="Thu"></a>
+					<a href="" ng-click="registerMealDate('Thu', allWeekMeals)" data-translate="Thu"></a>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Fri')" data-translate="Fri"></a>
+					<a href="" ng-click="registerMealDate('Fri', allWeekMeals)" data-translate="Fri"></a>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Sat')" data-translate="Sat"></a>
+					<a href="" ng-click="registerMealDate('Sat', allWeekMeals)" data-translate="Sat"></a>
 				</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="week in weekMeals">
+			<tr ng-repeat="week in allWeekMeals">
 				<td class="text-center lbl-week" >
 					<a href="" ng-click="registerMealWeek(week)">{{"Week" | translate}} {{$index + 1}}</a>
                 </td>

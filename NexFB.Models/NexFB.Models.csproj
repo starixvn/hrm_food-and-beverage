@@ -59,6 +59,7 @@
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Kitchen\OrderMenu.cs" />
     <Compile Include="Kitchen\Order.cs" />
+    <Compile Include="MealRegistration\DefaultMealModel.cs" />
     <Compile Include="MealRegistration\MealDateModel.cs" />
     <Compile Include="MealRegistration\MealModel.cs" />
     <Compile Include="MealRegistration\MealRegisterModel.cs" />

@@ -1,1 +1,53 @@
-﻿
+﻿<div ng-controller="DefaultRegisterMeal">
+<table class="table table-bordered table-register">
+	<thead>
+		<tr>
+			<th class="width-100">
+			</th>
+			<th data-translate="Sun">
+			</th>
+			<th data-translate="Mon">
+			</th>
+			<th data-translate="Tue">
+			</th>
+			<th data-translate="Wed">
+			</th>
+			<th data-translate="Thu">
+			</th>
+			<th data-translate="Fri">
+			</th>
+			<th data-translate="Sat">
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="text-center lbl-week" >
+				<a href="" ng-click="registerMealWeek(weekMeals)">{{"AllWeek" | translate}}</a>
+			</td>
+			<td ng-repeat="date in weekMeals" ng-click="registerMeal(date)">
+				<div ng-repeat="meal in date.Meals">
+					<span get-class-by-name ng-class="mealClass" ng-show="meal.IsVegetarian != null" class="txt-name">{{meal.ShortName}}:
+					</span> 
+					<span class="icon-veg" ng-show="meal.IsVegetarian == 1">
+					</span>
+					<span class="icon-none-veg" ng-show="meal.IsVegetarian == 0">
+					</span>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div class="note-meal">
+	<ul class="list-unstyled list-inline">
+		<li class="lbl-breakfast">B: {{"Breakfast" | translate}}</li>
+		<li class="lbl-lunch">L: {{"Lunch" | translate}}</li>
+		<li class="lbl-dinner">D: {{"Dinner" | translate}}</li>
+		<li class="lbl-supper">S: {{"Supper" | translate}}</li>
+	</ul>
+	<ul class="list-unstyled list-inline">
+		<li><i class="icon-none-veg"></i>{{"Non-Vegetarian" | translate}}</li>
+		<li><i class="icon-veg"></i>{{"Vegetarian" | translate}}</li>
+	</ul>
+</div>
+</div>

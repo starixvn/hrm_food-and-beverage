@@ -68,6 +68,11 @@
 		</Setting>
 		<Setting Key="RegisterMeal_SetByRangeDate" SpName="RegisterMeal_SetByRangeDate" DbName="NexFB" Plain="0" >
 		</Setting>
+		<Setting Key="RegisterMeal_GetDefault" SpName="RegisterMeal_GetDefault" DbName="NexFB" Plain="0" >
+			<Mapping DataField="SysID" ObjectProperty="UserId"/>
+		</Setting>
+		<Setting Key="RegisterMeal_SetDefault" SpName="RegisterMeal_SetDefault" DbName="NexFB" Plain="0" >
+		</Setting>
 		<Setting Key="Meal_GetAll" SpName="Meal_GetAll" DbName="NexFB" Plain="0" >
 		</Setting>
 	</Function>

@@ -1,4 +1,5 @@
 ﻿'use strict';
+/*global appModule*/
 
 var fbGeneralService = function () {
 	var memberNewOrder;
