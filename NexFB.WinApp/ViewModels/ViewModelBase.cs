@@ -91,18 +91,17 @@ namespace NexFB.WinApp.ViewModels
             {
                 switch (releaseMode.ToUpper())
                 {
-                    case "DEV":
+                    case "RELEASE":
+                        bool printed = false;
+                        printed = _printingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
+                        return printed;
+                    default:
                         string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
                         string[] paths = receiptDocument.Split('\\');
                         var fileName = paths[paths.Length - 1];
                         string receiptDocumentCustom = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + fileName;
                         _printingHelper.ConvertToXps(template, receiptDocumentCustom);
                         return true;
-
-                    case "RELEASE":
-                        bool printed = false;
-                        printed = _printingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
-                        return printed;
                 }
             }
 

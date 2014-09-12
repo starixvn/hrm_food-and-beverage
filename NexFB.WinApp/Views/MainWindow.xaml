@@ -13,6 +13,25 @@
 		<!--l:ControlBox.HasMinimizeButton="True"
 	l:ControlBox.HasMaximizeButton="True"-->
 		<!--ResizeMode="NoResize"-->
+			<DropShadowEffect x:Key="DropShadowEffect" ShadowDepth="1" Direction="-90" BlurRadius="5" />
+
+			<LinearGradientBrush x:Key="IPhoneSteelBackground" EndPoint="0.5,1.272" StartPoint="0.5,0">
+				<GradientStop Color="#FF9097A3" Offset="0"/>
+				<GradientStop Color="#FF444D5B" Offset="1"/>
+			</LinearGradientBrush>
+
+			<Style x:Key="buttonBorder" TargetType="Border" >
+				<!--<Setter Property="Button.Effect" Value="{StaticResource DropShadowEffect}"/>
+				<Setter Property="Margin" Value="4"/>-->
+			</Style>
+
+		<Style TargetType="Button">
+			<!--<Setter Property="ClickMode" Value="Press"/>-->
+			<Setter Property="Margin" Value="4"/>
+			<!--<Setter Property="Button.Effect" Value="{StaticResource DropShadowEffect}"/>-->
+
+		</Style>
+
 	</Window.Resources>
 
 	<!--NexFB Main Grid-->
@@ -22,13 +41,16 @@
 			<RowDefinition/>
 		</Grid.RowDefinitions>
 
-		<Grid Background="#464646">
-			<Button Name="myStyle" Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Waiting}" Command="{Binding ViewPedingFoodCommand}" Foreground="White" Background ="#3A95FC" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="-1,3,0,0" />
-			<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Pending}" Command="{Binding ViewAwaitingDeliverFoodCommand}" Foreground="White" Background="#ef4339" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="123,3,0,0" />
-			<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Delivered}" Command="{Binding ViewDeliveredFoodCommand}" Foreground="White" Background="#cf4fde" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="247,3,0,0" />
-			<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Order}" Command="{Binding ViewOrderFoodCommand}" Height="44" Foreground="White" Background="#39b54a" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="371,3,0,0" />
-			<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Statistic}" Height="44" Foreground="White" Background="#f39c11" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="495,3,0,0" />
-			<TextBox Text="{Binding SearchResult}" Height="39" HorizontalAlignment="Left" Margin="717,3,0,0" Name="textBox1" VerticalAlignment="Top" Width="59" />
+		<Grid Background="#464646" Margin="-1,0,1,0">
+			<Button Name="myStyle" Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Waiting}" Command="{Binding ViewPedingFoodCommand}" Foreground="{Binding Path=Menu1.ForegroundColor}" Background ="{Binding Path=Menu1.BackgroundColor}" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="0,3,0,0" />
+			<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Pending}" Command="{Binding ViewAwaitingDeliverFoodCommand}" Foreground="{Binding Path=Menu2.ForegroundColor}" Background="{Binding Path=Menu2.BackgroundColor}" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="124,3,0,0" />
+			<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Delivered}" Command="{Binding ViewDeliveredFoodCommand}" Foreground="{Binding Path=Menu3.ForegroundColor}" Background="{Binding Path=Menu3.BackgroundColor}" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="248,3,0,0" />
+			<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Order}" Command="{Binding ViewOrderFoodCommand}" Height="44" Foreground="{Binding Path=Menu4.ForegroundColor}" Background="{Binding Path=Menu4.BackgroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="372,3,0,0" />
+			<Button Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Statistic}" Height="44" Foreground="{Binding Path=Menu5.ForegroundColor}" Background="{Binding Path=Menu5.BackgroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="496,3,0,0" />
+			<Border Background="#6bcbca" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Left" Margin="838,3,0,0" VerticalAlignment="Top" Width="70" Height="39">
+				<Button Command="{Binding Path=DisplayKeyPad}" MinWidth="70" MinHeight="39" Style="{StaticResource TileButton}" Background="#6bcbca" BorderThickness="0" x:Name="SortResult"  Margin="0,0,0,0" FontSize="30"  
+				Content="{Binding Path=SearchResult}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+			</Border>
 
 			<!--Button close window-->
 			<Button Style="{StaticResource TileButton}" Command="{Binding CloseWindow}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
@@ -43,14 +65,103 @@
 			</Button>
 			<Image Source="pack://application:,,,/Images/logo.jpg" Height="41" HorizontalAlignment="Left" Margin="913,3,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="313" />
 			<Label Content="{Binding Path=TodayTime}" FontSize="22" Foreground="#fff" HorizontalAlignment="Left" Margin="1157,-6,0,15" Name="label1" Width="76" />
-			<Label Content="{Binding Path=TodayDate}" Foreground="#fff" FontSize="14" Height="26" HorizontalAlignment="Left" Margin="1145,0,0,-1" Name="label2" VerticalAlignment="Bottom" Width="81" />
+			<Label Content="{Binding Path=TodayDate}" Foreground="#fff" FontSize="14" Height="26" HorizontalAlignment="Left" Margin="1145,0,0,-3" Name="label2" VerticalAlignment="Bottom" Width="81" />
 		</Grid>
 		<!--Nex FB Menu-->
 
 		<Grid Grid.Row="1" Margin="0,3,0,0">
 			<ContentControl Content="{Binding CurrentViewModel}"  Margin="0,0,0,7" Grid.Row="1" />
+			<!--Key Pad-->
+			<Grid Visibility="{Binding Path=KeyPadVisibility}" Height="159" Width="173" 
+			HorizontalAlignment="Left" Margin="747,-8,0,0" VerticalAlignment="Top" Name="GridKeyPad">
+				<Grid Background="{DynamicResource IPhoneSteelBackground}" HorizontalAlignment="Left" 
+					Margin="12,12,0,0" Name="grid1" VerticalAlignment="Top" Width="161" Height="147">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+
+					<Grid  Grid.Row="0">
+						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
+						<Button Name="button5" Background="WhiteSmoke" BorderThickness="1"
+				Command="{Binding Path=NumPadPressed}" CommandParameter="NUMPAD7" >7</Button>
+					</Grid>
+					<Grid Grid.Column="1" Grid.Row="0">
+						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
+						<Button x:Name="button6" Background="WhiteSmoke"
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD8"  BorderThickness="1" Content="8" />
+					</Grid>
+					<Grid Grid.Column="2" Grid.Row="0">
+						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
+						<Button x:Name="button7" Background="WhiteSmoke"
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD9"  Content="9" />
+					</Grid>
+					<Grid Grid.Column="0" Grid.Row="3">
+						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
+						<Button x:Name="button8" Command="{Binding NumPadReleased}" CommandParameter="BACK" >
+							<Path Stretch="Fill" Width="20" Height="12" Data="F1M555.0371,274.4893L552.7871,276.7383L549.9861,273.9373L547.1991,276.7243L545.1131,274.6393L547.9001,271.8523L545.0101,268.9603L547.2601,266.7113L550.1501,269.6023L552.8921,266.8613L554.9761,268.9463L552.2361,271.6883z M555.3751,264.0003L544.8751,264.0003C543.1251,264.1253,535.0001,270.7503,535.0001,272.2503C535.0001,273.7503,543.1251,279.3753,544.8751,279.5003L555.3751,279.5003C558.8751,279.5003,559.3751,277.7093,559.3751,275.5003L559.3751,268.0003C559.3751,265.7913,558.7501,264.0003,555.3751,264.0003" Fill="#FF333333"/>
+						</Button>
+					</Grid>
+					<Grid Grid.Row="1">
+						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
+						<Button x:Name="button9" Background="WhiteSmoke"
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD4"  Content="4"/>
+					</Grid>
+					<Grid Grid.Column="1" Grid.Row="1">
+						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
+						<Button x:Name="button10" Background="WhiteSmoke"
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD5"  Content="5" />
+					</Grid>
+					<Grid Grid.Column="2" Grid.Row="1">
+						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
+						<Button x:Name="button11" Background="WhiteSmoke"
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD6"  Content="6" />
+					</Grid>
+					<Grid Grid.Row="2">
+						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
+						<Button x:Name="button13" Background="WhiteSmoke"
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD1"  Content="1"/>
+					</Grid>
+					<Grid Grid.Column="1" Grid.Row="2">
+						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
+						<Button x:Name="button14" Background="WhiteSmoke"
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD2"  Content="2"/>
+					</Grid>
+					<Grid Grid.Column="2" Grid.Row="2">
+						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
+						<Button x:Name="button15" Background="WhiteSmoke"
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD3"  Content="3" />
+					</Grid>
+
+					<Grid Grid.Row="3" Grid.Column="1">
+						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
+						<Button x:Name="button17" Background="WhiteSmoke"
+							Command="{Binding NumPadPressed}" CommandParameter="NUMPAD0"  Content="0" />
+					</Grid>
+
+					<Grid Grid.Row="3" Grid.Column="2">
+						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
+						<Button x:Name="buttonBack" Background="WhiteSmoke" Command="{Binding NumPadReleased}" CommandParameter="ENTER">
+							<Path Stretch="Fill" Width="21" Height="10" Data="M-32,20.125L-12.375,1.5 -12.375,10.3125 -0.5,10.3125 -0.5,29.9375 -12.375,29.9375 -12.375,39.75 -32,20.125z" Fill="#FF333333"/>
+						</Button>
+					</Grid>
+
+
+
+				</Grid>
+			</Grid>
+
 		</Grid>
-		<Grid Grid.Row="1" Height="7" HorizontalAlignment="Left" Background="{Binding Path=GridColor}" 
+		<Grid Grid.Row="1" Height="7" HorizontalAlignment="Left" Background="#fff" 
 		VerticalAlignment="Top" Width="1280"/>
+
+
 	</Grid>
 </Window>

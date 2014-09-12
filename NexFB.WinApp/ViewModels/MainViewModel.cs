@@ -10,11 +10,13 @@
 namespace NexFB.WinApp.ViewModels
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Threading;
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinApp.Core.Constants;
+    using NexFB.WinApp.Core.Models;
 
     /// <summary>
     /// Main ViewModel.
@@ -30,7 +32,14 @@ namespace NexFB.WinApp.ViewModels
         private string _waitingSearchResult;
         private string _awaitingDeliverSearchResult;
         private string _deliveredSearchResult;
-        private string _gridColor;
+        private string _keypadVisibility;
+
+        private MenuColor _menu1 = new MenuColor();
+        private MenuColor _menu2 = new MenuColor();
+        private MenuColor _menu3 = new MenuColor();
+        private MenuColor _menu4 = new MenuColor();
+        private MenuColor _menu5 = new MenuColor();
+
         private string _todayDate;
         private string _todayTime;
 
@@ -42,11 +51,7 @@ namespace NexFB.WinApp.ViewModels
         {
             CurrentViewModel = new WaitingMealViewModel();
             CheckCurrentViewModel();
-            ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
-            ViewDeliveredFoodCommand = new RelayCommand((x) => CanExecuteViewDeliveredFood(), (y) => ExecuteViewDeliveredFood());
-            ViewOrderFoodCommand = new RelayCommand((x) => CanExecuteViewOrderFood(), (y) => ExecuteViewOrderFood());
-            ViewAwaitingDeliverFoodCommand = new RelayCommand((x) => CanExecuteViewAwaitingDeliverFood(), (y) => ExecuteViewAwaitingDeliverFood());
-            CloseWindow = new RelayCommand((x) => ((Window)x).Close());
+            InitializeRelayCommand();
 
             digitalClock.Interval = new TimeSpan(0, 0, 1);
             digitalClock.Tick += new EventHandler(Timer_Click);
@@ -66,6 +71,12 @@ namespace NexFB.WinApp.ViewModels
         public ICommand ViewDeliveredFoodCommand { get; set; }
 
         public ICommand ViewOrderFoodCommand { get; set; }
+
+        public ICommand DisplayKeyPad { get; set; }
+
+        public ICommand NumPadPressed { get; set; }
+
+        public ICommand NumPadReleased { get; set; }
 
         public ViewModelBase CurrentViewModel
         {
@@ -158,17 +169,73 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        public string GridColor
+        public MenuColor Menu1
         {
             get
             {
-                return _gridColor;
+                return _menu1;
             }
 
-            private set
+            set
             {
-                _gridColor = value;
-                this.OnPropertyChanged("GridColor");
+                _menu1 = value;
+                this.OnPropertyChanged("Menu1");
+            }
+        }
+
+        public MenuColor Menu2
+        {
+            get
+            {
+                return _menu2;
+            }
+
+            set
+            {
+                _menu2 = value;
+                this.OnPropertyChanged("Menu2");
+            }
+        }
+
+        public MenuColor Menu3
+        {
+            get
+            {
+                return _menu3;
+            }
+
+            set
+            {
+                _menu3 = value;
+                this.OnPropertyChanged("Menu3");
+            }
+        }
+
+        public MenuColor Menu4
+        {
+            get
+            {
+                return _menu4;
+            }
+
+            set
+            {
+                _menu4 = value;
+                this.OnPropertyChanged("Menu4");
+            }
+        }
+
+        public MenuColor Menu5
+        {
+            get
+            {
+                return _menu5;
+            }
+
+            set
+            {
+                _menu5 = value;
+                this.OnPropertyChanged("Menu5");
             }
         }
 
@@ -179,7 +246,7 @@ namespace NexFB.WinApp.ViewModels
                 return _todayDate;
             }
 
-            private set
+            set
             {
                 _todayDate = value;
                 _todayDate = DateTime.Now.Date.ToString("dd/MM/yyyy");
@@ -194,10 +261,24 @@ namespace NexFB.WinApp.ViewModels
                 return _todayTime;
             }
 
-            private set
+            set
             {
                 _todayTime = value;
                 this.OnPropertyChanged("TodayTime");
+            }
+        }
+
+        public string KeyPadVisibility
+        {
+            get
+            {
+                return _keypadVisibility;
+            }
+
+            set
+            {
+                _keypadVisibility = value;
+                this.OnPropertyChanged("KeyPadVisibility");
             }
         }
 
@@ -222,6 +303,26 @@ namespace NexFB.WinApp.ViewModels
         }
 
         private bool CanExecuteViewOrderFood()
+        {
+            return true;
+        }
+
+        private bool CanDisplayKeyPad()
+        {
+            return true;
+        }
+
+        private bool CanExecuteNumPadPressed()
+        {
+            if (SearchResult != null && SearchResult.Length == 4)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool CanExecuteNumPadReleased()
         {
             return true;
         }
@@ -251,20 +352,81 @@ namespace NexFB.WinApp.ViewModels
             CheckCurrentViewModel();
         }
 
+        private void ExecuteDisplayKeyPad()
+        {
+            KeyPadVisibility = Constant.Visible;
+        }
+
+        /// <summary>
+        /// Method Press virtual key pad.
+        /// </summary>
+        /// <param name="value">Object parameter.</param>
+        private void ExecuteNumPadPressed(object value)
+        {
+            var keyPadParameter = value.ToString();
+            switch (keyPadParameter.ToUpper())
+            {
+                case "BACK":
+                    if (SearchResult.Length > 0)
+                    {
+                        SearchResult = SearchResult.Remove(SearchResult.Length - 1);
+                    }
+
+                    break;
+
+                case "ENTER":
+                    string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+                    if (currentViewModel == "WaitingMealViewModel")
+                    {
+                        ExecuteViewPendingFood();
+                    }
+
+                    if (currentViewModel == "AwaitingDeliverViewModel")
+                    {
+                        ExecuteViewAwaitingDeliverFood();
+                    }
+
+                    if (currentViewModel == "DeliveredFoodViewModel")
+                    {
+                        ExecuteViewDeliveredFood();
+                    }
+
+                    break;
+                default:
+                    string keypadValue = keyPadParameter.Substring(keyPadParameter.Length - 1, 1);
+                    SearchResult += keypadValue;
+                    break;
+            }
+        }
+
         #endregion
 
         #region Methods
 
+        private void InitializeRelayCommand()
+        {
+            ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
+            ViewDeliveredFoodCommand = new RelayCommand((x) => CanExecuteViewDeliveredFood(), (y) => ExecuteViewDeliveredFood());
+            ViewOrderFoodCommand = new RelayCommand((x) => CanExecuteViewOrderFood(), (y) => ExecuteViewOrderFood());
+            ViewAwaitingDeliverFoodCommand = new RelayCommand((x) => CanExecuteViewAwaitingDeliverFood(), (y) => ExecuteViewAwaitingDeliverFood());
+            NumPadPressed = new RelayCommand((x) => CanExecuteNumPadPressed(), (y) => ExecuteNumPadPressed(y));
+            NumPadReleased = new RelayCommand((x) => CanExecuteNumPadReleased(), (y) => ExecuteNumPadPressed(y));
+            DisplayKeyPad = new RelayCommand((x) => CanDisplayKeyPad(), (y) => ExecuteDisplayKeyPad());
+            CloseWindow = new RelayCommand((x) => ((Window)x).Close());
+        }
+
         /// <summary>
         /// Check Current View model.
         /// </summary>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private void CheckCurrentViewModel()
         {
+            DefaulMenuColor();
+            KeyPadVisibility = Constant.Hidden;
             string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
             switch (currentViewModel)
             {
                 case "WaitingMealViewModel":
-                    GridColor = Constant.DefaultMenuColor;
                     if (string.IsNullOrEmpty(WaitingSearchResult))
                     {
                         SearchResult = string.Empty;
@@ -273,10 +435,11 @@ namespace NexFB.WinApp.ViewModels
                     {
                         SearchResult = WaitingSearchResult;
                     }
-
+                    
+                    Menu1.BackgroundColor = Constant.DefaultMenuColor;
+                    Menu1.ForegroundColor = Constant.Menu1Color;
                     break;
                 case "AwaitingDeliverViewModel":
-                    GridColor = Constant.Menu2Color;
                     if (string.IsNullOrEmpty(AwaitingDeliverSearchResult))
                     {
                         SearchResult = string.Empty;
@@ -285,10 +448,11 @@ namespace NexFB.WinApp.ViewModels
                     {
                         SearchResult = AwaitingDeliverSearchResult;
                     }
-
+                    
+                    Menu2.BackgroundColor = Constant.DefaultMenuColor;
+                    Menu2.ForegroundColor = Constant.Menu2Color;
                     break;
                 case "DeliveredFoodViewModel":
-                    GridColor = Constant.Menu3Color;
                     if (string.IsNullOrEmpty(DeliveredSearchResult))
                     {
                         SearchResult = string.Empty;
@@ -297,13 +461,15 @@ namespace NexFB.WinApp.ViewModels
                     {
                         SearchResult = DeliveredSearchResult;
                     }
-
+                    
+                    Menu3.BackgroundColor = Constant.DefaultMenuColor;
+                    Menu3.ForegroundColor = Constant.Menu3Color;
                     break;
                 case "OrderFoodViewModel":
-                    GridColor = Constant.Menu4Color;
+                    Menu4.BackgroundColor = Constant.DefaultMenuColor;
+                    Menu4.ForegroundColor = Constant.Menu4Color;
                     break;
                 default:
-                    GridColor = Constant.DefaultMenuColor;
                     break;
             }
         }
@@ -312,7 +478,28 @@ namespace NexFB.WinApp.ViewModels
         {
             var dateTimeNow = DateTime.Now;
             TodayDate = dateTimeNow.ToString("dd/MM/yyyy");
-            TodayTime = dateTimeNow.ToString("HH:mm");
+            TodayTime = dateTimeNow.ToString("hh:mm");
+        }
+
+        /// <summary>
+        /// Set Default Menu Color.
+        /// </summary>
+        private void DefaulMenuColor()
+        {
+            Menu1.BackgroundColor = Constant.Menu1Color;
+            Menu1.ForegroundColor = Constant.DefaultMenuColor;
+
+            Menu2.BackgroundColor = Constant.Menu2Color;
+            Menu2.ForegroundColor = Constant.DefaultMenuColor;
+
+            Menu3.BackgroundColor = Constant.Menu3Color;
+            Menu3.ForegroundColor = Constant.DefaultMenuColor;
+
+            Menu4.BackgroundColor = Constant.Menu4Color;
+            Menu4.ForegroundColor = Constant.DefaultMenuColor;
+
+            Menu5.BackgroundColor = Constant.Menu5Color;
+            Menu5.ForegroundColor = Constant.DefaultMenuColor;
         }
 
         #endregion

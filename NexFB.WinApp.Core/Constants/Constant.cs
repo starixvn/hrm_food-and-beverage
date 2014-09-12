@@ -38,6 +38,10 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string DefaultMenuColor = "#fff";
 
+        public const string Hidden = "Hidden";
+
+        public const string Visible = "Visible";
+
         private Constant()
         {
         }
