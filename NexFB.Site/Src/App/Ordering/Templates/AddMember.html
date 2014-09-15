@@ -17,8 +17,8 @@
 		<div class="form-group popup-required">
 			<label class="col-sm-3 control-label">
 				{{"Company" | translate}}</label>
-			<div class="col-sm-8">
-				<select ng-options="lc.DepartmentId as lc.Name for lc in departments" ng-model="departmentId">
+			<div class="col-sm-4">
+				<select ng-options="lc.DepartmentId as lc.Name for lc in departments" ng-model="departmentId" class="form-control">
 					<option value="">-- All --</option>
                 </select>
 			</div>

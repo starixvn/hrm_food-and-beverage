@@ -12,7 +12,7 @@
                             <label data-translate="Location">
                             </label>
                             <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.Location.LocationId"
-							ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId">
+							ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId" class="form-control">
                             </select>
                         </div>
                         <div class="form-group pull-right">
@@ -23,45 +23,47 @@
 							</a>
                         </div>
                     </div>
-                    <table class="table table-bordered table-striped table-member">
-                        <thead>
-                            <tr>
-                                <th class="width-40">
-                                    #
-                                </th>
-								<th data-translate="Member">
-                                </th>
-                                <th data-translate="Menu">
-                                </th>
-                                <th class="col-action" data-translate="Action">
-                                </th>
-                            </tr>
-                        </thead>
-						<tbody>
-                            <tr ng-repeat = "member in order.Members">
-								<td class="text-center">{{$index + 1}}</td>
-								<td ng-class="{'is-ordered' : member.CurrentStatus != null}">
-									<span>{{member.Member.NickName}}</span>
-									<span ng-show="member.CurrentStatus != null">(Ordered)</span>
-								</td>
-								<td>
-									<span>{{member.Menu.Name}}</span>
-								</td>
-                                <td class="text-center">
-                                    <a ng-click="removeMember($index)" ng-show="(
-									(order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3)
-										&& ((member.Member.UserId != order.CreatorOrder.UserId 
-										&& member.Member.UserId == order.CurrentUser.UserId) 
-										|| order.CreatorOrder.UserId == order.CurrentUser.UserId)) "
-									class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
-                                </td>
-                            </tr>
-							<tr ng-show="order == '' || order.Members == ''">
-								<td class="empty-result" colspan="5" data-translate="EmptyResult">
-								</td>
-							</tr>
-                        </tbody>
-                    </table>
+                    <div class="row">
+                        <table class="table table-bordered table-striped table-member">
+                            <thead>
+                                <tr>
+                                    <th class="width-40">
+                                        #
+                                    </th>
+								    <th data-translate="Member">
+                                    </th>
+                                    <th data-translate="Menu">
+                                    </th>
+                                    <th class="col-action" data-translate="Action">
+                                    </th>
+                                </tr>
+                            </thead>
+						    <tbody>
+                                <tr ng-repeat = "member in order.Members">
+								    <td class="text-center">{{$index + 1}}</td>
+								    <td ng-class="{'is-ordered' : member.CurrentStatus != null}">
+									    <span>{{member.Member.NickName}}</span>
+									    <span ng-show="member.CurrentStatus != null">(Ordered)</span>
+								    </td>
+								    <td>
+									    <span>{{member.Menu.Name}}</span>
+								    </td>
+                                    <td class="text-center">
+                                        <a ng-click="removeMember($index)" ng-show="(
+									    (order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3)
+										    && ((member.Member.UserId != order.CreatorOrder.UserId 
+										    && member.Member.UserId == order.CurrentUser.UserId) 
+										    || order.CreatorOrder.UserId == order.CurrentUser.UserId)) "
+									    class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
+                                    </td>
+                                </tr>
+							    <tr ng-show="order == '' || order.Members == ''">
+								    <td class="empty-result" colspan="5" data-translate="EmptyResult">
+								    </td>
+							    </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="row form-inline form-order">
                         <div class="form-group">
                             <label data-translate="Remark">
@@ -82,7 +84,7 @@
 	<div class="modal-footer">
 		<button class="button" ng-click="saveEditOrder(order)" data-translate="Save">
 		</button>
-		<button class="button" ng-click="deleteOrder(order.OrderId)" data-translate="Delete">
+		<button class="button btn-delete" ng-click="deleteOrder(order.OrderId)" data-translate="Delete">
 		</button>
 		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 		</button>

@@ -475,7 +475,7 @@ body {
 /*					       Table                        */
 /********************************************************/
 .table {
-    margin: 0 0 10px;
+    margin: 10px 0;
     font-size: @font-size;
     border: none;
     background-color: #fff;
@@ -741,6 +741,14 @@ body {
     &:hover {
         #gradient .vertical(#72BCDA, #369FCA);
     }
+	
+}
+.btn-delete {
+	#gradient .vertical(#d87a6a, #b76051);
+	border: 1px solid #9c5a4e;
+	&:hover {
+		#gradient .vertical(#d78374, #c77062);
+	}
 }
 
 .btn.customize {
@@ -818,6 +826,13 @@ body {
             }
         }
 
+		input[type='text'], select, #txtEmployee {
+			.border-radius(3px);
+			border: 1px solid #C8C8C8;
+			box-shadow: 1px 1px 3px 3px #F2F2F2;
+			height: 30px;
+			padding: 3px 12px 6px;
+		}
 		.table-popup {
 			padding: 0;
 		}
@@ -934,6 +949,12 @@ body {
 	}
 }
 
+
+.ui-menu{
+	background: #eeeeee;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
 @media (max-width: 770px) {
     .container-fluid.page {
         .header {
