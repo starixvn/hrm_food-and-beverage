@@ -61,14 +61,14 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="week in allWeekMeals">
-				<td class="text-center lbl-week" style="vertical-align:middle;">
+				<td class="text-center lbl-week week-middle">
 					<a href="" ng-click="registerMealWeek(week)" ng-if="policy.permission == 2">
 						{{"Week" | translate}} {{$index + 1}}
 					</a>
 					<span ng-if="policy.permission == 1">{{"Week" | translate}} {{$index + 1}}</span>
                 </td>
                 <td ng-repeat="date in week.WeekMeals" ng-click="policy.permission != 2 || date.IsDisabled || registerMeal(date)"
-					ng-class="{disabled: date.IsDisabled, current: checkCurrentDate(date), lbl-weekend: checkWeekend(date) }" >
+					ng-class="{disabled: date.IsDisabled, current: checkCurrentDate(date), weekend: checkWeekend(date) }" >
                     <span class="pull-right" ng-bind="date.WorkDate | date: 'd'">
 					</span>
                     <div ng-repeat="meal in date.Meals">
