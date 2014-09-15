@@ -9,8 +9,7 @@
 	text-align: center;
 
 	.monthlyHeader {
-		font-weight: bold;
-		font-size: @font-size + 7;
+		font-size: @font-size + 5;
 		color: #5e5e5e;
 		text-transform: uppercase;
 	}
@@ -20,12 +19,18 @@
 		margin: -8px 7px 0;
 		padding: 0 5px;
 		background: none;
-		line-height: 20px;
+		line-height: 18px;
 
 		.icon-prev, .icon-next {
 			color: #777;
+			top: -1px;
+			font-size: @font-size - 6;
 		}
 	}
+}
+
+.warning-registration {
+	color: #555;
 }
 
 
@@ -133,7 +138,11 @@
 }
 
 .note-meal {
-	margin-top: 15px;
+	margin: 15px 0;
+
+	&.default {
+		margin-top: 5px;
+	}
 
 	ul {
 		li {
