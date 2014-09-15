@@ -55,8 +55,18 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		var toDay = new Date(),
 			workDate = new Date(date.WorkDate);
 
-		if (toDay.getYear() === workDate.getYear() && toDay.getMonth() === workDate.getMonth() && 
+		if (toDay.getYear() === workDate.getYear() && toDay.getMonth() === workDate.getMonth() &&
 				toDay.getDate() === workDate.getDate()) {
+			return true;
+		}
+
+		return false;
+	};
+
+	$scope.checkWeekend = function (date) {
+		var workDate = new Date(date.WorkDate);
+
+		if (workDate.getDay() === 0 || workDate.getDay() === 6) {
 			return true;
 		}
 
