@@ -36,48 +36,6 @@ body {
 		margin: 0;
 	}
 
-    a {
-        color: @link-color;
-        outline: none;
-
-        &.glyphicon {
-            &:hover {
-                text-decoration: none;
-            }
-
-            &.icon-add {
-                color: #8CBF26;
-            }
-
-            &.icon-remove {
-                color: #DE5144;
-                margin-right: 5px;
-            }
-
-            &.icon-edit, &.icon-save {
-                color: #1BA0E1;
-                margin-right: 5px;
-            }
-
-            &.icon-delete {
-                color: #6f6e6e;
-                margin-right: 5px;
-            }
-        }
-        
-        &.button {
-            color: #fff;
-
-            &:hover {
-                text-decoration: none;
-            }
-        }
-
-        &.icon-add-header {
-            color: #fff;
-        }
-    }
-
     select option {
 		padding: 4px 10px;
 	}
@@ -470,6 +428,47 @@ body {
     }
 }
 
+a {
+    color: @link-color;
+    outline: none;
+
+    &.glyphicon {
+        &:hover {
+            text-decoration: none;
+        }
+
+        &.icon-add {
+            color: #8CBF26;
+        }
+
+        &.icon-remove {
+            color: #DE5144;
+            margin-right: 5px;
+        }
+
+        &.icon-edit, &.icon-save {
+            color: #1BA0E1;
+            margin-right: 5px;
+        }
+
+        &.icon-delete {
+            color: #6f6e6e;
+            margin-right: 5px;
+        }
+    }
+        
+    &.button {
+        color: #fff;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &.icon-add-header {
+        color: #fff;
+    }
+}
 
 /********************************************************/
 /*					       Table                        */
@@ -740,14 +739,17 @@ body {
 
     &:hover {
         #gradient .vertical(#72BCDA, #369FCA);
+		text-decoration: none;
     }
 	
 }
 .btn-delete {
 	#gradient .vertical(#d87a6a, #b76051);
 	border: 1px solid #9c5a4e;
+	  text-shadow: 0 -1px 0 #d87a6a;
 	&:hover {
 		#gradient .vertical(#d78374, #c77062);
+		text-decoration: none;
 	}
 }
 
@@ -843,6 +845,10 @@ body {
         padding: 12px 20px;
         margin-top: 0;
     }
+}
+
+.phone {
+	margin-left: 20px;
 }
 
 /********************************************************/
