@@ -11,6 +11,7 @@ namespace NexFB.WinApp.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows;
     using System.Windows.Input;
@@ -28,7 +29,7 @@ namespace NexFB.WinApp.ViewModels
     {
         #region Fields
 
-        private List<Order> _awaitingDeliverMeals;
+        private static ObservableCollection<Order> _awaitingDeliverMeals = new ObservableCollection<Order>();
         private string _searchValue;
 
         #endregion
@@ -52,7 +53,7 @@ namespace NexFB.WinApp.ViewModels
 
         public ICommand DeliverOrderFoodCommand { get; set; }
 
-        public List<Order> AwaitingDeliverMeals
+        public ObservableCollection<Order> AwaitingDeliverMeals
         {
             get
             {
@@ -90,7 +91,7 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        public List<Order> GetAwaitingDeliverMealOrder
+        public ObservableCollection<Order> GetAwaitingDeliverMealOrder
         {
             get
             {
@@ -101,7 +102,9 @@ namespace NexFB.WinApp.ViewModels
                     awaitingDeliverMeals = awaitingDeliverMeals.Where(x => x.TwoDigitOrderNo.StartsWith(SearchValue, StringComparison.Ordinal)).ToList();
                 }
 
-                return awaitingDeliverMeals;
+                ObservableCollection<Order> observableWaitingDeliverMeals = new ObservableCollection<Order>(awaitingDeliverMeals);
+
+                return observableWaitingDeliverMeals;
             }
         }
 
@@ -134,7 +137,8 @@ namespace NexFB.WinApp.ViewModels
                     }
                     else
                     {
-                        AwaitingDeliverMeals = this.GetAwaitingDeliverMealOrder;
+                        Order item = AwaitingDeliverMeals.Where(x => x.OrderId == orderId).SingleOrDefault();
+                        AwaitingDeliverMeals.Remove(item);
                     }
                 }
             }

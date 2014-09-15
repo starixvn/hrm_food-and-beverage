@@ -15,6 +15,7 @@ namespace NexFB.WinApp
     using System.Windows;
     using System.Windows.Threading;
     using Fanex.Data.Configuration;
+    using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.Resources;
     using NexFB.WinApp.Core.Constants;
     using NexFB.WinApp.Core.Mapping;
@@ -38,6 +39,7 @@ namespace NexFB.WinApp
                 {
                     base.OnStartup(e);
                     string defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
+                    string host = ConfigurationManager.AppSettings[Constant.HubHost];
                     IMappingRegister mappingRegister = new CoreMappingRegister();
                     if (string.IsNullOrEmpty(defaultLanguage))
                     {
@@ -50,6 +52,9 @@ namespace NexFB.WinApp
 
                     mappingRegister.Register();
                     DbSettingProviderManager.Current.Start();
+                    var hubConnection = new HubConnection(host);
+                    hubConnection.CreateHubProxy("chat");
+                    hubConnection.Start().Wait();
                 }
                 else
                 {

@@ -32,5 +32,7 @@ namespace NexFB.Services.Interface
         CommandResult UndoOrder(UndoOrderCriteria criteria);
 
         Order GetOrderDetails(GetOrderDetailsCriteria criteria);
+
+        Order GetMealOrderById(GetMealOrderById criteria);
     }
 }

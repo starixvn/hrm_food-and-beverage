@@ -11,10 +11,15 @@ namespace NexFB.WinApp.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Configuration;
     using System.Linq;
+    using System.Threading;
     using System.Windows;
     using System.Windows.Documents;
     using System.Windows.Input;
+    using System.Windows.Threading;
+    using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.Core.Models;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
@@ -28,8 +33,8 @@ namespace NexFB.WinApp.ViewModels
     public class WaitingMealViewModel : ViewModelBase
     {
         #region Fields
-
-        private List<Order> _waitingMeals;
+        private static ObservableCollection<Order> _waitingMeals = new ObservableCollection<Order>();
+        private string _host = ConfigurationManager.AppSettings[Constant.HubHost];
         private string _searchValue;
 
         #endregion
@@ -42,8 +47,10 @@ namespace NexFB.WinApp.ViewModels
 
         public WaitingMealViewModel(string searchValue)
         {
+            ListenToHub();
             SearchValue = searchValue;
             ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (x) => ExecuteReceiveOrderFoodCommand(x));
+
             WaitingMeals = this.GetWaitingMealOrder;
         }
 
@@ -51,9 +58,17 @@ namespace NexFB.WinApp.ViewModels
 
         #region Properties
 
+        public HubConnection Connection { get; set; }
+
+        public bool Active { get; set; }
+
+        public IHubProxy Proxy { get; set; }
+
+        public Thread Thread { get; set; }
+
         public ICommand ReceiveOrderFoodCommand { get; set; }
 
-        public List<Order> WaitingMeals
+        public ObservableCollection<Order> WaitingMeals
         {
             get
             {
@@ -91,7 +106,7 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        public List<Order> GetWaitingMealOrder
+        public ObservableCollection<Order> GetWaitingMealOrder
         {
             get
             {
@@ -102,7 +117,9 @@ namespace NexFB.WinApp.ViewModels
                     waitingMeals = waitingMeals.Where(x => x.TwoDigitOrderNo.StartsWith(SearchValue, StringComparison.Ordinal)).ToList();
                 }
 
-                return waitingMeals;
+                ObservableCollection<Order> observableWaitingMeals = new ObservableCollection<Order>(waitingMeals);
+
+                return observableWaitingMeals;
             }
         }
 
@@ -139,7 +156,8 @@ namespace NexFB.WinApp.ViewModels
                     }
                     else
                     {
-                        WaitingMeals = this.GetWaitingMealOrder;
+                        Order item = WaitingMeals.Where(x => x.OrderId == orderId).SingleOrDefault();
+                        WaitingMeals.Remove(item);
                     }
                 }
             }
@@ -147,6 +165,38 @@ namespace NexFB.WinApp.ViewModels
             {
                 MessageBox.Show(Lang.ErrorMessage.ToString());
             }
+        }
+
+        /// <summary>
+        /// Connect to Hub Server.
+        /// </summary>
+        private void ListenToHub()
+        {
+            Active = true;
+            Thread = new System.Threading.Thread(() =>
+            {
+                Connection = new HubConnection(_host);
+                Proxy = Connection.CreateHubProxy("chat");
+                Proxy.On<string>("newMessage", (name) => OnSendData("Recieved addMessage: " + name));
+                Connection.Start();
+
+                while (Active)
+                {
+                    System.Threading.Thread.Sleep(10);
+                }
+            }) { IsBackground = true };
+            Thread.Start();
+        }
+
+        private void OnSendData(string message)
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => RemoveItemFromList(message)));
+        }
+
+        private void RemoveItemFromList(string message)
+        {
+            ////this.WaitingMeals.RemoveAt(0);
+            MessageBox.Show(message);
         }
 
         #endregion

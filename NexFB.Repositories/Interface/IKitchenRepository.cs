@@ -21,5 +21,7 @@ namespace NexFB.Repositories.Interface
         List<Order> GetMealOrder(ICriteria criteria);
 
         Order GetOrderDetails(ICriteria criteria);
+
+        Order GetMealOrderById(ICriteria criteria);
     }
 }

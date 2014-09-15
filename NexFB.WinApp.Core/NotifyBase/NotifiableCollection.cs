@@ -1,24 +1,25 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="CollectionChangedBase.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="NotifiableCollection.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Bradley.Mac" date="2014.8.21">Created</change>
+//   <change who="Bradley.Mac" date="2014.9.15">Created</change>
 // </history>
 
 namespace NexFB.WinApp.Core.NotifyBase
 {
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
+using System.Windows.Documents;
 
     /// <summary>
     /// Collection Changed Base.
     /// </summary>
     /// <typeparam name="T">Generic type.</typeparam>
-    public class CollectionChangedBase<T> : Collection<T>, INotifyCollectionChanged
+    public class NotifiableCollection<T> : Collection<T>, INotifyCollectionChanged
     {
-        public CollectionChangedBase()
+        public NotifiableCollection()
         {
         }
 

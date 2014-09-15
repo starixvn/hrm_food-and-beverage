@@ -30,6 +30,8 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string ReleaseMode = "ReleaseMode";
 
+        public const string HubHost = "HubHost";
+
         public const string DefaultCulture = "vi-VN";
 
         public const string Menu1Color = "#3A95FC";

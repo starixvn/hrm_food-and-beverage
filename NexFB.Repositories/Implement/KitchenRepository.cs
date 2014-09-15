@@ -81,5 +81,30 @@ namespace NexFB.Repositories.Implement
 
             return orderDetails;
         }
+
+        /// <summary>
+        /// Get Meal Order By Id.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Order Entity.</returns>
+        public Order GetMealOrderById(ICriteria criteria)
+        {
+            Order mealOrder = new Order();
+            List<OrderMenu> menus = new List<OrderMenu>();
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    mealOrder = multi.Read<Order>().SingleOrDefault();
+                    menus = multi.Read<OrderMenu>().ToList();
+                    if (mealOrder != null)
+                    {
+                        mealOrder.ListMenu = menus;
+                    }
+                }
+            }
+
+            return mealOrder;
+        }
     }
 }

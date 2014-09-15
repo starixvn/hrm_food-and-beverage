@@ -10,7 +10,6 @@
 namespace NexFB.WinApp
 {
     using System.Windows;
-    using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.WinApp.ViewModels;
 
     /// <summary>
@@ -22,10 +21,16 @@ namespace NexFB.WinApp
         {
             InitializeComponent();
             this.DataContext = new MainViewModel();
-
-            var hubConnection = new HubConnection("http://localhost:50442/");
-            hubConnection.CreateHubProxy("chat");
-            hubConnection.Start().Wait();
         }
+
+        ////private void ActionSendButtonClick(object sender, RoutedEventArgs e)
+        ////{
+        ////    SendMessage();
+        ////}
+
+        ////private Task SendMessage()
+        ////{
+        ////    return Proxy.Invoke("SendMessage", ClientNameTextBox.Text);
+        ////}
     }
 }
