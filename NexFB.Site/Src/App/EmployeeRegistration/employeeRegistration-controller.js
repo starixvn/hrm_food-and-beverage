@@ -63,6 +63,9 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		return false;
 	};
 
+	/*
+	** Check current date is weekend or not.
+	*/
 	$scope.checkWeekend = function (date) {
 		var workDate = new Date(date.WorkDate);
 
@@ -115,7 +118,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				mode: function () {
 					return 'month';
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
 
 		modalAssignInstance.result.then(function (registrationInfo) {
@@ -182,7 +186,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				mode: function () {
 					return 'month';
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
 
 		modalAssignInstance.result.then(function (registrationInfo) {
@@ -236,7 +241,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				mode: function () {
 					return 'month';
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
 
 		modalAssignInstance.result.then(function (registrationInfo) {
@@ -304,7 +310,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				mode: function () {
 					return 'month';
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
 
 		modalAssignInstance.result.then(function (registrationInfo) {
@@ -373,7 +380,8 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 				mode: function () {
 					return 'default';
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
 
 		modalAssignInstance.result.then(function (registrationInfo) {
@@ -432,7 +440,8 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 				mode: function () {
 					return 'default';
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
 
 		modalAssignInstance.result.then(function (registrationInfo) {
