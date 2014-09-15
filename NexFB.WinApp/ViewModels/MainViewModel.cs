@@ -27,12 +27,17 @@ namespace NexFB.WinApp.ViewModels
 
         private static readonly OrderFoodViewModel OrderFoodViewModel = new OrderFoodViewModel();
         private static DispatcherTimer digitalClock = new DispatcherTimer();
+        private static double _screenWidth = SystemParameters.PrimaryScreenWidth;
+        private static double _screeHeight = SystemParameters.PrimaryScreenHeight;
+        private static double _displayBanner = Constant.BannerResolution1280;
+
         private ViewModelBase _currentViewModel;
         private string _searchResult;
         private string _waitingSearchResult;
         private string _awaitingDeliverSearchResult;
         private string _deliveredSearchResult;
         private string _keypadVisibility;
+        private double _displayWidth;
 
         private MenuColor _menu1 = new MenuColor();
         private MenuColor _menu2 = new MenuColor();
@@ -282,6 +287,68 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        public double ScreenWidth
+        {
+            get
+            {
+                return _screenWidth;
+            }
+
+            set
+            {
+                _screenWidth = value;
+                this.OnPropertyChanged("ScreenWidth");
+            }
+        }
+
+        public double ScreenHeight
+        {
+            get
+            {
+                return _screeHeight;
+            }
+
+            set
+            {
+                _screeHeight = value;
+                this.OnPropertyChanged("ScreenHeight");
+            }
+        }
+
+        public double DisplayWidth
+        {
+            get
+            {
+                _displayWidth = _screenWidth - Constant.RemainingWidth;
+                return _displayWidth;
+            }
+
+            set
+            {
+                _displayWidth = value;
+                this.OnPropertyChanged("DisplayWidth");
+            }
+        }
+
+        public double DisplayBanner
+        {
+            get
+            {
+                if (_screenWidth <= 1024)
+                {
+                    _displayBanner = Constant.BannerResolution1024;
+                }
+
+                return _displayBanner;
+            }
+
+            set
+            {
+                _displayBanner = value;
+                this.OnPropertyChanged("DisplayBanner");
+            }
+        }
+
         #endregion
 
         #region RelayCommands
@@ -438,6 +505,7 @@ namespace NexFB.WinApp.ViewModels
                     
                     Menu1.BackgroundColor = Constant.DefaultMenuColor;
                     Menu1.ForegroundColor = Constant.Menu1Color;
+                    Menu1.FontWeight = Constant.FontWeightBold;
                     break;
                 case "AwaitingDeliverViewModel":
                     if (string.IsNullOrEmpty(AwaitingDeliverSearchResult))
@@ -451,6 +519,7 @@ namespace NexFB.WinApp.ViewModels
                     
                     Menu2.BackgroundColor = Constant.DefaultMenuColor;
                     Menu2.ForegroundColor = Constant.Menu2Color;
+                    Menu2.FontWeight = Constant.FontWeightBold;
                     break;
                 case "DeliveredFoodViewModel":
                     if (string.IsNullOrEmpty(DeliveredSearchResult))
@@ -464,10 +533,12 @@ namespace NexFB.WinApp.ViewModels
                     
                     Menu3.BackgroundColor = Constant.DefaultMenuColor;
                     Menu3.ForegroundColor = Constant.Menu3Color;
+                    Menu3.FontWeight = Constant.FontWeightBold;
                     break;
                 case "OrderFoodViewModel":
                     Menu4.BackgroundColor = Constant.DefaultMenuColor;
                     Menu4.ForegroundColor = Constant.Menu4Color;
+                    Menu4.FontWeight = Constant.FontWeightBold;
                     break;
                 default:
                     break;
@@ -488,18 +559,23 @@ namespace NexFB.WinApp.ViewModels
         {
             Menu1.BackgroundColor = Constant.Menu1Color;
             Menu1.ForegroundColor = Constant.DefaultMenuColor;
+            Menu1.FontWeight = Constant.FontWeightNormal;
 
             Menu2.BackgroundColor = Constant.Menu2Color;
             Menu2.ForegroundColor = Constant.DefaultMenuColor;
+            Menu2.FontWeight = Constant.FontWeightNormal;
 
             Menu3.BackgroundColor = Constant.Menu3Color;
             Menu3.ForegroundColor = Constant.DefaultMenuColor;
+            Menu3.FontWeight = Constant.FontWeightNormal;
 
             Menu4.BackgroundColor = Constant.Menu4Color;
             Menu4.ForegroundColor = Constant.DefaultMenuColor;
+            Menu4.FontWeight = Constant.FontWeightNormal;
 
             Menu5.BackgroundColor = Constant.Menu5Color;
             Menu5.ForegroundColor = Constant.DefaultMenuColor;
+            Menu5.FontWeight = Constant.FontWeightNormal;
         }
 
         #endregion

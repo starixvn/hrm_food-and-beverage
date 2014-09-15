@@ -5,7 +5,9 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
-	mc:Ignorable="d" d:DesignHeight="1024" d:DesignWidth="1280">
+	mc:Ignorable="d" 
+	d:DesignHeight="{Binding DataContext.ScreenHeight, RelativeSource={RelativeSource AncestorType=Window}}" 
+	d:DesignWidth="{Binding DataContext.ScreenWidth, RelativeSource={RelativeSource AncestorType=Window}}">
 
 		<!--Main Manage Pending Food Screen-->
 		<Grid Background="Red" VerticalAlignment="Top" x:Name="GridDeliveredFood" Margin="3,0,0,0" >
@@ -30,7 +32,7 @@
 								</Grid>
 
 								<!--Order details information-->
-								<Grid Grid.Column="1" Width="1010" Margin="10, 10, 0, 0">
+							<Grid Grid.Column="1" Width="{Binding DataContext.DisplayWidth, RelativeSource={RelativeSource AncestorType=Window}}" Margin="10, 10, 0, 0">
 									<StackPanel>
 										<!--Display order owner, room...-->
 										<Grid Height="32">
@@ -63,7 +65,7 @@
 
 										<!--Display number of meals-->
 										<Grid Height="30">
-												<ListBox Background="#e1e1e1" Margin="0"
+										<ListBox Background="#e1e1e1" Margin="0" Style="{StaticResource CustomLBStyle}"
 											 ItemsSource="{Binding Path=ListMenu}" BorderThickness="0">
 													<ListBox.ItemsPanel>
 														<ItemsPanelTemplate >
@@ -111,10 +113,10 @@
 								<Grid Grid.Column="2" Width="155" VerticalAlignment="Top" Margin="0,9,0,0">
 									<Button Command="{Binding ElementName=ListDeliveredFood, Path=DataContext.UndoOrderCommand}" 
 									 CommandParameter="{Binding Path=OrderId}" Background="#FA5934" Foreground="White" Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Back}"
-									 HorizontalAlignment="Left" Margin="44,-3,20,0" Name="button1" VerticalAlignment="Top" Width="85" Height="40"/>
+									 HorizontalAlignment="Left" Margin="45,-3,20,0" Name="button1" VerticalAlignment="Top" Width="85" Height="35"/>
 									<Button Command="{Binding ElementName=ListDeliveredFood, Path=DataContext.EditOrderCommand}" CommandParameter="{Binding Path=OrderId}"
 									 Background="#E0CA1F"  Foreground="White" Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Edit}"
-									 Height="40" HorizontalAlignment="Left" Margin="44,40,20,0"
+									 Height="35" HorizontalAlignment="Left" Margin="45,40,20,0"
 									 Name="button2" VerticalAlignment="Top" Width="85" />
 								</Grid>
 							</Grid>

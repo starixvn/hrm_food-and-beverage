@@ -29,6 +29,14 @@
 		<views:AwaitingDeliver />
 	</DataTemplate>
 
+	<!--Selected Item in Listbox-->
+	<Style x:Key="CustomLBStyle" TargetType="{x:Type ListBox}">
+		<Style.Resources>
+			<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#e1e1e1"/>
+			<SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#e1e1e1" />
+		</Style.Resources>
+	</Style>
+
 	<!--Common Style-->
 	<!--Default NexFB WinApp Style-->
 	<Style TargetType="{x:Type Control}" x:Key="BaseStyle">
@@ -326,7 +334,7 @@
 					<Condition Property="Orientation" Value="Vertical"/>
 				</MultiTrigger.Conditions>
 				<MultiTrigger.Setters>
-					<Setter Property="Width" Value="22"/>
+					<Setter Property="Width" Value="15"/>
 					<Setter
                     Property="Template">
 						<Setter.Value>

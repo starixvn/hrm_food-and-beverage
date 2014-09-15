@@ -20,6 +20,12 @@ namespace NexFB.WinApp.Core.Constants
 
         public const int DeliverOrderFoodInvoice = 2;
 
+        public const double BannerResolution1280 = 522;
+
+        public const double BannerResolution1024 = 400;
+
+        public const double RemainingWidth = 270;
+
         public const string DefaultLanguage = "DefaultLanguage";
 
         public const string ReleaseMode = "ReleaseMode";
@@ -41,6 +47,10 @@ namespace NexFB.WinApp.Core.Constants
         public const string Hidden = "Hidden";
 
         public const string Visible = "Visible";
+
+        public const string FontWeightBold = "Bold";
+
+        public const string FontWeightNormal = "Normal";
 
         private Constant()
         {

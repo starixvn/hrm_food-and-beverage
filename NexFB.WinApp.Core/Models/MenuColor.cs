@@ -18,6 +18,7 @@ namespace NexFB.WinApp.Core.Models
     {
         private string _background;
         private string _foreground;
+        private string _fontWeight;
 
         public string BackgroundColor
         {
@@ -44,6 +45,20 @@ namespace NexFB.WinApp.Core.Models
             {
                 _foreground = value;
                 this.OnPropertyChanged("ForegroundColor");
+            }
+        }
+
+        public string FontWeight
+        {
+            get
+            {
+                return _fontWeight;
+            }
+
+            set
+            {
+                _fontWeight = value;
+                this.OnPropertyChanged("FontWeight");
             }
         }
     }
