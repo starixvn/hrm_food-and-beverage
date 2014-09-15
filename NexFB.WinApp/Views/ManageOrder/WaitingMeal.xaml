@@ -24,8 +24,8 @@
 
 								<!--Order number-->
 								<Grid Width="105" Height="95" Background="#464646" VerticalAlignment="Top" Margin="-9,0,0,0">
-									<Label Height="60" Content="{Binding Path=TwoDigitOrderNo}" Foreground="White" HorizontalAlignment="Center" FontSize="43" VerticalAlignment="Center" Margin="4,5,4,31"></Label>
-									<Border Height="30" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Left" Margin="4,65,0,0" VerticalAlignment="Top" Width="103">
+									<Label Height="60" Content="{Binding Path=TwoDigitOrderNo}" Foreground="White" HorizontalAlignment="Center" FontSize="45" VerticalAlignment="Center" Margin="4,5,4,31"></Label>
+									<Border Height="30" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Left" Margin="4,62,0,0" VerticalAlignment="Top" Width="103">
 										<TextBlock Margin="0,7,0,0" Foreground="White" FontSize="11.5" Text="{Binding Path=RegisterDateString}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 									</Border>
 
@@ -64,33 +64,36 @@
 										</Grid>
 
 										<!--Display number of meals-->
-										<Grid Height="30">
-										<ListBox Background="#e1e1e1" Margin="0" Style="{StaticResource CustomLBStyle}"
+										<Grid Height="30" Margin="0,8,0,0">
+										<ScrollViewer Margin="0,-10,0,0">
+											<ListBox Background="#e1e1e1" Margin="0" Style="{StaticResource CustomLBStyle}"
 											 ItemsSource="{Binding Path=ListMenu}" BorderThickness="0">
-													<ListBox.ItemsPanel>
-														<ItemsPanelTemplate >
-															<StackPanel Orientation="Horizontal"/>
-														</ItemsPanelTemplate>
-													</ListBox.ItemsPanel>
-													<ListBox.ItemTemplate>
-														<DataTemplate>
-															<Grid Margin="0,-10,0,0">
-																<Grid.ColumnDefinitions>
-																	<ColumnDefinition/>
-																	<ColumnDefinition/>
-																</Grid.ColumnDefinitions>
-																<Label Foreground="#e76957" FontSize="15" Grid.Column="0" Content="{Binding Path=MenuVnmName}" ContentStringFormat=" {0} :"></Label>
-																<Label FontWeight="Black" FontSize="15" Grid.Column="1" Content="{Binding Path=QuantityPerTotal}" Margin="0,0,11,0"></Label>
-															</Grid>
+												<ListBox.ItemsPanel>
+													<ItemsPanelTemplate >
+														<StackPanel Orientation="Horizontal"/>
+													</ItemsPanelTemplate>
+												</ListBox.ItemsPanel>
+												<ListBox.ItemTemplate>
+													<DataTemplate>
+														<Grid Margin="0,-15,0,0">
+															<Grid.ColumnDefinitions>
+																<ColumnDefinition/>
+																<ColumnDefinition/>
+															</Grid.ColumnDefinitions>
+															<Label Foreground="#e76957" FontSize="15" Grid.Column="0" Content="{Binding Path=MenuVnmName}" ContentStringFormat=" {0} :"></Label>
+															<Label FontWeight="Black" FontSize="15" Grid.Column="1" Content="{Binding Path=QuantityPerTotal}" Margin="0,0,11,0"></Label>
+														</Grid>
 
-														</DataTemplate>
-													</ListBox.ItemTemplate>
-												</ListBox>
+													</DataTemplate>
+												</ListBox.ItemTemplate>
+											</ListBox>
+										</ScrollViewer>
+								
 
 										</Grid>
 
 										<!--Display general order note-->
-										<Label Margin="0,-5,0,0">
+										<Label Margin="0,-12,0,0">
 											<StackPanel Orientation="Horizontal">
 												<Image Stretch="Uniform" Height="14">
 													<Image.Style>
@@ -103,14 +106,14 @@
 														</Style>
 													</Image.Style>
 												</Image>
-												<TextBlock Foreground="Red" Text="{Binding Path=Remark}" FontSize="13" Margin="4,0,0,0"/>
+												<TextBlock Foreground="Red" Text="{Binding Path=Remark}" FontSize="13" Margin="4,1,0,0"/>
 											</StackPanel>
 										</Label>
 									</StackPanel>
 								</Grid>
 
 								<!--Order status-->
-								<Grid Grid.Column="2" Width="155" VerticalAlignment="Top">
+								<Grid Grid.Column="2" Width="150" VerticalAlignment="Top">
 									<Button Height="35" Width="85" Foreground="White" Style="{StaticResource TileButton}" Margin="38,4,20,49" />
 								</Grid>
 							</Grid>

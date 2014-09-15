@@ -6,7 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	mc:Ignorable="d" 
 	xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
-	d:DesignHeight="1024" d:DesignWidth="1280">
+	d:DesignHeight="1024" d:DesignWidth="1280" Loaded="ActionWindowLoaded">
 	<UserControl.Resources>
 		<DropShadowEffect x:Key="DropShadowEffect" ShadowDepth="1" Direction="-90" BlurRadius="5" />
 		<Style TargetType="Label">
@@ -30,7 +30,7 @@
 		</Style>
 	</UserControl.Resources>
 
-	<Grid>
+	<!--<Grid>
 		<Grid Background="{DynamicResource IPhoneSteelBackground}" Height="317" HorizontalAlignment="Left" 
 		Margin="62,70,0,0" Name="grid1" VerticalAlignment="Top" Width="450">
 			<Grid.RowDefinitions>
@@ -154,5 +154,28 @@
 			</Grid>
 
 		</Grid>
+	</Grid>-->
+
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"  />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition Width="Auto" MinWidth="149" />
+		</Grid.ColumnDefinitions>
+
+		<Label Content="Message:" Grid.Column="0" Grid.Row="0" Margin="5" />
+		<TextBox Width="Auto" Grid.Column="1" Grid.Row="0" Margin="5,5,10,5" x:Name="ClientNameTextBox"  />
+		<Button Content="AddMessage" Grid.Column="3" Grid.Row="0" Margin="17,5" x:Name="SendButton" Click="ActionSendButtonClick" />
+
+		<ListBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Margin="5" x:Name="MessagesListBox" />
 	</Grid>
+
 </UserControl>
