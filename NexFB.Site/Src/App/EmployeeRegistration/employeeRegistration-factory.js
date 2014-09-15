@@ -18,6 +18,9 @@ mealRegistrationModule.factory('mealRegistrationFactory', ['$http', function ($h
 		},
 		setDefaultRegisterMeal: function (mealRegistration) {
 			return $http.post('/api/MealRegistration/RegisterMealByDefault', mealRegistration);
+		},
+		applyFromTemplate: function () {
+			return $http.put('/api/MealRegistration/ApplyRegisterMealFromTemplate');
 		}
 	};
 } ]);
@@ -62,11 +65,10 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 
 		angular.forEach(week.WeekMeals, function (date) {
 			if (!date.IsDisabled) {
-				var toDay = new Date(),
-				currentDate = new Date(date.WorkDate);
+				var currentDate = new Date(date.WorkDate);
 
 				// Don't effect Sunday and Saturday
-				if (currentDate.getDay() != 0 && currentDate.getDay() != 6) {
+				if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
 					var workDate = !date.IsDisabled ? date.WorkDate.toString() : '';
 
 					if (!onDate) {
@@ -195,6 +197,25 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 				}
 				else {
 					onDate += ',' + workDate;
+				}
+			}
+		});
+
+		return onDate;
+	};
+
+	utility.getDefaultDateInWeek = function (week) {
+		var onDate = '';
+
+		angular.forEach(week, function (date) {
+			var weekDay = date.WeekDay;
+
+			if (weekDay !== 1 && weekDay !== 7) {
+				if (!onDate) {
+					onDate = date.WeekDay;
+				}
+				else {
+					onDate += ',' + date.WeekDay;
 				}
 			}
 		});

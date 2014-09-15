@@ -111,6 +111,24 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
+        /// Apply register meal from template.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult ApplyRegisterMealFromTemplate(ApplyRegisterMealFromTemplateCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
         /// Group meal by date.
         /// </summary>
         /// <param name="rawDefaultMeals">The list meal.</param>

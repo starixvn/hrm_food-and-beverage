@@ -73,6 +73,8 @@
 		</Setting>
 		<Setting Key="RegisterMeal_SetDefault" SpName="RegisterMeal_SetDefault" DbName="NexFB" Plain="0" >
 		</Setting>
+		<Setting Key="RegisterMeal_ApplyFromTemplate" SpName="RegisterMeal_ApplyFromTemplate" DbName="NexFB" Plain="0" >
+		</Setting>
 		<Setting Key="Meal_GetAll" SpName="Meal_GetAll" DbName="NexFB" Plain="0" >
 		</Setting>
 	</Function>

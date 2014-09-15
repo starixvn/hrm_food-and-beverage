@@ -124,6 +124,24 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply.
+        /// </summary>
+        public static string Apply {
+            get {
+                return ResourceManager.GetString("Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning: As the template is applied, all existing registration in the same period will be overwritten.
+        /// </summary>
+        public static string ApplyMealTemplateWarning {
+            get {
+                return ResourceManager.GetString("ApplyMealTemplateWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign Permission To Role.
         /// </summary>
         public static string AssignPermissionToRole {

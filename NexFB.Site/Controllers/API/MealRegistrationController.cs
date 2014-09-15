@@ -105,5 +105,19 @@ namespace NexFB.Site.Controllers.API
 
             return _mealRegistrationService.RegisterMealByDefault(criteria);
         }
+
+        [HttpPut]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Host)]
+        public CommandResult ApplyRegisterMealFromTemplate()
+        {
+            var criteria = new ApplyRegisterMealFromTemplateCriteria
+            {
+                UserId = this.CurrentUser.UserId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
+            };
+
+            return _mealRegistrationService.ApplyRegisterMealFromTemplate(criteria);
+        }
     }
 }

@@ -28,9 +28,14 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
 		});
-	}
+	};
 
-	getRegisterMealByRangeDate(fromDate, toDate, null);
+	$scope.$watch('tabMonthly', function (newValue) {
+		if (newValue === true) {
+			getRegisterMealByRangeDate(fromDate, toDate, null);
+		}
+	});
+
 
 	/*
 	** Get all meal timesheet.
@@ -112,7 +117,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 					currentDate = new Date(date.WorkDate);
 
 				// Don't update Sunday and Saturday
-				if (currentDate.getDay() != 0 && currentDate.getDay() != 6) {
+				if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
 					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
 						mealRegistrationUtilities.updateMealForToDay(date, meals, $scope.mealTimesheet);
 					}
@@ -295,11 +300,21 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 mealRegistrationModule.controller('DefaultRegisterMeal',
 ['$scope', 'mealRegistrationFactory', 'notificationFactory', '$modal', 'ErrorFactory', 'mealRegistrationUtilities',
 function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFactory, mealRegistrationUtilities) {
+	/*
+	** Get default register meal.
+	*/
+	var getDefaultRegisterMeal = function () {
+		mealRegistrationFactory.getDefaultRegisterMeal().success(function (weekMeals) {
+			$scope.weekMeals = weekMeals;
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+	};
 
-	mealRegistrationFactory.getDefaultRegisterMeal().success(function (weekMeals) {
-		$scope.weekMeals = weekMeals
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	$scope.$watch('tabDefault', function (newValue) {
+		if (newValue === true) {
+			getDefaultRegisterMeal();
+		}
 	});
 
 	/* 
@@ -347,6 +362,86 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 					notificationFactory.error("DataChangeFail");
 				}
 			});
+		});
+	};
+
+	/*
+	** Register meal for a week.
+	*/
+	var updatedDefaultMealToWeek = function (week, meals) {
+		angular.forEach(week, function (date) {
+			var weekDay = date.WeekDay;
+
+			// Don't update Sunday and Saturday
+			if (weekDay !== 1 && weekDay !== 7) {
+				date.Meals = angular.copy(meals);
+			}
+		});
+	};
+
+	$scope.registerMealWeek = function (weekMeals) {
+		var modalAssignInstance = $modal.open({
+			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+			controller: "RegisterMealController",
+			resolve: {
+				meals: function () {
+					return angular.copy(weekMeals[0].Meals);
+				},
+				workDate: function () {
+					return '';
+				},
+				mealTimesheet: function () {
+					return '';
+				},
+				mode: function () {
+					return 'default';
+				}
+			}
+		});
+
+		modalAssignInstance.result.then(function (registrationInfo) {
+			var mealRegistration = {
+				meal: registrationInfo.mealsTemplate,
+				dayofWeek: mealRegistrationUtilities.getDefaultDateInWeek(weekMeals)
+			};
+
+			mealRegistrationFactory.setDefaultRegisterMeal(mealRegistration).success(function (response) {
+				if (response.IsSuccessful === true) {
+					updatedDefaultMealToWeek(weekMeals, registrationInfo.meals);
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("DataChangeFail");
+				}
+			});
+		});
+	};
+
+	/*
+	** Apply template.
+	*/
+	$scope.apply = function () {
+		mealRegistrationFactory.applyFromTemplate().success(function (response) {
+			if (response.IsSuccessful === true) {
+				notificationFactory.success("DataChangeSuccessfully");
+			}
+			else {
+				notificationFactory.error("", response.Message);
+			}
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorFactory.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("DataChangeFail");
+			}
 		});
 	};
 } ]);

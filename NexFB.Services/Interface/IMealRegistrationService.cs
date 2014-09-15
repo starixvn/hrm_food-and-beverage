@@ -26,5 +26,7 @@ namespace NexFB.Services.Interface
         IList<MealDateModel> GetDefaultRegisterMeal(GetRegisterMealByDefaultCriteria criteria);
 
         CommandResult RegisterMealByDefault(SetRegisterMealByDefaultCriteria criteria);
+
+        CommandResult ApplyRegisterMealFromTemplate(ApplyRegisterMealFromTemplateCriteria criteria);
     }
 }
