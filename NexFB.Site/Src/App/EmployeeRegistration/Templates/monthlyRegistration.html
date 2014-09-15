@@ -1,8 +1,8 @@
 ﻿<div ng-controller="MonthlyRegistrationController">
-	<div>
-		<span class="monthlyHeader">{{currentDate | date:'MMM y'}}</span>
-		<span ng-click="changeMonth(-1)">Prev</span>
-		<span ng-click="changeMonth(1)">Next</span>
+	<div class="title-registration">
+		<span ng-click="changeMonth(-1)" class="btn btn-default btn-prev" title="Prev"><i class="glyphicon glyphicon-chevron-left icon-prev"></i></span>
+        <span class="monthlyHeader">{{currentDate | date:'MMM y'}}</span>		
+		<span ng-click="changeMonth(1)" class="btn btn-default btn-next" title="Next"><i class="glyphicon glyphicon-chevron-right icon-next"></i></span>
 	</div>
 
 	<table class="table table-bordered table-register" ng-if="policy.permission >= 1">

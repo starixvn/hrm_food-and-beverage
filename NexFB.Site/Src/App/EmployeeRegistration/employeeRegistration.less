@@ -4,10 +4,30 @@
 	font-weight: bold;
 }
 
-.monthlyHeader {
-	font-weight: bold;
-	font-size: 25px;
+.title-registration {
+	margin: 10px auto;
+	text-align: center;
+
+	.monthlyHeader {
+		font-weight: bold;
+		font-size: @font-size + 7;
+		color: #5e5e5e;
+		text-transform: uppercase;
+	}
+
+	.btn-next, .btn-prev {
+		font-size: @font-size - 3;
+		margin: -8px 7px 0;
+		padding: 0 5px;
+		background: none;
+		line-height: 20px;
+
+		.icon-prev, .icon-next {
+			color: #777;
+		}
+	}
 }
+
 
 .target-tabset.tabset-registration {
 	.nav-tabs {
