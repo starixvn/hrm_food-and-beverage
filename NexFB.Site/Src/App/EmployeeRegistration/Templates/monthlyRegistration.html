@@ -5,41 +5,66 @@
 		<span ng-click="changeMonth(1)">Next</span>
 	</div>
 
-	<table class="table table-bordered table-register">
+	<table class="table table-bordered table-register" ng-if="policy.permission >= 1">
 		<thead>
 			<tr>
 				<th class="width-100">
-					<a href="" ng-click="registerMealMonth(allWeekMeals)">{{currentDate | date:'MMM y'}}</a>
+					<a href="" ng-click="registerMealMonth(allWeekMeals)" ng-if="policy.permission == 2">
+						{{currentDate | date:'MMM y'}}
+					</a>
+					<span ng-if="policy.permission == 1">{{currentDate | date:'MMM y'}}
+					</span>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Sun', allWeekMeals)" data-translate="Sun"></a>
+					<a href="" ng-click="registerMealDate('Sun', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Sun">
+					</a>
+					<span ng-if="policy.permission == 1" data-translate="Sun">
+					</span>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Mon', allWeekMeals)" data-translate="Mon"></a>
+					<a href="" ng-click="registerMealDate('Mon', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Mon">
+					</a>
+					<span ng-if="policy.permission == 1" data-translate="Mon">
+					</span>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Tue', allWeekMeals)" data-translate="Tue"></a>
+					<a href="" ng-click="registerMealDate('Tue', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Tue">
+					</a>
+					<span ng-if="policy.permission == 1" data-translate="Tue">
+					</span>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Wed', allWeekMeals)" data-translate="Wed"></a>
+					<a href="" ng-click="registerMealDate('Wed', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Wed">
+					</a>
+					<span ng-if="policy.permission == 1" data-translate="Wed">
+					</span>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Thu', allWeekMeals)" data-translate="Thu"></a>
+					<a href="" ng-click="registerMealDate('Thu', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Thu">
+					</a>
+					<span ng-if="policy.permission == 1" data-translate="Thu">
+					</span>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Fri', allWeekMeals)" data-translate="Fri"></a>
+					<a href="" ng-click="registerMealDate('Fri', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Fri">
+					</a>
+					<span ng-if="policy.permission == 1" data-translate="Fri">
+					</span>
 				</th>
 				<th>
-					<a href="" ng-click="registerMealDate('Sat', allWeekMeals)" data-translate="Sat"></a>
+					<a href="" ng-click="registerMealDate('Sat', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Sat">
+					</a>
+					<span ng-if="policy.permission == 1" data-translate="Sat">
+					</span>
 				</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="week in allWeekMeals">
 				<td class="text-center lbl-week" >
-					<a href="" ng-click="registerMealWeek(week)">{{"Week" | translate}} {{$index + 1}}</a>
+					<a href="" ng-click="policy.permission != 2 || registerMealWeek(week)">{{"Week" | translate}} {{$index + 1}}</a>
                 </td>
-                <td ng-repeat="date in week.WeekMeals" ng-click="date.IsDisabled || registerMeal(date)"
+                <td ng-repeat="date in week.WeekMeals" ng-click="policy.permission != 2 || date.IsDisabled || registerMeal(date)"
 					ng-class="{disabled: date.IsDisabled, current: checkCurrentDate(date) }" >
                     <span class="pull-right" ng-bind="date.WorkDate | date: 'd'">
 					</span>

@@ -21,6 +21,9 @@ mealRegistrationModule.factory('mealRegistrationFactory', ['$http', function ($h
 		},
 		applyFromTemplate: function () {
 			return $http.put('/api/MealRegistration/ApplyRegisterMealFromTemplate');
+		},
+		getUserPermissionOnRegistration: function () {
+			return $http.get('/api/MealRegistration/GetUserPermissionOnRegistration');
 		}
 	};
 } ]);

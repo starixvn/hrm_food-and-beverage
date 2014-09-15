@@ -56,7 +56,7 @@ namespace NexFB.Web.Services.Implement
                 switch (policy)
                 {
                     case Policy.None:
-                        return true;
+                        return false;
 
                     case Policy.Read:
                         return currentFunction.IsRead || currentFunction.IsHost;

@@ -20,6 +20,8 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.Web.Attributes;
+    using NexFB.Web.Services.Implement;
+    using NexFB.Web.Services.Interface;
 
     /// <summary>
     /// Registration Meal controller.
@@ -27,15 +29,19 @@ namespace NexFB.Site.Controllers.API
     public class MealRegistrationController : BaseController
     {
         private readonly IMealRegistrationService _mealRegistrationService;
+        private readonly IWebCommonService _webCommonService;
 
         public MealRegistrationController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public MealRegistrationController(IMealRegistrationService mealRegistrationService)
+        public MealRegistrationController(
+            IMealRegistrationService mealRegistrationService,
+            IWebCommonService webCommonService)
         {
             _mealRegistrationService = mealRegistrationService ?? new MealRegistrationService();
+            _webCommonService = webCommonService ?? new WebCommonService();
         }
 
         /// <summary>
@@ -118,6 +124,12 @@ namespace NexFB.Site.Controllers.API
             };
 
             return _mealRegistrationService.ApplyRegisterMealFromTemplate(criteria);
+        }
+
+        public int GetUserPermissionOnRegistration()
+        {
+            int policy = _webCommonService.GetPermission(FBFunctionKey.Registration);
+            return policy;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿<div ng-controller="DefaultRegisterMeal">
-	<table class="table table-bordered table-register">
+	<table class="table table-bordered table-register" ng-if="policy.permission >= 1">
 		<thead>
 			<tr>
 				<th class="width-100">
@@ -23,9 +23,9 @@
 		<tbody>
 			<tr>
 				<td class="text-center lbl-week" >
-					<a href="" ng-click="registerMealWeek(weekMeals)">{{"AllWeek" | translate}}</a>
+					<a href="" ng-click="policy.permission != 2 || registerMealWeek(weekMeals)">{{"AllWeek" | translate}}</a>
 				</td>
-				<td ng-repeat="date in weekMeals" ng-click="registerMeal(date)">
+				<td ng-repeat="date in weekMeals" ng-click="policy.permission != 2 || registerMeal(date)">
 					<div ng-repeat="meal in date.Meals">
 						<span get-class-by-name ng-class="mealClass" ng-show="meal.IsVegetarian != null" class="txt-name">{{meal.ShortName}}:
 						</span> 
@@ -50,9 +50,9 @@
 			<li><i class="icon-veg"></i>{{"Vegetarian" | translate}}</li>
 		</ul>
 	</div>
-	<div>
+	<div ng-if="policy.permission == 2">
 		<div data-translate="ApplyMealTemplateWarning"></div>
-		<button class="button" ng-click="apply()" ng-disabled="disabledSubmitButton"
+		<button class="button" ng-click="apply()" ng-disabled="disabledSubmitButton" 
 			data-translate="Apply">
 		</button>
 	</div>

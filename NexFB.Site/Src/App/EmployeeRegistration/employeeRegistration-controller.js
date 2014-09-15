@@ -2,9 +2,17 @@
 /*global mealRegistrationModule*/
 
 mealRegistrationModule.controller('EmployeeRegistrationMealController',
-['$scope', 'mealRegistrationFactory', 'mealRegistrationUtilities',
-function ($scope, mealRegistrationFactory, mealRegistrationUtilities) {
+['$scope', 'mealRegistrationFactory', 'mealRegistrationUtilities', 'notificationFactory',
+function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificationFactory) {
 	mealRegistrationUtilities.getTabHeading($scope);
+
+	mealRegistrationFactory.getUserPermissionOnRegistration().success(function (permission) {
+		$scope.policy = {
+			permission: permission
+		};
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
 } ]);
 
 mealRegistrationModule.controller('MonthlyRegistrationController',
@@ -36,6 +44,20 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		}
 	});
 
+	/*
+	** Check current date is today or not.
+	*/
+	$scope.checkCurrentDate = function (date) {
+		var toDay = new Date(),
+			workDate = new Date(date.WorkDate);
+
+		if (toDay.getYear() === workDate.getYear() && toDay.getMonth() === workDate.getMonth() && 
+				toDay.getDate() === workDate.getDate()) {
+			return true;
+		}
+
+		return false;
+	};
 
 	/*
 	** Get all meal timesheet.
