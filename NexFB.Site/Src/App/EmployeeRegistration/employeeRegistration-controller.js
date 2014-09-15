@@ -2,8 +2,8 @@
 /*global mealRegistrationModule*/
 
 mealRegistrationModule.controller('EmployeeRegistrationMealController',
-['$scope', 'mealRegistrationFactory', 'mealRegistrationUtilities', 'notificationFactory',
-function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificationFactory) {
+['$scope', 'mealRegistrationFactory', 'mealRegistrationUtilities', 'notificationFactory', '$route',
+function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificationFactory, $route) {
 	mealRegistrationUtilities.getTabHeading($scope);
 
 	mealRegistrationFactory.getUserPermissionOnRegistration().success(function (permission) {
@@ -13,6 +13,10 @@ function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificati
 	}).error(function () {
 		notificationFactory.error("ErrorMessage");
 	});
+
+	$scope.reload = function () {
+		$route.reload();
+	};
 } ]);
 
 mealRegistrationModule.controller('MonthlyRegistrationController',
@@ -351,7 +355,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 					return angular.copy(date.Meals);
 				},
 				workDate: function () {
-					return '';
+					return date.WeekDay;
 				},
 				mealTimesheet: function () {
 					return '';
@@ -484,6 +488,9 @@ function (meals, $scope, workDate, $modalInstance, mealTimesheet, mode) {
 		$scope.workDate = workDate;
 		$scope.isRegisterDate = workDate !== '' ? true : false;
 		$scope.mealTimesheet = mealTimesheet;
+	}
+	else if (mode === 'default' && workDate) {
+		$scope.isRegisterDate = true;
 	}
 
 	$scope.save = function (meals, mealsTemplate) {
