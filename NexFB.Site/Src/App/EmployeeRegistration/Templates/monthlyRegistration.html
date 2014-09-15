@@ -8,50 +8,50 @@
 	<table class="table table-bordered table-register" ng-if="policy.permission >= 1">
 		<thead>
 			<tr>
-				<th class="width-100">
+				<th class="width-percent-9">
 					<a href="" ng-click="registerMealMonth(allWeekMeals)" ng-if="policy.permission == 2">
 						{{currentDate | date:'MMM y'}}
 					</a>
 					<span ng-if="policy.permission == 1">{{currentDate | date:'MMM y'}}
 					</span>
 				</th>
-				<th>
+				<th class="width-percent-13">
 					<a href="" ng-click="registerMealDate('Sun', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Sun">
 					</a>
 					<span ng-if="policy.permission == 1" data-translate="Sun">
 					</span>
 				</th>
-				<th>
+				<th class="width-percent-13">
 					<a href="" ng-click="registerMealDate('Mon', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Mon">
 					</a>
 					<span ng-if="policy.permission == 1" data-translate="Mon">
 					</span>
 				</th>
-				<th>
+				<th class="width-percent-13">
 					<a href="" ng-click="registerMealDate('Tue', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Tue">
 					</a>
 					<span ng-if="policy.permission == 1" data-translate="Tue">
 					</span>
 				</th>
-				<th>
+				<th class="width-percent-13">
 					<a href="" ng-click="registerMealDate('Wed', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Wed">
 					</a>
 					<span ng-if="policy.permission == 1" data-translate="Wed">
 					</span>
 				</th>
-				<th>
+				<th class="width-percent-13">
 					<a href="" ng-click="registerMealDate('Thu', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Thu">
 					</a>
 					<span ng-if="policy.permission == 1" data-translate="Thu">
 					</span>
 				</th>
-				<th>
+				<th class="width-percent-13">
 					<a href="" ng-click="registerMealDate('Fri', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Fri">
 					</a>
 					<span ng-if="policy.permission == 1" data-translate="Fri">
 					</span>
 				</th>
-				<th>
+				<th class="width-percent-13">
 					<a href="" ng-click="registerMealDate('Sat', allWeekMeals)" ng-if="policy.permission == 2" data-translate="Sat">
 					</a>
 					<span ng-if="policy.permission == 1" data-translate="Sat">
