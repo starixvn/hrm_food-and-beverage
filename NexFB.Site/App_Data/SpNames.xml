@@ -117,8 +117,20 @@
       <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location"/>
       <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" Class="Location"/>
     </Setting>
+    <Setting Key="MealOrder_Get_OrderByOrderID" SpName="MealOrder_Get_OrderByOrderID" DbName="NexFB" Plain="0" >
+      <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status"/>
+      <Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status"/>
+      <Mapping DataField="SysId" ObjectProperty="UserId" Class="Employee"/>
+      <Mapping DataField="MenuEngName" ObjectProperty="NameEN" Class="Menu"/>
+      <Mapping DataField="MenuVNMName" ObjectProperty="NameVN" Class="Menu"/>
+      <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location"/>
+      <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" Class="Location"/>
+    </Setting>
     <Setting Key="MealOrder_Insert_RequestByWeb" SpName="MealOrder_Insert_RequestByWeb" DbName="NexFB" Plain="0" >
     </Setting>
-    
+    <Setting Key="MealOrder_Edit_RequestByWeb" SpName="MealOrder_Edit_RequestByWeb" DbName="NexFB" Plain="0" >
+    </Setting>
+    <Setting Key="MealOrder_Cancel_RequestByWeb" SpName="MealOrder_Cancel_RequestByWeb" DbName="NexFB" Plain="0" >
+    </Setting>
   </Function>
 </Functions>

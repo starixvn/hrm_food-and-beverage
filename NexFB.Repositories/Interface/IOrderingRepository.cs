@@ -23,5 +23,7 @@ namespace NexFB.Repositories.Interface
         MealOrderingModel GetMemberNewOrder(ICriteria criteria);
 
         MealOrderingModel GetMemberSavedOrder(ICriteria criteria);
+
+        MealOrderingModel GetOrderById(ICriteria criteria);
     }
 }

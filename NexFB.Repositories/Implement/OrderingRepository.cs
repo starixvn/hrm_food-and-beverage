@@ -135,6 +135,7 @@ namespace NexFB.Repositories.Implement
                             IsOrder = true,
                             Member = e,
                             Menu = m,
+                            CurrentStatus = s
                         };
                         od.Members = new List<OrderMemberModel>();
                         od.Members.Add(memberOrder);
@@ -180,6 +181,48 @@ namespace NexFB.Repositories.Implement
                             IsOrder = true,
                             Member = e,
                             Menu = m,
+                            CurrentStatus = s
+                        };
+
+                        order.Members.Add(memberOrder);
+                        return od;
+                    },
+                    "SysId, CurrentStatusID, MenuID, LocationID",
+                    criteria.GetSpParams());
+            }
+
+            return order;
+        }
+
+        /// <summary>
+        /// Function order by order id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>MealOrdering Model.</returns>
+        public MealOrderingModel GetOrderById(ICriteria criteria)
+        {
+            MealOrderingModel order = null;
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                db.Query<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
+                    (od, e, s, m, l) =>
+                    {
+                        if (order == null)
+                        {
+                            order = od;
+                            od.CreatorOrder = e;
+                            od.MyMeal = m;
+                            od.Status = s;
+                            od.Location = l;
+                            od.Members = new List<OrderMemberModel>();
+                        }
+
+                        var memberOrder = new OrderMemberModel()
+                        {
+                            IsOrder = true,
+                            Member = e,
+                            Menu = m,
+                            CurrentStatus = s
                         };
 
                         order.Members.Add(memberOrder);

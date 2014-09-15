@@ -2,9 +2,10 @@
 /*global orderingModule*/
 
 orderingModule.controller("OrderingController",
-['$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService',
-function ($scope, $route, $timeout, $modal, orderingFactory, orderingService) {
-
+['$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory',
+function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, notificationFactory) {
+	$scope.newOrder = [];
+	$scope.savedOrder = [];
 	//	$scope.counter = 0;
 	//	$scope.onTimeout = function () {
 	//		$scope.counter++;
@@ -32,7 +33,6 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService) {
 	chat.client.newMessage = function (message) {
 		$scope.messages.push({ message: message });
 		$scope.$apply();
-		console.log(message);
 	};
 
 	orderingFactory.getMyOrder()
@@ -46,7 +46,7 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService) {
 	orderingFactory.getAddNewOrder()
 		.success(function (data) {
 			$scope.newOrder = data;
-			orderingService.setMemberNewOrder(data.Members)
+			orderingService.setMemberNewOrder(data.Members);
 		})
 		.error(function () {
 			// TODO
@@ -55,7 +55,7 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService) {
 	orderingFactory.getSavedOrder()
 		.success(function (data) {
 			$scope.savedOrder = data;
-			orderingService.setMemberSavedOrder(data.Members)
+			orderingService.setMemberSavedOrder(data.Members);
 		})
 		.error(function () {
 			// TODO
@@ -90,19 +90,49 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService) {
 	});
 
 	$scope.showAddMember = function (isSavedOrder) {
-		var addMemberModalInstance = $modal.open({
+		$modal.open({
 			templateUrl: '/src/app/Ordering/Templates/AddMember.html',
 			controller: "AddMemberController",
 			resolve: {
 				isSavedOrder: function () {
 					return isSavedOrder;
-				},
-				action: function () {
-					return "delete";
 				}
 			}
 		});
-	}
+	};
+
+	$scope.removeMember = function (index, isSavedOrder) {
+		if (isSavedOrder) {
+			$scope.savedOrder.Members.splice(index, 1);
+		}
+		else {
+			$scope.newOrder.Members.splice(index, 1);
+		}
+	};
+
+	$scope.saveAddOrder = function (order) {
+		//validate
+		orderingFactory.createOrder(order).success(function (response) {
+			if (response.IsSuccessful === true) {
+				notificationFactory.success("DataChangeSuccessfully");
+			}
+			else {
+				notificationFactory.error('', response.Message);
+			}
+		});
+	};
+
+	$scope.editOrder = function (orderId) {
+		$modal.open({
+			templateUrl: '/src/app/Ordering/Templates/EditOrder.html',
+			controller: "EditOrderController",
+			resolve: {
+				orderId: function () {
+					return orderId;
+				}
+			}
+		});
+	};
 } ]);
 
 orderingModule.controller('AddMemberController',
@@ -112,35 +142,40 @@ function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder
 	$scope.departmentId = '1';
 	$scope.add = function (isContinue) {
 		var newMember = $scope.newMember;
-		var member = []
+		var member = {
+			Member: '',
+			Menu: '',
+			IsOrder: true
+		};
 		member.Member = newMember.employee;
 		orderingFactory.getMenuByUserId(member.Member.UserId)
 			.success(function (data) {
 				member.Menu = data;
-				member.IsOrder = true;
-				if (!isSavedOrder) {
-					var members = orderingService.getMemberNewOrder();
-					members.push(member);
-					orderingService.setMemberNewOrder(members);
-				}
-				else {
+				orderingFactory.getOrderByUserId(member.Member.UserId)
+				.success(function (dataStatus) {
+					member.CurrentStatus = dataStatus.Status;
+				})
+				.error(function () {
+					// TODO
+				});
+				if (isSavedOrder) {
 					var savedMembers = orderingService.getMemberSavedOrder();
 					savedMembers.push(member);
 					orderingService.setMemberSavedOrder(savedMembers);
 				}
-				if (isContinue) {
-					
-				}
 				else {
+					var members = orderingService.getMemberNewOrder();
+					members.push(member);
+					orderingService.setMemberNewOrder(members);
+				}
+
+				if (!isContinue) {
 					$modalInstance.close(newMember);
 				}
 			})
 			.error(function () {
 				// TODO
 			});
-
-
-
 	};
 
 	$scope.cancel = function () {
@@ -161,4 +196,70 @@ function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder
 		});
 	};
 
+} ]);
+
+orderingModule.controller('EditOrderController',
+['$scope', '$modalInstance', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory', 'orderId',
+function ($scope, $modalInstance, $modal, orderingFactory, orderingService, notificationFactory, orderId) {
+	//$scope.editOrder = '';
+	orderingFactory.getLocation()
+		.success(function (data) {
+			$scope.locations = data;
+		})
+		.error(function () {
+			// TODO
+		});
+
+	orderingFactory.getOrderById(orderId)
+		.success(function (data) {
+			$scope.order = data;
+			orderingService.setMemberNewOrder(data.Members);
+		})
+		.error(function () {
+			// TODO
+		});
+
+	$scope.showAddMember = function () {
+		$modal.open({
+			templateUrl: '/src/app/Ordering/Templates/AddMember.html',
+			controller: "AddMemberController",
+			resolve: {
+				isSavedOrder: function () {
+					return false;
+				}
+			}
+		});
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
+	};
+
+	$scope.saveEditOrder = function (order) {
+		orderingFactory.editOrder(order).success(function (response) {
+			if (response.IsSuccessful === true) {
+				notificationFactory.success("DataChangeSuccessfully");
+				$modalInstance.close(order);
+			}
+			else {
+				notificationFactory.error('', response.Message);
+			}
+		});
+	};
+
+	$scope.deleteOrder = function (orderId) {
+		orderingFactory.deleteOrder(orderId).success(function (response) {
+			if (response.IsSuccessful === true) {
+				notificationFactory.success("DataChangeSuccessfully");
+				$modalInstance.close();
+			}
+			else {
+				notificationFactory.error('', response.Message);
+			}
+		});
+	};
+
+	$scope.removeMember = function (index) {
+		$scope.order.Members.splice(index, 1);
+	};
 } ]);

@@ -82,6 +82,7 @@ namespace NexFB.Site
                 "~/Src/Components/Extensions/Common/notification-factory.js",
                 "~/Src/Components/Extensions/Directives/fb-directives.js",
                 "~/Src/Components/Extensions/Services/fb-service.js",
+                "~/Src/Components/Extensions/Filters/fb-filter.js",
                 "~/Src/Components/Extensions/Common/common-factory.js"));
         }
     }

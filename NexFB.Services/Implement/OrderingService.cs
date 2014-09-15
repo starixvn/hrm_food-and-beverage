@@ -18,6 +18,7 @@ namespace NexFB.Services.Implement
     using NexFB.Models.Ordering;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
+    using NexFB.Resources;
     using NexFB.Services.Interface;
 
     /// <summary>
@@ -61,6 +62,11 @@ namespace NexFB.Services.Implement
             return orders;
         }
 
+        /// <summary>
+        /// Function to get members for new order.
+        /// </summary>
+        /// <param name="criteria">GetMemberNewOrder Criteria.</param>
+        /// <returns>MealOrdering Model.</returns>
         public MealOrderingModel GetMemberNewOrder(GetMemberNewOrderCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -68,11 +74,20 @@ namespace NexFB.Services.Implement
             if (criteria.IsValid())
             {
                 order = _orderRepository.GetMemberNewOrder(criteria);
+                if (order != null)
+                {
+                    order.IsSavedOrder = false;
+                }
             }
 
             return order;
         }
 
+        /// <summary>
+        /// Function to get members for saved order.
+        /// </summary>
+        /// <param name="criteria">GetMemberSavedOrder Criteria.</param>
+        /// <returns>MealOrdering Model.</returns>
         public MealOrderingModel GetMemberSavedOrder(GetMemberSavedOrderCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -80,18 +95,106 @@ namespace NexFB.Services.Implement
             if (criteria.IsValid())
             {
                 order = _orderRepository.GetMemberSavedOrder(criteria);
+                if (order != null)
+                {
+                    order.IsSavedOrder = true;
+                }
             }
 
             return order;
         }
 
+        /// <summary>
+        /// Function to get order by order id.
+        /// </summary>
+        /// <param name="criteria">GetOrderById Criteria.</param>
+        /// <returns>MealOrdering Model.</returns>
+        public MealOrderingModel GetOrderById(GetOrderByIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            MealOrderingModel order = null;
+            if (criteria.IsValid())
+            {
+                order = _orderRepository.GetOrderById(criteria);
+                if (order != null)
+                {
+                    order.IsSavedOrder = false;
+                }
+            }
+
+            return order;
+        }
+
+        /// <summary>
+        /// Function to insert a order.
+        /// </summary>
+        /// <param name="criteria">Insert Order Criteria.</param>
+        /// <returns>Command Result.</returns>
         public CommandResult InserOrder(InsertOrderCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult result = new CommandResult();
+            CommandResult result = null;
             if (criteria.IsValid())
             {
                 result = Repository.Insert(criteria);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Lang.InvalidInputData
+                };
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Function to update a order.
+        /// </summary>
+        /// <param name="criteria">Update Order Criteria.</param>
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateOrder(UpdateOrderCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult result = null;
+            if (criteria.IsValid())
+            {
+                result = Repository.Update(criteria);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Lang.InvalidInputData
+                };
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Function to update a order.
+        /// </summary>
+        /// <param name="criteria">Update Order Criteria.</param>
+        /// <returns>Command Result.</returns>
+        public CommandResult DeleteOrder(DeleteOrderCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult result = null;
+            if (criteria.IsValid())
+            {
+                result = Repository.Delete(criteria);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Lang.InvalidInputData
+                };
             }
 
             return result;

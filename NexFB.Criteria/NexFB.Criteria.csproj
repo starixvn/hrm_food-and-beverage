@@ -74,6 +74,9 @@
     <Compile Include="MealRegistration\GetRegisterMealByRangeDateCriteria.cs" />
     <Compile Include="Kitchen\UndoOrderCriteria.cs" />
     <Compile Include="MealRegistration\SetRegisterMealByDefaultCriteria.cs" />
+    <Compile Include="Ordering\DeleteOrderCriteria.cs" />
+    <Compile Include="Ordering\GetOrderByIdCriteria.cs" />
+    <Compile Include="Ordering\UpdateOrderCriteria.cs" />
     <Compile Include="Ordering\GetMemberSavedOrderCriteria.cs" />
     <Compile Include="Ordering\GetMemberNewOrderCriteria.cs" />
     <Compile Include="Ordering\GetMenuByUserIdCriteria.cs" />

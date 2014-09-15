@@ -13,6 +13,13 @@ orderingModule.factory("orderingFactory",
 			getAddNewOrder: function () {
 				return $http.get('/api/Ordering/GetAddNew');
 			},
+			getOrderByUserId: function (userId) {
+				return $http.get('/api/Ordering/GetOrderByUserId',
+					{
+						params: { userId: userId }
+					}
+				);
+			},
 			getSavedOrder: function () {
 				return $http.get('/api/Ordering/GetSavedOrder');
 			},
@@ -24,8 +31,8 @@ orderingModule.factory("orderingFactory",
 			},
 			getEmployees: function (departmentId, keyWord) {
 				return $http.get('/api/Ordering/GetEmployees',
-					{ 
-						params: { departmentId: departmentId, keyWord: keyWord } 
+					{
+						params: { departmentId: departmentId, keyWord: keyWord }
 					}
 				);
 			},
@@ -35,6 +42,22 @@ orderingModule.factory("orderingFactory",
 						params: { userId: userId }
 					}
 				);
+			},
+			getOrderById: function (orderId) {
+				return $http.get('/api/Ordering/GetOrderById',
+					{
+						params: { orderId: orderId }
+					}
+				);
+			},
+			createOrder: function (order) {
+				return $http.post('/api/Ordering', order);
+			},
+			editOrder: function (order) {
+				return $http.put('/api/Ordering', order);
+			},
+			deleteOrder: function (orderId) {
+				return $http['delete']('/api/Ordering', { params: { orderId: orderId} });
 			}
 		};
 	} ]

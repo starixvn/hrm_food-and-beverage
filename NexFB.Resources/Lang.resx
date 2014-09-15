@@ -339,10 +339,22 @@
   <data name="AllWeek" xml:space="preserve">
     <value>All week</value>
   </data>
+  <data name="InvalidInputData" xml:space="preserve">
+    <value>Invalid input data</value>
+  </data>
   <data name="Apply" xml:space="preserve">
     <value>Apply</value>
   </data>
+  <data name="EditOrder" xml:space="preserve">
+    <value>Edit order</value>
+  </data>
   <data name="ApplyMealTemplateWarning" xml:space="preserve">
     <value>Warning: As the template is applied, all existing registration in the same period will be overwritten</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
 </root>

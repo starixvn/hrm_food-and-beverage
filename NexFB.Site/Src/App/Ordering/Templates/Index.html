@@ -43,7 +43,9 @@
                     {{$index + 1}}
                 </td>
                 <td class="lbl-preparing">
-                    {{order.Status.Name}}
+					<a ng-click="editOrder(order.OrderId)">
+						{{order.Status.Name}}
+					</a>
                 </td>
                 <td>
                     {{order.CreatorOrder.FullName}}
@@ -52,7 +54,7 @@
                     {{order.CreatorOrder.NickName}}
                 </td>
                 <td class="text-center">
-                    {{order.ModifiedDate}}
+                    {{order.ModifiedDate | customDate}}
                 </td>
                 <td>
                     <ul class="list-order list-unstyled" ng-repeat = "menu in order.MenuQuantity">
@@ -104,7 +106,7 @@
 								<li>
 									{{food.Name}}
 								</li>
-								<li>
+								<li class="foodEN">
 									{{food.NameEN}}
 								</li>
 							</ul>
@@ -122,10 +124,10 @@
                 <label data-translate="CreateAnOrder"></label>
 			</div>
             <div class="row list-group-item">
-                <div class="col-sm-12 boxtitle first">
+                <div class="col-sm-12 boxtitle" ng-box>
 					<label data-translate="NewOrder"></label>
                 </div>
-                <div class="col-sm-12 boxcontent">
+                <div class="col-sm-12 boxcontent" ng-class="{'boxcontent-collapse' : newOrder.Status != null}">
                     <div class="row form-inline form-order">
                         <div class="form-group">
                             <label data-translate="Location"></label>
@@ -156,17 +158,18 @@
                         <tbody>
                             <tr ng-repeat = "member in newOrder.Members">
 								<td class="text-center">{{$index + 1}}</td>
-								<td>
+								<td ng-class="{'is-ordered' : member.CurrentStatus != null}">
 									<span>{{member.Member.NickName}}</span>
+									<span ng-show="member.CurrentStatus != null">(Ordered)</span>
 								</td>
 								<td>
-									<span>{{member.Menu.Name}}</span>
+									<span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
 								</td>
                                 <td class="text-center">
-                                    <a href="#" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
+                                    <a ng-click="removeMember(member, false)" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
                                 </td>
                             </tr>
-							<tr ng-show="newOrder.Members == ''">
+							<tr ng-show="newOrder == '' || newOrder.Members == ''">
 								<td class="empty-result" colspan="4" data-translate="EmptyResult">
 								</td>
 							</tr>
@@ -175,11 +178,11 @@
                     <div class="row form-inline form-order">
                         <div class="form-group">
                             <label data-translate="Remark"></label>
-                            <input ng-model="newOrder.Remark" type="text" class="txt-remark" />
+                            <input ng-model="newOrder.Remark" type="text" class="txt-remark" maxlength="500"/>
                         </div>
                         <div class="form-group">
                             <label data-translate="Phone"></label>
-                            <input ng-model="newOrder.Phone" type="text" />
+                            <input ng-model="newOrder.Phone" type="text" maxlength="50"/>
                         </div>
                     </div>
                     <div class="row row-cust">
@@ -187,13 +190,13 @@
                             <i class="glyphicon glyphicon-exclamation-sign icon-warning"></i>
 							<label data-translate="WarningGroupNotSave"></label>
                         </p>
-                        <button ng-click="SaveOrder()" class="button btn-order" data-translate="Order"></button>
+                        <button ng-click="saveAddOrder(newOrder)" class="button btn-order" data-translate="Order"></button>
                     </div>
                 </div>
-                <div class="col-sm-12 boxtitle">
+                <div class="col-sm-12 boxtitle second">
 					<label data-translate="SavedOrder"></label>
 				</div>
-                <div class="col-sm-12 boxcontent">
+                <div class="col-sm-12 boxcontent boxcontent-collapse">
                     <div class="row form-inline form-order">
                         <div class="form-group">
                             <label data-translate="Location">
@@ -225,37 +228,43 @@
                             </tr>
                         </thead>
 						<tbody>
-                            <tr  ng-repeat = "member in savedOrder.Members">
+                            <tr ng-repeat = "member in savedOrder.Members">
 								<td class="text-center">{{$index + 1}}</td>
-								<td>
+								<td ng-class="{'is-ordered' : member.CurrentStatus != null}">
 									<span>{{member.Member.NickName}}</span>
+									<span ng-show="member.CurrentStatus != null">(Ordered)</span>
 								</td>
 								<td>
-									<span>{{member.Menu.Name}}</span>
+									<span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
 								</td>
 								<td class="text-center">
-                                    <input type="checkbox" checked/>
+                                    <input type="checkbox" ng-checked="member.CurrentStatus == null" ng-disabled="member.CurrentStatus != null"/>
                                 </td>
                                 <td class="text-center">
-                                    <a href="#" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
+                                    <a ng-click="removeMember($index, true)" ng-show="member.Member.UserId != savedOrder.CreatorOrder.UserId"
+									class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
                                 </td>
                             </tr>
+							<tr ng-show="savedOrder == '' || savedOrder.Members == ''">
+								<td class="empty-result" colspan="5" data-translate="EmptyResult">
+								</td>
+							</tr>
                         </tbody>
                     </table>
                     <div class="row form-inline form-order">
                         <div class="form-group">
                             <label data-translate="Remark">
                             </label>
-                            <input ng-model="savedOrder.Remark" type="text" class="txt-remark" />
+                            <input ng-model="savedOrder.Remark" type="text" class="txt-remark" maxlength="500"/>
                         </div>
                         <div class="form-group">
                             <label data-translate="Phone">
                             </label>
-                            <input ng-model="savedOrder.Phone" type="text" />
+                            <input ng-model="savedOrder.Phone" type="text" maxlength="50"/>
                         </div>
                     </div>
                     <div class="row row-cust">
-                        <button ng-click="SaveOrder()" class="button btn-order" data-translate="Order">
+                        <button ng-click="saveAddOrder(savedOrder)" class="button btn-order" data-translate="Order">
                         </button>
                     </div>
                 </div>

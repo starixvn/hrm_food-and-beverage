@@ -11,6 +11,7 @@ namespace NexFB.Criteria.Ordering
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using Fanex.Data.Repository;
     using NexFB.Core.Extensions;
@@ -67,7 +68,7 @@ namespace NexFB.Criteria.Ordering
 
         public override bool IsValid()
         {
-            return true;
+            return Members != null && Members.Any();
         }
     }
 }

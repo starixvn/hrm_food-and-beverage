@@ -13,7 +13,7 @@ namespace NexFB.Criteria.Ordering
     using Fanex.Data.Repository;
 
     /// <summary>
-    /// GetMenuByUserId Criteria.
+    /// GetMemberNewOrder Criteria.
     /// </summary>
     public class GetMemberNewOrderCriteria : CriteriaBase
     {

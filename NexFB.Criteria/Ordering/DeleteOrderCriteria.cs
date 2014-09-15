@@ -1,0 +1,38 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="DeleteOrderCriteria.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Quinn.Vo" date="2014.9.15">Created</change>
+// </history>
+
+namespace NexFB.Criteria.Ordering
+{
+    using System;
+    using Fanex.Data.Repository;
+
+    /// <summary>
+    /// DeleteOrder Criteria.
+    /// </summary>
+    public class DeleteOrderCriteria : CriteriaBase
+    {
+        public int OrderId { get; set; }
+
+        public string Member { get; set; }
+
+        public int ModifiedBy { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
+
+        public override string GetSettingKey()
+        {
+            return "MealOrder_Cancel_RequestByWeb";
+        }
+
+        public override bool IsValid()
+        {
+            return OrderId > 0;
+        }
+    }
+}

@@ -417,3 +417,18 @@ appModule.directive('searchAutoComplete', ['$timeout', function ($timeout) {
 		}
 	};
 } ]);
+
+appModule.directive('ngBox', function () {
+	return function () {
+		$(".boxtitle").on("click", function () {
+			var header = $(this);
+			$('.boxtitle').not(this).each(function () {
+				var headerOther = $(this);
+				var contentOther = headerOther.next();
+				contentOther.slideUp();
+			});
+			var content = header.next();
+			$(content).slideToggle();
+		});
+	};
+});
