@@ -9,6 +9,7 @@
 
 namespace NexFB.Hub
 {
+    using System.Collections.ObjectModel;
     using Microsoft.AspNet.SignalR;
     using Microsoft.AspNet.SignalR.Hubs;
     using NexFB.Criteria.Kitchen;
@@ -17,7 +18,6 @@ namespace NexFB.Hub
     using NexFB.Models.Ordering;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
-using System.Collections.ObjectModel;
 
     /// <summary>
     /// The Order hub.
