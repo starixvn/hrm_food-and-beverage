@@ -53,14 +53,9 @@ namespace NexFB.Hub
 
         #endregion
 
-        public void SendMessage(string message)
-        {
-            Clients.All.newMessage(message);
-        }
-
         public void KitchenNotify(int orderId)
         {
-            Clients.All.kitchenNotify(orderId);
+            SendEditOrderForWeb(orderId);
         }
 
         public void SendNewOrder(int orderId)
@@ -69,15 +64,28 @@ namespace NexFB.Hub
             SendNewOrderForApp(orderId);
         }
 
+        public void SendEditOrder(int orderId)
+        {
+            SendEditOrderForWeb(orderId);
+            SendEditOrderForApp(orderId);
+        }
+
+        public void SendDeleteOrder(int orderId)
+        {
+            Clients.All.deleteOrderForWeb(orderId);
+            Clients.All.deleteOrderForApp(orderId);
+        }
+
         private void SendNewOrderForWeb(int orderId)
         {
-            var criteria = new GetMyOrderByIdCriteria()
-            {
-                OrderId = orderId
-            };
-
-            MealOrderingModel order = _orderService.GetMyOrderById(criteria);
+            MealOrderingModel order = GetOrderById(orderId);
             Clients.All.newOrderForWeb(order);
+        }
+
+        private void SendEditOrderForWeb(int orderId)
+        {
+            MealOrderingModel order = GetOrderById(orderId);
+            Clients.All.editOrderForWeb(order);
         }
 
         private void SendNewOrderForApp(int orderId)
@@ -89,6 +97,35 @@ namespace NexFB.Hub
 
             Order order = _kitchenService.GetMealOrderById(criteria);
             Clients.All.newOrderForApp(order);
+        }
+
+        private void SendEditOrderForApp(int orderId)
+        {
+            var criteria = new GetMealOrderByIdCriteria()
+            {
+                OrderId = orderId
+            };
+
+            Order order = _kitchenService.GetMealOrderById(criteria);
+            Clients.All.newOrderForApp(order);
+        }
+
+        private MealOrderingModel GetOrderById(int orderId)
+        {
+            var criteria = new GetMyOrderByIdCriteria()
+            {
+                OrderId = orderId
+            };
+            MealOrderingModel order = _orderService.GetMyOrderById(criteria);
+            var getOrderByIdCriteria = new GetOrderByIdCriteria()
+            {
+                OrderId = orderId
+            };
+            MealOrderingModel tempOrther = _orderService.GetOrderById(getOrderByIdCriteria);
+
+            order.Members = tempOrther.Members;
+
+            return order;
         }
     }
 }

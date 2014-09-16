@@ -247,5 +247,17 @@ namespace NexFB.Site.Controllers.API
             CommandResult result = _orderService.DeleteOrder(criteria);
             return result;
         }
+
+        public Employee GetCurrentUser()
+        {
+            var user = new Employee()
+            {
+                UserId = this.CurrentUser.UserId,
+                NickName = this.CurrentUser.NickName,
+                FullName = this.CurrentUser.FullName
+            };
+
+            return user;
+        }
     }
 }

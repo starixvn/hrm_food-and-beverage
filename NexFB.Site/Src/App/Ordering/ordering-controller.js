@@ -14,10 +14,77 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 	};
 
 	orderSignalR.client.newOrderForWeb = function (order) {
-		
+		//$scope.currentUser
+		var isRelatedCurrentUser = false;
+		if ($scope.currentUser.UserId === order.CreatorOrder.UserId) {
+			isRelatedCurrentUser = true;
+		}
+		else {
+			angular.forEach(order.Members, function (value) {
+				if (value.Member.UserId === $scope.currentUser.UserId) {
+					isRelatedCurrentUser = true;
+				}
+			});
+		}
 
-		$scope.myOrder.push(order);
-		$scope.$apply();
+		if (isRelatedCurrentUser) {
+			$scope.myOrder.push(order);
+			$scope.$apply();
+		}
+	};
+
+	$scope.sendEditOrder = function (orderId) {
+		orderSignalR.server.sendEditOrder(orderId);
+	};
+
+	orderSignalR.client.editOrderForWeb = function (order) {
+		//$scope.currentUser
+		var indexObject = -1;
+		angular.forEach($scope.myOrder, function (value, index) {
+				if (value.OrderId === order.OrderId) {
+					indexObject = index;
+				}
+			});
+		
+		if (indexObject > -1) {
+			$scope.myOrder.splice(indexObject, 1);
+			$scope.$apply();
+		}
+
+		var isRelatedCurrentUser = false;
+		if ($scope.currentUser.UserId === order.CreatorOrder.UserId) {
+			isRelatedCurrentUser = true;
+		}
+		else {
+			angular.forEach(order.Members, function (value) {
+				if (value.Member.UserId === $scope.currentUser.UserId) {
+					isRelatedCurrentUser = true;
+				}
+			});
+		}
+
+		if (isRelatedCurrentUser) {
+			$scope.myOrder.push(order);
+			$scope.$apply();
+		}
+	};
+
+	$scope.sendDeleteOrder = function (orderId) {
+		orderSignalR.server.sendDeleteOrder(orderId);
+	};
+
+	orderSignalR.client.deleteOrderForWeb = function (orderId) {
+		var indexObject = -1;
+		angular.forEach($scope.myOrder, function (value, index) {
+				if (value.OrderId === orderId) {
+					indexObject = index;
+				}
+			});
+
+		if (indexObject > -1) {
+			$scope.myOrder.splice(indexObject, 1);
+			$scope.$apply();
+		}
 	};
 
 	orderingFactory.getMyOrder()
@@ -103,7 +170,6 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 		orderingFactory.createOrder(order).success(function (response) {
 			if (response.result.IsSuccessful === true) {
 				notificationFactory.success("DataChangeSuccessfully");
-				debugger;
 				$scope.sendNewOrder(response.orderId);
 			}
 			else {
@@ -113,7 +179,7 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 	};
 
 	$scope.editOrder = function (orderId) {
-		$modal.open({
+		var modalInstance = $modal.open({
 			templateUrl: '/src/app/Ordering/Templates/EditOrder.html',
 			controller: "EditOrderController",
 			resolve: {
@@ -122,7 +188,27 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 				}
 			}
 		});
+
+		modalInstance.result.then(function (receiveObject) {
+			if (receiveObject.isDeleted) {
+				$scope.sendDeleteOrder(receiveObject.orderId);
+			}
+			else {
+				$scope.sendEditOrder(receiveObject.order.OrderId);
+			}
+		}, function () {
+			// TODO
+		});
 	};
+
+	orderingFactory.getCurrentUser()
+		.success(function (data) {
+			$scope.currentUser = data;
+			orderingService.setCurrentUser(data);
+		})
+		.error(function () {
+			// TODO
+		});
 } ]);
 
 orderingModule.controller('AddMemberController',
@@ -197,7 +283,7 @@ function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder
 orderingModule.controller('EditOrderController',
 ['$scope', '$modalInstance', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory', 'orderId',
 function ($scope, $modalInstance, $modal, orderingFactory, orderingService, notificationFactory, orderId) {
-	//$scope.editOrder = '';
+
 	orderingFactory.getLocation()
 		.success(function (data) {
 			$scope.locations = data;
@@ -238,7 +324,12 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		orderingFactory.editOrder(order).success(function (response) {
 			if (response.IsSuccessful === true) {
 				notificationFactory.success("DataChangeSuccessfully");
-				$modalInstance.close(order);
+				var returnObject = {
+					order: order,
+					isDeleted: false,
+					orderId: 0,
+				};
+				$modalInstance.close(returnObject);
 			}
 			else {
 				notificationFactory.error('', response.Message);
@@ -250,7 +341,12 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		orderingFactory.deleteOrder(orderId).success(function (response) {
 			if (response.IsSuccessful === true) {
 				notificationFactory.success("DataChangeSuccessfully");
-				$modalInstance.close();
+				var returnObject = {
+					order: [],
+					isDeleted: true,
+					orderId: orderId,
+				};
+				$modalInstance.close(returnObject);
 			}
 			else {
 				notificationFactory.error('', response.Message);

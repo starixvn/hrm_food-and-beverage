@@ -4,6 +4,9 @@
 orderingModule.factory("orderingFactory",
 	['$http', function ($http) {
 		return {
+			getCurrentUser: function () {
+				return $http.get('/api/Ordering/GetCurrentUser');
+			},
 			getLocation: function () {
 				return $http.get('/api/Common/GetAllLocation');
 			},
