@@ -18,6 +18,11 @@ namespace NexFB.Models.Ordering
     /// </summary>
     public class MealOrderingModel
     {
+        public MealOrderingModel()
+        {
+            Members = new List<OrderMemberModel>();
+        }
+
         public int OrderId { get; set; }
 
         public IList<OrderMemberModel> Members { get; set; }

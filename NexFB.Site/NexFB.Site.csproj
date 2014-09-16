@@ -186,7 +186,6 @@
     <Compile Include="Controllers\API\ResourceController.cs" />
     <Compile Include="Controllers\API\UserControlController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\ChatHub.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -402,6 +401,10 @@
     <ProjectReference Include="..\NexFB.Criteria\NexFB.Criteria.csproj">
       <Project>{CF5EBF21-A3AA-4068-8149-CE1B8BD85C7C}</Project>
       <Name>NexFB.Criteria</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexFB.Hub\NexFB.Hubs.csproj">
+      <Project>{DB977AFA-8F8A-46EF-9B70-4CCEB0B2B615}</Project>
+      <Name>NexFB.Hubs</Name>
     </ProjectReference>
     <ProjectReference Include="..\NexFB.Models\NexFB.Models.csproj">
       <Project>{487D35C7-B5F4-4CA5-902B-7C300569912F}</Project>

@@ -187,7 +187,7 @@ namespace NexFB.Site.Controllers.API
         /// <returns>Command Result.</returns>
         [HttpPost]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
-        public CommandResult Post(MealOrderingModel model)
+        public object Post(MealOrderingModel model)
         {
             var criteria = new InsertOrderCriteria() 
             { 
@@ -201,7 +201,7 @@ namespace NexFB.Site.Controllers.API
             };
 
             CommandResult result = _orderService.InserOrder(criteria);
-            return result;
+            return new { result = result, orderId = criteria.OrderId };
         }
 
         /// <summary>

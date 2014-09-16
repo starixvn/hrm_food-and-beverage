@@ -62,6 +62,18 @@ namespace NexFB.Services.Implement
             return orders;
         }
 
+        public MealOrderingModel GetMyOrderById(GetMyOrderByIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var order = new MealOrderingModel();
+            if (criteria.IsValid())
+            {
+                order = _orderRepository.GetMyOrderById(criteria);
+            }
+
+            return order;
+        }
+
         /// <summary>
         /// Function to get members for new order.
         /// </summary>
@@ -70,7 +82,7 @@ namespace NexFB.Services.Implement
         public MealOrderingModel GetMemberNewOrder(GetMemberNewOrderCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            MealOrderingModel order = null;
+            var order = new MealOrderingModel();
             if (criteria.IsValid())
             {
                 order = _orderRepository.GetMemberNewOrder(criteria);
@@ -91,7 +103,7 @@ namespace NexFB.Services.Implement
         public MealOrderingModel GetMemberSavedOrder(GetMemberSavedOrderCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            MealOrderingModel order = null;
+            var order = new MealOrderingModel();
             if (criteria.IsValid())
             {
                 order = _orderRepository.GetMemberSavedOrder(criteria);
@@ -136,7 +148,7 @@ namespace NexFB.Services.Implement
             CommandResult result = null;
             if (criteria.IsValid())
             {
-                result = Repository.Insert(criteria);
+                result = Repository.Insert(criteria, hasGetOutputParams: true);
             }
             else
             {

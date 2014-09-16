@@ -54,7 +54,7 @@ namespace NexFB.Core.Repositories
                 hash = (new ResultCriteria()).AddSpParams(hash);
                 int result = db.ExecuteNonQuery(hash);
 
-                if (result == 1 && hasGetOutputParams)
+                if (result == -1 && hasGetOutputParams)
                 {
                     SetValueForOutputProperty(criteria, hash);
                 }

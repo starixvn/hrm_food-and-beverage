@@ -118,13 +118,78 @@ namespace NexFB.Repositories.Implement
         }
 
         /// <summary>
+        /// Function to get my orders in current day.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>List of MealOrderingModel.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        public MealOrderingModel GetMyOrderById(ICriteria criteria)
+        {
+            IList<MealOrderingModel> orders = new List<MealOrderingModel>();
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    var data = multi.Read<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
+                        (od, e, s, m, l) =>
+                        {
+                            od.CreatorOrder = e;
+                            od.MyMeal = m;
+                            od.Status = s;
+                            od.Location = l;
+                            return od;
+                        },
+                    "OrderBy, CurrentStatusID, MealENGName, LocationID");
+
+                    if (data != null)
+                    {
+                        var ordersQuatity = multi.Read<MenuQuantityModel, dynamic, MenuQuantityModel>(
+                        (q, m) =>
+                        {
+                            q.Menu = new Menu()
+                            {
+                                NameEN = m.MealENGName,
+                                NameVN = m.MealVNMName
+                            };
+                            return q;
+                        },
+                        "MealENGName");
+
+                        if (ordersQuatity != null)
+                        {
+                            foreach (MealOrderingModel order in data)
+                            {
+                                foreach (MenuQuantityModel menu in ordersQuatity)
+                                {
+                                    if (order.OrderId == menu.OrderId)
+                                    {
+                                        if (order.MenuQuantity == null)
+                                        {
+                                            order.MenuQuantity = new List<MenuQuantityModel>();
+                                        }
+
+                                        order.MenuQuantity.Add(menu);
+                                    }
+                                }
+
+                                orders.Add(order);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return orders.SingleOrDefault();
+        }
+
+        /// <summary>
         /// Function to get member for new order.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>MealOrdering Model.</returns>
         public MealOrderingModel GetMemberNewOrder(ICriteria criteria)
         {
-            MealOrderingModel order = null;
+            var order = new MealOrderingModel();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 order = db.QueryEntity<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
@@ -160,7 +225,7 @@ namespace NexFB.Repositories.Implement
         /// <returns>MealOrdering Model.</returns>
         public MealOrderingModel GetMemberSavedOrder(ICriteria criteria)
         {
-            MealOrderingModel order = null;
+            var order = new MealOrderingModel();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 db.Query<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
@@ -204,13 +269,13 @@ namespace NexFB.Repositories.Implement
             MealOrderingModel order = null;
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                db.Query<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
-                    (od, e, s, m, l) =>
+                db.Query<MealOrderingModel, Employee, Employee, Status, Menu, Location, MealOrderingModel>(
+                    (od, cr, e, s, m, l) =>
                     {
                         if (order == null)
                         {
                             order = od;
-                            od.CreatorOrder = e;
+                            od.CreatorOrder = cr;
                             od.MyMeal = m;
                             od.Status = s;
                             od.Location = l;
@@ -228,7 +293,7 @@ namespace NexFB.Repositories.Implement
                         order.Members.Add(memberOrder);
                         return od;
                     },
-                    "SysId, CurrentStatusID, MenuID, LocationID",
+                    "OrderBy, SysId, CurrentStatusID, MenuID, LocationID",
                     criteria.GetSpParams());
             }
 

@@ -43,7 +43,7 @@
                     {{$index + 1}}
                 </td>
                 <td class="lbl-preparing">
-					<a ng-click="editOrder(order.OrderId)">
+					<a href="javascript:;" ng-click="editOrder(order.OrderId)">
 						{{order.Status.Name}}
 					</a>
                 </td>
@@ -112,7 +112,7 @@
 							</ul>
                         </td>
                     </tr>
-					<tr ng-show="menu.FoodItems == ''">
+					<tr ng-show="menu == 'null' || menu.FoodItems == ''">
 						<td class="empty-result" colspan="2" data-translate="EmptyResult">
 						</td>
 					</tr>

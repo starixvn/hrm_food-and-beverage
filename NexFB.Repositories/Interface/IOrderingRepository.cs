@@ -20,6 +20,8 @@ namespace NexFB.Repositories.Interface
 
         IList<MealOrderingModel> GetMyOrderByCurrentDay(ICriteria criteria);
 
+        MealOrderingModel GetMyOrderById(ICriteria criteria);
+
         MealOrderingModel GetMemberNewOrder(ICriteria criteria);
 
         MealOrderingModel GetMemberSavedOrder(ICriteria criteria);

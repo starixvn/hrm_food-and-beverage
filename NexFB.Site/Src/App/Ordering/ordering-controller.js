@@ -15,23 +15,26 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 	//	var mytimeout = $timeout($scope.onTimeout, 1000);
 
 	$.connection.hub.start();
-	var chat = $.connection.chat;
+	var orderSignalR = $.connection.order;
 	//chat.hubs.start();
-	$scope.messages = [];
-	$scope.sendMessage = function () {
-		//signalRSvc.sendRequest();
-		chat.server.sendMessage($scope.newMessage);
-		$scope.newMessage = "";
-	};
+	//	$scope.messages = [];
+	//	$scope.sendMessage = function () {
+	//		//signalRSvc.sendRequest();
+	//		chat.server.sendMessage($scope.newMessage);
+	//		$scope.newMessage = "";
+	//	};
 
-
-	//	$scope.$parent.$on("newMessage", function (e, message) {
+	//	chat.client.newMessage = function (message) {
 	//		$scope.messages.push({ message: message });
 	//		$scope.$apply();
-	//	});
+	//	};
 
-	chat.client.newMessage = function (message) {
-		$scope.messages.push({ message: message });
+	$scope.sendNewOrder = function (orderId) {
+		orderSignalR.server.sendNewOrder(orderId);
+	};
+
+	orderSignalR.client.newOrderForWeb = function (order) {
+		$scope.myOrder.push(order);
 		$scope.$apply();
 	};
 
@@ -96,6 +99,9 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 			resolve: {
 				isSavedOrder: function () {
 					return isSavedOrder;
+				},
+				isEditOrder: function () {
+					return false;
 				}
 			}
 		});
@@ -113,8 +119,10 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 	$scope.saveAddOrder = function (order) {
 		//validate
 		orderingFactory.createOrder(order).success(function (response) {
-			if (response.IsSuccessful === true) {
+			if (response.result.IsSuccessful === true) {
 				notificationFactory.success("DataChangeSuccessfully");
+				debugger;
+				$scope.sendNewOrder(response.orderId);
 			}
 			else {
 				notificationFactory.error('', response.Message);
@@ -136,8 +144,8 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 } ]);
 
 orderingModule.controller('AddMemberController',
-['$scope', '$modalInstance', 'orderingFactory', 'orderingService', 'isSavedOrder',
-function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder) {
+['$scope', '$modalInstance', 'orderingFactory', 'orderingService', 'isSavedOrder', 'isEditOrder',
+function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder, isEditOrder) {
 	$scope.newMember = {};
 	$scope.departmentId = '1';
 	$scope.add = function (isContinue) {
@@ -158,17 +166,23 @@ function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder
 				.error(function () {
 					// TODO
 				});
-				if (isSavedOrder) {
-					var savedMembers = orderingService.getMemberSavedOrder();
-					savedMembers.push(member);
-					orderingService.setMemberSavedOrder(savedMembers);
+				if (isEditOrder) {
+					var editMembers = orderingService.getMemberEditOrder();
+					editMembers.push(member);
+					orderingService.setMemberEditOrder(editMembers);
 				}
 				else {
-					var members = orderingService.getMemberNewOrder();
-					members.push(member);
-					orderingService.setMemberNewOrder(members);
+					if (isSavedOrder) {
+						var savedMembers = orderingService.getMemberSavedOrder();
+						savedMembers.push(member);
+						orderingService.setMemberSavedOrder(savedMembers);
+					}
+					else {
+						var members = orderingService.getMemberNewOrder();
+						members.push(member);
+						orderingService.setMemberNewOrder(members);
+					}
 				}
-
 				if (!isContinue) {
 					$modalInstance.close(newMember);
 				}
@@ -213,7 +227,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	orderingFactory.getOrderById(orderId)
 		.success(function (data) {
 			$scope.order = data;
-			orderingService.setMemberNewOrder(data.Members);
+			orderingService.setMemberEditOrder(data.Members);
 		})
 		.error(function () {
 			// TODO
@@ -226,6 +240,9 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			resolve: {
 				isSavedOrder: function () {
 					return false;
+				},
+				isEditOrder: function () {
+					return true;
 				}
 			}
 		});
