@@ -14,6 +14,7 @@ namespace NexFB.WinApp.ViewModels
     using System.Collections.ObjectModel;
     using System.Configuration;
     using System.Linq;
+    using System.Media;
     using System.Threading;
     using System.Windows;
     using System.Windows.Documents;
@@ -177,7 +178,7 @@ namespace NexFB.WinApp.ViewModels
             {
                 Connection = new HubConnection(_host);
                 Proxy = Connection.CreateHubProxy("chat");
-                Proxy.On<string>("newMessage", (name) => OnSendData("Recieved addMessage: " + name));
+                Proxy.On<string>("newMessage", (name) => OnSendData(name));
                 Connection.Start();
 
                 while (Active)
@@ -195,9 +196,23 @@ namespace NexFB.WinApp.ViewModels
 
         private void RemoveItemFromList(string message)
         {
-            ////this.WaitingMeals.RemoveAt(0);
-            MessageBox.Show(message);
+            Order item = WaitingMeals.Where(x => x.OrderId == int.Parse(message)).SingleOrDefault();
+            WaitingMeals.Remove(item);
+            SystemSounds.Asterisk.Play();
+            ////System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"c:\mywavfile.wav");
+            ////player.Play();
+            ////MessageBox.Show(message);
         }
+
+        ////private void ActionSendButtonClick(object sender, RoutedEventArgs e)
+        ////{
+        ////    SendMessage();
+        ////}
+
+        ////private Task SendMessage()
+        ////{
+        ////    return Proxy.Invoke("SendMessage", ClientNameTextBox.Text);
+        ////}
 
         #endregion
     }

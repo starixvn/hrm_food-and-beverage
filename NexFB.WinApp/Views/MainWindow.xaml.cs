@@ -22,15 +22,5 @@ namespace NexFB.WinApp
             InitializeComponent();
             this.DataContext = new MainViewModel();
         }
-
-        ////private void ActionSendButtonClick(object sender, RoutedEventArgs e)
-        ////{
-        ////    SendMessage();
-        ////}
-
-        ////private Task SendMessage()
-        ////{
-        ////    return Proxy.Invoke("SendMessage", ClientNameTextBox.Text);
-        ////}
     }
 }

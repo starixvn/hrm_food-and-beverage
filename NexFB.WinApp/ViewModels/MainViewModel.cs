@@ -26,6 +26,7 @@ namespace NexFB.WinApp.ViewModels
         #region Fields
 
         private static readonly OrderFoodViewModel OrderFoodViewModel = new OrderFoodViewModel();
+
         private static DispatcherTimer digitalClock = new DispatcherTimer();
         private static double _screenWidth = SystemParameters.PrimaryScreenWidth;
         private static double _screeHeight = SystemParameters.PrimaryScreenHeight;
