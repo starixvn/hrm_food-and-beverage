@@ -29,7 +29,8 @@
 					<span ng-if="policy.permission == 1">{{"AllWeek" | translate}}
 					</span>
 				</td>
-				<td ng-repeat="date in weekMeals" ng-click="policy.permission != 2 || registerMeal(date)">
+				<td ng-repeat="date in weekMeals" ng-click="policy.permission != 2 || registerMeal(date)"
+					ng-class="{lastChild: $last}">
 					<div ng-repeat="meal in date.Meals">
 						<span get-class-by-name ng-class="mealClass" ng-show="meal.IsVegetarian != null" class="txt-name">{{meal.ShortName}}:
 						</span> 
