@@ -110,6 +110,11 @@ namespace NexFB.Hub
             Clients.All.newOrderForApp(order);
         }
 
+        /// <summary>
+        /// Function to get order by Id for web.
+        /// </summary>
+        /// <param name="orderId">The order id.</param>
+        /// <returns>MealOrdering Model.</returns>
         private MealOrderingModel GetOrderById(int orderId)
         {
             var criteria = new GetMyOrderByIdCriteria()
