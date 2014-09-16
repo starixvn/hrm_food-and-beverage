@@ -12,9 +12,15 @@ namespace NexFB.WinApp.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Configuration;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Threading;
+    using Microsoft.AspNet.SignalR.Client.Hubs;
+    using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
@@ -30,6 +36,7 @@ namespace NexFB.WinApp.ViewModels
         #region Fields
 
         private static ObservableCollection<Order> _awaitingDeliverMeals = new ObservableCollection<Order>();
+        private string _host = ConfigurationManager.AppSettings[Constant.HubHost];
         private string _searchValue;
 
         #endregion
@@ -42,6 +49,7 @@ namespace NexFB.WinApp.ViewModels
 
         public AwaitingDeliverViewModel(string searchValue)
         {
+            ListenToHub();
             SearchValue = searchValue;
             DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (x) => ExecuteDeliverOrderFoodCommand(x));
             AwaitingDeliverMeals = GetAwaitingDeliverMealOrder;
@@ -50,6 +58,14 @@ namespace NexFB.WinApp.ViewModels
         #endregion
 
         #region Properties
+
+        public HubConnection Connection { get; set; }
+
+        public bool Active { get; set; }
+
+        public IHubProxy Proxy { get; set; }
+
+        public Thread Thread { get; set; }
 
         public ICommand DeliverOrderFoodCommand { get; set; }
 
@@ -139,6 +155,8 @@ namespace NexFB.WinApp.ViewModels
                     {
                         Order item = AwaitingDeliverMeals.Where(x => x.OrderId == orderId).SingleOrDefault();
                         AwaitingDeliverMeals.Remove(item);
+                        KitchenNotify(item.OrderId);
+                        AppNotifyReceiveNewOrder(AwaitingDeliverMeals);
                     }
                 }
             }
@@ -146,6 +164,68 @@ namespace NexFB.WinApp.ViewModels
             {
                 MessageBox.Show(Lang.ErrorMessage.ToString());
             }
+        }
+
+        /// <summary>
+        /// Connect to Hub Server.
+        /// </summary>
+        private void ListenToHub()
+        {
+            Active = true;
+            Thread = new System.Threading.Thread(() =>
+            {
+                Connection = new HubConnection(_host);
+                Proxy = Connection.CreateHubProxy("order");
+                Proxy.On<Order>("editReceivedOrder", (order) => OnEditOrder(order));
+                Proxy.On<ObservableCollection<Order>>("appNotifyExportAwaitingOrder", (orders) => SyncDataForApp(orders));
+                Connection.Start();
+
+                while (Active)
+                {
+                    System.Threading.Thread.Sleep(10);
+                }
+            }) { IsBackground = true };
+            Thread.Start();
+        }
+
+        private void OnEditOrder(Order order)
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => EditItemInList(order)));
+        }
+
+        private void SyncDataForApp(ObservableCollection<Order> awaitingDeliveredOrders)
+        {
+            if (awaitingDeliveredOrders != null)
+            {
+                this.AwaitingDeliverMeals = awaitingDeliveredOrders;
+            }
+        }
+
+        /// <summary>
+        /// Method Edit Item In Current AwaitingDeliverMeals List.
+        /// </summary>
+        /// <param name="order">Edited item.</param>
+        private void EditItemInList(Order order)
+        {
+            if (order != null)
+            {
+                int currentStatusId = order.CurrentStatusId;
+                if (currentStatusId == (int)OrderStatus.ReceivedOrder || currentStatusId == (int)OrderStatus.ReducedOrder)
+                {
+                    int index = AwaitingDeliverMeals.IndexOf(AwaitingDeliverMeals.Where(x => x.OrderId == order.OrderId).SingleOrDefault());
+                    AwaitingDeliverMeals[index] = order;
+                }
+            }
+        }
+
+        private Task KitchenNotify(int orderId)
+        {
+            return Proxy.Invoke("KitchenNotify", orderId);
+        }
+
+        private Task AppNotifyReceiveNewOrder(ObservableCollection<Order> awaitingDeliveredOrders)
+        {
+            return Proxy.Invoke("AppNotifyExportAwaitingOrder", awaitingDeliveredOrders);
         }
 
         #endregion

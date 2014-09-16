@@ -162,6 +162,7 @@ namespace NexFB.WinApp.ViewModels
                         Order item = WaitingMeals.Where(x => x.OrderId == orderId).SingleOrDefault();
                         WaitingMeals.Remove(item);
                         KitchenNotify(item.OrderId);
+                        AppNotifyReceiveNewOrder(WaitingMeals);
                     }
                 }
             }
@@ -181,7 +182,9 @@ namespace NexFB.WinApp.ViewModels
             {
                 Connection = new HubConnection(_host);
                 Proxy = Connection.CreateHubProxy("order");
-                Proxy.On<Order>("newOrderForApp", (order) => OnSendData(order));
+                Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
+                Proxy.On<Order>("editNewOrder", (order) => OnEditOrder(order));
+                Proxy.On<ObservableCollection<Order>>("appNotifyReceiveNewOrder", (orders) => SyncDataForApp(orders));
                 Connection.Start();
 
                 while (Active)
@@ -192,9 +195,14 @@ namespace NexFB.WinApp.ViewModels
             Thread.Start();
         }
 
-        private void OnSendData(Order order)
+        private void OnNewOrder(Order order)
         {
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => AddItemToList(order)));
+        }
+
+        private void OnEditOrder(Order order)
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => EditItemInList(order)));
         }
 
         private void AddItemToList(Order order)
@@ -209,9 +217,34 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        private void EditItemInList(Order order)
+        {
+            if (order != null)
+            {
+                if (order.CurrentStatusId == (int)OrderStatus.NewOrder)
+                {
+                    int index = WaitingMeals.IndexOf(WaitingMeals.Where(x => x.OrderId == order.OrderId).SingleOrDefault());
+                    WaitingMeals[index] = order;
+                }
+            }
+        }
+
+        private void SyncDataForApp(ObservableCollection<Order> waitingMeals)
+        {
+            if (waitingMeals != null)
+            {
+                this.WaitingMeals = waitingMeals;
+            }
+        }
+
         private Task KitchenNotify(int orderId)
         {
             return Proxy.Invoke("KitchenNotify", orderId);
+        }
+
+        private Task AppNotifyReceiveNewOrder(ObservableCollection<Order> waitingMeals)
+        {
+            return Proxy.Invoke("AppNotifyReceiveNewOrder", waitingMeals);
         }
 
         #endregion

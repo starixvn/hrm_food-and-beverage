@@ -17,6 +17,7 @@ namespace NexFB.Hub
     using NexFB.Models.Ordering;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
+using System.Collections.ObjectModel;
 
     /// <summary>
     /// The Order hub.
@@ -37,6 +38,20 @@ namespace NexFB.Hub
             _orderService = orderService ?? new OrderingService();
             _kitchenService = kitchenService ?? new KitchenService();
         }
+
+        #region MyRegion
+
+        public void AppNotifyReceiveNewOrder(ObservableCollection<Order> waitingMeals)
+        {
+            Clients.All.appNotifyReceiveNewOrder(waitingMeals);
+        }
+
+        public void AppNotifyExportAwaitingOrder(ObservableCollection<Order> awaitingDeliverMeals)
+        {
+            Clients.All.appNotifyExportAwaitingOrder(awaitingDeliverMeals);
+        }
+
+        #endregion
 
         public void SendMessage(string message)
         {
