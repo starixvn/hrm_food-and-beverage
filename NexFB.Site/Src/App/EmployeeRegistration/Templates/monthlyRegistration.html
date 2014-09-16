@@ -68,7 +68,7 @@
 					<span ng-if="policy.permission == 1">{{"Week" | translate}} {{$index + 1}}</span>
                 </td>
                 <td ng-repeat="date in week.WeekMeals" ng-click="policy.permission != 2 || date.IsDisabled || registerMeal(date)"
-					ng-class="{disabled: date.IsDisabled, current: checkCurrentDate(date), weekend: checkWeekend(date) }" class="pointer">
+					ng-class="{disabled: date.IsDisabled, current: checkCurrentDate(date), weekend: checkWeekend(date), pointer: !date.IsDisabled }" >
                     <span class="pull-right" ng-bind="date.WorkDate | date: 'd'">
 					</span>
                     <div ng-repeat="meal in date.Meals">
