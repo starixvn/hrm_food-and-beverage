@@ -201,12 +201,14 @@
     <Content Include="App_Data\SpNames.xml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Src\App\EmployeeRegistration\employeeRegistration-directive.js" />
     <Content Include="Src\App\EmployeeRegistration\Templates\registerMeal.html" />
     <Content Include="Src\App\FoodItemManagement\foodItemManagement-controller.js" />
     <Content Include="Src\App\FoodItemManagement\foodItemManagement-factory.js" />
     <Content Include="Src\App\FoodItemManagement\foodItemManagement-route.js" />
     <Content Include="Src\App\FoodItemManagement\Templates\index.html" />
     <Content Include="Src\App\Ordering\Templates\EditOrder.html" />
+    <Content Include="Src\App\UserControl\userControl-directive.js" />
     <Content Include="Src\Components\Extensions\Filters\fb-filter.js" />
     <Content Include="Src\Components\Extensions\Services\fb-service.js" />
     <Content Include="Src\Components\Libs\jquery-ui.min.js" />
@@ -311,7 +313,7 @@
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration.less" />
     <Content Include="Src\App\UserControl\userControl.less" />
     <Content Include="Src\App\Ordering\ordering.less" />
-    <None Include="Src\App\FoodItemManagement\foodItemManagement.less" />
+    <Content Include="Src\App\FoodItemManagement\foodItemManagement.less" />
     <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
