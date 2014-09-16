@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="GetMealOrderById.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="GetMealOrderByIdCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Bradley.Mac" date="2014.9.15">Created</change>
+//   <change who="Bradley.Mac" date="2014.9.16">Created</change>
 // </history>
 
 namespace NexFB.Criteria.Kitchen
@@ -14,7 +14,7 @@ namespace NexFB.Criteria.Kitchen
     /// <summary>
     /// Get Meal OrderBy Id.
     /// </summary>
-    public class GetMealOrderById : CriteriaBase
+    public class GetMealOrderByIdCriteria : CriteriaBase
     {
         public int OrderId { get; set; }
 

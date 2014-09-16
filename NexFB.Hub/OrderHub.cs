@@ -11,7 +11,9 @@ namespace NexFB.Hub
 {
     using Microsoft.AspNet.SignalR;
     using Microsoft.AspNet.SignalR.Hubs;
+    using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.Ordering;
+    using NexFB.Models.Kitchen;
     using NexFB.Models.Ordering;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
@@ -23,20 +25,27 @@ namespace NexFB.Hub
     public class OrderHub : Hub
     {
         private readonly IOrderingService _orderService;
+        private readonly IKitchenService _kitchenService;
 
         public OrderHub()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public OrderHub(IOrderingService orderService)
+        public OrderHub(IOrderingService orderService, IKitchenService kitchenService)
         {
             _orderService = orderService ?? new OrderingService();
+            _kitchenService = kitchenService ?? new KitchenService();
         }
 
         public void SendMessage(string message)
         {
             Clients.All.newMessage(message);
+        }
+
+        public void KitchenNotify(int orderId)
+        {
+            Clients.All.kitchenNotify(orderId);
         }
 
         public void SendNewOrder(int orderId)
@@ -58,12 +67,12 @@ namespace NexFB.Hub
 
         private void SendNewOrderForApp(int orderId)
         {
-            var criteria = new GetMyOrderByIdCriteria()
+            var criteria = new GetMealOrderByIdCriteria()
             {
                 OrderId = orderId
             };
 
-            MealOrderingModel order = _orderService.GetMyOrderById(criteria);
+            Order order = _kitchenService.GetMealOrderById(criteria);
             Clients.All.newOrderForApp(order);
         }
     }

@@ -16,11 +16,13 @@ namespace NexFB.WinApp.ViewModels
     using System.Linq;
     using System.Media;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Documents;
     using System.Windows.Input;
     using System.Windows.Threading;
     using Microsoft.AspNet.SignalR.Client.Hubs;
+    using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
@@ -159,6 +161,7 @@ namespace NexFB.WinApp.ViewModels
                     {
                         Order item = WaitingMeals.Where(x => x.OrderId == orderId).SingleOrDefault();
                         WaitingMeals.Remove(item);
+                        KitchenNotify(item.OrderId);
                     }
                 }
             }
@@ -177,8 +180,8 @@ namespace NexFB.WinApp.ViewModels
             Thread = new System.Threading.Thread(() =>
             {
                 Connection = new HubConnection(_host);
-                Proxy = Connection.CreateHubProxy("chat");
-                Proxy.On<string>("newMessage", (name) => OnSendData(name));
+                Proxy = Connection.CreateHubProxy("order");
+                Proxy.On<Order>("newOrderForApp", (order) => OnSendData(order));
                 Connection.Start();
 
                 while (Active)
@@ -189,30 +192,27 @@ namespace NexFB.WinApp.ViewModels
             Thread.Start();
         }
 
-        private void OnSendData(string message)
+        private void OnSendData(Order order)
         {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => RemoveItemFromList(message)));
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => AddItemToList(order)));
         }
 
-        private void RemoveItemFromList(string message)
+        private void AddItemToList(Order order)
         {
-            Order item = WaitingMeals.Where(x => x.OrderId == int.Parse(message)).SingleOrDefault();
-            WaitingMeals.Remove(item);
-            SystemSounds.Asterisk.Play();
-            ////System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"c:\mywavfile.wav");
-            ////player.Play();
-            ////MessageBox.Show(message);
+            if (order != null)
+            {
+                if (order.CurrentStatusId == (int)OrderStatus.NewOrder)
+                {
+                    WaitingMeals.Add(order);
+                    SystemSounds.Asterisk.Play();
+                }
+            }
         }
 
-        ////private void ActionSendButtonClick(object sender, RoutedEventArgs e)
-        ////{
-        ////    SendMessage();
-        ////}
-
-        ////private Task SendMessage()
-        ////{
-        ////    return Proxy.Invoke("SendMessage", ClientNameTextBox.Text);
-        ////}
+        private Task KitchenNotify(int orderId)
+        {
+            return Proxy.Invoke("KitchenNotify", orderId);
+        }
 
         #endregion
     }

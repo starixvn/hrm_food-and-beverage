@@ -150,4 +150,9 @@
     <Setting Key="MealOrder_Cancel_RequestByWeb" SpName="MealOrder_Cancel_RequestByWeb" DbName="NexFB" Plain="0" >
     </Setting>
   </Function>
+	<Function Name="POS">
+		<Setting Key="POS_Get_OrderRequestByOrderID" SpName="POS_Get_OrderRequestByOrderID" DbName="NexFB" Plain="0" >
+			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
+		</Setting>
+	</Function>
 </Functions>

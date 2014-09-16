@@ -53,7 +53,7 @@ namespace NexFB.WinApp
                     mappingRegister.Register();
                     DbSettingProviderManager.Current.Start();
                     var hubConnection = new HubConnection(host);
-                    hubConnection.CreateHubProxy("chat");
+                    hubConnection.CreateHubProxy("order");
                     hubConnection.Start().Wait();
                 }
                 else

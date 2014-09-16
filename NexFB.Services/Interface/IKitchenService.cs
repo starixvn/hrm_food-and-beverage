@@ -33,6 +33,6 @@ namespace NexFB.Services.Interface
 
         Order GetOrderDetails(GetOrderDetailsCriteria criteria);
 
-        Order GetMealOrderById(GetMealOrderById criteria);
+        Order GetMealOrderById(GetMealOrderByIdCriteria criteria);
     }
 }

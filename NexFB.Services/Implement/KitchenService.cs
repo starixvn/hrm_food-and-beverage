@@ -119,7 +119,7 @@ namespace NexFB.Services.Implement
             return orderDetails;
         }
 
-        public Order GetMealOrderById(GetMealOrderById criteria)
+        public Order GetMealOrderById(GetMealOrderByIdCriteria criteria)
         {
             Order orderDetails = null;
             if (criteria.IsValid())
