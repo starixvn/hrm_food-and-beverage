@@ -229,7 +229,7 @@ namespace NexFB.WinApp.ViewModels
                 int currentStatusId = order.CurrentStatusId;
                 if (currentStatusId == (int)OrderStatus.ReceivedOrder || currentStatusId == (int)OrderStatus.ReducedOrder)
                 {
-                    this.AwaitingDeliverMeals.Add(order);
+                    AwaitingDeliverMeals = GetAwaitingDeliverMealOrder;
                 }
             }
         }

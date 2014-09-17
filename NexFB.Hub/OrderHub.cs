@@ -41,34 +41,6 @@ namespace NexFB.Hub
 
         #region MyRegion
 
-        ////public void RefeshWaitingOrderList(ObservableCollection<Order> waitingMeals, int currenOrderReceived)
-        ////{
-        ////    var criteria = new GetMealOrderByIdCriteria()
-        ////    {
-        ////        OrderId = currenOrderReceived
-        ////    };
-
-        ////    Order order = _kitchenService.GetMealOrderById(criteria);
-        ////    Clients.All.xxx(waitingMeals);
-        ////    //Clients.All.addOrderToAwaitingDeliverMeals(order); 
-        ////}
-
-        public void AppNotifyReceiveNewOrder(ObservableCollection<Order> waitingMeals)
-        {
-            Clients.All.appNotifyReceiveNewOrder(waitingMeals);
-        }
-
-        ////public void AddOrderToAwaitingList(int currenOrderReceived)
-        ////{
-        ////    var criteria = new GetMealOrderByIdCriteria()
-        ////    {
-        ////        OrderId = currenOrderReceived
-        ////    };
-
-        ////    Order order = _kitchenService.GetMealOrderById(criteria);
-        ////    Clients.All.addOrderToAwaitingDeliverMeals(order); 
-        ////}
-
         public void RefeshAwaitingDeliverOrderList(ObservableCollection<Order> awaitingDeliverMeals, int currentOrderDelivered)
         {
             var criteria = new GetMealOrderByIdCriteria()
@@ -83,9 +55,24 @@ namespace NexFB.Hub
 
         #endregion
 
-        public void KitchenNotify(int orderId)
+        /// <summary>
+        /// Notify when kitchen receive order.
+        /// </summary>
+        /// <param name="model">Data push to hub.</param>
+        public void KitchenNotify(HubData model)
         {
-            SendEditOrderForWeb(orderId);
+            SendEditOrderForWeb(model.CurrentOrderId);
+            Clients.All.appNotifyReceiveNewOrder(model.CurrentOrderList);
+            if (model.CurrentScreen == 1)
+            {
+                var criteria = new GetMealOrderByIdCriteria()
+                {
+                    OrderId = model.CurrentOrderId
+                };
+
+                Order order = _kitchenService.GetMealOrderById(criteria);
+                Clients.All.addOrderToAwaitingDeliverMeals(order); 
+            }
         }
 
         public void SendNewOrder(int orderId)

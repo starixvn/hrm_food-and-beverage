@@ -17,6 +17,7 @@ namespace NexFB.Models.Kitchen
     /// <summary>
     /// Order Meal.
     /// </summary>
+    [Serializable]
     public class Order
     {
         public DateTime OnDate { get; set; }

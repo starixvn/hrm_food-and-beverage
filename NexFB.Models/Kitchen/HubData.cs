@@ -9,16 +9,19 @@
 
 namespace NexFB.Models.Kitchen
 {
-    using System.Collections.ObjectModel;
+    using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Class HubData.
     /// </summary>
+    [Serializable]
     public class HubData
     {
         public int CurrentOrderId { get; set; }
 
-        public ObservableCollection<Order> CurrentOrderList { get; set; }
+        ////public ObservableCollection<Order> CurrentOrderList { get; set; }
+        public List<Order> CurrentOrderList { get; set; }
 
         public int CurrentScreen { get; set; }
     }

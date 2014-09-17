@@ -55,6 +55,7 @@ namespace NexFB.WinApp.ViewModels
 
         public MainViewModel()
         {
+            CurrentViewModel = new AwaitingDeliverViewModel();
             CurrentViewModel = new WaitingMealViewModel();
             CheckCurrentViewModel();
             InitializeRelayCommand();

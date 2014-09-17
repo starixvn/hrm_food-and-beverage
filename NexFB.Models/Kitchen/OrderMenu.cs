@@ -9,11 +9,13 @@
 
 namespace NexFB.Models.Kitchen
 {
+    using System;
     using NexFB.Resources;
 
     /// <summary>
     /// Class Menu.
     /// </summary>
+    [Serializable]
     public class OrderMenu
     {
         public int OrderId { get; set; }

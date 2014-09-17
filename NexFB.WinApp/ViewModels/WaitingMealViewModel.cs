@@ -161,12 +161,15 @@ namespace NexFB.WinApp.ViewModels
                     {
                         Order item = WaitingMeals.Where(x => x.OrderId == orderId).SingleOrDefault();
                         WaitingMeals.Remove(item);
-                        var taskSendNotify = new Task(() => KitchenNotify(orderId));
-                        var taskAppNotifyReceive = new Task(() => AppNotifyReceiveNewOrder(WaitingMeals));
+
+                        var model = new HubData()
+                        {
+                            CurrentOrderId = orderId,
+                            CurrentOrderList = new List<Order>(WaitingMeals),
+                            CurrentScreen = 1
+                        };
+                        var taskSendNotify = new Task(() => KitchenNotify(model));
                         taskSendNotify.Start();
-                        taskAppNotifyReceive.Start();
-                        ////var taskUpdateAwaitingDeliverMeals = new Task(() => AppNotifyUpdateAwaitingList(item.OrderId));
-                        ////taskUpdateAwaitingDeliverMeals.Start();
                     }
                 }
             }
@@ -188,7 +191,7 @@ namespace NexFB.WinApp.ViewModels
                 Proxy = Connection.CreateHubProxy("order");
                 Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
                 Proxy.On<Order>("editNewOrder", (order) => OnEditOrder(order));
-                Proxy.On<ObservableCollection<Order>>("appNotifyReceiveNewOrder", (orders) => SyncDataForApp(orders));
+                Proxy.On<List<Order>>("appNotifyReceiveNewOrder", (orders) => SyncDataForApp(orders));
                 Connection.Start().Wait();
 
                 while (Active)
@@ -209,14 +212,21 @@ namespace NexFB.WinApp.ViewModels
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => EditItemInList(order)));
         }
 
+        /// <summary>
+        /// Add new order to current list.
+        /// </summary>
+        /// <param name="order">New order.</param>
         private void AddItemToList(Order order)
         {
             if (order != null)
             {
                 if (order.CurrentStatusId == (int)OrderStatus.NewOrder)
                 {
-                    WaitingMeals.Add(order);
-                    SystemSounds.Asterisk.Play();
+                    if (!WaitingMeals.Any(x => x.OrderId == order.OrderId))
+                    {
+                        WaitingMeals.Add(order);
+                        SystemSounds.Asterisk.Play();
+                    }
                 }
             }
         }
@@ -233,28 +243,18 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        private void SyncDataForApp(ObservableCollection<Order> waitingMeals)
+        private void SyncDataForApp(List<Order> waitingMeals)
         {
             if (waitingMeals != null)
             {
-                this.WaitingMeals = waitingMeals;
+                this.WaitingMeals = new ObservableCollection<Order>(waitingMeals);
             }
         }
 
-        private void KitchenNotify(int id)
+        private void KitchenNotify(HubData model)
         {
-            Proxy.Invoke("KitchenNotify", id);
+            Proxy.Invoke("KitchenNotify", model);
         }
-
-        private void AppNotifyReceiveNewOrder(ObservableCollection<Order> waitingMeals)
-        {
-            Proxy.Invoke("AppNotifyReceiveNewOrder", waitingMeals);
-        }
-
-        ////private void AppNotifyUpdateAwaitingList(int currenOrderReceived)
-        ////{
-        ////    Proxy.Invoke("AppNotifyUpdateAwaitingList", currenOrderReceived);
-        ////}
 
         #endregion
     }
