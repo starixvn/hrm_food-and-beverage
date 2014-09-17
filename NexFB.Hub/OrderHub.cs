@@ -41,17 +41,33 @@ namespace NexFB.Hub
 
         #region MyRegion
 
-        public void RefeshWaitingOrderList(ObservableCollection<Order> waitingMeals, int currenOrderReceived)
-        {
-            var criteria = new GetMealOrderByIdCriteria()
-            {
-                OrderId = currenOrderReceived
-            };
+        ////public void RefeshWaitingOrderList(ObservableCollection<Order> waitingMeals, int currenOrderReceived)
+        ////{
+        ////    var criteria = new GetMealOrderByIdCriteria()
+        ////    {
+        ////        OrderId = currenOrderReceived
+        ////    };
 
-            Order order = _kitchenService.GetMealOrderById(criteria);
-            Clients.All.refeshWaitingOrderList(waitingMeals);
-            Clients.All.addOrderToAwaitingDeliverMeals(order); 
+        ////    Order order = _kitchenService.GetMealOrderById(criteria);
+        ////    Clients.All.xxx(waitingMeals);
+        ////    //Clients.All.addOrderToAwaitingDeliverMeals(order); 
+        ////}
+
+        public void AppNotifyReceiveNewOrder(ObservableCollection<Order> waitingMeals)
+        {
+            Clients.All.appNotifyReceiveNewOrder(waitingMeals);
         }
+
+        ////public void AddOrderToAwaitingList(int currenOrderReceived)
+        ////{
+        ////    var criteria = new GetMealOrderByIdCriteria()
+        ////    {
+        ////        OrderId = currenOrderReceived
+        ////    };
+
+        ////    Order order = _kitchenService.GetMealOrderById(criteria);
+        ////    Clients.All.addOrderToAwaitingDeliverMeals(order); 
+        ////}
 
         public void RefeshAwaitingDeliverOrderList(ObservableCollection<Order> awaitingDeliverMeals, int currentOrderDelivered)
         {

@@ -57,6 +57,7 @@
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\Team.cs" />
+    <Compile Include="Kitchen\HubData.cs" />
     <Compile Include="Kitchen\OrderMenu.cs" />
     <Compile Include="Kitchen\Order.cs" />
     <Compile Include="MealRegistration\DefaultMealModel.cs" />

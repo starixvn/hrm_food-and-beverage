@@ -161,10 +161,12 @@ namespace NexFB.WinApp.ViewModels
                     {
                         Order item = WaitingMeals.Where(x => x.OrderId == orderId).SingleOrDefault();
                         WaitingMeals.Remove(item);
-                        var taskSendNotify = new Task(() => KitchenNotify(item.OrderId));
-                        var taskAppNotifyReceived = new Task(() => RefeshWaitingOrderList(WaitingMeals, item.OrderId));
+                        var taskSendNotify = new Task(() => KitchenNotify(orderId));
+                        var taskAppNotifyReceive = new Task(() => AppNotifyReceiveNewOrder(WaitingMeals));
                         taskSendNotify.Start();
-                        taskAppNotifyReceived.Start();
+                        taskAppNotifyReceive.Start();
+                        ////var taskUpdateAwaitingDeliverMeals = new Task(() => AppNotifyUpdateAwaitingList(item.OrderId));
+                        ////taskUpdateAwaitingDeliverMeals.Start();
                     }
                 }
             }
@@ -186,7 +188,7 @@ namespace NexFB.WinApp.ViewModels
                 Proxy = Connection.CreateHubProxy("order");
                 Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
                 Proxy.On<Order>("editNewOrder", (order) => OnEditOrder(order));
-                Proxy.On<ObservableCollection<Order>>("refeshWaitingOrderList", (orders) => SyncDataForApp(orders));
+                Proxy.On<ObservableCollection<Order>>("appNotifyReceiveNewOrder", (orders) => SyncDataForApp(orders));
                 Connection.Start().Wait();
 
                 while (Active)
@@ -239,15 +241,20 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        private void KitchenNotify(int orderId)
+        private void KitchenNotify(int id)
         {
-            Proxy.Invoke("KitchenNotify", orderId);
+            Proxy.Invoke("KitchenNotify", id);
         }
 
-        private void RefeshWaitingOrderList(ObservableCollection<Order> waitingMeals, int currentOrderReceived)
+        private void AppNotifyReceiveNewOrder(ObservableCollection<Order> waitingMeals)
         {
-            Proxy.Invoke("RefeshWaitingOrderList", waitingMeals, currentOrderReceived);
+            Proxy.Invoke("AppNotifyReceiveNewOrder", waitingMeals);
         }
+
+        ////private void AppNotifyUpdateAwaitingList(int currenOrderReceived)
+        ////{
+        ////    Proxy.Invoke("AppNotifyUpdateAwaitingList", currenOrderReceived);
+        ////}
 
         #endregion
     }
