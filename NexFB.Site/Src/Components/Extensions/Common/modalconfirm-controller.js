@@ -1,4 +1,4 @@
-﻿/*global registrationModule*/
+﻿/*global appModule*/
 'use strict';
 
 appModule.controller("ModalConfirmController", ['$scope', '$modalInstance', 'name', 'action',
