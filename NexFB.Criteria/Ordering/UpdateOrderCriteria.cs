@@ -66,7 +66,7 @@ namespace NexFB.Criteria.Ordering
 
         public override bool IsValid()
         {
-            return OrderId > 0 && Members != null && Members.Any();
+            return OrderId > 0;
         }
     }
 }

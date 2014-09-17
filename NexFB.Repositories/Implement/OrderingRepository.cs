@@ -244,7 +244,7 @@ namespace NexFB.Repositories.Implement
 
                         var memberOrder = new OrderMemberModel()
                         {
-                            IsOrder = true,
+                            IsOrder = s == null,
                             Member = e,
                             Menu = m,
                             CurrentStatus = s

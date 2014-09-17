@@ -71,7 +71,17 @@ namespace NexFB.Criteria.Ordering
 
         public override bool IsValid()
         {
-            return Members != null && Members.Any();
+            var check = false;
+            foreach (OrderMemberModel member in Members)
+            {
+                if (member.IsOrder)
+                {
+                    check = true;
+                    break;
+                }
+            }
+
+            return Members != null && check && Members.Any();
         }
     }
 }

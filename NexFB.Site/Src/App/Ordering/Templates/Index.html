@@ -229,7 +229,7 @@
 									<span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
 								</td>
 								<td class="text-center">
-                                    <input type="checkbox" ng-checked="member.CurrentStatus == null" ng-disabled="member.CurrentStatus != null"/>
+                                    <input type="checkbox" ng-model="member.IsOrder" ng-disabled="member.CurrentStatus != null"/>
                                 </td>
                                 <td class="text-center">
                                     <a ng-click="removeMember($index, true)" ng-show="member.Member.UserId != savedOrder.CreatorOrder.UserId"

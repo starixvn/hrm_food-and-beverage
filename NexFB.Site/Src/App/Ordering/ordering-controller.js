@@ -41,11 +41,11 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 		//$scope.currentUser
 		var indexObject = -1;
 		angular.forEach($scope.myOrder, function (value, index) {
-				if (value.OrderId === order.OrderId) {
-					indexObject = index;
-				}
-			});
-		
+			if (value.OrderId === order.OrderId) {
+				indexObject = index;
+			}
+		});
+
 		if (indexObject > -1) {
 			$scope.myOrder.splice(indexObject, 1);
 			$scope.$apply();
@@ -76,10 +76,10 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 	orderSignalR.client.deleteOrderForWeb = function (orderId) {
 		var indexObject = -1;
 		angular.forEach($scope.myOrder, function (value, index) {
-				if (value.OrderId === orderId) {
-					indexObject = index;
-				}
-			});
+			if (value.OrderId === orderId) {
+				indexObject = index;
+			}
+		});
 
 		if (indexObject > -1) {
 			$scope.myOrder.splice(indexObject, 1);
@@ -174,7 +174,7 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 				$scope.sendNewOrder(response.orderId);
 			}
 			else {
-				notificationFactory.error('', response.Message);
+				notificationFactory.error('', response.result.Message);
 			}
 		});
 	};

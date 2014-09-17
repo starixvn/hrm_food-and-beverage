@@ -184,22 +184,12 @@ namespace NexFB.WinApp.ViewModels
         /// </summary>
         private void ListenToHub()
         {
-            Active = true;
-            Thread = new System.Threading.Thread(() =>
-            {
-                Connection = new HubConnection(_host);
-                Proxy = Connection.CreateHubProxy("order");
-                Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
-                Proxy.On<Order>("editNewOrder", (order) => OnEditOrder(order));
-                Proxy.On<List<Order>>("appNotifyReceiveNewOrder", (orders) => SyncDataForApp(orders));
-                Connection.Start().Wait();
-
-                while (Active)
-                {
-                    System.Threading.Thread.Sleep(10);
-                }
-            }) { IsBackground = true };
-            Thread.Start();
+            Connection = new HubConnection(_host);
+            Proxy = Connection.CreateHubProxy("order");
+            Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
+            Proxy.On<Order>("editNewOrder", (order) => OnEditOrder(order));
+            Proxy.On<List<Order>>("appNotifyReceiveNewOrder", (orders) => SyncDataForApp(orders));
+            Connection.Start();
         }
 
         private void OnNewOrder(Order order)
