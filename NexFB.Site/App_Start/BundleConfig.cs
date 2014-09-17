@@ -61,7 +61,7 @@ namespace NexFB.Site
                 "~/Src/App/EmployeeRegistration/employeeRegistration.less",
                 "~/Src/App/UserControl/userControl.less",
                 "~/Src/App/Ordering/ordering.less",
-                "~/Src/App/FoodManagement/foodManagement.less");
+                "~/Src/App/FoodItemManagement/foodItemManagement.less");
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Src/App/app.js",
