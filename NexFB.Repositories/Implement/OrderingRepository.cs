@@ -118,19 +118,19 @@ namespace NexFB.Repositories.Implement
         }
 
         /// <summary>
-        /// Function to get my orders in current day.
+        /// Function order by order id.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>List of MealOrderingModel.</returns>
+        /// <returns>MealOrdering Model.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public MealOrderingModel GetMyOrderById(ICriteria criteria)
+        public MealOrderingModel GetOrderById(ICriteria criteria)
         {
-            IList<MealOrderingModel> orders = new List<MealOrderingModel>();
+            MealOrderingModel order = null;
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    var data = multi.Read<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
+                    order = multi.Read<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
                         (od, e, s, m, l) =>
                         {
                             od.CreatorOrder = e;
@@ -139,9 +139,9 @@ namespace NexFB.Repositories.Implement
                             od.Location = l;
                             return od;
                         },
-                    "OrderBy, CurrentStatusID, MealENGName, LocationID");
+                    "OrderBy, CurrentStatusID, MealENGName, LocationID").SingleOrDefault();
 
-                    if (data != null)
+                    if (order != null)
                     {
                         var ordersQuatity = multi.Read<MenuQuantityModel, dynamic, MenuQuantityModel>(
                         (q, m) =>
@@ -157,29 +157,30 @@ namespace NexFB.Repositories.Implement
 
                         if (ordersQuatity != null)
                         {
-                            foreach (MealOrderingModel order in data)
+                            foreach (MenuQuantityModel menu in ordersQuatity)
                             {
-                                foreach (MenuQuantityModel menu in ordersQuatity)
+                                if (order.MenuQuantity == null)
                                 {
-                                    if (order.OrderId == menu.OrderId)
-                                    {
-                                        if (order.MenuQuantity == null)
-                                        {
-                                            order.MenuQuantity = new List<MenuQuantityModel>();
-                                        }
-
-                                        order.MenuQuantity.Add(menu);
-                                    }
+                                    order.MenuQuantity = new List<MenuQuantityModel>();
                                 }
 
-                                orders.Add(order);
+                                order.MenuQuantity.Add(menu);
                             }
                         }
+
+                        var members = multi.Read<OrderMemberModel, dynamic, OrderMemberModel>(
+                            (mb, d) =>
+                            {
+                                return GetMember(mb, d);
+                            },
+                            "SysID");
+
+                        order.Members = members.ToList();
                     }
                 }
             }
 
-            return orders.SingleOrDefault();
+            return order;
         }
 
         /// <summary>
@@ -260,44 +261,31 @@ namespace NexFB.Repositories.Implement
         }
 
         /// <summary>
-        /// Function order by order id.
+        /// Function to get member from dynamic object.
         /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>MealOrdering Model.</returns>
-        public MealOrderingModel GetOrderById(ICriteria criteria)
+        /// <param name="orderMember">Order Member Model.</param>
+        /// <param name="dynamicObject">Dynamic Object.</param>
+        /// <returns>OrderMember Model.</returns>
+        private OrderMemberModel GetMember(OrderMemberModel orderMember, dynamic dynamicObject)
         {
-            MealOrderingModel order = null;
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            var member = new Employee()
             {
-                db.Query<MealOrderingModel, Employee, Employee, Status, Menu, Location, MealOrderingModel>(
-                    (od, cr, e, s, m, l) =>
-                    {
-                        if (order == null)
-                        {
-                            order = od;
-                            od.CreatorOrder = cr;
-                            od.MyMeal = m;
-                            od.Status = s;
-                            od.Location = l;
-                            od.Members = new List<OrderMemberModel>();
-                        }
+                UserId = dynamicObject.SysID,
+                NickName = dynamicObject.NickName,
+                FullName = dynamicObject.FullName
+            };
 
-                        var memberOrder = new OrderMemberModel()
-                        {
-                            IsOrder = true,
-                            Member = e,
-                            Menu = m,
-                            CurrentStatus = s
-                        };
+            var menu = new Menu()
+            {
+                MenuId = dynamicObject.MenuID,
+                NameEN = dynamicObject.MenuEngName,
+                NameVN = dynamicObject.MenuVNMName,
+            };
 
-                        order.Members.Add(memberOrder);
-                        return od;
-                    },
-                    "OrderBy, SysId, CurrentStatusID, MenuID, LocationID",
-                    criteria.GetSpParams());
-            }
+            orderMember.Member = member;
+            orderMember.Menu = menu;
 
-            return order;
+            return orderMember;
         }
     }
 }

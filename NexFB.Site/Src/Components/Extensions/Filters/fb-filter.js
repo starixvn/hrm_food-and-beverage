@@ -8,3 +8,11 @@ appModule.filter('customDate', ['$filter', function ($filter) {
 		return _date;
 	};
 } ]);
+
+appModule.filter('customTime', ['$filter', function ($filter) {
+	return function (input) {
+		if (input == null) { return ""; }
+		var _date = $filter('date')(new Date(input), 'HH:mm:ss a');
+		return _date;
+	};
+} ]);

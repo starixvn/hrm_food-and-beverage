@@ -21,7 +21,7 @@ namespace NexFB.Criteria.Ordering
 
         public override string GetSettingKey()
         {
-            return "MealOrder_Get_OrderByOrderID";
+            return "MealOrder_Get_MyOrderByOrderID";
         }
 
         public override bool IsValid()

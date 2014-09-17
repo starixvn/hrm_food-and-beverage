@@ -135,8 +135,8 @@
       <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId"/>
       <Mapping DataField="CurrentStatusName" ObjectProperty="Name"/>
       <Mapping DataField="OrderBy" ObjectProperty="UserId"/>
-      <Mapping DataField="OrderByNickName" ObjectProperty="NickName"/>
-      <Mapping DataField="OrderByFullName" ObjectProperty="FullName"/>
+      <Mapping DataField="OrderNickName" ObjectProperty="NickName"/>
+      <Mapping DataField="OrderFullName" ObjectProperty="FullName"/>
       <Mapping DataField="SysId" ObjectProperty="UserId"/>
       <Mapping DataField="MenuEngName" ObjectProperty="NameEN" />
       <Mapping DataField="MenuVNMName" ObjectProperty="NameVN" />

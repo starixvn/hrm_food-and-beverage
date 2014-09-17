@@ -21,8 +21,6 @@ namespace NexFB.Services.Interface
 
         IList<MealOrderingModel> GetMyOrderByCurrentDay(GetMyOrderInCurrentDayCriteria criteria);
 
-        MealOrderingModel GetMyOrderById(GetMyOrderByIdCriteria criteria);
-
         MealOrderingModel GetMemberNewOrder(GetMemberNewOrderCriteria criteria);
 
         MealOrderingModel GetMemberSavedOrder(GetMemberSavedOrderCriteria criteria);

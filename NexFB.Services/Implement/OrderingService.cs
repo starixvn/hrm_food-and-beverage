@@ -62,18 +62,6 @@ namespace NexFB.Services.Implement
             return orders;
         }
 
-        public MealOrderingModel GetMyOrderById(GetMyOrderByIdCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            var order = new MealOrderingModel();
-            if (criteria.IsValid())
-            {
-                order = _orderRepository.GetMyOrderById(criteria);
-            }
-
-            return order;
-        }
-
         /// <summary>
         /// Function to get members for new order.
         /// </summary>

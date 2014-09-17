@@ -147,19 +147,12 @@ namespace NexFB.Hub
         /// <returns>MealOrdering Model.</returns>
         private MealOrderingModel GetOrderById(int orderId)
         {
-            var criteria = new GetMyOrderByIdCriteria()
+            var criteria = new GetOrderByIdCriteria()
             {
                 OrderId = orderId
             };
-            MealOrderingModel order = _orderService.GetMyOrderById(criteria);
-            var getOrderByIdCriteria = new GetOrderByIdCriteria()
-            {
-                OrderId = orderId
-            };
-            MealOrderingModel tempOrther = _orderService.GetOrderById(getOrderByIdCriteria);
 
-            order.Members = tempOrther.Members;
-
+            MealOrderingModel order = _orderService.GetOrderById(criteria);
             return order;
         }
     }
