@@ -25,16 +25,15 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	/*
 	** Declare variable.
 	*/
-	var currentDate = new Date(),
-		fromDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
-		toDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+	var currentDate = new Date();
 
 	$scope.currentDate = currentDate;
 	$scope.format = 'MMM yyyy';
 	$scope.popUpMode = 'month';
 	$scope.dateOptions = {
 		minMode: 'month',
-		maxMode: 'month'
+		maxMode: 'month',
+		formatMonth: 'MMM'
 	};
 
 	/*
