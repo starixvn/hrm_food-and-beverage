@@ -23,9 +23,5 @@ namespace NexFB.Models.Ordering
         public bool IsOrder { get; set; }
 
         public Status CurrentStatus { get; set; }
-
-        public bool IsCancel { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }

@@ -226,7 +226,7 @@ namespace NexFB.Repositories.Implement
         /// <returns>MealOrdering Model.</returns>
         public MealOrderingModel GetMemberSavedOrder(ICriteria criteria)
         {
-            var order = new MealOrderingModel();
+            MealOrderingModel order = null;
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 db.Query<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
@@ -282,6 +282,7 @@ namespace NexFB.Repositories.Implement
                 NameVN = dynamicObject.MenuVNMName,
             };
 
+            orderMember.IsOrder = true;
             orderMember.Member = member;
             orderMember.Menu = menu;
 

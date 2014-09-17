@@ -216,7 +216,8 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 
 orderingModule.controller('AddMemberController',
 ['$scope', '$modalInstance', 'orderingFactory', 'orderingService', 'isSavedOrder', 'isEditOrder',
-function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder, isEditOrder) {
+'notificationFactory',
+function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder, isEditOrder, notificationFactory) {
 	$scope.newMember = {};
 	$scope.departmentId = '1';
 	$scope.add = function (isContinue) {
@@ -237,21 +238,57 @@ function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder
 				.error(function () {
 					// TODO
 				});
+
+				var isExisted = false;
 				if (isEditOrder) {
 					var editMembers = orderingService.getMemberEditOrder();
-					editMembers.push(member);
-					orderingService.setMemberEditOrder(editMembers);
+					angular.forEach(editMembers, function (value) {
+						if (value.Member.UserId === member.Member.UserId) {
+							isExisted = true;
+						}
+					});
+
+					if (!isExisted) {
+						editMembers.push(member);
+						orderingService.setMemberEditOrder(editMembers);
+					}
+					else {
+						notificationFactory.error('', 'User is existed in order.');
+					}
 				}
 				else {
 					if (isSavedOrder) {
 						var savedMembers = orderingService.getMemberSavedOrder();
-						savedMembers.push(member);
-						orderingService.setMemberSavedOrder(savedMembers);
+						angular.forEach(savedMembers, function (value) {
+							if (value.Member.UserId === member.Member.UserId) {
+								isExisted = true;
+							}
+						});
+
+						if (!isExisted) {
+							savedMembers.push(member);
+							orderingService.setMemberSavedOrder(savedMembers);
+						}
+						else {
+							notificationFactory.error('', 'User is existed in order.');
+						}
 					}
 					else {
 						var members = orderingService.getMemberNewOrder();
-						members.push(member);
-						orderingService.setMemberNewOrder(members);
+
+						angular.forEach(members, function (value) {
+							if (value.Member.UserId === member.Member.UserId) {
+								isExisted = true;
+							}
+						});
+
+						if (!isExisted) {
+							members.push(member);
+							orderingService.setMemberNewOrder(members);
+						}
+						else {
+							notificationFactory.error('', 'User is existed in order.');
+						}
 					}
 				}
 				if (!isContinue) {
