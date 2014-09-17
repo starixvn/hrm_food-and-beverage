@@ -12,7 +12,7 @@
 
 	.btn-next, .btn-prev {
 		font-size: @font-size - 3;
-		margin: -8px 7px 0;
+		margin: -24px 7px 0;
 		padding: 0 5px;
 		background: none;
 		line-height: 18px;
@@ -23,6 +23,24 @@
 			font-size: @font-size - 6;
 		}
 	}
+	.calendar-box {
+		display: inline-block;
+		width: 198px;
+		.input-group {
+			margin: 0;
+			.input-group-btn .btn {
+				padding: 3px 10px 4px;
+				position: relative;
+				top: -1px;
+			}
+		}
+	}
+}
+.dropdown-menu table {
+	min-width: 198px;
+}
+.dropdown-menu.ng-valid-date table .btn {
+	color: #333;
 }
 
 .warning-registration {

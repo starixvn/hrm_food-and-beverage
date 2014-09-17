@@ -1,7 +1,7 @@
 ﻿<div ng-controller="MonthlyRegistrationController">
 	<div class="title-registration">
 		<span ng-click="changeMonth(-1)" class="btn btn-default btn-prev" title="Prev"><i class="glyphicon glyphicon-chevron-left icon-prev"></i></span>
-		<div class="col-md-6 calendar-box">
+		<span class="calendar-box">
 			<p class="input-group">
 				<input type="text" class="form-control" datepicker-popup="{{format}}" datepicker-mode="popUpMode" 
 					ng-model="currentDate" is-open="opened" datepicker-options="dateOptions" show-button-bar="false"/>
@@ -9,7 +9,7 @@
 					<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 				</span>
 			</p>
-		</div>
+		</span>
 		<span ng-click="changeMonth(1)" class="btn btn-default btn-next" title="Next"><i class="glyphicon glyphicon-chevron-right icon-next"></i></span>
 	</div>
 
