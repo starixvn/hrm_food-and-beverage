@@ -253,7 +253,7 @@
     <Content Include="Src\Components\Libs\jquery-2.1.0-vsdoc.js" />
     <Content Include="Src\Components\Libs\jquery-2.1.0.min.js" />
     <Content Include="Src\Components\Libs\toastr.js" />
-    <Content Include="Src\Components\Libs\ui-bootstrap-tpls-0.10.0.min.js" />
+    <Content Include="Src\Components\Libs\ui-bootstrap-tpls-0.11.0.min.js" />
     <Content Include="Src\Content\Common\angular-multi-select.css" />
     <Content Include="Src\Content\Common\bootstrap-spacelab.min.css" />
     <Content Include="Src\Content\Common\bootstrap-theme.min.css" />

@@ -30,7 +30,19 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		toDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
 
 	$scope.currentDate = currentDate;
+	$scope.format = 'MMM yyyy';
 
+	$scope.dateOptions = {
+		minMode: 'month',
+		maxMode: 'month'
+	};
+
+	$scope.open = function ($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+
+		$scope.opened = true;
+	};
 	/*
 	** Get register meal by range date.
 	*/
