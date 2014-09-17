@@ -79,26 +79,20 @@
                         </div>
                     </div>
 					<div class="row form-inline form-order">
-						<label ng-show="order.MyMeal != null && order.Status.StatusId == 1" class="order-status-new">
-							My Meal {{order.MyMeal.Name}} has been ordered via order #{{order.OrderNo}}, by {{order.CreatorOrder.NickName}} at {{order.ModifiedDate | customTime}}.
-						</label>
-						<label ng-show="order.MyMeal == null && order.Status.StatusId == 1" class="order-status-new">
-							Order #{{order.OrderNo}} has been ordered by {{order.CreatorOrder.NickName}} at {{order.ModifiedDate | customTime}}.
-						</label>
-
-						<label ng-show="order.MyMeal != null && order.Status.StatusId == 2" class="order-status-received">
-							My Meal {{order.MyMeal.Name}} is being prepared.
-						</label>
-						<label ng-show="order.MyMeal == null && order.Status.StatusId == 2" class="order-status-received">
-							Order #{{order.OrderNo}} is being prepared 
+						<label ng-show="order.Status.StatusId == 1" class="order-status-new">
+							Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} has been placed since {{order.ModifiedDate | customTime}} 
 							<span ng-repeat = "menu in order.MenuQuantity">, {{menu.Quantity}} "{{menu.Menu.Name}}"</span>
 							for {{order.Members.length}} member(s).
 						</label>
-						<label ng-show="order.MyMeal != null && order.Status.StatusId == 4" class="order-status-delivered">
-							My Meal {{order.MyMeal.Name}} has been ready via order #{{order.OrderNo}}, by {{order.CreatorOrder.NickName}} at {{order.ModifiedDate | customTime}}.
+
+						<label ng-show="order.Status.StatusId == 2" class="order-status-received">
+							Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} is being prepared since {{order.ModifiedDate | customTime}} 
+							<span ng-repeat = "menu in order.MenuQuantity">, {{menu.Quantity}} "{{menu.Menu.Name}}"</span>
+							for {{order.Members.length}} member(s).
 						</label>
-						<label ng-show="order.MyMeal == null && order.Status.StatusId == 4" class="order-status-delivered">
-							Order #{{order.OrderNo}} has been ready since {{order.ModifiedDate | customTime}}
+
+						<label ng-show="order.Status.StatusId == 4" class="order-status-delivered">
+							Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} has been ready since {{order.ModifiedDate | customTime}} 
 							<span ng-repeat = "menu in order.MenuQuantity">, {{menu.Quantity}} "{{menu.Menu.Name}}"</span>
 							for {{order.Members.length}} member(s).
 						</label>
