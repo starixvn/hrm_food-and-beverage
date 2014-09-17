@@ -152,7 +152,8 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 				isEditOrder: function () {
 					return false;
 				}
-			}
+			},
+			windowClass: "modal-confirm-center1"
 		});
 	};
 
@@ -182,11 +183,13 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 		var modalInstance = $modal.open({
 			templateUrl: '/src/app/Ordering/Templates/EditOrder.html',
 			controller: "EditOrderController",
+			backdrop: 'static',
 			resolve: {
 				orderId: function () {
 					return orderId;
 				}
-			}
+			},
+			windowClass: "modal-confirm-center"
 		});
 
 		modalInstance.result.then(function (receiveObject) {
@@ -258,6 +261,8 @@ function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder
 			.error(function () {
 				// TODO
 			});
+
+		$('#txtEmployee').val('');
 	};
 
 	$scope.cancel = function () {
@@ -305,6 +310,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		$modal.open({
 			templateUrl: '/src/app/Ordering/Templates/AddMember.html',
 			controller: "AddMemberController",
+			backdrop: 'static',
 			resolve: {
 				isSavedOrder: function () {
 					return false;
@@ -312,7 +318,8 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 				isEditOrder: function () {
 					return true;
 				}
-			}
+			},
+			windowClass: "modal-confirm-center1"
 		});
 	};
 
@@ -327,7 +334,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 				var returnObject = {
 					order: order,
 					isDeleted: false,
-					orderId: 0,
+					orderId: 0
 				};
 				$modalInstance.close(returnObject);
 			}
@@ -337,20 +344,37 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		});
 	};
 
-	$scope.deleteOrder = function (orderId) {
-		orderingFactory.deleteOrder(orderId).success(function (response) {
-			if (response.IsSuccessful === true) {
-				notificationFactory.success("DataChangeSuccessfully");
-				var returnObject = {
-					order: [],
-					isDeleted: true,
-					orderId: orderId,
-				};
-				$modalInstance.close(returnObject);
-			}
-			else {
-				notificationFactory.error('', response.Message);
-			}
+	$scope.deleteOrder = function (orderId, orderNo) {
+		var modalRemoveMemberInstance = $modal.open({
+			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent.html',
+			controller: "ModalConfirmController",
+			backdrop: 'static',
+			resolve: {
+				name: function () {
+					return "order #" + orderNo;
+				},
+				action: function () {
+					return "cancel";
+				}
+			},
+			windowClass: "modal-confirm-center1"
+		});
+
+		modalRemoveMemberInstance.result.then(function () {
+			orderingFactory.deleteOrder(orderId).success(function (response) {
+				if (response.IsSuccessful === true) {
+					notificationFactory.success("DataChangeSuccessfully");
+					var returnObject = {
+						order: [],
+						isDeleted: true,
+						orderId: orderId
+					};
+					$modalInstance.close(returnObject);
+				}
+				else {
+					notificationFactory.error('', response.Message);
+				}
+			});
 		});
 	};
 

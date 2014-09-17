@@ -25,6 +25,8 @@ namespace NexFB.Models.Ordering
 
         public int OrderId { get; set; }
 
+        public int OrderNo { get; set; }
+
         public IList<OrderMemberModel> Members { get; set; }
 
         public int MemberCount { get; set; }

@@ -1,12 +1,12 @@
 ﻿<div>
 	<div class="modal-header">
 		<div class="popup-header">
-			{{"EditOrder" | translate}}<span class="close-popup" ng-click="cancel()"></span>
+			{{"EditOrder" | translate}} #{{order.OrderNo}}<span class="close-popup" ng-click="cancel()"></span>
 		</div>
 	</div>
 
 	<div class="modal-body assign-role-modal">
-		<div class="col-sm-12">
+		<div class="col-sm-12 edit-order">
                     <div class="row form-inline form-order">
                         <div class="form-group">
                             <label data-translate="Location">
@@ -84,7 +84,7 @@
 	<div class="modal-footer">
 		<button class="button" ng-click="saveEditOrder(order)" data-translate="Save">
 		</button>
-		<button class="button btn-delete" ng-click="deleteOrder(order.OrderId)" data-translate="Delete"
+		<button class="button btn-delete" ng-click="deleteOrder(order.OrderId, order.OrderNo)" data-translate="Delete"
 			ng-show = "(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)" >
 		</button>
 		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
