@@ -196,6 +196,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Food Item.
+        /// </summary>
+        public static string CreateFoodItem {
+            get {
+                return ResourceManager.GetString("CreateFoodItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create new.
         /// </summary>
         public static string CreateNew {
@@ -246,6 +255,15 @@ namespace NexFB.Resources {
         public static string Dinner {
             get {
                 return ResourceManager.GetString("Dinner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Food Item.
+        /// </summary>
+        public static string EditFoodItem {
+            get {
+                return ResourceManager.GetString("EditFoodItem", resourceCulture);
             }
         }
         
@@ -651,6 +669,15 @@ namespace NexFB.Resources {
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit and continue.
+        /// </summary>
+        public static string SubmitContinue {
+            get {
+                return ResourceManager.GetString("SubmitContinue", resourceCulture);
             }
         }
         

@@ -1,22 +1,18 @@
-﻿<div id="editModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            	<div class="modal-header">
-		        <div class="popup-header">
-			        Edit Food Item<span class="close-popup" ></span>
-		        </div>
-	        </div>
+﻿<div>
+	<div class="modal-header">
+		<div class="popup-header">
+			{{"EditFoodItem" | translate}}<span class="close-popup" ng-click="cancel()"></span>
+		</div>
+	</div>
 
-	        <div class="modal-body">
+	<div class="modal-body assign-role-modal">
+	</div>
 
-	        </div>
-	        <div class="modal-footer">
-		        <button class="button">Submit
-		        </button>
-		        <button class="btn btn-default customize">Cancel
-		        </button>
-	        </div>
-        </div>
-    </div>
+	<div class="modal-footer">
+		<button class="button" get-meal-registration data-translate="Submit">
+		</button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		</button>
+	</div>
 </div>
 

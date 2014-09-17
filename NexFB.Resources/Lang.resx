@@ -357,4 +357,13 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="CreateFoodItem" xml:space="preserve">
+    <value>Create Food Item</value>
+  </data>
+  <data name="SubmitContinue" xml:space="preserve">
+    <value>Submit and continue</value>
+  </data>
+  <data name="EditFoodItem" xml:space="preserve">
+    <value>Edit Food Item</value>
+  </data>
 </root>
