@@ -31,12 +31,15 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 
 	$scope.currentDate = currentDate;
 	$scope.format = 'MMM yyyy';
-
+	$scope.popUpMode = 'month';
 	$scope.dateOptions = {
 		minMode: 'month',
 		maxMode: 'month'
 	};
 
+	/*
+	** Open pop-up calendar.
+	*/
 	$scope.open = function ($event) {
 		$event.preventDefault();
 		$event.stopPropagation();
@@ -56,6 +59,10 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 
 	$scope.$watch('tabMonthly', function (newValue) {
 		if (newValue === true) {
+			var changedMonth = $scope.currentDate,
+				fromDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth(), 1),
+				toDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth() + 1, 0);
+
 			getRegisterMealByRangeDate(fromDate, toDate, null);
 		}
 	});
@@ -102,13 +109,22 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	*/
 	$scope.changeMonth = function (numberMonth) {
 		var currentDate = $scope.currentDate,
-			changedMonth = new Date(currentDate.setMonth(currentDate.getMonth() + numberMonth)),
-			fromDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth(), 1),
-			toDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth() + 1, 0);
-
-		getRegisterMealByRangeDate(fromDate, toDate, null);
+			changedMonth = new Date(currentDate.setMonth(currentDate.getMonth() + numberMonth));
 		$scope.currentDate = changedMonth;
 	};
+
+	/*
+	** Get register meal when current date change.
+	*/
+	$scope.$watch('currentDate', function (newValue, oldValue) {
+		if (newValue !== oldValue) {
+			var changedMonth = $scope.currentDate,
+				fromDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth(), 1),
+				toDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth() + 1, 0);
+
+			getRegisterMealByRangeDate(fromDate, toDate, null);
+		}
+	});
 
 	/* 
 	** Register meal for a date.

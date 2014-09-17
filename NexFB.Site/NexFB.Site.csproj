@@ -206,6 +206,8 @@
     <Content Include="Src\App\FoodItemManagement\foodItemManagement-controller.js" />
     <Content Include="Src\App\FoodItemManagement\foodItemManagement-factory.js" />
     <Content Include="Src\App\FoodItemManagement\foodItemManagement-route.js" />
+    <Content Include="Src\App\FoodItemManagement\Templates\create.html" />
+    <Content Include="Src\App\FoodItemManagement\Templates\edit.html" />
     <Content Include="Src\App\FoodItemManagement\Templates\index.html" />
     <Content Include="Src\App\Ordering\Templates\EditOrder.html" />
     <Content Include="Src\App\UserControl\userControl-directive.js" />
@@ -213,6 +215,7 @@
     <Content Include="Src\Components\Extensions\Common\Templates\ModalConfirmContent.html" />
     <Content Include="Src\Components\Extensions\Filters\fb-filter.js" />
     <Content Include="Src\Components\Extensions\Services\fb-service.js" />
+    <Content Include="Src\Components\Libs\datepicker.js" />
     <Content Include="Src\Components\Libs\jquery-ui.min.js" />
     <Content Include="Src\Components\Libs\jquery.signalR-1.1.4.js" />
     <Content Include="Src\Components\Libs\jquery.signalR-1.1.4.min.js" />
