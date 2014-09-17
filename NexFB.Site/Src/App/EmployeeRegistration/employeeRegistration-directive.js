@@ -83,8 +83,8 @@ mealRegistrationModule.directive('checkMealTimesheet', function () {
 			if (toDay.getMonth() === currentWorkDate.getMonth() && toDay.getDate() === currentWorkDate.getDate()) {
 				var currentHour = toDay.getHours(),
 				currentMinute = toDay.getMinutes(),
-				registerHour = new Date(currentTimesheet.RegisterTime).getHours(),
-				registerMinute = new Date(currentTimesheet.RegisterTime).getMinutes();
+				registerHour = new Date(currentTimesheet.RegisterTime + 'Z').getUTCHours(),
+				registerMinute = new Date(currentTimesheet.RegisterTime + +'Z').getUTCMinutes();
 
 				if (currentHour > registerHour) {
 					return false;
