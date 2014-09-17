@@ -155,8 +155,11 @@ namespace NexFB.WinApp.ViewModels
                     {
                         Order item = AwaitingDeliverMeals.Where(x => x.OrderId == orderId).SingleOrDefault();
                         AwaitingDeliverMeals.Remove(item);
-                        KitchenNotify(item.OrderId);
-                        AppNotifyReceiveNewOrder(AwaitingDeliverMeals);
+
+                        var taskSendNotify = new Task(() => KitchenNotify(item.OrderId));
+                        var taskAppNotifyReceived = new Task(() => RefeshAwaitingDeliverOrderList(AwaitingDeliverMeals, item.OrderId));
+                        taskSendNotify.Start();
+                        taskAppNotifyReceived.Start();
                     }
                 }
             }
@@ -177,8 +180,9 @@ namespace NexFB.WinApp.ViewModels
                 Connection = new HubConnection(_host);
                 Proxy = Connection.CreateHubProxy("order");
                 Proxy.On<Order>("editReceivedOrder", (order) => OnEditOrder(order));
-                Proxy.On<ObservableCollection<Order>>("appNotifyExportAwaitingOrder", (orders) => SyncDataForApp(orders));
-                Connection.Start();
+                Proxy.On<Order>("addOrderToAwaitingDeliverMeals", (order) => AddOrderToAwaitingDeliverMeals(order));
+                Proxy.On<ObservableCollection<Order>>("refeshAwaitingDeliverOrderList", (orders) => SyncDataForApp(orders));
+                Connection.Start().Wait();
 
                 while (Active)
                 {
@@ -218,14 +222,26 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        private Task KitchenNotify(int orderId)
+        private void AddOrderToAwaitingDeliverMeals(Order order)
         {
-            return Proxy.Invoke("KitchenNotify", orderId);
+            if (order != null)
+            {
+                int currentStatusId = order.CurrentStatusId;
+                if (currentStatusId == (int)OrderStatus.ReceivedOrder || currentStatusId == (int)OrderStatus.ReducedOrder)
+                {
+                    this.AwaitingDeliverMeals.Add(order);
+                }
+            }
         }
 
-        private Task AppNotifyReceiveNewOrder(ObservableCollection<Order> awaitingDeliveredOrders)
+        private void KitchenNotify(int orderId)
         {
-            return Proxy.Invoke("AppNotifyExportAwaitingOrder", awaitingDeliveredOrders);
+            Proxy.Invoke("KitchenNotify", orderId);
+        }
+
+        private void RefeshAwaitingDeliverOrderList(ObservableCollection<Order> awaitingDeliveredOrders, int currentOrderDelivered)
+        {
+            Proxy.Invoke("RefeshAwaitingDeliverOrderList", awaitingDeliveredOrders, currentOrderDelivered);
         }
 
         #endregion

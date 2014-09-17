@@ -41,14 +41,28 @@ namespace NexFB.Hub
 
         #region MyRegion
 
-        public void AppNotifyReceiveNewOrder(ObservableCollection<Order> waitingMeals)
+        public void RefeshWaitingOrderList(ObservableCollection<Order> waitingMeals, int currenOrderReceived)
         {
-            Clients.All.appNotifyReceiveNewOrder(waitingMeals);
+            var criteria = new GetMealOrderByIdCriteria()
+            {
+                OrderId = currenOrderReceived
+            };
+
+            Order order = _kitchenService.GetMealOrderById(criteria);
+            Clients.All.refeshWaitingOrderList(waitingMeals);
+            Clients.All.addOrderToAwaitingDeliverMeals(order); 
         }
 
-        public void AppNotifyExportAwaitingOrder(ObservableCollection<Order> awaitingDeliverMeals)
+        public void RefeshAwaitingDeliverOrderList(ObservableCollection<Order> awaitingDeliverMeals, int currentOrderDelivered)
         {
-            Clients.All.appNotifyExportAwaitingOrder(awaitingDeliverMeals);
+            var criteria = new GetMealOrderByIdCriteria()
+            {
+                OrderId = currentOrderDelivered
+            };
+
+            Order order = _kitchenService.GetMealOrderById(criteria);
+            Clients.All.refeshAwaitingDeliverOrderList(awaitingDeliverMeals);
+            Clients.All.addOrderToDeliveredMeals(order);
         }
 
         #endregion

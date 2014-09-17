@@ -52,9 +52,9 @@ namespace NexFB.WinApp
 
                     mappingRegister.Register();
                     DbSettingProviderManager.Current.Start();
-                    var hubConnection = new HubConnection(host);
-                    hubConnection.CreateHubProxy("order");
-                    hubConnection.Start().Wait();
+                    ////var hubConnection = new HubConnection(host);
+                    ////hubConnection.CreateHubProxy("order");
+                    ////hubConnection.Start().Wait();
                 }
                 else
                 {

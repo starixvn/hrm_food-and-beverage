@@ -161,8 +161,10 @@ namespace NexFB.WinApp.ViewModels
                     {
                         Order item = WaitingMeals.Where(x => x.OrderId == orderId).SingleOrDefault();
                         WaitingMeals.Remove(item);
-                        KitchenNotify(item.OrderId);
-                        AppNotifyReceiveNewOrder(WaitingMeals);
+                        var taskSendNotify = new Task(() => KitchenNotify(item.OrderId));
+                        var taskAppNotifyReceived = new Task(() => RefeshWaitingOrderList(WaitingMeals, item.OrderId));
+                        taskSendNotify.Start();
+                        taskAppNotifyReceived.Start();
                     }
                 }
             }
@@ -184,8 +186,8 @@ namespace NexFB.WinApp.ViewModels
                 Proxy = Connection.CreateHubProxy("order");
                 Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
                 Proxy.On<Order>("editNewOrder", (order) => OnEditOrder(order));
-                Proxy.On<ObservableCollection<Order>>("appNotifyReceiveNewOrder", (orders) => SyncDataForApp(orders));
-                Connection.Start();
+                Proxy.On<ObservableCollection<Order>>("refeshWaitingOrderList", (orders) => SyncDataForApp(orders));
+                Connection.Start().Wait();
 
                 while (Active)
                 {
@@ -237,14 +239,14 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        private Task KitchenNotify(int orderId)
+        private void KitchenNotify(int orderId)
         {
-            return Proxy.Invoke("KitchenNotify", orderId);
+            Proxy.Invoke("KitchenNotify", orderId);
         }
 
-        private Task AppNotifyReceiveNewOrder(ObservableCollection<Order> waitingMeals)
+        private void RefeshWaitingOrderList(ObservableCollection<Order> waitingMeals, int currentOrderReceived)
         {
-            return Proxy.Invoke("AppNotifyReceiveNewOrder", waitingMeals);
+            Proxy.Invoke("RefeshWaitingOrderList", waitingMeals, currentOrderReceived);
         }
 
         #endregion
