@@ -50,7 +50,8 @@ namespace NexFB.Site
                 "~/Src/Components/Libs/toastr.js",
                 "~/Src/Components/Libs/angular-multi-select.js",
                 "~/Src/Components/Libs/jquery-ui.min.js",
-                "~/Src/Components/Libs/datepicker.js"));
+                "~/Src/Components/Libs/datepicker.js",
+                "~/Src/Components/Libs/date.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
                 "~/Src/Components/Libs/jquery.signalR-1.1.4.min.js"));

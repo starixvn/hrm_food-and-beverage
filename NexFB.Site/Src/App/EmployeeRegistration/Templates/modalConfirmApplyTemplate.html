@@ -1,0 +1,20 @@
+﻿
+<div id="confirmPopup">
+	<div class="modal-header">
+		<div class="popup-header">
+			<span data-translate="Confirm"></span><span class="close-popup" ng-click="cancel()"></span>
+		</div>
+	</div>
+	<div class="modal-body">
+		<span data-translate="ApplyMealTemplateWarning" ng-if="applyTemplate">
+		</span>
+		<span data-translate="SerialRegisterWarning" ng-if="!applyTemplate">
+		</span>
+	</div>
+	<div class="modal-footer">
+		<button class="button" ng-click="ok()" data-translate="OK">
+		</button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		</button>
+	</div>
+</div>

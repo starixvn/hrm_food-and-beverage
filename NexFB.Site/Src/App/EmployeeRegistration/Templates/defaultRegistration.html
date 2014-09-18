@@ -4,19 +4,19 @@
 			<tr>
 				<th class="width-percent-9">
 				</th>
-				<th class="width-percent-13" data-translate="Sun">
+				<th class="width-percent-13 black" data-translate="Sun">
 				</th>
-				<th class="width-percent-13" data-translate="Mon">
+				<th class="width-percent-13 black" data-translate="Mon">
 				</th>
-				<th class="width-percent-13" data-translate="Tue">
+				<th class="width-percent-13 black" data-translate="Tue">
 				</th>
-				<th class="width-percent-13" data-translate="Wed">
+				<th class="width-percent-13 black" data-translate="Wed">
 				</th>
-				<th class="width-percent-13" data-translate="Thu">
+				<th class="width-percent-13 black" data-translate="Thu">
 				</th>
-				<th class="width-percent-13" data-translate="Fri">
+				<th class="width-percent-13 black" data-translate="Fri">
 				</th>
-				<th class="width-percent-13" data-translate="Sat">
+				<th class="width-percent-13 black" data-translate="Sat">
 				</th>
 			</tr>
 		</thead>
@@ -26,10 +26,10 @@
 					<a href="" ng-click="registerMealWeek(weekMeals)" ng-if="policy.permission == 2">
 						{{"AllWeek" | translate}}
 					</a>
-					<span ng-if="policy.permission == 1">{{"AllWeek" | translate}}
+					<span class="black" ng-if="policy.permission == 1">{{"AllWeek" | translate}}
 					</span>
 				</td>
-				<td ng-repeat="date in weekMeals" ng-click="policy.permission != 2 || registerMeal(date)"
+				<td ng-repeat="date in weekMeals" ng-click="policy.permission != 2 || registerMeal(date, $index)"
 					ng-class="{lastChild: $last}" class="pointer">
 					<div ng-repeat="meal in date.Meals">
 						<span get-class-by-name ng-class="mealClass" ng-show="meal.IsVegetarian != null" class="txt-name">{{meal.ShortName}}:
@@ -43,10 +43,6 @@
 			</tr>
 		</tbody>
 	</table>
-    <div class="txt-warning">
-        <i class="glyphicon glyphicon-exclamation-sign icon-warning"></i>
-        <label data-translate="ApplyMealTemplateWarning" class="warning-registration"></label>
-    </div>
 	<div class="note-meal default">
 		<ul class="list-unstyled list-inline">
 			<li class="lbl-breakfast">B: {{"Breakfast" | translate}}</li>
@@ -58,11 +54,10 @@
 			<li><i class="icon-none-veg"></i>{{"Non-Vegetarian" | translate}}</li>
 			<li><i class="icon-veg"></i>{{"Vegetarian" | translate}}</li>
 		</ul>
-	</div>    
+	</div>
 	<div ng-if="policy.permission == 2">
 		<button class="button" ng-click="apply()" ng-disabled="disabledSubmitButton" 
 			data-translate="Apply">
 		</button>
 	</div>
-    
 </div>

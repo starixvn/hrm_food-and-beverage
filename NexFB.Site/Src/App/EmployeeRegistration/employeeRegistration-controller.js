@@ -175,8 +175,17 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				mealTimesheet: function () {
 					return $scope.mealTimesheet;
 				},
+				isSameMeal: function () {
+					return true;
+				},
 				mode: function () {
 					return 'month';
+				},
+				timePeriod: function () {
+					return new Date(date.WorkDate).toString("MMM dd, yyyy");
+				},
+				isSerialRegistration: function () {
+					return false;
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -229,7 +238,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		});
 	};
 
-	$scope.registerMealWeek = function (week) {
+	$scope.registerMealWeek = function (week, index) {
 		var modalAssignInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
@@ -243,8 +252,18 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				mealTimesheet: function () {
 					return $scope.mealTimesheet;
 				},
+				isSameMeal: function () {
+					//					return mealRegistrationUtilities.checkSameMealInWeek(week);
+					return false;
+				},
 				mode: function () {
 					return 'month';
+				},
+				timePeriod: function () {
+					return 'Week ' + index;
+				},
+				isSerialRegistration: function () {
+					return true;
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -298,8 +317,18 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				mealTimesheet: function () {
 					return $scope.mealTimesheet;
 				},
+				isSameMeal: function () {
+					//					return checkSameMealInMonth(weeks);
+					return false;
+				},
 				mode: function () {
 					return 'month';
+				},
+				timePeriod: function () {
+					return new Date($scope.currentDate).toString('MMM yyyy');
+				},
+				isSerialRegistration: function () {
+					return true;
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -367,8 +396,18 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				mealTimesheet: function () {
 					return $scope.mealTimesheet;
 				},
+				isSameMeal: function () {
+					//					return checkSameMealInSameDate(date, allWeekMeals);
+					return false;
+				},
 				mode: function () {
 					return 'month';
+				},
+				timePeriod: function () {
+					return mealRegistrationUtilities.getFullNameWeekday(date);
+				},
+				isSerialRegistration: function () {
+					return true;
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -423,7 +462,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 	/* 
 	** Register meal for a date.
 	*/
-	$scope.registerMeal = function (date) {
+	$scope.registerMeal = function (date, index) {
 		var modalAssignInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
@@ -437,8 +476,17 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 				mealTimesheet: function () {
 					return '';
 				},
+				isSameMeal: function () {
+					return true;
+				},
 				mode: function () {
 					return 'default';
+				},
+				timePeriod: function () {
+					return mealRegistrationUtilities.getFullNameWeekdayFromIndex(index) + ' ' + new Date().getFullYear();
+				},
+				isSerialRegistration: function () {
+					return false;
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -497,8 +545,18 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 				mealTimesheet: function () {
 					return '';
 				},
+				isSameMeal: function () {
+					//					return checkSameMealInWeek(weekMeals);
+					return false;
+				},
 				mode: function () {
 					return 'default';
+				},
+				timePeriod: function () {
+					return 'All week ' + new Date().getFullYear();
+				},
+				isSerialRegistration: function () {
+					return true;
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -533,29 +591,45 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 	** Apply template.
 	*/
 	$scope.apply = function () {
-		mealRegistrationFactory.applyFromTemplate().success(function (response) {
-			if (response.IsSuccessful === true) {
-				notificationFactory.success("DataChangeSuccessfully");
-			}
-			else {
-				notificationFactory.error("", response.Message);
-			}
-		}).error(function (response, status) {
-			if (status === 405) {
-				ErrorFactory.errorHandle(status);
-			}
-			else {
-				notificationFactory.error("DataChangeFail");
-			}
+		var modalAssignInstance = $modal.open({
+			templateUrl: '/src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
+			controller: "ApplyTemplateConfirmController",
+			resolve: {
+				applyTemplate: function () {
+					return true;
+				}
+			},
+			windowClass: "modal-confirm-center"
+		});
+
+		modalAssignInstance.result.then(function () {
+			mealRegistrationFactory.applyFromTemplate().success(function (response) {
+				if (response.IsSuccessful === true) {
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("DataChangeFail");
+				}
+			});
 		});
 	};
 } ]);
 
 mealRegistrationModule.controller('RegisterMealController',
-['meals', '$scope', 'workDate', '$modalInstance', 'mealTimesheet', 'mode',
-function (meals, $scope, workDate, $modalInstance, mealTimesheet, mode) {
+['meals', '$scope', 'workDate', '$modalInstance', 'mealTimesheet', 'mode', 'isSameMeal', 'timePeriod',
+'isSerialRegistration', '$modal',
+function (meals, $scope, workDate, $modalInstance, mealTimesheet, mode, isSameMeal, timePeriod,
+isSerialRegistration, $modal) {
 	$scope.meals = meals;
 	$scope.mode = mode;
+	$scope.timePeriod = timePeriod;
 	$scope.rightMeal = {
 		1: true,
 		2: true,
@@ -565,19 +639,55 @@ function (meals, $scope, workDate, $modalInstance, mealTimesheet, mode) {
 
 	if (mode === 'month') {
 		$scope.workDate = workDate;
-		$scope.isRegisterDate = workDate !== '' ? true : false;
+		$scope.isRegisterDate = workDate !== '' || isSameMeal ? true : false;
 		$scope.mealTimesheet = mealTimesheet;
 	}
-	else if (mode === 'default' && workDate) {
-		$scope.isRegisterDate = true;
+	else if (mode === 'default') {
+		$scope.isRegisterDate = isSameMeal ? true : false;
 	}
 
 	$scope.save = function (meals, mealsTemplate) {
-		var registrationInfo = {
-			meals: meals,
-			mealsTemplate: mealsTemplate
-		};
-		$modalInstance.close(registrationInfo);
+		if (isSerialRegistration) {
+			var modalAssignInstance = $modal.open({
+				templateUrl: '/src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
+				controller: "ApplyTemplateConfirmController",
+				resolve: {
+					applyTemplate: function () {
+						return false;
+					}
+				},
+				windowClass: "modal-confirm-center"
+			});
+
+			modalAssignInstance.result.then(function () {
+				var registrationInfo = {
+					meals: meals,
+					mealsTemplate: mealsTemplate
+				};
+				$modalInstance.close(registrationInfo);
+			});
+		}
+		else {
+			var registrationInfo = {
+				meals: meals,
+				mealsTemplate: mealsTemplate
+			};
+			$modalInstance.close(registrationInfo);
+		}
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
+	};
+} ]);
+
+mealRegistrationModule.controller('ApplyTemplateConfirmController',
+['$scope', '$modalInstance', 'applyTemplate',
+function ($scope, $modalInstance, applyTemplate) {
+	$scope.applyTemplate = applyTemplate;
+
+	$scope.ok = function () {
+		$modalInstance.close();
 	};
 
 	$scope.cancel = function () {

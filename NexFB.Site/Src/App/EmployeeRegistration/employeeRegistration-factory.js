@@ -186,6 +186,66 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		return weekDay;
 	};
 
+	utility.getFullNameWeekday = function (date) {
+		var fullName = '';
+
+		switch (date) {
+			case 'Sun':
+				fullName = 'Sundays';
+				break;
+			case 'Mon':
+				fullName = 'Mondays';
+				break;
+			case 'Tue':
+				fullName = 'Tuesdays';
+				break;
+			case 'Wed':
+				fullName = 'Wednesdays';
+				break;
+			case 'Thu':
+				fullName = 'Thursdays';
+				break;
+			case 'Fri':
+				fullName = 'Fridays';
+				break;
+			case 'Sat':
+				fullName = 'Saturdays';
+				break;
+		}
+
+		return fullName;
+	};
+
+	utility.getFullNameWeekdayFromIndex = function (weekDayIndex) {
+		var fullName = '';
+
+		switch (weekDayIndex) {
+			case 0:
+				fullName = 'Sundays';
+				break;
+			case 1:
+				fullName = 'Mondays';
+				break;
+			case 2:
+				fullName = 'Tuesdays';
+				break;
+			case 3:
+				fullName = 'Wednesdays';
+				break;
+			case 4:
+				fullName = 'Thursdays';
+				break;
+			case 5:
+				fullName = 'Fridays';
+				break;
+			case 6:
+				fullName = 'Saturdays';
+				break;
+		}
+
+		return fullName;
+	};
+
 	utility.getRegisterDateOfWeek = function (weekDayIndex, weeks) {
 		var onDate = '';
 
@@ -233,7 +293,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 			var toDay = new Date(),
 				currentDate = new Date(date.WorkDate);
 
-			// Don't effect Sunday and Saturday
+			// Don't check Sunday and Saturday
 			if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
 				if (!date.IsDisabled) {
 					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
@@ -284,6 +344,33 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 
 		return hasEnableDate;
 	};
+
+//	utility.checkSameMeal = function (firstDate, secondDate) {
+//	};
+
+//	utility.checkSameMealInWeek = function (week) {
+//		var isSameMeal = true,
+//			length = week.WeelMeals.length;
+
+//		for (var i = 0; i < length - 1; i++) {
+//			var date = week.WeelMeals[i],
+//				nextDate = week.WeelMeals[i + 1];
+//			currentDate = new Date(date.WorkDate);
+
+//			// Don't check Sunday and Saturday
+//			if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
+//				if (!date.IsDisabled) {
+//					var checked = checkSameMeal(date, nextDate);
+
+//					if (!checked) {
+//						isSameMeal = false;
+//					}
+//				}
+//			}
+//		}
+
+//		return isSameMeal;
+//	};
 
 	return utility;
 } ]);

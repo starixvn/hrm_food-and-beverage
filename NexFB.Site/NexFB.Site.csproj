@@ -203,6 +203,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration-directive.js" />
+    <Content Include="Src\App\EmployeeRegistration\Templates\modalConfirmApplyTemplate.html" />
     <Content Include="Src\App\EmployeeRegistration\Templates\registerMeal.html" />
     <Content Include="Src\App\FoodItemManagement\foodItemManagement-controller.js" />
     <Content Include="Src\App\FoodItemManagement\foodItemManagement-factory.js" />
@@ -222,6 +223,7 @@
     <Content Include="Src\Components\Extensions\Common\Templates\ModalConfirmContent.html" />
     <Content Include="Src\Components\Extensions\Filters\fb-filter.js" />
     <Content Include="Src\Components\Extensions\Services\fb-service.js" />
+    <Content Include="Src\Components\Libs\date.js" />
     <Content Include="Src\Components\Libs\datepicker.js" />
     <Content Include="Src\Components\Libs\jquery-ui.min.js" />
     <Content Include="Src\Components\Libs\jquery.signalR-1.1.4.js" />
@@ -299,6 +301,7 @@
     <Content Include="Src\Content\Site\auth\images\logo.png" />
     <Content Include="Src\Content\Site\Images\icon-search.png" />
     <Content Include="Src\Content\Site\Images\line-menu.png" />
+    <Content Include="Src\Content\Site\Images\logo.png" />
     <Content Include="Src\Content\Site\Images\sprites.png" />
     <Content Include="Src\Content\Site\Images\sprite_ico_2012-05-15.png" />
     <Content Include="Src\Content\Site\Images\success.png" />

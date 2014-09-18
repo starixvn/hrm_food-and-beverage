@@ -349,7 +349,7 @@
     <value>Edit order</value>
   </data>
   <data name="ApplyMealTemplateWarning" xml:space="preserve">
-    <value>Warning: As the template is applied, all existing registration in the same period will be overwritten</value>
+    <value>Are you sure you want to submit this serial registration ? All upcoming registration of the year will be overwritten.</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -371,5 +371,11 @@
   </data>
   <data name="EditFoodMenu" xml:space="preserve">
     <value>Edit Food Menu</value>
+  </data>
+  <data name="MonthlyWeeklyDefaultWarning" xml:space="preserve">
+    <value>Warning: Monthly and weekly registration will not be applied for Sartuday and Sunday</value>
+  </data>
+  <data name="SerialRegisterWarning" xml:space="preserve">
+    <value>Are you sure you want to submit this serial registration ? All upcoming registration of the same period will be overwritten.</value>
   </data>
 </root>

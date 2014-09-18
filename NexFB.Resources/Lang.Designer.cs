@@ -133,7 +133,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Warning: As the template is applied, all existing registration in the same period will be overwritten.
+        ///   Looks up a localized string similar to Are you sure you want to submit this serial registration ? All upcoming registration of the year will be overwritten..
         /// </summary>
         public static string ApplyMealTemplateWarning {
             get {
@@ -457,6 +457,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning: Monthly and weekly registration will not be applied for Sartuday and Sunday.
+        /// </summary>
+        public static string MonthlyWeeklyDefaultWarning {
+            get {
+                return ResourceManager.GetString("MonthlyWeeklyDefaultWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Meal.
         /// </summary>
         public static string MyMeal {
@@ -651,6 +660,15 @@ namespace NexFB.Resources {
         public static string SavedOrder {
             get {
                 return ResourceManager.GetString("SavedOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to submit this serial registration ? All upcoming registration of the same period will be overwritten..
+        /// </summary>
+        public static string SerialRegisterWarning {
+            get {
+                return ResourceManager.GetString("SerialRegisterWarning", resourceCulture);
             }
         }
         
