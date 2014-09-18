@@ -199,5 +199,55 @@ namespace NexFB.Services.Implement
 
             return result;
         }
+
+        /// <summary>
+        /// Function to add a member to group.
+        /// </summary>
+        /// <param name="criteria">AddMember Criteria.</param>
+        /// <returns>Command Result.</returns>
+        public CommandResult AddMember(AddMemberCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult result = null;
+            if (criteria.IsValid())
+            {
+                result = Repository.Insert(criteria);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Lang.InvalidInputData
+                };
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Function to remove a member from group.
+        /// </summary>
+        /// <param name="criteria">RemoveMember Criteria.</param>
+        /// <returns>Command Result.</returns>
+        public CommandResult RemoveMember(RemoveMemberCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult result = null;
+            if (criteria.IsValid())
+            {
+                result = Repository.Delete(criteria);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Lang.InvalidInputData
+                };
+            }
+
+            return result;
+        }
     }
 }

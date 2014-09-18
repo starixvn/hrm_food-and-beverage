@@ -53,6 +53,14 @@ orderingModule.factory("orderingFactory",
 					}
 				);
 			},
+			addMember: function (member) {
+				return $http.post('/api/OrderMember', member);
+				//return $http['addMember']('/api/OrderMember', { params: { memberId: memberId} });
+				//AddMember
+			},
+			removeMember: function (memberId) {
+				return $http['delete']('/api/OrderMember', { params: { memberId: memberId} });
+			},
 			createOrder: function (order) {
 				return $http.post('/api/Ordering', order);
 			},

@@ -103,7 +103,7 @@
 	<div class="modal-footer">
 		<button class="button" ng-click="saveEditOrder(order)" data-translate="Save">
 		</button>
-		<button class="button btn-delete" ng-click="deleteOrder(order.OrderId, order.OrderNo)" data-translate="Delete"
+		<button class="button btn-delete" ng-click="deleteOrder(order.OrderId)" data-translate="Delete"
 			ng-show = "(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)" >
 		</button>
 		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">

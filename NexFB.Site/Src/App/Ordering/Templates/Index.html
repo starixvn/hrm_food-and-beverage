@@ -157,7 +157,7 @@
 									<span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
 								</td>
                                 <td class="text-center">
-                                    <a ng-click="removeMember(member, false)" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
+                                    <a ng-click="removeMember($index, member.Member.UserId, false)" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
                                 </td>
                             </tr>
 							<tr ng-show="newOrder == '' || newOrder.Members == ''">
@@ -232,7 +232,7 @@
                                     <input type="checkbox" ng-model="member.IsOrder" ng-disabled="member.CurrentStatus != null"/>
                                 </td>
                                 <td class="text-center">
-                                    <a ng-click="removeMember($index, true)" ng-show="member.Member.UserId != savedOrder.CreatorOrder.UserId"
+                                    <a ng-click="removeMember($index, member.Member.UserId, true)" ng-show="member.Member.UserId != savedOrder.CreatorOrder.UserId"
 									class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
                                 </td>
                             </tr>

@@ -181,6 +181,7 @@
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
     <Compile Include="Controllers\API\BaseController.cs" />
     <Compile Include="Controllers\API\CommonController.cs" />
+    <Compile Include="Controllers\API\OrderMemberController.cs" />
     <Compile Include="Controllers\API\FoodItemManagementController.cs" />
     <Compile Include="Controllers\API\FoodMenuManagementController.cs" />
     <Compile Include="Controllers\API\MealPlanningController.cs" />
@@ -227,6 +228,7 @@
     <Content Include="Src\App\Ordering\Templates\EditOrder.html" />
     <Content Include="Src\App\UserControl\userControl-directive.js" />
     <Content Include="Src\Components\Extensions\Common\modalconfirm-controller.js" />
+    <Content Include="Src\Components\Extensions\Common\Templates\ModalConfirmContent2.html" />
     <Content Include="Src\Components\Extensions\Common\Templates\ModalConfirmContent.html" />
     <Content Include="Src\Components\Extensions\Filters\fb-filter.js" />
     <Content Include="Src\Components\Extensions\Services\fb-service.js" />

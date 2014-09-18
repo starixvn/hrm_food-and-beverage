@@ -32,5 +32,9 @@ namespace NexFB.Services.Interface
         CommandResult UpdateOrder(UpdateOrderCriteria criteria);
 
         CommandResult DeleteOrder(DeleteOrderCriteria criteria);
+
+        CommandResult AddMember(AddMemberCriteria criteria);
+
+        CommandResult RemoveMember(RemoveMemberCriteria criteria);
     }
 }

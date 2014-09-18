@@ -13,4 +13,17 @@ appModule.controller("ModalConfirmController", ['$scope', '$modalInstance', 'nam
     $scope.cancel = function () {
         $modalInstance.dismiss("cancel");
     };
-}]);
+} ]);
+
+appModule.controller("ModalConfirmController2", ['$scope', '$modalInstance', 'content',
+	function ($scope, $modalInstance, content) {
+	$scope.content = content;
+
+	$scope.ok = function () {
+		$modalInstance.close();
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
+	};
+	} ]);

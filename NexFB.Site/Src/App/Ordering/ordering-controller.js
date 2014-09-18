@@ -2,8 +2,8 @@
 /*global orderingModule*/
 
 orderingModule.controller("OrderingController",
-['$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory',
-function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, notificationFactory) {
+['$translate', '$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory',
+function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderingService, notificationFactory) {
 	$scope.newOrder = [];
 	$scope.savedOrder = [];
 
@@ -96,7 +96,8 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 			// TODO
 		});
 
-	orderingFactory.getAddNewOrder()
+	$scope.getDefaultForAddOrder = function () {
+		orderingFactory.getAddNewOrder()
 		.success(function (data) {
 			$scope.newOrder = data;
 			orderingService.setMemberNewOrder(data.Members);
@@ -105,7 +106,7 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 			// TODO
 		});
 
-	orderingFactory.getSavedOrder()
+		orderingFactory.getSavedOrder()
 		.success(function (data) {
 			$scope.savedOrder = data;
 			orderingService.setMemberSavedOrder(data.Members);
@@ -113,6 +114,9 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 		.error(function () {
 			// TODO
 		});
+	};
+
+	$scope.getDefaultForAddOrder();
 
 	orderingFactory.getLocation()
 		.success(function (data) {
@@ -158,25 +162,61 @@ function ($scope, $route, $timeout, $modal, orderingFactory, orderingService, no
 		});
 	};
 
-	$scope.removeMember = function (index, isSavedOrder) {
-		if (isSavedOrder) {
-			$scope.savedOrder.Members.splice(index, 1);
-		}
-		else {
-			$scope.newOrder.Members.splice(index, 1);
-		}
+	$scope.removeMember = function (index, memberId, isSavedOrder) {
+		var modalRemoveMemberInstance = $modal.open({
+			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
+			controller: "ModalConfirmController2",
+			backdrop: 'static',
+			resolve: {
+				content: function () {
+					return 'Are you sure you want to remove this member?';
+				}
+			},
+			windowClass: "modal-confirm-center1"
+		});
+
+		modalRemoveMemberInstance.result.then(function () {
+			if (isSavedOrder) {
+				orderingFactory.removeMember(memberId).success(function (response) {
+					if (response.IsSuccessful === true) {
+						$scope.savedOrder.Members.splice(index, 1);
+						notificationFactory.success("DataChangeSuccessfully");
+					}
+					else {
+						notificationFactory.error('', response.Message);
+					}
+				});
+			}
+			else {
+				$scope.newOrder.Members.splice(index, 1);
+			}
+		});
 	};
 
 	$scope.saveAddOrder = function (order) {
-		//validate
-		orderingFactory.createOrder(order).success(function (response) {
-			if (response.result.IsSuccessful === true) {
-				notificationFactory.success("DataChangeSuccessfully");
-				$scope.sendNewOrder(response.orderId);
-			}
-			else {
-				notificationFactory.error('', response.result.Message);
-			}
+		var modalSaveOrderInstance = $modal.open({
+			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
+			controller: "ModalConfirmController2",
+			backdrop: 'static',
+			resolve: {
+				content: function () {
+					return 'Are you sure you want to save this order?';
+				}
+			},
+			windowClass: "modal-confirm-center1"
+		});
+
+		modalSaveOrderInstance.result.then(function () {
+			orderingFactory.createOrder(order).success(function (response) {
+				if (response.result.IsSuccessful === true) {
+					notificationFactory.success("DataChangeSuccessfully");
+					$scope.sendNewOrder(response.orderId);
+					$scope.getDefaultForAddOrder();
+				}
+				else {
+					notificationFactory.error('', response.result.Message);
+				}
+			});
 		});
 	};
 
@@ -221,7 +261,9 @@ orderingModule.controller('AddMemberController',
 function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder, isEditOrder, notificationFactory) {
 	$scope.newMember = {};
 	$scope.departmentId = '1';
+	var message = 'The selected member has already been in the order.';
 	$scope.add = function (isContinue) {
+
 		var newMember = $scope.newMember;
 		var member = {
 			Member: '',
@@ -254,7 +296,7 @@ function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder
 						orderingService.setMemberEditOrder(editMembers);
 					}
 					else {
-						notificationFactory.error('', 'User is existed in order.');
+						notificationFactory.error('', message);
 					}
 				}
 				else {
@@ -267,11 +309,19 @@ function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder
 						});
 
 						if (!isExisted) {
-							savedMembers.push(member);
-							orderingService.setMemberSavedOrder(savedMembers);
+							orderingFactory.addMember(member).success(function (response) {
+								if (response.IsSuccessful === true) {
+									savedMembers.push(member);
+									orderingService.setMemberSavedOrder(savedMembers);
+									notificationFactory.success("DataChangeSuccessfully");
+								}
+								else {
+									notificationFactory.error('', response.Message);
+								}
+							});
 						}
 						else {
-							notificationFactory.error('', 'User is existed in order.');
+							notificationFactory.error('', message);
 						}
 					}
 					else {
@@ -288,7 +338,7 @@ function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder
 							orderingService.setMemberNewOrder(members);
 						}
 						else {
-							notificationFactory.error('', 'User is existed in order.');
+							notificationFactory.error('', message);
 						}
 					}
 				}
@@ -366,33 +416,44 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	};
 
 	$scope.saveEditOrder = function (order) {
-		orderingFactory.editOrder(order).success(function (response) {
-			if (response.IsSuccessful === true) {
-				notificationFactory.success("DataChangeSuccessfully");
-				var returnObject = {
-					order: order,
-					isDeleted: false,
-					orderId: 0
-				};
-				$modalInstance.close(returnObject);
-			}
-			else {
-				notificationFactory.error('', response.Message);
-			}
+		var modalSaveEditInstance = $modal.open({
+			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
+			controller: "ModalConfirmController2",
+			backdrop: 'static',
+			resolve: {
+				content: function () {
+					return 'Are you sure you want to save this order? When the order is received, all removed member cannot be added again.';
+				}
+			},
+			windowClass: "modal-confirm-center1"
+		});
+
+		modalSaveEditInstance.result.then(function () {
+			orderingFactory.editOrder(order).success(function (response) {
+				if (response.IsSuccessful === true) {
+					notificationFactory.success("DataChangeSuccessfully");
+					var returnObject = {
+						order: order,
+						isDeleted: false,
+						orderId: 0
+					};
+					$modalInstance.close(returnObject);
+				}
+				else {
+					notificationFactory.error('', response.Message);
+				}
+			});
 		});
 	};
 
-	$scope.deleteOrder = function (orderId, orderNo) {
+	$scope.deleteOrder = function (orderId) {
 		var modalRemoveMemberInstance = $modal.open({
-			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent.html',
-			controller: "ModalConfirmController",
+			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
+			controller: "ModalConfirmController2",
 			backdrop: 'static',
 			resolve: {
-				name: function () {
-					return "order #" + orderNo;
-				},
-				action: function () {
-					return "cancel";
+				content: function () {
+					return 'Are you sure you want to delete this order?';
 				}
 			},
 			windowClass: "modal-confirm-center1"
