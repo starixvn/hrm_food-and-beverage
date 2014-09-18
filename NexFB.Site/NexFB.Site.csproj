@@ -182,6 +182,7 @@
     <Compile Include="Controllers\API\BaseController.cs" />
     <Compile Include="Controllers\API\CommonController.cs" />
     <Compile Include="Controllers\API\FoodItemManagementController.cs" />
+    <Compile Include="Controllers\API\FoodMenuManagementController.cs" />
     <Compile Include="Controllers\API\OrderingController.cs" />
     <Compile Include="Controllers\API\MealRegistrationController.cs" />
     <Compile Include="Controllers\API\ResourceController.cs" />
@@ -209,6 +210,12 @@
     <Content Include="Src\App\FoodItemManagement\Templates\create.html" />
     <Content Include="Src\App\FoodItemManagement\Templates\edit.html" />
     <Content Include="Src\App\FoodItemManagement\Templates\index.html" />
+    <Content Include="Src\App\FoodMenuManagement\foodMenuManagement-controller.js" />
+    <Content Include="Src\App\FoodMenuManagement\foodMenuManagement-factory.js" />
+    <Content Include="Src\App\FoodMenuManagement\foodMenuManagement-route.js" />
+    <Content Include="Src\App\FoodMenuManagement\Templates\create.html" />
+    <Content Include="Src\App\FoodMenuManagement\Templates\edit.html" />
+    <Content Include="Src\App\FoodMenuManagement\Templates\index.html" />
     <Content Include="Src\App\Ordering\Templates\EditOrder.html" />
     <Content Include="Src\App\UserControl\userControl-directive.js" />
     <Content Include="Src\Components\Extensions\Common\modalconfirm-controller.js" />
@@ -319,6 +326,7 @@
     <Content Include="Src\App\UserControl\userControl.less" />
     <Content Include="Src\App\Ordering\ordering.less" />
     <Content Include="Src\App\FoodItemManagement\foodItemManagement.less" />
+    <None Include="Src\App\FoodMenuManagement\foodMenuManagement.less" />
     <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />

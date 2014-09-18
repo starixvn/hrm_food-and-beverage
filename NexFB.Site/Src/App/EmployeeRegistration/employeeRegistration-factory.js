@@ -120,8 +120,8 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		var toDay = new Date(),
 			currentHour = toDay.getHours(),
 			currentMinute = toDay.getMinutes(),
-			registerHour = new Date(currentTimesheet.RegisterTime).getHours(),
-			registerMinute = new Date(currentTimesheet.RegisterTime).getMinutes();
+			registerHour = new Date(currentTimesheet.RegisterTime + 'Z').getUTCHours(),
+			registerMinute = new Date(currentTimesheet.RegisterTime + 'Z').getUTCMinutes();
 
 		if (currentHour > registerHour) {
 			return false;
@@ -224,6 +224,65 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		});
 
 		return onDate;
+	};
+
+	utility.hasDateEnableInWeek = function (week, mealTimesheet) {
+		var hasEnableDate = false;
+
+		angular.forEach(week.WeekMeals, function (date) {
+			var toDay = new Date(),
+				currentDate = new Date(date.WorkDate);
+
+			// Don't effect Sunday and Saturday
+			if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
+				if (!date.IsDisabled) {
+					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+						angular.forEach(date.Meals, function (meal) {
+							var currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
+								rightMeal = utility.checkRightMeal(currentTimesheet);
+
+							if (rightMeal) {
+								hasEnableDate = true;
+							}
+						});
+					}
+					else {
+						hasEnableDate = true;
+					}
+				}
+			}
+		});
+
+		return hasEnableDate;
+	};
+
+	utility.hasDateEnabled = function (date, weeks, mealTimesheet) {
+		var hasEnableDate = false,
+			weekDayIndex = utility.getWeekDayIndex(date),
+			toDay = new Date();
+
+		angular.forEach(weeks, function (week) {
+			var date = week.WeekMeals[weekDayIndex],
+				currentDate = new Date(date.WorkDate);
+
+			if (!date.IsDisabled) {
+				if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+					angular.forEach(date.Meals, function (meal) {
+						var currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
+								rightMeal = utility.checkRightMeal(currentTimesheet);
+
+						if (rightMeal) {
+							hasEnableDate = true;
+						}
+					});
+				}
+				else {
+					hasEnableDate = true;
+				}
+			}
+		});
+
+		return hasEnableDate;
 	};
 
 	return utility;

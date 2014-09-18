@@ -366,4 +366,10 @@
   <data name="EditFoodItem" xml:space="preserve">
     <value>Edit Food Item</value>
   </data>
+  <data name="CreateFoodMenu" xml:space="preserve">
+    <value>Create Food Menu</value>
+  </data>
+  <data name="EditFoodMenu" xml:space="preserve">
+    <value>Edit Food Menu</value>
+  </data>
 </root>

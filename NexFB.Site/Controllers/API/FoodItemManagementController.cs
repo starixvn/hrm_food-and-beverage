@@ -10,7 +10,7 @@
 namespace NexFB.Site.Controllers.API
 {
     /// <summary>
-    /// Food management controller.
+    /// Food item management controller.
     /// </summary>
     public class FoodItemManagementController : BaseController
     {
