@@ -69,6 +69,10 @@ namespace NexFB.Criteria.Ordering
             return "MealOrder_Insert_RequestByWeb";
         }
 
+        /// <summary>
+        /// Function to check Is valid data.
+        /// </summary>
+        /// <returns>Result of check.</returns>
         public override bool IsValid()
         {
             var check = false;
