@@ -100,6 +100,10 @@ namespace NexFB.Repositories.Implement
                     if (mealOrder != null)
                     {
                         mealOrder.ListMenu = menus;
+                        foreach (var item in menus)
+                        {
+                            item.TotalOrder = mealOrder.QuantityOrder;
+                        }
                     }
                 }
             }

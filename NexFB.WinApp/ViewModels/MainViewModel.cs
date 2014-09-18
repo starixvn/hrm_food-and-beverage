@@ -587,7 +587,7 @@ namespace NexFB.WinApp.ViewModels
             {
                 if (currentViewModel == Constant.AwaitingDeliverViewModel)
                 {
-                    CurrentViewModel = new AwaitingDeliverViewModel(AwaitingDeliverSearchResult, null);
+                    CurrentViewModel = new AwaitingDeliverViewModel(AwaitingDeliverSearchResult, order);
                 }
             }
         }
@@ -626,6 +626,8 @@ namespace NexFB.WinApp.ViewModels
                 Proxy = Connection.CreateHubProxy("order");
                 Proxy.On<Order>("newOrderForApp", (order) => OnSyncDataForApp(order));
                 Proxy.On<int>("appNotifyReceiveNewOrder", (orderId) => OnSyncDataForApp(null));
+                Proxy.On<int>("deleteOrderForApp", (orderId) => OnSyncDataForApp(null));
+                Proxy.On<Order>("editOrderForApp", (order) => OnSyncDataForApp(null));
                 Connection.Start().Wait();
 
                 while (Active)

@@ -114,7 +114,7 @@ namespace NexFB.Hub
             };
 
             Order order = _kitchenService.GetMealOrderById(criteria);
-            Clients.All.newOrderForApp(order);
+            Clients.All.editOrderForApp(order);
         }
 
         /// <summary>
