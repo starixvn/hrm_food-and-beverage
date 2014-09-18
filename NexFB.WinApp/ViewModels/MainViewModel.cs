@@ -10,10 +10,18 @@
 namespace NexFB.WinApp.ViewModels
 {
     using System;
+    using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
+    using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Threading;
+    using Microsoft.AspNet.SignalR.Client.Hubs;
+    using NexFB.Core.Models;
+    using NexFB.Criteria.Kitchen;
+    using NexFB.Models.Kitchen;
+    using NexFB.Resources;
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinApp.Core.Constants;
     using NexFB.WinApp.Core.Models;
@@ -26,6 +34,7 @@ namespace NexFB.WinApp.ViewModels
         #region Fields
 
         private static readonly OrderFoodViewModel OrderFoodViewModel = new OrderFoodViewModel();
+        private static string _host = ConfigurationManager.AppSettings[Constant.HubHost];
 
         private static DispatcherTimer digitalClock = new DispatcherTimer();
         private static double _screenWidth = SystemParameters.PrimaryScreenWidth;
@@ -55,10 +64,11 @@ namespace NexFB.WinApp.ViewModels
 
         public MainViewModel()
         {
-            CurrentViewModel = new AwaitingDeliverViewModel();
             CurrentViewModel = new WaitingMealViewModel();
+
             CheckCurrentViewModel();
             InitializeRelayCommand();
+            InitializeHubConnection();
 
             digitalClock.Interval = new TimeSpan(0, 0, 1);
             digitalClock.Tick += new EventHandler(Timer_Click);
@@ -68,6 +78,18 @@ namespace NexFB.WinApp.ViewModels
         #endregion
 
         #region Properties
+
+        public Thread Thread { get; set; }
+
+        public IHubProxy Proxy { get; set; }
+
+        public HubConnection Connection { get; set; }
+
+        public bool Active { get; set; }
+
+        public ICommand ReceiveOrderFoodCommand { get; set; }
+
+        public ICommand DeliverOrderFoodCommand { get; set; }
 
         public ICommand CloseWindow { get; set; }
 
@@ -114,18 +136,18 @@ namespace NexFB.WinApp.ViewModels
             private set
             {
                 _searchResult = value;
-                string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
-                if (currentViewModel == "WaitingMealViewModel")
+                string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+                if (currentViewModel == Constant.WaitingMealViewModel)
                 {
                     WaitingSearchResult = _searchResult;
                 }
 
-                if (currentViewModel == "AwaitingDeliverViewModel")
+                if (currentViewModel == Constant.AwaitingDeliverViewModel)
                 {
                     AwaitingDeliverSearchResult = _searchResult;
                 }
 
-                if (currentViewModel == "DeliveredFoodViewModel")
+                if (currentViewModel == Constant.DeliveredFoodViewModel)
                 {
                     DeliveredSearchResult = _searchResult;
                 }
@@ -396,16 +418,27 @@ namespace NexFB.WinApp.ViewModels
             return true;
         }
 
-        // Execute Command
-        private void ExecuteViewPendingFood()
+        // Can Execute Command.
+        private bool CanExecuteReceiveOrderFoodCommand()
         {
-            CurrentViewModel = new WaitingMealViewModel(WaitingSearchResult);
+            return true;
+        }
+
+        private bool CanExecuteDeliverOrderFoodCommand()
+        {
+            return true;
+        }
+
+        // Execute Command
+        private void ExecuteViewPendingFood(Order order)
+        {
+            CurrentViewModel = new WaitingMealViewModel(WaitingSearchResult, order);
             CheckCurrentViewModel();
         }
 
-        private void ExecuteViewAwaitingDeliverFood()
+        private void ExecuteViewAwaitingDeliverFood(Order order)
         {
-            CurrentViewModel = new AwaitingDeliverViewModel(AwaitingDeliverSearchResult);
+            CurrentViewModel = new AwaitingDeliverViewModel(AwaitingDeliverSearchResult, order);
             CheckCurrentViewModel();
         }
 
@@ -444,18 +477,18 @@ namespace NexFB.WinApp.ViewModels
                     break;
 
                 case "ENTER":
-                    string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
-                    if (currentViewModel == "WaitingMealViewModel")
+                    string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+                    if (currentViewModel == Constant.WaitingMealViewModel)
                     {
-                        ExecuteViewPendingFood();
+                        ExecuteViewPendingFood(null);
                     }
 
-                    if (currentViewModel == "AwaitingDeliverViewModel")
+                    if (currentViewModel == Constant.AwaitingDeliverViewModel)
                     {
-                        ExecuteViewAwaitingDeliverFood();
+                        ExecuteViewAwaitingDeliverFood(null);
                     }
 
-                    if (currentViewModel == "DeliveredFoodViewModel")
+                    if (currentViewModel == Constant.DeliveredFoodViewModel)
                     {
                         ExecuteViewDeliveredFood();
                     }
@@ -468,20 +501,139 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Execute Deliver Order Food Command.
+        /// </summary>
+        /// <param name="value">Parameter Value.</param>
+        private void ExecuteDeliverOrderFoodCommand(object value)
+        {
+            if (value != null)
+            {
+                int orderId = (int)value;
+                bool printed = ExecutePrintInvoice(orderId, Constant.DeliverOrderFoodInvoice);
+                if (printed)
+                {
+                    var criteria = new ProcessDeliverOrderCriteria() { OrderId = orderId };
+                    CommandResult received = KitchenService.DeliverOrder(criteria);
+                    if (received.Code != 0)
+                    {
+                        MessageBox.Show(received.Message.ToString());
+                    }
+                    else
+                    {
+                        ExecuteViewAwaitingDeliverFood(null);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show(Lang.ErrorMessage.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Execute Receive Order Food Command.
+        /// </summary>
+        /// <param name="value">Parameter value.</param>
+        private void ExecuteReceiveOrderFoodCommand(object value)
+        {
+            if (value != null)
+            {
+                int orderId = (int)value;
+                bool printed = ExecutePrintInvoice(orderId, Constant.ReceiveOrderFoodInvoice);
+
+                if (printed)
+                {
+                    var criteria = new ProcessReceiveOrderCriteria() { OrderId = orderId };
+                    CommandResult received = KitchenService.ReceiveOrder(criteria);
+                    if (received.Code != 0)
+                    {
+                        MessageBox.Show(received.Message.ToString());
+                    }
+                    else
+                    {
+                        SendMessage(orderId);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show(Lang.ErrorMessage.ToString());
+            }
+        }
+
         #endregion
 
         #region Methods
 
+        private void OnSyncDataForApp(Order order)
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => SyncDataForApp(order)));
+        }
+
+        /// <summary>
+        /// Synchronize data for app.
+        /// </summary>
+        /// <param name="order">Current Added or removed order.</param>
+        private void SyncDataForApp(Order order)
+        {
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            if (currentViewModel == Constant.WaitingMealViewModel)
+            {
+                ExecuteViewPendingFood(order);
+            }
+
+            if (order == null)
+            {
+                if (currentViewModel == Constant.AwaitingDeliverViewModel)
+                {
+                    CurrentViewModel = new AwaitingDeliverViewModel(AwaitingDeliverSearchResult, null);
+                }
+            }
+        }
+
+        private Task SendMessage(int orderId)
+        {
+            return Proxy.Invoke("KitchenNotify", orderId);
+        }
+
+        /// <summary>
+        /// Method Initialize RelayCommand.
+        /// </summary>
         private void InitializeRelayCommand()
         {
-            ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
+            ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood(null));
             ViewDeliveredFoodCommand = new RelayCommand((x) => CanExecuteViewDeliveredFood(), (y) => ExecuteViewDeliveredFood());
             ViewOrderFoodCommand = new RelayCommand((x) => CanExecuteViewOrderFood(), (y) => ExecuteViewOrderFood());
-            ViewAwaitingDeliverFoodCommand = new RelayCommand((x) => CanExecuteViewAwaitingDeliverFood(), (y) => ExecuteViewAwaitingDeliverFood());
+            ViewAwaitingDeliverFoodCommand = new RelayCommand((x) => CanExecuteViewAwaitingDeliverFood(), (y) => ExecuteViewAwaitingDeliverFood(null));
             NumPadPressed = new RelayCommand((x) => CanExecuteNumPadPressed(), (y) => ExecuteNumPadPressed(y));
             NumPadReleased = new RelayCommand((x) => CanExecuteNumPadReleased(), (y) => ExecuteNumPadPressed(y));
             DisplayKeyPad = new RelayCommand((x) => CanDisplayKeyPad(), (y) => ExecuteDisplayKeyPad());
             CloseWindow = new RelayCommand((x) => ((Window)x).Close());
+            ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (y) => ExecuteReceiveOrderFoodCommand(y));
+            DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (y) => ExecuteDeliverOrderFoodCommand(y));
+        }
+
+        /// <summary>
+        /// Connect to server hub.
+        /// </summary>
+        private void InitializeHubConnection()
+        {
+            Active = true;
+            Thread = new System.Threading.Thread(() =>
+            {
+                Connection = new HubConnection(_host);
+                Proxy = Connection.CreateHubProxy("order");
+                Proxy.On<Order>("newOrderForApp", (order) => OnSyncDataForApp(order));
+                Proxy.On<int>("appNotifyReceiveNewOrder", (orderId) => OnSyncDataForApp(null));
+                Connection.Start().Wait();
+
+                while (Active)
+                {
+                    System.Threading.Thread.Sleep(10);
+                }
+            }) { IsBackground = true };
+            Thread.Start();
         }
 
         /// <summary>
@@ -492,10 +644,10 @@ namespace NexFB.WinApp.ViewModels
         {
             DefaulMenuColor();
             KeyPadVisibility = Constant.Hidden;
-            string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
             switch (currentViewModel)
             {
-                case "WaitingMealViewModel":
+                case Constant.WaitingMealViewModel:
                     if (string.IsNullOrEmpty(WaitingSearchResult))
                     {
                         SearchResult = string.Empty;
@@ -509,7 +661,7 @@ namespace NexFB.WinApp.ViewModels
                     Menu1.ForegroundColor = Constant.Menu1Color;
                     Menu1.FontWeight = Constant.FontWeightBold;
                     break;
-                case "AwaitingDeliverViewModel":
+                case Constant.AwaitingDeliverViewModel:
                     if (string.IsNullOrEmpty(AwaitingDeliverSearchResult))
                     {
                         SearchResult = string.Empty;
@@ -523,7 +675,7 @@ namespace NexFB.WinApp.ViewModels
                     Menu2.ForegroundColor = Constant.Menu2Color;
                     Menu2.FontWeight = Constant.FontWeightBold;
                     break;
-                case "DeliveredFoodViewModel":
+                case Constant.DeliveredFoodViewModel:
                     if (string.IsNullOrEmpty(DeliveredSearchResult))
                     {
                         SearchResult = string.Empty;
@@ -537,7 +689,7 @@ namespace NexFB.WinApp.ViewModels
                     Menu3.ForegroundColor = Constant.Menu3Color;
                     Menu3.FontWeight = Constant.FontWeightBold;
                     break;
-                case "OrderFoodViewModel":
+                case Constant.OrderFoodViewModel:
                     Menu4.BackgroundColor = Constant.DefaultMenuColor;
                     Menu4.ForegroundColor = Constant.Menu4Color;
                     Menu4.FontWeight = Constant.FontWeightBold;

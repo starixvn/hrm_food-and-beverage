@@ -12,23 +12,10 @@ namespace NexFB.WinApp.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Configuration;
     using System.Linq;
-    using System.Media;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using System.Windows;
     using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Threading;
-    using Microsoft.AspNet.SignalR.Client.Hubs;
-    using NexFB.Core.Enums;
-    using NexFB.Core.Models;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
-    using NexFB.Resources;
-    using NexFB.WinApp.Core.Commands;
-    using NexFB.WinApp.Core.Constants;
 
     /// <summary>
     /// Pending Food ViewModel.
@@ -37,39 +24,25 @@ namespace NexFB.WinApp.ViewModels
     {
         #region Fields
         private static ObservableCollection<Order> _waitingMeals = new ObservableCollection<Order>();
-        private string _host = ConfigurationManager.AppSettings[Constant.HubHost];
         private string _searchValue;
 
         #endregion
 
         #region Constructors
         public WaitingMealViewModel()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public WaitingMealViewModel(string searchValue)
+        public WaitingMealViewModel(string searchValue, Order newOrder)
         {
-            ListenToHub();
             SearchValue = searchValue;
-            ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (x) => ExecuteReceiveOrderFoodCommand(x));
-
-            WaitingMeals = this.GetWaitingMealOrder;
+            WaitingMeals = this.GetWaitingMealOrder(newOrder);
         }
 
         #endregion
 
         #region Properties
-
-        public HubConnection Connection { get; set; }
-
-        public bool Active { get; set; }
-
-        public IHubProxy Proxy { get; set; }
-
-        public Thread Thread { get; set; }
-
-        public ICommand ReceiveOrderFoodCommand { get; set; }
 
         public ObservableCollection<Order> WaitingMeals
         {
@@ -109,141 +82,31 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        public ObservableCollection<Order> GetWaitingMealOrder
-        {
-            get
-            {
-                var criteria = new GetWaitingMealOrderCriteria();
-                List<Order> waitingMeals = KitchenService.GetWaitngMealOrder(criteria);
-                if (!string.IsNullOrEmpty(SearchValue))
-                {
-                    waitingMeals = waitingMeals.Where(x => x.TwoDigitOrderNo.StartsWith(SearchValue, StringComparison.Ordinal)).ToList();
-                }
-
-                ObservableCollection<Order> observableWaitingMeals = new ObservableCollection<Order>(waitingMeals);
-
-                return observableWaitingMeals;
-            }
-        }
-
-        #endregion
-
-        #region RelayCommands
-
-        // Can Execute Command.
-        public bool CanExecuteReceiveOrderFoodCommand()
-        {
-            return true;
-        }
-
-        // Execute Command.
-
         /// <summary>
-        /// Execute Receive Order Food Command.
+        /// Get Waiting Meals.
         /// </summary>
-        /// <param name="value">Parameter value.</param>
-        public void ExecuteReceiveOrderFoodCommand(object value)
+        /// <param name="newOrder">Add newOrder if current does not exist.</param>
+        /// <returns>Observable Collection Orders.</returns>
+        public ObservableCollection<Order> GetWaitingMealOrder(Order newOrder)
         {
-            if (value != null)
+            var criteria = new GetWaitingMealOrderCriteria();
+            List<Order> waitingMeals = KitchenService.GetWaitngMealOrder(criteria);
+            if (newOrder != null)
             {
-                int orderId = (int)value;
-                bool printed = ExecutePrintInvoice(orderId, Constant.ReceiveOrderFoodInvoice);
-
-                if (printed)
+                if (!waitingMeals.Any(x => x.OrderId == newOrder.OrderId))
                 {
-                    var criteria = new ProcessReceiveOrderCriteria() { OrderId = orderId };
-                    CommandResult received = KitchenService.ReceiveOrder(criteria);
-                    if (received.Code != 0)
-                    {
-                        MessageBox.Show(received.Message.ToString());
-                    }
-                    else
-                    {
-                        Order item = WaitingMeals.Where(x => x.OrderId == orderId).SingleOrDefault();
-                        WaitingMeals.Remove(item);
-
-                        var model = new HubData()
-                        {
-                            CurrentOrderId = orderId,
-                            CurrentOrderList = new List<Order>(WaitingMeals),
-                            CurrentScreen = 1
-                        };
-                        var taskSendNotify = new Task(() => KitchenNotify(model));
-                        taskSendNotify.Start();
-                    }
+                    waitingMeals.Add(newOrder);
                 }
             }
-            else
+
+            if (!string.IsNullOrEmpty(SearchValue))
             {
-                MessageBox.Show(Lang.ErrorMessage.ToString());
+                waitingMeals = waitingMeals.Where(x => x.TwoDigitOrderNo.StartsWith(SearchValue, StringComparison.Ordinal)).ToList();
             }
-        }
 
-        /// <summary>
-        /// Connect to Hub Server.
-        /// </summary>
-        private void ListenToHub()
-        {
-            Connection = new HubConnection(_host);
-            Proxy = Connection.CreateHubProxy("order");
-            Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
-            Proxy.On<Order>("editNewOrder", (order) => OnEditOrder(order));
-            Proxy.On<List<Order>>("appNotifyReceiveNewOrder", (orders) => SyncDataForApp(orders));
-            Connection.Start();
-        }
+            ObservableCollection<Order> observableWaitingMeals = new ObservableCollection<Order>(waitingMeals);
 
-        private void OnNewOrder(Order order)
-        {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => AddItemToList(order)));
-        }
-
-        private void OnEditOrder(Order order)
-        {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => EditItemInList(order)));
-        }
-
-        /// <summary>
-        /// Add new order to current list.
-        /// </summary>
-        /// <param name="order">New order.</param>
-        private void AddItemToList(Order order)
-        {
-            if (order != null)
-            {
-                if (order.CurrentStatusId == (int)OrderStatus.NewOrder)
-                {
-                    if (!WaitingMeals.Any(x => x.OrderId == order.OrderId))
-                    {
-                        WaitingMeals.Add(order);
-                        SystemSounds.Asterisk.Play();
-                    }
-                }
-            }
-        }
-
-        private void EditItemInList(Order order)
-        {
-            if (order != null)
-            {
-                if (order.CurrentStatusId == (int)OrderStatus.NewOrder)
-                {
-                    int index = WaitingMeals.IndexOf(WaitingMeals.Where(x => x.OrderId == order.OrderId).SingleOrDefault());
-                    WaitingMeals[index] = order;
-                }
-            }
-        }
-
-        private void SyncDataForApp(List<Order> waitingMeals)
-        {
-            if (waitingMeals != null)
-            {
-                this.WaitingMeals = new ObservableCollection<Order>(waitingMeals);
-            }
-        }
-
-        private void KitchenNotify(HubData model)
-        {
-            Proxy.Invoke("KitchenNotify", model);
+            return observableWaitingMeals;
         }
 
         #endregion

@@ -157,25 +157,6 @@
 	</Grid>
 
 
-	<!--<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto"  />
-			<ColumnDefinition />
-			<ColumnDefinition />
-			<ColumnDefinition Width="Auto" MinWidth="149" />
-		</Grid.ColumnDefinitions>
 
-		<Label Content="Message:" Grid.Column="0" Grid.Row="0" Margin="5" />
-		<TextBox Width="Auto" Grid.Column="1" Grid.Row="0" Margin="5,5,10,5" x:Name="ClientNameTextBox"  />
-		<Button Content="AddMessage" Grid.Column="3" Grid.Row="0" Margin="17,5" x:Name="SendButton" Click="ActionSendButtonClick" />
-
-		<ListBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Margin="5" x:Name="MessagesListBox" />
-	</Grid>-->
 
 </UserControl>

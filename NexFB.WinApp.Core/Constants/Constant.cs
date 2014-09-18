@@ -54,6 +54,14 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string FontWeightNormal = "Normal";
 
+        public const string WaitingMealViewModel = "WAITINGMEALVIEWMODEL";
+
+        public const string AwaitingDeliverViewModel = "AWAITINGDELIVERVIEWMODEL";
+
+        public const string DeliveredFoodViewModel = "DELIVEREDFOODVIEWMODEL";
+
+        public const string OrderFoodViewModel = "ORDERFOODVIEWMODEL";
+
         private Constant()
         {
         }

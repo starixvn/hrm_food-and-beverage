@@ -39,7 +39,6 @@ namespace NexFB.WinApp
                 {
                     base.OnStartup(e);
                     string defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
-                    ////string host = ConfigurationManager.AppSettings[Constant.HubHost];
                     IMappingRegister mappingRegister = new CoreMappingRegister();
                     if (string.IsNullOrEmpty(defaultLanguage))
                     {
@@ -52,9 +51,6 @@ namespace NexFB.WinApp
 
                     mappingRegister.Register();
                     DbSettingProviderManager.Current.Start();
-                    ////var hubConnection = new HubConnection(host);
-                    ////hubConnection.CreateHubProxy("order");
-                    ////hubConnection.Start().Wait();
                 }
                 else
                 {

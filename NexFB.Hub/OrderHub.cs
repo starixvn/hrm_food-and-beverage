@@ -58,21 +58,11 @@ namespace NexFB.Hub
         /// <summary>
         /// Notify when kitchen receive order.
         /// </summary>
-        /// <param name="model">Data push to hub.</param>
-        public void KitchenNotify(HubData model)
+        /// <param name="orderId">Current Order id.</param>
+        public void KitchenNotify(int orderId)
         {
-            SendEditOrderForWeb(model.CurrentOrderId);
-            Clients.All.appNotifyReceiveNewOrder(model.CurrentOrderList);
-            if (model.CurrentScreen == 1)
-            {
-                var criteria = new GetMealOrderByIdCriteria()
-                {
-                    OrderId = model.CurrentOrderId
-                };
-
-                Order order = _kitchenService.GetMealOrderById(criteria);
-                Clients.All.addOrderToAwaitingDeliverMeals(order); 
-            }
+            SendEditOrderForWeb(orderId);
+            Clients.All.appNotifyReceiveNewOrder(orderId);
         }
 
         public void SendNewOrder(int orderId)
