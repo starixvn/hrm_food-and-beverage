@@ -84,7 +84,7 @@ mealRegistrationModule.directive('checkMealTimesheet', function () {
 				var currentHour = toDay.getHours(),
 				currentMinute = toDay.getMinutes(),
 				registerHour = new Date(currentTimesheet.RegisterTime + 'Z').getUTCHours(),
-				registerMinute = new Date(currentTimesheet.RegisterTime + +'Z').getUTCMinutes();
+				registerMinute = new Date(currentTimesheet.RegisterTime + 'Z').getUTCMinutes();
 
 				if (currentHour > registerHour) {
 					return false;
