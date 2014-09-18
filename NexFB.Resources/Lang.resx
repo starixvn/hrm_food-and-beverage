@@ -378,4 +378,10 @@
   <data name="SerialRegisterWarning" xml:space="preserve">
     <value>Are you sure you want to submit this serial registration ? All upcoming registration of the same period will be overwritten.</value>
   </data>
+  <data name="CreateMealPlanning" xml:space="preserve">
+    <value>Create Meal Planning</value>
+  </data>
+  <data name="EditMealPlanning" xml:space="preserve">
+    <value>Edit Meal Planning</value>
+  </data>
 </root>

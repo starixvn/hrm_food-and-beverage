@@ -2,7 +2,8 @@
 /*exported appModule*/
 
 var appModule = angular.module("appModule",
-['mealRegistrationModule', 'userControlModule', 'orderingModule', 'foodItemManagementModule', 'foodMenuManagementModule',
+['mealRegistrationModule', 'userControlModule', 'orderingModule', 'foodItemManagementModule',
+'foodMenuManagementModule', 'mealPlanningManagementModule',
 'ui.bootstrap', 'pascalprecht.translate', 'multi-select'])
 .config(['$locationProvider', '$translateProvider',
 function ($locationProvider, $translateProvider) {
