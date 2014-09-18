@@ -25,6 +25,7 @@ namespace NexFB.WinApp.ViewModels
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinApp.Core.Constants;
     using NexFB.WinApp.Core.Models;
+    using NexFB.WinApp.DependencyProperties;
 
     /// <summary>
     /// Main ViewModel.
@@ -552,7 +553,14 @@ namespace NexFB.WinApp.ViewModels
                     }
                     else
                     {
-                        SendMessage(orderId);
+                        if (InternetAvailability.IsInternetAvailable())
+                        {
+                            SendMessage(orderId);
+                        }
+                        else
+                        {
+                            CanExecuteViewPendingFoood();
+                        }
                     }
                 }
             }
