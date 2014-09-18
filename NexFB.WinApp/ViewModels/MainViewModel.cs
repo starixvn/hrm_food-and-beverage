@@ -430,15 +430,15 @@ namespace NexFB.WinApp.ViewModels
         }
 
         // Execute Command
-        private void ExecuteViewPendingFood(Order order)
+        private void ExecuteViewPendingFood()
         {
-            CurrentViewModel = new WaitingMealViewModel(WaitingSearchResult, order);
+            CurrentViewModel = new WaitingMealViewModel(WaitingSearchResult);
             CheckCurrentViewModel();
         }
 
-        private void ExecuteViewAwaitingDeliverFood(Order order)
+        private void ExecuteViewAwaitingDeliverFood()
         {
-            CurrentViewModel = new AwaitingDeliverViewModel(AwaitingDeliverSearchResult, order);
+            CurrentViewModel = new AwaitingDeliverViewModel(AwaitingDeliverSearchResult);
             CheckCurrentViewModel();
         }
 
@@ -480,12 +480,12 @@ namespace NexFB.WinApp.ViewModels
                     string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
                     if (currentViewModel == Constant.WaitingMealViewModel)
                     {
-                        ExecuteViewPendingFood(null);
+                        ExecuteViewPendingFood();
                     }
 
                     if (currentViewModel == Constant.AwaitingDeliverViewModel)
                     {
-                        ExecuteViewAwaitingDeliverFood(null);
+                        ExecuteViewAwaitingDeliverFood();
                     }
 
                     if (currentViewModel == Constant.DeliveredFoodViewModel)
@@ -521,7 +521,7 @@ namespace NexFB.WinApp.ViewModels
                     }
                     else
                     {
-                        ExecuteViewAwaitingDeliverFood(null);
+                        ExecuteViewAwaitingDeliverFood();
                     }
                 }
             }
@@ -566,52 +566,106 @@ namespace NexFB.WinApp.ViewModels
 
         #region Methods
 
-        private void OnSyncDataForApp(Order order)
+        private void OnNewOrder(Order order)
         {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => SyncDataForApp(order)));
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => NewOrder(order)));
         }
 
         /// <summary>
-        /// Synchronize data for app.
+        /// Receive new order for app.
         /// </summary>
-        /// <param name="order">Current Added or removed order.</param>
-        private void SyncDataForApp(Order order)
+        /// <param name="order">Order entity.</param>
+        private void NewOrder(Order order)
         {
             string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
-            if (currentViewModel == Constant.WaitingMealViewModel)
+            switch (currentViewModel)
             {
-                ExecuteViewPendingFood(order);
+                case Constant.WaitingMealViewModel:
+                    ((WaitingMealViewModel)CurrentViewModel).NewOrderDataInWaitingMeals(order);
+                    break;
+                case Constant.AwaitingDeliverViewModel:
+                    ((AwaitingDeliverViewModel)CurrentViewModel).NewOrderDataInAwaitingDeliverMeals(order);
+                    break;
             }
+        }
 
-            if (order == null)
+        private void OnEditOrder(Order order)
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => EditOrder(order)));
+        }
+
+        /// <summary>
+        /// Edit selected order.
+        /// </summary>
+        /// <param name="order">Order entity.</param>
+        private void EditOrder(Order order)
+        {
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            switch (currentViewModel)
             {
-                if (currentViewModel == Constant.AwaitingDeliverViewModel)
-                {
-                    CurrentViewModel = new AwaitingDeliverViewModel(AwaitingDeliverSearchResult, order);
-                }
+                case Constant.WaitingMealViewModel:
+                    ((WaitingMealViewModel)CurrentViewModel).EditDataInWaitingMeals(order);
+                    break;
+                case Constant.AwaitingDeliverViewModel:
+                    ((AwaitingDeliverViewModel)CurrentViewModel).EditDataInAwaitingDeliverMeals(order);
+                    break;
+            }
+        }
+
+        private void OnDeleteOrder(int orderId)
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => DeleteOrder(orderId)));
+        }
+
+        /// <summary>
+        /// Deleted selected order.
+        /// </summary>
+        /// <param name="orderId">Selected orderId.</param>
+        private void DeleteOrder(int orderId)
+        {
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            switch (currentViewModel)
+            {
+                case Constant.WaitingMealViewModel:
+                    ((WaitingMealViewModel)CurrentViewModel).DeleteDataInWaitingMeals(orderId);
+                    break;
+                case Constant.AwaitingDeliverViewModel:
+                    ((AwaitingDeliverViewModel)CurrentViewModel).DeleteDataInAwaitingDeliverMeals(orderId);
+                    break;
+            }
+        }
+
+        private void OnKitchenStaffReceiveOrder(int orderId)
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => KitchenStaffReceiveOrder(orderId)));
+        }
+
+        /// <summary>
+        /// Kitchen Staff receive order.
+        /// </summary>
+        /// <param name="orderId">Received order id.</param>
+        private void KitchenStaffReceiveOrder(int orderId)
+        {
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            switch (currentViewModel)
+            {
+                case Constant.WaitingMealViewModel:
+                    ((WaitingMealViewModel)CurrentViewModel).DeleteDataInWaitingMeals(orderId);
+                    break;
+                case Constant.AwaitingDeliverViewModel:
+                    var criteria = new GetMealOrderByIdCriteria()
+                        {
+                            OrderId = orderId
+                        };
+                    Order order = KitchenService.GetMealOrderById(criteria);
+                    ((AwaitingDeliverViewModel)CurrentViewModel).NewOrderDataInAwaitingDeliverMeals(order);
+                    break;
             }
         }
 
         private Task SendMessage(int orderId)
         {
             return Proxy.Invoke("KitchenNotify", orderId);
-        }
-
-        /// <summary>
-        /// Method Initialize RelayCommand.
-        /// </summary>
-        private void InitializeRelayCommand()
-        {
-            ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood(null));
-            ViewDeliveredFoodCommand = new RelayCommand((x) => CanExecuteViewDeliveredFood(), (y) => ExecuteViewDeliveredFood());
-            ViewOrderFoodCommand = new RelayCommand((x) => CanExecuteViewOrderFood(), (y) => ExecuteViewOrderFood());
-            ViewAwaitingDeliverFoodCommand = new RelayCommand((x) => CanExecuteViewAwaitingDeliverFood(), (y) => ExecuteViewAwaitingDeliverFood(null));
-            NumPadPressed = new RelayCommand((x) => CanExecuteNumPadPressed(), (y) => ExecuteNumPadPressed(y));
-            NumPadReleased = new RelayCommand((x) => CanExecuteNumPadReleased(), (y) => ExecuteNumPadPressed(y));
-            DisplayKeyPad = new RelayCommand((x) => CanDisplayKeyPad(), (y) => ExecuteDisplayKeyPad());
-            CloseWindow = new RelayCommand((x) => ((Window)x).Close());
-            ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (y) => ExecuteReceiveOrderFoodCommand(y));
-            DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (y) => ExecuteDeliverOrderFoodCommand(y));
         }
 
         /// <summary>
@@ -624,10 +678,10 @@ namespace NexFB.WinApp.ViewModels
             {
                 Connection = new HubConnection(_host);
                 Proxy = Connection.CreateHubProxy("order");
-                Proxy.On<Order>("newOrderForApp", (order) => OnSyncDataForApp(order));
-                Proxy.On<int>("appNotifyReceiveNewOrder", (orderId) => OnSyncDataForApp(null));
-                Proxy.On<int>("deleteOrderForApp", (orderId) => OnSyncDataForApp(null));
-                Proxy.On<Order>("editOrderForApp", (order) => OnSyncDataForApp(null));
+                Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
+                Proxy.On<int>("appNotifyReceiveNewOrder", (orderId) => OnKitchenStaffReceiveOrder(orderId));
+                Proxy.On<int>("deleteOrderForApp", (orderId) => OnDeleteOrder(orderId));
+                Proxy.On<Order>("editOrderForApp", (order) => OnEditOrder(order));
                 Connection.Start().Wait();
 
                 while (Active)
@@ -636,6 +690,23 @@ namespace NexFB.WinApp.ViewModels
                 }
             }) { IsBackground = true };
             Thread.Start();
+        }
+
+        /// <summary>
+        /// Method Initialize RelayCommand.
+        /// </summary>
+        private void InitializeRelayCommand()
+        {
+            ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
+            ViewDeliveredFoodCommand = new RelayCommand((x) => CanExecuteViewDeliveredFood(), (y) => ExecuteViewDeliveredFood());
+            ViewOrderFoodCommand = new RelayCommand((x) => CanExecuteViewOrderFood(), (y) => ExecuteViewOrderFood());
+            ViewAwaitingDeliverFoodCommand = new RelayCommand((x) => CanExecuteViewAwaitingDeliverFood(), (y) => ExecuteViewAwaitingDeliverFood());
+            NumPadPressed = new RelayCommand((x) => CanExecuteNumPadPressed(), (y) => ExecuteNumPadPressed(y));
+            NumPadReleased = new RelayCommand((x) => CanExecuteNumPadReleased(), (y) => ExecuteNumPadPressed(y));
+            DisplayKeyPad = new RelayCommand((x) => CanDisplayKeyPad(), (y) => ExecuteDisplayKeyPad());
+            CloseWindow = new RelayCommand((x) => ((Window)x).Close());
+            ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (y) => ExecuteReceiveOrderFoodCommand(y));
+            DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (y) => ExecuteDeliverOrderFoodCommand(y));
         }
 
         /// <summary>

@@ -30,14 +30,14 @@ namespace NexFB.WinApp.ViewModels
 
         #region Constructors
         public AwaitingDeliverViewModel()
-            : this(null, null)
+            : this(null)
         {
         }
 
-        public AwaitingDeliverViewModel(string searchValue, Order order)
+        public AwaitingDeliverViewModel(string searchValue)
         {
             SearchValue = searchValue;
-            AwaitingDeliverMeals = GetAwaitingDeliverMealOrder(order);
+            AwaitingDeliverMeals = GetAwaitingDeliverMealOrder;
         }
 
         #endregion
@@ -82,28 +82,47 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        /// <summary>
-        /// Method Get Awaiting Deliver Meals.
-        /// </summary>
-        /// <param name="order">Check for existing order.</param>
-        /// <returns>Observable Collection Orders.</returns>
-        public ObservableCollection<Order> GetAwaitingDeliverMealOrder(Order order)
+        public ObservableCollection<Order> GetAwaitingDeliverMealOrder
         {
-            var criteria = new GetAwaitingDeliverMealOrderCriteria();
-            List<Order> awaitingDeliverMeals = KitchenService.GetAwaitingDeliverMealOrder(criteria);
-            if (order != null)
+            get
             {
-                ////to do
-            }
+                var criteria = new GetAwaitingDeliverMealOrderCriteria();
+                List<Order> awaitingDeliverMeals = KitchenService.GetAwaitingDeliverMealOrder(criteria);
+                if (!string.IsNullOrEmpty(SearchValue))
+                {
+                    awaitingDeliverMeals = awaitingDeliverMeals.Where(x => x.TwoDigitOrderNo.StartsWith(SearchValue, StringComparison.Ordinal)).ToList();
+                }
 
-            if (!string.IsNullOrEmpty(SearchValue))
+                ObservableCollection<Order> observableWaitingDeliverMeals = new ObservableCollection<Order>(awaitingDeliverMeals);
+                return observableWaitingDeliverMeals;
+            }
+        }
+
+        public void EditDataInAwaitingDeliverMeals(Order order)
+        {
+            if (AwaitingDeliverMeals.Any(x => x.OrderId == order.OrderId))
             {
-                awaitingDeliverMeals = awaitingDeliverMeals.Where(x => x.TwoDigitOrderNo.StartsWith(SearchValue, StringComparison.Ordinal)).ToList();
+                var oldOrder = AwaitingDeliverMeals.Where(x => x.OrderId == order.OrderId).FirstOrDefault();
+                AwaitingDeliverMeals.Remove(oldOrder);
+                AwaitingDeliverMeals.Add(order);
             }
+        }
 
-            ObservableCollection<Order> observableWaitingDeliverMeals = new ObservableCollection<Order>(awaitingDeliverMeals);
+        public void DeleteDataInAwaitingDeliverMeals(int orderId)
+        {
+            if (AwaitingDeliverMeals.Any(x => x.OrderId == orderId))
+            {
+                var oldOrder = AwaitingDeliverMeals.Where(x => x.OrderId == orderId).FirstOrDefault();
+                AwaitingDeliverMeals.Remove(oldOrder);
+            }
+        }
 
-            return observableWaitingDeliverMeals;
+        public void NewOrderDataInAwaitingDeliverMeals(Order order)
+        {
+            if (!AwaitingDeliverMeals.Any(x => x.OrderId == order.OrderId))
+            {
+                AwaitingDeliverMeals.Add(order);
+            }
         }
 
         #endregion
