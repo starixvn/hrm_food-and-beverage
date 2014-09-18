@@ -244,7 +244,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			controller: "RegisterMealController",
 			resolve: {
 				meals: function () {
-					return angular.copy(week.WeekMeals[0].Meals);
+					var date = mealRegistrationUtilities.getDateNotToday(week);
+					return angular.copy(date.Meals);
 				},
 				workDate: function () {
 					return '';
@@ -253,8 +254,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 					return $scope.mealTimesheet;
 				},
 				isSameMeal: function () {
-					//					return mealRegistrationUtilities.checkSameMealInWeek(week);
-					return false;
+					return mealRegistrationUtilities.checkSameMealInWeek(week, $scope.mealTimesheet);
 				},
 				mode: function () {
 					return 'month';

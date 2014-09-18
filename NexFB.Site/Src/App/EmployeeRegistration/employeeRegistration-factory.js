@@ -345,32 +345,85 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		return hasEnableDate;
 	};
 
-//	utility.checkSameMeal = function (firstDate, secondDate) {
-//	};
+	utility.getDateNotToday = function (week) {
+		var allDateInWeek = week.WeekMeals,
+			toDay = new Date(),
+			resultDate = '';
 
-//	utility.checkSameMealInWeek = function (week) {
-//		var isSameMeal = true,
-//			length = week.WeelMeals.length;
+		for (var i = 0; i < allDateInWeek.length; i++) {
+			var date = allDateInWeek[i],
+				currentDate = new Date(date.WorkDate);
 
-//		for (var i = 0; i < length - 1; i++) {
-//			var date = week.WeelMeals[i],
-//				nextDate = week.WeelMeals[i + 1];
-//			currentDate = new Date(date.WorkDate);
+			if (!date.IsDisabled) {
+				if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
+					if (toDay.getMonth() !== currentDate.getMonth() || toDay.getDate() !== currentDate.getDate()) {
+						resultDate = date;
+						i = allDateInWeek.length;
+					}
+				}
+			}
+		}
 
-//			// Don't check Sunday and Saturday
-//			if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
-//				if (!date.IsDisabled) {
-//					var checked = checkSameMeal(date, nextDate);
+		return resultDate;
+	};
 
-//					if (!checked) {
-//						isSameMeal = false;
-//					}
-//				}
-//			}
-//		}
+	var checkSameMeal = function (firstDate, secondDate) {
+		var isSameMeal = true;
 
-//		return isSameMeal;
-//	};
+		for (var i = 0; i < 4; i++) {
+			if (firstDate.Meals[i].IsVegetarian !== secondDate.Meals[i].IsVegetarian) {
+				isSameMeal = false;
+			}
+		}
+
+		return isSameMeal;
+	};
+
+	var checkSameMealWithToday = function (sealedDate, date, mealTimesheet) {
+		var isSameMeal = true;
+
+		angular.forEach(date.Meals, function (meal, index) {
+			var currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
+				rightMeal = utility.checkRightMeal(currentTimesheet);
+
+			if (rightMeal) {
+				if (sealedDate.Meals[index].IsVegetarian !== meal.IsVegetarian) {
+					isSameMeal = false;
+				}
+			}
+		});
+
+		return isSameMeal;
+	};
+
+	utility.checkSameMealInWeek = function (week, mealTimesheet) {
+		var isSameMeal = true,
+			length = week.WeekMeals.length,
+			toDay = new Date(),
+			sealedDate = utility.getDateNotToday(week);
+
+		// Don't check Sunday and Saturday
+		for (var i = 1; i < length - 1; i++) {
+			var date = week.WeekMeals[i],
+				currentDate = new Date(date.WorkDate),
+				checked = false;
+
+			if (!date.IsDisabled) {
+				if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+					checked = checkSameMealWithToday(sealedDate, date, mealTimesheet);
+				}
+				else {
+					checked = checkSameMeal(sealedDate, date);
+				}
+
+				if (!checked) {
+					isSameMeal = false;
+				}
+			}
+		}
+
+		return isSameMeal;
+	};
 
 	return utility;
 } ]);
