@@ -1,5 +1,116 @@
-﻿<div class="row pull-right ">
-	<input type="button" value="Create food menu" class="button" ng-click="addFoodMenu()"/>
+﻿<div class="col-sm-12">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li class="current">Menu management</li>
+        </ul>
+    </div>
+    <div class="row filter">
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <label>Menu</label>
+                <select>
+                    <option value="0">5 selected</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Meal</label>
+                <select>
+                    <option value="0">All meals</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Employee type</label>
+                <select>
+                     <option value="0">All type</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="button" value="Submit" class="button"/>
+            </div>
+        </form>
+    </div>
+    <div class="row pull-right ">
+        <input type="button" value="Create food menu" class="button" ng-click="addFoodMenu()"/>
+    </div>
+    <div class="row table-menu">
+        <table class="table table-bordered table-striped col-sm-12">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Menu (Vie)</th>
+                    <th>Menu (Eng)</th>
+                    <th>Meal</th>
+                    <th class="">Veg</th>
+                    <th class="width-120">Employee type</th>
+                    <th class="width-120">P.P Meal</th>
+                    <th class="width-120">P.P Day</th>
+                    <th class="width-140">Food items</th>
+                    <th class="width-60">Active</th>
+                    <th class="width-60">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td>Sáng 1</td>
+                    <td>Breakfast 1</td>
+                    <td>Breakfast</td>
+                    <td class="text-center">No</td>
+                    <td>
+                        <div>- Expat</div>
+                        <div>- Unit 7</div>
+                    </td>
+                    <td class="text-right">20000</td>
+                    <td class="text-right">60000</td>
+                    <td class="">60 selected</td>
+                    <td class="text-center"><input type="checkbox" checked="checked"/></td>
+                    <td class="text-center">
+                        <a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
+                        <a class="glyphicon glyphicon-remove icon-remove" href=""></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td>Sáng 2</td>
+                    <td>Breakfast 2</td>
+                    <td>Breakfast</td>
+                    <td class="text-center">No</td>
+                    <td>Local</td>
+                    <td class="text-right"></td>
+                    <td></td>
+                    <td>65 selected</td>
+                    <td class="text-center"><input type="checkbox" checked="unchecked"/></td>
+                    <td class="text-center">
+                        <a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
+                        <a class="glyphicon glyphicon-remove icon-remove" href=""></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">3</td>
+                    <td>Trưa 1</td>
+                    <td>Lunch 1</td>
+                    <td>Lunch</td>
+                    <td class="text-center">No</td>
+                    <td>
+                        <div>- Expat</div>
+                        <div>- Unit 7</div>
+                    </td>
+                    <td></td>
+                    <td class="text-right">77292</td>
+                    <td>120 selected</td>
+                    <td class="text-center"><input type="checkbox" checked="checked"/></td>
+                    <td class="text-center">
+                        <a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
+                        <a class="glyphicon glyphicon-remove icon-remove" href=""></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="note-menu">
+            <ul class="list-unstyled list-inline">
+                <li><b>P.P Meal:</b> Price Per Meal</li>
+                <li><b>P.P Day:</b> Price Per Day</li>
+            </ul>
+        </div>
+    </div>
 </div>
-
-<a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
