@@ -1,4 +1,124 @@
-﻿<div class="row pull-right ">
-	<input type="button" value="Create meal planning" class="button" ng-click="addMealPlanning()"/>
+﻿<div class="col-sm-12">
+    <div class="row filter">
+        <div class="filterRow">
+            <div class="label width-60">Meal</div>
+            <div class="field width-140">
+                <select>
+                    <option>2 selected</option>
+                </select>
+            </div>
+            <div class="label width-140">Employee type</div>
+            <div class="field">
+                <select>
+                    <option>4 selected</option>
+                </select>
+            </div>
+        </div>
+        <div class="filterRow lclear">
+            <div class="label width-60">From</div>
+            <div class="field width-140">
+                <input type="text"/>
+            </div>
+            <div class="label width-140">To</div>
+            <div class="field width-140">
+                <input type="text"/>
+            </div>
+            <div class="field">
+                <input type="button" value="Submit" class="button"/>
+            </div>
+        </div>
+    </div>
+    <div class="row table-mealPlanning">
+        <table class="table table-bordered table-striped col-sm-12">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Menu (Vie)</th>
+                    <th>Date</th>
+                    <th>Meal</th>
+                    <th class="">Veg.</th>
+                    <th class="">Employee type</th>
+                    <th class="">Food item</th>
+                    <th class="">Active</th>
+                    <th class="">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2" class="text-center oddRow">1</td>
+                    <td rowspan="2" class="oddRow">Trưa 1</td>
+                    <td rowspan="2" class="oddRow">Aug 25,2014</td>
+                    <td rowspan="2" class="oddRow">Lunch</td>
+                    <td rowspan="2" class="text-center">No</td>
+                    <td rowspan="2" class="oddRow">Nexcel & HRM</td>
+                    <td class="oddRow">Cá lóc chiên</td>
+                    <td rowspan="2" class="text-center oddRow"><input type="checkbox" checked="checked"/></td>
+                    <td rowspan="2" class="text-center oddRow">
+                        <a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
+                        <a class="glyphicon glyphicon-remove icon-remove" href=""></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="oddRow">Canh rau dền</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" class="text-center evenRow">2</td>
+                    <td rowspan="2" class="evenRow">Trưa 2</td>
+                    <td rowspan="2" class="evenRow">Aug 25,2014</td>
+                    <td rowspan="2" class="evenRow">Lunch</td>
+                    <td rowspan="2" class="evenRow">No</td>
+                    <td rowspan="2" class="evenRow">
+                        <div>SMS Expat</div>
+                        <div>SMS Local</div>
+                    </td>
+                    <td class="evenRow">Thịt kho trứng</td>
+                    <td rowspan="2" class="text-center evenRow"><input type="checkbox" checked="checked"/></td>
+                    <td rowspan="2" class="text-center evenRow">
+                        <a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
+                        <a class="glyphicon glyphicon-remove icon-remove" href=""></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cải ngọt xào</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" class="text-center oddRow">3</td>
+                    <td rowspan="2" class="oddRow">Trưa 1</td>
+                    <td rowspan="2" class="oddRow">Aug 25,2014</td>
+                    <td rowspan="2" class="oddRow">Lunch</td>
+                    <td rowspan="2" class="text-center">No</td>
+                    <td rowspan="2" class="oddRow">Nexcel & HRM</td>
+                    <td class="oddRow">Cá lóc chiên</td>
+                    <td rowspan="2" class="text-center oddRow"><input type="checkbox" checked="checked"/></td>
+                    <td rowspan="2" class="text-center oddRow">
+                        <a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
+                        <a class="glyphicon glyphicon-remove icon-remove" href=""></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="oddRow">Canh rau dền</td>
+                </tr>
+                 <tr>
+                    <td rowspan="2" class="text-center evenRow">4</td>
+                    <td rowspan="2" class="evenRow">Trưa 2</td>
+                    <td rowspan="2" class="evenRow">Aug 25,2014</td>
+                    <td rowspan="2" class="evenRow">Lunch</td>
+                    <td rowspan="2" class="evenRow">No</td>
+                    <td rowspan="2" class="evenRow">
+                        <div>SMS Expat</div>
+                        <div>SMS Local</div>
+                    </td>
+                    <td class="evenRow">Thịt kho trứng</td>
+                    <td rowspan="2" class="text-center evenRow"><input type="checkbox" checked="checked"/></td>
+                    <td rowspan="2" class="text-center evenRow">
+                        <a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
+                        <a class="glyphicon glyphicon-remove icon-remove" href=""></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cải ngọt xào</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>

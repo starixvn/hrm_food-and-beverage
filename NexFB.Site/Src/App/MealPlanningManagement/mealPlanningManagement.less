@@ -1,2 +1,40 @@
-﻿body {
+﻿.filter {
+	.filterRow {
+		margin-bottom: 10px;
+		float: left;
+		input[type="text"] 
+		{
+			width: 110px;
+		}
+		.label {
+			text-align: right;
+			float: left;
+			color: #010101;
+			font-size: 13px;
+			font-weight: normal;
+			label {
+				margin-top: 5px;
+			}
+		}
+		.field {
+			float: left;
+			input[type="checkbox"] {
+				margin-top: 7px;
+			}
+		}
+	}
+	.lclear {
+		clear: left;
+	}
+}
+.table-mealPlanning {
+	padding: 0 15px;
+	.table.table-striped > tbody > tr > td {
+		&.oddRow {
+			background: #ececec;
+		}
+		&.evenRow {
+			background: #fff;
+		}
+	}
 }
