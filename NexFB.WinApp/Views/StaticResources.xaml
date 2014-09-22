@@ -32,8 +32,8 @@
 	<!--Selected Item in Listbox-->
 	<Style x:Key="CustomLBStyle" TargetType="{x:Type ListBox}">
 		<Style.Resources>
-			<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#e1e1e1"/>
-			<SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#e1e1e1" />
+			<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+			<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent"/>
 		</Style.Resources>
 	</Style>
 
