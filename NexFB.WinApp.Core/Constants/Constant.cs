@@ -62,6 +62,12 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string OrderFoodViewModel = "ORDERFOODVIEWMODEL";
 
+        public const int WaitingFoodScreen = 1;
+
+        public const int AwaitingDeliverFoodScreen = 2;
+
+        public const int DeliveredFoodScreen = 3;
+
         private Constant()
         {
         }

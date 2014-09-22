@@ -59,10 +59,19 @@ namespace NexFB.Hub
         /// Notify when kitchen receive order.
         /// </summary>
         /// <param name="orderId">Current Order id.</param>
-        public void KitchenNotify(int orderId)
+        /// <param name="screenControl">Current screen.</param>
+        public void KitchenNotify(int orderId, int screenControl)
         {
             SendEditOrderForWeb(orderId);
-            Clients.All.appNotifyReceiveNewOrder(orderId);
+            if (screenControl == 1)
+            {
+                Clients.All.appNotifyReceiveNewOrder(orderId);
+            }
+
+            if (screenControl == 2)
+            {
+                Clients.All.appNotifyAwaitingDeliverOrder(orderId);
+            }
         }
 
         public void SendNewOrder(int orderId)

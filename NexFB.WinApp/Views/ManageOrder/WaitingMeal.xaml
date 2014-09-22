@@ -114,7 +114,10 @@
 
 								<!--Order status-->
 								<Grid Grid.Column="2" Width="150" VerticalAlignment="Top">
-									<Button Height="35" Width="85" Foreground="White" Style="{StaticResource TileButton}" Margin="38,4,20,49" />
+								<Button Content="{x:Static resx:WinFormMainResource.Receive}"
+								Background="#66b5d7" CommandParameter="{Binding Path=OrderId}"
+								Command="{Binding DataContext.ReceiveOrderFoodCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+									Height="35" Width="85" Foreground="White" Style="{StaticResource TileButton}" Margin="38,4,20,49" />
 								</Grid>
 							</Grid>
 						</Border>

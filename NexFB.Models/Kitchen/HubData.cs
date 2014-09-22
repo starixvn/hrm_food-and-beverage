@@ -20,9 +20,6 @@ namespace NexFB.Models.Kitchen
     {
         public int CurrentOrderId { get; set; }
 
-        ////public ObservableCollection<Order> CurrentOrderList { get; set; }
-        public List<Order> CurrentOrderList { get; set; }
-
         public int CurrentScreen { get; set; }
     }
 }

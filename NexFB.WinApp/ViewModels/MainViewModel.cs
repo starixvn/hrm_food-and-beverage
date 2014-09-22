@@ -524,7 +524,7 @@ namespace NexFB.WinApp.ViewModels
                     {
                         if (InternetAvailability.IsInternetAvailable())
                         {
-                            SendMessage(orderId);
+                            SendMessage(orderId, Constant.AwaitingDeliverFoodScreen);
                         }
                         else
                         {
@@ -562,7 +562,7 @@ namespace NexFB.WinApp.ViewModels
                     {
                         if (InternetAvailability.IsInternetAvailable())
                         {
-                            SendMessage(orderId);
+                            SendMessage(orderId, Constant.WaitingFoodScreen);
                         }
                         else
                         {
@@ -593,14 +593,9 @@ namespace NexFB.WinApp.ViewModels
         private void NewOrder(Order order)
         {
             string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
-            switch (currentViewModel)
+            if (currentViewModel == Constant.WaitingMealViewModel)
             {
-                case Constant.WaitingMealViewModel:
-                    ((WaitingMealViewModel)CurrentViewModel).NewOrderDataInWaitingMeals(order);
-                    break;
-                case Constant.AwaitingDeliverViewModel:
-                    ((AwaitingDeliverViewModel)CurrentViewModel).NewOrderDataInAwaitingDeliverMeals(order);
-                    break;
+                ((WaitingMealViewModel)CurrentViewModel).NewOrderDataInWaitingMeals(order);
             }
         }
 
@@ -655,6 +650,11 @@ namespace NexFB.WinApp.ViewModels
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => KitchenStaffReceiveOrder(orderId)));
         }
 
+        private void OnKitchenStaffAwaitingDeliverOrder(int orderId)
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => KitchenStaffAwaitingDeliverOrder(orderId)));
+        }
+
         /// <summary>
         /// Kitchen Staff receive order.
         /// </summary>
@@ -678,9 +678,26 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        private Task SendMessage(int orderId)
+        /// <summary>
+        /// Kitchen Staff awaiting deliver order.
+        /// </summary>
+        /// <param name="orderId">Received order id.</param>
+        private void KitchenStaffAwaitingDeliverOrder(int orderId)
         {
-            return Proxy.Invoke("KitchenNotify", orderId);
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            switch (currentViewModel)
+            {
+                case Constant.AwaitingDeliverViewModel:
+                    ((AwaitingDeliverViewModel)CurrentViewModel).DeleteDataInAwaitingDeliverMeals(orderId);
+                    break;
+                case Constant.DeliveredFoodViewModel:
+                    break;
+            }
+        }
+
+        private Task SendMessage(int orderId, int screenControl)
+        {
+            return Proxy.Invoke("KitchenNotify", orderId, screenControl);
         }
 
         /// <summary>
@@ -695,6 +712,7 @@ namespace NexFB.WinApp.ViewModels
                 Proxy = Connection.CreateHubProxy("order");
                 Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
                 Proxy.On<int>("appNotifyReceiveNewOrder", (orderId) => OnKitchenStaffReceiveOrder(orderId));
+                Proxy.On<int>("appNotifyAwaitingDeliverOrder", (orderId) => OnKitchenStaffAwaitingDeliverOrder(orderId));
                 Proxy.On<int>("deleteOrderForApp", (orderId) => OnDeleteOrder(orderId));
                 Proxy.On<Order>("editOrderForApp", (order) => OnEditOrder(order));
                 Connection.Start().Wait();
