@@ -309,7 +309,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			controller: "RegisterMealController",
 			resolve: {
 				meals: function () {
-					return angular.copy(allWeekMeals[0].WeekMeals[0].Meals);
+					var date = mealRegistrationUtilities.getDateNotTodayInMonth(allWeekMeals);
+					return angular.copy(date.Meals);
 				},
 				workDate: function () {
 					return '';
@@ -318,8 +319,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 					return $scope.mealTimesheet;
 				},
 				isSameMeal: function () {
-					//					return checkSameMealInMonth(weeks);
-					return false;
+					return mealRegistrationUtilities.checkSameMealInMonth(allWeekMeals, $scope.mealTimesheet);
 				},
 				mode: function () {
 					return 'month';
@@ -388,7 +388,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			controller: "RegisterMealController",
 			resolve: {
 				meals: function () {
-					return angular.copy(allWeekMeals[0].WeekMeals[0].Meals);
+					var date = mealRegistrationUtilities.getWeekDayNotTodayInMonth(allWeekMeals, weekDayIndex);
+					return angular.copy(date.Meals);
 				},
 				workDate: function () {
 					return '';
@@ -397,8 +398,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 					return $scope.mealTimesheet;
 				},
 				isSameMeal: function () {
-					//					return checkSameMealInSameDate(date, allWeekMeals);
-					return false;
+					return mealRegistrationUtilities.checkSameMealWeekDayInMonth(allWeekMeals, weekDayIndex, $scope.mealTimesheet);
 				},
 				mode: function () {
 					return 'month';
@@ -537,7 +537,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 			controller: "RegisterMealController",
 			resolve: {
 				meals: function () {
-					return angular.copy(weekMeals[0].Meals);
+					return angular.copy(weekMeals[1].Meals);
 				},
 				workDate: function () {
 					return '';
@@ -546,8 +546,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 					return '';
 				},
 				isSameMeal: function () {
-					//					return checkSameMealInWeek(weekMeals);
-					return false;
+					return mealRegistrationUtilities.checkSameMealInWeekDefault(weekMeals);
 				},
 				mode: function () {
 					return 'default';

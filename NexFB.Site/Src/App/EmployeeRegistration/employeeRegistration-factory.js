@@ -425,5 +425,101 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		return isSameMeal;
 	};
 
+	utility.getDateNotTodayInMonth = function (weeks) {
+		var resultDate = '';
+
+		for (var i = 0; i < weeks.length; i++) {
+			var week = weeks[i];
+			resultDate = utility.getDateNotToday(week);
+
+			if (resultDate) {
+				i = weeks.length;
+			}
+		}
+
+		return resultDate;
+	};
+
+	utility.checkSameMealInMonth = function (weeks, mealTimesheet) {
+		var isSameMeal = true;
+
+		angular.forEach(weeks, function (week) {
+			var checked = utility.checkSameMealInWeek(week, mealTimesheet);
+
+			if (!checked) {
+				isSameMeal = false;
+			}
+		});
+
+		return isSameMeal;
+	};
+
+	utility.getWeekDayNotTodayInMonth = function (weeks, weekDayIndex) {
+		var resultDate = '',
+			toDay = new Date();
+
+		for (var i = 0; i < weeks.length; i++) {
+			var week = weeks[i],
+				date = week.WeekMeals[weekDayIndex],
+				currentDate = new Date(date.WorkDate);
+
+			if (!date.IsDisabled) {
+				if (toDay.getMonth() !== currentDate.getMonth() || toDay.getDate() !== currentDate.getDate()) {
+					resultDate = date;
+					i = weeks.length;
+				}
+			}
+		}
+
+		return resultDate;
+	};
+
+	utility.checkSameMealWeekDayInMonth = function (weeks, weekDayIndex, mealTimesheet) {
+		var isSameMeal = true,
+			toDay = new Date(),
+			sealedDate = utility.getWeekDayNotTodayInMonth(weeks, weekDayIndex);
+
+		for (var i = 0; i < weeks.length; i++) {
+			var week = weeks[i],
+				date = week.WeekMeals[weekDayIndex],
+				currentDate = new Date(date.WorkDate),
+				checked = false;
+
+			if (!date.IsDisabled) {
+				if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+					checked = checkSameMealWithToday(sealedDate, date, mealTimesheet);
+				}
+				else {
+					checked = checkSameMeal(sealedDate, date);
+				}
+
+				if (!checked) {
+					isSameMeal = false;
+				}
+			}
+		}
+
+		return isSameMeal;
+	};
+
+	utility.checkSameMealInWeekDefault = function (week) {
+		var isSameMeal = true,
+			sealedDate = week[1]; // Monday
+
+		// don't check Sunday and Saturday
+		for (var i = 2; i < week.length - 1; i++) {
+			var date = week[i],
+				checked = false;
+
+			checked = checkSameMeal(sealedDate, date);
+
+			if (!checked) {
+				isSameMeal = false;
+			}
+		}
+
+		return isSameMeal;
+	};
+
 	return utility;
 } ]);
