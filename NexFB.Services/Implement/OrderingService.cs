@@ -10,6 +10,7 @@
 namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using NexFB.Core.Models;
     using NexFB.Core.Services;
@@ -20,7 +21,6 @@ namespace NexFB.Services.Implement
     using NexFB.Repositories.Interface;
     using NexFB.Resources;
     using NexFB.Services.Interface;
-    using System.Linq;
 
     /// <summary>
     /// Order Service.
