@@ -3,7 +3,7 @@
 		<span ng-click="changeMonth(-1)" class="btn btn-default btn-prev" title="Prev"><i class="glyphicon glyphicon-chevron-left icon-prev"></i></span>
 		<span class="calendar-box">
 			<p class="input-group">
-				<input type="text" class="form-control" datepicker-popup="{{format}}" datepicker-mode="popUpMode" ng-click="open($event)" 
+				<input readonly type="text" class="form-control" datepicker-popup="{{format}}" datepicker-mode="popUpMode" ng-click="open($event)" 
 					ng-model="currentDate" is-open="opened" datepicker-options="dateOptions" show-button-bar="false"/>
 				<span class="input-group-btn">
 					<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>

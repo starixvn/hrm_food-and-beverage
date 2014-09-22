@@ -2,8 +2,8 @@
 /*global mealRegistrationModule*/
 
 mealRegistrationModule.controller('EmployeeRegistrationMealController',
-['$scope', 'mealRegistrationFactory', 'mealRegistrationUtilities', 'notificationFactory', '$route',
-function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificationFactory, $route) {
+['$scope', 'mealRegistrationFactory', 'mealRegistrationUtilities', 'notificationFactory', '$route', '$window',
+function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificationFactory, $route, $window) {
 	mealRegistrationUtilities.getTabHeading($scope);
 
 	mealRegistrationFactory.getUserPermissionOnRegistration().success(function (permission) {
@@ -14,8 +14,8 @@ function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificati
 		notificationFactory.error("ErrorMessage");
 	});
 
-	$scope.reload = function () {
-		$route.reload();
+	$scope.goHomePage = function () {
+		$window.location.href = "/Ordering/Index";
 	};
 } ]);
 
