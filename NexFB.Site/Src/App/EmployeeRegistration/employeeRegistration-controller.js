@@ -158,11 +158,21 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		return hasEnableDate;
 	};
 
+	/*
+	** If route change , close dialog.
+	*/
+	$scope.$on('$routeChangeStart', function () {
+		// if modal instance defined, dismiss dialog
+		if ($scope.modalRegisterInstance) {
+			$scope.modalRegisterInstance.dismiss('cancel');
+		}
+	});
+
 	/* 
 	** Register meal for a date.
 	*/
 	$scope.registerMeal = function (date) {
-		var modalAssignInstance = $modal.open({
+		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
 			resolve: {
@@ -191,7 +201,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
-		modalAssignInstance.result.then(function (registrationInfo) {
+		$scope.modalRegisterInstance.result.then(function (registrationInfo) {
 			var mealRegistration = {
 				meal: registrationInfo.mealsTemplate,
 				onDate: date.WorkDate.toString()
@@ -239,7 +249,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	};
 
 	$scope.registerMealWeek = function (week, index) {
-		var modalAssignInstance = $modal.open({
+		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
 			resolve: {
@@ -269,7 +279,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
-		modalAssignInstance.result.then(function (registrationInfo) {
+		$scope.modalRegisterInstance.result.then(function (registrationInfo) {
 			var mealRegistration = {
 				meal: registrationInfo.mealsTemplate,
 				onDate: mealRegistrationUtilities.getRegisterDateInWeek(week)
@@ -304,7 +314,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	};
 
 	$scope.registerMealMonth = function (allWeekMeals) {
-		var modalAssignInstance = $modal.open({
+		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
 			resolve: {
@@ -334,7 +344,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
-		modalAssignInstance.result.then(function (registrationInfo) {
+		$scope.modalRegisterInstance.result.then(function (registrationInfo) {
 			var mealRegistration = {
 				meal: registrationInfo.mealsTemplate,
 				onDate: mealRegistrationUtilities.getRegisterDateInMonth(allWeekMeals)
@@ -383,7 +393,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	$scope.registerMealDate = function (date, allWeekMeals) {
 		var weekDayIndex = mealRegistrationUtilities.getWeekDayIndex(date);
 
-		var modalAssignInstance = $modal.open({
+		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
 			resolve: {
@@ -413,7 +423,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
-		modalAssignInstance.result.then(function (registrationInfo) {
+		$scope.modalRegisterInstance.result.then(function (registrationInfo) {
 			var mealRegistration = {
 				meal: registrationInfo.mealsTemplate,
 				onDate: mealRegistrationUtilities.getRegisterDateOfWeek(weekDayIndex, allWeekMeals)
@@ -459,11 +469,21 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 		}
 	});
 
+	/*
+	** If route change , close dialog.
+	*/
+	$scope.$on('$routeChangeStart', function () {
+		// if modal instance defined, dismiss dialog
+		if ($scope.modalRegisterInstance) {
+			$scope.modalRegisterInstance.dismiss('cancel');
+		}
+	});
+
 	/* 
 	** Register meal for a date.
 	*/
 	$scope.registerMeal = function (date, index) {
-		var modalAssignInstance = $modal.open({
+		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
 			resolve: {
@@ -492,7 +512,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
-		modalAssignInstance.result.then(function (registrationInfo) {
+		$scope.modalRegisterInstance.result.then(function (registrationInfo) {
 			var mealRegistration = {
 				meal: registrationInfo.mealsTemplate,
 				dayofWeek: date.WeekDay
@@ -532,7 +552,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 	};
 
 	$scope.registerMealWeek = function (weekMeals) {
-		var modalAssignInstance = $modal.open({
+		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
 			resolve: {
@@ -561,7 +581,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
-		modalAssignInstance.result.then(function (registrationInfo) {
+		$scope.modalRegisterInstance.result.then(function (registrationInfo) {
 			var mealRegistration = {
 				meal: registrationInfo.mealsTemplate,
 				dayofWeek: mealRegistrationUtilities.getDefaultDateInWeek(weekMeals)
@@ -590,7 +610,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 	** Apply template.
 	*/
 	$scope.apply = function () {
-		var modalAssignInstance = $modal.open({
+		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
 			controller: "ApplyTemplateConfirmController",
 			resolve: {
@@ -601,7 +621,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
-		modalAssignInstance.result.then(function () {
+		$scope.modalRegisterInstance.result.then(function () {
 			mealRegistrationFactory.applyFromTemplate().success(function (response) {
 				if (response.IsSuccessful === true) {
 					notificationFactory.success("DataChangeSuccessfully");
@@ -647,7 +667,7 @@ isSerialRegistration, $modal) {
 
 	$scope.save = function (meals, mealsTemplate) {
 		if (isSerialRegistration) {
-			var modalAssignInstance = $modal.open({
+			$scope.modalConfirmInstance = $modal.open({
 				templateUrl: '/src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
 				controller: "ApplyTemplateConfirmController",
 				resolve: {
@@ -658,7 +678,7 @@ isSerialRegistration, $modal) {
 				windowClass: "modal-confirm-center register-meal-dialog"
 			});
 
-			modalAssignInstance.result.then(function () {
+			$scope.modalConfirmInstance.result.then(function () {
 				var registrationInfo = {
 					meals: meals,
 					mealsTemplate: mealsTemplate
@@ -678,6 +698,16 @@ isSerialRegistration, $modal) {
 	$scope.cancel = function () {
 		$modalInstance.dismiss("cancel");
 	};
+
+	/*
+	** If route change , close dialog.
+	*/
+	$scope.$on('$routeChangeStart', function () {
+		// if modal instance defined, dismiss dialog
+		if ($scope.modalConfirmInstance) {
+			$scope.modalConfirmInstance.dismiss('cancel');
+		}
+	});
 } ]);
 
 mealRegistrationModule.controller('ApplyTemplateConfirmController',
