@@ -393,4 +393,7 @@
   <data name="String1" xml:space="preserve">
     <value />
   </data>
+  <data name="DefaultRegistrationWarning" xml:space="preserve">
+    <value>Warning: All Week registration does not include Saturday and Sunday</value>
+  </data>
 </root>
