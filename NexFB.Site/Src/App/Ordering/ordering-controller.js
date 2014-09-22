@@ -147,7 +147,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	});
 
 	$scope.showAddMember = function (isSavedOrder) {
-		$modal.open({
+		$scope.modalAddMemberInstance = $modal.open({
 			templateUrl: '/src/app/Ordering/Templates/AddMember.html',
 			controller: "AddMemberController",
 			backdrop: 'static',
@@ -161,10 +161,14 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			},
 			windowClass: "modal-confirm-center1"
 		});
+
+		$scope.modalAddMemberInstance.result.then(function () {
+			
+		});
 	};
 
 	$scope.removeMember = function (index, memberId, isSavedOrder) {
-		var modalRemoveMemberInstance = $modal.open({
+		$scope.modalRemoveMemberInstance = $modal.open({
 			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
 			controller: "ModalConfirmController2",
 			backdrop: 'static',
@@ -176,7 +180,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			windowClass: "modal-confirm-center1"
 		});
 
-		modalRemoveMemberInstance.result.then(function () {
+		$scope.modalRemoveMemberInstance.result.then(function () {
 			if (isSavedOrder) {
 				orderingFactory.removeMember(memberId).success(function (response) {
 					if (response.IsSuccessful === true) {
@@ -195,7 +199,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	};
 
 	$scope.saveAddOrder = function (order) {
-		var modalSaveOrderInstance = $modal.open({
+		$scope.modalConfirmSaveOrderInstance = $modal.open({
 			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
 			controller: "ModalConfirmController2",
 			backdrop: 'static',
@@ -207,7 +211,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			windowClass: "modal-confirm-center1"
 		});
 
-		modalSaveOrderInstance.result.then(function () {
+		$scope.modalConfirmSaveOrderInstance.result.then(function () {
 			orderingFactory.createOrder(order).success(function (response) {
 				if (response.result.IsSuccessful === true) {
 					notificationFactory.success("DataChangeSuccessfully");
@@ -222,7 +226,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	};
 
 	$scope.editOrder = function (orderId) {
-		var modalInstance = $modal.open({
+		$scope.modalEditOrderInstance = $modal.open({
 			templateUrl: '/src/app/Ordering/Templates/EditOrder.html',
 			controller: "EditOrderController",
 			backdrop: 'static',
@@ -234,7 +238,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			windowClass: "modal-confirm-center"
 		});
 
-		modalInstance.result.then(function (receiveObject) {
+		$scope.modalEditOrderInstance.result.then(function (receiveObject) {
 			if (receiveObject.isDeleted) {
 				$scope.sendDeleteOrder(receiveObject.orderId);
 			}
@@ -254,6 +258,24 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		.error(function () {
 			// TODO
 		});
+
+	$scope.$on('$routeChangeStart', function () {
+		if ($scope.modalEditOrderInstance) {
+			$scope.modalEditOrderInstance.dismiss('cancel');
+		}
+
+		if ($scope.modalConfirmSaveOrderInstance) {
+			$scope.modalConfirmSaveOrderInstance.dismiss('cancel');
+		}
+
+		if ($scope.modalRemoveMemberInstance) {
+			$scope.modalRemoveMemberInstance.dismiss('cancel');
+		}
+
+		if ($scope.modalAddMemberInstance) {
+			$scope.modalAddMemberInstance.dismiss('cancel');
+		}
+	});
 } ]);
 
 orderingModule.controller('AddMemberController',
@@ -396,7 +418,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		});
 
 	$scope.showAddMember = function () {
-		$modal.open({
+		$scope.modalAddMemberInstance = $modal.open({
 			templateUrl: '/src/app/Ordering/Templates/AddMember.html',
 			controller: "AddMemberController",
 			backdrop: 'static',
@@ -417,7 +439,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	};
 
 	$scope.saveEditOrder = function (order) {
-		var modalSaveEditInstance = $modal.open({
+		$scope.modalConfirmSaveEditInstance = $modal.open({
 			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
 			controller: "ModalConfirmController2",
 			backdrop: 'static',
@@ -429,7 +451,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			windowClass: "modal-confirm-center1"
 		});
 
-		modalSaveEditInstance.result.then(function () {
+		$scope.modalConfirmSaveEditInstance.result.then(function () {
 			orderingFactory.editOrder(order).success(function (response) {
 				if (response.IsSuccessful === true) {
 					notificationFactory.success("DataChangeSuccessfully");
@@ -448,7 +470,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	};
 
 	$scope.deleteOrder = function (orderId) {
-		var modalRemoveMemberInstance = $modal.open({
+		$scope.modalRemoveMemberInstance = $modal.open({
 			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
 			controller: "ModalConfirmController2",
 			backdrop: 'static',
@@ -460,7 +482,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			windowClass: "modal-confirm-center1"
 		});
 
-		modalRemoveMemberInstance.result.then(function () {
+		$scope.modalRemoveMemberInstance.result.then(function () {
 			orderingFactory.deleteOrder(orderId).success(function (response) {
 				if (response.IsSuccessful === true) {
 					notificationFactory.success("DataChangeSuccessfully");
@@ -481,4 +503,18 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	$scope.removeMember = function (index) {
 		$scope.order.Members.splice(index, 1);
 	};
+
+	$scope.$on('$routeChangeStart', function () {
+		if ($scope.modalRemoveMemberInstance) {
+			$scope.modalRemoveMemberInstance.dismiss('cancel');
+		}
+
+		if ($scope.modalConfirmSaveEditInstance) {
+			$scope.modalConfirmSaveEditInstance.dismiss('cancel');
+		}
+
+		if ($scope.modalAddMemberInstance) {
+			$scope.modalAddMemberInstance.dismiss('cancel');
+		}
+	});
 } ]);

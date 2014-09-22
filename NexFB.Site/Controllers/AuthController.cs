@@ -89,8 +89,8 @@ namespace NexFB.Site.Controllers
         private UserSession GetUserLogin(LoginModel model)
         {
             UserSession user = null;
-            ////bool result = Membership.ValidateUser(model.Username, model.Password);
-            bool result = true;
+            bool result = Membership.ValidateUser(model.Username, model.Password);
+            ////bool result = true;
             if (result)
             {
                 var criteria = new GetEmployeeByDomainCriteria()
