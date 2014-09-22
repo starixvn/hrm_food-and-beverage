@@ -188,7 +188,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 					return false;
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
 		modalAssignInstance.result.then(function (registrationInfo) {
@@ -266,7 +266,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 					return true;
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
 		modalAssignInstance.result.then(function (registrationInfo) {
@@ -331,7 +331,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 					return true;
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
 		modalAssignInstance.result.then(function (registrationInfo) {
@@ -410,7 +410,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 					return true;
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
 		modalAssignInstance.result.then(function (registrationInfo) {
@@ -489,7 +489,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 					return false;
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
 		modalAssignInstance.result.then(function (registrationInfo) {
@@ -558,7 +558,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 					return true;
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
 		modalAssignInstance.result.then(function (registrationInfo) {
@@ -598,7 +598,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 					return true;
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center register-meal-dialog"
 		});
 
 		modalAssignInstance.result.then(function () {
@@ -655,7 +655,7 @@ isSerialRegistration, $modal) {
 						return false;
 					}
 				},
-				windowClass: "modal-confirm-center"
+				windowClass: "modal-confirm-center register-meal-dialog"
 			});
 
 			modalAssignInstance.result.then(function () {

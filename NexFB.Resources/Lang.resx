@@ -349,7 +349,7 @@
     <value>Edit order</value>
   </data>
   <data name="ApplyMealTemplateWarning" xml:space="preserve">
-    <value>Are you sure you want to submit this serial registration ? All upcoming registration of the year will be overwritten.</value>
+    <value>Are you sure you want to submit this serial registration ? All upcoming registrations of the year will be overwritten.</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -376,7 +376,7 @@
     <value>Warning: Monthly and weekly registration will not be applied for Sartuday and Sunday</value>
   </data>
   <data name="SerialRegisterWarning" xml:space="preserve">
-    <value>Are you sure you want to submit this serial registration ? All upcoming registration of the same period will be overwritten.</value>
+    <value>Are you sure you want to submit this serial registration ? All upcoming registrations of the same period will be overwritten.</value>
   </data>
   <data name="CreateMealPlanning" xml:space="preserve">
     <value>Create Meal Planning</value>
