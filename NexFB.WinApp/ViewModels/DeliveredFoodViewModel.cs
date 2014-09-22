@@ -11,15 +11,11 @@ namespace NexFB.WinApp.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Windows;
-    using System.Windows.Input;
-    using NexFB.Core.Models;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
-    using NexFB.Resources;
     using NexFB.Services.Implement;
-    using NexFB.WinApp.Core.Commands;
 
     /// <summary>
     /// Delivered Food ViewModel.
@@ -28,7 +24,7 @@ namespace NexFB.WinApp.ViewModels
     {
         #region Fields
 
-        private List<Order> _deliveredMeals;
+        private ObservableCollection<Order> _deliveredMeals;
         private string _searchValue;
 
         #endregion
@@ -43,8 +39,6 @@ namespace NexFB.WinApp.ViewModels
         public DeliveredFoodViewModel(string searchValue)
         {
             SearchValue = searchValue;
-            UndoOrderCommand = new RelayCommand((x) => CanExecuteUndoOrderCommand(), (x) => ExecuteUndoOrderCommand(x));
-            EditOrderCommand = new RelayCommand((x) => CanExecuteEditOrderCommand(), (x) => ExecuteEditOrderCommand(x));
             DeliveredMeals = this.GetDeliveredMealOrder;
         }
 
@@ -52,11 +46,7 @@ namespace NexFB.WinApp.ViewModels
 
         #region Properties
 
-        public ICommand UndoOrderCommand { get; set; }
-
-        public ICommand EditOrderCommand { get; set; }
-
-        public List<Order> DeliveredMeals
+        public ObservableCollection<Order> DeliveredMeals
         {
             get
             {
@@ -75,7 +65,7 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        public List<Order> GetDeliveredMealOrder
+        public ObservableCollection<Order> GetDeliveredMealOrder
         {
             get
             {
@@ -86,7 +76,8 @@ namespace NexFB.WinApp.ViewModels
                     deliveredMeals = deliveredMeals.Where(x => x.TwoDigitOrderNo.StartsWith(SearchValue, StringComparison.Ordinal)).ToList();
                 }
 
-                return deliveredMeals;
+                ObservableCollection<Order> observabledeliveredMeals = new ObservableCollection<Order>(deliveredMeals);
+                return observabledeliveredMeals;
             }
         }
 
@@ -111,56 +102,22 @@ namespace NexFB.WinApp.ViewModels
 
         #endregion
 
-        #region RelayCommands
+        #region Methods
 
-        // Can Execute Command.
-        public bool CanExecuteUndoOrderCommand()
+        public void NewOrderDataInDeliveredMeals(Order order)
         {
-            return true;
-        }
-
-        public bool CanExecuteEditOrderCommand()
-        {
-            return true;
-        }
-
-        // Execute Command.
-
-        /// <summary>
-        /// Execute Undo Order Command.
-        /// </summary>
-        /// <param name="value">Parameter value.</param>
-        public void ExecuteUndoOrderCommand(object value)
-        {
-            if (value != null)
+            if (!DeliveredMeals.Any(x => x.OrderId == order.OrderId))
             {
-                int orderId = (int)value;
-                var criteria = new UndoOrderCriteria() { OrderId = orderId };
-                CommandResult result = KitchenService.UndoOrder(criteria);
-                if (result.Code != 0)
-                {
-                    MessageBox.Show(result.Message);
-                }
-                else
-                {
-                    DeliveredMeals = this.GetDeliveredMealOrder;
-                }
-            }
-            else
-            {
-                MessageBox.Show(Lang.ErrorMessage);
+                DeliveredMeals.Add(order);
             }
         }
 
-        public void ExecuteEditOrderCommand(object value)
+        public void DeleteDataInDeliveredMeals(int orderId)
         {
-            if (value == null)
+            if (DeliveredMeals.Any(x => x.OrderId == orderId))
             {
-                MessageBox.Show(Lang.ErrorMessage);
-            }
-            else
-            {
-                MessageBox.Show(value.ToString());
+                Order currentOrder = DeliveredMeals.Where(x => x.OrderId == orderId).FirstOrDefault();
+                DeliveredMeals.Remove(currentOrder);
             }
         }
 

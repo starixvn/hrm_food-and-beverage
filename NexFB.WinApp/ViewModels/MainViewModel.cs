@@ -108,6 +108,10 @@ namespace NexFB.WinApp.ViewModels
 
         public ICommand NumPadReleased { get; set; }
 
+        public ICommand UndoOrderCommand { get; set; }
+
+        public ICommand EditOrderCommand { get; set; }
+
         public ViewModelBase CurrentViewModel
         {
             get
@@ -430,6 +434,16 @@ namespace NexFB.WinApp.ViewModels
             return true;
         }
 
+        private bool CanExecuteUndoOrderCommand()
+        {
+            return true;
+        }
+
+        private bool CanExecuteEditOrderCommand()
+        {
+            return true;
+        }
+
         // Execute Command
         private void ExecuteViewPendingFood()
         {
@@ -577,6 +591,51 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Execute Undo Order Command.
+        /// </summary>
+        /// <param name="value">Parameter value.</param>
+        private void ExecuteUndoOrderCommand(object value)
+        {
+            if (value != null)
+            {
+                int orderId = (int)value;
+                var criteria = new UndoOrderCriteria() { OrderId = orderId };
+                CommandResult result = KitchenService.UndoOrder(criteria);
+                if (result.Code != 0)
+                {
+                    MessageBox.Show(result.Message);
+                }
+                else
+                {
+                    if (InternetAvailability.IsInternetAvailable())
+                    {
+                        SendMessage(orderId, Constant.DeliveredFoodScreen);
+                    }
+                    else
+                    {
+                        ExecuteViewDeliveredFood();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show(Lang.ErrorMessage);
+            }
+        }
+
+        private void ExecuteEditOrderCommand(object value)
+        {
+            if (value == null)
+            {
+                MessageBox.Show(Lang.ErrorMessage);
+            }
+            else
+            {
+                MessageBox.Show(value.ToString());
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -655,6 +714,11 @@ namespace NexFB.WinApp.ViewModels
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => KitchenStaffAwaitingDeliverOrder(orderId)));
         }
 
+        private void OnKitchenStaffUndoDeliveredOrder(int orderId)
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => KitchenStaffUndoDeliveredOrder(orderId)));
+        }
+
         /// <summary>
         /// Kitchen Staff receive order.
         /// </summary>
@@ -668,11 +732,7 @@ namespace NexFB.WinApp.ViewModels
                     ((WaitingMealViewModel)CurrentViewModel).DeleteDataInWaitingMeals(orderId);
                     break;
                 case Constant.AwaitingDeliverViewModel:
-                    var criteria = new GetMealOrderByIdCriteria()
-                        {
-                            OrderId = orderId
-                        };
-                    Order order = KitchenService.GetMealOrderById(criteria);
+                    Order order = GetOrderById(orderId);
                     ((AwaitingDeliverViewModel)CurrentViewModel).NewOrderDataInAwaitingDeliverMeals(order);
                     break;
             }
@@ -691,8 +751,40 @@ namespace NexFB.WinApp.ViewModels
                     ((AwaitingDeliverViewModel)CurrentViewModel).DeleteDataInAwaitingDeliverMeals(orderId);
                     break;
                 case Constant.DeliveredFoodViewModel:
+                    Order order = GetOrderById(orderId);
+                    ((DeliveredFoodViewModel)CurrentViewModel).NewOrderDataInDeliveredMeals(order);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Kitchen Staff awaiting deliver order.
+        /// </summary>
+        /// <param name="orderId">Received order id.</param>
+        private void KitchenStaffUndoDeliveredOrder(int orderId)
+        {
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            switch (currentViewModel)
+            {
+                case Constant.AwaitingDeliverViewModel:
+                    Order order = GetOrderById(orderId);
+                    ((AwaitingDeliverViewModel)CurrentViewModel).NewOrderDataInAwaitingDeliverMeals(order);
+                    break;
+                case Constant.DeliveredFoodViewModel:
+                    ((DeliveredFoodViewModel)CurrentViewModel).DeleteDataInDeliveredMeals(orderId);
+                    break;
+            }
+        }
+
+        private Order GetOrderById(int orderId)
+        {
+            var criteria = new GetMealOrderByIdCriteria()
+            {
+                OrderId = orderId
+            };
+            Order order = KitchenService.GetMealOrderById(criteria);
+
+            return order;
         }
 
         private Task SendMessage(int orderId, int screenControl)
@@ -713,6 +805,7 @@ namespace NexFB.WinApp.ViewModels
                 Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
                 Proxy.On<int>("appNotifyReceiveNewOrder", (orderId) => OnKitchenStaffReceiveOrder(orderId));
                 Proxy.On<int>("appNotifyAwaitingDeliverOrder", (orderId) => OnKitchenStaffAwaitingDeliverOrder(orderId));
+                Proxy.On<int>("appNotifyUndoDeliveredOrder", (orderId) => OnKitchenStaffUndoDeliveredOrder(orderId));
                 Proxy.On<int>("deleteOrderForApp", (orderId) => OnDeleteOrder(orderId));
                 Proxy.On<Order>("editOrderForApp", (order) => OnEditOrder(order));
                 Connection.Start().Wait();
@@ -740,6 +833,8 @@ namespace NexFB.WinApp.ViewModels
             CloseWindow = new RelayCommand((x) => ((Window)x).Close());
             ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (y) => ExecuteReceiveOrderFoodCommand(y));
             DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (y) => ExecuteDeliverOrderFoodCommand(y));
+            UndoOrderCommand = new RelayCommand((x) => CanExecuteUndoOrderCommand(), (x) => ExecuteUndoOrderCommand(x));
+            EditOrderCommand = new RelayCommand((x) => CanExecuteEditOrderCommand(), (x) => ExecuteEditOrderCommand(x));
         }
 
         /// <summary>

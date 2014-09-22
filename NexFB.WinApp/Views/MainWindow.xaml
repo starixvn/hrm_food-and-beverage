@@ -5,7 +5,7 @@
 	xmlns:l="clr-namespace:NexFB.WinApp.DependencyProperties"
 	xmlns:local="clr-namespace:NexFB.WinApp.ViewModels"
 	xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
-	Title="Order Foods" Width="1280" Height="1024" WindowState="Maximized">
+	Title="Order Foods" Width="1280" Height="1024" WindowState="Maximized" WindowStyle="None">
 
 	<Window.Resources>
 		<!--AllowsTransparency="False"-->
@@ -140,8 +140,8 @@
 
 					<Grid Grid.Row="3" Grid.Column="2">
 						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-						<Button x:Name="buttonBack" Background="WhiteSmoke" Command="{Binding NumPadReleased}" CommandParameter="ENTER">
-							<Path Stretch="Fill" Width="21" Height="10" Data="M-32,20.125L-12.375,1.5 -12.375,10.3125 -0.5,10.3125 -0.5,29.9375 -12.375,29.9375 -12.375,39.75 -32,20.125z" Fill="#FF333333"/>
+						<Button Content="OK" FontWeight="Black" x:Name="buttonBack" Background="WhiteSmoke" Command="{Binding NumPadReleased}" CommandParameter="ENTER">
+							<!--<Path Stretch="Fill" Width="21" Height="10" Data="M-32,20.125L-12.375,1.5 -12.375,10.3125 -0.5,10.3125 -0.5,29.9375 -12.375,29.9375 -12.375,39.75 -32,20.125z" Fill="#FF333333"/>-->
 						</Button>
 					</Grid>
 

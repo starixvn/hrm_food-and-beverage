@@ -102,7 +102,7 @@ namespace NexFB.WinApp.ViewModels
         {
             if (AwaitingDeliverMeals.Any(x => x.OrderId == order.OrderId))
             {
-                var oldOrder = AwaitingDeliverMeals.Where(x => x.OrderId == order.OrderId).FirstOrDefault();
+                Order oldOrder = AwaitingDeliverMeals.Where(x => x.OrderId == order.OrderId).FirstOrDefault();
                 AwaitingDeliverMeals.Remove(oldOrder);
                 AwaitingDeliverMeals.Add(order);
             }
