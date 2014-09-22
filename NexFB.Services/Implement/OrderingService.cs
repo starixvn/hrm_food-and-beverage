@@ -20,6 +20,7 @@ namespace NexFB.Services.Implement
     using NexFB.Repositories.Interface;
     using NexFB.Resources;
     using NexFB.Services.Interface;
+    using System.Linq;
 
     /// <summary>
     /// Order Service.
@@ -77,6 +78,7 @@ namespace NexFB.Services.Implement
                 if (order != null)
                 {
                     order.IsSavedOrder = false;
+                    order.Members = order.Members.Where(t => t.IsOrder == true).ToList();
                 }
             }
 

@@ -198,7 +198,7 @@ namespace NexFB.Repositories.Implement
                     {
                         OrderMemberModel memberOrder = new OrderMemberModel()
                         {
-                            IsOrder = true,
+                            IsOrder = s == null,
                             Member = e,
                             Menu = m,
                             CurrentStatus = s

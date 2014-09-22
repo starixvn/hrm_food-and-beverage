@@ -103,6 +103,12 @@ namespace NexFB.Site.Controllers.API
             };
 
             MealOrderingModel order = _orderService.GetMemberNewOrder(criteria);
+
+            if (order == null)
+            {
+                order = new MealOrderingModel();
+            }
+
             return order;
         }
 
@@ -138,6 +144,12 @@ namespace NexFB.Site.Controllers.API
             };
 
             MealOrderingModel order = _orderService.GetMemberSavedOrder(criteria);
+
+            if (order == null)
+            {
+                order = new MealOrderingModel();
+            }
+
             return order;
         }
 
@@ -172,7 +184,7 @@ namespace NexFB.Site.Controllers.API
         {
             var criteria = new GetEmployeeCriteria()
             {
-                DepartmentId = departmentId.ToString(),
+                DepartmentId = departmentId == 0 ? string.Empty : departmentId.ToString(),
                 Keyword = keyWord
             };
 
@@ -194,7 +206,7 @@ namespace NexFB.Site.Controllers.API
                 CreatedBy = this.CurrentUser.UserId,
                 CreatedDate = DateTime.Now,
                 IsSavedOrder = model.IsSavedOrder,
-                LocationId = model.Location.LocationId,
+                LocationId = model.Location != null ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
                 Remark = model.Remark,
                 Members = model.Members

@@ -49,7 +49,7 @@
 									    <span>{{member.Menu.Name}}</span>
 								    </td>
                                     <td class="text-center">
-                                        <a ng-click="removeMember($index)" ng-show="(
+                                        <a href="javascript:;" ng-click="removeMember($index)" ng-show="(
 									    (order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3)
 										    && ((member.Member.UserId != order.CreatorOrder.UserId 
 										    && member.Member.UserId == order.CurrentUser.UserId) 

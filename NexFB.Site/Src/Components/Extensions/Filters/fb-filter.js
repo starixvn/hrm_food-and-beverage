@@ -12,7 +12,7 @@ appModule.filter('customDate', ['$filter', function ($filter) {
 appModule.filter('customTime', ['$filter', function ($filter) {
 	return function (input) {
 		if (input == null) { return ""; }
-		var _date = $filter('date')(new Date(input), 'HH:mm:ss a');
+		var _date = $filter('date')(new Date(input), 'HH:mm:ss');
 		return _date;
 	};
 } ]);

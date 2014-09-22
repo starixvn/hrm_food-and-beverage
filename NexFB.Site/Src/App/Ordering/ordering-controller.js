@@ -150,6 +150,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		$modal.open({
 			templateUrl: '/src/app/Ordering/Templates/AddMember.html',
 			controller: "AddMemberController",
+			backdrop: 'static',
 			resolve: {
 				isSavedOrder: function () {
 					return isSavedOrder;
@@ -260,7 +261,7 @@ orderingModule.controller('AddMemberController',
 'notificationFactory',
 function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder, isEditOrder, notificationFactory) {
 	$scope.newMember = {};
-	$scope.departmentId = '1';
+	$scope.departmentId = '0';
 	var message = 'The selected member has already been in the order.';
 	$scope.add = function (isContinue) {
 

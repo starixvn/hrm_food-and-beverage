@@ -484,7 +484,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Meal.
+        ///   Looks up a localized string similar to My Menu.
         /// </summary>
         public static string MyMeal {
             get {
@@ -493,7 +493,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Order.
+        ///   Looks up a localized string similar to My Orders.
         /// </summary>
         public static string MyOrder {
             get {
@@ -529,6 +529,24 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have no order for the current meal.
+        /// </summary>
+        public static string NoMealOrder {
+            get {
+                return ResourceManager.GetString("NoMealOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No menu available for the current meal.
+        /// </summary>
+        public static string NoMenu {
+            get {
+                return ResourceManager.GetString("NoMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Non-Vegetarian.
         /// </summary>
         public static string NonVegetarian {
@@ -556,7 +574,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Order Person.
+        ///   Looks up a localized string similar to Order By.
         /// </summary>
         public static string OrderPerson {
             get {
@@ -565,7 +583,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tel. No..
+        ///   Looks up a localized string similar to Tel..
         /// </summary>
         public static string Phone {
             get {
@@ -673,7 +691,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saved Order.
+        ///   Looks up a localized string similar to Favourite Group Order.
         /// </summary>
         public static string SavedOrder {
             get {
@@ -714,6 +732,15 @@ namespace NexFB.Resources {
         public static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         
@@ -799,7 +826,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Today&apos; menu.
+        ///   Looks up a localized string similar to Current&apos; menu.
         /// </summary>
         public static string ToDayMenu {
             get {
@@ -835,7 +862,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Group members wil not be save for next orders.
+        ///   Looks up a localized string similar to This group will not be saved for next orders..
         /// </summary>
         public static string WarningGroupNotSave {
             get {

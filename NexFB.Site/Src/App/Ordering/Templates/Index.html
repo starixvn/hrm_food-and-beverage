@@ -12,17 +12,13 @@
                 </th>
                 <th data-translate="OrderPerson">
                 </th>
-                <th data-translate="NickName">
-                </th>
-                <th class="width-100" data-translate="Time">
-                </th>
                 <th class="width-120" data-translate="Quantity">
                 </th>
                 <th class="width-80" data-translate="Members">
                 </th>
                 <th class="width-100" data-translate="MyMeal">
                 </th>
-                <th class="width-170" data-translate="Location">
+                <th class="width-200" data-translate="Location">
                 </th>
                 <th class="width-170" data-translate="Remark">
                 </th>
@@ -33,19 +29,31 @@
                 <td class="text-center">
                     {{order.OrderNo}}
                 </td>
-                <td>
-					<a class="lbl-oder" href="javascript:;" ng-click="editOrder(order.OrderId)">
+                <td class="text-center" ng-switch="order.Status.StatusId">
+					<a ng-switch-when="1" class="lbl-new" href="javascript:;" ng-click="editOrder(order.OrderId)">
 						{{order.Status.Name}}
 					</a>
+					<a ng-switch-when="2" class="lbl-received" href="javascript:;" ng-click="editOrder(order.OrderId)">
+						{{order.Status.Name}}
+					</a>
+					<a ng-switch-when="3" class="lbl-delivered" href="javascript:;" ng-click="editOrder(order.OrderId)">
+						{{order.Status.Name}}
+					</a>
+					<a ng-switch-when="4" class="lbl-reduced" href="javascript:;" ng-click="editOrder(order.OrderId)">
+						{{order.Status.Name}}
+					</a>
+					<a ng-switch-when="5" class="lbl-edited" href="javascript:;" ng-click="editOrder(order.OrderId)">
+						{{order.Status.Name}}
+					</a>
+					<br />
+					<span>
+						{{order.ModifiedDate | customTime}}
+					</span>
                 </td>
                 <td>
-                    {{order.CreatorOrder.FullName}}
-                </td>
-                <td>
-                    {{order.CreatorOrder.NickName}}
-                </td>
-                <td class="text-center">
-                    {{order.ModifiedDate | customTime}}
+					<span tooltip="{{order.CreatorOrder.FullName}}">
+						{{order.CreatorOrder.NickName}}
+					</span>
                 </td>
                 <td>
                     <ul class="list-order list-unstyled" ng-repeat = "menu in order.MenuQuantity">
@@ -66,7 +74,7 @@
                 </td>
             </tr>
 			<tr ng-show="myOrder == ''">
-				<td class="empty-result" colspan="10" data-translate="EmptyResult">
+				<td class="empty-result" colspan="10" data-translate="NoMealOrder">
 				</td>
 			</tr>
         </tbody>
@@ -82,7 +90,7 @@
                         <th class="width-40">
                             #
                         </th>
-                        <th>
+                        <th class="">
 							<label data-translate="ToDayMenu"></label>
 							:
 							<label>{{menu.Name}}</label>
@@ -104,7 +112,7 @@
                         </td>
                     </tr>
 					<tr ng-show="menu == 'null' || menu.FoodItems == ''">
-						<td class="empty-result" colspan="2" data-translate="EmptyResult">
+						<td class="empty-result" colspan="2" data-translate="NoMenu">
 						</td>
 					</tr>
                 </tbody>
@@ -157,7 +165,7 @@
 									<span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
 								</td>
                                 <td class="text-center">
-                                    <a ng-click="removeMember($index, member.Member.UserId, false)" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
+                                    <a href="javascript:;" ng-click="removeMember($index, member.Member.UserId, false)" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
                                 </td>
                             </tr>
 							<tr ng-show="newOrder == '' || newOrder.Members == ''">
@@ -233,7 +241,7 @@
                                 </td>
                                 <td class="text-center">
                                     <a ng-click="removeMember($index, member.Member.UserId, true)" ng-show="member.Member.UserId != savedOrder.CreatorOrder.UserId"
-									class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
+									href="javascript:;" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
                                 </td>
                             </tr>
 							<tr ng-show="savedOrder == '' || savedOrder.Members == ''">
