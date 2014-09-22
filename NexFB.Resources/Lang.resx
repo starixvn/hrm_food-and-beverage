@@ -373,7 +373,7 @@
     <value>Edit Food Menu</value>
   </data>
   <data name="MonthlyWeeklyDefaultWarning" xml:space="preserve">
-    <value>Warning: Monthly and weekly registration will not be applied for Sartuday and Sunday</value>
+    <value>Warning: Monthly and weekly registration will not be applied for Saturday and Sunday</value>
   </data>
   <data name="SerialRegisterWarning" xml:space="preserve">
     <value>Are you sure you want to submit this serial registration ? All upcoming registrations of the same period will be overwritten.</value>

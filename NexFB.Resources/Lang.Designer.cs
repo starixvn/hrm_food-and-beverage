@@ -475,7 +475,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Warning: Monthly and weekly registration will not be applied for Sartuday and Sunday.
+        ///   Looks up a localized string similar to Warning: Monthly and weekly registration will not be applied for Saturday and Sunday.
         /// </summary>
         public static string MonthlyWeeklyDefaultWarning {
             get {
