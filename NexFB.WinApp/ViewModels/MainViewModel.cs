@@ -478,16 +478,6 @@ namespace NexFB.WinApp.ViewModels
                     break;
 
                 case "ENTER":
-            //                    string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
-            //switch (currentViewModel)
-            //{
-            //    case Constant.WaitingMealViewModel:
-            //        ((WaitingMealViewModel)CurrentViewModel).NewOrderDataInWaitingMeals(order);
-            //        break;
-            //    case Constant.AwaitingDeliverViewModel:
-            //        ((AwaitingDeliverViewModel)CurrentViewModel).NewOrderDataInAwaitingDeliverMeals(order);
-            //        break;
-            //}
                     string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
                     if (currentViewModel == Constant.WaitingMealViewModel)
                     {
