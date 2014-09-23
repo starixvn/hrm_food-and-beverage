@@ -5,7 +5,10 @@
 	xmlns:l="clr-namespace:NexFB.WinApp.DependencyProperties"
 	xmlns:local="clr-namespace:NexFB.WinApp.ViewModels"
 	xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
-	Title="Order Foods" Width="1280" Height="1024" WindowState="Maximized" WindowStyle="None">
+	Title="Order Foods"
+	WindowState="Maximized"
+	Height="{Binding DataContext.ScreenHeight, RelativeSource={RelativeSource AncestorType=Window}}" 
+	Width="{Binding DataContext.ScreenWidth, RelativeSource={RelativeSource AncestorType=Window}}">
 
 	<Window.Resources>
 		<!--AllowsTransparency="False"-->
