@@ -1,12 +1,11 @@
 ﻿<div>
-	<div class="modal-header">
-		<div class="popup-header">
-			{{"EditOrder" | translate}} #{{order.OrderNo}}<span class="close-popup" ng-click="cancel()"></span>
-		</div>
-	</div>
-
-	<div class="modal-body assign-role-modal">
-		<div class="col-sm-12 edit-order">
+    <div class="modal-header">
+        <div class="popup-header">
+            {{"EditOrder" | translate}} #{{order.OrderNo}}<span class="close-popup" ng-click="cancel()"></span>
+        </div>
+    </div>
+    <div class="modal-body assign-role-modal">
+        <div class="col-sm-12 edit-order">
 					<div class="row">
 						<div class="form-group">
                             <span data-translate="OrderPerson">
@@ -15,123 +14,121 @@
 							<span class="bold">{{order.CreatorOrder.NickName}}</span>
                         </div>
 					</div>
-                    <div class="row form-inline form-order">
+            <div class="row form-inline form-order">
                         
-						<div class="form-group">
-                            <label data-translate="Location">
-                            </label>
-                            <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.Location.LocationId"
-							ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
+                <div class="form-group">
+                    <label data-translate="Location">
+                    </label>
+                    <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.Location.LocationId"
+							ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId" class="ddlLocation">
 								|| (order.Status.StatusId != 1 && order.Status.StatusId != 2 && order.Status.StatusId != 3)" class="form-control">
                             </select>
-                        </div>
-                        <div class="form-group pull-right">
-                            <a href="javascript:;" ng-show = "(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)" 
-								ng-click="showAddMember()" class="button"><i class="glyphicon glyphicon-plus icon-plus">
-                            </i>
-							<label data-translate="Add"></label>
-							</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <table class="table table-bordered table-striped table-member">
-                            <thead>
-                                <tr>
-                                    <th class="width-40">
-                                        #
-                                    </th>
-								    <th data-translate="Member">
-                                    </th>
-                                    <th data-translate="Menu">
-                                    </th>
-                                    <th class="col-action" data-translate="Action">
-                                    </th>
-                                </tr>
-                            </thead>
-						    <tbody>
-                                <tr ng-repeat = "member in order.Members">
-								    <td class="text-center">{{$index + 1}}</td>
-								    <td ng-class="{'is-ordered' : member.CurrentStatus != null}">
-									    <span>{{member.Member.NickName}}</span>
-									    <span ng-show="member.CurrentStatus != null">(Ordered)</span>
-								    </td>
-								    <td>
-									    <span>{{member.Menu.Name}}</span>
-								    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:;" ng-click="removeMember($index)" ng-show="(
+                </div>
+                <div class="form-group pull-right">
+                    <a href="javascript:;" ng-show="(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)"
+                        ng-click="showAddMember()" class="button"><i class="glyphicon glyphicon-plus icon-plus">
+                        </i>
+                        <label data-translate="Add">
+                        </label>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-bordered table-striped table-member">
+                    <thead>
+                        <tr>
+                            <th class="width-40">
+                                #
+                            </th>
+                            <th data-translate="Member">
+                            </th>
+                            <th data-translate="Menu">
+                            </th>
+                            <th class="col-action" data-translate="Action">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="member in order.Members">
+                            <td class="text-center">
+                                {{$index + 1}}
+                            </td>
+                            <td ng-class="{'is-ordered' : member.CurrentStatus != null}">
+                                <span>{{member.Member.NickName}}</span> <span ng-show="member.CurrentStatus != null">
+                                    (Ordered)</span>
+                            </td>
+                            <td>
+                                <span>{{member.Menu.Name}}</span>
+                            </td>
+                            <td class="text-center">
+                                <a href="javascript:;" ng-click="removeMember($index)" ng-show="(
 									    (order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3)
 										    && ((member.Member.UserId != order.CreatorOrder.UserId 
 										    && member.Member.UserId == order.CurrentUser.UserId) 
-										    || order.CreatorOrder.UserId == order.CurrentUser.UserId)) "
-									    class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
-                                    </td>
-                                </tr>
-							    <tr ng-show="order == '' || order.Members == ''">
-								    <td class="empty-result" colspan="5" data-translate="EmptyResult">
-								    </td>
-							    </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row form-inline form-order">
-                        <div class="form-group">
-                            <label data-translate="Remark">
-                            </label>
-                            <input ng-model="order.Remark" type="text" class="txt-remark" maxlength="500"
-								ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
+										    || order.CreatorOrder.UserId == order.CurrentUser.UserId)) " class="glyphicon glyphicon-remove margin-icon icon-remove">
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-show="order == '' || order.Members == ''">
+                            <td class="empty-result" colspan="5" data-translate="EmptyResult">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row form-inline form-order">
+                <div class="form-group">
+                    <label data-translate="Remark">
+                    </label>
+                    <input ng-model="order.Remark" type="text" class="txt-remark" maxlength="500" ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId" />
 								|| (order.Status.StatusId != 1 && order.Status.StatusId != 2 && order.Status.StatusId != 3)"/>
-                        </div>
-                        <div class="form-group phone">
-                            <label data-translate="Phone">
-                            </label>
-                            <input ng-model="order.Phone" type="text" maxlength="50"
-								ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId 
+                </div>
+                <div class="form-group phone">
+                    <label data-translate="Phone">
+                    </label>
+                    <input ng-model="order.Phone" type="text" maxlength="50" ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId" />
 								|| (order.Status.StatusId != 1 && order.Status.StatusId != 2 && order.Status.StatusId != 3)"/>
-                        </div>
-                    </div>
-					<div class="row form-inline form-order">
-						<label ng-show="order.Status.StatusId == 1" class="order-status-new">
-							Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} has been placed since {{order.ModifiedDate | customTime}} 
-							<span ng-repeat = "menu in order.MenuQuantity">, {{menu.Quantity}} "{{menu.Menu.Name}}"</span>
-							for {{order.Members.length}} member(s).
-						</label>
-
-						<label ng-show="order.Status.StatusId == 2" class="order-status-received">
-							Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} is being prepared since {{order.ModifiedDate | customTime}} 
-							<span ng-repeat = "menu in order.MenuQuantity">, {{menu.Quantity}} "{{menu.Menu.Name}}"</span>
-							for {{order.Members.length}} member(s).
-						</label>
-
+                </div>
+            </div>
+            <div class="row form-inline form-order">
+                <label ng-show="order.Status.StatusId == 1" class="order-status-new">
+                    Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} has been placed since
+                    {{order.ModifiedDate | customTime}} <span ng-repeat="menu in order.MenuQuantity">, {{menu.Quantity}}
+                        "{{menu.Menu.Name}}"</span> for {{order.Members.length}} member(s).
+                </label>
+                <label ng-show="order.Status.StatusId == 2" class="order-status-received">
+                    Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} is being prepared since
+                    {{order.ModifiedDate | customTime}} <span ng-repeat="menu in order.MenuQuantity">, {{menu.Quantity}}
+                        "{{menu.Menu.Name}}"</span> for {{order.Members.length}} member(s).
+                </label>
 						<label ng-show="order.Status.StatusId == 3" class="order-status-reduced">
 							Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} has been reduced since {{order.ModifiedDate | customTime}} 
 							<span ng-repeat = "menu in order.MenuQuantity">, {{menu.Quantity}} "{{menu.Menu.Name}}"</span>
 							for {{order.Members.length}} member(s).
 						</label>
 
-						<label ng-show="order.Status.StatusId == 4" class="order-status-delivered">
-							Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} has been ready since {{order.ModifiedDate | customTime}} 
-							<span ng-repeat = "menu in order.MenuQuantity">, {{menu.Quantity}} "{{menu.Menu.Name}}"</span>
-							for {{order.Members.length}} member(s).
-						</label>
+                <label ng-show="order.Status.StatusId == 4" class="order-status-delivered">
+                    Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} has been ready since
+                    {{order.ModifiedDate | customTime}} <span ng-repeat="menu in order.MenuQuantity">, {{menu.Quantity}}
+                        "{{menu.Menu.Name}}"</span> for {{order.Members.length}} member(s).
+                </label>
 
 						<label ng-show="order.Status.StatusId == 5" class="order-status-edited">
 							Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} is being edited since {{order.ModifiedDate | customTime}} 
 							<span ng-repeat = "menu in order.MenuQuantity">, {{menu.Quantity}} "{{menu.Menu.Name}}"</span>
 							for {{order.Members.length}} member(s).
 						</label>
-					</div>
-                </div>
-	</div>
-
-	<div class="modal-footer">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
 		<button class="button" ng-click="saveEditOrder(order)" data-translate="Save"
 		ng-show = "(order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3)" >
-		</button>
-		<button class="button btn-delete" ng-click="deleteOrder(order.OrderId)" data-translate="Delete"
-			ng-show = "(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)" >
-		</button>
-		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-		</button>
-	</div>
+        </button>
+        <button class="button btn-delete" ng-click="deleteOrder(order.OrderId)" data-translate="Delete"
+            ng-show="(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)">
+        </button>
+        <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+        </button>
+    </div>
 </div>

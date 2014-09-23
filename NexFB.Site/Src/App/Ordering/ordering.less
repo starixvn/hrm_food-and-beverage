@@ -1,15 +1,17 @@
 ﻿@import "/Src/Content/Site/variables.less";
 @import "/Src/Content/Site/mixins.less";
-
+.content {
+	padding-top: 15px;
+}
 .table-title {
 	color: #5e5e5e;
-	margin: 5px 0;
+	margin: 5px 0 0;
 	font-size: @font-size + 9;
 	font-family: @font-title;
 }
 
 .table-odering {
-	margin: 0 0 10px;
+	margin: 0 0 20px;
 
     .lbl-new {
 		color: #484848;
@@ -39,12 +41,12 @@
 
 .list-group-item {
     padding: 0;
-	margin: 10px 0 0;
+	margin: 0;
 
 	.boxtitle {
 		border-top: 1px solid #D2D2D2;
 		border-bottom: 1px solid #FAFAFA;
-		padding: 8px 12px;
+		padding: 3px 12px;
 		font-family: @font-group;
 		font-size: @font-size + 1;
 		text-shadow: 0.05em 0.05em #fff;
@@ -117,6 +119,11 @@
 			float: right;
 		}
 	}
+}
+.ddlLocation {
+	width: 312px !important;
+	position: relative;
+	z-index: 1000;
 }
 
 /********************************************************/
