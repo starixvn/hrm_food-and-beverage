@@ -399,4 +399,19 @@
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="FoodItemEng" xml:space="preserve">
+    <value>Food item (English)</value>
+  </data>
+  <data name="FoodItemManagement" xml:space="preserve">
+    <value>Food Item Management</value>
+  </data>
+  <data name="FoodItemVnm" xml:space="preserve">
+    <value>Food item (Vietnamese)</value>
+  </data>
+  <data name="ManageFoodItem" xml:space="preserve">
+    <value>Manage Food Item</value>
+  </data>
 </root>

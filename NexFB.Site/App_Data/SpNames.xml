@@ -159,4 +159,8 @@
 			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
 		</Setting>
 	</Function>
+	<Function Name="FoodItemManagement">
+		<Setting Key="Food_GetItem" SpName="Food_GetItem" DbName="NexFB" Plain="0" >
+		</Setting>
+	</Function>
 </Functions>

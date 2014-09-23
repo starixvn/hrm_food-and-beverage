@@ -70,6 +70,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Add {
@@ -349,6 +358,33 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Food item (English).
+        /// </summary>
+        public static string FoodItemEng {
+            get {
+                return ResourceManager.GetString("FoodItemEng", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Food Item Management.
+        /// </summary>
+        public static string FoodItemManagement {
+            get {
+                return ResourceManager.GetString("FoodItemManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Food item (Vietnamese).
+        /// </summary>
+        public static string FoodItemVnm {
+            get {
+                return ResourceManager.GetString("FoodItemVnm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fri.
         /// </summary>
         public static string Fri {
@@ -426,6 +462,15 @@ namespace NexFB.Resources {
         public static string Lunch {
             get {
                 return ResourceManager.GetString("Lunch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Food Item.
+        /// </summary>
+        public static string ManageFoodItem {
+            get {
+                return ResourceManager.GetString("ManageFoodItem", resourceCulture);
             }
         }
         

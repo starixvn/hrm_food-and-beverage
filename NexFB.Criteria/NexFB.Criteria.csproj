@@ -64,6 +64,7 @@
     <Compile Include="Employee\GetAllEmployeeFunctionCriteria.cs" />
     <Compile Include="Employee\GetEmployeeCriteria.cs" />
     <Compile Include="Employee\GetEmployeeMenuBySystemIdCriteria.cs" />
+    <Compile Include="FoodItemManagement\GetAllFoodItemCriteria.cs" />
     <Compile Include="Kitchen\GetAwaitingDeliverMealOrderCriteria.cs" />
     <Compile Include="Kitchen\GetMealOrderByIdCriteria.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>

@@ -2,8 +2,22 @@
 /*global foodItemManagementModule*/
 
 foodItemManagementModule.controller('FoodItemManagementController',
-['$scope', '$modal',
-function ($scope, $modal) {
+['$scope', '$modal', 'foodItemFactory', 'notificationFactory', '$route',
+function ($scope, $modal, foodItemFactory, notificationFactory, $route) {
+
+	/*
+	** Get all food item.
+	*/
+	var getAllFoodItem = function (menuGroupId, isActive) {
+		foodItemFactory.getAllFoodItem(menuGroupId, isActive).success(function (foodItems) {
+			$scope.foodItems = foodItems;
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+	};
+
+	getAllFoodItem(null, null);
+
 	$scope.addFoodItem = function () {
 		var modalAssignInstance = $modal.open({
 			templateUrl: '/src/app/FoodItemManagement/Templates/create.html',
@@ -24,6 +38,10 @@ function ($scope, $modal) {
 
 		modalAssignInstance.result.then(function () {
 		});
+	};
+
+	$scope.reload = function () {
+		$route.reload();
 	};
 } ]);
 
