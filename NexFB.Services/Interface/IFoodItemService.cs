@@ -10,6 +10,7 @@
 namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
+    using NexFB.Core.Models;
     using NexFB.Criteria.FoodItemManagement;
     using NexFB.Models.FoodItemManagement;
 
@@ -19,5 +20,7 @@ namespace NexFB.Services.Interface
     public interface IFoodItemService
     {
         IList<FoodItemModel> GetAllFoodItem(GetAllFoodItemCriteria criteria);
+
+        CommandResult InsertFoodItem(InsertFoodItemCriteria criteria);
     }
 }

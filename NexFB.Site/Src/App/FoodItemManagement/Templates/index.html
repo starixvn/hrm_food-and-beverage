@@ -7,31 +7,44 @@
     </div>
     <div class="row filter">
         <form class="form-inline" role="form">
-            <div class="form-group">
+            <div class="form-group" name="multiSelectOption">
                 <label data-translate="Menu"></label>
-                <select>
-                    <option value="0">5 selected</option>
-                </select>
+				<add-class-to-role-filter multi-select input-model="menuOptions" button-label="MenuVnmName"
+					item-label="MenuVnmName MenuEngMaker" tick-property="ticked" max-labels="0">
+				</add-class-to-role-filter>
             </div>
             <div class="form-group">
                 <label data-translate="Status"></label>
-                <select>
-                    <option value="0">All Statuses</option>
-                    <option value="1">Active</option>
-                    <option value="2">UnActive</option>
+                <select ng-model="filter.isActive">
+                    <option selected value="" data-translate="AllStatuses"></option>
+                    <option value="true" data-translate="Active"></option>
+                    <option value="false" data-translate="InActive"></option>
                 </select>
             </div>
             <div class="form-group">
-                <input type="button" value="Submit" class="button"/>
+				<button class="button" ng-click="query(filter)" data-translate="Submit">
+				</button>
             </div>
         </form>
     </div>
-    <div class="row pull-right ">
+    <div class="row pull-right">
         <input type="button" value="Create food item" class="button" ng-click="addFoodItem()"/>
     </div>
     <div class="row table-fooditem">
         <table class="table table-bordered table-striped col-sm-12">
             <thead>
+				<tr class="header-table">
+					<th colspan="8">
+						<div class="pull-left table-entries">
+							<span data-translate="Show"></span>
+							<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
+								ng-options="entry for entry in entries">
+							</select>
+							<span data-translate="entries"></span>
+						</div>
+						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+					</th>
+				</tr>
                 <tr>
                     <th data-translate="SymbolCount"></th>
                     <th data-translate="FoodItemVnm"></th>
@@ -42,20 +55,40 @@
                 </tr>
             </thead>
 			<tbody>
-				<tr ng-repeat="food in foodItems">
+				<tr ng-repeat="food in pagedItems[currentPage]">
 					<td class="text-center" ng-bind="$index + 1"></td>
 					<td ng-bind="food.FoodVnmName"></td>
 					<td ng-bind="food.FoodEngName"></td>
-					<td></td>
+					<td>
+						<div ng-show="food.FoodMenus.length == 1">
+							<span ng-bind="food.FoodMenus[0].MenuVnmName + ' (' + food.FoodMenus[0].MenuEngName + ')'"></span>
+						</div>
+						<div ng-show="food.FoodMenus.length > 1">
+							<ul class="group-toggle-item">
+								<li ng-repeat="menuGroup in food.FoodMenus" ng-bind="menuGroup.MenuVnmName + ' (' + menuGroup.MenuEngName + ')'"></li>
+							</ul>
+						</div>
+					</td>
 					<td class="text-center">
-						<input type="checkbox" ng-checked="food.IsActive"/>
+						<input type="checkbox" ng-checked="food.IsActive" ng-click="confirmActive(food)"/>
 					</td>
 					<td class="text-center">
 						<a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
 						<a class="glyphicon glyphicon-remove icon-remove" href=""></a>
 					</td>
 				</tr>
+				<tr ng-show="foodItems.length == 0">
+					<td class="empty-result" colspan="6" data-translate="EmptyResult">
+					</td>
+				</tr>
 			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="6" class="paging">
+						<pagination-bar></pagination-bar>
+					</td>
+				</tr>
+			</tfoot>
         </table>
     </div>
 </div>

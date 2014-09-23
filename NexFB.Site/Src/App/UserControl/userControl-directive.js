@@ -210,17 +210,3 @@ userControlModule.directive('getUserPermission', function () {
 		}
 	};
 });
-
-// Manage User: remove class button, add class form-control to role multi-select
-userControlModule.directive('addClassToRoleFilter', ['$compile', function ($compile) {
-	return {
-		restrict: 'E',
-		link: function (scope) {
-			var roleGroup = $("[name='roleOption']"),
-				button = roleGroup.find("button.multiSelectButton");
-
-			button.removeClass('button').addClass('form-control');
-			$compile(button)(scope);
-		}
-	};
-} ]);

@@ -60,10 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\FoodItemRepository.cs" />
+    <Compile Include="Implement\FoodMenuRepository.cs" />
     <Compile Include="Implement\KitchenRepository.cs" />
     <Compile Include="Implement\MealRegistrationRepository.cs" />
     <Compile Include="Implement\OrderingRepository.cs" />
     <Compile Include="Interface\IFoodItemRepository.cs" />
+    <Compile Include="Interface\IFoodMenuRepository.cs" />
     <Compile Include="Interface\IKitchenRepository.cs" />
     <Compile Include="Interface\IMealRegistrationRepository.cs" />
     <Compile Include="Interface\IOrderingRepository.cs" />

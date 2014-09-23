@@ -37,7 +37,8 @@ namespace NexFB.Site
                 "~/Src/Content/Common/bootstrap-theme.min.css",
                 "~/Src/Content/Common/toastr.css",
                 "~/Src/Content/Common/angular-multi-select.css",
-                "~/Src/Content/Common/jquery-ui.min.css"));
+                "~/Src/Content/Common/jquery-ui.min.css",
+                "~/Src/Content/Common/chosen.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Src/Components/Libs/jquery-2.1.0.min.js",
@@ -51,7 +52,8 @@ namespace NexFB.Site
                 "~/Src/Components/Libs/angular-multi-select.js",
                 "~/Src/Components/Libs/jquery-ui.min.js",
                 "~/Src/Components/Libs/datepicker.js",
-                "~/Src/Components/Libs/date.js"));
+                "~/Src/Components/Libs/date.js",
+                "~/Src/Components/Libs/chosen.jquery.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
                 "~/Src/Components/Libs/jquery.signalR-1.1.4.min.js"));

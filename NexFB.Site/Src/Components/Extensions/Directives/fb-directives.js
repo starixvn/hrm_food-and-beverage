@@ -70,3 +70,30 @@ appModule.directive('ngBox', function () {
 		});
 	};
 });
+
+// remove class button, add class form-control to multi-select
+appModule.directive('addClassToRoleFilter', ['$compile', function ($compile) {
+	return {
+		restrict: 'E',
+		link: function (scope) {
+			var roleGroup = $("[name='multiSelectOption']"),
+				button = roleGroup.find("button.multiSelectButton");
+
+			button.removeClass('button').addClass('form-control');
+			$compile(button)(scope);
+		}
+	};
+} ]);
+
+// multi-select use Chosen plugin
+appModule.directive('multiSelectChosen', function () {
+	return {
+		link: function (scope, iElement) {
+			scope.$watchCollection('groupOptions', function () {
+				iElement.trigger("chosen:updated");
+			});
+			iElement.on("change", scope.getSelectedOrDeselectedGroup);
+			iElement.chosen({ width: "95%" });
+		}
+	};
+});

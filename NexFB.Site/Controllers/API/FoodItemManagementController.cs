@@ -9,7 +9,10 @@
 
 namespace NexFB.Site.Controllers.API
 {
+    using System;
     using System.Collections.Generic;
+    using System.Web.Http;
+    using NexFB.Core.Models;
     using NexFB.Criteria.FoodItemManagement;
     using NexFB.Models.FoodItemManagement;
     using NexFB.Services.Implement;
@@ -41,6 +44,18 @@ namespace NexFB.Site.Controllers.API
             };
 
             return _foodItemService.GetAllFoodItem(criteria);
+        }
+
+        [HttpPost]
+        public CommandResult InsertFoodItem(InsertFoodItemCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.CreatedBy = this.CurrentUser.UserId;
+                criteria.CreatedDate = DateTime.Now;
+            }
+
+            return _foodItemService.InsertFoodItem(criteria);
         }
     }
 }

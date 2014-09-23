@@ -11,6 +11,8 @@ namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;
+    using NexFB.Core.Models;
+    using NexFB.Core.Services;
     using NexFB.Criteria.FoodItemManagement;
     using NexFB.Models.FoodItemManagement;
     using NexFB.Repositories.Implement;
@@ -20,7 +22,7 @@ namespace NexFB.Services.Implement
     /// <summary>
     /// The food item service.
     /// </summary>
-    public class FoodItemService : IFoodItemService
+    public class FoodItemService : BaseService, IFoodItemService
     {
         private readonly IFoodItemRepository _foodItemRepository;
 
@@ -50,6 +52,24 @@ namespace NexFB.Services.Implement
             }
 
             return foodItems;
+        }
+
+        /// <summary>
+        /// Insert food item.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult InsertFoodItem(InsertFoodItemCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Insert(criteria);
+            }
+
+            return commandResult;
         }
     }
 }

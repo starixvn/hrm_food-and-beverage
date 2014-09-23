@@ -115,6 +115,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Statuses.
+        /// </summary>
+        public static string AllStatuses {
+            get {
+                return ResourceManager.GetString("AllStatuses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Team.
         /// </summary>
         public static string AllTeam {
@@ -426,6 +435,15 @@ namespace NexFB.Resources {
         public static string Host {
             get {
                 return ResourceManager.GetString("Host", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inactive.
+        /// </summary>
+        public static string InActive {
+            get {
+                return ResourceManager.GetString("InActive", resourceCulture);
             }
         }
         

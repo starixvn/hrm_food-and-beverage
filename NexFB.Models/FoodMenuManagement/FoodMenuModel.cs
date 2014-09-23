@@ -20,6 +20,8 @@ namespace NexFB.Models.FoodMenuManagement
 
         public string MenuEngName { get; set; }
 
+        public string MenuEngMaker { get; set; }
+
         public bool? IsVegetarian { get; set; }
 
         public string Description { get; set; }

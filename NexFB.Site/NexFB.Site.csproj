@@ -232,6 +232,7 @@
     <Content Include="Src\Components\Extensions\Common\Templates\ModalConfirmContent.html" />
     <Content Include="Src\Components\Extensions\Filters\fb-filter.js" />
     <Content Include="Src\Components\Extensions\Services\fb-service.js" />
+    <Content Include="Src\Components\Libs\chosen.jquery.min.js" />
     <Content Include="Src\Components\Libs\date.js" />
     <Content Include="Src\Components\Libs\datepicker.js" />
     <Content Include="Src\Components\Libs\jquery-ui.min.js" />
@@ -278,6 +279,8 @@
     <Content Include="Src\Content\Common\angular-multi-select.css" />
     <Content Include="Src\Content\Common\bootstrap-spacelab.min.css" />
     <Content Include="Src\Content\Common\bootstrap-theme.min.css" />
+    <Content Include="Src\Content\Common\chosen-sprite.png" />
+    <Content Include="Src\Content\Common\chosen.min.css" />
     <Content Include="Src\Content\Common\Images\animated-overlay.gif" />
     <Content Include="Src\Content\Common\Images\auth-bg.png" />
     <Content Include="Src\Content\Common\Images\delete.png" />

@@ -37,3 +37,6 @@ using System.Diagnostics.CodeAnalysis;
     Target = "NexFB.Site.Controllers.API.MealRegistrationController.#GetDefaultRegisterMeal()", Justification = "Reviewed. Suppression is OK here.")]
 [module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
     Target = "NexFB.Site.Controllers.API.MealRegistrationController.#GetUserPermissionOnRegistration()", Justification = "Reviewed. Suppression is OK here.")]
+[module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
+    Target = "NexFB.Site.Controllers.API.FoodMenuManagementController.#GetAllFoodMenuToFilter()", Justification = "Reviewed. Suppression is OK here.")]
+

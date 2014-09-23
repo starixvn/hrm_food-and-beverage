@@ -414,4 +414,10 @@
   <data name="ManageFoodItem" xml:space="preserve">
     <value>Manage Food Item</value>
   </data>
+  <data name="AllStatuses" xml:space="preserve">
+    <value>All Statuses</value>
+  </data>
+  <data name="InActive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
 </root>
