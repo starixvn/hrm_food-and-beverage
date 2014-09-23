@@ -3,48 +3,45 @@
   <publishProfile publishUrl="D:\Deploy\NexFB" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
     <file relUrl="Src/Content/Less/.csslintrc" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Less/progress-bars.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="bin/NexFB.Repositories.dll" publishTime="09/23/2014 11:34:26" />
     <file relUrl="Src/Content/Less/glyphicons.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="bin/Antlr3.Runtime.dll" publishTime="08/25/2014 08:34:10" />
     <file relUrl="bin/System.Web.WebPages.dll" publishTime="08/25/2014 08:33:38" />
-    <file relUrl="Src/Components/Libs/angular.js" publishTime="08/25/2014 08:34:10" />
-    <file relUrl="Src/App/UserControl/Templates/RolePermission/index.html" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Components/Extensions/Common/common-factory.js" publishTime="09/08/2014 11:34:56" />
     <file relUrl="bin/dotless.Core.dll" publishTime="08/26/2014 09:52:42" />
     <file relUrl="Src/App/EmployeeRegistration/employeeRegistration-factory.js" publishTime="09/22/2014 11:19:27" />
     <file relUrl="bin/ru-ru/BundleTransformer.Core.resources.dll" publishTime="08/25/2014 08:34:11" />
     <file relUrl="bin/Microsoft.AspNet.SignalR.Owin.xml" publishTime="09/10/2014 10:01:19" />
-    <file relUrl="Src/Content/Common/Images/ui-bg_diagonals-thick_20_666666_40x40.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/Content/Less/bootstrap.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="bin/System.Web.Helpers.xml" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Content/Less/buttons.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/App/FoodItemManagement/foodItemManagement-factory.js" publishTime="09/23/2014 10:40:35" />
     <file relUrl="Src/Content/Site/auth/images/bg-login.jpg" publishTime="08/29/2014 14:52:13" />
+    <file relUrl="Src/Content/Common/Images/ui-icons_222222_256x240.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/Content/Less/breadcrumbs.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Components/Extensions/Common/modalconfirm-controller.js" publishTime="09/18/2014 17:55:52" />
     <file relUrl="Src/Content/Less/type.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="bin/Microsoft.Web.Infrastructure.dll" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Components/Libs/jquery.signalR-1.1.4.min.js" publishTime="09/10/2014 10:01:19" />
     <file relUrl="Src/Content/Less/navs.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="Src/Content/Less/theme.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="bin/NexFB.Web.pdb" publishTime="09/23/2014 11:34:28" />
+    <file relUrl="App_Data/SpNames.xml" publishTime="09/23/2014 10:40:35" />
+    <file relUrl="bin/NexFB.Web.pdb" publishTime="09/23/2014 17:20:31" />
     <file relUrl="bin/JavaScriptEngineSwitcher.Msie.dll" publishTime="08/26/2014 09:52:41" />
     <file relUrl="Src/Content/Fonts/glyphicons-halflings-regular.svg" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Content/Less/mixins/forms.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Common/Images/ui-bg_glass_100_f6f6f6_1x400.png" publishTime="08/27/2014 17:37:27" />
+    <file relUrl="bin/NexFB.Web.dll" publishTime="09/23/2014 17:20:31" />
     <file relUrl="Src/Content/Less/mixins/background-variant.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="Src/Content/Common/Images/animated-overlay.gif" publishTime="08/27/2014 17:37:27" />
-    <file relUrl="bin/NexFB.Models.dll" publishTime="09/23/2014 11:34:25" />
-    <file relUrl="Src/Content/Less/forms.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/App/MealPlanningManagement/mealPlanningManagement-route.js" publishTime="09/18/2014 17:55:47" />
+    <file relUrl="bin/Microsoft.AspNet.SignalR.SystemWeb.dll" publishTime="09/10/2014 10:01:19" />
+    <file relUrl="bin/NexFB.Models.dll" publishTime="09/23/2014 17:20:25" />
     <file relUrl="Src/App/FoodMenuManagement/foodMenuManagement-controller.js" publishTime="09/18/2014 12:56:03" />
     <file relUrl="Views/Auth/Login.cshtml" publishTime="08/29/2014 16:12:36" />
     <file relUrl="bin/System.Web.Razor.xml" publishTime="08/25/2014 08:33:38" />
     <file relUrl="bin/System.Net.Http.xml" publishTime="08/25/2014 08:33:38" />
-    <file relUrl="bin/System.Web.WebPages.Razor.xml" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/App/Ordering/Templates/AddMember.html" publishTime="09/17/2014 10:49:25" />
     <file relUrl="Src/Content/Fonts/big_noodle_titling.ttf" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/App/UserControl/Templates/UserPermission/assignRole.html" publishTime="09/10/2014 10:15:18" />
-    <file relUrl="Src/App/Ordering/ordering-factory.js" publishTime="09/18/2014 17:55:52" />
+    <file relUrl="bin/System.Web.Http.WebHost.dll" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Content/Less/code.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Views/Home/Index.cshtml" publishTime="09/18/2014 12:56:04" />
     <file relUrl="Src/Content/Site/Images/logo.png" publishTime="09/18/2014 12:56:04" />
@@ -54,17 +51,14 @@
     <file relUrl="Src/App/FoodItemManagement/foodItemManagement-route.js" publishTime="09/16/2014 18:46:45" />
     <file relUrl="Src/Content/Less/component-animations.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="bin/JavaScriptEngineSwitcher.Core.dll" publishTime="08/25/2014 08:34:11" />
-    <file relUrl="Src/Content/Less/mixins/reset-filter.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/App/EmployeeRegistration/employeeRegistration-controller.js" publishTime="09/23/2014 10:38:46" />
     <file relUrl="bin/ru-ru/BundleTransformer.Less.resources.dll" publishTime="08/25/2014 08:34:11" />
     <file relUrl="Src/Content/Less/navbar.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="Src/Content/Site/Images/icon-search.png" publishTime="09/03/2014 10:31:24" />
     <file relUrl="Src/Content/Site/auth/images/logo.png" publishTime="08/29/2014 14:52:13" />
-    <file relUrl="Src/Content/Less/modals.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="Src/Content/Less/mixins/nav-divider.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="bin/NexFB.Resources.pdb" publishTime="09/23/2014 11:34:24" />
+    <file relUrl="Src/Content/Less/modals.less" publishTime="09/23/2014 15:50:23" />
+    <file relUrl="bin/System.Web.WebPages.Razor.dll" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Content/Less/mixins/clearfix.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Components/Extensions/Common/Templates/ModalConfirmContent.html" publishTime="09/17/2014 10:49:25" />
-    <file relUrl="Src/Content/Less/alerts.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Components/Libs/angular-resource.js" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Components/Extensions/Filters/fb-filter.js" publishTime="09/22/2014 16:53:46" />
     <file relUrl="Src/Content/Less/mixins/image.less" publishTime="09/08/2014 11:34:56" />
@@ -74,150 +68,152 @@
     <file relUrl="Src/Content/Common/Images/lock.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/App/Ordering/ordering-route.js" publishTime="09/17/2014 14:21:18" />
     <file relUrl="Src/App/FoodItemManagement/Templates/index.html" publishTime="09/23/2014 10:40:35" />
-    <file relUrl="Src/Content/Less/mixins/alerts.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="bin/NexFB.Resources.dll" publishTime="09/23/2014 11:34:24" />
-    <file relUrl="Src/Content/Less/mixins/buttons.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="bin/NexFB.Resources.dll" publishTime="09/23/2014 17:20:24" />
     <file relUrl="Src/Components/Libs/angular-translate.js" publishTime="08/25/2014 08:33:38" />
-    <file relUrl="Src/Content/Fonts/glyphicons-halflings-regular.woff" publishTime="08/25/2014 08:33:38" />
     <file relUrl="bin/ru-ru/MsieJavaScriptEngine.resources.dll" publishTime="08/26/2014 09:52:42" />
     <file relUrl="Src/App/app.js" publishTime="09/18/2014 17:55:47" />
-    <file relUrl="bin/NexFB.Criteria.dll" publishTime="09/23/2014 11:34:26" />
-    <file relUrl="bin/NexFB.Repositories.pdb" publishTime="09/23/2014 11:34:26" />
+    <file relUrl="bin/NexFB.Criteria.dll" publishTime="09/23/2014 17:20:27" />
+    <file relUrl="bin/NexFB.Repositories.pdb" publishTime="09/23/2014 17:20:26" />
     <file relUrl="bin/System.Net.Http.Formatting.dll" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Components/Libs/toastr.js" publishTime="08/27/2014 08:34:38" />
     <file relUrl="Src/App/FoodMenuManagement/Templates/edit.html" publishTime="09/18/2014 17:55:47" />
     <file relUrl="bin/System.Web.WebPages.xml" publishTime="08/25/2014 08:33:38" />
-    <file relUrl="bin/System.Net.Http.WebRequest.dll" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="Src/Content/Common/Images/delete.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/Content/Less/button-groups.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/App/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html" publishTime="09/18/2014 17:55:47" />
-    <file relUrl="Src/App/UserControl/userControl-factory.js" publishTime="09/03/2014 16:13:33" />
-    <file relUrl="Src/Components/Libs/jquery-2.1.0.min.js" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="Src/Content/Common/Images/animated-overlay.gif" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/Content/Less/close.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="bin/System.Web.WebPages.Deployment.dll" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Content/Less/mixins/responsive-visibility.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="bin/Newtonsoft.Json.dll" publishTime="08/25/2014 08:34:11" />
     <file relUrl="Src/Content/Less/popovers.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Less/mixins/vendor-prefixes.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="Src/Content/Less/mixins/center-block.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/Content/Common/Images/EPA.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/Content/Common/Images/ui-icons_228ef1_256x240.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/App/EmployeeRegistration/employeeRegistration-directive.js" publishTime="09/18/2014 12:56:03" />
     <file relUrl="Src/App/FoodMenuManagement/foodMenuManagement-route.js" publishTime="09/18/2014 12:56:04" />
     <file relUrl="Src/Content/Common/bootstrap-spacelab.min.css" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/App/EmployeeRegistration/Templates/defaultRegistration.html" publishTime="09/22/2014 14:05:08" />
+    <file relUrl="bin/System.Web.Helpers.dll" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Content/Site/layout.less" publishTime="09/22/2014 14:05:08" />
     <file relUrl="Src/App/UserControl/userControl-route.js" publishTime="09/03/2014 10:31:24" />
     <file relUrl="Src/Content/Common/Images/ui-bg_flat_10_000000_40x100.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/Content/Less/input-groups.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Site/Images/line-menu.png" publishTime="08/27/2014 10:48:46" />
-    <file relUrl="Src/App/Ordering/ordering.less" publishTime="09/23/2014 10:42:44" />
+    <file relUrl="Src/App/Ordering/ordering.less" publishTime="09/23/2014 17:19:29" />
     <file relUrl="bin/Microsoft.AspNet.SignalR.Owin.dll" publishTime="09/10/2014 10:01:19" />
-    <file relUrl="bin/System.Web.WebPages.Deployment.xml" publishTime="08/25/2014 08:33:38" />
-    <file relUrl="Src/App/MealPlanningManagement/mealPlanningManagement-route.js" publishTime="09/18/2014 17:55:47" />
     <file relUrl="Src/Content/Less/mixins/table-row.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="bin/Microsoft.Practices.EnterpriseLibrary.Data.dll" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Content/Less/mixins.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html" publishTime="09/18/2014 17:55:52" />
-    <file relUrl="Src/Content/Site/Images/success.png" publishTime="08/27/2014 10:48:46" />
     <file relUrl="Web.config" publishTime="09/23/2014 12:16:22" />
-    <file relUrl="bin/NexFB.Hub.pdb" publishTime="09/23/2014 11:34:27" />
+    <file relUrl="bin/Microsoft.Practices.EnterpriseLibrary.Logging.dll" publishTime="08/26/2014 09:52:41" />
     <file relUrl="bin/Microsoft.Practices.Unity.dll" publishTime="08/25/2014 08:33:38" />
-    <file relUrl="bin/NexFB.Services.dll" publishTime="09/23/2014 11:34:27" />
+    <file relUrl="bin/NexFB.Services.dll" publishTime="09/23/2014 17:20:28" />
     <file relUrl="Src/Content/Less/list-group.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="bin/NexFB.Site.dll" publishTime="09/23/2014 11:34:34" />
+    <file relUrl="bin/NexFB.Site.dll" publishTime="09/23/2014 17:20:34" />
     <file relUrl="Src/Content/Less/thumbnails.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/App/FoodItemManagement/Templates/create.html" publishTime="09/18/2014 12:56:03" />
-    <file relUrl="bin/en-US/NexFB.Resources.resources.dll" publishTime="09/23/2014 11:34:24" />
+    <file relUrl="bin/en-US/NexFB.Resources.resources.dll" publishTime="09/23/2014 17:20:24" />
     <file relUrl="bin/System.Web.Mvc.dll" publishTime="08/25/2014 08:33:38" />
-    <file relUrl="Src/Content/Common/bootstrap-theme.min.css" publishTime="08/25/2014 08:33:38" />
-    <file relUrl="Src/Content/Less/mixins/pagination.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="packages.config" publishTime="09/10/2014 10:01:19" />
-    <file relUrl="bin/NexFB.Core.dll" publishTime="09/23/2014 11:34:24" />
+    <file relUrl="bin/NexFB.Core.dll" publishTime="09/23/2014 17:20:25" />
     <file relUrl="Src/Content/Site/auth/images/icon-user.png" publishTime="08/29/2014 14:52:13" />
-    <file relUrl="Src/App/Ordering/Templates/EditOrder.html" publishTime="09/23/2014 10:40:38" />
+    <file relUrl="Src/App/Ordering/Templates/EditOrder.html" publishTime="09/23/2014 17:19:29" />
     <file relUrl="Src/Components/Libs/jquery-2.1.0-vsdoc.js" publishTime="08/25/2014 08:33:38" />
-    <file relUrl="Src/App/EmployeeRegistration/employeeRegistration-controller.js" publishTime="09/23/2014 10:38:46" />
+    <file relUrl="Views/Web.config" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="Src/Components/Libs/jquery-ui.min.js" publishTime="09/11/2014 18:04:50" />
     <file relUrl="Src/App/FoodItemManagement/Templates/edit.html" publishTime="09/18/2014 12:56:03" />
+    <file relUrl="Src/Content/Fonts/glyphicons-halflings-regular.ttf" publishTime="08/25/2014 08:33:38" />
     <file relUrl="bin/Newtonsoft.Json.xml" publishTime="08/25/2014 08:34:11" />
     <file relUrl="bin/System.Web.Optimization.xml" publishTime="08/25/2014 08:34:11" />
-    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="09/10/2014 10:01:19" />
+    <file relUrl="bin/NexFB.Site.pdb" publishTime="09/23/2014 17:20:34" />
     <file relUrl="Src/App/Resources/resources-factory.js" publishTime="09/01/2014 09:05:08" />
     <file relUrl="bin/Microsoft.Owin.Host.SystemWeb.xml" publishTime="09/10/2014 10:01:19" />
     <file relUrl="Src/Content/Less/media.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Global.asax" publishTime="08/25/2014 08:34:10" />
     <file relUrl="Src/App/EmployeeRegistration/Templates/index.html" publishTime="09/23/2014 10:38:45" />
-    <file relUrl="Src/App/EmployeeRegistration/employeeRegistration.less" publishTime="09/22/2014 11:19:27" />
-    <file relUrl="Src/Components/Libs/jquery.signalR-1.1.4.js" publishTime="09/10/2014 10:01:19" />
+    <file relUrl="Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html" publishTime="09/18/2014 17:55:52" />
+    <file relUrl="Src/Content/Less/theme.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Less/carousel.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/Content/Less/utilities.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="bin/System.Web.Optimization.dll" publishTime="08/25/2014 08:34:11" />
-    <file relUrl="Src/App/EmployeeRegistration/Templates/monthlyRegistration.html" publishTime="09/23/2014 10:38:45" />
-    <file relUrl="bin/Microsoft.Practices.ServiceLocation.dll" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="Src/Content/Site/Images/icon-search.png" publishTime="09/03/2014 10:31:24" />
     <file relUrl="Src/Content/Common/Images/ui-bg_glass_100_fdf5ce_1x400.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/Content/Less/mixins/size.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="bin/System.Web.Mvc.xml" publishTime="08/25/2014 08:33:38" />
     <file relUrl="bin/BundleTransformer.Less.dll" publishTime="08/25/2014 08:34:11" />
-    <file relUrl="bin/Microsoft.AspNet.SignalR.SystemWeb.xml" publishTime="09/10/2014 10:01:19" />
     <file relUrl="Src/Components/Libs/datepicker.js" publishTime="09/17/2014 14:21:15" />
     <file relUrl="Src/App/Logout/logout-controller.js" publishTime="09/22/2014 14:05:10" />
     <file relUrl="Src/Content/Less/mixins/text-emphasis.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/Content/Site/Images/table_header_repeat.jpg" publishTime="08/27/2014 10:48:46" />
     <file relUrl="bin/Owin.dll" publishTime="09/10/2014 10:01:19" />
-    <file relUrl="Src/Content/Common/Images/auth-bg.png" publishTime="08/27/2014 17:37:27" />
+    <file relUrl="bin/NexFB.Models.pdb" publishTime="09/23/2014 17:20:25" />
     <file relUrl="Src/App/UserControl/Templates/RolePermission/treeHostCheckbox.html" publishTime="09/03/2014 16:13:33" />
-    <file relUrl="Src/App/FoodItemManagement/foodItemManagement-controller.js" publishTime="09/23/2014 10:40:35" />
     <file relUrl="Src/Content/Common/Images/ui-bg_glass_65_ffffff_1x400.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/Content/Less/mixins/grid.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Less/jumbotron.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/Content/Site/Images/sprites.png" publishTime="09/11/2014 08:50:53" />
+    <file relUrl="Src/Content/Site/auth/style.less" publishTime="08/29/2014 16:12:36" />
     <file relUrl="Src/Content/Site/mixins.less" publishTime="08/26/2014 13:15:52" />
-    <file relUrl="bin/Fanex.Common.dll" publishTime="08/26/2014 09:52:41" />
+    <file relUrl="Src/Content/Less/mixins/center-block.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Less/mixins/panels.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="favicon.ico" publishTime="09/01/2014 09:05:11" />
-    <file relUrl="bin/NexFB.Core.pdb" publishTime="09/23/2014 11:34:24" />
-    <file relUrl="Src/Content/Site/Images/sprites.png" publishTime="09/11/2014 08:50:53" />
-    <file relUrl="bin/WebGrease.dll" publishTime="08/25/2014 08:34:11" />
-    <file relUrl="bin/System.Web.Http.xml" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="bin/NexFB.Core.pdb" publishTime="09/23/2014 17:20:25" />
+    <file relUrl="bin/Microsoft.Practices.ServiceLocation.dll" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="Src/Components/Libs/date.js" publishTime="09/18/2014 17:55:47" />
     <file relUrl="Src/App/MealPlanningManagement/Templates/edit.html" publishTime="09/22/2014 14:05:08" />
     <file relUrl="Src/Content/Site/Images/sprite_ico_2012-05-15.png" publishTime="08/21/2014 13:41:30" />
     <file relUrl="Src/Content/Less/.csscomb.json" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Components/Extensions/Common/notification-factory.js" publishTime="08/27/2014 08:34:38" />
-    <file relUrl="bin/NexFB.Web.dll" publishTime="09/23/2014 11:34:28" />
+    <file relUrl="Src/Content/Common/Images/auth-bg.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/App/EmployeeRegistration/Templates/registerMeal.html" publishTime="09/18/2014 17:55:47" />
     <file relUrl="bin/System.Net.Http.WebRequest.xml" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Content/Common/angular-multi-select.css" publishTime="09/01/2014 09:05:08" />
     <file relUrl="Src/Content/Less/mixins/grid-framework.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/App/UserControl/Templates/RolePermission/treeReadCheckbox.html" publishTime="09/03/2014 16:13:33" />
     <file relUrl="Src/Content/Common/jquery-ui.min.css" publishTime="09/11/2014 18:04:50" />
-    <file relUrl="Src/Content/Common/Images/ui-bg_gloss-wave_35_f6a828_500x100.png" publishTime="08/27/2014 17:37:27" />
+    <file relUrl="bin/NexFB.Hub.pdb" publishTime="09/23/2014 17:20:30" />
     <file relUrl="Src/Content/Less/mixins/hide-text.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Common/Images/ui-icons_ef8c08_256x240.png" publishTime="08/27/2014 17:37:27" />
-    <file relUrl="Src/App/UserControl/userControl-controller.js" publishTime="09/10/2014 13:42:18" />
+    <file relUrl="Src/Components/Libs/angular.js" publishTime="08/25/2014 08:34:10" />
     <file relUrl="Src/Content/Less/badges.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Common/Images/ui-icons_ffd27a_256x240.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/Content/Less/pager.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Common/Images/ui-bg_highlight-soft_75_ffe45c_1x100.png" publishTime="08/27/2014 17:37:27" />
-    <file relUrl="Src/Content/Less/grid.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="bin/System.Web.WebPages.Razor.xml" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="Src/App/MealPlanningManagement/mealPlanningManagement-factory.js" publishTime="09/18/2014 17:55:47" />
     <file relUrl="Src/Content/Less/mixins/tab-focus.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/Content/Less/grid.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/App/FoodMenuManagement/Templates/create.html" publishTime="09/18/2014 17:55:47" />
-    <file relUrl="Src/App/Ordering/ordering-controller.js" publishTime="09/23/2014 12:14:38" />
-    <file relUrl="Src/App/Ordering/Templates/Index.html" publishTime="09/23/2014 10:40:38" />
-    <file relUrl="Src/Components/Libs/angular-route.js" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="Src/App/Ordering/ordering-controller.js" publishTime="09/23/2014 17:19:29" />
+    <file relUrl="Src/App/Ordering/Templates/Index.html" publishTime="09/23/2014 17:19:26" />
+    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="09/10/2014 10:01:19" />
+    <file relUrl="Src/Content/Less/panels.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="bin/BundleTransformer.Core.dll" publishTime="08/25/2014 08:34:11" />
-    <file relUrl="Src/Content/Less/mixins/resize.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="bin/WebGrease.dll" publishTime="08/25/2014 08:34:11" />
     <file relUrl="Src/Content/Less/responsive-embed.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="Src/Content/Less/tooltip.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="bin/Microsoft.Practices.Unity.Interception.dll" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="Src/Content/Common/Images/ui-bg_diagonals-thick_18_b81900_40x40.png" publishTime="08/27/2014 17:37:27" />
+    <file relUrl="bin/System.Web.Razor.dll" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Content/Common/Images/sprite_btn.png" publishTime="08/27/2014 17:37:27" />
+    <file relUrl="Src/Content/Common/Images/ui-icons_ffffff_256x240.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/Content/Less/variables.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="bin/System.Web.Http.WebHost.dll" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="Src/App/UserControl/userControl-factory.js" publishTime="09/03/2014 16:13:33" />
+    <file relUrl="Src/App/MealPlanningManagement/Templates/index.html" publishTime="09/22/2014 14:05:08" />
     <file relUrl="Src/Content/Common/Images/edit.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/Content/Less/print.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Components/Libs/bootstrap.min.js" publishTime="08/25/2014 08:33:38" />
-    <file relUrl="Src/Content/Less/panels.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="bin/NexFB.Criteria.pdb" publishTime="09/23/2014 11:34:26" />
-    <file relUrl="Src/Components/Extensions/Services/fb-service.js" publishTime="09/16/2014 18:46:47" />
+    <file relUrl="Src/Content/Less/normalize.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/Content/Less/mixins/pagination.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/Components/Libs/jquery.signalR-1.1.4.js" publishTime="09/10/2014 10:01:19" />
+    <file relUrl="bin/NexFB.Criteria.pdb" publishTime="09/23/2014 17:20:27" />
+    <file relUrl="Src/Content/Less/mixins/resize.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/Components/Extensions/Services/fb-service.js" publishTime="09/23/2014 17:19:29" />
     <file relUrl="Src/App/UserControl/userControl-directive.js" publishTime="09/16/2014 18:46:45" />
     <file relUrl="Src/Content/Less/mixins/opacity.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/Content/Fonts/glyphicons-halflings-regular.eot" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/App/FoodMenuManagement/Templates/index.html" publishTime="09/18/2014 17:55:47" />
     <file relUrl="Src/Content/Common/Images/title-bg.jpg" publishTime="08/27/2014 17:37:27" />
-    <file relUrl="bin/NexFB.Models.pdb" publishTime="09/23/2014 11:34:25" />
+    <file relUrl="Src/Content/Fonts/glyphicons-halflings-regular.woff" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Components/Extensions/Directives/fb-directives.js" publishTime="09/16/2014 18:46:45" />
     <file relUrl="Src/Content/Less/responsive-utilities.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Less/scaffolding.less" publishTime="09/08/2014 11:34:56" />
@@ -225,62 +221,66 @@
     <file relUrl="Src/Content/Less/mixins/gradients.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/App/UserControl/Templates/UserPermission/index.html" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Less/mixins/labels.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/App/EmployeeRegistration/employeeRegistration.less" publishTime="09/22/2014 11:19:27" />
     <file relUrl="Src/Content/Less/dropdowns.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="bin/NexFB.Services.pdb" publishTime="09/23/2014 17:20:28" />
     <file relUrl="bin/Fanex.Logging.dll" publishTime="08/26/2014 09:52:41" />
     <file relUrl="Src/Components/Libs/ui-bootstrap-tpls-0.11.0.min.js" publishTime="09/17/2014 14:21:15" />
     <file relUrl="Src/Content/Site/auth/images/icon-pass.png" publishTime="08/29/2014 14:52:13" />
-    <file relUrl="Src/Content/Common/Images/EPA.png" publishTime="08/27/2014 17:37:27" />
+    <file relUrl="bin/Microsoft.Practices.Unity.Interception.dll" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Components/Libs/angular-multi-select.js" publishTime="09/01/2014 09:05:08" />
     <file relUrl="Src/Content/Less/mixins/list-group.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="Src/App/MealPlanningManagement/Templates/index.html" publishTime="09/22/2014 14:05:08" />
+    <file relUrl="Src/Components/Libs/jquery-2.1.0.min.js" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Content/Less/tables.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Components/Extensions/Common/error-factory.js" publishTime="08/27/2014 08:34:38" />
-    <file relUrl="bin/System.Web.WebPages.Razor.dll" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="Src/Content/Common/bootstrap-theme.min.css" publishTime="08/25/2014 08:33:38" />
     <file relUrl="bin/System.Web.Http.WebHost.xml" publishTime="08/25/2014 08:33:38" />
     <file relUrl="bin/Microsoft.Practices.EnterpriseLibrary.Common.dll" publishTime="08/25/2014 08:33:38" />
     <file relUrl="bin/System.Web.Http.dll" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/App/FoodItemManagement/foodItemManagement.less" publishTime="09/22/2014 14:05:08" />
-    <file relUrl="bin/Microsoft.Practices.EnterpriseLibrary.Logging.dll" publishTime="08/26/2014 09:52:41" />
+    <file relUrl="Src/Content/Less/alerts.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/App/MealPlanningManagement/mealPlanningManagement-controller.js" publishTime="09/18/2014 17:55:47" />
-    <file relUrl="Src/Content/Common/Images/delete.png" publishTime="08/27/2014 17:37:27" />
+    <file relUrl="bin/System.Web.Http.xml" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Content/Common/Images/ui-bg_highlight-soft_100_eeeeee_1x100.png" publishTime="08/27/2014 17:37:27" />
-    <file relUrl="Src/Content/Common/Images/ui-icons_ffffff_256x240.png" publishTime="08/27/2014 17:37:27" />
-    <file relUrl="Src/Components/Libs/jquery-ui.min.js" publishTime="09/11/2014 18:04:50" />
+    <file relUrl="Src/App/UserControl/userControl-controller.js" publishTime="09/10/2014 13:42:18" />
+    <file relUrl="Src/App/UserControl/Templates/RolePermission/index.html" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="bin/Fanex.Common.dll" publishTime="08/26/2014 09:52:41" />
     <file relUrl="Src/App/UserControl/Templates/RolePermission/treeItem.html" publishTime="09/03/2014 10:31:24" />
     <file relUrl="Src/Content/Less/mixins/progress-bar.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="Src/Content/Less/wells.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="Src/Components/Libs/date.js" publishTime="09/18/2014 17:55:47" />
-    <file relUrl="Src/Content/Fonts/glyphicons-halflings-regular.ttf" publishTime="08/25/2014 08:33:38" />
-    <file relUrl="Src/Content/Site/auth/style.less" publishTime="08/29/2014 16:12:36" />
-    <file relUrl="bin/Microsoft.AspNet.SignalR.SystemWeb.dll" publishTime="09/10/2014 10:01:19" />
-    <file relUrl="bin/System.Web.Helpers.dll" publishTime="08/25/2014 08:33:38" />
-    <file relUrl="Src/App/MealPlanningManagement/mealPlanningManagement-factory.js" publishTime="09/18/2014 17:55:47" />
-    <file relUrl="Src/Content/Less/normalize.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/App/Ordering/ordering-factory.js" publishTime="09/18/2014 17:55:52" />
+    <file relUrl="Src/Content/Less/mixins/buttons.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/Content/Less/mixins/reset-filter.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="bin/System.Net.Http.WebRequest.dll" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="bin/NexFB.Resources.pdb" publishTime="09/23/2014 17:20:23" />
+    <file relUrl="Src/Content/Common/Images/ui-bg_diagonals-thick_20_666666_40x40.png" publishTime="08/27/2014 17:37:27" />
+    <file relUrl="Src/Content/Less/forms.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/Content/Common/Images/ui-bg_gloss-wave_35_f6a828_500x100.png" publishTime="08/27/2014 17:37:27" />
     <file relUrl="Src/Content/Site/variables.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="bin/NexFB.Services.pdb" publishTime="09/23/2014 11:34:27" />
+    <file relUrl="bin/Microsoft.AspNet.SignalR.SystemWeb.xml" publishTime="09/10/2014 10:01:19" />
     <file relUrl="bin/MsieJavaScriptEngine.dll" publishTime="08/26/2014 09:52:42" />
     <file relUrl="Src/Content/Less/pagination.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="Views/Web.config" publishTime="08/25/2014 08:33:38" />
-    <file relUrl="bin/NexFB.Site.pdb" publishTime="09/23/2014 11:34:34" />
+    <file relUrl="Src/App/EmployeeRegistration/Templates/monthlyRegistration.html" publishTime="09/23/2014 10:38:45" />
+    <file relUrl="Src/Content/Less/mixins/nav-divider.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Common/toastr.css" publishTime="08/27/2014 08:34:38" />
     <file relUrl="Src/App/FoodMenuManagement/foodMenuManagement-factory.js" publishTime="09/18/2014 12:56:04" />
-    <file relUrl="App_Data/SpNames.xml" publishTime="09/23/2014 10:40:35" />
+    <file relUrl="Src/Content/Site/Images/success.png" publishTime="08/27/2014 10:48:46" />
     <file relUrl="Src/App/EmployeeRegistration/employeeRegistration-route.js" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="Src/Content/Less/utilities.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/Content/Less/mixins/alerts.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/Content/Less/labels.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="Src/Components/Libs/angular-route.js" publishTime="08/25/2014 08:33:38" />
     <file relUrl="bin/Microsoft.Owin.Host.SystemWeb.dll" publishTime="09/10/2014 10:01:19" />
-    <file relUrl="Src/Content/Site/Images/table_header_repeat.jpg" publishTime="08/27/2014 10:48:46" />
-    <file relUrl="bin/NexFB.Hub.dll" publishTime="09/23/2014 11:34:28" />
+    <file relUrl="Src/Content/Less/wells.less" publishTime="09/08/2014 11:34:56" />
+    <file relUrl="bin/NexFB.Hub.dll" publishTime="09/23/2014 17:20:30" />
     <file relUrl="bin/Microsoft.AspNet.SignalR.Core.xml" publishTime="09/10/2014 10:01:19" />
-    <file relUrl="Src/Content/Fonts/glyphicons-halflings-regular.eot" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="Src/Content/Less/tooltip.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="bin/Microsoft.AspNet.SignalR.Core.dll" publishTime="09/10/2014 10:01:19" />
-    <file relUrl="Src/Content/Common/Images/ui-icons_222222_256x240.png" publishTime="08/27/2014 17:37:27" />
+    <file relUrl="bin/NexFB.Repositories.dll" publishTime="09/23/2014 17:20:27" />
     <file relUrl="Src/Content/Less/mixins/border-radius.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="bin/System.Net.Http.dll" publishTime="08/25/2014 08:33:38" />
     <file relUrl="Src/Content/Less/mixins/text-overflow.less" publishTime="09/08/2014 11:34:56" />
-    <file relUrl="bin/System.Web.Razor.dll" publishTime="08/25/2014 08:33:38" />
+    <file relUrl="Src/App/FoodItemManagement/foodItemManagement-controller.js" publishTime="09/23/2014 10:40:35" />
     <file relUrl="Src/Content/Less/mixins/nav-vertical-align.less" publishTime="09/08/2014 11:34:56" />
     <file relUrl="Src/App/MealPlanningManagement/Templates/create.html" publishTime="09/22/2014 14:05:08" />
-    <file relUrl="Src/Content/Common/Images/ui-bg_diagonals-thick_18_b81900_40x40.png" publishTime="08/27/2014 17:37:27" />
+    <file relUrl="bin/System.Web.WebPages.Deployment.xml" publishTime="08/25/2014 08:33:38" />
   </publishProfile>
 </publishData>
