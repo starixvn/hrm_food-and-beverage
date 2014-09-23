@@ -12,6 +12,7 @@ namespace NexFB.WinApp.ViewModels
     using System;
     using System.Configuration;
     using System.Windows.Documents;
+    using System.Windows.Threading;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
     using NexFB.Services.Implement;
@@ -19,6 +20,7 @@ namespace NexFB.WinApp.ViewModels
     using NexFB.WinApp.Core.Constants;
     using NexFB.WinApp.Core.NotifyBase;
     using NexFB.WinApp.Core.PrintHelper;
+    using NexFB.WinApp.Views;
 
     /// <summary>
     /// ViewModel Base.
@@ -89,11 +91,14 @@ namespace NexFB.WinApp.ViewModels
 
             if (!string.IsNullOrEmpty(releaseMode))
             {
+                NotificationWindow notifyWindows = new NotificationWindow();
+                notifyWindows.Show();
                 switch (releaseMode.ToUpper())
                 {
                     case "RELEASE":
                         bool printed = false;
                         printed = _printingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
+                        StartCloseTimer(notifyWindows);
                         return printed;
                     default:
                         string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
@@ -101,11 +106,27 @@ namespace NexFB.WinApp.ViewModels
                         var fileName = paths[paths.Length - 1];
                         string receiptDocumentCustom = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + fileName;
                         _printingHelper.ConvertToXps(template, receiptDocumentCustom);
+                        StartCloseTimer(notifyWindows);
                         return true;
                 }
             }
 
             return false;
+        }
+
+        private void StartCloseTimer(NotificationWindow windows)
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2d);
+            timer.Tick += (sender, e) => TimerTick(sender, e, windows);
+            timer.Start();
+        }
+
+        private void TimerTick(object sender, EventArgs e, NotificationWindow windows)
+        {
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
+            windows.Close();
         }
 
         #endregion

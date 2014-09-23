@@ -65,6 +65,7 @@ namespace NexFB.WinApp.ViewModels
 
         public MainViewModel()
         {
+            ////var allScreens = System.Windows.Forms.Screen.AllScreens;
             CurrentViewModel = new WaitingMealViewModel();
 
             CheckCurrentViewModel();

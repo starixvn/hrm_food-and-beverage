@@ -155,14 +155,14 @@
 			<Trigger Property="IsMouseOver" Value="False">
 				<Setter Property="VerticalScrollBarVisibility"
                 Value="Auto"/>
-				<Setter Property="HorizontalScrollBarVisibility"
-                Value="Auto"/>
+				<!--<Setter Property="HorizontalScrollBarVisibility"
+                Value="Auto"/>-->
 			</Trigger>
 			<Trigger Property="IsMouseOver" Value="True">
 				<Setter Property="VerticalScrollBarVisibility"
                 Value="Auto"/>
-				<Setter Property="HorizontalScrollBarVisibility"
-                Value="Auto"/>
+				<!--<Setter Property="HorizontalScrollBarVisibility"
+                Value="Auto"/>-->
 			</Trigger>
 		</Style.Triggers>
 	</Style>

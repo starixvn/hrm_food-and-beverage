@@ -11,6 +11,7 @@ namespace NexFB.WinApp
 {
     using System.Windows;
     using NexFB.WinApp.ViewModels;
+    using NexFB.WinApp.Views;
 
     /// <summary>
     /// Interaction logic for MainWindow.
