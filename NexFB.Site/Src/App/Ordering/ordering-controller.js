@@ -6,6 +6,7 @@ orderingModule.controller("OrderingController",
 function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderingService, notificationFactory) {
 	$scope.newOrder = [];
 	$scope.savedOrder = [];
+	$scope.myOrder = [];
 
 	$.connection.hub.start();
 	var orderSignalR = $.connection.order;
@@ -29,8 +30,9 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		}
 
 		if (isRelatedCurrentUser) {
-			$scope.myOrder.push(order);
-			$scope.$apply();
+			var data = orderingService.getMyOrder();
+			data.push(order);
+			orderingService.setMyOrder(data);
 		}
 	};
 
@@ -40,6 +42,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 	orderSignalR.client.editOrderForWeb = function (order) {
 		//$scope.currentUser
+		var data = orderingService.getMyOrder();
 		var indexObject = -1;
 		angular.forEach($scope.myOrder, function (value, index) {
 			if (value.OrderId === order.OrderId) {
@@ -48,8 +51,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		});
 
 		if (indexObject > -1) {
-			$scope.myOrder.splice(indexObject, 1);
-			$scope.$apply();
+			data.splice(indexObject, 1);
 		}
 
 		var isRelatedCurrentUser = false;
@@ -68,8 +70,11 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		}
 
 		if (isRelatedCurrentUser) {
-			$scope.myOrder.push(order);
-			$scope.$apply();
+//			$scope.myOrder.push(order);
+//			$scope.$apply();
+
+			data.push(order);
+			orderingService.setMyOrder(data);
 		}
 	};
 
@@ -78,6 +83,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	};
 
 	orderSignalR.client.deleteOrderForWeb = function (orderId) {
+		var data = orderingService.getMyOrder();
 		var indexObject = -1;
 		angular.forEach($scope.myOrder, function (value, index) {
 			if (value.OrderId === orderId) {
@@ -86,13 +92,14 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		});
 
 		if (indexObject > -1) {
-			$scope.myOrder.splice(indexObject, 1);
-			$scope.$apply();
+			data.splice(indexObject, 1);
+			orderingService.setMyOrder(data);
 		}
 	};
 
 	orderingFactory.getMyOrder()
 		.success(function (data) {
+			orderingService.setMyOrder(data);
 			$scope.myOrder = data;
 		})
 		.error(function () {
@@ -104,6 +111,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		.success(function (data) {
 			$scope.newOrder = data;
 			orderingService.setMemberNewOrder(data.Members);
+			$scope.newOrder.Location = $scope.locations[0];
 		})
 		.error(function () {
 			// TODO
@@ -113,17 +121,18 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		.success(function (data) {
 			$scope.savedOrder = data;
 			orderingService.setMemberSavedOrder(data.Members);
+			$scope.savedOrder.Location = $scope.locations[0];
 		})
 		.error(function () {
 			// TODO
 		});
 	};
 
-	$scope.getDefaultForAddOrder();
-
 	orderingFactory.getLocation()
 		.success(function (data) {
 			$scope.locations = data;
+
+			$scope.getDefaultForAddOrder();
 		})
 		.error(function () {
 			// TODO
@@ -136,6 +145,12 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		.error(function () {
 			// TODO
 		});
+
+	$scope.$watch(function () {
+		return orderingService.getMyOrder();
+	}, function (value) {
+		$scope.myOrder = value;
+	});
 
 	$scope.$watch(function () {
 		return orderingService.getMemberNewOrder();
@@ -163,6 +178,12 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				}
 			},
 			windowClass: "modal-confirm-center1"
+		});
+
+		$scope.modalAddMemberInstance.result.then(function () {
+		}, function () {
+		})['finally'](function () {
+			$scope.modalAddMemberInstance = undefined;
 		});
 	};
 
@@ -194,6 +215,9 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			else {
 				$scope.newOrder.Members.splice(index, 1);
 			}
+		}, function () {
+		})['finally'](function () {
+			$scope.modalRemoveMemberInstance = undefined;
 		});
 	};
 
@@ -221,6 +245,9 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					notificationFactory.error('', response.result.Message);
 				}
 			});
+		}, function () {
+		})['finally'](function () {
+			$scope.modalConfirmSaveOrderInstance = undefined;
 		});
 	};
 
@@ -245,7 +272,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				$scope.sendEditOrder(receiveObject.order.OrderId);
 			}
 		}, function () {
-			// TODO
+		})['finally'](function () {
+			$scope.modalEditOrderInstance = undefined;
 		});
 	};
 
@@ -258,23 +286,23 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			// TODO
 		});
 
-	$scope.$on('$routeChangeStart', function () {
-		if ($scope.modalEditOrderInstance) {
-			$scope.modalEditOrderInstance.dismiss('cancel');
-		}
+	//	$scope.$on('$routeChangeStart', function () {
+	//		if ($scope.modalEditOrderInstance) {
+	//			$scope.modalEditOrderInstance.dismiss('cancel');
+	//		}
 
-		if ($scope.modalConfirmSaveOrderInstance) {
-			$scope.modalConfirmSaveOrderInstance.dismiss('cancel');
-		}
+	//		if ($scope.modalConfirmSaveOrderInstance) {
+	//			$scope.modalConfirmSaveOrderInstance.dismiss('cancel');
+	//		}
 
-		if ($scope.modalRemoveMemberInstance) {
-			$scope.modalRemoveMemberInstance.dismiss('cancel');
-		}
+	//		if ($scope.modalRemoveMemberInstance) {
+	//			$scope.modalRemoveMemberInstance.dismiss('cancel');
+	//		}
 
-		if ($scope.modalAddMemberInstance) {
-			$scope.modalAddMemberInstance.dismiss('cancel');
-		}
-	});
+	//		if ($scope.modalAddMemberInstance) {
+	//			$scope.modalAddMemberInstance.dismiss('cancel');
+	//		}
+	//	});
 } ]);
 
 orderingModule.controller('AddMemberController',
@@ -298,14 +326,14 @@ function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder
 				member.Menu = data;
 				orderingFactory.getOrderByUserId(member.Member.UserId)
 				.success(function (dataStatus) {
-					if (dataStatus.Status != null) {
-						notificationFactory.error('', message);
-					}
-					else {
-						member.CurrentStatus = dataStatus.Status;
+					member.CurrentStatus = dataStatus.Status;
 
-						var isExisted = false;
-						if (isEditOrder) {
+					var isExisted = false;
+					if (isEditOrder) {
+						if (member.CurrentStatus != null) {
+							notificationFactory.error('', message);
+						}
+						else {
 							var editMembers = orderingService.getMemberEditOrder();
 							angular.forEach(editMembers, function (value) {
 								if (value.Member.UserId === member.Member.UserId) {
@@ -321,30 +349,38 @@ function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder
 								notificationFactory.error('', message);
 							}
 						}
-						else {
-							if (isSavedOrder) {
-								var savedMembers = orderingService.getMemberSavedOrder();
-								angular.forEach(savedMembers, function (value) {
-									if (value.Member.UserId === member.Member.UserId) {
-										isExisted = true;
+					}
+					else {
+						if (isSavedOrder) {
+							if (member.CurrentStatus != null) {
+								member.IsOrder = false;
+							}
+							var savedMembers = orderingService.getMemberSavedOrder();
+							angular.forEach(savedMembers, function (value) {
+								if (value.Member.UserId === member.Member.UserId) {
+									isExisted = true;
+								}
+							});
+
+							if (!isExisted) {
+								orderingFactory.addMember(member).success(function (response) {
+									if (response.IsSuccessful === true) {
+										savedMembers.push(member);
+										orderingService.setMemberSavedOrder(savedMembers);
+										notificationFactory.success("DataChangeSuccessfully");
+									}
+									else {
+										notificationFactory.error('', response.Message);
 									}
 								});
-
-								if (!isExisted) {
-									orderingFactory.addMember(member).success(function (response) {
-										if (response.IsSuccessful === true) {
-											savedMembers.push(member);
-											orderingService.setMemberSavedOrder(savedMembers);
-											notificationFactory.success("DataChangeSuccessfully");
-										}
-										else {
-											notificationFactory.error('', response.Message);
-										}
-									});
-								}
-								else {
-									notificationFactory.error('', message);
-								}
+							}
+							else {
+								notificationFactory.error('', message);
+							}
+						}
+						else {
+							if (member.CurrentStatus != null) {
+								notificationFactory.error('', message);
 							}
 							else {
 								var members = orderingService.getMemberNewOrder();

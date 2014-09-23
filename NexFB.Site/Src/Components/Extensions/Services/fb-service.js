@@ -6,6 +6,7 @@ var fbGeneralService = function () {
 	var memberSavedOrder;
 	var memberEditOrder;
 	var currentUser;
+	var myOrder;
 
 	return {
 		getMemberNewOrder: function () {
@@ -31,6 +32,12 @@ var fbGeneralService = function () {
 		},
 		setCurrentUser: function (value) {
 			currentUser = value;
+		},
+		getMyOrder: function () {
+			return myOrder;
+		},
+		setMyOrder: function (value) {
+			myOrder = value;
 		}
 	};
 };

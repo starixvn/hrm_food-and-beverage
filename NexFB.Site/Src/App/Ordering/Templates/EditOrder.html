@@ -21,7 +21,8 @@
                             <label data-translate="Location">
                             </label>
                             <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.Location.LocationId"
-							ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId" class="form-control">
+							ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
+								|| (order.Status.StatusId != 1 && order.Status.StatusId != 2 && order.Status.StatusId != 3)" class="form-control">
                             </select>
                         </div>
                         <div class="form-group pull-right">
@@ -78,13 +79,15 @@
                             <label data-translate="Remark">
                             </label>
                             <input ng-model="order.Remark" type="text" class="txt-remark" maxlength="500"
-								ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId"/>
+								ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
+								|| (order.Status.StatusId != 1 && order.Status.StatusId != 2 && order.Status.StatusId != 3)"/>
                         </div>
                         <div class="form-group phone">
                             <label data-translate="Phone">
                             </label>
                             <input ng-model="order.Phone" type="text" maxlength="50"
-								ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId"/>
+								ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId 
+								|| (order.Status.StatusId != 1 && order.Status.StatusId != 2 && order.Status.StatusId != 3)"/>
                         </div>
                     </div>
 					<div class="row form-inline form-order">
@@ -122,7 +125,8 @@
 	</div>
 
 	<div class="modal-footer">
-		<button class="button" ng-click="saveEditOrder(order)" data-translate="Save">
+		<button class="button" ng-click="saveEditOrder(order)" data-translate="Save"
+		ng-show = "(order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3)" >
 		</button>
 		<button class="button btn-delete" ng-click="deleteOrder(order.OrderId)" data-translate="Delete"
 			ng-show = "(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)" >

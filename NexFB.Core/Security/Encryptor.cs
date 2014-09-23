@@ -84,6 +84,7 @@ namespace NexFB.Core.Security
         /// <returns>Result of Compute.</returns>
         private static string ComputeHash(HashProvider hashAlgorithm, string plainText, byte[] salt)
         {
+            plainText = plainText == null ? string.Empty : plainText;
             // Convert plain text into a byte array
             byte[] data = Encoding.UTF8.GetBytes(plainText);
             int dataLength = data.Length;

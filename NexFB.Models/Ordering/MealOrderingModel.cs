@@ -21,6 +21,7 @@ namespace NexFB.Models.Ordering
         public MealOrderingModel()
         {
             Members = new List<OrderMemberModel>();
+            Location = new Location();
         }
 
         public int OrderId { get; set; }
