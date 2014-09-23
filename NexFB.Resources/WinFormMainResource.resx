@@ -144,6 +144,9 @@
   <data name="Hidden" xml:space="preserve">
     <value>Hidden</value>
   </data>
+  <data name="InvoicePrinting" xml:space="preserve">
+    <value>The invoice is printing...</value>
+  </data>
   <data name="LocalPrinterError" xml:space="preserve">
     <value>Local printer error. Please notify the Administrators!</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Print" xml:space="preserve">
     <value>In</value>
+  </data>
+  <data name="PrintInvoiceHeader" xml:space="preserve">
+    <value>Order Meal Invoice</value>
   </data>
   <data name="QuantityPerOrder" xml:space="preserve">
     <value>  x  </value>

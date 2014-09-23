@@ -142,6 +142,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The invoice is printing....
+        /// </summary>
+        public static string InvoicePrinting {
+            get {
+                return ResourceManager.GetString("InvoicePrinting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Local printer error. Please notify the Administrators!.
         /// </summary>
         public static string LocalPrinterError {
@@ -183,6 +192,15 @@ namespace NexFB.Resources {
         public static string Print {
             get {
                 return ResourceManager.GetString("Print", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order Meal Invoice.
+        /// </summary>
+        public static string PrintInvoiceHeader {
+            get {
+                return ResourceManager.GetString("PrintInvoiceHeader", resourceCulture);
             }
         }
         

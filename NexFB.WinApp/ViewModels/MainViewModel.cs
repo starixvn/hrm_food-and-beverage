@@ -539,6 +539,7 @@ namespace NexFB.WinApp.ViewModels
                     {
                         if (InternetAvailability.IsInternetAvailable())
                         {
+                            DeleteOrderFromCurrentList(orderId);
                             SendMessage(orderId, Constant.AwaitingDeliverFoodScreen);
                         }
                         else
@@ -577,6 +578,7 @@ namespace NexFB.WinApp.ViewModels
                     {
                         if (InternetAvailability.IsInternetAvailable())
                         {
+                            DeleteOrderFromCurrentList(orderId);
                             SendMessage(orderId, Constant.WaitingFoodScreen);
                         }
                         else
@@ -611,6 +613,7 @@ namespace NexFB.WinApp.ViewModels
                 {
                     if (InternetAvailability.IsInternetAvailable())
                     {
+                        DeleteOrderFromCurrentList(orderId);
                         SendMessage(orderId, Constant.DeliveredFoodScreen);
                     }
                     else
@@ -640,6 +643,27 @@ namespace NexFB.WinApp.ViewModels
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Remove order from list.
+        /// </summary>
+        /// <param name="orderId">Current order id.</param>
+        private void DeleteOrderFromCurrentList(int orderId)
+        {
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            switch (currentViewModel)
+            {
+                case Constant.WaitingMealViewModel:
+                    ((WaitingMealViewModel)CurrentViewModel).DeleteDataInWaitingMeals(orderId);
+                    break;
+                case Constant.AwaitingDeliverViewModel:
+                    ((AwaitingDeliverViewModel)CurrentViewModel).DeleteDataInAwaitingDeliverMeals(orderId);
+                    break;
+                case Constant.DeliveredFoodViewModel:
+                    ((DeliveredFoodViewModel)CurrentViewModel).DeleteDataInDeliveredMeals(orderId);
+                    break;
+            }
+        }
 
         private void OnNewOrder(Order order)
         {
