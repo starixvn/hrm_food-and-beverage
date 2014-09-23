@@ -112,8 +112,8 @@ ErrorFactory) {
 	/*
 	** Activate or deactivate food item.
 	*/
-	$scope.confirmActive = function (food) {
-	};
+//	$scope.confirmActive = function (food) {
+//	};
 
 	$scope.reload = function () {
 		$route.reload();

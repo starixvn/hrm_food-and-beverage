@@ -85,25 +85,25 @@ namespace NexFB.Core.Security
         private static string ComputeHash(HashProvider hashAlgorithm, string plainText, byte[] salt)
         {
             plainText = plainText == null ? string.Empty : plainText;
-            // Convert plain text into a byte array
+            //// Convert plain text into a byte array
             byte[] data = Encoding.UTF8.GetBytes(plainText);
             int dataLength = data.Length;
 
-            // Random salt
+            //// Random salt
             int saltLength = salt.Length;
 
-            // Append the salt to the end of the plainText
+            //// Append the salt to the end of the plainText
             byte[] dataSalt = new byte[dataLength + saltLength];
 
-            // Copy both the data and salt into the new array
+            //// Copy both the data and salt into the new array
             Array.Copy(data, dataSalt, dataLength);
             Array.Copy(salt, 0, dataSalt, dataLength, saltLength);
 
-            // Compute hash value of our plain text with appended salt.
+            //// Compute hash value of our plain text with appended salt.
             byte[] encrypt = GetHashProvider(hashAlgorithm).ComputeHash(dataSalt);
             int encryptLength = encrypt.Length;
 
-            // Append the salt to the end of the encrypt
+            //// Append the salt to the end of the encrypt
             byte[] encryptSalt = new byte[encryptLength + saltLength];
             Array.Copy(encrypt, encryptSalt, encryptLength);
             Array.Copy(salt, 0, encryptSalt, encryptLength, saltLength);
