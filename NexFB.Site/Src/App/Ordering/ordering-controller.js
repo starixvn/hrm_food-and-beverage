@@ -15,7 +15,6 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	};
 
 	orderSignalR.client.newOrderForWeb = function (order) {
-		//$scope.currentUser
 		var isRelatedCurrentUser = false;
 		if ($scope.currentUser.UserId === order.CreatorOrder.UserId) {
 			isRelatedCurrentUser = true;
@@ -24,6 +23,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			angular.forEach(order.Members, function (value) {
 				if (value.Member.UserId === $scope.currentUser.UserId) {
 					isRelatedCurrentUser = true;
+					order.MyMeal = value.Menu;
 				}
 			});
 		}
@@ -53,15 +53,18 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		}
 
 		var isRelatedCurrentUser = false;
-		if ($scope.currentUser.UserId === order.CreatorOrder.UserId) {
-			isRelatedCurrentUser = true;
-		}
-		else {
-			angular.forEach(order.Members, function (value) {
-				if (value.Member.UserId === $scope.currentUser.UserId) {
-					isRelatedCurrentUser = true;
-				}
-			});
+		if (order.Members.length > 0) {
+			if ($scope.currentUser.UserId === order.CreatorOrder.UserId) {
+				isRelatedCurrentUser = true;
+			}
+			else {
+				angular.forEach(order.Members, function (value) {
+					if (value.Member.UserId === $scope.currentUser.UserId) {
+						isRelatedCurrentUser = true;
+						order.MyMeal = value.Menu;
+					}
+				});
+			}
 		}
 
 		if (isRelatedCurrentUser) {
@@ -160,10 +163,6 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				}
 			},
 			windowClass: "modal-confirm-center1"
-		});
-
-		$scope.modalAddMemberInstance.result.then(function () {
-			
 		});
 	};
 
@@ -299,72 +298,79 @@ function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder
 				member.Menu = data;
 				orderingFactory.getOrderByUserId(member.Member.UserId)
 				.success(function (dataStatus) {
-					member.CurrentStatus = dataStatus.Status;
+					if (dataStatus.Status != null) {
+						notificationFactory.error('', message);
+					}
+					else {
+						member.CurrentStatus = dataStatus.Status;
+
+						var isExisted = false;
+						if (isEditOrder) {
+							var editMembers = orderingService.getMemberEditOrder();
+							angular.forEach(editMembers, function (value) {
+								if (value.Member.UserId === member.Member.UserId) {
+									isExisted = true;
+								}
+							});
+
+							if (!isExisted) {
+								editMembers.push(member);
+								orderingService.setMemberEditOrder(editMembers);
+							}
+							else {
+								notificationFactory.error('', message);
+							}
+						}
+						else {
+							if (isSavedOrder) {
+								var savedMembers = orderingService.getMemberSavedOrder();
+								angular.forEach(savedMembers, function (value) {
+									if (value.Member.UserId === member.Member.UserId) {
+										isExisted = true;
+									}
+								});
+
+								if (!isExisted) {
+									orderingFactory.addMember(member).success(function (response) {
+										if (response.IsSuccessful === true) {
+											savedMembers.push(member);
+											orderingService.setMemberSavedOrder(savedMembers);
+											notificationFactory.success("DataChangeSuccessfully");
+										}
+										else {
+											notificationFactory.error('', response.Message);
+										}
+									});
+								}
+								else {
+									notificationFactory.error('', message);
+								}
+							}
+							else {
+								var members = orderingService.getMemberNewOrder();
+
+								angular.forEach(members, function (value) {
+									if (value.Member.UserId === member.Member.UserId) {
+										isExisted = true;
+									}
+								});
+
+								if (!isExisted) {
+									members.push(member);
+									orderingService.setMemberNewOrder(members);
+								}
+								else {
+									notificationFactory.error('', message);
+								}
+							}
+						}
+					}
 				})
 				.error(function () {
 					// TODO
 				});
 
-				var isExisted = false;
-				if (isEditOrder) {
-					var editMembers = orderingService.getMemberEditOrder();
-					angular.forEach(editMembers, function (value) {
-						if (value.Member.UserId === member.Member.UserId) {
-							isExisted = true;
-						}
-					});
 
-					if (!isExisted) {
-						editMembers.push(member);
-						orderingService.setMemberEditOrder(editMembers);
-					}
-					else {
-						notificationFactory.error('', message);
-					}
-				}
-				else {
-					if (isSavedOrder) {
-						var savedMembers = orderingService.getMemberSavedOrder();
-						angular.forEach(savedMembers, function (value) {
-							if (value.Member.UserId === member.Member.UserId) {
-								isExisted = true;
-							}
-						});
-
-						if (!isExisted) {
-							orderingFactory.addMember(member).success(function (response) {
-								if (response.IsSuccessful === true) {
-									savedMembers.push(member);
-									orderingService.setMemberSavedOrder(savedMembers);
-									notificationFactory.success("DataChangeSuccessfully");
-								}
-								else {
-									notificationFactory.error('', response.Message);
-								}
-							});
-						}
-						else {
-							notificationFactory.error('', message);
-						}
-					}
-					else {
-						var members = orderingService.getMemberNewOrder();
-
-						angular.forEach(members, function (value) {
-							if (value.Member.UserId === member.Member.UserId) {
-								isExisted = true;
-							}
-						});
-
-						if (!isExisted) {
-							members.push(member);
-							orderingService.setMemberNewOrder(members);
-						}
-						else {
-							notificationFactory.error('', message);
-						}
-					}
-				}
 				if (!isContinue) {
 					$modalInstance.close(newMember);
 				}

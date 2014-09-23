@@ -53,13 +53,14 @@ namespace NexFB.Core.Repositories
                 Hashtable hash = criteria.GetSpParams();
                 hash = (new ResultCriteria()).AddSpParams(hash);
                 int result = db.ExecuteNonQuery(hash);
+                CommandResult commandResult = GetCommandResult(hash);
 
-                if (result == -1 && hasGetOutputParams)
+                if (result == -1 && commandResult.IsSuccessful && hasGetOutputParams)
                 {
                     SetValueForOutputProperty(criteria, hash);
                 }
 
-                return GetCommandResult(hash);
+                return commandResult;
             }
         }
 

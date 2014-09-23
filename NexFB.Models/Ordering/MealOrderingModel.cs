@@ -50,5 +50,13 @@ namespace NexFB.Models.Ordering
         public bool IsSavedOrder { get; set; }
 
         public Employee CurrentUser { get; set; }
+
+        public string ModifiedTime
+        {
+            get
+            {
+                return ModifiedDate.ToString("HH:mm:ss");
+            }
+        }
     }
 }

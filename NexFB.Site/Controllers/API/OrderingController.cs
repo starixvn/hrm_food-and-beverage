@@ -231,7 +231,7 @@ namespace NexFB.Site.Controllers.API
                 ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now,
                 IsSavedOrder = false,
-                LocationId = model.Location.LocationId,
+                LocationId = model.Location != null ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
                 Remark = model.Remark,
                 Members = model.Members

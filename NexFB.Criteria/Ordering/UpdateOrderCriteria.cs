@@ -25,7 +25,7 @@ namespace NexFB.Criteria.Ordering
 
         public int OrderId { get; set; }
 
-        public int LocationId { get; set; }
+        public int? LocationId { get; set; }
 
         public string Phone { get; set; }
 

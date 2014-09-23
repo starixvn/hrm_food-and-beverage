@@ -36,10 +36,10 @@
 					<a ng-switch-when="2" class="lbl-received" href="javascript:;" ng-click="editOrder(order.OrderId)">
 						{{order.Status.Name}}
 					</a>
-					<a ng-switch-when="3" class="lbl-delivered" href="javascript:;" ng-click="editOrder(order.OrderId)">
+					<a ng-switch-when="3" class="lbl-reduced" href="javascript:;" ng-click="editOrder(order.OrderId)">
 						{{order.Status.Name}}
 					</a>
-					<a ng-switch-when="4" class="lbl-reduced" href="javascript:;" ng-click="editOrder(order.OrderId)">
+					<a ng-switch-when="4" class="lbl-delivered" href="javascript:;" ng-click="editOrder(order.OrderId)">
 						{{order.Status.Name}}
 					</a>
 					<a ng-switch-when="5" class="lbl-edited" href="javascript:;" ng-click="editOrder(order.OrderId)">
@@ -47,7 +47,7 @@
 					</a>
 					<br />
 					<span>
-						{{order.ModifiedDate | customTime}}
+						{{order.ModifiedTime }}
 					</span>
                 </td>
                 <td>

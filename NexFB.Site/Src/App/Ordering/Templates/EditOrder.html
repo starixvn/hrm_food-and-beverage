@@ -7,8 +7,17 @@
 
 	<div class="modal-body assign-role-modal">
 		<div class="col-sm-12 edit-order">
+					<div class="row">
+						<div class="form-group">
+                            <span data-translate="OrderPerson">
+                            </span>
+                            :
+							<span class="bold">{{order.CreatorOrder.NickName}}</span>
+                        </div>
+					</div>
                     <div class="row form-inline form-order">
-                        <div class="form-group">
+                        
+						<div class="form-group">
                             <label data-translate="Location">
                             </label>
                             <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.Location.LocationId"
@@ -91,8 +100,20 @@
 							for {{order.Members.length}} member(s).
 						</label>
 
+						<label ng-show="order.Status.StatusId == 3" class="order-status-reduced">
+							Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} has been reduced since {{order.ModifiedDate | customTime}} 
+							<span ng-repeat = "menu in order.MenuQuantity">, {{menu.Quantity}} "{{menu.Menu.Name}}"</span>
+							for {{order.Members.length}} member(s).
+						</label>
+
 						<label ng-show="order.Status.StatusId == 4" class="order-status-delivered">
 							Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} has been ready since {{order.ModifiedDate | customTime}} 
+							<span ng-repeat = "menu in order.MenuQuantity">, {{menu.Quantity}} "{{menu.Menu.Name}}"</span>
+							for {{order.Members.length}} member(s).
+						</label>
+
+						<label ng-show="order.Status.StatusId == 5" class="order-status-edited">
+							Order #{{order.OrderNo}} by {{order.CreatorOrder.NickName}} is being edited since {{order.ModifiedDate | customTime}} 
 							<span ng-repeat = "menu in order.MenuQuantity">, {{menu.Quantity}} "{{menu.Menu.Name}}"</span>
 							for {{order.Members.length}} member(s).
 						</label>
