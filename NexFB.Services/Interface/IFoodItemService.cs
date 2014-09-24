@@ -22,5 +22,9 @@ namespace NexFB.Services.Interface
         IList<FoodItemModel> GetAllFoodItem(GetAllFoodItemCriteria criteria);
 
         CommandResult InsertFoodItem(InsertFoodItemCriteria criteria);
+
+        CommandResult UpdateFoodItem(UpdateFoodItemCriteria criteria);
+
+        CommandResult DeleteFoodItem(DeleteFoodItemCriteria criteria);
     }
 }

@@ -19,7 +19,7 @@ namespace NexFB.Criteria.FoodItemManagement
     {
         public string FoodEngName { get; set; }
 
-        public string FoodVmnName { get; set; }
+        public string FoodVnmName { get; set; }
 
         public string FoodPhoto { get; set; }
 

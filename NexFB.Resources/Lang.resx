@@ -420,4 +420,16 @@
   <data name="InActive" xml:space="preserve">
     <value>Inactive</value>
   </data>
+  <data name="FoodEngNameRequire" xml:space="preserve">
+    <value>The Food item (Eng) field is required!</value>
+  </data>
+  <data name="FoodItemEngName" xml:space="preserve">
+    <value>(Eng)</value>
+  </data>
+  <data name="FoodItemVnmName" xml:space="preserve">
+    <value>Food item (Vie)</value>
+  </data>
+  <data name="FoodVnmNameRequire" xml:space="preserve">
+    <value>The Food item (Vie) field is required!</value>
+  </data>
 </root>

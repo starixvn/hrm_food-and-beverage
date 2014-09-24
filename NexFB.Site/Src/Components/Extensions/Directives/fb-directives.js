@@ -92,7 +92,6 @@ appModule.directive('multiSelectChosen', function () {
 			scope.$watchCollection('groupOptions', function () {
 				iElement.trigger("chosen:updated");
 			});
-			iElement.on("change", scope.getSelectedOrDeselectedGroup);
 			iElement.chosen({ width: "95%" });
 		}
 	};

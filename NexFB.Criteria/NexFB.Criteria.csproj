@@ -64,8 +64,10 @@
     <Compile Include="Employee\GetAllEmployeeFunctionCriteria.cs" />
     <Compile Include="Employee\GetEmployeeCriteria.cs" />
     <Compile Include="Employee\GetEmployeeMenuBySystemIdCriteria.cs" />
+    <Compile Include="FoodItemManagement\DeleteFoodItemCriteria.cs" />
     <Compile Include="FoodItemManagement\GetAllFoodItemCriteria.cs" />
     <Compile Include="FoodItemManagement\InsertFoodItemCriteria.cs" />
+    <Compile Include="FoodItemManagement\UpdateFoodItemCriteria.cs" />
     <Compile Include="FoodMenuManagement\GetAllFoodMenuCriteria.cs" />
     <Compile Include="Kitchen\GetAwaitingDeliverMealOrderCriteria.cs" />
     <Compile Include="Kitchen\GetMealOrderByIdCriteria.cs">

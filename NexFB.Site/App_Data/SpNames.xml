@@ -164,6 +164,10 @@
 		</Setting>
 		<Setting Key="Food_Insert" SpName="Food_Insert" DbName="NexFB" Plain="0" >
 		</Setting>
+		<Setting Key="Food_EditByFoodID" SpName="Food_EditByFoodID" DbName="NexFB" Plain="0" >
+		</Setting>
+		<Setting Key="Food_DeleteByFoodID" SpName="Food_DeleteByFoodID" DbName="NexFB" Plain="0" >
+		</Setting>
 	</Function>
 	<Function Name="FoodMenuManagement">
 		<Setting Key="FoodMenu_GetAll" SpName="FoodMenu_GetAll" DbName="NexFB" Plain="0" >

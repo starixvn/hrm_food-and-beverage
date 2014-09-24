@@ -57,5 +57,30 @@ namespace NexFB.Site.Controllers.API
 
             return _foodItemService.InsertFoodItem(criteria);
         }
+
+        [HttpPut]
+        public CommandResult UpdateFoodItem(UpdateFoodItemCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _foodItemService.UpdateFoodItem(criteria);
+        }
+
+        [HttpDelete]
+        public CommandResult DeleteFoodItem(int foodId)
+        {
+            var criteria = new DeleteFoodItemCriteria
+            {
+                FoodId = foodId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
+            };
+
+            return _foodItemService.DeleteFoodItem(criteria);
+        }
     }
 }

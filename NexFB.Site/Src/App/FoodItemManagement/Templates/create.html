@@ -6,14 +6,14 @@
 	</div>
 
 	<div class="modal-body assign-role-modal">
-         <form class="form-inline form-fooditem" role="form">
+         <form novalidate class="form-inline form-fooditem" role="form" name="form">
             <div class="form-group">
-                <label>Food item (Vie)</label>
-                <input type="text" class="form-control" ng-model="food.foodVnmName"/>
+                <label data-translate="FoodItemVnmName"></label>
+                <input type="text" class="form-control" ng-model="food.foodVnmName" name="vnmName" required />
             </div>
             <div class="form-group">
-                <label>(Eng)</label>
-                <input type="text" class="form-control" ng-model="food.foodEngName"/>
+                <label data-translate="FoodItemEngName"></label>
+                <input type="text" class="form-control" ng-model="food.foodEngName" name="engName" required />
             </div>
             <div class="form-group">
                 <label>{{"Active" | translate}}:</label>
@@ -23,17 +23,17 @@
         <div>
             <div>{{"Menu" | translate}}:</div>
 			<div class="col-sm-10">
-				<select class="chosen-select" data-placeholder="Select the menu group" multiple multi-select-chosen name="foodMenuGroup"
-					ng-model="food.MenuGroupId" ng-options="opt.MenuId as opt.MenuVnmName for opt in groupOptions">
+				<select name="menuSelect" class="chosen-select" data-placeholder="Select the menu group" multiple multi-select-chosen name="foodMenuGroup"
+					ng-model="food.groupIds" ng-options="opt.MenuId as opt.MenuVnmName for opt in groupOptions">
 				</select>
 			</div>
         </div>
 	</div>
 
 	<div class="modal-footer">
-		<button class="button" data-translate="Submit">
+		<button class="button" data-translate="Submit" ng-click="create(food)" ng-disabled="disabledSubmitButton">
 		</button>
-		<button class="button" data-translate="SubmitContinue">
+		<button class="button" reset-food-item data-translate="SubmitContinue" ng-disabled="disabledSubmitButton">
 		</button>
 		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 		</button>

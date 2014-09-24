@@ -55,7 +55,7 @@
                 </tr>
             </thead>
 			<tbody>
-				<tr ng-repeat="food in pagedItems[currentPage]">
+				<tr ng-repeat="food in pagedItems[currentPage] track by food.FoodId">
 					<td class="text-center" ng-bind="$index + 1"></td>
 					<td ng-bind="food.FoodVnmName"></td>
 					<td ng-bind="food.FoodEngName"></td>
@@ -73,8 +73,8 @@
 						<input type="checkbox" ng-checked="food.IsActive" ng-click="confirmActive(food)"/>
 					</td>
 					<td class="text-center">
-						<a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
-						<a class="glyphicon glyphicon-remove icon-remove" href=""></a>
+						<a class="glyphicon glyphicon-edit" href="" ng-click="edit(food)"></a>
+						<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteFoodItem(food)"></a>
 					</td>
 				</tr>
 				<tr ng-show="foodItems.length == 0">
