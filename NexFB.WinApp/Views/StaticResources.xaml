@@ -78,10 +78,10 @@
 						<Trigger Property="Button.IsDefaulted" Value="True">
 							<Setter Property="BorderBrush" TargetName="border" Value="Red"/>
 						</Trigger>
-						<Trigger Property="IsMouseOver" Value="True">
+						<!--<Trigger Property="IsMouseOver" Value="True">
 							<Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
 							<Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
-						</Trigger>
+						</Trigger>-->
 						<Trigger Property="IsPressed" Value="True">
 							<Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
 							<Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
@@ -91,6 +91,26 @@
 							<Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
 							<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
 						</Trigger>
+						<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="1">
+							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Receive}"></Setter>
+							<Setter Property="Background" Value="#66b5d7"/>
+							<Setter Property="Command" Value="{Binding DataContext.ReceiveOrderFoodCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
+							<!--<Setter Property="Command" Value="{Binding Path=DataContext.ReceiveOrderFoodCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>-->
+							<Setter Property="CommandParameter" Value="{Binding Path=OrderId}"/>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="2">
+							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Export}"></Setter>
+							<Setter Property="Background" Value="#FA5934"/>
+							<Setter Property="Command" Value="{Binding DataContext.DeliverOrderFoodCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
+							<Setter Property="CommandParameter" Value="{Binding Path=OrderId}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="3">
+							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Export}"></Setter>
+							<Setter Property="Background" Value="#FA5934"/>
+							<Setter Property="Command" Value="{Binding DataContext.DeliverOrderFoodCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
+							<Setter Property="CommandParameter" Value="{Binding Path=OrderId}"/>
+						</DataTrigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>

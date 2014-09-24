@@ -791,9 +791,13 @@ namespace NexFB.WinApp.ViewModels
             string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
             switch (currentViewModel)
             {
+                case Constant.WaitingMealViewModel:
+                    Order newWaitingOrder = GetOrderById(orderId);
+                    ((WaitingMealViewModel)CurrentViewModel).NewOrderDataInWaitingMeals(newWaitingOrder);
+                    break;
                 case Constant.AwaitingDeliverViewModel:
-                    Order order = GetOrderById(orderId);
-                    ((AwaitingDeliverViewModel)CurrentViewModel).NewOrderDataInAwaitingDeliverMeals(order);
+                    Order newAwaitingOrder = GetOrderById(orderId);
+                    ((AwaitingDeliverViewModel)CurrentViewModel).NewOrderDataInAwaitingDeliverMeals(newAwaitingOrder);
                     break;
                 case Constant.DeliveredFoodViewModel:
                     ((DeliveredFoodViewModel)CurrentViewModel).DeleteDataInDeliveredMeals(orderId);

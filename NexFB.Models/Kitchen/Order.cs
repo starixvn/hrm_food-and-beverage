@@ -12,6 +12,7 @@ namespace NexFB.Models.Kitchen
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using NexFB.Core.Enums;
     using NexFB.Resources;
 
     /// <summary>
@@ -55,6 +56,21 @@ namespace NexFB.Models.Kitchen
         public bool IsEdited { get; set; }
 
         public int InvoiceNumber { get; set; }
+
+        public string PrintLabel
+        {
+            get
+            {
+                if (CurrentStatusId == (int)OrderStatus.NewOrder)
+                {
+                    return WinFormMainResource.ReceiveBilingual;
+                }
+                else
+                {
+                    return WinFormMainResource.DeliverBilingual;
+                }
+            }
+        }
 
         public List<OrderMenu> ListMenu { get; set; }
 

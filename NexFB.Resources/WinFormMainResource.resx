@@ -123,6 +123,9 @@
   <data name="Black" xml:space="preserve">
     <value>Black</value>
   </data>
+  <data name="DeliverBilingual" xml:space="preserve">
+    <value>Xuất / Out : </value>
+  </data>
   <data name="Delivered" xml:space="preserve">
     <value>Đã xuất</value>
   </data>
@@ -202,7 +205,7 @@
     <value>Visible</value>
   </data>
   <data name="Waiting" xml:space="preserve">
-    <value>Chờ nhận</value>
+    <value>Đang chờ</value>
   </data>
   <data name="White" xml:space="preserve">
     <value>White</value>

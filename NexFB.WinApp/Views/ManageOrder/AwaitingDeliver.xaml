@@ -48,8 +48,8 @@
 												<ColumnDefinition Width="auto"/>
 											</Grid.ColumnDefinitions>
 
-											<Border HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource RoomNumberStyle}" Grid.Column="0">
-												<TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Text="{Binding Path=FloorName}" VerticalAlignment="Center"/>
+										<Border Margin="0,0,0,-5" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource RoomNumberStyle}" Grid.Column="0">
+												<TextBlock HorizontalAlignment="Center" FontSize="20" Text="{Binding Path=FloorName}" VerticalAlignment="Center"/>
 											</Border>
 											<Label Grid.Column="1" Content="{Binding Path=VnmName}" />
 											<Label Grid.Column="2" Content="-" />
@@ -93,7 +93,7 @@
 									</Grid>
 
 									<!--Display general order note-->
-									<Label Margin="0,-12,0,0">
+									<Label Margin="0,-15,0,0">
 										<StackPanel Orientation="Horizontal">
 												<Image Stretch="Uniform" Height="14">
 													<Image.Style>

@@ -79,6 +79,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Xuất / Out : .
+        /// </summary>
+        public static string DeliverBilingual {
+            get {
+                return ResourceManager.GetString("DeliverBilingual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đã xuất.
         /// </summary>
         public static string Delivered {
@@ -313,7 +322,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chờ nhận.
+        ///   Looks up a localized string similar to Đang chờ.
         /// </summary>
         public static string Waiting {
             get {

@@ -3,88 +3,94 @@
 			   xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
                xml:lang="en-GB">
 	<PageContent>
-		<FixedPage Width="493.76" Height="1123" Margin="0,20,0,0" Name="GeneralInfo">
-			<Grid>
-				<Rectangle Fill="{Binding Path=TicketBackground}" Stroke="#FF000000" StrokeThickness="1" StrokeDashArray="{Binding Path=TicketStrokeDash}" SnapsToDevicePixels="True"
+	<FixedPage Width="493.76" Height="1123" Margin="0,20,0,0" Name="GeneralInfo">
+		<Grid>
+			<Rectangle Fill="{Binding Path=TicketBackground}" Stroke="#FF000000" StrokeThickness="1" StrokeDashArray="{Binding Path=TicketStrokeDash}" SnapsToDevicePixels="True"
 				Height="96" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="140" />
-				<Border BorderBrush="Transparent" BorderThickness="0" Height="96" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="140">
-					<TextBlock Foreground="{Binding Path=TicketForeground}" FontSize="75" Text="{Binding Path=OrderNo}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-				</Border>
-				<TextBlock Height="25" HorizontalAlignment="Left" Margin="165,50,0,0" VerticalAlignment="Top">
+			<Border BorderBrush="Transparent" BorderThickness="0" Height="96" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="140">
+				<TextBlock Foreground="{Binding Path=TicketForeground}" FontSize="75" Text="{Binding Path=OrderNo}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+			</Border>
+			<TextBlock Height="25" HorizontalAlignment="Left" Margin="165,50,0,0" VerticalAlignment="Top">
 				..........................................................................................................
-				</TextBlock>
-				<TextBlock FontSize="20" Height="31" HorizontalAlignment="Left" Margin="177,32,0,0" Text="{Binding Path=NickName}" VerticalAlignment="Top" />
-				<TextBlock FontWeight="Black" FontSize="20" Height="31" HorizontalAlignment="Left" Margin="178,62,0,0" Text="{Binding Path=FloorName}" VerticalAlignment="Top" />
-				<Border BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Left" Margin="23,103,0,984" Width="450">
-					<TextBlock FontSize="16" Text="{Binding Path=VnmName}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-				</Border>
+			</TextBlock>
+			<TextBlock FontSize="20" Height="31" HorizontalAlignment="Left" Margin="177,32,0,0" Text="{Binding Path=NickName}" VerticalAlignment="Top" />
+			<TextBlock FontWeight="Black" FontSize="20" Height="31" HorizontalAlignment="Left" Margin="178,62,0,0" Text="{Binding Path=FloorName}" VerticalAlignment="Top" />
+			<Border BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Left" Margin="23,103,0,984" Width="450">
+				<TextBlock FontSize="16" Text="{Binding Path=VnmName}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+			</Border>
 
-				<Border BorderBrush="Transparent" BorderThickness="0" Height="36" HorizontalAlignment="Left" Margin="23,127,0,0" VerticalAlignment="Top" Width="449">
-					<Label FontSize="16" Content="{Binding Path=RegisterDate}" VerticalAlignment="Center" HorizontalAlignment="Center" ContentStringFormat="Nhận/ in : {0} "/>
-				</Border>
-				<Border BorderBrush="Black" BorderThickness="0,1,0,1" Height="33" HorizontalAlignment="Left" Margin="23,171,0,0" VerticalAlignment="Top" Width="449">
-					<Grid Height="29" Width="446">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition />
-							<ColumnDefinition />
-						</Grid.ColumnDefinitions>
-						<TextBlock FontSize="13" Height="23" HorizontalAlignment="Left" Margin="6,6,0,0" Text="{x:Static resx:WinFormMainResource.NameBilingual}" VerticalAlignment="Top" />
-						<TextBlock FontSize="13" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="135,6,0,0" Text="{x:Static resx:WinFormMainResource.SetMenu}" VerticalAlignment="Top" />
-					</Grid>
-				</Border>
+
+
+			<Grid Height="36" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="449" Margin="23,127,0,0">
+					<Label FontSize="16" Content="{Binding Path=PrintLabel}" Height="28" Margin="90,6,269,0" VerticalAlignment="Top" />
+				<Label FontSize="16" Content="{Binding Path=RegisterDate}" Height="28" HorizontalAlignment="Left" Margin="178,6,0,0" VerticalAlignment="Top" />
 			</Grid>
-			<StackPanel HorizontalAlignment="Left" Margin="23,207,0,0" VerticalAlignment="Top" Width="449">
-				<ListBox BorderThickness="0" ItemsSource="{Binding Path=ListMenu}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-					<ListBox.ItemTemplate>
-						<DataTemplate>
-							<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="445" >
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition />
-									<ColumnDefinition />
-								</Grid.ColumnDefinitions>
-								<Label FontSize="12" ContentStringFormat="> {0} " Content="{Binding Path=DisplayName}" Height="28" HorizontalAlignment="Left" Margin="6,0,0,0" VerticalAlignment="Top" />
-								<Label FontSize="12" Content="{Binding Path=SetMenuAndQuantity}" Grid.Column="1" Height="28" HorizontalAlignment="Right" Margin="0,0,6,0" VerticalAlignment="Top" />
-							</Grid>
-						</DataTemplate>
-					</ListBox.ItemTemplate>
-				</ListBox>
-				<Border BorderBrush="Black" BorderThickness="0,0,0,1" Height="1" Width="450" />
-				<Grid Height="39" Width="450">
+
+			<Border BorderBrush="Black" BorderThickness="0,1,0,1" Height="33" HorizontalAlignment="Left" Margin="23,171,0,0" VerticalAlignment="Top" Width="449">
+				<Grid Height="29" Width="446">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
-					<TextBlock FontSize="16" Height="34" HorizontalAlignment="Left" Margin="84,6,0,0" Text="{x:Static resx:WinFormMainResource.TotalBilingual}" VerticalAlignment="Top" />
-					<TextBlock FontSize="20" Text="{Binding ElementName=GeneralInfo, Path=DataContext.TotalOrder}" FontWeight="Bold" Grid.Column="1" Height="28" HorizontalAlignment="Left" Margin="43,2,0,0" VerticalAlignment="Top" />
+					<TextBlock FontSize="13" Height="23" HorizontalAlignment="Left" Margin="6,6,0,0" Text="{x:Static resx:WinFormMainResource.NameBilingual}" VerticalAlignment="Top" />
+					<TextBlock FontSize="13" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="135,6,0,0" Text="{x:Static resx:WinFormMainResource.SetMenu}" VerticalAlignment="Top" />
 				</Grid>
-				<Grid Height="99" Width="450">
-					<Border x:Name="MyBorderedButton" Width="448" BorderThickness="0,1,0,1" Margin="1,0,1,18">
-						<Border.BorderBrush>
-							<VisualBrush>
-								<VisualBrush.Visual>
-									<Rectangle StrokeDashArray="4 2"
+			</Border>
+		</Grid>
+		<StackPanel HorizontalAlignment="Left" Margin="23,207,0,0" VerticalAlignment="Top" Width="449">
+			<ListBox BorderThickness="0" ItemsSource="{Binding Path=ListMenu}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="445" >
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+							<Label FontSize="12" ContentStringFormat="> {0} " Content="{Binding Path=DisplayName}" Height="28" HorizontalAlignment="Left" Margin="6,0,0,0" VerticalAlignment="Top" />
+							<Label FontSize="12" Content="{Binding Path=SetMenuAndQuantity}" Grid.Column="1" Height="28" HorizontalAlignment="Right" Margin="0,0,6,0" VerticalAlignment="Top" />
+						</Grid>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+			<Border BorderBrush="Black" BorderThickness="0,0,0,1" Height="1" Width="450" />
+			<Grid Height="39" Width="450">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<TextBlock FontSize="16" Height="34" HorizontalAlignment="Left" Margin="84,6,0,0" Text="{x:Static resx:WinFormMainResource.TotalBilingual}" VerticalAlignment="Top" />
+				<TextBlock FontSize="20" Text="{Binding ElementName=GeneralInfo, Path=DataContext.TotalOrder}" FontWeight="Bold" Grid.Column="1" Height="28" HorizontalAlignment="Left" Margin="43,2,0,0" VerticalAlignment="Top" />
+			</Grid>
+			<Grid Height="99" Width="450">
+				<Border x:Name="MyBorderedButton" Width="448" BorderThickness="0,1,0,1" Margin="1,0,1,18">
+					<Border.BorderBrush>
+						<VisualBrush>
+							<VisualBrush.Visual>
+								<Rectangle StrokeDashArray="4 2"
                       Stroke="Black"
                       StrokeThickness="1"
                       RadiusX="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=CornerRadius.TopRight}"
                       RadiusY="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=CornerRadius.BottomLeft}"
                       Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
                       Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}"/>
-								</VisualBrush.Visual>
-							</VisualBrush>
-						</Border.BorderBrush>
-						<Grid Height="100">
-							<TextBlock Height="23" HorizontalAlignment="Left" Margin="25,11,0,0" Text="{x:Static resx:WinFormMainResource.Ref}" VerticalAlignment="Top" />
-							<TextBlock Height="23" HorizontalAlignment="Left" Margin="54,11,0,0" Text="00000010" VerticalAlignment="Top" />
-							<TextBlock Height="23" HorizontalAlignment="Left" Margin="25,40,0,0" Text="{x:Static resx:WinFormMainResource.RemarkBilingual}" VerticalAlignment="Top" />
-							<TextBlock Height="23" HorizontalAlignment="Left" Margin="128,40,0,0" Text="{Binding ElementName=GeneralInfo, Path=DataContext.Remark}" VerticalAlignment="Top" />
-							<Grid Visibility="{Binding ElementName=GeneralInfo, Path=DataContext.HasEdited}">
-								<Rectangle Height="36" Fill="Black" HorizontalAlignment="Left" Margin="238,3,0,0" Stroke="Black" VerticalAlignment="Top" Width="200" />
-								<TextBlock FontWeight="Black" FontSize="20" Foreground="White" Height="31" HorizontalAlignment="Left" Margin="281,6,0,0" Text="{x:Static resx:WinFormMainResource.ReduceBilingual}" VerticalAlignment="Top" />
-							</Grid>
+							</VisualBrush.Visual>
+						</VisualBrush>
+					</Border.BorderBrush>
+					<Grid Height="100">
+						<TextBlock Height="23" HorizontalAlignment="Left" Margin="25,11,0,0" Text="{x:Static resx:WinFormMainResource.Ref}" VerticalAlignment="Top" />
+						<TextBlock Height="23" HorizontalAlignment="Left" Margin="54,11,0,0" Text="00000010" VerticalAlignment="Top" />
+						<TextBlock Height="23" HorizontalAlignment="Left" Margin="25,40,0,0" Text="{x:Static resx:WinFormMainResource.RemarkBilingual}" VerticalAlignment="Top" />
+						<TextBlock Height="23" HorizontalAlignment="Left" Margin="128,40,0,0" Text="{Binding ElementName=GeneralInfo, Path=DataContext.Remark}" VerticalAlignment="Top" />
+						<Grid Visibility="{Binding ElementName=GeneralInfo, Path=DataContext.HasEdited}">
+							<Rectangle Height="36" Fill="Black" HorizontalAlignment="Left" Margin="267,3,0,0" Stroke="Black" VerticalAlignment="Top" Width="171" />
+							<TextBlock FontWeight="Black" FontSize="20" Foreground="White" Height="31" HorizontalAlignment="Left" Margin="281,6,0,0" Text="{x:Static resx:WinFormMainResource.ReduceBilingual}" VerticalAlignment="Top" />
 						</Grid>
-					</Border>
-				</Grid>
-			</StackPanel>
+					</Grid>
+				</Border>
+			</Grid>
+		</StackPanel>
 		</FixedPage>
 	</PageContent>
+
+
 </FixedDocument>
