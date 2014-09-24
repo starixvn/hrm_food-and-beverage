@@ -4,6 +4,9 @@
 			<li class="current"><a href="#" data-translate="FoodItemManagement" ng-click="reload()"></a></li>
 			<li class="current" data-translate="ManageFoodItem"></li>
         </ul>
+        <div class="btnCreate">
+            <input type="button" value="Create food item" class="button" ng-click="addFoodItem()"/>
+        </div>
     </div>
     <div class="row filter">
         <form class="form-inline" role="form">
@@ -26,9 +29,6 @@
 				</button>
             </div>
         </form>
-    </div>
-    <div class="row pull-right">
-        <input type="button" value="Create food item" class="button" ng-click="addFoodItem()"/>
     </div>
     <div class="row table-fooditem">
         <table class="table table-bordered table-striped col-sm-12">
