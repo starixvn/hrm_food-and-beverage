@@ -271,6 +271,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			else {
 				$scope.sendEditOrder(receiveObject.order.OrderId);
 			}
+
+			$scope.getDefaultForAddOrder();
 		}, function () {
 		})['finally'](function () {
 			$scope.modalEditOrderInstance = undefined;
@@ -286,23 +288,23 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			// TODO
 		});
 
-	//	$scope.$on('$routeChangeStart', function () {
-	//		if ($scope.modalEditOrderInstance) {
-	//			$scope.modalEditOrderInstance.dismiss('cancel');
-	//		}
+	$scope.$on('$routeChangeStart', function () {
+		if ($scope.modalEditOrderInstance) {
+			$scope.modalEditOrderInstance.dismiss('cancel');
+		}
 
-	//		if ($scope.modalConfirmSaveOrderInstance) {
-	//			$scope.modalConfirmSaveOrderInstance.dismiss('cancel');
-	//		}
+		if ($scope.modalConfirmSaveOrderInstance) {
+			$scope.modalConfirmSaveOrderInstance.dismiss('cancel');
+		}
 
-	//		if ($scope.modalRemoveMemberInstance) {
-	//			$scope.modalRemoveMemberInstance.dismiss('cancel');
-	//		}
+		if ($scope.modalRemoveMemberInstance) {
+			$scope.modalRemoveMemberInstance.dismiss('cancel');
+		}
 
-	//		if ($scope.modalAddMemberInstance) {
-	//			$scope.modalAddMemberInstance.dismiss('cancel');
-	//		}
-	//	});
+		if ($scope.modalAddMemberInstance) {
+			$scope.modalAddMemberInstance.dismiss('cancel');
+		}
+	});
 } ]);
 
 orderingModule.controller('AddMemberController',
@@ -445,6 +447,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	orderingFactory.getLocation()
 		.success(function (data) {
 			$scope.locations = data;
+			$("select").width($("select").width());
 		})
 		.error(function () {
 			// TODO
