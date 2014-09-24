@@ -33,6 +33,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			var data = orderingService.getMyOrder();
 			data.push(order);
 			orderingService.setMyOrder(data);
+			$scope.$apply();
 		}
 	};
 
@@ -70,11 +71,9 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		}
 
 		if (isRelatedCurrentUser) {
-//			$scope.myOrder.push(order);
-//			$scope.$apply();
-
 			data.push(order);
 			orderingService.setMyOrder(data);
+			$scope.$apply();
 		}
 	};
 
@@ -94,6 +93,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		if (indexObject > -1) {
 			data.splice(indexObject, 1);
 			orderingService.setMyOrder(data);
+			$scope.$apply();
 		}
 	};
 
