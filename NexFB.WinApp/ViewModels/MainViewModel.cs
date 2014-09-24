@@ -411,7 +411,7 @@ namespace NexFB.WinApp.ViewModels
 
         private bool CanExecuteNumPadPressed()
         {
-            if (SearchResult != null && SearchResult.Length == 4)
+            if (SearchResult != null && SearchResult.Length == 2)
             {
                 return false;
             }
