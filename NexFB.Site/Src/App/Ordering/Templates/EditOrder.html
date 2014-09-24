@@ -21,8 +21,7 @@
                     </label>
                     <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.Location.LocationId"
 							ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId" class="ddlLocation">
-								|| (order.Status.StatusId != 1 && order.Status.StatusId != 2 && order.Status.StatusId != 3)" class="form-control">
-                            </select>
+                    </select> 
                 </div>
                 <div class="form-group pull-right">
                     <a href="javascript:;" ng-show="(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)"
