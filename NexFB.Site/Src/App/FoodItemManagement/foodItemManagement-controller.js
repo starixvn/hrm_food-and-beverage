@@ -2,9 +2,9 @@
 /*global foodItemManagementModule*/
 
 foodItemManagementModule.controller('FoodItemManagementController',
-['$scope', '$modal', 'foodItemFactory', 'notificationFactory', '$route', 'foodMenuFactory', 'commonFactory',
+['$scope', '$modal', 'foodItemFactory', 'notificationFactory', 'foodMenuFactory', 'commonFactory',
 'ErrorFactory',
-function ($scope, $modal, foodItemFactory, notificationFactory, $route, foodMenuFactory, commonFactory,
+function ($scope, $modal, foodItemFactory, notificationFactory, foodMenuFactory, commonFactory,
 ErrorFactory) {
 	/*
 	** Declare variable.
@@ -184,6 +184,7 @@ ErrorFactory) {
 			newFood = angular.copy(food);
 
 		newFood.IsActive = !food.IsActive;
+		food.IsActive = newFood.IsActive;
 
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
@@ -204,7 +205,6 @@ ErrorFactory) {
 		$scope.modalInstance.result.then(function () {
 			foodItemFactory.updateFoodItem(newFood).success(function (response) {
 				if (response.IsSuccessful === true) {
-					food.IsActive = newFood.IsActive;
 					keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
 					notificationFactory.success(keyMessage);
 				}
@@ -280,13 +280,6 @@ ErrorFactory) {
 		})['finally'](function () {
 			$scope.modalInstance = '';
 		});
-	};
-
-	/*
-	** Reload page.
-	*/
-	$scope.reload = function () {
-		$route.reload();
 	};
 } ]);
 
