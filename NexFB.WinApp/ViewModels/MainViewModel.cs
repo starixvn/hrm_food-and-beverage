@@ -36,8 +36,11 @@ namespace NexFB.WinApp.ViewModels
 
         private static readonly OrderFoodViewModel OrderFoodViewModel = new OrderFoodViewModel();
         private static string _host = ConfigurationManager.AppSettings[Constant.HubHost];
+        private static string _delayTime = ConfigurationManager.AppSettings[Constant.DatabaseDelayTime];
+        private static string _autoRefeshTime = ConfigurationManager.AppSettings[Constant.AutoRefeshTime];
 
-        private static DispatcherTimer digitalClock = new DispatcherTimer();
+        private static DispatcherTimer digitalClockDispatcher = new DispatcherTimer();
+        private static DispatcherTimer refeshAppDataDispatcher = new DispatcherTimer();
         private static double _screenWidth = SystemParameters.PrimaryScreenWidth;
         private static double _screeHeight = SystemParameters.PrimaryScreenHeight;
         private static double _displayBanner = Constant.BannerResolution1280;
@@ -71,10 +74,8 @@ namespace NexFB.WinApp.ViewModels
             CheckCurrentViewModel();
             InitializeRelayCommand();
             InitializeHubConnection();
-
-            digitalClock.Interval = new TimeSpan(0, 0, 1);
-            digitalClock.Tick += new EventHandler(Timer_Click);
-            digitalClock.Start();
+            TimerDigitalClock();
+            StartTimerGetData(Constant.GetAllData);
         }
 
         #endregion
@@ -129,6 +130,34 @@ namespace NexFB.WinApp.ViewModels
 
                 _currentViewModel = value;
                 OnPropertyChanged("CurrentViewModel");
+            }
+        }
+
+        public double DelayTime
+        {
+            get
+            {
+                double delayTime = 0;
+                if (!string.IsNullOrEmpty(_delayTime))
+                {
+                    delayTime = double.Parse(_delayTime);
+                }
+
+                return delayTime;
+            }
+        }
+
+        public double AutoRefeshTime
+        {
+            get
+            {
+                double refeshTime = 0;
+                if (!string.IsNullOrEmpty(_autoRefeshTime))
+                {
+                    refeshTime = double.Parse(_autoRefeshTime);
+                }
+
+                return refeshTime;
             }
         }
 
@@ -472,7 +501,14 @@ namespace NexFB.WinApp.ViewModels
 
         private void ExecuteDisplayKeyPad()
         {
-            KeyPadVisibility = Constant.Visible;
+            if (KeyPadVisibility == Constant.Visible)
+            {
+                KeyPadVisibility = Constant.Hidden;
+            }
+            else
+            {
+                KeyPadVisibility = Constant.Visible;
+            }
         }
 
         /// <summary>
@@ -539,7 +575,7 @@ namespace NexFB.WinApp.ViewModels
                     {
                         if (InternetAvailability.IsInternetAvailable())
                         {
-                            DeleteOrderFromCurrentList(orderId);
+                            ProcessDataFromCurrentList(orderId);
                             SendMessage(orderId, Constant.AwaitingDeliverFoodScreen);
                         }
                         else
@@ -578,7 +614,7 @@ namespace NexFB.WinApp.ViewModels
                     {
                         if (InternetAvailability.IsInternetAvailable())
                         {
-                            DeleteOrderFromCurrentList(orderId);
+                            ProcessDataFromCurrentList(orderId);
                             SendMessage(orderId, Constant.WaitingFoodScreen);
                         }
                         else
@@ -613,7 +649,7 @@ namespace NexFB.WinApp.ViewModels
                 {
                     if (InternetAvailability.IsInternetAvailable())
                     {
-                        DeleteOrderFromCurrentList(orderId);
+                        ProcessDataFromCurrentList(orderId);
                         SendMessage(orderId, Constant.DeliveredFoodScreen);
                     }
                     else
@@ -648,13 +684,13 @@ namespace NexFB.WinApp.ViewModels
         /// Remove order from list.
         /// </summary>
         /// <param name="orderId">Current order id.</param>
-        private void DeleteOrderFromCurrentList(int orderId)
+        private void ProcessDataFromCurrentList(int orderId)
         {
             string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
             switch (currentViewModel)
             {
                 case Constant.WaitingMealViewModel:
-                    ((WaitingMealViewModel)CurrentViewModel).DeleteDataInWaitingMeals(orderId);
+                    ((WaitingMealViewModel)CurrentViewModel).GetNewDataForApp();
                     break;
                 case Constant.AwaitingDeliverViewModel:
                     ((AwaitingDeliverViewModel)CurrentViewModel).DeleteDataInAwaitingDeliverMeals(orderId);
@@ -676,11 +712,7 @@ namespace NexFB.WinApp.ViewModels
         /// <param name="order">Order entity.</param>
         private void NewOrder(Order order)
         {
-            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
-            if (currentViewModel == Constant.WaitingMealViewModel)
-            {
-                ((WaitingMealViewModel)CurrentViewModel).NewOrderDataInWaitingMeals(order);
-            }
+            StartTimerGetData(Constant.GetNewOrder);
         }
 
         private void OnEditOrder(Order order)
@@ -754,7 +786,7 @@ namespace NexFB.WinApp.ViewModels
             switch (currentViewModel)
             {
                 case Constant.WaitingMealViewModel:
-                    ((WaitingMealViewModel)CurrentViewModel).DeleteDataInWaitingMeals(orderId);
+                    ((WaitingMealViewModel)CurrentViewModel).GetNewDataForApp();
                     break;
                 case Constant.AwaitingDeliverViewModel:
                     Order order = GetOrderById(orderId);
@@ -929,11 +961,77 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        private void TimerDigitalClock()
+        {
+            digitalClockDispatcher.Interval = new TimeSpan(0, 0, 1);
+            digitalClockDispatcher.Tick += new EventHandler(Timer_Click);
+            digitalClockDispatcher.Start();
+        }
+
         private void Timer_Click(object sender, EventArgs e)
         {
             var dateTimeNow = DateTime.Now;
             TodayDate = dateTimeNow.ToString("dd/MM/yyyy");
-            TodayTime = dateTimeNow.ToString("hh:mm");
+            TodayTime = dateTimeNow.ToString("HH:mm");
+        }
+
+        /// <summary>
+        /// Timer get data.
+        /// </summary>
+        /// <param name="getType">Get for all app or part of app.</param>
+        private void StartTimerGetData(int getType)
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+
+            if (getType == Constant.GetNewOrder)
+            {
+                timer.Interval = TimeSpan.FromSeconds(DelayTime);
+            }
+            else
+            {
+                timer = refeshAppDataDispatcher;
+                timer.Interval = TimeSpan.FromSeconds(AutoRefeshTime);
+            }
+
+            timer.Tick += (sender, e) => TimerTickToGetData(sender, e, getType);
+            timer.Start();
+        }
+
+        /// <summary>
+        /// Timer tick.
+        /// </summary>
+        /// <param name="sender">Object sender.</param>
+        /// <param name="e">Event arguments.</param>
+        /// <param name="getType">Get for all app or part of app.</param>
+        private void TimerTickToGetData(object sender, EventArgs e, int getType)
+        {
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+
+            if (getType == Constant.GetNewOrder)
+            {
+                if (currentViewModel == Constant.WaitingMealViewModel)
+                {
+                    ((WaitingMealViewModel)CurrentViewModel).GetNewDataForApp();
+                }
+
+                timer.Stop();
+            }
+            else
+            {
+                switch (currentViewModel)
+                {
+                    case Constant.WaitingMealViewModel:
+                        ((WaitingMealViewModel)CurrentViewModel).GetNewDataForApp();
+                        break;
+                    case Constant.AwaitingDeliverViewModel:
+                        ((AwaitingDeliverViewModel)CurrentViewModel).GetNewDataForApp();
+                        break;
+                    case Constant.DeliveredFoodViewModel:
+                        ((DeliveredFoodViewModel)CurrentViewModel).GetNewDataForApp();
+                        break;
+                }
+            }
         }
 
         /// <summary>

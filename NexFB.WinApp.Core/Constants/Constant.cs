@@ -32,6 +32,10 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string HubHost = "HubHost";
 
+        public const string DatabaseDelayTime = "DBDelayTime";
+
+        public const string AutoRefeshTime = "AutoRefeshTime";
+
         public const string DefaultCulture = "vi-VN";
 
         public const string Menu1Color = "#3A95FC";
@@ -67,6 +71,10 @@ namespace NexFB.WinApp.Core.Constants
         public const int AwaitingDeliverFoodScreen = 2;
 
         public const int DeliveredFoodScreen = 3;
+
+        public const int GetNewOrder = 1;
+
+        public const int GetAllData = 2;
 
         private Constant()
         {

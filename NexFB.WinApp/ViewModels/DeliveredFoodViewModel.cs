@@ -121,6 +121,11 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        public void GetNewDataForApp()
+        {
+            DeliveredMeals = this.GetDeliveredMealOrder;
+        }
+
         #endregion
     }
 }

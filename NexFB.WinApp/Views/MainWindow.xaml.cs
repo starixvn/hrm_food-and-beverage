@@ -10,8 +10,8 @@
 namespace NexFB.WinApp
 {
     using System.Windows;
+    using NexFB.WinApp.Core.Constants;
     using NexFB.WinApp.ViewModels;
-    using NexFB.WinApp.Views;
 
     /// <summary>
     /// Interaction logic for MainWindow.
@@ -22,6 +22,13 @@ namespace NexFB.WinApp
         {
             InitializeComponent();
             this.DataContext = new MainViewModel();
+        }
+
+        private void GridKeyPad_LostMouseCapture(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            var abc = (MainViewModel)this.DataContext;
+            abc.KeyPadVisibility = Constant.Hidden;
+            e.Handled = true;
         }
     }
 }

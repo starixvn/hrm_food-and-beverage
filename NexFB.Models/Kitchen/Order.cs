@@ -78,7 +78,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                return string.Format("{0:M/d/yyyy hh:mm}", RegisterDate);
+                return string.Format("{0:M/d/yyyy HH:mm}", RegisterDate);
             }
         }
 

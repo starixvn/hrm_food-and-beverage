@@ -64,10 +64,11 @@
 		</Grid>
 		<!--Nex FB Menu-->
 
-		<Grid Grid.Row="1" Margin="0,3,0,0">
-			<ContentControl Content="{Binding CurrentViewModel}"  Margin="0,0,0,7" Grid.Row="1" />
+		<Grid Grid.Row="1" Margin="0,3,0,0" >
+			<ContentControl Content="{Binding CurrentViewModel}"  Margin="0,0,0,7" Grid.Row="1"/>
 			<!--Key Pad-->
-			<Grid Visibility="{Binding Path=KeyPadVisibility}" Height="159" Width="173" 
+			<Grid Mouse.MouseDown="GridKeyPad_LostMouseCapture"
+			 Visibility="{Binding Path=KeyPadVisibility}" Height="159" Width="173" 
 			HorizontalAlignment="Left" Margin="747,-8,0,0" VerticalAlignment="Top" Name="GridKeyPad">
 				<Grid Background="{DynamicResource IPhoneSteelBackground}" HorizontalAlignment="Left" 
 					Margin="12,12,0,0" Name="grid1" VerticalAlignment="Top" Width="161" Height="147">
@@ -147,9 +148,6 @@
 							<!--<Path Stretch="Fill" Width="21" Height="10" Data="M-32,20.125L-12.375,1.5 -12.375,10.3125 -0.5,10.3125 -0.5,29.9375 -12.375,29.9375 -12.375,39.75 -32,20.125z" Fill="#FF333333"/>-->
 						</Button>
 					</Grid>
-
-
-
 				</Grid>
 			</Grid>
 		</Grid>
