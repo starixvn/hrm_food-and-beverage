@@ -6,7 +6,7 @@
 	</div>
 
 	<div class="modal-body food-item-body-modal">
-         <form novalidate class="form-inline form-fooditem" role="form" name="form">
+         <form novalidate class="form-inline form-fooditem" role="form" name="form" ng-init="setFormScope(this)">
             <div class="form-group">
                 <label data-translate="FoodItemVnmName"></label>
                 <input type="text" class="form-control" ng-model="food.FoodVnmName" name="vnmName" required />

@@ -37,5 +37,11 @@ namespace NexFB.Core.Constants
         public const string ManageRole = "ManageRole";
 
         public const string ManageUser = "ManageUser";
+
+        public const string FoodItemManagement = "FoodItemManagement";
+
+        public const string FoodMenuManagement = "FoodMenuManagement";
+
+        public const string MealPlanningManagement = "MealPlanningManagement";
     }
 }

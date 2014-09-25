@@ -15,6 +15,9 @@ foodItemManagementModule.factory('foodItemFactory', ['$http', function ($http) {
 		},
 		deleteFoodItem: function (foodId) {
 			return $http['delete']('/api/FoodItemManagement/DeleteFoodItem', { params: { foodId: foodId} });
+		},
+		getPermissonFoodItem: function () {
+			return $http.get('/api/FoodItemManagement/GetUserPermissionOnFoodItem');
 		}
 	};
 } ]);
@@ -41,8 +44,8 @@ foodItemManagementModule.factory('foodItemUtilities',
 	};
 
 	utility.showMessageValidateFoodItem = function (scope) {
-		scope.$watchCollection('[submitted, form.$invalid, \
-			form.vnmName.$error.required, form.engName.$error.required]', function (newVals) {
+		scope.$watchCollection('[submitted, formScope.form.$invalid, \
+			formScope.form.vnmName.$error.required, formScope.form.engName.$error.required]', function (newVals) {
 				if (newVals[0] && newVals[1]) {
 					if (newVals[3]) {
 						notificationFactory.error("FoodEngNameRequire");

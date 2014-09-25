@@ -11,15 +11,12 @@ foodItemManagementModule.directive('resetFoodItem', function () {
 	};
 
 	return {
-		link: function (scope, iElement) {
-			iElement.on('click', function () {
-				var newFood = angular.copy(scope.food);
+		link: function (scope) {
+			scope.$on('resetFoodItem', function () {
 				clearInputData(scope.food);
 
 				var menuChosenSelect = $("[name='menuSelect']");
 				$(menuChosenSelect).val('').trigger("chosen:updated");
-
-				scope.createAndContinue.call(this, newFood);
 			});
 		}
 	};

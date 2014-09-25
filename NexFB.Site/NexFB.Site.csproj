@@ -312,6 +312,7 @@
     <Content Include="Src\Content\Site\auth\images\icon-pass.png" />
     <Content Include="Src\Content\Site\auth\images\icon-user.png" />
     <Content Include="Src\Content\Site\auth\images\logo.png" />
+    <Content Include="Src\Content\Site\Images\accept.png" />
     <Content Include="Src\Content\Site\Images\icon-search.png" />
     <Content Include="Src\Content\Site\Images\line-menu.png" />
     <Content Include="Src\Content\Site\Images\logo.png" />

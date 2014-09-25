@@ -12,11 +12,16 @@ namespace NexFB.Site.Controllers.API
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
+    using NexFB.Core.Constants;
+    using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.FoodItemManagement;
     using NexFB.Models.FoodItemManagement;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
+    using NexFB.Web.Attributes;
+    using NexFB.Web.Services.Implement;
+    using NexFB.Web.Services.Interface;
 
     /// <summary>
     /// Food item management controller.
@@ -24,17 +29,22 @@ namespace NexFB.Site.Controllers.API
     public class FoodItemManagementController : BaseController
     {
         private readonly IFoodItemService _foodItemService;
+        private readonly IWebCommonService _webCommonService;
 
         public FoodItemManagementController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public FoodItemManagementController(IFoodItemService foodItemService)
+        public FoodItemManagementController(
+            IFoodItemService foodItemService,
+            IWebCommonService webCommonService)
         {
             _foodItemService = foodItemService ?? new FoodItemService();
+            _webCommonService = webCommonService ?? new WebCommonService();
         }
 
+        [ApiAuthorize(FunctionKey = FBFunctionKey.FoodItemManagement, Policy = Policy.Read)]
         public IList<FoodItemModel> GetAllFoodItem(string menuGroupId = "", bool? isActive = null)
         {
             var criteria = new GetAllFoodItemCriteria 
@@ -46,6 +56,7 @@ namespace NexFB.Site.Controllers.API
             return _foodItemService.GetAllFoodItem(criteria);
         }
 
+        [ApiAuthorize(FunctionKey = FBFunctionKey.FoodItemManagement, Policy = Policy.Host)]
         [HttpPost]
         public CommandResult InsertFoodItem(InsertFoodItemCriteria criteria)
         {
@@ -58,6 +69,7 @@ namespace NexFB.Site.Controllers.API
             return _foodItemService.InsertFoodItem(criteria);
         }
 
+        [ApiAuthorize(FunctionKey = FBFunctionKey.FoodItemManagement, Policy = Policy.Host)]
         [HttpPut]
         public CommandResult UpdateFoodItem(UpdateFoodItemCriteria criteria)
         {
@@ -70,6 +82,7 @@ namespace NexFB.Site.Controllers.API
             return _foodItemService.UpdateFoodItem(criteria);
         }
 
+        [ApiAuthorize(FunctionKey = FBFunctionKey.FoodItemManagement, Policy = Policy.Host)]
         [HttpDelete]
         public CommandResult DeleteFoodItem(int foodId)
         {
@@ -81,6 +94,12 @@ namespace NexFB.Site.Controllers.API
             };
 
             return _foodItemService.DeleteFoodItem(criteria);
+        }
+
+        public int GetUserPermissionOnFoodItem()
+        {
+            int policy = _webCommonService.GetPermission(FBFunctionKey.FoodItemManagement);
+            return policy;
         }
     }
 }

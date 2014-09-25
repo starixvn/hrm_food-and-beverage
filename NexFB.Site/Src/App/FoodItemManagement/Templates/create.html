@@ -6,7 +6,7 @@
 	</div>
 
 	<div class="modal-body food-item-body-modal">
-         <form novalidate class="form-inline form-fooditem" role="form" name="form">
+         <form novalidate class="form-inline form-fooditem" role="form" name="form" ng-init="setFormScope(this)">
             <div class="form-group">
                 <label data-translate="FoodItemVnmName"></label>
                 <input type="text" class="form-control" ng-model="food.foodVnmName" name="vnmName" required />
@@ -32,7 +32,7 @@
 	<div class="modal-footer">
 		<button class="button" data-translate="Submit" ng-click="create(food)" ng-disabled="disabledSubmitButton">
 		</button>
-		<button class="button" reset-food-item data-translate="SubmitContinue" ng-disabled="disabledSubmitButton">
+		<button class="button" data-translate="SubmitContinue" reset-food-item ng-click="createAndContinue(food)" ng-disabled="disabledSubmitButton">
 		</button>
 		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 		</button>

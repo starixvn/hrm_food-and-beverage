@@ -52,7 +52,7 @@
                     <th data-translate="FoodItemEng"></th>
                     <th data-translate="Menu"></th>
                     <th class="width-60" data-translate="Active"></th>
-                    <th class="width-60" data-translate="Action"></th>
+                    <th class="width-60" data-translate="Action" ng-if="policy.permission == 2"></th>
                 </tr>
             </thead>
 			<tbody>
@@ -71,9 +71,10 @@
 						</div>
 					</td>
 					<td class="text-center">
-						<input type="checkbox" ng-checked="food.IsActive" ng-click="confirmActive(food)"/>
+						<input type="checkbox" ng-checked="food.IsActive" ng-click="confirmActive(food)" ng-if="policy.permission == 2"/>
+						<img class="ico-tick" ng-if="policy.permission == 1 && food.IsActive" />
 					</td>
- 					<td class="text-center">
+ 					<td class="text-center" ng-if="policy.permission == 2">
 						<a class="glyphicon glyphicon-edit" href="" ng-click="edit(food)"></a>
 						<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteFoodItem(food)"></a>
 					</td>
