@@ -76,6 +76,10 @@ namespace NexFB.WinApp.Core.Constants
 
         public const int GetAllData = 2;
 
+        public const string DevMode = "DEV";
+
+        public const string FinalMode = "RELEASE";
+
         private Constant()
         {
         }

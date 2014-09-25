@@ -11,6 +11,7 @@ namespace NexFB.WinApp.ViewModels
 {
     using System;
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows.Documents;
     using System.Windows.Threading;
     using NexFB.Criteria.Kitchen;
@@ -122,6 +123,7 @@ namespace NexFB.WinApp.ViewModels
             timer.Start();
         }
 
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", Justification = "Reviewed. Suppression is OK here.")]
         private void TimerTick(object sender, EventArgs e, NotificationWindow windows)
         {
             DispatcherTimer timer = (DispatcherTimer)sender;

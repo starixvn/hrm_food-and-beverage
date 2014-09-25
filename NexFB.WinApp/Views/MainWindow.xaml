@@ -6,7 +6,7 @@
 	xmlns:local="clr-namespace:NexFB.WinApp.ViewModels"
 	xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
 	Title="Order Foods"
-	WindowState="Maximized" WindowStyle="None"
+	WindowState="Maximized" WindowStyle="None" AllowsTransparency="False"
 	Height="{Binding DataContext.ScreenHeight, RelativeSource={RelativeSource AncestorType=Window}}" 
 	Width="{Binding DataContext.ScreenWidth, RelativeSource={RelativeSource AncestorType=Window}}">
 
@@ -154,8 +154,17 @@
 		<Grid Grid.Row="1" Height="7" HorizontalAlignment="Left" Background="#fff" 
 		VerticalAlignment="Top" Width="1280"/>
 		<Grid Height="43" HorizontalAlignment="Right" Margin="0,0,55,0" VerticalAlignment="Top" Width="{Binding Path=DisplayBanner}">
-
-			<Image Source="pack://application:,,,/Images/logo.jpg" Height="41" HorizontalAlignment="Left" Margin="208,3,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Grid.RowSpan="2" />
+			<Image Source="pack://application:,,,/Images/logo.jpg" Height="41" HorizontalAlignment="Left" Margin="208,3,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Grid.RowSpan="2">
+				<Image.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="Settings" Command="{Binding Path=SettingCommand}">
+							<MenuItem.Icon>
+								<Image Source="pack://application:,,,/Images/settings-icon.png" />
+							</MenuItem.Icon>
+						</MenuItem>
+					</ContextMenu>
+				</Image.ContextMenu>
+			</Image>
 			<Label Content="{Binding Path=TodayTime}" FontSize="22" Foreground="#fff" HorizontalAlignment="Right" Margin="0,-6,-6,13" Name="label1" Width="76" />
 			<Label Content="{Binding Path=TodayDate}" Foreground="#fff" FontSize="14" Height="26" HorizontalAlignment="Right" Margin="0,0,0,-3" Name="label2" VerticalAlignment="Bottom" Width="81" />
 

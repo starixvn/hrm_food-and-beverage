@@ -26,6 +26,7 @@ namespace NexFB.WinApp.ViewModels
     using NexFB.WinApp.Core.Constants;
     using NexFB.WinApp.Core.Models;
     using NexFB.WinApp.DependencyProperties;
+    using NexFB.WinApp.Views;
 
     /// <summary>
     /// Main ViewModel.
@@ -113,6 +114,8 @@ namespace NexFB.WinApp.ViewModels
         public ICommand UndoOrderCommand { get; set; }
 
         public ICommand EditOrderCommand { get; set; }
+
+        public ICommand SettingCommand { get; set; }
 
         public ViewModelBase CurrentViewModel
         {
@@ -474,7 +477,18 @@ namespace NexFB.WinApp.ViewModels
             return true;
         }
 
+        private bool CanExecuteSettingCommand()
+        {
+            return true;
+        }
+
         // Execute Command
+        private void ExecuteSettingCommand()
+        {
+            SettingWindow settingWindow = new SettingWindow();
+            settingWindow.Show();
+        }
+
         private void ExecuteViewPendingFood()
         {
             CurrentViewModel = new WaitingMealViewModel(WaitingSearchResult);
@@ -701,16 +715,15 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        private void OnNewOrder(Order order)
+        private void OnNewOrder()
         {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => NewOrder(order)));
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => NewOrder()));
         }
 
         /// <summary>
         /// Receive new order for app.
         /// </summary>
-        /// <param name="order">Order entity.</param>
-        private void NewOrder(Order order)
+        private void NewOrder()
         {
             StartTimerGetData(Constant.GetNewOrder);
         }
@@ -863,7 +876,7 @@ namespace NexFB.WinApp.ViewModels
             {
                 Connection = new HubConnection(_host);
                 Proxy = Connection.CreateHubProxy("order");
-                Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
+                Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder());
                 Proxy.On<int>("appNotifyReceiveNewOrder", (orderId) => OnKitchenStaffReceiveOrder(orderId));
                 Proxy.On<int>("appNotifyAwaitingDeliverOrder", (orderId) => OnKitchenStaffAwaitingDeliverOrder(orderId));
                 Proxy.On<int>("appNotifyUndoDeliveredOrder", (orderId) => OnKitchenStaffUndoDeliveredOrder(orderId));
@@ -882,6 +895,7 @@ namespace NexFB.WinApp.ViewModels
         /// <summary>
         /// Method Initialize RelayCommand.
         /// </summary>
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Reviewed. Suppression is OK here.")]
         private void InitializeRelayCommand()
         {
             ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
@@ -896,6 +910,7 @@ namespace NexFB.WinApp.ViewModels
             DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (y) => ExecuteDeliverOrderFoodCommand(y));
             UndoOrderCommand = new RelayCommand((x) => CanExecuteUndoOrderCommand(), (x) => ExecuteUndoOrderCommand(x));
             EditOrderCommand = new RelayCommand((x) => CanExecuteEditOrderCommand(), (x) => ExecuteEditOrderCommand(x));
+            SettingCommand = new RelayCommand((x) => CanExecuteSettingCommand(), (y) => ExecuteSettingCommand());
         }
 
         /// <summary>
@@ -1003,6 +1018,7 @@ namespace NexFB.WinApp.ViewModels
         /// <param name="sender">Object sender.</param>
         /// <param name="e">Event arguments.</param>
         /// <param name="getType">Get for all app or part of app.</param>
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", Justification = "Reviewed. Suppression is OK here.")]
         private void TimerTickToGetData(object sender, EventArgs e, int getType)
         {
             DispatcherTimer timer = (DispatcherTimer)sender;

@@ -109,6 +109,7 @@
     <Compile Include="DependencyProperties\InternetAvailability.cs" />
     <Compile Include="DependencyProperties\NativeMethods.cs" />
     <Compile Include="ViewModels\AwaitingDeliverViewModel.cs" />
+    <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="Views\ManageOrder\AwaitingDeliver.xaml.cs">
       <DependentUpon>AwaitingDeliver.xaml</DependentUpon>
     </Compile>
@@ -124,11 +125,15 @@
     <Compile Include="Views\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SettingWindow.xaml.cs">
+      <DependentUpon>SettingWindow.xaml</DependentUpon>
+    </Compile>
     <Resource Include="Images\phone-icon.png" />
     <Resource Include="Images\alert.png" />
     <Resource Include="Images\alert2.png" />
     <Resource Include="Images\logo.jpg" />
     <Resource Include="Images\close.png" />
+    <Resource Include="Images\settings-icon.png" />
     <Content Include="PrintingTemplates\OrderFoodReceipt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -170,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NotificationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
