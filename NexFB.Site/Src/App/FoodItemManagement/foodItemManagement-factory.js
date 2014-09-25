@@ -40,7 +40,7 @@ foodItemManagementModule.factory('foodItemUtilities',
 		return true;
 	};
 
-	utility.showMessageAfterValidateFoodItem = function (scope) {
+	utility.showMessageValidateFoodItem = function (scope) {
 		scope.$watchCollection('[submitted, form.$invalid, \
 			form.vnmName.$error.required, form.engName.$error.required]', function (newVals) {
 				if (newVals[0] && newVals[1]) {

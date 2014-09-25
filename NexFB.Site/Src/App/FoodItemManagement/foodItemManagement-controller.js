@@ -88,7 +88,7 @@ ErrorFactory) {
 					return $scope.menuOptions;
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center food-item-modal"
 		});
 
 		$scope.modalInstance.result.then(function (food) {
@@ -135,7 +135,7 @@ ErrorFactory) {
 					return $scope.menuOptions;
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center food-item-modal"
 		});
 
 		$scope.modalInstance.result.then(function (objFood) {
@@ -179,7 +179,7 @@ ErrorFactory) {
 					return action;
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center food-item-modal"
 		});
 
 		var keyMessage = '';
@@ -187,6 +187,7 @@ ErrorFactory) {
 		$scope.modalInstance.result.then(function () {
 			foodItemFactory.updateFoodItem(newFood).success(function (response) {
 				if (response.IsSuccessful === true) {
+					food.IsActive = newFood.IsActive;
 					keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
 					notificationFactory.success(keyMessage);
 				}
@@ -222,7 +223,7 @@ ErrorFactory) {
 					return food.FoodVnmName + ' (' + food.FoodEngName + ')';
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center food-item-modal"
 		});
 
 		$scope.modalInstance.result.then(function () {
@@ -279,7 +280,7 @@ foodItemUtilities) {
 	/*
 	** Create food item.
 	*/
-	foodItemUtilities.showMessageAfterValidateFoodItem($scope);
+	foodItemUtilities.showMessageValidateFoodItem($scope);
 
 	$scope.create = function (food) {
 		$scope.submitted = true;

@@ -5,7 +5,7 @@
 		</div>
 	</div>
 
-	<div class="modal-body assign-role-modal">
+	<div class="modal-body food-item-body-modal">
          <form novalidate class="form-inline form-fooditem" role="form" name="form">
             <div class="form-group">
                 <label data-translate="FoodItemVnmName"></label>
@@ -29,8 +29,8 @@
 			</div>
         </div>
 	</div>
-
 	<div class="modal-footer">
+		<span ng-show="form.$invalid">This field is required!</span>
 		<button class="button" data-translate="Submit" ng-click="create(food)" ng-disabled="disabledSubmitButton">
 		</button>
 		<button class="button" reset-food-item data-translate="SubmitContinue" ng-disabled="disabledSubmitButton">
