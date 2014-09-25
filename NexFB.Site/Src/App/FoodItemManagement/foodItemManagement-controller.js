@@ -155,7 +155,7 @@ ErrorFactory) {
 					notificationFactory.error("DataChangeFail");
 				}
 			});
-		})['finally'](function() {
+		})['finally'](function () {
 			$scope.modalInstance = '';
 		});
 	};
@@ -163,8 +163,49 @@ ErrorFactory) {
 	/*
 	** Activate or deactivate food item.
 	*/
-	//	$scope.confirmActive = function (food) {
-	//	};
+	$scope.confirmActive = function (food) {
+		var action = !food.IsActive ? "activate" : "deactivate";
+		var newFood = angular.copy(food);
+		newFood.IsActive = !food.IsActive;
+
+		$scope.modalInstance = $modal.open({
+			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			controller: "ModalConfirmController",
+			resolve: {
+				name: function () {
+					return food.FoodVnmName + ' (' + food.FoodEngName + ')';
+				},
+				action: function () {
+					return action;
+				}
+			},
+			windowClass: "modal-confirm-center"
+		});
+
+		var keyMessage = '';
+
+		$scope.modalInstance.result.then(function () {
+			foodItemFactory.updateFoodItem(newFood).success(function (response) {
+				if (response.IsSuccessful === true) {
+					keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
+					notificationFactory.success(keyMessage);
+				}
+				else {
+					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+					food.IsActive = !newFood.IsActive;
+					notificationFactory.error(keyMessage);
+				}
+			}).error(function () {
+				keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+				food.IsActive = !newFood.IsActive;
+				notificationFactory.error(keyMessage);
+			});
+		}, function () {
+			food.IsActive = !newFood.IsActive;
+		})['finally'](function () {
+			$scope.modalInstance = '';
+		});
+	};
 
 	/*
 	** Delete food item.
@@ -203,7 +244,7 @@ ErrorFactory) {
 					notificationFactory.error("DataChangeFail");
 				}
 			});
-		})['finally'](function() {
+		})['finally'](function () {
 			$scope.modalInstance = '';
 		});
 	};

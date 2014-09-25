@@ -432,4 +432,16 @@
   <data name="FoodVnmNameRequire" xml:space="preserve">
     <value>The Food item (Vie) field is required!</value>
   </data>
+  <data name="ActivationFail" xml:space="preserve">
+    <value>Activated unsuccessfully!</value>
+  </data>
+  <data name="ActivationSuccess" xml:space="preserve">
+    <value>Activated successfully!</value>
+  </data>
+  <data name="DeactivationFail" xml:space="preserve">
+    <value>Deactivated unsuccessfully!</value>
+  </data>
+  <data name="DeactivationSuccess" xml:space="preserve">
+    <value>Deactivated successfully!</value>
+  </data>
 </root>
