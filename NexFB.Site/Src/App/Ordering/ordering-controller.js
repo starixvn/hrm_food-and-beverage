@@ -447,7 +447,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	orderingFactory.getLocation()
 		.success(function (data) {
 			$scope.locations = data;
-			$("select").width($("select").width());
+			$("select").width('312px');
 		})
 		.error(function () {
 			// TODO
