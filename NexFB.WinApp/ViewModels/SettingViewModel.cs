@@ -53,7 +53,7 @@ namespace NexFB.WinApp.ViewModels
                 return _devMode;
             }
 
-            private set
+            set
             {
                 _devMode = value;
                 this.OnPropertyChanged("DevMode");
@@ -67,7 +67,7 @@ namespace NexFB.WinApp.ViewModels
                 return _releaseMode;
             }
 
-            private set
+            set
             {
                 _releaseMode = value;
                 this.OnPropertyChanged("ReleaseMode");
@@ -101,10 +101,12 @@ namespace NexFB.WinApp.ViewModels
                 printerMode = "RELEASE";
             }
 
-            string appPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string configFile = Path.Combine(appPath, "NexFB.WinApp.exe.config");
+            string absolutePath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, Constant.ConfigFilePath);
+            ////string appPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            ////string configFile = Path.Combine(appPath, "NexFB.WinApp.exe.config");
+
             ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap();
-            configFileMap.ExeConfigFilename = configFile;
+            configFileMap.ExeConfigFilename = absolutePath;
             Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configFileMap, ConfigurationUserLevel.None);
 
             config.AppSettings.Settings["ReleaseMode"].Value = printerMode;

@@ -80,6 +80,8 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string FinalMode = "RELEASE";
 
+        public const string ConfigFilePath = "NexFB.WinApp.exe.config";
+
         private Constant()
         {
         }
