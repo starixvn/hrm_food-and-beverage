@@ -42,7 +42,7 @@ namespace NexFB.WinApp.ViewModels
                 return _result;
             }
 
-            private set
+            set
             {
                 _result = value;
                 if (this._result.Length == 5)

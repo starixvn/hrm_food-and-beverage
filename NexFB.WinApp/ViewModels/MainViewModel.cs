@@ -171,7 +171,7 @@ namespace NexFB.WinApp.ViewModels
                 return _searchResult;
             }
 
-            private set
+            set
             {
                 _searchResult = value;
                 string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
@@ -201,7 +201,7 @@ namespace NexFB.WinApp.ViewModels
                 return _waitingSearchResult;
             }
 
-            private set
+            set
             {
                 _waitingSearchResult = value;
                 this.OnPropertyChanged("WaitingSearchResult");
@@ -215,7 +215,7 @@ namespace NexFB.WinApp.ViewModels
                 return _awaitingDeliverSearchResult;
             }
 
-            private set
+            set
             {
                 _awaitingDeliverSearchResult = value;
                 this.OnPropertyChanged("AwaitingDeliverSearchResult");
@@ -229,7 +229,7 @@ namespace NexFB.WinApp.ViewModels
                 return _deliveredSearchResult;
             }
 
-            private set
+            set
             {
                 _deliveredSearchResult = value;
                 this.OnPropertyChanged("DeliveredSearchResult");
