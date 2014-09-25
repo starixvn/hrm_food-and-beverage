@@ -61,7 +61,13 @@
                     </ul>
                 </td>
                 <td class="text-center">
-                    {{order.MemberCount}}
+					<span class="dropdown"><a class="dropdown-toggle" href="" ng-bind="order.MemberCount"
+                        title="View Member" />
+                        <ul class="dropdown-menu dropdown-menu-width">
+                            <li ng-repeat="member in order.Members"><span ng-bind="member.Member.NickName"></span>
+							</li>
+                        </ul>
+                    </span>
                 </td>
                 <td>
                     {{order.MyMeal.Name}}
@@ -130,7 +136,7 @@
                     <div class="row form-inline form-order">
                         <div class="form-group">
                             <label data-translate="Location"></label>
-                            <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="newOrder.Location.LocationId">
+                            <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="newOrder.Location.LocationId" class="ddlLocationNew">
                             </select>
                         </div>
                         <div class="form-group pull-right">
@@ -150,7 +156,7 @@
                                 </th>
                                 <th data-translate="Menu">
                                 </th>
-                                <th class="col-action" data-translate="Action">
+                                <th class="col-action" data-translate="Remove">
                                 </th>
                             </tr>
                         </thead>
@@ -222,7 +228,7 @@
                                 </th>
 								<th data-translate="Order">
                                 </th>
-                                <th class="col-action" data-translate="Action">
+                                <th class="col-action" data-translate="Remove">
                                 </th>
                             </tr>
                         </thead>

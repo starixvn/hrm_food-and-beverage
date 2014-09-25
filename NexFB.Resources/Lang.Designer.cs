@@ -943,7 +943,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current&apos; menu.
+        ///   Looks up a localized string similar to Current menu.
         /// </summary>
         public static string ToDayMenu {
             get {
