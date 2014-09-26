@@ -10,6 +10,8 @@
 namespace NexFB.WinApp.Views.ManageOrder
 {
     using System.Windows.Controls;
+    using System.Windows.Input;
+    using NexFB.WinApp.ViewModels;
 
     /// <summary>
     /// Interaction logic for OrderFood.
@@ -19,6 +21,12 @@ namespace NexFB.WinApp.Views.ManageOrder
         public OrderFood()
         {
             InitializeComponent();
+        }
+
+        private void GridActionButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            OrderFoodViewModel currentViewModel = (OrderFoodViewModel)this.DataContext;
+            currentViewModel.ChangeButtonBorder(0);
         }
     }
 }

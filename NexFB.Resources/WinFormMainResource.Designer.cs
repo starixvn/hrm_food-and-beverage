@@ -61,6 +61,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to THÊM.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quay lại.
         /// </summary>
         public static string Back {
@@ -75,6 +84,24 @@ namespace NexFB.Resources {
         public static string Black {
             get {
                 return ResourceManager.GetString("Black", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HỦY.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chọn Món Ăn.
+        /// </summary>
+        public static string ChooseDishes {
+            get {
+                return ResourceManager.GetString("ChooseDishes", resourceCulture);
             }
         }
         
@@ -169,6 +196,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nhập mã hoặc số lượng.
+        /// </summary>
+        public static string KeypadInfo {
+            get {
+                return ResourceManager.GetString("KeypadInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Local printer error. Please notify the Administrators!.
         /// </summary>
         public static string LocalPrinterError {
@@ -201,6 +237,24 @@ namespace NexFB.Resources {
         public static string Pending {
             get {
                 return ResourceManager.GetString("Pending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chọn Nhóm.
+        /// </summary>
+        public static string PickGroup {
+            get {
+                return ResourceManager.GetString("PickGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chọn Phòng.
+        /// </summary>
+        public static string PickRoom {
+            get {
+                return ResourceManager.GetString("PickRoom", resourceCulture);
             }
         }
         
@@ -255,6 +309,15 @@ namespace NexFB.Resources {
         public static string ReceiveBilingual {
             get {
                 return ResourceManager.GetString("ReceiveBilingual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NHẬN.
+        /// </summary>
+        public static string ReceiveUpper {
+            get {
+                return ResourceManager.GetString("ReceiveUpper", resourceCulture);
             }
         }
         

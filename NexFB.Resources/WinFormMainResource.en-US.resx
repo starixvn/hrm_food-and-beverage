@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>ADD</value>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
   <data name="Black" xml:space="preserve">
     <value>Black</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>CANCEL</value>
+  </data>
+  <data name="ChooseDishes" xml:space="preserve">
+    <value>Choose Dishes</value>
   </data>
   <data name="Delivered" xml:space="preserve">
     <value>Delivered</value>
@@ -147,6 +156,9 @@
   <data name="InvoicePrinting" xml:space="preserve">
     <value>The invoice is printing...</value>
   </data>
+  <data name="KeypadInfo" xml:space="preserve">
+    <value>Enter employee code or quantity order</value>
+  </data>
   <data name="LocalPrinterError" xml:space="preserve">
     <value>Local printer error. Please notify the Administrators!</value>
   </data>
@@ -158,6 +170,12 @@
   </data>
   <data name="Pending" xml:space="preserve">
     <value>Pending</value>
+  </data>
+  <data name="PickGroup" xml:space="preserve">
+    <value>Pick Group</value>
+  </data>
+  <data name="PickRoom" xml:space="preserve">
+    <value>Pick Room</value>
   </data>
   <data name="Print" xml:space="preserve">
     <value>Print</value>
@@ -176,6 +194,9 @@
   </data>
   <data name="ReceiveBilingual" xml:space="preserve">
     <value>Nhận / In :</value>
+  </data>
+  <data name="ReceiveUpper" xml:space="preserve">
+    <value>RECEIVE</value>
   </data>
   <data name="ReduceBilingual" xml:space="preserve">
     <value>ReduceBilingual</value>

@@ -53,6 +53,7 @@ namespace NexFB.WinApp.ViewModels
         private string _awaitingDeliverSearchResult;
         private string _deliveredSearchResult;
         private string _keypadVisibility;
+        private string _searchTextBoxVisibility;
         private double _displayWidth;
 
         private MenuColor _menu1 = new MenuColor();
@@ -347,6 +348,20 @@ namespace NexFB.WinApp.ViewModels
             {
                 _keypadVisibility = value;
                 this.OnPropertyChanged("KeyPadVisibility");
+            }
+        }
+
+        public string SearchTextBoxVisibility
+        {
+            get
+            {
+                return _searchTextBoxVisibility;
+            }
+
+            set
+            {
+                _searchTextBoxVisibility = value;
+                this.OnPropertyChanged("SearchTextBoxVisibility");
             }
         }
 
@@ -922,6 +937,7 @@ namespace NexFB.WinApp.ViewModels
         {
             DefaulMenuColor();
             KeyPadVisibility = Constant.Hidden;
+            SearchTextBoxVisibility = Constant.Visible;
             string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
             switch (currentViewModel)
             {
@@ -971,6 +987,7 @@ namespace NexFB.WinApp.ViewModels
                     Menu4.BackgroundColor = Constant.DefaultMenuColor;
                     Menu4.ForegroundColor = Constant.Menu4Color;
                     Menu4.FontWeight = Constant.FontWeightBold;
+                    SearchTextBoxVisibility = Constant.Hidden;
                     break;
                 default:
                     break;

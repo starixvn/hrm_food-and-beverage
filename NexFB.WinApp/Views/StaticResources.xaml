@@ -117,6 +117,27 @@
 		</Setter>
 	</Style>
 
+	<!--Tile Button-->
+	<!--Style for tile button-->
+	<Style x:Key="OrderTileButton" TargetType="Button">
+		<Setter Property="FontSize" Value="18" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Border Name="border" CornerRadius="0" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
+						<ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center">
+						</ContentPresenter>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter Property="BorderBrush" TargetName="border" Value="#FF0000"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<!--Scroll Viewer-->
 	<Style x:Key="{x:Type ScrollViewer}" 
     TargetType="{x:Type ScrollViewer}">
