@@ -26,25 +26,25 @@ namespace NexFB.Models.MealRegistration
             var breakfast = new MealModel
             {
                 MealId = 1,
-                Name = Enumerations.GetDescription(Meal.Breakfast),
+                MealEngName = Enumerations.GetDescription(Meal.Breakfast),
                 ShortName = "B"
             };
             var lunch = new MealModel
             {
                 MealId = 2,
-                Name = Enumerations.GetDescription(Meal.Lunch),
+                MealEngName = Enumerations.GetDescription(Meal.Lunch),
                 ShortName = "L"
             };
             var dinner = new MealModel
             {
                 MealId = 3,
-                Name = Enumerations.GetDescription(Meal.Dinner),
+                MealEngName = Enumerations.GetDescription(Meal.Dinner),
                 ShortName = "D"
             };
             var supper = new MealModel
             {
                 MealId = 4,
-                Name = Enumerations.GetDescription(Meal.Supper),
+                MealEngName = Enumerations.GetDescription(Meal.Supper),
                 ShortName = "S"
             };
 

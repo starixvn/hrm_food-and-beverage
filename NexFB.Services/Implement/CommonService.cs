@@ -15,9 +15,11 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Enums;
     using NexFB.Core.Services;
     using NexFB.Criteria.Department;
+    using NexFB.Criteria.Employee;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Team;
     using NexFB.Criteria.UserControl;
+    using NexFB.Models.Employee;
     using NexFB.Models.Entities;
     using NexFB.Models.UserControl;
     using NexFB.Services.Interface;
@@ -122,6 +124,24 @@ namespace NexFB.Services.Implement
             }
 
             return mealTimesheet;
+        }
+
+        /// <summary>
+        /// Get all employee type.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Employee Type model.</returns>
+        public IEnumerable<EmployeeTypeModel> GetAllEmployeeType(GetAllEmployeeTypeCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<EmployeeTypeModel> employeeTypes = null;
+
+            if (criteria.IsValid())
+            {
+                employeeTypes = GetData<EmployeeTypeModel>(criteria);
+            }
+
+            return employeeTypes;
         }
     }
 }

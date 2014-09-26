@@ -60,7 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\FoodItemRepository.cs" />
-    <Compile Include="Implement\FoodMenuRepository.cs" />
+    <Compile Include="Implement\FoodMenuRepository.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Implement\KitchenRepository.cs" />
     <Compile Include="Implement\MealRegistrationRepository.cs" />
     <Compile Include="Implement\OrderingRepository.cs" />

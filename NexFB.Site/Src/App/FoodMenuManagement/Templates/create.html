@@ -8,42 +8,42 @@
 
 	<div class="modal-body assign-role-modal">
         <div class="filterRow">
-            <div class="label width-120"><label>Menu name (Vie):</label></div>
+            <div class="label width-120"><label>{{"FoodMenuNameVnm" | translate}}:</label></div>
             <div class="field"><input type="text" /></div>
-            <div class="label width-90"><label>(Eng)</label></div>
+            <div class="label width-90"><label>{{"FoodEngName" | translate}}:</label></div>
             <div class="field"><input type="text" /></div>
-            <div class="label width-90"><label>Meal:</label></div>
+            <div class="label width-90"><label>{{"Meal" | translate}}:</label></div>
             <div class="field">
-                <select>
-                    <option>2 selected</option>
-                </select>
+				<select multi-select input-model="mealsOption" button-label="MealEngName" helper-elements="all none"
+					item-label="MealEngName" tick-property="ticked" max-labels="0" class="multi-select">
+				</select>
             </div>
-            <div class="label width-140"><label>Employee Type:</label></div>
+            <div class="label width-140"><label>{{"EmployeeType" | translate}}:</label></div>
             <div class="field">
-                <select>
-                    <option>2 selected</option>
-                </select>
+				<select multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId" helper-elements="all none"
+					item-label="EmployeeTypeName" tick-property="ticked" max-labels="0" class="multi-select">
+				</select>
             </div>
         </div>
         <div class="filterRow">
-            <div class="label width-120"><label>Price per meal:</label></div>
+            <div class="label width-120"><label>{{"PricePerMeal" | translate}}:</label></div>
             <div class="field"><input type="text"/></div>
-            <div class="label width-90"><label>Price per day:</label></div>
+            <div class="label width-90"><label>{{"PricePerDay" | translate}}:</label></div>
             <div class="field"><input type="text" /></div>
-            <div class="label width-90"><label>Vegetarian:</label></div>
+            <div class="label width-90"><label>{{"Vegetarian" | translate}}:</label></div>
             <div class="field width-110"><input type="checkbox" /></div>
-            <div class="label width-140"><label>Active:</label></div>
+            <div class="label width-140"><label>{{"Active" | translate}}:</label></div>
             <div class="field width-110"><input type="checkbox"/></div>
         </div>
         <div class="filterRow">
-            <label>Food items:</label>
+            <label>{{"FoodItems" | translate}}:</label>
         </div>
 	</div>
 
 	<div class="modal-footer">
-		<button class="button" get-meal-registration data-translate="Submit">
+		<button class="button" data-translate="Submit">
 		</button>
-		<button class="button" get-meal-registration data-translate="SubmitContinue">
+		<button class="button" data-translate="SubmitContinue">
 		</button>
 		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 		</button>

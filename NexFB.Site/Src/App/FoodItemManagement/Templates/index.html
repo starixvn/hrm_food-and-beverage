@@ -3,10 +3,6 @@
         <ul class="breadcrumb list-inline pull-left">
 			<li class="current" data-translate="FoodItemManagement"></li>
         </ul>
-        <a class="button-icon" ng-click="addFoodItem()" ng-if="policy.permission == 2">
-            <span class="icon plus"></span>
-            <span class="button-text" data-translate="CreateFoodItem"></span>
-        </a>
     </div>
     <div class="row filter">
         <form class="form-inline" role="form">
@@ -29,6 +25,12 @@
 				</button>
             </div>
         </form>
+    </div>
+	<div class="row pull-right ">
+		<a class="button-icon" ng-click="addFoodItem()" ng-if="policy.permission == 2">
+			<span class="icon plus"></span>
+			<span class="button-text" data-translate="CreateFoodItem"></span>
+		</a>
     </div>
     <div class="row table-fooditem">
         <table class="table table-bordered table-striped col-sm-12">

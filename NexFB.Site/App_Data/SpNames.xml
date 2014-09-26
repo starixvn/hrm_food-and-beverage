@@ -17,6 +17,8 @@
 	</Setting>
 	<Setting Key="Employee_GetAllFunctionBySysID" SpName="Employee_GetAllFunctionBySysID" DbName="NexFB" Plain="0" >
 	</Setting>
+	<Setting Key="Employee_GetEmployeeType" SpName="Employee_GetEmployeeType" DbName="NexFB" Plain="0" >
+	</Setting>
   </Function>
 	<Function Name="ManageRole">
 		<Setting Key="Function_GetByRole" SpName="Function_GetByRole" DbName="NexFB" Plain="0" ></Setting>
@@ -171,6 +173,9 @@
 	</Function>
 	<Function Name="FoodMenuManagement">
 		<Setting Key="FoodMenu_GetAll" SpName="FoodMenu_GetAll" DbName="NexFB" Plain="0" >
+			<Mapping DataField="FoodItems" ObjectProperty="NumberFoodItems"/>
+		</Setting>
+		<Setting Key="FoodMenu_Insert" SpName="FoodMenu_Insert" DbName="NexFB" Plain="0" >
 		</Setting>
 	</Function>
 </Functions>

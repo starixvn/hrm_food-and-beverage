@@ -16,9 +16,11 @@ namespace NexFB.Models.MealRegistration
     {
         public int MealId { get; set; }
 
-        public string Name { get; set; }
+        public string MealEngName { get; set; }
 
         public string ShortName { get; set; }
+
+        public string MealVnmName { get; set; }
 
         public int? IsVegetarian { get; set; }
     }

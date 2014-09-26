@@ -10,6 +10,7 @@
 namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
+    using NexFB.Core.Models;
     using NexFB.Criteria.FoodMenuManagement;
     using NexFB.Models.FoodMenuManagement;
 
@@ -18,6 +19,10 @@ namespace NexFB.Services.Interface
     /// </summary>
     public interface IFoodMenuService
     {
+        IList<FoodMenuModel> GetAllFoodMenu(GetAllFoodMenuCriteria criteria);
+
         IEnumerable<FoodMenuModel> GetAllFoodMenuToFilter(GetAllFoodMenuCriteria criteria);
+
+        CommandResult InsertFoodMenu(InsertFoodMenuCriteria criteria);
     }
 }

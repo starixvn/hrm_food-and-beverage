@@ -18,6 +18,8 @@ namespace NexFB.Repositories.Interface
     /// </summary>
     public interface IFoodMenuRepository
     {
+        IList<FoodMenuModel> GetAllFoodMenu(ICriteria criteria);
+
         IEnumerable<FoodMenuModel> GetAllFoodMenuToFilter(ICriteria criteria);
     }
 }

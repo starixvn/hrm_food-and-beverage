@@ -38,7 +38,7 @@ namespace NexFB.Criteria.FoodItemManagement
 
         public override bool IsValid()
         {
-            return true;
+            return !string.IsNullOrEmpty(FoodEngName) && !string.IsNullOrEmpty(FoodVnmName);
         }
     }
 }

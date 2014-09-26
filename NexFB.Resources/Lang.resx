@@ -423,7 +423,7 @@
   <data name="FoodEngNameRequire" xml:space="preserve">
     <value>The Food item (Eng) field is required!</value>
   </data>
-  <data name="FoodItemEngName" xml:space="preserve">
+  <data name="FoodEngName" xml:space="preserve">
     <value>(Eng)</value>
   </data>
   <data name="FoodItemVnmName" xml:space="preserve">
@@ -443,5 +443,44 @@
   </data>
   <data name="DeactivationSuccess" xml:space="preserve">
     <value>Deactivated successfully!</value>
+  </data>
+  <data name="EmployeeType" xml:space="preserve">
+    <value>Employee type</value>
+  </data>
+  <data name="FoodItems" xml:space="preserve">
+    <value>Food items</value>
+  </data>
+  <data name="FoodMenuEng" xml:space="preserve">
+    <value>Menu (Eng)</value>
+  </data>
+  <data name="FoodMenuManagement" xml:space="preserve">
+    <value>Food Menu Management</value>
+  </data>
+  <data name="FoodMenuVnm" xml:space="preserve">
+    <value>Menu (Vie)</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>selected</value>
+  </data>
+  <data name="ShortPricePerDay" xml:space="preserve">
+    <value>P.P.Day</value>
+  </data>
+  <data name="ShortPricePerMeal" xml:space="preserve">
+    <value>P.P.Meal</value>
+  </data>
+  <data name="AllMeals" xml:space="preserve">
+    <value>All meals</value>
+  </data>
+  <data name="AllType" xml:space="preserve">
+    <value>All type</value>
+  </data>
+  <data name="FoodMenuNameVnm" xml:space="preserve">
+    <value>Menu name (Vie)</value>
+  </data>
+  <data name="PricePerDay" xml:space="preserve">
+    <value>Price per day</value>
+  </data>
+  <data name="PricePerMeal" xml:space="preserve">
+    <value>Price per meal</value>
   </data>
 </root>

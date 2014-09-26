@@ -133,6 +133,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All meals.
+        /// </summary>
+        public static string AllMeals {
+            get {
+                return ResourceManager.GetString("AllMeals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Statuses.
         /// </summary>
         public static string AllStatuses {
@@ -147,6 +156,15 @@ namespace NexFB.Resources {
         public static string AllTeam {
             get {
                 return ResourceManager.GetString("AllTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All type.
+        /// </summary>
+        public static string AllType {
+            get {
+                return ResourceManager.GetString("AllType", resourceCulture);
             }
         }
         
@@ -376,6 +394,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee type.
+        /// </summary>
+        public static string EmployeeType {
+            get {
+                return ResourceManager.GetString("EmployeeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No information available!.
         /// </summary>
         public static string EmptyResult {
@@ -403,6 +430,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Eng).
+        /// </summary>
+        public static string FoodEngName {
+            get {
+                return ResourceManager.GetString("FoodEngName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Food item (Eng) field is required!.
         /// </summary>
         public static string FoodEngNameRequire {
@@ -421,20 +457,20 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (Eng).
-        /// </summary>
-        public static string FoodItemEngName {
-            get {
-                return ResourceManager.GetString("FoodItemEngName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Food Item Management.
         /// </summary>
         public static string FoodItemManagement {
             get {
                 return ResourceManager.GetString("FoodItemManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Food items.
+        /// </summary>
+        public static string FoodItems {
+            get {
+                return ResourceManager.GetString("FoodItems", resourceCulture);
             }
         }
         
@@ -453,6 +489,42 @@ namespace NexFB.Resources {
         public static string FoodItemVnmName {
             get {
                 return ResourceManager.GetString("FoodItemVnmName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menu (Eng).
+        /// </summary>
+        public static string FoodMenuEng {
+            get {
+                return ResourceManager.GetString("FoodMenuEng", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Food Menu Management.
+        /// </summary>
+        public static string FoodMenuManagement {
+            get {
+                return ResourceManager.GetString("FoodMenuManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menu name (Vie).
+        /// </summary>
+        public static string FoodMenuNameVnm {
+            get {
+                return ResourceManager.GetString("FoodMenuNameVnm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menu (Vie).
+        /// </summary>
+        public static string FoodMenuVnm {
+            get {
+                return ResourceManager.GetString("FoodMenuVnm", resourceCulture);
             }
         }
         
@@ -754,6 +826,24 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Price per day.
+        /// </summary>
+        public static string PricePerDay {
+            get {
+                return ResourceManager.GetString("PricePerDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price per meal.
+        /// </summary>
+        public static string PricePerMeal {
+            get {
+                return ResourceManager.GetString("PricePerMeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quantity.
         /// </summary>
         public static string Quantity {
@@ -853,6 +943,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to selected.
+        /// </summary>
+        public static string Selected {
+            get {
+                return ResourceManager.GetString("Selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to submit this serial registration ? All upcoming registrations of the same period will be overwritten..
         /// </summary>
         public static string SerialRegisterWarning {
@@ -867,6 +966,24 @@ namespace NexFB.Resources {
         public static string ShortNonVegetarian {
             get {
                 return ResourceManager.GetString("ShortNonVegetarian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to P.P.Day.
+        /// </summary>
+        public static string ShortPricePerDay {
+            get {
+                return ResourceManager.GetString("ShortPricePerDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to P.P.Meal.
+        /// </summary>
+        public static string ShortPricePerMeal {
+            get {
+                return ResourceManager.GetString("ShortPricePerMeal", resourceCulture);
             }
         }
         

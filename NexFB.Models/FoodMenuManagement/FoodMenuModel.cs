@@ -9,11 +9,23 @@
 
 namespace NexFB.Models.FoodMenuManagement
 {
+    using System.Collections.Generic;
+    using NexFB.Models.Employee;
+    using NexFB.Models.FoodItemManagement;
+    using NexFB.Models.MealRegistration;
+
     /// <summary>
     /// The food menu model.
     /// </summary>
     public class FoodMenuModel
     {
+        public FoodMenuModel() 
+        {
+            FoodItems = new List<FoodItemModel>();
+            EmployeeTypes = new List<EmployeeTypeModel>();
+            Meals = new List<MealModel>();
+        }
+
         public int MenuId { get; set; }
 
         public string MenuVnmName { get; set; }
@@ -31,5 +43,13 @@ namespace NexFB.Models.FoodMenuManagement
         public double PricePerDay { get; set; }
 
         public bool? IsActive { get; set; }
+
+        public int NumberFoodItems { get; set; }
+
+        public IList<FoodItemModel> FoodItems { get; set; }
+
+        public IList<EmployeeTypeModel> EmployeeTypes { get; set; }
+
+        public IList<MealModel> Meals { get; set; }
     }
 }
