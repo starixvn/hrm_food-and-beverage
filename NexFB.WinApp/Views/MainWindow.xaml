@@ -176,7 +176,7 @@
 				Mouse.PreviewMouseDown="SortResult_PreviewMouseDown" TextChanged="SortResult_TextChanged"
 				MaxLength="2" IsReadOnly="True">
 					<l:Watermark.Watermark>
-						<TextBlock FontSize="24" Margin="5,10,0,0"
+						<TextBlock FontSize="20" Margin="10,10,0,0"
 						Text="{x:Static resx:WinFormMainResource.Search}" VerticalAlignment="Center" HorizontalAlignment="Left" MinHeight="39"/>
 					</l:Watermark.Watermark>
 				</TextBox>
