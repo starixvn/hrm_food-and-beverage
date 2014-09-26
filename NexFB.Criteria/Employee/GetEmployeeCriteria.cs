@@ -16,6 +16,9 @@ namespace NexFB.Criteria.Employee
     /// </summary>
     public class GetEmployeeCriteria : CriteriaBase
     {
+        [SpParam(SqlParamName = "SysId")]
+        public int? UserId { get; set; }
+
         public string DepartmentId { get; set; }
 
         public string TeamId { get; set; }

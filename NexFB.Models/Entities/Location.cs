@@ -14,7 +14,7 @@ namespace NexFB.Models.Entities
     /// </summary>
     public class Location
     {
-        public int LocationId { get; set; }
+        public short LocationId { get; set; }
 
         public string NameVN { get; set; }
 

@@ -36,6 +36,8 @@ namespace NexFB.Models.Authority
 
         public bool IsDisabled { get; set; }
 
+        public int DepartmentId { get; set; }
+
         ////public bool HasRole(short roleId)
         ////{
         ////    bool hasRole = UserRoles.Any(t => t.RoleId == roleId);

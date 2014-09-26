@@ -4,6 +4,22 @@
 orderingModule.controller("OrderingController",
 ['$translate', '$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory',
 function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderingService, notificationFactory) {
+	$scope.getMessage = function () {
+		$translate('ConfirmMessageSaveOrder').then(function (message) {
+			$scope.confirmMessageSaveOrder = message;
+		});
+
+		$translate('ConfirmMessageRemoveMember').then(function (message) {
+			$scope.confirmMessageRemoveMember = message;
+		});
+
+		$translate('WarningMessageExistMember').then(function (message) {
+			$scope.warningMessageExistMember = message;
+		});
+	};
+
+	$scope.getMessage();
+
 	$scope.newOrder = [];
 	$scope.savedOrder = [];
 	$scope.myOrder = [];
@@ -55,18 +71,16 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		}
 
 		var isRelatedCurrentUser = false;
-		if (order.Members.length > 0) {
-			if ($scope.currentUser.UserId === order.CreatorOrder.UserId) {
-				isRelatedCurrentUser = true;
-			}
-			else {
-				angular.forEach(order.Members, function (value) {
-					if (value.Member.UserId === $scope.currentUser.UserId) {
-						isRelatedCurrentUser = true;
-						order.MyMeal = value.Menu;
-					}
-				});
-			}
+		if ($scope.currentUser.UserId === order.CreatorOrder.UserId) {
+			isRelatedCurrentUser = true;
+		}
+		else {
+			angular.forEach(order.Members, function (value) {
+				if (value.Member.UserId === $scope.currentUser.UserId) {
+					isRelatedCurrentUser = true;
+					order.MyMeal = value.Menu;
+				}
+			});
 		}
 
 		if (isRelatedCurrentUser) {
@@ -121,7 +135,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			orderingService.setCurrentUser(data);
 		})
 		.error(function () {
-			// TODO
+			notificationFactory.error("ErrorMessage");
 		});
 
 		orderingFactory.getMyMenu()
@@ -129,7 +143,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			$scope.menu = data;
 		})
 		.error(function () {
-			// TODO
+			notificationFactory.error("ErrorMessage");
 		});
 
 		$scope.getDefaultForAddOrder = function () {
@@ -137,20 +151,18 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			.success(function (data) {
 				$scope.newOrder = data;
 				orderingService.setMemberNewOrder(data.Members);
-				$scope.newOrder.Location = $scope.locations[0];
 			})
 			.error(function () {
-				// TODO
+				notificationFactory.error("ErrorMessage");
 			});
 
 			orderingFactory.getSavedOrder()
 			.success(function (data) {
 				$scope.savedOrder = data;
 				orderingService.setMemberSavedOrder(data.Members);
-				$scope.savedOrder.Location = $scope.locations[0];
 			})
 			.error(function () {
-				// TODO
+				notificationFactory.error("ErrorMessage");
 			});
 		};
 
@@ -160,7 +172,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				$scope.myOrder = data;
 			})
 			.error(function () {
-				// TODO
+				notificationFactory.error("ErrorMessage");
 			});
 
 		orderingFactory.getLocation()
@@ -169,7 +181,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				$scope.getDefaultForAddOrder();
 			})
 			.error(function () {
-				// TODO
+				notificationFactory.error("ErrorMessage");
 			});
 
 		callback();
@@ -201,7 +213,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				backdrop: 'static',
 				resolve: {
 					content: function () {
-						return 'Are you sure you want to save this order?';
+						return $scope.confirmMessageSaveOrder;
 					}
 				},
 				windowClass: "modal-confirm-center1"
@@ -231,7 +243,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				backdrop: 'static',
 				resolve: {
 					content: function () {
-						return 'Are you sure you want to remove this member?';
+						return $scope.confirmMessageRemoveMember;
 					}
 				},
 				windowClass: "modal-confirm-center1"
@@ -255,29 +267,6 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			}, function () {
 			})['finally'](function () {
 				$scope.modalRemoveMemberInstance = undefined;
-			});
-		};
-
-		$scope.showAddMember = function (isSavedOrder) {
-			$scope.modalAddMemberInstance = $modal.open({
-				templateUrl: '/src/app/Ordering/Templates/AddMember.html',
-				controller: "AddMemberController",
-				backdrop: 'static',
-				resolve: {
-					isSavedOrder: function () {
-						return isSavedOrder;
-					},
-					isEditOrder: function () {
-						return false;
-					}
-				},
-				windowClass: "modal-confirm-center1"
-			});
-
-			$scope.modalAddMemberInstance.result.then(function () {
-			}, function () {
-			})['finally'](function () {
-				$scope.modalAddMemberInstance = undefined;
 			});
 		};
 
@@ -315,146 +304,134 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		};
 	};
 
-	$scope.loadData(function () {
-		$scope.bindAction();
-	});
-} ]);
+	$scope.getEmployee = function (searchKey) {
+		orderingFactory.getEmployees(searchKey).then(function (employees) {
+			$scope.searchEmployees = employees;
+		});
+	};
 
-orderingModule.controller('AddMemberController',
-['$scope', '$modalInstance', 'orderingFactory', 'orderingService', 'isSavedOrder', 'isEditOrder',
-'notificationFactory',
-function ($scope, $modalInstance, orderingFactory, orderingService, isSavedOrder, isEditOrder, notificationFactory) {
-	$scope.newMember = {};
-	$scope.departmentId = '0';
-	var message = 'The selected member has already been in the order.';
-	$scope.add = function (isContinue) {
-
-		var newMember = $scope.newMember;
-		var member = {
-			Member: '',
-			Menu: '',
-			IsOrder: true
-		};
-		member.Member = newMember.employee;
-		orderingFactory.getMenuByUserId(member.Member.UserId)
+	$scope.add = function (isSavedOrder) {
+		var newMember = isSavedOrder ? $scope.savedMember : $scope.newMember;
+		if (newMember !== undefined && newMember.employee !== undefined) {
+			var member = {
+				Member: '',
+				Menu: '',
+				IsOrder: true
+			};
+			member.Member = newMember.employee;
+			orderingFactory.getMenuByUserId(member.Member.UserId)
 			.success(function (data) {
 				member.Menu = data;
 				orderingFactory.getOrderByUserId(member.Member.UserId)
 				.success(function (dataStatus) {
 					member.CurrentStatus = dataStatus.Status;
-
 					var isExisted = false;
-					if (isEditOrder) {
+					if (isSavedOrder) {
 						if (member.CurrentStatus != null) {
-							notificationFactory.error('', message);
+							member.IsOrder = false;
 						}
-						else {
-							var editMembers = orderingService.getMemberEditOrder();
-							angular.forEach(editMembers, function (value) {
-								if (value.Member.UserId === member.Member.UserId) {
-									isExisted = true;
-								}
-							});
+						var savedMembers = orderingService.getMemberSavedOrder();
+						angular.forEach(savedMembers, function (value) {
+							if (value.Member.UserId === member.Member.UserId) {
+								isExisted = true;
+							}
+						});
 
-							if (!isExisted) {
-								editMembers.push(member);
-								orderingService.setMemberEditOrder(editMembers);
-							}
-							else {
-								notificationFactory.error('', message);
-							}
-						}
-					}
-					else {
-						if (isSavedOrder) {
-							if (member.CurrentStatus != null) {
-								member.IsOrder = false;
-							}
-							var savedMembers = orderingService.getMemberSavedOrder();
-							angular.forEach(savedMembers, function (value) {
-								if (value.Member.UserId === member.Member.UserId) {
-									isExisted = true;
-								}
-							});
-
-							if (!isExisted) {
-								orderingFactory.addMember(member).success(function (response) {
-									if (response.IsSuccessful === true) {
-										savedMembers.push(member);
-										orderingService.setMemberSavedOrder(savedMembers);
-										notificationFactory.success("DataChangeSuccessfully");
-									}
-									else {
-										notificationFactory.error('', response.Message);
-									}
-								});
-							}
-							else {
-								notificationFactory.error('', message);
-							}
-						}
-						else {
-							if (member.CurrentStatus != null) {
-								notificationFactory.error('', message);
-							}
-							else {
-								var members = orderingService.getMemberNewOrder();
-
-								angular.forEach(members, function (value) {
-									if (value.Member.UserId === member.Member.UserId) {
-										isExisted = true;
-									}
-								});
-
-								if (!isExisted) {
-									members.push(member);
-									orderingService.setMemberNewOrder(members);
+						if (!isExisted) {
+							orderingFactory.addMember(member).success(function (response) {
+								if (response.IsSuccessful === true) {
+									savedMembers.push(member);
+									orderingService.setMemberSavedOrder(savedMembers);
+									notificationFactory.success("DataChangeSuccessfully");
 								}
 								else {
-									notificationFactory.error('', message);
+									notificationFactory.error('', response.Message);
 								}
+							});
+						}
+						else {
+							notificationFactory.error('', $scope.warningMessageExistMember);
+						}
+
+						$('#txtEmployeeForSavedOrder').val('');
+						$scope.savedMember = {};
+					}
+					else {
+						if (member.CurrentStatus != null) {
+							notificationFactory.error('', $scope.warningMessageExistMember);
+						}
+						else {
+							var members = orderingService.getMemberNewOrder();
+
+							angular.forEach(members, function (value) {
+								if (value.Member.UserId === member.Member.UserId) {
+									isExisted = true;
+								}
+							});
+
+							if (!isExisted) {
+								members.push(member);
+								orderingService.setMemberNewOrder(members);
+								notificationFactory.success("DataChangeSuccessfully");
+							}
+							else {
+								notificationFactory.error('', $scope.warningMessageExistMember);
 							}
 						}
+
+						$('#txtEmployeeForNewOrder').val('');
+						$scope.newMember = {};
 					}
 				})
 				.error(function () {
-					// TODO
+					notificationFactory.error("ErrorMessage");
 				});
-
-				if (!isContinue) {
-					$modalInstance.close(newMember);
-				}
 			})
 			.error(function () {
-				// TODO
+				notificationFactory.error("ErrorMessage");
 			});
-
-		$('#txtEmployee').val('');
+		}
 	};
 
-	$scope.cancel = function () {
-		$modalInstance.dismiss("cancel");
-	};
-
-	orderingFactory.getDepartment()
-		.success(function (data) {
-			$scope.departments = data;
-		})
-		.error(function () {
-			// TODO
-		});
-
-	$scope.getEmployee = function (departmentId, searchKey) {
-		orderingFactory.getEmployees(departmentId, searchKey).then(function (employees) {
-			$scope.searchEmployees = employees;
-		});
-	};
+	$scope.loadData(function () {
+		$scope.bindAction();
+	});
 
 } ]);
 
+
 orderingModule.controller('EditOrderController',
-['$scope', '$modalInstance', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory', 'orderId', 'locations',
-function ($scope, $modalInstance, $modal, orderingFactory, orderingService, notificationFactory, orderId, locations) {
+['$scope', '$modalInstance', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory', 'orderId', 'locations', '$translate', 'commonFactory',
+function ($scope, $modalInstance, $modal, orderingFactory, orderingService, notificationFactory, orderId, locations, $translate, commonFactory) {
+	$scope.newMember = {};
+
+	$scope.getMessage = function () {
+		$translate('ConfirmMessageUpdateOrder').then(function (message) {
+			$scope.confirmMessageUpdateOrder = message;
+		});
+		$translate('ConfirmMessageDeleteOrder').then(function (message) {
+			$scope.confirmMessageDeleteOrder = message;
+		});
+		$translate('WarningMessageExistMember').then(function (message) {
+			$scope.warningMessageExistMember = message;
+		});
+		$translate('MessageNewStatusOrder').then(function (message) {
+			$scope.messageNewStatusOrder = message;
+		});
+		$translate('MessageReceivedStatusOrder').then(function (message) {
+			$scope.messageReceivedStatusOrder = message;
+		});
+		$translate('MessageReducedStatusOrder').then(function (message) {
+			$scope.messageReducedStatusOrder = message;
+		});
+		$translate('MessageDeliveredStatusOrder').then(function (message) {
+			$scope.messageDeliveredStatusOrder = message;
+		});
+		$translate('MessageEditedStatusOrder').then(function (message) {
+			$scope.messageEditedStatusOrder = message;
+		});
+	};
+	$scope.getMessage();
 
 	$scope.locations = locations;
 	$(".ddlLocation").width($(".ddlLocationNew").width());
@@ -463,27 +440,50 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		.success(function (data) {
 			$scope.order = data;
 			orderingService.setMemberEditOrder(data.Members);
+
+			$scope.getStatusOrderMessage = function (order) {
+				var message = '';
+				var quantity = '';
+				angular.forEach(order.MenuQuantity, function (value, index) {
+					if (index === 0) {
+						quantity = value.Quantity + ' "' + value.Menu.Name + '"';
+					}
+					else {
+						quantity += ", " + value.Quantity + ' "' + value.Menu.Name + '"';
+					}
+				});
+
+				switch (order.Status.StatusId) {
+					case 1:
+						message = commonFactory.formatString(
+							$scope.messageNewStatusOrder, order.OrderNo, order.CreatorOrder.NickName, order.ModifiedTime, quantity);
+						break;
+					case 2:
+						message = commonFactory.formatString(
+							$scope.messageReceivedStatusOrder, order.OrderNo, order.CreatorOrder.NickName, order.ModifiedTime, quantity);
+						break;
+					case 3:
+						message = commonFactory.formatString(
+							$scope.messageReducedStatusOrder, order.OrderNo, order.CreatorOrder.NickName, order.ModifiedTime, quantity);
+						break;
+					case 4:
+						message = commonFactory.formatString(
+							$scope.messageDeliveredStatusOrder, order.OrderNo, order.CreatorOrder.NickName, order.ModifiedTime, quantity);
+						break;
+					case 5:
+						message = commonFactory.formatString(
+							$scope.messageEditedStatusOrder, order.OrderNo, order.CreatorOrder.NickName, order.ModifiedTime, quantity);
+						break;
+					default:
+						message = "";
+				}
+
+				return message;
+			};
 		})
 		.error(function () {
-			// TODO
+			notificationFactory.error("ErrorMessage");
 		});
-
-	$scope.showAddMember = function () {
-		$scope.modalAddMemberInstance = $modal.open({
-			templateUrl: '/src/app/Ordering/Templates/AddMember.html',
-			controller: "AddMemberController",
-			backdrop: 'static',
-			resolve: {
-				isSavedOrder: function () {
-					return false;
-				},
-				isEditOrder: function () {
-					return true;
-				}
-			},
-			windowClass: "modal-confirm-center1"
-		});
-	};
 
 	$scope.cancel = function () {
 		$modalInstance.dismiss("cancel");
@@ -496,7 +496,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			backdrop: 'static',
 			resolve: {
 				content: function () {
-					return 'Are you sure you want to save this order? When the order is received, all removed member cannot be added again.';
+					return $scope.confirmMessageUpdateOrder;
 				}
 			},
 			windowClass: "modal-confirm-center1"
@@ -527,7 +527,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			backdrop: 'static',
 			resolve: {
 				content: function () {
-					return 'Are you sure you want to delete this order?';
+					return $scope.confirmMessageDeleteOrder;
 				}
 			},
 			windowClass: "modal-confirm-center1"
@@ -568,4 +568,60 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			$scope.modalAddMemberInstance.dismiss('cancel');
 		}
 	});
+
+	$scope.getEmployee = function (searchKey) {
+		orderingFactory.getEmployees(searchKey).then(function (employees) {
+			$scope.searchEmployees = employees;
+		});
+	};
+
+	$scope.add = function () {
+		var newMember = $scope.newMember;
+		if (newMember !== undefined && newMember.employee !== undefined) {
+			var member = {
+				Member: '',
+				Menu: '',
+				IsOrder: true
+			};
+			member.Member = newMember.employee;
+			orderingFactory.getMenuByUserId(member.Member.UserId)
+			.success(function (data) {
+				member.Menu = data;
+				orderingFactory.getOrderByUserId(member.Member.UserId)
+				.success(function (dataStatus) {
+					member.CurrentStatus = dataStatus.Status;
+
+					var isExisted = false;
+					if (member.CurrentStatus != null) {
+						notificationFactory.error('', $scope.warningMessageExistMember);
+					}
+					else {
+						var editMembers = orderingService.getMemberEditOrder();
+						angular.forEach(editMembers, function (value) {
+							if (value.Member.UserId === member.Member.UserId) {
+								isExisted = true;
+							}
+						});
+
+						if (!isExisted) {
+							editMembers.push(member);
+							orderingService.setMemberEditOrder(editMembers);
+						}
+						else {
+							notificationFactory.error('', $scope.warningMessageExistMember);
+						}
+					}
+				})
+				.error(function () {
+					notificationFactory.error("ErrorMessage");
+				});
+			})
+			.error(function () {
+				notificationFactory.error("ErrorMessage");
+			});
+
+			$('#txtEmployee').val('');
+			$scope.newMember = {};
+		}
+	};
 } ]);

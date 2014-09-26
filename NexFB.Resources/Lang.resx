@@ -229,7 +229,7 @@
     <value>There are problem with network connection. Please notify to administrators!</value>
   </data>
   <data name="NewOrder" xml:space="preserve">
-    <value>New Order</value>
+    <value>New Group</value>
   </data>
   <data name="NickName" xml:space="preserve">
     <value>Nick Name</value>
@@ -244,10 +244,10 @@
     <value>Order meal</value>
   </data>
   <data name="OrderPerson" xml:space="preserve">
-    <value>Order By</value>
+    <value>Ordered By</value>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>Tel.</value>
+    <value>Tel</value>
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>Quantity</value>
@@ -280,7 +280,7 @@
     <value>Sat</value>
   </data>
   <data name="SavedOrder" xml:space="preserve">
-    <value>Favorite Group Order</value>
+    <value>Favorite Group</value>
   </data>
   <data name="ShortNonVegetarian" xml:space="preserve">
     <value>Non-Veg</value>
@@ -340,7 +340,7 @@
     <value>All week</value>
   </data>
   <data name="InvalidInputData" xml:space="preserve">
-    <value>Invalid input data</value>
+    <value>Invalid input.</value>
   </data>
   <data name="Apply" xml:space="preserve">
     <value>Apply</value>
@@ -385,10 +385,10 @@
     <value>Edit Meal Planning</value>
   </data>
   <data name="NoMealOrder" xml:space="preserve">
-    <value>You have no order for the current meal</value>
+    <value>No order available!</value>
   </data>
   <data name="NoMenu" xml:space="preserve">
-    <value>No menu available for the current meal</value>
+    <value>No menu available!</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value />
@@ -432,7 +432,40 @@
   <data name="FoodVnmNameRequire" xml:space="preserve">
     <value>The Food item (Vie) field is required!</value>
   </data>
-  <data name="ActivationFail" xml:space="preserve">
+  <data name="ConfirmMessageDeleteOrder" xml:space="preserve">
+    <value>Are you sure you want to delete this order?</value>
+  </data>
+  <data name="ConfirmMessageRemoveMember" xml:space="preserve">
+    <value>Are you sure you want to remove this member?</value>
+  </data>
+  <data name="ConfirmMessageSaveOrder" xml:space="preserve">
+    <value>Are you sure you want to save this order?</value>
+  </data>
+  <data name="ConfirmMessageUpdateOrder" xml:space="preserve">
+    <value>Are you sure you want to update this order? Once received, no more members accepted.</value>
+  </data>
+  <data name="MessageNewStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} was placed at {2}. The order contains {3}.</value>
+  </data>
+  <data name="WarningMessageExistMember" xml:space="preserve">
+    <value>The selected member is already included in another order.</value>
+  </data>
+  <data name="MessageDeliveredStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} has been ready since {2}. The order contains {3}.</value>
+  </data>
+  <data name="MessageEditedStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} has been edited at {2}. The order contains {3}.</value>
+  </data>
+  <data name="MessageReceivedStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} has been prepared since {2}. The order contains {3}.</value>
+  </data>
+  <data name="MessageReducedStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} was reduced quantity at {2}. The order contains {3}.</value>
+  </data>
+  <data name="SelectLocation" xml:space="preserve">
+    <value>-- Please select order location --</value>
+  </data>
+   <data name="ActivationFail" xml:space="preserve">
     <value>Activated unsuccessfully!</value>
   </data>
   <data name="ActivationSuccess" xml:space="preserve">
@@ -465,6 +498,7 @@
   <data name="ShortPricePerDay" xml:space="preserve">
     <value>P.P.Day</value>
   </data>
+
   <data name="ShortPricePerMeal" xml:space="preserve">
     <value>P.P.Meal</value>
   </data>

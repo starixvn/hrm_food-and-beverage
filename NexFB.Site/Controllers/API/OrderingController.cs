@@ -109,6 +109,11 @@ namespace NexFB.Site.Controllers.API
                 order = new MealOrderingModel();
             }
 
+            if (order.Location == null)
+            {
+                order.Location = new Location();
+            }
+
             return order;
         }
 
@@ -150,6 +155,11 @@ namespace NexFB.Site.Controllers.API
                 order = new MealOrderingModel();
             }
 
+            if (order.Location == null)
+            {
+                order.Location = new Location();
+            }
+
             return order;
         }
 
@@ -180,11 +190,11 @@ namespace NexFB.Site.Controllers.API
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
-        public IList<Employee> GetEmployees(int departmentId, string keyWord)
+        public IList<Employee> GetEmployees(string keyWord)
         {
             var criteria = new GetEmployeeCriteria()
             {
-                DepartmentId = departmentId == 0 ? string.Empty : departmentId.ToString(),
+                DepartmentId = this.CurrentUser.DepartmentId.ToString(),
                 Keyword = keyWord
             };
 
@@ -206,7 +216,7 @@ namespace NexFB.Site.Controllers.API
                 CreatedBy = this.CurrentUser.UserId,
                 CreatedDate = DateTime.Now,
                 IsSavedOrder = model.IsSavedOrder,
-                LocationId = model.Location != null ? (int?)model.Location.LocationId : null,
+                LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
                 Remark = model.Remark,
                 Members = model.Members
@@ -231,7 +241,7 @@ namespace NexFB.Site.Controllers.API
                 ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now,
                 IsSavedOrder = false,
-                LocationId = model.Location != null ? (int?)model.Location.LocationId : null,
+                LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
                 Remark = model.Remark,
                 Members = model.Members

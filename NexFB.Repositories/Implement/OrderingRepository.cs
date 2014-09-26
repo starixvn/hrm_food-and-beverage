@@ -90,6 +90,13 @@ namespace NexFB.Repositories.Implement
                         }, 
                         "MealENGName");
 
+                        var members = multi.Read<OrderMemberModel, dynamic, OrderMemberModel>(
+                        (mb, d) =>
+                        {
+                            return GetMember(mb, d);
+                        },
+                        "SysID");
+
                         if (ordersQuatity != null)
                         {
                             foreach (MealOrderingModel order in data)
@@ -104,6 +111,19 @@ namespace NexFB.Repositories.Implement
                                         }
 
                                         order.MenuQuantity.Add(menu);
+                                    }
+                                }
+
+                                foreach (OrderMemberModel member in members)
+                                {
+                                    if (order.OrderId == member.OrderId)
+                                    {
+                                        if (order.Members == null)
+                                        {
+                                            order.Members = new List<OrderMemberModel>();
+                                        }
+
+                                        order.Members.Add(member);
                                     }
                                 }
 
