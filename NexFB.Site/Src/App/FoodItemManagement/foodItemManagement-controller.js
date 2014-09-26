@@ -297,7 +297,7 @@ foodItemUtilities) {
 	$scope.food = {
 		foodEngName: '',
 		foodVnmName: '',
-		isActive: '',
+		isActive: false,
 		groupIds: '',
 		menuGroupId: ''
 	};
