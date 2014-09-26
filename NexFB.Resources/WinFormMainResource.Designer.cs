@@ -142,6 +142,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tầng / Floor : .
+        /// </summary>
+        public static string FloorBilingual {
+            get {
+                return ResourceManager.GetString("FloorBilingual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hidden.
         /// </summary>
         public static string Hidden {
@@ -151,7 +160,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The invoice is printing....
+        ///   Looks up a localized string similar to Hóa đơn đang được in....
         /// </summary>
         public static string InvoicePrinting {
             get {
@@ -205,7 +214,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Order Meal Invoice.
+        ///   Looks up a localized string similar to Hóa đơn.
         /// </summary>
         public static string PrintInvoiceHeader {
             get {
@@ -273,6 +282,15 @@ namespace NexFB.Resources {
         public static string RemarkBilingual {
             get {
                 return ResourceManager.GetString("RemarkBilingual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tìm kiếm....
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
             }
         }
         

@@ -75,10 +75,10 @@ namespace NexFB.WinApp.Core.PrintHelper
         {
             LocalPrintServer localPrintServer = new LocalPrintServer(PrintSystemDesiredAccess.AdministrateServer);
             PrintQueue sourcePrintQueue = localPrintServer.DefaultPrintQueue;
+            bool printed = false;
             if (sourcePrintQueue == null)
             {
                 MessageBox.Show(WinFormMainResource.LocalPrinterError, "Errors", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
             }
             else
             {
@@ -89,8 +89,11 @@ namespace NexFB.WinApp.Core.PrintHelper
 
                 XpsDocumentWriter xpsDocumentWriter = PrintQueue.CreateXpsDocumentWriter(sourcePrintQueue);
                 xpsDocumentWriter.Write(documentPaginator);
-                return true;
+                printed = true;
             }
+
+            sourcePrintQueue.Dispose();
+            return printed;
         }
 
         /// <summary>

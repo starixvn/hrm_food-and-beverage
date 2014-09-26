@@ -108,6 +108,8 @@
     </ApplicationDefinition>
     <Compile Include="DependencyProperties\InternetAvailability.cs" />
     <Compile Include="DependencyProperties\NativeMethods.cs" />
+    <Compile Include="DependencyProperties\WaterMark.cs" />
+    <Compile Include="DependencyProperties\WatermarkAdorner.cs" />
     <Compile Include="ViewModels\AwaitingDeliverViewModel.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="Views\ManageOrder\AwaitingDeliver.xaml.cs">

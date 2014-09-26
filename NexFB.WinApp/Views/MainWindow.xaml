@@ -6,7 +6,7 @@
 	xmlns:local="clr-namespace:NexFB.WinApp.ViewModels"
 	xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
 	Title="Order Foods"
-	WindowState="Maximized" WindowStyle="None" AllowsTransparency="False"
+	WindowState="Maximized" AllowsTransparency="False"
 	Height="{Binding DataContext.ScreenHeight, RelativeSource={RelativeSource AncestorType=Window}}" 
 	Width="{Binding DataContext.ScreenWidth, RelativeSource={RelativeSource AncestorType=Window}}">
 
@@ -65,11 +65,12 @@
 		<!--Nex FB Menu-->
 
 		<Grid Grid.Row="1" Margin="0,3,0,0" >
-			<ContentControl Content="{Binding CurrentViewModel}"  Margin="0,0,0,7" Grid.Row="1"/>
+			<ContentControl Mouse.PreviewMouseDown="Contentcontrol_PreviewMouseDown"
+			  x:Name="Contentcontrol" Content="{Binding CurrentViewModel}"  Margin="0,0,0,7" Grid.Row="1"/>
 			<!--Key Pad-->
-			<Grid Mouse.MouseDown="GridKeyPad_LostMouseCapture"
+			<Grid x:Name="GridKeyPad"
 			 Visibility="{Binding Path=KeyPadVisibility}" Height="159" Width="173" 
-			HorizontalAlignment="Left" Margin="747,-8,0,0" VerticalAlignment="Top" Name="GridKeyPad">
+			HorizontalAlignment="Left" Margin="747,-8,0,0" VerticalAlignment="Top">
 				<Grid Background="{DynamicResource IPhoneSteelBackground}" HorizontalAlignment="Left" 
 					Margin="12,12,0,0" Name="grid1" VerticalAlignment="Top" Width="161" Height="147">
 					<Grid.RowDefinitions>
@@ -144,7 +145,8 @@
 
 					<Grid Grid.Row="3" Grid.Column="2">
 						<Border  Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-						<Button Content="OK" FontWeight="Black" x:Name="buttonBack" Background="WhiteSmoke" Command="{Binding NumPadReleased}" CommandParameter="ENTER">
+						<Button
+						Content="OK" FontWeight="Black" x:Name="buttonOk" Background="WhiteSmoke" Command="{Binding NumPadReleased}" CommandParameter="ENTER">
 							<!--<Path Stretch="Fill" Width="21" Height="10" Data="M-32,20.125L-12.375,1.5 -12.375,10.3125 -0.5,10.3125 -0.5,29.9375 -12.375,29.9375 -12.375,39.75 -32,20.125z" Fill="#FF333333"/>-->
 						</Button>
 					</Grid>
@@ -169,8 +171,15 @@
 			<Label Content="{Binding Path=TodayDate}" Foreground="#fff" FontSize="14" Height="26" HorizontalAlignment="Right" Margin="0,0,0,-3" Name="label2" VerticalAlignment="Bottom" Width="81" />
 
 			<Border Background="#fff" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Left" Margin="85,3,0,0" VerticalAlignment="Top" Width="120" Height="39">
-				<Button Command="{Binding Path=DisplayKeyPad}" MinWidth="130" MinHeight="39" Style="{StaticResource TileButton}" Background="#fff" BorderThickness="0" x:Name="SortResult"  Margin="0,0,0,0" FontSize="30"  
-				Content="{Binding Path=SearchResult}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+				<TextBox MinWidth="130" MinHeight="39" Background="#fff" BorderThickness="0" x:Name="SortResult"  Margin="0,0,0,0" FontSize="30"  
+				Text="{Binding Path=SearchResult}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
+				Mouse.PreviewMouseDown="SortResult_PreviewMouseDown" TextChanged="SortResult_TextChanged"
+				MaxLength="2" IsReadOnly="True">
+					<l:Watermark.Watermark>
+						<TextBlock FontSize="24" Margin="5,10,0,0"
+						Text="{x:Static resx:WinFormMainResource.Search}" VerticalAlignment="Center" HorizontalAlignment="Left" MinHeight="39"/>
+					</l:Watermark.Watermark>
+				</TextBox>
 			</Border>
 		</Grid>
 	</Grid>

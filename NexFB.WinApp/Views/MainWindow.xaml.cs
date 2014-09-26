@@ -10,7 +10,10 @@
 namespace NexFB.WinApp
 {
     using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
     using NexFB.WinApp.Core.Constants;
+    using NexFB.WinApp.DependencyProperties;
     using NexFB.WinApp.ViewModels;
 
     /// <summary>
@@ -24,11 +27,49 @@ namespace NexFB.WinApp
             this.DataContext = new MainViewModel();
         }
 
-        private void GridKeyPad_LostMouseCapture(object sender, System.Windows.Input.MouseEventArgs e)
+        /// <summary>
+        /// Show hide keypad.
+        /// </summary>
+        /// <param name="sender">Object sender.</param>
+        /// <param name="e">MouseButton Event.</param>
+        private void SortResult_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            var abc = (MainViewModel)this.DataContext;
-            abc.KeyPadVisibility = Constant.Hidden;
-            e.Handled = true;
+            var currentViewModel = (MainViewModel)this.DataContext;
+            if (currentViewModel.KeyPadVisibility == Constant.Visible)
+            {
+                currentViewModel.KeyPadVisibility = Constant.Hidden;
+            }
+            else
+            {
+                currentViewModel.KeyPadVisibility = Constant.Visible;
+            }
+        }
+
+        /// <summary>
+        /// Sort Result Changed.
+        /// </summary>
+        /// <param name="sender">Object sender.</param>
+        /// <param name="e">Text Change event.</param>
+        private void SortResult_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var itemSender = sender as TextBox;
+            if (!string.IsNullOrEmpty(SortResult.Text))
+            {
+                Watermark.RemoveWatermark(itemSender);
+            }
+            else
+            {
+                Watermark.ShowWatermark(itemSender);
+            }
+        }
+
+        private void Contentcontrol_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var currentViewModel = (MainViewModel)this.DataContext;
+            if (currentViewModel.KeyPadVisibility == Constant.Visible)
+            {
+                currentViewModel.KeyPadVisibility = Constant.Hidden;
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ namespace NexFB.WinApp.ViewModels
     using System;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
+    using System.Media;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
@@ -1029,6 +1030,7 @@ namespace NexFB.WinApp.ViewModels
                 if (currentViewModel == Constant.WaitingMealViewModel)
                 {
                     ((WaitingMealViewModel)CurrentViewModel).GetNewDataForApp();
+                    SystemSounds.Asterisk.Play();
                 }
 
                 timer.Stop();

@@ -94,21 +94,23 @@ namespace NexFB.WinApp.ViewModels
             {
                 NotificationWindow notifyWindows = new NotificationWindow();
                 notifyWindows.Show();
-                switch (releaseMode.ToUpper())
+
+                if (releaseMode.ToUpper().ToString() == "RELEASE")
                 {
-                    case "RELEASE":
-                        bool printed = false;
-                        printed = _printingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
-                        StartCloseTimer(notifyWindows);
-                        return printed;
-                    default:
-                        string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
-                        string[] paths = receiptDocument.Split('\\');
-                        var fileName = paths[paths.Length - 1];
-                        string receiptDocumentCustom = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + fileName;
-                        _printingHelper.ConvertToXps(template, receiptDocumentCustom);
-                        StartCloseTimer(notifyWindows);
-                        return true;
+                    bool printed = false;
+                    printed = _printingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
+                    StartCloseTimer(notifyWindows);
+                    return printed;
+                }
+                else
+                {
+                    string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
+                    string[] paths = receiptDocument.Split('\\');
+                    var fileName = paths[paths.Length - 1];
+                    string receiptDocumentCustom = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + fileName;
+                    _printingHelper.ConvertToXps(template, receiptDocumentCustom);
+                    StartCloseTimer(notifyWindows);
+                    return true;
                 }
             }
 
@@ -118,7 +120,7 @@ namespace NexFB.WinApp.ViewModels
         private void StartCloseTimer(NotificationWindow windows)
         {
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2d);
+            timer.Interval = TimeSpan.FromSeconds(3d);
             timer.Tick += (sender, e) => TimerTick(sender, e, windows);
             timer.Start();
         }

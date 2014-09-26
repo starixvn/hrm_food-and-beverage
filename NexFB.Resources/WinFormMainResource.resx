@@ -144,11 +144,14 @@
   <data name="Export" xml:space="preserve">
     <value>Xuất</value>
   </data>
+  <data name="FloorBilingual" xml:space="preserve">
+    <value>Tầng / Floor : </value>
+  </data>
   <data name="Hidden" xml:space="preserve">
     <value>Hidden</value>
   </data>
   <data name="InvoicePrinting" xml:space="preserve">
-    <value>The invoice is printing...</value>
+    <value>Hóa đơn đang được in...</value>
   </data>
   <data name="LocalPrinterError" xml:space="preserve">
     <value>Local printer error. Please notify the Administrators!</value>
@@ -166,7 +169,7 @@
     <value>In</value>
   </data>
   <data name="PrintInvoiceHeader" xml:space="preserve">
-    <value>Order Meal Invoice</value>
+    <value>Hóa đơn</value>
   </data>
   <data name="QuantityPerOrder" xml:space="preserve">
     <value>  x  </value>
@@ -188,6 +191,9 @@
   </data>
   <data name="RemarkBilingual" xml:space="preserve">
     <value>Ghi chú / Remark : </value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Tìm kiếm...</value>
   </data>
   <data name="SetMenu" xml:space="preserve">
     <value>Set Menu / Qty</value>
