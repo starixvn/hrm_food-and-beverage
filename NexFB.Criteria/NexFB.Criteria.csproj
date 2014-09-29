@@ -69,8 +69,10 @@
     <Compile Include="FoodItemManagement\GetAllFoodItemCriteria.cs" />
     <Compile Include="FoodItemManagement\InsertFoodItemCriteria.cs" />
     <Compile Include="FoodItemManagement\UpdateFoodItemCriteria.cs" />
+    <Compile Include="FoodMenuManagement\DeleteFoodMenuByMenuIdCriteria.cs" />
     <Compile Include="FoodMenuManagement\GetAllFoodMenuCriteria.cs" />
     <Compile Include="FoodMenuManagement\InsertFoodMenuCriteria.cs" />
+    <Compile Include="FoodMenuManagement\UpdateFoodMenuCriteria.cs" />
     <Compile Include="Kitchen\GetAwaitingDeliverMealOrderCriteria.cs" />
     <Compile Include="Kitchen\GetMealOrderByIdCriteria.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>

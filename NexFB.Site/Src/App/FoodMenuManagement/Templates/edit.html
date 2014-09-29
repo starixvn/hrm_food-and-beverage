@@ -33,6 +33,13 @@
                 <label class="col-sm-1 text-right long-text">Price per meal:</label>
                 <div class="col-sm-2 field">
                     <input type="text" class="form-control" />
+        </div>
+        <div>
+            <label class="filterRow">Food items:</label>
+			<div class="menu-box">
+				<select name="foodSelect" class="chosen-select" data-placeholder="Select the food item" multiple multi-select-chosen name="foodItemGroup"
+					ng-model="foodMenu.rawFoodIds" ng-options="opt.FoodId as opt.FoodVnmName for opt in groupOptions">
+				</select>
                 </div>
                 <label class="col-sm-1 text-right short-text">Price per day:</label>
                 <div class="col-sm-2 field">
@@ -51,7 +58,7 @@
 	</div>
 
 	<div class="modal-footer">
-		<button class="button" get-meal-registration data-translate="Submit">
+		<button class="button" data-translate="Submit" ng-click="updateFoodMenu(foodMenu)" >
 		</button>
 		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 		</button>

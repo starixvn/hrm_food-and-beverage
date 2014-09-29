@@ -17,9 +17,9 @@ namespace NexFB.Criteria.FoodMenuManagement
     /// </summary>
     public class InsertFoodMenuCriteria : CriteriaBase
     {
-        public int MenuId { get; set; }
+        public int? MenuId { get; set; }
 
-        public string MenuVemName { get; set; }
+        public string MenuVnmName { get; set; }
 
         public string MenuEngName { get; set; }
 
@@ -50,7 +50,7 @@ namespace NexFB.Criteria.FoodMenuManagement
 
         public override bool IsValid()
         {
-            return MenuId > 0 && !string.IsNullOrEmpty(MenuVemName) && !string.IsNullOrEmpty(MenuEngName);
+            return !string.IsNullOrEmpty(MenuVnmName) && !string.IsNullOrEmpty(MenuEngName);
         }
     }
 }

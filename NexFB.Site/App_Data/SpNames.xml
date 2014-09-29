@@ -177,5 +177,9 @@
 		</Setting>
 		<Setting Key="FoodMenu_Insert" SpName="FoodMenu_Insert" DbName="NexFB" Plain="0" >
 		</Setting>
+		<Setting Key="FoodMenu_DeleteByMenuID" SpName="FoodMenu_DeleteByMenuID" DbName="NexFB" Plain="0" >
+		</Setting>
+		<Setting Key="FoodMenu_EditByMenuID" SpName="FoodMenu_EditByMenuID" DbName="NexFB" Plain="0" >
+		</Setting>
 	</Function>
 </Functions>

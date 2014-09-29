@@ -65,5 +65,29 @@ namespace NexFB.Site.Controllers.API
 
             return _foodMenuService.InsertFoodMenu(criteria);
         }
+
+        public CommandResult DeleteFoodMenu(int menuId)
+        {
+            var criteria = new DeleteFoodMenuByMenuIdCriteria
+            {
+                MenuId = menuId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
+            };
+
+            return _foodMenuService.DeleteFoodMenu(criteria);
+        }
+
+        [HttpPut]
+        public CommandResult UpdateFoodMenu(UpdateFoodMenuCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _foodMenuService.UpdateFoodMenu(criteria);
+        }
     }
 }

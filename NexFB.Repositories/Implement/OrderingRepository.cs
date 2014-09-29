@@ -77,59 +77,7 @@ namespace NexFB.Repositories.Implement
 
                     if (data != null)
                     {
-                        orders = new List<MealOrderingModel>();
-                        var ordersQuatity = multi.Read<MenuQuantityModel, dynamic, MenuQuantityModel>(
-                        (q, m) =>
-                        {
-                            q.Menu = new Menu() 
-                            {
-                                NameEN = m.MealENGName,
-                                NameVN = m.MealVNMName
-                            };
-                            return q;
-                        }, 
-                        "MealENGName");
-
-                        var members = multi.Read<OrderMemberModel, dynamic, OrderMemberModel>(
-                        (mb, d) =>
-                        {
-                            return GetMember(mb, d);
-                        },
-                        "SysID");
-
-                        if (ordersQuatity != null)
-                        {
-                            foreach (MealOrderingModel order in data)
-                            {
-                                foreach (MenuQuantityModel menu in ordersQuatity)
-                                {
-                                    if (order.OrderId == menu.OrderId)
-                                    {
-                                        if (order.MenuQuantity == null)
-                                        {
-                                            order.MenuQuantity = new List<MenuQuantityModel>();
-                                        }
-
-                                        order.MenuQuantity.Add(menu);
-                                    }
-                                }
-
-                                foreach (OrderMemberModel member in members)
-                                {
-                                    if (order.OrderId == member.OrderId)
-                                    {
-                                        if (order.Members == null)
-                                        {
-                                            order.Members = new List<OrderMemberModel>();
-                                        }
-
-                                        order.Members.Add(member);
-                                    }
-                                }
-
-                                orders.Add(order);
-                            }
-                        }
+                        orders = CreateMealOrdering(orders, multi, data);
                     }
                 }
             }
@@ -307,6 +255,76 @@ namespace NexFB.Repositories.Implement
             orderMember.Menu = menu;
 
             return orderMember;
+        }
+
+        /// <summary>
+        /// Create meal ordering.
+        /// </summary>
+        /// <param name="orders">The list order.</param>
+        /// <param name="multipleData">The grid data.</param>
+        /// <param name="data">The data from database.</param>
+        /// <returns>The list Meal Ordering model.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        private IList<MealOrderingModel> CreateMealOrdering(
+            IList<MealOrderingModel> orders,
+            GridReader multipleData,
+            IEnumerable<MealOrderingModel> data)
+        {
+            orders = new List<MealOrderingModel>();
+            var ordersQuatity = multipleData.Read<MenuQuantityModel, dynamic, MenuQuantityModel>(
+            (q, m) =>
+            {
+                q.Menu = new Menu()
+                {
+                    NameEN = m.MealENGName,
+                    NameVN = m.MealVNMName
+                };
+                return q;
+            },
+            "MealENGName");
+
+            var members = multipleData.Read<OrderMemberModel, dynamic, OrderMemberModel>(
+            (mb, d) =>
+            {
+                return GetMember(mb, d);
+            },
+            "SysID");
+
+            if (ordersQuatity != null)
+            {
+                foreach (MealOrderingModel order in data)
+                {
+                    foreach (MenuQuantityModel menu in ordersQuatity)
+                    {
+                        if (order.OrderId == menu.OrderId)
+                        {
+                            if (order.MenuQuantity == null)
+                            {
+                                order.MenuQuantity = new List<MenuQuantityModel>();
+                            }
+
+                            order.MenuQuantity.Add(menu);
+                        }
+                    }
+
+                    foreach (OrderMemberModel member in members)
+                    {
+                        if (order.OrderId == member.OrderId)
+                        {
+                            if (order.Members == null)
+                            {
+                                order.Members = new List<OrderMemberModel>();
+                            }
+
+                            order.Members.Add(member);
+                        }
+                    }
+
+                    orders.Add(order);
+                }
+            }
+
+            return orders;
         }
     }
 }

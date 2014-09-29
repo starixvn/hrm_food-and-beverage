@@ -24,5 +24,9 @@ namespace NexFB.Services.Interface
         IEnumerable<FoodMenuModel> GetAllFoodMenuToFilter(GetAllFoodMenuCriteria criteria);
 
         CommandResult InsertFoodMenu(InsertFoodMenuCriteria criteria);
+
+        CommandResult DeleteFoodMenu(DeleteFoodMenuByMenuIdCriteria criteria);
+
+        CommandResult UpdateFoodMenu(UpdateFoodMenuCriteria criteria);
     }
 }

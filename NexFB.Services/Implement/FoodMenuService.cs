@@ -91,6 +91,42 @@ namespace NexFB.Services.Implement
             return commandResult;
         }
 
+        /// <summary>
+        /// Delete food menu.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult DeleteFoodMenu(DeleteFoodMenuByMenuIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Delete(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
+        /// Update food menu.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult UpdateFoodMenu(UpdateFoodMenuCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
         private IEnumerable<FoodMenuModel> CreateMenuNameMaker(IEnumerable<FoodMenuModel> foodMenus)
         {
             foreach (FoodMenuModel foodMenu in foodMenus)

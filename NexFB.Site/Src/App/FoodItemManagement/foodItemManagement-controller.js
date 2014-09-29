@@ -132,7 +132,7 @@ ErrorFactory) {
 	/*
 	** Edit food item.
 	*/
-	var updateChangeDate = function (food, changedFood) {
+	var updateChangedFoodItem = function (food, changedFood) {
 		food.FoodVnmName = changedFood.FoodVnmName;
 		food.FoodEngName = changedFood.FoodEngName;
 		food.FoodMenus = changedFood.FoodMenus;
@@ -157,7 +157,7 @@ ErrorFactory) {
 		$scope.modalInstance.result.then(function (objFood) {
 			foodItemFactory.updateFoodItem(objFood.editedFood).success(function (response) {
 				if (response.IsSuccessful === true) {
-					updateChangeDate(food, objFood.food);
+					updateChangedFoodItem(food, objFood.food);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
 				else {
