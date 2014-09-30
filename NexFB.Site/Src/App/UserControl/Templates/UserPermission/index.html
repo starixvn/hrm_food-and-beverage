@@ -76,7 +76,7 @@
         <tbody class="table-body">
             <tr ng-repeat="employee in pagedItems[currentPage]">
                 <td class="employee-no">
-                    {{$index + 1}}
+                    {{employee.itemIndex + 1}}
                 </td>
                 <td class="employee-code">
                     {{employee.Code}}

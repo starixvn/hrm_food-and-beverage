@@ -68,7 +68,7 @@
             </thead>
 			<tbody>
 				<tr ng-repeat="food in pagedItems[currentPage] track by food.FoodId">
-					<td class="text-center" ng-bind="$index + 1"></td>
+					<td class="text-center" ng-bind="food.itemIndex + 1"></td>
 					<td ng-bind="food.FoodVnmName"></td>
 					<td ng-bind="food.FoodEngName"></td>
 					<td>

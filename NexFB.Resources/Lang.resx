@@ -465,7 +465,7 @@
   <data name="SelectLocation" xml:space="preserve">
     <value>-- Please select order location --</value>
   </data>
-   <data name="ActivationFail" xml:space="preserve">
+  <data name="ActivationFail" xml:space="preserve">
     <value>Activated unsuccessfully!</value>
   </data>
   <data name="ActivationSuccess" xml:space="preserve">
@@ -498,7 +498,6 @@
   <data name="ShortPricePerDay" xml:space="preserve">
     <value>P.P.Day</value>
   </data>
-
   <data name="ShortPricePerMeal" xml:space="preserve">
     <value>P.P.Meal</value>
   </data>
@@ -516,5 +515,11 @@
   </data>
   <data name="PricePerMeal" xml:space="preserve">
     <value>Price per meal</value>
+  </data>
+  <data name="PricePerDayNote" xml:space="preserve">
+    <value>P.P.Day: Price Per Day</value>
+  </data>
+  <data name="PricePerMealNote" xml:space="preserve">
+    <value>P.P.Meal: Price Per Meal</value>
   </data>
 </root>

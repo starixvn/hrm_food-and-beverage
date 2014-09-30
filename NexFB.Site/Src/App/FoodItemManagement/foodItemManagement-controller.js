@@ -3,9 +3,9 @@
 
 foodItemManagementModule.controller('FoodItemManagementController',
 ['$scope', '$modal', 'foodItemFactory', 'notificationFactory', 'foodMenuFactory', 'commonFactory',
-'ErrorFactory',
+'ErrorFactory', 'foodItemUtilities',
 function ($scope, $modal, foodItemFactory, notificationFactory, foodMenuFactory, commonFactory,
-ErrorFactory) {
+ErrorFactory, foodItemUtilities) {
 	/*
 	** Declare variable.
 	*/
@@ -203,6 +203,8 @@ ErrorFactory) {
 		var keyMessage = '';
 
 		$scope.modalInstance.result.then(function () {
+			newFood.menuGroupId = foodItemUtilities.createMenuGroupIdFromFoodMenu(newFood.FoodMenus);
+
 			foodItemFactory.updateFoodItem(newFood).success(function (response) {
 				if (response.IsSuccessful === true) {
 					keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";

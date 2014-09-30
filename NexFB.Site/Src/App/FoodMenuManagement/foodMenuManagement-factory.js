@@ -24,6 +24,9 @@ foodMenuManagementModule.factory('foodMenuFactory', ['$http', function ($http) {
 		},
 		updateFoodMenu: function (foodMenu) {
 			return $http.put('/api/FoodMenuManagement/UpdateFoodMenu', foodMenu);
+		},
+		activateFoodMenu: function (foodMenu) {
+			return $http.put('/api/FoodMenuManagement/ActivateFoodMenu', foodMenu);
 		}
 	};
 } ]);

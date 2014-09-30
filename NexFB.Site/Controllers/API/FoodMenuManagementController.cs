@@ -89,5 +89,17 @@ namespace NexFB.Site.Controllers.API
 
             return _foodMenuService.UpdateFoodMenu(criteria);
         }
+
+        [HttpPut]
+        public CommandResult ActivateFoodMenu(ActivateFoodMenuCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _foodMenuService.ActivateFoodMenu(criteria);
+        }
     }
 }

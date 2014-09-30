@@ -28,5 +28,7 @@ namespace NexFB.Services.Interface
         CommandResult DeleteFoodMenu(DeleteFoodMenuByMenuIdCriteria criteria);
 
         CommandResult UpdateFoodMenu(UpdateFoodMenuCriteria criteria);
+
+        CommandResult ActivateFoodMenu(ActivateFoodMenuCriteria criteria);
     }
 }

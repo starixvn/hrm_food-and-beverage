@@ -46,7 +46,6 @@ namespace NexFB.Site
                 "~/Src/Components/Libs/angular-resource.js",
                 "~/Src/Components/Libs/angular-route.js",
                 "~/Src/Components/Libs/angular-translate.js",
-                "~/Src/Components/Libs/bootstrap.min.js",
                 "~/Src/Components/Libs/ui-bootstrap-tpls-0.11.0.min.js",
                 "~/Src/Components/Libs/toastr.js",
                 "~/Src/Components/Libs/angular-multi-select.js",

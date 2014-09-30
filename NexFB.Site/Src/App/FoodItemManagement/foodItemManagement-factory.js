@@ -69,5 +69,17 @@ foodItemManagementModule.factory('foodItemUtilities',
 		return menuGroupId;
 	};
 
+	utility.createMenuGroupIdFromFoodMenu = function (foodMenus) {
+		var menuGroupId = '';
+
+		angular.forEach(foodMenus, function (foodMenu) {
+			var id = foodMenu.MenuId;
+
+			menuGroupId = menuGroupId !== '' ? menuGroupId + ',' + id : id;
+		});
+
+		return menuGroupId;
+	};
+
 	return utility;
 } ]);

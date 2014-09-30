@@ -69,6 +69,7 @@
     <Compile Include="FoodItemManagement\GetAllFoodItemCriteria.cs" />
     <Compile Include="FoodItemManagement\InsertFoodItemCriteria.cs" />
     <Compile Include="FoodItemManagement\UpdateFoodItemCriteria.cs" />
+    <Compile Include="FoodMenuManagement\ActivateFoodMenuCriteria.cs" />
     <Compile Include="FoodMenuManagement\DeleteFoodMenuByMenuIdCriteria.cs" />
     <Compile Include="FoodMenuManagement\GetAllFoodMenuCriteria.cs" />
     <Compile Include="FoodMenuManagement\InsertFoodMenuCriteria.cs" />

@@ -3,9 +3,9 @@
 
 foodMenuManagementModule.controller('FoodMenuManagementController',
 ['$scope', '$modal', 'foodMenuFactory', 'notificationFactory', 'commonFactory', 'foodItemFactory',
-'ErrorFactory',
+'ErrorFactory', 'foodMenuUtilities',
 function ($scope, $modal, foodMenuFactory, notificationFactory, commonFactory, foodItemFactory,
-ErrorFactory) {
+ErrorFactory, foodMenuUtilities) {
 	/*
 	** Declare variables.
 	*/
@@ -182,6 +182,57 @@ ErrorFactory) {
 					notificationFactory.error("DataChangeFail");
 				}
 			});
+		})['finally'](function () {
+			$scope.modalInstance = '';
+		});
+	};
+
+	/*
+	** Activate or deactivate food menu.
+	*/
+	$scope.confirmActive = function (foodMenu) {
+		var action = !foodMenu.IsActive ? "activate" : "deactivate",
+			newFoodMenu = {
+				menuId: foodMenu.MenuId,
+				IsActive: !foodMenu.IsActive
+			};
+
+		foodMenu.IsActive = newFoodMenu.IsActive;
+
+		$scope.modalInstance = $modal.open({
+			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			controller: "ModalConfirmController",
+			resolve: {
+				name: function () {
+					return foodMenu.MenuVnmName + ' (' + foodMenu.MenuEngName + ')';
+				},
+				action: function () {
+					return action;
+				}
+			},
+			windowClass: "modal-confirm-center food-item-modal"
+		});
+
+		var keyMessage = '';
+
+		$scope.modalInstance.result.then(function () {
+			foodMenuFactory.activateFoodMenu(newFoodMenu).success(function (response) {
+				if (response.IsSuccessful === true) {
+					keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
+					notificationFactory.success(keyMessage);
+				}
+				else {
+					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+					foodMenu.IsActive = !newFoodMenu.IsActive;
+					notificationFactory.error(keyMessage);
+				}
+			}).error(function () {
+				keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+				foodMenu.IsActive = !newFoodMenu.IsActive;
+				notificationFactory.error(keyMessage);
+			});
+		}, function () {
+			foodMenu.IsActive = !newFoodMenu.IsActive;
 		})['finally'](function () {
 			$scope.modalInstance = '';
 		});
@@ -468,8 +519,8 @@ foodMenuUtilities) {
 			pricePerMeal: foodMenu.PricePerMeal,
 			pricePerDay: foodMenu.PricePerDay,
 			isActive: foodMenu.IsActive,
-			mealId: foodMenuUtilities.getMealId($scope.mealsOption),
-			employeeTypeId: foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption)
+			mealId: foodMenu.mealId,
+			employeeTypeId: foodMenu.employeeTypeId
 		};
 
 		$scope.submitted = true;

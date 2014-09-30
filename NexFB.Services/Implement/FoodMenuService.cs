@@ -123,6 +123,32 @@ namespace NexFB.Services.Implement
             {
                 commandResult = Repository.Update(criteria);
             }
+            else
+            {
+                commandResult.IsSuccessful = false;
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
+        /// Activate or deactivate food menu.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult ActivateFoodMenu(ActivateFoodMenuCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+            else
+            {
+                commandResult.IsSuccessful = false;
+            }
 
             return commandResult;
         }

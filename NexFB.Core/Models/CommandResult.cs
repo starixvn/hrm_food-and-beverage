@@ -24,6 +24,11 @@ namespace NexFB.Core.Models
             {
                 return Code == 0;
             }
+
+            set
+            {
+                IsSuccessful = value;
+            }
         }
     }
 }
