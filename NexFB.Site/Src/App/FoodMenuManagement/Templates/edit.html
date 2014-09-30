@@ -17,15 +17,15 @@
                     <input type="text" class="form-control" ng-model="foodMenu.MenuEngName" />
                 </div>
                 <label class="col-sm-1 text-right short-text">{{"Meal" | translate}}:</label>
-                <div class="col-sm-2 field">
+                <div class="col-sm-2 field selectbox">
 					<select multi-select input-model="mealsOption" button-label="MealEngName" helper-elements="all none"
 						item-label="MealEngName" tick-property="ticked" max-labels="0" class="multi-select">
 					</select>
                 </div>
                 <label class="col-sm-1 text-right long-text">{{"EmployeeType" | translate}}:</label>
-                <div class="col-sm-2 field">
+                <div class="col-sm-2 field selectbox">
 					<select multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId" helper-elements="all none"
-						item-label="EmployeeTypeName" tick-property="ticked" max-labels="0" class="multi-select">
+						item-label="EmployeeTypeName" tick-property="ticked" max-labels="0" class="multi-select employee-type">
 					</select>
                 </div>
             </div>

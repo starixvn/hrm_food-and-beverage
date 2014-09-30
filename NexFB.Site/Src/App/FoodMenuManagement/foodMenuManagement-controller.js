@@ -106,7 +106,7 @@ ErrorFactory) {
 					return $scope.foodItems;
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center food-menu-modal"
 		});
 
 		$scope.modalInstance.result.then(function (foodMenu) {
@@ -167,7 +167,7 @@ ErrorFactory) {
 					return $scope.employeeTypesOption;
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center food-menu-modal"
 		});
 
 		$scope.modalInstance.result.then(function (objFood) {

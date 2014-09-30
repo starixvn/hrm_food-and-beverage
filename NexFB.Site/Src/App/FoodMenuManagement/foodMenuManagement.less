@@ -64,6 +64,9 @@
 	.col-sm-2.field {
 		padding: 0;
 		width: 12%;
+		&.selectbox {
+			width: 13%;
+		}
 	}
 	label.col-sm-1 {
 		padding: 3px 5px 0 0;
@@ -72,10 +75,38 @@
 		width: 14.33%;
 	}
 	.short-text {
-		width: 11.333%;
+		width: 10.333%;
 	}
 }
-
+.food-menu-modal .modal-dialog {
+	width: 1024px;
+	.multiSelect {
+		.button {
+			width: 100%;
+			min-height: 24px !important;
+			position: relative;
+			text-align: left;
+			text-shadow: none;
+			.caret {
+				position: absolute;
+				right: 5px;
+				top: 10px;
+			}
+		}
+		.checkboxLayer {
+			left: 0;
+			min-width: 206px;
+		}
+		.multiSelectItem {
+			min-width: 206px;
+		}
+	}
+	.employee-type .checkboxLayer {
+		left: auto;
+		right: 0;
+		margin-right: 0;
+	}
+}
 .food-menu-body-modal {
 	height: 400px;
 	overflow-y: auto;
