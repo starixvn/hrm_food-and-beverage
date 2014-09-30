@@ -183,6 +183,9 @@
   <data name="PrintInvoiceHeader" xml:space="preserve">
     <value>Order Meal Invoice</value>
   </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity : </value>
+  </data>
   <data name="QuantityPerOrder" xml:space="preserve">
     <value>  x  </value>
   </data>
@@ -209,6 +212,9 @@
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search...</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select All</value>
   </data>
   <data name="SetMenu" xml:space="preserve">
     <value>Set Menu / Qty</value>

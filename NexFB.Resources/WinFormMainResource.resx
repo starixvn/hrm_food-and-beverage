@@ -189,6 +189,9 @@
   <data name="PrintInvoiceHeader" xml:space="preserve">
     <value>Hóa đơn</value>
   </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
   <data name="QuantityPerOrder" xml:space="preserve">
     <value>  x  </value>
   </data>
@@ -215,6 +218,9 @@
   </data>
   <data name="Search" xml:space="preserve">
     <value>Tìm kiếm...</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Chọn hết</value>
   </data>
   <data name="SetMenu" xml:space="preserve">
     <value>Set Menu / Qty</value>

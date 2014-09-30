@@ -459,7 +459,7 @@ namespace NexFB.WinApp.ViewModels
 
         private bool CanExecuteNumPadPressed()
         {
-            if (SearchResult != null && SearchResult.Length == 2)
+            if (SearchResult != null && SearchResult.Length == 3)
             {
                 return false;
             }
@@ -759,7 +759,7 @@ namespace NexFB.WinApp.ViewModels
             switch (currentViewModel)
             {
                 case Constant.WaitingMealViewModel:
-                    ((WaitingMealViewModel)CurrentViewModel).EditDataInWaitingMeals(order);
+                    ((WaitingMealViewModel)CurrentViewModel).GetNewDataForApp();
                     break;
                 case Constant.AwaitingDeliverViewModel:
                     ((AwaitingDeliverViewModel)CurrentViewModel).EditDataInAwaitingDeliverMeals(order);

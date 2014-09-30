@@ -9,7 +9,13 @@
 
 namespace NexFB.WinApp.ViewModels
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Windows.Input;
+    using NexFB.Criteria.Kitchen;
+    using NexFB.Models.Kitchen;
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinApp.Core.Constants;
 
@@ -20,6 +26,8 @@ namespace NexFB.WinApp.ViewModels
     {
         #region Fields
 
+        private static ObservableCollection<Order> _waitingMeals1 = new ObservableCollection<Order>();
+        private static ObservableCollection<Order> _waitingMeals2 = new ObservableCollection<Order>();
         private string _result;
         private string _borderButtonPickRoom;
         private string _borderButtonChooseDishes;
@@ -30,18 +38,75 @@ namespace NexFB.WinApp.ViewModels
 
         #region Constructors
 
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Reviewed. Suppression is OK here.")]
         public OrderFoodViewModel()
         {
+            ChangeButtonBorder(0);
             NumPadPressed = new RelayCommand((x) => CanExecuteNumPadPressed(), (y) => ExecuteNumPadPressed(y));
             NumPadReleased = new RelayCommand((x) => CanExecuteNumPadReleased(), (y) => ExecuteNumPadPressed(y));
             PickRoomCommand = new RelayCommand((x) => CanExecutePickRoomCommand(), (y) => ExecutePickRoomCommand());
             PickGroupCommand = new RelayCommand((x) => CanExecutePickGroupCommand(), (y) => ExecutePickGroupCommand());
             ChooseDishesCommand = new RelayCommand((x) => CanExecuteChooseDishesCommand(), (y) => ExecuteChooseDishesCommand());
+            DefaulMenuSelected = new RelayCommand((x) => CanExecuteMealMenuSelected(), (y) => ExecuteMealMenuSelected(y));
+            DefaultEmployeeSelected = new RelayCommand((x) => CanExecuteEmployeeInGroupSelected(), (y) => ExecuteEmployeeInGroupSelected(y));
+
+            WaitingMeals1 = this.GetWaitingMealOrder;
+            WaitingMeals2 = this.GetWaitingMealOrder;
         }
 
         #endregion
 
         #region Properties
+
+        public ObservableCollection<Order> GetWaitingMealOrder
+        {
+            get
+            {
+                var criteria = new GetWaitingMealOrderCriteria();
+                List<Order> waitingMeals = KitchenService.GetWaitngMealOrder(criteria);
+
+                ObservableCollection<Order> observableWaitingMeals = new ObservableCollection<Order>(waitingMeals);
+                return observableWaitingMeals;
+            }
+        }
+
+        public ObservableCollection<Order> WaitingMeals1
+        {
+            get
+            {
+                return _waitingMeals1;
+            }
+
+            set
+            {
+                if (_waitingMeals1 == value)
+                {
+                    return;
+                }
+
+                _waitingMeals1 = value;
+                OnPropertyChanged("WaitingMeals1");
+            }
+        }
+
+        public ObservableCollection<Order> WaitingMeals2
+        {
+            get
+            {
+                return _waitingMeals2;
+            }
+
+            set
+            {
+                if (_waitingMeals2 == value)
+                {
+                    return;
+                }
+
+                _waitingMeals2 = value;
+                OnPropertyChanged("WaitingMeals2");
+            }
+        }
 
         public string Result
         {
@@ -128,6 +193,10 @@ namespace NexFB.WinApp.ViewModels
 
         public ICommand ChooseDishesCommand { get; set; }
 
+        public ICommand DefaulMenuSelected { get; set; }
+
+        public ICommand DefaultEmployeeSelected { get; set; }
+
         #endregion
 
         #region RelayCommands
@@ -155,6 +224,16 @@ namespace NexFB.WinApp.ViewModels
                 return false;
             }
 
+            return true;
+        }
+
+        public bool CanExecuteMealMenuSelected()
+        {
+            return true;
+        }
+
+        public bool CanExecuteEmployeeInGroupSelected()
+        {
             return true;
         }
 
@@ -221,6 +300,35 @@ namespace NexFB.WinApp.ViewModels
                     break;
             }
         }
+
+        /// <summary>
+        /// Execute Meal Menu Selected.
+        /// </summary>
+        /// <param name="value">Value pass from user interface.</param>
+        public void ExecuteMealMenuSelected(object value)
+        {
+            if (value != null)
+            {
+                var orderId = (int)value;
+                WaitingMeals1.Where(x => x.OrderId != orderId).ToList().ForEach(y => y.IsSelectedMealMenu = false);
+                WaitingMeals1.Where(x => x.OrderId == orderId).FirstOrDefault().IsSelectedMealMenu = true;
+            }
+
+            WaitingMeals1 = new ObservableCollection<Order>(this.WaitingMeals1);
+        }
+
+        public void ExecuteEmployeeInGroupSelected(object value)
+        {
+            if (value != null)
+            {
+                var orderId = (int)value;
+                WaitingMeals2.Where(x => x.OrderId != orderId).ToList().ForEach(y => y.IsSelectedMemberInGroup = false);
+                WaitingMeals2.Where(x => x.OrderId == orderId).FirstOrDefault().IsSelectedMemberInGroup = true;
+            }
+
+            WaitingMeals2 = new ObservableCollection<Order>(this.WaitingMeals2);
+        }
+
         #endregion
 
         #region Methods
@@ -232,7 +340,7 @@ namespace NexFB.WinApp.ViewModels
         public void ChangeButtonBorder(int currentButton)
         {
             string red = Constant.Red;
-            string defaultColor = Constant.DefaultMenuColor;
+            string defaultColor = Constant.DefaultButtonOrderBorderColor;
             switch (currentButton)
             {
                 case 1:

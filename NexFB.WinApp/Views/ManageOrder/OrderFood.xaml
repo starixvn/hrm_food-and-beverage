@@ -8,140 +8,101 @@
 	xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
 	d:DesignHeight="1024" d:DesignWidth="1280">
 	<UserControl.Resources>
-		<DropShadowEffect x:Key="DropShadowEffect" ShadowDepth="1" Direction="-90" BlurRadius="5" />
-		<Style TargetType="Label">
-			<Setter Property="FontSize" Value="22"/>
-		</Style>
-		<LinearGradientBrush x:Key="IPhoneSteelBackground" EndPoint="0.5,1.272" StartPoint="0.5,0">
-			<GradientStop Color="#FF9097A3" Offset="0"/>
-			<GradientStop Color="#FF444D5B" Offset="1"/>
-		</LinearGradientBrush>
-
-		<Style x:Key="buttonBorder" TargetType="Border" >
-			<Setter Property="Button.Effect" Value="{StaticResource DropShadowEffect}"/>
-			<Setter Property="Margin" Value="4"/>
-		</Style>
-
-		<Style TargetType="Button">
-			<!--<Setter Property="ClickMode" Value="Press"/>-->
-			<Setter Property="Margin" Value="4"/>
-			<!--<Setter Property="Button.Effect" Value="{StaticResource DropShadowEffect}"/>-->
-			<Setter Property="FontSize" Value="24"/>
-		</Style>
+		<!--<Style x:Key="buttonKeypad" TargetType="Button" >
+			<Setter Property="FontSize" Value="38"/>
+			<Setter Property="Background" Value="#e2e2e2"/>
+		</Style>-->
 	</UserControl.Resources>
 
 	<Grid>
-		<Grid Background="#E6E6E6" Height="1024" HorizontalAlignment="Left" Name="grid1" VerticalAlignment="Top" Width="455" Margin="6,0,0,0">
-			<Image  Source="pack://application:,,,/Images/no-avatar.jpg"
-			Height="192" HorizontalAlignment="Left" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="172" />
-			<Border Background="#fff" BorderThickness="1" Height="36" HorizontalAlignment="Center" VerticalAlignment="Center" Width="449" Margin="2,194,2,794">
-				<TextBlock FontSize="17"
-				Height="24" Name="textBlock4" Text="3A - MTD - Khu phòng ăn" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-			</Border>
-			<Label Content="{x:Static resx:WinFormMainResource.KeypadInfo}" FontSize="17"
-			 Height="33" HorizontalAlignment="Left" Margin="16,339,0,0" Name="label2" VerticalAlignment="Top" Width="327" />
-			<Grid Height="313" HorizontalAlignment="Left" Margin="6,374,0,0" Name="gridKeyPad" VerticalAlignment="Top" Width="445">
-				<Grid.RowDefinitions>
-					<RowDefinition />
-					<RowDefinition />
-					<RowDefinition />
-					<RowDefinition />
-					<RowDefinition />
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition />
-					<ColumnDefinition />
-					<ColumnDefinition />
-					<ColumnDefinition />
-					<ColumnDefinition />
-				</Grid.ColumnDefinitions>
-
-				<Grid Grid.Row="3">
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button Name="button5" Background="WhiteSmoke" BorderThickness="1" Command="{Binding Path=NumPadPressed}" CommandParameter="NUMPAD7">7</Button>
-				</Grid>
-				<Grid Grid.Column="1" Grid.Row="3">
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button x:Name="button6" Background="WhiteSmoke" Command="{Binding NumPadPressed}" CommandParameter="NUMPAD8" BorderThickness="1" Content="8" />
-				</Grid>
-				<Grid Grid.Column="2" Grid.Row="3">
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button x:Name="button7" Background="WhiteSmoke" Command="{Binding NumPadPressed}" CommandParameter="NUMPAD9" Content="9" />
-				</Grid>
-				<Grid Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2">
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button x:Name="button8" Command="{Binding NumPadReleased}" CommandParameter="BACK">
-						<!--<Path Stretch="Fill" Width="33" Height="21" Data="F1M555.0371,274.4893L552.7871,276.7383L549.9861,273.9373L547.1991,276.7243L545.1131,274.6393L547.9001,271.8523L545.0101,268.9603L547.2601,266.7113L550.1501,269.6023L552.8921,266.8613L554.9761,268.9463L552.2361,271.6883z M555.3751,264.0003L544.8751,264.0003C543.1251,264.1253,535.0001,270.7503,535.0001,272.2503C535.0001,273.7503,543.1251,279.3753,544.8751,279.5003L555.3751,279.5003C558.8751,279.5003,559.3751,277.7093,559.3751,275.5003L559.3751,268.0003C559.3751,265.7913,558.7501,264.0003,555.3751,264.0003" Fill="#FF333333" />-->
-						<Image Source="{Binding Path=ImageCancel}" Height="40" Width="42" /> 
-					</Button>
-				</Grid>
-				<Grid Grid.Row="2">
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button x:Name="button9" Background="WhiteSmoke" Command="{Binding NumPadPressed}" CommandParameter="NUMPAD4" Content="4" />
-				</Grid>
-				<Grid Grid.Column="1" Grid.Row="2">
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button x:Name="button10" Background="WhiteSmoke" Command="{Binding NumPadPressed}" CommandParameter="NUMPAD5" Content="5" />
-				</Grid>
-				<Grid Grid.Column="2" Grid.Row="2">
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button x:Name="button11" Background="WhiteSmoke" Command="{Binding NumPadPressed}" CommandParameter="NUMPAD6" Content="6" />
-				</Grid>
-				<Grid Grid.Row="1">
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button x:Name="button13" Background="WhiteSmoke" Command="{Binding NumPadPressed}" CommandParameter="NUMPAD1" Content="1" />
-				</Grid>
-				<Grid Grid.Column="1" Grid.Row="1">
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button x:Name="button14" Background="WhiteSmoke" Command="{Binding NumPadPressed}" CommandParameter="NUMPAD2" Content="2" />
-				</Grid>
-				<Grid Grid.Column="2" Grid.Row="1">
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button x:Name="button15" Background="WhiteSmoke" Command="{Binding NumPadPressed}" CommandParameter="NUMPAD3" Content="3" />
-				</Grid>
-				<Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button x:Name="button17" Background="WhiteSmoke" Command="{Binding NumPadPressed}" CommandParameter="NUMPAD0" Content="0" />
-				</Grid>
-				<Grid Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" >
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button FontWeight="Black" x:Name="button18" Background="WhiteSmoke" Command="{Binding NumPadPressed}" CommandParameter="NUMPADH" Content="{x:Static resx:WinFormMainResource.ReceiveUpper}"/>
-				</Grid>
-				<Grid Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" >
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button FontWeight="Black" x:Name="buttonKeyH" Background="WhiteSmoke" Command="{Binding NumPadPressed}" CommandParameter="NUMPADS" Content="{x:Static resx:WinFormMainResource.Add}" />
-				</Grid>
-				<Grid Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="2" >
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="4" />
-					<Button FontWeight="Black" x:Name="button19" Background="WhiteSmoke" Command="{Binding NumPadPressed}" CommandParameter="NUMPADM" Content="{x:Static resx:WinFormMainResource.Cancel}" />
-				</Grid>
-				<Grid Grid.ColumnSpan="5">
-					<Border Style="{StaticResource buttonBorder}" Background="Black" CornerRadius="0" />
-					<Label Content="{Binding Result}" HorizontalContentAlignment="Right" Background="WhiteSmoke" Margin="4" />
-				</Grid>
+		<Grid Background="#fff" Height="1024" HorizontalAlignment="Left" Name="grid1" VerticalAlignment="Top" Width="471" Margin="6,0,0,0">
+			<Grid Height="43" Background="#f3f3f3" HorizontalAlignment="Left" Name="grid5" VerticalAlignment="Top" Width="470">
+				<Label FontSize="23" Content="0011" HorizontalAlignment="Left"
+				Margin="8,2,0,6" Name="label3" VerticalAlignment="Center" Height="35" />
+				<Label Content="Ref: 123456789" FontSize="18"
+				 HorizontalAlignment="Right" Margin="0,6,10,6" Name="label4" VerticalAlignment="Center" Height="31" />
+			</Grid>
+			<Grid Height="465" HorizontalAlignment="Left" Margin="0,436,0,0" Name="grid7" VerticalAlignment="Top" Width="470" Background="#E2E2E2">
+				<Label Content="{x:Static resx:WinFormMainResource.KeypadInfo}" Height="40" FontSize="20"
+				 HorizontalAlignment="Left" Margin="8,16,0,0" Name="label2" VerticalAlignment="Top" />
 			</Grid>
 		</Grid>
-		<Grid Background="LightBlue" Height="1024" HorizontalAlignment="Left" Margin="467,0,0,0" Name="grid2" VerticalAlignment="Top" Width="394" />
-		<Grid Background="BlanchedAlmond" Height="1024" HorizontalAlignment="Left" Margin="865,0,0,0" Name="grid3" VerticalAlignment="Top" Width="408" />
-		<Grid Height="186" HorizontalAlignment="Left" Margin="184,6,0,0" Name="grid4" VerticalAlignment="Top" Width="277">
-			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-			</Grid.RowDefinitions>
-			<Label Content="ANGEL DI MARIA" FontWeight="Bold" Foreground="#4091BD"
-			FontSize="20" HorizontalAlignment="Left" Margin="6,6,0,0" Name="label1" VerticalAlignment="Center" />
-			<TextBlock Text="FIDEO" Grid.Row="1" FontSize="18" FontWeight="Bold"
-			Height="23" HorizontalAlignment="Left" Margin="12,4,0,0" Name="textBlock1" VerticalAlignment="Center" />
-			<TextBlock Grid.Row="2" Text="#12345" FontSize="18" FontWeight="Bold"
-			Height="23" HorizontalAlignment="Left" Margin="12,10,0,0" Name="textBlock2"  VerticalAlignment="Center" />
-			<Border Background="#fff" Grid.Row="3" Height="42" HorizontalAlignment="Center" VerticalAlignment="Center" Width="270" Margin="3,2,4,2">
-				<TextBlock Margin="0,5,0,0" FontSize="18" FontWeight="Bold" Height="30" Name="textBlock3" Text="MANCHESTER UTD" Width="257" VerticalAlignment="Center" />
-			</Border>
+		<Grid Background="#FFF" Height="1024" HorizontalAlignment="Left" Margin="483,0,0,0" Name="grid2" VerticalAlignment="Top" Width="322">
+			<ListBox HorizontalAlignment="Left" Name="ListMenuItem" VerticalAlignment="Top" Width="322" BorderBrush="#FFF" BorderThickness="0"
+			ItemsSource="{Binding Path=WaitingMeals1}" Style="{StaticResource CustomLBStyle}">
+				<ListBox.ItemContainerStyle>
+					<Style TargetType="ListBoxItem">
+						<Setter Property="Padding" Value="0"/>
+					</Style>
+				</ListBox.ItemContainerStyle>
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Button Style="{StaticResource MenuTile}" Command="{Binding DataContext.DefaulMenuSelected, RelativeSource={RelativeSource AncestorType=ListBox}}" 
+						CommandParameter="{Binding Path=OrderId}" BorderBrush="#FFF" BorderThickness="0" 
+						Margin="0,3,0,2" MinHeight="60" Width="320">
+							<Label Foreground="#FFF" FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0"
+							VerticalAlignment="Center" Content="{Binding Path=TwoDigitOrderNo}"></Label>
+						</Button>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</Grid>
+		<Grid Background="#FFFFFF" Height="1024" HorizontalAlignment="Left" Margin="811,0,0,0" Name="grid3" VerticalAlignment="Top" Width="462">
+			<Grid Height="60" HorizontalAlignment="Left" Name="grid8" VerticalAlignment="Top" Width="462">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<Button Style="{StaticResource MenuTile}"
+				Height="60" Background="#6CB23F" Foreground="White" FontSize="22"
+				HorizontalAlignment="Center" Name="button4" VerticalAlignment="Center" Width="231">
+					<Label Foreground="#FFF" FontSize="22" HorizontalAlignment="Center" Margin="10,0,0,0"
+							VerticalAlignment="Center" Content="{x:Static resx:WinFormMainResource.SelectAll}"></Label>
+				</Button>
+				<Button Style="{StaticResource MenuTile}" Grid.Column="1" Height="60" Background="#B7B7B7" Foreground="White"
+				HorizontalAlignment="Left" Name="button12" VerticalAlignment="Top" Width="231">
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+						<Label Content="{x:Static resx:WinFormMainResource.Quantity}" FontSize="22" VerticalAlignment="Center" />
+						<Label Content="3" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+					</StackPanel>
+				</Button>
+			</Grid>
+			<Grid Background="#E2E2E2" HorizontalAlignment="Left" Margin="0,63,0,0" Name="grid9" VerticalAlignment="Top" Width="462">
+				<ListBox ItemsSource="{Binding Path=WaitingMeals2}" Style="{StaticResource CustomLBStyle}" Margin="2,3,3,2" BorderThickness="0">
+				<ListBox.ItemContainerStyle>
+					<Style TargetType="ListBoxItem">
+						<Setter Property="Padding" Value="0"/>
+					</Style>
+				</ListBox.ItemContainerStyle>
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+							<Button Command="{Binding DataContext.DefaultEmployeeSelected, RelativeSource={RelativeSource AncestorType=ListBox}}" 
+							CommandParameter="{Binding Path=OrderId}"
+							Height="69" Style="{StaticResource EmployeeInGroupTile}" Background="#fff" Padding="0" Margin="0,0,0,5"
+							HorizontalAlignment="Center" Name="button16" VerticalAlignment="Top" Width="455" >
+								<StackPanel Height="69" HorizontalAlignment="Left" Name="border1" 
+							 VerticalAlignment="Center" Width="455" Orientation="Horizontal">
+								<Image Source="pack://application:,,,/Images/no-avatar.jpg"
+									Name="image2" Stretch="Fill" Width="69" HorizontalAlignment="Left" Height="69"/>
+								<Grid Height="69" Name="grid10" Width="385" VerticalAlignment="Center" HorizontalAlignment="Right" Background="Lavender">
+									<Label Content="Maradona" FontSize="22" Height="41" HorizontalAlignment="Left" 
+										VerticalAlignment="Center" Margin="10,15,0,13" />
+									<Button VerticalAlignment="Center" HorizontalAlignment="Right" BorderBrush="Lavender" Margin="0,1,2,0" Background="Lavender"
+										BorderThickness="0" Name="button20" FontSize="22" Width="61" Height="65" Style="{StaticResource MenuTile}" >
+										<Label Content="..." FontSize="35" Height="67" Foreground="Red" 
+											HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,0,0,12" />
+									</Button>
+								</Grid>
+							</StackPanel>
+						</Button>
+
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+			</Grid>
 		</Grid>
 		<Grid Mouse.PreviewMouseDown="GridActionButton_PreviewMouseDown"
-		Background="#fff" Height="100" HorizontalAlignment="Left" Margin="9,233,0,0" Name="GridActionButton" VerticalAlignment="Top" Width="449">
+		Background="#fff" Height="145" HorizontalAlignment="Left" Margin="6,291,0,0" Name="GridActionButton" VerticalAlignment="Top" Width="470">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition />
 				<ColumnDefinition />
@@ -151,16 +112,116 @@
 				<RowDefinition />
 			</Grid.RowDefinitions>
 			<Button Command="{Binding Path=PickRoomCommand}"
-			Style="{StaticResource OrderTileButton}" Content="{x:Static resx:WinFormMainResource.PickRoom}" Height="44" HorizontalAlignment="Left"
-			Margin="2,5,0,0" Name="button1" VerticalAlignment="Top" Width="220" Background="#49C960" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonPickRoom}" />
+			Style="{StaticResource OrderTileButton}" Content="{x:Static resx:WinFormMainResource.PickRoom}" Height="65" HorizontalAlignment="Left" FontSize="22"
+			Margin="-1,5,0,0" Name="button1" VerticalAlignment="Top" Width="228" Background="#6cb23f" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonPickRoom}" />
 
-			<Button Command="{Binding Path=ChooseDishesCommand}"
-			Style="{StaticResource OrderTileButton}" Content="{x:Static resx:WinFormMainResource.ChooseDishes}" Grid.Column="1" Height="44" HorizontalAlignment="Left" 
-			Margin="2,5,0,0" Name="button2" VerticalAlignment="Top" Width="220" Background="#49C960" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonChooseDishes}"/>
+			<Button Command="{Binding Path=ChooseDishesCommand}" FontSize="22"
+			Style="{StaticResource OrderTileButton}" Content="{x:Static resx:WinFormMainResource.ChooseDishes}" Height="65" HorizontalAlignment="Left" 
+			Margin="0,5,0,0" Name="button2" VerticalAlignment="Top" Width="228" Background="#6cb23f" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonChooseDishes}" Grid.Column="1" />
 
-			<Button Command="{Binding Path=PickGroupCommand}"
-			Style="{StaticResource OrderTileButton}" Content="{x:Static resx:WinFormMainResource.PickGroup}" Grid.Row="1" Height="44" HorizontalAlignment="Left" 
-			Margin="2,1,0,0" Name="button3" VerticalAlignment="Top" Width="220" Background="#49C960" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonPickGroup}" />
+			<Button Command="{Binding Path=PickGroupCommand}" FontSize="22"
+			Style="{StaticResource OrderTileButton}" Content="{x:Static resx:WinFormMainResource.PickGroup}" Grid.Row="1" Height="65" HorizontalAlignment="Left" 
+			Margin="-1,1,0,0" Name="button3" VerticalAlignment="Top" Width="228" Background="#6cb23f" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonPickGroup}" />
+		</Grid>
+		<Grid Height="236" HorizontalAlignment="Left" Background="#e2e2e2"
+		 Margin="6,49,0,0" Name="grid6" VerticalAlignment="Top" Width="470">
+			<Image Source="pack://application:,,,/Images/no-avatar.jpg" Height="181" HorizontalAlignment="Left" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="178" Margin="0,-1,0,0" />
+			<Grid Height="181" HorizontalAlignment="Left" Margin="178,3,0,0" Name="grid4" VerticalAlignment="Top" Width="292">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Label Content="ANGEL DI MARIA" FontWeight="Bold" Foreground="#4091BD" FontSize="20" HorizontalAlignment="Left" Margin="6,8,0,5" Name="label1" VerticalAlignment="Center" />
+				<TextBlock Text="FIDEO" Grid.Row="1" FontSize="20" FontWeight="Bold" Height="23" HorizontalAlignment="Left" Margin="12,6,0,16" Name="textBlock1" VerticalAlignment="Center" />
+				<TextBlock Grid.Row="1" Text="#12345" FontSize="20" FontWeight="Bold" Height="23" HorizontalAlignment="Left" Margin="12,43,0,25" Name="textBlock2" VerticalAlignment="Center" Grid.RowSpan="2" />
+				<Border Background="#fff" Grid.Row="2" Height="42" HorizontalAlignment="Center" VerticalAlignment="Center" Width="280" Margin="6,30,6,18" Grid.RowSpan="2">
+					<TextBlock Margin="0,5,0,0" FontSize="20" FontWeight="Bold" Height="30" Name="textBlock3" Text="MANCHESTER UTD" Width="272" VerticalAlignment="Center" />
+				</Border>
+			</Grid>
+			<Border Background="#fff" BorderThickness="1" Height="43" HorizontalAlignment="Center" VerticalAlignment="Center" Width="456" Margin="8,182,6,6">
+				<TextBlock FontSize="22" Height="35" Name="textBlock4" Text="3A - MTD - Khu phòng ăn" VerticalAlignment="Center" HorizontalAlignment="Center" />
+			</Border>
+		</Grid>
+		<Grid Height="400" HorizontalAlignment="Left" Margin="14,480,0,0" Name="gridKeyPad" VerticalAlignment="Top" Width="452">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Row="3">
+				<Button Style="{StaticResource buttonKeypad}" Name="button5"
+				 BorderThickness="1" Command="{Binding Path=NumPadPressed}" CommandParameter="NUMPAD7" Margin="0,10,-5,-2">7</Button>
+			</Grid>
+			<Grid Grid.Column="1" Grid.Row="3">
+				<Button Style="{StaticResource buttonKeypad}" x:Name="button6" 
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD8" BorderThickness="1" Content="8" Margin="12,10,-17,-2" />
+			</Grid>
+			<Grid Grid.Column="2" Grid.Row="3">
+				<Button Style="{StaticResource buttonKeypad}" x:Name="button7" 
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD9" Content="9" Margin="24,10,-28,-2" Grid.RowSpan="2" />
+			</Grid>
+			<Grid Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2">
+				<Button x:Name="button8" Command="{Binding NumPadReleased}" CommandParameter="BACK" Margin="33,4,4,4" Style="{StaticResource buttonKeypad}">
+					<!--<Path Stretch="Fill" Width="33" Height="21" Data="F1M555.0371,274.4893L552.7871,276.7383L549.9861,273.9373L547.1991,276.7243L545.1131,274.6393L547.9001,271.8523L545.0101,268.9603L547.2601,266.7113L550.1501,269.6023L552.8921,266.8613L554.9761,268.9463L552.2361,271.6883z M555.3751,264.0003L544.8751,264.0003C543.1251,264.1253,535.0001,270.7503,535.0001,272.2503C535.0001,273.7503,543.1251,279.3753,544.8751,279.5003L555.3751,279.5003C558.8751,279.5003,559.3751,277.7093,559.3751,275.5003L559.3751,268.0003C559.3751,265.7913,558.7501,264.0003,555.3751,264.0003" Fill="#FF333333" />-->
+					<Image Source="{Binding Path=ImageCancel}" Height="40" Width="42" />
+				</Button>
+			</Grid>
+			<Grid Grid.Row="2">
+				<Button Style="{StaticResource buttonKeypad}" x:Name="button9" 
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD4" Content="4" Margin="0,7,-5,1" />
+			</Grid>
+			<Grid Grid.Column="1" Grid.Row="2">
+				<Button Style="{StaticResource buttonKeypad}" x:Name="button10" 
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD5" Content="5" Margin="12,7,-17,1" />
+			</Grid>
+			<Grid Grid.Column="2" Grid.Row="2">
+				<Button Style="{StaticResource buttonKeypad}" x:Name="button11" 
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD6" Content="6" Margin="24,7,-27,1" />
+			</Grid>
+			<Grid Grid.Row="1">
+				<Button x:Name="button13"  Style="{StaticResource buttonKeypad}"
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD1" Content="1" Margin="0,4,-5,4" />
+			</Grid>
+			<Grid Grid.Column="1" Grid.Row="1">
+				<Button x:Name="button14"  Style="{StaticResource buttonKeypad}"
+				 Command="{Binding NumPadPressed}" CommandParameter="NUMPAD2" Content="2" Margin="12,4,-17,4" />
+			</Grid>
+			<Grid Grid.Column="2" Grid.Row="1">
+				<Button Style="{StaticResource buttonKeypad}" x:Name="button15" 
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD3" Content="3" Margin="24,4,-27,4" />
+			</Grid>
+			<Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
+				<Button Style="{StaticResource buttonKeypad}" x:Name="button17" 
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD0" Content="0" Margin="0,14,-28,-6" />
+			</Grid>
+			<Grid Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="0,78,0,2" Grid.RowSpan="2">
+				<Button FontWeight="Black" x:Name="button18"  FontSize="31" Style="{StaticResource buttonKeypad}"
+				 Command="{Binding NumPadPressed}" CommandParameter="NUMPADH" Content="{x:Static resx:WinFormMainResource.ReceiveUpper}" Margin="33,9,4,-1" />
+			</Grid>
+			<Grid Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2">
+				<Button FontWeight="Black" x:Name="buttonKeyH"  FontSize="31" Style="{StaticResource buttonKeypad}"
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPADS" Content="{x:Static resx:WinFormMainResource.Cancel}" Margin="33,14,4,-6" />
+			</Grid>
+			<Grid Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="2">
+				<Button FontWeight="Black" x:Name="button19"  FontSize="31" Style="{StaticResource buttonKeypad}"
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPADM" Content="{x:Static resx:WinFormMainResource.Add}" Margin="33,10,4,-2" />
+			</Grid>
+			<Grid Grid.ColumnSpan="5" Height="60">
+				<Border VerticalAlignment="Center" HorizontalAlignment="Center" Height="60" Width="450">
+					<Label Width="450" Height="60" Content="{Binding Result}" HorizontalContentAlignment="Right" VerticalAlignment="Center" FontSize="35" Background="#fff"/>
+				</Border>
+			</Grid>
 		</Grid>
 	</Grid>
 

@@ -26,8 +26,24 @@
 								<Grid Width="105" Height="95" Background="#464646" VerticalAlignment="Top" Margin="-9,0,0,0">
 									<Label Height="60" Content="{Binding Path=TwoDigitOrderNo}" Foreground="White" HorizontalAlignment="Center" FontSize="45" VerticalAlignment="Center" Margin="4,5,4,31"></Label>
 									<Border Height="30" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Left" Margin="4,62,0,0" VerticalAlignment="Top" Width="103">
-										<TextBlock Margin="0,7,0,0" Foreground="White" FontSize="11.5" Text="{Binding Path=RegisterDateString}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-									</Border>
+									<TextBlock Margin="0,7,0,0" Foreground="White" FontSize="11.5" VerticalAlignment="Center" HorizontalAlignment="Center">
+										<TextBlock.Style>
+											<Style TargetType="TextBlock">
+												<Style.Triggers>
+													<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="1">
+														<Setter Property="Text" Value="{Binding Path=RegisterDateString}"/>
+													</DataTrigger>
+													<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="2">
+														<Setter Property="Text" Value="{Binding Path=ReceiveDateString}"/>
+													</DataTrigger>
+													<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="3">
+														<Setter Property="Text" Value="{Binding Path=ReceiveDateString}"/>
+													</DataTrigger>
+												</Style.Triggers>
+											</Style>
+										</TextBlock.Style>
+									</TextBlock>
+								</Border>
 
 								</Grid>
 

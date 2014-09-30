@@ -124,13 +124,96 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
-					<Border Name="border" CornerRadius="0" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
+					<Border Name="border" CornerRadius="0" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
 						<ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center">
 						</ContentPresenter>
 					</Border>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsPressed" Value="True">
 							<Setter Property="BorderBrush" TargetName="border" Value="#FF0000"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="MenuTile" TargetType="Button">
+		<Setter Property="FontSize" Value="23" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Border Name="border" CornerRadius="0" Background="{TemplateBinding Background}"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
+						<ContentPresenter x:Name="contentPresenter">
+						</ContentPresenter>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter Property="BorderBrush" TargetName="border" Value="#FF0000"/>
+						</Trigger>
+						<DataTrigger Binding="{Binding Path=IsSelectedMealMenu}" Value="True">
+							<Setter Property="Background" Value="#001CD1"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Path=IsSelectedMealMenu}" Value="False">
+							<Setter Property="Background" Value="#46A3E1"/>
+						</DataTrigger>
+						<!--<Trigger Property="IsPressed" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard Storyboard.TargetProperty="Background.Color">
+										<ColorAnimation To="Red" />
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+						</Trigger>-->
+	
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="EmployeeInGroupTile" TargetType="Button">
+		<Setter Property="FontSize" Value="23" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Border Name="border" CornerRadius="0" Background="{TemplateBinding Background}"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+						<ContentPresenter x:Name="contentPresenter">
+						</ContentPresenter>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter Property="BorderBrush" TargetName="border" Value="#FF0000"/>
+						</Trigger>
+						<DataTrigger Binding="{Binding Path=IsSelectedMemberInGroup}" Value="True">
+							<Setter Property="BorderBrush" Value="#FF0000"/>
+							<Setter Property="BorderThickness" Value="3" />
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Path=IsSelectedMemberInGroup}" Value="False">
+							<Setter Property="BorderBrush" Value="#fff"/>
+						</DataTrigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="buttonKeypad" TargetType="Button">
+		<Setter Property="FontSize" Value="38" />
+		<Setter Property="Background" Value="#e2e2e2"/>
+		<Setter Property="Foreground" Value="#464646" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Border Name="border" CornerRadius="0" Background="#e2e2e2"  BorderBrush="#737373" BorderThickness="1">
+						<ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center">
+						</ContentPresenter>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter Property="BorderBrush" TargetName="border" Value="#FF0000"/>
+							<Setter Property="BorderThickness" TargetName="border" Value="3"/>
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
@@ -367,7 +450,7 @@
 								<Border 
                                 CornerRadius="2"
                                 Margin="1"
-                                Opacity="0.7"
+                                Opacity="0.5"
                                 Background="{TemplateBinding Background}">
 									<Grid
                                     SnapsToDevicePixels="true">

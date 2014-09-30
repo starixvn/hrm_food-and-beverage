@@ -25,6 +25,10 @@ namespace NexFB.Models.Kitchen
 
         public DateTime RegisterDate { get; set; }
 
+        public DateTime ReceiveDate { get; set; }
+
+        public DateTime DeliverDate { get; set; }
+
         public int OrderId { get; set; }
 
         public int OrderNo { get; set; }
@@ -57,6 +61,10 @@ namespace NexFB.Models.Kitchen
 
         public int InvoiceNumber { get; set; }
 
+        public bool IsSelectedMealMenu { get; set; }
+
+        public bool IsSelectedMemberInGroup { get; set; }
+
         public string PrintLabel
         {
             get
@@ -79,6 +87,30 @@ namespace NexFB.Models.Kitchen
             get
             {
                 return string.Format("{0:dd/MM/yyyy HH:mm}", RegisterDate);
+            }
+        }
+
+        public string ReceiveDateString
+        {
+            get
+            {
+                return string.Format("{0:dd/MM/yyyy HH:mm}", ReceiveDate);
+            }
+        }
+
+        public string DeliverDateString
+        {
+            get
+            {
+                return string.Format("{0:dd/MM/yyyy HH:mm}", DeliverDate);
+            }
+        }
+
+        public string CurrentDateString
+        {
+            get
+            {
+                return string.Format("{0:dd/MM/yyyy HH:mm}", DateTime.Now);
             }
         }
 

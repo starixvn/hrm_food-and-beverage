@@ -73,8 +73,11 @@ namespace NexFB.Repositories.Implement
                     if (orderDetails != null)
                     {
                         orderDetails.ListMenu = menus;
-                        bool isEdited = menus.Any(x => x.IsDeleted == true);
-                        orderDetails.IsEdited = isEdited;
+                        if (orderDetails.CurrentStatusId == 2 || orderDetails.CurrentStatusId == 3)
+                        {
+                            bool isEdited = menus.Any(x => x.IsDeleted == true);
+                            orderDetails.IsEdited = isEdited;
+                        }
                     }
                 }
             }

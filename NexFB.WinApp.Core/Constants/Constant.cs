@@ -52,6 +52,8 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string DefaultMenuColor = "#fff";
 
+        public const string DefaultButtonOrderBorderColor = "#BCB304";
+
         public const string Hidden = "Hidden";
 
         public const string Visible = "Visible";
@@ -87,6 +89,8 @@ namespace NexFB.WinApp.Core.Constants
         public const string CancelImageActive = "pack://application:,,,/Images/button_cancel.png";
 
         public const string CancelImageDisabled = "pack://application:,,,/Images/button_cancel_disabled.png";
+
+        public const string DefaultMealMenuSelected = "#46A3E1";
 
         private Constant()
         {
