@@ -26,33 +26,25 @@
             </div>
         </form>
     </div>
-	<div class="row pull-right ">
-		<a class="button-icon" ng-click="addFoodItem()" ng-if="policy.permission == 2">
-			<span class="icon plus"></span>
-			<span class="button-text" data-translate="CreateFoodItem"></span>
-		</a>
-    </div>
     <div class="row table-fooditem">
         <table class="table table-bordered table-striped col-sm-12">
             <thead>
 				<tr class="header-table">
 					<th colspan="6" ng-show="policy.permission == 2">
 						<div class="pull-left table-entries">
-							<span data-translate="Show"></span>
-							<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
-								ng-options="entry for entry in entries">
-							</select>
-							<span data-translate="entries"></span>
+							<a class="button-icon" ng-click="addFoodItem()" ng-if="policy.permission == 2">
+								<span class="icon plus"></span>
+								<span class="button-text" data-translate="CreateFoodItem"></span>
+							</a>
 						</div>
 						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
 					</th>
 					<th colspan="5" ng-show="policy.permission == 1">
 						<div class="pull-left table-entries">
-							<span data-translate="Show"></span>
-							<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
-								ng-options="entry for entry in entries">
-							</select>
-							<span data-translate="entries"></span>
+							<a class="button-icon" ng-click="addFoodItem()" ng-if="policy.permission == 2">
+								<span class="icon plus"></span>
+								<span class="button-text" data-translate="CreateFoodItem"></span>
+							</a>
 						</div>
 						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
 					</th>
@@ -100,6 +92,13 @@
 			<tfoot>
 				<tr>
 					<td colspan="6" class="paging" >
+						<div class="pull-left table-entries">
+							<span data-translate="Show"></span>
+							<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
+								ng-options="entry for entry in entries">
+							</select>
+							<span data-translate="entries"></span>
+						</div>
 						<pagination-bar></pagination-bar>
 					</td>
 				</tr>

@@ -466,7 +466,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (Eng).
+        ///   Looks up a localized string similar to (English).
         /// </summary>
         public static string FoodEngName {
             get {

@@ -424,7 +424,7 @@
     <value>The Food item (Eng) field is required!</value>
   </data>
   <data name="FoodEngName" xml:space="preserve">
-    <value>(Eng)</value>
+    <value>(English)</value>
   </data>
   <data name="FoodItemVnmName" xml:space="preserve">
     <value>Food item (Vie)</value>

@@ -342,7 +342,6 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 	** Add new food menu.
 	*/
 	$scope.addFoodMenu = function (foodMenu) {
-		$scope.submitted = true;
 		$scope.disabledSubmitButton = true;
 
 		if (foodMenu) {
@@ -363,21 +362,17 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 	** Add new food menu and continue.
 	*/
 	$scope.addAndContinue = function (foodMenu) {
-		$scope.submitted = true;
 		$scope.disabledSubmitButton = true;
 
 		if (foodMenu) {
-			foodMenu.mealId = foodMenuUtilities.getMealId();
-			foodMenu.employeeTypeId = foodMenuUtilities.getEmployeeTypeId();
+			foodMenu.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
+			foodMenu.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
 		}
 
 		if (foodMenuUtilities.validateFoodMenu(foodMenu) === true) {
 			foodMenu.foodId = foodMenuUtilities.createFoodId(foodMenu.rawFoodIds);
 
 			foodMenuFactory.insertFoodMenu(foodMenu).success(function (response) {
-				$scope.submitted = false;
-				$scope.disabledSubmitButton = false;
-
 				if (response.IsSuccessful === true) {
 					$scope.$broadcast("resetFoodMenu");
 					notificationFactory.success("DataChangeSuccessfully");

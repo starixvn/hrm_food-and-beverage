@@ -106,8 +106,7 @@ appModule.directive('addClassToRoleFilter', ['$compile', function ($compile) {
 	return {
 		restrict: 'E',
 		link: function (scope) {
-			var roleGroup = $("[name='multiSelectOption']"),
-				button = roleGroup.find("button.multiSelectButton");
+			var button = $("button.multiSelectButton");
 
 			button.removeClass('button').addClass('form-control');
 			$compile(button)(scope);
