@@ -56,7 +56,7 @@ ErrorFactory) {
 	/*
 	** Get all food item.
 	*/
-	foodItemFactory.getAllFoodItem(null, null).success(function (foodItems) {
+	foodItemFactory.getAllFoodItem(null, true).success(function (foodItems) {
 		$scope.foodItems = foodItems;
 	}).error(function () {
 		notificationFactory.error("ErrorMessage");
@@ -147,6 +147,7 @@ ErrorFactory) {
 		foodMenu.FoodItems = changedFoodMenu.FoodItems;
 		foodMenu.EmployeeTypes = changedFoodMenu.EmployeeTypes;
 		foodMenu.Meals = changedFoodMenu.Meals;
+		foodMenu.NumberFoodItems = changedFoodMenu.NumberFoodItems;
 	};
 
 	$scope.edit = function (foodMenu) {
@@ -387,6 +388,8 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 				else {
 					notificationFactory.error("ErrorMessage");
 				}
+			})['finally'](function () {
+				$scope.disabledSubmitButton = false;
 			});
 		}
 		else {
@@ -411,6 +414,21 @@ foodMenuUtilities) {
 	$scope.groupOptions = foodItems;
 	$scope.mealsOption = mealsOption;
 	$scope.employeeTypesOption = employeeTypesOption;
+
+	/*
+	** Create list food item Id.
+	*/
+	var createFoodIds = function (foodItems) {
+		var foodIds = [];
+
+		angular.forEach(foodItems, function (foodItem) {
+			foodIds.push(foodItem.FoodId);
+		});
+
+		return foodIds;
+	};
+
+	$scope.foodMenu.rawFoodIds = createFoodIds(foodMenu.FoodItems);
 
 	/*
 	** Check meal that belong to food menu.
@@ -518,6 +536,35 @@ foodMenuUtilities) {
 	};
 
 	/*
+	** Update Food Items.
+	*/
+	var getFoodItemById = function (foodId, allFoodItems) {
+		var foodItem = '',
+			numberFoodItem = allFoodItems.length;
+
+		for (var i = 0; i < numberFoodItem; i++) {
+			var currentFoodItem = allFoodItems[i];
+
+			if (currentFoodItem.FoodId === foodId) {
+				return currentFoodItem;
+			}
+		}
+
+		return foodItem;
+	};
+
+	var updateFoodItems = function (rawFoodIds) {
+		var foodItems = [];
+
+		angular.forEach(rawFoodIds, function (foodId) {
+			var addedFoodItem = getFoodItemById(foodId, $scope.groupOptions);
+			foodItems.push(addedFoodItem);
+		});
+
+		return foodItems;
+	};
+
+	/*
 	** Update food menu.
 	*/
 	$scope.updateFoodMenu = function (foodMenu) {
@@ -538,19 +585,20 @@ foodMenuUtilities) {
 			employeeTypeId: foodMenu.employeeTypeId
 		};
 
-		$scope.submitted = true;
 		$scope.disabledSubmitButton = true;
 
 		if (foodMenuUtilities.validateFoodMenu(editedFoodMenu) === true) {
 			foodMenu.Meals = updateMeals(editedFoodMenu.mealId);
 			foodMenu.EmployeeTypes = updateEmployeeTypes(editedFoodMenu.employeeTypeId);
+			foodMenu.FoodItems = updateFoodItems(foodMenu.rawFoodIds);
+			foodMenu.NumberFoodItems = foodMenu.rawFoodIds.length;
+			editedFoodMenu.foodId = foodMenuUtilities.createFoodId(foodMenu.rawFoodIds);
 
 			var objFood = {
 				editedFoodMenu: editedFoodMenu,
 				foodMenu: foodMenu
 			};
 
-			editedFoodMenu.foodId = foodMenuUtilities.createFoodId(foodMenu.rawFoodIds);
 			$modalInstance.close(objFood);
 		}
 		else {

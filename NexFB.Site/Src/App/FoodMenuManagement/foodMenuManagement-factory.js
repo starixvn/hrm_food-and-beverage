@@ -72,7 +72,7 @@ function (notificationFactory) {
 
 		angular.forEach(mealsOption, function (value) {
 			if (value.ticked === true) {
-				var id = value.MealId;
+				var id = value.MealId.toString();
 				mealId = mealId !== '' ? mealId + ',' + id : id;
 			}
 		});
@@ -85,7 +85,7 @@ function (notificationFactory) {
 
 		angular.forEach(employeeTypesOption, function (value) {
 			if (value.ticked === true) {
-				var id = value.EmployeeTypeId;
+				var id = value.EmployeeTypeId.toString();
 				employeeTypeId = employeeTypeId !== '' ? employeeTypeId + ',' + id : id;
 			}
 		});

@@ -357,6 +357,8 @@ foodItemUtilities) {
 				else {
 					notificationFactory.error("ErrorMessage");
 				}
+			})['finally'](function () {
+				$scope.disabledSubmitButton = false;
 			});
 		}
 		else {

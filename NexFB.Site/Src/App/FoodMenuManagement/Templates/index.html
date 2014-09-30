@@ -3,10 +3,6 @@
         <ul class="breadcrumb list-inline pull-left">
 			<li class="current" data-translate="FoodMenuManagement"></li>
         </ul>
-         <a class="button-icon" ng-click="addFoodMenu()" >
-            <span class="icon plus"></span>
-            <span class="button-text" data-translate="CreateFoodMenu"></span>
-        </a>
     </div>
     <div class="row filter">
         <form class="form-inline" role="form">
@@ -35,11 +31,10 @@
 				<tr class="header-table">
 					<th colspan="11">
 						<div class="pull-left table-entries">
-							<span data-translate="Show"></span>
-							<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
-								ng-options="entry for entry in entries">
-							</select>
-							<span data-translate="entries"></span>
+							<a class="button-icon" ng-click="addFoodMenu()" >
+								<span class="icon plus"></span>
+								<span class="button-text" data-translate="CreateFoodMenu"></span>
+							</a>
 						</div>
 						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
 					</th>
@@ -113,6 +108,11 @@
 			<tfoot>
 				<tr>
 					<td colspan="11" class="paging" >
+						<span data-translate="Show"></span>
+						<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
+							ng-options="entry for entry in entries">
+						</select>
+						<span data-translate="entries"></span>
 						<pagination-bar></pagination-bar>
 					</td>
 				</tr>
