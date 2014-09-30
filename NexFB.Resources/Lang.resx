@@ -522,4 +522,19 @@
   <data name="PricePerMealNote" xml:space="preserve">
     <value>P.P.Meal: Price Per Meal</value>
   </data>
+  <data name="FoodMenuEmployeeTypeRequire" xml:space="preserve">
+    <value>The Employee type field is required!</value>
+  </data>
+  <data name="FoodMenuEngNameRequire" xml:space="preserve">
+    <value>The Menu name (Eng) field is required!</value>
+  </data>
+  <data name="FoodMenuMealRequire" xml:space="preserve">
+    <value>The Meal field is required!</value>
+  </data>
+  <data name="FoodMenuPriceRequire" xml:space="preserve">
+    <value>The Price per Meal or Price per Day field is required!</value>
+  </data>
+  <data name="FoodMenuVnmNameRequire" xml:space="preserve">
+    <value>The Menu name (Vie) field is required!</value>
+  </data>
 </root>

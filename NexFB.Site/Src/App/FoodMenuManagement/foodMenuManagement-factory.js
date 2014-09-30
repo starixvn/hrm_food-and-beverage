@@ -31,32 +31,40 @@ foodMenuManagementModule.factory('foodMenuFactory', ['$http', function ($http) {
 	};
 } ]);
 
-foodMenuManagementModule.factory('foodMenuUtilities', [function () {
+foodMenuManagementModule.factory('foodMenuUtilities', ['notificationFactory',
+function (notificationFactory) {
 	var utility = {};
 
 	utility.validateFoodMenu = function (foodMenu) {
+		var valid = true;
+
 		if (!foodMenu) {
 			return false;
 		}
 		else {
-			if (!foodMenu.menuVnmName) {
-				return false;
-			}
-			if (!foodMenu.menuEngName) {
-				return false;
-			}
-			if (!foodMenu.mealId) {
-				return false;
+			if (!foodMenu.pricePerMeal && !foodMenu.pricePerDay) {
+				notificationFactory.error("FoodMenuPriceRequire");
+				valid = false;
 			}
 			if (!foodMenu.employeeTypeId) {
-				return false;
+				notificationFactory.error("FoodMenuEmployeeTypeRequire");
+				valid = false;
 			}
-			if (!foodMenu.pricePerMeal && !foodMenu.pricePerDay) {
-				return false;
+			if (!foodMenu.mealId) {
+				notificationFactory.error("FoodMenuMealRequire");
+				valid = false;
+			}
+			if (!foodMenu.menuEngName) {
+				notificationFactory.error("FoodMenuEngNameRequire");
+				valid = false;
+			}
+			if (!foodMenu.menuVnmName) {
+				notificationFactory.error("FoodMenuVnmNameRequire");
+				valid = false;
 			}
 		}
 
-		return true;
+		return valid;
 	};
 
 	utility.getMealId = function (mealsOption) {

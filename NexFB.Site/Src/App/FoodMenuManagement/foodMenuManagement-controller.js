@@ -14,6 +14,7 @@ ErrorFactory, foodMenuUtilities) {
 		employeeTypeId: ''
 	};
 
+	$scope.originalPage = 0;
 	/*
 	** If route change, close dialog.
 	*/
@@ -68,6 +69,7 @@ ErrorFactory, foodMenuUtilities) {
 		foodMenuFactory.getAllFoodMenu(mealId, employeeTypeId).success(function (foodMenus) {
 			$scope.foodMenus = foodMenus;
 			commonFactory.tablePagination($scope, $scope.foodMenus, $scope.entrySelected);
+			$scope.currentPage = $scope.originalPage;
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
 		});
@@ -88,6 +90,8 @@ ErrorFactory, foodMenuUtilities) {
 	** Add food menu.
 	*/
 	$scope.addFoodMenu = function () {
+		$scope.originalPage = $scope.currentPage;
+
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/app/FoodMenuManagement/Templates/create.html',
 			controller: "CreateFoodMenuController",
@@ -125,6 +129,7 @@ ErrorFactory, foodMenuUtilities) {
 				}
 			});
 		})['finally'](function () {
+			getAllFoodMenu(null, null, null);
 			$scope.modalInstance = '';
 		});
 	};
@@ -297,11 +302,13 @@ ErrorFactory, foodMenuUtilities) {
 } ]);
 
 foodMenuManagementModule.controller('CreateFoodMenuController',
-['$scope', '$modalInstance', 'mealsOption', 'employeeTypesOption', 'foodItems', 'foodMenuUtilities', 
+['$scope', '$modalInstance', 'mealsOption', 'employeeTypesOption', 'foodItems', 'foodMenuUtilities',
 'foodMenuFactory', 'notificationFactory', 'ErrorFactory',
 function ($scope, $modalInstance, mealsOption, employeeTypesOption, foodItems, foodMenuUtilities,
 foodMenuFactory, notificationFactory, ErrorFactory) {
-
+	/*
+	** Declare variables.
+	*/
 	$scope.mealsOption = mealsOption;
 	$scope.employeeTypesOption = employeeTypesOption;
 	$scope.groupOptions = foodItems;
@@ -324,6 +331,16 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 		idProp: 'MealId'
 	};
 
+	/*
+	** Set form scope to current scope.
+	*/
+	$scope.setFormScope = function (formScope) {
+		$scope.formScope = formScope;
+	};
+
+	/*
+	** Add new food menu.
+	*/
 	$scope.addFoodMenu = function (foodMenu) {
 		$scope.submitted = true;
 		$scope.disabledSubmitButton = true;
@@ -342,6 +359,9 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 		}
 	};
 
+	/*
+	** Add new food menu and continue.
+	*/
 	$scope.addAndContinue = function (foodMenu) {
 		$scope.submitted = true;
 		$scope.disabledSubmitButton = true;
@@ -465,7 +485,7 @@ foodMenuUtilities) {
 			mealIdList = mealIds.split(',');
 
 		angular.forEach(mealIdList, function (mealId) {
-			var addedMeal = getMealById(mealId, $scope.mealsOption);
+			var addedMeal = getMealById(parseInt(mealId), $scope.mealsOption);
 			updateMeals.push(addedMeal);
 		});
 
@@ -491,15 +511,15 @@ foodMenuUtilities) {
 	};
 
 	var updateEmployeeTypes = function (employeeTypeIds) {
-		var updateEmployeeTypes = [],
+		var updateEmployeeTypeList = [],
 			employeeTypeIdList = employeeTypeIds.split(',');
 
 		angular.forEach(employeeTypeIdList, function (employeeTypeId) {
-			var addedEmployeeType = getEmployeeTypeById(employeeTypeId, $scope.employeeTypesOption);
-			updateEmployeeTypes.push(addedEmployeeType);
+			var addedEmployeeType = getEmployeeTypeById(parseInt(employeeTypeId), $scope.employeeTypesOption);
+			updateEmployeeTypeList.push(addedEmployeeType);
 		});
 
-		return updateMeals;
+		return updateEmployeeTypeList;
 	};
 
 	/*

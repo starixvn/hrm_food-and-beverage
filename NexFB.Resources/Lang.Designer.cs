@@ -529,11 +529,29 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Employee type field is required!.
+        /// </summary>
+        public static string FoodMenuEmployeeTypeRequire {
+            get {
+                return ResourceManager.GetString("FoodMenuEmployeeTypeRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Menu (Eng).
         /// </summary>
         public static string FoodMenuEng {
             get {
                 return ResourceManager.GetString("FoodMenuEng", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Menu name (Eng) field is required!.
+        /// </summary>
+        public static string FoodMenuEngNameRequire {
+            get {
+                return ResourceManager.GetString("FoodMenuEngNameRequire", resourceCulture);
             }
         }
         
@@ -547,6 +565,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Meal field is required!.
+        /// </summary>
+        public static string FoodMenuMealRequire {
+            get {
+                return ResourceManager.GetString("FoodMenuMealRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Menu name (Vie).
         /// </summary>
         public static string FoodMenuNameVnm {
@@ -556,11 +583,29 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Price per Meal or Price per Day field is required!.
+        /// </summary>
+        public static string FoodMenuPriceRequire {
+            get {
+                return ResourceManager.GetString("FoodMenuPriceRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Menu (Vie).
         /// </summary>
         public static string FoodMenuVnm {
             get {
                 return ResourceManager.GetString("FoodMenuVnm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Menu name (Vie) field is required!.
+        /// </summary>
+        public static string FoodMenuVnmNameRequire {
+            get {
+                return ResourceManager.GetString("FoodMenuVnmNameRequire", resourceCulture);
             }
         }
         
