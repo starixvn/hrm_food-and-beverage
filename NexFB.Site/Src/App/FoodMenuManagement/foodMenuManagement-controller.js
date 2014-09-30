@@ -3,9 +3,9 @@
 
 foodMenuManagementModule.controller('FoodMenuManagementController',
 ['$scope', '$modal', 'foodMenuFactory', 'notificationFactory', 'commonFactory', 'foodItemFactory',
-'ErrorFactory', 'foodMenuUtilities',
+'ErrorFactory',
 function ($scope, $modal, foodMenuFactory, notificationFactory, commonFactory, foodItemFactory,
-ErrorFactory, foodMenuUtilities) {
+ErrorFactory) {
 	/*
 	** Declare variables.
 	*/
