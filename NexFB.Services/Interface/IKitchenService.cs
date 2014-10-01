@@ -11,6 +11,7 @@ namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
     using NexFB.Core.Models;
+    using NexFB.Criteria.Employee;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
 
@@ -34,5 +35,13 @@ namespace NexFB.Services.Interface
         Order GetOrderDetails(GetOrderDetailsCriteria criteria);
 
         Order GetMealOrderById(GetMealOrderByIdCriteria criteria);
+
+        List<GroupOrder> GetAllGroupOrder(GetGroupNameCriteria criteria);
+
+        List<FoodOrder> GetAllFoodOrder(GetFoodNameCriteria criteria);
+
+        List<EmployeeInfo> GetUserByGroupId(GetUserByGroupIdCriteria criteria);
+
+        List<EmployeeInfo> GetEmployeeOrderInfo(GetEmployeeByCodeCriteria criteria);
     }
 }

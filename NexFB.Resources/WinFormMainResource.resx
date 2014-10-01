@@ -190,7 +190,7 @@
     <value>Hóa đơn</value>
   </data>
   <data name="Quantity" xml:space="preserve">
-    <value>Số lượng</value>
+    <value>Số lượng : </value>
   </data>
   <data name="QuantityPerOrder" xml:space="preserve">
     <value>  x  </value>

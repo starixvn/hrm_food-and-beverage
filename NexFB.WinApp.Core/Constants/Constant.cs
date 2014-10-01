@@ -38,6 +38,8 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string DefaultCulture = "vi-VN";
 
+        public const string EngCulture = "en-US";
+
         public const string Menu1Color = "#3A95FC";
 
         public const string Menu2Color = "#ef4339";
@@ -91,6 +93,10 @@ namespace NexFB.WinApp.Core.Constants
         public const string CancelImageDisabled = "pack://application:,,,/Images/button_cancel_disabled.png";
 
         public const string DefaultMealMenuSelected = "#46A3E1";
+
+        public const string Expat = "EXPAT";
+
+        public const string Local = "LOCAL";
 
         private Constant()
         {

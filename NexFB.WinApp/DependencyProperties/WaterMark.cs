@@ -19,7 +19,7 @@ namespace NexFB.WinApp.DependencyProperties
     using System.Windows.Documents;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Watermark textbox.
     /// </summary>
     public static class Watermark
     {

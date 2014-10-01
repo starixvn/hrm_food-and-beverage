@@ -10,9 +10,11 @@
 namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using NexFB.Core.Models;
     using NexFB.Core.Services;
+    using NexFB.Criteria.Employee;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
     using NexFB.Repositories.Implement;
@@ -128,6 +130,54 @@ namespace NexFB.Services.Implement
             }
 
             return orderDetails;
+        }
+
+        public List<GroupOrder> GetAllGroupOrder(GetGroupNameCriteria criteria)
+        {
+            List<GroupOrder> groups = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                groups = this.GetData<GroupOrder>(criteria).ToList();
+            }
+
+            return groups;
+        }
+
+        public List<FoodOrder> GetAllFoodOrder(GetFoodNameCriteria criteria)
+        {
+            List<FoodOrder> foods = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                foods = this.GetData<FoodOrder>(criteria).ToList();
+            }
+
+            return foods;
+        }
+
+        public List<EmployeeInfo> GetUserByGroupId(GetUserByGroupIdCriteria criteria)
+        {
+            List<EmployeeInfo> users = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                users = this.GetData<EmployeeInfo>(criteria).ToList();
+            }
+
+            return users;
+        }
+
+        public List<EmployeeInfo> GetEmployeeOrderInfo(GetEmployeeByCodeCriteria criteria)
+        {
+            List<EmployeeInfo> employees = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                employees = this.GetData<EmployeeInfo>(criteria).ToList();
+            }
+
+            return employees;
         }
     }
 }

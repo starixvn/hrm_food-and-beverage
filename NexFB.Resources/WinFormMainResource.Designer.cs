@@ -277,7 +277,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Số lượng.
+        ///   Looks up a localized string similar to Số lượng : .
         /// </summary>
         public static string Quantity {
             get {

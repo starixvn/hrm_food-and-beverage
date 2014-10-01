@@ -12,7 +12,7 @@ namespace NexFB.Core.Enums
     using System.ComponentModel;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Order Status.
     /// </summary>
     public enum OrderStatus
     {

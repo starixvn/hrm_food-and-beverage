@@ -8,11 +8,13 @@
 			<Mapping DataField="EmpId" ObjectProperty="UserId"/>
 		</Setting>
 	</Function>
+
 	<Function Name="ManageRole">
 		<Setting Key="Function_GetByRole" SpName="Function_GetByRole" DbName="NexFB" Plain="0" ></Setting>
 		<Setting Key="SystemRole_GetAll" SpName="SystemRole_GetAll" DbName="NexFB" Plain="0" ></Setting>
 		<Setting Key="RoleFunction_Assign" SpName="RoleFunction_Assign" DbName="NexFB" Plain="0" ></Setting>
 	</Function>
+
 	<Function Name="Kitchen">
 		<Setting Key="POS_Get_ListRequestNewByPOS" SpName="POS_Get_ListRequestNewByPOS" DbName="NexFB" Plain="0" >
 			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
@@ -33,4 +35,16 @@
 			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
 		</Setting>
 	</Function>
+
+	<Function Name="KitchenOrder">
+		<Setting Key="Location_GetAll" SpName="Location_GetAll" DbName="NexFB" Plain="0" >
+			<Mapping DataField="LocationVNMName" ObjectProperty="NameVN"/>
+			<Mapping DataField="LocationENGName" ObjectProperty="NameEN"/>
+		</Setting>
+		<Setting Key="POS_Get_GroupName" SpName="POS_Get_GroupName" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_Get_FoodOrder" SpName="POS_Get_FoodOrder" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_Get_GroupUserByGroupID" SpName="POS_Get_GroupUserByGroupID" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="Employee_GetEmployeeByCode" SpName="Employee_GetEmployeeByCode" DbName="NexFB" Plain="0" ></Setting>
+	</Function>
+
 </Functions>

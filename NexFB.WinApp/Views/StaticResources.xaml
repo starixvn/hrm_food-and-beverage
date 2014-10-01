@@ -124,7 +124,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
-					<Border Name="border" CornerRadius="0" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
+					<Border Name="border" CornerRadius="0" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
 						<ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center">
 						</ContentPresenter>
 					</Border>
@@ -188,7 +188,7 @@
 						</Trigger>
 						<DataTrigger Binding="{Binding Path=IsSelectedMemberInGroup}" Value="True">
 							<Setter Property="BorderBrush" Value="#FF0000"/>
-							<Setter Property="BorderThickness" Value="3" />
+							<Setter Property="BorderThickness" Value="2" />
 						</DataTrigger>
 						<DataTrigger Binding="{Binding Path=IsSelectedMemberInGroup}" Value="False">
 							<Setter Property="BorderBrush" Value="#fff"/>

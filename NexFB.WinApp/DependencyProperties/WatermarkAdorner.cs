@@ -16,7 +16,7 @@ namespace NexFB.WinApp.DependencyProperties
     using System.Windows.Media;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Watermark Adorner.
     /// </summary>
     internal class WatermarkAdorner : Adorner
     {

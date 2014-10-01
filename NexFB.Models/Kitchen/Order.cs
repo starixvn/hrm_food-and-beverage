@@ -189,7 +189,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                return OrderNo.ToString().PadLeft(2, '0');
+                return OrderNo.ToString().PadLeft(3, '0');
             }
         }
     }

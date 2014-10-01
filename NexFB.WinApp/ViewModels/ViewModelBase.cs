@@ -31,20 +31,22 @@ namespace NexFB.WinApp.ViewModels
         #region Fields
 
         private IKitchenService _kitchenService;
+        private ICommonService _commonService;
         private IPrintHelper _printingHelper;
 
         #endregion
 
         #region Constructors
 
-        public ViewModelBase(IKitchenService kitchenService, IPrintHelper printingHelper)
+        public ViewModelBase(IKitchenService kitchenService, ICommonService commomService, IPrintHelper printingHelper)
         {
             _kitchenService = kitchenService ?? new KitchenService();
+            _commonService = commomService ?? new CommonService();
             _printingHelper = printingHelper ?? new PrintHelper();
         }
 
         public ViewModelBase()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
@@ -68,6 +70,25 @@ namespace NexFB.WinApp.ViewModels
 
                 _kitchenService = value;
                 OnPropertyChanged("KitchenService");
+            }
+        }
+
+        public ICommonService CommonService
+        {
+            get
+            {
+                return _commonService;
+            }
+
+            set
+            {
+                if (_commonService == value)
+                {
+                    return;
+                }
+
+                _commonService = value;
+                OnPropertyChanged("CommonService");
             }
         }
 

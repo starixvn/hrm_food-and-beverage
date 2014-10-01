@@ -61,6 +61,9 @@
     <Compile Include="FoodItemManagement\FoodItemModel.cs" />
     <Compile Include="FoodItemManagement\RawFoodMenuModel.cs" />
     <Compile Include="FoodMenuManagement\FoodMenuModel.cs" />
+    <Compile Include="Kitchen\FoodOrder.cs" />
+    <Compile Include="Kitchen\GroupOrder.cs" />
+    <Compile Include="Kitchen\EmployeeInfo.cs" />
     <Compile Include="Kitchen\HubData.cs" />
     <Compile Include="Kitchen\OrderMenu.cs" />
     <Compile Include="Kitchen\Order.cs" />

@@ -23,10 +23,10 @@ namespace NexFB.WinApp.Views.ManageOrder
             InitializeComponent();
         }
 
-        private void GridActionButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            OrderFoodViewModel currentViewModel = (OrderFoodViewModel)this.DataContext;
-            currentViewModel.ChangeButtonBorder(0);
-        }
+        ////private void GridActionButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        ////{
+        ////    OrderFoodViewModel currentViewModel = (OrderFoodViewModel)this.DataContext;
+        ////    currentViewModel.ChangeButtonBorder(0);
+        ////}
     }
 }

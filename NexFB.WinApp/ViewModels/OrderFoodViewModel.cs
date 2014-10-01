@@ -13,11 +13,18 @@ namespace NexFB.WinApp.ViewModels
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Windows;
     using System.Windows.Input;
+    using AutoMapper;
+    using NexFB.Criteria.Department;
+    using NexFB.Criteria.Employee;
     using NexFB.Criteria.Kitchen;
+    using NexFB.Models.Entities;
     using NexFB.Models.Kitchen;
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinApp.Core.Constants;
+    using NexFB.WinApp.Core.Models;
+    using NexFB.WinApp.Views;
 
     /// <summary>
     /// Order Food ViewModel.
@@ -26,13 +33,19 @@ namespace NexFB.WinApp.ViewModels
     {
         #region Fields
 
-        private static ObservableCollection<Order> _waitingMeals1 = new ObservableCollection<Order>();
-        private static ObservableCollection<Order> _waitingMeals2 = new ObservableCollection<Order>();
+        private static ObservableCollection<CommonKitchenOrder> _commonKitchenOrder = new ObservableCollection<CommonKitchenOrder>();
+        private static ObservableCollection<CommonKitchenOrder> _allObservableLocation = new ObservableCollection<CommonKitchenOrder>();
+        private static ObservableCollection<CommonKitchenOrder> _allObservableFood = new ObservableCollection<CommonKitchenOrder>();
+        private static ObservableCollection<CommonKitchenOrder> _allObservableGroup = new ObservableCollection<CommonKitchenOrder>();
+        private static ObservableCollection<KitchenEmployeeInfo> _userInGroup = new ObservableCollection<KitchenEmployeeInfo>();
+        private static KitchenEmployeeInfo _employeeInfo;
+
         private string _result;
         private string _borderButtonPickRoom;
         private string _borderButtonChooseDishes;
         private string _borderButtonPickGroup;
         private string _imageCancel;
+        private string _gridUserVisibility;
 
         #endregion
 
@@ -42,16 +55,22 @@ namespace NexFB.WinApp.ViewModels
         public OrderFoodViewModel()
         {
             ChangeButtonBorder(0);
+            GridUserVisibility = Constant.Hidden;
+            AddCommand = new RelayCommand((x) => CanExecuteAddCommand(), (y) => ExecuteAddCommand());
+            CancelCommand = new RelayCommand((x) => CanExecuteCancelCommand(), (y) => ExecuteCancelCommand());
+            ReceiveCommand = new RelayCommand((x) => CanExecuteReceiveCommand(), (y) => ExecuteReceiveCommand());
+
             NumPadPressed = new RelayCommand((x) => CanExecuteNumPadPressed(), (y) => ExecuteNumPadPressed(y));
             NumPadReleased = new RelayCommand((x) => CanExecuteNumPadReleased(), (y) => ExecuteNumPadPressed(y));
             PickRoomCommand = new RelayCommand((x) => CanExecutePickRoomCommand(), (y) => ExecutePickRoomCommand());
             PickGroupCommand = new RelayCommand((x) => CanExecutePickGroupCommand(), (y) => ExecutePickGroupCommand());
-            ChooseDishesCommand = new RelayCommand((x) => CanExecuteChooseDishesCommand(), (y) => ExecuteChooseDishesCommand());
             DefaulMenuSelected = new RelayCommand((x) => CanExecuteMealMenuSelected(), (y) => ExecuteMealMenuSelected(y));
+            ChooseDishesCommand = new RelayCommand((x) => CanExecuteChooseDishesCommand(), (y) => ExecuteChooseDishesCommand());
             DefaultEmployeeSelected = new RelayCommand((x) => CanExecuteEmployeeInGroupSelected(), (y) => ExecuteEmployeeInGroupSelected(y));
 
-            WaitingMeals1 = this.GetWaitingMealOrder;
-            WaitingMeals2 = this.GetWaitingMealOrder;
+            AllObservationFood = this.GetAllFood;
+            AllObservationLocation = this.GetAllLocation;
+            AllObservationGroup = this.GetAllGroup;
         }
 
         #endregion
@@ -70,41 +89,152 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        public ObservableCollection<Order> WaitingMeals1
+        public ObservableCollection<CommonKitchenOrder> GetAllLocation
         {
             get
             {
-                return _waitingMeals1;
-            }
+                var getAllLocation = new GetAllLocationCriteria();
+                List<Location> locations = this.CommonService.GetAllLocation(getAllLocation).ToList();
 
-            set
-            {
-                if (_waitingMeals1 == value)
-                {
-                    return;
-                }
-
-                _waitingMeals1 = value;
-                OnPropertyChanged("WaitingMeals1");
+                List<CommonKitchenOrder> data = Mapper.Map<List<Location>, List<CommonKitchenOrder>>(locations);
+                return new ObservableCollection<CommonKitchenOrder>(data);
             }
         }
 
-        public ObservableCollection<Order> WaitingMeals2
+        public ObservableCollection<CommonKitchenOrder> GetAllFood
         {
             get
             {
-                return _waitingMeals2;
+                var getAllFood = new GetFoodNameCriteria();
+                List<FoodOrder> foods = this.KitchenService.GetAllFoodOrder(getAllFood);
+                List<CommonKitchenOrder> data = Mapper.Map<List<FoodOrder>, List<CommonKitchenOrder>>(foods);
+                return new ObservableCollection<CommonKitchenOrder>(data);
+            }
+        }
+
+        public ObservableCollection<CommonKitchenOrder> GetAllGroup
+        {
+            get
+            {
+                var getAllGroup = new GetGroupNameCriteria();
+                List<GroupOrder> groups = this.KitchenService.GetAllGroupOrder(getAllGroup);
+
+                List<CommonKitchenOrder> data = Mapper.Map<List<GroupOrder>, List<CommonKitchenOrder>>(groups);
+                return new ObservableCollection<CommonKitchenOrder>(data);
+            }
+        }
+
+        public KitchenEmployeeInfo EmployeeInfo
+        {
+            get
+            {
+                return _employeeInfo;
             }
 
             set
             {
-                if (_waitingMeals2 == value)
+                if (_employeeInfo == value)
                 {
                     return;
                 }
 
-                _waitingMeals2 = value;
-                OnPropertyChanged("WaitingMeals2");
+                _employeeInfo = value;
+                OnPropertyChanged("EmployeeInfo");
+            }
+        }
+
+        public ObservableCollection<KitchenEmployeeInfo> UserInGroup
+        {
+            get
+            {
+                return _userInGroup;
+            }
+
+            set
+            {
+                if (_userInGroup == value)
+                {
+                    return;
+                }
+
+                _userInGroup = value;
+                OnPropertyChanged("UserInGroup");
+            }
+        }
+
+        public ObservableCollection<CommonKitchenOrder> CommonKitchenOrder
+        {
+            get
+            {
+                return _commonKitchenOrder;
+            }
+
+            set
+            {
+                if (_commonKitchenOrder == value)
+                {
+                    return;
+                }
+
+                _commonKitchenOrder = value;
+                OnPropertyChanged("CommonKitchenOrder");
+            }
+        }
+
+        public ObservableCollection<CommonKitchenOrder> AllObservationFood
+        {
+            get
+            {
+                return _allObservableFood;
+            }
+
+            set
+            {
+                if (_allObservableFood == value)
+                {
+                    return;
+                }
+
+                _allObservableFood = value;
+                OnPropertyChanged("AllObservationFood");
+            }
+        }
+
+        public ObservableCollection<CommonKitchenOrder> AllObservationGroup
+        {
+            get
+            {
+                return _allObservableGroup;
+            }
+
+            set
+            {
+                if (_allObservableGroup == value)
+                {
+                    return;
+                }
+
+                _allObservableGroup = value;
+                OnPropertyChanged("AllObservationGroup");
+            }
+        }
+
+        public ObservableCollection<CommonKitchenOrder> AllObservationLocation
+        {
+            get
+            {
+                return _allObservableLocation;
+            }
+
+            set
+            {
+                if (_allObservableLocation == value)
+                {
+                    return;
+                }
+
+                _allObservableLocation = value;
+                OnPropertyChanged("AllObservationLocation");
             }
         }
 
@@ -118,9 +248,24 @@ namespace NexFB.WinApp.ViewModels
             set
             {
                 _result = value;
-                if (this._result.Length == 5)
+                if (Result != null && Result.Length == 5)
                 {
-                    ////MessageBox.Show("123");
+                    var getEmployeeByCodeCriteria = new GetEmployeeByCodeCriteria() { Code = Result };
+                    List<EmployeeInfo> employees = this.KitchenService.GetEmployeeOrderInfo(getEmployeeByCodeCriteria);
+                    List<KitchenEmployeeInfo> listKitchenEmployeeInfo = Mapper.Map<List<EmployeeInfo>, List<KitchenEmployeeInfo>>(employees);
+                    if (employees.Any())
+                    {
+                        if (employees.Count == 1)
+                        {
+                            EmployeeInfo = listKitchenEmployeeInfo.SingleOrDefault();
+                        }
+                        else
+                        {
+                            EmployeeSelectionWindow employeeSelectionWindow = new EmployeeSelectionWindow();
+                            employeeSelectionWindow.DataContext = new EmployeeSelectionViewModel(listKitchenEmployeeInfo);
+                            employeeSelectionWindow.Show();
+                        }
+                    }
                 }
 
                 this.OnPropertyChanged("Result");
@@ -183,6 +328,20 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        public string GridUserVisibility
+        {
+            get
+            {
+                return _gridUserVisibility;
+            }
+
+            set
+            {
+                _gridUserVisibility = value;
+                this.OnPropertyChanged("GridUserVisibility");
+            }
+        }
+
         public ICommand NumPadPressed { get; set; }
 
         public ICommand NumPadReleased { get; set; }
@@ -197,11 +356,32 @@ namespace NexFB.WinApp.ViewModels
 
         public ICommand DefaultEmployeeSelected { get; set; }
 
+        public ICommand ReceiveCommand { get; set; }
+
+        public ICommand AddCommand { get; set; }
+
+        public ICommand CancelCommand { get; set; }
+
         #endregion
 
         #region RelayCommands
 
         // Can Execute Command.
+        public bool CanExecuteReceiveCommand()
+        {
+            return true;
+        }
+
+        public bool CanExecuteAddCommand()
+        {
+            return true;
+        }
+
+        public bool CanExecuteCancelCommand()
+        {
+            return true;
+        }
+
         public bool CanExecutePickRoomCommand()
         {
             return true;
@@ -256,19 +436,34 @@ namespace NexFB.WinApp.ViewModels
         }
 
         // Execute Command
-        public void ExecuteChooseDishesCommand()
+        public void ExecuteReceiveCommand()
         {
-            ChangeButtonBorder(3);
+        }
+
+        public void ExecuteAddCommand()
+        {
+        }
+
+        public void ExecuteCancelCommand()
+        {
         }
 
         public void ExecutePickRoomCommand()
         {
             ChangeButtonBorder(1);
+            CommonKitchenOrder = AllObservationLocation;
         }
 
         public void ExecutePickGroupCommand()
         {
             ChangeButtonBorder(2);
+            CommonKitchenOrder = AllObservationGroup;
+        }
+
+        public void ExecuteChooseDishesCommand()
+        {
+            ChangeButtonBorder(3);
+            CommonKitchenOrder = AllObservationFood;
         }
 
         /// <summary>
@@ -309,24 +504,36 @@ namespace NexFB.WinApp.ViewModels
         {
             if (value != null)
             {
-                var orderId = (int)value;
-                WaitingMeals1.Where(x => x.OrderId != orderId).ToList().ForEach(y => y.IsSelectedMealMenu = false);
-                WaitingMeals1.Where(x => x.OrderId == orderId).FirstOrDefault().IsSelectedMealMenu = true;
-            }
+                var itemId = (int)value;
+                CommonKitchenOrder.Where(x => x.ItemId != itemId).ToList().ForEach(y => y.IsSelectedMealMenu = false);
+                CommonKitchenOrder.Where(x => x.ItemId == itemId).FirstOrDefault().IsSelectedMealMenu = true;
 
-            WaitingMeals1 = new ObservableCollection<Order>(this.WaitingMeals1);
+                if (CommonKitchenOrder == AllObservationGroup)
+                {
+                    List<KitchenEmployeeInfo> data = GetUserByGroup(itemId);
+                    UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(data);
+                    GridUserVisibility = Constant.Visible;
+                }
+            }
         }
 
         public void ExecuteEmployeeInGroupSelected(object value)
         {
             if (value != null)
             {
-                var orderId = (int)value;
-                WaitingMeals2.Where(x => x.OrderId != orderId).ToList().ForEach(y => y.IsSelectedMemberInGroup = false);
-                WaitingMeals2.Where(x => x.OrderId == orderId).FirstOrDefault().IsSelectedMemberInGroup = true;
+                var sysId = (int)value;
+                UserInGroup.Where(x => x.SysId != sysId).ToList().ForEach(y => y.IsSelectedMemberInGroup = false);
+                UserInGroup.Where(x => x.SysId == sysId).FirstOrDefault().IsSelectedMemberInGroup = true;
             }
+        }
 
-            WaitingMeals2 = new ObservableCollection<Order>(this.WaitingMeals2);
+        public List<KitchenEmployeeInfo> GetUserByGroup(int groupId)
+        {
+            var getUserByGroupIdCriteria = new GetUserByGroupIdCriteria() { GroupOrderId = groupId };
+            List<EmployeeInfo> users = this.KitchenService.GetUserByGroupId(getUserByGroupIdCriteria);
+            List<KitchenEmployeeInfo> data = Mapper.Map<List<EmployeeInfo>, List<KitchenEmployeeInfo>>(users);
+
+            return data;
         }
 
         #endregion

@@ -75,10 +75,13 @@
     <Compile Include="FoodMenuManagement\InsertFoodMenuCriteria.cs" />
     <Compile Include="FoodMenuManagement\UpdateFoodMenuCriteria.cs" />
     <Compile Include="Kitchen\GetAwaitingDeliverMealOrderCriteria.cs" />
+    <Compile Include="Kitchen\GetFoodNameCriteria.cs" />
+    <Compile Include="Kitchen\GetGroupNameCriteria.cs" />
     <Compile Include="Kitchen\GetMealOrderByIdCriteria.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Kitchen\GetOrderDetailsCriteria.cs" />
+    <Compile Include="Kitchen\GetUserByGroupIdCriteria.cs" />
     <Compile Include="Kitchen\ProcessDeliverOrderCriteria.cs" />
     <Compile Include="Kitchen\ProcessReceiveOrderCriteria.cs" />
     <Compile Include="MealRegistration\ApplyRegisterMealFromTemplateCriteria.cs" />
