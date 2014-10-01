@@ -220,9 +220,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			}
 			else {
 				isValid = false;
-				angular.forEach(order.Members, function (value, index) {
+				angular.forEach(order.Members, function (value) {
 					if (value.IsOrder) {
-						debugger;
 						isValid = true;
 					}
 				});
@@ -426,11 +425,11 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 	$scope.showMember = function (order) {
 		order.IsShowMember = true;
-	}
+	};
 
 	$scope.hideMember = function (order) {
 		order.IsShowMember = false;
-	}
+	};
 
 	$scope.loadData(function () {
 		$scope.bindAction();
