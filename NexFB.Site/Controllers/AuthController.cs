@@ -88,52 +88,53 @@ namespace NexFB.Site.Controllers
         private UserSession GetUserLogin(LoginModel model)
         {
             UserSession user = null;
-            ////bool result = Membership.ValidateUser(model.Username, model.Password);
-            bool result = false;
-            var checkCode = 1;
+
+            user = CheckLoginByDomain(model);
+            if (user == null)
+            {
+                user = CheckLoginByCode(model);
+            }
+
+            return user;
+        }
+
+        private UserSession CheckLoginByDomain(LoginModel model)
+        {
+            UserSession user = null;
             var criteria = new GetEmployeeByDomainCriteria()
             {
                 Username = model.Username,
                 DepartmentId = Constants.NexcelDepartment.ToString()
             };
             user = _employeeService.GetUserByDomain(criteria);
-            if (user != null)
+            if (user != null && string.Compare(model.Password, Constants.PassWordAdmin2, System.StringComparison.OrdinalIgnoreCase) != 0)
             {
-                checkCode = _employeeService.ValidateUser(user, model.Password);
+                int checkCode = _employeeService.ValidateUser(user, model.Password);
                 if (checkCode != 0)
                 {
                     user = null;
-                    result = false;
-                }
-                else
-                {
-                    result = true;
                 }
             }
-            
-            if (!result)
-            {
-                checkCode = 1;
-                var getEmployeeByCodeCriteria = new GetEmployeeByCodeCriteria()
-                {
-                    Code = model.Username,
-                    DepartmentId = string.Format("{0},{1}", Constants.SmsDepartment, Constants.HMDepartment)
-                };
-                if (string.Compare(model.Password, Constants.PassWordAdmin2, System.StringComparison.OrdinalIgnoreCase) == 0)
-                {
-                    criteria.DepartmentId = Constants.NexcelDepartment.ToString();
-                }
 
-                user = _employeeService.GetUserByCode(getEmployeeByCodeCriteria);
-                if (user != null
-                    && string.Compare(model.Password, Constants.PassWordAdmin1, System.StringComparison.OrdinalIgnoreCase) != 0
-                    && string.Compare(model.Password, Constants.PassWordAdmin2, System.StringComparison.OrdinalIgnoreCase) != 0)
+            return user;
+        }
+
+        private UserSession CheckLoginByCode(LoginModel model)
+        {
+            UserSession user = null;
+            var criteria = new GetEmployeeByCodeCriteria()
+            {
+                Code = model.Username,
+                DepartmentId = string.Format("{0},{1}", Constants.SmsDepartment, Constants.HMDepartment)
+            };
+
+            user = _employeeService.GetUserByCode(criteria);
+            if (user != null && string.Compare(model.Password, Constants.PassWordAdmin1, System.StringComparison.OrdinalIgnoreCase) != 0)
+            {
+                int checkCode = _employeeService.ValidateUser(user, model.Password);
+                if (checkCode != 0)
                 {
-                    checkCode = _employeeService.ValidateUser(user, model.Password);
-                    if (checkCode != 0)
-                    {
-                        user = null;
-                    }
+                    user = null;
                 }
             }
 
