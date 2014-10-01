@@ -3,22 +3,25 @@
 	.filter {
 		.form-group {
 			margin-right: 30px;
-			.multiSelectButton {
-				width: 378px;
-				padding-left: 8px;
-				text-align: left;
-				position: relative;
-				.caret {
-					position: absolute;
-					right: 8px;
-					top: 11px;
+			.menu-select {
+				.multiSelectButton {
+					width: 378px;
+					padding-left: 8px;
+					text-align: left;
+					position: relative;
+					.caret {
+						position: absolute;
+						right: 8px;
+						top: 11px;
+					}
 				}
-			}
-			.checkboxLayer  {
-				border: 1px solid #ccc;
-			}
-			&.status-box {
-				width: 175px;
+				.checkboxLayer  {
+					border: 1px solid #ccc;
+					left: 80px;
+				}
+				&.status-box {
+					width: 175px;
+				}
 			}
 		}
 	}
@@ -29,9 +32,6 @@
 	.table.table-bordered td {
 		border-color: none;
 	}
-}
-.multiSelect .checkboxLayer {
-	left: 80px;
 }
 .row.pull-right input[type="button"]{
 	margin-right: 15px;
