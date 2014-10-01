@@ -72,7 +72,12 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 		var isRelatedCurrentUser = false;
 		if ($scope.currentUser.UserId === order.CreatorOrder.UserId) {
-			isRelatedCurrentUser = true;
+			if (order.Status.StatusId !== 3 && order.Members.length === 0) {
+				isRelatedCurrentUser = false;
+			}
+			else {
+				isRelatedCurrentUser = true;
+			}
 		}
 		else {
 			angular.forEach(order.Members, function (value) {
@@ -209,11 +214,6 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		$scope.ValidateNewOrder = function (order) {
 			var isValid = true;
 
-			if (order.Location === null || order.Location.LocationId === 0) {
-				isValid = false;
-				notificationFactory.error("InvalidLocation");
-			}
-
 			if (order.Members.length < 1) {
 				isValid = false;
 				notificationFactory.error("InvalidInputData");
@@ -229,6 +229,11 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				if (!isValid) {
 					notificationFactory.error("InvalidInputData");
 				}
+			}
+
+			if (order.Location === null || order.Location.LocationId === 0) {
+				isValid = false;
+				notificationFactory.error("InvalidLocation");
 			}
 
 			return isValid;
