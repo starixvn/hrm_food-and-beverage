@@ -12,7 +12,7 @@
 					item-label="MenuVnmName MenuEngMaker" tick-property="ticked" max-labels="0" class="multi-select">
 				</add-class-to-role-filter>
             </div>
-            <div class="form-group">
+            <div class="form-group status-box" >
                 <label data-translate="Status"></label>
                 <select ng-model="filter.isActive">
                     <option selected value="" data-translate="AllStatuses"></option>
@@ -31,12 +31,10 @@
             <thead>
 				<tr class="header-table">
 					<th colspan="6" ng-show="policy.permission == 2">
-						<div class="pull-left table-entries">
-							<a class="button-icon" ng-click="addFoodItem()" ng-if="policy.permission == 2">
+							<a class="pull-left button-icon create-button" ng-click="addFoodItem()" ng-if="policy.permission == 2">
 								<span class="icon plus"></span>
 								<span class="button-text" data-translate="CreateFoodItem"></span>
 							</a>
-						</div>
 						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
 					</th>
 					<th colspan="5" ng-show="policy.permission == 1">
