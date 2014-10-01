@@ -100,7 +100,7 @@
                     <a class="glyphicon glyphicon-edit icon-edit" href="" title="Edit" ng-click="assignRole(employee)" />
                 </td>
             </tr>
-            <tr ng-show="employees == '' || employees == 'null'">
+            <tr ng-show="employees == '' || employees == 'null' || pagedItems.length == 0">
                 <td class="empty-result" colspan="8" data-translate="EmptyResult">
                 </td>
             </tr>

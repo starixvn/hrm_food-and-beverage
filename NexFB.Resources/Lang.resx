@@ -543,4 +543,7 @@
   <data name="DuplicateFoodMenuUpdateMessage" xml:space="preserve">
     <value>System could not update the menu because there is another menu which has the same meal, meal type (Veg. or Non-Veg.) and employee type.</value>
   </data>
+  <data name="ShortEng" xml:space="preserve">
+    <value>(Eng)</value>
+  </data>
 </root>

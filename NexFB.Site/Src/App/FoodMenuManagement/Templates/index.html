@@ -37,7 +37,7 @@
         <table class="table table-bordered table-striped col-sm-12">
             <thead>
 				<tr class="header-table">
-					<th colspan="11" ng-if="policy.permission == 2">
+					<th colspan="11" ng-show="policy.permission == 2">
 						<div class="pull-left table-entries" >
 							<a class="button-icon" ng-click="addFoodMenu()" >
 								<span class="icon plus"></span>
@@ -46,7 +46,7 @@
 						</div>
 						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
 					</th>
-					<th colspan="10" ng-if="policy.permission == 1">
+					<th colspan="10" ng-show="policy.permission == 1">
 						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
 					</th>
 				</tr>
@@ -112,7 +112,7 @@
 						<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteFoodMenu(foodMenu)"></a>
 					</td>
 				</tr>
-				<tr ng-show="foodMenus.length == 0">
+				<tr ng-show="foodMenus.length == 0 || pagedItems.length == 0">
 					<td class="empty-result" colspan="11" data-translate="EmptyResult">
 					</td>
 				</tr>

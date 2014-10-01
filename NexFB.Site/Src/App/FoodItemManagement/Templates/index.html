@@ -53,7 +53,7 @@
                     <th data-translate="FoodItemEng"></th>
                     <th data-translate="Menu"></th>
                     <th class="width-60" data-translate="Active"></th>
-                    <th class="width-60" data-translate="Action" ng-if="policy.permission == 2"></th>
+                    <th class="width-80" data-translate="Action" ng-if="policy.permission == 2"></th>
                 </tr>
             </thead>
 			<tbody>
@@ -80,10 +80,10 @@
 						<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteFoodItem(food)"></a>
 					</td>
 				</tr>
-				<tr ng-show="foodItems.length == 0">
-					<td class="empty-result" colspan="6" data-translate="EmptyResult" ng-if="policy.permission == 2">
+				<tr ng-show="foodItems.length == 0 || pagedItems.length == 0">
+					<td class="empty-result" colspan="6" data-translate="EmptyResult" ng-show="policy.permission == 2">
 					</td>
-					<td class="empty-result" colspan="5" data-translate="EmptyResult" ng-if="policy.permission == 1">
+					<td class="empty-result" colspan="5" data-translate="EmptyResult" ng-show="policy.permission == 1">
 					</td>
 				</tr>
 			</tbody>

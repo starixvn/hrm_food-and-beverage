@@ -30,7 +30,7 @@ ErrorFactory) {
 	** Paging.
 	*/
 	$scope.showEntries = function () {
-		commonFactory.tablePagination($scope, $scope.foodItems, $scope.entrySelected);
+		commonFactory.tablePagination($scope, $scope.foodMenus, $scope.entrySelected);
 	};
 
 	$scope.entrySelected = 10;
