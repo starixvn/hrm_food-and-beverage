@@ -502,6 +502,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Food item.
+        /// </summary>
+        public static string FoodItem {
+            get {
+                return ResourceManager.GetString("FoodItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Food item (English).
         /// </summary>
         public static string FoodItemEng {
@@ -592,7 +601,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Menu name (Vie).
+        ///   Looks up a localized string similar to Menu name (Viet).
         /// </summary>
         public static string FoodMenuNameVnm {
             get {
@@ -610,7 +619,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Menu (Vie).
+        ///   Looks up a localized string similar to Menu (Viet).
         /// </summary>
         public static string FoodMenuVnm {
             get {
@@ -1159,7 +1168,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to P.P.Day.
+        ///   Looks up a localized string similar to Day Price.
         /// </summary>
         public static string ShortPricePerDay {
             get {
@@ -1168,7 +1177,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to P.P.Meal.
+        ///   Looks up a localized string similar to Meal Price.
         /// </summary>
         public static string ShortPricePerMeal {
             get {

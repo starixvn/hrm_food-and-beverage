@@ -490,16 +490,16 @@
     <value>Food Menu Management</value>
   </data>
   <data name="FoodMenuVnm" xml:space="preserve">
-    <value>Menu (Vie)</value>
+    <value>Menu (Viet)</value>
   </data>
   <data name="Selected" xml:space="preserve">
     <value>selected</value>
   </data>
   <data name="ShortPricePerDay" xml:space="preserve">
-    <value>P.P.Day</value>
+    <value>Day Price</value>
   </data>
   <data name="ShortPricePerMeal" xml:space="preserve">
-    <value>P.P.Meal</value>
+    <value>Meal Price</value>
   </data>
   <data name="AllMeals" xml:space="preserve">
     <value>All meals</value>
@@ -508,7 +508,7 @@
     <value>All type</value>
   </data>
   <data name="FoodMenuNameVnm" xml:space="preserve">
-    <value>Menu name (Vie)</value>
+    <value>Menu name (Viet)</value>
   </data>
   <data name="PricePerDay" xml:space="preserve">
     <value>Price per day</value>
@@ -545,5 +545,8 @@
   </data>
   <data name="ShortEng" xml:space="preserve">
     <value>(Eng)</value>
+  </data>
+  <data name="FoodItem" xml:space="preserve">
+    <value>Food item</value>
   </data>
 </root>
