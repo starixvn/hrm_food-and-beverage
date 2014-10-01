@@ -166,7 +166,17 @@ appModule.directive('numberOnly', ['$filter', function ($filter) {
 	return {
 		require: 'ngModel',
 		link: function (scope, element, attr, ctrl) {
-			function inputValue(inputValue) {
+			ctrl.$formatters.unshift(function () {
+				var value = ctrl.$modelValue;
+
+				if (value !== "") {
+					value = $filter(attr.numberOnly)(value);
+				}
+
+				return value;
+			});
+
+			ctrl.$parsers.push(function (inputValue) {
 				if (inputValue) {
 					var digits = inputValue.replace(/[^0-9]/g, '');
 
@@ -178,11 +188,12 @@ appModule.directive('numberOnly', ['$filter', function ($filter) {
 						ctrl.$setViewValue(digits);
 						ctrl.$render();
 					}
-					return parseFloat(digits);
+
+					return digits;
 				}
-				return undefined;
-			}
-			ctrl.$parsers.push(inputValue);
+
+				return '';
+			});
 		}
 	};
 } ]);
