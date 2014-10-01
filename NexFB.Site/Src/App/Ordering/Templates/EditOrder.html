@@ -24,17 +24,15 @@
 							class="ddlLocation">
                     </select> 
                 </div>
-            </div>
-			<div class="row form-inline form-order" ng-show="(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)">
-				<div class="form-group">
-                    <label data-translate="Member">
+                <div class="form-group">
+                      <label data-translate="Member">
                     </label>
-					<input class="form-control custom-padding" ng-model="searchKey" placeholder="full name or nick name"
+                    <input class="form-control txtMember custom-padding" ng-model="searchKey" placeholder="full name or nick name"
 					search-auto-complete1 search-employees="searchEmployees" ng-change="getEmployee(searchKey)"
-					employee="newMember.employee" id="txtEmployee" ng-enter="add(true)"/>
-				</div>
-                <div class="form-group pull-right">
-                    <a href="javascript:;" ng-show="(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)"
+					employee="newMember.employee" id="Text1" ng-enter="add(true)"/>
+                </div>
+                <div class="form-group btn-add">
+                     <a href="javascript:;" ng-show="(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)"
                         ng-click="add()" class="button"><i class="glyphicon glyphicon-plus icon-plus">
                         </i>
                         <label data-translate="Add">

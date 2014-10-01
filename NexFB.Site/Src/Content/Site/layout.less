@@ -741,7 +741,6 @@ a {
     }
 }
 
-
 /********************************************************/
 /*					     Button                         */
 /********************************************************/
@@ -873,10 +872,28 @@ a {
         margin-top: 0;
     }
 }
-
-.phone {
-	margin-left: 20px;
-}
+	.form-inline.form-order {
+		.form-group {
+			margin-right: 15px;
+			.txtMember {
+				height: 28px;
+				width: 280px;
+			}
+			&.phone-box {
+				margin-right:0;
+				.txtPhone {
+					width: 178px;
+				}
+			}
+			&.btn-add {
+				margin: 0 0 0 103px;
+			}
+		}
+	}
+	
+	.lnk-member {
+		padding: 5px 10px;
+	}
 
 /********************************************************/
 /*					   Customize alert                  */
