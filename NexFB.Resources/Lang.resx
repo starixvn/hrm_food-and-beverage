@@ -421,7 +421,7 @@
     <value>Inactive</value>
   </data>
   <data name="FoodEngNameRequire" xml:space="preserve">
-    <value>The Food item (Eng) field is required!</value>
+    <value>The Food item (English) field is required!</value>
   </data>
   <data name="FoodEngName" xml:space="preserve">
     <value>(English)</value>
@@ -430,7 +430,7 @@
     <value>Food item (Vie)</value>
   </data>
   <data name="FoodVnmNameRequire" xml:space="preserve">
-    <value>The Food item (Vie) field is required!</value>
+    <value>The Food item (Vietnamese) field is required!</value>
   </data>
   <data name="ConfirmMessageDeleteOrder" xml:space="preserve">
     <value>Are you sure you want to delete this order?</value>
@@ -536,5 +536,11 @@
   </data>
   <data name="FoodMenuVnmNameRequire" xml:space="preserve">
     <value>The Menu name (Vie) field is required!</value>
+  </data>
+  <data name="DuplicateFoodMenuMessage" xml:space="preserve">
+    <value>System could not create the menu because there is another menu which has the same meal, meal type (Veg. or Non-Veg.) and employee type.</value>
+  </data>
+  <data name="DuplicateFoodMenuUpdateMessage" xml:space="preserve">
+    <value>System could not update the menu because there is another menu which has the same meal, meal type (Veg. or Non-Veg.) and employee type.</value>
   </data>
 </root>

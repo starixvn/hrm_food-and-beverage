@@ -12,11 +12,16 @@ namespace NexFB.Site.Controllers.API
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
+    using NexFB.Core.Constants;
+    using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.FoodMenuManagement;
     using NexFB.Models.FoodMenuManagement;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
+    using NexFB.Web.Attributes;
+    using NexFB.Web.Services.Implement;
+    using NexFB.Web.Services.Interface;
 
     /// <summary>
     /// Food menu management.
@@ -24,25 +29,32 @@ namespace NexFB.Site.Controllers.API
     public class FoodMenuManagementController : BaseController
     {
         private readonly IFoodMenuService _foodMenuService;
+        private readonly IWebCommonService _webCommonService;
 
         public FoodMenuManagementController() 
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public FoodMenuManagementController(IFoodMenuService foodMenuService)
+        public FoodMenuManagementController(
+            IFoodMenuService foodMenuService,
+            IWebCommonService webCommonService)
         {
             _foodMenuService = foodMenuService ?? new FoodMenuService();
+            _webCommonService = webCommonService ?? new WebCommonService();
         }
 
+        [ApiAuthorize(FunctionKey = FBFunctionKey.FoodMenuManagement, Policy = Policy.Read)]
         public IList<FoodMenuModel> GetAllFoodMenu(
             string mealId = "",
-            string employeeTypeId = "")
+            string employeeTypeId = "",
+            bool? isActive = null)
         {
             var criteria = new GetAllFoodMenuCriteria
             {
                 EmployeeTypeId = employeeTypeId,
-                MealId = mealId
+                MealId = mealId,
+                IsActive = isActive
             };
 
             return _foodMenuService.GetAllFoodMenu(criteria);
@@ -50,10 +62,15 @@ namespace NexFB.Site.Controllers.API
 
         public IEnumerable<FoodMenuModel> GetAllFoodMenuToFilter()
         {
-            var criteria = new GetAllFoodMenuCriteria();
+            var criteria = new GetAllFoodMenuCriteria
+            {
+                IsActive = true
+            };
+
             return _foodMenuService.GetAllFoodMenuToFilter(criteria);
         }
 
+        [ApiAuthorize(FunctionKey = FBFunctionKey.FoodMenuManagement, Policy = Policy.Host)]
         [HttpPost]
         public CommandResult InsertFoodMenu(InsertFoodMenuCriteria criteria)
         {
@@ -66,6 +83,7 @@ namespace NexFB.Site.Controllers.API
             return _foodMenuService.InsertFoodMenu(criteria);
         }
 
+        [ApiAuthorize(FunctionKey = FBFunctionKey.FoodMenuManagement, Policy = Policy.Host)]
         public CommandResult DeleteFoodMenu(int menuId)
         {
             var criteria = new DeleteFoodMenuByMenuIdCriteria
@@ -78,6 +96,7 @@ namespace NexFB.Site.Controllers.API
             return _foodMenuService.DeleteFoodMenu(criteria);
         }
 
+        [ApiAuthorize(FunctionKey = FBFunctionKey.FoodMenuManagement, Policy = Policy.Host)]
         [HttpPut]
         public CommandResult UpdateFoodMenu(UpdateFoodMenuCriteria criteria)
         {
@@ -90,6 +109,7 @@ namespace NexFB.Site.Controllers.API
             return _foodMenuService.UpdateFoodMenu(criteria);
         }
 
+        [ApiAuthorize(FunctionKey = FBFunctionKey.FoodMenuManagement, Policy = Policy.Host)]
         [HttpPut]
         public CommandResult ActivateFoodMenu(ActivateFoodMenuCriteria criteria)
         {
@@ -100,6 +120,12 @@ namespace NexFB.Site.Controllers.API
             }
 
             return _foodMenuService.ActivateFoodMenu(criteria);
+        }
+
+        public int GetUserPermissionOnFoodMenu()
+        {
+            int policy = _webCommonService.GetPermission(FBFunctionKey.FoodMenuManagement);
+            return policy;
         }
     }
 }

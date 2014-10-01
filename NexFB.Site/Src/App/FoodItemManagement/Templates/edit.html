@@ -20,11 +20,12 @@
                 <input type="checkbox" ng-model="food.IsActive"/>
             </div>
         </form>
-        <div ng-show="food.IsActive">
+        <div>
             <div>{{"Menu" | translate}}:</div>
 			<div class="menu-box">
 				<select name="menuSelect" class="chosen-select" data-placeholder="Select the menu group" multiple multi-select-chosen name="foodMenuGroup"
-					ng-model="food.groupIds" ng-options="opt.MenuId as opt.MenuVnmName for opt in groupOptions">
+					ng-model="food.groupIds" ng-options="opt.MenuId as opt.MenuVnmName for opt in groupOptions"
+					disable-chosen-select enable-chosen-select >
 				</select>
 			</div>
         </div>

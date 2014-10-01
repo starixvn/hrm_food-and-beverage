@@ -388,6 +388,18 @@ function ($scope, $modalInstance, menuOptions, foodItem, foodItemUtilities) {
 	};
 
 	/*
+	** Disable or enable food menu multiselect.
+	*/
+	$scope.$watch('food.IsActive', function (newValue) {
+		if (newValue === false) {
+			$scope.$broadcast("disableChosenSelect");
+		}
+		else {
+			$scope.$broadcast("enableChosenSelect");
+		}
+	});
+
+	/*
 	** Create list group Id.
 	*/
 	var createGroupIds = function (foodMenus) {

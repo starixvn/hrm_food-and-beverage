@@ -50,7 +50,8 @@ namespace NexFB.Criteria.FoodMenuManagement
 
         public override bool IsValid()
         {
-            return !string.IsNullOrEmpty(MenuVnmName) && !string.IsNullOrEmpty(MenuEngName);
+            return !string.IsNullOrEmpty(MenuVnmName) && !string.IsNullOrEmpty(MenuEngName)
+                && !string.IsNullOrEmpty(MealId) && !string.IsNullOrEmpty(EmployeeTypeId);
         }
     }
 }

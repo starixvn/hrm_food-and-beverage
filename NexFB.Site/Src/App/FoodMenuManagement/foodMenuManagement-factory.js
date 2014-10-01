@@ -3,9 +3,9 @@
 
 foodMenuManagementModule.factory('foodMenuFactory', ['$http', function ($http) {
 	return {
-		getAllFoodMenu: function (mealId, employeeTypeId) {
+		getAllFoodMenu: function (mealId, employeeTypeId, isActive) {
 			return $http.get('/api/FoodMenuManagement/GetAllFoodMenu',
-				{ params: { mealId: mealId, employeeTypeId: employeeTypeId} });
+				{ params: { mealId: mealId, employeeTypeId: employeeTypeId, isActive: isActive} });
 		},
 		getAllFoodMenuToFilter: function () {
 			return $http.get('/api/FoodMenuManagement/GetAllFoodMenuToFilter');
@@ -27,6 +27,9 @@ foodMenuManagementModule.factory('foodMenuFactory', ['$http', function ($http) {
 		},
 		activateFoodMenu: function (foodMenu) {
 			return $http.put('/api/FoodMenuManagement/ActivateFoodMenu', foodMenu);
+		},
+		getUserPermissionOnFoodMenu: function () {
+			return $http.get('/api/FoodMenuManagement/GetUserPermissionOnFoodMenu');
 		}
 	};
 } ]);
@@ -42,7 +45,8 @@ function (notificationFactory) {
 			return false;
 		}
 		else {
-			if (!foodMenu.pricePerMeal && !foodMenu.pricePerDay) {
+			if ((foodMenu.pricePerMeal === null && foodMenu.pricePerDay === null) ||
+					(foodMenu.pricePerMeal === undefined && foodMenu.pricePerDay === undefined)) {
 				notificationFactory.error("FoodMenuPriceRequire");
 				valid = false;
 			}

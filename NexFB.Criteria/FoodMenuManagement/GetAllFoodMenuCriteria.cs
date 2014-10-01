@@ -22,6 +22,8 @@ namespace NexFB.Criteria.FoodMenuManagement
 
         public string EmployeeTypeId { get; set; }
 
+        public bool? IsActive { get; set; }
+
         public override string GetSettingKey()
         {
             return "FoodMenu_GetAll";

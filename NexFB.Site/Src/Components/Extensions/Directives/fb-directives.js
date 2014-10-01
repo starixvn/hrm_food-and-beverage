@@ -139,3 +139,51 @@ appModule.directive('ngEnter', function () {
 		});
 	};
 });
+
+appModule.directive('disableChosenSelect', function () {
+	return {
+		link: function (scope) {
+			scope.$on('disableChosenSelect', function () {
+				$(".chosen-select").attr("disabled", "disabled").trigger("chosen:updated");
+				$(".disable-chosen").off('click');
+			});
+		}
+	};
+});
+
+appModule.directive('enableChosenSelect', function () {
+	return {
+		link: function (scope) {
+			scope.$on('enableChosenSelect', function () {
+				$(".chosen-select").attr("disabled", false).trigger("chosen:updated");
+				$(".disable-chosen").on('click');
+			});
+		}
+	};
+});
+
+appModule.directive('numberOnly', ['$filter', function ($filter) {
+	return {
+		require: 'ngModel',
+		link: function (scope, elem, attrs, ctrl) {
+			if (!ctrl) {
+				return;
+			}
+
+			ctrl.$formatters.unshift(function () {
+				return $filter(attrs.numberOnly)(ctrl.$modelValue);
+			});
+
+			ctrl.$parsers.unshift(function (viewValue) {
+				if (!viewValue) {
+					return '';
+				}
+
+				var plainNumber = viewValue.replace(/[^\d|\-+|\.+]/g, '');
+				elem.val($filter(attrs.numberOnly)(plainNumber));
+
+				return plainNumber;
+			});
+		}
+	};
+} ]);

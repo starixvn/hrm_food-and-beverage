@@ -394,6 +394,24 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to System could not create the menu because there is another menu which has the same meal, meal type (Veg. or Non-Veg.) and employee type..
+        /// </summary>
+        public static string DuplicateFoodMenuMessage {
+            get {
+                return ResourceManager.GetString("DuplicateFoodMenuMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System could not update the menu because there is another menu which has the same meal, meal type (Veg. or Non-Veg.) and employee type..
+        /// </summary>
+        public static string DuplicateFoodMenuUpdateMessage {
+            get {
+                return ResourceManager.GetString("DuplicateFoodMenuUpdateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Food Item.
         /// </summary>
         public static string EditFoodItem {
@@ -475,7 +493,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Food item (Eng) field is required!.
+        ///   Looks up a localized string similar to The Food item (English) field is required!.
         /// </summary>
         public static string FoodEngNameRequire {
             get {
@@ -610,7 +628,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Food item (Vie) field is required!.
+        ///   Looks up a localized string similar to The Food item (Vietnamese) field is required!.
         /// </summary>
         public static string FoodVnmNameRequire {
             get {

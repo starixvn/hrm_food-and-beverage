@@ -15,6 +15,7 @@ ErrorFactory) {
 	};
 
 	$scope.originalPage = 0;
+
 	/*
 	** If route change, close dialog.
 	*/
@@ -63,10 +64,21 @@ ErrorFactory) {
 	});
 
 	/*
+	** Get user permission on food menu.
+	*/
+	foodMenuFactory.getUserPermissionOnFoodMenu().success(function (permission) {
+		$scope.policy = {
+			permission: permission
+		};
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
+	/*
 	** Get all food menu.
 	*/
-	var getAllFoodMenu = function (mealId, employeeTypeId) {
-		foodMenuFactory.getAllFoodMenu(mealId, employeeTypeId).success(function (foodMenus) {
+	var getAllFoodMenu = function (mealId, employeeTypeId, isActive) {
+		foodMenuFactory.getAllFoodMenu(mealId, employeeTypeId, isActive).success(function (foodMenus) {
 			$scope.foodMenus = foodMenus;
 			commonFactory.tablePagination($scope, $scope.foodMenus, $scope.entrySelected);
 			$scope.currentPage = $scope.originalPage;
@@ -82,7 +94,7 @@ ErrorFactory) {
 	*/
 	$scope.query = function (filter) {
 		if (filter) {
-			getAllFoodMenu(filter.mealId, filter.employeeTypeId);
+			getAllFoodMenu(filter.mealId, filter.employeeTypeId, filter.isActive);
 		}
 	};
 
@@ -116,6 +128,9 @@ ErrorFactory) {
 
 				if (response.IsSuccessful === true) {
 					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else if (response.Code === 101) {
+					notificationFactory.error("DuplicateFoodMenuMessage");
 				}
 				else {
 					notificationFactory.error("", response.Message);
@@ -177,6 +192,9 @@ ErrorFactory) {
 					updateChangedFoodMenu(foodMenu, objFood.foodMenu);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
+				else if (response.Code === 101) {
+					notificationFactory.error("DuplicateFoodMenuUpdateMessage");
+				}
 				else {
 					notificationFactory.error("", response.Message);
 				}
@@ -230,6 +248,11 @@ ErrorFactory) {
 				else {
 					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
 					foodMenu.IsActive = !newFoodMenu.IsActive;
+
+					if (response.Code === 101) {
+						notificationFactory.error("DuplicateFoodMenuUpdateMessage");
+					}
+
 					notificationFactory.error(keyMessage);
 				}
 			}).error(function () {
@@ -310,8 +333,8 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 	/*
 	** Declare variables.
 	*/
-	$scope.mealsOption = mealsOption;
-	$scope.employeeTypesOption = employeeTypesOption;
+	$scope.mealsOption = angular.copy(mealsOption);
+	$scope.employeeTypesOption = angular.copy(employeeTypesOption);
 	$scope.groupOptions = foodItems;
 
 	$scope.foodMenu = {
@@ -322,8 +345,8 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 		mealId: '',
 		employeeTypeId: '',
 		foodId: '',
-		pricePerMeal: '',
-		pricePerDay: '',
+		pricePerMeal: 0,
+		pricePerDay: 0,
 		rawFoodIds: ''
 	};
 
@@ -412,8 +435,20 @@ foodMenuUtilities) {
 	*/
 	$scope.foodMenu = foodMenu;
 	$scope.groupOptions = foodItems;
-	$scope.mealsOption = mealsOption;
-	$scope.employeeTypesOption = employeeTypesOption;
+	$scope.mealsOption = angular.copy(mealsOption);
+	$scope.employeeTypesOption = angular.copy(employeeTypesOption);
+
+	/*
+	** Disable or enable food item multiselect.
+	*/
+	$scope.$watch('foodMenu.IsActive', function (newValue) {
+		if (newValue === false) {
+			$scope.$broadcast("disableChosenSelect");
+		}
+		else {
+			$scope.$broadcast("enableChosenSelect");
+		}
+	});
 
 	/*
 	** Create list food item Id.
