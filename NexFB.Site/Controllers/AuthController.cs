@@ -88,20 +88,33 @@ namespace NexFB.Site.Controllers
         private UserSession GetUserLogin(LoginModel model)
         {
             UserSession user = null;
-            bool result = Membership.ValidateUser(model.Username, model.Password);
-            ////bool result = true;
-            if (result)
+            ////bool result = Membership.ValidateUser(model.Username, model.Password);
+            bool result = false;
+            var checkCode = 1;
+            var criteria = new GetEmployeeByDomainCriteria()
             {
-                var criteria = new GetEmployeeByDomainCriteria()
+                Username = model.Username,
+                DepartmentId = Constants.NexcelDepartment.ToString()
+            };
+            user = _employeeService.GetUserByDomain(criteria);
+            if (user != null)
+            {
+                checkCode = _employeeService.ValidateUser(user, model.Password);
+                if (checkCode != 0)
                 {
-                    Username = model.Username,
-                    DepartmentId = Constants.NexcelDepartment.ToString()
-                };
-                user = _employeeService.GetUserByDomain(criteria);
+                    user = null;
+                    result = false;
+                }
+                else
+                {
+                    result = true;
+                }
             }
-            else
+            
+            if (!result)
             {
-                var criteria = new GetEmployeeByCodeCriteria()
+                checkCode = 1;
+                var getEmployeeByCodeCriteria = new GetEmployeeByCodeCriteria()
                 {
                     Code = model.Username,
                     DepartmentId = string.Format("{0},{1}", Constants.SmsDepartment, Constants.HMDepartment)
@@ -111,12 +124,12 @@ namespace NexFB.Site.Controllers
                     criteria.DepartmentId = Constants.NexcelDepartment.ToString();
                 }
 
-                user = _employeeService.GetUserByCode(criteria);
+                user = _employeeService.GetUserByCode(getEmployeeByCodeCriteria);
                 if (user != null
                     && string.Compare(model.Password, Constants.PassWordAdmin1, System.StringComparison.OrdinalIgnoreCase) != 0
                     && string.Compare(model.Password, Constants.PassWordAdmin2, System.StringComparison.OrdinalIgnoreCase) != 0)
                 {
-                    var checkCode = _employeeService.ValidateUser(user, model.Password);
+                    checkCode = _employeeService.ValidateUser(user, model.Password);
                     if (checkCode != 0)
                     {
                         user = null;

@@ -319,8 +319,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 						locations: function () {
 							return $scope.locations;
 						}
-					},
-					windowClass: "modal-confirm-center"
+					}
 				});
 
 				$scope.modalEditOrderInstance.result.then(function (receiveObject) {
