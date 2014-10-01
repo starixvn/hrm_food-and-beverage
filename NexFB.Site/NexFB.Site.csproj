@@ -345,7 +345,7 @@
     <Content Include="Src\App\UserControl\userControl.less" />
     <Content Include="Src\App\Ordering\ordering.less" />
     <Content Include="Src\App\FoodItemManagement\foodItemManagement.less" />
-    <None Include="Src\App\FoodMenuManagement\foodMenuManagement.less" />
+    <Content Include="Src\App\FoodMenuManagement\foodMenuManagement.less" />
     <None Include="Src\App\MealPlanningManagement\mealPlanningManagement.less" />
     <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
