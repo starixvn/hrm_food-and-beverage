@@ -83,6 +83,7 @@ namespace NexFB.Site
                 "~/Src/App/Logout/logout-controller.js",
                 "~/Src/App/Ordering/ordering-route.js",
                 "~/Src/App/Ordering/ordering-controller.js",
+                "~/Src/App/Ordering/editOrder-controller.js",
                 "~/Src/App/Ordering/ordering-factory.js",
                 "~/Src/App/FoodItemManagement/foodItemManagement-route.js",
                 "~/Src/App/FoodItemManagement/foodItemManagement-controller.js",
