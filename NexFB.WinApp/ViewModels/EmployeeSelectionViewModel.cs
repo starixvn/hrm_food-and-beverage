@@ -11,6 +11,7 @@ namespace NexFB.WinApp.ViewModels
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using NexFB.Resources;
     using NexFB.WinApp.Core.Models;
 
     /// <summary>
@@ -19,10 +20,12 @@ namespace NexFB.WinApp.ViewModels
     public class EmployeeSelectionViewModel : ViewModelBase
     {
         private static ObservableCollection<KitchenEmployeeInfo> _employeeInfo = new ObservableCollection<KitchenEmployeeInfo>();
+        private string _messageHeader;
 
         public EmployeeSelectionViewModel(List<KitchenEmployeeInfo> employeeInfo)
         {
             EmployeeInfo = new ObservableCollection<KitchenEmployeeInfo>(employeeInfo);
+            MessageHeader = string.Format(WinFormMainResource.DuplicateEmployeeMessage, EmployeeInfo.Count);
         }
 
         public ObservableCollection<KitchenEmployeeInfo> EmployeeInfo
@@ -41,6 +44,25 @@ namespace NexFB.WinApp.ViewModels
 
                 _employeeInfo = value;
                 OnPropertyChanged("EmployeeInfo");
+            }
+        }
+
+        public string MessageHeader
+        {
+            get
+            {
+                return _messageHeader;
+            }
+
+            set
+            {
+                if (_messageHeader == value)
+                {
+                    return;
+                }
+
+                _messageHeader = value;
+                OnPropertyChanged("MessageHeader");
             }
         }
     }

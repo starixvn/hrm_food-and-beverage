@@ -142,6 +142,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Có {0} nhân viên trùng mã Code. Vui lòng lựa chọn 1 người!.
+        /// </summary>
+        public static string DuplicateEmployeeMessage {
+            get {
+                return ResourceManager.GetString("DuplicateEmployeeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sửa.
         /// </summary>
         public static string Edit {

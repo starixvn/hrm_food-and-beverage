@@ -15,8 +15,9 @@
 		</Style>
 	</Window.Resources>
 	<Grid>
-		<Label Content="There are 2 person have the same code. Who do you want to find?" Height="28" HorizontalAlignment="Left" Margin="12,6,0,0" Name="label1" VerticalAlignment="Top" />
-		<ListBox ItemsSource="{Binding EmployeeInfo}" SelectedItem="{Binding SelectedItem}" Margin="0,36,0,0">
+		<Label Content="{Binding Path=MessageHeader}" Height="35" HorizontalAlignment="Left" Margin="12,0,0,0" Name="label1" VerticalAlignment="Top" />
+		<ListBox VerticalAlignment="Top"
+		ItemsSource="{Binding EmployeeInfo}" SelectedItem="{Binding SelectedItem}" Margin="0,36,0,0">
 			<ListBox.ItemTemplate>
 				<DataTemplate >
 					<Viewbox Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,7,0,0">

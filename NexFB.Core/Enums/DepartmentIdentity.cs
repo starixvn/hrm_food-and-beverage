@@ -31,13 +31,13 @@ namespace NexFB.Core.Enums
         /// <summary>
         /// SMS company.
         /// </summary>
-        [Description("SMS")]
-        SMS = 2,
+        [Description("Sms")]
+        Sms = 2,
 
         /// <summary>
-        /// Hong Ma Company.
+        /// Hong MA Company.
         /// </summary>
         [Description("Hong Ma")]
-        HongMa = 3,
+        HongMA = 3,
     }
 }

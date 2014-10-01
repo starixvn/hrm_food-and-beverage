@@ -19,6 +19,7 @@ namespace NexFB.WinApp.Views
         public EmployeeSelectionWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
     }
 }

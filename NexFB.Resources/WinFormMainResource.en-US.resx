@@ -141,6 +141,9 @@
   <data name="DisplayDeletedOrder" xml:space="preserve">
     <value>---------------</value>
   </data>
+  <data name="DuplicateEmployeeMessage" xml:space="preserve">
+    <value>There are {0} person have the same code. Please select one!</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
