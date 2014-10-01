@@ -390,8 +390,8 @@
   <data name="NoMenu" xml:space="preserve">
     <value>No menu available!</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="InvalidLocation" xml:space="preserve">
+    <value>The location field is required!</value>
   </data>
   <data name="DefaultRegistrationWarning" xml:space="preserve">
     <value>Warning: All Week registration does not include Saturday and Sunday</value>

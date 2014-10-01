@@ -85,7 +85,7 @@ namespace NexFB.Criteria.Ordering
                 }
             }
 
-            return Members != null && check && Members.Any();
+            return LocationId != null && Members != null && check && Members.Any();
         }
     }
 }

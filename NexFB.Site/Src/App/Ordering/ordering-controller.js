@@ -206,34 +206,65 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			}
 		});
 
-		$scope.saveAddOrder = function (order) {
-			$scope.modalConfirmSaveOrderInstance = $modal.open({
-				templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
-				controller: "ModalConfirmController2",
-				backdrop: 'static',
-				resolve: {
-					content: function () {
-						return $scope.confirmMessageSaveOrder;
-					}
-				},
-				windowClass: "modal-confirm-center1"
-			});
+		$scope.ValidateNewOrder = function (order) {
+			var isValid = true;
 
-			$scope.modalConfirmSaveOrderInstance.result.then(function () {
-				orderingFactory.createOrder(order).success(function (response) {
-					if (response.result.IsSuccessful === true) {
-						notificationFactory.success("DataChangeSuccessfully");
-						$scope.sendNewOrder(response.orderId);
-						$scope.getDefaultForAddOrder();
-					}
-					else {
-						notificationFactory.error('', response.result.Message);
+			if (order.Location === null || order.Location.LocationId === 0) {
+				isValid = false;
+				notificationFactory.error("InvalidLocation");
+			}
+
+			if (order.Members.length < 1) {
+				isValid = false;
+				notificationFactory.error("InvalidInputData");
+			}
+			else {
+				isValid = false;
+				angular.forEach(order.Members, function (value, index) {
+					if (value.IsOrder) {
+						debugger;
+						isValid = true;
 					}
 				});
-			}, function () {
-			})['finally'](function () {
-				$scope.modalConfirmSaveOrderInstance = undefined;
-			});
+
+				if (!isValid) {
+					notificationFactory.error("InvalidInputData");
+				}
+			}
+
+			return isValid;
+		};
+
+		$scope.saveAddOrder = function (order) {
+			if ($scope.ValidateNewOrder(order)) {
+				$scope.modalConfirmSaveOrderInstance = $modal.open({
+					templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
+					controller: "ModalConfirmController2",
+					backdrop: 'static',
+					resolve: {
+						content: function () {
+							return $scope.confirmMessageSaveOrder;
+						}
+					},
+					windowClass: "modal-confirm-center1"
+				});
+
+				$scope.modalConfirmSaveOrderInstance.result.then(function () {
+					orderingFactory.createOrder(order).success(function (response) {
+						if (response.result.IsSuccessful === true) {
+							notificationFactory.success("DataChangeSuccessfully");
+							$scope.sendNewOrder(response.orderId);
+							$scope.getDefaultForAddOrder();
+						}
+						else {
+							notificationFactory.error('', response.result.Message);
+						}
+					});
+				}, function () {
+				})['finally'](function () {
+					$scope.modalConfirmSaveOrderInstance = undefined;
+				});
+			}
 		};
 
 		$scope.removeMember = function (index, memberId, isSavedOrder) {
@@ -392,6 +423,14 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			});
 		}
 	};
+
+	$scope.showMember = function (order) {
+		order.IsShowMember = true;
+	}
+
+	$scope.hideMember = function (order) {
+		order.IsShowMember = false;
+	}
 
 	$scope.loadData(function () {
 		$scope.bindAction();

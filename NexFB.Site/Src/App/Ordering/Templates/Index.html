@@ -61,9 +61,9 @@
                     </ul>
                 </td>
                 <td class="text-center">
-					<span class="dropdown"><a class="dropdown-toggle" href="" ng-bind="order.MemberCount"
-                        title="View Member" />
-                        <ul class="dropdown-menu dropdown-menu-width">
+					<span><a href="javascript:;" ng-bind="order.MemberCount" 
+						ng-mouseover="showMember(order)" ng-mouseout="hideMember(order)"/>
+                        <ul ng-show="order.IsShowMember">
                             <li ng-repeat="member in order.Members"><span ng-bind="member.Member.NickName"></span>
 							</li>
                         </ul>

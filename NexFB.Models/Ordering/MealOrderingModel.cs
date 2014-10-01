@@ -22,6 +22,7 @@ namespace NexFB.Models.Ordering
         {
             Members = new List<OrderMemberModel>();
             Location = new Location();
+            IsShowMember = false;
         }
 
         public int OrderId { get; set; }
@@ -59,5 +60,7 @@ namespace NexFB.Models.Ordering
                 return ModifiedDate.ToString("HH:mm:ss");
             }
         }
+
+        public bool IsShowMember { get; set; }
     }
 }
