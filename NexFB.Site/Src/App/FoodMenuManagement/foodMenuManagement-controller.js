@@ -345,8 +345,8 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 		mealId: '',
 		employeeTypeId: '',
 		foodId: '',
-		pricePerMeal: 0,
-		pricePerDay: 0,
+		pricePerMeal: '',
+		pricePerDay: '',
 		rawFoodIds: ''
 	};
 

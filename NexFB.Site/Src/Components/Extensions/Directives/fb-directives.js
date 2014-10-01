@@ -165,25 +165,24 @@ appModule.directive('enableChosenSelect', function () {
 appModule.directive('numberOnly', ['$filter', function ($filter) {
 	return {
 		require: 'ngModel',
-		link: function (scope, elem, attrs, ctrl) {
-			if (!ctrl) {
-				return;
-			}
+		link: function (scope, element, attr, ctrl) {
+			function inputValue(inputValue) {
+				if (inputValue) {
+					var digits = inputValue.replace(/[^0-9]/g, '');
 
-			ctrl.$formatters.unshift(function () {
-				return $filter(attrs.numberOnly)(ctrl.$modelValue);
-			});
+					if (digits !== '') {
+						digits = $filter(attr.numberOnly)(digits);
+					}
 
-			ctrl.$parsers.unshift(function (viewValue) {
-				if (!viewValue) {
-					return '';
+					if (digits !== inputValue) {
+						ctrl.$setViewValue(digits);
+						ctrl.$render();
+					}
+					return parseFloat(digits);
 				}
-
-				var plainNumber = viewValue.replace(/[^\d|\-+|\.+]/g, '');
-				elem.val($filter(attrs.numberOnly)(plainNumber));
-
-				return plainNumber;
-			});
+				return undefined;
+			}
+			ctrl.$parsers.push(inputValue);
 		}
 	};
 } ]);

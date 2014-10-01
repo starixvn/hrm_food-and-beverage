@@ -22,7 +22,7 @@ ErrorFactory, foodItemUtilities) {
 		commonFactory.tablePagination($scope, $scope.foodItems, $scope.entrySelected);
 	};
 
-	$scope.entrySelected = 15;
+	$scope.entrySelected = 10;
 	commonFactory.numberEntryList($scope);
 
 	/*
