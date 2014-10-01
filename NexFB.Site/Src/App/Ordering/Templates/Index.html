@@ -61,10 +61,10 @@
                     </ul>
                 </td>
                 <td class="text-center">
-					<span><a href="javascript:;" ng-bind="order.MemberCount" 
-						ng-mouseover="showMember(order)" ng-mouseout="hideMember(order)" class="lnk-member"/>
-                        <ul ng-show="order.IsShowMember" class="list-unstyled">
-                            <li ng-repeat="member in order.Members"><span ng-bind="member.Member.NickName"></span>
+					<span class="lnk-member"><a href="javascript:;" ng-bind="order.MemberCount" 
+						ng-mouseover="showMember(order)" ng-mouseout="hideMember(order)" />
+                        <ul ng-show="order.IsShowMember" class="list-unstyled drop-menu">
+                            <li ng-repeat="member in order.Members"><span class="chevron-right "></span><span ng-bind="member.Member.NickName"></span>
 							</li>
                         </ul>
                     </span>
