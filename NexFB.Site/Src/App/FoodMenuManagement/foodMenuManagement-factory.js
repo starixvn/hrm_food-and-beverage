@@ -45,7 +45,7 @@ function (notificationFactory) {
 			return false;
 		}
 		else {
-			if ((foodMenu.pricePerMeal === null && foodMenu.pricePerDay === null) ||
+			if ((foodMenu.pricePerMeal === "" && foodMenu.pricePerDay === "") ||
 					(foodMenu.pricePerMeal === undefined && foodMenu.pricePerDay === undefined)) {
 				notificationFactory.error("FoodMenuPriceRequire");
 				valid = false;
