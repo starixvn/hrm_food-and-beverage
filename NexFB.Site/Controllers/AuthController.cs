@@ -98,6 +98,11 @@ namespace NexFB.Site.Controllers
             return user;
         }
 
+        /// <summary>
+        /// Function to check login by domain.
+        /// </summary>
+        /// <param name="model">Login Model.</param>
+        /// <returns>Result of check.</returns>
         private UserSession CheckLoginByDomain(LoginModel model)
         {
             UserSession user = null;
@@ -119,6 +124,11 @@ namespace NexFB.Site.Controllers
             return user;
         }
 
+        /// <summary>
+        /// Function to check login by code.
+        /// </summary>
+        /// <param name="model">Login Model.</param>
+        /// <returns>Result of check.</returns>
         private UserSession CheckLoginByCode(LoginModel model)
         {
             UserSession user = null;
