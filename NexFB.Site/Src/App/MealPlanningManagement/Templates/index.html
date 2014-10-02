@@ -2,25 +2,29 @@
     <div class="row filter">
         <form class="form-horizontal" role="form">
             <div class="form-group">
-                <label class="col-sm-1 text-right">Meal</label>
+                <label class="col-sm-1 text-right" data-translate="Meal"></label>
                 <div class="col-sm-2">
-                    <select class="form-control">
-                        <option>2 selected</option>
-                    </select>
+					<select ng-model="filter.mealId" ng-options="opt.MealId as opt.MealEngName for opt in mealsOption"
+						required class="form-control">
+						<option value="">-- {{"AllMeals" | translate}} --</option>
+					</select>
                 </div>
-                <label class="col-sm-2 text-right">Employee type</label>
+                <label class="col-sm-2 text-right" data-translate="EmployeeType"></label>
                 <div class="col-sm-2">
-                    <select class="form-control">
-                        <option>4 selected</option>
-                    </select>
+ 					<select ng-model="filter.employeeTypeId" ng-options="opt.EmployeeTypeId as opt.EmployeeTypeName for opt in employeeTypesOption"
+						required class="form-control">
+						<option value="">-- {{"AllType" | translate}} --</option>
+					</select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-1 text-right">From</label>
+                <label class="col-sm-1 text-right" data-translate="From"></label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control"/>
+					<input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}"
+						is-open="calendar.startDateOpened" />
+					<calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
                 </div>
-                <label class="col-sm-2 text-right">To</label>
+                <label class="col-sm-2 text-right" data-translate="To"></label>
                 <div class="col-sm-2">
                     <input type="text" class="form-control"/>
                 </div>

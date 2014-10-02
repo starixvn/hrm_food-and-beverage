@@ -5,6 +5,10 @@ appModule.factory('commonFactory',
 ['$filter', function ($filter) {
 	var common = {};
 
+	common.getDateFormat = function ($scope) {
+		$scope.dateFormat = "dd MMM, yyyy";
+	};
+
 	common.formatString = function () {
 		var theString = arguments[0];
 		for (var i = 1; i < arguments.length; i++) {

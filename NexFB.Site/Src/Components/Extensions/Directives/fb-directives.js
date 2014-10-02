@@ -197,3 +197,11 @@ appModule.directive('numberOnly', ['$filter', function ($filter) {
 		}
 	};
 } ]);
+
+appModule.directive('calendarImage', function () {
+	return {
+		restrict: 'AE',
+		replace: 'true',
+		template: '<img class="calendar-image" src="/Src/Content/Site/images/calendar.png"></img>'
+	};
+});

@@ -3,12 +3,15 @@
 
 mealPlanningManagementModule.controller('MealPlanningManagementController',
 ['$scope', '$modal', 'mealPlanningFactory', 'ErrorFactory', 'notificationFactory', 'commonFactory',
-function ($scope, $modal, mealPlanningFactory, ErrorFactory, notificationFactory, commonFactory) {
+'foodMenuFactory',
+function ($scope, $modal, mealPlanningFactory, ErrorFactory, notificationFactory, commonFactory,
+foodMenuFactory) {
 	/*
 	** Declare variables.
 	*/
 	$scope.originalPage = 0;
 	var toDay = new Date();
+	commonFactory.getDateFormat($scope);
 
 	/*
 	** Paging.
@@ -19,6 +22,24 @@ function ($scope, $modal, mealPlanningFactory, ErrorFactory, notificationFactory
 
 	$scope.entrySelected = 10;
 	commonFactory.numberEntryList($scope);
+
+	/*
+	** Get all meal timesheet.
+	*/
+	foodMenuFactory.getAllMealTimesheet().success(function (meals) {
+		$scope.mealsOption = meals;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
+	/*
+	** Get all employee type.
+	*/
+	foodMenuFactory.getAllEmployeeType().success(function (employeeTypes) {
+		$scope.employeeTypesOption = employeeTypes;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
 
 	/*
 	** Get all meal planning.
