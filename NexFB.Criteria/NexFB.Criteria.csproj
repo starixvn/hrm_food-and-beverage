@@ -69,6 +69,7 @@
     <Compile Include="FoodItemManagement\GetAllFoodItemCriteria.cs" />
     <Compile Include="FoodItemManagement\InsertFoodItemCriteria.cs" />
     <Compile Include="FoodItemManagement\UpdateFoodItemCriteria.cs" />
+    <Compile Include="FoodMealPlanning\GetAllMealPlanningByOnDateCriteria.cs" />
     <Compile Include="FoodMenuManagement\ActivateFoodMenuCriteria.cs" />
     <Compile Include="FoodMenuManagement\DeleteFoodMenuByMenuIdCriteria.cs" />
     <Compile Include="FoodMenuManagement\GetAllFoodMenuCriteria.cs" />
@@ -128,6 +129,7 @@
       <Name>NexFB.Models</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

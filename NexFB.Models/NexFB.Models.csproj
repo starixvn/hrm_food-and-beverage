@@ -60,6 +60,7 @@
     <Compile Include="Entities\Team.cs" />
     <Compile Include="FoodItemManagement\FoodItemModel.cs" />
     <Compile Include="FoodItemManagement\RawFoodMenuModel.cs" />
+    <Compile Include="FoodMealPlanning\MealPlanningModel.cs" />
     <Compile Include="FoodMenuManagement\FoodMenuModel.cs" />
     <Compile Include="Kitchen\EmployeeInGroup.cs" />
     <Compile Include="Kitchen\FoodOrder.cs" />

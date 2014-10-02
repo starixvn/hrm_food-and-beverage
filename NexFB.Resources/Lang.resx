@@ -367,10 +367,10 @@
     <value>Edit Food Item</value>
   </data>
   <data name="CreateFoodMenu" xml:space="preserve">
-    <value>Create Food Menu</value>
+    <value>Create Menu</value>
   </data>
   <data name="EditFoodMenu" xml:space="preserve">
-    <value>Edit Food Menu</value>
+    <value>Edit Menu</value>
   </data>
   <data name="MonthlyWeeklyDefaultWarning" xml:space="preserve">
     <value>Warning: Monthly and weekly registration will not be applied for Saturday and Sunday</value>
@@ -487,7 +487,7 @@
     <value>Menu (Eng)</value>
   </data>
   <data name="FoodMenuManagement" xml:space="preserve">
-    <value>Food Menu Management</value>
+    <value>Menu Management</value>
   </data>
   <data name="FoodMenuVnm" xml:space="preserve">
     <value>Menu (Viet)</value>

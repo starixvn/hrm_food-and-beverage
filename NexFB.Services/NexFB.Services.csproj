@@ -65,11 +65,13 @@
     <Compile Include="Implement\FoodItemService.cs" />
     <Compile Include="Implement\FoodMenuService.cs" />
     <Compile Include="Implement\KitchenService.cs" />
+    <Compile Include="Implement\MealPlanningService.cs" />
     <Compile Include="Implement\MealRegistrationService.cs" />
     <Compile Include="Implement\OrderingService.cs" />
     <Compile Include="Interface\IFoodItemService.cs" />
     <Compile Include="Interface\IFoodMenuService.cs" />
     <Compile Include="Interface\IKitchenService.cs" />
+    <Compile Include="Interface\IMealPlanningService.cs" />
     <Compile Include="Interface\IMealRegistrationService.cs" />
     <Compile Include="Interface\IOrderingService.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />

@@ -46,24 +46,49 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td rowspan="2" class="text-center oddRow">1</td>
-                    <td rowspan="2" class="oddRow">Trưa 1</td>
-                    <td rowspan="2" class="oddRow">Aug 25,2014</td>
-                    <td rowspan="2" class="oddRow">Lunch</td>
-                    <td rowspan="2" class="text-center">No</td>
-                    <td rowspan="2" class="oddRow">Nexcel & HRM</td>
-                    <td class="oddRow">Cá lóc chiên</td>
-                    <td rowspan="2" class="text-center oddRow"><input type="checkbox" checked="checked"/></td>
-                    <td rowspan="2" class="text-center oddRow">
+                <tr ng-repeat="mealPlanning in pagedItems[currentPage]">
+                    <td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center oddRow" ng-bind="mealPlanning.itemIndex + 1"></td>
+                    <td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="oddRow" ng-bind="mealPlanning.FoodMenu.MenuVnmName"></td>
+                    <td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="oddRow" ng-bind="mealPlanning.Date | customDate"></td>
+                    <td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="oddRow">
+						<div ng-if="mealPlanning.FoodMenu.Meals.length == 1" >
+							<span ng-bind="foodMenu.Meals[0].MealEngName"></span>
+						</div>
+						<div ng-if="mealPlanning.FoodMenu.Meals.length > 1" >
+							<ul class="group-toggle-item">
+								<li ng-repeat="meal in mealPlanning.FoodMenu.Meals" ng-bind="meal.MealEngName"></li>
+							</ul>
+						</div>
+					</td>
+					<td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center">
+						<span data-translate="Yes" ng-if="mealPlanning.FoodMenu.IsVegetarian"></span>
+						<span data-translate="No" ng-if="!mealPlanning.FoodMenu.IsVegetarian"></span>
+					</td>
+					<td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="oddRow">
+						<div ng-if="mealPlanning.FoodMenu.EmployeeTypes.length == 1">
+							<span ng-bind="foodMenu.EmployeeTypes[0].EmployeeTypeName"></span>
+						</div>
+						<div ng-if="mealPlanning.FoodMenu.EmployeeTypes.length > 1">
+							<ul class="group-toggle-item">
+								<li ng-repeat="type in mealPlanning.FoodMenu.EmployeeTypes" ng-bind="type.EmployeeTypeName"></li>
+							</ul>
+						</div>
+					</td>
+                    <td class="oddRow">
+						
+					</td>
+                    <td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center oddRow">
+						<input type="checkbox" ng-checked="mealPlanning.IsActive" />
+					</td>
+                    <td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center oddRow">
                         <a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
                         <a class="glyphicon glyphicon-remove icon-remove" href=""></a>
                     </td>
                 </tr>
-                <tr>
+<!--                <tr>
                     <td class="oddRow">Canh rau dền</td>
-                </tr>
-                <tr>
+                </tr>-->
+<!--                <tr>
                     <td rowspan="2" class="text-center evenRow">2</td>
                     <td rowspan="2" class="evenRow">Trưa 2</td>
                     <td rowspan="2" class="evenRow">Aug 25,2014</td>
@@ -156,7 +181,7 @@
                     <td class="oddRow text-center" colspan="3">
                         <a class="glyphicon glyphicon-plus" href=""></a>
                     </td>
-                </tr>
+                </tr>-->
             </tbody>
         </table>
     </div>

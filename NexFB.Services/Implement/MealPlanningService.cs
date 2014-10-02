@@ -1,0 +1,56 @@
+﻿// ----------------------------------------------------------------------
+// <copyright file="MealPlanningService.cs" company="Nexcel Solutions Viet Nam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// ------------------------------------------------------------------------
+// <history>
+//   <change who="Josh.Phan" date="10/2/2014 4:01:27 PM">Created.</change>
+// </history>
+
+namespace NexFB.Services.Implement
+{
+    using System.Collections.Generic;
+    using Fanex.Common.Helper;
+    using NexFB.Core.Services;
+    using NexFB.Criteria.FoodMealPlanning;
+    using NexFB.Models.FoodMealPlanning;
+    using NexFB.Repositories.Implement;
+    using NexFB.Repositories.Interface;
+    using NexFB.Services.Interface;
+
+    /// <summary>
+    /// The Meal Planning service.
+    /// </summary>
+    public class MealPlanningService : BaseService, IMealPlanningService
+    {
+        private readonly IMealPlanningRepository _mealPlanningRepository;
+
+        public MealPlanningService()
+            : this(null)
+        {
+        }
+
+        public MealPlanningService(IMealPlanningRepository mealPlanningRepository)
+        {
+            _mealPlanningRepository = mealPlanningRepository ?? new MealPlanningRepository();
+        }
+
+        /// <summary>
+        /// Get meal planning by on date.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Meal Planning model.</returns>
+        public IEnumerable<MealPlanningModel> GetMealPlanningByOnDate(GetAllMealPlanningByOnDateCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<MealPlanningModel> mealPlannings = null;
+
+            if (criteria.IsValid())
+            {
+                mealPlannings = _mealPlanningRepository.GetMealPlanningByOnDate(criteria);
+            }
+
+            return mealPlannings;
+        }
+    }
+}

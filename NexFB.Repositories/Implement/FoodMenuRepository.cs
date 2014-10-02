@@ -13,10 +13,8 @@ namespace NexFB.Repositories.Implement
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
-    using NexFB.Models.Employee;
     using NexFB.Models.FoodItemManagement;
     using NexFB.Models.FoodMenuManagement;
-    using NexFB.Models.MealRegistration;
     using NexFB.Repositories.Interface;
 
     /// <summary>
@@ -24,6 +22,18 @@ namespace NexFB.Repositories.Implement
     /// </summary>
     public class FoodMenuRepository : IFoodMenuRepository
     {
+        private readonly ICommonRepository _commonRepository;
+
+        public FoodMenuRepository()
+            : this(null)
+        {
+        }
+
+        public FoodMenuRepository(ICommonRepository commonRepository)
+        {
+            _commonRepository = commonRepository ?? new CommonRepository();
+        }
+
         /// <summary>
         /// Get all food menu.
         /// </summary>
@@ -44,8 +54,8 @@ namespace NexFB.Repositories.Implement
                     {
                         int menuId = foodMenu.MenuId;
 
-                        foodMenu.Meals = GetMealsOfMenu(menuId, rawMeals);
-                        foodMenu.EmployeeTypes = GetEmployeeTypeOfMenu(menuId, rawEmployeeTypes);
+                        foodMenu.Meals = _commonRepository.GetMealsOfMenu(menuId, rawMeals);
+                        foodMenu.EmployeeTypes = _commonRepository.GetEmployeeTypeOfMenu(menuId, rawEmployeeTypes);
                         foodMenu.FoodItems = GetFoodItemsOfMenu(menuId, rawFoodItems);
                     }
 
@@ -63,57 +73,6 @@ namespace NexFB.Repositories.Implement
                     return multi.Read<FoodMenuModel>();
                 }
             }
-        }
-
-        /// <summary>
-        /// Get meals of menu.
-        /// </summary>
-        /// <param name="menuId">The menu ID.</param>
-        /// <param name="rawMeals">The meals from database.</param>
-        /// <returns>The list Meal Model belong to current menu.</returns>
-        private IList<MealModel> GetMealsOfMenu(int menuId, IList<dynamic> rawMeals)
-        {
-            IList<MealModel> meals = new List<MealModel>();
-            IEnumerable<dynamic> rawMealsOfMenu = rawMeals.Where(x => x.MenuID == menuId);
-
-            foreach (dynamic rawMeal in rawMealsOfMenu)
-            {
-                var meal = new MealModel
-                {
-                    MealId = rawMeal.MealID,
-                    MealVnmName = rawMeal.MealVNMName,
-                    MealEngName = rawMeal.MealENGName
-                };
-
-                meals.Add(meal);
-            }
-
-            return meals;
-        }
-
-        /// <summary>
-        /// Get employee type of menu.
-        /// </summary>
-        /// <param name="menuId">The menu ID.</param>
-        /// <param name="rawEmployeeTypes">The list employee types from database.</param>
-        /// <returns>The list Employee Type belong to current menu.</returns>
-        private IList<EmployeeTypeModel> GetEmployeeTypeOfMenu(int menuId, IList<dynamic> rawEmployeeTypes)
-        {
-            IList<EmployeeTypeModel> employeeTypes = new List<EmployeeTypeModel>();
-            IEnumerable<dynamic> rawEmployeeTypesOfMenu = rawEmployeeTypes.Where(x => x.MenuID == menuId);
-
-            foreach (dynamic rawEmployeeType in rawEmployeeTypesOfMenu)
-            {
-                var employeeType = new EmployeeTypeModel
-                {
-                    EmployeeTypeId = rawEmployeeType.EmployeeTypeID,
-                    EmployeeTypeName = rawEmployeeType.EmployeeTypeName
-                };
-
-                employeeTypes.Add(employeeType);
-            }
-
-            return employeeTypes;
         }
 
         /// <summary>

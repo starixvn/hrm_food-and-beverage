@@ -184,4 +184,8 @@
 		<Setting Key="FoodMenu_EditActiveByMenuID" SpName="FoodMenu_EditActiveByMenuID" DbName="NexFB" Plain="0" >
 		</Setting>
 	</Function>
+	<Function Name="FoodMenuManagement">
+		<Setting Key="FoodPlan_GetMenuByOnDate" SpName="FoodPlan_GetMenuByOnDate" DbName="NexFB" Plain="0" >
+		</Setting>
+	</Function>
 </Functions>

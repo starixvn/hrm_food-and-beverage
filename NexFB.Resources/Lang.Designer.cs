@@ -295,7 +295,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Food Menu.
+        ///   Looks up a localized string similar to Create Menu.
         /// </summary>
         public static string CreateFoodMenu {
             get {
@@ -421,7 +421,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit Food Menu.
+        ///   Looks up a localized string similar to Edit Menu.
         /// </summary>
         public static string EditFoodMenu {
             get {
@@ -583,7 +583,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Food Menu Management.
+        ///   Looks up a localized string similar to Menu Management.
         /// </summary>
         public static string FoodMenuManagement {
             get {

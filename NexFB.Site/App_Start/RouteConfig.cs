@@ -9,6 +9,7 @@
 
 namespace NexFB.Site
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using System.Web.Routing;
 
@@ -21,6 +22,7 @@ namespace NexFB.Site
         /// Register Routes.
         /// </summary>
         /// <param name="routes">The routes collection.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
@@ -63,6 +65,11 @@ namespace NexFB.Site
             routes.MapRoute(
                name: "Meal Planning Management",
                url: "MealPlanningManagement/Index",
+               defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
+               name: "Access denied",
+               url: "Home/AccessDenied",
                defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
