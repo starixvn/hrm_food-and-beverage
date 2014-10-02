@@ -59,8 +59,13 @@ ErrorFactory) {
 	*/
 	foodItemFactory.getAllFoodItem(null, true).success(function (foodItems) {
 		$scope.foodItems = foodItems;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		if (status === 405) {
+			ErrorFactory.errorHandle(status);
+		}
+		else {
+			notificationFactory.error("ErrorMessage");
+		}
 	});
 
 	/*
