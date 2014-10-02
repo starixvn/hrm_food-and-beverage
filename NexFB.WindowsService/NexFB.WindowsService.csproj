@@ -119,6 +119,15 @@
       <DependentUpon>AutoService.cs</DependentUpon>
     </Compile>
     <Compile Include="CommonService.cs" />
+    <Compile Include="Criteria\InsertAndUpdateEmployeeCalendarSMSCriteria.cs" />
+    <Compile Include="Criteria\InsertAndUpdateEmployeeCalendarHMCriteria.cs" />
+    <Compile Include="Criteria\InsertAndUpdateShiftSMSCriteria.cs" />
+    <Compile Include="Criteria\InsertAndUpdateShiftHMCriteria.cs" />
+    <Compile Include="Criteria\InsertAndUpdateEmployeeCalendarNexcelCriteria.cs" />
+    <Compile Include="Criteria\InsertAndUpdateShiftNexcelCriteria.cs" />
+    <Compile Include="Criteria\GetLastEmployeeCalendarModifiedDateCriteria.cs" />
+    <Compile Include="Criteria\InsertAndUpdateTeamSMSCriteria.cs" />
+    <Compile Include="Criteria\InsertAndUpdateUserSMSCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateTeamHMCriteria.cs" />
     <Compile Include="Criteria\GetLastTeamModifiedDateCriteria.cs" />
     <Compile Include="Criteria\GetLastUserModifiedDateCriteria.cs" />
@@ -143,12 +152,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\SMSService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.EmployeeCalendarModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.ShiftModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.TeamModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -165,6 +185,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\HongMaService\UserService.wsdl" />
+    <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.EmployeeCalendarModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.ShiftModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.TeamModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -181,6 +207,28 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\NexcelService\UserService.wsdl" />
+    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.EmployeeCalendarModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.ShiftModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.TeamModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.UserModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SMSService\Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SMSService\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SMSService\Service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SMSService\UserService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -219,20 +267,27 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\HongMaService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\HongMaService\configuration.svcinfo" />
-    <None Include="Service References\HongMaService\configuration91.svcinfo" />
-    <None Include="Service References\HongMaService\Service.disco" />
+    <None Include="Service References\NexcelService\Service.disco" />
+    <None Include="Service References\NexcelService\configuration91.svcinfo" />
+    <None Include="Service References\NexcelService\configuration.svcinfo" />
     <None Include="Service References\NexcelService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\NexcelService\configuration.svcinfo" />
-    <None Include="Service References\NexcelService\configuration91.svcinfo" />
-    <None Include="Service References\NexcelService\Service.disco" />
+    <None Include="Service References\HongMaService\Service.disco" />
+    <None Include="Service References\HongMaService\configuration91.svcinfo" />
+    <None Include="Service References\HongMaService\configuration.svcinfo" />
+    <None Include="Service References\HongMaService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\SMSService\Service.disco" />
+    <None Include="Service References\SMSService\configuration91.svcinfo" />
+    <None Include="Service References\SMSService\configuration.svcinfo" />
+    <None Include="Service References\SMSService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="SpName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -243,6 +298,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\HongMaService\" />
     <WCFMetadataStorage Include="Service References\NexcelService\" />
+    <WCFMetadataStorage Include="Service References\SMSService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

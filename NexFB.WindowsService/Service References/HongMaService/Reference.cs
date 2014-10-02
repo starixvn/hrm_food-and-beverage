@@ -26,9 +26,6 @@ namespace NexFB.WindowsService.HongMaService {
         private string CodeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int DepartmentIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DomainNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -77,19 +74,6 @@ namespace NexFB.WindowsService.HongMaService {
                 if ((object.ReferenceEquals(this.CodeField, value) != true)) {
                     this.CodeField = value;
                     this.RaisePropertyChanged("Code");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int DepartmentId {
-            get {
-                return this.DepartmentIdField;
-            }
-            set {
-                if ((this.DepartmentIdField.Equals(value) != true)) {
-                    this.DepartmentIdField = value;
-                    this.RaisePropertyChanged("DepartmentId");
                 }
             }
         }
@@ -247,9 +231,6 @@ namespace NexFB.WindowsService.HongMaService {
         private string CodeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int DepartmentIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool IsDeletedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -280,19 +261,6 @@ namespace NexFB.WindowsService.HongMaService {
                 if ((object.ReferenceEquals(this.CodeField, value) != true)) {
                     this.CodeField = value;
                     this.RaisePropertyChanged("Code");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int DepartmentId {
-            get {
-                return this.DepartmentIdField;
-            }
-            set {
-                if ((this.DepartmentIdField.Equals(value) != true)) {
-                    this.DepartmentIdField = value;
-                    this.RaisePropertyChanged("DepartmentId");
                 }
             }
         }
@@ -359,6 +327,368 @@ namespace NexFB.WindowsService.HongMaService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ShiftModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.SerializableAttribute()]
+    public partial class ShiftModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BeginCheckInTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BeginCheckOutTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EndCheckInTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EndCheckOutTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsInAfterDayField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsOutAfterDayField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime ModifiedDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ShiftIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BeginCheckInTime {
+            get {
+                return this.BeginCheckInTimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BeginCheckInTimeField, value) != true)) {
+                    this.BeginCheckInTimeField = value;
+                    this.RaisePropertyChanged("BeginCheckInTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BeginCheckOutTime {
+            get {
+                return this.BeginCheckOutTimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BeginCheckOutTimeField, value) != true)) {
+                    this.BeginCheckOutTimeField = value;
+                    this.RaisePropertyChanged("BeginCheckOutTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EndCheckInTime {
+            get {
+                return this.EndCheckInTimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EndCheckInTimeField, value) != true)) {
+                    this.EndCheckInTimeField = value;
+                    this.RaisePropertyChanged("EndCheckInTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EndCheckOutTime {
+            get {
+                return this.EndCheckOutTimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EndCheckOutTimeField, value) != true)) {
+                    this.EndCheckOutTimeField = value;
+                    this.RaisePropertyChanged("EndCheckOutTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsInAfterDay {
+            get {
+                return this.IsInAfterDayField;
+            }
+            set {
+                if ((this.IsInAfterDayField.Equals(value) != true)) {
+                    this.IsInAfterDayField = value;
+                    this.RaisePropertyChanged("IsInAfterDay");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsOutAfterDay {
+            get {
+                return this.IsOutAfterDayField;
+            }
+            set {
+                if ((this.IsOutAfterDayField.Equals(value) != true)) {
+                    this.IsOutAfterDayField = value;
+                    this.RaisePropertyChanged("IsOutAfterDay");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime ModifiedDate {
+            get {
+                return this.ModifiedDateField;
+            }
+            set {
+                if ((this.ModifiedDateField.Equals(value) != true)) {
+                    this.ModifiedDateField = value;
+                    this.RaisePropertyChanged("ModifiedDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ShiftId {
+            get {
+                return this.ShiftIdField;
+            }
+            set {
+                if ((this.ShiftIdField.Equals(value) != true)) {
+                    this.ShiftIdField = value;
+                    this.RaisePropertyChanged("ShiftId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EmployeeCalendarModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.SerializableAttribute()]
+    public partial class EmployeeCalendarModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsHolidayField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsLeaveDayField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsOffDayField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal LeaveDayField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LeaveTypeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime ModifiedDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ShiftIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int UserIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime WorkDateField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsHoliday {
+            get {
+                return this.IsHolidayField;
+            }
+            set {
+                if ((this.IsHolidayField.Equals(value) != true)) {
+                    this.IsHolidayField = value;
+                    this.RaisePropertyChanged("IsHoliday");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsLeaveDay {
+            get {
+                return this.IsLeaveDayField;
+            }
+            set {
+                if ((this.IsLeaveDayField.Equals(value) != true)) {
+                    this.IsLeaveDayField = value;
+                    this.RaisePropertyChanged("IsLeaveDay");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsOffDay {
+            get {
+                return this.IsOffDayField;
+            }
+            set {
+                if ((this.IsOffDayField.Equals(value) != true)) {
+                    this.IsOffDayField = value;
+                    this.RaisePropertyChanged("IsOffDay");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal LeaveDay {
+            get {
+                return this.LeaveDayField;
+            }
+            set {
+                if ((this.LeaveDayField.Equals(value) != true)) {
+                    this.LeaveDayField = value;
+                    this.RaisePropertyChanged("LeaveDay");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LeaveTypeId {
+            get {
+                return this.LeaveTypeIdField;
+            }
+            set {
+                if ((this.LeaveTypeIdField.Equals(value) != true)) {
+                    this.LeaveTypeIdField = value;
+                    this.RaisePropertyChanged("LeaveTypeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime ModifiedDate {
+            get {
+                return this.ModifiedDateField;
+            }
+            set {
+                if ((this.ModifiedDateField.Equals(value) != true)) {
+                    this.ModifiedDateField = value;
+                    this.RaisePropertyChanged("ModifiedDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ShiftId {
+            get {
+                return this.ShiftIdField;
+            }
+            set {
+                if ((this.ShiftIdField.Equals(value) != true)) {
+                    this.ShiftIdField = value;
+                    this.RaisePropertyChanged("ShiftId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserId {
+            get {
+                return this.UserIdField;
+            }
+            set {
+                if ((this.UserIdField.Equals(value) != true)) {
+                    this.UserIdField = value;
+                    this.RaisePropertyChanged("UserId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime WorkDate {
+            get {
+                return this.WorkDateField;
+            }
+            set {
+                if ((this.WorkDateField.Equals(value) != true)) {
+                    this.WorkDateField = value;
+                    this.RaisePropertyChanged("WorkDate");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="HongMaService.IUserService")]
     public interface IUserService {
@@ -368,6 +698,12 @@ namespace NexFB.WindowsService.HongMaService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetTeam", ReplyAction="http://tempuri.org/IUserService/GetTeamResponse")]
         NexFB.WindowsService.HongMaService.TeamModel[] GetTeam(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetShift", ReplyAction="http://tempuri.org/IUserService/GetShiftResponse")]
+        NexFB.WindowsService.HongMaService.ShiftModel[] GetShift();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetEmployeeCalendar", ReplyAction="http://tempuri.org/IUserService/GetEmployeeCalendarResponse")]
+        NexFB.WindowsService.HongMaService.EmployeeCalendarModel[] GetEmployeeCalendar(System.Nullable<System.DateTime> fromDate);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -403,6 +739,14 @@ namespace NexFB.WindowsService.HongMaService {
         
         public NexFB.WindowsService.HongMaService.TeamModel[] GetTeam(System.Nullable<System.DateTime> fromDate) {
             return base.Channel.GetTeam(fromDate);
+        }
+        
+        public NexFB.WindowsService.HongMaService.ShiftModel[] GetShift() {
+            return base.Channel.GetShift();
+        }
+        
+        public NexFB.WindowsService.HongMaService.EmployeeCalendarModel[] GetEmployeeCalendar(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetEmployeeCalendar(fromDate);
         }
     }
 }

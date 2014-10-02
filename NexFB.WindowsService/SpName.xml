@@ -3,7 +3,10 @@
   <Function Name="Attendance">
     <Setting Key="API_SYN_Employee" SpName="API_SYN_Employee" DbName="NexFB" Plain="0"></Setting>
     <Setting Key="API_SYN_Team" SpName="API_SYN_Team" DbName="NexFB" Plain="0"></Setting>
+    <Setting Key="API_SYN_Shift" SpName="API_SYN_Shift" DbName="NexFB" Plain="0"></Setting>
+    <Setting Key="API_SYN_Calendar" SpName="API_SYN_Calendar" DbName="NexFB" Plain="0"></Setting>
     <Setting Key="Employee_GetLastModifiedDate" SpName="Employee_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
     <Setting Key="EmpTeam_GetLastModifiedDate" SpName="EmpTeam_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
+    <Setting Key="EmpCalendar_GetLastModifiedDate" SpName="EmpCalendar_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
   </Function>
 </Functions>

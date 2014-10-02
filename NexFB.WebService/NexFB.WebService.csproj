@@ -68,8 +68,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Criteria\GetEmployeeCalendarCriteria.cs" />
+    <Compile Include="Criteria\GetShiftCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeCriteria.cs" />
     <Compile Include="Criteria\GetTeamCriteria.cs" />
+    <Compile Include="Models\EmployeeCalendarModel.cs" />
+    <Compile Include="Models\ShiftModel.cs" />
     <Compile Include="Models\TeamModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

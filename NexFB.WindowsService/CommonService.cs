@@ -25,11 +25,13 @@ namespace NexFB.WindowsService
     {
         private NexcelService.UserServiceClient _nexcelService = null;
         private HongMaService.UserServiceClient _hongmaService = null;
+        private SMSService.UserServiceClient _smsService = null;
 
         public CommonService()
         {
             NexcelService = new NexcelService.UserServiceClient();
             HongmaService = new HongMaService.UserServiceClient();
+            SmsService = new SMSService.UserServiceClient();
         }
 
         protected NexcelService.UserServiceClient NexcelService
@@ -42,6 +44,12 @@ namespace NexFB.WindowsService
         {
             get { return _hongmaService; }
             set { _hongmaService = value; }
+        }
+
+        protected SMSService.UserServiceClient SmsService
+        {
+            get { return _smsService; }
+            set { _smsService = value; }
         }
 
         /// <summary>
@@ -79,6 +87,44 @@ namespace NexFB.WindowsService
                 };
 
                 Repository.Update(insertCriteria);
+            }
+        }
+
+        /// <summary>
+        /// Function to update shift of NEXCEL.
+        /// </summary>
+        public void UpdateShiftForNexcel()
+        {
+            IList<NexcelService.ShiftModel> shifts = NexcelService.GetShift();
+            if (shifts != null && shifts.Any())
+            {
+                var criteria = new InsertAndUpdateShiftNexcelCriteria()
+                {
+                    DepartmentId = Constants.NexcelDepartment,
+                    Shifts = shifts
+                };
+
+                Repository.Update(criteria);
+            }
+        }
+
+        /// <summary>
+        /// Function to update employee calendar of NEXCEL.
+        /// </summary>
+        public void UpdateEmployeeCalendarForNexcel()
+        {
+            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar(Constants.NexcelDepartment);
+            ////var fromDate = new DateTime(2014, 6, 30);
+            IList<NexcelService.EmployeeCalendarModel> calendars = NexcelService.GetEmployeeCalendar(fromDate);
+            if (calendars != null && calendars.Any())
+            {
+                var criteria = new InsertAndUpdateEmployeeCalendarNexcelCriteria()
+                {
+                    DepartmentId = Constants.NexcelDepartment,
+                    EmployeeCalendars = calendars
+                };
+
+                Repository.Update(criteria);
             }
         }
 
@@ -121,6 +167,118 @@ namespace NexFB.WindowsService
             }
         }
 
+        /// <summary>
+        /// Function to update shift of Hong Ma.
+        /// </summary>
+        public void UpdateShiftForHM()
+        {
+            IList<HongMaService.ShiftModel> shifts = HongmaService.GetShift();
+            if (shifts != null && shifts.Any())
+            {
+                var criteria = new InsertAndUpdateShiftHMCriteria()
+                {
+                    DepartmentId = Constants.HMDepartment,
+                    Shifts = shifts
+                };
+
+                Repository.Update(criteria);
+            }
+        }
+
+        /// <summary>
+        /// Function to update employee calendar of Hong Ma.
+        /// </summary>
+        public void UpdateEmployeeCalendarForHM()
+        {
+            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar(Constants.HMDepartment);
+            IList<HongMaService.EmployeeCalendarModel> calendars = HongmaService.GetEmployeeCalendar(fromDate);
+            if (calendars != null && calendars.Any())
+            {
+                var criteria = new InsertAndUpdateEmployeeCalendarHMCriteria()
+                {
+                    DepartmentId = Constants.HMDepartment,
+                    EmployeeCalendars = calendars
+                };
+
+                Repository.Update(criteria);
+            }
+        }
+
+        /// <summary>
+        /// Function to update users of SMS.
+        /// </summary>
+        public void UpdateUserForSms()
+        {
+            DateTime fromDate = GetDateFromBeforeUpdateUser(Constants.SmsDepartment);
+            IList<SMSService.UserModel> users = SmsService.GetUser(fromDate);
+            if (users != null && users.Any())
+            {
+                var insertCriteria = new InsertAndUpdateUserSmsCriteria()
+                {
+                    DepartmentId = Constants.SmsDepartment,
+                    Users = users
+                };
+
+                Repository.Update(insertCriteria);
+            }
+        }
+
+        /// <summary>
+        /// Function to update teams of SMS.
+        /// </summary>
+        public void UpdateTeamForSms()
+        {
+            DateTime fromDate = GetDateFromBeforeUpdateTeam(Constants.SmsDepartment);
+            IList<SMSService.TeamModel> teams = SmsService.GetTeam(fromDate);
+            if (teams != null && teams.Any())
+            {
+                var insertCriteria = new InsertAndUpdateTeamSmsCriteria()
+                {
+                    DepartmentId = Constants.SmsDepartment,
+                    Teams = teams
+                };
+
+                Repository.Update(insertCriteria);
+            }
+        }
+
+        /// <summary>
+        /// Function to update shift of SMS.
+        /// </summary>
+        public void UpdateShiftForSms()
+        {
+            IList<SMSService.ShiftModel> shifts = SmsService.GetShift();
+            if (shifts != null && shifts.Any())
+            {
+                var criteria = new InsertAndUpdateShiftSmsCriteria()
+                {
+                    DepartmentId = Constants.SmsDepartment,
+                    Shifts = shifts
+                };
+
+                Repository.Update(criteria);
+            }
+        }
+
+        /// <summary>
+        /// Function to update employee calendar of SMS.
+        /// </summary>
+        public void UpdateEmployeeCalendarForSms()
+        {
+            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar(Constants.SmsDepartment);
+            IList<SMSService.EmployeeCalendarModel> calendars = SmsService.GetEmployeeCalendar(fromDate);
+            if (calendars != null && calendars.Any())
+            {
+                var criteria = new InsertAndUpdateEmployeeCalendarSmsCriteria()
+                {
+                    DepartmentId = Constants.SmsDepartment,
+                    EmployeeCalendars = calendars
+                };
+
+                Repository.Update(criteria);
+            }
+        }
+
         public DateTime GetDateFromBeforeUpdateUser(int departmentId)
         {
             var criteria = new GetLastUserModifiedDateCriteria()
@@ -135,6 +293,17 @@ namespace NexFB.WindowsService
         public DateTime GetDateFromBeforeUpdateTeam(int departmentId)
         {
             var criteria = new GetLastTeamModifiedDateCriteria()
+            {
+                DepartmentId = departmentId
+            };
+
+            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
+            return fromDate;
+        }
+
+        public DateTime GetDateFromBeforeUpdateEmployeeCalendar(int departmentId)
+        {
+            var criteria = new GetLastEmployeeCalendarModifiedDateCriteria()
             {
                 DepartmentId = departmentId
             };

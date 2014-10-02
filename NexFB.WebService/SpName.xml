@@ -5,5 +5,9 @@
     </Setting>
     <Setting Key="EmployeeGroup_Get" SpName="EmployeeGroup_Get" DbName="nexhr" Plain="0" >
     </Setting>
+    <Setting Key="Shift_Get" SpName="Shift_Get" DbName="nexhr" Plain="0" >
+    </Setting>
+    <Setting Key="EmployeeCalendar_Get" SpName="EmployeeCalendar_Get" DbName="nexhr" Plain="0" >
+    </Setting>
   </Function>
 </Functions>

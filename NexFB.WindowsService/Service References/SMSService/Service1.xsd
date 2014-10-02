@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfUserModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserModel" nillable="true" type="tns:UserModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserModel" nillable="true" type="tns:ArrayOfUserModel" />
+  <xs:complexType name="UserModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DomainName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsEnabled" type="xs:boolean" />
+      <xs:element minOccurs="0" name="JoinedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TeamId" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserModel" nillable="true" type="tns:UserModel" />
+  <xs:complexType name="ArrayOfTeamModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TeamModel" nillable="true" type="tns:TeamModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTeamModel" nillable="true" type="tns:ArrayOfTeamModel" />
+  <xs:complexType name="TeamModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TeamId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TeamModel" nillable="true" type="tns:TeamModel" />
+  <xs:complexType name="ArrayOfShiftModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ShiftModel" nillable="true" type="tns:ShiftModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfShiftModel" nillable="true" type="tns:ArrayOfShiftModel" />
+  <xs:complexType name="ShiftModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BeginCheckInTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BeginCheckOutTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndCheckInTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndCheckOutTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsInAfterDay" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsOutAfterDay" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShiftId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ShiftModel" nillable="true" type="tns:ShiftModel" />
+  <xs:complexType name="ArrayOfEmployeeCalendarModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EmployeeCalendarModel" nillable="true" type="tns:EmployeeCalendarModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEmployeeCalendarModel" nillable="true" type="tns:ArrayOfEmployeeCalendarModel" />
+  <xs:complexType name="EmployeeCalendarModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsHoliday" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsLeaveDay" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsOffDay" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LeaveDay" type="xs:decimal" />
+      <xs:element minOccurs="0" name="LeaveTypeId" type="xs:int" />
+      <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ShiftId" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+      <xs:element minOccurs="0" name="WorkDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EmployeeCalendarModel" nillable="true" type="tns:EmployeeCalendarModel" />
+</xs:schema>

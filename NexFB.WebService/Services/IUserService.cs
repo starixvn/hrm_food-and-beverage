@@ -22,5 +22,11 @@ namespace NexFB.WebService.Services
 
         [OperationContract]
         IEnumerable<TeamModel> GetTeam(DateTime? fromDate);
+
+        [OperationContract]
+        IEnumerable<ShiftModel> GetShift(DateTime? fromDate);
+
+        [OperationContract]
+        IEnumerable<EmployeeCalendarModel> GetEmployeeCalendar(DateTime? fromDate);
     }
 }

@@ -42,7 +42,7 @@ namespace NexFB.WebService.Services
             IEnumerable<UserModel> users = null;
             if (criteria.IsValid())
             {
-                users = GetData<UserModel>(criteria).ToList();
+                users = GetData<UserModel>(criteria);
             }
 
             return users;
@@ -63,10 +63,49 @@ namespace NexFB.WebService.Services
 
             if (criteria.IsValid())
             {
-                teams = GetData<TeamModel>(criteria).ToList();
+                teams = GetData<TeamModel>(criteria);
             }
 
             return teams;
+        }
+
+        /// <summary>
+        /// Function to get all shifts.
+        /// </summary>
+        /// <param name="fromDate">The From date.</param>
+        /// <returns>List of shifts model.</returns>
+        public IEnumerable<ShiftModel> GetShift(DateTime? fromDate)
+        {
+            IEnumerable<ShiftModel> shifts = null;
+            var criteria = new GetShiftCriteria();
+
+            if (criteria.IsValid())
+            {
+                shifts = GetData<ShiftModel>(criteria);
+            }
+
+            return shifts;
+        }
+
+        /// <summary>
+        /// Function to get teams by last modified date.
+        /// </summary>
+        /// <param name="fromDate">The From date.</param>
+        /// <returns>List of teams model.</returns>
+        public IEnumerable<EmployeeCalendarModel> GetEmployeeCalendar(DateTime? fromDate)
+        {
+            IEnumerable<EmployeeCalendarModel> calendars = null;
+            var criteria = new GetEmployeeCalendarCriteria()
+            {
+                FromDate = fromDate
+            };
+
+            if (criteria.IsValid())
+            {
+                calendars = GetData<EmployeeCalendarModel>(criteria);
+            }
+
+            return calendars;
         }
     }
 }
