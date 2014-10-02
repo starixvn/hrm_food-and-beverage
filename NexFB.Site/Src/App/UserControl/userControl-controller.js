@@ -135,7 +135,7 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 			$scope.employees = employees;
 			commonFactory.tablePagination($scope, employees, $scope.entrySelected);
 		})
-		.error(function () {
+		.error(function (response, status) {
 			if (status === 405) {
 				ErrorFactory.errorHandle(status);
 			}

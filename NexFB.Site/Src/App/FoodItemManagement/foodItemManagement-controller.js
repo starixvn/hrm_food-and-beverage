@@ -15,6 +15,7 @@ ErrorFactory, foodItemUtilities) {
 	};
 
 	$scope.originalPage = 0;
+
 	/*
 	** Paging.
 	*/
@@ -42,8 +43,13 @@ ErrorFactory, foodItemUtilities) {
 			$scope.foodItems = foodItems;
 			commonFactory.tablePagination($scope, foodItems, $scope.entrySelected);
 			$scope.currentPage = $scope.originalPage;
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorFactory.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
 		});
 	};
 
@@ -168,7 +174,7 @@ ErrorFactory, foodItemUtilities) {
 					ErrorFactory.errorHandle(status);
 				}
 				else {
-					notificationFactory.error("DataChangeFail");
+					notificationFactory.error("ErrorMessage");
 				}
 			});
 		})['finally'](function () {
@@ -215,10 +221,15 @@ ErrorFactory, foodItemUtilities) {
 					food.IsActive = !newFood.IsActive;
 					notificationFactory.error(keyMessage);
 				}
-			}).error(function () {
-				keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-				food.IsActive = !newFood.IsActive;
-				notificationFactory.error(keyMessage);
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+					food.IsActive = !newFood.IsActive;
+					notificationFactory.error(keyMessage);
+				}
 			});
 		}, function () {
 			food.IsActive = !newFood.IsActive;
@@ -276,7 +287,7 @@ ErrorFactory, foodItemUtilities) {
 					ErrorFactory.errorHandle(status);
 				}
 				else {
-					notificationFactory.error("DataChangeFail");
+					notificationFactory.error("ErrorMessage");
 				}
 			});
 		})['finally'](function () {
