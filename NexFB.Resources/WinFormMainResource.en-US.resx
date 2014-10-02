@@ -129,6 +129,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>CANCEL</value>
   </data>
+  <data name="CannotFindEmployeeCode" xml:space="preserve">
+    <value>The member code: #{0} is not available. Please try another code!</value>
+  </data>
   <data name="ChooseDishes" xml:space="preserve">
     <value>Choose Dishes</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="Hidden" xml:space="preserve">
     <value>Hidden</value>
+  </data>
+  <data name="IllegalEmployeeCode" xml:space="preserve">
+    <value>The employee code must contain 5 digits. Please try again!</value>
   </data>
   <data name="InvoicePrinting" xml:space="preserve">
     <value>The invoice is printing...</value>

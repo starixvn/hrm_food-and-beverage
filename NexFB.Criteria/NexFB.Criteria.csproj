@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Kitchen\GetOrderDetailsCriteria.cs" />
     <Compile Include="Kitchen\GetUserByGroupIdCriteria.cs" />
+    <Compile Include="Kitchen\GetEmployeeInGroupBySysIdCriteria.cs" />
     <Compile Include="Kitchen\ProcessDeliverOrderCriteria.cs" />
     <Compile Include="Kitchen\ProcessReceiveOrderCriteria.cs" />
     <Compile Include="MealRegistration\ApplyRegisterMealFromTemplateCriteria.cs" />

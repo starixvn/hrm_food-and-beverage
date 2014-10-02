@@ -97,6 +97,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mã nhân viên: #{0} không tồn tại. Vui lòng nhập lại mã khác!.
+        /// </summary>
+        public static string CannotFindEmployeeCode {
+            get {
+                return ResourceManager.GetString("CannotFindEmployeeCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chọn Món Ăn.
         /// </summary>
         public static string ChooseDishes {
@@ -192,6 +201,15 @@ namespace NexFB.Resources {
         public static string Hidden {
             get {
                 return ResourceManager.GetString("Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã nhân viên phải bao gồm 5 chữ số. Vui lòng nhập lại!.
+        /// </summary>
+        public static string IllegalEmployeeCode {
+            get {
+                return ResourceManager.GetString("IllegalEmployeeCode", resourceCulture);
             }
         }
         

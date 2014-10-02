@@ -111,7 +111,6 @@
     <Compile Include="DependencyProperties\WaterMark.cs" />
     <Compile Include="DependencyProperties\WatermarkAdorner.cs" />
     <Compile Include="ViewModels\AwaitingDeliverViewModel.cs" />
-    <Compile Include="ViewModels\EmployeeSelectionViewModel.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="Views\EmployeeSelectionWindow.xaml.cs">
       <DependentUpon>EmployeeSelectionWindow.xaml</DependentUpon>

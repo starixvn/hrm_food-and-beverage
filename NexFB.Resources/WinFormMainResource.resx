@@ -129,6 +129,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>HỦY</value>
   </data>
+  <data name="CannotFindEmployeeCode" xml:space="preserve">
+    <value>Mã nhân viên: #{0} không tồn tại. Vui lòng nhập lại mã khác!</value>
+  </data>
   <data name="ChooseDishes" xml:space="preserve">
     <value>Chọn Món Ăn</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="Hidden" xml:space="preserve">
     <value>Hidden</value>
+  </data>
+  <data name="IllegalEmployeeCode" xml:space="preserve">
+    <value>Mã nhân viên phải bao gồm 5 chữ số. Vui lòng nhập lại!</value>
   </data>
   <data name="InvoicePrinting" xml:space="preserve">
     <value>Hóa đơn đang được in...</value>

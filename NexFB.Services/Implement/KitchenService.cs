@@ -179,5 +179,17 @@ namespace NexFB.Services.Implement
 
             return employees;
         }
+
+        public EmployeeInGroup GetEmployeeInGroup(GetEmployeeInGroupBySysIdCriteria criteria)
+        {
+            EmployeeInGroup employeeInGroup = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                employeeInGroup = _kitchenRepository.GetEmployeeInGroup(criteria);
+            }
+
+            return employeeInGroup;
+        }
     }
 }

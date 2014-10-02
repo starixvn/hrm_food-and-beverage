@@ -100,10 +100,11 @@
 							 VerticalAlignment="Center" Width="455" Orientation="Horizontal">
 								<Image Source="pack://application:,,,/Images/no-avatar.jpg"
 									Name="image2" Stretch="Fill" Width="69" HorizontalAlignment="Left" Height="69"/>
-								<Grid Height="69" Name="grid10" Width="385" VerticalAlignment="Center" HorizontalAlignment="Right" Background="Lavender">
+									<Grid Height="69" Name="grid10" Width="385" VerticalAlignment="Center" HorizontalAlignment="Right" Background="{Binding Path=EmployeeOrderMealColor}">
 									<Label Content="{Binding Path=FullName}" FontSize="22" Height="41" HorizontalAlignment="Left" 
 										VerticalAlignment="Center" Margin="10,15,0,13" />
-									<Button VerticalAlignment="Center" HorizontalAlignment="Right" BorderBrush="Lavender" Margin="0,1,2,0" Background="Lavender"
+										<Button  Background="{Binding Path=EmployeeOrderMealColor}"
+									VerticalAlignment="Center" HorizontalAlignment="Right" BorderBrush="{Binding Path=EmployeeOrderMealColor}" Margin="0,1,2,0"
 										BorderThickness="0" Name="button20" FontSize="22" Width="61" Height="65" Style="{StaticResource MenuTile}" >
 										<Label Content="..." FontSize="35" Height="67" Foreground="Red" 
 											HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,0,0,12" />
@@ -193,9 +194,9 @@
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD9" Content="9" Margin="24,10,-28,-2" Grid.RowSpan="2" />
 			</Grid>
 			<Grid Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2">
-				<Button x:Name="button8" Command="{Binding NumPadReleased}" CommandParameter="BACK" Margin="33,4,4,4" Style="{StaticResource buttonKeypad}">
+				<Button x:Name="button8" Command="{Binding NumPadReleased}" Margin="33,4,4,4" Style="{StaticResource buttonKeypad}">
 					<!--<Path Stretch="Fill" Width="33" Height="21" Data="F1M555.0371,274.4893L552.7871,276.7383L549.9861,273.9373L547.1991,276.7243L545.1131,274.6393L547.9001,271.8523L545.0101,268.9603L547.2601,266.7113L550.1501,269.6023L552.8921,266.8613L554.9761,268.9463L552.2361,271.6883z M555.3751,264.0003L544.8751,264.0003C543.1251,264.1253,535.0001,270.7503,535.0001,272.2503C535.0001,273.7503,543.1251,279.3753,544.8751,279.5003L555.3751,279.5003C558.8751,279.5003,559.3751,277.7093,559.3751,275.5003L559.3751,268.0003C559.3751,265.7913,558.7501,264.0003,555.3751,264.0003" Fill="#FF333333" />-->
-					<Image Source="{Binding Path=ImageCancel}" Height="40" Width="42" />
+					<Image Source="pack://application:,,,/Images/button_cancel.png" Height="40" Width="42" />
 				</Button>
 			</Grid>
 			<Grid Grid.Row="2">

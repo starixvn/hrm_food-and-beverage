@@ -24,7 +24,9 @@ namespace NexFB.WinApp.Core.Models
         private string _mealEngName;
         private string _mealVnmName;
         private bool _isSelectedMemberInGroup;
+        private bool _isPlaceOrder;
         private bool _isLocal;
+        private bool _isChecked;
 
         private int _sysId;
         private int _empId;
@@ -42,6 +44,54 @@ namespace NexFB.WinApp.Core.Models
         private int _locationId;
         private string _locationEngName;
         private string _locationVnmName;
+
+        private bool _isVegetarian;
+        private int _quantity;
+
+        private string _employeeOrderMealColor;
+        private string _employeeOrderMealText;
+
+        public bool IsPlaceOrder
+        {
+            get
+            {
+                return _isPlaceOrder;
+            }
+
+            set
+            {
+                _isPlaceOrder = value;
+                this.OnPropertyChanged("IsPlaceOrder");
+            }
+        }
+
+        public bool IsVegetarian
+        {
+            get
+            {
+                return _isVegetarian;
+            }
+
+            set
+            {
+                _isVegetarian = value;
+                this.OnPropertyChanged("IsVegetarian");
+            }
+        }
+
+        public int Quantity
+        {
+            get
+            {
+                return _quantity;
+            }
+
+            set
+            {
+                _quantity = value;
+                this.OnPropertyChanged("Quantity");
+            }
+        }
 
         public int LocationId
         {
@@ -96,6 +146,20 @@ namespace NexFB.WinApp.Core.Models
             {
                 _isSelectedMemberInGroup = value;
                 this.OnPropertyChanged("IsSelectedMemberInGroup");
+            }
+        }
+
+        public bool IsChecked
+        {
+            get
+            {
+                return _isChecked;
+            }
+
+            set
+            {
+                _isChecked = value;
+                this.OnPropertyChanged("IsChecked");
             }
         }
 
@@ -352,6 +416,64 @@ namespace NexFB.WinApp.Core.Models
             get
             {
                 return FullName + " (" + NickName + ") " + "from " + DeparmentNameDetails; 
+            }
+        }
+
+        public string EmployeeOrderMealColor
+        {
+            get
+            {
+                if (Quantity == 0)
+                {
+                    if (IsVegetarian)
+                    {
+                        if (IsPlaceOrder)
+                        {
+                            _employeeOrderMealColor = Constant.RegisterVegetarianMealColor;
+                        }
+                        else
+                        {
+                            _employeeOrderMealColor = Constant.UnRegisterMealColor;
+                        }
+                    }
+                    else
+                    {
+                        if (IsPlaceOrder)
+                        {
+                            _employeeOrderMealColor = Constant.RegisterNonVegetarianMealColor;
+                        }
+                        else
+                        {
+                            _employeeOrderMealColor = Constant.UnRegisterMealColor;
+                        }
+                    }
+                }
+                else
+                {
+                    _employeeOrderMealColor = Constant.HasOrderMealBeforeColor;
+                }
+
+                return _employeeOrderMealColor;
+            }
+
+            set
+            {
+                _employeeOrderMealColor = value;
+                this.OnPropertyChanged("EmployeeOrderMealColor");
+            }
+        }
+
+        public string EmployeeOrderMealText
+        {
+            get
+            {
+                return _employeeOrderMealText;
+            }
+
+            set
+            {
+                _employeeOrderMealText = value;
+                this.OnPropertyChanged("EmployeeOrderMealText");
             }
         }
     }

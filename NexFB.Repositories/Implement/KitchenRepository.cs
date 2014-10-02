@@ -113,5 +113,25 @@ namespace NexFB.Repositories.Implement
 
             return mealOrder;
         }
+
+        /// <summary>
+        /// Check Employee belong to a group.
+        /// </summary>
+        /// <param name="criteria">Criteria to query database.</param>
+        /// <returns>Employees and group belonged to.</returns>
+        public EmployeeInGroup GetEmployeeInGroup(ICriteria criteria)
+        {
+            EmployeeInGroup employeeInGroup = new EmployeeInGroup();
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    employeeInGroup.GroupOrder = multi.Read<GroupOrder>().SingleOrDefault();
+                    employeeInGroup.Employees = multi.Read<EmployeeInfo>().ToList();
+                }
+            }
+
+            return employeeInGroup;
+        }
     }
 }

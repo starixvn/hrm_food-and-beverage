@@ -43,8 +43,13 @@
 		</Setting>
 		<Setting Key="POS_Get_GroupName" SpName="POS_Get_GroupName" DbName="NexFB" Plain="0" ></Setting>
 		<Setting Key="POS_Get_FoodOrder" SpName="POS_Get_FoodOrder" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Get_GroupUserByGroupID" SpName="POS_Get_GroupUserByGroupID" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_Get_GroupUserByGroupID" SpName="POS_Get_GroupUserByGroupID" DbName="NexFB" Plain="0" >
+			<Mapping DataField="Qty" ObjectProperty="Quantity"/>
+		</Setting>
 		<Setting Key="Employee_GetEmployeeByCode" SpName="Employee_GetEmployeeByCode" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_Get_GroupUserBySysID" SpName="POS_Get_GroupUserBySysID" DbName="NexFB" Plain="0" >
+			<Mapping DataField="Qty" ObjectProperty="Quantity"/>
+		</Setting>
 	</Function>
 
 </Functions>
