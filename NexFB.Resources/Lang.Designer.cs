@@ -574,7 +574,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Menu name (Eng) field is required!.
+        ///   Looks up a localized string similar to The Menu (Eng) field is required!.
         /// </summary>
         public static string FoodMenuEngNameRequire {
             get {
@@ -610,7 +610,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Price per Meal or Price per Day field is required!.
+        ///   Looks up a localized string similar to The Meal Price or Day Price field is required!.
         /// </summary>
         public static string FoodMenuPriceRequire {
             get {
@@ -628,7 +628,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Menu name (Vie) field is required!.
+        ///   Looks up a localized string similar to The Menu (Viet) field is required!.
         /// </summary>
         public static string FoodMenuVnmNameRequire {
             get {

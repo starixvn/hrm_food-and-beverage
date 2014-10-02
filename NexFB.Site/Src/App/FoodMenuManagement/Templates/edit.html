@@ -8,21 +8,21 @@
 	<div class="modal-body food-menu-body-modal">
         <form class="form-horizontal form-menuManagement" role="form">
             <div class="form-group">
-                <label class="col-sm-1 text-right long-text">{{"FoodMenuNameVnm" | translate}}:</label>
+                <label class="col-sm-1 text-right long-text">{{"FoodMenuVnm" | translate}}</label>
                 <div class="col-sm-2 field">
                     <input type="text" class="form-control" ng-model="foodMenu.MenuVnmName" />
                 </div>
-                <label class="col-sm-1 text-right short-text">{{"ShortEng" | translate}}:</label>
+                <label class="col-sm-1 text-right short-text">{{"ShortEng" | translate}}</label>
                 <div class="col-sm-2 field">
                     <input type="text" class="form-control" ng-model="foodMenu.MenuEngName" />
                 </div>
-                <label class="col-sm-1 text-right short-text">{{"Meal" | translate}}:</label>
+                <label class="col-sm-1 text-right short-text">{{"Meal" | translate}}</label>
                 <div class="col-sm-2 field selectbox">
 					<add-class-to-role-filter multi-select input-model="mealsOption" button-label="MealEngName" helper-elements="all reset"
 						item-label="MealEngName" tick-property="ticked" max-labels="0" class="multi-select">
 					</add-class-to-role-filter>
                 </div>
-                <label class="col-sm-1 text-right long-text">{{"EmployeeType" | translate}}:</label>
+                <label class="col-sm-1 text-right long-text">{{"EmployeeType" | translate}}</label>
                 <div class="col-sm-2 field selectbox">
 					<add-class-to-role-filter multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId" helper-elements="all reset"
 						item-label="EmployeeTypeName" tick-property="ticked" max-labels="0" class="multi-select employee-type">
@@ -30,19 +30,19 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-1 text-right long-text">{{"PricePerMeal" | translate}}:</label>
+                <label class="col-sm-1 text-right long-text">{{"ShortPricePerMeal" | translate}}</label>
                 <div class="col-sm-2 field">
                     <input type="text" class="form-control" ng-model="foodMenu.PricePerMeal" number-only="number" />
 				</div>
-				<label class="col-sm-1 text-right short-text">{{"PricePerDay" | translate}}:</label>
+				<label class="col-sm-1 text-right short-text">{{"ShortPricePerDay" | translate}}</label>
                 <div class="col-sm-2 field">
                     <input type="text" class="form-control" ng-model="foodMenu.PricePerDay" number-only="number" />
                 </div>
-                <label class="col-sm-1 text-right short-text">{{"Vegetarian" | translate}}:</label>
+                <label class="col-sm-1 text-right short-text">{{"Vegetarian" | translate}}</label>
                 <div class="col-sm-2 field selectbox">
                     <input type="checkbox" ng-model="foodMenu.IsVegetarian" />
                 </div>
-                <label class="col-sm-1 text-right long-text">{{"Active" | translate}}:</label>
+                <label class="col-sm-1 text-right long-text">{{"Active" | translate}}</label>
                 <div class="col-sm-2 field">
                     <input type="checkbox" ng-model="foodMenu.IsActive"/>
                 </div>
