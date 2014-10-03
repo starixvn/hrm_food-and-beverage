@@ -16,6 +16,7 @@ namespace NexFB.WindowsService
     using System.ServiceProcess;
     using System.Timers;
     using log4net;
+    using NexFB.Core.Models;
 
     /// <summary>
     /// Auto Service.
@@ -69,17 +70,11 @@ namespace NexFB.WindowsService
                 if (!_isBusy)
                 {
                     _isBusy = true;
-                    _LOG.Info("Update Teams Nexcel started at " + DateTime.Now.ToString());
-                    _service.UpdateTeamForNexcel();
 
-                    _LOG.Info("Update user Nexcel started at " + DateTime.Now.ToString());
-                    _service.UpdateUserForNexcel();
+                    UpdateInfoForNexcel();
+                    UpdateInfoForHM();
+                    UpdateInfoForSMS();
 
-                    _LOG.Info("Update Teams Hong Ma started at " + DateTime.Now.ToString());
-                    _service.UpdateTeamForHM();
-
-                    _LOG.Info("SUpdate user Hong Ma started at " + DateTime.Now.ToString());
-                    _service.UpdateUserForHM();
                     _isBusy = false;
                 }
             }
@@ -88,6 +83,78 @@ namespace NexFB.WindowsService
                 _isBusy = false;
                 _LOG.Error("Error: " + ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Function to update info for NEXCEL.
+        /// </summary>
+        private void UpdateInfoForNexcel()
+        {
+            CommandResult result = null;
+
+            _LOG.Info("Update Teams Nexcel started at " + DateTime.Now.ToString());
+            result = _service.UpdateTeamForNexcel();
+            _LOG.Info("Result of update team Nexcel: " + (result == null ? "0" : result.Message));
+
+            _LOG.Info("Update user Nexcel started at " + DateTime.Now.ToString());
+            result = _service.UpdateUserForNexcel();
+            _LOG.Info("Result of update user Nexcel: " + (result == null ? "0" : result.Message));
+
+            _LOG.Info("Update Shifts Nexcel started at " + DateTime.Now.ToString());
+            result = _service.UpdateShiftForNexcel();
+            _LOG.Info("Result of update shift Nexcel: " + (result == null ? "0" : result.Message));
+
+            _LOG.Info("Update Calendars Nexcel started at " + DateTime.Now.ToString());
+            result = _service.UpdateEmployeeCalendarForNexcel();
+            _LOG.Info("Result of update calendar Nexcel: " + (result == null ? "0" : result.Message));
+        }
+
+        /// <summary>
+        /// Function to update info for Hong Ma.
+        /// </summary>
+        private void UpdateInfoForHM()
+        {
+            CommandResult result = null;
+
+            _LOG.Info("Update Teams Hong Ma started at " + DateTime.Now.ToString());
+            result = _service.UpdateTeamForHM();
+            _LOG.Info("Result of update team Hong Ma: " + (result == null ? "0" : result.Message));
+
+            _LOG.Info("SUpdate user Hong Ma started at " + DateTime.Now.ToString());
+            result = _service.UpdateUserForHM();
+            _LOG.Info("Result of update user Hong Ma: " + (result == null ? "0" : result.Message));
+
+            _LOG.Info("Update Shifts Hong Ma started at " + DateTime.Now.ToString());
+            result = _service.UpdateShiftForHM();
+            _LOG.Info("Result of update shift Hong Ma: " + (result == null ? "0" : result.Message));
+
+            _LOG.Info("Update Calendars Hong Ma started at " + DateTime.Now.ToString());
+            result = _service.UpdateEmployeeCalendarForHM();
+            _LOG.Info("Result of update calendar Hong Ma: " + (result == null ? "0" : result.Message));
+        }
+
+        /// <summary>
+        /// Function to update info for SMS.
+        /// </summary>
+        private void UpdateInfoForSMS()
+        {
+            CommandResult result = null;
+
+            _LOG.Info("Update Teams SMS started at " + DateTime.Now.ToString());
+            result = _service.UpdateTeamForSms();
+            _LOG.Info("Result of update team SMS: " + (result == null ? "0" : result.Message));
+
+            _LOG.Info("SUpdate user SMS started at " + DateTime.Now.ToString());
+            result = _service.UpdateUserForSms();
+            _LOG.Info("Result of update user SMS: " + (result == null ? "0" : result.Message));
+
+            _LOG.Info("Update Shifts SMS started at " + DateTime.Now.ToString());
+            result = _service.UpdateShiftForSms();
+            _LOG.Info("Result of update shift SMS: " + (result == null ? "0" : result.Message));
+
+            _LOG.Info("Update Calendars SMS started at " + DateTime.Now.ToString());
+            result = _service.UpdateEmployeeCalendarForSms();
+            _LOG.Info("Result of update calendar SMS: " + (result == null ? "0" : result.Message));
         }
     }
 }

@@ -12,9 +12,9 @@ namespace NexFB.WindowsService
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using NexFB.Core.Constants;
+    using NexFB.Core.Models;
     using NexFB.Core.Services;
     using NexFB.WindowsService.Criteria;
 
@@ -55,8 +55,10 @@ namespace NexFB.WindowsService
         /// <summary>
         /// Function to update users of NEXCEL.
         /// </summary>
-        public void UpdateUserForNexcel()
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateUserForNexcel()
         {
+            CommandResult result = null;
             DateTime fromDate = GetDateFromBeforeUpdateUser(Constants.NexcelDepartment);
             IList<NexcelService.UserModel> users = NexcelService.GetUser(fromDate);
             if (users != null && users.Any())
@@ -67,15 +69,19 @@ namespace NexFB.WindowsService
                     Users = users
                 };
 
-                Repository.Update(insertCriteria);
+                result = Repository.Update(insertCriteria);
             }
+
+            return result;
         }
 
         /// <summary>
         /// Function to update teams of NEXCEL.
         /// </summary>
-        public void UpdateTeamForNexcel()
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateTeamForNexcel()
         {
+            CommandResult result = null;
             DateTime fromDate = GetDateFromBeforeUpdateTeam(Constants.NexcelDepartment);
             IList<NexcelService.TeamModel> teams = NexcelService.GetTeam(fromDate);
             if (teams != null && teams.Any())
@@ -86,15 +92,19 @@ namespace NexFB.WindowsService
                     Teams = teams
                 };
 
-                Repository.Update(insertCriteria);
+                result = Repository.Update(insertCriteria);
             }
+
+            return result;
         }
 
         /// <summary>
         /// Function to update shift of NEXCEL.
         /// </summary>
-        public void UpdateShiftForNexcel()
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateShiftForNexcel()
         {
+            CommandResult result = null;
             IList<NexcelService.ShiftModel> shifts = NexcelService.GetShift();
             if (shifts != null && shifts.Any())
             {
@@ -104,17 +114,20 @@ namespace NexFB.WindowsService
                     Shifts = shifts
                 };
 
-                Repository.Update(criteria);
+                result = Repository.Update(criteria);
             }
+
+            return result;
         }
 
         /// <summary>
         /// Function to update employee calendar of NEXCEL.
         /// </summary>
-        public void UpdateEmployeeCalendarForNexcel()
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateEmployeeCalendarForNexcel()
         {
+            CommandResult result = null;
             DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar(Constants.NexcelDepartment);
-            ////var fromDate = new DateTime(2014, 6, 30);
             IList<NexcelService.EmployeeCalendarModel> calendars = NexcelService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
             {
@@ -124,15 +137,19 @@ namespace NexFB.WindowsService
                     EmployeeCalendars = calendars
                 };
 
-                Repository.Update(criteria);
+                result = Repository.Update(criteria);
             }
+
+            return result;
         }
 
         /// <summary>
         /// Function to update users of Hong Ma.
         /// </summary>
-        public void UpdateUserForHM()
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateUserForHM()
         {
+            CommandResult result = null;
             DateTime fromDate = GetDateFromBeforeUpdateUser(Constants.HMDepartment);
             IList<HongMaService.UserModel> users = HongmaService.GetUser(fromDate);
 
@@ -144,15 +161,19 @@ namespace NexFB.WindowsService
                     Users = users
                 };
 
-                Repository.Update(insertCriteria);
+                result = Repository.Update(insertCriteria);
             }
+
+            return result;
         }
 
         /// <summary>
         /// Function to update teams of Hong Ma.
         /// </summary>
-        public void UpdateTeamForHM()
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateTeamForHM()
         {
+            CommandResult result = null;
             DateTime fromDate = GetDateFromBeforeUpdateTeam(Constants.HMDepartment);
             IList<HongMaService.TeamModel> teams = HongmaService.GetTeam(fromDate);
             if (teams != null && teams.Any())
@@ -163,15 +184,19 @@ namespace NexFB.WindowsService
                     Teams = teams
                 };
 
-                Repository.Update(insertCriteria);
+                result = Repository.Update(insertCriteria);
             }
+
+            return result;
         }
 
         /// <summary>
         /// Function to update shift of Hong Ma.
         /// </summary>
-        public void UpdateShiftForHM()
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateShiftForHM()
         {
+            CommandResult result = null;
             IList<HongMaService.ShiftModel> shifts = HongmaService.GetShift();
             if (shifts != null && shifts.Any())
             {
@@ -181,15 +206,19 @@ namespace NexFB.WindowsService
                     Shifts = shifts
                 };
 
-                Repository.Update(criteria);
+                result = Repository.Update(criteria);
             }
+
+            return result;
         }
 
         /// <summary>
         /// Function to update employee calendar of Hong Ma.
         /// </summary>
-        public void UpdateEmployeeCalendarForHM()
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateEmployeeCalendarForHM()
         {
+            CommandResult result = null;
             DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar(Constants.HMDepartment);
             IList<HongMaService.EmployeeCalendarModel> calendars = HongmaService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
@@ -200,15 +229,19 @@ namespace NexFB.WindowsService
                     EmployeeCalendars = calendars
                 };
 
-                Repository.Update(criteria);
+                result = Repository.Update(criteria);
             }
+
+            return result;
         }
 
         /// <summary>
         /// Function to update users of SMS.
         /// </summary>
-        public void UpdateUserForSms()
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateUserForSms()
         {
+            CommandResult result = null;
             DateTime fromDate = GetDateFromBeforeUpdateUser(Constants.SmsDepartment);
             IList<SMSService.UserModel> users = SmsService.GetUser(fromDate);
             if (users != null && users.Any())
@@ -219,15 +252,19 @@ namespace NexFB.WindowsService
                     Users = users
                 };
 
-                Repository.Update(insertCriteria);
+                result = Repository.Update(insertCriteria);
             }
+
+            return result;
         }
 
         /// <summary>
         /// Function to update teams of SMS.
         /// </summary>
-        public void UpdateTeamForSms()
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateTeamForSms()
         {
+            CommandResult result = null;
             DateTime fromDate = GetDateFromBeforeUpdateTeam(Constants.SmsDepartment);
             IList<SMSService.TeamModel> teams = SmsService.GetTeam(fromDate);
             if (teams != null && teams.Any())
@@ -238,15 +275,19 @@ namespace NexFB.WindowsService
                     Teams = teams
                 };
 
-                Repository.Update(insertCriteria);
+                result = Repository.Update(insertCriteria);
             }
+
+            return result;
         }
 
         /// <summary>
         /// Function to update shift of SMS.
         /// </summary>
-        public void UpdateShiftForSms()
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateShiftForSms()
         {
+            CommandResult result = null;
             IList<SMSService.ShiftModel> shifts = SmsService.GetShift();
             if (shifts != null && shifts.Any())
             {
@@ -256,15 +297,19 @@ namespace NexFB.WindowsService
                     Shifts = shifts
                 };
 
-                Repository.Update(criteria);
+                result = Repository.Update(criteria);
             }
+
+            return result;
         }
 
         /// <summary>
         /// Function to update employee calendar of SMS.
         /// </summary>
-        public void UpdateEmployeeCalendarForSms()
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateEmployeeCalendarForSms()
         {
+            CommandResult result  = null;
             DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar(Constants.SmsDepartment);
             IList<SMSService.EmployeeCalendarModel> calendars = SmsService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
@@ -275,8 +320,10 @@ namespace NexFB.WindowsService
                     EmployeeCalendars = calendars
                 };
 
-                Repository.Update(criteria);
+                result = Repository.Update(criteria);
             }
+
+            return result;
         }
 
         public DateTime GetDateFromBeforeUpdateUser(int departmentId)

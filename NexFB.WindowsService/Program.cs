@@ -21,31 +21,43 @@ namespace NexFB.WindowsService
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        ////public static void Main()
-        ////{
-        ////    DbSettingProviderManager.Current.Start();
-        ////    log4net.Config.XmlConfigurator.Configure();
-        ////    ServiceBase[] servicesToRun;
-        ////    servicesToRun = new ServiceBase[] 
-        ////    { 
-        ////        new AutoService() 
-        ////    };
-        ////    ServiceBase.Run(servicesToRun);
-        ////}
-
         public static void Main()
         {
             DbSettingProviderManager.Current.Start();
-
-            var service = new CommonService();
-            service.UpdateTeamForNexcel();
-            service.UpdateUserForNexcel();
-            service.UpdateShiftForNexcel();
-            service.UpdateEmployeeCalendarForNexcel();
-
-            Console.WriteLine("OK");
-
-            Console.ReadLine();
+            log4net.Config.XmlConfigurator.Configure();
+            ServiceBase[] servicesToRun;
+            servicesToRun = new ServiceBase[] 
+            { 
+                new AutoService() 
+            };
+            ServiceBase.Run(servicesToRun);
         }
+
+        ////public static void Main()
+        ////{
+        ////    DbSettingProviderManager.Current.Start();
+
+        ////    var service = new CommonService();
+        ////    service.UpdateTeamForNexcel();
+        ////    service.UpdateUserForNexcel();
+        ////    service.UpdateShiftForNexcel();
+        ////    service.UpdateEmployeeCalendarForNexcel();
+
+        ////    service.UpdateTeamForHM();
+        ////    service.UpdateUserForHM();
+        ////    service.UpdateShiftForHM();
+        ////    service.UpdateEmployeeCalendarForHM();
+
+        ////    service.UpdateTeamForSms();
+        ////    service.UpdateUserForSms();
+        ////    service.UpdateShiftForSms();
+        ////    service.UpdateEmployeeCalendarForSms();
+
+        ////    service.UpdateTeamForNexcel();
+
+        ////    Console.WriteLine("OK");
+
+        ////    Console.ReadLine();
+        ////}
     }
 }

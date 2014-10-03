@@ -9,6 +9,7 @@
 
 namespace NexFB.WindowsService.Criteria
 {
+    using System;
     using System.Collections.Generic;
     using System.Text;
     using Fanex.Data.Repository;
@@ -51,7 +52,7 @@ namespace NexFB.WindowsService.Criteria
                             shift.IsInAfterDay,
                             shift.IsOutAfterDay,
                             this.DepartmentId,
-                            shift.ModifiedDate);
+                            DateTime.Now);
                     }
                 }
 
