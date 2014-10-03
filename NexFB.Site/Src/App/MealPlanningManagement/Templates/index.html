@@ -1,62 +1,72 @@
 ﻿<div class="col-sm-12">
-    <div class="row filter">
-        <form class="form-horizontal" role="form">
-            <div class="form-group">
-                <label class="col-sm-1 text-right" data-translate="Meal"></label>
-                <div class="col-sm-2">
-					<select ng-model="filter.mealId" ng-options="opt.MealId as opt.MealEngName for opt in mealsOption"
-						required class="form-control">
-						<option value="">-- {{"AllMeals" | translate}} --</option>
-					</select>
-                </div>
-                <label class="col-sm-2 text-right" data-translate="EmployeeType"></label>
-                <div class="col-sm-2">
- 					<select ng-model="filter.employeeTypeId" ng-options="opt.EmployeeTypeId as opt.EmployeeTypeName for opt in employeeTypesOption"
-						required class="form-control">
-						<option value="">-- {{"AllType" | translate}} --</option>
-					</select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-1 text-right" data-translate="From"></label>
-                <div class="col-sm-2">
-					<input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup="{{dateFormat}}"
-						is-open="calendar.startDateOpened" />
+	<div class="row sub-header">
+		<ul class="breadcrumb list-inline pull-left">
+			<li class="current" data-translate="MealPlanningManagement"></li>
+		</ul>
+	</div>
+	<div class="row filter">
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label class="col-sm-1 text-right" data-translate="Meal"></label>
+				<div class="col-sm-2 field selectbox">
+					<add-class-to-role-filter multi-select input-model="mealsOption" button-label="MealEngName" helper-elements="all reset"
+						item-label="MealEngName" tick-property="ticked" max-labels="0" class="multi-select ">
+					</add-class-to-role-filter>
+				</div>
+				<label class="col-sm-2 text-right" data-translate="EmployeeType"></label>
+				<div class="col-sm-2 field selectbox">
+					<add-class-to-role-filter multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId" helper-elements="all reset"
+						item-label="EmployeeTypeName" tick-property="ticked" max-labels="0" class="multi-select employee-type">
+					</add-class-to-role-filter>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 text-right" data-translate="From"></label>
+				<div class="col-sm-2">
+					<input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup
+						is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
 					<calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
-                </div>
-                <label class="col-sm-2 text-right" data-translate="To"></label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control"/>
-                </div>
-                <div class="col-ofset-sm-2">
-                    <input type="button" class="button" value="Submit"/>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="row table-mealPlanning">
-        <table class="table table-bordered table-striped col-sm-12">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Menu (Vie)</th>
-                    <th>Date</th>
-                    <th class="width-150">Meal</th>
-                    <th class="width-60">Veg.</th>
-                    <th class="">Employee type</th>
-                    <th class="width-300">Food item</th>
-                    <th class="width-60">Active</th>
-                    <th class="width-80">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="mealPlanning in pagedItems[currentPage]">
-                    <td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center oddRow" ng-bind="mealPlanning.itemIndex + 1"></td>
-                    <td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="oddRow" ng-bind="mealPlanning.FoodMenu.MenuVnmName"></td>
-                    <td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="oddRow" ng-bind="mealPlanning.Date | customDate"></td>
-                    <td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="oddRow">
+				</div>
+				<label class="col-sm-2 text-right" data-translate="To"></label>
+				<div class="col-sm-2">
+					<input class="calendar-form-control" type="text" ng-model="filter.endDate" datepicker-popup
+						is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
+					<calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+				</div>
+				<div class="col-ofset-sm-2">
+					<input type="button" class="button" value="Submit" ng-click="query(filter)" />
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="row table-mealPlanning">
+		<table class="table table-bordered table-striped col-sm-12">
+			<thead>
+				<tr class="header-table">
+					<th colspan="9" >
+						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+					</th>
+				</tr>
+				<tr>
+					<th data-translate="SymbolCount"></th>
+					<th data-translate="FoodMenuVnm"></th>
+					<th data-translate="Date"></th>
+					<th class="width-150" data-translate="Meal"></th>
+					<th class="width-60">{{"ShortVegetarian" | translate}}.</th>
+					<th class="" data-translate="EmployeeType"></th>
+					<th class="width-300" data-translate="FoodItem"></th>
+					<th class="width-60" data-translate="Active"></th>
+					<th class="width-80" data-translate="Action"></th>
+				</tr>
+			</thead>
+			<tbody ng-repeat="mealPlanning in pagedItems[currentPage]">
+				<tr ng-repeat="food in mealPlanning.FoodMenu.FoodItems" ng-show="mealPlanning.FoodMenu.FoodItems.length > 0" >
+					<td ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center" ng-bind="mealPlanning.itemIndex + 1"></td>
+					<td ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="" ng-bind="mealPlanning.FoodMenu.MenuVnmName"></td>
+					<td ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="" ng-bind="mealPlanning.Date | customDate"></td>
+					<td ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="">
 						<div ng-if="mealPlanning.FoodMenu.Meals.length == 1" >
-							<span ng-bind="foodMenu.Meals[0].MealEngName"></span>
+							<span ng-bind="mealPlanning.FoodMenu.Meals[0].MealEngName"></span>
 						</div>
 						<div ng-if="mealPlanning.FoodMenu.Meals.length > 1" >
 							<ul class="group-toggle-item">
@@ -64,13 +74,13 @@
 							</ul>
 						</div>
 					</td>
-					<td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center">
+					<td ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center">
 						<span data-translate="Yes" ng-if="mealPlanning.FoodMenu.IsVegetarian"></span>
 						<span data-translate="No" ng-if="!mealPlanning.FoodMenu.IsVegetarian"></span>
 					</td>
-					<td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="oddRow">
+					<td ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" >
 						<div ng-if="mealPlanning.FoodMenu.EmployeeTypes.length == 1">
-							<span ng-bind="foodMenu.EmployeeTypes[0].EmployeeTypeName"></span>
+							<span ng-bind="mealPlanning.FoodMenu.EmployeeTypes[0].EmployeeTypeName"></span>
 						</div>
 						<div ng-if="mealPlanning.FoodMenu.EmployeeTypes.length > 1">
 							<ul class="group-toggle-item">
@@ -78,115 +88,68 @@
 							</ul>
 						</div>
 					</td>
-                    <td class="oddRow">
-						
+					<td ng-bind="food.FoodVnmName">
 					</td>
-                    <td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center oddRow">
+					<td ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center" >
 						<input type="checkbox" ng-checked="mealPlanning.IsActive" />
 					</td>
-                    <td rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center oddRow">
-                        <a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
-                        <a class="glyphicon glyphicon-remove icon-remove" href=""></a>
-                    </td>
-                </tr>
-<!--                <tr>
-                    <td class="oddRow">Canh rau dền</td>
-                </tr>-->
-<!--                <tr>
-                    <td rowspan="2" class="text-center evenRow">2</td>
-                    <td rowspan="2" class="evenRow">Trưa 2</td>
-                    <td rowspan="2" class="evenRow">Aug 25,2014</td>
-                    <td rowspan="2" class="evenRow">Lunch</td>
-                    <td rowspan="2" class="text-center evenRow">No</td>
-                    <td rowspan="2" class="evenRow">
-                        <div>SMS Expat</div>
-                        <div>SMS Local</div>
-                    </td>
-                    <td class="evenRow">Thịt kho trứng</td>
-                    <td rowspan="2" class="text-center evenRow"><input type="checkbox" checked="checked"/></td>
-                    <td rowspan="2" class="text-center evenRow">
-                        <a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
-                        <a class="glyphicon glyphicon-remove icon-remove" href=""></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Cải ngọt xào</td>
-                </tr>
-                <tr>
-                    <td rowspan="2" class="text-center oddRow">3</td>
-                    <td rowspan="2" class="oddRow">Trưa 1</td>
-                    <td rowspan="2" class="oddRow">Aug 25,2014</td>
-                    <td rowspan="2" class="oddRow">Lunch</td>
-                    <td rowspan="2" class="text-center">No</td>
-                    <td rowspan="2" class="oddRow">Nexcel & HM</td>
-                    <td class="oddRow">Cá lóc chiên</td>
-                    <td rowspan="2" class="text-center oddRow"><input type="checkbox" checked="checked"/></td>
-                    <td rowspan="2" class="text-center oddRow">
-                        <a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
-                        <a class="glyphicon glyphicon-remove icon-remove" href=""></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="oddRow">Canh rau dền</td>
-                </tr>
-                 <tr>
-                    <td class="text-center evenRow">4</td>
-                    <td class="evenRow">Trưa 2</td>
-                    <td class="evenRow">Aug 25,2014</td>
-                    <td class="evenRow">Lunch</td>
-                    <td class="text-center evenRow">No</td>
-                    <td class="evenRow">
-                        <div>SMS Expat</div>
-                    </td>
-                    <td class="evenRow">Suờn cốt lếch chiên</td>
-                    <td class="text-center evenRow"><input type="checkbox" checked="checked"/></td>
-                    <td class="text-center evenRow">
-                        <a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
-                        <a class="glyphicon glyphicon-remove icon-remove" href=""></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center oddRow">5</td>
-                    <td class="oddRow">Chay 1</td>
-                    <td class="oddRow">Aug 25, 2014</td>
-                    <td class="oddRow">
-                        <div>Breakfast</div>
-                        <div>Lunch</div>
-                        <div>Dinner</div>
-                        <div>Supper</div>
-                    </td>
-                    <td class="text-center oddRow">Yes</td>
-                    <td class="oddRow">Nexcel & HM</td>
-                    <td class="oddRow">Bún xào chay</td>
-                    <td class="text-center evenRow"><input type="checkbox" checked="checked"/></td>
-                    <td class="text-center evenRow">
-                        <a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
-                        <a class="glyphicon glyphicon-remove icon-remove" href=""></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center evenRow">6</td>
-                    <td class="evenRow">Trưa 1</td>
-                    <td class="evenRow">Aug 25, 2014</td>
-                    <td class="evenRow">Lunch</td>
-                    <td class="text-center evenRow">No</td>
-                    <td class="evenRow">Nexcel & HM</td>
-                    <td class="evenRow text-center" colspan="3">
-                        <a class="glyphicon glyphicon-plus" href=""></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center oddRow">6</td>
-                    <td class="oddRow">Trưa 1</td>
-                    <td class="oddRow">Aug 25, 2014</td>
-                    <td class="oddRow">Lunch</td>
-                    <td class="text-center oddRow">No</td>
-                    <td class="oddRow">Nexcel & HM</td>
-                    <td class="oddRow text-center" colspan="3">
-                        <a class="glyphicon glyphicon-plus" href=""></a>
-                    </td>
-                </tr>-->
-            </tbody>
-        </table>
-    </div>
+					<td ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center" >
+						<a class="glyphicon glyphicon-edit" href="" ng-click="edit()"></a>
+						<a class="glyphicon glyphicon-remove icon-remove" href=""></a>
+					</td>
+				</tr>
+				<tr ng-show="mealPlanning.FoodMenu.FoodItems.length == 0" >
+					<td class="text-center" ng-bind="mealPlanning.itemIndex + 1"></td>
+					<td class="" ng-bind="mealPlanning.FoodMenu.MenuVnmName"></td>
+					<td class="" ng-bind="mealPlanning.Date | customDate"></td>
+					<td class="">
+						<div ng-if="mealPlanning.FoodMenu.Meals.length == 1" >
+							<span ng-bind="mealPlanning.FoodMenu.Meals[0].MealEngName"></span>
+						</div>
+						<div ng-if="mealPlanning.FoodMenu.Meals.length > 1" >
+							<ul class="group-toggle-item">
+								<li ng-repeat="meal in mealPlanning.FoodMenu.Meals" ng-bind="meal.MealEngName"></li>
+							</ul>
+						</div>
+					</td>
+					<td class="text-center">
+						<span data-translate="Yes" ng-if="mealPlanning.FoodMenu.IsVegetarian"></span>
+						<span data-translate="No" ng-if="!mealPlanning.FoodMenu.IsVegetarian"></span>
+					</td>
+					<td>
+						<div ng-if="mealPlanning.FoodMenu.EmployeeTypes.length == 1">
+							<span ng-bind="mealPlanning.FoodMenu.EmployeeTypes[0].EmployeeTypeName"></span>
+						</div>
+						<div ng-if="mealPlanning.FoodMenu.EmployeeTypes.length > 1">
+							<ul class="group-toggle-item">
+								<li ng-repeat="type in mealPlanning.FoodMenu.EmployeeTypes" ng-bind="type.EmployeeTypeName"></li>
+							</ul>
+						</div>
+					</td>
+					<td colspan="3">
+						<a class="icon plus" href="" ng-click="addMealPlanning(mealPlanning.Date, mealPlanning.FoodMenu.MenuId)" title="Add Meal Planning">
+						</a>
+					</td>
+				</tr>
+			</tbody>
+			<tbody ng-if="mealPlannings.length == 0 || pagedItems.length == 0">
+				<tr>
+					<td class="empty-result" colspan="9" data-translate="EmptyResult">
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="9" class="paging" >
+						<span data-translate="Show"></span>
+						<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
+							ng-options="entry for entry in entries">
+						</select>
+						<span data-translate="entries"></span>
+						<pagination-bar></pagination-bar>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
 </div>

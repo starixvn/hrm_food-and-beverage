@@ -101,5 +101,21 @@ namespace NexFB.Site.Controllers.API
             int policy = _webCommonService.GetPermission(FBFunctionKey.FoodItemManagement);
             return policy;
         }
+
+        [ApiAuthorize(FunctionKey = FBFunctionKey.FoodItemManagement, Policy = Policy.Read)]
+        public IEnumerable<FoodItemModel> GetBasicFoodItem(
+            int? foodId = null,
+            string menuGroupId = null,
+            bool? isActive = null)
+        {
+            var criteria = new GetBasicFoodItemCriteria
+            {
+                FoodId = foodId,
+                MenuGroupId = menuGroupId,
+                IsActive = isActive
+            };
+
+            return _foodItemService.GetBasicFoodItem(criteria);
+        }
     }
 }

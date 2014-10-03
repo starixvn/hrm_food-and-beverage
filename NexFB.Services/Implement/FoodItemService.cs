@@ -107,5 +107,23 @@ namespace NexFB.Services.Implement
 
             return commandResult;
         }
+
+        /// <summary>
+        /// Get basic information of food items.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator basic information of food items.</returns>
+        public IEnumerable<FoodItemModel> GetBasicFoodItem(GetBasicFoodItemCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<FoodItemModel> foodItems = null;
+
+            if (criteria.IsValid())
+            {
+                foodItems = GetData<FoodItemModel>(criteria);
+            }
+
+            return foodItems;
+        }
     }
 }

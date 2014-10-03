@@ -555,4 +555,13 @@
   <data name="To" xml:space="preserve">
     <value>To</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="MealPlanningManagement" xml:space="preserve">
+    <value>Meal Planning Management</value>
+  </data>
+  <data name="AllMenus" xml:space="preserve">
+    <value>All menus</value>
+  </data>
 </root>

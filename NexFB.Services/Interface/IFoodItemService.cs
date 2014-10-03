@@ -26,5 +26,7 @@ namespace NexFB.Services.Interface
         CommandResult UpdateFoodItem(UpdateFoodItemCriteria criteria);
 
         CommandResult DeleteFoodItem(DeleteFoodItemCriteria criteria);
+
+        IEnumerable<FoodItemModel> GetBasicFoodItem(GetBasicFoodItemCriteria criteria);
     }
 }

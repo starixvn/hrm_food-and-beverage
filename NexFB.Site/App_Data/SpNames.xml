@@ -170,6 +170,8 @@
 		</Setting>
 		<Setting Key="Food_DeleteByFoodID" SpName="Food_DeleteByFoodID" DbName="NexFB" Plain="0" >
 		</Setting>
+		<Setting Key="Food_GetName" SpName="Food_GetName" DbName="NexFB" Plain="0" >
+		</Setting>
 	</Function>
 	<Function Name="FoodMenuManagement">
 		<Setting Key="FoodMenu_GetAll" SpName="FoodMenu_GetAll" DbName="NexFB" Plain="0" >
@@ -184,7 +186,7 @@
 		<Setting Key="FoodMenu_EditActiveByMenuID" SpName="FoodMenu_EditActiveByMenuID" DbName="NexFB" Plain="0" >
 		</Setting>
 	</Function>
-	<Function Name="FoodMenuManagement">
+	<Function Name="MealPlanningManagement">
 		<Setting Key="FoodPlan_GetMenuByOnDate" SpName="FoodPlan_GetMenuByOnDate" DbName="NexFB" Plain="0" >
 		</Setting>
 	</Function>

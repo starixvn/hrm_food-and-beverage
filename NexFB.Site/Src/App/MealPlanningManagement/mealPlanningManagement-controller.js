@@ -3,25 +3,58 @@
 
 mealPlanningManagementModule.controller('MealPlanningManagementController',
 ['$scope', '$modal', 'mealPlanningFactory', 'ErrorFactory', 'notificationFactory', 'commonFactory',
-'foodMenuFactory',
+'foodMenuFactory', 'foodMenuUtilities',
 function ($scope, $modal, mealPlanningFactory, ErrorFactory, notificationFactory, commonFactory,
-foodMenuFactory) {
+foodMenuFactory, foodMenuUtilities) {
 	/*
 	** Declare variables.
 	*/
 	$scope.originalPage = 0;
 	var toDay = new Date();
-	commonFactory.getDateFormat($scope);
+	var newDate = new Date(toDay.setYear(toDay.getFullYear() + 1));
+
+	var startDate = new Date(),
+		endDate = new Date();
+
+	$scope.filter = {
+		startDate: new Date(startDate.setYear(startDate.getFullYear() + 1)),
+		endDate: new Date(endDate.setYear(endDate.getFullYear() + 1))
+	};
+
+	$scope.calendar = {
+		startDateOpened: false,
+		endDateOpened: false
+	};
 
 	/*
 	** Paging.
 	*/
 	$scope.showEntries = function () {
-		commonFactory.tablePagination($scope, $scope.foodItems, $scope.entrySelected);
+		commonFactory.tablePagination($scope, $scope.mealPlannings, $scope.entrySelected);
 	};
 
 	$scope.entrySelected = 10;
 	commonFactory.numberEntryList($scope);
+
+	/*
+	** Open calendar.
+	*/
+	$scope.openPopupStartDate = function ($event) {
+		commonFactory.openPopupStartDate($event, $scope);
+	};
+
+	$scope.openPopupEndDate = function ($event) {
+		commonFactory.openPopupEndDate($event, $scope);
+	};
+
+	/*
+	** Get all food menu to filter.
+	*/
+	foodMenuFactory.getAllFoodMenuToFilter().success(function (foodMenus) {
+		$scope.menuOptions = foodMenus;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
 
 	/*
 	** Get all meal timesheet.
@@ -60,15 +93,40 @@ foodMenuFactory) {
 		});
 	};
 
-	getAllMealPlanning(toDay.toDateString(), toDay.toDateString(), null, null);
+	getAllMealPlanning(newDate.toDateString(), newDate.toDateString(), null, null);
+
+	/*
+	** Query data.
+	*/
+	$scope.query = function (filter) {
+		if (filter) {
+			var mealId = foodMenuUtilities.getMealId($scope.mealsOption),
+				employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption),
+				fromDate = filter.startDate.toDateString(),
+				toDate = filter.endDate.toDateString();
+
+			getAllMealPlanning(fromDate, toDate, mealId, employeeTypeId);
+		}
+	};
 
 	/*
 	** Add meal planning.
 	*/
-	$scope.addMealPlanning = function () {
+	$scope.addMealPlanning = function (onDate, menuId) {
 		var modalAssignInstance = $modal.open({
 			templateUrl: '/src/app/MealPlanningManagement/Templates/create.html',
 			controller: "CreateMealPlanningController",
+			resolve: {
+				menuId: function () {
+					return menuId;
+				},
+				onDate: function () {
+					return onDate;
+				},
+				menuOptions: function () {
+					return $scope.menuOptions;
+				}
+			},
 			windowClass: "modal-confirm-center"
 		});
 
@@ -93,8 +151,36 @@ foodMenuFactory) {
 
 
 mealPlanningManagementModule.controller('CreateMealPlanningController',
-['$scope', '$modalInstance',
-function ($scope, $modalInstance) {
+['$scope', '$modalInstance', 'menuId', 'onDate', 'mealPlanningFactory', 'ErrorFactory', 'notificationFactory',
+'menuOptions',
+function ($scope, $modalInstance, menuId, onDate, mealPlanningFactory, ErrorFactory, notificationFactory,
+menuOptions) {
+
+	$scope.menuOptions = menuOptions;
+	$scope.onDate = onDate;
+	$scope.menuId = menuId;
+	/*
+	** Get all food items of current menu.
+	*/
+	var getBasicFoodItems = function (foodId, menuId, isActive) {
+		mealPlanningFactory.getBasicFoodItem(foodId, menuId, isActive).success(function (foodItems) {
+			$scope.groupOptions = foodItems;
+		}).error(function (response, status) {
+			if (status === 405) {
+				ErrorFactory.errorHandle(status);
+			}
+			else {
+				notificationFactory.error("ErrorMessage");
+			}
+		});
+	};
+
+	getBasicFoodItems(null, menuId, true);
+
+	$scope.getFoodItems = function (menuId) {
+		getBasicFoodItems(null, menuId, true);
+	};
+
 	$scope.cancel = function () {
 		$modalInstance.dismiss("cancel");
 	};

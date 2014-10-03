@@ -23,6 +23,22 @@ appModule.factory('commonFactory',
 		$scope.entries = [10, 15, 20, 50, 100, 200];
 	};
 
+	common.openPopupStartDate = function ($event, $scope) {
+		$event.preventDefault();
+		$event.stopPropagation();
+
+		$scope.calendar.startDateOpened = true;
+		$scope.calendar.endDateOpened = false;
+	};
+
+	common.openPopupEndDate = function ($event, $scope) {
+		$event.preventDefault();
+		$event.stopPropagation();
+
+		$scope.calendar.endDateOpened = true;
+		$scope.calendar.startDateOpened = false;
+	};
+
 	common.tablePagination = function ($scope, dataPagination, itemPerPage) {
 		/**
 		* Scope Variable. 
@@ -61,17 +77,22 @@ appModule.factory('commonFactory',
 
 		// init the filtered items
 		$scope.search = function () {
-			$scope.filteredItems = $filter('filter')(dataPagination, function (item) {
+			if (dataPagination && dataPagination !== 'null') {
+				$scope.filteredItems = $filter('filter')(dataPagination, function (item) {
 
-				for (var attr in item) {
-					if (item[attr] != null) {
-						if (searchMatch(item[attr].toString(), $scope.queryData)) {
-							return true;
+					for (var attr in item) {
+						if (item[attr] != null) {
+							if (searchMatch(item[attr].toString(), $scope.queryData)) {
+								return true;
+							}
 						}
 					}
-				}
-				return false;
-			});
+					return false;
+				});
+			}
+			else {
+				$scope.filteredItems = [];
+			}
 			// take care of the sorting order
 			//			if ($scope.sort.sortingOrder !== '') {
 			//				$scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);

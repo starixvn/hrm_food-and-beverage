@@ -142,6 +142,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All menus.
+        /// </summary>
+        public static string AllMenus {
+            get {
+                return ResourceManager.GetString("AllMenus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Statuses.
         /// </summary>
         public static string AllStatuses {
@@ -336,6 +345,15 @@ namespace NexFB.Resources {
         public static string DataChangeSuccessfully {
             get {
                 return ResourceManager.GetString("DataChangeSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
             }
         }
         
@@ -777,6 +795,15 @@ namespace NexFB.Resources {
         public static string ManageUser {
             get {
                 return ResourceManager.GetString("ManageUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meal Planning Management.
+        /// </summary>
+        public static string MealPlanningManagement {
+            get {
+                return ResourceManager.GetString("MealPlanningManagement", resourceCulture);
             }
         }
         
