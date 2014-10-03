@@ -28,6 +28,7 @@
 			</Grid>
 		</Grid>
 		<Grid Background="#FFF" HorizontalAlignment="Left" Margin="483,0,0,0" Name="grid2" VerticalAlignment="Top" Width="322">
+
 			<ListBox HorizontalAlignment="Left" Name="ListMenuItem" VerticalAlignment="Top" Width="322" BorderBrush="#FFF" BorderThickness="0"
 			ItemsSource="{Binding Path=CommonKitchenOrder}" Style="{StaticResource CustomLBStyle}">
 				<ListBox.ItemContainerStyle>
@@ -233,7 +234,8 @@
 			</Grid>
 			<Grid Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2">
 				<Button FontWeight="Black" x:Name="buttonKeyH"  FontSize="31" Style="{StaticResource buttonKeypad}"
-				Command="{Binding Path=CancelCommand}" CommandParameter="NUMPADS" Content="{x:Static resx:WinFormMainResource.Cancel}" Margin="33,14,4,-6" />
+				Command="{Binding Path=CancelCommand}" 
+				CommandParameter="NUMPADS" Content="{x:Static resx:WinFormMainResource.Cancel}" Margin="33,14,4,-6" />
 			</Grid>
 			<Grid Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="2">
 				<Button FontWeight="Black" x:Name="button19"  FontSize="31" Style="{StaticResource buttonKeypad}"

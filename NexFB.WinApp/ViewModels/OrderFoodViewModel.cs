@@ -121,7 +121,8 @@ namespace NexFB.WinApp.ViewModels
                     {
                         ItemId = int.MaxValue,
                         ItemName = Constant.FixedMeal,
-                        IsSelectedMealMenu = false
+                        IsSelectedMealMenu = false,
+                        IsMainMenu = true
                     };
 
                     List<CommonKitchenOrder> data = Mapper.Map<List<FoodOrder>, List<CommonKitchenOrder>>(foods);
@@ -451,7 +452,12 @@ namespace NexFB.WinApp.ViewModels
 
         public bool CanExecuteCancelCommand()
         {
-            return true;
+            if (EmployeeInfo != null || CommonKitchenOrder.Count > 0 || (Result != null && Result.Count() > 0))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public bool CanExecutePickRoomCommand()
@@ -464,9 +470,21 @@ namespace NexFB.WinApp.ViewModels
             return true;
         }
 
+        /// <summary>
+        /// Can Execute button.
+        /// </summary>
+        /// <returns>Boolean to check.</returns>
         public bool CanExecuteChooseDishesCommand()
         {
-            return true;
+            if (UserInGroup != null)
+            {
+                if (UserInGroup.Any(x => x.IsSelectedMemberInGroup))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool CanExecuteNumPadPressed()
@@ -501,6 +519,15 @@ namespace NexFB.WinApp.ViewModels
         // Execute Command
         public void ExecuteReceiveCommand()
         {
+        }
+
+        public void ExecuteCancelCommand()
+        {
+            MessageBoxResult confirmCancel = MessageBox.Show("Xác nhận hủy gọi món?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (confirmCancel == MessageBoxResult.Yes)
+            {
+                ResetCurrentModel();
+            }
         }
 
         /// <summary>
@@ -551,10 +578,6 @@ namespace NexFB.WinApp.ViewModels
                 MessageBox.Show(WinFormMainResource.IllegalEmployeeCode);
                 Result = null;
             }
-        }
-
-        public void ExecuteCancelCommand()
-        {
         }
 
         public void ExecutePickRoomCommand()
@@ -832,6 +855,27 @@ namespace NexFB.WinApp.ViewModels
                     BorderButtonChooseDishes = defaultColor;
                     break;
             }
+        }
+
+        /// <summary>
+        /// Cancel Current Order.
+        /// </summary>
+        public void ResetCurrentModel()
+        {
+            string defaultColor = Constant.DefaultButtonOrderBorderColor;
+            CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>();
+            UserInGroup = new ObservableCollection<KitchenEmployeeInfo>();
+            DuplicateUser = new ObservableCollection<KitchenEmployeeInfo>();
+            AllObservationFood = this.GetAllFood;
+            AllObservationGroup = this.GetAllGroup;
+            AllObservationLocation = this.GetAllLocation;
+            EmployeeInfo = null;
+            Result = string.Empty;
+            GridUserVisibility = Constant.Hidden;
+            MessageHeader = string.Empty;
+            BorderButtonChooseDishes = defaultColor;
+            BorderButtonPickGroup = defaultColor;
+            BorderButtonPickRoom = defaultColor;
         }
 
         #endregion

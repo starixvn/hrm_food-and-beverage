@@ -151,12 +151,45 @@
 						<Trigger Property="IsPressed" Value="True">
 							<Setter Property="BorderBrush" TargetName="border" Value="#FF0000"/>
 						</Trigger>
-						<DataTrigger Binding="{Binding Path=IsSelectedMealMenu}" Value="True">
+
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding Path=IsSelectedMealMenu}" Value="True"/>
+								<Condition Binding="{Binding Path=IsMainMenu}" Value="True"/>
+							</MultiDataTrigger.Conditions>
+							<Setter Property="Background" Value="#001CD1"/>
+						</MultiDataTrigger>
+
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding Path=IsSelectedMealMenu}" Value="True"/>
+								<Condition Binding="{Binding Path=IsMainMenu}" Value="False"/>
+							</MultiDataTrigger.Conditions>
+							<Setter Property="Background" Value="#001CD1"/>
+						</MultiDataTrigger>
+
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding Path=IsSelectedMealMenu}" Value="False"/>
+								<Condition Binding="{Binding Path=IsMainMenu}" Value="True"/>
+							</MultiDataTrigger.Conditions>
+							<Setter Property="Background" Value="#E6C1D9"/>
+						</MultiDataTrigger>
+
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding Path=IsSelectedMealMenu}" Value="False"/>
+								<Condition Binding="{Binding Path=IsMainMenu}" Value="False"/>
+							</MultiDataTrigger.Conditions>
+							<Setter Property="Background" Value="#46A3E1"/>
+						</MultiDataTrigger>
+
+						<!--<DataTrigger Binding="{Binding Path=IsSelectedMealMenu}" Value="True">
 							<Setter Property="Background" Value="#001CD1"/>
 						</DataTrigger>
 						<DataTrigger Binding="{Binding Path=IsSelectedMealMenu}" Value="False">
 							<Setter Property="Background" Value="#46A3E1"/>
-						</DataTrigger>
+						</DataTrigger>-->
 						<!--<Trigger Property="IsPressed" Value="True">
 							<Trigger.EnterActions>
 								<BeginStoryboard>

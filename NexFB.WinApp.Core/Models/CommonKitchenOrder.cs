@@ -23,6 +23,8 @@ namespace NexFB.WinApp.Core.Models
         private int _itemId;
         private string _itemName;
         private bool _isSelectedMealMenu;
+        private string _menuColor;
+        private bool _isMainMenu;
 
         public bool IsSelectedMealMenu
         {
@@ -63,6 +65,34 @@ namespace NexFB.WinApp.Core.Models
             {
                 _itemName = value;
                 this.OnPropertyChanged("ItemName");
+            }
+        }
+
+        public string MenuColor
+        {
+            get
+            {
+                return _menuColor;
+            }
+
+            set
+            {
+                _menuColor = value;
+                this.OnPropertyChanged("MenuColor");
+            }
+        }
+
+        public bool IsMainMenu
+        {
+            get
+            {
+                return _isMainMenu;
+            }
+
+            set
+            {
+                _isMainMenu = value;
+                this.OnPropertyChanged("IsMainMenu");
             }
         }
     }
