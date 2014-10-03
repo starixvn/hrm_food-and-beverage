@@ -191,5 +191,17 @@ namespace NexFB.Services.Implement
 
             return employeeInGroup;
         }
+
+        public EmployeeInfo GetEmployeeBySysId(GetEmployeeBySysIdCriteria criteria)
+        {
+            EmployeeInfo employee = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                employee = this.GetDataEntity<EmployeeInfo>(criteria);
+            }
+
+            return employee;
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace NexFB.WinApp.ViewModels
         private string _imageCancel;
         private string _gridUserVisibility;
         private string _messageHeader;
-
+        private bool _isMenuFocused;
         private int _currentSelectedEmployeeSysId;
 
         #endregion
@@ -75,6 +75,7 @@ namespace NexFB.WinApp.ViewModels
 
             SaveDialogCommand = new RelayCommand((x) => CanExecuteSaveDialogCommand(), (y) => ExecuteSaveDialogCommand(y));
             CancelDialogCommand = new RelayCommand((x) => CanExecuteCancelDialogCommand(), (y) => ExecuteCancelDialogCommand(y));
+            SelectAllUserInGroup = new RelayCommand((x) => CanExecuteSelectAllUserInGroupCommand(), (y) => ExecuteSelectAllUserInGroupCommand());
 
             AllObservationFood = this.GetAllFood;
             AllObservationLocation = this.GetAllLocation;
@@ -146,6 +147,20 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        public bool IsMenuFocused
+        {
+            get
+            {
+                return _isMenuFocused;
+            }
+
+            set
+            {
+                _isMenuFocused = value;
+                OnPropertyChanged("IsMenuFocused");
+            }
+        }
+
         public string MessageHeader
         {
             get
@@ -155,11 +170,6 @@ namespace NexFB.WinApp.ViewModels
 
             set
             {
-                if (_messageHeader == value)
-                {
-                    return;
-                }
-
                 _messageHeader = value;
                 OnPropertyChanged("MessageHeader");
             }
@@ -174,11 +184,6 @@ namespace NexFB.WinApp.ViewModels
 
             set
             {
-                if (_currentSelectedEmployeeSysId == value)
-                {
-                    return;
-                }
-
                 _currentSelectedEmployeeSysId = value;
                 OnPropertyChanged("CurrentSelectedEmployeeSysId");
             }
@@ -193,11 +198,6 @@ namespace NexFB.WinApp.ViewModels
 
             set
             {
-                if (_employeeInfo == value)
-                {
-                    return;
-                }
-
                 _employeeInfo = value;
                 OnPropertyChanged("EmployeeInfo");
             }
@@ -212,11 +212,6 @@ namespace NexFB.WinApp.ViewModels
 
             set
             {
-                if (_userInGroup == value)
-                {
-                    return;
-                }
-
                 _userInGroup = value;
                 OnPropertyChanged("UserInGroup");
             }
@@ -231,11 +226,6 @@ namespace NexFB.WinApp.ViewModels
 
             set
             {
-                if (_duplicateUser == value)
-                {
-                    return;
-                }
-
                 _duplicateUser = value;
                 OnPropertyChanged("DuplicateUser");
             }
@@ -250,11 +240,6 @@ namespace NexFB.WinApp.ViewModels
 
             set
             {
-                if (_commonKitchenOrder == value)
-                {
-                    return;
-                }
-
                 _commonKitchenOrder = value;
                 OnPropertyChanged("CommonKitchenOrder");
             }
@@ -269,11 +254,6 @@ namespace NexFB.WinApp.ViewModels
 
             set
             {
-                if (_allObservableFood == value)
-                {
-                    return;
-                }
-
                 _allObservableFood = value;
                 OnPropertyChanged("AllObservationFood");
             }
@@ -288,11 +268,6 @@ namespace NexFB.WinApp.ViewModels
 
             set
             {
-                if (_allObservableGroup == value)
-                {
-                    return;
-                }
-
                 _allObservableGroup = value;
                 OnPropertyChanged("AllObservationGroup");
             }
@@ -307,11 +282,6 @@ namespace NexFB.WinApp.ViewModels
 
             set
             {
-                if (_allObservableLocation == value)
-                {
-                    return;
-                }
-
                 _allObservableLocation = value;
                 OnPropertyChanged("AllObservationLocation");
             }
@@ -425,11 +395,23 @@ namespace NexFB.WinApp.ViewModels
 
         public ICommand SaveDialogCommand { get; set; }
 
+        public ICommand SelectAllUserInGroup { get; set; }
+
         #endregion
 
         #region RelayCommands
 
         // Can Execute Command.
+        public bool CanExecuteSelectAllUserInGroupCommand()
+        {
+            if (UserInGroup.Count > 0)
+            {
+                return true;
+            }
+            
+            return false;
+        }
+
         public bool CanExecuteSaveDialogCommand()
         {
             return true;
@@ -530,6 +512,12 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        public void ExecuteSelectAllUserInGroupCommand()
+        {
+            UserInGroup.ToList().ForEach(x => x.IsPlaceOrder = true);
+            UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
+        }
+
         /// <summary>
         /// Add member to order.
         /// </summary>
@@ -592,10 +580,20 @@ namespace NexFB.WinApp.ViewModels
             CommonKitchenOrder = AllObservationGroup;
         }
 
+        /// <summary>
+        /// Choose Menu command.
+        /// </summary>
         public void ExecuteChooseDishesCommand()
         {
             ChangeButtonBorder(3);
             CommonKitchenOrder = AllObservationFood;
+            if (UserInGroup.Any(x => x.IsSelectedMemberInGroup))
+            {
+                KitchenEmployeeInfo currentSelectedMember = UserInGroup.Where(x => x.IsSelectedMemberInGroup).SingleOrDefault();
+                CommonKitchenOrder.ToList().ForEach(x => x.IsSelectedMealMenu = false);
+                CommonKitchenOrder.Where(x => currentSelectedMember.SelectedMenuItem.Contains(x.ItemId)).ToList().ForEach(y => y.IsSelectedMealMenu = true);
+                CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>(this.CommonKitchenOrder);
+            }
         }
 
         /// <summary>
@@ -610,6 +608,15 @@ namespace NexFB.WinApp.ViewModels
                 var currentSelectedItem = CommonKitchenOrder.Where(x => x.ItemId == itemId).SingleOrDefault();
                 currentSelectedItem.IsSelectedMealMenu = !currentSelectedItem.IsSelectedMealMenu;
                 AddMemberInGroupToGrid(currentSelectedItem);
+
+                if (CommonKitchenOrder.Except(AllObservationFood).ToList().Count == 0)
+                {
+                    if (UserInGroup.Any(x => x.IsSelectedMemberInGroup))
+                    {
+                        KitchenEmployeeInfo currentSelectedMember = UserInGroup.Where(x => x.IsSelectedMemberInGroup).SingleOrDefault();
+                        currentSelectedMember.SelectedMenuItem.Add(itemId);
+                    }
+                }
             }
         }
 
@@ -633,6 +640,13 @@ namespace NexFB.WinApp.ViewModels
                 if (EmployeeInfo == null)
                 {
                     EmployeeInfo = currentSelectedEmployee;
+                }
+
+                if (CommonKitchenOrder.Except(AllObservationFood).ToList().Count == 0)
+                {
+                    CommonKitchenOrder.ToList().ForEach(x => x.IsSelectedMealMenu = false);
+                    CommonKitchenOrder.Where(x => currentSelectedEmployee.SelectedMenuItem.Contains(x.ItemId)).ToList().ForEach(y => y.IsSelectedMealMenu = true);
+                    CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>(this.CommonKitchenOrder);
                 }
             }
         }
@@ -697,6 +711,7 @@ namespace NexFB.WinApp.ViewModels
                     int groupOrderId = employeeInGroup.GroupOrder.GroupOrderId;
                     EmployeeInfo.GroupOrderId = groupOrderId;
                     ExecutePickGroupCommand();
+
                     CommonKitchenOrder currentSelectedItem = CommonKitchenOrder.Where(x => x.ItemId == groupOrderId).FirstOrDefault();
                     currentSelectedItem.IsSelectedMealMenu = true;
                     AddMemberInGroupToGrid(currentSelectedItem);
@@ -704,6 +719,17 @@ namespace NexFB.WinApp.ViewModels
                     currentSelectedEmployee.IsPlaceOrder = true;
                     currentSelectedEmployee.IsSelectedMemberInGroup = true;
                     CurrentSelectedEmployeeSysId = sysId;
+                }
+                else
+                {
+                    KitchenEmployeeInfo employee = this.GetEmployeeBySysId(sysId);
+                    if (employee != null)
+                    {
+                        UserInGroup.ToList().ForEach(x => x.IsSelectedMemberInGroup = false);
+                        employee.IsSelectedMemberInGroup = true;
+                        employee.IsPlaceOrder = true;
+                        UserInGroup.Add(employee);
+                    }
                 }
             }
         }
@@ -714,7 +740,7 @@ namespace NexFB.WinApp.ViewModels
         /// <param name="currentSelectedItem">Current Selected member.</param>
         public void AddMemberInGroupToGrid(CommonKitchenOrder currentSelectedItem)
         {
-            if (CommonKitchenOrder == AllObservationGroup)
+            if (CommonKitchenOrder.Except(AllObservationGroup).ToList().Count == 0)
             {
                 if (currentSelectedItem.IsSelectedMealMenu)
                 {
@@ -725,13 +751,15 @@ namespace NexFB.WinApp.ViewModels
                         employees = employees.Where(x => !listSysId.Contains(x.SysId)).ToList();
                         employees.ForEach(x => UserInGroup.Add(x));
                         GridUserVisibility = Constant.Visible;
+                        UserInGroup.ToList().ForEach(x => x.IsSelectedMemberInGroup = false);
                     }
                 }
                 else
                 {
+                    //// Unselected item in group.
                     if (UserInGroup != null)
                     {
-                        var currenUserInGroup = UserInGroup.Where(x => x.GroupOrderId != currentSelectedItem.ItemId || x.IsSelectedMemberInGroup).ToList();
+                        var currenUserInGroup = UserInGroup.Where(x => x.GroupOrderId != currentSelectedItem.ItemId || x.IsPlaceOrder).ToList();
                         UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(currenUserInGroup);
                         if (UserInGroup.Count == 0)
                         {
@@ -818,6 +846,24 @@ namespace NexFB.WinApp.ViewModels
             {
                 currentSelectedEmployee.EmployeeOrderMealColor = Constant.HasOrderMealBeforeColor;
             }
+        }
+
+        /// <summary>
+        /// Get Employee By Sys Id.
+        /// </summary>
+        /// <param name="sysId">Employee Sys Id.</param>
+        /// <returns>KitchenEmployee Info.</returns>
+        public KitchenEmployeeInfo GetEmployeeBySysId(int sysId)
+        {
+            var criteria = new GetEmployeeBySysIdCriteria() { SysId = sysId };
+            KitchenEmployeeInfo kitchenEmployee = null;
+            EmployeeInfo employee = this.KitchenService.GetEmployeeBySysId(criteria);
+            if (employee != null)
+            {
+                kitchenEmployee = Mapper.Map<EmployeeInfo, KitchenEmployeeInfo>(employee);
+            }
+
+            return kitchenEmployee;
         }
 
         #endregion

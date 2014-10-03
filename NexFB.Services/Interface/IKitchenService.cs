@@ -45,5 +45,7 @@ namespace NexFB.Services.Interface
         List<EmployeeInfo> GetEmployeeOrderInfo(GetEmployeeByCodeCriteria criteria);
 
         EmployeeInGroup GetEmployeeInGroup(GetEmployeeInGroupBySysIdCriteria criteria);
+
+        EmployeeInfo GetEmployeeBySysId(GetEmployeeBySysIdCriteria criteria);
     }
 }

@@ -50,6 +50,7 @@
 		<Setting Key="POS_Get_GroupUserBySysID" SpName="POS_Get_GroupUserBySysID" DbName="NexFB" Plain="0" >
 			<Mapping DataField="Qty" ObjectProperty="Quantity"/>
 		</Setting>
+		<Setting Key="Employee_GetEmployeeBySysID" SpName="Employee_GetEmployeeBySysID" DbName="NexFB" Plain="0" ></Setting>
 	</Function>
 
 </Functions>

@@ -9,6 +9,7 @@
 
 namespace NexFB.WinApp.Core.Models
 {
+    using System.Collections.Generic;
     using System.Configuration;
     using NexFB.WinApp.Core.Constants;
     using NexFB.WinApp.Core.NotifyBase;
@@ -50,6 +51,26 @@ namespace NexFB.WinApp.Core.Models
 
         private string _employeeOrderMealColor;
         private string _employeeOrderMealText;
+        private List<int> _selectedMenuItem;
+
+        public KitchenEmployeeInfo()
+        {
+            SelectedMenuItem = new List<int>();
+        }
+
+        public List<int> SelectedMenuItem
+        {
+            get
+            {
+                return _selectedMenuItem;
+            }
+
+            set
+            {
+                _selectedMenuItem = value;
+                this.OnPropertyChanged("SelectedMenuItem");
+            }
+        }
 
         public bool IsPlaceOrder
         {
