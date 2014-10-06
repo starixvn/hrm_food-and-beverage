@@ -112,16 +112,19 @@ foodMenuFactory, foodMenuUtilities) {
 	/*
 	** Add meal planning.
 	*/
-	$scope.addMealPlanning = function (onDate, menuId) {
+	$scope.addMealPlanning = function (mealPlanning) {
 		var modalAssignInstance = $modal.open({
 			templateUrl: '/src/app/MealPlanningManagement/Templates/create.html',
 			controller: "CreateMealPlanningController",
 			resolve: {
 				menuId: function () {
-					return menuId;
+					return mealPlanning.FoodMenu.MenuId;
 				},
 				onDate: function () {
-					return onDate;
+					return mealPlanning.Date;
+				},
+				isActive: function () {
+					return mealPlanning.IsActive;
 				},
 				menuOptions: function () {
 					return $scope.menuOptions;
@@ -152,13 +155,26 @@ foodMenuFactory, foodMenuUtilities) {
 
 mealPlanningManagementModule.controller('CreateMealPlanningController',
 ['$scope', '$modalInstance', 'menuId', 'onDate', 'mealPlanningFactory', 'ErrorFactory', 'notificationFactory',
-'menuOptions',
+'menuOptions', 'commonFactory', 'isActive',
 function ($scope, $modalInstance, menuId, onDate, mealPlanningFactory, ErrorFactory, notificationFactory,
-menuOptions) {
+menuOptions, commonFactory, isActive) {
 
 	$scope.menuOptions = menuOptions;
 	$scope.onDate = onDate;
 	$scope.menuId = menuId;
+	$scope.isActive = isActive;
+
+	$scope.calendar = {
+		startDateOpened: false
+	};
+
+	/*
+	** Open calendar.
+	*/
+	$scope.openPopupStartDate = function ($event) {
+		commonFactory.openPopupStartDate($event, $scope);
+	};
+
 	/*
 	** Get all food items of current menu.
 	*/
