@@ -11,6 +11,7 @@ namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
+    using NexFB.Core.Models;
     using NexFB.Criteria.FoodMealPlanning;
     using NexFB.Models.FoodMealPlanning;
     using NexFB.Services.Implement;
@@ -56,6 +57,22 @@ namespace NexFB.Site.Controllers.API
             };
 
             return _mealPlanningService.GetMealPlanningByOnDate(criteria);
+        }
+
+        /// <summary>
+        /// Insert meal planning.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult InsertMealPlanning(InsertMealPlanningCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.CreatedBy = this.CurrentUser.UserId;
+                criteria.CreatedDate = DateTime.Now;
+            }
+
+            return _mealPlanningService.InsertMealPlanning(criteria);
         }
     }
 }

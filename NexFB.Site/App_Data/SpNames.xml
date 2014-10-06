@@ -189,5 +189,7 @@
 	<Function Name="MealPlanningManagement">
 		<Setting Key="FoodPlan_GetMenuByOnDate" SpName="FoodPlan_GetMenuByOnDate" DbName="NexFB" Plain="0" >
 		</Setting>
+		<Setting Key="FoodPlan_Insert" SpName="FoodPlan_Insert" DbName="NexFB" Plain="0" >
+		</Setting>
 	</Function>
 </Functions>

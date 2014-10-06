@@ -95,7 +95,8 @@ namespace NexFB.Site
                 "~/Src/App/FoodMenuManagement/foodMenuManagement-directive.js",
                 "~/Src/App/MealPlanningManagement/mealPlanningManagement-route.js",
                 "~/Src/App/MealPlanningManagement/mealPlanningManagement-controller.js",
-                "~/Src/App/MealPlanningManagement/mealPlanningManagement-factory.js"));
+                "~/Src/App/MealPlanningManagement/mealPlanningManagement-factory.js",
+                "~/Src/App/MealPlanningManagement/mealPlanningManagement-directive.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/extensions").Include(
                 "~/Src/Components/Extensions/Common/error-factory.js",

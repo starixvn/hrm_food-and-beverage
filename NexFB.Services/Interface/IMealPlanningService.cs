@@ -10,6 +10,7 @@
 namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
+    using NexFB.Core.Models;
     using NexFB.Criteria.FoodMealPlanning;
     using NexFB.Models.FoodMealPlanning;
 
@@ -19,5 +20,7 @@ namespace NexFB.Services.Interface
     public interface IMealPlanningService
     {
         IEnumerable<MealPlanningModel> GetMealPlanningByOnDate(GetAllMealPlanningByOnDateCriteria criteria);
+
+        CommandResult InsertMealPlanning(InsertMealPlanningCriteria criteria);
     }
 }

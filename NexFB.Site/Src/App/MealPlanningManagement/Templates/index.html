@@ -44,6 +44,10 @@
 			<thead>
 				<tr class="header-table">
 					<th colspan="9" >
+						<a class="pull-left button-icon create-button" ng-click="addMealPlanning('', false)" >
+							<span class="icon plus"></span>
+							<span class="button-text" data-translate="CreateMealPlanning"></span>
+						</a>
 						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
 					</th>
 				</tr>
@@ -135,7 +139,7 @@
 						</div>
 					</td>
 					<td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}" class="text-center" colspan="3">
-						<a class="icon plus" href="" ng-click="addMealPlanning(mealPlanning)" title="Add Meal Planning">
+						<a class="icon plus" href="" ng-click="addMealPlanning(mealPlanning, true)" title="Add Meal Planning">
 						</a>
 					</td>
 				</tr>
