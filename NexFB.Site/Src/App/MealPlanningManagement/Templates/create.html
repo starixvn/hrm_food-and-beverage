@@ -16,10 +16,14 @@
             </div>
             <div class="form-group">
                 <label data-translate="Date"></label>
-				<input class="calendar-form-control" type="text" ng-model="mealPlanning.onDate" datepicker-popup
+				<input class="calendar-form-control" type="text" ng-model="mealPlanning.date" datepicker-popup
 					is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" ng-disabled="currentMealPlanning" />
 				<calendar-image class="calendar-image" ng-click="openPopupStartDate($event)" ng-show="!currentMealPlanning"></calendar-image>
             </div>
+			<div class="form-group">
+				<label data-translate="Active"></label>
+				<input type="checkbox" ng-model="mealPlanning.isActive" />
+			</div>
         </form>
 		<div>
 			<label class="filterRow">{{"FoodItems" | translate}}:</label>
@@ -41,14 +45,14 @@
                 <button data-translate="Up" ng-click="upFoodItems(selectedIndex)" ></button>
 			    <button data-translate="Down" ng-click="downFoodItems(selectedIndex)" ></button>
             </div>
-			
 		</div>
 	</div>
 
 	<div class="modal-footer">
-		<button class="button" data-translate="Submit" ng-click="save()" >
+		<button class="button" data-translate="Submit" ng-click="save()" ng-disabled="disabledSubmitButton" >
 		</button>
-		<button class="button" data-translate="SubmitContinue" reset-meal-planning ng-click="saveAndContinue()" ng-show="!currentMealPlanning" >
+		<button class="button" data-translate="SubmitContinue" reset-meal-planning ng-click="saveAndContinue()" 
+			ng-disabled="disabledSubmitButton" ng-show="!currentMealPlanning" >
 		</button>
 		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 		</button>

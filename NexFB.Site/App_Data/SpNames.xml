@@ -191,5 +191,11 @@
 		</Setting>
 		<Setting Key="FoodPlan_Insert" SpName="FoodPlan_Insert" DbName="NexFB" Plain="0" >
 		</Setting>
+		<Setting Key="FoodPlan_Edit" SpName="FoodPlan_Edit" DbName="NexFB" Plain="0" >
+		</Setting>
+		<Setting Key="FoodPlan_Delete" SpName="FoodPlan_Delete" DbName="NexFB" Plain="0" >
+		</Setting>
+		<Setting Key="FoodPlan_EditActive" SpName="FoodPlan_EditActive" DbName="NexFB" Plain="0" >
+		</Setting>
 	</Function>
 </Functions>

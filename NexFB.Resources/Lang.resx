@@ -157,10 +157,10 @@
     <value>Create new</value>
   </data>
   <data name="DataChangeFail" xml:space="preserve">
-    <value>Data changed unsuccessfully!</value>
+    <value>Updated unsuccessfully!</value>
   </data>
   <data name="DataChangeSuccessfully" xml:space="preserve">
-    <value>Data changed successfully!</value>
+    <value>Updated successfully!</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Default</value>
@@ -172,7 +172,7 @@
     <value>No information available!</value>
   </data>
   <data name="ErrorMessage" xml:space="preserve">
-    <value>Sorry, an error occurred while processing your request, please notify the administrators!</value>
+    <value>Sorry, an unexpected error occurred while processing your request, please notify the administrator!</value>
   </data>
   <data name="ErrorNetworkConnectionHeader" xml:space="preserve">
     <value>Network Connection Errors</value>

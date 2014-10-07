@@ -27,6 +27,24 @@ foodMenuFactory, foodMenuUtilities) {
 	};
 
 	/*
+	** If route change, close dialog.
+	*/
+	$scope.$on('$routeChangeStart', function () {
+		// if modal instance defined, dismiss dialog
+		if ($scope.modalInstance) {
+			$scope.modalInstance.dismiss('cancel');
+		}
+	});
+
+	/*
+	** Get all meal timesheet.
+	*/
+	mealPlanningFactory.getAllMealTimesheet().success(function (mealTimesheets) {
+		$scope.mealTimesheets = mealTimesheets;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+	/*
 	** Paging.
 	*/
 	$scope.showEntries = function () {
@@ -70,6 +88,17 @@ foodMenuFactory, foodMenuUtilities) {
 	*/
 	foodMenuFactory.getAllEmployeeType().success(function (employeeTypes) {
 		$scope.employeeTypesOption = employeeTypes;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
+	/*
+	** Get user permission.
+	*/
+	mealPlanningFactory.getUserPermissionOnMealPlanning().success(function (permission) {
+		$scope.policy = {
+			permission: permission
+		};
 	}).error(function () {
 		notificationFactory.error("ErrorMessage");
 	});
@@ -146,25 +175,167 @@ foodMenuFactory, foodMenuUtilities) {
 				else {
 					notificationFactory.error("ErrorMessage");
 				}
-			})['finally'](function () {
-				getAllMealPlanning($scope.filter.startDate.toDateString(), $scope.filter.endDate.toDateString(),
-					foodMenuUtilities.getMealId($scope.mealsOption), foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption));
-				$scope.modalInstance = '';
 			});
+		})['finally'](function () {
+			var fromDate = angular.copy($scope.filter.startDate).toDateString(),
+					toDate = angular.copy($scope.filter.endDate).toDateString(),
+					mealId = foodMenuUtilities.getMealId($scope.mealsOption),
+					employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
+			getAllMealPlanning(fromDate, toDate, mealId, employeeTypeId);
+			$scope.modalInstance = '';
 		});
 	};
 
 	/*
 	** Edit meal planning.
 	*/
-	$scope.edit = function () {
-		var modalAssignInstance = $modal.open({
+	$scope.edit = function (mealPlanning) {
+		var udpatedData = function (updateMealPlanning, foodItems) {
+			mealPlanning.IsActive = updateMealPlanning.isActive;
+			mealPlanning.FoodMenu.FoodItems = foodItems;
+		};
+
+		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/app/MealPlanningManagement/Templates/edit.html',
 			controller: "EditMealPlanningController",
+			resolve: {
+				mealPlanning: function () {
+					return angular.copy(mealPlanning);
+				},
+				menuOptions: function () {
+					return $scope.menuOptions;
+				}
+			},
 			windowClass: "modal-confirm-center"
 		});
 
-		modalAssignInstance.result.then(function () {
+		$scope.modalInstance.result.then(function (informationMealPlanning) {
+			mealPlanningFactory.updateMealPlanning(informationMealPlanning.updateMealPlanning)
+			.success(function (response) {
+				if (response.IsSuccessful === true) {
+					udpatedData(informationMealPlanning.updateMealPlanning, informationMealPlanning.foodItems);
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("ErrorMessage");
+				}
+			})['finally'](function () {
+				$scope.modalInstance = '';
+			});
+		});
+	};
+
+	/*
+	** Activate or deactivate food menu.
+	*/
+	$scope.confirmActive = function (mealPlanning) {
+		var action = !mealPlanning.IsActive ? "activate" : "deactivate",
+			newMealPlanning = {
+				menuId: mealPlanning.FoodMenu.MenuId,
+				IsActive: !mealPlanning.IsActive,
+				onDate: mealPlanning.Date
+			};
+
+		mealPlanning.IsActive = newMealPlanning.IsActive;
+
+		$scope.modalInstance = $modal.open({
+			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			controller: "ModalConfirmController",
+			resolve: {
+				name: function () {
+					return mealPlanning.FoodMenu.MenuVnmName + ' ( on ' + new Date(mealPlanning.Date).toString("MMM dd, yyyy") + ')';
+				},
+				action: function () {
+					return action;
+				}
+			},
+			windowClass: "modal-confirm-center food-item-modal"
+		});
+
+		var keyMessage = '';
+
+		$scope.modalInstance.result.then(function () {
+			mealPlanningFactory.activateMealPlanning(newMealPlanning).success(function (response) {
+				if (response.IsSuccessful === true) {
+					keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
+					notificationFactory.success(keyMessage);
+				}
+				else {
+					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+					mealPlanning.IsActive = !newMealPlanning.IsActive;
+
+					notificationFactory.error(keyMessage);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+					mealPlanning.IsActive = !newMealPlanning.IsActive;
+					notificationFactory.error(keyMessage);
+				}
+			});
+		}, function () {
+			mealPlanning.IsActive = !newMealPlanning.IsActive;
+		})['finally'](function () {
+			$scope.modalInstance = '';
+		});
+	};
+
+	/*
+	** Delete meal planning.
+	*/
+	var updateDeleteMealPlanning = function (mealPlanning) {
+		mealPlanning.FoodMenu.FoodItems = [];
+		mealPlanning.IsExist = false;
+		mealPlanning.IsActive = false;
+	};
+
+	$scope.deleteMealPlanning = function (mealPlanning) {
+		$scope.modalInstance = $modal.open({
+			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			controller: "ModalConfirmController",
+			resolve: {
+				action: function () {
+					return 'delete';
+				},
+				name: function () {
+					return mealPlanning.FoodMenu.MenuVnmName + ' ( on ' + new Date(mealPlanning.Date).toString("MMM dd, yyyy") + ')';
+				}
+			},
+			windowClass: "modal-confirm-center food-item-modal"
+		});
+
+		$scope.modalInstance.result.then(function () {
+			var menuId = mealPlanning.FoodMenu.MenuId,
+				onDate = mealPlanning.Date;
+
+			mealPlanningFactory.deleteMealPlanning(menuId, onDate).success(function (response) {
+				if (response.IsSuccessful === true) {
+					updateDeleteMealPlanning(mealPlanning);
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("ErrorMessage");
+				}
+			});
+		})['finally'](function () {
+			$scope.modalInstance = '';
 		});
 	};
 } ]);
@@ -186,8 +357,9 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 
 	$scope.mealPlanning = {
 		menuId: mealPlanning !== '' ? mealPlanning.FoodMenu.MenuId : '',
-		onDate: mealPlanning !== '' ? mealPlanning.Date : new Date(),
-		isActive: mealPlanning !== '' ? mealPlanning.IsActive : ''
+		onDate: '',
+		isActive: mealPlanning !== '' ? mealPlanning.IsActive : '',
+		date: mealPlanning !== '' ? mealPlanning.Date : new Date()
 	};
 
 	/*
@@ -200,23 +372,10 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 	/*
 	** Get all food items of current menu.
 	*/
-	var getBasicFoodItems = function (foodId, menuId, isActive) {
-		mealPlanningFactory.getBasicFoodItem(foodId, menuId, isActive).success(function (foodItems) {
-			$scope.groupOptions = foodItems;
-		}).error(function (response, status) {
-			if (status === 405) {
-				ErrorFactory.errorHandle(status);
-			}
-			else {
-				notificationFactory.error("ErrorMessage");
-			}
-		});
-	};
-
-	getBasicFoodItems(null, $scope.mealPlanning.menuId, true);
+	mealPlanningUtilities.getBasicFoodItems(null, $scope.mealPlanning.menuId, true, $scope);
 
 	$scope.getFoodItems = function (menuId) {
-		getBasicFoodItems(null, menuId, true);
+		mealPlanningUtilities.getBasicFoodItems(null, menuId, true, $scope);
 	};
 
 	/*
@@ -230,25 +389,11 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 	** Upward or downward food item.
 	*/
 	$scope.upFoodItems = function (selectedIndex) {
-		if (selectedIndex > 0) {
-			var currentItem = angular.copy($scope.foodItems[selectedIndex]);
-
-			$scope.foodItems[selectedIndex] = angular.copy($scope.foodItems[selectedIndex - 1]);
-			$scope.foodItems[selectedIndex - 1] = currentItem;
-
-			$scope.selectedIndex = selectedIndex - 1;
-		}
+		mealPlanningUtilities.upFoodItems(selectedIndex, $scope);
 	};
 
 	$scope.downFoodItems = function (selectedIndex) {
-		if (selectedIndex < $scope.foodItems.length - 1) {
-			var currentItem = angular.copy($scope.foodItems[selectedIndex]);
-
-			$scope.foodItems[selectedIndex] = angular.copy($scope.foodItems[selectedIndex + 1]);
-			$scope.foodItems[selectedIndex + 1] = currentItem;
-
-			$scope.selectedIndex = selectedIndex + 1;
-		}
+		mealPlanningUtilities.downFoodItems(selectedIndex, $scope);
 	};
 
 	/*
@@ -257,6 +402,7 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 	$scope.save = function () {
 		$scope.disabledSubmitButton = true;
 		$scope.mealPlanning.foodId = mealPlanningUtilities.getFoodId($scope.foodItems);
+		$scope.mealPlanning.onDate = $scope.mealPlanning.date;
 
 		if ($scope.mealPlanning.onDate instanceof Date) {
 			$scope.mealPlanning.onDate = $scope.mealPlanning.onDate.toDateString();
@@ -276,6 +422,7 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 	$scope.saveAndContinue = function () {
 		$scope.disabledSubmitButton = true;
 		$scope.mealPlanning.foodId = mealPlanningUtilities.getFoodId($scope.foodItems);
+		$scope.mealPlanning.onDate = $scope.mealPlanning.date;
 
 		if ($scope.mealPlanning.onDate instanceof Date) {
 			$scope.mealPlanning.onDate = $scope.mealPlanning.onDate.toDateString();
@@ -314,8 +461,96 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 } ]);
 
 mealPlanningManagementModule.controller('EditMealPlanningController',
-['$scope', '$modalInstance',
-function ($scope, $modalInstance) {
+['$scope', '$modalInstance', 'mealPlanning', 'menuOptions', 'commonFactory', 'mealPlanningFactory',
+'mealPlanningUtilities',
+function ($scope, $modalInstance, mealPlanning, menuOptions, commonFactory, mealPlanningFactory,
+mealPlanningUtilities) {
+	/*
+	** Declare variables.
+	*/
+	$scope.mealPlanning = mealPlanning;
+	$scope.menuOptions = menuOptions;
+	$scope.foodItems = mealPlanning.FoodMenu.FoodItems;
+
+	$scope.calendar = {
+		startDateOpened: false
+	};
+
+	/*
+	** Open calendar.
+	*/
+	$scope.openPopupStartDate = function ($event) {
+		commonFactory.openPopupStartDate($event, $scope);
+	};
+
+	/*
+	** Create list food item Id.
+	*/
+	var createFoodIds = function (foodItems) {
+		var foodIds = [];
+
+		angular.forEach(foodItems, function (foodItem) {
+			foodIds.push(foodItem.FoodId);
+		});
+
+		return foodIds;
+	};
+
+	$scope.mealPlanning.rawFoodIds = createFoodIds($scope.mealPlanning.FoodMenu.FoodItems);
+
+	/*
+	** Get all food items of current menu.
+	*/
+	mealPlanningUtilities.getBasicFoodItems(null, $scope.mealPlanning.FoodMenu.MenuId, true, $scope);
+
+	$scope.getFoodItems = function (menuId) {
+		mealPlanningUtilities.getBasicFoodItems(null, menuId, true, $scope);
+	};
+
+	/*
+	** Set index to sort.
+	*/
+	$scope.setIndex = function (index) {
+		$scope.selectedIndex = index;
+	};
+
+	/*
+	** Upward or downward food item.
+	*/
+	$scope.upFoodItems = function (selectedIndex) {
+		mealPlanningUtilities.upFoodItems(selectedIndex, $scope);
+	};
+
+	$scope.downFoodItems = function (selectedIndex) {
+		mealPlanningUtilities.downFoodItems(selectedIndex, $scope);
+	};
+
+	/*
+	** Edit meal planning.
+	*/
+	$scope.editMealPlanning = function (mealPlanning) {
+		$scope.disabledSubmitButton = true;
+
+		var updateMealPlanning = {
+			menuId: mealPlanning.FoodMenu.MenuId,
+			onDate: mealPlanning.Date,
+			isActive: mealPlanning.IsActive,
+			foodId: mealPlanningUtilities.getFoodId($scope.foodItems)
+		};
+
+		var informationMealPlanning = {
+			updateMealPlanning: updateMealPlanning,
+			foodItems: $scope.foodItems
+		};
+
+		if (mealPlanningUtilities.validateMealPlanning(updateMealPlanning)) {
+			$modalInstance.close(informationMealPlanning);
+		}
+		else {
+			$scope.disabledSubmitButton = false;
+		}
+	};
+
 	$scope.cancel = function () {
 		$modalInstance.dismiss("cancel");
 	};

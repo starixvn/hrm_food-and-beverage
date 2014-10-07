@@ -21,6 +21,8 @@ namespace NexFB.Models.FoodMealPlanning
 
         public bool IsActive { get; set; }
 
+        public bool IsExist { get; set; }
+
         public FoodMenuModel FoodMenu { get; set; }
     }
 }

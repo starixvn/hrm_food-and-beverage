@@ -331,7 +331,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data changed unsuccessfully!.
+        ///   Looks up a localized string similar to Updated unsuccessfully!.
         /// </summary>
         public static string DataChangeFail {
             get {
@@ -340,7 +340,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data changed successfully!.
+        ///   Looks up a localized string similar to Updated successfully!.
         /// </summary>
         public static string DataChangeSuccessfully {
             get {
@@ -493,7 +493,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry, an error occurred while processing your request, please notify the administrators!.
+        ///   Looks up a localized string similar to Sorry, an unexpected error occurred while processing your request, please notify the administrator!.
         /// </summary>
         public static string ErrorMessage {
             get {

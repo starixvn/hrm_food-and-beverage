@@ -22,5 +22,11 @@ namespace NexFB.Services.Interface
         IEnumerable<MealPlanningModel> GetMealPlanningByOnDate(GetAllMealPlanningByOnDateCriteria criteria);
 
         CommandResult InsertMealPlanning(InsertMealPlanningCriteria criteria);
+
+        CommandResult UpdateMealPlanning(UpdateMealPlanningCriteria criteria);
+
+        CommandResult DeleteMealPlanning(DeleteMealPlanningCriteria criteria);
+
+        CommandResult ActivateMealPlanning(ActivateMealPlanningCriteria criteria);
     }
 }

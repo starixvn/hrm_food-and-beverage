@@ -5,25 +5,51 @@
 			{{"EditMealPlanning" | translate}}<span class="close-popup" ng-click="cancel()"></span>
 		</div>
 	</div>
-	<div class="modal-body assign-role-modal">
+	<div class="modal-body assign-role-modal meal-planning-body-modal">
         <form class="form-inline" role="form">
             <div class="form-group">
-                <label>Menu name:</label>
-                <select>
-                    <option>Trưa 1 (Lunch 1)</option>
-                </select>
+                <label data-translate="Menu"></label>
+				<select ng-model="mealPlanning.FoodMenu.MenuId" ng-options="opt.MenuId as opt.MenuVnmName for opt in menuOptions"
+					required class="form-control" disabled >
+					<option value="">-- {{"SelectMenu" | translate}} --</option>
+				</select>
             </div>
             <div class="form-group">
-                <label>Date:</label>
-                <select>
-                    <option></option>
-                </select>
+                <label data-translate="Date"></label>
+				<input class="calendar-form-control" type="text" ng-model="mealPlanning.Date" datepicker-popup
+					is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" disabled />
             </div>
+			<div class="form-group">
+				<label data-translate="Active"></label>
+				<input type="checkbox" ng-model="mealPlanning.IsActive" />
+			</div>
         </form>
+		<div>
+			<label class="filterRow">{{"FoodItems" | translate}}:</label>
+			<div class="menu-box">
+				<select name="foodSelect" class="chosen-select" data-placeholder="Select food item(s)" multiple meal-planning-multi-select name="foodItemGroup"
+					ng-model="mealPlanning.rawFoodIds" ng-options="opt.FoodId as opt.FoodVnmName for opt in groupOptions">
+				</select>
+			</div>
+		</div>
+		<div>
+			<ul class="list-unstyled foodItem-box">
+				<li ng-repeat="food in foodItems" >
+					<a href="" ng-click="setIndex($index)" >
+						{{$index + 1}}. {{food.FoodVnmName}}
+					</a>
+				</li>
+			</ul>
+            <div class="btn-box">
+                <button data-translate="Up" ng-click="upFoodItems(selectedIndex)" ></button>
+			    <button data-translate="Down" ng-click="downFoodItems(selectedIndex)" ></button>
+            </div>
+			
+		</div>
 	</div>
 
 	<div class="modal-footer">
-		<button class="button" get-meal-registration data-translate="Submit">
+		<button class="button" data-translate="Submit" ng-click="editMealPlanning(mealPlanning)" ng-disabled="disabledSubmitButton" >
 		</button>
 		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 		</button>
