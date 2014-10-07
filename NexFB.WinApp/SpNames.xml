@@ -51,6 +51,13 @@
 			<Mapping DataField="Qty" ObjectProperty="Quantity"/>
 		</Setting>
 		<Setting Key="Employee_GetEmployeeBySysID" SpName="Employee_GetEmployeeBySysID" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_Get_FoodAlternative" SpName="POS_Get_FoodAlternative" DbName="NexFB" Plain="0" >
+			<Mapping DataField="AltMenuId" ObjectProperty="FoodId"/>
+			<Mapping DataField="AltMenuCode" ObjectProperty="FoodCode"/>
+			<Mapping DataField="AltMenuVNMName" ObjectProperty="FoodVnmName"/>
+			<Mapping DataField="AltMenuEngName" ObjectProperty="FoodEngName"/>
+			<Mapping DataField="AltMenuPhoto" ObjectProperty="FoodPhoto"/>
+		</Setting>
 	</Function>
 
 </Functions>

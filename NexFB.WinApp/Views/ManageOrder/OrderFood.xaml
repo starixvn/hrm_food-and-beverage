@@ -5,6 +5,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	mc:Ignorable="d" 
+	xmlns:converter="clr-namespace:NexFB.WinApp.Converter"
 	xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
 	d:DesignHeight="1024" d:DesignWidth="1280">
 	<UserControl.Resources>
@@ -12,6 +13,7 @@
 			<Setter Property="FontSize" Value="38"/>
 			<Setter Property="Background" Value="#e2e2e2"/>
 		</Style>-->
+		<converter:RangeToBooleanConverter x:Key="conv"/>
 	</UserControl.Resources>
 
 	<Grid>
@@ -28,7 +30,18 @@
 			</Grid>
 		</Grid>
 		<Grid Background="#FFF" HorizontalAlignment="Left" Margin="483,0,0,0" Name="grid2" VerticalAlignment="Top" Width="322">
+			<!--<Button Style="{StaticResource MenuTile}" Margin="0,3,0,2" MinHeight="60" Width="320"
+						Command="{Binding DataContext.DefaulMenuSelected, RelativeSource={RelativeSource AncestorType=ListBox}}" 
+						CommandParameter="{Binding Path=ItemId}">
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Foreground="#FFF" FontSize="20" HorizontalAlignment="Left" Margin="10,0,15,0"
+							VerticalAlignment="Center" Text="aaaa" TextWrapping="WrapWithOverflow"></TextBlock>
+					<TextBlock HorizontalAlignment="Right" Text="bbb"
+					VerticalAlignment="Center" Foreground="#FFF" FontSize="20" />
+					
+				</StackPanel>
 
+			</Button>-->
 			<ListBox HorizontalAlignment="Left" Name="ListMenuItem" VerticalAlignment="Top" Width="322" BorderBrush="#FFF" BorderThickness="0"
 			ItemsSource="{Binding Path=CommonKitchenOrder}" Style="{StaticResource CustomLBStyle}">
 				<ListBox.ItemContainerStyle>
@@ -38,11 +51,29 @@
 				</ListBox.ItemContainerStyle>
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<Button Style="{StaticResource MenuTile}" Command="{Binding DataContext.DefaulMenuSelected, RelativeSource={RelativeSource AncestorType=ListBox}}" 
-						CommandParameter="{Binding Path=ItemId}" BorderBrush="#FFF" BorderThickness="0" 
-						Margin="0,3,0,2" MinHeight="60" Width="320">
-							<TextBlock Foreground="#FFF" FontSize="20" HorizontalAlignment="Left" Margin="10,0,15,0"
+						<Button Style="{StaticResource MenuTile}" Margin="0,3,0,2" MinHeight="60" Width="320"
+						Command="{Binding DataContext.DefaulMenuSelected, RelativeSource={RelativeSource AncestorType=ListBox}}" 
+						CommandParameter="{Binding Path=ItemId}">
+							<Grid Width="320">
+								<TextBlock Foreground="#FFF" FontSize="20" HorizontalAlignment="Left" Margin="10,0,25,0"
 							VerticalAlignment="Center" Text="{Binding Path=ItemName}" TextWrapping="WrapWithOverflow"></TextBlock>
+								<TextBlock HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Center"
+								 Foreground="#FFF" FontSize="20">
+								<TextBlock.Style>
+										<Style TargetType="TextBlock">
+											<Style.Triggers>
+												<DataTrigger Binding="{Binding Path=Quantity, Converter={StaticResource conv}}" Value="True">
+													<Setter Property="Text" Value=""/>
+												</DataTrigger>
+												<DataTrigger Binding="{Binding Path=Quantity, Converter={StaticResource conv}}" Value="False">
+													<Setter Property="Text" Value="{Binding Path=Quantity}"/>
+												</DataTrigger>
+											</Style.Triggers>
+										</Style>
+									</TextBlock.Style>
+								</TextBlock>
+							</Grid>
+								
 						</Button>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
@@ -63,7 +94,7 @@
 			</Button>-->
 		</Grid>
 		<Grid Visibility="{Binding GridUserVisibility}"
-		Background="#FFFFFF" Height="1024" HorizontalAlignment="Left" Margin="811,0,0,0" Name="grid3" VerticalAlignment="Top" Width="462">
+		Background="#FFFFFF" HorizontalAlignment="Left" Margin="811,0,0,0" Name="grid3" VerticalAlignment="Top" Width="462">
 			<Grid Height="60" HorizontalAlignment="Left" Name="grid8" VerticalAlignment="Top" Width="462">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition/>
@@ -134,13 +165,17 @@
 			Style="{StaticResource OrderTileButton}" Content="{x:Static resx:WinFormMainResource.PickRoom}" Height="65" HorizontalAlignment="Left" FontSize="22"
 			Margin="-1,5,0,0" Name="button1" VerticalAlignment="Top" Width="228" Background="#6cb23f" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonPickRoom}" />
 
-			<Button Command="{Binding Path=ChooseDishesCommand}" FontSize="22"
+			<Button Command="{Binding Path=ChooseMainFoodCommand}" FontSize="22"
 			Style="{StaticResource OrderTileButton}" Content="{x:Static resx:WinFormMainResource.ChooseDishes}" Height="65" HorizontalAlignment="Left" 
-			Margin="0,5,0,0" Name="button2" VerticalAlignment="Top" Width="228" Background="#6cb23f" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonChooseDishes}" Grid.Column="1" />
+			Margin="0,5,0,0" Name="button2" VerticalAlignment="Top" Width="228" Background="#6cb23f" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonMainFood}" Grid.Column="1" />
 
 			<Button Command="{Binding Path=PickGroupCommand}" FontSize="22"
 			Style="{StaticResource OrderTileButton}" Content="{x:Static resx:WinFormMainResource.PickGroup}" Grid.Row="1" Height="65" HorizontalAlignment="Left" 
 			Margin="-1,1,0,0" Name="button3" VerticalAlignment="Top" Width="228" Background="#6cb23f" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonPickGroup}" />
+			<Button Style="{StaticResource OrderTileButton}" Command="{Binding Path=ChooseAlternativeFoodCommand}" BorderBrush="{Binding Path=BorderButtonAlternativeFood}"
+			Content="{x:Static resx:WinFormMainResource.AlternativeFood}" Grid.Column="1" Grid.Row="1" Height="64" HorizontalAlignment="Left" Margin="0,1,0,0"
+			Background="#6cb23f" Foreground="#fff"  FontSize="22"
+			 Name="button16" VerticalAlignment="Top" Width="228" />
 		</Grid>
 		<Grid Height="236" HorizontalAlignment="Left" Background="#e2e2e2"
 		 Margin="6,49,0,0" Name="grid6" VerticalAlignment="Top" Width="470">
@@ -164,7 +199,7 @@
 			</Grid>
 			<Border Background="#fff" BorderThickness="1" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Width="456" Margin="8,182,6,4">
 				<TextBlock FontSize="22" Height="35" Name="textBlock4" Margin="0,5,0,0"
-				 Text="{Binding Path=EmployeeInfo.LocationName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+				 Text="{Binding Path=LocationName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 			</Border>
 		</Grid>
 		<Grid Height="400" HorizontalAlignment="Left" Margin="14,480,0,0" Name="gridKeyPad" VerticalAlignment="Top" Width="452">
@@ -197,7 +232,8 @@
 			<Grid Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2">
 				<Button x:Name="button8" Command="{Binding NumPadReleased}" Margin="33,4,4,4" Style="{StaticResource buttonKeypad}">
 					<!--<Path Stretch="Fill" Width="33" Height="21" Data="F1M555.0371,274.4893L552.7871,276.7383L549.9861,273.9373L547.1991,276.7243L545.1131,274.6393L547.9001,271.8523L545.0101,268.9603L547.2601,266.7113L550.1501,269.6023L552.8921,266.8613L554.9761,268.9463L552.2361,271.6883z M555.3751,264.0003L544.8751,264.0003C543.1251,264.1253,535.0001,270.7503,535.0001,272.2503C535.0001,273.7503,543.1251,279.3753,544.8751,279.5003L555.3751,279.5003C558.8751,279.5003,559.3751,277.7093,559.3751,275.5003L559.3751,268.0003C559.3751,265.7913,558.7501,264.0003,555.3751,264.0003" Fill="#FF333333" />-->
-					<Image Source="pack://application:,,,/Images/button_cancel.png" Height="40" Width="42" />
+					<Image Source="{Binding Path=ImageCancel}" Height="40" Width="42" />
+					<!--<Image Source="pack://application:,,,/Images/button_cancel.png" Height="40" Width="42" />-->
 				</Button>
 			</Grid>
 			<Grid Grid.Row="2">

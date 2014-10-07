@@ -77,6 +77,7 @@
     <Compile Include="FoodMenuManagement\GetAllFoodMenuCriteria.cs" />
     <Compile Include="FoodMenuManagement\InsertFoodMenuCriteria.cs" />
     <Compile Include="FoodMenuManagement\UpdateFoodMenuCriteria.cs" />
+    <Compile Include="Kitchen\GetAlternativeFoodCriteria.cs" />
     <Compile Include="Kitchen\GetAwaitingDeliverMealOrderCriteria.cs" />
     <Compile Include="Kitchen\GetEmployeeBySysIdCriteria.cs" />
     <Compile Include="Kitchen\GetFoodNameCriteria.cs" />

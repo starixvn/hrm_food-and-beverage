@@ -120,6 +120,9 @@
   <data name="Add" xml:space="preserve">
     <value>THÊM</value>
   </data>
+  <data name="AlternativeFood" xml:space="preserve">
+    <value>Món Phụ</value>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>Quay lại</value>
   </data>
@@ -133,7 +136,7 @@
     <value>Mã nhân viên: #{0} không tồn tại. Vui lòng nhập lại mã khác!</value>
   </data>
   <data name="ChooseDishes" xml:space="preserve">
-    <value>Chọn Món Ăn</value>
+    <value>Món Chính</value>
   </data>
   <data name="DeliverBilingual" xml:space="preserve">
     <value>Xuất / Out : </value>

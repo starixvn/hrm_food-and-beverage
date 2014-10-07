@@ -106,7 +106,7 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string HasOrderMealBeforeColor = "#f4c881";
 
-        public const string FixedMeal = "Cơm Trưa";
+        public const string FixedMeal = "Món Chính";
 
         private Constant()
         {

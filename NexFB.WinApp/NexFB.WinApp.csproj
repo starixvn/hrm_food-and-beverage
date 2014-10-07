@@ -106,6 +106,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\RangeToBooleanConverter.cs" />
     <Compile Include="DependencyProperties\InternetAvailability.cs" />
     <Compile Include="DependencyProperties\NativeMethods.cs" />
     <Compile Include="DependencyProperties\WaterMark.cs" />
@@ -268,6 +269,7 @@
     <Resource Include="Images\Icon.ico" />
     <Content Include="SpNames.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

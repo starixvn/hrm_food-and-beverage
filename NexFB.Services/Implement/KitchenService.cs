@@ -203,5 +203,17 @@ namespace NexFB.Services.Implement
 
             return employee;
         }
+
+        public List<FoodOrder> GetAllAlternativeFoodOrder(GetAlternativeFoodCriteria criteria)
+        {
+            List<FoodOrder> alternativeFoods = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                alternativeFoods = this.GetData<FoodOrder>(criteria).ToList();
+            }
+
+            return alternativeFoods;
+        }
     }
 }

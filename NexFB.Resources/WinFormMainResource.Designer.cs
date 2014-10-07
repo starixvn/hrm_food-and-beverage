@@ -70,6 +70,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Món Phụ.
+        /// </summary>
+        public static string AlternativeFood {
+            get {
+                return ResourceManager.GetString("AlternativeFood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quay lại.
         /// </summary>
         public static string Back {
@@ -106,7 +115,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chọn Món Ăn.
+        ///   Looks up a localized string similar to Món Chính.
         /// </summary>
         public static string ChooseDishes {
             get {

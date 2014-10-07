@@ -51,24 +51,40 @@ namespace NexFB.WinApp.Core.Models
 
         private string _employeeOrderMealColor;
         private string _employeeOrderMealText;
-        private List<int> _selectedMenuItem;
+        private List<int> _selectedMainMenuItem;
+        private List<int> _selectedAlternativeMenuItem;
 
         public KitchenEmployeeInfo()
         {
-            SelectedMenuItem = new List<int>();
+            ListSelectedMainMenuItem = new List<int>();
+            ListSelectedAlternativeMenuItem = new List<int>();
         }
 
-        public List<int> SelectedMenuItem
+        public List<int> ListSelectedMainMenuItem
         {
             get
             {
-                return _selectedMenuItem;
+                return _selectedMainMenuItem;
             }
 
             set
             {
-                _selectedMenuItem = value;
-                this.OnPropertyChanged("SelectedMenuItem");
+                _selectedMainMenuItem = value;
+                this.OnPropertyChanged("ListSelectedMainMenuItem");
+            }
+        }
+
+        public List<int> ListSelectedAlternativeMenuItem
+        {
+            get
+            {
+                return _selectedAlternativeMenuItem;
+            }
+
+            set
+            {
+                _selectedAlternativeMenuItem = value;
+                this.OnPropertyChanged("ListSelectedAlternativeMenuItem");
             }
         }
 

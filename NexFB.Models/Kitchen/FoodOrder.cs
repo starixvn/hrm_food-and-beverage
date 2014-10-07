@@ -18,6 +18,8 @@ namespace NexFB.Models.Kitchen
 
         public string FoodVnmName { get; set; }
 
+        public string FoodCode { get; set; }
+
         public string FoodEngName { get; set; }
 
         public string FoodPhoto { get; set; }

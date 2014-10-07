@@ -120,6 +120,9 @@
   <data name="Add" xml:space="preserve">
     <value>ADD</value>
   </data>
+  <data name="AlternativeFood" xml:space="preserve">
+    <value>Alternative Food</value>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
@@ -133,7 +136,7 @@
     <value>The member code: #{0} is not available. Please try another code!</value>
   </data>
   <data name="ChooseDishes" xml:space="preserve">
-    <value>Choose Dishes</value>
+    <value>Main Food</value>
   </data>
   <data name="Delivered" xml:space="preserve">
     <value>Delivered</value>

@@ -132,6 +132,11 @@
 						<Trigger Property="IsPressed" Value="True">
 							<Setter Property="BorderBrush" TargetName="border" Value="#FF0000"/>
 						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+							<Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+							<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
+						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
@@ -150,6 +155,11 @@
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsPressed" Value="True">
 							<Setter Property="BorderBrush" TargetName="border" Value="#FF0000"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+							<Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+							<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
 						</Trigger>
 
 						<MultiDataTrigger>
@@ -183,6 +193,13 @@
 							</MultiDataTrigger.Conditions>
 							<Setter Property="Background" Value="#46A3E1"/>
 						</MultiDataTrigger>
+
+						<DataTrigger Binding="{Binding Path=IsFocusedMealMenu}" Value="True">
+							<Setter Property="BorderBrush" Value="#FF0000"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Path=IsFocusedMealMenu}" Value="False">
+							<Setter Property="BorderBrush" Value="#fff"/>
+						</DataTrigger>
 
 						<!--<DataTrigger Binding="{Binding Path=IsSelectedMealMenu}" Value="True">
 							<Setter Property="Background" Value="#001CD1"/>
@@ -219,6 +236,11 @@
 						<Trigger Property="IsPressed" Value="True">
 							<Setter Property="BorderBrush" TargetName="border" Value="#FF0000"/>
 						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+							<Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+							<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
+						</Trigger>
 						<DataTrigger Binding="{Binding Path=IsSelectedMemberInGroup}" Value="True">
 							<Setter Property="BorderBrush" Value="#FF0000"/>
 							<Setter Property="BorderThickness" Value="2" />
@@ -247,6 +269,11 @@
 						<Trigger Property="IsPressed" Value="True">
 							<Setter Property="BorderBrush" TargetName="border" Value="#FF0000"/>
 							<Setter Property="BorderThickness" TargetName="border" Value="3"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+							<Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+							<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
