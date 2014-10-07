@@ -142,7 +142,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			$scope.currentUser = data;
 			orderingService.setCurrentUser(data);
 		})
-		.error(function () {
+		.error(function (response, status) {
 			ErrorFactory.errorHandle(status);
 		});
 
@@ -150,7 +150,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		.success(function (data) {
 			$scope.menu = data;
 		})
-		.error(function () {
+		.error(function (response, status) {
 			ErrorFactory.errorHandle(status);
 		});
 
@@ -160,7 +160,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				$scope.newOrder = data;
 				orderingService.setMemberNewOrder(data.Members);
 			})
-			.error(function () {
+			.error(function (response, status) {
 				ErrorFactory.errorHandle(status);
 			});
 
@@ -169,7 +169,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				$scope.savedOrder = data;
 				orderingService.setMemberSavedOrder(data.Members);
 			})
-			.error(function () {
+			.error(function (response, status) {
 				ErrorFactory.errorHandle(status);
 			});
 		};
@@ -179,7 +179,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				orderingService.setMyOrder(data);
 				$scope.myOrder = data;
 			})
-			.error(function () {
+			.error(function (response, status) {
 				ErrorFactory.errorHandle(status);
 			});
 
