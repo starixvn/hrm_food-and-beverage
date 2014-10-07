@@ -32,15 +32,17 @@ mealPlanningManagementModule.directive('mealPlanningMultiSelect', function () {
 	};
 });
 
-mealPlanningManagementModule.directive('foodSortable', function () {
+mealPlanningManagementModule.directive('resetMealPlanning', function () {
 	return {
-		link: function (scope, iElement) {
-			iElement.sortable({
-				update: function () {
-					scope.$apply();
-				}
+		link: function (scope) {
+			scope.$on('resetMealPlanning', function () {
+				scope.mealPlanning.onDate = '';
+				scope.mealPlanning.menuId = '';
+				scope.mealPlanning.isActive = false;
+
+				var menuChosenSelect = $("[name='foodSelect']");
+				$(menuChosenSelect).val('').trigger("chosen:updated");
 			});
-			iElement.disableSelection();
 		}
 	};
 });

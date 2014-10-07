@@ -11,6 +11,7 @@ namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
+    using System.Web.Http;
     using NexFB.Core.Models;
     using NexFB.Criteria.FoodMealPlanning;
     using NexFB.Models.FoodMealPlanning;
@@ -64,6 +65,7 @@ namespace NexFB.Site.Controllers.API
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The command result.</returns>
+        [HttpPost]
         public CommandResult InsertMealPlanning(InsertMealPlanningCriteria criteria)
         {
             if (criteria != null)

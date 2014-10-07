@@ -147,7 +147,8 @@ foodMenuFactory, foodMenuUtilities) {
 					notificationFactory.error("ErrorMessage");
 				}
 			})['finally'](function () {
-				getAllMealPlanning(newDate.toDateString(), newDate.toDateString(), null, null);
+				getAllMealPlanning($scope.filter.startDate.toDateString(), $scope.filter.endDate.toDateString(),
+					foodMenuUtilities.getMealId($scope.mealsOption), foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption));
 				$scope.modalInstance = '';
 			});
 		});
@@ -185,7 +186,7 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 
 	$scope.mealPlanning = {
 		menuId: mealPlanning !== '' ? mealPlanning.FoodMenu.MenuId : '',
-		onDate: mealPlanning !== '' ? mealPlanning.Date : '',
+		onDate: mealPlanning !== '' ? mealPlanning.Date : new Date(),
 		isActive: mealPlanning !== '' ? mealPlanning.IsActive : ''
 	};
 
@@ -255,8 +256,11 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 	*/
 	$scope.save = function () {
 		$scope.disabledSubmitButton = true;
-
 		$scope.mealPlanning.foodId = mealPlanningUtilities.getFoodId($scope.foodItems);
+
+		if ($scope.mealPlanning.onDate instanceof Date) {
+			$scope.mealPlanning.onDate = $scope.mealPlanning.onDate.toDateString();
+		}
 
 		if (mealPlanningUtilities.validateMealPlanning($scope.mealPlanning)) {
 			$modalInstance.close($scope.mealPlanning);
@@ -271,13 +275,18 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 	*/
 	$scope.saveAndContinue = function () {
 		$scope.disabledSubmitButton = true;
-
 		$scope.mealPlanning.foodId = mealPlanningUtilities.getFoodId($scope.foodItems);
+
+		if ($scope.mealPlanning.onDate instanceof Date) {
+			$scope.mealPlanning.onDate = $scope.mealPlanning.onDate.toDateString();
+		}
 
 		if (mealPlanningUtilities.validateMealPlanning($scope.mealPlanning)) {
 			mealPlanningFactory.insertMealPlanning($scope.mealPlanning)
 			.success(function (response) {
 				if (response.IsSuccessful === true) {
+					$scope.foodItems = [];
+					$scope.$broadcast('resetMealPlanning');
 					notificationFactory.success("DataChangeSuccessfully");
 				}
 				else {
