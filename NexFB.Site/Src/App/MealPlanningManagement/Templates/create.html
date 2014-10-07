@@ -9,20 +9,20 @@
         <form class="form-inline" role="form">
             <div class="form-group">
                 <label data-translate="Menu"></label>
-				<select ng-model="menuId" ng-options="opt.MenuId as opt.MenuVnmName for opt in menuOptions"
-					required class="form-control" ng-change="getFoodItems(menuId)" ng-disabled="currentMealPlanning" >
-					<option value="">-- {{"AllMenus" | translate}} --</option>
+				<select ng-model="mealPlanning.menuId" ng-options="opt.MenuId as opt.MenuVnmName for opt in menuOptions"
+					required class="form-control" ng-change="getFoodItems(mealPlanning.menuId)" ng-disabled="currentMealPlanning" >
+					<option value="">-- {{"SelectMenu" | translate}} --</option>
 				</select>
             </div>
             <div class="form-group">
                 <label data-translate="Date"></label>
-				<input class="calendar-form-control" type="text" ng-model="onDate" datepicker-popup
+				<input class="calendar-form-control" type="text" ng-model="mealPlanning.onDate" datepicker-popup
 					is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" ng-disabled="currentMealPlanning" />
 				<calendar-image class="calendar-image" ng-click="openPopupStartDate($event)" ng-show="!currentMealPlanning"></calendar-image>
             </div>
 			<div class="form-group">
 				<label data-translate="Active"></label>
-				<input type="checkbox" ng-model="isActive" />
+				<input type="checkbox" ng-model="mealPlanning.isActive" />
 			</div>
         </form>
 		<div>

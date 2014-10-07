@@ -564,4 +564,13 @@
   <data name="AllMenus" xml:space="preserve">
     <value>All menus</value>
   </data>
+  <data name="DateRequire" xml:space="preserve">
+    <value>The Date field is required!</value>
+  </data>
+  <data name="MenuRequire" xml:space="preserve">
+    <value>The Menu field is required!</value>
+  </data>
+  <data name="SelectMenu" xml:space="preserve">
+    <value>Select the menu</value>
+  </data>
 </root>

@@ -130,13 +130,11 @@ foodMenuFactory, foodMenuUtilities) {
 			windowClass: "modal-confirm-center"
 		});
 
-		$scope.modalInstance.result.then(function (allInformationMealPlanning) {
-			mealPlanningFactory.insertMealPlanning(allInformationMealPlanning.mealPlanning)
+		$scope.modalInstance.result.then(function (newMealPlanning) {
+			mealPlanningFactory.insertMealPlanning(newMealPlanning)
 			.success(function (response) {
 				if (response.IsSuccessful === true) {
 					notificationFactory.success("DataChangeSuccessfully");
-					mealPlanning.FoodMenu.FoodItems = allInformationMealPlanning.foodItems;
-					$scope.$apply();
 				}
 				else {
 					notificationFactory.error("", response.Message);
@@ -149,6 +147,7 @@ foodMenuFactory, foodMenuUtilities) {
 					notificationFactory.error("ErrorMessage");
 				}
 			})['finally'](function () {
+				getAllMealPlanning(newDate.toDateString(), newDate.toDateString(), null, null);
 				$scope.modalInstance = '';
 			});
 		});
@@ -177,14 +176,17 @@ function ($scope, $modalInstance, mealPlanning, mealPlanningFactory, ErrorFactor
 menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 
 	$scope.menuOptions = menuOptions;
-	$scope.onDate = !mealPlanning ? mealPlanning.Date : '';
-	$scope.menuId = !mealPlanning ? mealPlanning.FoodMenu.MenuId : '';
-	$scope.isActive = !mealPlanning ? mealPlanning.IsActive : '';
 	$scope.foodItems = [];
 	$scope.currentMealPlanning = currentMealPlanning;
 
 	$scope.calendar = {
 		startDateOpened: false
+	};
+
+	$scope.mealPlanning = {
+		menuId: mealPlanning !== '' ? mealPlanning.FoodMenu.MenuId : '',
+		onDate: mealPlanning !== '' ? mealPlanning.Date : '',
+		isActive: mealPlanning !== '' ? mealPlanning.IsActive : ''
 	};
 
 	/*
@@ -210,7 +212,7 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 		});
 	};
 
-	getBasicFoodItems(null, $scope.menuId, true);
+	getBasicFoodItems(null, $scope.mealPlanning.menuId, true);
 
 	$scope.getFoodItems = function (menuId) {
 		getBasicFoodItems(null, menuId, true);
@@ -254,20 +256,10 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 	$scope.save = function () {
 		$scope.disabledSubmitButton = true;
 
-		var mealPlanning = {
-			menuId: $scope.menuId,
-			onDate: $scope.onDate,
-			isActive: $scope.isActive,
-			foodId: mealPlanningUtilities.getFoodId($scope.foodItems)
-		};
+		$scope.mealPlanning.foodId = mealPlanningUtilities.getFoodId($scope.foodItems);
 
-		var allInformationMealPlanning = {
-			mealPlanning: mealPlanning,
-			foodItems: $scope.foodItems
-		};
-
-		if (mealPlanningUtilities.validateMealPlanning(mealPlanning)) {
-			$modalInstance.close(allInformationMealPlanning);
+		if (mealPlanningUtilities.validateMealPlanning($scope.mealPlanning)) {
+			$modalInstance.close($scope.mealPlanning);
 		}
 		else {
 			$scope.disabledSubmitButton = false;
@@ -277,6 +269,35 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 	/*
 	** Create and continue create meal planning.
 	*/
+	$scope.saveAndContinue = function () {
+		$scope.disabledSubmitButton = true;
+
+		$scope.mealPlanning.foodId = mealPlanningUtilities.getFoodId($scope.foodItems);
+
+		if (mealPlanningUtilities.validateMealPlanning($scope.mealPlanning)) {
+			mealPlanningFactory.insertMealPlanning($scope.mealPlanning)
+			.success(function (response) {
+				if (response.IsSuccessful === true) {
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("ErrorMessage");
+				}
+			})['finally'](function () {
+				$scope.disabledSubmitButton = false;
+			});
+		}
+		else {
+			$scope.disabledSubmitButton = false;
+		}
+	};
 
 	$scope.cancel = function () {
 		$modalInstance.dismiss("cancel");

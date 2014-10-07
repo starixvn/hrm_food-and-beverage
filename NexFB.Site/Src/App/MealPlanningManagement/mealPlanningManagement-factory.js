@@ -17,23 +17,28 @@ mealPlanningManagementModule.factory('mealPlanningFactory', ['$http', function (
 	};
 } ]);
 
-mealPlanningManagementModule.factory('mealPlanningUtilities', [function () {
+mealPlanningManagementModule.factory('mealPlanningUtilities', [
+'notificationFactory', function (notificationFactory) {
 	var utilities = {};
 
 	utilities.validateMealPlanning = function (mealPlanning) {
+		var valid = true;
+
 		if (!mealPlanning) {
 			return false;
 		}
 		else {
-			if (!mealPlanning.menuId) {
-				return false;
-			}
 			if (!mealPlanning.onDate) {
-				return false;
+				notificationFactory.error("DateRequire");
+				valid = false;
+			}
+			if (!mealPlanning.menuId) {
+				notificationFactory.error("MenuRequire");
+				valid = false;
 			}
 		}
 
-		return true;
+		return valid;
 	};
 
 	utilities.getFoodId = function (foodItems) {

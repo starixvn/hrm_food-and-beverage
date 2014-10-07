@@ -358,6 +358,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Date field is required!.
+        /// </summary>
+        public static string DateRequire {
+            get {
+                return ResourceManager.GetString("DateRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deactivated unsuccessfully!.
         /// </summary>
         public static string DeactivationFail {
@@ -844,6 +853,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Menu field is required!.
+        /// </summary>
+        public static string MenuRequire {
+            get {
+                return ResourceManager.GetString("MenuRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order #{0} by {1} has been ready since {2}. The order contains {3}..
         /// </summary>
         public static string MessageDeliveredStatusOrder {
@@ -1173,6 +1191,15 @@ namespace NexFB.Resources {
         public static string SelectLocation {
             get {
                 return ResourceManager.GetString("SelectLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the menu.
+        /// </summary>
+        public static string SelectMenu {
+            get {
+                return ResourceManager.GetString("SelectMenu", resourceCulture);
             }
         }
         
