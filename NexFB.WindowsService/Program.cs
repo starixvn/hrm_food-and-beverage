@@ -10,6 +10,9 @@
 namespace NexFB.WindowsService
 {
     using System;
+    using System.Drawing;
+    using System.IO;
+    using System.Linq;
     using System.ServiceProcess;
     using Fanex.Data.Configuration;
 
@@ -36,27 +39,27 @@ namespace NexFB.WindowsService
         ////public static void Main()
         ////{
         ////    DbSettingProviderManager.Current.Start();
-
         ////    var service = new CommonService();
+
         ////    service.UpdateTeamForNexcel();
         ////    service.UpdateUserForNexcel();
         ////    service.UpdateShiftForNexcel();
         ////    service.UpdateEmployeeCalendarForNexcel();
+        ////    service.UpdatePhotoForNexcel();
 
         ////    service.UpdateTeamForHM();
         ////    service.UpdateUserForHM();
         ////    service.UpdateShiftForHM();
         ////    service.UpdateEmployeeCalendarForHM();
+        ////    service.UpdatePhotoForHM();
 
         ////    service.UpdateTeamForSms();
         ////    service.UpdateUserForSms();
         ////    service.UpdateShiftForSms();
         ////    service.UpdateEmployeeCalendarForSms();
-
-        ////    service.UpdateTeamForNexcel();
+        ////    service.UpdatePhotoForSms();
 
         ////    Console.WriteLine("OK");
-
         ////    Console.ReadLine();
         ////}
     }

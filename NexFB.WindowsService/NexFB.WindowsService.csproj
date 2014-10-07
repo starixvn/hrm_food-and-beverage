@@ -166,6 +166,9 @@
     <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.EmployeeCalendarModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.PhotoModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.ShiftModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -188,6 +191,9 @@
     <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.EmployeeCalendarModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.PhotoModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.ShiftModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -208,6 +214,9 @@
     </None>
     <None Include="Service References\NexcelService\UserService.wsdl" />
     <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.EmployeeCalendarModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.PhotoModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.ShiftModel.datasource">

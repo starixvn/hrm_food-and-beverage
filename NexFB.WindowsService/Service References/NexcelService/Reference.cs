@@ -689,6 +689,67 @@ namespace NexFB.WindowsService.NexcelService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PhotoModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.SerializableAttribute()]
+    public partial class PhotoModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte[] PhotoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte[] Photo {
+            get {
+                return this.PhotoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PhotoField, value) != true)) {
+                    this.PhotoField = value;
+                    this.RaisePropertyChanged("Photo");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="NexcelService.IUserService")]
     public interface IUserService {
@@ -700,10 +761,13 @@ namespace NexFB.WindowsService.NexcelService {
         NexFB.WindowsService.NexcelService.TeamModel[] GetTeam(System.Nullable<System.DateTime> fromDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetShift", ReplyAction="http://tempuri.org/IUserService/GetShiftResponse")]
-        NexFB.WindowsService.NexcelService.ShiftModel[] GetShift();
+        NexFB.WindowsService.NexcelService.ShiftModel[] GetShift(System.Nullable<System.DateTime> fromDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetEmployeeCalendar", ReplyAction="http://tempuri.org/IUserService/GetEmployeeCalendarResponse")]
         NexFB.WindowsService.NexcelService.EmployeeCalendarModel[] GetEmployeeCalendar(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetPhoto", ReplyAction="http://tempuri.org/IUserService/GetPhotoResponse")]
+        NexFB.WindowsService.NexcelService.PhotoModel[] GetPhoto(System.Nullable<System.DateTime> fromDate);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -741,12 +805,16 @@ namespace NexFB.WindowsService.NexcelService {
             return base.Channel.GetTeam(fromDate);
         }
         
-        public NexFB.WindowsService.NexcelService.ShiftModel[] GetShift() {
-            return base.Channel.GetShift();
+        public NexFB.WindowsService.NexcelService.ShiftModel[] GetShift(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetShift(fromDate);
         }
         
         public NexFB.WindowsService.NexcelService.EmployeeCalendarModel[] GetEmployeeCalendar(System.Nullable<System.DateTime> fromDate) {
             return base.Channel.GetEmployeeCalendar(fromDate);
+        }
+        
+        public NexFB.WindowsService.NexcelService.PhotoModel[] GetPhoto(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetPhoto(fromDate);
         }
     }
 }

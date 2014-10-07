@@ -107,6 +107,10 @@ namespace NexFB.WindowsService
             _LOG.Info("Update Calendars Nexcel started at " + DateTime.Now.ToString());
             result = _service.UpdateEmployeeCalendarForNexcel();
             _LOG.Info("Result of update calendar Nexcel: " + (result == null ? "0" : result.Message));
+
+            _LOG.Info("Update Photos Nexcel started at " + DateTime.Now.ToString());
+            _service.UpdatePhotoForNexcel();
+            _LOG.Info("Update photos Nexcel done.");
         }
 
         /// <summary>
@@ -131,6 +135,10 @@ namespace NexFB.WindowsService
             _LOG.Info("Update Calendars Hong Ma started at " + DateTime.Now.ToString());
             result = _service.UpdateEmployeeCalendarForHM();
             _LOG.Info("Result of update calendar Hong Ma: " + (result == null ? "0" : result.Message));
+
+            _LOG.Info("Update Photos Hong Ma started at " + DateTime.Now.ToString());
+            _service.UpdatePhotoForHM();
+            _LOG.Info("Update photos Hong Ma done.");
         }
 
         /// <summary>
@@ -155,6 +163,10 @@ namespace NexFB.WindowsService
             _LOG.Info("Update Calendars SMS started at " + DateTime.Now.ToString());
             result = _service.UpdateEmployeeCalendarForSms();
             _LOG.Info("Result of update calendar SMS: " + (result == null ? "0" : result.Message));
+
+            _LOG.Info("Update Photos SMS started at " + DateTime.Now.ToString());
+            _service.UpdatePhotoForSms();
+            _LOG.Info("Update photos SMS done.");
         }
     }
 }

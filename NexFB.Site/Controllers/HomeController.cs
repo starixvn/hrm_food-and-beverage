@@ -15,6 +15,8 @@ namespace NexFB.Site.Controllers
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.Web;
+    using System.IO;
+    using System.Drawing;
 
     /// <summary>
     /// The home controller.
@@ -57,6 +59,13 @@ namespace NexFB.Site.Controllers
                     };
                     SessionManager.Functions = _employeeService.GetAllEmployeeFunction(getallFunctionCriteria);
                 }
+
+                byte[] bytes = System.IO.File.ReadAllBytes("D:\\Demo\\Avatars\\02303.jpg");
+
+                MemoryStream ms = new MemoryStream(bytes);
+                Image returnImage = Image.FromStream(ms);
+
+                ViewBag.Image = returnImage;
 
                 return View(user);
             }

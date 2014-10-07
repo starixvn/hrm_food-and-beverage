@@ -79,4 +79,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="EmployeeCalendarModel" nillable="true" type="tns:EmployeeCalendarModel" />
+  <xs:complexType name="ArrayOfPhotoModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PhotoModel" nillable="true" type="tns:PhotoModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPhotoModel" nillable="true" type="tns:ArrayOfPhotoModel" />
+  <xs:complexType name="PhotoModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Photo" nillable="true" type="xs:base64Binary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PhotoModel" nillable="true" type="tns:PhotoModel" />
 </xs:schema>

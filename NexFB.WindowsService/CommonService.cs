@@ -12,6 +12,8 @@ namespace NexFB.WindowsService
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Configuration;
+    using System.IO;
     using System.Linq;
     using NexFB.Core.Constants;
     using NexFB.Core.Models;
@@ -105,7 +107,7 @@ namespace NexFB.WindowsService
         public CommandResult UpdateShiftForNexcel()
         {
             CommandResult result = null;
-            IList<NexcelService.ShiftModel> shifts = NexcelService.GetShift();
+            IList<NexcelService.ShiftModel> shifts = NexcelService.GetShift(null);
             if (shifts != null && shifts.Any())
             {
                 var criteria = new InsertAndUpdateShiftNexcelCriteria()
@@ -141,6 +143,23 @@ namespace NexFB.WindowsService
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Function to update photo of employee for NEXCEL.
+        /// </summary>
+        public void UpdatePhotoForNexcel()
+        {
+            string photoPath = ConfigurationManager.AppSettings["PhotoPathNexcel"];
+            DateTime lastModifiedDate = GetLastModifiedDateOfPhoto(photoPath);
+            IList<NexcelService.PhotoModel> photos = NexcelService.GetPhoto(lastModifiedDate);
+
+            string fullPath = string.Empty;
+            foreach (NexcelService.PhotoModel photo in photos)
+            {
+                fullPath = photoPath + "\\" + photo.Code;
+                File.WriteAllBytes(@fullPath, photo.Photo);
+            }
         }
 
         /// <summary>
@@ -197,7 +216,7 @@ namespace NexFB.WindowsService
         public CommandResult UpdateShiftForHM()
         {
             CommandResult result = null;
-            IList<HongMaService.ShiftModel> shifts = HongmaService.GetShift();
+            IList<HongMaService.ShiftModel> shifts = HongmaService.GetShift(null);
             if (shifts != null && shifts.Any())
             {
                 var criteria = new InsertAndUpdateShiftHMCriteria()
@@ -233,6 +252,23 @@ namespace NexFB.WindowsService
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Function to update photo of employee for Hong Ma.
+        /// </summary>
+        public void UpdatePhotoForHM()
+        {
+            string photoPath = ConfigurationManager.AppSettings["PhotoPathHongMa"];
+            DateTime lastModifiedDate = GetLastModifiedDateOfPhoto(photoPath);
+            IList<HongMaService.PhotoModel> photos = HongmaService.GetPhoto(lastModifiedDate);
+
+            string fullPath = string.Empty;
+            foreach (HongMaService.PhotoModel photo in photos)
+            {
+                fullPath = photoPath + "\\" + photo.Code;
+                File.WriteAllBytes(@fullPath, photo.Photo);
+            }
         }
 
         /// <summary>
@@ -288,7 +324,7 @@ namespace NexFB.WindowsService
         public CommandResult UpdateShiftForSms()
         {
             CommandResult result = null;
-            IList<SMSService.ShiftModel> shifts = SmsService.GetShift();
+            IList<SMSService.ShiftModel> shifts = SmsService.GetShift(null);
             if (shifts != null && shifts.Any())
             {
                 var criteria = new InsertAndUpdateShiftSmsCriteria()
@@ -326,6 +362,23 @@ namespace NexFB.WindowsService
             return result;
         }
 
+        /// <summary>
+        /// Function to update photo of employee for SMS.
+        /// </summary>
+        public void UpdatePhotoForSms()
+        {
+            string photoPath = ConfigurationManager.AppSettings["PhotoPathSMS"];
+            DateTime lastModifiedDate = GetLastModifiedDateOfPhoto(photoPath);
+            IList<SMSService.PhotoModel> photos = SmsService.GetPhoto(lastModifiedDate);
+
+            string fullPath = string.Empty;
+            foreach (SMSService.PhotoModel photo in photos)
+            {
+                fullPath = photoPath + "\\" + photo.Code;
+                File.WriteAllBytes(@fullPath, photo.Photo);
+            }
+        }
+
         public DateTime GetDateFromBeforeUpdateUser(int departmentId)
         {
             var criteria = new GetLastUserModifiedDateCriteria()
@@ -357,6 +410,26 @@ namespace NexFB.WindowsService
 
             DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
             return fromDate;
+        }
+
+        /// <summary>
+        /// Function to get last modified date of folder contain photos.
+        /// </summary>
+        /// <param name="path">Folder path.</param>
+        /// <returns>Modified date.</returns>
+        private DateTime GetLastModifiedDateOfPhoto(string path)
+        {
+            var lastModifiedDate = new DateTime(2010, 01, 01);
+            
+            DirectoryInfo directory = new DirectoryInfo(path);
+            FileInfo lastModifiedFile = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+            
+            if (lastModifiedFile != null)
+            {
+                lastModifiedDate = lastModifiedFile.LastWriteTime;
+            }
+
+            return lastModifiedDate;
         }
     }
 }

@@ -28,5 +28,8 @@ namespace NexFB.WebService.Services
 
         [OperationContract]
         IEnumerable<EmployeeCalendarModel> GetEmployeeCalendar(DateTime? fromDate);
+
+        [OperationContract]
+        IList<PhotoModel> GetPhoto(DateTime? fromDate);
     }
 }
