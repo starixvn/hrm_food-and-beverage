@@ -2,10 +2,12 @@
 /*global orderingModule*/
 
 orderingModule.controller('EditOrderController',
-['$scope', '$modalInstance', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory', 'orderId', 'locations', '$translate', 'commonFactory',
-function ($scope, $modalInstance, $modal, orderingFactory, orderingService, notificationFactory, orderId, locations, $translate, commonFactory) {
-	$scope.newMember = {};
+['$scope', '$modalInstance', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory', 
+'orderId', 'locations', '$translate', 'commonFactory', 'ErrorFactory',
+function ($scope, $modalInstance, $modal, orderingFactory, orderingService, notificationFactory,
+	orderId, locations, $translate, commonFactory, ErrorFactory) {
 
+	$scope.newMember = {};
 	$scope.getMessage = function () {
 		$translate('ConfirmMessageUpdateOrder').then(function (message) {
 			$scope.confirmMessageUpdateOrder = message;
@@ -82,8 +84,8 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 				return message;
 			};
 		})
-		.error(function () {
-			notificationFactory.error("ErrorMessage");
+		.error(function (response, status) {
+			ErrorFactory.errorHandle(status);
 		});
 
 	$scope.cancel = function () {
@@ -117,6 +119,9 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 				else {
 					notificationFactory.error('', response.Message);
 				}
+			})
+			.error(function (response, status) {
+				ErrorFactory.errorHandle(status);
 			});
 		});
 	};
@@ -148,6 +153,8 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 				else {
 					notificationFactory.error('', response.Message);
 				}
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
 			});
 		});
 	};
@@ -171,8 +178,10 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	});
 
 	$scope.getEmployee = function (searchKey) {
-		orderingFactory.getEmployees(searchKey).then(function (employees) {
+		orderingFactory.getEmployees(searchKey).success(function (employees) {
 			$scope.searchEmployees = employees;
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
 		});
 	};
 
@@ -213,12 +222,12 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 						}
 					}
 				})
-				.error(function () {
-					notificationFactory.error("ErrorMessage");
+				.error(function (response, status) {
+					ErrorFactory.errorHandle(status);
 				});
 			})
-			.error(function () {
-				notificationFactory.error("ErrorMessage");
+			.error(function (response, status) {
+				ErrorFactory.errorHandle(status);
 			});
 
 			$('#txtEmployee').val('');

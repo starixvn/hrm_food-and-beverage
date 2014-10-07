@@ -2,8 +2,10 @@
 /*global orderingModule*/
 
 orderingModule.controller("OrderingController",
-['$translate', '$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory',
-function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderingService, notificationFactory) {
+['$translate', '$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService', 
+'notificationFactory', 'ErrorFactory',
+function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderingService, 
+	notificationFactory, ErrorFactory) {
 	$scope.getMessage = function () {
 		$translate('ConfirmMessageSaveOrder').then(function (message) {
 			$scope.confirmMessageSaveOrder = message;
@@ -141,7 +143,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			orderingService.setCurrentUser(data);
 		})
 		.error(function () {
-			notificationFactory.error("ErrorMessage");
+			ErrorFactory.errorHandle(status);
 		});
 
 		orderingFactory.getMyMenu()
@@ -149,7 +151,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			$scope.menu = data;
 		})
 		.error(function () {
-			notificationFactory.error("ErrorMessage");
+			ErrorFactory.errorHandle(status);
 		});
 
 		$scope.getDefaultForAddOrder = function () {
@@ -159,7 +161,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				orderingService.setMemberNewOrder(data.Members);
 			})
 			.error(function () {
-				notificationFactory.error("ErrorMessage");
+				ErrorFactory.errorHandle(status);
 			});
 
 			orderingFactory.getSavedOrder()
@@ -168,7 +170,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				orderingService.setMemberSavedOrder(data.Members);
 			})
 			.error(function () {
-				notificationFactory.error("ErrorMessage");
+				ErrorFactory.errorHandle(status);
 			});
 		};
 
@@ -178,7 +180,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				$scope.myOrder = data;
 			})
 			.error(function () {
-				notificationFactory.error("ErrorMessage");
+				ErrorFactory.errorHandle(status);
 			});
 
 		orderingFactory.getLocation()
@@ -186,8 +188,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				$scope.locations = data;
 				$scope.getDefaultForAddOrder();
 			})
-			.error(function () {
-				notificationFactory.error("ErrorMessage");
+			.error(function (response, status) {
+				ErrorFactory.errorHandle(status);
 			});
 
 		callback();
@@ -264,6 +266,9 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 						else {
 							notificationFactory.error('', response.result.Message);
 						}
+					})
+					.error(function (response, status) {
+						ErrorFactory.errorHandle(status);
 					});
 				}, function () {
 				})['finally'](function () {
@@ -295,6 +300,9 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 						else {
 							notificationFactory.error('', response.Message);
 						}
+					})
+					.error(function (response, status) {
+						ErrorFactory.errorHandle(status);
 					});
 				}
 				else {
@@ -340,8 +348,11 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	};
 
 	$scope.getEmployee = function (searchKey) {
-		orderingFactory.getEmployees(searchKey).then(function (employees) {
+		orderingFactory.getEmployees(searchKey).success(function (employees) {
 			$scope.searchEmployees = employees;
+		})
+		.error(function (response, status) {
+			ErrorFactory.errorHandle(status);
 		});
 	};
 
@@ -418,12 +429,12 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 						$scope.newMember = {};
 					}
 				})
-				.error(function () {
-					notificationFactory.error("ErrorMessage");
+				.error(function (response, status) {
+					ErrorFactory.errorHandle(status);
 				});
 			})
-			.error(function () {
-				notificationFactory.error("ErrorMessage");
+			.error(function (response, status) {
+				ErrorFactory.errorHandle(status);
 			});
 		}
 	};
