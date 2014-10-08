@@ -808,6 +808,24 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot activate a serving meal.
+        /// </summary>
+        public static string MealPlanningActivateWarning {
+            get {
+                return ResourceManager.GetString("MealPlanningActivateWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot deactivate a serving meal.
+        /// </summary>
+        public static string MealPlanningDeactivateWarning {
+            get {
+                return ResourceManager.GetString("MealPlanningDeactivateWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meal Planning Management.
         /// </summary>
         public static string MealPlanningManagement {

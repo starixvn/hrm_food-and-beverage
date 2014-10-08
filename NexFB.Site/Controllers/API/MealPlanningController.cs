@@ -16,6 +16,7 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.FoodMealPlanning;
+    using NexFB.Models.FoodItemManagement;
     using NexFB.Models.FoodMealPlanning;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
@@ -148,6 +149,17 @@ namespace NexFB.Site.Controllers.API
         {
             int policy = _webCommonService.GetPermission(FBFunctionKey.MealPlanningManagement);
             return policy;
+        }
+
+        public IEnumerable<FoodItemModel> GetFoodByOnDate(DateTime date, int menuGroupId)
+        {
+            var criteria = new GetFoodMealPlanningByOnDateCriteria
+            {
+                OnDate = date,
+                MenuGroupId = menuGroupId
+            };
+
+            return _mealPlanningService.GetFoodByOnDate(criteria);
         }
     }
 }

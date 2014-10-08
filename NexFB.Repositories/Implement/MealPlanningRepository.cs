@@ -64,6 +64,11 @@ namespace NexFB.Repositories.Implement
                         mealPlanning.FoodMenu.Meals = _commonRepository.GetMealsOfMenu(menuId, rawMeals);
                         mealPlanning.FoodMenu.EmployeeTypes = _commonRepository.GetEmployeeTypeOfMenu(menuId, rawEmployeeTypes);
                         mealPlanning.FoodMenu.FoodItems = GetFoodItemsOfMenu(menuId, mealPlanning.Date, rawFoodItems);
+
+                        if (mealPlanning.Date.Date < DateTime.Now.Date)
+                        {
+                            mealPlanning.IsDisable = true;
+                        }
                     }
 
                     return mealPlannings;

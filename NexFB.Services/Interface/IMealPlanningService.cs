@@ -12,6 +12,7 @@ namespace NexFB.Services.Interface
     using System.Collections.Generic;
     using NexFB.Core.Models;
     using NexFB.Criteria.FoodMealPlanning;
+    using NexFB.Models.FoodItemManagement;
     using NexFB.Models.FoodMealPlanning;
 
     /// <summary>
@@ -28,5 +29,7 @@ namespace NexFB.Services.Interface
         CommandResult DeleteMealPlanning(DeleteMealPlanningCriteria criteria);
 
         CommandResult ActivateMealPlanning(ActivateMealPlanningCriteria criteria);
+
+        IEnumerable<FoodItemModel> GetFoodByOnDate(GetFoodMealPlanningByOnDateCriteria criteria);
     }
 }

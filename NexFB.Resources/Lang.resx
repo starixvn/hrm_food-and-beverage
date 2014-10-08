@@ -573,4 +573,10 @@
   <data name="SelectMenu" xml:space="preserve">
     <value>Select the menu</value>
   </data>
+  <data name="MealPlanningActivateWarning" xml:space="preserve">
+    <value>Cannot activate a serving meal</value>
+  </data>
+  <data name="MealPlanningDeactivateWarning" xml:space="preserve">
+    <value>Cannot deactivate a serving meal</value>
+  </data>
 </root>

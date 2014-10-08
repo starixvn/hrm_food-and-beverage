@@ -73,6 +73,7 @@
     <Compile Include="FoodMealPlanning\ActivateMealPlanningCriteria.cs" />
     <Compile Include="FoodMealPlanning\DeleteMealPlanningCriteria.cs" />
     <Compile Include="FoodMealPlanning\GetAllMealPlanningByOnDateCriteria.cs" />
+    <Compile Include="FoodMealPlanning\GetFoodMealPlanningByOnDateCriteria.cs" />
     <Compile Include="FoodMealPlanning\InsertMealPlanningCriteria.cs" />
     <Compile Include="FoodMealPlanning\UpdateMealPlanningCriteria.cs" />
     <Compile Include="FoodMenuManagement\ActivateFoodMenuCriteria.cs" />

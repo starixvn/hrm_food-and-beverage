@@ -29,6 +29,10 @@ mealPlanningManagementModule.factory('mealPlanningFactory', ['$http', function (
 		},
 		getAllMealTimesheet: function () {
 			return $http.get('/api/Common/GetAllMealTimesheet');
+		},
+		getFoodByOnDate: function (date, menuGroupId) {
+			return $http.get('/api/MealPlanning/GetFoodByOnDate', 
+				{ params: { date: date, menuGroupId: menuGroupId } });
 		}
 	};
 } ]);
@@ -108,35 +112,48 @@ function (notificationFactory, mealPlanningFactory, ErrorFactory) {
 		}
 	};
 
-//	utilities.checkRightMeal = function (currentTimesheet, workDate) {
-//		if (workDate) {
-//			var toDay = new Date(),
-//				currentWorkDate = new Date(workDate);
+	utilities.checkRightMeal = function (currentTimesheet, onDate) {
+		if (onDate) {
+			var toDay = new Date(),
+				currentOnDate = new Date(onDate);
 
-//			if (toDay.getMonth() === currentWorkDate.getMonth() && toDay.getDate() === currentWorkDate.getDate()) {
-//				var currentHour = toDay.getHours(),
-//					currentMinute = toDay.getMinutes(),
-//					registerHour = new Date(currentTimesheet.RegisterTime + 'Z').getUTCHours(),
-//					registerMinute = new Date(currentTimesheet.RegisterTime + 'Z').getUTCMinutes();
+			if (toDay.getMonth() === currentOnDate.getMonth() && toDay.getDate() === currentOnDate.getDate() && 
+					toDay.getFullYear() === currentOnDate.getFullYear()) {
+				var currentHour = toDay.getHours(),
+					currentMinute = toDay.getMinutes(),
+					startHour = new Date(currentTimesheet.StartTime + 'Z').getUTCHours(),
+					startMinute = new Date(currentTimesheet.StartTime + 'Z').getUTCMinutes();
 
-//				if (currentHour > registerHour) {
-//					return false;
-//				}
-//				else if (currentHour === registerHour && currentMinute > registerMinute) {
-//					return false;
-//				}
-//			}
-//		}
+				if (currentHour > startHour) {
+					return false;
+				}
+				else if (currentHour === startHour && currentMinute > startMinute) {
+					return false;
+				}
+			}
+		}
 
-//		return true;
-//	};
+		return true;
+	};
 
-//	utilities.checkMealTimesheet = function (mealTimesheets, meal, onDate) {
-//		var currentTimesheet = getCurrentTimesheet(mealTimesheets, meal.MealId),
-//			rightMeal = checkRightMeal(currentTimesheet, onDate);
+	var getCurrentTimesheet = function (mealTimesheet, mealId) {
+		var currentTimesheet = '';
 
-//		return rightMeal;
-//	};
+		angular.forEach(mealTimesheet, function (timesheetItem) {
+			if (timesheetItem.MealId === mealId) {
+				currentTimesheet = timesheetItem;
+			}
+		});
+
+		return currentTimesheet;
+	};
+
+	utilities.checkMealTimesheet = function (mealTimesheets, meal, onDate) {
+		var currentTimesheet = getCurrentTimesheet(mealTimesheets, meal.MealId),
+			rightMeal = utilities.checkRightMeal(currentTimesheet, onDate);
+
+		return !rightMeal;
+	};
 
 	return utilities;
 } ]);

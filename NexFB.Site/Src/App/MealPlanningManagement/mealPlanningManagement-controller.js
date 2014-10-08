@@ -3,22 +3,21 @@
 
 mealPlanningManagementModule.controller('MealPlanningManagementController',
 ['$scope', '$modal', 'mealPlanningFactory', 'ErrorFactory', 'notificationFactory', 'commonFactory',
-'foodMenuFactory', 'foodMenuUtilities',
+'foodMenuFactory', 'foodMenuUtilities', 'mealPlanningUtilities',
 function ($scope, $modal, mealPlanningFactory, ErrorFactory, notificationFactory, commonFactory,
-foodMenuFactory, foodMenuUtilities) {
+foodMenuFactory, foodMenuUtilities, mealPlanningUtilities) {
 	/*
 	** Declare variables.
 	*/
 	$scope.originalPage = 0;
 	var toDay = new Date();
-	var newDate = new Date(toDay.setYear(toDay.getFullYear() + 1));
 
 	var startDate = new Date(),
 		endDate = new Date();
 
 	$scope.filter = {
-		startDate: new Date(startDate.setYear(startDate.getFullYear() + 1)),
-		endDate: new Date(endDate.setYear(endDate.getFullYear() + 1))
+		startDate: new Date(startDate),
+		endDate: new Date(endDate)
 	};
 
 	$scope.calendar = {
@@ -103,6 +102,18 @@ foodMenuFactory, foodMenuUtilities) {
 		notificationFactory.error("ErrorMessage");
 	});
 
+	var checkRightMeal = function (mealPlannings) {
+		angular.forEach(mealPlannings, function (mealPlanning) {
+			if (!mealPlanning.IsDisable) {
+				var numberMeals = mealPlanning.FoodMenu.Meals.length,
+				lastMeal = numberMeals > 0 ? mealPlanning.FoodMenu.Meals[numberMeals - 1] : '';
+
+				if (lastMeal) {
+					mealPlanning.IsDisable = mealPlanningUtilities.checkMealTimesheet($scope.mealTimesheets, lastMeal, mealPlanning.Date);
+				}
+			}
+		});
+	};
 	/*
 	** Get all meal planning.
 	*/
@@ -110,6 +121,11 @@ foodMenuFactory, foodMenuUtilities) {
 		mealPlanningFactory.getAllMealPlanning(fromDate, toDate, mealId, employeeTypeId)
 		.success(function (mealPlannings) {
 			$scope.mealPlannings = mealPlannings;
+
+			if ($scope.mealPlannings && $scope.mealPlannings !== 'null') {
+				checkRightMeal($scope.mealPlannings);
+			}
+
 			commonFactory.tablePagination($scope, $scope.mealPlannings, $scope.entrySelected);
 			$scope.currentPage = $scope.originalPage;
 		}).error(function (response, status) {
@@ -122,7 +138,7 @@ foodMenuFactory, foodMenuUtilities) {
 		});
 	};
 
-	getAllMealPlanning(newDate.toDateString(), newDate.toDateString(), null, null);
+	getAllMealPlanning(toDay.toDateString(), toDay.toDateString(), null, null);
 
 	/*
 	** Query data.
@@ -142,6 +158,8 @@ foodMenuFactory, foodMenuUtilities) {
 	** Add meal planning.
 	*/
 	$scope.addMealPlanning = function (mealPlanning, currentMealPlanning) {
+		$scope.originalPage = $scope.currentPage;
+
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/app/MealPlanningManagement/Templates/create.html',
 			controller: "CreateMealPlanningController",
@@ -204,6 +222,9 @@ foodMenuFactory, foodMenuUtilities) {
 				},
 				menuOptions: function () {
 					return $scope.menuOptions;
+				},
+				mealTimesheets: function () {
+					return $scope.mealTimesheets;
 				}
 			},
 			windowClass: "modal-confirm-center"
@@ -245,49 +266,69 @@ foodMenuFactory, foodMenuUtilities) {
 
 		mealPlanning.IsActive = newMealPlanning.IsActive;
 
-		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
-			controller: "ModalConfirmController",
-			resolve: {
-				name: function () {
-					return mealPlanning.FoodMenu.MenuVnmName + ' ( on ' + new Date(mealPlanning.Date).toString("MMM dd, yyyy") + ')';
-				},
-				action: function () {
-					return action;
-				}
-			},
-			windowClass: "modal-confirm-center food-item-modal"
-		});
+		var numberMeals = mealPlanning.FoodMenu.Meals.length,
+				lastMeal = numberMeals > 0 ? mealPlanning.FoodMenu.Meals[numberMeals - 1] : '';
 
-		var keyMessage = '';
+		if (lastMeal) {
+			var disable = mealPlanningUtilities.checkMealTimesheet($scope.mealTimesheets, lastMeal, mealPlanning.Date);
 
-		$scope.modalInstance.result.then(function () {
-			mealPlanningFactory.activateMealPlanning(newMealPlanning).success(function (response) {
-				if (response.IsSuccessful === true) {
-					keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
-					notificationFactory.success(keyMessage);
+			if (disable) {
+				mealPlanning.IsActive = !newMealPlanning.IsActive;
+				mealPlanning.IsDisable = disable;
+
+				if (action === 'activate') {
+					notificationFactory.error("MealPlanningActivateWarning");
 				}
 				else {
-					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-					mealPlanning.IsActive = !newMealPlanning.IsActive;
+					notificationFactory.error("MealPlanningDeactivateWarning");
+				}
+			}
+			else {
+				$scope.modalInstance = $modal.open({
+					templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+					controller: "ModalConfirmController",
+					resolve: {
+						name: function () {
+							return mealPlanning.FoodMenu.MenuVnmName + ' ( on ' + new Date(mealPlanning.Date).toString("MMM dd, yyyy") + ')';
+						},
+						action: function () {
+							return action;
+						}
+					},
+					windowClass: "modal-confirm-center food-item-modal"
+				});
 
-					notificationFactory.error(keyMessage);
-				}
-			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+				var keyMessage = '';
+
+				$scope.modalInstance.result.then(function () {
+					mealPlanningFactory.activateMealPlanning(newMealPlanning).success(function (response) {
+						if (response.IsSuccessful === true) {
+							keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
+							notificationFactory.success(keyMessage);
+						}
+						else {
+							keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+							mealPlanning.IsActive = !newMealPlanning.IsActive;
+
+							notificationFactory.error(keyMessage);
+						}
+					}).error(function (response, status) {
+						if (status === 405) {
+							ErrorFactory.errorHandle(status);
+						}
+						else {
+							keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+							mealPlanning.IsActive = !newMealPlanning.IsActive;
+							notificationFactory.error(keyMessage);
+						}
+					});
+				}, function () {
 					mealPlanning.IsActive = !newMealPlanning.IsActive;
-					notificationFactory.error(keyMessage);
-				}
-			});
-		}, function () {
-			mealPlanning.IsActive = !newMealPlanning.IsActive;
-		})['finally'](function () {
-			$scope.modalInstance = '';
-		});
+				})['finally'](function () {
+					$scope.modalInstance = '';
+				});
+			}
+		}
 	};
 
 	/*
@@ -462,15 +503,16 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 
 mealPlanningManagementModule.controller('EditMealPlanningController',
 ['$scope', '$modalInstance', 'mealPlanning', 'menuOptions', 'commonFactory', 'mealPlanningFactory',
-'mealPlanningUtilities',
+'mealPlanningUtilities', 'ErrorFactory', 'mealTimesheets', 'notificationFactory',
 function ($scope, $modalInstance, mealPlanning, menuOptions, commonFactory, mealPlanningFactory,
-mealPlanningUtilities) {
+mealPlanningUtilities, ErrorFactory, mealTimesheets, notificationFactory) {
 	/*
 	** Declare variables.
 	*/
 	$scope.mealPlanning = mealPlanning;
 	$scope.menuOptions = menuOptions;
 	$scope.foodItems = mealPlanning.FoodMenu.FoodItems;
+	$scope.mealTimesheets = mealTimesheets;
 
 	$scope.calendar = {
 		startDateOpened: false
@@ -501,11 +543,12 @@ mealPlanningUtilities) {
 	/*
 	** Get all food items of current menu.
 	*/
-	mealPlanningUtilities.getBasicFoodItems(null, $scope.mealPlanning.FoodMenu.MenuId, true, $scope);
-
-	$scope.getFoodItems = function (menuId) {
-		mealPlanningUtilities.getBasicFoodItems(null, menuId, true, $scope);
-	};
+	mealPlanningFactory.getFoodByOnDate(mealPlanning.Date, mealPlanning.FoodMenu.MenuId)
+	.success(function (foodItems) {
+		$scope.groupOptions = foodItems;
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
+	});
 
 	/*
 	** Set index to sort.
@@ -526,6 +569,21 @@ mealPlanningUtilities) {
 	};
 
 	/*
+	** Check overdue meal planning.
+	*/
+	var checkOverdueMeal = function (mealPlanning) {
+		var disable = false,
+			numberMeals = mealPlanning.FoodMenu.Meals.length,
+			lastMeal = numberMeals > 0 ? mealPlanning.FoodMenu.Meals[numberMeals - 1] : '';
+
+		if (lastMeal) {
+			disable = mealPlanningUtilities.checkMealTimesheet($scope.mealTimesheets, lastMeal, mealPlanning.Date);
+		}
+
+		return disable;
+	};
+
+	/*
 	** Edit meal planning.
 	*/
 	$scope.editMealPlanning = function (mealPlanning) {
@@ -538,16 +596,32 @@ mealPlanningUtilities) {
 			foodId: mealPlanningUtilities.getFoodId($scope.foodItems)
 		};
 
-		var informationMealPlanning = {
-			updateMealPlanning: updateMealPlanning,
-			foodItems: $scope.foodItems
-		};
+		var disable = checkOverdueMeal(mealPlanning);
 
-		if (mealPlanningUtilities.validateMealPlanning(updateMealPlanning)) {
-			$modalInstance.close(informationMealPlanning);
+		if (disable) {
+			var action = !mealPlanning.IsActive ? "activate" : "deactivate";
+			mealPlanning.IsActive = !updateMealPlanning.IsActive;
+			mealPlanning.IsDisable = disable;
+
+			if (action === 'activate') {
+				notificationFactory.error("MealPlanningActivateWarning");
+			}
+			else {
+				notificationFactory.error("MealPlanningDeactivateWarning");
+			}
 		}
 		else {
-			$scope.disabledSubmitButton = false;
+			var informationMealPlanning = {
+				updateMealPlanning: updateMealPlanning,
+				foodItems: $scope.foodItems
+			};
+
+			if (mealPlanningUtilities.validateMealPlanning(updateMealPlanning)) {
+				$modalInstance.close(informationMealPlanning);
+			}
+			else {
+				$scope.disabledSubmitButton = false;
+			}
 		}
 	};
 

@@ -197,5 +197,7 @@
 		</Setting>
 		<Setting Key="FoodPlan_EditActive" SpName="FoodPlan_EditActive" DbName="NexFB" Plain="0" >
 		</Setting>
+		<Setting Key="FoodPlan_GetFoodByOnDate" SpName="FoodPlan_GetFoodByOnDate" DbName="NexFB" Plain="0" >
+		</Setting>
 	</Function>
 </Functions>

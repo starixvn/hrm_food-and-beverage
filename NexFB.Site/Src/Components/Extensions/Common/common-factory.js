@@ -56,7 +56,6 @@ appModule.factory('commonFactory',
 
 		$scope.pagedItems = [];
 		$scope.currentPage = 0;
-
 		/**
 		* Init. 
 		*/
@@ -72,22 +71,38 @@ appModule.factory('commonFactory',
 			if (!needle) {
 				return true;
 			}
+
 			return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+		};
+
+		var checkAllItemRecursion = function (item) {
+			for (var attr in item) {
+				var childItem = item[attr];
+
+				if (childItem != null) {
+					if (typeof (childItem) === 'object') {
+						var exist = checkAllItemRecursion(childItem);
+
+						if (exist) {
+							return exist;
+						}
+					}
+					else {
+						if (searchMatch(item[attr].toString(), $scope.queryData)) {
+							return true;
+						}
+					}
+				}
+			}
+
+			return false;
 		};
 
 		// init the filtered items
 		$scope.search = function () {
 			if (dataPagination && dataPagination !== 'null') {
 				$scope.filteredItems = $filter('filter')(dataPagination, function (item) {
-
-					for (var attr in item) {
-						if (item[attr] != null) {
-							if (searchMatch(item[attr].toString(), $scope.queryData)) {
-								return true;
-							}
-						}
-					}
-					return false;
+					return checkAllItemRecursion(item);
 				});
 			}
 			else {

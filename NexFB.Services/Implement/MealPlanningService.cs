@@ -14,6 +14,7 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Models;
     using NexFB.Core.Services;
     using NexFB.Criteria.FoodMealPlanning;
+    using NexFB.Models.FoodItemManagement;
     using NexFB.Models.FoodMealPlanning;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
@@ -124,6 +125,24 @@ namespace NexFB.Services.Implement
             }
 
             return commandResult;
+        }
+
+        /// <summary>
+        /// Get food items by on date.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Food Item model.</returns>
+        public IEnumerable<FoodItemModel> GetFoodByOnDate(GetFoodMealPlanningByOnDateCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<FoodItemModel> foodItems = null;
+
+            if (criteria.IsValid())
+            {
+                foodItems = GetData<FoodItemModel>(criteria);
+            }
+
+            return foodItems;
         }
     }
 }
