@@ -8,7 +8,7 @@
 	<div class="modal-body food-menu-body-modal">
         <form class="form-horizontal form-menuManagement" role="form">
             <div class="form-group">
-                <label class="col-sm-1 text-right long-text">{{"FoodMenuVnm" | translate}}</label>
+                <label class="col-sm-1 text-right short-text">{{"FoodMenuVnm" | translate}}</label>
                 <div class="col-sm-2 field">
                     <input type="text" class="form-control" ng-model="foodMenu.MenuVnmName" />
                 </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-1 text-right long-text">{{"ShortPricePerMeal" | translate}}</label>
+                <label class="col-sm-1 text-right short-text">{{"ShortPricePerMeal" | translate}}</label>
                 <div class="col-sm-2 field">
                     <input type="text" class="form-control" ng-model="foodMenu.PricePerMeal" number-only="number" />
 				</div>
@@ -43,7 +43,7 @@
                     <input type="checkbox" ng-model="foodMenu.IsVegetarian" />
                 </div>
                 <label class="col-sm-1 text-right long-text">{{"Active" | translate}}</label>
-                <div class="col-sm-2 field">
+                <div class="col-sm-2 field selectbox">
                     <input type="checkbox" ng-model="foodMenu.IsActive"/>
                 </div>
 			</div>
