@@ -138,6 +138,9 @@
   <data name="ChooseDishes" xml:space="preserve">
     <value>Main Food</value>
   </data>
+  <data name="CommaSeparated" xml:space="preserve">
+    <value> , </value>
+  </data>
   <data name="Delivered" xml:space="preserve">
     <value>Delivered</value>
   </data>
@@ -174,11 +177,20 @@
   <data name="LocalPrinterError" xml:space="preserve">
     <value>Local printer error. Please notify the Administrators!</value>
   </data>
+  <data name="Main" xml:space="preserve">
+    <value> Main</value>
+  </data>
   <data name="NameBilingual" xml:space="preserve">
     <value>Tên / Name</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Order</value>
+  </data>
+  <data name="Parentheses1" xml:space="preserve">
+    <value>( </value>
+  </data>
+  <data name="Parentheses2" xml:space="preserve">
+    <value> )</value>
   </data>
   <data name="Pending" xml:space="preserve">
     <value>Pending</value>
@@ -230,6 +242,9 @@
   </data>
   <data name="SetMenu" xml:space="preserve">
     <value>Set Menu / Qty</value>
+  </data>
+  <data name="Snack" xml:space="preserve">
+    <value> Snack</value>
   </data>
   <data name="Statistic" xml:space="preserve">
     <value>Statistic</value>

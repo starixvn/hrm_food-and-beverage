@@ -34,15 +34,11 @@
     <Reference Include="AutoMapper">
       <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper.Net4">
-      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Printing" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -57,6 +53,7 @@
     <Compile Include="Mapping\CoreMappingRegister.cs" />
     <Compile Include="Mapping\IMappingRegister.cs" />
     <Compile Include="Models\CommonKitchenOrder.cs" />
+    <Compile Include="Models\EmployeeOrderDetails.cs" />
     <Compile Include="Models\KitchenEmployeeInfo.cs" />
     <Compile Include="Models\MenuColor.cs" />
     <Compile Include="NotifyBase\NotifiableCollection.cs" />

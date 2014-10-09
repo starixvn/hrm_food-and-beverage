@@ -107,8 +107,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\RangeToBooleanConverter.cs" />
+    <Compile Include="Converter\StringFormatConverter.cs" />
     <Compile Include="DependencyProperties\InternetAvailability.cs" />
     <Compile Include="DependencyProperties\NativeMethods.cs" />
+    <Compile Include="DependencyProperties\TextBlockInline.cs" />
     <Compile Include="DependencyProperties\WaterMark.cs" />
     <Compile Include="DependencyProperties\WatermarkAdorner.cs" />
     <Compile Include="ViewModels\AwaitingDeliverViewModel.cs" />
@@ -143,6 +145,7 @@
     <Resource Include="Images\no-avatar.jpg" />
     <Resource Include="Images\button_cancel.png" />
     <Resource Include="Images\button_cancel_disabled.png" />
+    <Resource Include="Images\kahn.png" />
     <Content Include="PrintingTemplates\OrderFoodReceipt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

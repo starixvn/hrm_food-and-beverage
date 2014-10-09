@@ -51,40 +51,41 @@ namespace NexFB.WinApp.Core.Models
 
         private string _employeeOrderMealColor;
         private string _employeeOrderMealText;
-        private List<int> _selectedMainMenuItem;
-        private List<int> _selectedAlternativeMenuItem;
+        private string _orderSummary;
+        private List<EmployeeOrderDetails> _listMainMenuOrderDeatails;
+        private List<EmployeeOrderDetails> _listAlternativeMenuOrderDeatails;
 
         public KitchenEmployeeInfo()
         {
-            ListSelectedMainMenuItem = new List<int>();
-            ListSelectedAlternativeMenuItem = new List<int>();
+            ListMainMenuOrderDeatails = new List<EmployeeOrderDetails>();
+            ListAlternativeMenuOrderDeatails = new List<EmployeeOrderDetails>();
         }
 
-        public List<int> ListSelectedMainMenuItem
+        public List<EmployeeOrderDetails> ListMainMenuOrderDeatails
         {
             get
             {
-                return _selectedMainMenuItem;
+                return _listMainMenuOrderDeatails;
             }
 
             set
             {
-                _selectedMainMenuItem = value;
-                this.OnPropertyChanged("ListSelectedMainMenuItem");
+                _listMainMenuOrderDeatails = value;
+                this.OnPropertyChanged("ListMainMenuOrderDeatails");
             }
         }
 
-        public List<int> ListSelectedAlternativeMenuItem
+        public List<EmployeeOrderDetails> ListAlternativeMenuOrderDeatails
         {
             get
             {
-                return _selectedAlternativeMenuItem;
+                return _listAlternativeMenuOrderDeatails;
             }
 
             set
             {
-                _selectedAlternativeMenuItem = value;
-                this.OnPropertyChanged("ListSelectedAlternativeMenuItem");
+                _listAlternativeMenuOrderDeatails = value;
+                this.OnPropertyChanged("ListAlternativeMenuOrderDeatails");
             }
         }
 
@@ -470,7 +471,7 @@ namespace NexFB.WinApp.Core.Models
                         }
                         else
                         {
-                            _employeeOrderMealColor = Constant.UnRegisterMealColor;
+                            _employeeOrderMealColor = Constant.UNRegisterMealColor;
                         }
                     }
                     else
@@ -481,7 +482,7 @@ namespace NexFB.WinApp.Core.Models
                         }
                         else
                         {
-                            _employeeOrderMealColor = Constant.UnRegisterMealColor;
+                            _employeeOrderMealColor = Constant.UNRegisterMealColor;
                         }
                     }
                 }
@@ -511,6 +512,20 @@ namespace NexFB.WinApp.Core.Models
             {
                 _employeeOrderMealText = value;
                 this.OnPropertyChanged("EmployeeOrderMealText");
+            }
+        }
+
+        public string OrderSummary
+        {
+            get
+            {
+                return _orderSummary;
+            }
+
+            set
+            {
+                _orderSummary = value;
+                this.OnPropertyChanged("OrderSummary");
             }
         }
     }

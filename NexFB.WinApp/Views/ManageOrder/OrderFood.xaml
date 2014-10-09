@@ -6,14 +6,12 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	mc:Ignorable="d" 
 	xmlns:converter="clr-namespace:NexFB.WinApp.Converter"
+	xmlns:local="clr-namespace:NexFB.WinApp.DependencyProperties"
 	xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
 	d:DesignHeight="1024" d:DesignWidth="1280">
 	<UserControl.Resources>
-		<!--<Style x:Key="buttonKeypad" TargetType="Button" >
-			<Setter Property="FontSize" Value="38"/>
-			<Setter Property="Background" Value="#e2e2e2"/>
-		</Style>-->
 		<converter:RangeToBooleanConverter x:Key="conv"/>
+		<converter:StringFormatConverter x:Key="stringConverter" />
 	</UserControl.Resources>
 
 	<Grid>
@@ -30,18 +28,6 @@
 			</Grid>
 		</Grid>
 		<Grid Background="#FFF" HorizontalAlignment="Left" Margin="483,0,0,0" Name="grid2" VerticalAlignment="Top" Width="322">
-			<!--<Button Style="{StaticResource MenuTile}" Margin="0,3,0,2" MinHeight="60" Width="320"
-						Command="{Binding DataContext.DefaulMenuSelected, RelativeSource={RelativeSource AncestorType=ListBox}}" 
-						CommandParameter="{Binding Path=ItemId}">
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Foreground="#FFF" FontSize="20" HorizontalAlignment="Left" Margin="10,0,15,0"
-							VerticalAlignment="Center" Text="aaaa" TextWrapping="WrapWithOverflow"></TextBlock>
-					<TextBlock HorizontalAlignment="Right" Text="bbb"
-					VerticalAlignment="Center" Foreground="#FFF" FontSize="20" />
-					
-				</StackPanel>
-
-			</Button>-->
 			<ListBox HorizontalAlignment="Left" Name="ListMenuItem" VerticalAlignment="Top" Width="322" BorderBrush="#FFF" BorderThickness="0"
 			ItemsSource="{Binding Path=CommonKitchenOrder}" Style="{StaticResource CustomLBStyle}">
 				<ListBox.ItemContainerStyle>
@@ -57,41 +43,28 @@
 							<Grid Width="320">
 								<TextBlock Foreground="#FFF" FontSize="20" HorizontalAlignment="Left" Margin="10,0,25,0"
 							VerticalAlignment="Center" Text="{Binding Path=ItemName}" TextWrapping="WrapWithOverflow"></TextBlock>
-								<TextBlock HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Center"
-								 Foreground="#FFF" FontSize="20">
-								<TextBlock.Style>
-										<Style TargetType="TextBlock">
+								<Label HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Center"
+								 Foreground="Yellow" FontSize="20">
+									<Label.Style>
+										<Style TargetType="Label">
 											<Style.Triggers>
 												<DataTrigger Binding="{Binding Path=Quantity, Converter={StaticResource conv}}" Value="True">
-													<Setter Property="Text" Value=""/>
+													<Setter Property="Content" Value=""/>
 												</DataTrigger>
 												<DataTrigger Binding="{Binding Path=Quantity, Converter={StaticResource conv}}" Value="False">
-													<Setter Property="Text" Value="{Binding Path=Quantity}"/>
+													<Setter Property="Content" Value="{Binding Path=Quantity}"/>
+													<Setter Property="ContentStringFormat" Value="x {0} "/>
 												</DataTrigger>
 											</Style.Triggers>
 										</Style>
-									</TextBlock.Style>
-								</TextBlock>
+									</Label.Style>
+								</Label>
 							</Grid>
 								
 						</Button>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
 			</ListBox>
-
-			<!--<Button Style="{StaticResource MenuTile}" Command="{Binding DataContext.DefaulMenuSelected, RelativeSource={RelativeSource AncestorType=ListBox}}" 
-						CommandParameter="{Binding Path=ItemId}" BorderBrush="#FFF" BorderThickness="0" 
-						Margin="0,3,0,2" MinHeight="60" Width="320">
-				<Label Foreground="#FFF" FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0"
-							VerticalAlignment="Center">
-					<AccessText TextWrapping="WrapWithOverflow">
-					aaaaaaaaaaaa lajdfl ladkfjl ljadflj lajfl lkajfdl
-					ajdfljadlf
-					jadflj
-					adflj
-					</AccessText>
-				</Label>
-			</Button>-->
 		</Grid>
 		<Grid Visibility="{Binding GridUserVisibility}"
 		Background="#FFFFFF" HorizontalAlignment="Left" Margin="811,0,0,0" Name="grid3" VerticalAlignment="Top" Width="462">
@@ -103,51 +76,64 @@
 				<Button Style="{StaticResource MenuTile}" Command="{Binding Path=SelectAllUserInGroup}"
 				Height="60" Background="#6CB23F" Foreground="White" FontSize="22"
 				HorizontalAlignment="Center" Name="button4" VerticalAlignment="Center" Width="231">
-					<Label Foreground="#FFF" FontSize="22" HorizontalAlignment="Center" Margin="10,0,0,0"
+					<Label FontSize="22" HorizontalAlignment="Center" Margin="10,0,0,0"
 							VerticalAlignment="Center" Content="{x:Static resx:WinFormMainResource.SelectAll}"></Label>
 				</Button>
 				<Button Style="{StaticResource MenuTile}" Grid.Column="1" Height="60" Background="#B7B7B7" Foreground="White"
 				HorizontalAlignment="Left" Name="button12" VerticalAlignment="Top" Width="231">
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 						<Label Content="{x:Static resx:WinFormMainResource.Quantity}" FontSize="22" VerticalAlignment="Center" />
-						<Label Content="{Binding Path=UserInGroup.Count}" FontSize="22" Margin="-7,0,0,0"
-						VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+						<Label Content="{Binding Path=UserInGroup.Count}" FontSize="22" Margin="-7,1,0,0" Foreground="#BD2828"
+						VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Black" />
 					</StackPanel>
 				</Button>
 			</Grid>
 			<Grid Background="#E2E2E2" HorizontalAlignment="Left" Margin="0,63,0,0" Name="grid9" VerticalAlignment="Top" Width="462">
-				<ListBox ItemsSource="{Binding Path=UserInGroup}" Style="{StaticResource CustomLBStyle}" Margin="2,3,3,2" BorderThickness="0">
-				<ListBox.ItemContainerStyle>
-					<Style TargetType="ListBoxItem">
-						<Setter Property="Padding" Value="0"/>
-					</Style>
-				</ListBox.ItemContainerStyle>
-				<ListBox.ItemTemplate>
-					<DataTemplate>
+				<ListBox ItemsSource="{Binding Path=UserInGroup}" Name="employeeOrder"
+				Style="{StaticResource CustomLBStyle}" Margin="2,3,3,2" BorderThickness="0">
+					<ListBox.ItemContainerStyle>
+						<Style TargetType="ListBoxItem">
+							<Setter Property="Padding" Value="0"/>
+						</Style>
+					</ListBox.ItemContainerStyle>
+					<ListBox.ItemTemplate>
+						<DataTemplate>
 							<Button Command="{Binding DataContext.DefaultEmployeeSelected, RelativeSource={RelativeSource AncestorType=ListBox}}" 
 							CommandParameter="{Binding Path=SysId}"
-							Height="69" Style="{StaticResource EmployeeInGroupTile}" Background="#fff" Padding="0" Margin="0,0,0,5"
+							 Style="{StaticResource EmployeeInGroupTile}" Background="#fff" Padding="0" Margin="0,0,0,5"
 							HorizontalAlignment="Center" Name="button16" VerticalAlignment="Top" Width="455" >
-								<StackPanel Height="69" HorizontalAlignment="Left" Name="border1" 
-							 VerticalAlignment="Center" Width="455" Orientation="Horizontal">
-								<Image Source="pack://application:,,,/Images/no-avatar.jpg"
-									Name="image2" Stretch="Fill" Width="69" HorizontalAlignment="Left" Height="69"/>
-									<Grid Height="69" Name="grid10" Width="385" VerticalAlignment="Center" HorizontalAlignment="Right" Background="{Binding Path=EmployeeOrderMealColor}">
-									<Label Content="{Binding Path=FullName}" FontSize="22" Height="41" HorizontalAlignment="Left" 
-										VerticalAlignment="Center" Margin="10,15,0,13" />
-										<Button  Background="{Binding Path=EmployeeOrderMealColor}"
-									VerticalAlignment="Center" HorizontalAlignment="Right" BorderBrush="{Binding Path=EmployeeOrderMealColor}" Margin="0,1,2,0"
-										BorderThickness="0" Name="button20" FontSize="22" Width="61" Height="65" Style="{StaticResource MenuTile}" >
-										<Label Content="..." FontSize="35" Height="67" Foreground="Red" 
-											HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,0,0,12" />
-									</Button>
+								<Grid HorizontalAlignment="Left" Name="border1" Background="{Binding Path=EmployeeOrderMealColor}"
+							 VerticalAlignment="Center" Width="455"  Height="69">
+									<Image Source="pack://application:,,,/Images/kahn.png"
+									Name="image2" Stretch="Fill" Width="69" HorizontalAlignment="Left" Height="70" />
+									<Grid Height="69" Name="grid10" VerticalAlignment="Center" HorizontalAlignment="Right" Background="{Binding Path=EmployeeOrderMealColor}">
+										<Grid Width="385">
+											<Label Content="{Binding Path=NickName}" FontSize="18" FontWeight="Black"
+									 VerticalAlignment="Top" Margin="2,-5,-2,0" Foreground="#004069" />
+											<DockPanel Margin="0,22,4,0" >
+												<!--<TextBlock VerticalAlignment="Top" TextWrapping="WrapWithOverflow" Name="orderDetails"
+												 FontSize="15" HorizontalAlignment="Left" Margin="15,0,0,0">
+													<TextBlock.Text>
+													   <MultiBinding Converter="{StaticResource stringConverter}">
+														<Binding RelativeSource="{RelativeSource Self}"/>
+														  <Binding Path="OrderSummary"/>
+														   <Binding Path="NickName"/>
+													   </MultiBinding>
+													</TextBlock.Text>
+												</TextBlock>-->
+												<TextBlock FontSize="14" HorizontalAlignment="Left" Margin="15,3,0,0"
+												local:TextBlockInline.FormattedText="{Binding Path=OrderSummary, Mode=OneWay, Converter={StaticResource stringConverter}}" 
+												VerticalAlignment="Top" TextWrapping="WrapWithOverflow" Name="orderDetails"/>
+											</DockPanel>
+										</Grid>
+									</Grid>
 								</Grid>
-							</StackPanel>
-						</Button>
+							</Button>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
 
-					</DataTemplate>
-				</ListBox.ItemTemplate>
-			</ListBox>
+
 			</Grid>
 		</Grid>
 		<!--Mouse.PreviewMouseDown="GridActionButton_PreviewMouseDown"-->
@@ -175,7 +161,7 @@
 			<Button Style="{StaticResource OrderTileButton}" Command="{Binding Path=ChooseAlternativeFoodCommand}" BorderBrush="{Binding Path=BorderButtonAlternativeFood}"
 			Content="{x:Static resx:WinFormMainResource.AlternativeFood}" Grid.Column="1" Grid.Row="1" Height="64" HorizontalAlignment="Left" Margin="0,1,0,0"
 			Background="#6cb23f" Foreground="#fff"  FontSize="22"
-			 Name="button16" VerticalAlignment="Top" Width="228" />
+			 VerticalAlignment="Top" Width="228" />
 		</Grid>
 		<Grid Height="236" HorizontalAlignment="Left" Background="#e2e2e2"
 		 Margin="6,49,0,0" Name="grid6" VerticalAlignment="Top" Width="470">
@@ -189,7 +175,7 @@
 				</Grid.RowDefinitions>
 				<Label Content="{Binding Path=EmployeeInfo.FullNameUpper}" FontWeight="Bold" Foreground="#4091BD" Height="40"
 				FontSize="20" HorizontalAlignment="Left" Margin="6,5,0,44" Name="label1" VerticalAlignment="Center" Grid.RowSpan="2" />
-				<Label Content="{Binding Path=EmployeeInfo.NickName}" FontSize="20" FontWeight="Bold" Height="40" HorizontalAlignment="Left" Margin="12,43,0,6" Name="textBlock1" VerticalAlignment="Center" Grid.RowSpan="2" />
+				<Label Content="{Binding Path=EmployeeInfo.NickName}" FontSize="20" FontWeight="Bold" Height="40" HorizontalAlignment="Left" Margin="12,43,0,6" VerticalAlignment="Center" Grid.RowSpan="2" />
 				<Label Grid.Row="1" Content="{Binding Path=EmployeeInfo.Code}" ContentStringFormat="#{0} " Height="40"
 				FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Margin="12,38,0,11" Name="textBlock2" VerticalAlignment="Center" Grid.RowSpan="2" />
 				<Border Background="#fff" Grid.Row="2" Height="42" HorizontalAlignment="Center" VerticalAlignment="Center" Width="280" Margin="6,36,6,11" Grid.RowSpan="2">

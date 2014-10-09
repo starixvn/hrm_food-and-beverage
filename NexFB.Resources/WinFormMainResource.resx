@@ -138,6 +138,9 @@
   <data name="ChooseDishes" xml:space="preserve">
     <value>Món Chính</value>
   </data>
+  <data name="CommaSeparated" xml:space="preserve">
+    <value> , </value>
+  </data>
   <data name="DeliverBilingual" xml:space="preserve">
     <value>Xuất / Out : </value>
   </data>
@@ -180,11 +183,20 @@
   <data name="LocalPrinterError" xml:space="preserve">
     <value>Local printer error. Please notify the Administrators!</value>
   </data>
+  <data name="Main" xml:space="preserve">
+    <value> Chính</value>
+  </data>
   <data name="NameBilingual" xml:space="preserve">
     <value>Tên / Name </value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Gọi món</value>
+  </data>
+  <data name="Parentheses1" xml:space="preserve">
+    <value>( </value>
+  </data>
+  <data name="Parentheses2" xml:space="preserve">
+    <value> )</value>
   </data>
   <data name="Pending" xml:space="preserve">
     <value>Chờ xuất</value>
@@ -236,6 +248,9 @@
   </data>
   <data name="SetMenu" xml:space="preserve">
     <value>Set Menu / Qty</value>
+  </data>
+  <data name="Snack" xml:space="preserve">
+    <value> Phụ</value>
   </data>
   <data name="Statistic" xml:space="preserve">
     <value>Thống kê</value>

@@ -124,6 +124,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  , .
+        /// </summary>
+        public static string CommaSeparated {
+            get {
+                return ResourceManager.GetString("CommaSeparated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xuất / Out : .
         /// </summary>
         public static string DeliverBilingual {
@@ -250,6 +259,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  Chính.
+        /// </summary>
+        public static string Main {
+            get {
+                return ResourceManager.GetString("Main", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tên / Name .
         /// </summary>
         public static string NameBilingual {
@@ -264,6 +282,24 @@ namespace NexFB.Resources {
         public static string Order {
             get {
                 return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ( .
+        /// </summary>
+        public static string Parentheses1 {
+            get {
+                return ResourceManager.GetString("Parentheses1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  ).
+        /// </summary>
+        public static string Parentheses2 {
+            get {
+                return ResourceManager.GetString("Parentheses2", resourceCulture);
             }
         }
         
@@ -417,6 +453,15 @@ namespace NexFB.Resources {
         public static string SetMenu {
             get {
                 return ResourceManager.GetString("SetMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Phụ.
+        /// </summary>
+        public static string Snack {
+            get {
+                return ResourceManager.GetString("Snack", resourceCulture);
             }
         }
         

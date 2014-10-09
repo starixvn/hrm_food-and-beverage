@@ -98,7 +98,7 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string Local = "LOCAL";
 
-        public const string UnRegisterMealColor = "#cdcdcd";
+        public const string UNRegisterMealColor = "#cdcdcd";
 
         public const string RegisterNonVegetarianMealColor = "#b1cde0";
 
