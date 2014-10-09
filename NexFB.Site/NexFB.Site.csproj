@@ -188,6 +188,7 @@
     <Compile Include="Controllers\API\OrderingController.cs" />
     <Compile Include="Controllers\API\MealRegistrationController.cs" />
     <Compile Include="Controllers\API\ResourceController.cs" />
+    <Compile Include="Controllers\API\SideDishManagementController.cs" />
     <Compile Include="Controllers\API\UserControlController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -229,6 +230,13 @@
     <Content Include="Src\App\MealPlanningManagement\Templates\index.html" />
     <Content Include="Src\App\Ordering\editOrder-controller.js" />
     <Content Include="Src\App\Ordering\Templates\EditOrder.html" />
+    <Content Include="Src\App\SideDishManagement\sideDishManagement-controller.js" />
+    <Content Include="Src\App\SideDishManagement\sideDishManagement-factory.js" />
+    <Content Include="Src\App\SideDishManagement\sideDishManagement-route.js" />
+    <None Include="Src\App\SideDishManagement\sideDishManagement.less" />
+    <Content Include="Src\App\SideDishManagement\Templates\create.html" />
+    <Content Include="Src\App\SideDishManagement\Templates\edit.html" />
+    <Content Include="Src\App\SideDishManagement\Templates\index.html" />
     <Content Include="Src\App\UserControl\userControl-directive.js" />
     <Content Include="Src\Components\Extensions\Common\modalconfirm-controller.js" />
     <Content Include="Src\Components\Extensions\Common\Templates\AccessDenied.html" />

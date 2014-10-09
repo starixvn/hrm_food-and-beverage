@@ -3,7 +3,7 @@
 
 var appModule = angular.module("appModule",
 ['mealRegistrationModule', 'userControlModule', 'orderingModule', 'foodItemManagementModule',
-'foodMenuManagementModule', 'mealPlanningManagementModule',
+'foodMenuManagementModule', 'mealPlanningManagementModule', 'sideDishManagementModule',
 'ui.bootstrap', 'pascalprecht.translate', 'multi-select'])
 .config(['$locationProvider', '$translateProvider', '$routeProvider', 'datepickerConfig', 'datepickerPopupConfig',
 function ($locationProvider, $translateProvider, $routeProvider, datepickerConfig, datepickerPopupConfig) {

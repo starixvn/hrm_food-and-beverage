@@ -241,6 +241,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Code field is required!.
+        /// </summary>
+        public static string CodeRequire {
+            get {
+                return ResourceManager.GetString("CodeRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company.
         /// </summary>
         public static string Company {
@@ -327,6 +336,15 @@ namespace NexFB.Resources {
         public static string CreateNew {
             get {
                 return ResourceManager.GetString("CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Side Dish.
+        /// </summary>
+        public static string CreateSideDish {
+            get {
+                return ResourceManager.GetString("CreateSideDish", resourceCulture);
             }
         }
         
@@ -471,6 +489,15 @@ namespace NexFB.Resources {
         public static string EditOrder {
             get {
                 return ResourceManager.GetString("EditOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Side Dish.
+        /// </summary>
+        public static string EditSideDish {
+            get {
+                return ResourceManager.GetString("EditSideDish", resourceCulture);
             }
         }
         
@@ -759,6 +786,15 @@ namespace NexFB.Resources {
         public static string InvalidUsernameOrPassword {
             get {
                 return ResourceManager.GetString("InvalidUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Food item field is required!.
+        /// </summary>
+        public static string ItemRequire {
+            get {
+                return ResourceManager.GetString("ItemRequire", resourceCulture);
             }
         }
         
@@ -1096,6 +1132,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Price field is required!.
+        /// </summary>
+        public static string PriceRequire {
+            get {
+                return ResourceManager.GetString("PriceRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quantity.
         /// </summary>
         public static string Quantity {
@@ -1222,6 +1267,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select unit.
+        /// </summary>
+        public static string SelectUnit {
+            get {
+                return ResourceManager.GetString("SelectUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to submit this serial registration ? All upcoming registrations of the same period will be overwritten..
         /// </summary>
         public static string SerialRegisterWarning {
@@ -1272,6 +1326,15 @@ namespace NexFB.Resources {
         public static string ShortVegetarian {
             get {
                 return ResourceManager.GetString("ShortVegetarian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Side Dish Management.
+        /// </summary>
+        public static string SideDishManagement {
+            get {
+                return ResourceManager.GetString("SideDishManagement", resourceCulture);
             }
         }
         
@@ -1389,6 +1452,24 @@ namespace NexFB.Resources {
         public static string Tue {
             get {
                 return ResourceManager.GetString("Tue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit.
+        /// </summary>
+        public static string Unit {
+            get {
+                return ResourceManager.GetString("Unit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Unit field is requried!.
+        /// </summary>
+        public static string UnitRequire {
+            get {
+                return ResourceManager.GetString("UnitRequire", resourceCulture);
             }
         }
         

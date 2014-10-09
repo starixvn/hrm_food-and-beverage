@@ -579,4 +579,31 @@
   <data name="MealPlanningDeactivateWarning" xml:space="preserve">
     <value>Cannot deactivate a serving meal</value>
   </data>
+  <data name="CreateSideDish" xml:space="preserve">
+    <value>Create Side Dish</value>
+  </data>
+  <data name="SideDishManagement" xml:space="preserve">
+    <value>Side Dish Management</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="CodeRequire" xml:space="preserve">
+    <value>The Code field is required!</value>
+  </data>
+  <data name="ItemRequire" xml:space="preserve">
+    <value>The Food item field is required!</value>
+  </data>
+  <data name="PriceRequire" xml:space="preserve">
+    <value>The Price field is required!</value>
+  </data>
+  <data name="SelectUnit" xml:space="preserve">
+    <value>Select unit</value>
+  </data>
+  <data name="UnitRequire" xml:space="preserve">
+    <value>The Unit field is requried!</value>
+  </data>
+  <data name="EditSideDish" xml:space="preserve">
+    <value>Edit Side Dish</value>
+  </data>
 </root>

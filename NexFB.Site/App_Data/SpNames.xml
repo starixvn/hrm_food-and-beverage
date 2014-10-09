@@ -200,4 +200,18 @@
 		<Setting Key="FoodPlan_GetFoodByOnDate" SpName="FoodPlan_GetFoodByOnDate" DbName="NexFB" Plain="0" >
 		</Setting>
 	</Function>
+	<Function Name="SideDishManagement">
+		<Setting Key="FoodAdd_GetItem" SpName="FoodAdd_GetItem" DbName="NexFB" Plain="0" >
+		</Setting>
+ 		<Setting Key="FoodAdd_Insert" SpName="FoodAdd_Insert" DbName="NexFB" Plain="0" >
+		</Setting>
+		<Setting Key="FoodUnit_GetAll" SpName="FoodUnit_GetAll" DbName="NexFB" Plain="0" >
+		</Setting>
+		<Setting Key="FoodAdd_EditByFoodID" SpName="FoodAdd_EditByFoodID" DbName="NexFB" Plain="0" >
+		</Setting>
+		<Setting Key="FoodAdd_EditActiveByFoodID" SpName="FoodAdd_EditActiveByFoodID" DbName="NexFB" Plain="0" >
+		</Setting>
+		<Setting Key="FoodAdd_DeleteByFoodID" SpName="FoodAdd_DeleteByFoodID" DbName="NexFB" Plain="0" >
+		</Setting>
+	</Function>
 </Functions>

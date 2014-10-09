@@ -68,6 +68,7 @@
     <Compile Include="Implement\MealPlanningRepository.cs" />
     <Compile Include="Implement\MealRegistrationRepository.cs" />
     <Compile Include="Implement\OrderingRepository.cs" />
+    <Compile Include="Implement\SideDishRepository.cs" />
     <Compile Include="Interface\ICommonRepository.cs" />
     <Compile Include="Interface\IFoodItemRepository.cs" />
     <Compile Include="Interface\IFoodMenuRepository.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Interface\IMealPlanningRepository.cs" />
     <Compile Include="Interface\IMealRegistrationRepository.cs" />
     <Compile Include="Interface\IOrderingRepository.cs" />
+    <Compile Include="Interface\ISideDishRepository.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Implement\EmployeeRepository.cs" />
     <Compile Include="Implement\UserControlRepository.cs" />

@@ -73,6 +73,11 @@ namespace NexFB.Site
                defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
+               name: "Side Dish Management",
+               url: "SideDishManagement/Index",
+               defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });

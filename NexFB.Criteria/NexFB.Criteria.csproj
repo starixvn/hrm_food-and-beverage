@@ -111,6 +111,12 @@
     <Compile Include="MealRegistration\RegisterMealByRangeDateCriteria.cs" />
     <Compile Include="Ordering\GetMyOrderInCurrentDayCriteria.cs" />
     <Compile Include="Ordering\InsertOrderCriteria.cs" />
+    <Compile Include="SideDishManagement\ActivateSideDishCriteria.cs" />
+    <Compile Include="SideDishManagement\DeleteSideDishCriteria.cs" />
+    <Compile Include="SideDishManagement\GetAllFoodUnitCriteria.cs" />
+    <Compile Include="SideDishManagement\GetAllSideDishCriteria.cs" />
+    <Compile Include="SideDishManagement\InsertSideDishCriteria.cs" />
+    <Compile Include="SideDishManagement\UpdateSideDishCriteria.cs" />
     <Compile Include="Team\GetAllTeamByCompanyCriteria.cs" />
     <Compile Include="Kitchen\GetDeliveredMealOrderCriteria.cs" />
     <Compile Include="Kitchen\GetWaitingMealOrderCriteria.cs" />
