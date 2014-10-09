@@ -1,6 +1,7 @@
 ﻿<div class="col-sm-12 content">
     <div class="row table-title">
-		<label data-translate="MyOrder"></label>
+        <label data-translate="MyOrder">
+        </label>
     </div>
     <table class="row table table-bordered table-odering table-striped">
         <thead>
@@ -25,47 +26,36 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat = "order in myOrder">
+            <tr ng-repeat="order in myOrder">
                 <td class="text-center">
                     {{order.OrderNo}}
                 </td>
                 <td class="text-center" ng-switch="order.Status.StatusId">
-					<a ng-switch-when="1" class="lbl-new" href="javascript:;" ng-click="editOrder(order.OrderId)">
-						{{order.Status.Name}}
-					</a>
-					<a ng-switch-when="2" class="lbl-received" href="javascript:;" ng-click="editOrder(order.OrderId)">
-						{{order.Status.Name}}
-					</a>
-					<a ng-switch-when="3" class="lbl-reduced" href="javascript:;" ng-click="editOrder(order.OrderId)">
-						{{order.Status.Name}}
-					</a>
-					<a ng-switch-when="4" class="lbl-delivered" href="javascript:;" ng-click="editOrder(order.OrderId)">
-						{{order.Status.Name}}
-					</a>
-					<a ng-switch-when="5" class="lbl-edited" href="javascript:;" ng-click="editOrder(order.OrderId)">
-						{{order.Status.Name}}
-					</a>
-					<br />
-					<span>
-						{{order.ModifiedTime }}
-					</span>
+                    <a ng-switch-when="1" class="lbl-new" href="javascript:;" ng-click="editOrder(order.OrderId)">
+                        {{order.Status.Name}} </a><a ng-switch-when="2" class="lbl-received" href="javascript:;"
+                            ng-click="editOrder(order.OrderId)">{{order.Status.Name}} </a><a ng-switch-when="3"
+                                class="lbl-reduced" href="javascript:;" ng-click="editOrder(order.OrderId)">{{order.Status.Name}}
+                            </a><a ng-switch-when="4" class="lbl-delivered" href="javascript:;" ng-click="editOrder(order.OrderId)">
+                                {{order.Status.Name}} </a><a ng-switch-when="5" class="lbl-edited" href="javascript:;"
+                                    ng-click="editOrder(order.OrderId)">{{order.Status.Name}} </a>
+                    <br />
+                    <span>{{order.ModifiedTime }} </span>
                 </td>
                 <td>
-					<span tooltip="{{order.CreatorOrder.FullName}}">
-						{{order.CreatorOrder.NickName}}
-					</span>
+                    <span tooltip="{{order.CreatorOrder.FullName}}">{{order.CreatorOrder.NickName}}
+                    </span>
                 </td>
                 <td>
-                    <ul class="list-order list-unstyled" ng-repeat = "menu in order.MenuQuantity">
+                    <ul class="list-order list-unstyled" ng-repeat="menu in order.MenuQuantity">
                         <li>{{menu.Quantity}} - "{{menu.Menu.Name}}"</li>
                     </ul>
                 </td>
                 <td class="text-center">
-					<span class="lnk-member"><a href="javascript:;" ng-bind="order.MemberCount" 
-						ng-mouseover="showMember(order)" ng-mouseout="hideMember(order)" />
+                    <span class="lnk-member"><a href="javascript:;" ng-bind="order.MemberCount" ng-mouseover="showMember(order)"
+                        ng-mouseout="hideMember(order)" />
                         <ul ng-show="order.IsShowMember" class="list-unstyled drop-menu">
-                            <li ng-repeat="member in order.Members"><span class="chevron-right "></span><span ng-bind="member.Member.NickName"></span>
-							</li>
+                            <li ng-repeat="member in order.Members"><span class="chevron-right "></span><span
+                                ng-bind="member.Member.NickName"></span></li>
                         </ul>
                     </span>
                 </td>
@@ -76,19 +66,20 @@
                     {{order.Location.Name}}
                 </td>
                 <td>
-					{{order.Remark}}
+                    {{order.Remark}}
                 </td>
             </tr>
-			<tr ng-show="myOrder == ''">
-				<td class="empty-result" colspan="10" data-translate="NoMealOrder">
-				</td>
-			</tr>
+            <tr ng-show="myOrder == ''">
+                <td class="empty-result" colspan="10" data-translate="NoMealOrder">
+                </td>
+            </tr>
         </tbody>
     </table>
     <div class="row">
         <div class="col-sm-6">
             <div class="row table-title">
-				<label data-translate="Menu"></label>
+                <label data-translate="Menu">
+                </label>
             </div>
             <table class="row table table-odering table-bordered table-striped">
                 <thead>
@@ -97,70 +88,68 @@
                             #
                         </th>
                         <th class="">
-							<label data-translate="ToDayMenu"></label>
-							:
-							<label>{{menu.Name}}</label>
+                            <label data-translate="ToDayMenu">
+                            </label>
+                            :
+                            <label>
+                                {{menu.Name}}</label>
                         </th>
                     </tr>
                 </thead>
-                <tbody >
-                    <tr ng-repeat = "food in menu.FoodItems">
-                        <td class="text-center">{{$index + 1}}</td>
+                <tbody>
+                    <tr ng-repeat="food in menu.FoodItems">
+                        <td class="text-center">
+                            {{$index + 1}}
+                        </td>
                         <td>
-							<ul class="list-order list-unstyled">
-								<li>
-									{{food.Name}}
-								</li>
-								<li class="foodEN">
-									{{food.NameEN}}
-								</li>
-							</ul>
+                            <ul class="list-order list-unstyled">
+                                <li>{{food.Name}} </li>
+                                <li class="foodEN">{{food.NameEN}} </li>
+                            </ul>
                         </td>
                     </tr>
-					<tr ng-show="menu == 'null' || menu.FoodItems == ''">
-						<td class="empty-result" colspan="2" data-translate="NoMenu">
-						</td>
-					</tr>
+                    <tr ng-show="menu == 'null' || menu.FoodItems == ''">
+                        <td class="empty-result" colspan="2" data-translate="NoMenu">
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-sm-6">
             <div class="row table-title">
-                <label data-translate="CreateAnOrder"></label>
-			</div>
+                <label data-translate="CreateAnOrder">
+                </label>
+            </div>
             <div class="row list-group-item">
                 <div class="col-sm-12 boxtitle" ng-box>
-					<label data-translate="NewOrder"></label>
+                    <label data-translate="NewOrder">
+                    </label>
                 </div>
                 <div class="col-sm-12 boxcontent" ng-class="{'boxcontent-collapse' : newOrder.Status != null}">
-                    <form class="row form-horizontal form-order" role="form">
-                        <div class="form-group required">
-                            <div class="col-sm-2  text-right">
-                                <label class="control-label" data-translate="Location"></label>
-                            </div>
-                            <div class="col-sm-10">
-                                <select ng-model="newOrder.Location.LocationId">
-									<option style="display: none" value="0">{{"SelectLocation" | translate}}</option>
-									<option ng-repeat="lc in locations" value="{{lc.LocationId}}">{{lc.Name}}</option>
-								</select>
-                            </div>
+                    <form class="row form-horizontal form-order order-group" role="form">
+                    <div class="form-group required">
+                        <label class="control-label width-65" data-translate="Location">
+                        </label>
+                        <select ng-model="newOrder.Location.LocationId">
+                            <option style="display: none" value="0">{{"SelectLocation" | translate}}</option>
+                            <option ng-repeat="lc in locations" value="{{lc.LocationId}}">{{lc.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width-65" data-translate="Member">
+                        </label>
+                        <input class="form-control txtMember custom-padding" ng-model="searchNewMember"
+                            placeholder="full name or nick name" search-auto-complete search-employees="searchEmployees"
+                            ng-change="getEmployee(searchNewMember)" employee="newMember.employee" id="txtEmployeeForNewOrder"
+                            ng-enter="add(false)" />
+                        <div class="pull-right">
+                            <a ng-click="add(false)" class="button"><i class="glyphicon glyphicon-plus icon-plus">
+                            </i>
+                                <label data-translate="Add">
+                                </label>
+                            </a>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-2  text-right">
-                                <label class="control-label" data-translate="Member"></label>
-                            </div>
-                            <div class="col-sm-7">
-                                <input class="form-control txtMember custom-padding" ng-model="searchNewMember" placeholder="full name or nick name"
-									search-auto-complete search-employees="searchEmployees" ng-change="getEmployee(searchNewMember)"
-									employee="newMember.employee" id="txtEmployeeForNewOrder" ng-enter="add(false)"/>
-                            </div>
-                            <div class="col-sm-3 btn-add">
-                                <a ng-click="add(false)" class="button pull-right"><i class="glyphicon glyphicon-plus icon-plus">
-                                    </i>
-								    <label data-translate="Add"></label>
-							    </a>
-                            </div>
-                        </div>
+                    </div>
                     </form>
                     <table class="table table-bordered table-striped table-member">
                         <thead>
@@ -177,75 +166,79 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat = "member in newOrder.Members">
-								<td class="text-center">{{$index + 1}}</td>
-								<td ng-class="{'is-ordered' : member.CurrentStatus != null}">
-									<span>{{member.Member.NickName}}</span>
-									<span ng-show="member.CurrentStatus != null">(Ordered)</span>
-								</td>
-								<td>
-									<span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
-								</td>
+                            <tr ng-repeat="member in newOrder.Members">
                                 <td class="text-center">
-                                    <a href="javascript:;" ng-click="removeMember($index, member.Member.UserId, false)" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
+                                    {{$index + 1}}
+                                </td>
+                                <td ng-class="{'is-ordered' : member.CurrentStatus != null}">
+                                    <span>{{member.Member.NickName}}</span> <span ng-show="member.CurrentStatus != null">
+                                        (Ordered)</span>
+                                </td>
+                                <td>
+                                    <span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
+                                </td>
+                                <td class="text-center">
+                                    <a href="javascript:;" ng-click="removeMember($index, member.Member.UserId, false)"
+                                        class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
                                 </td>
                             </tr>
-							<tr ng-show="newOrder == '' || newOrder.Members == ''">
-								<td class="empty-result" colspan="4" data-translate="EmptyResult">
-								</td>
-							</tr>
+                            <tr ng-show="newOrder == '' || newOrder.Members == ''">
+                                <td class="empty-result" colspan="4" data-translate="EmptyResult">
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <div class="row form-inline form-order">
                         <div class="form-group">
-                            <label data-translate="Remark"></label>
-                            <input ng-model="newOrder.Remark" type="text" class="txt-remark" maxlength="500"/>
+                            <label data-translate="Remark">
+                            </label>
+                            <input ng-model="newOrder.Remark" type="text" class="txt-remark" maxlength="500" />
                         </div>
                         <div class="form-group phone-box">
-                            <label data-translate="Phone"></label>
-                            <input ng-model="newOrder.Phone" type="text" maxlength="50" class="txtPhone"/>
+                            <label data-translate="Phone">
+                            </label>
+                            <input ng-model="newOrder.Phone" type="text" maxlength="50" class="txtPhone" />
                         </div>
                     </div>
                     <div class="row row-cust">
                         <p class="row txt-warning">
                             <i class="glyphicon glyphicon-exclamation-sign icon-warning"></i>
-							<label data-translate="WarningGroupNotSave"></label>
+                            <label data-translate="WarningGroupNotSave">
+                            </label>
                         </p>
-                        <button ng-click="saveAddOrder(newOrder)" class="button btn-order" data-translate="Order"></button>
+                        <button ng-click="saveAddOrder(newOrder)" class="button btn-order" data-translate="Order">
+                        </button>
                     </div>
                 </div>
                 <div class="col-sm-12 boxtitle second">
-					<label data-translate="SavedOrder"></label>
-				</div>
+                    <label data-translate="SavedOrder">
+                    </label>
+                </div>
                 <div class="col-sm-12 boxcontent boxcontent-collapse">
-                    <form class="form-horizontal form-order" role="form">
-                        <div class="form-group required">
-                            <div class="col-sm-2 text-right">
-                                <label class="control-label" data-translate="Location"></label>
-                            </div>
-                            <div class="col-sm-10">
-                                <select ng-model="savedOrder.Location.LocationId">
-									<option style="display: none" value="0">{{"SelectLocation" | translate}}</option>
-									<option ng-repeat="lc in locations" value="{{lc.LocationId}}">{{lc.Name}}</option>
-								</select>
-                            </div>
+                    <form class="form-horizontal form-order order-group" role="form">
+                    <div class="form-group required">
+                        <label class="control-label width-65" data-translate="Location">
+                        </label>
+                        <select ng-model="savedOrder.Location.LocationId">
+                            <option style="display: none" value="0">{{"SelectLocation" | translate}}</option>
+                            <option ng-repeat="lc in locations" value="{{lc.LocationId}}">{{lc.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width-65" data-translate="Member">
+                        </label>
+                        <input class="form-control txtMember custom-padding" ng-model="searchSavedMember"
+                            placeholder="full name or nick name" search-auto-complete search-employees="searchEmployees"
+                            ng-change="getEmployee(searchSavedMember)" employee="savedMember.employee" id="txtEmployeeForSavedOrder"
+                            ng-enter="add(true)" />
+                        <div class="pull-right btn-add">
+                            <a ng-click="add(true)" class="button pull-right"><i class="glyphicon glyphicon-plus icon-plus">
+                            </i>
+                                <label data-translate="Add">
+                                </label>
+                            </a>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-2 text-right">
-                                <label class="control-label" data-translate="Member"></label>
-                            </div>
-                            <div class="col-sm-7">
-                                <input class="form-control txtMember custom-padding" ng-model="searchSavedMember" placeholder="full name or nick name"
-									search-auto-complete search-employees="searchEmployees" ng-change="getEmployee(searchSavedMember)"
-									employee="savedMember.employee" id="txtEmployeeForSavedOrder" ng-enter="add(true)"/>
-                            </div>
-                            <div class="col-sm-3 btn-add">
-                                <a ng-click="add(true)" class="button pull-right"><i class="glyphicon glyphicon-plus icon-plus">
-                                </i>
-								    <label data-translate="Add"></label>
-							    </a>
-                            </div>
-                        </div>
+                    </div>
                     </form>
                     <table class="table table-bordered table-striped table-member">
                         <thead>
@@ -253,50 +246,53 @@
                                 <th class="width-40">
                                     #
                                 </th>
-								<th data-translate="Member">
+                                <th data-translate="Member">
                                 </th>
                                 <th data-translate="Menu">
                                 </th>
-								<th data-translate="Order">
+                                <th data-translate="Order">
                                 </th>
                                 <th class="col-action" data-translate="Remove">
                                 </th>
                             </tr>
                         </thead>
-						<tbody>
-                            <tr ng-repeat = "member in savedOrder.Members">
-								<td class="text-center">{{$index + 1}}</td>
-								<td ng-class="{'is-ordered' : member.CurrentStatus != null}">
-									<span>{{member.Member.NickName}}</span>
-									<span ng-show="member.CurrentStatus != null">(Ordered)</span>
-								</td>
-								<td>
-									<span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
-								</td>
-								<td class="text-center">
-                                    <input type="checkbox" ng-model="member.IsOrder" ng-disabled="member.CurrentStatus != null"/>
+                        <tbody>
+                            <tr ng-repeat="member in savedOrder.Members">
+                                <td class="text-center">
+                                    {{$index + 1}}
+                                </td>
+                                <td ng-class="{'is-ordered' : member.CurrentStatus != null}">
+                                    <span>{{member.Member.NickName}}</span> <span ng-show="member.CurrentStatus != null">
+                                        (Ordered)</span>
+                                </td>
+                                <td>
+                                    <span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" ng-model="member.IsOrder" ng-disabled="member.CurrentStatus != null" />
                                 </td>
                                 <td class="text-center">
                                     <a ng-click="removeMember($index, member.Member.UserId, true)" ng-show="member.Member.UserId != savedOrder.CreatorOrder.UserId"
-									href="javascript:;" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
+                                        href="javascript:;" class="glyphicon glyphicon-remove margin-icon icon-remove">
+                                    </a>
                                 </td>
                             </tr>
-							<tr ng-show="savedOrder == '' || savedOrder.Members == ''">
-								<td class="empty-result" colspan="5" data-translate="EmptyResult">
-								</td>
-							</tr>
+                            <tr ng-show="savedOrder == '' || savedOrder.Members == ''">
+                                <td class="empty-result" colspan="5" data-translate="EmptyResult">
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <div class="row form-inline form-order">
                         <div class="form-group">
                             <label data-translate="Remark">
                             </label>
-                            <input ng-model="savedOrder.Remark" type="text" class="txt-remark" maxlength="500"/>
+                            <input ng-model="savedOrder.Remark" type="text" class="txt-remark" maxlength="500" />
                         </div>
                         <div class="form-group phone-box">
                             <label data-translate="Phone">
                             </label>
-                            <input ng-model="savedOrder.Phone" type="text" maxlength="50" class="txtPhone"/>
+                            <input ng-model="savedOrder.Phone" type="text" maxlength="50" class="txtPhone" />
                         </div>
                     </div>
                     <div class="row row-cust">
@@ -307,4 +303,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> 

@@ -34,29 +34,30 @@
 .modal-dialog {
 	width: 920px;
 }
-	.filterRow {
-		margin-bottom: 10px;
+.filterRow {
+	margin: 0 0 10px 10px;
+	float: left;
+
+	input[type="text"] 
+	{
+		width: 110px;
+	}
+	.label {
+		text-align: right;
 		float: left;
-		input[type="text"] 
-		{
-			width: 110px;
-		}
-		.label {
-			text-align: right;
-			float: left;
-			color: #010101;
-			font-size: 13px;
-			label {
-				margin-top: 5px;
-			}
-		}
-		.field {
-			float: left;
-			input[type="checkbox"] {
-				margin-top: 7px;
-			}
+		color: #010101;
+		font-size: 13px;
+		label {
+			margin-top: 5px;
 		}
 	}
+	.field {
+		float: left;
+		input[type="checkbox"] {
+			margin-top: 7px;
+		}
+	}
+}
 .form-menuManagement {
 	.form-group {
 		margin: 0 0 10px;
@@ -68,14 +69,22 @@
 			width: 13%;
 		}
 	}
+
 	label.col-sm-1 {
 		padding: 3px 7px 0 0;
 	}
+
 	.long-text {
 		width: 14.33%;
 	}
+
 	.short-text {
 		width: 9.333%;
+	}
+
+	.list-checkbox {
+		margin-left: 60px;
+		float: left;
 	}
 }
 .food-menu-modal .modal-dialog {

@@ -121,7 +121,7 @@ appModule.directive('multiSelectChosen', function () {
 			scope.$watchCollection('groupOptions', function () {
 				iElement.trigger("chosen:updated");
 			});
-			iElement.chosen({ width: "95%" });
+			iElement.chosen({ width: "99%" });
 		}
 	};
 });

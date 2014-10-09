@@ -39,13 +39,9 @@
                 <div class="col-sm-2 field">
                     <input type="text" class="form-control" ng-model="foodMenu.pricePerDay" number-only="number" />
                 </div>
-                <label class="col-sm-1 text-right short-text">{{"Vegetarian" | translate}}</label>
-                <div class="col-sm-2 field selectbox">
-                    <input type="checkbox" ng-model="foodMenu.isVegetarian" />
-                </div>
-                <label class="col-sm-1 text-right long-text">{{"Active" | translate}}</label>
-                <div class="col-sm-2 field selectbox">
-                    <input type="checkbox" ng-model="foodMenu.isActive" />
+                <div class="list-checkbox">                    
+                    <label class="checkbox-inline"><input type="checkbox" ng-model="foodMenu.isVegetarian" /> {{"Vegetarian" | translate}}</label>
+                    <label class="checkbox-inline"><input type="checkbox" ng-model="foodMenu.isActive" /> {{"Active" | translate}}</label>
                 </div>
 			</div>
 			<div class="form-group">
