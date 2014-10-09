@@ -149,19 +149,18 @@
 			</Grid.RowDefinitions>
 			<Button Command="{Binding Path=PickRoomCommand}"
 			Style="{StaticResource OrderTileButton}" Content="{x:Static resx:WinFormMainResource.PickRoom}" Height="65" HorizontalAlignment="Left" FontSize="22"
-			Margin="-1,5,0,0" Name="button1" VerticalAlignment="Top" Width="228" Background="#6cb23f" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonPickRoom}" />
+			Margin="0,5,0,0" Name="button1" VerticalAlignment="Top" Width="234" Background="#6cb23f" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonPickRoom}" />
 
 			<Button Command="{Binding Path=ChooseMainFoodCommand}" FontSize="22"
 			Style="{StaticResource OrderTileButton}" Content="{x:Static resx:WinFormMainResource.ChooseDishes}" Height="65" HorizontalAlignment="Left" 
-			Margin="0,5,0,0" Name="button2" VerticalAlignment="Top" Width="228" Background="#6cb23f" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonMainFood}" Grid.Column="1" />
+			Margin="1,5,0,0" Name="button2" VerticalAlignment="Top" Width="234" Background="#6cb23f" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonMainFood}" Grid.Column="1" />
 
 			<Button Command="{Binding Path=PickGroupCommand}" FontSize="22"
-			Style="{StaticResource OrderTileButton}" Content="{x:Static resx:WinFormMainResource.PickGroup}" Grid.Row="1" Height="65" HorizontalAlignment="Left" 
-			Margin="-1,1,0,0" Name="button3" VerticalAlignment="Top" Width="228" Background="#6cb23f" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonPickGroup}" />
+			Style="{StaticResource OrderTileButton}" Content="{x:Static resx:WinFormMainResource.PickGroup}" Grid.Row="1" Height="65" HorizontalAlignment="Left" Name="button3" VerticalAlignment="Top" Width="234" Background="#6cb23f" Foreground="#fff" BorderBrush="{Binding Path=BorderButtonPickGroup}" />
 			<Button Style="{StaticResource OrderTileButton}" Command="{Binding Path=ChooseAlternativeFoodCommand}" BorderBrush="{Binding Path=BorderButtonAlternativeFood}"
-			Content="{x:Static resx:WinFormMainResource.AlternativeFood}" Grid.Column="1" Grid.Row="1" Height="64" HorizontalAlignment="Left" Margin="0,1,0,0"
+			Content="{x:Static resx:WinFormMainResource.AlternativeFood}" Grid.Column="1" Grid.Row="1" Height="65" HorizontalAlignment="Left" Margin="1,0,0,0"
 			Background="#6cb23f" Foreground="#fff"  FontSize="22"
-			 VerticalAlignment="Top" Width="228" />
+			 VerticalAlignment="Top" Width="234" />
 		</Grid>
 		<Grid Height="236" HorizontalAlignment="Left" Background="#e2e2e2"
 		 Margin="6,49,0,0" Name="grid6" VerticalAlignment="Top" Width="470">
