@@ -376,69 +376,6 @@ body {
         }
     }
 
-    /********************************************************/
-	/*					       Form                         */
-	/********************************************************/
-
-    .common-form {
-        border: 1px solid @border-light-color;
-        padding: 10px;
-        margin: 10px 1%;
-        background-color: #F4F4F4;
-        .border-radius(2px);
-        .box-shadow(1px 1px 2px #ccc);
-
-        .form-group {
-            margin: 0;
-
-            .button-icon {
-                margin: 0 5px 0 0;
-            }
-
-            .checkbox {
-                margin-left: 20px;
-            }
-        }
-
-        label {
-            font-weight: normal;
-            color: @font-color;
-            margin-top: 5px;
-            text-align: left;
-        }
-
-        [class*="col-"] {
-            padding: 5px 15px;
-        }
-
-        .form-control {
-            .border-radius(3px);
-            border: 1px solid #C8C8C8;
-            box-shadow: 1px 1px 3px 3px #F2F2F2;
-            height: 30px;
-            font-size: @font-size;
-            padding: 3px 12px 6px;
-        }
-
-        select.form-control {
-            padding: 4px 5px; 
-        }
-
-        textarea.form-control {
-            min-height: 80px;
-            resize: none;
-        }
-
-        .colons .control-label:after {
-            content: ":";
-        }
-
-        input[type="checkbox"] {
-            position: relative;
-            top: 2px;
-        }
-    }
-
     /* Empty Result*/
 
     .empty-result {
@@ -1130,4 +1067,67 @@ a {
 			margin-left: 24px;
 		}
 	}
+}
+
+/********************************************************/
+/*					       Form                         */
+/********************************************************/
+
+.common-form {
+    border: 1px solid @border-light-color;
+    padding: 10px;
+    margin: 10px 1%;
+    background-color: #F4F4F4;
+    .border-radius(2px);
+    .box-shadow(1px 1px 2px #ccc);
+
+    .form-group {
+        margin: 0;
+
+        .button-icon {
+            margin: 0 5px 0 0;
+        }
+
+        .checkbox {
+            margin-left: 20px;
+        }
+    }
+
+    label {
+        font-weight: normal;
+        color: @font-color;
+        margin-top: 5px;
+        text-align: left;
+    }
+
+    [class*="col-"] {
+        padding: 5px 15px;
+    }
+
+    .form-control {
+        .border-radius(3px);
+        border: 1px solid #C8C8C8;
+        box-shadow: 1px 1px 3px 3px #F2F2F2;
+        height: 30px;
+        font-size: @font-size;
+        padding: 3px 12px 6px;
+    }
+
+    select.form-control {
+        padding: 4px 5px; 
+    }
+
+    textarea.form-control {
+        min-height: 80px;
+        resize: none;
+    }
+
+    .colons .control-label:after {
+        content: ":";
+    }
+
+    input[type="checkbox"] {
+        position: relative;
+        top: 2px;
+    }
 }
