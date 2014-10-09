@@ -268,6 +268,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Món Chính.
+        /// </summary>
+        public static string MainFood {
+            get {
+                return ResourceManager.GetString("MainFood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tên / Name .
         /// </summary>
         public static string NameBilingual {

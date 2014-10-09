@@ -12,6 +12,7 @@ namespace NexFB.WinApp.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Windows;
@@ -34,7 +35,7 @@ namespace NexFB.WinApp.ViewModels
     public class OrderFoodViewModel : ViewModelBase
     {
         #region Fields
-
+        private static string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
         private static ObservableCollection<CommonKitchenOrder> _commonKitchenOrder = new ObservableCollection<CommonKitchenOrder>();
         private static ObservableCollection<CommonKitchenOrder> _allObservableLocation = new ObservableCollection<CommonKitchenOrder>();
         private static ObservableCollection<CommonKitchenOrder> _allObservableFood = new ObservableCollection<CommonKitchenOrder>();
@@ -57,6 +58,7 @@ namespace NexFB.WinApp.ViewModels
         private int _currentSelectedMainMenuId;
         private int _currentSelectedAlternativeMenuId;
         private string _locationName;
+        private bool _isVnmCulture;
 
         #endregion
 
@@ -65,6 +67,7 @@ namespace NexFB.WinApp.ViewModels
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Reviewed. Suppression is OK here.")]
         public OrderFoodViewModel()
         {
+            CurrentCulture();
             ChangeButtonBorder(0);
             GridUserVisibility = Constant.Hidden;
             AddCommand = new RelayCommand((x) => CanExecuteAddCommand(), (y) => ExecuteAddCommand());
@@ -93,6 +96,42 @@ namespace NexFB.WinApp.ViewModels
         #endregion
 
         #region Properties
+
+        public bool CheckMainFoodMenu
+        {
+            get
+            {
+                return CommonKitchenOrder.Except(AllObservationFood).ToList().Count == 0
+                && CommonKitchenOrder.Count == AllObservationFood.Count;
+            }
+        }
+
+        public bool CheckAlternativeFoodMenu
+        {
+            get
+            {
+                return CommonKitchenOrder.Except(AllObservationAlternativeFood).ToList().Count == 0
+                && CommonKitchenOrder.Count == AllObservationAlternativeFood.Count;
+            }
+        }
+
+        public bool CheckGroupMenu
+        {
+            get
+            {
+                return CommonKitchenOrder.Except(AllObservationGroup).ToList().Count == 0
+                && CommonKitchenOrder.Count == AllObservationGroup.Count;
+            }
+        }
+
+        public bool CheckLocationMenu
+        {
+            get
+            {
+                return CommonKitchenOrder.Except(AllObservationLocation).ToList().Count == 0
+                && CommonKitchenOrder.Count == AllObservationLocation.Count;
+            }
+        }
 
         public ObservableCollection<Order> GetWaitingMealOrder
         {
@@ -126,16 +165,7 @@ namespace NexFB.WinApp.ViewModels
                 List<FoodOrder> foods = this.KitchenService.GetAllFoodOrder(getAllFood);
                 if (foods != null)
                 {
-                    var fixedMeal = new CommonKitchenOrder()
-                    {
-                        ItemId = int.MaxValue,
-                        ItemName = Constant.FixedMeal,
-                        IsSelectedMealMenu = false,
-                        IsMainMenu = true
-                    };
-
                     List<CommonKitchenOrder> data = Mapper.Map<List<FoodOrder>, List<CommonKitchenOrder>>(foods);
-                    data.Insert(0, fixedMeal);
                     return new ObservableCollection<CommonKitchenOrder>(data);
                 }
 
@@ -192,6 +222,20 @@ namespace NexFB.WinApp.ViewModels
             {
                 _locationName = value;
                 OnPropertyChanged("LocationName");
+            }
+        }
+
+        public bool IsVnmCulture
+        {
+            get
+            {
+                return _isVnmCulture;
+            }
+
+            set
+            {
+                _isVnmCulture = value;
+                this.OnPropertyChanged("IsVnmCulture");
             }
         }
 
@@ -603,8 +647,8 @@ namespace NexFB.WinApp.ViewModels
         /// <returns>Boolean to check.</returns>
         public bool CanExecuteNumPadReleased()
         {
-            bool isCurrentMenu = CommonKitchenOrder.Except(AllObservationFood).ToList().Count == 0;
-            if (UserInGroup.Any(x => x.IsSelectedMemberInGroup) || (CommonKitchenOrder.Any(x => x.IsSelectedMealMenu) && isCurrentMenu))
+            bool isMainFoodMenu = CheckMainFoodMenu;
+            if (UserInGroup.Any(x => x.IsSelectedMemberInGroup) || (CommonKitchenOrder.Any(x => x.IsSelectedMealMenu) && isMainFoodMenu))
             {
                 ImageCancel = Constant.CancelImageActive;
                 return true;
@@ -702,8 +746,8 @@ namespace NexFB.WinApp.ViewModels
                 }
                 else
                 {
-                    bool isMainMenu = CommonKitchenOrder.Except(AllObservationFood).ToList().Count == 0;
-                    bool isAlternativeMenu = CommonKitchenOrder.Except(AllObservationAlternativeFood).ToList().Count == 0;
+                    bool isMainMenu = CheckMainFoodMenu;
+                    bool isAlternativeMenu = CheckAlternativeFoodMenu;
                     if (isMainMenu || isAlternativeMenu)
                     {
                         var currentSelectedItem = CommonKitchenOrder.Where(x => x.IsFocusedMealMenu && x.IsSelectedMealMenu).SingleOrDefault();
@@ -776,15 +820,13 @@ namespace NexFB.WinApp.ViewModels
         /// <param name="value">Value pass from user interface.</param>
         public void ExecuteMealMenuSelected(object value)
         {
-            bool isMainMenu = CommonKitchenOrder.Except(AllObservationFood).ToList().Count == 0;
-            bool isAlternativeMenu = CommonKitchenOrder.Except(AllObservationAlternativeFood).ToList().Count == 0;
-            bool isGroupMenu = CommonKitchenOrder.Except(AllObservationGroup).ToList().Count == 0;
-            bool isLocationMenu = CommonKitchenOrder.Except(AllObservationLocation).ToList().Count == 0;
             if (value != null)
             {
+                bool isMainFoodMenu = CheckMainFoodMenu;
+                bool isAlternativeFoodMenu = CheckAlternativeFoodMenu;
                 var itemId = (int)value;
                 var currentSelectedItem = CommonKitchenOrder.Where(x => x.ItemId == itemId).SingleOrDefault();
-                if (isMainMenu || isAlternativeMenu)
+                if (isMainFoodMenu || isAlternativeFoodMenu)
                 {
                     CommonKitchenOrder.ToList().ForEach(x => x.IsFocusedMealMenu = false);
                     currentSelectedItem.IsFocusedMealMenu = true;
@@ -792,7 +834,7 @@ namespace NexFB.WinApp.ViewModels
                     IsMenuFocused = true;
                     KitchenEmployeeInfo currentSelectedMember = UserInGroup.Where(x => x.IsSelectedMemberInGroup).SingleOrDefault();
 
-                    if (isMainMenu)
+                    if (isMainFoodMenu)
                     {
                         CurrentSelectedMainMenuId = itemId;
                         AddSelectedMenuItemToList(itemId, currentSelectedMember, 1, 0);
@@ -804,13 +846,13 @@ namespace NexFB.WinApp.ViewModels
                     }
                 }
 
-                if (isGroupMenu)
+                if (CheckGroupMenu)
                 {
                     currentSelectedItem.IsSelectedMealMenu = !currentSelectedItem.IsSelectedMealMenu;
                     AddMemberInGroupToGrid(currentSelectedItem);
                 }
 
-                if (isLocationMenu)
+                if (CheckLocationMenu)
                 {
                     CommonKitchenOrder.ToList().ForEach(x => x.IsSelectedMealMenu = false);
                     currentSelectedItem.IsSelectedMealMenu = true;
@@ -925,14 +967,13 @@ namespace NexFB.WinApp.ViewModels
                 if (EmployeeInfo == null)
                 {
                     EmployeeInfo = DuplicateUser.Where(x => x.IsChecked == true).FirstOrDefault();
-                    GetEmployeeInGroup(EmployeeInfo.SysId);
+                    GetEmployeeInGroup(EmployeeInfo.SysId, value);
                 }
                 else
                 {
-                    GetEmployeeInGroup(DuplicateUser.Where(x => x.IsChecked == true).FirstOrDefault().SysId);
+                    GetEmployeeInGroup(DuplicateUser.Where(x => x.IsChecked == true).FirstOrDefault().SysId, value);
                 }
-
-                CloseDialog(value);
+                ////CloseDialog(value);
             }
         }
 
@@ -954,7 +995,8 @@ namespace NexFB.WinApp.ViewModels
         /// Get Employee Belong to a Group.
         /// </summary>
         /// <param name="sysId">Employee Sys Id.</param>
-        public void GetEmployeeInGroup(int sysId)
+        /// <param name="value">Instance of EmployeeSelectionWindow.</param>
+        public void GetEmployeeInGroup(int sysId, object value = null)
         {
             var getEmployeeInGroupBySysIdCriteria = new GetEmployeeInGroupBySysIdCriteria() { SysId = sysId };
             EmployeeInGroup employeeInGroup = this.KitchenService.GetEmployeeInGroup(getEmployeeInGroupBySysIdCriteria);
@@ -972,17 +1014,32 @@ namespace NexFB.WinApp.ViewModels
                     var currentSelectedEmployee = UserInGroup.Where(x => x.SysId == sysId).SingleOrDefault();
                     currentSelectedEmployee.IsPlaceOrder = true;
                     currentSelectedEmployee.IsSelectedMemberInGroup = true;
+                    if (value != null)
+                    {
+                        CloseDialog(value);
+                    }
                 }
                 else
                 {
-                    KitchenEmployeeInfo employee = this.GetEmployeeBySysId(sysId);
-                    if (employee != null)
+                    if (!UserInGroup.Any(x => x.SysId == sysId))
                     {
-                        UserInGroup.ToList().ForEach(x => x.IsSelectedMemberInGroup = false);
-                        employee.IsSelectedMemberInGroup = true;
-                        employee.IsPlaceOrder = true;
-                        UserInGroup.Add(employee);
-                        GridUserVisibility = Constant.Visible;
+                        KitchenEmployeeInfo employee = this.GetEmployeeBySysId(sysId);
+                        if (employee != null)
+                        {
+                            UserInGroup.ToList().ForEach(x => x.IsSelectedMemberInGroup = false);
+                            employee.IsSelectedMemberInGroup = true;
+                            employee.IsPlaceOrder = true;
+                            UserInGroup.Add(employee);
+                            GridUserVisibility = Constant.Visible;
+                            if (value != null)
+                            {
+                                CloseDialog(value);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Employee has already existed in the current order");
                     }
                 }
 
@@ -996,7 +1053,7 @@ namespace NexFB.WinApp.ViewModels
         /// <param name="currentSelectedItem">Current Selected member.</param>
         public void AddMemberInGroupToGrid(CommonKitchenOrder currentSelectedItem)
         {
-            if (CommonKitchenOrder.Except(AllObservationGroup).ToList().Count == 0)
+            if (CheckGroupMenu)
             {
                 if (currentSelectedItem.IsSelectedMealMenu)
                 {
@@ -1076,8 +1133,7 @@ namespace NexFB.WinApp.ViewModels
                 }
                 else
                 {
-                    bool isMainFoodMenu = CommonKitchenOrder.Except(AllObservationFood).ToList().Count == 0;
-                    if (isMainFoodMenu)
+                    if (CheckMainFoodMenu)
                     {
                         if (CurrentSelectedMainMenuId > 0)
                         {
@@ -1172,40 +1228,81 @@ namespace NexFB.WinApp.ViewModels
         /// <param name="currentSelectedEmployee">Menu color of Current Selected employee.</param>
         public void ChangeMenuColor(KitchenEmployeeInfo currentSelectedEmployee)
         {
-            bool isMainFoodMenu = CommonKitchenOrder.Except(AllObservationFood).ToList().Count == 0;
-            bool isAlternativeFoodMenu = CommonKitchenOrder.Except(AllObservationAlternativeFood).ToList().Count == 0;
+            bool isMainFoodMenu = CheckMainFoodMenu;
+            bool isAlternativeFoodMenu = CheckAlternativeFoodMenu;
             if (isMainFoodMenu || isAlternativeFoodMenu)
             {
+                AddFixedMenuToEmployee(currentSelectedEmployee, isMainFoodMenu);
                 CommonKitchenOrder.ToList().ForEach(x => { x.IsFocusedMealMenu = false; x.IsSelectedMealMenu = false; x.Quantity = 0; });
                 List<EmployeeOrderDetails> employeeOrderDetails = null;
-                if (isMainFoodMenu || isAlternativeFoodMenu)
+
+                if (isMainFoodMenu)
                 {
-                    if (isMainFoodMenu)
-                    {
-                        employeeOrderDetails = currentSelectedEmployee.ListMainMenuOrderDeatails;
-                    }
-                    else
-                    {
-                        employeeOrderDetails = currentSelectedEmployee.ListAlternativeMenuOrderDeatails;
-                    }
+                    employeeOrderDetails = currentSelectedEmployee.ListMainMenuOrderDeatails;
+                }
+                else
+                {
+                    employeeOrderDetails = currentSelectedEmployee.ListAlternativeMenuOrderDeatails;
+                }
 
-                    List<int> selectedMainMenu = employeeOrderDetails.Select(x => x.SelectedMenuItemId).ToList();
-                    List<CommonKitchenOrder> employeeMenus = CommonKitchenOrder.Where(x => selectedMainMenu.Contains(x.ItemId)).ToList();
-
-                    foreach (var menu in employeeMenus)
+                List<int> selectedMainMenu = employeeOrderDetails.Select(x => x.SelectedMenuItemId).ToList();
+                List<CommonKitchenOrder> employeeMenus = CommonKitchenOrder.Where(x => selectedMainMenu.Contains(x.ItemId)).ToList();
+                foreach (var menu in employeeMenus)
+                {
+                    foreach (var employeeDetail in employeeOrderDetails)
                     {
-                        foreach (var employeeDetail in employeeOrderDetails)
+                        if (menu.ItemId == employeeDetail.SelectedMenuItemId)
                         {
-                            if (menu.ItemId == employeeDetail.SelectedMenuItemId)
-                            {
-                                menu.Quantity = employeeDetail.SelectedMenuItemQuantity;
-                                menu.IsSelectedMealMenu = true;
-                            }
+                            menu.Quantity = employeeDetail.SelectedMenuItemQuantity;
+                            menu.IsSelectedMealMenu = true;
                         }
                     }
                 }
 
                 CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>(this.CommonKitchenOrder);
+            }
+        }
+
+        /// <summary>
+        /// Add current menu of employee to list.
+        /// </summary>
+        /// <param name="currentSelectedEmployee">Current selected employee.</param>
+        /// <param name="isMainFoodMenu">Is main or alternative menu.</param>
+        public void AddFixedMenuToEmployee(KitchenEmployeeInfo currentSelectedEmployee, bool isMainFoodMenu)
+        {
+            if (isMainFoodMenu)
+            {
+                var fixedMeal = new CommonKitchenOrder()
+                {
+                    ItemId = int.MaxValue,
+                    IsSelectedMealMenu = false,
+                    IsMainMenu = true
+                };
+
+                if (!CommonKitchenOrder.Any(x => x.ItemId == int.MaxValue))
+                {
+                    CheckExistingFixedMenu(currentSelectedEmployee, fixedMeal);
+                    CommonKitchenOrder.Insert(0, fixedMeal);
+                }
+                else
+                {
+                    CommonKitchenOrder currentSelectedMenu = CommonKitchenOrder.Where(x => x.ItemId == int.MaxValue).SingleOrDefault();
+                    CheckExistingFixedMenu(currentSelectedEmployee, currentSelectedMenu);
+                }
+
+                CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>(this.CommonKitchenOrder);
+            }
+        }
+
+        public void CheckExistingFixedMenu(KitchenEmployeeInfo currentSelectedEmployee, CommonKitchenOrder currentSelectedMenu)
+        {
+            if (string.IsNullOrEmpty(currentSelectedEmployee.MenuEngName) || string.IsNullOrEmpty(currentSelectedEmployee.MenuVnmName))
+            {
+                currentSelectedMenu.ItemName = WinFormMainResource.MainFood;
+            }
+            else
+            {
+                currentSelectedMenu.ItemName = IsVnmCulture ? currentSelectedEmployee.MenuVnmName : currentSelectedEmployee.MenuEngName;
             }
         }
 
@@ -1315,9 +1412,22 @@ namespace NexFB.WinApp.ViewModels
             int sumAlternativeOrder = listAlternativeOrder.Sum(x => x.SelectedMenuItemQuantity);
             int totalOrder = listMainOrder.Count + listAlternativeOrder.Count;
             string orderInfoSummary = string.Empty;
+            int dataLength = CheckOrderInfoDataLength(listMainOrder, listAlternativeOrder);
 
-            if (totalOrder > 5)
+            if (listMainOrder.Count > 0)
             {
+                orderInfoSummary += CombineDataOrderSummary(listMainOrder);
+            }
+
+            orderInfoSummary += " - ";
+            if (listAlternativeOrder.Count > 0)
+            {
+                orderInfoSummary += CombineDataOrderSummary(listAlternativeOrder);
+            }
+
+            if (orderInfoSummary.Count() > 100)
+            {
+                orderInfoSummary = string.Empty;
                 if (listAlternativeOrder.Count > 0)
                 {
                     if (listMainOrder.Count > 0)
@@ -1338,21 +1448,33 @@ namespace NexFB.WinApp.ViewModels
                     }
                 }
             }
-            else
-            {
-                if (listMainOrder.Count > 0)
-                {
-                    orderInfoSummary += CombineDataOrderSummary(listMainOrder);
-                }
-
-                orderInfoSummary += " - ";
-                if (listAlternativeOrder.Count > 0)
-                {
-                    orderInfoSummary += CombineDataOrderSummary(listAlternativeOrder);
-                }
-            }
 
             return orderInfoSummary;
+        }
+
+        /// <summary>
+        /// Check string length of general order info.
+        /// </summary>
+        /// <param name="listMainOrder">List main order.</param>
+        /// <param name="listAlternativeOrder">List alternative order.</param>
+        /// <returns>Number of characters.</returns>
+        public int CheckOrderInfoDataLength(List<EmployeeOrderDetails> listMainOrder, List<EmployeeOrderDetails> listAlternativeOrder)
+        {
+            int totalCharacter = 0;
+            List<string> mainOrderConcatenate = listMainOrder.Select(x => x.SelectedMenuItemName).ToList();
+            List<string> alternativeOrderConcatenate = listAlternativeOrder.Select(x => x.SelectedMenuItemName).ToList();
+
+            if (mainOrderConcatenate.Any())
+            {
+                totalCharacter += mainOrderConcatenate.Aggregate((x, y) => x += y).Count();
+            }
+
+            if (alternativeOrderConcatenate.Any())
+            {
+                totalCharacter += alternativeOrderConcatenate.Aggregate((x, y) => x += y).Count();
+            }
+
+            return totalCharacter;
         }
 
         /// <summary>
@@ -1388,6 +1510,18 @@ namespace NexFB.WinApp.ViewModels
             }
 
             return orderInfoSummary;
+        }
+
+        public void CurrentCulture()
+        {
+            if (string.IsNullOrEmpty(_defaultLanguage) || _defaultLanguage == Constant.DefaultCulture)
+            {
+                IsVnmCulture = true;
+            }
+            else
+            {
+                IsVnmCulture = false;
+            }
         }
 
         #endregion

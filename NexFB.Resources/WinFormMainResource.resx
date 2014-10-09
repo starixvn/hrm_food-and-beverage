@@ -186,6 +186,9 @@
   <data name="Main" xml:space="preserve">
     <value> Chính</value>
   </data>
+  <data name="MainFood" xml:space="preserve">
+    <value>Món Chính</value>
+  </data>
   <data name="NameBilingual" xml:space="preserve">
     <value>Tên / Name </value>
   </data>

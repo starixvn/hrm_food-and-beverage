@@ -90,7 +90,7 @@
 			</Grid>
 			<Grid Background="#E2E2E2" HorizontalAlignment="Left" Margin="0,63,0,0" Name="grid9" VerticalAlignment="Top" Width="462">
 				<ListBox ItemsSource="{Binding Path=UserInGroup}" Name="employeeOrder"
-				Style="{StaticResource CustomLBStyle}" Margin="2,3,3,2" BorderThickness="0">
+				Style="{StaticResource CustomLBStyle}" Margin="2,3,3,1" BorderThickness="0">
 					<ListBox.ItemContainerStyle>
 						<Style TargetType="ListBoxItem">
 							<Setter Property="Padding" Value="0"/>

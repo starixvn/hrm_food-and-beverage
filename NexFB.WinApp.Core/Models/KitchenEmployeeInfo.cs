@@ -34,18 +34,14 @@ namespace NexFB.WinApp.Core.Models
         private string _code;
         private string _fullName;
         private string _nickName;
-
         private int _menuId;
         private string _menuEngName;
         private string _menuVnmName;
-
         private int _departmentId;
         private string _departmentName;
-
         private int _locationId;
         private string _locationEngName;
         private string _locationVnmName;
-
         private bool _isVegetarian;
         private int _quantity;
 

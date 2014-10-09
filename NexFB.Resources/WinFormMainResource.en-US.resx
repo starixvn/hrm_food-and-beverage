@@ -180,6 +180,9 @@
   <data name="Main" xml:space="preserve">
     <value> Main</value>
   </data>
+  <data name="MainFood" xml:space="preserve">
+    <value>Main Food</value>
+  </data>
   <data name="NameBilingual" xml:space="preserve">
     <value>Tên / Name</value>
   </data>
