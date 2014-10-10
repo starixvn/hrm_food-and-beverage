@@ -136,7 +136,7 @@ notificationFactory) {
 					return angular.copy($scope.unitOptions);
 				}
 			},
-			windowClass: "modal-confirm-center food-menu-modal"
+			windowClass: "modal-confirm-center side-dish-modal"
 		});
 
 		$scope.modalInstance.result.then(function (allInfoSideDish) {
