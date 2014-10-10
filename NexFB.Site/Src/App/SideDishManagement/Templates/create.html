@@ -6,23 +6,23 @@
 <div class="modal-body side-dish-body-modal">
     <form class="form-horizontal col-sm-11" role="form">
     <div class="form-group required">
-        <label class="col-sm-3 control-label" data-translate="Code">
+        <label class="col-sm-4 control-label" data-translate="Code">
         </label>
-        <div class="col-sm-9 field">
+        <div class="col-sm-8 field">
             <input type="text" class="form-control" ng-model="sideDish.foodCode" required />
         </div>
     </div>
     <div class="form-group required">
-        <label class="col-sm-3 control-label" data-translate="FoodItem">
+        <label class="col-sm-4 control-label" data-translate="FoodItem">
         </label>
-        <div class="col-sm-9 field">
+        <div class="col-sm-8 field">
             <input type="text" class="form-control" ng-model="sideDish.foodVnmName" required />
         </div>
     </div>
     <div class="form-group required">
-        <label class="col-sm-3 control-label" data-translate="Unit">
+        <label class="col-sm-4 control-label" data-translate="Unit">
         </label>
-        <div class="col-sm-4 field">
+        <div class="col-sm-5 field">
             <select ng-model="sideDish.unitId" ng-options="opt.UnitId as opt.UnitVnmName for opt in unitOptions"
                 required class="form-control">
                 <option value="">-- {{"SelectUnit" | translate}} --</option>
@@ -30,17 +30,17 @@
         </div>
     </div>
     <div class="form-group required">
-        <label class="col-sm-3 control-label" data-translate="Price">
+        <label class="col-sm-4 control-label" data-translate="Price">
         </label>
-        <div class="col-sm-9 field">
+        <div class="col-sm-8 field">
             <input type="text" class="form-control" ng-model="sideDish.price" number-only="number"
                 required />
         </div>
     </div>
     <div class="form-group required">
-        <label class="col-sm-3 control-label" data-translate="EmployeeType">
+        <label class="col-sm-4 control-label" data-translate="EmployeeType">
         </label>
-        <div class="col-sm-4 field selectbox">
+        <div class="col-sm-5 field selectbox">
             <add-class-to-role-filter multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId"
                 helper-elements="all reset" item-label="EmployeeTypeName" tick-property="ticked"
                 max-labels="0" class="multi-select employee-type">
@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-3 control-label side-dish-active-label" data-translate="Active">
+        <label class="col-sm-4 control-label side-dish-active-label" data-translate="Active">
         </label>
         <div class="col-sm-8 field side-dish-active-div">
             <input type="checkbox" ng-model="sideDish.isActive" />
