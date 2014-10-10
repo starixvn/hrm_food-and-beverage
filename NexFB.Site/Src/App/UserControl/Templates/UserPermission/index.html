@@ -30,9 +30,12 @@
     <div class="form-group" name="multiSelectOption">
         <label data-translate="Role">
         </label>
-        <add-class-to-role-filter multi-select input-model="roleOptions" button-label="Name" helper-elements="all reset"
-            item-label="Name" tick-property="ticked" max-labels="0" class="manage-user-select">
+        <div class="sel-role">
+            <add-class-to-role-filter multi-select input-model="roleOptions" button-label="Name"
+            helper-elements="all reset" item-label="Name" tick-property="ticked" max-labels="0"
+            class="manage-user-select">
                 </add-class-to-role-filter>
+        </div>        
     </div>
     <div class="form-group">
         <button class="button" ng-click="query(filter)" ng-disabled="disabledSubmitButton"
@@ -40,17 +43,10 @@
         </button>
     </div>
     </form>
-    <table class="row table table-bordered table-striped" id="data" >
+    <table class="row table table-bordered table-striped" id="data">
         <thead>
             <tr class="header-table">
                 <th colspan="8">
-                    <div class="pull-left table-entries">
-                        <span data-translate="Show"></span>
-                        <select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
-                            ng-options="entry for entry in entries">
-                        </select>
-                        <span data-translate="entries"></span>
-                    </div>
                     <input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
                 </th>
             </tr>
@@ -105,12 +101,17 @@
                 </td>
             </tr>
         </tbody>
-		<tfoot>
-			<tr>
-				<td colspan="8" class="paging">
-					<pagination-bar></pagination-bar>
-				</td>
-			</tr>
-		</tfoot>
+        <tfoot>
+            <tr>
+                <td colspan="8" class="paging">
+                    <span data-translate="Show"></span>
+                    <select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
+                        ng-options="entry for entry in entries">
+                    </select>
+                    <span data-translate="entries"></span>
+                    <pagination-bar></pagination-bar>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>

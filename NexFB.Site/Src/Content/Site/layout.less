@@ -18,6 +18,10 @@ body {
     margin-top: 13% !important;
 }
 
+a:focus {
+	outline: none;
+}
+
 .container-fluid.page {
     width: 100%;
     min-width: 760px;
@@ -547,12 +551,15 @@ a {
 	}
 
     tfoot td.paging {
-        padding: 3px;
-		background: #c0c0c0;
+		background-color: #fff;
+		color: #666;
+		padding: 3px 3px 3px 7px;
 
 		select {
-			box-shadow: 1px 1px 3px 3px #d1d1d1;
+			height: 24px;
+			margin-top: 2px;
 		}
+
         .custom-paging {
             margin: 0;
 

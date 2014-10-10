@@ -9,7 +9,7 @@ mealPlanningManagementModule.directive('mealPlanningMultiSelect', function () {
 				iElement.trigger("chosen:updated");
 			});
 
-			iElement.chosen({ width: "95%" }).change(function (event, params) {
+			iElement.chosen({ width: "100%" }).change(function (event, params) {
 				var index = '';
 
 				if (params.selected) {
