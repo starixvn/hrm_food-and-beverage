@@ -79,7 +79,8 @@ appModule.factory('commonFactory',
 			for (var attr in item) {
 				var childItem = item[attr];
 
-				if (childItem != null) {
+				if (childItem != null && attr.toLowerCase().indexOf('id') === -1 &&
+						attr.toLowerCase().indexOf('index') === -1 && attr.toLowerCase().indexOf('$$hashKey') === -1) {
 					if (typeof (childItem) === 'object') {
 						var exist = checkAllItemRecursion(childItem);
 
