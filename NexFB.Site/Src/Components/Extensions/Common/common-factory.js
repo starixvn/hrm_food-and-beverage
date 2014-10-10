@@ -102,6 +102,28 @@ appModule.factory('commonFactory',
 		// init the filtered items
 		$scope.search = function () {
 			if (dataPagination && dataPagination !== 'null') {
+				// declare function indexOf to IE
+				/* jshint freeze:false */
+				if (!Array.prototype.indexOf) {
+					Array.prototype.indexOf = function (elem, startFrom) {
+						startFrom = startFrom || 0;
+
+						if (startFrom > this.length) {
+							return -1;
+						}
+
+						for (var i = 0; i < this.length; i++) {
+							if (this[i] === elem && startFrom <= i) {
+								return i;
+							} else if (this[i] === elem && startFrom > i) {
+								return -1;
+							}
+						}
+
+						return -1;
+					};
+				}
+
 				$scope.filteredItems = $filter('filter')(dataPagination, function (item) {
 					return checkAllItemRecursion(item);
 				});

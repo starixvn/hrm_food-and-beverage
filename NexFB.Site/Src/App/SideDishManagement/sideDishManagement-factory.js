@@ -50,9 +50,13 @@ sideDishManagementModule.factory('sideDishUtilities', ['notificationFactory', fu
 				valid = false;
 				notificationFactory.error('UnitRequire');
 			}
+			if (!sideDish.foodEngName) {
+				valid = false;
+				notificationFactory.error('FoodEngNameRequire');
+			}
 			if (!sideDish.foodVnmName) {
 				valid = false;
-				notificationFactory.error('ItemRequire');
+				notificationFactory.error('FoodVnmNameRequire');
 			}
 			if (!sideDish.foodCode) {
 				valid = false;

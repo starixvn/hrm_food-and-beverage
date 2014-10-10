@@ -214,4 +214,13 @@
 		<Setting Key="FoodAdd_DeleteByFoodID" SpName="FoodAdd_DeleteByFoodID" DbName="NexFB" Plain="0" >
 		</Setting>
 	</Function>
+	<Function Name="SideDishManagement">
+		<Setting Key="FoodAdd_GetItem" SpName="FoodAdd;_GetItem" DbName="NexFB" Plain="0" >
+			<Mapping DataField="AltMenuID" ObjectProperty="AlternativeMenuId"/>
+			<Mapping DataField="AltMenuCode" ObjectProperty="AlternativeMenuCode"/>
+			<Mapping DataField="AltMenuVNMName" ObjectProperty="AlternativeMenuVnmName"/>
+			<Mapping DataField="AltMenuEngName" ObjectProperty="AlternativeMenuEngName"/>
+			<Mapping DataField="AltMenuPhoto" ObjectProperty="AlternativeMenuPhoto"/>
+		</Setting>
+	</Function>
 </Functions>

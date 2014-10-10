@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implement\AlternativeMenuService.cs" />
     <Compile Include="Implement\FoodItemService.cs" />
     <Compile Include="Implement\FoodMenuService.cs" />
     <Compile Include="Implement\KitchenService.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Implement\MealRegistrationService.cs" />
     <Compile Include="Implement\OrderingService.cs" />
     <Compile Include="Implement\SideDishService.cs" />
+    <Compile Include="Interface\IAlternativeMenuService.cs" />
     <Compile Include="Interface\IFoodItemService.cs" />
     <Compile Include="Interface\IFoodMenuService.cs" />
     <Compile Include="Interface\IKitchenService.cs" />

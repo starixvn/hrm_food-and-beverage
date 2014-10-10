@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implement\AlternativeMenuRepository.cs" />
     <Compile Include="Implement\CommonRepository.cs" />
     <Compile Include="Implement\FoodItemRepository.cs" />
     <Compile Include="Implement\FoodMenuRepository.cs">
@@ -69,6 +70,7 @@
     <Compile Include="Implement\MealRegistrationRepository.cs" />
     <Compile Include="Implement\OrderingRepository.cs" />
     <Compile Include="Implement\SideDishRepository.cs" />
+    <Compile Include="Interface\IAlternativeMenuRepository.cs" />
     <Compile Include="Interface\ICommonRepository.cs" />
     <Compile Include="Interface\IFoodItemRepository.cs" />
     <Compile Include="Interface\IFoodMenuRepository.cs" />

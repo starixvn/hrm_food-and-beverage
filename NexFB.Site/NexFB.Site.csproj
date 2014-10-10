@@ -179,6 +179,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\BundleExtensions.cs" />
     <Compile Include="App_Start\ExceptionHandlingAttribute.cs" />
+    <Compile Include="Controllers\API\AlternativeMenuController.cs" />
     <Compile Include="Controllers\API\BaseController.cs" />
     <Compile Include="Controllers\API\CommonController.cs" />
     <Compile Include="Controllers\API\OrderMemberController.cs" />
@@ -205,6 +206,12 @@
     <Content Include="App_Data\SpNames.xml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Src\App\AlternativeMenuManagement\alternativeMenuManagement-controller.js" />
+    <Content Include="Src\App\AlternativeMenuManagement\alternativeMenuManagement-factory.js" />
+    <Content Include="Src\App\AlternativeMenuManagement\alternativeMenuManagement-route.js" />
+    <Content Include="Src\App\AlternativeMenuManagement\Templates\create.html" />
+    <Content Include="Src\App\AlternativeMenuManagement\Templates\edit.html" />
+    <Content Include="Src\App\AlternativeMenuManagement\Templates\index.html" />
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration-directive.js" />
     <Content Include="Src\App\EmployeeRegistration\Templates\modalConfirmApplyTemplate.html" />
     <Content Include="Src\App\EmployeeRegistration\Templates\registerMeal.html" />
@@ -359,6 +366,7 @@
     <Content Include="Src\App\FoodItemManagement\foodItemManagement.less" />
     <Content Include="Src\App\FoodMenuManagement\foodMenuManagement.less" />
     <Content Include="Src\App\MealPlanningManagement\mealPlanningManagement.less" />
+    <Content Include="Src\App\AlternativeMenuManagement\alternativeMenuManagement.less" />
     <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />

@@ -116,6 +116,7 @@ notificationFactory) {
 		var updatedSideDish = function (sideDish, updatedSideDish) {
 			sideDish.FoodCode = updatedSideDish.FoodCode;
 			sideDish.FoodVnmName = updatedSideDish.FoodVnmName;
+			sideDish.FoodEngName = updatedSideDish.FoodEngName;
 			sideDish.IsActive = updatedSideDish.IsActive;
 			sideDish.Price = isNaN(updatedSideDish.Price) ? parseInt(updatedSideDish.Price.replace(/\,/g, '')) : updatedSideDish.Price;
 			sideDish.Unit = updatedSideDish.Unit;
@@ -278,6 +279,7 @@ function ($scope, $modalInstance, unitOptions, employeeTypesOption, foodMenuUtil
 	$scope.sideDish = {
 		foodCode: '',
 		foodVnmName: '',
+		foodEngName: '',
 		unitId: '',
 		isActive: false,
 		price:'',
@@ -395,6 +397,7 @@ function ($scope, $modalInstance, sideDish, unitOptions, employeeTypesOption, fo
 			foodId: sideDish.FoodId,
 			foodCode: sideDish.FoodCode,
 			foodVnmName: sideDish.FoodVnmName,
+			foodEngName: sideDish.FoodEngName,
 			isActive: sideDish.IsActive,
 			unitId: sideDish.Unit.UnitId,
 			price: sideDish.Price,

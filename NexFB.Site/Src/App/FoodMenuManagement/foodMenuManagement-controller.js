@@ -418,6 +418,9 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 					$scope.$broadcast("resetFoodMenu");
 					notificationFactory.success("DataChangeSuccessfully");
 				}
+				else if (response.Code === 101) {
+					notificationFactory.error("DuplicateFoodMenuMessage");
+				}
 				else {
 					notificationFactory.error("", response.Message);
 				}
