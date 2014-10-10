@@ -504,8 +504,8 @@
   <data name="AllMeals" xml:space="preserve">
     <value>All meals</value>
   </data>
-  <data name="AllType" xml:space="preserve">
-    <value>All type</value>
+  <data name="AllTypes" xml:space="preserve">
+    <value>All types</value>
   </data>
   <data name="FoodMenuNameVnm" xml:space="preserve">
     <value>Menu name (Viet)</value>
@@ -538,10 +538,7 @@
     <value>The Menu (Viet) field is required!</value>
   </data>
   <data name="DuplicateFoodMenuMessage" xml:space="preserve">
-    <value>System could not create the menu because there is another menu which has the same meal, meal type (Veg. or Non-Veg.) and employee type.</value>
-  </data>
-  <data name="DuplicateFoodMenuUpdateMessage" xml:space="preserve">
-    <value>System could not update the menu because there is another menu which has the same meal, meal type (Veg. or Non-Veg.) and employee type.</value>
+    <value>System could not create or update the menu because there is another menu which has the same meal, meal type (Veg. or Non-Veg.) and employee type.</value>
   </data>
   <data name="ShortEng" xml:space="preserve">
     <value>(Eng)</value>
@@ -605,5 +602,8 @@
   </data>
   <data name="EditSideDish" xml:space="preserve">
     <value>Edit Side Dish</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
 </root>

@@ -3,6 +3,6 @@
 
 var foodMenuManagementModule = angular.module("foodMenuManagementModule", ['ngRoute'])
 .config(['$routeProvider', function ($routeProvider) {
-	$routeProvider.when('/FoodMenuManagement/Index',
+	$routeProvider.when('/MenuManagement/Index',
 		{ templateUrl: '/src/app/FoodMenuManagement/templates/index.html', controller: 'FoodMenuManagementController' });
 } ]);

@@ -169,11 +169,11 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All type.
+        ///   Looks up a localized string similar to All types.
         /// </summary>
-        public static string AllType {
+        public static string AllTypes {
             get {
-                return ResourceManager.GetString("AllType", resourceCulture);
+                return ResourceManager.GetString("AllTypes", resourceCulture);
             }
         }
         
@@ -439,20 +439,11 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to System could not create the menu because there is another menu which has the same meal, meal type (Veg. or Non-Veg.) and employee type..
+        ///   Looks up a localized string similar to System could not create or update the menu because there is another menu which has the same meal, meal type (Veg. or Non-Veg.) and employee type..
         /// </summary>
         public static string DuplicateFoodMenuMessage {
             get {
                 return ResourceManager.GetString("DuplicateFoodMenuMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to System could not update the menu because there is another menu which has the same meal, meal type (Veg. or Non-Veg.) and employee type..
-        /// </summary>
-        public static string DuplicateFoodMenuUpdateMessage {
-            get {
-                return ResourceManager.GetString("DuplicateFoodMenuUpdateMessage", resourceCulture);
             }
         }
         
@@ -1344,6 +1335,15 @@ namespace NexFB.Resources {
         public static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

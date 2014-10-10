@@ -131,28 +131,7 @@ ErrorFactory) {
 			windowClass: "modal-confirm-center food-menu-modal"
 		});
 
-		$scope.modalInstance.result.then(function (foodMenu) {
-			foodMenuFactory.insertFoodMenu(foodMenu).success(function (response) {
-				$scope.submitted = false;
-				$scope.disabledSubmitButton = false;
-
-				if (response.IsSuccessful === true) {
-					notificationFactory.success("DataChangeSuccessfully");
-				}
-				else if (response.Code === 101) {
-					notificationFactory.error("DuplicateFoodMenuMessage");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
-			});
+		$scope.modalInstance.result.then(function () {
 		})['finally'](function () {
 			getAllFoodMenu(null, null, null);
 			$scope.modalInstance = '';
@@ -167,7 +146,7 @@ ErrorFactory) {
 		foodMenu.MenuEngName = changedFoodMenu.MenuEngName;
 		foodMenu.IsVegetarian = changedFoodMenu.IsVegetarian;
 		foodMenu.IsActive = changedFoodMenu.IsActive;
-		foodMenu.PricePerMeal = isNaN(changedFoodMenu.PricePerMeal) ? 
+		foodMenu.PricePerMeal = isNaN(changedFoodMenu.PricePerMeal) ?
 									parseInt(changedFoodMenu.PricePerMeal.replace(/\,/g, ''))
 									: changedFoodMenu.PricePerMeal;
 		foodMenu.PricePerDay = isNaN(changedFoodMenu.PricePerDay) ?
@@ -200,26 +179,8 @@ ErrorFactory) {
 			windowClass: "modal-confirm-center food-menu-modal"
 		});
 
-		$scope.modalInstance.result.then(function (objFood) {
-			foodMenuFactory.updateFoodMenu(objFood.editedFoodMenu).success(function (response) {
-				if (response.IsSuccessful === true) {
-					updateChangedFoodMenu(foodMenu, objFood.foodMenu);
-					notificationFactory.success("DataChangeSuccessfully");
-				}
-				else if (response.Code === 101) {
-					notificationFactory.error("DuplicateFoodMenuUpdateMessage");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
-			});
+		$scope.modalInstance.result.then(function (changedFoodMenu) {
+			updateChangedFoodMenu(foodMenu, changedFoodMenu);
 		})['finally'](function () {
 			$scope.modalInstance = '';
 		});
@@ -264,10 +225,11 @@ ErrorFactory) {
 					foodMenu.IsActive = !newFoodMenu.IsActive;
 
 					if (response.Code === 101) {
-						notificationFactory.error("DuplicateFoodMenuUpdateMessage");
+						notificationFactory.error("DuplicateFoodMenuMessage");
 					}
-
-					notificationFactory.error(keyMessage);
+					else {
+						notificationFactory.error(keyMessage);
+					}
 				}
 			}).error(function (response, status) {
 				if (status === 405) {
@@ -364,8 +326,8 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 		mealId: '',
 		employeeTypeId: '',
 		foodId: '',
-		pricePerMeal: '',
-		pricePerDay: '',
+		pricePerMeal: 0,
+		pricePerDay: 0,
 		rawFoodIds: ''
 	};
 
@@ -390,11 +352,40 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 		if (foodMenu) {
 			foodMenu.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
 			foodMenu.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
+
+			if (!foodMenu.pricePerMeal) {
+				foodMenu.pricePerMeal = 0;
+			}
+			if (!foodMenu.pricePerDay) {
+				foodMenu.pricePerDay = 0;
+			}
 		}
 
-		if (foodMenuUtilities.validateFoodMenu(foodMenu) === true) {
+		if (foodMenuUtilities.validateFoodMenu(foodMenu)) {
 			foodMenu.foodId = foodMenuUtilities.createFoodId(foodMenu.rawFoodIds);
-			$modalInstance.close(foodMenu);
+
+			foodMenuFactory.insertFoodMenu(foodMenu).success(function (response) {
+				$scope.submitted = false;
+				$scope.disabledSubmitButton = false;
+
+				if (response.IsSuccessful) {
+					notificationFactory.success("DataChangeSuccessfully");
+					$modalInstance.close();
+				}
+				else if (response.Code === 101) {
+					notificationFactory.error("DuplicateFoodMenuMessage");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("ErrorMessage");
+				}
+			});
 		}
 		else {
 			$scope.disabledSubmitButton = false;
@@ -410,6 +401,13 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 		if (foodMenu) {
 			foodMenu.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
 			foodMenu.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
+
+			if (!foodMenu.pricePerMeal) {
+				foodMenu.pricePerMeal = 0;
+			}
+			if (!foodMenu.pricePerDay) {
+				foodMenu.pricePerDay = 0;
+			}
 		}
 
 		if (foodMenuUtilities.validateFoodMenu(foodMenu) === true) {
@@ -446,9 +444,9 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 
 foodMenuManagementModule.controller('EditFoodMenuController',
 ['$scope', '$modalInstance', 'foodMenu', 'foodItems', 'mealsOption', 'employeeTypesOption',
-'foodMenuUtilities',
+'foodMenuUtilities', 'foodMenuFactory', 'notificationFactory', 'ErrorFactory',
 function ($scope, $modalInstance, foodMenu, foodItems, mealsOption, employeeTypesOption,
-foodMenuUtilities) {
+foodMenuUtilities, foodMenuFactory, notificationFactory, ErrorFactory) {
 	/*
 	** Declare variables.
 	*/
@@ -625,6 +623,13 @@ foodMenuUtilities) {
 		if (foodMenu) {
 			foodMenu.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
 			foodMenu.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
+
+			if (!foodMenu.PricePerMeal) {
+				foodMenu.PricePerMeal = 0;
+			}
+			if (!foodMenu.PricePerDay) {
+				foodMenu.PricePerDay = 0;
+			}
 		}
 
 		var editedFoodMenu = {
@@ -636,24 +641,38 @@ foodMenuUtilities) {
 			pricePerDay: foodMenu.PricePerDay,
 			isActive: foodMenu.IsActive,
 			mealId: foodMenu.mealId,
-			employeeTypeId: foodMenu.employeeTypeId
+			employeeTypeId: foodMenu.employeeTypeId,
+			foodId: foodMenuUtilities.createFoodId(foodMenu.rawFoodIds)
 		};
 
 		$scope.disabledSubmitButton = true;
 
-		if (foodMenuUtilities.validateFoodMenu(editedFoodMenu) === true) {
-			foodMenu.Meals = updateMeals(editedFoodMenu.mealId);
-			foodMenu.EmployeeTypes = updateEmployeeTypes(editedFoodMenu.employeeTypeId);
-			foodMenu.FoodItems = updateFoodItems(foodMenu.rawFoodIds);
-			foodMenu.NumberFoodItems = foodMenu.rawFoodIds.length;
-			editedFoodMenu.foodId = foodMenuUtilities.createFoodId(foodMenu.rawFoodIds);
+		if (foodMenuUtilities.validateFoodMenu(editedFoodMenu)) {
 
-			var objFood = {
-				editedFoodMenu: editedFoodMenu,
-				foodMenu: foodMenu
-			};
+			foodMenuFactory.updateFoodMenu(editedFoodMenu).success(function (response) {
+				if (response.IsSuccessful) {
+					foodMenu.Meals = updateMeals(editedFoodMenu.mealId);
+					foodMenu.EmployeeTypes = updateEmployeeTypes(editedFoodMenu.employeeTypeId);
+					foodMenu.FoodItems = updateFoodItems(foodMenu.rawFoodIds);
+					foodMenu.NumberFoodItems = foodMenu.rawFoodIds.length;
 
-			$modalInstance.close(objFood);
+					notificationFactory.success("DataChangeSuccessfully");
+					$modalInstance.close(foodMenu);
+				}
+				else if (response.Code === 101) {
+					notificationFactory.error("DuplicateFoodMenuMessage");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("ErrorMessage");
+				}
+			});
 		}
 		else {
 			$scope.disabledSubmitButton = false;

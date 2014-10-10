@@ -177,24 +177,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities) {
 			windowClass: "modal-confirm-center"
 		});
 
-		$scope.modalInstance.result.then(function (newMealPlanning) {
-			mealPlanningFactory.insertMealPlanning(newMealPlanning)
-			.success(function (response) {
-				if (response.IsSuccessful === true) {
-					notificationFactory.success("DataChangeSuccessfully");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
-			});
-		})['finally'](function () {
+		$scope.modalInstance.result.then()['finally'](function () {
 			var fromDate = angular.copy($scope.filter.startDate).toDateString(),
 					toDate = angular.copy($scope.filter.endDate).toDateString(),
 					mealId = foodMenuUtilities.getMealId($scope.mealsOption),
@@ -231,25 +214,9 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities) {
 		});
 
 		$scope.modalInstance.result.then(function (informationMealPlanning) {
-			mealPlanningFactory.updateMealPlanning(informationMealPlanning.updateMealPlanning)
-			.success(function (response) {
-				if (response.IsSuccessful === true) {
-					udpatedData(informationMealPlanning.updateMealPlanning, informationMealPlanning.foodItems);
-					notificationFactory.success("DataChangeSuccessfully");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
-			})['finally'](function () {
-				$scope.modalInstance = '';
-			});
+			udpatedData(informationMealPlanning.updateMealPlanning, informationMealPlanning.foodItems);
+		})['finally'](function () {
+			$scope.modalInstance = '';
 		});
 	};
 
@@ -450,7 +417,27 @@ menuOptions, commonFactory, mealPlanningUtilities, currentMealPlanning) {
 		}
 
 		if (mealPlanningUtilities.validateMealPlanning($scope.mealPlanning)) {
-			$modalInstance.close($scope.mealPlanning);
+			mealPlanningFactory.insertMealPlanning($scope.mealPlanning)
+			.success(function (response) {
+				$scope.disabledSubmitButton = false;
+
+				if (response.IsSuccessful === true) {
+					notificationFactory.success("DataChangeSuccessfully");
+					$modalInstance.close();
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				$scope.disabledSubmitButton = false;
+
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("ErrorMessage");
+				}
+			});
 		}
 		else {
 			$scope.disabledSubmitButton = false;
@@ -617,7 +604,27 @@ mealPlanningUtilities, ErrorFactory, mealTimesheets, notificationFactory) {
 			};
 
 			if (mealPlanningUtilities.validateMealPlanning(updateMealPlanning)) {
-				$modalInstance.close(informationMealPlanning);
+				mealPlanningFactory.updateMealPlanning(informationMealPlanning.updateMealPlanning)
+				.success(function (response) {
+					$scope.disabledSubmitButton = false;
+
+					if (response.IsSuccessful === true) {
+						notificationFactory.success("DataChangeSuccessfully");
+						$modalInstance.close(informationMealPlanning);
+					}
+					else {
+						notificationFactory.error("", response.Message);
+					}
+				}).error(function (response, status) {
+					$scope.disabledSubmitButton = false;
+
+					if (status === 405) {
+						ErrorFactory.errorHandle(status);
+					}
+					else {
+						notificationFactory.error("ErrorMessage");
+					}
+				});
 			}
 			else {
 				$scope.disabledSubmitButton = false;

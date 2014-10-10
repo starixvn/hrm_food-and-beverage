@@ -7,22 +7,22 @@
 
 	<div class="modal-body food-menu-body-modal">
         <form class="form-horizontal form-menuManagement" role="form">
-            <div class="form-group">
-                <label class="col-sm-1 text-right short-text">{{"FoodMenuVnm" | translate}}</label>
+            <div class="form-group required">
+                <label class="col-sm-1 text-right short-text control-label">{{"FoodMenuVnm" | translate}}</label>
                 <div class="col-sm-2 field">
                     <input type="text" class="form-control" ng-model="foodMenu.MenuVnmName" />
                 </div>
-                <label class="col-sm-1 text-right short-text">{{"ShortEng" | translate}}</label>
+                <label class="col-sm-1 text-right short-text control-label">{{"ShortEng" | translate}}</label>
                 <div class="col-sm-2 field">
                     <input type="text" class="form-control" ng-model="foodMenu.MenuEngName" />
                 </div>
-                <label class="col-sm-1 text-right short-text">{{"Meal" | translate}}</label>
+                <label class="col-sm-1 text-right short-text control-label">{{"Meal" | translate}}</label>
                 <div class="col-sm-2 field selectbox">
 					<add-class-to-role-filter multi-select input-model="mealsOption" button-label="MealEngName" helper-elements="all reset"
 						item-label="MealEngName" tick-property="ticked" max-labels="0" class="multi-select">
 					</add-class-to-role-filter>
                 </div>
-                <label class="col-sm-1 text-right long-text">{{"EmployeeType" | translate}}</label>
+                <label class="col-sm-1 text-right long-text control-label">{{"EmployeeType" | translate}}</label>
                 <div class="col-sm-2 field selectbox">
 					<add-class-to-role-filter multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId" helper-elements="all reset"
 						item-label="EmployeeTypeName" tick-property="ticked" max-labels="0" class="multi-select employee-type">
