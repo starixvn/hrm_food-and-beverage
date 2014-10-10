@@ -233,7 +233,7 @@
     <Content Include="Src\App\SideDishManagement\sideDishManagement-controller.js" />
     <Content Include="Src\App\SideDishManagement\sideDishManagement-factory.js" />
     <Content Include="Src\App\SideDishManagement\sideDishManagement-route.js" />
-    <None Include="Src\App\SideDishManagement\sideDishManagement.less" />
+    <Content Include="Src\App\SideDishManagement\sideDishManagement.less" />
     <Content Include="Src\App\SideDishManagement\Templates\create.html" />
     <Content Include="Src\App\SideDishManagement\Templates\edit.html" />
     <Content Include="Src\App\SideDishManagement\Templates\index.html" />
