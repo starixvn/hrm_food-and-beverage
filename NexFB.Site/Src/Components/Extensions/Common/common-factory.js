@@ -41,7 +41,7 @@ appModule.factory('commonFactory',
 
 	common.tablePagination = function ($scope, dataPagination, itemPerPage) {
 		/**
-		* Scope Variable. 
+		* Scope Variable.
 		*/
 		$scope.gap = 7;
 		$scope.filteredItems = [];
@@ -72,15 +72,15 @@ appModule.factory('commonFactory',
 				return true;
 			}
 
-			return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+			return haystack.toLowerCase().search(needle.toLowerCase()) !== -1;
 		};
 
 		var checkAllItemRecursion = function (item) {
 			for (var attr in item) {
 				var childItem = item[attr];
 
-				if (childItem != null && attr.toLowerCase().indexOf('id') === -1 &&
-						attr.toLowerCase().indexOf('index') === -1 && attr.toLowerCase().indexOf('$$hashKey') === -1) {
+				if (childItem != null && attr.toLowerCase().search('id') === -1 &&
+						attr.toLowerCase().search('index') === -1 && attr.toLowerCase().search('hash') === -1) {
 					if (typeof (childItem) === 'object') {
 						var exist = checkAllItemRecursion(childItem);
 
@@ -102,28 +102,6 @@ appModule.factory('commonFactory',
 		// init the filtered items
 		$scope.search = function () {
 			if (dataPagination && dataPagination !== 'null') {
-				// declare function indexOf to IE
-				/* jshint freeze:false */
-				if (!Array.prototype.indexOf) {
-					Array.prototype.indexOf = function (elem, startFrom) {
-						startFrom = startFrom || 0;
-
-						if (startFrom > this.length) {
-							return -1;
-						}
-
-						for (var i = 0; i < this.length; i++) {
-							if (this[i] === elem && startFrom <= i) {
-								return i;
-							} else if (this[i] === elem && startFrom > i) {
-								return -1;
-							}
-						}
-
-						return -1;
-					};
-				}
-
 				$scope.filteredItems = $filter('filter')(dataPagination, function (item) {
 					return checkAllItemRecursion(item);
 				});
