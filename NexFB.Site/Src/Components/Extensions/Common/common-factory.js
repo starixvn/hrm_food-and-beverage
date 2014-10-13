@@ -79,9 +79,16 @@ appModule.factory('commonFactory',
 			for (var attr in item) {
 				var childItem = item[attr];
 
-				if (childItem != null && attr.toLowerCase().search('id') === -1 &&
-						attr.toLowerCase().search('index') === -1 && attr.toLowerCase().search('hash') === -1 &&
-							/^[a-zA-Z0-9- ]*$/.test(attr) === true) {
+				if (childItem === 95) {
+					var a = 1;
+				}
+
+				if (childItem != null && /^[a-zA-Z0-9]*$/.test(attr) === true && 
+					attr.toLowerCase().search('id') === -1 && attr.toLowerCase().search('length') === -1 &&
+					attr.toLowerCase().search('index') === -1 && attr.toLowerCase().search('hash') === -1 &&
+					attr.toLowerCase().search('time') === -1 && attr.toLowerCase().search('date') === -1 &&
+					attr.toLowerCase().search('ModifiedBy') === -1 && attr.toLowerCase().search('CreatedBy') === -1) {
+	
 					if (typeof (childItem) === 'object') {
 						var exist = checkAllItemRecursion(childItem);
 
