@@ -32,11 +32,13 @@ namespace NexFB.Core.Constants
 
         public const string SummaryByCompanyReport = "SummaryByCompany";
 
-        public const string Administrator = "Admin";
+        public const string UserManagement = "UserManagement";
 
         public const string ManageRole = "ManageRole";
 
         public const string ManageUser = "ManageUser";
+
+        public const string MealManagement = "MealManagement";
 
         public const string FoodItemManagement = "FoodItemManagement";
 
@@ -45,5 +47,7 @@ namespace NexFB.Core.Constants
         public const string MealPlanningManagement = "MealPlanningManagement";
 
         public const string SideDishManagement = "SideDishManagement";
+
+        public const string AlternativeMenuManagement = "AlternativeMenuManagement";
     }
 }

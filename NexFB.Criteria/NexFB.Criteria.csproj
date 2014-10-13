@@ -59,9 +59,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlternativeMenuManagement\ActivateAlternativeMenuCriteria.cs" />
+    <Compile Include="AlternativeMenuManagement\DeleteAlternativeMenuCriteria.cs" />
     <Compile Include="AlternativeMenuManagement\GetAllAlternativeMenuCriteria.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="AlternativeMenuManagement\InsertAlternativeMenuCriteria.cs" />
+    <Compile Include="AlternativeMenuManagement\UpdateAlternativeMenuCriteria.cs" />
     <Compile Include="Department\GetAllDepartmentCriteria.cs" />
     <Compile Include="Department\GetAllLocationCriteria.cs" />
     <Compile Include="Employee\GetAllEmployeeFunctionCriteria.cs" />

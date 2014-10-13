@@ -606,4 +606,28 @@
   <data name="String1" xml:space="preserve">
     <value />
   </data>
+  <data name="MenuCode" xml:space="preserve">
+    <value>Menu code</value>
+  </data>
+  <data name="MenuNameEng" xml:space="preserve">
+    <value>Menu name (Eng)</value>
+  </data>
+  <data name="AlternativeMenuManagement" xml:space="preserve">
+    <value>Alternative Menu Management</value>
+  </data>
+  <data name="CreateAlternativeMenu" xml:space="preserve">
+    <value>Create Alternative Menu</value>
+  </data>
+  <data name="MenuCodeRequire" xml:space="preserve">
+    <value>The Menu code field is required!</value>
+  </data>
+  <data name="MenuNameEngRequire" xml:space="preserve">
+    <value>The Menu name (Eng) field is required!</value>
+  </data>
+  <data name="MenuNameVietRequire" xml:space="preserve">
+    <value>The Menu name (Viet) field is required!</value>
+  </data>
+  <data name="EditAlternativeMenu" xml:space="preserve">
+    <value>Edit Alternative Menu</value>
+  </data>
 </root>

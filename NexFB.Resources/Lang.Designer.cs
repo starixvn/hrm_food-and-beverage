@@ -187,6 +187,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alternative Menu Management.
+        /// </summary>
+        public static string AlternativeMenuManagement {
+            get {
+                return ResourceManager.GetString("AlternativeMenuManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply.
         /// </summary>
         public static string Apply {
@@ -291,6 +300,15 @@ namespace NexFB.Resources {
         public static string ConfirmMessageUpdateOrder {
             get {
                 return ResourceManager.GetString("ConfirmMessageUpdateOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Alternative Menu.
+        /// </summary>
+        public static string CreateAlternativeMenu {
+            get {
+                return ResourceManager.GetString("CreateAlternativeMenu", resourceCulture);
             }
         }
         
@@ -444,6 +462,15 @@ namespace NexFB.Resources {
         public static string DuplicateFoodMenuMessage {
             get {
                 return ResourceManager.GetString("DuplicateFoodMenuMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Alternative Menu.
+        /// </summary>
+        public static string EditAlternativeMenu {
+            get {
+                return ResourceManager.GetString("EditAlternativeMenu", resourceCulture);
             }
         }
         
@@ -894,6 +921,51 @@ namespace NexFB.Resources {
         public static string Menu {
             get {
                 return ResourceManager.GetString("Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menu code.
+        /// </summary>
+        public static string MenuCode {
+            get {
+                return ResourceManager.GetString("MenuCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Menu code field is required!.
+        /// </summary>
+        public static string MenuCodeRequire {
+            get {
+                return ResourceManager.GetString("MenuCodeRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menu name (Eng).
+        /// </summary>
+        public static string MenuNameEng {
+            get {
+                return ResourceManager.GetString("MenuNameEng", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Menu name (Eng) field is required!.
+        /// </summary>
+        public static string MenuNameEngRequire {
+            get {
+                return ResourceManager.GetString("MenuNameEngRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Menu name (Viet) field is required!.
+        /// </summary>
+        public static string MenuNameVietRequire {
+            get {
+                return ResourceManager.GetString("MenuNameVietRequire", resourceCulture);
             }
         }
         

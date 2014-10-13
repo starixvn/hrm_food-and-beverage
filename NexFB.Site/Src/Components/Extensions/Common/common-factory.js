@@ -80,7 +80,8 @@ appModule.factory('commonFactory',
 				var childItem = item[attr];
 
 				if (childItem != null && attr.toLowerCase().search('id') === -1 &&
-						attr.toLowerCase().search('index') === -1 && attr.toLowerCase().search('hash') === -1) {
+						attr.toLowerCase().search('index') === -1 && attr.toLowerCase().search('hash') === -1 &&
+							/^[a-zA-Z0-9- ]*$/.test(attr) === true) {
 					if (typeof (childItem) === 'object') {
 						var exist = checkAllItemRecursion(childItem);
 
@@ -101,13 +102,12 @@ appModule.factory('commonFactory',
 
 		// init the filtered items
 		$scope.search = function () {
+			$scope.filteredItems = [];
+
 			if (dataPagination && dataPagination !== 'null') {
 				$scope.filteredItems = $filter('filter')(dataPagination, function (item) {
 					return checkAllItemRecursion(item);
 				});
-			}
-			else {
-				$scope.filteredItems = [];
 			}
 			// take care of the sorting order
 			//			if ($scope.sort.sortingOrder !== '') {
