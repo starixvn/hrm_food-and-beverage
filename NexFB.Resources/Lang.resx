@@ -630,4 +630,28 @@
   <data name="EditAlternativeMenu" xml:space="preserve">
     <value>Edit Alternative Menu</value>
   </data>
+  <data name="CheckIn" xml:space="preserve">
+    <value>Check-in</value>
+  </data>
+  <data name="CheckOut" xml:space="preserve">
+    <value>Check-out</value>
+  </data>
+  <data name="NextWorkDate" xml:space="preserve">
+    <value>Work date +1</value>
+  </data>
+  <data name="OverdueMealInShift" xml:space="preserve">
+    <value>A shift cannot have more than 4 meals!</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="UnderMealInShift" xml:space="preserve">
+    <value>A shift must has at least 1 meal!</value>
+  </data>
+  <data name="WorkDate" xml:space="preserve">
+    <value>Work date</value>
+  </data>
+  <data name="ShiftMealMapping" xml:space="preserve">
+    <value>Shift-Meal Mapping</value>
+  </data>
 </root>

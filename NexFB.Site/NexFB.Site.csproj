@@ -189,6 +189,7 @@
     <Compile Include="Controllers\API\OrderingController.cs" />
     <Compile Include="Controllers\API\MealRegistrationController.cs" />
     <Compile Include="Controllers\API\ResourceController.cs" />
+    <Compile Include="Controllers\API\ShiftMealMappingController.cs" />
     <Compile Include="Controllers\API\SideDishManagementController.cs" />
     <Compile Include="Controllers\API\UserControlController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
@@ -237,6 +238,10 @@
     <Content Include="Src\App\MealPlanningManagement\Templates\index.html" />
     <Content Include="Src\App\Ordering\editOrder-controller.js" />
     <Content Include="Src\App\Ordering\Templates\EditOrder.html" />
+    <Content Include="Src\App\ShiftMealMapping\shiftMealMapping-controller.js" />
+    <Content Include="Src\App\ShiftMealMapping\shiftMealMapping-factory.js" />
+    <Content Include="Src\App\ShiftMealMapping\shiftMealMapping-route.js" />
+    <Content Include="Src\App\ShiftMealMapping\Templates\index.html" />
     <Content Include="Src\App\SideDishManagement\sideDishManagement-controller.js" />
     <Content Include="Src\App\SideDishManagement\sideDishManagement-factory.js" />
     <Content Include="Src\App\SideDishManagement\sideDishManagement-route.js" />
@@ -367,6 +372,7 @@
     <Content Include="Src\App\FoodMenuManagement\foodMenuManagement.less" />
     <Content Include="Src\App\MealPlanningManagement\mealPlanningManagement.less" />
     <Content Include="Src\App\AlternativeMenuManagement\alternativeMenuManagement.less" />
+    <Content Include="Src\App\ShiftMealMapping\shiftMealMapping.less" />
     <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />

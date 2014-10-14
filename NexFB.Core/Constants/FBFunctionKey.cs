@@ -49,5 +49,7 @@ namespace NexFB.Core.Constants
         public const string SideDishManagement = "SideDishManagement";
 
         public const string AlternativeMenuManagement = "AlternativeMenuManagement";
+
+        public const string MealRegistrationByShift = "MealRegistrationByShift";
     }
 }

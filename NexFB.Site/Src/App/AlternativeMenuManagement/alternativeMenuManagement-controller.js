@@ -280,9 +280,9 @@ alternativeMenuFactory, ErrorFactory, notificationFactory) {
 
 alternativeMenuModule.controller('EditAlternativeMenuController',
 ['$scope', '$modalInstance', 'employeeTypesOption', 'altMenu', 'foodMenuUtilities', 'alternativeMenuUtilities',
-'alternativeMenuFactory', 'notificationFactory', 'ErrorFactory',
+'alternativeMenuFactory', 'notificationFactory', 'ErrorFactory', 'commonFactory',
 function ($scope, $modalInstance, employeeTypesOption, altMenu, foodMenuUtilities, alternativeMenuUtilities,
-alternativeMenuFactory, notificationFactory, ErrorFactory) {
+alternativeMenuFactory, notificationFactory, ErrorFactory, commonFactory) {
 
 	$scope.employeeTypesOption = employeeTypesOption;
 	$scope.altMenu = altMenu;
@@ -311,36 +311,6 @@ alternativeMenuFactory, notificationFactory, ErrorFactory) {
 	checkEmployeeTypeOptions();
 
 	/*
-	** Update employee type.
-	*/
-	var getEmployeeTypeById = function (employeeTypeId, employeeTypesOption) {
-		var employeeType = '',
-			length = employeeTypesOption.length;
-
-		for (var i = 0; i < length; i++) {
-			var currentEmployeeType = employeeTypesOption[i];
-
-			if (currentEmployeeType.EmployeeTypeId === employeeTypeId) {
-				return currentEmployeeType;
-			}
-		}
-
-		return employeeType;
-	};
-
-	var updateEmployeeTypes = function (employeeTypeIds) {
-		var updateEmployeeTypeList = [],
-			employeeTypeIdList = employeeTypeIds.split(',');
-
-		angular.forEach(employeeTypeIdList, function (employeeTypeId) {
-			var addedEmployeeType = getEmployeeTypeById(parseInt(employeeTypeId), $scope.employeeTypesOption);
-			updateEmployeeTypeList.push(addedEmployeeType);
-		});
-
-		return updateEmployeeTypeList;
-	};
-
-	/*
 	** Edit alternative menu.
 	*/
 	$scope.save = function (altMenu) {
@@ -356,7 +326,7 @@ alternativeMenuFactory, notificationFactory, ErrorFactory) {
 		};
 
 		if (alternativeMenuUtilities.validateAlternativeMenu(updatedAltMenu)) {
-			altMenu.EmployeeTypes = updateEmployeeTypes(updatedAltMenu.employeeTypeId);
+			altMenu.EmployeeTypes = commonFactory.updateEmployeeTypes(updatedAltMenu.employeeTypeId, $scope.employeeTypesOption);
 
 			alternativeMenuFactory.updateAlternativeMenu(updatedAltMenu).success(function (response) {
 				if (response.IsSuccessful === true) {

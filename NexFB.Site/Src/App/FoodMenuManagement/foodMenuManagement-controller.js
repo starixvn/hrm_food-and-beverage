@@ -447,9 +447,9 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 
 foodMenuManagementModule.controller('EditFoodMenuController',
 ['$scope', '$modalInstance', 'foodMenu', 'foodItems', 'mealsOption', 'employeeTypesOption',
-'foodMenuUtilities', 'foodMenuFactory', 'notificationFactory', 'ErrorFactory',
+'foodMenuUtilities', 'foodMenuFactory', 'notificationFactory', 'ErrorFactory', 'commonFactory',
 function ($scope, $modalInstance, foodMenu, foodItems, mealsOption, employeeTypesOption,
-foodMenuUtilities, foodMenuFactory, notificationFactory, ErrorFactory) {
+foodMenuUtilities, foodMenuFactory, notificationFactory, ErrorFactory, commonFactory) {
 	/*
 	** Declare variables.
 	*/
@@ -561,36 +561,6 @@ foodMenuUtilities, foodMenuFactory, notificationFactory, ErrorFactory) {
 	};
 
 	/*
-	** Update employee type.
-	*/
-	var getEmployeeTypeById = function (employeeTypeId, employeeTypesOption) {
-		var employeeType = '',
-			length = employeeTypesOption.length;
-
-		for (var i = 0; i < length; i++) {
-			var currentEmployeeType = employeeTypesOption[i];
-
-			if (currentEmployeeType.EmployeeTypeId === employeeTypeId) {
-				return currentEmployeeType;
-			}
-		}
-
-		return employeeType;
-	};
-
-	var updateEmployeeTypes = function (employeeTypeIds) {
-		var updateEmployeeTypeList = [],
-			employeeTypeIdList = employeeTypeIds.split(',');
-
-		angular.forEach(employeeTypeIdList, function (employeeTypeId) {
-			var addedEmployeeType = getEmployeeTypeById(parseInt(employeeTypeId), $scope.employeeTypesOption);
-			updateEmployeeTypeList.push(addedEmployeeType);
-		});
-
-		return updateEmployeeTypeList;
-	};
-
-	/*
 	** Update Food Items.
 	*/
 	var getFoodItemById = function (foodId, allFoodItems) {
@@ -655,7 +625,7 @@ foodMenuUtilities, foodMenuFactory, notificationFactory, ErrorFactory) {
 			foodMenuFactory.updateFoodMenu(editedFoodMenu).success(function (response) {
 				if (response.IsSuccessful) {
 					foodMenu.Meals = updateMeals(editedFoodMenu.mealId);
-					foodMenu.EmployeeTypes = updateEmployeeTypes(editedFoodMenu.employeeTypeId);
+					foodMenu.EmployeeTypes = commonFactory.updateEmployeeTypes(editedFoodMenu.employeeTypeId, $scope.employeeTypesOption);
 					foodMenu.FoodItems = updateFoodItems(foodMenu.rawFoodIds);
 					foodMenu.NumberFoodItems = foodMenu.rawFoodIds.length;
 

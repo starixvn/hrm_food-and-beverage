@@ -69,6 +69,7 @@
     <Compile Include="Implement\MealPlanningService.cs" />
     <Compile Include="Implement\MealRegistrationService.cs" />
     <Compile Include="Implement\OrderingService.cs" />
+    <Compile Include="Implement\ShiftMealMappingService.cs" />
     <Compile Include="Implement\SideDishService.cs" />
     <Compile Include="Interface\IAlternativeMenuService.cs" />
     <Compile Include="Interface\IFoodItemService.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Interface\IMealPlanningService.cs" />
     <Compile Include="Interface\IMealRegistrationService.cs" />
     <Compile Include="Interface\IOrderingService.cs" />
+    <Compile Include="Interface\IShiftMealMappingService.cs" />
     <Compile Include="Interface\ISideDishService.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Implement\CommonService.cs" />

@@ -79,6 +79,7 @@
     <Compile Include="Ordering\MealOrderingModel.cs" />
     <Compile Include="Ordering\MenuQuantityModel.cs" />
     <Compile Include="Ordering\OrderMemberModel.cs" />
+    <Compile Include="ShiftMealMapping\ShiftMealMappingModel.cs" />
     <Compile Include="SideDishManagement\SideDishModel.cs" />
     <Compile Include="SideDishManagement\UnitModel.cs" />
     <Compile Include="UserControl\EmployeeRoleModel.cs" />

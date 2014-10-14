@@ -310,8 +310,10 @@ function ($scope, $modalInstance, unitOptions, employeeTypesOption, foodMenuUtil
 } ]);
 
 sideDishManagementModule.controller('EditSideDishController',
-['$scope', '$modalInstance', 'sideDish', 'unitOptions', 'employeeTypesOption', 'foodMenuUtilities', 'sideDishUtilities',
-function ($scope, $modalInstance, sideDish, unitOptions, employeeTypesOption, foodMenuUtilities, sideDishUtilities) {
+['$scope', '$modalInstance', 'sideDish', 'unitOptions', 'employeeTypesOption', 'foodMenuUtilities', 
+'sideDishUtilities', 'commonFactory',
+function ($scope, $modalInstance, sideDish, unitOptions, employeeTypesOption, foodMenuUtilities,
+sideDishUtilities, commonFactory) {
 	/*
 	** Declare variables.
 	*/
@@ -358,36 +360,6 @@ function ($scope, $modalInstance, sideDish, unitOptions, employeeTypesOption, fo
 	};
 
 	/*
-	** Update employee type.
-	*/
-	var getEmployeeTypeById = function (employeeTypeId, employeeTypesOption) {
-		var employeeType = '',
-			length = employeeTypesOption.length;
-
-		for (var i = 0; i < length; i++) {
-			var currentEmployeeType = employeeTypesOption[i];
-
-			if (currentEmployeeType.EmployeeTypeId === employeeTypeId) {
-				return currentEmployeeType;
-			}
-		}
-
-		return employeeType;
-	};
-
-	var updateEmployeeTypes = function (employeeTypeIds) {
-		var updateEmployeeTypeList = [],
-			employeeTypeIdList = employeeTypeIds.split(',');
-
-		angular.forEach(employeeTypeIdList, function (employeeTypeId) {
-			var addedEmployeeType = getEmployeeTypeById(parseInt(employeeTypeId), $scope.employeeTypesOption);
-			updateEmployeeTypeList.push(addedEmployeeType);
-		});
-
-		return updateEmployeeTypeList;
-	};
-
-	/*
 	** Edit side dish.
 	*/
 	$scope.save = function (sideDish) {
@@ -406,7 +378,7 @@ function ($scope, $modalInstance, sideDish, unitOptions, employeeTypesOption, fo
 
 		if (sideDishUtilities.validateSideDish(updatedSideDish)) {
 			sideDish.Unit = getUpdateUnit(updatedSideDish.unitId, $scope.unitOptions);
-			sideDish.EmployeeTypes = updateEmployeeTypes(updatedSideDish.employeeTypeId);
+			sideDish.EmployeeTypes = commonFactory.updateEmployeeTypes(updatedSideDish.employeeTypeId, $scope.employeeTypesOption);
 
 			var allInfoSideDish = {
 				updatedSideDish: updatedSideDish,

@@ -231,4 +231,19 @@
 		<Setting Key="AlternativeMenu_Delete" SpName="AlternativeMenu_Delete" DbName="NexFB" Plain="0" >
 		</Setting>
 	</Function>
+	<Function Name="ShiftMealMapping">
+		<Setting Key="Shift_GetAll" SpName="Shift_GetAll" DbName="NexFB" Plain="0" >
+			<Mapping DataField="Meal_B" ObjectProperty="MealBreakfast"/>
+			<Mapping DataField="Meal_L" ObjectProperty="MealLunch"/>
+			<Mapping DataField="Meal_D" ObjectProperty="MealDinner"/>
+			<Mapping DataField="Meal_S" ObjectProperty="MealSupper"/>
+			<Mapping DataField="Meal_B_1" ObjectProperty="MealNextBreakfast"/>
+			<Mapping DataField="Meal_L_1" ObjectProperty="MealNextLunch"/>
+			<Mapping DataField="Meal_D_1" ObjectProperty="MealNextDinner"/>
+			<Mapping DataField="Meal_S_1" ObjectProperty="MealNextSupper"/>
+			<Mapping DataField="DepartmentName" ObjectProperty="Name"/>
+		</Setting>
+		<Setting Key="Shift_Edit_ByShiftID" SpName="Shift_Edit_ByShiftID" DbName="NexFB" Plain="0" >
+		</Setting>
+	</Function>
 </Functions>

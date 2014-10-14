@@ -241,6 +241,24 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check-in.
+        /// </summary>
+        public static string CheckIn {
+            get {
+                return ResourceManager.GetString("CheckIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check-out.
+        /// </summary>
+        public static string CheckOut {
+            get {
+                return ResourceManager.GetString("CheckOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Code.
         /// </summary>
         public static string Code {
@@ -1087,6 +1105,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Work date +1.
+        /// </summary>
+        public static string NextWorkDate {
+            get {
+                return ResourceManager.GetString("NextWorkDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nick Name.
         /// </summary>
         public static string NickName {
@@ -1146,6 +1173,15 @@ namespace NexFB.Resources {
         public static string OrderPerson {
             get {
                 return ResourceManager.GetString("OrderPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A shift cannot have more than 4 meals!.
+        /// </summary>
+        public static string OverdueMealInShift {
+            get {
+                return ResourceManager.GetString("OverdueMealInShift", resourceCulture);
             }
         }
         
@@ -1348,6 +1384,24 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shift.
+        /// </summary>
+        public static string Shift {
+            get {
+                return ResourceManager.GetString("Shift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shift-Meal Mapping.
+        /// </summary>
+        public static string ShiftMealMapping {
+            get {
+                return ResourceManager.GetString("ShiftMealMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (Eng).
         /// </summary>
         public static string ShortEng {
@@ -1528,6 +1582,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A shift must has at least 1 meal!.
+        /// </summary>
+        public static string UnderMealInShift {
+            get {
+                return ResourceManager.GetString("UnderMealInShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unit.
         /// </summary>
         public static string Unit {
@@ -1596,6 +1659,15 @@ namespace NexFB.Resources {
         public static string Week {
             get {
                 return ResourceManager.GetString("Week", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work date.
+        /// </summary>
+        public static string WorkDate {
+            get {
+                return ResourceManager.GetString("WorkDate", resourceCulture);
             }
         }
     }

@@ -68,7 +68,8 @@ namespace NexFB.Site
                 "~/Src/App/FoodMenuManagement/foodMenuManagement.less",
                 "~/Src/App/MealPlanningManagement/mealPlanningManagement.less",
                 "~/Src/App/SideDishManagement/sideDishManagement.less",
-                "~/Src/App/AlternativeMenuManagement/alternativeMenuManagement.less");
+                "~/Src/App/AlternativeMenuManagement/alternativeMenuManagement.less",
+                "~/Src/App/ShiftMealMapping/shiftMealMapping.less");
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Src/App/app.js",
@@ -104,7 +105,10 @@ namespace NexFB.Site
                 "~/Src/App/SideDishManagement/sideDishManagement-factory.js",
                 "~/Src/App/AlternativeMenuManagement/alternativeMenuManagement-route.js",
                 "~/Src/App/AlternativeMenuManagement/alternativeMenuManagement-controller.js",
-                "~/Src/App/AlternativeMenuManagement/alternativeMenuManagement-factory.js"));
+                "~/Src/App/AlternativeMenuManagement/alternativeMenuManagement-factory.js",
+                "~/Src/App/ShiftMealMapping/shiftMealMapping-route.js",
+                "~/Src/App/ShiftMealMapping/shiftMealMapping-controller.js",
+                "~/Src/App/ShiftMealMapping/shiftMealMapping-factory.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/extensions").Include(
                 "~/Src/Components/Extensions/Common/error-factory.js",

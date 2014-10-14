@@ -23,5 +23,7 @@ namespace NexFB.Models.MealRegistration
         public string MealVnmName { get; set; }
 
         public int? IsVegetarian { get; set; }
+
+        public bool IsShiftChecked { get; set; }
     }
 }

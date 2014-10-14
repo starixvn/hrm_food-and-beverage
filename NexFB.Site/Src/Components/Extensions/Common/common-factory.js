@@ -39,13 +39,14 @@ appModule.factory('commonFactory',
 		$scope.calendar.startDateOpened = false;
 	};
 
-	common.tablePagination = function ($scope, dataPagination, itemPerPage) {
+	common.tablePagination = function ($scope, dataPagination, itemPerPage, attrSearch) {
 		/**
 		* Scope Variable.
 		*/
 		$scope.gap = 7;
 		$scope.filteredItems = [];
 		$scope.groupedItems = [];
+		$scope.attrSearch = attrSearch;
 
 		if (itemPerPage != null) {
 			$scope.itemsPerPage = itemPerPage;
@@ -79,16 +80,12 @@ appModule.factory('commonFactory',
 			for (var attr in item) {
 				var childItem = item[attr];
 
-				if (childItem === 95) {
-					var a = 1;
-				}
-
-				if (childItem != null && /^[a-zA-Z0-9]*$/.test(attr) === true && 
+				if (childItem != null && /^[a-zA-Z0-9]*$/.test(attr) === true &&
 					attr.toLowerCase().search('id') === -1 && attr.toLowerCase().search('length') === -1 &&
 					attr.toLowerCase().search('index') === -1 && attr.toLowerCase().search('hash') === -1 &&
 					attr.toLowerCase().search('time') === -1 && attr.toLowerCase().search('date') === -1 &&
-					attr.toLowerCase().search('ModifiedBy') === -1 && attr.toLowerCase().search('CreatedBy') === -1) {
-	
+					attr.toLowerCase().search('modifiedby') === -1 && attr.toLowerCase().search('createdby') === -1) {
+
 					if (typeof (childItem) === 'object') {
 						var exist = checkAllItemRecursion(childItem);
 
@@ -116,10 +113,38 @@ appModule.factory('commonFactory',
 					return checkAllItemRecursion(item);
 				});
 			}
-			// take care of the sorting order
-			//			if ($scope.sort.sortingOrder !== '') {
-			//				$scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);
-			//			}
+
+			$scope.currentPage = 0;
+			// now group by pages
+			$scope.groupToPages();
+		};
+
+		/*
+		** Use to search in Shift-Meal Mapping page.
+		*/
+		var checkShift = function (item, attrSearch) {
+			for (var attr in item) {
+				var childItem = item[attr];
+
+				if (childItem != null && attrSearch && attr.toLowerCase().search(attrSearch.toLowerCase()) !== -1) {
+					if (searchMatch(item[attr].toString(), $scope.queryData)) {
+						return true;
+					}
+				}
+			}
+
+			return false;
+		};
+
+		$scope.searchInShift = function () {
+			$scope.filteredItems = [];
+
+			if (dataPagination && dataPagination !== 'null') {
+				$scope.filteredItems = $filter('filter')(dataPagination, function (item) {
+					return checkShift(item, $scope.attrSearch);
+				});
+			}
+
 			$scope.currentPage = 0;
 			// now group by pages
 			$scope.groupToPages();
@@ -134,7 +159,6 @@ appModule.factory('commonFactory',
 					$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [$scope.filteredItems[i]];
 				} else {
 					$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
-					//$scope.gap = $scope.pagedItems.length;
 				}
 			}
 		};
@@ -188,6 +212,36 @@ appModule.factory('commonFactory',
 
 		// functions have been describe process the data for display
 		$scope.search();
+	};
+
+	/*
+	** Update employee type.
+	*/
+	var getEmployeeTypeById = function (employeeTypeId, employeeTypesOption) {
+		var employeeType = '',
+			length = employeeTypesOption.length;
+
+		for (var i = 0; i < length; i++) {
+			var currentEmployeeType = employeeTypesOption[i];
+
+			if (currentEmployeeType.EmployeeTypeId === employeeTypeId) {
+				return currentEmployeeType;
+			}
+		}
+
+		return employeeType;
+	};
+
+	common.updateEmployeeTypes = function (employeeTypeIds, employeeTypesOption) {
+		var updateEmployeeTypeList = [],
+			employeeTypeIdList = employeeTypeIds.split(',');
+
+		angular.forEach(employeeTypeIdList, function (employeeTypeId) {
+			var addedEmployeeType = getEmployeeTypeById(parseInt(employeeTypeId), employeeTypesOption);
+			updateEmployeeTypeList.push(addedEmployeeType);
+		});
+
+		return updateEmployeeTypeList;
 	};
 
 	return common;
