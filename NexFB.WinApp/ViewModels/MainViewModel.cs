@@ -36,7 +36,7 @@ namespace NexFB.WinApp.ViewModels
     {
         #region Fields
 
-        private static readonly OrderFoodViewModel OrderFoodViewModel = new OrderFoodViewModel();
+        ////private static readonly OrderFoodViewModel OrderFoodViewModel = new OrderFoodViewModel();
         private static string _host = ConfigurationManager.AppSettings[Constant.HubHost];
         private static string _delayTime = ConfigurationManager.AppSettings[Constant.DatabaseDelayTime];
         private static string _autoRefeshTime = ConfigurationManager.AppSettings[Constant.AutoRefeshTime];
@@ -525,7 +525,7 @@ namespace NexFB.WinApp.ViewModels
 
         private void ExecuteViewOrderFood()
         {
-            CurrentViewModel = MainViewModel.OrderFoodViewModel;
+            CurrentViewModel = new OrderFoodViewModel();
             CheckCurrentViewModel();
         }
 
@@ -694,15 +694,24 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Edit order command.
+        /// </summary>
+        /// <param name="value">Current order id.</param>
         private void ExecuteEditOrderCommand(object value)
         {
+            int orderId = 0;
             if (value == null)
             {
                 MessageBox.Show(Lang.ErrorMessage);
             }
             else
             {
-                MessageBox.Show(value.ToString());
+                orderId = (int)value;
+                var getOrderDetailsCriteria = new GetOrderDetailsCriteria() { OrderId = orderId };
+                Order order = KitchenService.GetOrderDetails(getOrderDetailsCriteria);
+                CurrentViewModel = new OrderFoodViewModel(order);
+                CheckCurrentViewModel();
             }
         }
 

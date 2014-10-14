@@ -11,6 +11,7 @@ namespace NexFB.Models.Kitchen
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using NexFB.Core.Enums;
     using NexFB.Resources;
@@ -65,6 +66,44 @@ namespace NexFB.Models.Kitchen
 
         public bool IsSelectedMemberInGroup { get; set; }
 
+        public List<OrderMenu> ListMenu { get; set; }
+
+        public List<OrderMenu> DisplayListMenu
+        {
+            get
+            {
+                if (ListMenu.Count > 4)
+                {
+                    List<OrderMenu> generalOrderList = new List<OrderMenu>();
+                    List<OrderMenu> sideDish = ListMenu.Where(x => x.IsSideDish).ToList();
+                    List<OrderMenu> mainMenu = ListMenu.Where(x => !x.IsSideDish).ToList();
+                    string display = string.Empty;
+                    if (mainMenu.Count > 0)
+                    {
+                        display += mainMenu.Sum(x => x.QuantityOrder).ToString() + WinFormMainResource.Main + WinFormMainResource.Space;
+                    }
+
+                    if (sideDish.Count > 0)
+                    {
+                        display += sideDish.Sum(x => x.QuantityOrder).ToString() + WinFormMainResource.Snack;
+                    }
+
+                    OrderMenu generalInfo = new OrderMenu()
+                    {
+                        MenuVnmName = WinFormMainResource.Total,
+                        GeneralInfo = display
+                    };
+                    generalOrderList.Add(generalInfo);
+
+                    return generalOrderList;
+                }
+                else
+                {
+                    return ListMenu;
+                }
+            }
+        }
+
         public string PrintLabel
         {
             get
@@ -79,8 +118,6 @@ namespace NexFB.Models.Kitchen
                 }
             }
         }
-
-        public List<OrderMenu> ListMenu { get; set; }
 
         public string RegisterDateString
         {
@@ -180,8 +217,25 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                int totalOrder = ListMenu.Where(x => x.IsDeleted == false).Count();
+                int totalOrder = ListMenu.Where(x => !x.IsDeleted).Count();
                 return totalOrder;
+            }
+        }
+
+        public string TotalAmount
+        {
+            get
+            {
+                CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
+                decimal totalAmount = ListMenu.Sum(x => x.Price);
+                if (totalAmount > 0)
+                {
+                    return string.Format(culture, "{0:C}", totalAmount);
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
         }
 

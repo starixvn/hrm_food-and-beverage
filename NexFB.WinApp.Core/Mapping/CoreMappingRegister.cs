@@ -35,7 +35,11 @@ namespace NexFB.WinApp.Core.Mapping
 
                 Mapper.CreateMap<FoodOrder, CommonKitchenOrder>()
                    .ForMember(x => x.ItemId, x => x.MapFrom(y => y.FoodId))
-                   .ForMember(x => x.ItemName, x => x.MapFrom(y => y.FoodVnmName));
+                   .ForMember(x => x.ItemName, x => x.MapFrom(y => y.FoodVnmName))
+                   .ForMember(x => x.Price, x => x.MapFrom(y => y.Price));
+
+                Mapper.CreateMap<OrderMenu, KitchenEmployeeInfo>()
+                  .ForMember(x => x.GroupOrderId, x => x.MapFrom(y => y.OrderId));
             }
             else
             {
@@ -45,7 +49,8 @@ namespace NexFB.WinApp.Core.Mapping
 
                 Mapper.CreateMap<FoodOrder, CommonKitchenOrder>()
                   .ForMember(x => x.ItemId, x => x.MapFrom(y => y.FoodId))
-                  .ForMember(x => x.ItemName, x => x.MapFrom(y => y.FoodEngName));
+                  .ForMember(x => x.ItemName, x => x.MapFrom(y => y.FoodEngName))
+                  .ForMember(x => x.Price, x => x.MapFrom(y => y.Price));
             }
 
             Mapper.CreateMap<GroupOrder, CommonKitchenOrder>()

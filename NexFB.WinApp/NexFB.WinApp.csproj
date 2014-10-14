@@ -114,6 +114,7 @@
     <Compile Include="DependencyProperties\WaterMark.cs" />
     <Compile Include="DependencyProperties\WatermarkAdorner.cs" />
     <Compile Include="ViewModels\AwaitingDeliverViewModel.cs" />
+    <Compile Include="ViewModels\OrderFoodPreviewData.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="Views\EmployeeSelectionWindow.xaml.cs">
       <DependentUpon>EmployeeSelectionWindow.xaml</DependentUpon>
@@ -123,6 +124,9 @@
     </Compile>
     <Compile Include="Views\ManageOrder\DeliveredFood.xaml.cs">
       <DependentUpon>DeliveredFood.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageOrder\OrderConfirmationWindow.xaml.cs">
+      <DependentUpon>OrderConfirmationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManageOrder\OrderFood.xaml.cs">
       <DependentUpon>OrderFood.xaml</DependentUpon>
@@ -179,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ManageOrder\DeliveredFood.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageOrder\OrderConfirmationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

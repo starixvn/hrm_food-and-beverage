@@ -48,6 +48,7 @@ namespace NexFB.WinApp.Core.Models
         private string _employeeOrderMealColor;
         private string _employeeOrderMealText;
         private string _orderSummary;
+        private bool _isDeleteMainFood;
         private List<EmployeeOrderDetails> _listMainMenuOrderDeatails;
         private List<EmployeeOrderDetails> _listAlternativeMenuOrderDeatails;
 
@@ -82,6 +83,20 @@ namespace NexFB.WinApp.Core.Models
             {
                 _listAlternativeMenuOrderDeatails = value;
                 this.OnPropertyChanged("ListAlternativeMenuOrderDeatails");
+            }
+        }
+
+        public bool IsDeleteMainFood
+        {
+            get
+            {
+                return _isDeleteMainFood;
+            }
+
+            set
+            {
+                _isDeleteMainFood = value;
+                this.OnPropertyChanged("IsDeleteMainFood");
             }
         }
 

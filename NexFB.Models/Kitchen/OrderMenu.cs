@@ -10,6 +10,7 @@
 namespace NexFB.Models.Kitchen
 {
     using System;
+    using System.Globalization;
     using NexFB.Resources;
 
     /// <summary>
@@ -40,19 +41,50 @@ namespace NexFB.Models.Kitchen
 
         public bool IsDeleted { get; set; }
 
+        public decimal Price { get; set; }
+
+        public bool IsMainMenu { get; set; }
+
+        public bool IsSideDish { get; set; }
+
+        public string GeneralInfo { get; set; }
+
+        public string DisplayPrice
+        {
+            get
+            {
+                CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
+                if (Price > 0)
+                {
+                    return string.Format(culture, "{0:C}", Price);
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
         public string QuantityPerTotal
         {
             get
             {
-                if (QuantityOrder == TotalOrder)
+                if (string.IsNullOrEmpty(GeneralInfo))
                 {
-                    return TotalOrder.ToString();
+                    if (QuantityOrder == TotalOrder)
+                    {
+                        return TotalOrder.ToString();
+                    }
+                    else
+                    {
+                        string quantityPerTotal = string.Empty;
+                        quantityPerTotal = QuantityOrder.ToString() + WinFormMainResource.QuantityPerTotal + TotalOrder.ToString();
+                        return quantityPerTotal;
+                    }
                 }
                 else
                 {
-                    string quantityPerTotal = string.Empty;
-                    quantityPerTotal = QuantityOrder.ToString() + WinFormMainResource.QuantityPerTotal + TotalOrder.ToString();
-                    return quantityPerTotal;
+                    return GeneralInfo;
                 }
             }
         }

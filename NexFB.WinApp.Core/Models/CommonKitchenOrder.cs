@@ -27,6 +27,21 @@ namespace NexFB.WinApp.Core.Models
         private string _menuColor;
         private bool _isMainMenu;
         private int _quantity;
+        private decimal _price;
+
+        public decimal Price
+        {
+            get
+            {
+                return _price;
+            }
+
+            set
+            {
+                _price = value;
+                this.OnPropertyChanged("Price");
+            }
+        }
 
         public bool IsSelectedMealMenu
         {

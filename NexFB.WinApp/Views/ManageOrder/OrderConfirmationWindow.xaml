@@ -1,0 +1,158 @@
+﻿<Window x:Class="NexFB.WinApp.Views.ManageOrder.OrderConfirmationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
+        Title="{x:Static resx:WinFormMainResource.OrderFoodConfirmation}" Width="1000" MaxHeight="650"
+		 Topmost="False" ShowInTaskbar="False" ResizeMode="NoResize" >
+	<Window.Resources>
+		<Color x:Key="customBlue"  A="255"   R="54" G="95" B="177"  />
+		<SolidColorBrush x:Key="customBlueBrush" Color="{StaticResource customBlue}"></SolidColorBrush>
+		<SolidColorBrush x:Key="customBlueBrushOpacity" Color="LightGray" Opacity="0.11"></SolidColorBrush>
+		<Style x:Key="calcyListbox"  TargetType="ListBox">
+			<Setter Property="SnapsToDevicePixels" Value="True"/>
+			<Setter Property="OverridesDefaultStyle" Value="True"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ListBox">
+						<Grid >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="35"></RowDefinition>
+								<RowDefinition></RowDefinition>
+							</Grid.RowDefinitions>
+							<Grid Grid.Row="0" Height="30"  VerticalAlignment="Top" Background="{StaticResource customBlueBrush}">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="50"/>
+									<ColumnDefinition Width="170"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="70"/>
+									<ColumnDefinition Width="150"/>
+								</Grid.ColumnDefinitions>
+								<TextBlock Text="{x:Static resx:WinFormMainResource.sharps}" FontSize="14" FontFamily="Segoe Ui Dark"
+								 Foreground="White" SnapsToDevicePixels="True" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+								<TextBlock Text="{x:Static resx:WinFormMainResource.Member}" FontSize="14" FontFamily="Segoe Ui Dark" 
+								 Foreground="White" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
+
+								<TextBlock Text="{x:Static resx:WinFormMainResource.Dishes}" FontSize="14" FontFamily="Segoe Ui Dark"  
+								 Foreground="White" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="2" />
+
+								<TextBlock Text="{x:Static resx:WinFormMainResource.Quantity1}" FontSize="14" FontFamily="Segoe Ui Dark"  
+								Foreground="White" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="3" />
+
+								<TextBlock Text="{x:Static resx:WinFormMainResource.UnitPrice}" FontSize="14" FontFamily="Segoe Ui Dark" 
+								 Foreground="White" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="4" />
+							</Grid>
+							<Border Grid.Row="1" SnapsToDevicePixels="True"  Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0">
+								<!--<ScrollViewer x:Name="ScrollViewer"  Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="0">-->
+								<ItemsPresenter />
+								<!--</ScrollViewer>-->
+							</Border>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style x:Key="noStyleToListboxItem" TargetType="ListBoxItem">
+			<Setter Property="SnapsToDevicePixels" Value="True"/>
+			<Setter Property="OverridesDefaultStyle" Value="True"/>
+			<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ListBoxItem">
+						<Border>
+							<ContentPresenter></ContentPresenter>
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Window.Resources>
+
+	<ScrollViewer>
+		<Grid Width="978">
+			<Grid HorizontalAlignment="Left" Margin="12,12,0,0" Name="grid1" VerticalAlignment="Top" Width="954">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Label Content="{x:Static resx:WinFormMainResource.OrderFoodConfirmation}" FontSize="17" FontWeight="Black"
+			 HorizontalAlignment="Left" Margin="0" Name="label1" VerticalAlignment="Top" />
+				<DockPanel Grid.Row="1" VerticalAlignment="Center" Margin="0">
+					<Label Content="{x:Static resx:WinFormMainResource.OrderOwner}" 
+				FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
+					<Label Content="{Binding Path=EmployeeInfo.FullName}" FontWeight="Bold" FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
+					<Label Content=" - " FontWeight="Bold" FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
+					<Label Content="{Binding Path=EmployeeInfo.Code}" FontWeight="Bold" FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
+				</DockPanel>
+				<DockPanel Grid.Row="2" VerticalAlignment="Center" Margin="0">
+					<Label Content="{x:Static resx:WinFormMainResource.PlaceOfDelivery}" 
+				FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
+					<Label Content="{Binding Path=LocationName}" FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
+				</DockPanel>
+			</Grid>
+
+			<Grid HorizontalAlignment="Left" Margin="12,118,0,0" Name="grid2" VerticalAlignment="Top" Width="954">
+				<StackPanel Orientation="Vertical">
+					<Grid>
+						<ListBox BorderThickness="1,0,1,1" Margin="0,5,0,0" Background="{StaticResource customBlueBrushOpacity}" 
+						HorizontalContentAlignment="Stretch" ItemsSource="{Binding OrderPreviewData}" Style="{StaticResource calcyListbox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="50"/>
+											<ColumnDefinition Width="170"/>
+											<ColumnDefinition Width="*"/>
+											<ColumnDefinition Width="70"/>
+											<ColumnDefinition Width="150"/>
+										</Grid.ColumnDefinitions>
+										<Border BorderThickness="1" BorderBrush="Lavender" Grid.Column="0"></Border>
+										<Border BorderThickness="1" BorderBrush="Lavender" Grid.Column="1"></Border>
+										<Border BorderThickness="1" BorderBrush="Lavender" Grid.Column="2"></Border>
+										<Border BorderThickness="1" BorderBrush="Lavender" Grid.Column="3"></Border>
+										<Border BorderThickness="1" BorderBrush="Lavender" Grid.Column="4"></Border>
+										<TextBlock Text="{Binding Path=OrderNo}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
+										<TextBlock Text="{Binding Path=NickName}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+										<TextBlock Text="{Binding Path=Dishes}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="2"/>
+										<TextBlock Text="{Binding Path=Quantity}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="3"/>
+										<TextBlock Text="{Binding Path=Price}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="4"/>
+									</Grid>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</Grid>
+					<Grid Height="35">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="70"/>
+							<ColumnDefinition Width="150"/>
+						</Grid.ColumnDefinitions>
+						<Border BorderThickness="1" BorderBrush="Lavender" Grid.Column="0"></Border>
+						<Border BorderThickness="1" BorderBrush="Lavender" Grid.Column="1"></Border>
+						<Border BorderThickness="1" BorderBrush="Lavender" Grid.Column="2"></Border>
+						<Label HorizontalAlignment="Right" Content="{x:Static resx:WinFormMainResource.Total}" />
+						<Label Grid.Column="1" HorizontalAlignment="Center" Content="{Binding TotalOrder}" />
+						<Label Grid.Column="2" HorizontalAlignment="Center" Content="{Binding TotalPrice}" />
+					</Grid>
+					<Grid VerticalAlignment="Bottom" Margin="0,30,0,10">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Button Background="#6CB23F" Foreground="White" Command="{Binding Path=SaveOrderCommand}"
+						CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+					Content="{x:Static resx:WinFormMainResource.Confirmation}" Height="35" Style="{StaticResource TileButton}"
+					HorizontalAlignment="Left" Margin="363,6,0,0" Name="button1" VerticalAlignment="Top" Width="108" />
+
+						<Button Background="#B7B7B7" Foreground="White"
+					Grid.Column="1" Content="{x:Static resx:WinFormMainResource.Back}" Height="35" Style="{StaticResource TileButton}"
+					HorizontalAlignment="Left" VerticalAlignment="Top" Width="108" Margin="0,6,0,0" 
+					Command="{Binding Path=CancelDialogOrderConfirmation}"
+		CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+					</Grid>
+				</StackPanel>
+			</Grid>
+		</Grid>
+	</ScrollViewer>
+</Window>

@@ -70,6 +70,7 @@
     <Compile Include="Kitchen\HubData.cs" />
     <Compile Include="Kitchen\OrderMenu.cs" />
     <Compile Include="Kitchen\Order.cs" />
+    <Compile Include="Kitchen\OrderResult.cs" />
     <Compile Include="MealRegistration\DefaultMealModel.cs" />
     <Compile Include="MealRegistration\MealDateModel.cs" />
     <Compile Include="MealRegistration\MealModel.cs" />

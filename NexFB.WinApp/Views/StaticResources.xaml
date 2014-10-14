@@ -148,7 +148,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
-					<Border Name="border" CornerRadius="0" Background="{TemplateBinding Background}"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
+					<Border Name="border" CornerRadius="0" Background="{TemplateBinding Background}"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
 						<ContentPresenter x:Name="contentPresenter">
 						</ContentPresenter>
 					</Border>

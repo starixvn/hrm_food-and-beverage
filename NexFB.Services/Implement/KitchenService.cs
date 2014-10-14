@@ -215,5 +215,39 @@ namespace NexFB.Services.Implement
 
             return alternativeFoods;
         }
+
+        /// <summary>
+        /// Insert order food.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Order Result Model.</returns>
+        public OrderResult InsertOrderFood(InsertOrderMealCriteria criteria)
+        {
+            OrderResult orderResult = new OrderResult();
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                orderResult.CommandResult = this.Repository.Insert(criteria, hasGetOutputParams: true);
+            }
+
+            if (orderResult.CommandResult.Code == 0)
+            {
+                orderResult.OrderId = criteria.OrderId;
+            }
+
+            return orderResult;
+        }
+
+        public CommandResult EditOrderFood(EditOrderMealCriteria criteria)
+        {
+            CommandResult result = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result = this.Repository.Update(criteria);
+            }
+
+            return result;
+        }
     }
 }

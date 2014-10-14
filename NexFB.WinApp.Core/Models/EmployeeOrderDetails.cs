@@ -19,6 +19,8 @@ namespace NexFB.WinApp.Core.Models
         private int _selectedMenuItemId;
         private int _selectedMenuItemQuantity;
         private string _selectedMenuItemName;
+        private decimal _selectedMenuItemPrice;
+        private bool _isMainMenu;
 
         public int SelectedMenuItemId
         {
@@ -31,6 +33,20 @@ namespace NexFB.WinApp.Core.Models
             {
                 _selectedMenuItemId = value;
                 this.OnPropertyChanged("SelectedMenuItemId");
+            }
+        }
+
+        public bool IsMainMenu
+        {
+            get
+            {
+                return _isMainMenu;
+            }
+
+            set
+            {
+                _isMainMenu = value;
+                this.OnPropertyChanged("IsMainMenu");
             }
         }
 
@@ -59,6 +75,20 @@ namespace NexFB.WinApp.Core.Models
             {
                 _selectedMenuItemName = value;
                 this.OnPropertyChanged("SelectedMenuItemName");
+            }
+        }
+
+        public decimal SelectedMenuItemPrice
+        {
+            get
+            {
+                return _selectedMenuItemPrice;
+            }
+
+            set
+            {
+                _selectedMenuItemPrice = value;
+                this.OnPropertyChanged("SelectedMenuItemPrice");
             }
         }
     }

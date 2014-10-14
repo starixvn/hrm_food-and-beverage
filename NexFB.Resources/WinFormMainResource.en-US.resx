@@ -123,6 +123,9 @@
   <data name="AlternativeFood" xml:space="preserve">
     <value>Alternative Food</value>
   </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
@@ -141,8 +144,14 @@
   <data name="CommaSeparated" xml:space="preserve">
     <value> , </value>
   </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
   <data name="Delivered" xml:space="preserve">
     <value>Delivered</value>
+  </data>
+  <data name="Dishes" xml:space="preserve">
+    <value>Dishes</value>
   </data>
   <data name="DisplayDeletedName" xml:space="preserve">
     <value>     (X)</value>
@@ -183,11 +192,20 @@
   <data name="MainFood" xml:space="preserve">
     <value>Main Food</value>
   </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
   <data name="NameBilingual" xml:space="preserve">
     <value>Tên / Name</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Order</value>
+  </data>
+  <data name="OrderFoodConfirmation" xml:space="preserve">
+    <value>Order Food Confirmation</value>
+  </data>
+  <data name="OrderOwner" xml:space="preserve">
+    <value>Order Owner :</value>
   </data>
   <data name="Parentheses1" xml:space="preserve">
     <value>( </value>
@@ -204,6 +222,9 @@
   <data name="PickRoom" xml:space="preserve">
     <value>Pick Room</value>
   </data>
+  <data name="PlaceOfDelivery" xml:space="preserve">
+    <value>Place Of Delivery : </value>
+  </data>
   <data name="Print" xml:space="preserve">
     <value>Print</value>
   </data>
@@ -212,6 +233,9 @@
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>Quantity : </value>
+  </data>
+  <data name="Quantity1" xml:space="preserve">
+    <value>Quantity</value>
   </data>
   <data name="QuantityPerOrder" xml:space="preserve">
     <value>  x  </value>
@@ -249,14 +273,23 @@
   <data name="Snack" xml:space="preserve">
     <value> Snack</value>
   </data>
+  <data name="Space" xml:space="preserve">
+    <value> </value>
+  </data>
   <data name="Statistic" xml:space="preserve">
     <value>Statistic</value>
   </data>
   <data name="StrokeDash" xml:space="preserve">
     <value>2,2</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
   <data name="TotalBilingual" xml:space="preserve">
     <value>Tổng Cộng / Total :</value>
+  </data>
+  <data name="UnitPrice" xml:space="preserve">
+    <value>Unit Price</value>
   </data>
   <data name="Visible" xml:space="preserve">
     <value>Visible</value>

@@ -49,5 +49,9 @@ namespace NexFB.Services.Interface
         EmployeeInfo GetEmployeeBySysId(GetEmployeeBySysIdCriteria criteria);
 
         List<FoodOrder> GetAllAlternativeFoodOrder(GetAlternativeFoodCriteria criteria);
+
+        OrderResult InsertOrderFood(InsertOrderMealCriteria criteria);
+
+        CommandResult EditOrderFood(EditOrderMealCriteria criteria);
     }
 }

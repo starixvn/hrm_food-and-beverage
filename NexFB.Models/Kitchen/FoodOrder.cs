@@ -25,5 +25,7 @@ namespace NexFB.Models.Kitchen
         public string FoodPhoto { get; set; }
 
         public bool IsActive { get; set; }
+
+        public decimal Price { get; set; }
     }
 }
