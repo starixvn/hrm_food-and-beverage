@@ -22,6 +22,7 @@ namespace NexFB.WinApp.Core.Models
         private int _quantity;
         private decimal _unitPrice;
         private string _price;
+        private string _color;
 
         public string Price
         {
@@ -34,6 +35,20 @@ namespace NexFB.WinApp.Core.Models
             {
                 _price = value;
                 this.OnPropertyChanged("Price");
+            }
+        }
+
+        public string Color
+        {
+            get
+            {
+                return _color;
+            }
+
+            set
+            {
+                _color = value;
+                this.OnPropertyChanged("Color");
             }
         }
 

@@ -151,6 +151,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to - .
+        /// </summary>
+        public static string Dash {
+            get {
+                return ResourceManager.GetString("Dash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xuất / Out : .
         /// </summary>
         public static string DeliverBilingual {

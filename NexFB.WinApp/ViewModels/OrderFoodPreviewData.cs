@@ -10,8 +10,10 @@
 namespace NexFB.WinApp.ViewModels
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
+    using NexFB.WinApp.Core.Constants;
     using NexFB.WinApp.Core.Models;
 
     /// <summary>
@@ -25,6 +27,7 @@ namespace NexFB.WinApp.ViewModels
         /// <param name="kitchenEmployeeInfo">Employee kitchen Info.</param>
         /// <param name="isVnmCulture">Check for VN culture.</param>
         /// <returns>List of order preview.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public List<OrderPreview> PrepareDataForKitchenPreview(List<KitchenEmployeeInfo> kitchenEmployeeInfo, bool isVnmCulture)
         {
             kitchenEmployeeInfo = kitchenEmployeeInfo.Where(x => x.ListMainMenuOrderDeatails.Count > 0
@@ -46,9 +49,18 @@ namespace NexFB.WinApp.ViewModels
                                 NickName = item.NickName,
                                 Dishes = mainDishes.SelectedMenuItemName,
                                 Quantity = mainDishes.SelectedMenuItemQuantity,
-                                UnitPrice = mainDishes.SelectedMenuItemQuantity * mainDishes.SelectedMenuItemPrice
+                                UnitPrice = mainDishes.SelectedMenuItemQuantity * mainDishes.SelectedMenuItemPrice,
+                                Color = Constant.Red
                             };
-                            orderPreview.Price = isVnmCulture ? string.Format(culture, "{0:C}", orderPreview.UnitPrice) : string.Format("{0:C}", orderPreview.UnitPrice);
+                            if (orderPreview.UnitPrice > 0)
+                            {
+                                orderPreview.Price = isVnmCulture ? string.Format(culture, "{0:C}", orderPreview.UnitPrice) : string.Format("{0:C}", orderPreview.UnitPrice);
+                            }
+                            else
+                            {
+                                orderPreview.Price = Constant.NA;
+                            }
+
                             dataPreviews.Add(orderPreview);
                             orderNo++;
                         }
@@ -64,9 +76,18 @@ namespace NexFB.WinApp.ViewModels
                                 NickName = item.NickName,
                                 Dishes = mainDishes.SelectedMenuItemName,
                                 Quantity = mainDishes.SelectedMenuItemQuantity,
-                                UnitPrice = mainDishes.SelectedMenuItemQuantity * mainDishes.SelectedMenuItemPrice
+                                UnitPrice = mainDishes.SelectedMenuItemQuantity * mainDishes.SelectedMenuItemPrice,
+                                Color = Constant.Black
                             };
-                            orderPreview.Price = isVnmCulture ? string.Format(culture, "{0:C}", orderPreview.UnitPrice) : string.Format("{0:C}", orderPreview.UnitPrice);
+                            if (orderPreview.UnitPrice > 0)
+                            {
+                                orderPreview.Price = isVnmCulture ? string.Format(culture, "{0:C}", orderPreview.UnitPrice) : string.Format("{0:C}", orderPreview.UnitPrice);
+                            }
+                            else
+                            {
+                                orderPreview.Price = Constant.NA;
+                            }
+
                             dataPreviews.Add(orderPreview);
                             orderNo++;
                         }

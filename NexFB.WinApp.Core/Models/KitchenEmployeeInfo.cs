@@ -324,6 +324,19 @@ namespace NexFB.WinApp.Core.Models
             }
         }
 
+        public string NickNameHasOrdered
+        {
+            get
+            {
+                if (Quantity > 0)
+                {
+                    return NickName + " (" + Quantity + ") ";
+                }
+
+                return NickName;
+            }
+        }
+
         public string MealEngName
         {
             get

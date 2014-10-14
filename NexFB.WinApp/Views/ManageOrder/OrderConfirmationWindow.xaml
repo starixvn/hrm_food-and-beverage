@@ -83,7 +83,8 @@
 				FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
 					<Label Content="{Binding Path=EmployeeInfo.FullName}" FontWeight="Bold" FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
 					<Label Content=" - " FontWeight="Bold" FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
-					<Label Content="{Binding Path=EmployeeInfo.Code}" FontWeight="Bold" FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
+					<Label Content="{Binding Path=EmployeeInfo.Code}" ContentStringFormat="#{0} "
+					FontWeight="Bold" FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
 				</DockPanel>
 				<DockPanel Grid.Row="2" VerticalAlignment="Center" Margin="0">
 					<Label Content="{x:Static resx:WinFormMainResource.PlaceOfDelivery}" 
@@ -114,9 +115,10 @@
 										<Border BorderThickness="1" BorderBrush="Lavender" Grid.Column="4"></Border>
 										<TextBlock Text="{Binding Path=OrderNo}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
 										<TextBlock Text="{Binding Path=NickName}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
-										<TextBlock Text="{Binding Path=Dishes}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="2"/>
+										<TextBlock Text="{Binding Path=Dishes}" FontSize="15" Foreground="{Binding Path=Color}"
+										HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="2"/>
 										<TextBlock Text="{Binding Path=Quantity}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="3"/>
-										<TextBlock Text="{Binding Path=Price}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="4"/>
+										<TextBlock Text="{Binding Path=Price}" FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Center"  Grid.Column="4" Margin="0,0,7,0"/>
 									</Grid>
 								</DataTemplate>
 							</ListBox.ItemTemplate>
@@ -133,7 +135,8 @@
 						<Border BorderThickness="1" BorderBrush="Lavender" Grid.Column="2"></Border>
 						<Label HorizontalAlignment="Right" Content="{x:Static resx:WinFormMainResource.Total}" />
 						<Label Grid.Column="1" HorizontalAlignment="Center" Content="{Binding TotalOrder}" />
-						<Label Grid.Column="2" HorizontalAlignment="Center" Content="{Binding TotalPrice}" />
+						<Label Grid.Column="2" HorizontalAlignment="Right" Foreground="Red" Margin="0,0,2,0"
+						Content="{Binding TotalPrice}" />
 					</Grid>
 					<Grid VerticalAlignment="Bottom" Margin="0,30,0,10">
 						<Grid.ColumnDefinitions>

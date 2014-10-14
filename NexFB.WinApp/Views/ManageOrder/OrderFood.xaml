@@ -108,7 +108,7 @@
 									Name="image2" Stretch="Fill" Width="69" HorizontalAlignment="Left" Height="70" />
 									<Grid Height="69" Name="grid10" VerticalAlignment="Center" HorizontalAlignment="Right" Background="{Binding Path=EmployeeOrderMealColor}">
 										<Grid Width="385">
-											<Label Content="{Binding Path=NickName}" FontSize="18" FontWeight="Black"
+											<Label Content="{Binding Path=NickNameHasOrdered}" FontSize="18" FontWeight="Black"
 									 VerticalAlignment="Top" Margin="2,-5,-2,0" Foreground="#004069" />
 											<DockPanel Margin="0,22,4,0" >
 												<!--<TextBlock VerticalAlignment="Top" TextWrapping="WrapWithOverflow" Name="orderDetails"

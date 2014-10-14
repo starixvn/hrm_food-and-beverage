@@ -147,6 +147,9 @@
   <data name="Confirmation" xml:space="preserve">
     <value>Confirmation</value>
   </data>
+  <data name="Dash" xml:space="preserve">
+    <value>- </value>
+  </data>
   <data name="Delivered" xml:space="preserve">
     <value>Delivered</value>
   </data>

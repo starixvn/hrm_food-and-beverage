@@ -52,6 +52,8 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string Red = "#FF0000";
 
+        public const string Black = "#000";
+
         public const string DefaultMenuColor = "#fff";
 
         public const string DefaultButtonOrderBorderColor = "#BCB304";
@@ -107,6 +109,8 @@ namespace NexFB.WinApp.Core.Constants
         public const string HasOrderMealBeforeColor = "#f4c881";
 
         public const string FixedMeal = "Món Chính";
+
+        public const string NA = "N/A";
 
         private Constant()
         {

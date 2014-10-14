@@ -75,8 +75,9 @@ namespace NexFB.Models.Kitchen
                 if (ListMenu.Count > 4)
                 {
                     List<OrderMenu> generalOrderList = new List<OrderMenu>();
-                    List<OrderMenu> sideDish = ListMenu.Where(x => x.IsSideDish).ToList();
-                    List<OrderMenu> mainMenu = ListMenu.Where(x => !x.IsSideDish).ToList();
+                    List<OrderMenu> sideDish = ListMenu.Where(x => x.IsSideDish && !x.IsDeleted).ToList();
+                    List<OrderMenu> mainMenu = ListMenu.Where(x => !x.IsSideDish && !x.IsDeleted).ToList();
+
                     string display = string.Empty;
                     if (mainMenu.Count > 0)
                     {
@@ -85,6 +86,11 @@ namespace NexFB.Models.Kitchen
 
                     if (sideDish.Count > 0)
                     {
+                        if (mainMenu.Count > 0)
+                        {
+                            display += WinFormMainResource.Dash;
+                        }
+
                         display += sideDish.Sum(x => x.QuantityOrder).ToString() + WinFormMainResource.Snack;
                     }
 

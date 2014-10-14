@@ -122,42 +122,6 @@ namespace NexFB.WinApp.ViewModels
 
         #region Properties
 
-        public bool CheckMainFoodMenu
-        {
-            get
-            {
-                return CommonKitchenOrder.Except(AllObservationFood).ToList().Count == 0
-                && CommonKitchenOrder.Count == AllObservationFood.Count;
-            }
-        }
-
-        public bool CheckAlternativeFoodMenu
-        {
-            get
-            {
-                return CommonKitchenOrder.Except(AllObservationAlternativeFood).ToList().Count == 0
-                && CommonKitchenOrder.Count == AllObservationAlternativeFood.Count;
-            }
-        }
-
-        public bool CheckGroupMenu
-        {
-            get
-            {
-                return CommonKitchenOrder.Except(AllObservationGroup).ToList().Count == 0
-                && CommonKitchenOrder.Count == AllObservationGroup.Count;
-            }
-        }
-
-        public bool CheckLocationMenu
-        {
-            get
-            {
-                return CommonKitchenOrder.Except(AllObservationLocation).ToList().Count == 0
-                && CommonKitchenOrder.Count == AllObservationLocation.Count;
-            }
-        }
-
         public ObservableCollection<Order> GetWaitingMealOrder
         {
             get
@@ -233,6 +197,168 @@ namespace NexFB.WinApp.ViewModels
                 }
 
                 return new ObservableCollection<CommonKitchenOrder>();
+            }
+        }
+
+        public KitchenEmployeeInfo EmployeeInfo
+        {
+            get
+            {
+                return _employeeInfo;
+            }
+
+            set
+            {
+                _employeeInfo = value;
+                OnPropertyChanged("EmployeeInfo");
+            }
+        }
+
+        public ObservableCollection<KitchenEmployeeInfo> UserInGroup
+        {
+            get
+            {
+                return _userInGroup;
+            }
+
+            set
+            {
+                _userInGroup = value;
+                OnPropertyChanged("UserInGroup");
+            }
+        }
+
+        public ObservableCollection<KitchenEmployeeInfo> DuplicateUser
+        {
+            get
+            {
+                return _duplicateUser;
+            }
+
+            set
+            {
+                _duplicateUser = value;
+                OnPropertyChanged("DuplicateUser");
+            }
+        }
+
+        public ObservableCollection<OrderPreview> OrderPreviewData
+        {
+            get
+            {
+                return _orderPreviewData;
+            }
+
+            set
+            {
+                _orderPreviewData = value;
+                OnPropertyChanged("OrderPreviewData");
+            }
+        }
+
+        public ObservableCollection<CommonKitchenOrder> CommonKitchenOrder
+        {
+            get
+            {
+                return _commonKitchenOrder;
+            }
+
+            set
+            {
+                _commonKitchenOrder = value;
+                OnPropertyChanged("CommonKitchenOrder");
+            }
+        }
+
+        public ObservableCollection<CommonKitchenOrder> AllObservationFood
+        {
+            get
+            {
+                return _allObservableFood;
+            }
+
+            set
+            {
+                _allObservableFood = value;
+                OnPropertyChanged("AllObservationFood");
+            }
+        }
+
+        public ObservableCollection<CommonKitchenOrder> AllObservationAlternativeFood
+        {
+            get
+            {
+                return _allObservableAlternativeFood;
+            }
+
+            set
+            {
+                _allObservableAlternativeFood = value;
+                OnPropertyChanged("AllObservationAlternativeFood");
+            }
+        }
+
+        public ObservableCollection<CommonKitchenOrder> AllObservationGroup
+        {
+            get
+            {
+                return _allObservableGroup;
+            }
+
+            set
+            {
+                _allObservableGroup = value;
+                OnPropertyChanged("AllObservationGroup");
+            }
+        }
+
+        public ObservableCollection<CommonKitchenOrder> AllObservationLocation
+        {
+            get
+            {
+                return _allObservableLocation;
+            }
+
+            set
+            {
+                _allObservableLocation = value;
+                OnPropertyChanged("AllObservationLocation");
+            }
+        }
+
+        public bool CheckMainFoodMenu
+        {
+            get
+            {
+                return CommonKitchenOrder.Except(AllObservationFood).ToList().Count == 0
+                && CommonKitchenOrder.Count == AllObservationFood.Count;
+            }
+        }
+
+        public bool CheckAlternativeFoodMenu
+        {
+            get
+            {
+                return CommonKitchenOrder.Except(AllObservationAlternativeFood).ToList().Count == 0
+                && CommonKitchenOrder.Count == AllObservationAlternativeFood.Count;
+            }
+        }
+
+        public bool CheckGroupMenu
+        {
+            get
+            {
+                return CommonKitchenOrder.Except(AllObservationGroup).ToList().Count == 0
+                && CommonKitchenOrder.Count == AllObservationGroup.Count;
+            }
+        }
+
+        public bool CheckLocationMenu
+        {
+            get
+            {
+                return CommonKitchenOrder.Except(AllObservationLocation).ToList().Count == 0
+                && CommonKitchenOrder.Count == AllObservationLocation.Count;
             }
         }
 
@@ -401,132 +527,6 @@ namespace NexFB.WinApp.ViewModels
             {
                 _currentSelectedAlternativeMenuId = value;
                 OnPropertyChanged("CurrentSelectedAlternativeMenuId");
-            }
-        }
-
-        public KitchenEmployeeInfo EmployeeInfo
-        {
-            get
-            {
-                return _employeeInfo;
-            }
-
-            set
-            {
-                _employeeInfo = value;
-                OnPropertyChanged("EmployeeInfo");
-            }
-        }
-
-        public ObservableCollection<KitchenEmployeeInfo> UserInGroup
-        {
-            get
-            {
-                return _userInGroup;
-            }
-
-            set
-            {
-                _userInGroup = value;
-                OnPropertyChanged("UserInGroup");
-            }
-        }
-
-        public ObservableCollection<KitchenEmployeeInfo> DuplicateUser
-        {
-            get
-            {
-                return _duplicateUser;
-            }
-
-            set
-            {
-                _duplicateUser = value;
-                OnPropertyChanged("DuplicateUser");
-            }
-        }
-
-        public ObservableCollection<OrderPreview> OrderPreviewData
-        {
-            get
-            {
-                return _orderPreviewData;
-            }
-
-            set
-            {
-                _orderPreviewData = value;
-                OnPropertyChanged("OrderPreviewData");
-            }
-        }
-
-        public ObservableCollection<CommonKitchenOrder> CommonKitchenOrder
-        {
-            get
-            {
-                return _commonKitchenOrder;
-            }
-
-            set
-            {
-                _commonKitchenOrder = value;
-                OnPropertyChanged("CommonKitchenOrder");
-            }
-        }
-
-        public ObservableCollection<CommonKitchenOrder> AllObservationFood
-        {
-            get
-            {
-                return _allObservableFood;
-            }
-
-            set
-            {
-                _allObservableFood = value;
-                OnPropertyChanged("AllObservationFood");
-            }
-        }
-
-        public ObservableCollection<CommonKitchenOrder> AllObservationAlternativeFood
-        {
-            get
-            {
-                return _allObservableAlternativeFood;
-            }
-
-            set
-            {
-                _allObservableAlternativeFood = value;
-                OnPropertyChanged("AllObservationAlternativeFood");
-            }
-        }
-
-        public ObservableCollection<CommonKitchenOrder> AllObservationGroup
-        {
-            get
-            {
-                return _allObservableGroup;
-            }
-
-            set
-            {
-                _allObservableGroup = value;
-                OnPropertyChanged("AllObservationGroup");
-            }
-        }
-
-        public ObservableCollection<CommonKitchenOrder> AllObservationLocation
-        {
-            get
-            {
-                return _allObservableLocation;
-            }
-
-            set
-            {
-                _allObservableLocation = value;
-                OnPropertyChanged("AllObservationLocation");
             }
         }
 
@@ -850,137 +850,6 @@ namespace NexFB.WinApp.ViewModels
         }
 
         /// <summary>
-        /// Edit an existing order.
-        /// </summary>
-        /// <param name="locationId">Current owner location.</param>
-        /// <param name="mainMenuData">Data Main menu.</param>
-        /// <param name="alternativeMenuData">Data Alternative Menu.</param>
-        /// <param name="additionalMenuData">Data Additional Menu.</param>
-        /// <param name="value">Current object window.</param>
-        public void EditOrder(int locationId, StringBuilder mainMenuData, StringBuilder alternativeMenuData, StringBuilder additionalMenuData, object value)
-        {
-            var editOrderMealCriteria = new EditOrderMealCriteria()
-            {
-                Owner = EmployeeInfo.SysId,
-                ModifiedDate = DateTime.Now,
-                LocationId = locationId > 0 ? locationId : LocationId,
-                Menus = mainMenuData.Append(_EndRootTag).ToString(),
-                Alternative = alternativeMenuData.Append(_EndRootTag).ToString(),
-                Foods = additionalMenuData.Append(_EndRootTag).ToString(),
-                OrderId = ReferenceCode
-            };
-            CommandResult result = KitchenService.EditOrderFood(editOrderMealCriteria);
-            if (result.Code != 0)
-            {
-                MessageBox.Show(result.Message);
-            }
-            else
-            {
-                if (MessageBox.Show("Order thành công!", string.Empty, MessageBoxButton.OK) == MessageBoxResult.OK)
-                {
-                    ExecuteCancelDialogOrderConfirmation(value);
-                    ExecutePrintInvoice(ReferenceCode, Constant.ReceiveOrderFoodInvoice);
-                    ResetCurrentModel();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Insert new order.
-        /// </summary>
-        /// <param name="locationId">Current owner location.</param>
-        /// <param name="mainMenuData">Data Main menu.</param>
-        /// <param name="alternativeMenuData">Data Alternative Menu.</param>
-        /// <param name="additionalMenuData">Data Additional Menu.</param>
-        /// <param name="value">Current object window.</param>
-        public void InsertNewOrder(int locationId, StringBuilder mainMenuData, StringBuilder alternativeMenuData, StringBuilder additionalMenuData, object value)
-        {
-            var insertOrderMealCriteria = new InsertOrderMealCriteria()
-            {
-                Owner = EmployeeInfo.SysId,
-                CreatedDate = DateTime.Now,
-                LocationId = locationId > 0 ? locationId : LocationId,
-                Menus = mainMenuData.Append(_EndRootTag).ToString(),
-                Alternative = alternativeMenuData.Append(_EndRootTag).ToString(),
-                Foods = additionalMenuData.Append(_EndRootTag).ToString()
-            };
-
-            OrderResult result = KitchenService.InsertOrderFood(insertOrderMealCriteria);
-            if (result.CommandResult.Code != 0)
-            {
-                MessageBox.Show(result.CommandResult.Message);
-            }
-            else
-            {
-                if (MessageBox.Show("Order thành công!", string.Empty, MessageBoxButton.OK) == MessageBoxResult.OK)
-                {
-                    ExecuteCancelDialogOrderConfirmation(value);
-                    ExecutePrintInvoice(result.OrderId, Constant.ReceiveOrderFoodInvoice);
-                    ResetCurrentModel();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Receive order.
-        /// </summary>
-        public void ExecuteReceiveCommand()
-        {
-            bool dataValid = CheckDataValid();
-            if (dataValid)
-            {
-                OrderConfirmationWindow confirmationWindow = new OrderConfirmationWindow();
-                List<OrderPreview> orderPreview = OrderFoodPreviewData.PrepareDataForKitchenPreview(UserInGroup.ToList(), IsVnmCulture);
-                OrderPreviewData = new ObservableCollection<OrderPreview>(orderPreview);
-                TotalOrder = orderPreview.Sum(x => x.Quantity);
-                decimal totalPrice = orderPreview.Sum(x => x.UnitPrice);
-                CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
-                TotalPrice = IsVnmCulture ? string.Format(culture, "{0:C}", totalPrice) : string.Format("{0:C}", totalPrice);
-
-                confirmationWindow.DataContext = this;
-                confirmationWindow.Owner = Application.Current.MainWindow;
-                confirmationWindow.ShowDialog();
-            }
-        }
-
-        /// <summary>
-        /// Validate data before save order.
-        /// </summary>
-        /// <returns>Boolean to check.</returns>
-        public bool CheckDataValid()
-        {
-            if (EmployeeInfo != null)
-            {
-                if (EmployeeInfo.LocationId < 1 && LocationId < 1)
-                {
-                    MessageBox.Show("Vui lòng lựa chọn phòng");
-                    return false;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Chưa có thông tin người gọi món");
-                return false;
-            }
-
-            if (UserInGroup != null && UserInGroup.Count > 0)
-            {
-                if (!UserInGroup.Any(x => x.ListMainMenuOrderDeatails.Count > 0 || x.ListAlternativeMenuOrderDeatails.Count > 0))
-                {
-                    MessageBox.Show("Không thể order với tổng s món ăn bằng 0");
-                    return false;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng nhập thông tin gọi món!");
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
         /// Cancel Command.
         /// </summary>
         public void ExecuteCancelCommand()
@@ -1008,6 +877,28 @@ namespace NexFB.WinApp.ViewModels
             }
 
             UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
+        }
+
+        /// <summary>
+        /// Receive order.
+        /// </summary>
+        public void ExecuteReceiveCommand()
+        {
+            bool dataValid = CheckDataValid();
+            if (dataValid)
+            {
+                OrderConfirmationWindow confirmationWindow = new OrderConfirmationWindow();
+                List<OrderPreview> orderPreview = OrderFoodPreviewData.PrepareDataForKitchenPreview(UserInGroup.ToList(), IsVnmCulture);
+                OrderPreviewData = new ObservableCollection<OrderPreview>(orderPreview);
+                TotalOrder = orderPreview.Sum(x => x.Quantity);
+                decimal totalPrice = orderPreview.Sum(x => x.UnitPrice);
+                CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
+                TotalPrice = IsVnmCulture ? string.Format(culture, "{0:C}", totalPrice) : string.Format("{0:C}", totalPrice);
+
+                confirmationWindow.DataContext = this;
+                confirmationWindow.Owner = Application.Current.MainWindow;
+                confirmationWindow.ShowDialog();
+            }
         }
 
         /// <summary>
@@ -1308,7 +1199,6 @@ namespace NexFB.WinApp.ViewModels
                 {
                     GetEmployeeInGroup(DuplicateUser.Where(x => x.IsChecked == true).FirstOrDefault().SysId, value);
                 }
-                ////CloseDialog(value);
             }
         }
 
@@ -1422,7 +1312,7 @@ namespace NexFB.WinApp.ViewModels
                     if (UserInGroup != null)
                     {
                         List<KitchenEmployeeInfo> currenUserInGroup = UserInGroup.Where(x => x.GroupOrderId != currentSelectedItem.ItemId || x.IsPlaceOrder).ToList();
-                        UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(currenUserInGroup.Where(x => x.GroupOrderId > 0));
+                        UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(currenUserInGroup.Where(x => x.GroupOrderId > 0 || x.IsPlaceOrder));
                         if (UserInGroup.Count == 0)
                         {
                             GridUserVisibility = Constant.Hidden;
@@ -1705,6 +1595,115 @@ namespace NexFB.WinApp.ViewModels
         #endregion
 
         #region Methods
+
+                /// <summary>
+        /// Edit an existing order.
+        /// </summary>
+        /// <param name="locationId">Current owner location.</param>
+        /// <param name="mainMenuData">Data Main menu.</param>
+        /// <param name="alternativeMenuData">Data Alternative Menu.</param>
+        /// <param name="additionalMenuData">Data Additional Menu.</param>
+        /// <param name="value">Current object window.</param>
+        public void EditOrder(int locationId, StringBuilder mainMenuData, StringBuilder alternativeMenuData, StringBuilder additionalMenuData, object value)
+        {
+            var editOrderMealCriteria = new EditOrderMealCriteria()
+            {
+                Owner = EmployeeInfo.SysId,
+                ModifiedDate = DateTime.Now,
+                LocationId = locationId > 0 ? locationId : LocationId,
+                Menus = mainMenuData.Append(_EndRootTag).ToString(),
+                Alternative = alternativeMenuData.Append(_EndRootTag).ToString(),
+                Foods = additionalMenuData.Append(_EndRootTag).ToString(),
+                OrderId = ReferenceCode
+            };
+            CommandResult result = KitchenService.EditOrderFood(editOrderMealCriteria);
+            if (result.Code != 0)
+            {
+                MessageBox.Show(result.Message);
+            }
+            else
+            {
+                if (MessageBox.Show("Order thành công!", string.Empty, MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    ExecuteCancelDialogOrderConfirmation(value);
+                    ExecutePrintInvoice(ReferenceCode, Constant.DeliverOrderFoodInvoice);
+                    ResetCurrentModel();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Insert new order.
+        /// </summary>
+        /// <param name="locationId">Current owner location.</param>
+        /// <param name="mainMenuData">Data Main menu.</param>
+        /// <param name="alternativeMenuData">Data Alternative Menu.</param>
+        /// <param name="additionalMenuData">Data Additional Menu.</param>
+        /// <param name="value">Current object window.</param>
+        public void InsertNewOrder(int locationId, StringBuilder mainMenuData, StringBuilder alternativeMenuData, StringBuilder additionalMenuData, object value)
+        {
+            var insertOrderMealCriteria = new InsertOrderMealCriteria()
+            {
+                Owner = EmployeeInfo.SysId,
+                CreatedDate = DateTime.Now,
+                LocationId = locationId > 0 ? locationId : LocationId,
+                Menus = mainMenuData.Append(_EndRootTag).ToString(),
+                Alternative = alternativeMenuData.Append(_EndRootTag).ToString(),
+                Foods = additionalMenuData.Append(_EndRootTag).ToString()
+            };
+
+            OrderResult result = KitchenService.InsertOrderFood(insertOrderMealCriteria);
+            if (result.CommandResult.Code != 0)
+            {
+                MessageBox.Show(result.CommandResult.Message);
+            }
+            else
+            {
+                if (MessageBox.Show("Order thành công!", string.Empty, MessageBoxButton.OK) == MessageBoxResult.OK)
+                {
+                    ExecuteCancelDialogOrderConfirmation(value);
+                    ExecutePrintInvoice(result.OrderId, Constant.ReceiveOrderFoodInvoice);
+                    ResetCurrentModel();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Validate data before save order.
+        /// </summary>
+        /// <returns>Boolean to check.</returns>
+        public bool CheckDataValid()
+        {
+            if (EmployeeInfo != null)
+            {
+                if (EmployeeInfo.LocationId < 1 && LocationId < 1)
+                {
+                    MessageBox.Show("Vui lòng lựa chọn phòng");
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Chưa có thông tin người gọi món");
+                return false;
+            }
+
+            if (UserInGroup != null && UserInGroup.Count > 0)
+            {
+                if (!UserInGroup.Any(x => x.ListMainMenuOrderDeatails.Count > 0 || x.ListAlternativeMenuOrderDeatails.Count > 0))
+                {
+                    MessageBox.Show("Không thể order với tổng s món ăn bằng 0");
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng nhập thông tin gọi món!");
+                return false;
+            }
+
+            return true;
+        }
 
         /// <summary>
         /// Change button focused color.
