@@ -15,3 +15,34 @@
 .side-dish-active-label {
 	padding-right: 25px;
 }
+
+.side-dish-modal .modal-dialog {
+	.multiSelect {
+		.multiSelectButton {
+			width: 100%;
+			min-height: 24px !important;
+			position: relative;
+			text-align: left;
+			.caret {
+				position: absolute;
+				right: 5px;
+				top: 10px;
+			}
+			&.form-control {
+				height: 28px;
+				padding: 0;
+				padding-left: 5px;
+			}
+		}
+		.checkboxLayer {
+			left: 0;
+			min-width: 218px;
+		}
+		.multiSelectItem {
+			min-width: 218px;
+			&:hover {
+				color: #000 !important;
+			}
+		}
+	}
+}
