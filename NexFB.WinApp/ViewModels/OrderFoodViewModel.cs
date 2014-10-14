@@ -879,7 +879,7 @@ namespace NexFB.WinApp.ViewModels
                 if (MessageBox.Show("Order thành công!", string.Empty, MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     ExecuteCancelDialogOrderConfirmation(value);
-                    ExecutePrintInvoice(ReferenceCode, Constant.DeliverOrderFoodInvoice);
+                    ExecutePrintInvoice(ReferenceCode, Constant.ReceiveOrderFoodInvoice);
                     ResetCurrentModel();
                 }
             }
@@ -915,7 +915,7 @@ namespace NexFB.WinApp.ViewModels
                 if (MessageBox.Show("Order thành công!", string.Empty, MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     ExecuteCancelDialogOrderConfirmation(value);
-                    ExecutePrintInvoice(result.OrderId, Constant.DeliverOrderFoodInvoice);
+                    ExecutePrintInvoice(result.OrderId, Constant.ReceiveOrderFoodInvoice);
                     ResetCurrentModel();
                 }
             }
