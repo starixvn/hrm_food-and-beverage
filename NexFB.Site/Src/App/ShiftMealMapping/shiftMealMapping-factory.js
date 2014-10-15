@@ -48,6 +48,73 @@ shiftMealMappingModule.factory('shiftMealMappingUtilities',
 		return count;
 	};
 
+	var checkMealContinuous = function (shift) {
+		var maxNumberMealContinuous = 0,
+			numberMealContinuous = 0,
+			numberMeals = 0,
+			continuous = true;
+
+		if (shift.MealBreakfast) {
+			numberMealContinuous++;
+			numberMeals++;
+		}
+		else {
+			maxNumberMealContinuous = maxNumberMealContinuous > numberMealContinuous ? maxNumberMealContinuous : numberMealContinuous;
+			numberMealContinuous = 0;
+		}
+
+		if (shift.MealLunch) {
+			numberMealContinuous++;
+			numberMeals++;
+		}
+		else {
+			maxNumberMealContinuous = maxNumberMealContinuous > numberMealContinuous ? maxNumberMealContinuous : numberMealContinuous;
+			numberMealContinuous = 0;
+		}
+
+		if (shift.MealDinner) {
+			numberMealContinuous++;
+			numberMeals++;
+		}
+		else {
+			maxNumberMealContinuous = maxNumberMealContinuous > numberMealContinuous ? maxNumberMealContinuous : numberMealContinuous;
+			numberMealContinuous = 0;
+		}
+
+		if (shift.MealSupper) {
+			numberMealContinuous++;
+			numberMeals++;
+		}
+		else {
+			maxNumberMealContinuous = maxNumberMealContinuous > numberMealContinuous ? maxNumberMealContinuous : numberMealContinuous;
+			numberMealContinuous = 0;
+		}
+
+		if (shift.MealNextBreakfast) {
+			numberMealContinuous++;
+			numberMeals++;
+		}
+		else {
+			maxNumberMealContinuous = maxNumberMealContinuous > numberMealContinuous ? maxNumberMealContinuous : numberMealContinuous;
+			numberMealContinuous = 0;
+		}
+
+		if (shift.MealNextLunch) {
+			numberMealContinuous++;
+			numberMeals++;
+		}
+		else {
+			maxNumberMealContinuous = maxNumberMealContinuous > numberMealContinuous ? maxNumberMealContinuous : numberMealContinuous;
+			numberMealContinuous = 0;
+		}
+
+		if (maxNumberMealContinuous < numberMeals) {
+			continuous = false;
+		}
+
+		return continuous;
+	};
+
 	utilities.validateShiftMealMapping = function (shift) {
 		var valid = true;
 
@@ -63,6 +130,13 @@ shiftMealMappingModule.factory('shiftMealMappingUtilities',
 			}
 			else if (numberRegisterMeal > 4) {
 				notificationFactory.error('OverdueMealInShift');
+				valid = false;
+			}
+
+			var checkContinuous = checkMealContinuous(shift);
+
+			if (!checkContinuous) {
+				notificationFactory.error('NotContinuousMealInShift');
 				valid = false;
 			}
 		}

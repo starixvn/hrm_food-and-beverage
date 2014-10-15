@@ -654,4 +654,7 @@
   <data name="ShiftMealMapping" xml:space="preserve">
     <value>Shift-Meal Mapping</value>
   </data>
+  <data name="NotContinuousMealInShift" xml:space="preserve">
+    <value>All meals in a shift must be consecutive!</value>
+  </data>
 </root>

@@ -1150,6 +1150,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All meals in a shift must be consecutive!.
+        /// </summary>
+        public static string NotContinuousMealInShift {
+            get {
+                return ResourceManager.GetString("NotContinuousMealInShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order.
         /// </summary>
         public static string Order {
