@@ -47,7 +47,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="shift in pagedItems[currentPage] track by shift.ShiftId">
+				<tr ng-repeat="shift in pagedItems[currentPage]">
 					<td class="text-center" ng-bind="shift.itemIndex + 1">
 					</td>
 					<td class="text-center" class="text-center" ng-bind="shift.Department.Name">
@@ -83,7 +83,7 @@
 						<img class="ico-tick" ng-if="policy.permission == 1 && shift.MealNextLunch" />
 					</td>
 					<td class="text-center" ng-if="policy.permission == 2">
-						<a class="btn-save" href="" ng-click="submit(shift)" ></a>
+						<a class="btn-save" href="" ng-click="submit(shift)" title="Save"></a>
 					</td>
 				</tr>
 				<tr ng-show="shiftMeals.length == 0 || pagedItems.length == 0">

@@ -110,7 +110,7 @@ notificationFactory) {
 				controller: "ModalConfirmController",
 				resolve: {
 					action: function () {
-						return 'submit';
+						return 'save';
 					},
 					name: function () {
 						return shift.ShiftName;
