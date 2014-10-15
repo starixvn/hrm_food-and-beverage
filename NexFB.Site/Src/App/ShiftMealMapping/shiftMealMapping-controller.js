@@ -29,6 +29,17 @@ notificationFactory) {
 	});
 
 	/*
+	** Get permisson on Shift-Meal Mapping.
+	*/
+	shiftMealMappingFactory.getPermissionOnShiftMealMapping().success(function (permission) {
+		$scope.policy = {
+			permission: permission
+		};
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
+
+	/*
 	** Get all department.
 	*/
 	shiftMealMappingFactory.getAllDepartment().success(function (departments) {
