@@ -74,7 +74,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 		var isRelatedCurrentUser = false;
 		if ($scope.currentUser.UserId === order.CreatorOrder.UserId) {
-			if (order.Status.StatusId === 1 && order.Members.length === 0) {
+			if ((order.Status.StatusId === 1 || order.Status.StatusId === 99) && order.Members.length === 0) {
 				isRelatedCurrentUser = false;
 			}
 			else {
