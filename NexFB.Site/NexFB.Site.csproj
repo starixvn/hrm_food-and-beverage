@@ -342,6 +342,8 @@
     <Content Include="Src\Content\Site\Images\icon-search.png" />
     <Content Include="Src\Content\Site\Images\line-menu.png" />
     <Content Include="Src\Content\Site\Images\logo.png" />
+    <Content Include="Src\Content\Site\Images\logo1.png" />
+    <Content Include="Src\Content\Site\Images\save_submit.png" />
     <Content Include="Src\Content\Site\Images\sprites.png" />
     <Content Include="Src\Content\Site\Images\sprite_ico_2012-05-15.png" />
     <Content Include="Src\Content\Site\Images\success.png" />
