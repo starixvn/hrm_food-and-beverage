@@ -18,13 +18,13 @@ namespace NexFB.WinApp.ViewModels
     using System.Linq;
     using System.Text;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Input;
+    using System.Windows.Media;
     using AutoMapper;
     using NexFB.Core.Models;
-    using NexFB.Criteria.Department;
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.Kitchen;
-    using NexFB.Models.Entities;
     using NexFB.Models.Kitchen;
     using NexFB.Resources;
     using NexFB.WinApp.Core.Commands;
@@ -39,11 +39,13 @@ namespace NexFB.WinApp.ViewModels
     public class OrderFoodViewModel : ViewModelBase
     {
         #region Fields
+
         private const string _AdditionalMenuTemplate = "<User SysId='{0}' FoodId='{1}' Qty='{2}'></User>";
         private const string _MainMenuTemplate = "<User SysId='{0}' MenuId='{1}' Qty='{2}'></User>";
         private const string _AlternativeMenuTemplate = "<User SysId='{0}' FoodId='{1}' Qty='{2}'></User>";
         private const string _BeginRootTag = "<ROOT>";
         private const string _EndRootTag = "</ROOT>";
+        private static readonly OrderFoodData OrderFoodData = new OrderFoodData();
         private static readonly OrderFoodPreviewData OrderFoodPreviewData = new OrderFoodPreviewData();
         private static string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
         private static ObservableCollection<CommonKitchenOrder> _commonKitchenOrder = new ObservableCollection<CommonKitchenOrder>();
@@ -55,7 +57,6 @@ namespace NexFB.WinApp.ViewModels
         private static ObservableCollection<KitchenEmployeeInfo> _duplicateUser = new ObservableCollection<KitchenEmployeeInfo>();
         private static ObservableCollection<OrderPreview> _orderPreviewData = new ObservableCollection<OrderPreview>();
         private static KitchenEmployeeInfo _employeeInfo;
-
         private string _result;
         private string _borderButtonPickRoom;
         private string _borderButtonMainFood;
@@ -68,6 +69,7 @@ namespace NexFB.WinApp.ViewModels
         private int _currentSelectedEmployeeSysId;
         private int _currentSelectedMainMenuId;
         private int _currentSelectedAlternativeMenuId;
+        private int _currentSelectedGroupId;
         private string _locationName;
         private int _locationId;
         private bool _isVnmCulture;
@@ -75,11 +77,11 @@ namespace NexFB.WinApp.ViewModels
         private string _totalPrice;
         private string _orderNo;
         private int _referenceCode;
+        private bool _textBlockFocused;
 
         #endregion
 
         #region Constructors
-
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Reviewed. Suppression is OK here.")]
         public OrderFoodViewModel(Order order = null)
         {
@@ -88,7 +90,7 @@ namespace NexFB.WinApp.ViewModels
             ChangeButtonBorder(0);
             GridUserVisibility = Constant.Hidden;
             AddCommand = new RelayCommand((x) => CanExecuteAddCommand(), (y) => ExecuteAddCommand());
-            CancelCommand = new RelayCommand((x) => CanExecuteCancelCommand(), (y) => ExecuteCancelCommand());
+            CancelCommand = new RelayCommand((x) => CanExecuteCancelCommand(), (y) => ExecuteCancelCommand(y));
             ReceiveCommand = new RelayCommand((x) => CanExecuteReceiveCommand(), (y) => ExecuteReceiveCommand());
 
             NumPadPressed = new RelayCommand((x) => CanExecuteNumPadPressed(), (y) => ExecuteNumPadPressed(y));
@@ -103,14 +105,13 @@ namespace NexFB.WinApp.ViewModels
             SaveDialogCommand = new RelayCommand((x) => CanExecuteSaveDialogCommand(), (y) => ExecuteSaveDialogCommand(y));
             CancelDialogCommand = new RelayCommand((x) => CanExecuteCancelDialogCommand(), (y) => ExecuteCancelDialogCommand(y));
             SelectAllUserInGroup = new RelayCommand((x) => CanExecuteSelectAllUserInGroupCommand(), (y) => ExecuteSelectAllUserInGroupCommand());
-
             CancelDialogOrderConfirmation = new RelayCommand((x) => CanExecuteCancelDialogOrderConfirmation(), (y) => ExecuteCancelDialogOrderConfirmation(y));
             SaveOrderCommand = new RelayCommand((x) => CanSaveOrderCommand(), (y) => ExecuteSaveOrderCommand(y));
 
-            AllObservationFood = this.GetAllFood;
-            AllObservationAlternativeFood = this.GetAllAlternativeFood;
-            AllObservationLocation = this.GetAllLocation;
-            AllObservationGroup = this.GetAllGroup;
+            AllObservationFood = OrderFoodData.GetAllFood;
+            AllObservationAlternativeFood = OrderFoodData.GetAllAlternativeFood;
+            AllObservationLocation = OrderFoodData.GetAllLocation;
+            AllObservationGroup = OrderFoodData.GetAllGroup;
 
             if (order != null)
             {
@@ -121,84 +122,6 @@ namespace NexFB.WinApp.ViewModels
         #endregion
 
         #region Properties
-
-        public ObservableCollection<Order> GetWaitingMealOrder
-        {
-            get
-            {
-                var criteria = new GetWaitingMealOrderCriteria();
-                List<Order> waitingMeals = KitchenService.GetWaitngMealOrder(criteria);
-                return new ObservableCollection<Order>(waitingMeals);
-            }
-        }
-
-        public ObservableCollection<CommonKitchenOrder> GetAllLocation
-        {
-            get
-            {
-                var getAllLocation = new GetAllLocationCriteria();
-                List<Location> locations = this.CommonService.GetAllLocation(getAllLocation).ToList();
-                if (locations != null)
-                {
-                    List<CommonKitchenOrder> data = Mapper.Map<List<Location>, List<CommonKitchenOrder>>(locations);
-                    data = data.Where(x => !string.IsNullOrEmpty(x.ItemName)).ToList();
-                    return new ObservableCollection<CommonKitchenOrder>(data);
-                }
-
-                return new ObservableCollection<CommonKitchenOrder>();
-            }
-        }
-
-        public ObservableCollection<CommonKitchenOrder> GetAllFood
-        {
-            get
-            {
-                var getAlternativeFood = new GetAlternativeFoodCriteria();
-                List<FoodOrder> foods = this.KitchenService.GetAllAlternativeFoodOrder(getAlternativeFood).ToList();
-                if (foods != null)
-                {
-                    List<CommonKitchenOrder> data = Mapper.Map<List<FoodOrder>, List<CommonKitchenOrder>>(foods);
-                    data = data.Where(x => !string.IsNullOrEmpty(x.ItemName)).ToList();
-                    return new ObservableCollection<CommonKitchenOrder>(data);
-                }
-
-                return new ObservableCollection<CommonKitchenOrder>();
-            }
-        }
-
-        public ObservableCollection<CommonKitchenOrder> GetAllAlternativeFood
-        {
-            get
-            {
-                var getAllFood = new GetFoodNameCriteria();
-                List<FoodOrder> foods = this.KitchenService.GetAllFoodOrder(getAllFood);
-                if (foods != null)
-                {
-                    List<CommonKitchenOrder> data = Mapper.Map<List<FoodOrder>, List<CommonKitchenOrder>>(foods);
-                    data = data.Where(x => !string.IsNullOrEmpty(x.ItemName)).ToList();
-                    return new ObservableCollection<CommonKitchenOrder>(data);
-                }
-
-                return new ObservableCollection<CommonKitchenOrder>();
-            }
-        }
-
-        public ObservableCollection<CommonKitchenOrder> GetAllGroup
-        {
-            get
-            {
-                var getAllGroup = new GetGroupNameCriteria();
-                List<GroupOrder> groups = this.KitchenService.GetAllGroupOrder(getAllGroup);
-                if (groups != null)
-                {
-                    List<CommonKitchenOrder> data = Mapper.Map<List<GroupOrder>, List<CommonKitchenOrder>>(groups);
-                    data = data.Where(x => !string.IsNullOrEmpty(x.ItemName)).ToList();
-                    return new ObservableCollection<CommonKitchenOrder>(data);
-                }
-
-                return new ObservableCollection<CommonKitchenOrder>();
-            }
-        }
 
         public KitchenEmployeeInfo EmployeeInfo
         {
@@ -628,6 +551,34 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        public int CurrentSelectedGroupId
+        {
+            get
+            {
+                return _currentSelectedGroupId;
+            }
+
+            set
+            {
+                _currentSelectedGroupId = value;
+                this.OnPropertyChanged("CurrentSelectedGroupId");
+            }
+        }
+
+        public bool TextBlockFocused
+        {
+            get
+            {
+                return _textBlockFocused;
+            }
+
+            set
+            {
+                _textBlockFocused = value;
+                this.OnPropertyChanged("TextBlockFocused");
+            }
+        }
+
         public ICommand NumPadPressed { get; set; }
 
         public ICommand NumPadReleased { get; set; }
@@ -785,8 +736,9 @@ namespace NexFB.WinApp.ViewModels
         /// <returns>Boolean to check.</returns>
         public bool CanExecuteNumPadReleased()
         {
-            bool isMainFoodMenu = CheckMainFoodMenu;
-            if (UserInGroup.Any(x => x.IsSelectedMemberInGroup) || (CommonKitchenOrder.Any(x => x.IsSelectedMealMenu) && isMainFoodMenu))
+            if (UserInGroup.Any(x => x.IsSelectedMemberInGroup) 
+                || CommonKitchenOrder.Any(x => x.IsFocusedMealMenu) 
+                || (this.TextBlockFocused && !string.IsNullOrEmpty(Result)))
             {
                 ImageCancel = Constant.CancelImageActive;
                 return true;
@@ -850,20 +802,27 @@ namespace NexFB.WinApp.ViewModels
         }
 
         /// <summary>
-        /// Cancel Command.
+        /// Cancel command.
         /// </summary>
-        public void ExecuteCancelCommand()
+        /// <param name="value">Parameter value.</param>
+        public void ExecuteCancelCommand(object value)
         {
-            if (!string.IsNullOrEmpty(Result))
+            if (value != null)
             {
-                Result = null;
-            }
-            else
-            {
-                MessageBoxResult confirmCancel = MessageBox.Show("Xác nhận hủy gọi món?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                if (confirmCancel == MessageBoxResult.Yes)
+                if (EmployeeInfo != null || (UserInGroup.Any() && UserInGroup.Count > 0) || (CommonKitchenOrder.Any() && CommonKitchenOrder.Count > 0))
                 {
-                    ResetCurrentModel();
+                    MessageBoxResult confirmCancel = MessageBox.Show("Xác nhận hủy gọi món?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (confirmCancel == MessageBoxResult.Yes)
+                    {
+                        ResetCurrentModel(value);
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(Result))
+                    {
+                        Result = string.Empty;
+                    }
                 }
             }
         }
@@ -1037,35 +996,38 @@ namespace NexFB.WinApp.ViewModels
                 bool isAlternativeFoodMenu = CheckAlternativeFoodMenu;
                 var itemId = (int)value;
                 var currentSelectedItem = CommonKitchenOrder.Where(x => x.ItemId == itemId).SingleOrDefault();
-                if (isMainFoodMenu || isAlternativeFoodMenu)
+                if (isMainFoodMenu || isAlternativeFoodMenu || CheckGroupMenu)
                 {
                     CommonKitchenOrder.ToList().ForEach(x => x.IsFocusedMealMenu = false);
-                    currentSelectedItem.IsFocusedMealMenu = true;
                     currentSelectedItem.IsSelectedMealMenu = true;
+                    currentSelectedItem.IsFocusedMealMenu = true;
                     IsMenuFocused = true;
-                    KitchenEmployeeInfo currentSelectedMember = UserInGroup.Where(x => x.IsSelectedMemberInGroup).SingleOrDefault();
 
-                    if (isMainFoodMenu)
+                    if (CheckGroupMenu)
                     {
-                        if (itemId == int.MaxValue)
-                        {
-                            currentSelectedMember.IsDeleteMainFood = false;
-                        }
-
-                        CurrentSelectedMainMenuId = itemId;
-                        AddSelectedMenuItemToList(itemId, currentSelectedMember, 1, 0);
+                        AddMemberInGroupToGrid(currentSelectedItem);
+                        CurrentSelectedGroupId = itemId;
                     }
                     else
                     {
-                        CurrentSelectedAlternativeMenuId = itemId;
-                        AddSelectedMenuItemToList(itemId, currentSelectedMember, 2, 0);
-                    }
-                }
+                        KitchenEmployeeInfo currentSelectedMember = UserInGroup.Where(x => x.IsSelectedMemberInGroup).SingleOrDefault();
 
-                if (CheckGroupMenu)
-                {
-                    currentSelectedItem.IsSelectedMealMenu = !currentSelectedItem.IsSelectedMealMenu;
-                    AddMemberInGroupToGrid(currentSelectedItem);
+                        if (isMainFoodMenu)
+                        {
+                            if (itemId == int.MaxValue)
+                            {
+                                currentSelectedMember.IsDeleteMainFood = false;
+                            }
+
+                            CurrentSelectedMainMenuId = itemId;
+                            AddSelectedMenuItemToList(itemId, currentSelectedMember, 1, 0);
+                        }
+                        else
+                        {
+                            CurrentSelectedAlternativeMenuId = itemId;
+                            AddSelectedMenuItemToList(itemId, currentSelectedMember, 2, 0);
+                        }
+                    }
                 }
 
                 if (CheckLocationMenu)
@@ -1355,53 +1317,79 @@ namespace NexFB.WinApp.ViewModels
         /// <summary>
         /// Execute Number keypad Released.
         /// </summary>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Reviewed. Suppression is OK here.")]
         public void ExecuteNumPadReleased()
         {
             var currentSelectedEmployee = UserInGroup.Where(x => x.SysId == CurrentSelectedEmployeeSysId).SingleOrDefault();
             CommonKitchenOrder currentSelectedMenu = null;
             EmployeeOrderDetails menuRemoved = null;
-            if (!IsMenuFocused)
+            if (this.TextBlockFocused)
             {
-                EmployeeInListReleased(currentSelectedEmployee);
+                if (!string.IsNullOrEmpty(Result))
+                {
+                    Result = Result.Remove(Result.Length - 1);
+                }
             }
             else
             {
-                if (!CommonKitchenOrder.Any(x => x.IsSelectedMealMenu && x.IsFocusedMealMenu))
+                if (!IsMenuFocused)
                 {
                     EmployeeInListReleased(currentSelectedEmployee);
                 }
                 else
                 {
-                    if (CheckMainFoodMenu)
+                    if (!CommonKitchenOrder.Any(x => x.IsSelectedMealMenu && x.IsFocusedMealMenu))
                     {
-                        if (CurrentSelectedMainMenuId > 0)
-                        {
-                            currentSelectedMenu = CommonKitchenOrder.Where(x => x.ItemId == CurrentSelectedMainMenuId).SingleOrDefault();
-                            menuRemoved = currentSelectedEmployee.ListMainMenuOrderDeatails.Where(x => x.SelectedMenuItemId == CurrentSelectedMainMenuId).SingleOrDefault();
-                            if (menuRemoved != null)
-                            {
-                                currentSelectedEmployee.ListMainMenuOrderDeatails.Remove(menuRemoved);
-                                currentSelectedEmployee.IsDeleteMainFood = true;
-                            }
-                        }
+                        EmployeeInListReleased(currentSelectedEmployee);
                     }
                     else
                     {
-                        if (CurrentSelectedAlternativeMenuId > 0)
+                        if (CheckMainFoodMenu || CheckAlternativeFoodMenu)
                         {
-                            currentSelectedMenu = CommonKitchenOrder.Where(x => x.ItemId == CurrentSelectedAlternativeMenuId).SingleOrDefault();
-                            menuRemoved = currentSelectedEmployee.ListAlternativeMenuOrderDeatails.Where(x => x.SelectedMenuItemId == CurrentSelectedAlternativeMenuId).SingleOrDefault();
-                            if (menuRemoved != null)
+                            if (CheckMainFoodMenu)
                             {
-                                currentSelectedEmployee.ListAlternativeMenuOrderDeatails.Remove(menuRemoved);
+                                if (CurrentSelectedMainMenuId > 0)
+                                {
+                                    currentSelectedMenu = CommonKitchenOrder.Where(x => x.ItemId == CurrentSelectedMainMenuId).SingleOrDefault();
+                                    menuRemoved = currentSelectedEmployee.ListMainMenuOrderDeatails.Where(x => x.SelectedMenuItemId == CurrentSelectedMainMenuId).SingleOrDefault();
+                                    if (menuRemoved != null)
+                                    {
+                                        currentSelectedEmployee.ListMainMenuOrderDeatails.Remove(menuRemoved);
+                                        currentSelectedEmployee.IsDeleteMainFood = true;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (CurrentSelectedAlternativeMenuId > 0)
+                                {
+                                    currentSelectedMenu = CommonKitchenOrder.Where(x => x.ItemId == CurrentSelectedAlternativeMenuId).SingleOrDefault();
+                                    menuRemoved = currentSelectedEmployee.ListAlternativeMenuOrderDeatails.Where(x => x.SelectedMenuItemId == CurrentSelectedAlternativeMenuId).SingleOrDefault();
+                                    if (menuRemoved != null)
+                                    {
+                                        currentSelectedEmployee.ListAlternativeMenuOrderDeatails.Remove(menuRemoved);
+                                    }
+                                }
+                            }
+
+                            currentSelectedEmployee.OrderSummary = DisplayEmployeeOrderSummary(currentSelectedEmployee);
+                            UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
+                            currentSelectedMenu.Quantity = 0;
+                            ChangeMenuColor(currentSelectedEmployee);
+                        }
+                        else
+                        {
+                            if (CurrentSelectedGroupId > 0)
+                            {
+                                currentSelectedMenu = CommonKitchenOrder.Where(x => x.ItemId == CurrentSelectedGroupId).SingleOrDefault();
+                                currentSelectedMenu.IsFocusedMealMenu = false;
+                                currentSelectedMenu.IsSelectedMealMenu = false;
+                                IsMenuFocused = false;
+                                AddMemberInGroupToGrid(currentSelectedMenu);
                             }
                         }
                     }
-
-                    currentSelectedEmployee.OrderSummary = DisplayEmployeeOrderSummary(currentSelectedEmployee);
-                    UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
-                    currentSelectedMenu.Quantity = 0;
-                    ChangeMenuColor(currentSelectedEmployee);
                 }
             }
         }
@@ -1420,9 +1408,12 @@ namespace NexFB.WinApp.ViewModels
                 currentSelectedEmployee.ListMainMenuOrderDeatails = new List<EmployeeOrderDetails>();
                 currentSelectedEmployee.ListAlternativeMenuOrderDeatails = new List<EmployeeOrderDetails>();
                 currentSelectedEmployee.OrderSummary = null;
-                CommonKitchenOrder = AllObservationGroup;
                 ChangeButtonBorder(2);
                 ChangeMemberOrderColor(currentSelectedEmployee);
+                if (!(CommonKitchenOrder.Any() && CommonKitchenOrder.Count > 0))
+                {
+                    CommonKitchenOrder = AllObservationGroup;
+                }
             }
         }
 
@@ -1526,6 +1517,11 @@ namespace NexFB.WinApp.ViewModels
                 }
 
                 CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>(this.CommonKitchenOrder);
+            }
+
+            if (CheckGroupMenu)
+            {
+                CommonKitchenOrder.ToList().ForEach(x => { x.IsFocusedMealMenu = false; });
             }
         }
 
@@ -1749,18 +1745,19 @@ namespace NexFB.WinApp.ViewModels
         }
 
         /// <summary>
-        /// Cancel Current Order.
+        /// Cancel Current order.
         /// </summary>
-        public void ResetCurrentModel()
+        /// <param name="value">Parameter value.</param>
+        public void ResetCurrentModel(object value = null)
         {
             string defaultColor = Constant.DefaultButtonOrderBorderColor;
             CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>();
             UserInGroup = new ObservableCollection<KitchenEmployeeInfo>();
             DuplicateUser = new ObservableCollection<KitchenEmployeeInfo>();
-            AllObservationFood = this.GetAllFood;
-            AllObservationAlternativeFood = this.GetAllAlternativeFood;
-            AllObservationGroup = this.GetAllGroup;
-            AllObservationLocation = this.GetAllLocation;
+            AllObservationFood = OrderFoodData.GetAllFood;
+            AllObservationAlternativeFood = OrderFoodData.GetAllAlternativeFood;
+            AllObservationGroup = OrderFoodData.GetAllGroup;
+            AllObservationLocation = OrderFoodData.GetAllLocation;
             EmployeeInfo = null;
             Result = null;
             LocationName = null;
@@ -1773,9 +1770,16 @@ namespace NexFB.WinApp.ViewModels
             CurrentSelectedAlternativeMenuId = 0;
             CurrentSelectedEmployeeSysId = 0;
             CurrentSelectedMainMenuId = 0;
+            CurrentSelectedGroupId = 0;
             IsMenuFocused = false;
+            TextBlockFocused = false;
             OrderNo = string.Empty;
             ReferenceCode = 0;
+            if (value != null)
+            {
+                Border textBlockBorder = (Border)value;
+                textBlockBorder.BorderBrush = Brushes.White;
+            }
         }
 
         /// <summary>
@@ -1952,6 +1956,8 @@ namespace NexFB.WinApp.ViewModels
                                     {
                                         employeeOrderDetails.IsMainMenu = true;
                                         employeeOrderDetails.SelectedMenuItemId = int.MaxValue;
+                                        kitchenEmployeeInfo.MenuEngName = orderDetail.MenuEngName;
+                                        kitchenEmployeeInfo.MenuVnmName = orderDetail.MenuVnmName;
                                     }
 
                                     kitchenEmployeeInfo.ListMainMenuOrderDeatails.Add(employeeOrderDetails);
@@ -1970,8 +1976,6 @@ namespace NexFB.WinApp.ViewModels
                                 }
 
                                 kitchenEmployeeInfo.NickName = orderDetail.NickName;
-                                kitchenEmployeeInfo.MenuVnmName = orderDetail.MenuVnmName;
-                                kitchenEmployeeInfo.MenuEngName = orderDetail.MenuEngName;
                                 kitchenEmployeeInfo.IsPlaceOrder = true;
                             }
 
@@ -1982,7 +1986,7 @@ namespace NexFB.WinApp.ViewModels
                     }
 
                     UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(data);
-                    CommonKitchenOrder = this.GetAllGroup;
+                    CommonKitchenOrder = OrderFoodData.GetAllGroup;
                     ExecutePickGroupCommand();
                     GridUserVisibility = Constant.Visible;
                     OrderNo = order.OrderNo.ToString().PadLeft(3, '0');

@@ -114,6 +114,7 @@
     <Compile Include="DependencyProperties\WaterMark.cs" />
     <Compile Include="DependencyProperties\WatermarkAdorner.cs" />
     <Compile Include="ViewModels\AwaitingDeliverViewModel.cs" />
+    <Compile Include="ViewModels\OrderFoodData.cs" />
     <Compile Include="ViewModels\OrderFoodPreviewData.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="Views\EmployeeSelectionWindow.xaml.cs">
@@ -267,10 +268,6 @@
     <ProjectReference Include="..\NexFB.WinApp.Core\NexFB.WinApp.Core.csproj">
       <Project>{64A4E7F4-92F1-4DE3-8C03-687496864BB8}</Project>
       <Name>NexFB.WinApp.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NexFB.WinApp.Models\NexFB.WinApp.Models.csproj">
-      <Project>{D61A3DE4-2C25-4140-847C-ABC072F25E9D}</Project>
-      <Name>NexFB.WinApp.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

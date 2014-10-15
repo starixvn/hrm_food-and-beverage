@@ -77,10 +77,6 @@
       <Project>{79FB6864-4696-4CC2-B94D-842C09CFAC0E}</Project>
       <Name>NexFB.Resources</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NexFB.WinApp.Models\NexFB.WinApp.Models.csproj">
-      <Project>{D61A3DE4-2C25-4140-847C-ABC072F25E9D}</Project>
-      <Name>NexFB.WinApp.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
