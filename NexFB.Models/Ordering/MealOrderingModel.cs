@@ -12,6 +12,7 @@ namespace NexFB.Models.Ordering
     using System;
     using System.Collections.Generic;
     using NexFB.Models.Entities;
+    using NexFB.Core.Constants;
 
     /// <summary>
     /// MealOrdering Model.
@@ -57,7 +58,7 @@ namespace NexFB.Models.Ordering
         {
             get
             {
-                return ModifiedDate.ToString("HH:mm:ss");
+                return ModifiedDate.ToString(Constants.TimeFormat);
             }
         }
 

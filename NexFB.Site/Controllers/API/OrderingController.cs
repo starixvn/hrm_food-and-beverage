@@ -103,17 +103,23 @@ namespace NexFB.Site.Controllers.API
             };
 
             MealOrderingModel order = _orderService.GetMemberNewOrder(criteria);
+            return order;
+        }
 
-            if (order == null)
+        /// <summary>
+        /// Function to get saved order.
+        /// </summary>
+        /// <returns>MealOrdering Model.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
+        public MealOrderingModel GetSavedOrder()
+        {
+            var criteria = new GetMemberSavedOrderCriteria()
             {
-                order = new MealOrderingModel();
-            }
+                UserId = this.CurrentUser.UserId
+            };
 
-            if (order.Location == null)
-            {
-                order.Location = new Location();
-            }
-
+            MealOrderingModel order = _orderService.GetMemberSavedOrder(criteria);
             return order;
         }
 
@@ -132,34 +138,6 @@ namespace NexFB.Site.Controllers.API
             };
 
             MealOrderingModel order = _orderService.GetMemberNewOrder(criteria);
-            return order;
-        }
-
-        /// <summary>
-        /// Function to get saved order.
-        /// </summary>
-        /// <returns>MealOrdering Model.</returns>
-        [HttpGet]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
-        public MealOrderingModel GetSavedOrder()
-        {
-            var criteria = new GetMemberSavedOrderCriteria()
-            {
-                UserId = this.CurrentUser.UserId
-            };
-
-            MealOrderingModel order = _orderService.GetMemberSavedOrder(criteria);
-
-            if (order == null)
-            {
-                order = new MealOrderingModel();
-            }
-
-            if (order.Location == null)
-            {
-                order.Location = new Location();
-            }
-
             return order;
         }
 

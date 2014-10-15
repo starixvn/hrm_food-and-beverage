@@ -26,6 +26,8 @@ namespace NexFB.Core.Constants
 
         public const int HMDepartment = 3;
 
+        public const string TimeFormat = "HH:mm:ss";
+
         private Constants()
         {
         }

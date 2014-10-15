@@ -2,9 +2,9 @@
 /*global orderingModule*/
 
 orderingModule.controller("OrderingController",
-['$translate', '$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService', 
+['$translate', '$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService',
 'notificationFactory', 'ErrorFactory',
-function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderingService, 
+function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderingService,
 	notificationFactory, ErrorFactory) {
 	$scope.getMessage = function () {
 		$translate('ConfirmMessageSaveOrder').then(function (message) {
@@ -348,11 +348,12 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	};
 
 	$scope.getEmployee = function (searchKey) {
-		orderingFactory.getEmployees(searchKey).success(function (employees) {
+		orderingFactory.getEmployees(searchKey).then(
+		function (employees) {
 			$scope.searchEmployees = employees;
-		})
-		.error(function (response, status) {
-			ErrorFactory.errorHandle(status);
+		},
+		function (response) {
+			ErrorFactory.errorHandle(response.status);
 		});
 	};
 

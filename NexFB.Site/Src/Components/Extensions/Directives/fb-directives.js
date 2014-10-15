@@ -56,36 +56,6 @@ appModule.directive('searchAutoComplete', ['$timeout', function ($timeout) {
 	};
 } ]);
 
-appModule.directive('searchAutoComplete1', ['$timeout', function ($timeout) {
-	return {
-		scope: { employee: "=employee", searchEmployees: "&searchEmployees" },
-		link: function (scope, iElement) {
-			iElement.autocomplete({
-				source: function (request, response) {
-					var employees = scope.searchEmployees();
-					var data = [];
-					angular.forEach(employees.data, function (employee) {
-						data.push(
-								{ value: employee.NickName + ' (' + employee.FullName + ')',
-									id: employee.UserId,
-									employee: employee
-								});
-					});
-
-					response(data);
-				},
-				select: function (event, ui) {
-					scope.employee = ui.item.employee;
-					$timeout(function () {
-						iElement.trigger('input');
-					}, 0);
-				},
-				appendTo: iElement.parent()
-			});
-		}
-	};
-} ]);
-
 appModule.directive('ngBox', function () {
 	return function () {
 		$(".boxtitle").on("click", function () {

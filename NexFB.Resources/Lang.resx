@@ -657,4 +657,10 @@
   <data name="NotContinuousMealInShift" xml:space="preserve">
     <value>All meals in a shift must be consecutive!</value>
   </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="SideDish" xml:space="preserve">
+    <value>Side dish</value>
+  </data>
 </root>

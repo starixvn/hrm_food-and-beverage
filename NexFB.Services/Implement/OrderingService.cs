@@ -77,9 +77,18 @@ namespace NexFB.Services.Implement
                 order = _orderRepository.GetMemberNewOrder(criteria);
                 if (order != null)
                 {
-                    order.IsSavedOrder = false;
-                    order.Members = order.Members.Where(t => t.IsOrder == true).ToList();
+                    order.Members = order.Members.Where(t => t.IsOrder).ToList();
                 }
+            }
+
+            if (order == null)
+            {
+                order = new MealOrderingModel();
+            }
+
+            if (order.Location == null)
+            {
+                order.Location = new Location();
             }
 
             return order;
@@ -97,12 +106,19 @@ namespace NexFB.Services.Implement
             if (criteria.IsValid())
             {
                 order = _orderRepository.GetMemberSavedOrder(criteria);
-                if (order != null)
-                {
-                    order.IsSavedOrder = true;
-                }
             }
 
+            if (order == null)
+            {
+                order = new MealOrderingModel();
+            }
+
+            if (order.Location == null)
+            {
+                order.Location = new Location();
+            }
+
+            order.IsSavedOrder = true;
             return order;
         }
 
@@ -118,10 +134,6 @@ namespace NexFB.Services.Implement
             if (criteria.IsValid())
             {
                 order = _orderRepository.GetOrderById(criteria);
-                if (order != null)
-                {
-                    order.IsSavedOrder = false;
-                }
             }
 
             return order;
