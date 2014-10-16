@@ -12,6 +12,7 @@ namespace NexFB.Services.Interface
     using System.Collections.Generic;
     using NexFB.Core.Models;
     using NexFB.Criteria.Ordering;
+    using NexFB.Models.AlternativeMenuManagement;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
 
@@ -36,5 +37,7 @@ namespace NexFB.Services.Interface
         CommandResult AddMember(AddMemberCriteria criteria);
 
         CommandResult RemoveMember(RemoveMemberCriteria criteria);
+
+        IEnumerable<AlternativeMenuModel> GetAlternativeMenuByUserId(GetAlternativeMenuByUserIdCriteria criteria);
     }
 }

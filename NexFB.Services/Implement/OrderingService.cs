@@ -15,6 +15,7 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Models;
     using NexFB.Core.Services;
     using NexFB.Criteria.Ordering;
+    using NexFB.Models.AlternativeMenuManagement;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
     using NexFB.Repositories.Implement;
@@ -262,6 +263,24 @@ namespace NexFB.Services.Implement
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Get alternative menus by user Id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Alternative Menu model.</returns>
+        public IEnumerable<AlternativeMenuModel> GetAlternativeMenuByUserId(GetAlternativeMenuByUserIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<AlternativeMenuModel> alternativeMenus = null;
+
+            if (criteria.IsValid())
+            {
+                alternativeMenus = GetData<AlternativeMenuModel>(criteria);
+            }
+
+            return alternativeMenus;
         }
     }
 }

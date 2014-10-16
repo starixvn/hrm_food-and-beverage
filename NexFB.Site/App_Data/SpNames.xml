@@ -155,6 +155,13 @@
     </Setting>
     <Setting Key="GroupOrderUser_RemoveMember" SpName="GroupOrderUser_RemoveMember" DbName="NexFB" Plain="0" >
     </Setting>
+	<Setting Key="MealOrder_Get_FoodAlternative" SpName="MealOrder_Get_FoodAlternative" DbName="NexFB" Plain="0" >
+		<Mapping DataField="MenuID" ObjectProperty="AlternativeMenuId"/>
+		<Mapping DataField="MenuCode" ObjectProperty="AlternativeMenuCode"/>
+		<Mapping DataField="MenuVNMName" ObjectProperty="AlternativeMenuVnmName"/>
+		<Mapping DataField="MenuEngName" ObjectProperty="AlternativeMenuEngName"/>
+		<Mapping DataField="MenuPhoto" ObjectProperty="AlternativeMenuPhoto"/>
+	</Setting>
   </Function>
 	<Function Name="POS">
 		<Setting Key="POS_Get_OrderRequestByOrderID" SpName="POS_Get_OrderRequestByOrderID" DbName="NexFB" Plain="0" >

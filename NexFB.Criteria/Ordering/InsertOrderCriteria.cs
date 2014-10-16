@@ -22,7 +22,7 @@ namespace NexFB.Criteria.Ordering
     /// </summary>
     public class InsertOrderCriteria : CriteriaBase
     {
-        private const string _MemberTpl = "<User SysId='{0}' IsOrder='{1}'></User>";
+        private const string _MemberTpl = "<User SysId='{0}' MenuID='{1}' IsMainMenu='{2}' IsOrder='{3}'></User>";
 
         [Output]
         public int OrderNo { get; set; }
@@ -56,7 +56,7 @@ namespace NexFB.Criteria.Ordering
                 {
                     foreach (OrderMemberModel member in Members)
                     {
-                        value.AppendFormat(_MemberTpl, member.Member.UserId, member.IsOrder);
+                        value.AppendFormat(_MemberTpl, member.Member.UserId, member.Menu.MenuId, member.Menu.IsMainMenu, member.IsOrder);
                     }
                 }
 

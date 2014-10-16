@@ -15,6 +15,7 @@ namespace NexFB.Repositories.Implement
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using NexFB.Models.AlternativeMenuManagement;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
     using NexFB.Repositories.Interface;
@@ -161,27 +162,31 @@ namespace NexFB.Repositories.Implement
             var order = new MealOrderingModel();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                order = db.QueryEntity<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
-                    (od, e, s, m, l) =>
-                    {
-                        OrderMemberModel memberOrder = new OrderMemberModel()
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    order = multi.Read<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
+                        (od, e, s, m, l) =>
                         {
-                            IsOrder = s == null,
-                            Member = e,
-                            Menu = m,
-                            CurrentStatus = s
-                        };
-                        od.Members = new List<OrderMemberModel>();
-                        od.Members.Add(memberOrder);
+                            OrderMemberModel memberOrder = new OrderMemberModel()
+                            {
+                                IsOrder = s == null,
+                                Member = e,
+                                Menu = m,
+                                CurrentStatus = s
+                            };
+                            od.Members = new List<OrderMemberModel>();
+                            od.Members.Add(memberOrder);
 
-                        od.CreatorOrder = e;
-                        od.MyMeal = m;
-                        od.Status = s;
-                        od.Location = l;
-                        return od;
-                    },
-                    "SysId, CurrentStatusID, MenuID, LocationID",
-                    criteria.GetSpParams());
+                            od.CreatorOrder = e;
+                            od.MyMeal = m;
+                            od.Status = s;
+                            od.Location = l;
+                            return od;
+                        },
+                        "SysId, CurrentStatusID, MenuID, LocationID").FirstOrDefault();
+
+                    order.Members.First().AllMenus = multi.Read<Menu>().ToList();
+                }
             }
 
             return order;

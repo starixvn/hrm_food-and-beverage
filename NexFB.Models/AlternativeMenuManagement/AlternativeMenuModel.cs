@@ -29,6 +29,8 @@ namespace NexFB.Models.AlternativeMenuManagement
 
         public bool? IsActive { get; set; }
 
+        public bool IsMainMenu { get; set; }
+
         public IList<EmployeeTypeModel> EmployeeTypes { get; set; }
     }
 }

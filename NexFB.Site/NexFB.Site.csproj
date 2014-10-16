@@ -237,6 +237,7 @@
     <Content Include="Src\App\MealPlanningManagement\Templates\edit.html" />
     <Content Include="Src\App\MealPlanningManagement\Templates\index.html" />
     <Content Include="Src\App\Ordering\editOrder-controller.js" />
+    <Content Include="Src\App\Ordering\ordering-directive.js" />
     <Content Include="Src\App\Ordering\Templates\EditOrder.html" />
     <Content Include="Src\App\ShiftMealMapping\shiftMealMapping-controller.js" />
     <Content Include="Src\App\ShiftMealMapping\shiftMealMapping-factory.js" />

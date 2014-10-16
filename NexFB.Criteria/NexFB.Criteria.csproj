@@ -110,6 +110,7 @@
     <Compile Include="Kitchen\UndoOrderCriteria.cs" />
     <Compile Include="MealRegistration\SetRegisterMealByDefaultCriteria.cs" />
     <Compile Include="Ordering\AddMemberCriteria.cs" />
+    <Compile Include="Ordering\GetAlternativeMenuByUserIdCriteria.cs" />
     <Compile Include="Ordering\RemoveMemberCriteria.cs" />
     <Compile Include="Ordering\DeleteOrderCriteria.cs" />
     <Compile Include="Ordering\GetOrderByIdCriteria.cs" />

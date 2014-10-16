@@ -17,6 +17,7 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Core.Models;
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.Ordering;
+    using NexFB.Models.AlternativeMenuManagement;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
     using NexFB.Services.Implement;
@@ -258,6 +259,16 @@ namespace NexFB.Site.Controllers.API
             };
 
             return user;
+        }
+
+        public IEnumerable<AlternativeMenuModel> GetAlternativeMenuByUserId(int userId)
+        {
+            var criteria = new GetAlternativeMenuByUserIdCriteria
+            {
+                UserId = userId
+            };
+
+            return _orderService.GetAlternativeMenuByUserId(criteria);
         }
     }
 }

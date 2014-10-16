@@ -363,16 +363,22 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			var member = {
 				Member: '',
 				Menu: '',
+				AllMenus: '',
 				IsOrder: true
 			};
 			member.Member = newMember.employee;
-			orderingFactory.getMenuByUserId(member.Member.UserId)
-			.success(function (data) {
-				member.Menu = data;
-				orderingFactory.getOrderByUserId(member.Member.UserId)
-				.success(function (dataStatus) {
-					member.CurrentStatus = dataStatus.Status;
+			var userId = member.Member.UserId;
+
+			orderingFactory.getOrderByUserId(userId)
+				.success(function (order) {
+					if (order.Members && order.Members.length > 0) {
+						member.CurrentStatus = order.Members[0].Status;
+						member.Menu = order.Members[0].Menu;
+						member.AllMenus = order.Members[0].AllMenus;
+					}
+
 					var isExisted = false;
+
 					if (isSavedOrder) {
 						if (member.CurrentStatus != null) {
 							member.IsOrder = false;
@@ -433,11 +439,16 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				.error(function (response, status) {
 					ErrorFactory.errorHandle(status);
 				});
-			})
-			.error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			});
 		}
+	};
+	/*
+	** Show alternative menus dropdown.
+	*/
+	$scope.alter = {};
+
+	$scope.showAlternativeMenu = function (userId) {
+		var key = 'alternativeMenu' + userId;
+		$scope.alter[key] = true;
 	};
 
 	$scope.showMember = function (order) {

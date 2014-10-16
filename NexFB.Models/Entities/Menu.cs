@@ -18,9 +18,13 @@ namespace NexFB.Models.Entities
     {
         public int MenuId { get; set; }
 
+        public string MenuCode { get; set; }
+
         public string NameVN { get; set; }
 
         public string NameEN { get; set; }
+
+        public bool IsMainMenu { get; set; }
 
         public string Name
         {

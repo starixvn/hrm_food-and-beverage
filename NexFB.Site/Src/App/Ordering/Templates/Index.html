@@ -175,7 +175,19 @@
                                         (Ordered)</span>
                                 </td>
                                 <td>
-                                    <span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
+									<div ng-show="!alter.alternativeMenu{{member.Member.UserId}}">
+										<span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
+										<a class="glyphicon glyphicon-edit" href="" ng-click="showAlternativeMenu(member.Member.UserId)" 
+											ng-show="member.AllMenus.length > 0" title="Select Alternative Menus" >
+										</a>
+									</div>
+									<div ng-show="alter.alternativeMenu{{member.Member.UserId}}">
+										<select name="newOrderMenu" ng-model="member.Menu.MenuId" get-selected-menu >
+											<option ng-repeat="altMenu in member.AllMenus" ng-bind="altMenu.Name" value="{{altMenu.MenuId}}" 
+												ng-selected="{{member.Menu.MenuId == altMenu.MenuId}}" isMainMenu={{altMenu.IsMainMenu}}>
+											</option>
+										</select>
+									</div>
                                 </td>
                                 <td class="text-center">
                                     <a href="javascript:;" ng-click="removeMember($index, member.Member.UserId, false)"
