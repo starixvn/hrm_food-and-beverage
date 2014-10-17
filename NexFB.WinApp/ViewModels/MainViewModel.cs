@@ -729,7 +729,7 @@ namespace NexFB.WinApp.ViewModels
             switch (currentViewModel)
             {
                 case Constant.WaitingMealViewModel:
-                    ((WaitingMealViewModel)CurrentViewModel).GetNewDataForApp();
+                    ((WaitingMealViewModel)CurrentViewModel).DeleteDataInWaitingMeals(orderId);
                     break;
                 case Constant.AwaitingDeliverViewModel:
                     ((AwaitingDeliverViewModel)CurrentViewModel).DeleteDataInAwaitingDeliverMeals(orderId);
@@ -821,13 +821,13 @@ namespace NexFB.WinApp.ViewModels
         private void KitchenStaffReceiveOrder(int orderId)
         {
             string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            Order order = GetOrderById(orderId);
             switch (currentViewModel)
             {
                 case Constant.WaitingMealViewModel:
-                    ((WaitingMealViewModel)CurrentViewModel).GetNewDataForApp();
+                    ((WaitingMealViewModel)CurrentViewModel).NewOrderDataAndSort(order);
                     break;
                 case Constant.AwaitingDeliverViewModel:
-                    Order order = GetOrderById(orderId);
                     ((AwaitingDeliverViewModel)CurrentViewModel).NewOrderDataInAwaitingDeliverMeals(order);
                     break;
             }

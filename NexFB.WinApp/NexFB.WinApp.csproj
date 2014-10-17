@@ -147,10 +147,12 @@
     <Resource Include="Images\logo.jpg" />
     <Resource Include="Images\close.png" />
     <Resource Include="Images\settings-icon.png" />
-    <Resource Include="Images\no-avatar.jpg" />
     <Resource Include="Images\button_cancel.png" />
     <Resource Include="Images\button_cancel_disabled.png" />
     <Resource Include="Images\kahn.png" />
+    <Resource Include="Images\arrow-icon.png" />
+    <Resource Include="Images\no-avatar.jpg" />
+    <Resource Include="Images\multi.png" />
     <Content Include="PrintingTemplates\OrderFoodReceipt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

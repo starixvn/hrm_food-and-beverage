@@ -1,8 +1,38 @@
 ﻿<Window x:Class="NexFB.WinAppSmartCard.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="1024" Width="1280"
+		xmlns:views="clr-namespace:NexFB.WinAppSmartCard.Views"
+		xmlns:helpers="clr-namespace:NexFB.WinAppSmartCard.GlobalResources.Helpers"
+		WindowState="Maximized" AllowsTransparency="False">
+	<Window.Resources>
+		<helpers:LocalizationHelper x:Key="localisation"/>
+	</Window.Resources>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="48"/>
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<DockPanel Grid.Row="0" Background="#464646">
+			<Button Command="{Binding Path=MainDishesCommand}" Background="{Binding Path=MainDishesMenu.BackgroundColor}"
+			Foreground="{Binding Path=MainDishesMenu.ForegroundColor}" FontWeight="{Binding Path=MainDishesMenu.FontWeight}"
+				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.MainDishes]}" 
+				Height="50" HorizontalAlignment="Left" Name="btnMainDishes" VerticalAlignment="Center" Width="140" Margin="-1,0,0,0" />
+
+			<Button Command="{Binding Path=SideDishesCommand}" Background="{Binding Path=SideDishesMenu.BackgroundColor}"
+				Foreground="{Binding Path=SideDishesMenu.ForegroundColor}" FontWeight="{Binding Path=SideDishesMenu.FontWeight}"
+				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.SideDishes]}" 
+				Height="50" HorizontalAlignment="Left" Name="btnSideDishes" VerticalAlignment="Center" Width="140" Margin="2,0,0,0" />
+
+			<Button Command="{Binding Path=ChangeLanguageCommand}" Background="#949494" Foreground="#fff"
+				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.CurrentCulture]}" 
+				Height="50" Name="languageButton" Width="120" Margin="2,0,0,0" HorizontalAlignment="Right" FontWeight="Black" FontSize="18"/>
+		</DockPanel >
+		<Grid Grid.Row="1" >
+			<ContentControl Content="{Binding CurrentViewModel}"
+			x:Name="contentControl"/>
+		</Grid>
+	</Grid>
+
 </Window>

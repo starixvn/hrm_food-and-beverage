@@ -9,29 +9,26 @@
 
 namespace NexFB.WinApp.Views
 {
-    using System;
     using System.Windows;
-    using System.Windows.Threading;
 
     /// <summary>
     /// Interaction logic for NotificationWindow.
     /// </summary>
     public partial class NotificationWindow : Window
     {
+        private static double _screenWidth = SystemParameters.PrimaryScreenWidth;
+        private double _screeHeight = SystemParameters.PrimaryScreenHeight;
+
         public NotificationWindow()
         {
             InitializeComponent();
-            Dispatcher.BeginInvoke(
-                DispatcherPriority.ApplicationIdle,
-                new Action(() =>
-            {
-                var workingArea = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea;
-                var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
-                var corner = transform.Transform(new Point(workingArea.Right, workingArea.Bottom));
+            DisplayPosition();
+        }
 
-                this.Left = corner.X - this.ActualWidth - 100;
-                this.Top = corner.Y - this.ActualHeight;
-            }));
+        private void DisplayPosition()
+        {
+            this.Left = _screenWidth - (this.Width + 30);
+            this.Top = _screeHeight - this.Height;
         }
     }
 }

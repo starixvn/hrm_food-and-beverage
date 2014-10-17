@@ -141,7 +141,7 @@ namespace NexFB.WinApp.ViewModels
         private void StartCloseTimer(NotificationWindow windows)
         {
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(3d);
+            timer.Interval = TimeSpan.FromSeconds(1.5d);
             timer.Tick += (sender, e) => TimerTick(sender, e, windows);
             timer.Start();
         }

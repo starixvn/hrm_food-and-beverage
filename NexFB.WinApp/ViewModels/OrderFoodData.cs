@@ -17,6 +17,7 @@ namespace NexFB.WinApp.ViewModels
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Entities;
     using NexFB.Models.Kitchen;
+    using NexFB.Resources;
     using NexFB.WinApp.Core.Models;
 
     /// <summary>
@@ -100,6 +101,92 @@ namespace NexFB.WinApp.ViewModels
 
                 return new ObservableCollection<CommonKitchenOrder>();
             }
+        }
+
+        /// <summary>
+        /// Display employee order summary.
+        /// </summary>
+        /// <param name="currentSelectedMember">Current selected employee.</param>
+        /// <returns>String order details.</returns>
+        public string DisplayEmployeeOrderSummary(KitchenEmployeeInfo currentSelectedMember)
+        {
+            var listMainOrder = currentSelectedMember.ListMainMenuOrderDeatails;
+            var listAlternativeOrder = currentSelectedMember.ListAlternativeMenuOrderDeatails;
+            int sumMainOrder = listMainOrder.Sum(x => x.SelectedMenuItemQuantity);
+            int sumAlternativeOrder = listAlternativeOrder.Sum(x => x.SelectedMenuItemQuantity);
+            string orderInfoSummary = string.Empty;
+
+            if (listMainOrder.Count > 0)
+            {
+                orderInfoSummary += CombineDataOrderSummary(listMainOrder);
+            }
+
+            orderInfoSummary += " - ";
+            if (listAlternativeOrder.Count > 0)
+            {
+                orderInfoSummary += CombineDataOrderSummary(listAlternativeOrder);
+            }
+
+            if (orderInfoSummary.Count() > 100)
+            {
+                orderInfoSummary = string.Empty;
+                if (listAlternativeOrder.Count > 0)
+                {
+                    if (listMainOrder.Count > 0)
+                    {
+                        orderInfoSummary += WinFormMainResource.Parentheses1 + sumMainOrder + WinFormMainResource.Main + WinFormMainResource.CommaSeparated
+                            + sumAlternativeOrder + WinFormMainResource.Snack + WinFormMainResource.Parentheses2;
+                    }
+                    else
+                    {
+                        orderInfoSummary += WinFormMainResource.Parentheses1 + sumAlternativeOrder + WinFormMainResource.Snack + WinFormMainResource.Parentheses2;
+                    }
+                }
+                else
+                {
+                    if (listMainOrder.Count > 0)
+                    {
+                        orderInfoSummary += WinFormMainResource.Parentheses1 + sumMainOrder + WinFormMainResource.Main + WinFormMainResource.Parentheses2;
+                    }
+                }
+            }
+
+            return orderInfoSummary;
+        }
+
+        /// <summary>
+        /// Display order details.
+        /// </summary>
+        /// <param name="listOrderDetails">List order details.</param>
+        /// <returns>String order details.</returns>
+        public string CombineDataOrderSummary(List<EmployeeOrderDetails> listOrderDetails)
+        {
+            string orderInfoSummary = string.Empty;
+            var lastItem = listOrderDetails.Last();
+            foreach (var item in listOrderDetails)
+            {
+                if (item.SelectedMenuItemQuantity > 1)
+                {
+                    orderInfoSummary += item.SelectedMenuItemQuantity.ToString()
+                        + WinFormMainResource.QuantityPerOrder
+                        + WinFormMainResource.Parentheses1
+                        + item.SelectedMenuItemName
+                        + WinFormMainResource.Parentheses2;
+                }
+                else
+                {
+                    orderInfoSummary += WinFormMainResource.Parentheses1
+                         + item.SelectedMenuItemName
+                         + WinFormMainResource.Parentheses2;
+                }
+
+                if (item != lastItem)
+                {
+                    orderInfoSummary += WinFormMainResource.CommaSeparated;
+                }
+            }
+
+            return orderInfoSummary;
         }
     }
 }

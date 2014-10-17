@@ -79,7 +79,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Amount.
+        ///   Looks up a localized string similar to Amount / Thành Tiền.
         /// </summary>
         public static string Amount {
             get {

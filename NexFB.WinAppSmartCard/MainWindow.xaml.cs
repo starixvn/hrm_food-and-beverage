@@ -10,6 +10,7 @@
 namespace NexFB.WinAppSmartCard
 {
     using System.Windows;
+    using NexFB.WinAppSmartCard.ViewModels;
 
     /// <summary>
     /// Interaction logic for MainWindow.
@@ -19,6 +20,7 @@ namespace NexFB.WinAppSmartCard
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainViewModel();
         }
     }
 }

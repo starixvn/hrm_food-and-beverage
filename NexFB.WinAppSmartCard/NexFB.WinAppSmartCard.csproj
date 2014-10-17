@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -36,6 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -57,12 +58,36 @@
     </ApplicationDefinition>
     <Compile Include="Enums\ScopeOption.cs" />
     <Compile Include="Enums\SmartCardState.cs" />
+    <Compile Include="GlobalResources\Events\Locale.cs" />
+    <Compile Include="GlobalResources\Events\LocaleChangedEvent.cs" />
+    <Compile Include="GlobalResources\Helpers\DesignHelpers.cs" />
+    <Compile Include="GlobalResources\Helpers\LocalizationHelper.cs" />
+    <Compile Include="GlobalResources\Resources\MainScreenResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainScreenResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalResources\Services\ResourceManagerService.cs" />
     <Compile Include="SmartCardHelper\CardState.cs" />
     <Compile Include="SmartCardHelper\ReaderState.cs" />
     <Compile Include="SmartCardHelper\SmartcardContextSafeHandle.cs" />
     <Compile Include="SmartCardHelper\SmartcardErrorCode.cs" />
     <Compile Include="SmartCardHelper\SmartcardManager.cs" />
     <Compile Include="SmartCardHelper\UnsafeNativeMethods.cs" />
+    <Compile Include="ViewModels\MainDishesViewModel.cs" />
+    <Compile Include="ViewModels\MainScreenViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SideDishesViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\MainDishes.xaml.cs">
+      <DependentUpon>MainDishes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainScreenView.xaml.cs">
+      <DependentUpon>MainScreenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SideDishes.xaml.cs">
+      <DependentUpon>SideDishes.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -75,6 +100,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="StaticResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainDishes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainScreenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SideDishes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -90,6 +131,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="GlobalResources\Resources\MainScreenResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainScreenResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalResources\Resources\MainScreenResources.vi-VN.resx" />
+    <EmbeddedResource Include="GlobalResources\Resources\MainScreenResources.zh-CN.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -99,6 +146,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NexFB.WinAppSmartCard.Core\NexFB.WinAppSmartCard.Core.csproj">
+      <Project>{09E8D442-CFB1-41DD-B479-590864561ABB}</Project>
+      <Name>NexFB.WinAppSmartCard.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

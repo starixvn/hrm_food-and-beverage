@@ -64,6 +64,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinAppSmartCard", "WinAppSm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexFB.WinAppSmartCard", "NexFB.WinAppSmartCard\NexFB.WinAppSmartCard.csproj", "{C075C90E-2582-47C7-BB28-92990333E8EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexFB.WinAppSmartCard.Core", "NexFB.WinAppSmartCard.Core\NexFB.WinAppSmartCard.Core.csproj", "{09E8D442-CFB1-41DD-B479-590864561ABB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -214,6 +216,16 @@ Global
 		{C075C90E-2582-47C7-BB28-92990333E8EF}.Release|Mixed Platforms.Build.0 = Release|x86
 		{C075C90E-2582-47C7-BB28-92990333E8EF}.Release|x86.ActiveCfg = Release|x86
 		{C075C90E-2582-47C7-BB28-92990333E8EF}.Release|x86.Build.0 = Release|x86
+		{09E8D442-CFB1-41DD-B479-590864561ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09E8D442-CFB1-41DD-B479-590864561ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09E8D442-CFB1-41DD-B479-590864561ABB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{09E8D442-CFB1-41DD-B479-590864561ABB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{09E8D442-CFB1-41DD-B479-590864561ABB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{09E8D442-CFB1-41DD-B479-590864561ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09E8D442-CFB1-41DD-B479-590864561ABB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09E8D442-CFB1-41DD-B479-590864561ABB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{09E8D442-CFB1-41DD-B479-590864561ABB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{09E8D442-CFB1-41DD-B479-590864561ABB}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -233,6 +245,7 @@ Global
 		{64A4E7F4-92F1-4DE3-8C03-687496864BB8} = {D59B241B-950E-4678-884A-DDE882FA2E1B}
 		{0F13DE23-E3B7-466B-84AD-2EB79E5E4D6A} = {D59B241B-950E-4678-884A-DDE882FA2E1B}
 		{C075C90E-2582-47C7-BB28-92990333E8EF} = {C4674C83-2B10-4406-B68B-50E31F0C4D49}
+		{09E8D442-CFB1-41DD-B479-590864561ABB} = {C4674C83-2B10-4406-B68B-50E31F0C4D49}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35

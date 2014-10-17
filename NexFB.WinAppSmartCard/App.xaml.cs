@@ -10,6 +10,8 @@
 namespace NexFB.WinAppSmartCard
 {
     using System.Windows;
+    using NexFB.WinAppSmartCard.GlobalResources.Resources;
+    using NexFB.WinAppSmartCard.GlobalResources.Services;
     using NexFB.WinAppSmartCard.SmartCardHelper;
 
     /// <summary>
@@ -20,6 +22,7 @@ namespace NexFB.WinAppSmartCard
         protected override void OnStartup(StartupEventArgs e)
         {
             SmartcardManager.GetManager(1);
+            ResourceManagerService.RegisterManager(@"MainScreenResources", MainScreenResources.ResourceManager, true);
         }
     }
 }

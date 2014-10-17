@@ -133,8 +133,7 @@
 							<Setter Property="BorderBrush" TargetName="border" Value="#FF0000"/>
 						</Trigger>
 						<Trigger Property="IsEnabled" Value="False">
-							<Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
-							<Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+							<Setter Property="Background" TargetName="border" Value="#F0F0F0"/>
 							<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
 						</Trigger>
 					</ControlTemplate.Triggers>
@@ -168,7 +167,7 @@
 								<Condition Binding="{Binding Path=IsSelectedMealMenu}" Value="True"/>
 								<Condition Binding="{Binding Path=IsMainMenu}" Value="True"/>
 							</MultiDataTrigger.Conditions>
-							<Setter Property="Background" Value="#001CD1"/>
+							<Setter Property="Background" Value="#1271b0"/>
 						</MultiDataTrigger>
 
 						<MultiDataTrigger>
@@ -176,7 +175,7 @@
 								<Condition Binding="{Binding Path=IsSelectedMealMenu}" Value="True"/>
 								<Condition Binding="{Binding Path=IsMainMenu}" Value="False"/>
 							</MultiDataTrigger.Conditions>
-							<Setter Property="Background" Value="#001CD1"/>
+							<Setter Property="Background" Value="#1271b0"/>
 						</MultiDataTrigger>
 
 						<MultiDataTrigger>
@@ -184,7 +183,7 @@
 								<Condition Binding="{Binding Path=IsSelectedMealMenu}" Value="False"/>
 								<Condition Binding="{Binding Path=IsMainMenu}" Value="True"/>
 							</MultiDataTrigger.Conditions>
-							<Setter Property="Background" Value="#E6C1D9"/>
+							<Setter Property="Background" Value="#f26c4f"/>
 						</MultiDataTrigger>
 
 						<MultiDataTrigger>
@@ -192,7 +191,7 @@
 								<Condition Binding="{Binding Path=IsSelectedMealMenu}" Value="False"/>
 								<Condition Binding="{Binding Path=IsMainMenu}" Value="False"/>
 							</MultiDataTrigger.Conditions>
-							<Setter Property="Background" Value="#46A3E1"/>
+							<Setter Property="Background" Value="#46a3e1"/>
 						</MultiDataTrigger>
 
 						<DataTrigger Binding="{Binding Path=IsFocusedMealMenu}" Value="True">
@@ -262,7 +261,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
-					<Border Name="border" CornerRadius="0" Background="#e2e2e2"  BorderBrush="#737373" BorderThickness="1">
+					<Border Name="border" CornerRadius="0" Background="#f0f0f0"  BorderBrush="#adb9c2" BorderThickness="1">
 						<ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center">
 						</ContentPresenter>
 					</Border>
@@ -272,9 +271,8 @@
 							<Setter Property="BorderThickness" TargetName="border" Value="3"/>
 						</Trigger>
 						<Trigger Property="IsEnabled" Value="False">
-							<Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
-							<Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
-							<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
+							<Setter Property="Background" TargetName="border" Value="#d1d1d1"/>
+							<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#fff"/>
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>

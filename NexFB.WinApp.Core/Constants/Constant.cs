@@ -56,7 +56,7 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string DefaultMenuColor = "#fff";
 
-        public const string DefaultButtonOrderBorderColor = "#BCB304";
+        public const string DefaultButtonOrderBorderColor = "#fff";
 
         public const string Hidden = "Hidden";
 

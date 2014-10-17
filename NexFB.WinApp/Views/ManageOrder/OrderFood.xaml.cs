@@ -46,6 +46,7 @@ namespace NexFB.WinApp.Views.ManageOrder
                 if (commonKitchenOrder.Count > 0)
                 {
                     commonKitchenOrder.ToList().ForEach(x => x.IsFocusedMealMenu = false);
+                    currentViewModel.CommonKitchenOrder = currentViewModel.AllObservationGroup;
                 }
 
                 if (userInGroup.Count > 0)

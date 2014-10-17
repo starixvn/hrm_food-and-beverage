@@ -130,6 +130,27 @@ namespace NexFB.WinApp.ViewModels
             WaitingMeals = this.GetWaitingMealOrder;
         }
 
+        /// <summary>
+        /// Insert New Order and Sort.
+        /// </summary>
+        /// <param name="order">New order.</param>
+        public void NewOrderDataAndSort(Order order)
+        {
+            if (!WaitingMeals.Any(x => x.OrderId == order.OrderId))
+            {
+                Order lastNewOrder = WaitingMeals.Where(x => x.CurrentStatusId == 1).LastOrDefault();
+                if (lastNewOrder != null)
+                {
+                    int index = WaitingMeals.IndexOf(lastNewOrder);
+                    WaitingMeals.Insert(index + 1, order);
+                }
+                else
+                {
+                    WaitingMeals.Insert(0, order);
+                }
+            }
+        }
+
         #endregion
     }
 }
