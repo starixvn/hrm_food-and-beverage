@@ -38,6 +38,6 @@ namespace NexFB.Services.Interface
 
         CommandResult RemoveMember(RemoveMemberCriteria criteria);
 
-        IEnumerable<AlternativeMenuModel> GetAlternativeMenuByUserId(GetAlternativeMenuByUserIdCriteria criteria);
+        IEnumerable<Menu> GetAlternativeMenuByUserId(GetAlternativeMenuByUserIdCriteria criteria);
     }
 }

@@ -121,6 +121,7 @@
       <Mapping DataField="SysId" ObjectProperty="UserId" Class="Employee"/>
       <Mapping DataField="MenuEngName" ObjectProperty="NameEN" Class="Menu"/>
       <Mapping DataField="MenuVNMName" ObjectProperty="NameVN" Class="Menu"/>
+      <Mapping DataField="IsHaveAltMenu" ObjectProperty="IsHaveAlternativeMenu" Class="Menu"/>
       <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location"/>
       <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" Class="Location"/>
     </Setting>
@@ -130,6 +131,7 @@
       <Mapping DataField="SysId" ObjectProperty="UserId" Class="Employee"/>
       <Mapping DataField="MenuEngName" ObjectProperty="NameEN" Class="Menu"/>
       <Mapping DataField="MenuVNMName" ObjectProperty="NameVN" Class="Menu"/>
+      <Mapping DataField="IsHaveAltMenu" ObjectProperty="IsHaveAlternativeMenu" Class="Menu"/>
       <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location"/>
       <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" Class="Location"/>
     </Setting>
@@ -156,11 +158,8 @@
     <Setting Key="GroupOrderUser_RemoveMember" SpName="GroupOrderUser_RemoveMember" DbName="NexFB" Plain="0" >
     </Setting>
 	<Setting Key="MealOrder_Get_FoodAlternative" SpName="MealOrder_Get_FoodAlternative" DbName="NexFB" Plain="0" >
-		<Mapping DataField="MenuID" ObjectProperty="AlternativeMenuId"/>
-		<Mapping DataField="MenuCode" ObjectProperty="AlternativeMenuCode"/>
-		<Mapping DataField="MenuVNMName" ObjectProperty="AlternativeMenuVnmName"/>
-		<Mapping DataField="MenuEngName" ObjectProperty="AlternativeMenuEngName"/>
-		<Mapping DataField="MenuPhoto" ObjectProperty="AlternativeMenuPhoto"/>
+		<Mapping DataField="MenuEngName" ObjectProperty="NameEN" Class="Menu"/>
+		<Mapping DataField="MenuVNMName" ObjectProperty="NameVN" Class="Menu"/>
 	</Setting>
   </Function>
 	<Function Name="POS">

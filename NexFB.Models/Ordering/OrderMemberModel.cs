@@ -9,8 +9,6 @@
 
 namespace NexFB.Models.Ordering
 {
-    using System.Collections.Generic;
-    using NexFB.Models.AlternativeMenuManagement;
     using NexFB.Models.Entities;
 
     /// <summary>
@@ -27,7 +25,5 @@ namespace NexFB.Models.Ordering
         public bool IsOrder { get; set; }
 
         public Status CurrentStatus { get; set; }
-
-        public IList<Menu> AllMenus { get; set; }
     }
 }

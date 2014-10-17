@@ -26,6 +26,8 @@ namespace NexFB.Models.Entities
 
         public bool IsMainMenu { get; set; }
 
+        public bool IsHaveAlternativeMenu { get; set; }
+
         public string Name
         {
             get

@@ -174,6 +174,7 @@ namespace NexFB.Repositories.Implement
                                 Menu = m,
                                 CurrentStatus = s
                             };
+
                             od.Members = new List<OrderMemberModel>();
                             od.Members.Add(memberOrder);
 
@@ -184,8 +185,6 @@ namespace NexFB.Repositories.Implement
                             return od;
                         },
                         "SysId, CurrentStatusID, MenuID, LocationID").FirstOrDefault();
-
-                    order.Members.First().AllMenus = multi.Read<Menu>().ToList();
                 }
             }
 
@@ -223,6 +222,11 @@ namespace NexFB.Repositories.Implement
                             CurrentStatus = s
                         };
 
+                        if (memberOrder.Menu != null)
+                        {
+                            memberOrder.Menu.IsMainMenu = true;
+                        }
+
                         order.Members.Add(memberOrder);
                         return od;
                     },
@@ -253,6 +257,8 @@ namespace NexFB.Repositories.Implement
                 MenuId = dynamicObject.MenuID,
                 NameEN = dynamicObject.MenuEngName,
                 NameVN = dynamicObject.MenuVNMName,
+                IsHaveAlternativeMenu = dynamicObject.IsHaveAltMenu == 1 ? true : false,
+                IsMainMenu = dynamicObject.IsMainMenu == 1 ? true : false
             };
 
             orderMember.IsOrder = true;
@@ -322,6 +328,11 @@ namespace NexFB.Repositories.Implement
                             }
 
                             order.Members.Add(member);
+
+                            if (order.CreatorOrder.UserId == member.Member.UserId)
+                            {
+                                order.MyMeal = member.Menu;
+                            }
                         }
                     }
 

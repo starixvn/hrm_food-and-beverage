@@ -60,12 +60,24 @@
                             <td class="text-center">
                                 {{$index + 1}}
                             </td>
-                            <td ng-class="{'is-ordered' : member.CurrentStatus != null}">
-                                <span>{{member.Member.NickName}}</span> <span ng-show="member.CurrentStatus != null">
+                            <td ng-class="{'is-ordered' : member.CurrentStatus != null && !existInCurrentOrder}">
+                                <span>{{member.Member.NickName}}</span> <span ng-show="member.CurrentStatus != null && !existInCurrentOrder">
                                     (Ordered)</span>
                             </td>
                             <td>
-                                <span>{{member.Menu.Name}}</span>
+								<div ng-show="!alterEdit.alternativeMenu{{member.Member.UserId}}">
+									<span>{{member.Menu.Name}}</span>
+									<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, false)" 
+										ng-show="member.Menu.IsHaveAlternativeMenu && order.Status.StatusId == 1" title="Select Alternative Menus" >
+									</a>
+								</div>
+								<div ng-show="alterEdit.alternativeMenu{{member.Member.UserId}}">
+									<select name="editOrderMenu{{member.Member.UserId}}" ng-model="member.Menu.MenuId" get-selected-edit-menu >
+										<option ng-repeat="altMenu in member.AllMenus" ng-bind="altMenu.Name" value="{{altMenu.MenuId}}" 
+											ng-selected="{{member.Menu.MenuId == altMenu.MenuId}}" isMainMenu={{altMenu.IsMainMenu}}>
+										</option>
+									</select>
+								</div>
                             </td>
                             <td class="text-center">
                                 <a href="javascript:;" ng-click="removeMember($index)" ng-show="(

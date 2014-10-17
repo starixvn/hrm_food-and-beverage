@@ -2,12 +2,14 @@
 /*global orderingModule*/
 
 orderingModule.controller('EditOrderController',
-['$scope', '$modalInstance', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory', 
+['$scope', '$modalInstance', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory',
 'orderId', 'locations', '$translate', 'commonFactory', 'ErrorFactory',
 function ($scope, $modalInstance, $modal, orderingFactory, orderingService, notificationFactory,
 	orderId, locations, $translate, commonFactory, ErrorFactory) {
 
 	$scope.newMember = {};
+	$scope.alterEdit = {};
+
 	$scope.getMessage = function () {
 		$translate('ConfirmMessageUpdateOrder').then(function (message) {
 			$scope.confirmMessageUpdateOrder = message;
@@ -178,10 +180,12 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	});
 
 	$scope.getEmployee = function (searchKey) {
-		orderingFactory.getEmployees(searchKey).success(function (employees) {
+		orderingFactory.getEmployees(searchKey).then(
+		function (employees) {
 			$scope.searchEmployees = employees;
-		}).error(function (response, status) {
-			ErrorFactory.errorHandle(status);
+		},
+		function (response) {
+			ErrorFactory.errorHandle(response.status);
 		});
 	};
 
@@ -194,18 +198,25 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 				IsOrder: true
 			};
 			member.Member = newMember.employee;
-			orderingFactory.getMenuByUserId(member.Member.UserId)
-			.success(function (data) {
-				member.Menu = data;
-				orderingFactory.getOrderByUserId(member.Member.UserId)
-				.success(function (dataStatus) {
-					member.CurrentStatus = dataStatus.Status;
+
+			orderingFactory.getOrderByUserId(member.Member.UserId)
+				.success(function (order) {
+					member.CurrentStatus = order.Status;
+
+					if (order.Members && order.Members.length > 0) {
+						member.Menu = order.Members[0].Menu;
+					}
 
 					var isExisted = false;
-					if (member.CurrentStatus != null) {
+
+					if (member.CurrentStatus != null && $scope.order.OrderId !== order.OrderId) {
 						notificationFactory.error('', $scope.warningMessageExistMember);
 					}
-					else {
+					else if (member.CurrentStatus === null || (member.CurrentStatus !== null && $scope.order.OrderId === order.OrderId)) {
+						if (member.CurrentStatus !== null && $scope.order.OrderId === order.OrderId) {
+							$scope.existInCurrentOrder = true;
+						}
+
 						var editMembers = orderingService.getMemberEditOrder();
 						angular.forEach(editMembers, function (value) {
 							if (value.Member.UserId === member.Member.UserId) {
@@ -225,13 +236,24 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 				.error(function (response, status) {
 					ErrorFactory.errorHandle(status);
 				});
-			})
-			.error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			});
 
 			$('#txtEmployee').val('');
 			$scope.newMember = {};
 		}
+	};
+
+	/*
+	** Get alternative menus.
+	*/
+	$scope.getAlternativeMenus = function (member) {
+		var userId = member.Member.UserId;
+
+		orderingFactory.getAlternativeMenuByUserId(userId).success(function (allMenus) {
+			member.AllMenus = allMenus;
+			var key = 'alternativeMenu' + userId;
+			$scope.alterEdit[key] = true;
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
 	};
 } ]);

@@ -157,6 +157,16 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		$scope.getDefaultForAddOrder = function () {
 			orderingFactory.getAddNewOrder()
 			.success(function (data) {
+				var newMembers = [];
+
+				angular.forEach(data.Members, function (member) {
+					// new order
+					if (member.IsOrder) {
+						newMembers.push(member);
+					}
+				});
+
+				data.Members = newMembers;
 				$scope.newOrder = data;
 				orderingService.setMemberNewOrder(data.Members);
 			})
@@ -242,6 +252,25 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			return isValid;
 		};
 
+		var closeAlternativeSelect = function () {
+			var newMembers = orderingService.getMemberNewOrder(),
+				savedMembers = orderingService.getMemberSavedOrder();
+
+			angular.forEach(newMembers, function (member) {
+				var userId = member.Member.UserId,
+					key = 'alternativeMenu' + userId;
+
+				$scope.alter[key] = false;
+			});
+
+			angular.forEach(savedMembers, function (member) {
+				var userId = member.Member.UserId,
+					key = 'alternativeMenu' + userId;
+
+				$scope.alterSaved[key] = false;
+			});
+		};
+
 		$scope.saveAddOrder = function (order) {
 			if ($scope.ValidateNewOrder(order)) {
 				$scope.modalConfirmSaveOrderInstance = $modal.open({
@@ -257,6 +286,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				});
 
 				$scope.modalConfirmSaveOrderInstance.result.then(function () {
+					closeAlternativeSelect();
+
 					orderingFactory.createOrder(order).success(function (response) {
 						if (response.result.IsSuccessful === true) {
 							notificationFactory.success("DataChangeSuccessfully");
@@ -307,6 +338,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				}
 				else {
 					$scope.newOrder.Members.splice(index, 1);
+					var key = 'alternativeMenu' + memberId;
+					$scope.alter[key] = false;
 				}
 			}, function () {
 			})['finally'](function () {
@@ -338,6 +371,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 						$scope.sendEditOrder(receiveObject.order.OrderId);
 					}
 
+					closeAlternativeSelect();
 					$scope.getDefaultForAddOrder();
 				}, function () {
 				})['finally'](function () {
@@ -371,10 +405,10 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 			orderingFactory.getOrderByUserId(userId)
 				.success(function (order) {
+					member.CurrentStatus = order.Status;
+
 					if (order.Members && order.Members.length > 0) {
-						member.CurrentStatus = order.Members[0].Status;
 						member.Menu = order.Members[0].Menu;
-						member.AllMenus = order.Members[0].AllMenus;
 					}
 
 					var isExisted = false;
@@ -445,10 +479,26 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	** Show alternative menus dropdown.
 	*/
 	$scope.alter = {};
+	$scope.alterSaved = {};
 
-	$scope.showAlternativeMenu = function (userId) {
-		var key = 'alternativeMenu' + userId;
-		$scope.alter[key] = true;
+	$scope.getAlternativeMenus = function (member, isSavedOrder) {
+		var userId = member.Member.UserId,
+			key = '';
+
+		orderingFactory.getAlternativeMenuByUserId(userId).success(function (allMenus) {
+			member.AllMenus = allMenus;
+
+			if (isSavedOrder) {
+				key = 'alternativeMenu' + userId;
+				$scope.alterSaved[key] = true;
+			}
+			else {
+				key = 'alternativeMenu' + userId;
+				$scope.alter[key] = true;
+			}
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
 	};
 
 	$scope.showMember = function (order) {
@@ -462,5 +512,4 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	$scope.loadData(function () {
 		$scope.bindAction();
 	});
-
 } ]);

@@ -71,7 +71,7 @@ orderingModule.factory("orderingFactory",
 				return $http['delete']('/api/Ordering', { params: { orderId: orderId} });
 			},
 			getAlternativeMenuByUserId: function (userId) {
-				return $http.get('/api/Ordering/GetAlternativeMenuByUserId', { params: { userId: userId } });
+				return $http.get('/api/Ordering/GetAlternativeMenusByUserId', { params: { userId: userId} });
 			}
 		};
 	} ]

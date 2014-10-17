@@ -76,10 +76,6 @@ namespace NexFB.Services.Implement
             if (criteria.IsValid())
             {
                 order = _orderRepository.GetMemberNewOrder(criteria);
-                if (order != null)
-                {
-                    order.Members = order.Members.Where(t => t.IsOrder).ToList();
-                }
             }
 
             if (order == null)
@@ -266,21 +262,21 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
-        /// Get alternative menus by user Id.
+        /// Get all menus by user Id include main menu and alternative menus.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator Alternative Menu model.</returns>
-        public IEnumerable<AlternativeMenuModel> GetAlternativeMenuByUserId(GetAlternativeMenuByUserIdCriteria criteria)
+        /// <returns>The enumerator Menu model.</returns>
+        public IEnumerable<Menu> GetAlternativeMenuByUserId(GetAlternativeMenuByUserIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<AlternativeMenuModel> alternativeMenus = null;
+            IEnumerable<Menu> allMenus = null;
 
             if (criteria.IsValid())
             {
-                alternativeMenus = GetData<AlternativeMenuModel>(criteria);
+                allMenus = GetData<Menu>(criteria);
             }
 
-            return alternativeMenus;
+            return allMenus;
         }
     }
 }

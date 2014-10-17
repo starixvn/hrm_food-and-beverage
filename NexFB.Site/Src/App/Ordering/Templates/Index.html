@@ -177,8 +177,8 @@
                                 <td>
 									<div ng-show="!alter.alternativeMenu{{member.Member.UserId}}">
 										<span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
-										<a class="glyphicon glyphicon-edit" href="" ng-click="showAlternativeMenu(member.Member.UserId)" 
-											ng-show="member.AllMenus.length > 0" title="Select Alternative Menus" >
+										<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, false)" 
+											ng-show="member.Menu.IsHaveAlternativeMenu" title="Select Alternative Menus" >
 										</a>
 									</div>
 									<div ng-show="alter.alternativeMenu{{member.Member.UserId}}">
@@ -278,7 +278,19 @@
                                         (Ordered)</span>
                                 </td>
                                 <td>
-                                    <span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
+									<div ng-show="!alterSaved.alternativeMenu{{member.Member.UserId}}">
+										<span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
+										<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, true)" 
+											ng-show="member.Menu.IsHaveAlternativeMenu && member.CurrentStatus == null" title="Select Alternative Menus" >
+										</a>
+									</div>
+									<div ng-show="alterSaved.alternativeMenu{{member.Member.UserId}} && member.CurrentStatus == null">
+										<select name="savedOrderMenu" ng-model="member.Menu.MenuId" get-selected-saved-menu >
+											<option ng-repeat="altMenu in member.AllMenus" ng-bind="altMenu.Name" value="{{altMenu.MenuId}}" 
+												ng-selected="{{member.Menu.MenuId == altMenu.MenuId}}" isMainMenu={{altMenu.IsMainMenu}}>
+											</option>
+										</select>
+									</div>
                                 </td>
                                 <td class="text-center">
                                     <input type="checkbox" ng-model="member.IsOrder" ng-disabled="member.CurrentStatus != null" />

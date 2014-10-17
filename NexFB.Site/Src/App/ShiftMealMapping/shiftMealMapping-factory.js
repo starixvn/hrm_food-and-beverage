@@ -108,6 +108,8 @@ shiftMealMappingModule.factory('shiftMealMappingUtilities',
 			numberMealContinuous = 0;
 		}
 
+		maxNumberMealContinuous = maxNumberMealContinuous > numberMealContinuous ? maxNumberMealContinuous : numberMealContinuous;
+
 		if (maxNumberMealContinuous < numberMeals) {
 			continuous = false;
 		}

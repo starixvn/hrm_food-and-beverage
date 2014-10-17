@@ -261,7 +261,7 @@ namespace NexFB.Site.Controllers.API
             return user;
         }
 
-        public IEnumerable<AlternativeMenuModel> GetAlternativeMenuByUserId(int userId)
+        public IEnumerable<Menu> GetAlternativeMenusByUserId(int userId)
         {
             var criteria = new GetAlternativeMenuByUserIdCriteria
             {
