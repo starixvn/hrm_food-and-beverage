@@ -69,7 +69,6 @@ namespace NexFB.Repositories.Implement
                         (od, e, s, m, l) => 
                     {
                         od.CreatorOrder = e;
-                        od.MyMeal = m;
                         od.Status = s;
                         od.Location = l;
                         return od;
@@ -257,8 +256,10 @@ namespace NexFB.Repositories.Implement
                 MenuId = dynamicObject.MenuID,
                 NameEN = dynamicObject.MenuEngName,
                 NameVN = dynamicObject.MenuVNMName,
-                IsHaveAlternativeMenu = dynamicObject.IsHaveAltMenu == 1 ? true : false,
-                IsMainMenu = dynamicObject.IsMainMenu == 1 ? true : false
+                IsHaveAlternativeMenu = GetBoolValue(dynamicObject.IsHaveAltMenu),
+                IsMainMenu = GetBoolValue(dynamicObject.IsMainMenu),
+                IsSideDish = GetBoolValue(dynamicObject.IsSideDish),
+                QuantityOrder = GetIntValue(dynamicObject.QtyOrder)
             };
 
             orderMember.IsOrder = true;
@@ -282,7 +283,7 @@ namespace NexFB.Repositories.Implement
             IEnumerable<MealOrderingModel> data)
         {
             orders = new List<MealOrderingModel>();
-            var ordersQuatity = multipleData.Read<MenuQuantityModel, dynamic, MenuQuantityModel>(
+            var ordersQuantity = multipleData.Read<MenuQuantityModel, dynamic, MenuQuantityModel>(
             (q, m) =>
             {
                 q.Menu = new Menu()
@@ -301,11 +302,13 @@ namespace NexFB.Repositories.Implement
             },
             "SysID");
 
-            if (ordersQuatity != null)
+            members = GroupMembers(members);
+
+            if (ordersQuantity != null)
             {
                 foreach (MealOrderingModel order in data)
                 {
-                    foreach (MenuQuantityModel menu in ordersQuatity)
+                    foreach (MenuQuantityModel menu in ordersQuantity)
                     {
                         if (order.OrderId == menu.OrderId)
                         {
@@ -318,21 +321,20 @@ namespace NexFB.Repositories.Implement
                         }
                     }
 
-                    foreach (OrderMemberModel member in members)
+                    IEnumerable<OrderMemberModel> membersOfCurrentOrder = members.Where(x => x.OrderId == order.OrderId);
+
+                    foreach (OrderMemberModel member in membersOfCurrentOrder)
                     {
-                        if (order.OrderId == member.OrderId)
+                        if (order.Members == null)
                         {
-                            if (order.Members == null)
-                            {
-                                order.Members = new List<OrderMemberModel>();
-                            }
+                            order.Members = new List<OrderMemberModel>();
+                        }
 
-                            order.Members.Add(member);
+                        order.Members.Add(member);
 
-                            if (order.CreatorOrder.UserId == member.Member.UserId)
-                            {
-                                order.MyMeal = member.Menu;
-                            }
+                        if (order.CreatorOrder.UserId == member.Member.UserId)
+                        {
+                            order.MyMeal = member.Menu;
                         }
                     }
 
@@ -341,6 +343,84 @@ namespace NexFB.Repositories.Implement
             }
 
             return orders;
+        }
+
+        /// <summary>
+        /// Group side dish order of same member.
+        /// </summary>
+        /// <param name="members">The enumerator members in order.</param>
+        /// <returns>The list member has group side dish.</returns>
+        private IList<OrderMemberModel> GroupMembers(IEnumerable<OrderMemberModel> members)
+        {
+            IList<OrderMemberModel> newMembers = new List<OrderMemberModel>();
+            IEnumerable<int> distinctUserIds = members.Select(x => x.Member.UserId).Distinct();
+
+            foreach (int userId in distinctUserIds)
+            {
+                IEnumerable<OrderMemberModel> rowsSameId = members.Where(x => x.Member.UserId == userId);
+
+                if (rowsSameId.Count() == 1 && !rowsSameId.First().Menu.IsSideDish)
+                {
+                    //// New Order or Favorite Order
+                    newMembers.Add(rowsSameId.First());
+                }
+                else if (rowsSameId.Count() > 1 || (rowsSameId.Count() == 1 && rowsSameId.First().Menu.IsSideDish))
+                {
+                    //// Side Dish Order
+                    var groupMember = new OrderMemberModel
+                    {
+                        OrderId = rowsSameId.First().OrderId,
+                        Member = rowsSameId.First().Member,
+                        IsOrder = rowsSameId.First().IsOrder,
+                        CurrentStatus = rowsSameId.First().CurrentStatus,
+                        Menu = new Menu
+                        {
+                            FoodItems = new List<Food>()
+                        }
+                    };
+
+                    foreach (OrderMemberModel rowSameId in rowsSameId)
+                    {
+                        var foodItem = new Food
+                        {
+                            FoodId = rowSameId.Menu.MenuId,
+                            NameEN = rowSameId.Menu.NameEN,
+                            NameVN = rowSameId.Menu.NameVN,
+                            Quantity = rowSameId.Menu.QuantityOrder
+                        };
+
+                        groupMember.Menu.FoodItems.Add(foodItem);
+                    }
+
+                    newMembers.Add(groupMember);
+                }
+            }
+
+            return newMembers;
+        }
+
+        private bool GetBoolValue(dynamic value)
+        {
+            bool result = false;
+
+            if (value == 1)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        private int GetIntValue(dynamic value)
+        {
+            int result = 0;
+
+            if (value != null)
+            {
+                result = value;
+            }
+
+            return result;
         }
     }
 }

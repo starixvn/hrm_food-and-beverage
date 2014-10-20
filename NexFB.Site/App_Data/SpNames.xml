@@ -100,6 +100,7 @@
       <Mapping DataField="MealENGName" ObjectProperty="NameEN" Class="MenuQuantityModel"/>
       <Mapping DataField="MealVNMName" ObjectProperty="NameVN" Class="MenuQuantityModel"/>
       <Mapping DataField="QtyOrder" ObjectProperty="Quantity" Class="MenuQuantityModel"/>
+      <Mapping DataField="QtyOrder" ObjectProperty="QuantityOrder" Class="Menu"/>
     </Setting>
     <Setting Key="MealOrder_Get_MyOrderByOrderID" SpName="MealOrder_Get_MyOrderByOrderID" DbName="NexFB" Plain="0" >
       <Mapping DataField="Members" ObjectProperty="MemberCount" Class="MealOrderingModel"/>

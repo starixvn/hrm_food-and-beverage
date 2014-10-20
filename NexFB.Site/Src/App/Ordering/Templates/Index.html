@@ -39,7 +39,7 @@
                                 {{order.Status.Name}} </a><a ng-switch-when="5" class="lbl-edited" href="javascript:;"
                                     ng-click="editOrder(order.OrderId)">{{order.Status.Name}} </a>
                     <br />
-                    <span>{{order.ModifiedTime }} </span>
+                    <span>{{order.ModifiedTime}} </span>
                 </td>
                 <td>
                     <span tooltip="{{order.CreatorOrder.FullName}}">{{order.CreatorOrder.NickName}}
@@ -60,7 +60,12 @@
                     </span>
                 </td>
                 <td>
-                    {{order.MyMeal.Name}}
+                    <span ng-show="!order.MyMeal.FoodItems">{{order.MyMeal.Name}}</span>
+					<div ng-show="order.MyMeal.FoodItems">
+						<ul class="list-order list-unstyled" ng-repeat="food in order.MyMeal.FoodItems">
+							<li>{{food.Quantity}} - "{{food.Name}}"</li>
+						</ul>
+					</div>
                 </td>
                 <td>
                     {{order.Location.Name}}
@@ -336,7 +341,7 @@
                             </div>
                             <div class="col-sm-10">
                                 <select ng-model="sideDishOrder.Location.LocationId">
-									<option style="display: none" value="0">{{"SelectLocation" | translate}}</option>
+									<option value="0">{{"SelectLocation" | translate}}</option>
 									<option ng-repeat="lc in locations" value="{{lc.LocationId}}">{{lc.Name}}</option>
 								</select>
                             </div>
@@ -361,8 +366,7 @@
                     <table class="table table-bordered table-striped table-member">
                         <thead>
                             <tr>
-                                <th class="width-40">
-                                    #
+                                <th class="width-40" data-translate="SymbolCount">
                                 </th>
 								<th data-translate="Member">
                                 </th>
@@ -381,17 +385,26 @@
 									<span>{{member.Member.NickName}}</span>
 								</td>
 								<td>
-									<span>{{member.Menu.Name}}</span>
+									<span ng-show="!member.Menu.FoodItems" data-translate="SelectFoodItem"></span>
+									<div ng-show="member.Menu.FoodItems">
+										<ul class="list-order list-unstyled" ng-repeat="food in member.Menu.FoodItems">
+											<li>{{food.Quantity}} - "{{food.Name}}"</li>
+										</ul>
+									</div>
 								</td>
 								<td>
-                                    <span>5000</span>
+									<div ng-show="member.Menu.FoodItems">
+										<ul class="list-order list-unstyled" ng-repeat="food in member.Menu.FoodItems">
+											<li>{{food.TotalAmount}}</li>
+										</ul>
+									</div>
                                 </td>
                                 <td class="text-center">
-                                    <a ng-click="removeMember($index, member.Member.UserId, true)" ng-show="member.Member.UserId != savedOrder.CreatorOrder.UserId"
-									href="javascript:;" class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
+									<a class="glyphicon glyphicon-edit" href="" ng-click="editFoodItem(food)"></a>
+									<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click=""></a>
                                 </td>
                             </tr>
-							<tr ng-show="savedOrder == '' || savedOrder.Members == ''">
+							<tr ng-show="sideDishOrder == '' || sideDishOrder.Members == ''">
 								<td class="empty-result" colspan="5" data-translate="EmptyResult">
 								</td>
 							</tr>

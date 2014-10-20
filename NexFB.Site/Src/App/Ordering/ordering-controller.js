@@ -182,6 +182,25 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			.error(function (response, status) {
 				ErrorFactory.errorHandle(status);
 			});
+
+			orderingFactory.getAddNewOrder()
+			.success(function (data) {
+				var newMembers = [];
+
+				angular.forEach(data.Members, function (member) {
+					// new order
+					if (member.IsOrder) {
+						newMembers.push(member);
+					}
+				});
+
+				data.Members = newMembers;
+				$scope.sideDishOrder = data;
+				//orderingService.setMemberSideDishOrder(data.Members);
+			})
+			.error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
 		};
 
 		orderingFactory.getMyOrder()

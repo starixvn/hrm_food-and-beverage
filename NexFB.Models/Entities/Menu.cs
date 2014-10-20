@@ -28,6 +28,10 @@ namespace NexFB.Models.Entities
 
         public bool IsHaveAlternativeMenu { get; set; }
 
+        public bool IsSideDish { get; set; }
+
+        public int QuantityOrder { get; set; }
+
         public string Name
         {
             get

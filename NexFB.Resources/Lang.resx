@@ -663,4 +663,7 @@
   <data name="SideDish" xml:space="preserve">
     <value>Side dish</value>
   </data>
+  <data name="SelectFoodItem" xml:space="preserve">
+    <value>Select Food Item</value>
+  </data>
 </root>
