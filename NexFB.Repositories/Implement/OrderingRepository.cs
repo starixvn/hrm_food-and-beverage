@@ -103,7 +103,6 @@ namespace NexFB.Repositories.Implement
                         (od, e, s, m, l) =>
                         {
                             od.CreatorOrder = e;
-                            od.MyMeal = m;
                             od.Status = s;
                             od.Location = l;
                             return od;
@@ -145,6 +144,7 @@ namespace NexFB.Repositories.Implement
                             "SysID");
 
                         order.Members = members.ToList();
+                        order.MyMeal = members != null && members.Count() > 0 ? members.FirstOrDefault().Menu : null;
                     }
                 }
             }
