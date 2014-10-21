@@ -183,6 +183,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				ErrorFactory.errorHandle(status);
 			});
 
+			// Side Dish order
 			orderingFactory.getAddNewOrder()
 			.success(function (data) {
 				var newMembers = [];
@@ -190,13 +191,14 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				angular.forEach(data.Members, function (member) {
 					// new order
 					if (member.IsOrder) {
+						member.Menus = [];
 						newMembers.push(member);
 					}
 				});
 
 				data.Members = newMembers;
 				$scope.sideDishOrder = data;
-				//orderingService.setMemberSideDishOrder(data.Members);
+				orderingService.setMemberSideDishOrder(data.Members);
 			})
 			.error(function (response, status) {
 				ErrorFactory.errorHandle(status);
@@ -243,7 +245,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			}
 		});
 
-		$scope.ValidateNewOrder = function (order) {
+		$scope.ValidateNewOrder = function (order, isSideDishOrder) {
 			var isValid = true;
 
 			if (order.Members.length < 1) {
@@ -260,6 +262,19 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 				if (!isValid) {
 					notificationFactory.error("InvalidInputData");
+				}
+			}
+
+			if (isSideDishOrder) {
+				isValid = true;
+				angular.forEach(order.Members, function (member) {
+					if (member.Menus !== undefined && member.Menus.length === 0) {
+						isValid = false;
+					}
+				});
+
+				if (!isValid) {
+					notificationFactory.error("InvalidFoodItem");
 				}
 			}
 
@@ -290,8 +305,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			});
 		};
 
-		$scope.saveAddOrder = function (order) {
-			if ($scope.ValidateNewOrder(order)) {
+		$scope.saveAddOrder = function (order, isSideDishOrder) {
+			if ($scope.ValidateNewOrder(order, isSideDishOrder)) {
 				$scope.modalConfirmSaveOrderInstance = $modal.open({
 					templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
 					controller: "ModalConfirmController2",
@@ -307,19 +322,38 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				$scope.modalConfirmSaveOrderInstance.result.then(function () {
 					closeAlternativeSelect();
 
-					orderingFactory.createOrder(order).success(function (response) {
-						if (response.result.IsSuccessful === true) {
-							notificationFactory.success("DataChangeSuccessfully");
-							$scope.sendNewOrder(response.orderId);
-							$scope.getDefaultForAddOrder();
-						}
-						else {
-							notificationFactory.error('', response.result.Message);
-						}
-					})
-					.error(function (response, status) {
-						ErrorFactory.errorHandle(status);
-					});
+					if (!isSideDishOrder) {
+						orderingFactory.createOrder(order)
+						.success(function (response) {
+							if (response.result.IsSuccessful === true) {
+								notificationFactory.success("DataChangeSuccessfully");
+								$scope.sendNewOrder(response.orderId);
+								$scope.getDefaultForAddOrder();
+							}
+							else {
+								notificationFactory.error('', response.result.Message);
+							}
+						})
+						.error(function (response, status) {
+							ErrorFactory.errorHandle(status);
+						});
+					}
+					else {
+						orderingFactory.createOrderSideDish(order)
+						.success(function (response) {
+							if (response.result.IsSuccessful === true) {
+								notificationFactory.success("DataChangeSuccessfully");
+								$scope.sendNewOrder(response.orderId);
+								$scope.getDefaultForAddOrder();
+							}
+							else {
+								notificationFactory.error('', response.result.Message);
+							}
+						})
+						.error(function (response, status) {
+							ErrorFactory.errorHandle(status);
+						});
+					}
 				}, function () {
 				})['finally'](function () {
 					$scope.modalConfirmSaveOrderInstance = undefined;
@@ -410,12 +444,13 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		});
 	};
 
-	$scope.add = function (isSavedOrder) {
-		var newMember = isSavedOrder ? $scope.savedMember : $scope.newMember;
+	$scope.add = function (isSavedOrder, isSideDishOrder) {
+		var newMember = isSideDishOrder ? $scope.sideDishMember :
+				(isSavedOrder ? $scope.savedMember : $scope.newMember);
 		if (newMember !== undefined && newMember.employee !== undefined) {
 			var member = {
 				Member: '',
-				Menu: '',
+				Menus: '',
 				AllMenus: '',
 				IsOrder: true
 			};
@@ -427,7 +462,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					member.CurrentStatus = order.Status;
 
 					if (order.Members && order.Members.length > 0) {
-						member.Menu = order.Members[0].Menu;
+						member.Menus = order.Members[0].Menus;
 					}
 
 					var isExisted = false;
@@ -462,7 +497,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 						$('#txtEmployeeForSavedOrder').val('');
 						$scope.savedMember = {};
 					}
-					else {
+					else if (!isSideDishOrder) {
 						if (member.CurrentStatus != null) {
 							notificationFactory.error('', $scope.warningMessageExistMember);
 						}
@@ -487,6 +522,33 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 						$('#txtEmployeeForNewOrder').val('');
 						$scope.newMember = {};
+					}
+					else if (isSideDishOrder) {
+						if (member.CurrentStatus != null) {
+							notificationFactory.error('', $scope.warningMessageExistMember);
+						}
+						else {
+							var sideDishMembers = orderingService.getMemberSideDishOrder();
+
+							angular.forEach(sideDishMembers, function (value) {
+								if (value.Member.UserId === member.Member.UserId) {
+									isExisted = true;
+								}
+							});
+
+							if (!isExisted) {
+								member.Menus = [];
+								sideDishMembers.push(member);
+								orderingService.setMemberSideDishOrder(sideDishMembers);
+								notificationFactory.success("DataChangeSuccessfully");
+							}
+							else {
+								notificationFactory.error('', $scope.warningMessageExistMember);
+							}
+						}
+
+						$('#txtMemberSideDish').val('');
+						$scope.sideDishMember = {};
 					}
 				})
 				.error(function (response, status) {
@@ -531,4 +593,94 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	$scope.loadData(function () {
 		$scope.bindAction();
 	});
+
+	/*
+	** Select side dish
+	*/
+	$scope.editSideDish = function (member) {
+		$scope.modalInstance = $modal.open({
+			templateUrl: '/src/app/Ordering/Templates/SelectSideDish.html',
+			controller: "SelectSideDishController",
+			resolve: {
+				userId: function () {
+					return member.Member.UserId;
+				},
+				menus: function () {
+					return member.Menus;
+				}
+			},
+			windowClass: "modal-confirm-center food-item-modal"
+		});
+
+		$scope.modalInstance.result.then(function (menus) {
+			member.Menus = menus;
+		})['finally'](function () {
+			$scope.modalInstance = '';
+		});
+	};
+} ]);
+
+orderingModule.controller('SelectSideDishController',
+['$scope', 'userId', 'orderingFactory', '$modalInstance', 'menus', 'ErrorFactory',
+function ($scope, userId, orderingFactory, $modalInstance, menus, ErrorFactory) {
+
+	$scope.menus = menus;
+
+	var updateSideDish = function (menus, sideDishes) {
+		angular.forEach(sideDishes, function (sideDish) {
+			var sideDishId = sideDish.FoodId;
+			sideDish.quantity = 1;
+
+			angular.forEach(menus, function (menu) {
+				if (menu.MenuId === sideDishId) {
+					sideDish.quantity = parseInt(menu.QuantityOrder);
+					sideDish.isOrder = true;
+				}
+			});
+		});
+	};
+
+	/*
+	** Get side dish by user Id.
+	*/
+	orderingFactory.getSideDishByUserId(userId).success(function (sideDishes) {
+		$scope.sideDishes = sideDishes;
+		updateSideDish($scope.menus, $scope.sideDishes);
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
+	});
+
+	/*
+	** Create menus from side dishes.
+	*/
+	var createMenusFromSideDishes = function (sideDishes) {
+		var menus = [];
+
+		angular.forEach(sideDishes, function (sideDish) {
+			if (sideDish.isOrder) {
+				var menu = {
+					MenuId: sideDish.FoodId,
+					MenuCode: sideDish.MenuCode,
+					NameVn: sideDish.FoodVnmName,
+					NameEN: sideDish.FoodEngName,
+					Name: sideDish.FoodEngName,
+					QuantityOrder: sideDish.quantity,
+					TotalAmount: sideDish.quantity * sideDish.Price
+				};
+
+				menus.push(menu);
+			}
+		});
+
+		return menus;
+	};
+
+	$scope.save = function () {
+		var menus = createMenusFromSideDishes($scope.sideDishes);
+		$modalInstance.close(menus);
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
+	};
 } ]);

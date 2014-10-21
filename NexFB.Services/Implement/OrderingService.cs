@@ -278,5 +278,31 @@ namespace NexFB.Services.Implement
 
             return allMenus;
         }
+
+        /// <summary>
+        /// Insert order side dish.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult InsertOrderSideDish(InsertOrderSideDishCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult result = null;
+
+            if (criteria.IsValid())
+            {
+                result = Repository.Insert(criteria, hasGetOutputParams: true);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Lang.InvalidInputData
+                };
+            }
+
+            return result;
+        }
     }
 }

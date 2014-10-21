@@ -66,15 +66,15 @@
                             </td>
                             <td>
 								<div ng-show="!alterEdit.alternativeMenu{{member.Member.UserId}}">
-									<span>{{member.Menu.Name}}</span>
+									<span>{{member.Menus[0].Name}}</span>
 									<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, false)" 
-										ng-show="member.Menu.IsHaveAlternativeMenu && order.Status.StatusId == 1" title="Select Alternative Menus" >
+										ng-show="member.Menus[0].IsHaveAlternativeMenu && order.Status.StatusId == 1" title="Select Alternative Menus" >
 									</a>
 								</div>
 								<div ng-show="alterEdit.alternativeMenu{{member.Member.UserId}}">
-									<select name="editOrderMenu{{member.Member.UserId}}" ng-model="member.Menu.MenuId" get-selected-edit-menu >
+									<select name="editOrderMenu{{member.Member.UserId}}" ng-model="member.Menus[0].MenuId" get-selected-edit-menu >
 										<option ng-repeat="altMenu in member.AllMenus" ng-bind="altMenu.Name" value="{{altMenu.MenuId}}" 
-											ng-selected="{{member.Menu.MenuId == altMenu.MenuId}}" isMainMenu={{altMenu.IsMainMenu}}>
+											ng-selected="{{member.Menus[0].MenuId == altMenu.MenuId}}" isMainMenu={{altMenu.IsMainMenu}}>
 										</option>
 									</select>
 								</div>

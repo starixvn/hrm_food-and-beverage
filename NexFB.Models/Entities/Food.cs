@@ -27,9 +27,5 @@ namespace NexFB.Models.Entities
         public string NameVN { get; set; }
 
         public string NameEN { get; set; }
-
-        public int Quantity { get; set; }
-
-        public double TotalAmount { get; set; }
     }
 }

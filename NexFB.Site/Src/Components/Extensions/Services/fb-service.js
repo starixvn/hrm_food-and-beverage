@@ -7,6 +7,7 @@ var fbGeneralService = function () {
 	var memberEditOrder;
 	var currentUser;
 	var myOrder;
+	var memberSideDishOrder;
 
 	return {
 		getMemberNewOrder: function () {
@@ -38,6 +39,12 @@ var fbGeneralService = function () {
 		},
 		setMyOrder: function (value) {
 			myOrder = value;
+		},
+		getMemberSideDishOrder: function () {
+			return memberSideDishOrder;
+		},
+		setMemberSideDishOrder: function (value) {
+			memberSideDishOrder = value;
 		}
 	};
 };

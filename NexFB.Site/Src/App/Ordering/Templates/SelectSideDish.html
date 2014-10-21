@@ -1,0 +1,56 @@
+﻿<div>
+	<div class="modal-header">
+		<div class="popup-header">
+			{{"SelectSideDish" | translate}}<span class="close-popup" ng-click="cancel()"></span>
+		</div>
+	</div>
+
+	<div class="modal-body food-item-body-modal">
+		 <table class="table table-bordered table-striped col-sm-12">
+            <thead>
+                <tr>
+                    <th data-translate="SymbolCount"></th>
+                    <th data-translate="Code"></th>
+                    <th data-translate="FoodItem"></th>
+                    <th data-translate="Unit"></th>
+                    <th data-translate="Price"></th>
+                    <th data-translate="Quantity"></th>
+					<th data-translate="Order"></th>
+                </tr>
+            </thead>
+			<tbody>
+				<tr ng-repeat="sideDish in sideDishes">
+					<td class="text-center" ng-bind="$index + 1"></td>
+					<td ng-bind="sideDish.FoodCode"></td>
+					<td ng-bind="sideDish.Name"></td>
+					<td class="text-center" ng-bind="sideDish.Unit.UnitName">
+					</td>
+					<td class="text-right" ng-bind="sideDish.Price | number">
+					</td>
+ 					<td>
+						<select ng-model="sideDish.quantity">
+							<option ng-repeat="number in [] | range: 20" ng-bind="number" value="{{number}}" 
+								ng-selected="{{sideDish.quantity == number}}">
+							</option>
+						</select>
+					</td>
+					<td>
+						<input type="checkbox" ng-model="sideDish.isOrder" />
+					</td>
+				</tr>
+				<tr ng-show="!sideDishes">
+					<td class="empty-result" colspan="7" data-translate="EmptyResult">
+					</td>
+				</tr>
+			</tbody>
+        </table>
+	</div>
+	<div class="modal-footer">
+		<button class="button" data-translate="Submit" ng-click="save()" ng-disabled="disabledSubmitButton">
+		</button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		</button>
+	</div>
+</div>
+
+

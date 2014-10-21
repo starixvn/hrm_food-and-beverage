@@ -142,8 +142,10 @@ namespace NexFB.Repositories.Implement
                             },
                             "SysID");
 
+                        members = GroupMenusOfMember(members);
+
                         order.Members = members.ToList();
-                        order.MyMeal = members != null && members.Count() > 0 ? members.FirstOrDefault().Menu : null;
+                        order.CurrentMenus = members != null && members.Count() > 0 ? members.FirstOrDefault().Menus : null;
                     }
                 }
             }
@@ -170,15 +172,15 @@ namespace NexFB.Repositories.Implement
                             {
                                 IsOrder = s == null,
                                 Member = e,
-                                Menu = m,
                                 CurrentStatus = s
                             };
 
+                            memberOrder.Menus.Add(m);
                             od.Members = new List<OrderMemberModel>();
                             od.Members.Add(memberOrder);
 
                             od.CreatorOrder = e;
-                            od.MyMeal = m;
+                            od.CurrentMenus.Add(m);
                             od.Status = s;
                             od.Location = l;
                             return od;
@@ -207,23 +209,23 @@ namespace NexFB.Repositories.Implement
                         {
                             order = od;
                             od.CreatorOrder = e;
-                            od.MyMeal = m;
                             od.Status = s;
                             od.Location = l;
                             od.Members = new List<OrderMemberModel>();
                         }
 
+                        order.CurrentMenus.Add(m);
                         var memberOrder = new OrderMemberModel()
                         {
                             IsOrder = s == null,
                             Member = e,
-                            Menu = m,
                             CurrentStatus = s
                         };
 
-                        if (memberOrder.Menu != null)
+                        if (m != null)
                         {
-                            memberOrder.Menu.IsMainMenu = true;
+                            m.IsMainMenu = true;
+                            memberOrder.Menus.Add(m);
                         }
 
                         order.Members.Add(memberOrder);
@@ -264,7 +266,7 @@ namespace NexFB.Repositories.Implement
 
             orderMember.IsOrder = true;
             orderMember.Member = member;
-            orderMember.Menu = menu;
+            orderMember.Menus.Add(menu);
 
             return orderMember;
         }
@@ -302,7 +304,7 @@ namespace NexFB.Repositories.Implement
             },
             "SysID");
 
-            members = GroupMembers(members);
+            members = GroupMenusOfMember(members);
 
             if (ordersQuantity != null)
             {
@@ -334,7 +336,7 @@ namespace NexFB.Repositories.Implement
 
                         if (order.CreatorOrder.UserId == member.Member.UserId)
                         {
-                            order.MyMeal = member.Menu;
+                            order.CurrentMenus = member.Menus;
                         }
                     }
 
@@ -346,11 +348,11 @@ namespace NexFB.Repositories.Implement
         }
 
         /// <summary>
-        /// Group side dish order of same member.
+        /// Group menus of same member.
         /// </summary>
         /// <param name="members">The enumerator members in order.</param>
-        /// <returns>The list member has group side dish.</returns>
-        private IList<OrderMemberModel> GroupMembers(IEnumerable<OrderMemberModel> members)
+        /// <returns>The list member has group menu.</returns>
+        private IList<OrderMemberModel> GroupMenusOfMember(IEnumerable<OrderMemberModel> members)
         {
             IList<OrderMemberModel> newMembers = new List<OrderMemberModel>();
             IEnumerable<int> distinctUserIds = members.Select(x => x.Member.UserId).Distinct();
@@ -359,41 +361,20 @@ namespace NexFB.Repositories.Implement
             {
                 IEnumerable<OrderMemberModel> rowsSameId = members.Where(x => x.Member.UserId == userId);
 
-                if (rowsSameId.Count() == 1 && !rowsSameId.First().Menu.IsSideDish)
+                var groupMember = new OrderMemberModel
                 {
-                    //// New Order or Favorite Order
-                    newMembers.Add(rowsSameId.First());
-                }
-                else if (rowsSameId.Count() > 1 || (rowsSameId.Count() == 1 && rowsSameId.First().Menu.IsSideDish))
+                    OrderId = rowsSameId.First().OrderId,
+                    Member = rowsSameId.First().Member,
+                    IsOrder = rowsSameId.First().IsOrder,
+                    CurrentStatus = rowsSameId.First().CurrentStatus,
+                };
+
+                foreach (OrderMemberModel row in rowsSameId)
                 {
-                    //// Side Dish Order
-                    var groupMember = new OrderMemberModel
-                    {
-                        OrderId = rowsSameId.First().OrderId,
-                        Member = rowsSameId.First().Member,
-                        IsOrder = rowsSameId.First().IsOrder,
-                        CurrentStatus = rowsSameId.First().CurrentStatus,
-                        Menu = new Menu
-                        {
-                            FoodItems = new List<Food>()
-                        }
-                    };
-
-                    foreach (OrderMemberModel rowSameId in rowsSameId)
-                    {
-                        var foodItem = new Food
-                        {
-                            FoodId = rowSameId.Menu.MenuId,
-                            NameEN = rowSameId.Menu.NameEN,
-                            NameVN = rowSameId.Menu.NameVN,
-                            Quantity = rowSameId.Menu.QuantityOrder
-                        };
-
-                        groupMember.Menu.FoodItems.Add(foodItem);
-                    }
-
-                    newMembers.Add(groupMember);
+                    groupMember.Menus.Add(row.Menus.First());
                 }
+
+                newMembers.Add(groupMember);
             }
 
             return newMembers;

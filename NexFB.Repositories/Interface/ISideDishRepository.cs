@@ -19,5 +19,7 @@ namespace NexFB.Repositories.Interface
     public interface ISideDishRepository
     {
         IEnumerable<SideDishModel> GetAllSideDish(ICriteria criteria);
+
+        IEnumerable<SideDishModel> GetSideDishByUserId(ICriteria criteria);
     }
 }

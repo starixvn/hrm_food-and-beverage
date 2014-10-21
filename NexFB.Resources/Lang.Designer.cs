@@ -808,6 +808,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select food item!.
+        /// </summary>
+        public static string InvalidFoodItem {
+            get {
+                return ResourceManager.GetString("InvalidFoodItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid input..
         /// </summary>
         public static string InvalidInputData {
@@ -1389,6 +1398,15 @@ namespace NexFB.Resources {
         public static string SelectMenu {
             get {
                 return ResourceManager.GetString("SelectMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Side Dish.
+        /// </summary>
+        public static string SelectSideDish {
+            get {
+                return ResourceManager.GetString("SelectSideDish", resourceCulture);
             }
         }
         

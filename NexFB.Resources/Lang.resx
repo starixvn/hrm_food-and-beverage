@@ -666,4 +666,10 @@
   <data name="SelectFoodItem" xml:space="preserve">
     <value>Select Food Item</value>
   </data>
+  <data name="SelectSideDish" xml:space="preserve">
+    <value>Select Side Dish</value>
+  </data>
+  <data name="InvalidFoodItem" xml:space="preserve">
+    <value>Please select food item!</value>
+  </data>
 </root>

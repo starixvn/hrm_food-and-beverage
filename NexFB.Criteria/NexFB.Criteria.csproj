@@ -111,6 +111,7 @@
     <Compile Include="MealRegistration\SetRegisterMealByDefaultCriteria.cs" />
     <Compile Include="Ordering\AddMemberCriteria.cs" />
     <Compile Include="Ordering\GetAlternativeMenuByUserIdCriteria.cs" />
+    <Compile Include="Ordering\InsertOrderSideDishCriteria.cs" />
     <Compile Include="Ordering\RemoveMemberCriteria.cs" />
     <Compile Include="Ordering\DeleteOrderCriteria.cs" />
     <Compile Include="Ordering\GetOrderByIdCriteria.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="SideDishManagement\DeleteSideDishCriteria.cs" />
     <Compile Include="SideDishManagement\GetAllFoodUnitCriteria.cs" />
     <Compile Include="SideDishManagement\GetAllSideDishCriteria.cs" />
+    <Compile Include="SideDishManagement\GetSideDishByUserIdCriteria.cs" />
     <Compile Include="SideDishManagement\InsertSideDishCriteria.cs" />
     <Compile Include="SideDishManagement\UpdateSideDishCriteria.cs" />
     <Compile Include="SmartCardOrder\GetAlternativeFoodBySysIdCriteria.cs" />

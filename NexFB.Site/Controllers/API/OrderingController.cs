@@ -17,9 +17,10 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Core.Models;
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.Ordering;
-    using NexFB.Models.AlternativeMenuManagement;
+    using NexFB.Criteria.SideDishManagement;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
+    using NexFB.Models.SideDishManagement;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.Web.Attributes;
@@ -31,16 +32,21 @@ namespace NexFB.Site.Controllers.API
     {
         private readonly IOrderingService _orderService;
         private readonly IEmployeeService _employeeService;
+        private readonly ISideDishService _sideDishService;
 
         public OrderingController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
-        public OrderingController(IOrderingService orderService, IEmployeeService employeeService)
+        public OrderingController(
+            IOrderingService orderService,
+            IEmployeeService employeeService,
+            ISideDishService sideDishService)
         {
             _orderService = orderService ?? new OrderingService();
             _employeeService = employeeService ?? new EmployeeService();
+            _sideDishService = sideDishService ?? new SideDishService();
         }
 
         /// <summary>
@@ -188,7 +194,7 @@ namespace NexFB.Site.Controllers.API
         /// <returns>Command Result.</returns>
         [HttpPost]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
-        public object Post(MealOrderingModel model)
+        public object InsertOrder(MealOrderingModel model)
         {
             var criteria = new InsertOrderCriteria() 
             { 
@@ -269,6 +275,39 @@ namespace NexFB.Site.Controllers.API
             };
 
             return _orderService.GetAlternativeMenuByUserId(criteria);
+        }
+
+        public IEnumerable<SideDishModel> GetSideDishByUserId(int userId)
+        {
+            var criteria = new GetSideDishByUserIdCriteria
+            {
+                UserId = userId
+            };
+
+            return _sideDishService.GetSideDishByUserId(criteria);
+        }
+
+        /// <summary>
+        /// Function to insert a order side dish.
+        /// </summary>
+        /// <param name="model">MealOrdering Model.</param>
+        /// <returns>Command Result.</returns>
+        [HttpPost]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
+        public object InsertOrderSideDish(MealOrderingModel model)
+        {
+            var criteria = new InsertOrderSideDishCriteria()
+            {
+                CreatedBy = this.CurrentUser.UserId,
+                CreatedDate = DateTime.Now,
+                LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
+                Phone = model.Phone,
+                Remark = model.Remark,
+                Members = model.Members
+            };
+
+            CommandResult result = _orderService.InsertOrderSideDish(criteria);
+            return new { result = result, orderId = criteria.OrderId };
         }
     }
 }

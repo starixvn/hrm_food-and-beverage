@@ -30,5 +30,7 @@ namespace NexFB.Services.Interface
         CommandResult ActivateSideDish(ActivateSideDishCriteria criteria);
 
         CommandResult DeleteSideDish(DeleteSideDishCriteria criteria);
+
+        IEnumerable<SideDishModel> GetSideDishByUserId(GetSideDishByUserIdCriteria criteria);
     }
 }

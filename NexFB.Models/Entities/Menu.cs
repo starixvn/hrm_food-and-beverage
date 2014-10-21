@@ -32,6 +32,8 @@ namespace NexFB.Models.Entities
 
         public int QuantityOrder { get; set; }
 
+        public double TotalAmount { get; set; }
+
         public string Name
         {
             get

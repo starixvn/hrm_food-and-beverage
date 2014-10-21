@@ -62,7 +62,7 @@ orderingModule.factory("orderingFactory",
 				return $http['delete']('/api/OrderMember', { params: { memberId: memberId} });
 			},
 			createOrder: function (order) {
-				return $http.post('/api/Ordering', order);
+				return $http.post('/api/Ordering/InsertOrder', order);
 			},
 			editOrder: function (order) {
 				return $http.put('/api/Ordering', order);
@@ -72,6 +72,12 @@ orderingModule.factory("orderingFactory",
 			},
 			getAlternativeMenuByUserId: function (userId) {
 				return $http.get('/api/Ordering/GetAlternativeMenusByUserId', { params: { userId: userId} });
+			},
+			getSideDishByUserId: function (userId) {
+				return $http.get('/api/Ordering/GetSideDishByUserId', { params: { userId: userId } });
+			},
+			createOrderSideDish: function (order) {
+				return $http.post('/api/Ordering/InsertOrderSideDish', order);
 			}
 		};
 	} ]

@@ -9,6 +9,7 @@
 
 namespace NexFB.Models.Ordering
 {
+    using System.Collections.Generic;
     using NexFB.Models.Entities;
 
     /// <summary>
@@ -16,11 +17,16 @@ namespace NexFB.Models.Ordering
     /// </summary>
     public class OrderMemberModel
     {
+        public OrderMemberModel()
+        {
+            Menus = new List<Menu>();
+        }
+
         public int OrderId { get; set; }
 
         public Employee Member { get; set; }
 
-        public Menu Menu { get; set; }
+        public IList<Menu> Menus { get; set; }
 
         public bool IsOrder { get; set; }
 

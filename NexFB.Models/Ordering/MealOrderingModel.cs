@@ -23,6 +23,7 @@ namespace NexFB.Models.Ordering
         {
             Members = new List<OrderMemberModel>();
             Location = new Location();
+            CurrentMenus = new List<Menu>();
             IsShowMember = false;
         }
 
@@ -46,7 +47,7 @@ namespace NexFB.Models.Ordering
 
         public DateTime ModifiedDate { get; set; }
 
-        public Menu MyMeal { get; set; }
+        public IList<Menu> CurrentMenus { get; set; }
 
         public IList<MenuQuantityModel> MenuQuantity { get; set; }
 

@@ -204,7 +204,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 					member.CurrentStatus = order.Status;
 
 					if (order.Members && order.Members.length > 0) {
-						member.Menu = order.Members[0].Menu;
+						member.Menus = order.Members[0].Menus;
 					}
 
 					var isExisted = false;

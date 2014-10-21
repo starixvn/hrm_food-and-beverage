@@ -60,10 +60,10 @@
                     </span>
                 </td>
                 <td>
-                    <span ng-show="!order.MyMeal.FoodItems">{{order.MyMeal.Name}}</span>
-					<div ng-show="order.MyMeal.FoodItems">
-						<ul class="list-order list-unstyled" ng-repeat="food in order.MyMeal.FoodItems">
-							<li>{{food.Quantity}} - "{{food.Name}}"</li>
+                    <span ng-show="order.CurrentMenus.length == 1">{{order.CurrentMenus[0].Name}}</span>
+					<div ng-show="order.CurrentMenus.length > 1">
+						<ul class="list-order list-unstyled" ng-repeat="menu in order.CurrentMenus">
+							<li>{{menu.QuantityOrder}} - "{{menu.Name}}"</li>
 						</ul>
 					</div>
                 </td>
@@ -181,15 +181,15 @@
                                 </td>
                                 <td>
 									<div ng-show="!alter.alternativeMenu{{member.Member.UserId}}">
-										<span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
+										<span ng-show="member.CurrentStatus == null">{{member.Menus[0].Name}}</span>
 										<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, false)" 
-											ng-show="member.Menu.IsHaveAlternativeMenu" title="Select Alternative Menus" >
+											ng-show="member.Menus[0].IsHaveAlternativeMenu" title="Select Alternative Menus" >
 										</a>
 									</div>
 									<div ng-show="alter.alternativeMenu{{member.Member.UserId}}">
-										<select name="newOrderMenu" ng-model="member.Menu.MenuId" get-selected-menu >
+										<select name="newOrderMenu" ng-model="member.Menus[0].MenuId" get-selected-menu >
 											<option ng-repeat="altMenu in member.AllMenus" ng-bind="altMenu.Name" value="{{altMenu.MenuId}}" 
-												ng-selected="{{member.Menu.MenuId == altMenu.MenuId}}" isMainMenu={{altMenu.IsMainMenu}}>
+												ng-selected="{{member.Menu[0].MenuId == altMenu.MenuId}}" isMainMenu={{altMenu.IsMainMenu}}>
 											</option>
 										</select>
 									</div>
@@ -284,15 +284,15 @@
                                 </td>
                                 <td>
 									<div ng-show="!alterSaved.alternativeMenu{{member.Member.UserId}}">
-										<span ng-show="member.CurrentStatus == null">{{member.Menu.Name}}</span>
+										<span ng-show="member.CurrentStatus == null">{{member.Menus[0].Name}}</span>
 										<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, true)" 
-											ng-show="member.Menu.IsHaveAlternativeMenu && member.CurrentStatus == null" title="Select Alternative Menus" >
+											ng-show="member.Menus[0].IsHaveAlternativeMenu && member.CurrentStatus == null" title="Select Alternative Menus" >
 										</a>
 									</div>
 									<div ng-show="alterSaved.alternativeMenu{{member.Member.UserId}} && member.CurrentStatus == null">
-										<select name="savedOrderMenu" ng-model="member.Menu.MenuId" get-selected-saved-menu >
+										<select name="savedOrderMenu" ng-model="member.Menus[0].MenuId" get-selected-saved-menu >
 											<option ng-repeat="altMenu in member.AllMenus" ng-bind="altMenu.Name" value="{{altMenu.MenuId}}" 
-												ng-selected="{{member.Menu.MenuId == altMenu.MenuId}}" isMainMenu={{altMenu.IsMainMenu}}>
+												ng-selected="{{member.Menus[0].MenuId == altMenu.MenuId}}" isMainMenu={{altMenu.IsMainMenu}}>
 											</option>
 										</select>
 									</div>
@@ -351,12 +351,12 @@
                                 <label class="control-label" data-translate="Member"></label>
                             </div>
                             <div class="col-sm-7">
-                                <input class="form-control txtMember custom-padding" ng-model="sideDishMember" placeholder="full name or nick name"
-									search-auto-complete search-employees="searchEmployees" ng-change="getEmployee(sideDishMember)"
-									employee="sideDishOrder.employee" id="txtMemberSideDish" ng-enter="add(3)"/>
+                                <input class="form-control txtMember custom-padding" ng-model="searchSideDishMember" placeholder="full name or nick name"
+									search-auto-complete search-employees="searchEmployees" ng-change="getEmployee(searchSideDishMember)"
+									employee="sideDishMember.employee" id="txtMemberSideDish" ng-enter="add(false, true)"/>
                             </div>
                             <div class="col-sm-3 btn-add">
-                                <a ng-click="add(3)" class="button pull-right"><i class="glyphicon glyphicon-plus icon-plus">
+                                <a ng-click="add(false, true)" class="button pull-right"><i class="glyphicon glyphicon-plus icon-plus">
                                 </i>
 								    <label data-translate="Add"></label>
 							    </a>
@@ -385,22 +385,22 @@
 									<span>{{member.Member.NickName}}</span>
 								</td>
 								<td>
-									<span ng-show="!member.Menu.FoodItems" data-translate="SelectFoodItem"></span>
-									<div ng-show="member.Menu.FoodItems">
-										<ul class="list-order list-unstyled" ng-repeat="food in member.Menu.FoodItems">
-											<li>{{food.Quantity}} - "{{food.Name}}"</li>
+									<span ng-show="member.Menus.length == 0" data-translate="SelectFoodItem"></span>
+									<div ng-show="member.Menus.length > 0">
+										<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
+											<li>{{menu.QuantityOrder}} - "{{menu.Name}}"</li>
 										</ul>
 									</div>
 								</td>
 								<td>
-									<div ng-show="member.Menu.FoodItems">
-										<ul class="list-order list-unstyled" ng-repeat="food in member.Menu.FoodItems">
-											<li>{{food.TotalAmount}}</li>
+									<div ng-show="member.Menus.length > 0">
+										<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
+											<li>{{menu.TotalAmount | number}}</li>
 										</ul>
 									</div>
                                 </td>
                                 <td class="text-center">
-									<a class="glyphicon glyphicon-edit" href="" ng-click="editFoodItem(food)"></a>
+									<a class="glyphicon glyphicon-edit" href="" ng-click="editSideDish(member)"></a>
 									<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click=""></a>
                                 </td>
                             </tr>
@@ -423,7 +423,7 @@
                         </div>
                     </div>
                     <div class="row row-cust">
-                        <button ng-click="saveAddOrder(sideDishOrder)" class="button btn-order" data-translate="Order">
+                        <button ng-click="saveAddOrder(sideDishOrder, true)" class="button btn-order" data-translate="Order">
                         </button>
                     </div>
                 </div>

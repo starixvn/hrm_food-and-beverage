@@ -55,6 +55,26 @@ namespace NexFB.Repositories.Implement
         }
 
         /// <summary>
+        /// Get side dish by user Id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Side Dish model.</returns>
+        public IEnumerable<SideDishModel> GetSideDishByUserId(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<SideDishModel, UnitModel, SideDishModel>(
+                    (si, unit) =>
+                    {
+                        si.Unit = unit;
+                        return si;
+                    },
+                    "FoodUnitId",
+                    criteria.GetSpParams());
+            }
+        }
+
+        /// <summary>
         /// Get employee types of side dish.
         /// </summary>
         /// <param name="foodId">The food Id.</param>

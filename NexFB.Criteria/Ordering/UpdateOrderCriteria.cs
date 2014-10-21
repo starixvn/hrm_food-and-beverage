@@ -51,7 +51,7 @@ namespace NexFB.Criteria.Ordering
                 {
                     foreach (OrderMemberModel member in Members)
                     {
-                        value.AppendFormat(_MemberTpl, member.Member.UserId, member.Menu.MenuId, member.Menu.IsMainMenu, member.IsOrder);
+                        value.AppendFormat(_MemberTpl, member.Member.UserId, member.Menus.First().MenuId, member.Menus.First().IsMainMenu, member.IsOrder);
                     }
                 }
 

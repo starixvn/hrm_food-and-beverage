@@ -19,5 +19,13 @@ namespace NexFB.Models.SideDishManagement
         public string UnitEngName { get; set; }
 
         public string UnitVnmName { get; set; }
+
+        public string UnitName
+        {
+            get
+            {
+                return UnitVnmName;
+            }
+        }
     }
 }

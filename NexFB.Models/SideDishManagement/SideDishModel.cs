@@ -30,6 +30,14 @@ namespace NexFB.Models.SideDishManagement
 
         public string FoodVnmName { get; set; }
 
+        public string Name
+        {
+            get
+            {
+                return FoodVnmName;
+            }
+        }
+
         public string FoodPhoto { get; set; }
 
         public double Price { get; set; }

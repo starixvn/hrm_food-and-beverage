@@ -143,5 +143,23 @@ namespace NexFB.Services.Implement
 
             return commandResult;
         }
+
+        /// <summary>
+        /// Get side dish by user Id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Side Dish model.</returns>
+        public IEnumerable<SideDishModel> GetSideDishByUserId(GetSideDishByUserIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<SideDishModel> sideDishes = null;
+
+            if (criteria.IsValid())
+            {
+                sideDishes = _sideDishRepository.GetSideDishByUserId(criteria);
+            }
+
+            return sideDishes;
+        }
     }
 }

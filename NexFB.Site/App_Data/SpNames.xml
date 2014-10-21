@@ -115,6 +115,7 @@
       <Mapping DataField="MealENGName" ObjectProperty="NameEN" Class="MenuQuantityModel"/>
       <Mapping DataField="MealVNMName" ObjectProperty="NameVN" Class="MenuQuantityModel"/>
       <Mapping DataField="QtyOrder" ObjectProperty="Quantity" Class="MenuQuantityModel"/>
+      <Mapping DataField="QtyOrder" ObjectProperty="QuantityOrder" Class="Menu"/>
     </Setting>
     <Setting Key="MealOrder_Get_MyStatusBySysID" SpName="MealOrder_Get_MyStatusBySysID" DbName="NexFB" Plain="0" >
       <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status"/>
@@ -161,6 +162,13 @@
 	<Setting Key="MealOrder_Get_FoodAlternative" SpName="MealOrder_Get_FoodAlternative" DbName="NexFB" Plain="0" >
 		<Mapping DataField="MenuEngName" ObjectProperty="NameEN" Class="Menu"/>
 		<Mapping DataField="MenuVNMName" ObjectProperty="NameVN" Class="Menu"/>
+	</Setting>
+	<Setting Key="MealOrder_Get_FoodOrder" SpName="MealOrder_Get_FoodOrder" DbName="NexFB" Plain="0" >
+		<Mapping DataField="FoodUnitID" ObjectProperty="UnitId" />
+		<Mapping DataField="FoodUnitVNMName" ObjectProperty="UnitVnmName" />
+		<Mapping DataField="FoodUnitEngName" ObjectProperty="UnitEngName" />
+	</Setting>
+	<Setting Key="MealOrder_Insert_RequestSideDishByWeb" SpName="MealOrder_Insert_RequestSideDishByWeb" DbName="NexFB" Plain="0" >
 	</Setting>
   </Function>
 	<Function Name="POS">

@@ -9,7 +9,7 @@ orderingModule.directive('getSelectedMenu', function () {
 					selectedOption = $(selectMenu).find(':selected'),
 					isMainMenu = $(selectedOption).attr('isMainMenu');
 
-				scope.member.Menu.IsMainMenu = isMainMenu;
+				scope.member.Menus[0].IsMainMenu = isMainMenu;
 			});
 		}
 	};
@@ -23,7 +23,7 @@ orderingModule.directive('getSelectedSavedMenu', function () {
 					selectedOption = $(selectMenu).find(':selected'),
 					isMainMenu = $(selectedOption).attr('isMainMenu');
 
-				scope.member.Menu.IsMainMenu = isMainMenu;
+				scope.member.Menus[0].IsMainMenu = isMainMenu;
 			});
 		}
 	};
@@ -39,8 +39,20 @@ orderingModule.directive('getSelectedEditMenu', function () {
 					selectedOption = $(selectMenu).find(':selected'),
 					isMainMenu = $(selectedOption).attr('isMainMenu');
 
-				scope.member.Menu.IsMainMenu = isMainMenu;
+				scope.member.Menus[0].IsMainMenu = isMainMenu;
 			});
 		}
+	};
+});
+
+orderingModule.filter('range', function () {
+	return function (input, total) {
+		total = parseInt(total);
+
+		for (var i = 1; i <= total; i++) {
+			input.push(i);
+		}
+
+		return input;
 	};
 });
