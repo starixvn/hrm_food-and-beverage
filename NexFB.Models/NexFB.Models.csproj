@@ -82,6 +82,7 @@
     <Compile Include="ShiftMealMapping\ShiftMealMappingModel.cs" />
     <Compile Include="SideDishManagement\SideDishModel.cs" />
     <Compile Include="SideDishManagement\UnitModel.cs" />
+    <Compile Include="SmartCardOrder\SCEmployeeOrder.cs" />
     <Compile Include="UserControl\EmployeeRoleModel.cs" />
     <Compile Include="UserControl\FunctionModel.cs" />
     <Compile Include="UserControl\RoleDepartmentModel.cs" />

@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Chinese" xml:space="preserve">
+    <value>中国语文</value>
+  </data>
   <data name="CurrentCulture" xml:space="preserve">
     <value>中国</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>英语</value>
   </data>
   <data name="MainDishes" xml:space="preserve">
     <value>主菜</value>
@@ -128,5 +134,8 @@
   </data>
   <data name="SideDishes" xml:space="preserve">
     <value>小菜</value>
+  </data>
+  <data name="VietNamese" xml:space="preserve">
+    <value>越南语</value>
   </data>
 </root>

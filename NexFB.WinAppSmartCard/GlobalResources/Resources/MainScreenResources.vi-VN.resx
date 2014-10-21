@@ -117,16 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Chinese" xml:space="preserve">
+    <value>Tiếng Trung</value>
+  </data>
   <data name="CurrentCulture" xml:space="preserve">
     <value>Việt Nam</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Tiếng Anh</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Thoát</value>
   </data>
   <data name="MainDishes" xml:space="preserve">
     <value>Món Chính</value>
   </data>
+  <data name="Member" xml:space="preserve">
+    <value>Thành Viên</value>
+  </data>
   <data name="Menu" xml:space="preserve">
     <value>Thực đơn</value>
   </data>
+  <data name="NumberCount" xml:space="preserve">
+    <value>#</value>
+  </data>
   <data name="SideDishes" xml:space="preserve">
     <value>Món Phụ</value>
+  </data>
+  <data name="TicketCreator" xml:space="preserve">
+    <value>Người tạo phiếu ăn: </value>
+  </data>
+  <data name="TicketLabel" xml:space="preserve">
+    <value>Đã tạo phiếu ăn số: </value>
+  </data>
+  <data name="VietNamese" xml:space="preserve">
+    <value>Tiếng Việt</value>
   </data>
 </root>

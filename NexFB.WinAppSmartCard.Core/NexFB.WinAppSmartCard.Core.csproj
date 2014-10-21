@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,11 +50,19 @@
   <ItemGroup>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Constants\ConstantValue.cs" />
+    <Compile Include="Mapping\CoreMappingRegister.cs" />
+    <Compile Include="Mapping\IMappingRegister.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\MenuColor.cs" />
     <Compile Include="NotifyBase\PropertyChangedBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\NexFB.Models\NexFB.Models.csproj">
+      <Project>{487D35C7-B5F4-4CA5-902B-7C300569912F}</Project>
+      <Name>NexFB.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -9,20 +9,43 @@
 
 namespace NexFB.WinAppSmartCard
 {
+    using System;
     using System.Windows;
+    using Fanex.Data.Configuration;
+    using NexFB.WinAppSmartCard.Core.Mapping;
+    using NexFB.WinAppSmartCard.Events;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using NexFB.WinAppSmartCard.GlobalResources.Services;
     using NexFB.WinAppSmartCard.SmartCardHelper;
+    using NexFB.WinAppSmartCard.ViewModels;
 
     /// <summary>
     /// Interaction logic for App.
     /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// Startup Method.
+        /// </summary>
+        /// <param name="e">Startup Event.</param>
         protected override void OnStartup(StartupEventArgs e)
         {
-            SmartcardManager.GetManager(1);
+            IMappingRegister mappingRegister = new CoreMappingRegister();
+            MainWindow mainWindow = new MainWindow();
+            MainViewModel mainViewModel = new MainViewModel();
+            mainWindow.DataContext = mainViewModel;
+            mainWindow.Show();
+
+            SmartcardManager manager = new SmartcardManager();
+            manager.CardNumberChanged += new EventHandler<CardNumberChangedEventArgs>((sender, ex) => OnCardNumberChange(ex, mainViewModel));
             ResourceManagerService.RegisterManager(@"MainScreenResources", MainScreenResources.ResourceManager, true);
+            DbSettingProviderManager.Current.Start();
+            mappingRegister.Register();
+        }
+
+        private void OnCardNumberChange(CardNumberChangedEventArgs e, MainViewModel mainViewModel)
+        {
+            mainViewModel.OnSmartCardNumberchanged(e.CardNumber);
         }
     }
 }

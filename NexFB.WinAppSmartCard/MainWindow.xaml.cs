@@ -10,17 +10,28 @@
 namespace NexFB.WinAppSmartCard
 {
     using System.Windows;
-    using NexFB.WinAppSmartCard.ViewModels;
+    using System.Windows.Input;
 
     /// <summary>
     /// Interaction logic for MainWindow.
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static double _screenWidth = SystemParameters.PrimaryScreenWidth;
+        private double _screeHeight = SystemParameters.PrimaryScreenHeight;
+
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel();
+            this.Height = _screeHeight;
+            this.Width = _screenWidth;
+        }
+
+        private void LanguageButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var contextMenu = languageButton.ContextMenu;
+            contextMenu.PlacementTarget = this;
+            contextMenu.IsOpen = true;
         }
     }
 }

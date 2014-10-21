@@ -4,35 +4,88 @@
         Title="MainWindow" Height="1024" Width="1280"
 		xmlns:views="clr-namespace:NexFB.WinAppSmartCard.Views"
 		xmlns:helpers="clr-namespace:NexFB.WinAppSmartCard.GlobalResources.Helpers"
-		WindowState="Maximized" AllowsTransparency="False">
+		WindowState="Maximized" AllowsTransparency="False" WindowStyle="None">
 	<Window.Resources>
 		<helpers:LocalizationHelper x:Key="localisation"/>
+		<Storyboard x:Key="Flash" RepeatBehavior="Forever">
+			<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="" Storyboard.TargetProperty="(UIElement.Opacity)">
+				<SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+				<SplineDoubleKeyFrame KeyTime="00:00:04" Value="1"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
 	</Window.Resources>
 
+	<Window.Triggers>
+		<!--<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+			<BeginStoryboard Storyboard="{StaticResource Flash}"/>
+		</EventTrigger>-->
+	</Window.Triggers>
+
 	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="48"/>
-			<RowDefinition />
-		</Grid.RowDefinitions>
-		<DockPanel Grid.Row="0" Background="#464646">
-			<Button Command="{Binding Path=MainDishesCommand}" Background="{Binding Path=MainDishesMenu.BackgroundColor}"
+		<Grid Visibility="{Binding Path=StandbyScreenVisible}">
+			<Image Source="pack://application:,,,/Images/POS_IdleScreen.jpg" Stretch="Fill"/>
+			<Border BorderBrush="Silver" BorderThickness="1" Height="122" Background="LightGray" x:Name="border" Opacity="0.75"
+				HorizontalAlignment="Center" VerticalAlignment="Center" Width="571" Margin="350,593,337,270">
+				<StackPanel x:Name="stackPanel">
+					<TextBlock  Name="textBlock1" Text="QUẸT THẺ ĐỂ ĐẶT MÓN ĂN" Margin="0,20,0,0" FontSize="28"
+				HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+
+					<TextBlock Name="textBlock2" Text="SWIPE YOUR CARD TO ORDER MEAL" FontWeight="Bold"
+				HorizontalAlignment="Center" FontSize="28" VerticalAlignment="Center"/>
+				</StackPanel>
+			</Border>
+		</Grid>
+
+		<Grid Visibility="{Binding Path=MainScreenVisible}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="48"/>
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<DockPanel Grid.Row="0" Background="#464646">
+				<Button Command="{Binding Path=MainDishesCommand}" Background="{Binding Path=MainDishesMenu.BackgroundColor}"
 			Foreground="{Binding Path=MainDishesMenu.ForegroundColor}" FontWeight="{Binding Path=MainDishesMenu.FontWeight}"
 				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.MainDishes]}" 
 				Height="50" HorizontalAlignment="Left" Name="btnMainDishes" VerticalAlignment="Center" Width="140" Margin="-1,0,0,0" />
 
-			<Button Command="{Binding Path=SideDishesCommand}" Background="{Binding Path=SideDishesMenu.BackgroundColor}"
+				<Button Command="{Binding Path=SideDishesCommand}" Background="{Binding Path=SideDishesMenu.BackgroundColor}"
 				Foreground="{Binding Path=SideDishesMenu.ForegroundColor}" FontWeight="{Binding Path=SideDishesMenu.FontWeight}"
 				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.SideDishes]}" 
 				Height="50" HorizontalAlignment="Left" Name="btnSideDishes" VerticalAlignment="Center" Width="140" Margin="2,0,0,0" />
 
-			<Button Command="{Binding Path=ChangeLanguageCommand}" Background="#949494" Foreground="#fff"
+				<Button Mouse.PreviewMouseDown="LanguageButton_PreviewMouseDown"
+				 Background="#949494" Foreground="#fff"
 				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.CurrentCulture]}" 
-				Height="50" Name="languageButton" Width="120" Margin="2,0,0,0" HorizontalAlignment="Right" FontWeight="Black" FontSize="18"/>
-		</DockPanel >
-		<Grid Grid.Row="1" >
-			<ContentControl Content="{Binding CurrentViewModel}"
+				Height="50" x:Name="languageButton" Width="120" Margin="2,0,0,0" HorizontalAlignment="Right" FontWeight="Black" FontSize="18">
+					<Button.ContextMenu>
+						<ContextMenu>
+							<MenuItem Command="{Binding Path=ChangeLanguageCommand}" CommandParameter="1"
+							Header="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.English]}" Margin="0,5,0,5">
+								<MenuItem.Icon>
+									<Image Source="pack://application:,,,/Images/Flag_of_England.png" Width="24" Height="24"/>
+								</MenuItem.Icon>
+							</MenuItem>
+							<MenuItem Command="{Binding Path=ChangeLanguageCommand}" CommandParameter="2"
+							Header="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.VietNamese]}" Margin="0,5,0,5">
+								<MenuItem.Icon>
+									<Image Source="pack://application:,,,/Images/Flag_of_Vietnam.png" Width="24" Height="24"/>
+								</MenuItem.Icon>
+							</MenuItem>
+							<MenuItem Command="{Binding Path=ChangeLanguageCommand}" CommandParameter="3"
+							Header="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Chinese]}" Margin="0,5,0,5">
+								<MenuItem.Icon>
+									<Image Source="pack://application:,,,/Images/Flag_of_China.png" Width="24" Height="24"/>
+								</MenuItem.Icon>
+							</MenuItem>
+						</ContextMenu>
+					</Button.ContextMenu>
+				</Button>
+			</DockPanel >
+			<Grid Grid.Row="1" >
+				<ContentControl Content="{Binding CurrentViewModel}"
 			x:Name="contentControl"/>
+			</Grid>
 		</Grid>
+
 	</Grid>
 
 </Window>

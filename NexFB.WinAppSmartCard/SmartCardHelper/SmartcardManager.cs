@@ -16,6 +16,8 @@ namespace NexFB.WinAppSmartCard.SmartCardHelper
     using System.Text;
     using System.Windows;
     using NexFB.WinAppSmartCard.Enums;
+    using NexFB.WinAppSmartCard.Events;
+    using NexFB.WinAppSmartCard.ViewModels;
 
     /// <summary>
     /// Smart Card Manager.
@@ -30,6 +32,7 @@ namespace NexFB.WinAppSmartCard.SmartCardHelper
         private bool _disposed = false;
         private ReaderState[] _states;
         private BackgroundWorker _worker;
+        private string _cardNumber;
 
         #endregion
 
@@ -55,7 +58,26 @@ namespace NexFB.WinAppSmartCard.SmartCardHelper
             }
         }
 
+        public event EventHandler<CardNumberChangedEventArgs> CardNumberChanged;
+
         #region Properties
+
+        public string CardNumber
+        {
+            get
+            {
+                return _cardNumber;
+            }
+
+            set
+            {
+                _cardNumber = value;
+                if (CardNumberChanged != null)
+                {
+                    CardNumberChanged(this, new CardNumberChangedEventArgs(value));
+                }
+            }
+        }
 
         private bool HasContext
         {
@@ -65,14 +87,9 @@ namespace NexFB.WinAppSmartCard.SmartCardHelper
         #endregion
 
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed. Suppression is OK here.")]
-        public static SmartcardManager GetManager(int number)
+        public static SmartcardManager GetManager()
         {
-            if (number == 1)
-            {
-                return _Instance;
-            }
-
-            return new SmartcardManager();
+            return _Instance;
         }
 
         /// <summary>
@@ -213,7 +230,8 @@ namespace NexFB.WinAppSmartCard.SmartCardHelper
                                 case SmartcardState.Inserted:
                                     {
                                         int attribute = _states[0].Attribute();
-                                        MessageBox.Show(ByteArrayToString(_states[0].RGBAttribute(), attribute));
+                                        string data = ByteArrayToString(_states[0].RGBAttribute(), attribute);
+                                        CardNumber = data;
                                         break;
                                     }
 

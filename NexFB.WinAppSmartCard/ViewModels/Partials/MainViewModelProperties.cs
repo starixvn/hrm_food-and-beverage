@@ -1,18 +1,18 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="MainScreenViewModel.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="MainViewModelProperties.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Bradley.Mac" date="2014.10.16">Created</change>
+//   <change who="Bradley.Mac" date="2014.10.20">Created</change>
 // </history>
 
-namespace NexFB.WinAppSmartCard.ViewModels
+namespace NexFB.WinAppSmartCard.ViewModels.Partials
 {
     /// <summary>
-    /// Main Screen ViewModel.
+    /// Main ViewModel.
     /// </summary>
-    public class MainScreenViewModel : ViewModelBase
+    public partial class MainViewModel : ViewModelBase
     {
     }
 }

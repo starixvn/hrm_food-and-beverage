@@ -129,6 +129,7 @@
     <Compile Include="SideDishManagement\GetAllSideDishCriteria.cs" />
     <Compile Include="SideDishManagement\InsertSideDishCriteria.cs" />
     <Compile Include="SideDishManagement\UpdateSideDishCriteria.cs" />
+    <Compile Include="SmartCardOrder\GetEmployeeByCardNumberCriteria.cs" />
     <Compile Include="Team\GetAllTeamByCompanyCriteria.cs" />
     <Compile Include="Kitchen\GetDeliveredMealOrderCriteria.cs" />
     <Compile Include="Kitchen\GetWaitingMealOrderCriteria.cs" />

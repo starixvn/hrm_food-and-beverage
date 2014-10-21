@@ -9,7 +9,12 @@
 
 namespace NexFB.WinAppSmartCard.ViewModels
 {
+    using System.Collections.ObjectModel;
+    using System.Windows;
     using System.Windows.Input;
+    using AutoMapper;
+    using NexFB.Criteria.SmartCardOrder;
+    using NexFB.Models.SmartCardOrder;
     using NexFB.WinAppSmartCard.Core.Commands;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
@@ -18,11 +23,17 @@ namespace NexFB.WinAppSmartCard.ViewModels
     /// <summary>
     /// Main View Model.
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public partial class MainViewModel : ViewModelBase
     {
+        private static double _screenWidth = SystemParameters.PrimaryScreenWidth;
+        private static double _screeHeight = SystemParameters.PrimaryScreenHeight;
+
         private ViewModelBase _currentViewModel;
         private string _currentTime;
         private int _currentCulture;
+        private string _mainScreenVisible;
+        private string _standbyScreenVisible;
+        private string _currentCardNumber;
         private MenuColor _mainDishesMenu = new MenuColor();
         private MenuColor _sideDishesMenu = new MenuColor();
 
@@ -31,8 +42,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ExecuteMainDishesCommand();
             MainDishesCommand = new RelayCommand((x) => CanExecuteMainDishesCommand(), (y) => ExecuteMainDishesCommand());
             SideDishesCommand = new RelayCommand((x) => CanExecuteSideDishesCommand(), (y) => ExecuteSideDishesCommand());
-            ChangeLanguageCommand = new RelayCommand((x) => CanExecuteChangeLanguageCommand(), (y) => ExecuteChangeLanguageCommand());
+            ChangeLanguageCommand = new RelayCommand((x) => CanExecuteChangeLanguageCommand(), (y) => ExecuteChangeLanguageCommand(y));
             ChangeCulture();
+            CheckCurrentScreen();
         }
 
         #region Properties
@@ -90,6 +102,48 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
+        public string MainScreenVisible
+        {
+            get
+            {
+                return _mainScreenVisible;
+            }
+
+            set
+            {
+                _mainScreenVisible = value;
+                this.OnPropertyChanged("MainScreenVisible");
+            }
+        }
+
+        public string StandbyScreenVisible
+        {
+            get
+            {
+                return _standbyScreenVisible;
+            }
+
+            set
+            {
+                _standbyScreenVisible = value;
+                this.OnPropertyChanged("StandbyScreenVisible");
+            }
+        }
+
+        public string CurrentCardNumber
+        {
+            get
+            {
+                return _currentCardNumber;
+            }
+
+            set
+            {
+                _currentCardNumber = value;
+                this.OnPropertyChanged("CurrentCardNumber");
+            }
+        }
+
         public MenuColor MainDishesMenu
         {
             get
@@ -118,6 +172,63 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
+        public double ScreenWidth
+        {
+            get
+            {
+                return _screenWidth;
+            }
+
+            set
+            {
+                _screenWidth = value;
+                this.OnPropertyChanged("ScreenWidth");
+            }
+        }
+
+        public double ScreenHeight
+        {
+            get
+            {
+                return _screeHeight;
+            }
+
+            set
+            {
+                _screeHeight = value;
+                this.OnPropertyChanged("ScreenHeight");
+            }
+        }
+
+        #endregion
+        #region Public Methods
+
+        /// <summary>
+        /// On change Card Number.
+        /// </summary>
+        /// <param name="newCardNumber">New Card number.</param>
+        public void OnSmartCardNumberchanged(string newCardNumber)
+        {
+            if (!string.IsNullOrEmpty(newCardNumber))
+            {
+                this.CurrentCardNumber = newCardNumber;
+                string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+                switch (currentViewModel)
+                {
+                    case ConstantValue.MainDishesViewModel:
+                        ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(newCardNumber);
+
+                        break;
+                    case ConstantValue.SideDishesViewModel:
+                        break;
+                    default:
+                        break;
+                }
+
+                CheckCurrentScreen();
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -137,6 +248,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
             return true;
         }
 
+        /// <summary>
+        /// Execute Command.
+        /// </summary>
         private void ExecuteMainDishesCommand()
         {
             CurrentViewModel = new MainDishesViewModel();
@@ -149,14 +263,18 @@ namespace NexFB.WinAppSmartCard.ViewModels
             CheckCurrentViewModel();
         }
 
-        private void ExecuteChangeLanguageCommand()
+        private void ExecuteChangeLanguageCommand(object value)
         {
-            ChangeCulture();
+            if (value != null)
+            {
+                CurrentCulture = int.Parse((string)value);
+                ChangeCulture();
+            }
         }
 
         #endregion
 
-        #region Methods
+        #region Private Methods
 
         /// <summary>
         /// Set Default Menu Color.
@@ -204,21 +322,38 @@ namespace NexFB.WinAppSmartCard.ViewModels
             switch (CurrentCulture)
             {
                 case ConstantValue.EnglishCulture:
+                    ResourceManagerService.ChangeLocale("en-GB");
+                    CurrentCulture = ConstantValue.EnglishCulture;
+                    break;
+                case ConstantValue.VietNamCulture:
                     ResourceManagerService.ChangeLocale("vi-VN");
                     CurrentCulture = ConstantValue.VietNamCulture;
-                break;
-                case ConstantValue.VietNamCulture:
-                     ResourceManagerService.ChangeLocale("zh-CN");
-                    CurrentCulture = ConstantValue.ChinaCulture;
-                break;
+                    break;
                 case ConstantValue.ChinaCulture:
-                    ResourceManagerService.ChangeLocale("en-GB");
-                    CurrentCulture = ConstantValue.EnglishCulture;
-                break;
+                    ResourceManagerService.ChangeLocale("zh-CN");
+                    CurrentCulture = ConstantValue.ChinaCulture;
+                    break;
                 default:
                     CurrentCulture = ConstantValue.EnglishCulture;
-                    ResourceManagerService.ChangeLocale("en-GB");
-                break;
+                    ResourceManagerService.ChangeLocale("vi-VN");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Show main Screen or Standby screen.
+        /// </summary>
+        private void CheckCurrentScreen()
+        {
+            if (string.IsNullOrEmpty(CurrentCardNumber))
+            {
+                MainScreenVisible = ConstantValue.Hidden;
+                StandbyScreenVisible = ConstantValue.Visible;
+            }
+            else
+            {
+                MainScreenVisible = ConstantValue.Visible;
+                StandbyScreenVisible = ConstantValue.Hidden;
             }
         }
 

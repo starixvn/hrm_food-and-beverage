@@ -11,7 +11,8 @@
     <RootNamespace>NexFB.WinAppSmartCard</RootNamespace>
     <AssemblyName>NexFB.WinAppSmartCard</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -36,8 +37,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Data">
+      <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
+      <HintPath>..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\packages\EnterpriseLibrary.Data.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +78,7 @@
     </ApplicationDefinition>
     <Compile Include="Enums\ScopeOption.cs" />
     <Compile Include="Enums\SmartCardState.cs" />
+    <Compile Include="Events\CardNumberChangedEventArgs.cs" />
     <Compile Include="GlobalResources\Events\Locale.cs" />
     <Compile Include="GlobalResources\Events\LocaleChangedEvent.cs" />
     <Compile Include="GlobalResources\Helpers\DesignHelpers.cs" />
@@ -75,15 +96,12 @@
     <Compile Include="SmartCardHelper\SmartcardManager.cs" />
     <Compile Include="SmartCardHelper\UnsafeNativeMethods.cs" />
     <Compile Include="ViewModels\MainDishesViewModel.cs" />
-    <Compile Include="ViewModels\MainScreenViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Partials\MainViewModelProperties.cs" />
     <Compile Include="ViewModels\SideDishesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\MainDishes.xaml.cs">
       <DependentUpon>MainDishes.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainScreenView.xaml.cs">
-      <DependentUpon>MainScreenView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SideDishes.xaml.cs">
       <DependentUpon>SideDishes.xaml</DependentUpon>
@@ -105,10 +123,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainDishes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MainScreenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -141,6 +155,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -148,10 +163,42 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NexFB.Core\NexFB.Core.csproj">
+      <Project>{5815DC62-15BA-4E92-B0CC-E888BDA04E91}</Project>
+      <Name>NexFB.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexFB.Criteria\NexFB.Criteria.csproj">
+      <Project>{CF5EBF21-A3AA-4068-8149-CE1B8BD85C7C}</Project>
+      <Name>NexFB.Criteria</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexFB.Models\NexFB.Models.csproj">
+      <Project>{487D35C7-B5F4-4CA5-902B-7C300569912F}</Project>
+      <Name>NexFB.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexFB.Services\NexFB.Services.csproj">
+      <Project>{C6EF79D3-5127-4DA2-A334-44109F771D33}</Project>
+      <Name>NexFB.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NexFB.WinAppSmartCard.Core\NexFB.WinAppSmartCard.Core.csproj">
       <Project>{09E8D442-CFB1-41DD-B479-590864561ABB}</Project>
       <Name>NexFB.WinAppSmartCard.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\POS_IdleScreen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Flag_of_China.png" />
+    <Resource Include="Images\Flag_of_England.png" />
+    <Resource Include="Images\Flag_of_Vietnam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DependencyProperties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SpNames.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

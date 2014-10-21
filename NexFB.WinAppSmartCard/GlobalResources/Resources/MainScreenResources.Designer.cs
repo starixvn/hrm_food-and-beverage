@@ -61,11 +61,38 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chinese.
+        /// </summary>
+        internal static string Chinese {
+            get {
+                return ResourceManager.GetString("Chinese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         internal static string CurrentCulture {
             get {
                 return ResourceManager.GetString("CurrentCulture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        internal static string Exit {
+            get {
+                return ResourceManager.GetString("Exit", resourceCulture);
             }
         }
         
@@ -79,6 +106,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member.
+        /// </summary>
+        internal static string Member {
+            get {
+                return ResourceManager.GetString("Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Menu.
         /// </summary>
         internal static string Menu {
@@ -88,11 +124,47 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to #.
+        /// </summary>
+        internal static string NumberCount {
+            get {
+                return ResourceManager.GetString("NumberCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Side Dishes.
         /// </summary>
         internal static string SideDishes {
             get {
                 return ResourceManager.GetString("SideDishes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ticket Creator: .
+        /// </summary>
+        internal static string TicketCreator {
+            get {
+                return ResourceManager.GetString("TicketCreator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meal Ticket Number: .
+        /// </summary>
+        internal static string TicketLabel {
+            get {
+                return ResourceManager.GetString("TicketLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vietnamese.
+        /// </summary>
+        internal static string VietNamese {
+            get {
+                return ResourceManager.GetString("VietNamese", resourceCulture);
             }
         }
     }

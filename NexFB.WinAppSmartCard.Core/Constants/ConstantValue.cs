@@ -34,6 +34,10 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const int ChinaCulture = 3;
 
+        public const string Hidden = "Hidden";
+
+        public const string Visible = "Visible";
+
         private ConstantValue()
         {
         }

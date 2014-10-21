@@ -2,8 +2,145 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:helpers="clr-namespace:NexFB.WinAppSmartCard.GlobalResources.Helpers"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" Width="1280" Height="1024">
-    <Grid Margin="12,0,0,0" >
-		<TextBlock>Main Dishes</TextBlock>
-    </Grid>
+	<!--{Binding DataContext.ScreenWidth, RelativeSource={RelativeSource AncestorType=Window}}-->
+
+	<UserControl.Resources>
+		<helpers:LocalizationHelper x:Key="localisation"/>
+		<Color x:Key="customBlue"  A="255"   R="54" G="95" B="177"  />
+		<SolidColorBrush x:Key="customBlueBrush" Color="{StaticResource customBlue}"></SolidColorBrush>
+		<SolidColorBrush x:Key="customBlueBrushOpacity" Color="LightGray" Opacity="0.11"></SolidColorBrush>
+		<Style x:Key="calcyListbox"  TargetType="ListBox">
+			<Setter Property="SnapsToDevicePixels" Value="True"/>
+			<Setter Property="OverridesDefaultStyle" Value="True"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ListBox">
+						<Grid Margin="12,0,0,0">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="50"></RowDefinition>
+								<RowDefinition></RowDefinition>
+							</Grid.RowDefinitions>
+							<Grid Grid.Row="0" Height="50" VerticalAlignment="Center" Background="#E1E1E1">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="100"/>
+									<ColumnDefinition Width="250"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="100"/>
+								</Grid.ColumnDefinitions>
+								<Border BorderThickness="1" BorderBrush="#999999" Grid.Column="0"></Border>
+								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
+								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="2"></Border>
+								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="3"></Border>
+								<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.NumberCount]}"
+								 FontSize="19" FontFamily="Segoe Ui Dark"
+								 Foreground="#014A81" SnapsToDevicePixels="True" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+								<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Member]}"
+								 FontSize="19" FontFamily="Segoe Ui Dark" 
+								 Foreground="#014A81" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
+
+								<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Menu]}"
+								FontSize="19" FontFamily="Segoe Ui Dark"  
+								 Foreground="#014A81" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="2" />
+
+								<TextBlock Text="" FontSize="19" FontFamily="Segoe Ui Dark"  
+								Foreground="#014A81" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="3" />
+							</Grid>
+							<Border Margin="0,0,0,0" Grid.Row="1" SnapsToDevicePixels="True"  Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0">
+								<ItemsPresenter />
+							</Border>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style x:Key="noStyleToListboxItem" TargetType="ListBoxItem">
+			<Setter Property="SnapsToDevicePixels" Value="True"/>
+			<Setter Property="OverridesDefaultStyle" Value="True"/>
+			<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ListBoxItem">
+						<Border>
+							<ContentPresenter></ContentPresenter>
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</UserControl.Resources>
+	<Grid Margin="12,0,0,0" >
+		<Grid.RowDefinitions>
+			<RowDefinition Height="120"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid Width="1280" Height="120" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Margin="12,0,0,0">
+			<Grid Grid.Row="0">
+				<Grid.RowDefinitions>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+				</Grid.RowDefinitions>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketLabel]}"
+						 HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Top" FontSize="20"/>
+					<Label Content="28" Foreground="#EF4339" FontWeight="Black"
+						 HorizontalAlignment="Left" Margin="-8,20,0,0"  VerticalAlignment="Top" FontSize="20"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Grid.Row="1">
+					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}"
+						 HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" FontSize="20"/>
+					<Label Content="Kahn.Tran" Foreground="#2c97de" FontWeight="Black"
+						 HorizontalAlignment="Left" Margin="-8,5,0,0"  VerticalAlignment="Top" FontSize="20"/>
+				</StackPanel>
+			</Grid>
+		</Grid>
+
+		<Grid Grid.Row="1" Margin="0,10,0,0">
+			<Grid HorizontalAlignment="Center" Margin="12,0,0,0" Grid.Row="1" Name="grid2" VerticalAlignment="Top" Width="1280">
+				<StackPanel Orientation="Vertical">
+					<Grid MaxHeight="300">
+						<ScrollViewer>
+							<ListBox BorderThickness="1,0,1,1" Margin="0,0,20,0" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
+							 ItemsSource="{Binding ObservableListEmployee}" Style="{StaticResource calcyListbox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<Grid Height="30" Margin="0">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="100"/>
+												<ColumnDefinition Width="250"/>
+												<ColumnDefinition Width="*"/>
+												<ColumnDefinition Width="100"/>
+											</Grid.ColumnDefinitions>
+											<Border BorderThickness="1,0,1,1" BorderBrush="#999999" Grid.Column="0"></Border>
+											<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
+											<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="2"></Border>
+											<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="3"></Border>
+											<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="4"></Border>
+											<TextBlock Text="{Binding Path=OrderNo}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
+											<TextBlock Text="{Binding Path=NickName}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+											<TextBlock Text="{Binding Path=Dishes}" FontSize="15" Foreground="{Binding Path=Color}"
+										HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="2"/>
+											<TextBlock Text="{Binding Path=Quantity}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="3"/>
+										</Grid>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+
+						</ScrollViewer>
+					</Grid>
+					<Grid VerticalAlignment="Bottom" Margin="0,30,0,10">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Button Background="#66B5D6" Foreground="White" Command="{Binding Path=ExitOrderCommand}"
+						CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+					Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Exit]}" Height="35" Style="{StaticResource TileButton}"
+					HorizontalAlignment="Center" Name="button1" VerticalAlignment="Top" Width="108" />
+					</Grid>
+				</StackPanel>
+			</Grid>
+		</Grid>
+	</Grid>
 </UserControl>

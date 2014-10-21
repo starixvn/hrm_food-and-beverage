@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Functions>
+	<Function Name="Employee">
+		<Setting Key="Employee_GetEmployeeByCardNumber" SpName="Employee_GetEmployeeByCardNumber" DbName="NexFB" Plain="0" >
+		</Setting>
+	</Function>
+</Functions>
