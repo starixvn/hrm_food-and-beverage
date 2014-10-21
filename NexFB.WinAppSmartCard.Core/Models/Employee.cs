@@ -9,6 +9,8 @@
 
 namespace NexFB.WinAppSmartCard.Core.Models
 {
+    using System.Collections.Generic;
+    using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.NotifyBase;
 
     /// <summary>
@@ -22,6 +24,40 @@ namespace NexFB.WinAppSmartCard.Core.Models
         private int _menuId;
         private string _menuEngName;
         private string _menuVnmName;
+        private int _currentCulture;
+        private bool _isEditMenu;
+        private string _foodInfoVisibility;
+        private string _foodListVisibility;
+        private List<Food> _listAlternativeFood;
+        private int _selectedValueDropDown;
+
+        public int SelectedValueDropDown
+        {
+            get
+            {
+                return _selectedValueDropDown;
+            }
+
+            set
+            {
+                _selectedValueDropDown = value;
+                this.OnPropertyChanged("SelectedValueDropDown");
+            }
+        }
+
+        public List<Food> ListAlternativeFood
+        {
+            get
+            {
+                return _listAlternativeFood;
+            }
+
+            set
+            {
+                _listAlternativeFood = value;
+                this.OnPropertyChanged("istAlternativeFood");
+            }
+        }
 
         public int OrderNo
         {
@@ -34,6 +70,48 @@ namespace NexFB.WinAppSmartCard.Core.Models
             {
                 _orderNo = value;
                 this.OnPropertyChanged("OrderNo");
+            }
+        }
+
+        public string FoodInfoVisibility
+        {
+            get
+            {
+                return _foodInfoVisibility;
+            }
+
+            set
+            {
+                _foodInfoVisibility = value;
+                this.OnPropertyChanged("FoodInfoVisibility");
+            }
+        }
+
+        public string FoodListVisibility
+        {
+            get
+            {
+                return _foodListVisibility;
+            }
+
+            set
+            {
+                _foodListVisibility = value;
+                this.OnPropertyChanged("FoodListVisibility");
+            }
+        }
+
+        public int CurrentCulture
+        {
+            get
+            {
+                return _currentCulture;
+            }
+
+            set
+            {
+                _currentCulture = value;
+                this.OnPropertyChanged("CurrentCulture");
             }
         }
 
@@ -104,6 +182,52 @@ namespace NexFB.WinAppSmartCard.Core.Models
             {
                 _menuVnmName = value;
                 this.OnPropertyChanged("MenuVnmName");
+            }
+        }
+
+        public bool IsEditMenu
+        {
+            get
+            {
+                return _isEditMenu;
+            }
+
+            set
+            {
+                _isEditMenu = value;
+                this.OnPropertyChanged("IsEditMenu");
+            }
+        }
+
+        public string DisplayMenuName
+        {
+            get
+            {
+                if (CurrentCulture == ConstantValue.VietNamCulture)
+                {
+                    if (!string.IsNullOrEmpty(MenuVnmName))
+                    {
+                        return MenuVnmName;
+                    }
+
+                    return ConstantValue.MainDishVietnamese;
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(MenuEngName))
+                    {
+                        return MenuEngName;
+                    }
+                    else
+                    {
+                        if (CurrentCulture == 3)
+                        {
+                            return ConstantValue.MainDishChinese;
+                        }
+
+                        return ConstantValue.MainDishEnglish;
+                    }
+                }
             }
         }
     }

@@ -10,7 +10,7 @@
 namespace NexFB.WinAppSmartCard.Core.Mapping
 {
     using AutoMapper;
-    using NexFB.Models.SmartCardOrder;
+    using NexFB.Models.Kitchen;
     using NexFB.WinAppSmartCard.Core.Models;
 
     /// <summary>
@@ -20,7 +20,8 @@ namespace NexFB.WinAppSmartCard.Core.Mapping
     {
         public void Register()
         {
-            MapTwoWay<Employee, SCEmployeeOrder>();
+            MapTwoWay<Employee, EmployeeInfo>();
+            MapTwoWay<FoodOrder, Food>();
         }
 
         private void MapTwoWay<TLeft, TRight>()

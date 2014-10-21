@@ -9,12 +9,13 @@
 
 namespace NexFB.WinAppSmartCard.ViewModels
 {
-    using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Input;
     using AutoMapper;
+    using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.SmartCardOrder;
-    using NexFB.Models.SmartCardOrder;
+    using NexFB.Models.Kitchen;
     using NexFB.WinAppSmartCard.Core.Commands;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
@@ -216,7 +217,32 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 switch (currentViewModel)
                 {
                     case ConstantValue.MainDishesViewModel:
-                        ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(newCardNumber);
+                        string cardValue = newCardNumber.Substring(newCardNumber.Length - 5, 5);
+                        var getEmployeeByCardNumber = new GetEmployeeByCardNumberCriteria() { CardNumber = cardValue };
+                        EmployeeInfo employeeData = this.SmartCardOrderService.GetEmployeeByCardId(getEmployeeByCardNumber);
+                        if (employeeData != null)
+                        {
+                            var getEmployeeInGroupCriteria = new GetEmployeeInGroupBySysIdCriteria() { SysId = employeeData.SysId };
+                            EmployeeInGroup employeeInGrop = this.KitchenService.GetEmployeeInGroup(getEmployeeInGroupCriteria);
+                            if (employeeInGrop != null)
+                            {
+                                EmployeeInfo employeeInfo = employeeInGrop.Employees.Where(x => x.SysId == employeeData.SysId).SingleOrDefault();
+                                if (employeeInfo.Quantity > 0)
+                                {
+                                    MessageBox.Show("You are already included in another order");
+                                }
+                                else
+                                {
+                                    Employee employeeInfoMapping = Mapper.Map<EmployeeInfo, Employee>(employeeInfo);
+                                    ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(employeeInfoMapping, CurrentCulture);
+                                    CheckCurrentScreen();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Can't indentify your card number");
+                        }
 
                         break;
                     case ConstantValue.SideDishesViewModel:
@@ -224,8 +250,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     default:
                         break;
                 }
-
-                CheckCurrentScreen();
             }
         }
 
@@ -325,17 +349,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     ResourceManagerService.ChangeLocale("en-GB");
                     CurrentCulture = ConstantValue.EnglishCulture;
                     break;
-                case ConstantValue.VietNamCulture:
-                    ResourceManagerService.ChangeLocale("vi-VN");
-                    CurrentCulture = ConstantValue.VietNamCulture;
-                    break;
                 case ConstantValue.ChinaCulture:
                     ResourceManagerService.ChangeLocale("zh-CN");
                     CurrentCulture = ConstantValue.ChinaCulture;
                     break;
                 default:
-                    CurrentCulture = ConstantValue.EnglishCulture;
-                    ResourceManagerService.ChangeLocale("vi-VN");
+                     ResourceManagerService.ChangeLocale("vi-VN");
+                    CurrentCulture = ConstantValue.VietNamCulture;
                     break;
             }
         }

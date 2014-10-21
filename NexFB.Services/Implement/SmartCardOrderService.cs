@@ -9,10 +9,13 @@
 
 namespace NexFB.Services.Implement
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
+    using NexFB.Core.Models;
     using NexFB.Core.Services;
     using NexFB.Criteria.SmartCardOrder;
-    using NexFB.Models.SmartCardOrder;
+    using NexFB.Models.Kitchen;
     using NexFB.Services.Interface;
 
     /// <summary>
@@ -20,16 +23,52 @@ namespace NexFB.Services.Implement
     /// </summary>
     public class SmartCardOrderService : BaseService, ISmartCardOrderService
     {
-        public SCEmployeeOrder GetEmployeeByCardId(GetEmployeeByCardNumberCriteria criteria)
+        public EmployeeInfo GetEmployeeByCardId(GetEmployeeByCardNumberCriteria criteria)
         {
-            SCEmployeeOrder employeeInfo = null;
+            EmployeeInfo employeeInfo = null;
             Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
-                employeeInfo = this.GetDataEntity<SCEmployeeOrder>(criteria);
+                employeeInfo = this.GetDataEntity<EmployeeInfo>(criteria);
             }
 
             return employeeInfo;
+        }
+
+        public List<FoodOrder> GetAlternativeFoodBySysId(GetAlternativeFoodBySysIdCriteria criteria)
+        {
+            List<FoodOrder> alternativeFoods = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                alternativeFoods = this.GetData<FoodOrder>(criteria).ToList();
+            }
+
+            return alternativeFoods;
+        }
+
+        /// <summary>
+        /// Insert Order Food.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Order Result.</returns>
+        public OrderResult InsertOrderFood(InsertOrderMealByUserCriteria criteria)
+        {
+            OrderResult result = new OrderResult();
+            result.CommandResult = new CommandResult();
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result.CommandResult = this.Repository.Insert(criteria, hasGetOutputParams: true);
+            }
+
+            if (result.CommandResult.Code == 0)
+            {
+                result.OrderId = criteria.OrderId;
+                result.OrderNo = criteria.OrderNo;
+            }
+
+            return result;
         }
     }
 }

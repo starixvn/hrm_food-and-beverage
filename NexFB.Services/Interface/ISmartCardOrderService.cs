@@ -9,14 +9,19 @@
 
 namespace NexFB.Services.Interface
 {
+    using System.Collections.Generic;
     using NexFB.Criteria.SmartCardOrder;
-    using NexFB.Models.SmartCardOrder;
+    using NexFB.Models.Kitchen;
 
     /// <summary>
     /// Interface SmartCardOrderService.
     /// </summary>
     public interface ISmartCardOrderService
     {
-        SCEmployeeOrder GetEmployeeByCardId(GetEmployeeByCardNumberCriteria criteria);
+        EmployeeInfo GetEmployeeByCardId(GetEmployeeByCardNumberCriteria criteria);
+
+        List<FoodOrder> GetAlternativeFoodBySysId(GetAlternativeFoodBySysIdCriteria criteria);
+
+        OrderResult InsertOrderFood(InsertOrderMealByUserCriteria criteria);
     }
 }

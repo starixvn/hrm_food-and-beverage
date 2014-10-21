@@ -24,28 +24,29 @@
 							</Grid.RowDefinitions>
 							<Grid Grid.Row="0" Height="50" VerticalAlignment="Center" Background="#E1E1E1">
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="100"/>
-									<ColumnDefinition Width="250"/>
-									<ColumnDefinition Width="*"/>
-									<ColumnDefinition Width="100"/>
+									<ColumnDefinition Width="85"/>
+									<ColumnDefinition Width="425"/>
+									<ColumnDefinition Width="400"/>
+									<ColumnDefinition Width="130"/>
 								</Grid.ColumnDefinitions>
 								<Border BorderThickness="1" BorderBrush="#999999" Grid.Column="0"></Border>
 								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
 								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="2"></Border>
 								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="3"></Border>
 								<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.NumberCount]}"
-								 FontSize="19" FontFamily="Segoe Ui Dark"
+								 FontSize="20" FontFamily="Segoe Ui Dark"
 								 Foreground="#014A81" SnapsToDevicePixels="True" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
 								<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Member]}"
-								 FontSize="19" FontFamily="Segoe Ui Dark" 
+								 FontSize="20" FontFamily="Segoe Ui Dark" 
 								 Foreground="#014A81" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
 
 								<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Menu]}"
-								FontSize="19" FontFamily="Segoe Ui Dark"  
+								FontSize="20" FontFamily="Segoe Ui Dark"  
 								 Foreground="#014A81" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="2" />
 
-								<TextBlock Text="" FontSize="19" FontFamily="Segoe Ui Dark"  
+								<TextBlock  Visibility="{Binding Path=ScreenOrderVisible}"
+								Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Delete]}" FontSize="20" FontFamily="Segoe Ui Dark"  
 								Foreground="#014A81" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="3" />
 							</Grid>
 							<Border Margin="0,0,0,0" Grid.Row="1" SnapsToDevicePixels="True"  Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0">
@@ -82,47 +83,103 @@
 					<RowDefinition></RowDefinition>
 					<RowDefinition></RowDefinition>
 				</Grid.RowDefinitions>
-				<StackPanel Orientation="Horizontal">
-					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketLabel]}"
-						 HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Top" FontSize="20"/>
-					<Label Content="28" Foreground="#EF4339" FontWeight="Black"
+				<StackPanel Orientation="Horizontal" Visibility="{Binding Path=ScreenOrderVisible}">
+					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}"
+						 HorizontalAlignment="Left" Margin="8,20,0,0" VerticalAlignment="Top" FontSize="20"/>
+					<Label Content="{Binding Path=OrderOwner.NickName}" Foreground="#2c97de" FontWeight="Black"
 						 HorizontalAlignment="Left" Margin="-8,20,0,0"  VerticalAlignment="Top" FontSize="20"/>
 				</StackPanel>
-				<StackPanel Orientation="Horizontal" Grid.Row="1">
+				<StackPanel Orientation="Horizontal" Grid.Row="1" Visibility="{Binding Path=ScreenOrderVisible}">
+					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.SwipeCardLabel]}"
+						 HorizontalAlignment="Left" Margin="8,0,0,0" VerticalAlignment="Top" FontSize="20"/>
+				</StackPanel>
+
+				<!--Notification Screen-->
+				<StackPanel Orientation="Horizontal" Visibility="{Binding Path=ScreenNotificationVisible}">
+					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketLabel]}"
+						 HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Top" FontSize="20"/>
+					<Label Content="{Binding Path=OrderNo}" Foreground="#EF4339" FontWeight="Black"
+						 HorizontalAlignment="Left" Margin="-8,20,0,0"  VerticalAlignment="Top" FontSize="20"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Grid.Row="1" Visibility="{Binding Path=ScreenNotificationVisible}">
 					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}"
 						 HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" FontSize="20"/>
-					<Label Content="Kahn.Tran" Foreground="#2c97de" FontWeight="Black"
+					<Label Content="{Binding Path=OrderOwner.NickName}" Foreground="#2c97de" FontWeight="Black"
 						 HorizontalAlignment="Left" Margin="-8,5,0,0"  VerticalAlignment="Top" FontSize="20"/>
 				</StackPanel>
+
 			</Grid>
 		</Grid>
 
 		<Grid Grid.Row="1" Margin="0,10,0,0">
-			<Grid HorizontalAlignment="Center" Margin="12,0,0,0" Grid.Row="1" Name="grid2" VerticalAlignment="Top" Width="1280">
+			<Grid HorizontalAlignment="Left" Margin="12,0,0,0" Grid.Row="1" Name="grid2" VerticalAlignment="Top">
 				<StackPanel Orientation="Vertical">
 					<Grid MaxHeight="300">
 						<ScrollViewer>
 							<ListBox BorderThickness="1,0,1,1" Margin="0,0,20,0" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
-							 ItemsSource="{Binding ObservableListEmployee}" Style="{StaticResource calcyListbox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}">
+							 ItemsSource="{Binding ObservableListEmployee}" Style="{StaticResource calcyListbox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}"
+							 x:Name="ContentListBox">
 								<ListBox.ItemTemplate>
 									<DataTemplate>
-										<Grid Height="30" Margin="0">
+										<Grid Height="50" Margin="0">
 											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="100"/>
-												<ColumnDefinition Width="250"/>
-												<ColumnDefinition Width="*"/>
-												<ColumnDefinition Width="100"/>
+												<ColumnDefinition Width="85"/>
+												<ColumnDefinition Width="425"/>
+												<ColumnDefinition Width="400"/>
+												<ColumnDefinition Width="130"/>
 											</Grid.ColumnDefinitions>
 											<Border BorderThickness="1,0,1,1" BorderBrush="#999999" Grid.Column="0"></Border>
 											<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
 											<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="2"></Border>
 											<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="3"></Border>
 											<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="4"></Border>
-											<TextBlock Text="{Binding Path=OrderNo}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
-											<TextBlock Text="{Binding Path=NickName}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
-											<TextBlock Text="{Binding Path=Dishes}" FontSize="15" Foreground="{Binding Path=Color}"
-										HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="2"/>
-											<TextBlock Text="{Binding Path=Quantity}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="3"/>
+											<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=OrderNo}" FontSize="20" HorizontalAlignment="Center" Grid.Column="0"/>
+											<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=NickName}" FontSize="20" HorizontalAlignment="Left" Grid.Column="1"/>
+											<StackPanel Orientation="Horizontal" Grid.Column="2" Visibility="{Binding Path=FoodInfoVisibility}">
+												<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=DisplayMenuName}"
+												 FontSize="20" Foreground="{Binding Path=Color}" HorizontalAlignment="Left"/>
+												<Button  Visibility="{Binding Path=ScreenOrderVisible}"
+												Style="{StaticResource TileButton}" CommandParameter="{Binding Path=SysId}"
+											Command="{Binding DataContext.EditMenu, RelativeSource={RelativeSource AncestorType=ListBox}}">
+													<Button.Template>
+														<ControlTemplate>
+															<Border Background="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" >
+																<Image Source="pack://application:,,,/Images/edit.png" Height="24" Width="28" Grid.Column="3" Margin="4,0,0,0"/>
+															</Border>
+														</ControlTemplate>
+													</Button.Template>
+												</Button>
+											</StackPanel>
+
+											<ComboBox x:Name="MenuList"  Grid.Column="2"  ItemsSource="{Binding ListAlternativeFood, Mode=TwoWay}"
+											 Visibility="{Binding Path=FoodListVisibility}" 
+											 DisplayMemberPath="DisplayFoodName"
+											 SelectedValuePath="FoodId"
+											 SelectedValue="{Binding Path=SelectedValueDropDown, Mode=TwoWay}"
+											 SelectedItem="{Binding DataContext.SelectedFood, RelativeSource={RelativeSource AncestorType=ListBox}}"
+											 Style="{StaticResource ComboBoxFlatStyle}" FontSize="20"
+											 Height="44" VerticalAlignment="Center" Width="390" BorderBrush="Silver" BorderThickness="1">
+											</ComboBox>
+
+											<!--<ComboBox.ItemTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding Path=DisplayFoodName}">
+
+													</TextBlock>
+												</DataTemplate>
+											</ComboBox.ItemTemplate>-->
+
+											<Button Style="{StaticResource TileButton}"  Visibility="{Binding Path=ScreenOrderVisible}"
+											Command="{Binding DataContext.RemoveEmployeeOrder, RelativeSource={RelativeSource AncestorType=ListBox}}"
+											CommandParameter="{Binding Path=SysId}" Grid.Column="3" >
+												<Button.Template>
+													<ControlTemplate>
+														<Border Background="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" >
+															<Image Width="22" Height="22" Source="pack://application:,,,/Images/remove1.png" />
+														</Border>
+													</ControlTemplate>
+												</Button.Template>
+											</Button>
 										</Grid>
 									</DataTemplate>
 								</ListBox.ItemTemplate>
@@ -133,11 +190,17 @@
 					<Grid VerticalAlignment="Bottom" Margin="0,30,0,10">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
+							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
-						<Button Background="#66B5D6" Foreground="White" Command="{Binding Path=ExitOrderCommand}"
+						<Button Background="#66B5D6" Foreground="White" Command="{Binding Path=ConfirmCommand}" Margin="0,0,5,0"
 						CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-					Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Exit]}" Height="35" Style="{StaticResource TileButton}"
-					HorizontalAlignment="Center" Name="button1" VerticalAlignment="Top" Width="108" />
+					Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Confirm]}" Height="40" Style="{StaticResource TileButton}"
+					HorizontalAlignment="Right" Name="button1" VerticalAlignment="Top" Width="108" />
+
+						<Button Background="#EF4339" Foreground="White" Command="{Binding Path=CancelCommand}" Grid.Column="1" Margin="5,0,0,0"
+						CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+					Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Cancel]}" Height="40" Style="{StaticResource TileButton}"
+					HorizontalAlignment="Left" VerticalAlignment="Top" Width="108" />
 					</Grid>
 				</StackPanel>
 			</Grid>

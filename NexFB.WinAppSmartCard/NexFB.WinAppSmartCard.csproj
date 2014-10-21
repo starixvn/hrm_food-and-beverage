@@ -196,6 +196,9 @@
     <Folder Include="DependencyProperties\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\remove.png" />
+    <Resource Include="Images\remove1.png" />
+    <Resource Include="Images\edit.png" />
     <Content Include="SpNames.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

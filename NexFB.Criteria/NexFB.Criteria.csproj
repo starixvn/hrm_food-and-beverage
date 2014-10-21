@@ -129,7 +129,10 @@
     <Compile Include="SideDishManagement\GetAllSideDishCriteria.cs" />
     <Compile Include="SideDishManagement\InsertSideDishCriteria.cs" />
     <Compile Include="SideDishManagement\UpdateSideDishCriteria.cs" />
+    <Compile Include="SmartCardOrder\GetAlternativeFoodBySysIdCriteria.cs" />
     <Compile Include="SmartCardOrder\GetEmployeeByCardNumberCriteria.cs" />
+    <Compile Include="SmartCardOrder\GetMenuBySysIdCriteria.cs" />
+    <Compile Include="SmartCardOrder\InsertOrderMealByUserCriteria.cs" />
     <Compile Include="Team\GetAllTeamByCompanyCriteria.cs" />
     <Compile Include="Kitchen\GetDeliveredMealOrderCriteria.cs" />
     <Compile Include="Kitchen\GetWaitingMealOrderCriteria.cs" />
