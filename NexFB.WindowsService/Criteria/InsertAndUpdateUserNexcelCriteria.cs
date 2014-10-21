@@ -21,7 +21,8 @@ namespace NexFB.WindowsService.Criteria
         private const string _UserTpl =
             "<User EmpId='{0}' Password='{1}' Code='{2}' "
             + "NickName='{3}' FullName='{4}' DomainName='{5}' DepartmentId='{6}' IsEnabled='{7}' "
-            + " IsDeleted='{8}' JoinedDate='{9}' ModifiedDate='{10}' TeamId='{11}' IsLocal='{12}'></User>";
+            + " IsDeleted='{8}' JoinedDate='{9}' ModifiedDate='{10}' TeamId='{11}' IsLocal='{12}' "
+            + " CardNumber='{13}'></User>";
 
         [SpParam(Ignored = true)]
         public int DepartmentId { get; set; }
@@ -53,7 +54,8 @@ namespace NexFB.WindowsService.Criteria
                             user.JoinedDate,
                             user.ModifiedDate,
                             user.TeamId,
-                            true);
+                            true,
+                            user.EmployeeCard);
                     }
                 }
 

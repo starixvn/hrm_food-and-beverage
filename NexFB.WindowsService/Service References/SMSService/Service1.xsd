@@ -10,6 +10,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DomainName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeeCard" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsEnabled" type="xs:boolean" />
@@ -51,6 +52,7 @@
       <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EndCheckInTime" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EndCheckOutTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsDisabled" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsInAfterDay" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsOutAfterDay" type="xs:boolean" />
       <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />

@@ -22,7 +22,7 @@ namespace NexFB.WindowsService.Criteria
         private const string _ShiftTpl =
             "<Shift ShiftId='{0}' Code='{1}' Name='{2}' "
             + "BeginCheckInTime='{3}' EndCheckInTime='{4}' BeginCheckOutTime='{5}' EndCheckOutTime='{6}' IsInAfterDay='{7}' "
-            + " IsOutAfterDay='{8}' DepartmentId='{9}' ModifiedDate='{10}'></Shift>";
+            + " IsOutAfterDay='{8}' DepartmentId='{9}' ModifiedDate='{10}' IsDisabled='{11}'></Shift>";
 
         [SpParam(Ignored = true)]
         public int DepartmentId { get; set; }
@@ -52,7 +52,8 @@ namespace NexFB.WindowsService.Criteria
                             shift.IsInAfterDay,
                             shift.IsOutAfterDay,
                             this.DepartmentId,
-                            DateTime.Now);
+                            DateTime.Now,
+                            shift.IsDisabled);
                     }
                 }
 

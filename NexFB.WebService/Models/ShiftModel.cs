@@ -47,5 +47,8 @@ namespace NexFB.WebService.Models
 
         [DataMember]
         public DateTime ModifiedDate { get; set; }
+
+        [DataMember]
+        public bool IsDisabled { get; set; }
     }
 }

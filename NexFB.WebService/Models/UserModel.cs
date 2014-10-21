@@ -34,6 +34,9 @@ namespace NexFB.WebService.Models
         public string FullName { get; set; }
 
         [DataMember]
+        public string EmployeeCard { get; set; }
+
+        [DataMember]
         public string DomainName { get; set; }
 
         [DataMember]

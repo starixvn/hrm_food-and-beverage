@@ -29,6 +29,9 @@ namespace NexFB.WindowsService.HongMaService {
         private string DomainNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmployeeCardField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FullNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -87,6 +90,19 @@ namespace NexFB.WindowsService.HongMaService {
                 if ((object.ReferenceEquals(this.DomainNameField, value) != true)) {
                     this.DomainNameField = value;
                     this.RaisePropertyChanged("DomainName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EmployeeCard {
+            get {
+                return this.EmployeeCardField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmployeeCardField, value) != true)) {
+                    this.EmployeeCardField = value;
+                    this.RaisePropertyChanged("EmployeeCard");
                 }
             }
         }
@@ -352,6 +368,9 @@ namespace NexFB.WindowsService.HongMaService {
         private string EndCheckOutTimeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsDisabledField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool IsInAfterDayField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -437,6 +456,19 @@ namespace NexFB.WindowsService.HongMaService {
                 if ((object.ReferenceEquals(this.EndCheckOutTimeField, value) != true)) {
                     this.EndCheckOutTimeField = value;
                     this.RaisePropertyChanged("EndCheckOutTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsDisabled {
+            get {
+                return this.IsDisabledField;
+            }
+            set {
+                if ((this.IsDisabledField.Equals(value) != true)) {
+                    this.IsDisabledField = value;
+                    this.RaisePropertyChanged("IsDisabled");
                 }
             }
         }
