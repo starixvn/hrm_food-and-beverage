@@ -122,6 +122,7 @@
     <Compile Include="MealRegistration\RegisterMealByRangeDateCriteria.cs" />
     <Compile Include="Ordering\GetMyOrderInCurrentDayCriteria.cs" />
     <Compile Include="Ordering\InsertOrderCriteria.cs" />
+    <Compile Include="Ordering\UpdateOrderSideDishCriteria.cs" />
     <Compile Include="ShiftMealMapping\GetAllShiftMealMappingCriteria.cs" />
     <Compile Include="ShiftMealMapping\UpdateShiftMealByShiftIdCriteria.cs" />
     <Compile Include="SideDishManagement\ActivateSideDishCriteria.cs" />

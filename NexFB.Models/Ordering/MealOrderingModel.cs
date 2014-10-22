@@ -41,6 +41,8 @@ namespace NexFB.Models.Ordering
 
         public string Remark { get; set; }
 
+        public string OrderForm { get; set; }
+
         public Location Location { get; set; }
 
         public Status Status { get; set; }
@@ -64,5 +66,7 @@ namespace NexFB.Models.Ordering
         }
 
         public bool IsShowMember { get; set; }
+
+        public bool IsSideDishOrder { get; set; }
     }
 }

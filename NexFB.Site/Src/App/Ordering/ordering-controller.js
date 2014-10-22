@@ -189,8 +189,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				var newMembers = [];
 
 				angular.forEach(data.Members, function (member) {
-					// new order
-					if (member.IsOrder) {
+					if (!member.IsOrder) {
+						member.IsOrder = true;
 						member.Menus = [];
 						newMembers.push(member);
 					}
@@ -457,7 +457,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			member.Member = newMember.employee;
 			var userId = member.Member.UserId;
 
-			orderingFactory.getOrderByUserId(userId)
+			orderingFactory.getOrderNewOrder(userId)
 				.success(function (order) {
 					member.CurrentStatus = order.Status;
 
@@ -524,27 +524,22 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 						$scope.newMember = {};
 					}
 					else if (isSideDishOrder) {
-						if (member.CurrentStatus != null) {
-							notificationFactory.error('', $scope.warningMessageExistMember);
+						var sideDishMembers = orderingService.getMemberSideDishOrder();
+
+						angular.forEach(sideDishMembers, function (value) {
+							if (value.Member.UserId === member.Member.UserId) {
+								isExisted = true;
+							}
+						});
+
+						if (!isExisted) {
+							member.Menus = [];
+							sideDishMembers.push(member);
+							orderingService.setMemberSideDishOrder(sideDishMembers);
+							notificationFactory.success("DataChangeSuccessfully");
 						}
 						else {
-							var sideDishMembers = orderingService.getMemberSideDishOrder();
-
-							angular.forEach(sideDishMembers, function (value) {
-								if (value.Member.UserId === member.Member.UserId) {
-									isExisted = true;
-								}
-							});
-
-							if (!isExisted) {
-								member.Menus = [];
-								sideDishMembers.push(member);
-								orderingService.setMemberSideDishOrder(sideDishMembers);
-								notificationFactory.success("DataChangeSuccessfully");
-							}
-							else {
-								notificationFactory.error('', $scope.warningMessageExistMember);
-							}
+							notificationFactory.error('', $scope.warningMessageExistMember);
 						}
 
 						$('#txtMemberSideDish').val('');
@@ -602,11 +597,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			templateUrl: '/src/app/Ordering/Templates/SelectSideDish.html',
 			controller: "SelectSideDishController",
 			resolve: {
-				userId: function () {
-					return member.Member.UserId;
-				},
-				menus: function () {
-					return member.Menus;
+				member: function () {
+					return angular.copy(member);
 				}
 			},
 			windowClass: "modal-confirm-center food-item-modal"
@@ -621,10 +613,11 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 } ]);
 
 orderingModule.controller('SelectSideDishController',
-['$scope', 'userId', 'orderingFactory', '$modalInstance', 'menus', 'ErrorFactory',
-function ($scope, userId, orderingFactory, $modalInstance, menus, ErrorFactory) {
+['$scope', 'member', 'orderingFactory', '$modalInstance', 'ErrorFactory',
+function ($scope, member, orderingFactory, $modalInstance, ErrorFactory) {
 
-	$scope.menus = menus;
+	$scope.member = member;
+	$scope.menus = $scope.member.Menus;
 
 	var updateSideDish = function (menus, sideDishes) {
 		angular.forEach(sideDishes, function (sideDish) {
@@ -643,7 +636,7 @@ function ($scope, userId, orderingFactory, $modalInstance, menus, ErrorFactory) 
 	/*
 	** Get side dish by user Id.
 	*/
-	orderingFactory.getSideDishByUserId(userId).success(function (sideDishes) {
+	orderingFactory.getSideDishByUserId($scope.member.Member.UserId).success(function (sideDishes) {
 		$scope.sideDishes = sideDishes;
 		updateSideDish($scope.menus, $scope.sideDishes);
 	}).error(function (response, status) {

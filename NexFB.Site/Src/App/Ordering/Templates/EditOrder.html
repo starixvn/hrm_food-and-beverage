@@ -44,42 +44,63 @@
                 <table class="table table-bordered table-striped table-member">
                     <thead>
                         <tr>
-                            <th class="width-40">
-                                #
+                            <th class="width-40" data-translate="SymbolCount">
                             </th>
                             <th data-translate="Member">
                             </th>
-                            <th data-translate="Menu">
+                            <th data-translate="Menu" ng-show="!order.IsSideDishOrder">
                             </th>
+							<th data-translate="FoodItem" ng-show="order.IsSideDishOrder">
+							</th>
+							<th data-translate="Amount" ng-show="order.IsSideDishOrder">
+							</th>
                             <th class="col-action" data-translate="Remove">
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="member in order.Members">
-                            <td class="text-center">
-                                {{$index + 1}}
+                            <td class="text-center" ng-bind="$index + 1">
                             </td>
                             <td ng-class="{'is-ordered' : member.CurrentStatus != null && !existInCurrentOrder}">
                                 <span>{{member.Member.NickName}}</span> <span ng-show="member.CurrentStatus != null && !existInCurrentOrder">
                                     (Ordered)</span>
                             </td>
                             <td>
-								<div ng-show="!alterEdit.alternativeMenu{{member.Member.UserId}}">
-									<span>{{member.Menus[0].Name}}</span>
-									<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, false)" 
-										ng-show="member.Menus[0].IsHaveAlternativeMenu && order.Status.StatusId == 1" title="Select Alternative Menus" >
-									</a>
+								<div ng-show="!order.IsSideDishOrder">
+									<div ng-show="!alterEdit.alternativeMenu{{member.Member.UserId}}">
+										<span>{{member.Menus[0].Name}}</span>
+										<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, false)" 
+											ng-show="member.Menus[0].IsHaveAlternativeMenu && order.Status.StatusId == 1" title="Select Alternative Menus" >
+										</a>
+									</div>
+									<div ng-show="alterEdit.alternativeMenu{{member.Member.UserId}}">
+										<select name="editOrderMenu{{member.Member.UserId}}" ng-model="member.Menus[0].MenuId" get-selected-edit-menu >
+											<option ng-repeat="altMenu in member.AllMenus" ng-bind="altMenu.Name" value="{{altMenu.MenuId}}" 
+												ng-selected="{{member.Menus[0].MenuId == altMenu.MenuId}}" isMainMenu={{altMenu.IsMainMenu}}>
+											</option>
+										</select>
+									</div>
 								</div>
-								<div ng-show="alterEdit.alternativeMenu{{member.Member.UserId}}">
-									<select name="editOrderMenu{{member.Member.UserId}}" ng-model="member.Menus[0].MenuId" get-selected-edit-menu >
-										<option ng-repeat="altMenu in member.AllMenus" ng-bind="altMenu.Name" value="{{altMenu.MenuId}}" 
-											ng-selected="{{member.Menus[0].MenuId == altMenu.MenuId}}" isMainMenu={{altMenu.IsMainMenu}}>
-										</option>
-									</select>
+								<div ng-show="order.IsSideDishOrder && member.Menus">
+									<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
+										<li>{{menu.QuantityOrder}} - "{{menu.Name}}"</li>
+									</ul>
 								</div>
+								<span ng-show="order.IsSideDishOrder && !member.Menus" data-translate="SelectFoodItem"></span>
                             </td>
+							<td ng-show="order.IsSideDishOrder">
+								<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
+									<li>{{menu.TotalAmount | number}}</li>
+								</ul>
+							</td>
                             <td class="text-center">
+                                <a href="javascript:;" ng-click="editSideDish(member)" ng-show="order.IsSideDishOrder && (
+									    (order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3)
+										    && ((member.Member.UserId != order.CreatorOrder.UserId 
+										    && member.Member.UserId == order.CurrentUser.UserId) 
+										    || order.CreatorOrder.UserId == order.CurrentUser.UserId)) " class="glyphicon glyphicon-edit">
+                                </a>
                                 <a href="javascript:;" ng-click="removeMember($index)" ng-show="(
 									    (order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3)
 										    && ((member.Member.UserId != order.CreatorOrder.UserId 

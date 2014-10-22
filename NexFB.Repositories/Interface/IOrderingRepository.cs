@@ -18,7 +18,7 @@ namespace NexFB.Repositories.Interface
     {
         Menu GetMenuByUserId(ICriteria criteria);
 
-        IList<MealOrderingModel> GetMyOrderByCurrentDay(ICriteria criteria);
+        IList<MealOrderingModel> GetMyOrderByCurrentDay(ICriteria criteria, int userId);
 
         MealOrderingModel GetMemberNewOrder(ICriteria criteria);
 

@@ -58,7 +58,7 @@ namespace NexFB.Services.Implement
             IList<MealOrderingModel> orders = null;
             if (criteria.IsValid())
             {
-                orders = _orderRepository.GetMyOrderByCurrentDay(criteria);
+                orders = _orderRepository.GetMyOrderByCurrentDay(criteria, criteria.UserId);
             }
 
             return orders;
@@ -292,6 +292,32 @@ namespace NexFB.Services.Implement
             if (criteria.IsValid())
             {
                 result = Repository.Insert(criteria, hasGetOutputParams: true);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Lang.InvalidInputData
+                };
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Update order side dish.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult UpdateOrderSideDish(UpdateOrderSideDishCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult result = null;
+
+            if (criteria.IsValid())
+            {
+                result = Repository.Update(criteria);
             }
             else
             {

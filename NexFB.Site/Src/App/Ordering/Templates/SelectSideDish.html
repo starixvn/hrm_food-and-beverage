@@ -1,7 +1,9 @@
 ﻿<div>
 	<div class="modal-header">
 		<div class="popup-header">
-			{{"SelectSideDish" | translate}}<span class="close-popup" ng-click="cancel()"></span>
+			{{"SelectSideDish" | translate}}
+			<span ng-bind="member.Member.NickName"></span>
+			<span class="close-popup" ng-click="cancel()"></span>
 		</div>
 	</div>
 

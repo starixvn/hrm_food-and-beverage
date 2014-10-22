@@ -131,13 +131,13 @@ namespace NexFB.Site.Controllers.API
         }
 
         /// <summary>
-        /// Get order by user id.
+        /// Get order to new order.
         /// </summary>
         /// <param name="userId">The User Id.</param>
         /// <returns>The model meal ordering.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
-        public MealOrderingModel GetOrderByUserId(int userId)
+        public MealOrderingModel GetOrderNewOrder(int userId)
         {
             var criteria = new GetMemberNewOrderCriteria()
             {
@@ -218,7 +218,7 @@ namespace NexFB.Site.Controllers.API
         /// <returns>Command Result.</returns>
         [HttpPut]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
-        public CommandResult Put(MealOrderingModel model)
+        public CommandResult UpdateOrder(MealOrderingModel model)
         {
             var criteria = new UpdateOrderCriteria()
             {
@@ -308,6 +308,29 @@ namespace NexFB.Site.Controllers.API
 
             CommandResult result = _orderService.InsertOrderSideDish(criteria);
             return new { result = result, orderId = criteria.OrderId };
+        }
+
+        /// <summary>
+        /// Update order side dish.
+        /// </summary>
+        /// <param name="model">The order.</param>
+        /// <returns>The command result.</returns>
+        [HttpPut]
+        public CommandResult UpdateOrderSideDish(MealOrderingModel model)
+        {
+            var criteria = new UpdateOrderSideDishCriteria()
+            {
+                OrderId = model.OrderId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now,
+                LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
+                Phone = model.Phone,
+                Remark = model.Remark,
+                Members = model.Members
+            };
+
+            CommandResult result = _orderService.UpdateOrderSideDish(criteria);
+            return result;
         }
     }
 }

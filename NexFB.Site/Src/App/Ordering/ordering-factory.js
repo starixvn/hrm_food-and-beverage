@@ -16,8 +16,8 @@ orderingModule.factory("orderingFactory",
 			getAddNewOrder: function () {
 				return $http.get('/api/Ordering/GetAddNew');
 			},
-			getOrderByUserId: function (userId) {
-				return $http.get('/api/Ordering/GetOrderByUserId',
+			getOrderNewOrder: function (userId) {
+				return $http.get('/api/Ordering/GetOrderNewOrder',
 					{
 						params: { userId: userId }
 					}
@@ -52,7 +52,7 @@ orderingModule.factory("orderingFactory",
 						params: { orderId: orderId }
 					}
 				);
-			},
+				},
 			addMember: function (member) {
 				return $http.post('/api/OrderMember', member);
 				//return $http['addMember']('/api/OrderMember', { params: { memberId: memberId} });
@@ -65,7 +65,7 @@ orderingModule.factory("orderingFactory",
 				return $http.post('/api/Ordering/InsertOrder', order);
 			},
 			editOrder: function (order) {
-				return $http.put('/api/Ordering', order);
+				return $http.put('/api/Ordering/UpdateOrder', order);
 			},
 			deleteOrder: function (orderId) {
 				return $http['delete']('/api/Ordering', { params: { orderId: orderId} });
@@ -74,10 +74,13 @@ orderingModule.factory("orderingFactory",
 				return $http.get('/api/Ordering/GetAlternativeMenusByUserId', { params: { userId: userId} });
 			},
 			getSideDishByUserId: function (userId) {
-				return $http.get('/api/Ordering/GetSideDishByUserId', { params: { userId: userId } });
+				return $http.get('/api/Ordering/GetSideDishByUserId', { params: { userId: userId} });
 			},
 			createOrderSideDish: function (order) {
 				return $http.post('/api/Ordering/InsertOrderSideDish', order);
+			},
+			editOrderSideDish: function (order) {
+				return $http.put('/api/Ordering/UpdateOrderSideDish', order);
 			}
 		};
 	} ]

@@ -170,6 +170,8 @@
 	</Setting>
 	<Setting Key="MealOrder_Insert_RequestSideDishByWeb" SpName="MealOrder_Insert_RequestSideDishByWeb" DbName="NexFB" Plain="0" >
 	</Setting>
+	<Setting Key="MealOrder_Edit_RequestSideDishByWeb" SpName="MealOrder_Edit_RequestSideDishByWeb" DbName="NexFB" Plain="0" >
+	</Setting>
   </Function>
 	<Function Name="POS">
 		<Setting Key="POS_Get_OrderRequestByOrderID" SpName="POS_Get_OrderRequestByOrderID" DbName="NexFB" Plain="0" >
