@@ -195,7 +195,7 @@
 									</div>
                                 </td>
                                 <td class="text-center">
-                                    <a href="javascript:;" ng-click="removeMember($index, member.Member.UserId, false)"
+                                    <a href="javascript:;" ng-click="removeMember($index, member.Member.UserId, 1)"
                                         class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
                                 </td>
                             </tr>
@@ -231,7 +231,7 @@
                     <label data-translate="SavedOrder">
                     </label>
                 </div>
-                <div class="col-sm-12 boxcontent boxcontent-collapse">
+                <div class="col-sm-12 boxcontent boxcontent-collapse" >
                     <form class="form-horizontal form-order order-group" role="form">
                     <div class="form-group required">
                         <label class="control-label width-65" data-translate="Location">
@@ -301,7 +301,7 @@
                                     <input type="checkbox" ng-model="member.IsOrder" ng-disabled="member.CurrentStatus != null" />
                                 </td>
                                 <td class="text-center">
-                                    <a ng-click="removeMember($index, member.Member.UserId, true)" ng-show="member.Member.UserId != savedOrder.CreatorOrder.UserId"
+                                    <a ng-click="removeMember($index, member.Member.UserId, 2)" ng-show="member.Member.UserId != savedOrder.CreatorOrder.UserId"
                                         href="javascript:;" class="glyphicon glyphicon-remove margin-icon icon-remove">
                                     </a>
                                 </td>
@@ -370,7 +370,7 @@
                                 </th>
 								<th data-translate="Member">
                                 </th>
-                                <th data-translate="FoodItem">
+                                <th data-translate="FoodItemCamalcase">
                                 </th>
 								<th data-translate="Amount">
                                 </th>
@@ -392,7 +392,7 @@
 										</ul>
 									</div>
 								</td>
-								<td>
+								<td class="text-right">
 									<div ng-show="member.Menus.length > 0">
 										<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
 											<li>{{menu.TotalAmount | number}}</li>
@@ -401,7 +401,7 @@
                                 </td>
                                 <td class="text-center">
 									<a class="glyphicon glyphicon-edit" href="" ng-click="editSideDish(member)"></a>
-									<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click=""></a>
+									<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="removeMember($index, member.Member.UserId, 3)"></a>
                                 </td>
                             </tr>
 							<tr ng-show="sideDishOrder == '' || sideDishOrder.Members == ''">

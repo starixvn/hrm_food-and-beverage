@@ -670,6 +670,9 @@
     <value>Select Side Dish</value>
   </data>
   <data name="InvalidFoodItem" xml:space="preserve">
-    <value>Please select food item!</value>
+    <value>Please select food item before placing order.</value>
+  </data>
+  <data name="FoodItemCamalcase" xml:space="preserve">
+    <value>Food Item</value>
   </data>
 </root>

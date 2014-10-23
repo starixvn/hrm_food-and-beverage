@@ -610,6 +610,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Food Item.
+        /// </summary>
+        public static string FoodItemCamalcase {
+            get {
+                return ResourceManager.GetString("FoodItemCamalcase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Food item (English).
         /// </summary>
         public static string FoodItemEng {
@@ -808,7 +817,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select food item!.
+        ///   Looks up a localized string similar to Please select food item before placing order..
         /// </summary>
         public static string InvalidFoodItem {
             get {

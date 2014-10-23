@@ -256,7 +256,7 @@ namespace NexFB.Repositories.Implement
                 FullName = dynamicObject.FullName
             };
 
-            var menu = GetMenuOfMember(dynamicObject);
+            Menu menu = GetMenuOfMember(dynamicObject);
 
             orderMember.IsOrder = true;
             orderMember.Member = member;

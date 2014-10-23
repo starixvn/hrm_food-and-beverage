@@ -188,13 +188,12 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			.success(function (data) {
 				var newMembers = [];
 
-				angular.forEach(data.Members, function (member) {
-					if (!member.IsOrder) {
-						member.IsOrder = true;
-						member.Menus = [];
-						newMembers.push(member);
-					}
-				});
+				if (data.Members != null && data.Members.length > 0) {
+					var member = data.Members[0];
+					member.IsOrder = true;
+					member.Menus = [];
+					newMembers.push(member);
+				}
 
 				data.Members = newMembers;
 				$scope.sideDishOrder = data;
@@ -361,7 +360,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			}
 		};
 
-		$scope.removeMember = function (index, memberId, isSavedOrder) {
+		$scope.removeMember = function (index, memberId, typeOrder) {
 			$scope.modalRemoveMemberInstance = $modal.open({
 				templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
 				controller: "ModalConfirmController2",
@@ -375,7 +374,14 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			});
 
 			$scope.modalRemoveMemberInstance.result.then(function () {
-				if (isSavedOrder) {
+				// New Order
+				if (typeOrder === 1) {
+					$scope.newOrder.Members.splice(index, 1);
+					var key = 'alternativeMenu' + memberId;
+					$scope.alter[key] = false;
+				}
+				// Saved Order
+				else if (typeOrder === 2) {
 					orderingFactory.removeMember(memberId).success(function (response) {
 						if (response.IsSuccessful === true) {
 							$scope.savedOrder.Members.splice(index, 1);
@@ -389,10 +395,9 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 						ErrorFactory.errorHandle(status);
 					});
 				}
-				else {
-					$scope.newOrder.Members.splice(index, 1);
-					var key = 'alternativeMenu' + memberId;
-					$scope.alter[key] = false;
+				// Side dish Order
+				else if (typeOrder === 3) {
+					$scope.sideDishOrder.Members.splice(index, 1);
 				}
 			}, function () {
 			})['finally'](function () {
