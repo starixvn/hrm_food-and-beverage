@@ -136,6 +136,13 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		$scope.savedOrder.Members = value;
 	});
 
+	// close Saved Order and Side Dish Order when don't have New Order
+	$scope.$watch('newOrder.Status', function (newValue) {
+		if (newValue === null) {
+			$scope.$broadcast("closeOrderContent");
+		}
+	});
+
 	$scope.loadData = function (callback) {
 		orderingFactory.getCurrentUser()
 		.success(function (data) {
@@ -499,7 +506,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 							notificationFactory.error('', $scope.warningMessageExistMember);
 						}
 
-						$('#txtEmployeeForSavedOrder').val('');
+						$scope.$broadcast('clearSearchMemberInput');
 						$scope.savedMember = {};
 					}
 					else if (!isSideDishOrder) {
@@ -525,7 +532,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 							}
 						}
 
-						$('#txtEmployeeForNewOrder').val('');
+						$scope.$broadcast('clearSearchMemberInput');
 						$scope.newMember = {};
 					}
 					else if (isSideDishOrder) {
@@ -547,7 +554,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 							notificationFactory.error('', $scope.warningMessageExistMember);
 						}
 
-						$('#txtMemberSideDish').val('');
+						$scope.$broadcast('clearSearchMemberInput');
 						$scope.sideDishMember = {};
 					}
 				})

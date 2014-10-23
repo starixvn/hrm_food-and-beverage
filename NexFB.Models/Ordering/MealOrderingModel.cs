@@ -41,7 +41,7 @@ namespace NexFB.Models.Ordering
 
         public string Remark { get; set; }
 
-        public string OrderForm { get; set; }
+        public string OrderFrom { get; set; }
 
         public Location Location { get; set; }
 

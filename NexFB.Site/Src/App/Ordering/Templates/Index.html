@@ -47,7 +47,7 @@
                 </td>
                 <td>
                     <ul class="list-order list-unstyled" ng-repeat="menu in order.MenuQuantity">
-                        <li>{{menu.Quantity}} - "{{menu.Menu.Name}}"</li>
+                        <li>{{menu.Quantity}} x "{{menu.Menu.Name}}"</li>
                     </ul>
                 </td>
                 <td class="text-center">
@@ -63,7 +63,7 @@
                     <span ng-show="order.CurrentMenus.length == 1">{{order.CurrentMenus[0].Name}}</span>
 					<div ng-show="order.CurrentMenus.length > 1">
 						<ul class="list-order list-unstyled" ng-repeat="menu in order.CurrentMenus">
-							<li>{{menu.QuantityOrder}} - "{{menu.Name}}"</li>
+							<li>{{menu.QuantityOrder}} x "{{menu.Name}}"</li>
 						</ul>
 					</div>
                 </td>
@@ -120,17 +120,17 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6" >
             <div class="row table-title">
                 <label data-translate="CreateAnOrder">
                 </label>
             </div>
-            <div class="row list-group-item">
+            <div class="row list-group-item" clear-search-member-input>
                 <div class="col-sm-12 boxtitle" ng-box>
                     <label data-translate="NewOrder">
                     </label>
                 </div>
-                <div class="col-sm-12 boxcontent" ng-class="{'boxcontent-collapse' : newOrder.Status != null}">
+                <div class="col-sm-12 boxcontent" ng-class="{'boxcontent-collapse' : newOrder.Status != null}" close-order-content >
                     <form class="row form-horizontal form-order order-group" role="form">
                     <div class="form-group required">
                         <label class="control-label width-65" data-translate="Location">
@@ -145,7 +145,7 @@
                         </label>
                         <input class="form-control txtMember custom-padding" ng-model="searchNewMember"
                             placeholder="full name or nick name" search-auto-complete search-employees="searchEmployees"
-                            ng-change="getEmployee(searchNewMember)" employee="newMember.employee" id="txtEmployeeForNewOrder"
+                            ng-change="getEmployee(searchNewMember)" employee="newMember.employee" name="txtEmployeeForNewOrder"
                             ng-enter="add(false)" />
                         <div class="pull-right">
                             <a ng-click="add(false)" class="button"><i class="glyphicon glyphicon-plus icon-plus">
@@ -231,7 +231,7 @@
                     <label data-translate="SavedOrder">
                     </label>
                 </div>
-                <div class="col-sm-12 boxcontent boxcontent-collapse" >
+                <div class="col-sm-12 boxcontent boxcontent-collapse" name="savedOrderDiv">
                     <form class="form-horizontal form-order order-group" role="form">
                     <div class="form-group required">
                         <label class="control-label width-65" data-translate="Location">
@@ -246,7 +246,7 @@
                         </label>
                         <input class="form-control txtMember custom-padding" ng-model="searchSavedMember"
                             placeholder="full name or nick name" search-auto-complete search-employees="searchEmployees"
-                            ng-change="getEmployee(searchSavedMember)" employee="savedMember.employee" id="txtEmployeeForSavedOrder"
+                            ng-change="getEmployee(searchSavedMember)" employee="savedMember.employee" name="txtEmployeeForSavedOrder"
                             ng-enter="add(true)" />
                         <div class="pull-right btn-add">
                             <a ng-click="add(true)" class="button pull-right"><i class="glyphicon glyphicon-plus icon-plus">
@@ -333,7 +333,7 @@
 				<div class="col-sm-12 boxtitle">
 					<label data-translate="SideDish"></label>
 				</div>
-                <div class="col-sm-12 boxcontent boxcontent-collapse">
+                <div class="col-sm-12 boxcontent boxcontent-collapse" name="sideDishOrderDiv">
                     <form class="form-horizontal form-order" role="form">
                         <div class="form-group required">
                             <div class="col-sm-2 text-right">
@@ -353,7 +353,7 @@
                             <div class="col-sm-7">
                                 <input class="form-control txtMember custom-padding" ng-model="searchSideDishMember" placeholder="full name or nick name"
 									search-auto-complete search-employees="searchEmployees" ng-change="getEmployee(searchSideDishMember)"
-									employee="sideDishMember.employee" id="txtMemberSideDish" ng-enter="add(false, true)"/>
+									employee="sideDishMember.employee" name="txtMemberSideDish" ng-enter="add(false, true)"/>
                             </div>
                             <div class="col-sm-3 btn-add">
                                 <a ng-click="add(false, true)" class="button pull-right"><i class="glyphicon glyphicon-plus icon-plus">
@@ -388,7 +388,7 @@
 									<span ng-show="member.Menus.length == 0" data-translate="SelectFoodItem"></span>
 									<div ng-show="member.Menus.length > 0">
 										<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
-											<li>{{menu.QuantityOrder}} - "{{menu.Name}}"</li>
+											<li>{{menu.QuantityOrder}} x "{{menu.Name}}"</li>
 										</ul>
 									</div>
 								</td>

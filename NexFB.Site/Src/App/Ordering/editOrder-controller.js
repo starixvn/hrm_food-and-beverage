@@ -363,4 +363,19 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			$scope.modalInstance = '';
 		});
 	};
+
+	/*
+	** Calculate total price of all member in order
+	*/
+	$scope.calculateTotalAmount = function (members) {
+		var total = 0;
+
+		angular.forEach(members, function (member) {
+			angular.forEach(member.Menus, function (menu) {
+				total += menu.TotalAmount;
+			});
+		});
+
+		return total;
+	};
 } ]);
