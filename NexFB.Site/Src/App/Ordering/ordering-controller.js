@@ -28,7 +28,6 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 	$.connection.hub.start();
 	var orderSignalR = $.connection.order;
-	$.connection.wpf;
 	$scope.sendNewOrder = function (orderId) {
 		orderSignalR.server.sendNewOrder(orderId);
 	};
