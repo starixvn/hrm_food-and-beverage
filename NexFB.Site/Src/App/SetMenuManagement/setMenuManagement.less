@@ -34,29 +34,33 @@
 .modal-dialog {
 	width: 920px;
 }
-.filterRow {
-	margin: 0 0 10px 5px;
-	float: left;
 
-	input[type="text"] 
-	{
-		width: 110px;
-	}
-	.label {
-		text-align: right;
-		float: left;
-		color: #010101;
-		font-size: 13px;
-		label {
-			margin-top: 5px;
-		}
-	}
-	.field {
-		float: left;
-		input[type="checkbox"] {
-			margin-top: 7px;
-		}
-	}
+.form-horizontal
+{
+    .filterRow {
+	    margin: 0 0 10px 5px;
+	    float: left;
+
+	    input[type="text"] 
+	    {
+		    width: 110px;
+	    }
+	    .label {
+		    text-align: right;
+		    float: left;
+		    color: #010101;
+		    font-size: 13px;
+		    label {
+			    margin-top: 5px;
+		    }
+	    }
+	    .field {
+		    float: left;
+		    input[type="checkbox"] {
+			    margin-top: 7px;
+		    }
+	    }
+    }
 }
 .form-setMenuManagement {
 	.form-group {
@@ -116,6 +120,10 @@
 				color: #000 !important;
 			}
 		}
+
+        .control-label {
+            margin-bottom: 10;
+        }
 	}
 	.employee-type .checkboxLayer {
 		left: auto;
@@ -127,3 +135,4 @@
 	height: 450px;
 	overflow-y: auto;
 }
+
