@@ -82,9 +82,9 @@ mealRegistrationModule.directive('checkMealTimesheet', function () {
 
 			if (toDay.getMonth() === currentWorkDate.getMonth() && toDay.getDate() === currentWorkDate.getDate()) {
 				var currentHour = toDay.getHours(),
-				currentMinute = toDay.getMinutes(),
-				registerHour = new Date(currentTimesheet.RegisterTime + 'Z').getUTCHours(),
-				registerMinute = new Date(currentTimesheet.RegisterTime + 'Z').getUTCMinutes();
+					currentMinute = toDay.getMinutes(),
+					registerHour = new Date(currentTimesheet.RegisterTime + 'Z').getUTCHours(),
+					registerMinute = new Date(currentTimesheet.RegisterTime + 'Z').getUTCMinutes();
 
 				if (currentHour > registerHour) {
 					return false;
@@ -135,6 +135,24 @@ mealRegistrationModule.directive('getClassByName', function () {
 			}
 
 			scope.mealClass = mealClass;
+		}
+	};
+});
+
+mealRegistrationModule.directive('disableCurrentDay', function () {
+	return {
+		restrict: 'A',
+		link: function (scope, element) {
+			var workDate = scope.workDate;
+
+			if (workDate) {
+				var toDay = new Date(),
+					currentWorkDate = new Date(workDate);
+
+				if (toDay.getMonth() === currentWorkDate.getMonth() && toDay.getDate() === currentWorkDate.getDate()) {
+					element.attr('disabled', true);
+				}
+			}
 		}
 	};
 });

@@ -26,7 +26,7 @@
 								 ng-checked="meal.IsVegetarian == false && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}}" />
 						</td>
 						<td class="text-center width-100">
-							<input id="meal{{meal.MealId}}" type="checkbox" value="{{meal.MealId}}" only-one-check
+							<input id="meal{{meal.MealId}}" type="checkbox" value="{{meal.MealId}}" only-one-check disable-current-day
 								 ng-checked="meal.IsVegetarian && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}}"/>
 						</td>
 					</tr>
