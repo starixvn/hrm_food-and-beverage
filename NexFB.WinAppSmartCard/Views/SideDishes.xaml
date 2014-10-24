@@ -18,7 +18,7 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="ListBox">
-						<Grid Margin="12,0,0,0">
+						<Grid>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="50"></RowDefinition>
 								<RowDefinition></RowDefinition>
@@ -71,7 +71,7 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="ListBox">
-						<Grid Margin="12,0,0,0">
+						<Grid>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="50"></RowDefinition>
 								<RowDefinition></RowDefinition>
@@ -129,6 +129,12 @@
 	</UserControl.Resources>
 
 	<Grid>
+		<Grid>
+			<Grid.Background>
+				<ImageBrush ImageSource="pack://application:,,,/Images/bg.jpg"/>
+			</Grid.Background>
+		</Grid>
+
 		<!--View Order-->
 		<Grid Margin="12,0,0,0" Visibility="{Binding Path=ScreenOrderVisible}">
 			<Grid.RowDefinitions>
@@ -141,19 +147,21 @@
 					<RowDefinition />
 				</Grid.RowDefinitions>
 				<DockPanel  VerticalAlignment="Bottom" Height="45">
-					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}" FontSize="20" VerticalAlignment="Bottom" />
-					<Label Content="{Binding Path=OrderOwner.NickName}" FontSize="20" VerticalAlignment="Bottom" Foreground="#2c97de" FontWeight="Black"/>
+					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}" 
+					FontSize="20" VerticalAlignment="Bottom" Margin="3,0,0,0" Foreground="#fff"/>
+					<Label Content="{Binding Path=OrderOwner.NickName}" FontSize="20" VerticalAlignment="Bottom" Foreground="#2c98e0" FontWeight="Black"/>
 					<Button Command="{Binding Path=AddFoodCommand}" IsEnabled="{Binding Path=AddFoodEnable}"
-				Background="#6CB23E" Style="{StaticResource TileButton}" MinWidth="120"  Margin="0,0,160,0" HorizontalAlignment="Right">
+				Background="#6CB23E" Style="{StaticResource TileButton}" MinWidth="120"  Margin="0,0,170,0" HorizontalAlignment="Right">
 						<Label Foreground="#fff" FontSize="20" FontWeight="Black" Margin="7,0,7,0"
 					 Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.AddFood]}" />
 					</Button>
 				</DockPanel>
+				<Rectangle Width="370" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,60,0,0" />
 			</Grid>
 
-			<Grid HorizontalAlignment="Left" Margin="12,20,0,0" Grid.Row="1" Name="grid2" VerticalAlignment="Top">
+			<Grid HorizontalAlignment="Left" Margin="12,15,0,0" Grid.Row="1" Name="grid2" VerticalAlignment="Top">
 				<StackPanel Orientation="Vertical">
-					<Grid MaxHeight="600">
+					<Grid MaxHeight="600" Background="#fff">
 						<ScrollViewer>
 							<ListBox BorderThickness="1,0,1,1" Margin="0" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
 							 ItemsSource="{Binding ObservableSideOrder}" Style="{StaticResource OrderListBox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}"
@@ -242,7 +250,7 @@
 					</Grid>
 
 					<!--Row total-->
-					<Grid Height="50" Margin="12,0,0,0">
+					<Grid Height="50" Background="#fff">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="80"/>
 							<ColumnDefinition Width="500"/>
@@ -291,19 +299,23 @@
 					<RowDefinition />
 					<RowDefinition />
 				</Grid.RowDefinitions>
+				<Rectangle Width="370" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,20,0,0" />
+				<Rectangle Width="370" HorizontalAlignment="Left" Grid.Row="1" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0" />
 				<DockPanel  VerticalAlignment="Bottom" Height="45" Grid.Row="0" Margin="0,0,0,-10">
-					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketLabel]}" FontSize="20" VerticalAlignment="Bottom" />
+					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketLabel]}" 
+					FontSize="20" VerticalAlignment="Bottom" Foreground="#fff"/>
 					<Label Content="{Binding Path=OrderNo}" FontSize="20" VerticalAlignment="Bottom" Foreground="#EF4339" FontWeight="Black"/>
 				</DockPanel>
 				<DockPanel  VerticalAlignment="Top" Height="45" Grid.Row="1">
-					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}" FontSize="20" VerticalAlignment="Bottom" />
-					<Label Content="{Binding Path=OrderOwner.NickName}" FontSize="20" VerticalAlignment="Bottom" Foreground="#2c97de" FontWeight="Black"/>
+					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}" 
+					FontSize="20" VerticalAlignment="Bottom" Foreground="#fff"/>
+					<Label Content="{Binding Path=OrderOwner.NickName}" FontSize="20" VerticalAlignment="Bottom" Foreground="#2c98e0" FontWeight="Black"/>
 				</DockPanel>
 			</Grid>
 
-			<Grid HorizontalAlignment="Left" Margin="12,20,0,0" Grid.Row="1" VerticalAlignment="Top">
+			<Grid HorizontalAlignment="Left" Margin="12,15,0,0" Grid.Row="1" VerticalAlignment="Top">
 				<StackPanel Orientation="Vertical">
-					<Grid MaxHeight="600">
+					<Grid MaxHeight="600" Background="#fff">
 						<ScrollViewer>
 							<ListBox BorderThickness="1,0,1,1" Margin="0" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
 							 ItemsSource="{Binding ObservableSideOrder}" Style="{StaticResource NotificationListBox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}">
@@ -324,7 +336,7 @@
 
 											<!--Food name-->
 											<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=SelectedFoodName}" FontSize="20" HorizontalAlignment="Left" Grid.Column="1"/>
-											
+
 											<!--Quantity-->
 											<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=Quantity}" FontSize="20" HorizontalAlignment="Center" Grid.Column="2"/>
 
@@ -338,7 +350,7 @@
 					</Grid>
 
 					<!--Row total-->
-					<Grid Height="50" Margin="12,0,0,0">
+					<Grid Height="50" Background="#fff">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="80"/>
 							<ColumnDefinition Width="500"/>

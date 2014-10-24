@@ -298,6 +298,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     foodMapping.Insert(0, currentMainFood);
                     foodMapping.ForEach(x => x.CurrentCulture = CurrentCulture);
                     selectedEmployee.ListAlternativeFood = foodMapping;
+                    ObservableListEmployee = new ObservableCollection<Employee>(this.ObservableListEmployee);
                     ShowMenuList(selectedEmployee);
                 }
             }

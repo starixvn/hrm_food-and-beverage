@@ -216,6 +216,7 @@
     <Resource Include="Images\OK.png" />
     <Resource Include="Images\plus.png" />
     <Resource Include="Images\sub.png" />
+    <Resource Include="Images\bg.jpg" />
     <Content Include="SpNames.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
