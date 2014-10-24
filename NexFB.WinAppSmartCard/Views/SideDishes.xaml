@@ -136,7 +136,7 @@
 		</Grid>
 
 		<!--View Order-->
-		<Grid Margin="12,0,0,0" Visibility="{Binding Path=ScreenOrderVisible}">
+		<Grid Margin="24,0,0,0" Visibility="{Binding Path=ScreenOrderVisible}">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="100"/>
 				<RowDefinition />
@@ -151,12 +151,12 @@
 					FontSize="20" VerticalAlignment="Bottom" Margin="3,0,0,0" Foreground="#fff"/>
 					<Label Content="{Binding Path=OrderOwner.NickName}" FontSize="20" VerticalAlignment="Bottom" Foreground="#2c98e0" FontWeight="Black"/>
 					<Button Command="{Binding Path=AddFoodCommand}" IsEnabled="{Binding Path=AddFoodEnable}"
-				Background="#6CB23E" Style="{StaticResource TileButton}" MinWidth="120"  Margin="0,0,170,0" HorizontalAlignment="Right">
+				Background="#6CB23E" Style="{StaticResource TileButton}" MinWidth="120"  Margin="0,0,165,0" HorizontalAlignment="Right">
 						<Label Foreground="#fff" FontSize="20" FontWeight="Black" Margin="7,0,7,0"
 					 Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.AddFood]}" />
 					</Button>
 				</DockPanel>
-				<Rectangle Width="370" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,60,0,0" />
+				<Rectangle Width="370" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="-5,60,0,0" />
 			</Grid>
 
 			<Grid HorizontalAlignment="Left" Margin="12,15,0,0" Grid.Row="1" Name="grid2" VerticalAlignment="Top">
@@ -289,7 +289,7 @@
 		</Grid>
 
 		<!--View Notification-->
-		<Grid Margin="12,0,0,0" Visibility="{Binding Path=ScreenNotificationVisible}">
+		<Grid Visibility="{Binding Path=ScreenNotificationVisible}" Margin="24,0,0,0">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="100"/>
 				<RowDefinition />
@@ -299,14 +299,14 @@
 					<RowDefinition />
 					<RowDefinition />
 				</Grid.RowDefinitions>
-				<Rectangle Width="370" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,20,0,0" />
-				<Rectangle Width="370" HorizontalAlignment="Left" Grid.Row="1" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0" />
-				<DockPanel  VerticalAlignment="Bottom" Height="45" Grid.Row="0" Margin="0,0,0,-10">
+				<Rectangle Width="370" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="-5,20,0,0" />
+				<Rectangle Width="370" HorizontalAlignment="Left" Grid.Row="1" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="-5,0,0,0" />
+				<DockPanel  VerticalAlignment="Bottom" Height="45" Grid.Row="0" Margin="3,0,0,-10">
 					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketLabel]}" 
 					FontSize="20" VerticalAlignment="Bottom" Foreground="#fff"/>
 					<Label Content="{Binding Path=OrderNo}" FontSize="20" VerticalAlignment="Bottom" Foreground="#EF4339" FontWeight="Black"/>
 				</DockPanel>
-				<DockPanel  VerticalAlignment="Top" Height="45" Grid.Row="1">
+				<DockPanel  VerticalAlignment="Top" Height="45" Grid.Row="1" Margin="3,0,0,0">
 					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}" 
 					FontSize="20" VerticalAlignment="Bottom" Foreground="#fff"/>
 					<Label Content="{Binding Path=OrderOwner.NickName}" FontSize="20" VerticalAlignment="Bottom" Foreground="#2c98e0" FontWeight="Black"/>
