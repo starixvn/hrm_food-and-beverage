@@ -14,12 +14,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
+    using System.Windows;
     using System.Windows.Input;
     using System.Windows.Threading;
     using AutoMapper;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
-    using NexFB.WinAppSmartCard.Core.Commands;
+    using NexFB.WinApp.Core.Commands;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
 
@@ -45,6 +46,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private MainViewModel _mainViewModel;
         private string _screenOrderVisible;
         private string _screenNotificationVisible;
+        private bool _addFoodEnable;
 
         public SideDishesViewModel(Employee orderOwner, int currentCulture, MainViewModel mainViewModel)
         {
@@ -238,6 +240,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
+        public bool AddFoodEnable
+        {
+            get
+            {
+                return _addFoodEnable;
+            }
+
+            set
+            {
+                _addFoodEnable = value;
+                this.OnPropertyChanged("AddFoodEnable");
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -245,6 +261,19 @@ namespace NexFB.WinAppSmartCard.ViewModels
         public void CancelTimerDispatcher()
         {
             digitalClockDispatcher.Stop();
+            CountDownTimer = 0;
+        }
+
+        public void ToggleMainMenu()
+        {
+            Application.Current.Dispatcher.BeginInvoke(
+                        DispatcherPriority.Background,
+                        new Action(() =>
+                        {
+                            MainViewModel.SideButtonEnable = true;
+                            MainViewModel.MainButtonEnable = false;
+                            this.AddFoodEnable = false;
+                        }));
         }
 
         #endregion
@@ -404,6 +433,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
 
             ExecuteAddFoodCommand();
+            CanExecuteAddFoodCommand();
         }
 
         /// <summary>
@@ -420,6 +450,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 {
                     HasSelectedFood.Add(selectedFood);
                     DisplayTotalPrice();
+                    this.AddFoodEnable = true;
+                }
+                else
+                {
+                    this.AddFoodEnable = false;
                 }
             }
         }
@@ -497,7 +532,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private void TimerDigitalClock()
         {
             digitalClockDispatcher.Interval = new TimeSpan(0, 0, 1);
-            digitalClockDispatcher.Tick += new EventHandler(Timer_Click);
+            digitalClockDispatcher.Tick += new EventHandler(TimerTick);
             digitalClockDispatcher.Start();
         }
 
@@ -506,14 +541,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         /// <param name="sender">Object sender.</param>
         /// <param name="e">Events argument.</param>
-        private void Timer_Click(object sender, EventArgs e)
+        private void TimerTick(object sender, EventArgs e)
         {
             CountDownTimer -= 1;
             if (CountDownTimer == 0)
             {
                 if (MainViewModel != null)
                 {
-                    MainViewModel.ReturnToStandByScreen();
+                    MainViewModel.ExecuteReturnToStandByScreen();
                 }
 
                 digitalClockDispatcher.Stop();

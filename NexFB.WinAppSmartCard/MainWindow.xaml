@@ -42,13 +42,13 @@
 				<RowDefinition />
 			</Grid.RowDefinitions>
 			<DockPanel Grid.Row="0" Background="#464646">
-				<Button Visibility="{Binding Path=MainDishesVisible}"
+				<Button IsEnabled="{Binding MainButtonEnable}"
 				 Command="{Binding Path=MainDishesCommand}" Background="{Binding Path=MainDishesMenu.BackgroundColor}"
 			Foreground="{Binding Path=MainDishesMenu.ForegroundColor}" FontWeight="{Binding Path=MainDishesMenu.FontWeight}"
 				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.MainDishes]}" 
 				Height="50" HorizontalAlignment="Left" Name="btnMainDishes" VerticalAlignment="Center" Width="140" Margin="-1,0,0,0" />
 
-				<Button Visibility="{Binding Path=SideDishesVisible}"
+				<Button  IsEnabled="{Binding SideButtonEnable}"
 				Command="{Binding Path=SideDishesCommand}" Background="{Binding Path=SideDishesMenu.BackgroundColor}"
 				Foreground="{Binding Path=SideDishesMenu.ForegroundColor}" FontWeight="{Binding Path=SideDishesMenu.FontWeight}"
 				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.SideDishes]}" 

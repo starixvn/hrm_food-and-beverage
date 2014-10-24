@@ -15,7 +15,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using BlogsPrajeesh.BlogSpot.WPFControls;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
-    using NexFB.WinAppSmartCard.Core.NotifyBase;
+    using NexFB.WinApp.Core.NotifyBase;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
 
     /// <summary>

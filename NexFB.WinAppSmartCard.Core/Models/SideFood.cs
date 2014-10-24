@@ -13,7 +13,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using NexFB.WinAppSmartCard.Core.NotifyBase;
+    using NexFB.WinApp.Core.NotifyBase;
 
     /// <summary>
     /// TODO: Update summary.
@@ -53,7 +53,6 @@ namespace NexFB.WinAppSmartCard.Core.Models
                         ChangedPrice = currentSelectedItem.Price;
                         this.Quantity = 1;
                         SelectedFoodName = currentSelectedItem.DisplayFoodName;
-                        DropDownChanged(this.SelectedValueDropDown, new EventArgs());
                     }
                 }
                 else
@@ -62,6 +61,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
                     ChangedPrice = 0;
                 }
 
+                DropDownChanged(this.SelectedValueDropDown, new EventArgs());
                 this.OnPropertyChanged("SelectedValueDropDown");
             }
         }

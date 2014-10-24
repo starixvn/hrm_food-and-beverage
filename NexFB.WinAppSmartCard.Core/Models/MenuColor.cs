@@ -9,7 +9,7 @@
 
 namespace NexFB.WinAppSmartCard.Core.Models
 {
-    using NexFB.WinAppSmartCard.Core.NotifyBase;
+    using NexFB.WinApp.Core.NotifyBase;
 
     /// <summary>
     /// Menu Color.

@@ -294,7 +294,7 @@
 								<ColumnDefinition />
 							</Grid.ColumnDefinitions>
 							<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-								<Button Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+								<Button Command="{Binding DataContext.ReturnStandByScreenCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 								Background="#66B5D6" Foreground="White" Margin="0,0,5,0"
 						CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
 					 Height="40" Style="{StaticResource TileButton}"

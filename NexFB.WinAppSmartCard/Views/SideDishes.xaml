@@ -143,7 +143,7 @@
 				<DockPanel  VerticalAlignment="Bottom" Height="45">
 					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}" FontSize="20" VerticalAlignment="Bottom" />
 					<Label Content="{Binding Path=OrderOwner.NickName}" FontSize="20" VerticalAlignment="Bottom" Foreground="#2c97de" FontWeight="Black"/>
-					<Button Command="{Binding Path=AddFoodCommand}"
+					<Button Command="{Binding Path=AddFoodCommand}" IsEnabled="{Binding Path=AddFoodEnable}"
 				Background="#6CB23E" Style="{StaticResource TileButton}" MinWidth="120"  Margin="0,0,160,0" HorizontalAlignment="Right">
 						<Label Foreground="#fff" FontSize="20" FontWeight="Black" Margin="7,0,7,0"
 					 Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.AddFood]}" />
@@ -359,7 +359,7 @@
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
 						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-							<Button Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+							<Button Command="{Binding DataContext.ReturnStandByScreenCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 								Background="#66B5D6" Foreground="White" Margin="0,0,5,0"
 						CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
 					 Height="40" Style="{StaticResource TileButton}"

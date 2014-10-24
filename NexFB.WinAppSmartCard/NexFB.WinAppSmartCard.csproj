@@ -184,6 +184,10 @@
       <Project>{C6EF79D3-5127-4DA2-A334-44109F771D33}</Project>
       <Name>NexFB.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NexFB.WinApp.Core\NexFB.WinApp.Core.csproj">
+      <Project>{64A4E7F4-92F1-4DE3-8C03-687496864BB8}</Project>
+      <Name>NexFB.WinApp.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NexFB.WinAppSmartCard.Core\NexFB.WinAppSmartCard.Core.csproj">
       <Project>{09E8D442-CFB1-41DD-B479-590864561ABB}</Project>
       <Name>NexFB.WinAppSmartCard.Core</Name>

@@ -20,7 +20,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using AutoMapper;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
-    using NexFB.WinAppSmartCard.Core.Commands;
+    using NexFB.WinApp.Core.Commands;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
 
@@ -219,7 +219,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         ObservableListEmployee.Add(employeeInfo);
                         CurrentCulture = currentCulture;
                         MainViewModel = mainViewModel;
-                        ShowHideMenu();
+                        ToggleSideMenu();
                     }));
                 }
                 else
@@ -227,6 +227,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     this.ShowErrorMessage("You are already included in this order");
                 }
             }
+        }
+
+        public void CancelTimerDispatcher()
+        {
+            digitalClockDispatcher.Stop();
+            CountDownTimer = 0;
         }
 
         #endregion
@@ -261,7 +267,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 if (employeeRemoved != null)
                 {
                     ObservableListEmployee.Remove(employeeRemoved);
-                    ShowHideMenu();
+                    ToggleSideMenu();
                 }
             }
         }
@@ -335,6 +341,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 OrderResult result = this.SmartCardOrderService.InsertOrderFood(insertOrderCriteria);
                 if (result.CommandResult.Code == 0)
                 {
+                    MainViewModel.MainButtonEnable = false;
                     OrderNo = result.OrderNo;
                     CountDownTimer = 30;
                     ShowNotificationScreen();
@@ -374,7 +381,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private void TimerDigitalClock()
         {
             digitalClockDispatcher.Interval = new TimeSpan(0, 0, 1);
-            digitalClockDispatcher.Tick += new EventHandler(Timer_Click);
+            digitalClockDispatcher.Tick += new EventHandler(TimerTick);
             digitalClockDispatcher.Start();
         }
 
@@ -383,29 +390,29 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         /// <param name="sender">Object sender.</param>
         /// <param name="e">Event Arguments.</param>
-        private void Timer_Click(object sender, EventArgs e)
+        private void TimerTick(object sender, EventArgs e)
         {
             CountDownTimer -= 1;
             if (CountDownTimer == 0)
             {
                 if (MainViewModel != null)
                 {
-                    MainViewModel.ReturnToStandByScreen();
+                    MainViewModel.ExecuteReturnToStandByScreen();
                 }
 
                 digitalClockDispatcher.Stop();
             }
         }
 
-        private void ShowHideMenu()
+        private void ToggleSideMenu()
         {
             if (this.ObservableListEmployee.Count > 1)
             {
-                MainViewModel.SideDishesVisible = ConstantValue.Hidden;
+                MainViewModel.SideButtonEnable = false;
             }
             else
             {
-                MainViewModel.SideDishesVisible = ConstantValue.Visible;
+                MainViewModel.SideButtonEnable = true;
             }
         }
 

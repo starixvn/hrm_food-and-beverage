@@ -9,8 +9,8 @@
 
 namespace NexFB.WinAppSmartCard.Core.Models
 {
+    using NexFB.WinApp.Core.NotifyBase;
     using NexFB.WinAppSmartCard.Core.Constants;
-    using NexFB.WinAppSmartCard.Core.NotifyBase;
 
     /// <summary>
     /// Food Model.

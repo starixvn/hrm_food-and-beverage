@@ -31,12 +31,12 @@ namespace NexFB.WinAppSmartCard
         protected override void OnStartup(StartupEventArgs e)
         {
             IMappingRegister mappingRegister = new CoreMappingRegister();
+            SmartcardManager manager = new SmartcardManager();
             MainWindow mainWindow = new MainWindow();
             MainViewModel mainViewModel = new MainViewModel();
             mainWindow.DataContext = mainViewModel;
             mainWindow.Show();
 
-            SmartcardManager manager = new SmartcardManager();
             manager.CardNumberChanged += new EventHandler<CardNumberChangedEventArgs>((sender, ex) => OnCardNumberChange(ex, mainViewModel));
             ResourceManagerService.RegisterManager(@"MainScreenResources", MainScreenResources.ResourceManager, true);
             DbSettingProviderManager.Current.Start();

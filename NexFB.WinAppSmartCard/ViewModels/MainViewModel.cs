@@ -17,7 +17,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
-    using NexFB.WinAppSmartCard.Core.Commands;
+    using NexFB.WinApp.Core.Commands;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.GlobalResources.Services;
@@ -39,8 +39,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private Employee _orderOwner;
         private MenuColor _mainDishesMenu = new MenuColor();
         private MenuColor _sideDishesMenu = new MenuColor();
-        private string _mainDishesVisible;
-        private string _sideDishesVisible;
+        private bool _mainButtonEnable;
+        private bool _sideButtonEnable;
 
         public MainViewModel()
         {
@@ -49,8 +49,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
             SideDishesCommand = new RelayCommand((x) => CanExecuteSideDishesCommand(), (y) => ExecuteSideDishesCommand());
             ChangeLanguageCommand = new RelayCommand((x) => CanExecuteChangeLanguageCommand(), (y) => ExecuteChangeLanguageCommand(y));
             CancelCommand = new RelayCommand((x) => CanExecuteCancelCommand(), (y) => ExecuteCancelCommand());
+            ReturnStandByScreenCommand = new RelayCommand((x) => CanExecuteReturnStandByScreen(), (y) => ExecuteReturnToStandByScreen());
             ChangeCulture();
             CheckCurrentScreen();
+            this.MainButtonEnable = true;
+            this.SideButtonEnable = true;
         }
 
         #region Properties
@@ -62,6 +65,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
         public ICommand ChangeLanguageCommand { get; set; }
 
         public ICommand CancelCommand { get; set; }
+
+        public ICommand ReturnStandByScreenCommand { get; set; }
 
         public string CurrentTime
         {
@@ -222,31 +227,31 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        public string MainDishesVisible
+        public bool MainButtonEnable
         {
             get
             {
-                return _mainDishesVisible;
+                return _mainButtonEnable;
             }
 
             set
             {
-                _mainDishesVisible = value;
-                OnPropertyChanged("MainDishesVisible");
+                _mainButtonEnable = value;
+                OnPropertyChanged("MainButtonEnable");
             }
         }
 
-        public string SideDishesVisible
+        public bool SideButtonEnable
         {
             get
             {
-                return _sideDishesVisible;
+                return _sideButtonEnable;
             }
 
             set
             {
-                _sideDishesVisible = value;
-                OnPropertyChanged("SideDishesVisible");
+                _sideButtonEnable = value;
+                OnPropertyChanged("SideButtonEnable");
             }
         }
 
@@ -294,15 +299,15 @@ namespace NexFB.WinAppSmartCard.ViewModels
             WPFMessageBoxResult cancelOrder = this.ShowWarningCancelOrder();
             if (cancelOrder == WPFMessageBoxResult.Yes)
             {
-                ReturnToStandByScreen();
+                ExecuteReturnToStandByScreen();
             }
         }
 
-        public void ReturnToStandByScreen()
+        public void ExecuteReturnToStandByScreen()
         {
-            ExecuteMainDishesCommand();
             CurrentCardNumber = string.Empty;
             OrderOwner = null;
+            ExecuteMainDishesCommand();
             CheckCurrentScreen();
         }
 
@@ -330,28 +335,51 @@ namespace NexFB.WinAppSmartCard.ViewModels
             return true;
         }
 
+        private bool CanExecuteReturnStandByScreen()
+        {
+            return true;
+        }
+
         /// <summary>
         /// Execute Command.
         /// </summary>
         private void ExecuteMainDishesCommand()
         {
-            if (CurrentViewModel != null)
+            CancelDispatcherTimer();
+            CurrentViewModel = new MainDishesViewModel();
+            if (OrderOwner != null)
             {
-                string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
-                if (currentViewModel == ConstantValue.SideDishesViewModel)
-                {
-                    ((SideDishesViewModel)CurrentViewModel).CancelTimerDispatcher();
-                }
+                ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, CurrentCulture, this);
             }
 
-            CurrentViewModel = new MainDishesViewModel();
             CheckCurrentViewModel();
         }
 
         private void ExecuteSideDishesCommand()
         {
+            CancelDispatcherTimer();
             CurrentViewModel = new SideDishesViewModel(OrderOwner, CurrentCulture, this);
             CheckCurrentViewModel();
+        }
+
+        /// <summary>
+        /// Cancel dispatcher timer when user want to place new order.
+        /// </summary>
+        private void CancelDispatcherTimer()
+        {
+            if (CurrentViewModel != null)
+            {
+                string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+                switch (currentViewModel)
+                {
+                    case ConstantValue.MainDishesViewModel:
+                        ((MainDishesViewModel)CurrentViewModel).CancelTimerDispatcher();
+                        break;
+                    case ConstantValue.SideDishesViewModel:
+                        ((SideDishesViewModel)CurrentViewModel).CancelTimerDispatcher();
+                        break;
+                }
+            }
         }
 
         private void ExecuteChangeLanguageCommand(object value)
@@ -421,7 +449,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     CurrentCulture = ConstantValue.ChinaCulture;
                     break;
                 default:
-                     ResourceManagerService.ChangeLocale("vi-VN");
+                    ResourceManagerService.ChangeLocale("vi-VN");
                     CurrentCulture = ConstantValue.VietNamCulture;
                     break;
             }
@@ -469,10 +497,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     else
                     {
                         ExecuteSideDishesCommand();
+                        ((SideDishesViewModel)CurrentViewModel).ToggleMainMenu();
                     }
                 }
                 else
                 {
+                    this.MainButtonEnable = true;
+                    this.SideButtonEnable = true;
                     ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(employeeInfoMapping, CurrentCulture, this);
                 }
 
