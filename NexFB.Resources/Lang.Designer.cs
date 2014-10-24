@@ -1060,6 +1060,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order #{0} by {1} was reduced quantity at {2}..
+        /// </summary>
+        public static string MessageReducedNoMemberStatusOrder {
+            get {
+                return ResourceManager.GetString("MessageReducedNoMemberStatusOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order #{0} by {1} was reduced quantity at {2}. The order contains {3}..
         /// </summary>
         public static string MessageReducedStatusOrder {

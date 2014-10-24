@@ -29,6 +29,9 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		$translate('MessageReducedStatusOrder').then(function (message) {
 			$scope.messageReducedStatusOrder = message;
 		});
+		$translate('MessageReducedNoMemberStatusOrder').then(function (message) {
+			$scope.messageReducedNoMemberStatusOrder = message;
+		});
 		$translate('MessageDeliveredStatusOrder').then(function (message) {
 			$scope.messageDeliveredStatusOrder = message;
 		});
@@ -81,6 +84,11 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 						break;
 					default:
 						message = "";
+				}
+
+				if (typeof order.Members !== 'undefined' && order.Members.length === 0 && order.Status.StatusId === 3) {
+					message = commonFactory.formatString(
+							$scope.messageReducedNoMemberStatusOrder, order.OrderNo, order.CreatorOrder.NickName, order.ModifiedTime);
 				}
 
 				return message;
@@ -311,6 +319,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 						}
 					});
 					if (!isExisted) {
+						member.Menus = '';
 						editMembers.push(member);
 						orderingService.setMemberEditOrder(editMembers);
 					}

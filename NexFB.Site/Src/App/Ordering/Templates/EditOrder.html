@@ -102,7 +102,8 @@
 										    || order.CreatorOrder.UserId == order.CurrentUser.UserId) " class="glyphicon glyphicon-edit">
                                 </a>
                                 <a href="javascript:;" ng-click="removeMember($index)" ng-show="order.OrderFrom == 'W' && (
-									    (order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3)
+										((order.IsSideDishOrder && order.Status.StatusId == 1) ||
+										!order.IsSideDishOrder && (order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3))
 										    && ((member.Member.UserId != order.CreatorOrder.UserId 
 										    && member.Member.UserId == order.CurrentUser.UserId) 
 										    || order.CreatorOrder.UserId == order.CurrentUser.UserId)) " class="glyphicon glyphicon-remove margin-icon icon-remove">
@@ -144,7 +145,10 @@
                 <label ng-show="order.Status.StatusId == 2" class="order-status-received">
                     <span ng-bind="getStatusOrderMessage(order)"></span>
                 </label>
-				<label ng-show="order.Status.StatusId == 3" class="order-status-reduced">
+				<label ng-show="order.Status.StatusId == 3 && order.Members.length > 0" class="order-status-reduced">
+					<span ng-bind="getStatusOrderMessage(order)"></span>
+				</label>
+				<label ng-show="order.Status.StatusId == 3 && order.Members.length == 0" class="order-status-reduced">
 					<span ng-bind="getStatusOrderMessage(order)"></span>
 				</label>
                 <label ng-show="order.Status.StatusId == 4" class="order-status-delivered">
@@ -158,7 +162,8 @@
     </div>
     <div class="modal-footer">
 		<button class="button" ng-click="saveEditOrder(order)" data-translate="Save"
-		ng-show = "(order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3)" >
+		ng-show = "order.OrderFrom == 'W' && ((order.IsSideDishOrder && order.Status.StatusId == 1) ||
+			(!order.IsSideDishOrder && (order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3)))" >
         </button>
         <button class="button btn-delete" ng-click="deleteOrder(order.OrderId)" data-translate="Delete"
             ng-show="(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)">

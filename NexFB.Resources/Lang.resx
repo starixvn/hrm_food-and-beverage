@@ -675,4 +675,7 @@
   <data name="FoodItemCamalcase" xml:space="preserve">
     <value>Food Item</value>
   </data>
+  <data name="MessageReducedNoMemberStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} was reduced quantity at {2}.</value>
+  </data>
 </root>
