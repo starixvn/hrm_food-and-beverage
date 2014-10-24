@@ -1,0 +1,90 @@
+﻿<div class="col-sm-12">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+			<li class="current" data-translate="SetMenuManagement"></li>
+        </ul>
+    </div>
+    <div class="row filter">
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <label data-translate="Menu"></label>
+				<select ng-model="filter.menuId" ng-options="opt.MenuId as opt.MenuVnmName for opt in menuItems"
+					required class="form-control">
+					<option value="">-- {{"AllMenus" | translate}} --</option>
+				</select>
+            </div>
+			<div class="form-group">
+                <label data-translate="Status"></label>
+                <select ng-model="filter.isActive">
+                    <option selected value="" data-translate="AllStatuses"></option>
+                    <option value="true" data-translate="Active"></option>
+                    <option value="false" data-translate="InActive"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="button" value="Submit" class="button" ng-click="query(filter)"/>
+            </div>
+        </form>
+    </div>
+    <div class="row table-menu">
+        <table class="table table-bordered table-striped col-sm-12">
+            <thead>
+				<tr class="header-table">
+					<th colspan="11" ng-show="policy.permission == 2">
+						<a class="pull-left button-icon create-button" ng-click="addSetMenu()" >
+							<span class="icon plus"></span>
+							<span class="button-text" data-translate="CreateSetMenu"></span>
+						</a>
+						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+					</th>
+					<th colspan="10" ng-show="policy.permission == 1">
+						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+					</th>
+				</tr>
+                <tr>
+                    <th data-translate="SymbolCount"></th>
+                    <th data-translate="SetMenu"></th>
+                    <th data-translate="FoodItem"></th>
+					<th data-translate="Menu"></th>
+                    <th class="width-40" data-translate="Active"></th>
+                    <th class="width-40" data-translate="Action" ng-if="policy.permission == 2"></th>
+                </tr>
+            </thead>
+            <tbody>
+				<tr ng-repeat="setMenu in pagedItems[currentPage]">
+					<td class="text-center" ng-bind="setMenu.itemIndex + 1">
+					</td>
+					<td ng-bind="setMenu.SetMenuVnmName">
+					</td>
+					<td ng-bind="setMenu.FoodItemText">
+					</td>
+					<td ng-bind="setMenu.MenuText">
+					</td>
+					<td class="text-center">
+						<input type="checkbox" ng-checked="setMenu.IsActive" ng-click="confirmActive(setMenu)" ng-if="policy.permission == 2" />
+						<img class="ico-tick" ng-if="policy.permission == 1 && setMenu.IsActive" />
+					</td>
+					<td class="text-center" ng-if="policy.permission == 2">
+						<a class="glyphicon glyphicon-edit" href="" ng-click="editSetMenu(setMenu)"></a>
+						<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteSetMenu(setMenu)"></a>
+					</td>
+				</tr>
+				<tr ng-show="setMenus.length == 0 || pagedItems.length == 0">
+					<td class="empty-result" colspan="11" data-translate="EmptyResult">
+					</td>
+				</tr>
+            </tbody>
+			<tfoot>
+				<tr>
+					<td colspan="11" class="paging" >
+						<span data-translate="Show"></span>
+						<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
+							ng-options="entry for entry in entries">
+						</select>
+						<span data-translate="entries"></span>
+						<pagination-bar></pagination-bar>
+					</td>
+				</tr>
+			</tfoot>
+        </table>
+    </div>

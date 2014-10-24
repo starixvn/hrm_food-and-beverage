@@ -10,7 +10,7 @@
 namespace NexFB.Models.FoodItemManagement
 {
     using System.Collections.Generic;
-    using NexFB.Models.FoodMenuManagement;
+    using NexFB.Models.SetMenuManagement;
 
     /// <summary>
     /// The food item model.
@@ -19,7 +19,7 @@ namespace NexFB.Models.FoodItemManagement
     {
         public FoodItemModel()
         {
-            FoodMenus = new List<FoodMenuModel>();
+            SetMenus = new List<SetMenuModel>();
         }
 
         public int FoodId { get; set; }
@@ -32,6 +32,6 @@ namespace NexFB.Models.FoodItemManagement
 
         public bool? IsActive { get; set; }
 
-        public IList<FoodMenuModel> FoodMenus { get; set; }
+        public IList<SetMenuModel> SetMenus { get; set; }
     }
 }

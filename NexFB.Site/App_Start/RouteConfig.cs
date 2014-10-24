@@ -63,6 +63,11 @@ namespace NexFB.Site
                defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
+               name: "Set Menu Management",
+               url: "SetMenuManagement/Index",
+               defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
                name: "Meal Planning Management",
                url: "MealPlanningManagement/Index",
                defaults: new { controller = "Home", action = "Index" });

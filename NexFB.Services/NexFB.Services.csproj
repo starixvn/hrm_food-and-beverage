@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\AlternativeMenuService.cs" />
+    <Compile Include="Implement\SetMenuService.cs" />
     <Compile Include="Implement\FoodItemService.cs" />
     <Compile Include="Implement\FoodMenuService.cs" />
     <Compile Include="Implement\KitchenService.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Implement\ShiftMealMappingService.cs" />
     <Compile Include="Implement\SideDishService.cs" />
     <Compile Include="Implement\SmartCardOrderService.cs" />
+    <Compile Include="Interface\ISetMenuService.cs" />
     <Compile Include="Interface\IAlternativeMenuService.cs" />
     <Compile Include="Interface\IFoodItemService.cs" />
     <Compile Include="Interface\IFoodMenuService.cs" />

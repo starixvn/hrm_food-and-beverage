@@ -5,14 +5,15 @@
 // ------------------------------------------------------------------------
 // <history>
 //   <change who="Josh.Phan" date="9/23/2014 9:15:20 AM">Created.</change>
+//   <change who="Quinn.Vo" date="2014.10.23">Change Food Item to Set Menu.</change>
 // </history>
 
 namespace NexFB.Models.FoodMenuManagement
 {
     using System.Collections.Generic;
     using NexFB.Models.Employee;
-    using NexFB.Models.FoodItemManagement;
     using NexFB.Models.MealRegistration;
+    using NexFB.Models.SetMenuManagement;
 
     /// <summary>
     /// The food menu model.
@@ -21,7 +22,7 @@ namespace NexFB.Models.FoodMenuManagement
     {
         public FoodMenuModel() 
         {
-            FoodItems = new List<FoodItemModel>();
+            SetMenus = new List<SetMenuModel>();
             EmployeeTypes = new List<EmployeeTypeModel>();
             Meals = new List<MealModel>();
         }
@@ -46,7 +47,7 @@ namespace NexFB.Models.FoodMenuManagement
 
         public int NumberFoodItems { get; set; }
 
-        public IList<FoodItemModel> FoodItems { get; set; }
+        public IList<SetMenuModel> SetMenus { get; set; }
 
         public IList<EmployeeTypeModel> EmployeeTypes { get; set; }
 

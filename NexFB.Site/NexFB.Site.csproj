@@ -182,6 +182,7 @@
     <Compile Include="Controllers\API\AlternativeMenuController.cs" />
     <Compile Include="Controllers\API\BaseController.cs" />
     <Compile Include="Controllers\API\CommonController.cs" />
+    <Compile Include="Controllers\API\SetMenuManagementController.cs" />
     <Compile Include="Controllers\API\OrderMemberController.cs" />
     <Compile Include="Controllers\API\FoodItemManagementController.cs" />
     <Compile Include="Controllers\API\FoodMenuManagementController.cs" />
@@ -204,7 +205,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="App_Data\SpNames.xml" />
+    <Content Include="App_Data\SpNames.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Src\App\AlternativeMenuManagement\alternativeMenuManagement-controller.js" />
@@ -240,6 +243,15 @@
     <Content Include="Src\App\Ordering\ordering-directive.js" />
     <Content Include="Src\App\Ordering\Templates\EditOrder.html" />
     <Content Include="Src\App\Ordering\Templates\SelectSideDish.html" />
+    <Compile Include="Interface\ISetMenuService.cs" />
+    <Content Include="Src\App\SetMenuManagement\editSetMenu-controller.js" />
+    <Content Include="Src\App\SetMenuManagement\setMenuManagement-controller.js" />
+    <Content Include="Src\App\SetMenuManagement\setMenuManagement-directive.js" />
+    <Content Include="Src\App\SetMenuManagement\setMenuManagement-factory.js" />
+    <Content Include="Src\App\SetMenuManagement\setMenuManagement-route.js" />
+    <Content Include="Src\App\SetMenuManagement\Templates\create.html" />
+    <Content Include="Src\App\SetMenuManagement\Templates\edit.html" />
+    <Content Include="Src\App\SetMenuManagement\Templates\index.html" />
     <Content Include="Src\App\ShiftMealMapping\shiftMealMapping-controller.js" />
     <Content Include="Src\App\ShiftMealMapping\shiftMealMapping-factory.js" />
     <Content Include="Src\App\ShiftMealMapping\shiftMealMapping-route.js" />
@@ -377,6 +389,7 @@
     <Content Include="Src\App\MealPlanningManagement\mealPlanningManagement.less" />
     <Content Include="Src\App\AlternativeMenuManagement\alternativeMenuManagement.less" />
     <Content Include="Src\App\ShiftMealMapping\shiftMealMapping.less" />
+    <Content Include="Src\App\SetMenuManagement\setMenuManagement.less" />
     <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />

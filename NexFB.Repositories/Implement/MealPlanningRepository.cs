@@ -56,14 +56,14 @@ namespace NexFB.Repositories.Implement
                         "MenuId");
                     IList<dynamic> rawMeals = multi.Read<dynamic>().ToList();
                     IList<dynamic> rawEmployeeTypes = multi.Read<dynamic>().ToList();
-                    IList<dynamic> rawFoodItems = multi.Read<dynamic>().ToList();
+                    ////IList<dynamic> rawFoodItems = multi.Read<dynamic>().ToList();
 
                     foreach (MealPlanningModel mealPlanning in mealPlannings)
                     {
                         int menuId = mealPlanning.FoodMenu.MenuId;
                         mealPlanning.FoodMenu.Meals = _commonRepository.GetMealsOfMenu(menuId, rawMeals);
                         mealPlanning.FoodMenu.EmployeeTypes = _commonRepository.GetEmployeeTypeOfMenu(menuId, rawEmployeeTypes);
-                        mealPlanning.FoodMenu.FoodItems = GetFoodItemsOfMenu(menuId, mealPlanning.Date, rawFoodItems);
+                        ////mealPlanning.FoodMenu.FoodItems = GetFoodItemsOfMenu(menuId, mealPlanning.Date, rawFoodItems);
 
                         if (mealPlanning.Date.Date < DateTime.Now.Date)
                         {

@@ -681,4 +681,25 @@
   <data name="NoneAvailable" xml:space="preserve">
     <value>N/A</value>
   </data>
+   <data name="DuplicateSetMenuMessage" xml:space="preserve">
+    <value>This set menu exists</value>
+  </data>
+  <data name="CreateSetMenu" xml:space="preserve">
+    <value>Create Set Menu</value>
+  </data>
+  <data name="SetMenu" xml:space="preserve">
+    <value>Set Menu</value>
+  </data>
+  <data name="SetMenuManagement" xml:space="preserve">
+    <value>Set Menu Management</value>
+  </data>
+  <data name="FoodItemRequire" xml:space="preserve">
+    <value>The Food Item field is required!</value>
+  </data>
+  <data name="SetMenuNameRequire" xml:space="preserve">
+    <value>The Set Menu field is required!</value>
+  </data>
+  <data name="EditSetMenu" xml:space="preserve">
+    <value>Edit Set Menu</value>
+  </data>
 </root>

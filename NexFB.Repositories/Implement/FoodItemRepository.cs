@@ -5,6 +5,7 @@
 // ------------------------------------------------------------------------
 // <history>
 //   <change who="Josh.Phan" date="9/23/2014 9:28:44 AM">Created.</change>
+//   <change who="Quinn.Vo" date="2014.10.23">Change Menu to Set Menu.</change>
 // </history>
 
 namespace NexFB.Repositories.Implement
@@ -14,7 +15,7 @@ namespace NexFB.Repositories.Implement
     using Fanex.Data;
     using Fanex.Data.Repository;
     using NexFB.Models.FoodItemManagement;
-    using NexFB.Models.FoodMenuManagement;
+    using NexFB.Models.SetMenuManagement;
     using NexFB.Repositories.Interface;
 
     /// <summary>
@@ -34,7 +35,7 @@ namespace NexFB.Repositories.Implement
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
                     IList<FoodItemModel> foodItems = multi.Read<FoodItemModel>().ToList();
-                    IEnumerable<RawFoodMenuModel> foodMenus = multi.Read<RawFoodMenuModel>();
+                    IEnumerable<RawFoodSetMenuModel> foodMenus = multi.Read<RawFoodSetMenuModel>();
 
                     foodItems = GetFoodMenuOfItem(foodItems, foodMenus);
                     return foodItems;
@@ -49,23 +50,23 @@ namespace NexFB.Repositories.Implement
         /// <param name="foodMenus">The list food menus.</param>
         /// <returns>The list food items that has food menus.</returns>
         private IList<FoodItemModel> GetFoodMenuOfItem(
-            IList<FoodItemModel> foodItems, 
-            IEnumerable<RawFoodMenuModel> foodMenus)
+            IList<FoodItemModel> foodItems,
+            IEnumerable<RawFoodSetMenuModel> foodMenus)
         {
             foreach (FoodItemModel foodItem in foodItems)
             {
-                IEnumerable<RawFoodMenuModel> menuOfItem = foodMenus.Where(x => x.FoodId == foodItem.FoodId);
+                IEnumerable<RawFoodSetMenuModel> setMenuOfItem = foodMenus.Where(x => x.FoodId == foodItem.FoodId);
 
-                foreach (RawFoodMenuModel rawMenu in menuOfItem)
+                foreach (RawFoodSetMenuModel rawSetMenu in setMenuOfItem)
                 {
-                    var menu = new FoodMenuModel
+                    var setMenu = new SetMenuModel
                     {
-                        MenuId = rawMenu.MenuId,
-                        MenuEngName = rawMenu.MenuEngName,
-                        MenuVnmName = rawMenu.MenuVnmName
+                        SetMenuId = rawSetMenu.SetMenuId,
+                        SetMenuVnmName = rawSetMenu.SetMenuVnmName,
+                        SetMenuEngName = rawSetMenu.SetMenuEngName
                     };
 
-                    foodItem.FoodMenus.Add(menu);
+                    foodItem.SetMenus.Add(setMenu);
                 }
             }
 

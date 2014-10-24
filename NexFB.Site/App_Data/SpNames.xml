@@ -203,6 +203,25 @@
 		<Setting Key="FoodMenu_EditActiveByMenuID" SpName="FoodMenu_EditActiveByMenuID" DbName="NexFB" Plain="0" >
 		</Setting>
 	</Function>
+  <Function Name="SetMenuManagement">
+    <Setting Key="FoodSet_Insert" SpName="FoodSet_Insert" DbName="NexFB" Plain="0" >
+    </Setting>
+    <Setting Key="FoodSet_EditByFoodSetID" SpName="FoodSet_EditByFoodSetID" DbName="NexFB" Plain="0" >
+    </Setting>
+    <Setting Key="FoodSet_EditActiveByFoodSetID" SpName="FoodSet_EditActiveByFoodSetID" DbName="NexFB" Plain="0" >
+    </Setting>
+    <Setting Key="FoodSet_DeleteByFoodSetID" SpName="FoodSet_DeleteByFoodSetID" DbName="NexFB" Plain="0" >
+    </Setting>
+    <Setting Key="FoodSet_GetItem" SpName="FoodSet_GetItem" DbName="NexFB" Plain="0" >
+      <Mapping DataField="FoodSetId" ObjectProperty="SetMenuId" Class="SetMenuModel"/>
+      <Mapping DataField="FoodSetCode" ObjectProperty="SetMenuCode" Class="SetMenuModel"/>
+      <Mapping DataField="FoodSetVNMName" ObjectProperty="SetMenuVnmName" Class="SetMenuModel"/>
+      <Mapping DataField="FoodSetENGName" ObjectProperty="SetMenuEngName" Class="SetMenuModel"/>
+      <Mapping DataField="FoodSetIsActive" ObjectProperty="IsActive" Class="SetMenuModel"/>
+      <Mapping DataField="FoodSetId" ObjectProperty="SetMenuId" Class="FoodSetMenuModel"/>
+      <Mapping DataField="FoodSetId" ObjectProperty="SetMenuId" Class="MenuSetMenuModel"/>
+    </Setting>
+  </Function>
 	<Function Name="MealPlanningManagement">
 		<Setting Key="FoodPlan_GetMenuByOnDate" SpName="FoodPlan_GetMenuByOnDate" DbName="NexFB" Plain="0" >
 		</Setting>

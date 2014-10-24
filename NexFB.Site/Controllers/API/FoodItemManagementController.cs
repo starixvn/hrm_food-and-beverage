@@ -45,11 +45,11 @@ namespace NexFB.Site.Controllers.API
         }
 
         [ApiAuthorize(FunctionKey = FBFunctionKey.FoodItemManagement, Policy = Policy.Read)]
-        public IList<FoodItemModel> GetAllFoodItem(string menuGroupId = "", bool? isActive = null)
+        public IList<FoodItemModel> GetAllFoodItem(string setMenuId = "", bool? isActive = null)
         {
             var criteria = new GetAllFoodItemCriteria 
             {
-                MenuGroupId = menuGroupId,
+                SetMenuId = setMenuId,
                 IsActive = isActive
             };
 

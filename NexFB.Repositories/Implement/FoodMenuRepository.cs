@@ -5,6 +5,7 @@
 // ------------------------------------------------------------------------
 // <history>
 //   <change who="Josh.Phan" date="9/23/2014 11:21:31 AM">Created.</change>
+//   <change who="Quinn.Vo" date="2014.10.23">Change Food items to Set menu.</change>
 // </history>
 
 namespace NexFB.Repositories.Implement
@@ -13,8 +14,8 @@ namespace NexFB.Repositories.Implement
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
-    using NexFB.Models.FoodItemManagement;
     using NexFB.Models.FoodMenuManagement;
+    using NexFB.Models.SetMenuManagement;
     using NexFB.Repositories.Interface;
 
     /// <summary>
@@ -56,7 +57,7 @@ namespace NexFB.Repositories.Implement
 
                         foodMenu.Meals = _commonRepository.GetMealsOfMenu(menuId, rawMeals);
                         foodMenu.EmployeeTypes = _commonRepository.GetEmployeeTypeOfMenu(menuId, rawEmployeeTypes);
-                        foodMenu.FoodItems = GetFoodItemsOfMenu(menuId, rawFoodItems);
+                        foodMenu.SetMenus = GetSetMenuOfMenu(menuId, rawFoodItems);
                     }
 
                     return foodMenus;
@@ -76,29 +77,29 @@ namespace NexFB.Repositories.Implement
         }
 
         /// <summary>
-        /// Get food items of menu.
+        /// Get set menu of menu.
         /// </summary>
         /// <param name="menuId">The menu ID.</param>
-        /// <param name="rawFoodItems">The list food items from database.</param>
-        /// <returns>The list Food Item belong to current menu.</returns>
-        private IList<FoodItemModel> GetFoodItemsOfMenu(int menuId, IList<dynamic> rawFoodItems)
+        /// <param name="rawSetMenus">The list set menu from database.</param>
+        /// <returns>The list Set Menu belong to current menu.</returns>
+        private IList<SetMenuModel> GetSetMenuOfMenu(int menuId, IList<dynamic> rawSetMenus)
         {
-            IList<FoodItemModel> foodItems = new List<FoodItemModel>();
-            IEnumerable<dynamic> rawFoodItemsOfMenu = rawFoodItems.Where(x => x.MenuID == menuId);
+            IList<SetMenuModel> setMenus = new List<SetMenuModel>();
+            IEnumerable<dynamic> rawSetMenuOfMenu = rawSetMenus.Where(x => x.MenuID == menuId);
 
-            foreach (dynamic rawFoodItem in rawFoodItemsOfMenu)
+            foreach (dynamic rawSetMenu in rawSetMenuOfMenu)
             {
-                var foodItem = new FoodItemModel
+                var setMenu = new SetMenuModel
                 {
-                    FoodId = rawFoodItem.FoodID,
-                    FoodEngName = rawFoodItem.FoodEngName,
-                    FoodVnmName = rawFoodItem.FoodVNMName
+                    SetMenuId = rawSetMenu.FoodSetID,
+                    SetMenuEngName = rawSetMenu.FoodSetENGName,
+                    SetMenuVnmName = rawSetMenu.FoodSetVNMName
                 };
 
-                foodItems.Add(foodItem);
+                setMenus.Add(setMenu);
             }
 
-            return foodItems;
+            return setMenus;
         }
     }
 }

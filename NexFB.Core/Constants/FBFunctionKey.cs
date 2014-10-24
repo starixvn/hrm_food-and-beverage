@@ -44,6 +44,8 @@ namespace NexFB.Core.Constants
 
         public const string FoodMenuManagement = "FoodMenuManagement";
 
+        public const string SetMenuManagement = "SetMenuManagement";
+
         public const string MealPlanningManagement = "MealPlanningManagement";
 
         public const string SideDishManagement = "SideDishManagement";

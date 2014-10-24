@@ -123,6 +123,12 @@
     <Compile Include="Ordering\GetMyOrderInCurrentDayCriteria.cs" />
     <Compile Include="Ordering\InsertOrderCriteria.cs" />
     <Compile Include="Ordering\UpdateOrderSideDishCriteria.cs" />
+    <Compile Include="SetMenuManagement\GetSetMenuByIdCriteria.cs" />
+    <Compile Include="SetMenuManagement\UpdateStatusSetMenuCriteria.cs" />
+    <Compile Include="SetMenuManagement\DeleteSetMenuCriteria.cs" />
+    <Compile Include="SetMenuManagement\GetSetMenuCriteria.cs" />
+    <Compile Include="SetMenuManagement\InsertSetMenuCriteria.cs" />
+    <Compile Include="SetMenuManagement\UpdateSetMenuCriteria.cs" />
     <Compile Include="ShiftMealMapping\GetAllShiftMealMappingCriteria.cs" />
     <Compile Include="ShiftMealMapping\UpdateShiftMealByShiftIdCriteria.cs" />
     <Compile Include="SideDishManagement\ActivateSideDishCriteria.cs" />

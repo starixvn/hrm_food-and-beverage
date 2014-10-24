@@ -1,0 +1,47 @@
+﻿<div>
+	<div class="modal-header">
+		<div class="popup-header">
+			{{"CreateSetMenu" | translate}}<span class="close-popup" ng-click="cancel()"></span>
+		</div>
+	</div>
+
+	<div class="modal-body set-menu-body-modal">
+        <form class="form-horizontal form-setMenuManagement" role="form">
+            <div class="form-group required">
+                <label class="col-sm-1 text-right short-text control-label">{{"SetMenu" | translate}}</label>
+                <div class="col-sm-6 field">
+                    <input type="text" class="form-control" maxlength="300" name="vnmName" ng-model="setMenu.SetMenuVnmName" required />
+                </div>
+                <div class="list-checkbox">
+                    <label class="checkbox-inline"><input type="checkbox" ng-model="setMenu.IsActive" /> {{"Active" | translate}}</label>
+                </div>
+            </div>
+			<div class="form-group required">
+				<label class="filterRow control-label">{{"FoodItems" | translate}}:</label>
+				<div class="menu-box">
+					<select required name="foodSelect" class="chosen-select" data-placeholder="Select food item(s)" multiple multi-select-chosen name="foodItemGroup"
+						ng-model="setMenu.RawFoodIds" ng-options="opt.FoodId as opt.FoodVnmName for opt in foodItems">
+					</select>
+                </div>
+            </div>
+			<div class="form-group">
+				<label class="filterRow">{{"Menu" | translate}}:</label>
+				<div class="menu-box">
+					<select name="menuSelect" class="chosen-select" data-placeholder="Select menu item(s)" multiple multi-select-chosen name="menuItemGroup"
+						ng-model="setMenu.RawMenuIds" ng-options="opt.MenuId as opt.MenuVnmName for opt in menuItems">
+					</select>
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div class="modal-footer">
+		<button class="button" data-translate="Submit" ng-click="addSetMenu(setMenu, false)" ng-disabled="disabledSubmitButton" >
+		</button>
+		<button class="button" reset-set-menu data-translate="SubmitContinue" ng-click="addSetMenu(setMenu, true)" ng-disabled="disabledSubmitButton" >
+		</button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		</button>
+	</div>
+</div>
+
