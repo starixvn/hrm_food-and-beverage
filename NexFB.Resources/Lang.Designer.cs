@@ -1519,7 +1519,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Side dish.
+        ///   Looks up a localized string similar to Side Dish.
         /// </summary>
         public static string SideDish {
             get {

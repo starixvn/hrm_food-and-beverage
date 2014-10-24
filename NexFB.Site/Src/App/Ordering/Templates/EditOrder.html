@@ -20,11 +20,11 @@
                     </label>
                     <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.Location.LocationId"
 							ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
-								|| (order.Status.StatusId != 1)" class="form-control"
+								|| (order.Status.StatusId != 1) || order.OrderFrom == 'P'" class="form-control"
 							class="ddlLocation">
                     </select> 
                 </div>
-                <div class="form-group" ng-show="(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)">
+                <div class="form-group" ng-show="(order.OrderFrom == 'W' && order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)">
                       <label data-translate="Member">
                     </label>
                     <input class="form-control txtMember custom-padding" ng-model="searchKey" placeholder="full name or nick name"
@@ -32,7 +32,7 @@
 					employee="newMember.employee" id="txtEmployee" ng-enter="add(true)"/>
                 </div>
                 <div class="form-group btn-add">
-                     <a href="javascript:;" ng-show="(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)"
+                     <a href="javascript:;" ng-show="(order.OrderFrom == 'W' && order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)"
                         ng-click="add()" class="button"><i class="glyphicon glyphicon-plus icon-plus">
                         </i>
                         <label data-translate="Add">
@@ -139,14 +139,14 @@
                     </label>
                     <input ng-model="order.Remark" type="text" class="txt-remark" maxlength="500" 
 						ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
-						|| (order.Status.StatusId != 1)"/>
+						|| (order.Status.StatusId != 1) || order.OrderFrom == 'P'"/>
                 </div>
                 <div class="form-group phone">
                     <label data-translate="Phone">
                     </label>
                     <input ng-model="order.Phone" type="text" class="txt-phone" maxlength="50" 
 						ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
-						|| (order.Status.StatusId != 1)"/>
+						|| (order.Status.StatusId != 1) || order.OrderFrom == 'P'"/>
                 </div>
             </div>
             <div class="row form-inline form-order">
@@ -177,7 +177,8 @@
 			(!order.IsSideDishOrder && (order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3)))" >
         </button>
         <button class="button btn-delete" ng-click="deleteOrder(order.OrderId)" data-translate="Delete"
-            ng-show="(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)">
+            ng-show="order.OrderFrom == 'W' &&
+				(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)">
         </button>
         <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
         </button>
