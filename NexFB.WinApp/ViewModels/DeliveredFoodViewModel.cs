@@ -26,20 +26,22 @@ namespace NexFB.WinApp.ViewModels
 
         private ObservableCollection<Order> _deliveredMeals;
         private string _searchValue;
+        private MainViewModel _mainViewModel;
 
         #endregion
 
         #region Constructors
 
         public DeliveredFoodViewModel()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public DeliveredFoodViewModel(string searchValue)
+        public DeliveredFoodViewModel(string searchValue, MainViewModel mainViewModel)
         {
             SearchValue = searchValue;
             DeliveredMeals = this.GetDeliveredMealOrder;
+            MainViewModel = mainViewModel;
         }
 
         #endregion
@@ -62,6 +64,25 @@ namespace NexFB.WinApp.ViewModels
 
                 _deliveredMeals = value;
                 OnPropertyChanged("DeliveredMeals");
+            }
+        }
+
+        public MainViewModel MainViewModel
+        {
+            get
+            {
+                return _mainViewModel;
+            }
+
+            set
+            {
+                if (_mainViewModel == value)
+                {
+                    return;
+                }
+
+                _mainViewModel = value;
+                OnPropertyChanged("MainViewModel");
             }
         }
 

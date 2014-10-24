@@ -427,6 +427,16 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        public Task SendNewOrder(int orderId)
+        {
+            return Proxy.Invoke("SendNewOrder", orderId);
+        }
+
+        public Task SendEditOrder(int orderId)
+        {
+            return Proxy.Invoke("SendEditOrder", orderId);
+        }
+
         #endregion
 
         #region RelayCommands
@@ -519,13 +529,13 @@ namespace NexFB.WinApp.ViewModels
 
         private void ExecuteViewDeliveredFood()
         {
-            CurrentViewModel = new DeliveredFoodViewModel(DeliveredSearchResult);
+            CurrentViewModel = new DeliveredFoodViewModel(DeliveredSearchResult, this);
             CheckCurrentViewModel();
         }
 
         private void ExecuteViewOrderFood()
         {
-            CurrentViewModel = new OrderFoodViewModel();
+            CurrentViewModel = new OrderFoodViewModel(this);
             CheckCurrentViewModel();
         }
 
@@ -710,7 +720,7 @@ namespace NexFB.WinApp.ViewModels
                 orderId = (int)value;
                 var getOrderDetailsCriteria = new GetOrderDetailsCriteria() { OrderId = orderId };
                 Order order = KitchenService.GetOrderDetails(getOrderDetailsCriteria);
-                CurrentViewModel = new OrderFoodViewModel(order);
+                CurrentViewModel = new OrderFoodViewModel(this, order);
                 CheckCurrentViewModel();
             }
         }

@@ -80,12 +80,13 @@ namespace NexFB.WinApp.ViewModels
         private bool _textBlockFocused;
         private string _keyPadVisible;
         private string _numPadVisible;
+        private MainViewModel _mainViewModel;
 
         #endregion
 
         #region Constructors
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Reviewed. Suppression is OK here.")]
-        public OrderFoodViewModel(Order order = null)
+        public OrderFoodViewModel(MainViewModel mainViewModel, Order order = null)
         {
             NumPadVisible = Constant.Visible;
             KeyPadVisible = Constant.Hidden;
@@ -117,6 +118,7 @@ namespace NexFB.WinApp.ViewModels
             AllObservationAlternativeFood = OrderFoodData.GetAllAlternativeFood;
             AllObservationLocation = OrderFoodData.GetAllLocation;
             AllObservationGroup = OrderFoodData.GetAllGroup;
+            MainViewModel = mainViewModel;
             if (order != null)
             {
                 PrepareEditData(order);
@@ -126,6 +128,20 @@ namespace NexFB.WinApp.ViewModels
         #endregion
 
         #region Properties
+
+        public MainViewModel MainViewModel
+        {
+            get
+            {
+                return _mainViewModel;
+            }
+
+            set
+            {
+                _mainViewModel = value;
+                OnPropertyChanged("MainViewModel");
+            }
+        }
 
         public KitchenEmployeeInfo EmployeeInfo
         {
@@ -635,10 +651,8 @@ namespace NexFB.WinApp.ViewModels
 
         #region RelayCommands
 
-        // Can Execute Command.
         public bool CanExecuteSelectAllUserInGroupCommand()
         {
-            ////UserInGroup.Count > 0 && UserInGroup.Any(x => !x.IsPlaceOrder
             return true;
         }
 
@@ -768,8 +782,6 @@ namespace NexFB.WinApp.ViewModels
                 return false;
             }
         }
-
-        // Execute Command
 
         /// <summary>
         /// Save Order Command.
@@ -1646,6 +1658,7 @@ namespace NexFB.WinApp.ViewModels
                 {
                     ExecuteCancelDialogOrderConfirmation(value);
                     ExecutePrintInvoice(ReferenceCode, Constant.DeliverOrderFoodInvoice);
+                    this.MainViewModel.SendEditOrder(ReferenceCode);
                     ResetCurrentModel();
                 }
             }
@@ -1682,6 +1695,7 @@ namespace NexFB.WinApp.ViewModels
                 {
                     ExecuteCancelDialogOrderConfirmation(value);
                     ExecutePrintInvoice(result.OrderId, Constant.ReceiveOrderFoodInvoice);
+                    this.MainViewModel.SendNewOrder(result.OrderId);
                     ResetCurrentModel();
                 }
             }
