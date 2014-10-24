@@ -678,4 +678,7 @@
   <data name="MessageReducedNoMemberStatusOrder" xml:space="preserve">
     <value>Order #{0} by {1} was reduced quantity at {2}.</value>
   </data>
+  <data name="NoneAvailable" xml:space="preserve">
+    <value>N/A</value>
+  </data>
 </root>

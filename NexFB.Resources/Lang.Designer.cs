@@ -1177,6 +1177,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        public static string NoneAvailable {
+            get {
+                return ResourceManager.GetString("NoneAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Non-Vegetarian.
         /// </summary>
         public static string NonVegetarian {
