@@ -9,9 +9,14 @@
 
 namespace NexFB.WinAppSmartCard.ViewModels
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Threading;
+    using BlogsPrajeesh.BlogSpot.WPFControls;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.WinAppSmartCard.Core.NotifyBase;
+    using NexFB.WinAppSmartCard.GlobalResources.Resources;
 
     /// <summary>
     /// ViewModel Base.
@@ -70,6 +75,25 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 _smartCardOrderService = value;
                 OnPropertyChanged("SmartCardOrderService");
             }
+        }
+
+        #endregion
+
+        #region Methods
+
+        public void ShowErrorMessage(string message)
+        {
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { WPFMessageBox.Show(message); }));
+        }
+
+        public WPFMessageBoxResult ShowWarningCancelOrder()
+        {
+            WPFMessageBoxResult messageResult = WPFMessageBox.Show(
+                string.Empty,
+                MainScreenResources.Message_CancelOrder,
+                WPFMessageBoxButtons.YesNo,
+                WPFMessageBoxImage.Alert);
+            return messageResult;
         }
 
         #endregion

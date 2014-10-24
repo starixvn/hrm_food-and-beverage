@@ -4,7 +4,7 @@
         Title="MainWindow" Height="1024" Width="1280"
 		xmlns:views="clr-namespace:NexFB.WinAppSmartCard.Views"
 		xmlns:helpers="clr-namespace:NexFB.WinAppSmartCard.GlobalResources.Helpers"
-		WindowState="Maximized" AllowsTransparency="False" WindowStyle="None">
+		WindowStyle="None" WindowState="Maximized" AllowsTransparency="False">
 	<Window.Resources>
 		<helpers:LocalizationHelper x:Key="localisation"/>
 		<Storyboard x:Key="Flash" RepeatBehavior="Forever">
@@ -42,12 +42,14 @@
 				<RowDefinition />
 			</Grid.RowDefinitions>
 			<DockPanel Grid.Row="0" Background="#464646">
-				<Button Command="{Binding Path=MainDishesCommand}" Background="{Binding Path=MainDishesMenu.BackgroundColor}"
+				<Button Visibility="{Binding Path=MainDishesVisible}"
+				 Command="{Binding Path=MainDishesCommand}" Background="{Binding Path=MainDishesMenu.BackgroundColor}"
 			Foreground="{Binding Path=MainDishesMenu.ForegroundColor}" FontWeight="{Binding Path=MainDishesMenu.FontWeight}"
 				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.MainDishes]}" 
 				Height="50" HorizontalAlignment="Left" Name="btnMainDishes" VerticalAlignment="Center" Width="140" Margin="-1,0,0,0" />
 
-				<Button Command="{Binding Path=SideDishesCommand}" Background="{Binding Path=SideDishesMenu.BackgroundColor}"
+				<Button Visibility="{Binding Path=SideDishesVisible}"
+				Command="{Binding Path=SideDishesCommand}" Background="{Binding Path=SideDishesMenu.BackgroundColor}"
 				Foreground="{Binding Path=SideDishesMenu.ForegroundColor}" FontWeight="{Binding Path=SideDishesMenu.FontWeight}"
 				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.SideDishes]}" 
 				Height="50" HorizontalAlignment="Left" Name="btnSideDishes" VerticalAlignment="Center" Width="140" Margin="2,0,0,0" />

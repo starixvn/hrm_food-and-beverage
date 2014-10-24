@@ -16,6 +16,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System.Text;
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Threading;
     using AutoMapper;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
@@ -31,18 +32,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private const string _OrderDetails = "<User SysId='{0}' MenuId='{1}' IsMainMenu='{2}'></User>";
         private const string _BeginRootTag = "<ROOT>";
         private const string _EndRootTag = "</ROOT>";
-        private static ObservableCollection<Employee> _observableListEmployee = new ObservableCollection<Employee>();
-        private List<Employee> _listEmployeeOrder;
+        private static DispatcherTimer digitalClockDispatcher = new DispatcherTimer();
+
+        private ObservableCollection<Employee> _observableListEmployee = new ObservableCollection<Employee>();
         private Employee _orderOwner;
         private int _currentCulture;
         private Food _selectedFood;
         private string _screenOrderVisible;
         private string _screenNotificationVisible;
-        private string _orderNo;
+        private int _orderNo;
+        private int _countDownTimer;
+        private MainViewModel _mainViewModel;
 
         public MainDishesViewModel()
         {
-            ListEmployeeOrder = new List<Employee>();
             RemoveEmployeeOrder = new RelayCommand((x) => CanExecuteRemoveEmployeeOrder(), (y) => ExecuteRemoveEmployeeOrder(y));
             EditMenu = new RelayCommand((x) => CanExecuteEditMenu(), (y) => ExecuteEditMenu(y));
             ConfirmCommand = new RelayCommand((x) => CanExecuteConfirmCommand(), (y) => ExecuteConfirmCommand());
@@ -73,7 +76,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        public string OrderNo
+        public int OrderNo
         {
             get
             {
@@ -84,6 +87,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 _orderNo = value;
                 this.OnPropertyChanged("OrderNo");
+            }
+        }
+
+        public int CountDownTimer
+        {
+            get
+            {
+                return _countDownTimer;
+            }
+
+            set
+            {
+                _countDownTimer = value;
+                this.OnPropertyChanged("CountDownTimer");
             }
         }
 
@@ -143,20 +160,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        public List<Employee> ListEmployeeOrder
-        {
-            get
-            {
-                return _listEmployeeOrder;
-            }
-
-            set
-            {
-                _listEmployeeOrder = value;
-                this.OnPropertyChanged("ListEmployeeOrder");
-            }
-        }
-
         public ObservableCollection<Employee> ObservableListEmployee
         {
             get
@@ -171,6 +174,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
+        public MainViewModel MainViewModel
+        {
+            get
+            {
+                return _mainViewModel;
+            }
+
+            set
+            {
+                _mainViewModel = value;
+                this.OnPropertyChanged("MainViewModel");
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -180,13 +197,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         /// <param name="employeeInfo">Employee Info.</param>
         /// <param name="currentCulture">Current culture.</param>
-        public void AddEmployeeOrderToList(Employee employeeInfo, int currentCulture)
+        /// <param name="mainViewModel">Main ViewModel.</param>
+        public void AddEmployeeOrderToList(Employee employeeInfo, int currentCulture, MainViewModel mainViewModel)
         {
-            if (ListEmployeeOrder != null)
+            if (ObservableListEmployee != null)
             {
-                if (!ListEmployeeOrder.Any(x => x.SysId == employeeInfo.SysId))
+                if (!ObservableListEmployee.Any(x => x.SysId == employeeInfo.SysId))
                 {
-                    employeeInfo.OrderNo = ListEmployeeOrder.Count + 1;
+                    employeeInfo.OrderNo = ObservableListEmployee.Count + 1;
                     employeeInfo.CurrentCulture = currentCulture;
                     HideMenuList(employeeInfo);
                     if (OrderOwner == null)
@@ -194,13 +212,19 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         OrderOwner = employeeInfo;
                     }
 
-                    ListEmployeeOrder.Add(employeeInfo);
-                    ObservableListEmployee = new ObservableCollection<Employee>(this.ListEmployeeOrder);
-                    CurrentCulture = currentCulture;
+                    Application.Current.Dispatcher.BeginInvoke(
+                        DispatcherPriority.Background,
+                        new Action(() =>
+                    {
+                        ObservableListEmployee.Add(employeeInfo);
+                        CurrentCulture = currentCulture;
+                        MainViewModel = mainViewModel;
+                        ShowHideMenu();
+                    }));
                 }
                 else
                 {
-                    MessageBox.Show("You are already included in this order");
+                    this.ShowErrorMessage("You are already included in this order");
                 }
             }
         }
@@ -224,11 +248,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             return true;
         }
 
-        ////private bool CanExecuteCancelCommand()
-        ////{
-        ////    return true;
-        ////}
-
         /// <summary>
         /// Remove employee from list.
         /// </summary>
@@ -238,11 +257,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
             if (value != null)
             {
                 int employeeSysId = (int)value;
-                Employee employeeRemoved = ListEmployeeOrder.Where(x => x.SysId == employeeSysId).SingleOrDefault();
+                Employee employeeRemoved = ObservableListEmployee.Where(x => x.SysId == employeeSysId).SingleOrDefault();
                 if (employeeRemoved != null)
                 {
-                    ListEmployeeOrder.Remove(employeeRemoved);
-                    ObservableListEmployee = new ObservableCollection<Employee>(ListEmployeeOrder);
+                    ObservableListEmployee.Remove(employeeRemoved);
+                    ShowHideMenu();
                 }
             }
         }
@@ -260,7 +279,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 List<FoodOrder> alternativeFood = this.SmartCardOrderService.GetAlternativeFoodBySysId(getAlternativeFoodCriteria);
                 if (alternativeFood != null)
                 {
-                    Employee selectedEmployee = ListEmployeeOrder.Where(x => x.SysId == employeeSysId).SingleOrDefault();
+                    Employee selectedEmployee = ObservableListEmployee.Where(x => x.SysId == employeeSysId).SingleOrDefault();
                     List<Food> foodMapping = Mapper.Map<List<FoodOrder>, List<Food>>(alternativeFood);
                     Food currentMainFood = new Food()
                     {
@@ -274,7 +293,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     foodMapping.ForEach(x => x.CurrentCulture = CurrentCulture);
                     selectedEmployee.ListAlternativeFood = foodMapping;
                     ShowMenuList(selectedEmployee);
-                    ObservableListEmployee = new ObservableCollection<Employee>(this.ListEmployeeOrder);
                 }
             }
         }
@@ -284,39 +302,48 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         private void ExecuteConfirmCommand()
         {
-            var orderDetails = new StringBuilder(_BeginRootTag);
-
-            if (ObservableListEmployee.Any() && ObservableListEmployee.Count > 0)
+            if (ObservableListEmployee.Count == 0)
             {
-                foreach (var employee in ObservableListEmployee)
-                {
-                    if (employee.SelectedValueDropDown == 0 || employee.SelectedValueDropDown == int.MaxValue)
-                    {
-                        orderDetails.AppendFormat(_OrderDetails, employee.SysId, 1, 1);
-                    }
-                    else
-                    {
-                        orderDetails.AppendFormat(_OrderDetails, employee.SysId, employee.SelectedValueDropDown, 0);
-                    }
-                }
-            }
-
-            var insertOrderCriteria = new InsertOrderMealByUserCriteria()
-            {
-                CreatedDate = DateTime.Now,
-                CreatedBy = OrderOwner.SysId,
-                ListDetail = orderDetails.Append(_EndRootTag).ToString()
-            };
-
-            OrderResult result = this.SmartCardOrderService.InsertOrderFood(insertOrderCriteria);
-            if (result.CommandResult.Code == 0)
-            {
-                OrderNo = result.OrderNo;
-                ShowNotificationScreen();
+                this.ShowErrorMessage("The order must contain at least 1 employee");
             }
             else
             {
-                MessageBox.Show(result.CommandResult.Message);
+                var orderDetails = new StringBuilder(_BeginRootTag);
+
+                if (ObservableListEmployee.Any() && ObservableListEmployee.Count > 0)
+                {
+                    foreach (var employee in ObservableListEmployee)
+                    {
+                        if (employee.SelectedValueDropDown == 0 || employee.SelectedValueDropDown == int.MaxValue)
+                        {
+                            orderDetails.AppendFormat(_OrderDetails, employee.SysId, 1, 1);
+                        }
+                        else
+                        {
+                            orderDetails.AppendFormat(_OrderDetails, employee.SysId, employee.SelectedValueDropDown, 0);
+                        }
+                    }
+                }
+
+                var insertOrderCriteria = new InsertOrderMealByUserCriteria()
+                {
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = OrderOwner.SysId,
+                    ListDetail = orderDetails.Append(_EndRootTag).ToString()
+                };
+
+                OrderResult result = this.SmartCardOrderService.InsertOrderFood(insertOrderCriteria);
+                if (result.CommandResult.Code == 0)
+                {
+                    OrderNo = result.OrderNo;
+                    CountDownTimer = 30;
+                    ShowNotificationScreen();
+                    TimerDigitalClock();
+                }
+                else
+                {
+                    this.ShowErrorMessage(result.CommandResult.Message);
+                }
             }
         }
 
@@ -342,6 +369,44 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             ScreenOrderVisible = ConstantValue.Hidden;
             ScreenNotificationVisible = ConstantValue.Visible;
+        }
+
+        private void TimerDigitalClock()
+        {
+            digitalClockDispatcher.Interval = new TimeSpan(0, 0, 1);
+            digitalClockDispatcher.Tick += new EventHandler(Timer_Click);
+            digitalClockDispatcher.Start();
+        }
+
+        /// <summary>
+        /// Timer click.
+        /// </summary>
+        /// <param name="sender">Object sender.</param>
+        /// <param name="e">Event Arguments.</param>
+        private void Timer_Click(object sender, EventArgs e)
+        {
+            CountDownTimer -= 1;
+            if (CountDownTimer == 0)
+            {
+                if (MainViewModel != null)
+                {
+                    MainViewModel.ReturnToStandByScreen();
+                }
+
+                digitalClockDispatcher.Stop();
+            }
+        }
+
+        private void ShowHideMenu()
+        {
+            if (this.ObservableListEmployee.Count > 1)
+            {
+                MainViewModel.SideDishesVisible = ConstantValue.Hidden;
+            }
+            else
+            {
+                MainViewModel.SideDishesVisible = ConstantValue.Visible;
+            }
         }
 
         #endregion

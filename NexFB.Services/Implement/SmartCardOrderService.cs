@@ -47,12 +47,48 @@ namespace NexFB.Services.Implement
             return alternativeFoods;
         }
 
+        public List<FoodOrder> GetSideFoodBySysId(GetSideFoodBySysIdCriteria criteria)
+        {
+            List<FoodOrder> sideFoods = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                sideFoods = this.GetData<FoodOrder>(criteria).ToList();
+            }
+
+            return sideFoods;
+        }
+
         /// <summary>
         /// Insert Order Food.
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>
         /// <returns>Order Result.</returns>
         public OrderResult InsertOrderFood(InsertOrderMealByUserCriteria criteria)
+        {
+            OrderResult result = new OrderResult();
+            result.CommandResult = new CommandResult();
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result.CommandResult = this.Repository.Insert(criteria, hasGetOutputParams: true);
+            }
+
+            if (result.CommandResult.Code == 0)
+            {
+                result.OrderId = criteria.OrderId;
+                result.OrderNo = criteria.OrderNo;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Insert Order Side Food.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Order Result.</returns>
+        public OrderResult InsertOrderSideFood(InsertOrderSideDishesByUserCriteria criteria)
         {
             OrderResult result = new OrderResult();
             result.CommandResult = new CommandResult();

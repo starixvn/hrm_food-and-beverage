@@ -44,6 +44,12 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const string MainDishEnglish = "Main Dishes";
 
+        public const string SelectDishesVietnamese = "Vui lòng chọn món";
+
+        public const string SelectDishesChinese = "请选择菜";
+
+        public const string SelectDishesEnglish = "Please select dishess";
+
         private ConstantValue()
         {
         }

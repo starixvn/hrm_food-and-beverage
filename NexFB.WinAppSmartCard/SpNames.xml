@@ -13,6 +13,8 @@
 			<Mapping DataField="AltMenuPhoto" ObjectProperty="FoodPhoto"/>
 		</Setting>
 		<Setting Key="POS_Insert_OrderMealByUser" SpName="POS_Insert_OrderMealByUser" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_Get_FoodOrder" SpName="POS_Get_FoodOrder" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_Insert_OrderSideDishByUser" SpName="POS_Insert_OrderSideDishByUser" DbName="NexFB" Plain="0" ></Setting>
 
 	</Function>
 </Functions>

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddFood" xml:space="preserve">
+    <value>Add Food</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="Dishes" xml:space="preserve">
+    <value>Dishes</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
@@ -147,8 +153,20 @@
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
   </data>
+  <data name="Message_CancelOrder" xml:space="preserve">
+    <value>Are you sure you want to cancel order ?</value>
+  </data>
   <data name="NumberCount" xml:space="preserve">
     <value>#</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="SelectDishes" xml:space="preserve">
+    <value>Please select dishes</value>
   </data>
   <data name="SideDishes" xml:space="preserve">
     <value>Side Dishes</value>
@@ -161,6 +179,9 @@
   </data>
   <data name="TicketLabel" xml:space="preserve">
     <value>Meal Ticket Number: </value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
   </data>
   <data name="VietNamese" xml:space="preserve">
     <value>Vietnamese</value>

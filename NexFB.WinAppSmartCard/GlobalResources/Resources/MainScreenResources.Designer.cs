@@ -61,6 +61,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Food.
+        /// </summary>
+        internal static string AddFood {
+            get {
+                return ResourceManager.GetString("AddFood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
@@ -102,6 +111,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         internal static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dishes.
+        /// </summary>
+        internal static string Dishes {
+            get {
+                return ResourceManager.GetString("Dishes", resourceCulture);
             }
         }
         
@@ -151,11 +169,47 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to cancel order ?.
+        /// </summary>
+        internal static string Message_CancelOrder {
+            get {
+                return ResourceManager.GetString("Message_CancelOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to #.
         /// </summary>
         internal static string NumberCount {
             get {
                 return ResourceManager.GetString("NumberCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment.
+        /// </summary>
+        internal static string Payment {
+            get {
+                return ResourceManager.GetString("Payment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity.
+        /// </summary>
+        internal static string Quantity {
+            get {
+                return ResourceManager.GetString("Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select dishes.
+        /// </summary>
+        internal static string SelectDishes {
+            get {
+                return ResourceManager.GetString("SelectDishes", resourceCulture);
             }
         }
         
@@ -192,6 +246,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         internal static string TicketLabel {
             get {
                 return ResourceManager.GetString("TicketLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        internal static string Total {
+            get {
+                return ResourceManager.GetString("Total", resourceCulture);
             }
         }
         

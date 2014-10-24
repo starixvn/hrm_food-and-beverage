@@ -19,7 +19,7 @@ namespace NexFB.Criteria.SmartCardOrder
     public class InsertOrderMealByUserCriteria : CriteriaBase
     {
         [Output]
-        public string OrderNo { get; set; }
+        public int OrderNo { get; set; }
 
         [Output]
         public int OrderId { get; set; }

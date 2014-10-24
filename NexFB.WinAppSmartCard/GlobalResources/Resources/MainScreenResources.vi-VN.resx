@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddFood" xml:space="preserve">
+    <value>Thêm món ăn</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Xóa</value>
+  </data>
+  <data name="Dishes" xml:space="preserve">
+    <value>Món ăn</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>Tiếng Anh</value>
@@ -147,8 +153,20 @@
   <data name="Menu" xml:space="preserve">
     <value>Thực đơn</value>
   </data>
+  <data name="Message_CancelOrder" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn hủy gọi món không?</value>
+  </data>
   <data name="NumberCount" xml:space="preserve">
     <value>#</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Thành tiền</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="SelectDishes" xml:space="preserve">
+    <value>Xin chọn món ăn</value>
   </data>
   <data name="SideDishes" xml:space="preserve">
     <value>Món Phụ</value>
@@ -161,6 +179,9 @@
   </data>
   <data name="TicketLabel" xml:space="preserve">
     <value>Đã tạo phiếu ăn số: </value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Tổng cộng </value>
   </data>
   <data name="VietNamese" xml:space="preserve">
     <value>Tiếng Việt</value>

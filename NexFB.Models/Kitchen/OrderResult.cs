@@ -20,6 +20,6 @@ namespace NexFB.Models.Kitchen
 
         public int OrderId { get; set; }
 
-        public string OrderNo { get; set; }
+        public int OrderNo { get; set; }
     }
 }

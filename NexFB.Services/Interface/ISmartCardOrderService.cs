@@ -23,5 +23,9 @@ namespace NexFB.Services.Interface
         List<FoodOrder> GetAlternativeFoodBySysId(GetAlternativeFoodBySysIdCriteria criteria);
 
         OrderResult InsertOrderFood(InsertOrderMealByUserCriteria criteria);
+
+        OrderResult InsertOrderSideFood(InsertOrderSideDishesByUserCriteria criteria);
+
+        List<FoodOrder> GetSideFoodBySysId(GetSideFoodBySysIdCriteria criteria);
     }
 }

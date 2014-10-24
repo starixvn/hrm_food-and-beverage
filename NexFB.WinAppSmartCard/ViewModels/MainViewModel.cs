@@ -13,6 +13,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System.Windows;
     using System.Windows.Input;
     using AutoMapper;
+    using BlogsPrajeesh.BlogSpot.WPFControls;
     using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
@@ -35,8 +36,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private string _mainScreenVisible;
         private string _standbyScreenVisible;
         private string _currentCardNumber;
+        private Employee _orderOwner;
         private MenuColor _mainDishesMenu = new MenuColor();
         private MenuColor _sideDishesMenu = new MenuColor();
+        private string _mainDishesVisible;
+        private string _sideDishesVisible;
 
         public MainViewModel()
         {
@@ -44,6 +48,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             MainDishesCommand = new RelayCommand((x) => CanExecuteMainDishesCommand(), (y) => ExecuteMainDishesCommand());
             SideDishesCommand = new RelayCommand((x) => CanExecuteSideDishesCommand(), (y) => ExecuteSideDishesCommand());
             ChangeLanguageCommand = new RelayCommand((x) => CanExecuteChangeLanguageCommand(), (y) => ExecuteChangeLanguageCommand(y));
+            CancelCommand = new RelayCommand((x) => CanExecuteCancelCommand(), (y) => ExecuteCancelCommand());
             ChangeCulture();
             CheckCurrentScreen();
         }
@@ -55,6 +60,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
         public ICommand SideDishesCommand { get; set; }
 
         public ICommand ChangeLanguageCommand { get; set; }
+
+        public ICommand CancelCommand { get; set; }
 
         public string CurrentTime
         {
@@ -201,6 +208,48 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
+        public Employee OrderOwner
+        {
+            get
+            {
+                return _orderOwner;
+            }
+
+            set
+            {
+                _orderOwner = value;
+                OnPropertyChanged("OrderOwner");
+            }
+        }
+
+        public string MainDishesVisible
+        {
+            get
+            {
+                return _mainDishesVisible;
+            }
+
+            set
+            {
+                _mainDishesVisible = value;
+                OnPropertyChanged("MainDishesVisible");
+            }
+        }
+
+        public string SideDishesVisible
+        {
+            get
+            {
+                return _sideDishesVisible;
+            }
+
+            set
+            {
+                _sideDishesVisible = value;
+                OnPropertyChanged("SideDishesVisible");
+            }
+        }
+
         #endregion
         #region Public Methods
 
@@ -224,24 +273,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         {
                             var getEmployeeInGroupCriteria = new GetEmployeeInGroupBySysIdCriteria() { SysId = employeeData.SysId };
                             EmployeeInGroup employeeInGrop = this.KitchenService.GetEmployeeInGroup(getEmployeeInGroupCriteria);
-                            if (employeeInGrop != null)
-                            {
-                                EmployeeInfo employeeInfo = employeeInGrop.Employees.Where(x => x.SysId == employeeData.SysId).SingleOrDefault();
-                                if (employeeInfo.Quantity > 0)
-                                {
-                                    MessageBox.Show("You are already included in another order");
-                                }
-                                else
-                                {
-                                    Employee employeeInfoMapping = Mapper.Map<EmployeeInfo, Employee>(employeeInfo);
-                                    ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(employeeInfoMapping, CurrentCulture);
-                                    CheckCurrentScreen();
-                                }
-                            }
+                            CheckDataToAddToGrid(employeeInGrop, employeeData);
                         }
                         else
                         {
-                            MessageBox.Show("Can't indentify your card number");
+                            this.ShowErrorMessage("Can't indentify your card number");
                         }
 
                         break;
@@ -251,6 +287,23 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         break;
                 }
             }
+        }
+
+        public void ExecuteCancelCommand()
+        {
+            WPFMessageBoxResult cancelOrder = this.ShowWarningCancelOrder();
+            if (cancelOrder == WPFMessageBoxResult.Yes)
+            {
+                ReturnToStandByScreen();
+            }
+        }
+
+        public void ReturnToStandByScreen()
+        {
+            ExecuteMainDishesCommand();
+            CurrentCardNumber = string.Empty;
+            OrderOwner = null;
+            CheckCurrentScreen();
         }
 
         #endregion
@@ -272,18 +325,32 @@ namespace NexFB.WinAppSmartCard.ViewModels
             return true;
         }
 
+        private bool CanExecuteCancelCommand()
+        {
+            return true;
+        }
+
         /// <summary>
         /// Execute Command.
         /// </summary>
         private void ExecuteMainDishesCommand()
         {
+            if (CurrentViewModel != null)
+            {
+                string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+                if (currentViewModel == ConstantValue.SideDishesViewModel)
+                {
+                    ((SideDishesViewModel)CurrentViewModel).CancelTimerDispatcher();
+                }
+            }
+
             CurrentViewModel = new MainDishesViewModel();
             CheckCurrentViewModel();
         }
 
         private void ExecuteSideDishesCommand()
         {
-            CurrentViewModel = new SideDishesViewModel();
+            CurrentViewModel = new SideDishesViewModel(OrderOwner, CurrentCulture, this);
             CheckCurrentViewModel();
         }
 
@@ -374,6 +441,42 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 MainScreenVisible = ConstantValue.Visible;
                 StandbyScreenVisible = ConstantValue.Hidden;
+            }
+        }
+
+        /// <summary>
+        /// Check Data before add to Main Screen.
+        /// </summary>
+        /// <param name="employeeInGrop">Employee place order data.</param>
+        /// <param name="employeeData">Current employee info.</param>
+        private void CheckDataToAddToGrid(EmployeeInGroup employeeInGrop, EmployeeInfo employeeData)
+        {
+            if (employeeInGrop != null)
+            {
+                EmployeeInfo employeeInfo = employeeInGrop.Employees.Where(x => x.SysId == employeeData.SysId).SingleOrDefault();
+                Employee employeeInfoMapping = Mapper.Map<EmployeeInfo, Employee>(employeeInfo);
+                if (OrderOwner == null)
+                {
+                    OrderOwner = employeeInfoMapping;
+                }
+
+                if (employeeInfo.Quantity > 0)
+                {
+                    if (MainScreenVisible == ConstantValue.Visible)
+                    {
+                        this.ShowErrorMessage("You are already included in another order");
+                    }
+                    else
+                    {
+                        ExecuteSideDishesCommand();
+                    }
+                }
+                else
+                {
+                    ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(employeeInfoMapping, CurrentCulture, this);
+                }
+
+                CheckCurrentScreen();
             }
         }
 
