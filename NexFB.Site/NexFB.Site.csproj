@@ -243,7 +243,6 @@
     <Content Include="Src\App\Ordering\ordering-directive.js" />
     <Content Include="Src\App\Ordering\Templates\EditOrder.html" />
     <Content Include="Src\App\Ordering\Templates\SelectSideDish.html" />
-    <Compile Include="Interface\ISetMenuService.cs" />
     <Content Include="Src\App\SetMenuManagement\editSetMenu-controller.js" />
     <Content Include="Src\App\SetMenuManagement\setMenuManagement-controller.js" />
     <Content Include="Src\App\SetMenuManagement\setMenuManagement-directive.js" />
