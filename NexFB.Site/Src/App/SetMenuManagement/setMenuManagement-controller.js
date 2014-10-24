@@ -168,7 +168,7 @@ foodMenuFactory, ErrorFactory) {
 					return action;
 				}
 			},
-			windowClass: "modal-confirm-center food-item-modal"
+			windowClass: "modal-confirm-center set-item-modal"
 		});
 
 		var keyMessage = '';
@@ -230,7 +230,7 @@ foodMenuFactory, ErrorFactory) {
 					return setMenu.Name;
 				}
 			},
-			windowClass: "modal-confirm-center food-item-modal"
+			windowClass: "modal-confirm-center set-item-modal"
 		});
 
 		$scope.modalInstance.result.then(function () {

@@ -66,7 +66,7 @@ namespace NexFB.Site
                 "~/Src/App/Ordering/ordering.less",
                 "~/Src/App/FoodItemManagement/foodItemManagement.less",
                 "~/Src/App/FoodMenuManagement/foodMenuManagement.less",
-                "~/Src/App/FoodMenuManagement/setMenuManagement.less",
+                "~/Src/App/SetMenuManagement/setMenuManagement.less",
                 "~/Src/App/MealPlanningManagement/mealPlanningManagement.less",
                 "~/Src/App/SideDishManagement/sideDishManagement.less",
                 "~/Src/App/AlternativeMenuManagement/alternativeMenuManagement.less",
