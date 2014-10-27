@@ -32,6 +32,8 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string HubHost = "HubHost";
 
+        public const string HubHostLocal = "HubHostLocal";
+
         public const string DatabaseDelayTime = "DBDelayTime";
 
         public const string AutoRefeshTime = "AutoRefeshTime";

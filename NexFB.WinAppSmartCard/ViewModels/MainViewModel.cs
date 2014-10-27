@@ -9,11 +9,15 @@
 
 namespace NexFB.WinAppSmartCard.ViewModels
 {
+    using System.Configuration;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
     using AutoMapper;
     using BlogsPrajeesh.BlogSpot.WPFControls;
+    using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
@@ -27,6 +31,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
     /// </summary>
     public partial class MainViewModel : ViewModelBase
     {
+        private static string _host = ConfigurationManager.AppSettings[ConstantValue.HubHost];
+        private static string _hostLocal = ConfigurationManager.AppSettings[ConstantValue.HubHostLocal];
         private static double _screenWidth = SystemParameters.PrimaryScreenWidth;
         private static double _screeHeight = SystemParameters.PrimaryScreenHeight;
 
@@ -44,6 +50,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public MainViewModel()
         {
+            InitializeHubConnection();
+            InitializeHubConnectionLocal();
             ExecuteMainDishesCommand();
             MainDishesCommand = new RelayCommand((x) => CanExecuteMainDishesCommand(), (y) => ExecuteMainDishesCommand());
             SideDishesCommand = new RelayCommand((x) => CanExecuteSideDishesCommand(), (y) => ExecuteSideDishesCommand());
@@ -58,6 +66,23 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         #region Properties
 
+        public Thread Thread { get; set; }
+
+        public IHubProxy Proxy { get; set; }
+
+        public HubConnection Connection { get; set; }
+
+        public bool Active { get; set; }
+
+        public Thread ThreadLocal { get; set; }
+
+        public IHubProxy ProxyLocal { get; set; }
+
+        public HubConnection ConnectionLocal { get; set; }
+
+        public bool ActiveLocal { get; set; }
+
+        // Relay Command
         public ICommand MainDishesCommand { get; set; }
 
         public ICommand SideDishesCommand { get; set; }
@@ -311,6 +336,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
             CheckCurrentScreen();
         }
 
+        public Task SendMessage(int orderId)
+        {
+            return Proxy.Invoke("KitchenNotify", orderId, 1);
+        }
+
         #endregion
 
         #region Commands
@@ -509,6 +539,46 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                 CheckCurrentScreen();
             }
+        }
+
+        /// <summary>
+        /// Connect to server hub.
+        /// </summary>
+        private void InitializeHubConnection()
+        {
+            Active = true;
+            Thread = new Thread(() =>
+            {
+                Connection = new HubConnection(_host);
+                Proxy = Connection.CreateHubProxy("order");
+                Connection.Start().Wait();
+
+                while (Active)
+                {
+                    Thread.Sleep(10);
+                }
+            }) { IsBackground = true };
+            Thread.Start();
+        }
+
+        /// <summary>
+        /// Connect to local hub.
+        /// </summary>
+        private void InitializeHubConnectionLocal()
+        {
+            ActiveLocal = true;
+            ThreadLocal = new Thread(() =>
+            {
+                ConnectionLocal = new HubConnection(_hostLocal);
+                ProxyLocal = ConnectionLocal.CreateHubProxy("order");
+                ConnectionLocal.Start().Wait();
+
+                while (ActiveLocal)
+                {
+                    Thread.Sleep(10);
+                }
+            }) { IsBackground = true };
+            ThreadLocal.Start();
         }
 
         #endregion

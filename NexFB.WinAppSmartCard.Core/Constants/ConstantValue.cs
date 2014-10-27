@@ -50,6 +50,10 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const string SelectDishesEnglish = "Please select dishess";
 
+        public const string HubHost = "HubHost";
+
+        public const string HubHostLocal = "HubHostLocal";
+
         private ConstantValue()
         {
         }

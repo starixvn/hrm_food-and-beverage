@@ -38,6 +38,7 @@ namespace NexFB.WinApp.ViewModels
 
         ////private static readonly OrderFoodViewModel OrderFoodViewModel = new OrderFoodViewModel();
         private static string _host = ConfigurationManager.AppSettings[Constant.HubHost];
+        private static string _hostLocal = ConfigurationManager.AppSettings[Constant.HubHostLocal];
         private static string _delayTime = ConfigurationManager.AppSettings[Constant.DatabaseDelayTime];
         private static string _autoRefeshTime = ConfigurationManager.AppSettings[Constant.AutoRefeshTime];
 
@@ -77,8 +78,9 @@ namespace NexFB.WinApp.ViewModels
             CheckCurrentViewModel();
             InitializeRelayCommand();
             InitializeHubConnection();
+            InitializeHubConnectionLocal();
             TimerDigitalClock();
-            StartTimerGetData(Constant.GetAllData);
+            StartTimerGetData(Constant.GetAllData, null);
         }
 
         #endregion
@@ -92,6 +94,14 @@ namespace NexFB.WinApp.ViewModels
         public HubConnection Connection { get; set; }
 
         public bool Active { get; set; }
+
+        public Thread ThreadLocal { get; set; }
+
+        public IHubProxy ProxyLocal { get; set; }
+
+        public HubConnection ConnectionLocal { get; set; }
+
+        public bool ActiveLocal { get; set; }
 
         public ICommand ReceiveOrderFoodCommand { get; set; }
 
@@ -750,17 +760,14 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        private void OnNewOrder()
+        private void OnNewOrder(Order order)
         {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => NewOrder()));
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => NewOrder(order)));
         }
 
-        /// <summary>
-        /// Receive new order for app.
-        /// </summary>
-        private void NewOrder()
+        private void NewOrder(Order order)
         {
-            StartTimerGetData(Constant.GetNewOrder);
+            StartTimerGetData(Constant.GetNewOrder, order);
         }
 
         private void OnEditOrder(Order order)
@@ -778,7 +785,7 @@ namespace NexFB.WinApp.ViewModels
             switch (currentViewModel)
             {
                 case Constant.WaitingMealViewModel:
-                    ((WaitingMealViewModel)CurrentViewModel).GetNewDataForApp();
+                    ((WaitingMealViewModel)CurrentViewModel).EditDataInWaitingMeals(order);
                     break;
                 case Constant.AwaitingDeliverViewModel:
                     ((AwaitingDeliverViewModel)CurrentViewModel).EditDataInAwaitingDeliverMeals(order);
@@ -907,11 +914,11 @@ namespace NexFB.WinApp.ViewModels
         private void InitializeHubConnection()
         {
             Active = true;
-            Thread = new System.Threading.Thread(() =>
+            Thread = new Thread(() =>
             {
                 Connection = new HubConnection(_host);
                 Proxy = Connection.CreateHubProxy("order");
-                Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder());
+                Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
                 Proxy.On<int>("appNotifyReceiveNewOrder", (orderId) => OnKitchenStaffReceiveOrder(orderId));
                 Proxy.On<int>("appNotifyAwaitingDeliverOrder", (orderId) => OnKitchenStaffAwaitingDeliverOrder(orderId));
                 Proxy.On<int>("appNotifyUndoDeliveredOrder", (orderId) => OnKitchenStaffUndoDeliveredOrder(orderId));
@@ -921,10 +928,36 @@ namespace NexFB.WinApp.ViewModels
 
                 while (Active)
                 {
-                    System.Threading.Thread.Sleep(10);
+                    Thread.Sleep(10);
                 }
             }) { IsBackground = true };
             Thread.Start();
+        }
+
+        /// <summary>
+        /// Connect to local Hub.
+        /// </summary>
+        private void InitializeHubConnectionLocal()
+        {
+            ActiveLocal = true;
+            ThreadLocal = new Thread(() =>
+            {
+                ConnectionLocal = new HubConnection(_hostLocal);
+                ProxyLocal = ConnectionLocal.CreateHubProxy("order");
+                ProxyLocal.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
+                ProxyLocal.On<int>("appNotifyReceiveNewOrder", (orderId) => OnKitchenStaffReceiveOrder(orderId));
+                ProxyLocal.On<int>("appNotifyAwaitingDeliverOrder", (orderId) => OnKitchenStaffAwaitingDeliverOrder(orderId));
+                ProxyLocal.On<int>("appNotifyUndoDeliveredOrder", (orderId) => OnKitchenStaffUndoDeliveredOrder(orderId));
+                ProxyLocal.On<int>("deleteOrderForApp", (orderId) => OnDeleteOrder(orderId));
+                ProxyLocal.On<Order>("editOrderForApp", (order) => OnEditOrder(order));
+                ConnectionLocal.Start().Wait();
+
+                while (ActiveLocal)
+                {
+                    Thread.Sleep(10);
+                }
+            }) { IsBackground = true };
+            ThreadLocal.Start();
         }
 
         /// <summary>
@@ -1031,7 +1064,8 @@ namespace NexFB.WinApp.ViewModels
         /// Timer get data.
         /// </summary>
         /// <param name="getType">Get for all app or part of app.</param>
-        private void StartTimerGetData(int getType)
+        /// <param name="order">New order for app.</param>
+        private void StartTimerGetData(int getType, Order order)
         {
             DispatcherTimer timer = new DispatcherTimer();
 
@@ -1045,7 +1079,7 @@ namespace NexFB.WinApp.ViewModels
                 timer.Interval = TimeSpan.FromSeconds(AutoRefeshTime);
             }
 
-            timer.Tick += (sender, e) => TimerTickToGetData(sender, e, getType);
+            timer.Tick += (sender, e) => TimerTickToGetData(sender, e, getType, order);
             timer.Start();
         }
 
@@ -1055,8 +1089,9 @@ namespace NexFB.WinApp.ViewModels
         /// <param name="sender">Object sender.</param>
         /// <param name="e">Event arguments.</param>
         /// <param name="getType">Get for all app or part of app.</param>
+        /// <param name="order">New order for app.</param>
         [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", Justification = "Reviewed. Suppression is OK here.")]
-        private void TimerTickToGetData(object sender, EventArgs e, int getType)
+        private void TimerTickToGetData(object sender, EventArgs e, int getType, Order order)
         {
             DispatcherTimer timer = (DispatcherTimer)sender;
             string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
@@ -1065,8 +1100,11 @@ namespace NexFB.WinApp.ViewModels
             {
                 if (currentViewModel == Constant.WaitingMealViewModel)
                 {
-                    ((WaitingMealViewModel)CurrentViewModel).GetNewDataForApp();
-                    SystemSounds.Asterisk.Play();
+                    if (order != null)
+                    {
+                        ((WaitingMealViewModel)CurrentViewModel).NewOrderDataAndSort(order);
+                        SystemSounds.Asterisk.Play();
+                    }
                 }
 
                 timer.Stop();
