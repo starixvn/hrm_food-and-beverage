@@ -19,7 +19,7 @@
                 </th>
                 <th class="width-170" data-translate="MyMeal">
                 </th>
-                <th class="width-300" data-translate="Location">
+                <th class="width-300" data-translate="DeliveryArea">
                 </th>
                 <th class="width-170" data-translate="Remark">
                 </th>
@@ -133,7 +133,7 @@
                 <div class="col-sm-12 boxcontent" ng-class="{'boxcontent-collapse' : newOrder.Status != null}" close-order-content >
                     <form class="row form-horizontal form-order order-group" role="form">
                     <div class="form-group required">
-                        <label class="control-label width-65" data-translate="Location">
+                        <label class="control-label width-100" data-translate="DeliveryArea">
                         </label>
                         <select ng-model="newOrder.Location.LocationId">
                             <option style="display: none" value="0">{{"SelectLocation" | translate}}</option>
@@ -141,7 +141,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="control-label width-65" data-translate="Member">
+                        <label class="control-label width-100" data-translate="Member">
                         </label>
                         <input class="form-control txtMember custom-padding" ng-model="searchNewMember"
                             placeholder="full name or nick name" search-auto-complete search-employees="searchEmployees"
@@ -234,7 +234,7 @@
                 <div class="col-sm-12 boxcontent boxcontent-collapse" name="savedOrderDiv">
                     <form class="form-horizontal form-order order-group" role="form">
                     <div class="form-group required">
-                        <label class="control-label width-65" data-translate="Location">
+                        <label class="control-label width-100" data-translate="DeliveryArea">
                         </label>
                         <select ng-model="savedOrder.Location.LocationId">
                             <option style="display: none" value="0">{{"SelectLocation" | translate}}</option>
@@ -242,7 +242,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="control-label width-65" data-translate="Member">
+                        <label class="control-label width-100" data-translate="Member">
                         </label>
                         <input class="form-control txtMember custom-padding" ng-model="searchSavedMember"
                             placeholder="full name or nick name" search-auto-complete search-employees="searchEmployees"
@@ -334,32 +334,26 @@
 					<label data-translate="SideDish"></label>
 				</div>
                 <div class="col-sm-12 boxcontent boxcontent-collapse" name="sideDishOrderDiv">
-                    <form class="form-horizontal form-order" role="form">
-                        <div class="form-group required">
-                            <div class="col-sm-2 text-right">
-                                <label class="control-label" data-translate="Location"></label>
-                            </div>
-                            <div class="col-sm-10">
-                                <select ng-model="sideDishOrder.Location.LocationId">
-									<option value="0">{{"SelectLocation" | translate}}</option>
-									<option ng-repeat="lc in locations" value="{{lc.LocationId}}">{{lc.Name}}</option>
-								</select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-2 text-right">
-                                <label class="control-label" data-translate="Member"></label>
-                            </div>
-                            <div class="col-sm-7">
-                                <input class="form-control txtMember custom-padding" ng-model="searchSideDishMember" placeholder="full name or nick name"
+                    <form class="form-horizontal form-order order-group" role="form">
+						<div class="form-group required">
+							<label class="control-label width-100" data-translate="DeliveryArea">
+							</label>
+							<select ng-model="savedOrder.Location.LocationId">
+								<option style="display: none" value="0">{{"SelectLocation" | translate}}</option>
+								<option ng-repeat="lc in locations" value="{{lc.LocationId}}">{{lc.Name}}</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="control-label width-100" data-translate="Member"></label>
+							<input class="form-control txtMember custom-padding" ng-model="searchSideDishMember" placeholder="full name or nick name"
 									search-auto-complete search-employees="searchEmployees" ng-change="getEmployee(searchSideDishMember)"
 									employee="sideDishMember.employee" name="txtMemberSideDish" ng-enter="add(false, true)"/>
-                            </div>
-                            <div class="col-sm-3 btn-add">
-                                <a ng-click="add(false, true)" class="button pull-right"><i class="glyphicon glyphicon-plus icon-plus">
-                                </i>
-								    <label data-translate="Add"></label>
-							    </a>
+							<div class="pull-right btn-add">
+								<a ng-click="add(false, true)" class="button pull-right">
+									<i class="glyphicon glyphicon-plus icon-plus">
+									</i>
+									<label data-translate="Add"></label>
+								</a>
                             </div>
                         </div>
                     </form>

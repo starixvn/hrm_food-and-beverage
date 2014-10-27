@@ -22,9 +22,8 @@ mealRegistrationModule.directive('onlyOneCheck', function () {
 
 mealRegistrationModule.directive('getMealRegistration', function () {
 	return {
-		restrict: 'A',
-		link: function (scope, iElement) {
-			iElement.on('click', function () {
+		link: function (scope) {
+			scope.$on('getMealRegistration', function () {
 				var meals = scope.meals,
 					mealsTemplate = '<ROOT>',
 					registrationMealTable = $("[name='registrationMeal']"),
@@ -108,7 +107,7 @@ mealRegistrationModule.directive('checkMealTimesheet', function () {
 				currentTimesheet = getCurrentTimesheet(mealTimesheet, meal.MealId),
 				rightMeal = checkRightMeal(currentTimesheet, workDate);
 
-				scope.rightMeal["" + meal.MealId] = rightMeal;
+				scope.rightMeal[meal.MealId] = rightMeal;
 			}
 		}
 	};
@@ -139,20 +138,66 @@ mealRegistrationModule.directive('getClassByName', function () {
 	};
 });
 
+// In daily registration form of the current date, Vegetarian options are disabled
 mealRegistrationModule.directive('disableCurrentDay', function () {
 	return {
 		restrict: 'A',
-		link: function (scope, element) {
-			var workDate = scope.workDate;
+		link: function (scope) {
+			var workDate = scope.workDate,
+				meal = scope.meal;
 
 			if (workDate) {
 				var toDay = new Date(),
 					currentWorkDate = new Date(workDate);
 
 				if (toDay.getMonth() === currentWorkDate.getMonth() && toDay.getDate() === currentWorkDate.getDate()) {
-					element.attr('disabled', true);
+					scope.currentDate[meal.MealId] = true;
 				}
 			}
+		}
+	};
+});
+
+mealRegistrationModule.directive('validateMealRegistration', function () {
+	return {
+		restrict: 'A',
+		link: function (scope, iElement) {
+			iElement.on('click', function () {
+				var registrationMealTable = $("[name='registrationMeal']"),
+					checkedElements = $(registrationMealTable).find('tbody input:checked'),
+					validChecked = true,
+					isTypeMeal = '',
+					workDate = scope.workDate !== '' ? new Date(scope.workDate) : '',
+					toDay = new Date(),
+					validVegetarianCurrentDate = true;
+
+				for (var i = 0; i < checkedElements.length; i++) {
+					var checkedElement = checkedElements[i],
+						mealId = $(checkedElement).val(),
+						checkedElementId = $(checkedElement).prop('id'),
+						isVegetarian = checkedElementId.replace('meal' + mealId, '') === '_non' ? false : true;
+
+					// Check user cannot register non-veggie and veggie.
+					if (isTypeMeal === '') {
+						isTypeMeal = isVegetarian;
+					}
+					else if (isTypeMeal !== isVegetarian) {
+						validChecked = false;
+						i = checkedElements.length;
+					}
+
+					// In daily registration form of the current date, Vegetarian options are disabled
+					if (workDate) {
+						if (toDay.getMonth() === workDate.getMonth() && toDay.getDate() === workDate.getDate()) {
+							if (isVegetarian) {
+								validVegetarianCurrentDate = false;
+							}
+						}
+					}
+				}
+
+				scope.validateMealRegistration.call(this, validChecked, validVegetarianCurrentDate);
+			});
 		}
 	};
 });

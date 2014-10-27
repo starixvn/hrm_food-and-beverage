@@ -27,7 +27,7 @@
 						</td>
 						<td class="text-center width-100">
 							<input id="meal{{meal.MealId}}" type="checkbox" value="{{meal.MealId}}" only-one-check disable-current-day
-								 ng-checked="meal.IsVegetarian && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}}"/>
+								 ng-checked="meal.IsVegetarian && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || currentDate.{{meal.MealId}}"/>
 						</td>
 					</tr>
 				</tbody>
@@ -36,7 +36,7 @@
 	</div>
 
 	<div class="modal-footer">
-		<button class="button" get-meal-registration data-translate="Submit">
+		<button class="button" get-meal-registration validate-meal-registration data-translate="Submit">
 		</button>
 		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 		</button>

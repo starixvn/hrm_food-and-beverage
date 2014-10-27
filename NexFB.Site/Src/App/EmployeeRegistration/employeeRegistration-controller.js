@@ -208,7 +208,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			};
 
 			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					date.Meals = registrationInfo.meals;
 					notificationFactory.success("DataChangeSuccessfully");
 				}
@@ -255,6 +255,11 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			resolve: {
 				meals: function () {
 					var date = mealRegistrationUtilities.getDateNotToday(week);
+
+					if (!date) {
+						date = mealRegistrationUtilities.getDateIsToday(week);
+					}
+
 					return angular.copy(date.Meals);
 				},
 				workDate: function () {
@@ -286,7 +291,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			};
 
 			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					updatedRegistrationMealToWeek(week, registrationInfo.meals);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
@@ -320,6 +325,11 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			resolve: {
 				meals: function () {
 					var date = mealRegistrationUtilities.getDateNotTodayInMonth(allWeekMeals);
+
+					if (!date) {
+						date = mealRegistrationUtilities.getDateIsTodayInMonth(allWeekMeals);
+					}
+
 					return angular.copy(date.Meals);
 				},
 				workDate: function () {
@@ -351,7 +361,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			};
 
 			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					updatedRegistrationMealToMonth(allWeekMeals, registrationInfo.meals);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
@@ -399,6 +409,11 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			resolve: {
 				meals: function () {
 					var date = mealRegistrationUtilities.getWeekDayNotTodayInMonth(allWeekMeals, weekDayIndex);
+
+					if (!date) {
+						date = mealRegistrationUtilities.getWeekDayIsToday(allWeekMeals, weekDayIndex);
+					}
+
 					return angular.copy(date.Meals);
 				},
 				workDate: function () {
@@ -430,7 +445,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			};
 
 			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					updatedRegistrationMealToSameDateInWeek(allWeekMeals, registrationInfo.meals, weekDayIndex);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
@@ -519,7 +534,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 			};
 
 			mealRegistrationFactory.setDefaultRegisterMeal(mealRegistration).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					date.Meals = registrationInfo.meals;
 					notificationFactory.success("DataChangeSuccessfully");
 				}
@@ -588,7 +603,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 			};
 
 			mealRegistrationFactory.setDefaultRegisterMeal(mealRegistration).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					updatedDefaultMealToWeek(weekMeals, registrationInfo.meals);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
@@ -623,7 +638,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 
 		$scope.modalRegisterInstance.result.then(function () {
 			mealRegistrationFactory.applyFromTemplate().success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					notificationFactory.success("DataChangeSuccessfully");
 				}
 				else {
@@ -643,9 +658,9 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 
 mealRegistrationModule.controller('RegisterMealController',
 ['meals', '$scope', 'workDate', '$modalInstance', 'mealTimesheet', 'mode', 'isSameMeal', 'timePeriod',
-'isSerialRegistration', '$modal',
+'isSerialRegistration', '$modal', 'notificationFactory',
 function (meals, $scope, workDate, $modalInstance, mealTimesheet, mode, isSameMeal, timePeriod,
-isSerialRegistration, $modal) {
+isSerialRegistration, $modal, notificationFactory) {
 	$scope.meals = meals;
 	$scope.mode = mode;
 	$scope.timePeriod = timePeriod;
@@ -656,6 +671,8 @@ isSerialRegistration, $modal) {
 		4: true
 	};
 
+	$scope.currentDate = {};
+
 	if (mode === 'month') {
 		$scope.workDate = workDate;
 		$scope.isRegisterDate = workDate !== '' || isSameMeal ? true : false;
@@ -664,6 +681,15 @@ isSerialRegistration, $modal) {
 	else if (mode === 'default') {
 		$scope.isRegisterDate = isSameMeal ? true : false;
 	}
+
+	$scope.validateMealRegistration = function (validChecked, validVegetarianCurrentDate) {
+		if (validChecked && validVegetarianCurrentDate) {
+			$scope.$broadcast('getMealRegistration');
+		}
+		else if (!validChecked) {
+			notificationFactory.error("InvalidInputRegisterMeal");
+		}
+	};
 
 	$scope.save = function (meals, mealsTemplate) {
 		if (isSerialRegistration) {

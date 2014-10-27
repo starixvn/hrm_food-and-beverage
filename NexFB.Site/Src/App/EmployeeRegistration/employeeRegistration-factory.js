@@ -133,26 +133,17 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		return true;
 	};
 
-	utility.getCurrentMeal = function (meals, mealId) {
-		var meal;
-
-		angular.forEach(meals, function (item) {
-			if (item.MealId === mealId) {
-				meal = item;
-			}
-		});
-
-		return meal;
-	};
-
 	utility.updateMealForToDay = function (date, meals, mealTimesheet) {
 		for (var i = 0; i < date.Meals.length; i++) {
 			var meal = date.Meals[i],
-				currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
-				rightMeal = utility.checkRightMeal(currentTimesheet),
-				updateMeal = utility.getCurrentMeal(meals, meal.MealId);
+				updateMeal = meals[i];
 
-			date.Meals[i] = rightMeal ? angular.copy(updateMeal) : angular.copy(meal);
+			if (!updateMeal.IsVegetarian) {
+				var currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
+					rightMeal = utility.checkRightMeal(currentTimesheet);
+
+				date.Meals[i] = rightMeal ? angular.copy(updateMeal) : angular.copy(meal);
+			}
 		}
 	};
 
@@ -367,6 +358,28 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		return resultDate;
 	};
 
+	utility.getDateIsToday = function (week) {
+		var allDateInWeek = week.WeekMeals,
+			toDay = new Date(),
+			resultDate = '';
+
+		for (var i = 0; i < allDateInWeek.length; i++) {
+			var date = allDateInWeek[i],
+				currentDate = new Date(date.WorkDate);
+
+			if (!date.IsDisabled) {
+				if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
+					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+						resultDate = date;
+						i = allDateInWeek.length;
+					}
+				}
+			}
+		}
+
+		return resultDate;
+	};
+
 	var checkSameMeal = function (firstDate, secondDate) {
 		var isSameMeal = true;
 
@@ -402,24 +415,30 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 			toDay = new Date(),
 			sealedDate = utility.getDateNotToday(week);
 
-		// Don't check Sunday and Saturday
-		for (var i = 1; i < length - 1; i++) {
-			var date = week.WeekMeals[i],
+		if (sealedDate) {
+			// Don't check Sunday and Saturday
+			for (var i = 1; i < length - 1; i++) {
+				var date = week.WeekMeals[i],
 				currentDate = new Date(date.WorkDate),
 				checked = false;
 
-			if (!date.IsDisabled) {
-				if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
-					checked = checkSameMealWithToday(sealedDate, date, mealTimesheet);
-				}
-				else {
-					checked = checkSameMeal(sealedDate, date);
-				}
+				if (!date.IsDisabled) {
+					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+						checked = checkSameMealWithToday(sealedDate, date, mealTimesheet);
+					}
+					else {
+						checked = checkSameMeal(sealedDate, date);
+					}
 
-				if (!checked) {
-					isSameMeal = false;
+					if (!checked) {
+						isSameMeal = false;
+					}
 				}
 			}
+		}
+		else {
+			// Today is the only enable day in current week
+			isSameMeal = true;
 		}
 
 		return isSameMeal;
@@ -431,6 +450,21 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		for (var i = 0; i < weeks.length; i++) {
 			var week = weeks[i];
 			resultDate = utility.getDateNotToday(week);
+
+			if (resultDate) {
+				i = weeks.length;
+			}
+		}
+
+		return resultDate;
+	};
+
+	utility.getDateIsTodayInMonth = function (weeks) {
+		var resultDate = '';
+
+		for (var i = 0; i < weeks.length; i++) {
+			var week = weeks[i];
+			resultDate = utility.getDateIsToday(week);
 
 			if (resultDate) {
 				i = weeks.length;
@@ -479,24 +513,29 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 			toDay = new Date(),
 			sealedDate = utility.getWeekDayNotTodayInMonth(weeks, weekDayIndex);
 
-		for (var i = 0; i < weeks.length; i++) {
-			var week = weeks[i],
+		if (sealedDate) {
+			for (var i = 0; i < weeks.length; i++) {
+				var week = weeks[i],
 				date = week.WeekMeals[weekDayIndex],
 				currentDate = new Date(date.WorkDate),
 				checked = false;
 
-			if (!date.IsDisabled) {
-				if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
-					checked = checkSameMealWithToday(sealedDate, date, mealTimesheet);
-				}
-				else {
-					checked = checkSameMeal(sealedDate, date);
-				}
+				if (!date.IsDisabled) {
+					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+						checked = checkSameMealWithToday(sealedDate, date, mealTimesheet);
+					}
+					else {
+						checked = checkSameMeal(sealedDate, date);
+					}
 
-				if (!checked) {
-					isSameMeal = false;
+					if (!checked) {
+						isSameMeal = false;
+					}
 				}
 			}
+		}
+		else {
+			isSameMeal = true;
 		}
 
 		return isSameMeal;
@@ -519,6 +558,27 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		}
 
 		return isSameMeal;
+	};
+
+	utility.getWeekDayIsToday = function (weeks, weekDayIndex) {
+		var resultDate = '',
+			toDay = new Date(),
+			weekLength = weeks.length;
+
+		for (var i = 0; i < weekLength; i++) {
+			var week = weeks[i],
+				date = week.WeekMeals[weekDayIndex],
+				currentDate = new Date(date.WorkDate);
+
+			if (!date.IsDisabled) {
+				if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+					resultDate = date;
+					i = weekLength;
+				}
+			}
+		}
+
+		return resultDate;
 	};
 
 	return utility;

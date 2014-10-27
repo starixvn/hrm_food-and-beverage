@@ -705,4 +705,7 @@
   <data name="UnhandledException" xml:space="preserve">
     <value>Unhandled Exception</value>
   </data>
+  <data name="DeliveryArea" xml:space="preserve">
+    <value>Delivery Area</value>
+  </data>
 </root>
