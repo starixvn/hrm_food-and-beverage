@@ -92,7 +92,7 @@
 							<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
 						</Trigger>
 						<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="1">
-							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Receive}"></Setter>
+							<!--<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Receive}"></Setter>-->
 							<Setter Property="Background" Value="#66b5d7"/>
 							<Setter Property="Command" Value="{Binding DataContext.ReceiveOrderFoodCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
 							<!--<Setter Property="Command" Value="{Binding Path=DataContext.ReceiveOrderFoodCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>-->
@@ -100,13 +100,13 @@
 						</DataTrigger>
 
 						<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="2">
-							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Export}"></Setter>
+							<!--<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Export}"></Setter>-->
 							<Setter Property="Background" Value="#FA5934"/>
 							<Setter Property="Command" Value="{Binding DataContext.DeliverOrderFoodCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
 							<Setter Property="CommandParameter" Value="{Binding Path=OrderId}"/>
 						</DataTrigger>
 						<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="3">
-							<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Export}"></Setter>
+							<!--<Setter Property="Content" Value="{x:Static resx:WinFormMainResource.Export}"></Setter>-->
 							<Setter Property="Background" Value="#FA5934"/>
 							<Setter Property="Command" Value="{Binding DataContext.DeliverOrderFoodCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
 							<Setter Property="CommandParameter" Value="{Binding Path=OrderId}"/>

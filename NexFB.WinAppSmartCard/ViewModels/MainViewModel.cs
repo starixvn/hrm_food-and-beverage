@@ -24,6 +24,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
+    using NexFB.WinAppSmartCard.DependencyProperties;
     using NexFB.WinAppSmartCard.GlobalResources.Services;
 
     /// <summary>
@@ -338,7 +339,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public Task SendMessage(int orderId)
         {
-            return Proxy.Invoke("KitchenNotify", orderId, 1);
+            if (InternetAvailability.IsInternetAvailable())
+            {
+                return Proxy.Invoke("SendNewOrder", orderId);
+            }
+            else
+            {
+                return ProxyLocal.Invoke("SendNewOrder", orderId);
+            }
         }
 
         #endregion

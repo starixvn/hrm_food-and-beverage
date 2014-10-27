@@ -133,7 +133,8 @@
 
 								<!--Order status-->
 								<Grid Grid.Column="2" Width="150" VerticalAlignment="Top">
-								<Button Height="40" Width="85" Foreground="White" Style="{StaticResource TileButton}"  Margin="38,8,20,40" />
+								<Button Height="40" Width="85" Content="{Binding Path=ButtonLabel}"
+								 Foreground="White" Style="{StaticResource TileButton}"  Margin="38,8,20,40" />
 								</Grid>
 							</Grid>
 						</Border>

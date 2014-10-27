@@ -67,7 +67,7 @@ namespace NexFB.WinApp
         {
             string errorMessage = Lang.ErrorMessage + "\n\nError details:\n" + e.Exception.Message;
             e.Handled = true;
-            if (MessageBox.Show(errorMessage, Lang.ErrorNetworkConnectionHeader, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+            if (MessageBox.Show(errorMessage, Lang.UnhandledException, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
             {
                 Shutdown();
             }

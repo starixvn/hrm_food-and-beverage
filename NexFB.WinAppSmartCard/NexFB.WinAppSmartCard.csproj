@@ -85,6 +85,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\MoneyConverter.cs" />
+    <Compile Include="DependencyProperties\InternetAvailability.cs" />
+    <Compile Include="DependencyProperties\NativeMethods.cs" />
     <Compile Include="Enums\ScopeOption.cs" />
     <Compile Include="Enums\SmartCardState.cs" />
     <Compile Include="Events\CardNumberChangedEventArgs.cs" />
@@ -204,9 +206,7 @@
     <Resource Include="Images\Flag_of_England.png" />
     <Resource Include="Images\Flag_of_Vietnam.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DependencyProperties\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\remove.png" />
     <Resource Include="Images\remove1.png" />

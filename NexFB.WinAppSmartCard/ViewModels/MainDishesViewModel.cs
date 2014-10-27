@@ -344,7 +344,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 {
                     MainViewModel.MainButtonEnable = false;
                     OrderNo = result.OrderNo;
-                    MainViewModel.SendMessage(OrderNo);
+                    MainViewModel.SendMessage(result.OrderId);
 
                     CountDownTimer = 30;
                     ShowNotificationScreen();

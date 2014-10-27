@@ -252,5 +252,23 @@ namespace NexFB.Models.Kitchen
                 return OrderNo.ToString().PadLeft(3, '0');
             }
         }
+
+        public string ButtonLabel
+        {
+            get
+            {
+                if (CurrentStatusId == 1)
+                {
+                    return WinFormMainResource.Receive;
+                }
+
+                if (CurrentStatusId == 2 || CurrentStatusId == 3)
+                {
+                    return WinFormMainResource.Export;
+                }
+
+                return string.Empty;
+            }
+        }
     }
 }

@@ -681,7 +681,7 @@
   <data name="NoneAvailable" xml:space="preserve">
     <value>N/A</value>
   </data>
-   <data name="DuplicateSetMenuMessage" xml:space="preserve">
+  <data name="DuplicateSetMenuMessage" xml:space="preserve">
     <value>This set menu exists</value>
   </data>
   <data name="CreateSetMenu" xml:space="preserve">
@@ -701,5 +701,8 @@
   </data>
   <data name="EditSetMenu" xml:space="preserve">
     <value>Edit Set Menu</value>
+  </data>
+  <data name="UnhandledException" xml:space="preserve">
+    <value>Unhandled Exception</value>
   </data>
 </root>
