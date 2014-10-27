@@ -57,7 +57,7 @@
                     <th class="width-170" data-translate="EmployeeType"></th>
                     <th class="width-120" data-translate="ShortPricePerMeal"></th>
                     <th class="width-120" data-translate="ShortPricePerDay"></th>
-                    <th class="width-80" data-translate="FoodItem"></th>
+					<th class="width-40" data-translate="SetMenu"></th>
                     <th class="width-60" data-translate="Active"></th>
                     <th class="width-80" data-translate="Action" ng-if="policy.permission == 2"></th>
                 </tr>
@@ -99,7 +99,7 @@
 					<td class="text-right" ng-bind="foodMenu.PricePerDay | number">
 					</td>
 					<td class="text-center">
-						<span>{{foodMenu.NumberFoodItems}}</span>
+						<span>{{foodMenu.SetMenus.length}}</span>
 					</td>
 					<td class="text-center">
 						<input type="checkbox" ng-checked="foodMenu.IsActive" ng-click="confirmActive(foodMenu)" ng-if="policy.permission == 2" />

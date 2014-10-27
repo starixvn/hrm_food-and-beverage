@@ -62,7 +62,7 @@ foodItemManagementModule.factory('foodItemUtilities',
 			});
 	};
 
-	utility.createMenuGroupId = function (setMenuIds) {
+	utility.createSetMenuId = function (setMenuIds) {
 		var setMenuId = '';
 
 		angular.forEach(setMenuIds, function (tempSetMenuId) {

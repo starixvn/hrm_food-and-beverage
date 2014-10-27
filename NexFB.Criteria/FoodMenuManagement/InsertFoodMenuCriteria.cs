@@ -37,7 +37,8 @@ namespace NexFB.Criteria.FoodMenuManagement
 
         public string EmployeeTypeId { get; set; }
 
-        public string FoodId { get; set; }
+        [SpParam(SqlParamName = "FoodSetID")]
+        public string SetMenuId { get; set; }
 
         public int CreatedBy { get; set; }
 

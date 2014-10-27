@@ -14,7 +14,7 @@ foodItemUtilities) {
 	$scope.food = {
 		foodEngName: '',
 		foodVnmName: '',
-		isActive: false,
+		isActive: true,
 		setMenuIds: [],
 		setMenuId: ''
 	};
@@ -36,7 +36,7 @@ foodItemUtilities) {
 		$scope.disabledSubmitButton = true;
 
 		if (foodItemUtilities.validateFoodItem(food)) {
-			food.setMenuId = foodItemUtilities.createMenuGroupId(food.setMenuIds);
+			food.setMenuId = foodItemUtilities.createSetMenuId(food.setMenuIds);
 			$modalInstance.close(food);
 		}
 		else {
@@ -52,7 +52,7 @@ foodItemUtilities) {
 		$scope.disabledSubmitButton = true;
 
 		if (foodItemUtilities.validateFoodItem(food)) {
-			food.menuGroupId = foodItemUtilities.createMenuGroupId(food.setMenuIds);
+			food.menuGroupId = foodItemUtilities.createSetMenuId(food.setMenuIds);
 
 			foodItemFactory.insertFoodItem(food).success(function (response) {
 				$scope.submitted = false;

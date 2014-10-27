@@ -21,10 +21,10 @@ foodMenuManagementModule.directive('resetFoodMenu', function () {
 		foodMenu.isActive = false;
 		foodMenu.mealId = '';
 		foodMenu.employeeTypeId = '';
-		foodMenu.foodId = '';
+		foodMenu.setMenuId = '';
 		foodMenu.pricePerMeal = '';
 		foodMenu.pricePerDay = '';
-		foodMenu.rawFoodIds = '';
+		foodMenu.rawSetMenuIds = [];
 	};
 
 	return {
@@ -34,7 +34,7 @@ foodMenuManagementModule.directive('resetFoodMenu', function () {
 				clearMealsData(scope.mealsOption);
 				clearEmployeeTypesData(scope.employeeTypesOption);
 
-				var menuChosenSelect = $("[name='foodSelect']");
+				var menuChosenSelect = $("[name='setMenuSelect']");
 				$(menuChosenSelect).val('').trigger("chosen:updated");
 			});
 		}

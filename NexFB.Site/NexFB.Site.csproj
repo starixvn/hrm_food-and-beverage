@@ -228,6 +228,8 @@
     <Content Include="Src\App\FoodItemManagement\Templates\create.html" />
     <Content Include="Src\App\FoodItemManagement\Templates\edit.html" />
     <Content Include="Src\App\FoodItemManagement\Templates\index.html" />
+    <Content Include="Src\App\FoodMenuManagement\editFoodMenu-controller.js" />
+    <Content Include="Src\App\FoodMenuManagement\createFoodMenu-controller.js" />
     <Content Include="Src\App\FoodMenuManagement\foodMenuManagement-controller.js" />
     <Content Include="Src\App\FoodMenuManagement\foodMenuManagement-directive.js" />
     <Content Include="Src\App\FoodMenuManagement\foodMenuManagement-factory.js" />

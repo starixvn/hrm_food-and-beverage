@@ -27,7 +27,7 @@ ErrorFactory) {
 	commonFactory.numberEntryList($scope);
 
 	/*
-	** Get all food menu to filter.
+	** Get all set menu to filter.
 	*/
 	setMenuFactory.getSetMenu(null, null).success(function (setMenus) {
 		$scope.setMenuItems = setMenus;

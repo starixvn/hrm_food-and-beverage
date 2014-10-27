@@ -2,9 +2,9 @@
 /*global foodMenuManagementModule*/
 
 foodMenuManagementModule.controller('FoodMenuManagementController',
-['$scope', '$modal', 'foodMenuFactory', 'notificationFactory', 'commonFactory', 'foodItemFactory',
+['$scope', '$modal', 'foodMenuFactory', 'notificationFactory', 'commonFactory', 'setMenuFactory',
 'ErrorFactory',
-function ($scope, $modal, foodMenuFactory, notificationFactory, commonFactory, foodItemFactory,
+function ($scope, $modal, foodMenuFactory, notificationFactory, commonFactory, setMenuFactory,
 ErrorFactory) {
 	/*
 	** Declare variables.
@@ -41,8 +41,8 @@ ErrorFactory) {
 	*/
 	foodMenuFactory.getAllMealTimesheet().success(function (meals) {
 		$scope.mealsOption = meals;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -50,22 +50,17 @@ ErrorFactory) {
 	*/
 	foodMenuFactory.getAllEmployeeType().success(function (employeeTypes) {
 		$scope.employeeTypesOption = employeeTypes;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
-	** Get all food item.
+	** Get all set menu item.
 	*/
-	foodItemFactory.getAllFoodItem(null, true).success(function (foodItems) {
-		$scope.foodItems = foodItems;
+	setMenuFactory.getSetMenu(null, null).success(function (setMenus) {
+		$scope.setMenuItems = setMenus;
 	}).error(function (response, status) {
-		if (status === 405) {
-			ErrorFactory.errorHandle(status);
-		}
-		else {
-			notificationFactory.error("ErrorMessage");
-		}
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -75,8 +70,8 @@ ErrorFactory) {
 		$scope.policy = {
 			permission: permission
 		};
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -88,12 +83,7 @@ ErrorFactory) {
 			commonFactory.tablePagination($scope, $scope.foodMenus, $scope.entrySelected);
 			$scope.currentPage = $scope.originalPage;
 		}).error(function (response, status) {
-			if (status === 405) {
-				ErrorFactory.errorHandle(status);
-			}
-			else {
-				notificationFactory.error("ErrorMessage");
-			}
+			ErrorFactory.errorHandle(status);
 		});
 	};
 
@@ -124,8 +114,8 @@ ErrorFactory) {
 				employeeTypesOption: function () {
 					return $scope.employeeTypesOption;
 				},
-				foodItems: function () {
-					return $scope.foodItems;
+				setMenuItems: function () {
+					return $scope.setMenuItems;
 				}
 			},
 			windowClass: "modal-confirm-center food-menu-modal"
@@ -152,10 +142,9 @@ ErrorFactory) {
 		foodMenu.PricePerDay = isNaN(changedFoodMenu.PricePerDay) ?
 									parseInt(changedFoodMenu.PricePerDay.replace(/\,/g, ''))
 									: changedFoodMenu.PricePerDay;
-		foodMenu.FoodItems = changedFoodMenu.FoodItems;
+		foodMenu.SetMenus = changedFoodMenu.SetMenus;
 		foodMenu.EmployeeTypes = changedFoodMenu.EmployeeTypes;
 		foodMenu.Meals = changedFoodMenu.Meals;
-		foodMenu.NumberFoodItems = changedFoodMenu.NumberFoodItems;
 	};
 
 	$scope.edit = function (foodMenu) {
@@ -166,8 +155,8 @@ ErrorFactory) {
 				foodMenu: function () {
 					return angular.copy(foodMenu);
 				},
-				foodItems: function () {
-					return $scope.foodItems;
+				setMenuItems: function () {
+					return $scope.setMenuItems;
 				},
 				mealsOption: function () {
 					return $scope.mealsOption;
@@ -216,7 +205,7 @@ ErrorFactory) {
 
 		$scope.modalInstance.result.then(function () {
 			foodMenuFactory.activateFoodMenu(newFoodMenu).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
 					notificationFactory.success(keyMessage);
 				}
@@ -285,7 +274,7 @@ ErrorFactory) {
 			var currentPage = $scope.currentPage;
 
 			foodMenuFactory.deleteFoodMenu(foodMenu.MenuId).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					updatePaging(foodMenu, currentPage);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
@@ -293,366 +282,10 @@ ErrorFactory) {
 					notificationFactory.error("", response.Message);
 				}
 			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
+				ErrorFactory.errorHandle(status);
 			});
 		})['finally'](function () {
 			$scope.modalInstance = '';
 		});
-	};
-} ]);
-
-foodMenuManagementModule.controller('CreateFoodMenuController',
-['$scope', '$modalInstance', 'mealsOption', 'employeeTypesOption', 'foodItems', 'foodMenuUtilities',
-'foodMenuFactory', 'notificationFactory', 'ErrorFactory',
-function ($scope, $modalInstance, mealsOption, employeeTypesOption, foodItems, foodMenuUtilities,
-foodMenuFactory, notificationFactory, ErrorFactory) {
-	/*
-	** Declare variables.
-	*/
-	$scope.mealsOption = angular.copy(mealsOption);
-	$scope.employeeTypesOption = angular.copy(employeeTypesOption);
-	$scope.groupOptions = foodItems;
-
-	$scope.foodMenu = {
-		menuVnmName: '',
-		menuEngName: '',
-		isVegetarian: false,
-		isActive: false,
-		mealId: '',
-		employeeTypeId: '',
-		foodId: '',
-		pricePerMeal: 0,
-		pricePerDay: 0,
-		rawFoodIds: ''
-	};
-
-	$scope.mealSelectSettings = {
-		displayProp: 'MealVnmName',
-		idProp: 'MealId'
-	};
-
-	/*
-	** Set form scope to current scope.
-	*/
-	$scope.setFormScope = function (formScope) {
-		$scope.formScope = formScope;
-	};
-
-	/*
-	** Add new food menu.
-	*/
-	$scope.addFoodMenu = function (foodMenu) {
-		$scope.disabledSubmitButton = true;
-
-		if (foodMenu) {
-			foodMenu.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
-			foodMenu.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-
-			if (!foodMenu.pricePerMeal) {
-				foodMenu.pricePerMeal = 0;
-			}
-			if (!foodMenu.pricePerDay) {
-				foodMenu.pricePerDay = 0;
-			}
-		}
-
-		if (foodMenuUtilities.validateFoodMenu(foodMenu)) {
-			foodMenu.foodId = foodMenuUtilities.createFoodId(foodMenu.rawFoodIds);
-
-			foodMenuFactory.insertFoodMenu(foodMenu).success(function (response) {
-				$scope.submitted = false;
-				$scope.disabledSubmitButton = false;
-
-				if (response.IsSuccessful) {
-					notificationFactory.success("DataChangeSuccessfully");
-					$modalInstance.close();
-				}
-				else if (response.Code === 101) {
-					notificationFactory.error("DuplicateFoodMenuMessage");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
-			});
-		}
-		else {
-			$scope.disabledSubmitButton = false;
-		}
-	};
-
-	/*
-	** Add new food menu and continue.
-	*/
-	$scope.addAndContinue = function (foodMenu) {
-		$scope.disabledSubmitButton = true;
-
-		if (foodMenu) {
-			foodMenu.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
-			foodMenu.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-
-			if (!foodMenu.pricePerMeal) {
-				foodMenu.pricePerMeal = 0;
-			}
-			if (!foodMenu.pricePerDay) {
-				foodMenu.pricePerDay = 0;
-			}
-		}
-
-		if (foodMenuUtilities.validateFoodMenu(foodMenu) === true) {
-			foodMenu.foodId = foodMenuUtilities.createFoodId(foodMenu.rawFoodIds);
-
-			foodMenuFactory.insertFoodMenu(foodMenu).success(function (response) {
-				if (response.IsSuccessful === true) {
-					$scope.$broadcast("resetFoodMenu");
-					notificationFactory.success("DataChangeSuccessfully");
-				}
-				else if (response.Code === 101) {
-					notificationFactory.error("DuplicateFoodMenuMessage");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
-			})['finally'](function () {
-				$scope.disabledSubmitButton = false;
-			});
-		}
-		else {
-			$scope.disabledSubmitButton = false;
-		}
-	};
-
-	$scope.cancel = function () {
-		$modalInstance.dismiss("cancel");
-	};
-} ]);
-
-foodMenuManagementModule.controller('EditFoodMenuController',
-['$scope', '$modalInstance', 'foodMenu', 'foodItems', 'mealsOption', 'employeeTypesOption',
-'foodMenuUtilities', 'foodMenuFactory', 'notificationFactory', 'ErrorFactory', 'commonFactory',
-function ($scope, $modalInstance, foodMenu, foodItems, mealsOption, employeeTypesOption,
-foodMenuUtilities, foodMenuFactory, notificationFactory, ErrorFactory, commonFactory) {
-	/*
-	** Declare variables.
-	*/
-	$scope.foodMenu = foodMenu;
-	$scope.groupOptions = foodItems;
-	$scope.mealsOption = angular.copy(mealsOption);
-	$scope.employeeTypesOption = angular.copy(employeeTypesOption);
-
-	/*
-	** Disable or enable food item multiselect.
-	*/
-	$scope.$watch('foodMenu.IsActive', function (newValue) {
-		if (newValue === false) {
-			$scope.$broadcast("disableChosenSelect");
-		}
-		else {
-			$scope.$broadcast("enableChosenSelect");
-		}
-	});
-
-	/*
-	** Create list food item Id.
-	*/
-	var createFoodIds = function (foodItems) {
-		var foodIds = [];
-
-		angular.forEach(foodItems, function (foodItem) {
-			foodIds.push(foodItem.FoodId);
-		});
-
-		return foodIds;
-	};
-
-	$scope.foodMenu.rawFoodIds = createFoodIds(foodMenu.FoodItems);
-
-	/*
-	** Check meal that belong to food menu.
-	*/
-	var checkMealBelongToFoodMenu = function (mealId, meals) {
-		var exist = false;
-
-		angular.forEach(meals, function (meal) {
-			if (meal.MealId === mealId) {
-				exist = true;
-			}
-		});
-
-		return exist;
-	};
-
-	var checkMealOptions = function () {
-		angular.forEach($scope.mealsOption, function (meal) {
-			meal.ticked = checkMealBelongToFoodMenu(meal.MealId, $scope.foodMenu.Meals);
-		});
-	};
-
-	checkMealOptions();
-	/*
-	** Check employee type that belong to food menu.
-	*/
-	var checkEmployeeTypeBelongToFoodMenu = function (employeeTypeId, employeeTypes) {
-		var exist = false;
-
-		angular.forEach(employeeTypes, function (employeeType) {
-			if (employeeType.EmployeeTypeId === employeeTypeId) {
-				exist = true;
-			}
-		});
-
-		return exist;
-	};
-
-	var checkEmployeeTypeOptions = function () {
-		angular.forEach($scope.employeeTypesOption, function (employeeType) {
-			employeeType.ticked = checkEmployeeTypeBelongToFoodMenu(employeeType.EmployeeTypeId, $scope.foodMenu.EmployeeTypes);
-		});
-	};
-
-	checkEmployeeTypeOptions();
-
-	/*
-	** Update meals.
-	*/
-	var getMealById = function (mealId, mealsOption) {
-		var meal = '',
-			mealsOptionLength = mealsOption.length;
-
-		for (var i = 0; i < mealsOptionLength; i++) {
-			var currentMeal = mealsOption[i];
-
-			if (currentMeal.MealId === mealId) {
-				return currentMeal;
-			}
-		}
-
-		return meal;
-	};
-
-	var updateMeals = function (mealIds) {
-		var updateMeals = [],
-			mealIdList = mealIds.split(',');
-
-		angular.forEach(mealIdList, function (mealId) {
-			var addedMeal = getMealById(parseInt(mealId), $scope.mealsOption);
-			updateMeals.push(addedMeal);
-		});
-
-		return updateMeals;
-	};
-
-	/*
-	** Update Food Items.
-	*/
-	var getFoodItemById = function (foodId, allFoodItems) {
-		var foodItem = '',
-			numberFoodItem = allFoodItems.length;
-
-		for (var i = 0; i < numberFoodItem; i++) {
-			var currentFoodItem = allFoodItems[i];
-
-			if (currentFoodItem.FoodId === foodId) {
-				return currentFoodItem;
-			}
-		}
-
-		return foodItem;
-	};
-
-	var updateFoodItems = function (rawFoodIds) {
-		var foodItems = [];
-
-		angular.forEach(rawFoodIds, function (foodId) {
-			var addedFoodItem = getFoodItemById(foodId, $scope.groupOptions);
-			foodItems.push(addedFoodItem);
-		});
-
-		return foodItems;
-	};
-
-	/*
-	** Update food menu.
-	*/
-	$scope.updateFoodMenu = function (foodMenu) {
-		if (foodMenu) {
-			foodMenu.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
-			foodMenu.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-
-			if (!foodMenu.PricePerMeal) {
-				foodMenu.PricePerMeal = 0;
-			}
-			if (!foodMenu.PricePerDay) {
-				foodMenu.PricePerDay = 0;
-			}
-		}
-
-		var editedFoodMenu = {
-			menuId: foodMenu.MenuId,
-			menuVnmName: foodMenu.MenuVnmName,
-			menuEngName: foodMenu.MenuEngName,
-			isVegetarian: foodMenu.IsVegetarian,
-			pricePerMeal: foodMenu.PricePerMeal,
-			pricePerDay: foodMenu.PricePerDay,
-			isActive: foodMenu.IsActive,
-			mealId: foodMenu.mealId,
-			employeeTypeId: foodMenu.employeeTypeId,
-			foodId: foodMenuUtilities.createFoodId(foodMenu.rawFoodIds)
-		};
-
-		$scope.disabledSubmitButton = true;
-
-		if (foodMenuUtilities.validateFoodMenu(editedFoodMenu)) {
-
-			foodMenuFactory.updateFoodMenu(editedFoodMenu).success(function (response) {
-				if (response.IsSuccessful) {
-					foodMenu.Meals = updateMeals(editedFoodMenu.mealId);
-					foodMenu.EmployeeTypes = commonFactory.updateEmployeeTypes(editedFoodMenu.employeeTypeId, $scope.employeeTypesOption);
-					foodMenu.FoodItems = updateFoodItems(foodMenu.rawFoodIds);
-					foodMenu.NumberFoodItems = foodMenu.rawFoodIds.length;
-
-					notificationFactory.success("DataChangeSuccessfully");
-					$modalInstance.close(foodMenu);
-				}
-				else if (response.Code === 101) {
-					notificationFactory.error("DuplicateFoodMenuMessage");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
-			});
-		}
-		else {
-			$scope.disabledSubmitButton = false;
-		}
-	};
-
-	$scope.cancel = function () {
-		$modalInstance.dismiss("cancel");
 	};
 } ]);

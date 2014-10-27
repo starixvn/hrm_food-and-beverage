@@ -97,14 +97,14 @@ function (notificationFactory) {
 		return employeeTypeId;
 	};
 
-	utility.createFoodId = function (rawFoodIds) {
-		var foodId = '';
+	utility.createSetMenuId = function (rawSetMenuIds) {
+		var setMenuId = '';
 
-		angular.forEach(rawFoodIds, function (rawFoodId) {
-			foodId = foodId !== '' ? foodId + ',' + rawFoodId : rawFoodId;
+		angular.forEach(rawSetMenuIds, function (rawSetMenuId) {
+			setMenuId = setMenuId !== '' ? setMenuId + ',' + rawSetMenuId : rawSetMenuId;
 		});
 
-		return foodId;
+		return setMenuId;
 	};
 
 	return utility;

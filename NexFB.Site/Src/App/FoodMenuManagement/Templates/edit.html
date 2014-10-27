@@ -44,10 +44,10 @@
                 </div>
 			</div>
 			<div>
-				<label class="filterRow">{{"FoodItems" | translate}}:</label>
+				<label class="filterRow">{{"SetMenu" | translate}}:</label>
 				<div class="menu-box">
-					<select name="foodSelect" class="chosen-select" data-placeholder="Select food item(s)" multiple multi-select-chosen name="foodItemGroup"
-						ng-model="foodMenu.rawFoodIds" ng-options="opt.FoodId as opt.FoodVnmName for opt in groupOptions" 
+					<select name="setMenuSelect" class="chosen-select" data-placeholder="Select food set menu" multiple multi-select-chosen name="setMenuGroup"
+						ng-model="foodMenu.rawSetMenuIds" ng-options="opt.SetMenuId as opt.SetMenuVnmName for opt in setMenuItems" 
 						disable-chosen-select enable-chosen-select >
 					</select>
 				</div>
