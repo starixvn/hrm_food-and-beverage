@@ -4,15 +4,13 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Bradley.Mac" date="2014.9.5">Created</change>
+//   <change who="Bradley.Mac" date="2014.10.27">Created</change>
 // </history>
 
-namespace NexFB.WinApp.DependencyProperties
+namespace NexFB.WinApp.Core.InternetBased
 {
-    using System.Runtime.InteropServices;
-
     /// <summary>
-    /// Internet Connection Availability.
+    /// Internet Availability.
     /// </summary>
     public static class InternetAvailability
     {

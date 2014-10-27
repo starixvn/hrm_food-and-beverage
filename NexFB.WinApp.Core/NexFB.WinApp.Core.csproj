@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constant.cs" />
+    <Compile Include="InternetBased\InternetAvailability.cs" />
+    <Compile Include="InternetBased\NativeMethods.cs" />
     <Compile Include="Mapping\CoreMappingRegister.cs" />
     <Compile Include="Mapping\IMappingRegister.cs" />
     <Compile Include="Models\CommonKitchenOrder.cs" />

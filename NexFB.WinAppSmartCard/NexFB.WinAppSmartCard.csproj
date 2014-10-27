@@ -85,8 +85,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\MoneyConverter.cs" />
-    <Compile Include="DependencyProperties\InternetAvailability.cs" />
-    <Compile Include="DependencyProperties\NativeMethods.cs" />
     <Compile Include="Enums\ScopeOption.cs" />
     <Compile Include="Enums\SmartCardState.cs" />
     <Compile Include="Events\CardNumberChangedEventArgs.cs" />

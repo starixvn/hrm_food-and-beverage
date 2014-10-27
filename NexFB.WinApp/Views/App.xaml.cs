@@ -15,11 +15,10 @@ namespace NexFB.WinApp
     using System.Windows;
     using System.Windows.Threading;
     using Fanex.Data.Configuration;
-    using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.Resources;
     using NexFB.WinApp.Core.Constants;
+    using NexFB.WinApp.Core.InternetBased;
     using NexFB.WinApp.Core.Mapping;
-    using NexFB.WinApp.DependencyProperties;
 
     /// <summary>
     /// Interaction logic.

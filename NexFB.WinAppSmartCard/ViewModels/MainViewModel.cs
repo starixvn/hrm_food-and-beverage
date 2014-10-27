@@ -22,9 +22,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
     using NexFB.WinApp.Core.Commands;
+    using NexFB.WinApp.Core.InternetBased;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
-    using NexFB.WinAppSmartCard.DependencyProperties;
     using NexFB.WinAppSmartCard.GlobalResources.Services;
 
     /// <summary>

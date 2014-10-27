@@ -108,8 +108,6 @@
     </ApplicationDefinition>
     <Compile Include="Converter\RangeToBooleanConverter.cs" />
     <Compile Include="Converter\StringFormatConverter.cs" />
-    <Compile Include="DependencyProperties\InternetAvailability.cs" />
-    <Compile Include="DependencyProperties\NativeMethods.cs" />
     <Compile Include="DependencyProperties\TextBlockInline.cs" />
     <Compile Include="DependencyProperties\WaterMark.cs" />
     <Compile Include="DependencyProperties\WatermarkAdorner.cs" />

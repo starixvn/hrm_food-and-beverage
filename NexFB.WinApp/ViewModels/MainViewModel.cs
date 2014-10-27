@@ -25,8 +25,8 @@ namespace NexFB.WinApp.ViewModels
     using NexFB.Resources;
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinApp.Core.Constants;
+    using NexFB.WinApp.Core.InternetBased;
     using NexFB.WinApp.Core.Models;
-    using NexFB.WinApp.DependencyProperties;
     using NexFB.WinApp.Views;
 
     /// <summary>
