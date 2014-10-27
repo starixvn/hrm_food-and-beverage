@@ -180,11 +180,18 @@
 	</Function>
 	<Function Name="FoodItemManagement">
 		<Setting Key="Food_GetItem" SpName="Food_GetItem" DbName="NexFB" Plain="0" >
+      <Mapping DataField="FoodSetId" ObjectProperty="SetMenuId" Class="RawFoodSetMenuModel"/>
+      <Mapping DataField="FoodSetCode" ObjectProperty="SetMenuCode" Class="RawFoodSetMenuModel"/>
+      <Mapping DataField="FoodSetVNMName" ObjectProperty="SetMenuVnmName" Class="RawFoodSetMenuModel"/>
+      <Mapping DataField="FoodSetENGName" ObjectProperty="SetMenuEngName" Class="RawFoodSetMenuModel"/>
+      <Mapping DataField="FoodSetIsActive" ObjectProperty="IsActive" Class="RawFoodSetMenuModel"/>
 		</Setting>
 		<Setting Key="Food_Insert" SpName="Food_Insert" DbName="NexFB" Plain="0" >
 		</Setting>
 		<Setting Key="Food_EditByFoodID" SpName="Food_EditByFoodID" DbName="NexFB" Plain="0" >
 		</Setting>
+    <Setting Key="Food_EditActiveByFoodID" SpName="Food_EditActiveByFoodID" DbName="NexFB" Plain="0" >
+    </Setting>
 		<Setting Key="Food_DeleteByFoodID" SpName="Food_DeleteByFoodID" DbName="NexFB" Plain="0" >
 		</Setting>
 		<Setting Key="Food_GetName" SpName="Food_GetName" DbName="NexFB" Plain="0" >

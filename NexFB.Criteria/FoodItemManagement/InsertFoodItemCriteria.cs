@@ -23,7 +23,8 @@ namespace NexFB.Criteria.FoodItemManagement
 
         public string FoodPhoto { get; set; }
 
-        public string MenuGroupId { get; set; }
+        [SpParam(SqlParamName = "FoodSetID")]
+        public string SetMenuId { get; set; }
 
         public bool? IsActive { get; set; }
 

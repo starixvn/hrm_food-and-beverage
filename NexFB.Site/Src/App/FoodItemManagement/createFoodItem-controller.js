@@ -1,0 +1,82 @@
+﻿'use strict';
+/*global foodItemManagementModule*/
+
+foodItemManagementModule.controller('CreateFoodItemController',
+['$scope', '$modalInstance', 'setMenuItems', 'notificationFactory', 'ErrorFactory', 'foodItemFactory',
+'foodItemUtilities',
+function ($scope, $modalInstance, setMenuItems, notificationFactory, ErrorFactory, foodItemFactory,
+foodItemUtilities) {
+	/*
+	** Declare variables.
+	*/
+	$scope.setMenuItems = setMenuItems;
+
+	$scope.food = {
+		foodEngName: '',
+		foodVnmName: '',
+		isActive: false,
+		setMenuIds: [],
+		setMenuId: ''
+	};
+
+	/*
+	** Set scope of form to current scope.
+	*/
+	$scope.setFormScope = function (formScope) {
+		$scope.formScope = formScope;
+	};
+
+	/*
+	** Create food item.
+	*/
+	foodItemUtilities.showMessageValidateFoodItem($scope);
+
+	$scope.create = function (food) {
+		$scope.submitted = true;
+		$scope.disabledSubmitButton = true;
+
+		if (foodItemUtilities.validateFoodItem(food)) {
+			food.setMenuId = foodItemUtilities.createMenuGroupId(food.setMenuIds);
+			$modalInstance.close(food);
+		}
+		else {
+			$scope.disabledSubmitButton = false;
+		}
+	};
+
+	/*
+	** Create and continue.
+	*/
+	$scope.createAndContinue = function (food) {
+		$scope.submitted = true;
+		$scope.disabledSubmitButton = true;
+
+		if (foodItemUtilities.validateFoodItem(food)) {
+			food.menuGroupId = foodItemUtilities.createMenuGroupId(food.setMenuIds);
+
+			foodItemFactory.insertFoodItem(food).success(function (response) {
+				$scope.submitted = false;
+				$scope.disabledSubmitButton = false;
+
+				if (response.IsSuccessful) {
+					$scope.$broadcast("resetFoodItem");
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			})['finally'](function () {
+				$scope.disabledSubmitButton = false;
+			});
+		}
+		else {
+			$scope.disabledSubmitButton = false;
+		}
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
+	};
+} ]);

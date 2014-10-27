@@ -6,8 +6,8 @@ foodItemManagementModule.directive('resetFoodItem', function () {
 		food.foodEngName = '';
 		food.foodVnmName = '';
 		food.isActive = false;
-		food.groupIds = '';
-		food.menuGroupId = '';
+		food.setMenuIds = [];
+		food.setMenuId = '';
 	};
 
 	return {
@@ -15,8 +15,8 @@ foodItemManagementModule.directive('resetFoodItem', function () {
 			scope.$on('resetFoodItem', function () {
 				clearInputData(scope.food);
 
-				var menuChosenSelect = $("[name='menuSelect']");
-				$(menuChosenSelect).val('').trigger("chosen:updated");
+				var setMenuChosenSelect = $("[name='setMenuSelect']");
+				$(setMenuChosenSelect).val('').trigger("chosen:updated");
 			});
 		}
 	};

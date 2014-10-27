@@ -2,15 +2,15 @@
 /*global foodItemManagementModule*/
 
 foodItemManagementModule.controller('FoodItemManagementController',
-['$scope', '$modal', 'foodItemFactory', 'notificationFactory', 'foodMenuFactory', 'commonFactory',
-'ErrorFactory', 'foodItemUtilities',
-function ($scope, $modal, foodItemFactory, notificationFactory, foodMenuFactory, commonFactory,
-ErrorFactory, foodItemUtilities) {
+['$scope', '$modal', 'foodItemFactory', 'notificationFactory', 'setMenuFactory', 'commonFactory',
+'ErrorFactory',
+function ($scope, $modal, foodItemFactory, notificationFactory, setMenuFactory, commonFactory,
+ErrorFactory) {
 	/*
 	** Declare variable.
 	*/
 	$scope.filter = {
-		menuGroupId: '',
+		setMenuId: '',
 		isActive: ''
 	};
 
@@ -29,27 +29,22 @@ ErrorFactory, foodItemUtilities) {
 	/*
 	** Get all food menu to filter.
 	*/
-	foodMenuFactory.getAllFoodMenuToFilter().success(function (foodMenus) {
-		$scope.menuOptions = foodMenus;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	setMenuFactory.getSetMenu(null, null).success(function (setMenus) {
+		$scope.setMenuItems = setMenus;
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
 	** Get all food item.
 	*/
-	var getAllFoodItem = function (menuGroupId, isActive) {
-		foodItemFactory.getAllFoodItem(menuGroupId, isActive).success(function (foodItems) {
+	var getAllFoodItem = function (setMenuId, isActive) {
+		foodItemFactory.getAllFoodItem(setMenuId, isActive).success(function (foodItems) {
 			$scope.foodItems = foodItems;
 			commonFactory.tablePagination($scope, foodItems, $scope.entrySelected);
 			$scope.currentPage = $scope.originalPage;
 		}).error(function (response, status) {
-			if (status === 405) {
-				ErrorFactory.errorHandle(status);
-			}
-			else {
-				notificationFactory.error("ErrorMessage");
-			}
+			ErrorFactory.errorHandle(status);
 		});
 	};
 
@@ -58,20 +53,19 @@ ErrorFactory, foodItemUtilities) {
 	/*
 	** Query data when filter.
 	*/
-	function getSelectedMenuGroup(filter) {
-		filter.menuGroupId = '';
+	function getSelectedSetMenu(filter) {
+		filter.setMenuId = '';
 
-		angular.forEach($scope.menuOptions, function (value) {
-			if (value.ticked === true) {
-				var menuGroupId = value.MenuId;
-				filter.menuGroupId = filter.menuGroupId !== '' ? filter.menuGroupId + ',' + menuGroupId : menuGroupId;
+		angular.forEach($scope.setMenuItems, function (value) {
+			if (value.ticked) {
+				filter.setMenuId = filter.setMenuId !== '' ? filter.setMenuId + ',' + value.SetMenuId : value.SetMenuId;
 			}
 		});
 	}
 
 	$scope.query = function (filter) {
-		getSelectedMenuGroup(filter);
-		getAllFoodItem(filter.menuGroupId, filter.isActive);
+		getSelectedSetMenu(filter);
+		getAllFoodItem(filter.setMenuId, filter.isActive);
 	};
 
 	/*
@@ -81,8 +75,8 @@ ErrorFactory, foodItemUtilities) {
 		$scope.policy = {
 			permission: permission
 		};
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -105,8 +99,8 @@ ErrorFactory, foodItemUtilities) {
 			templateUrl: '/src/app/FoodItemManagement/Templates/create.html',
 			controller: "CreateFoodItemController",
 			resolve: {
-				menuOptions: function () {
-					return $scope.menuOptions;
+				setMenuItems: function () {
+					return $scope.setMenuItems;
 				}
 			},
 			windowClass: "modal-confirm-center food-item-modal"
@@ -115,19 +109,14 @@ ErrorFactory, foodItemUtilities) {
 		$scope.modalInstance.result.then(function (food) {
 
 			foodItemFactory.insertFoodItem(food).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					notificationFactory.success("DataChangeSuccessfully");
 				}
 				else {
 					notificationFactory.error("", response.Message);
 				}
 			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
+				ErrorFactory.errorHandle(status);
 			});
 		})['finally'](function () {
 			getAllFoodItem(null, null);
@@ -141,7 +130,7 @@ ErrorFactory, foodItemUtilities) {
 	var updateChangedFoodItem = function (food, changedFood) {
 		food.FoodVnmName = changedFood.FoodVnmName;
 		food.FoodEngName = changedFood.FoodEngName;
-		food.FoodMenus = changedFood.FoodMenus;
+		food.SetMenus = changedFood.SetMenus;
 		food.IsActive = changedFood.IsActive;
 	};
 
@@ -153,8 +142,8 @@ ErrorFactory, foodItemUtilities) {
 				foodItem: function () {
 					return angular.copy(food);
 				},
-				menuOptions: function () {
-					return $scope.menuOptions;
+				setMenuItems: function () {
+					return $scope.setMenuItems;
 				}
 			},
 			windowClass: "modal-confirm-center food-item-modal"
@@ -162,7 +151,7 @@ ErrorFactory, foodItemUtilities) {
 
 		$scope.modalInstance.result.then(function (objFood) {
 			foodItemFactory.updateFoodItem(objFood.editedFood).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					updateChangedFoodItem(food, objFood.food);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
@@ -170,12 +159,7 @@ ErrorFactory, foodItemUtilities) {
 					notificationFactory.error("", response.Message);
 				}
 			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
+				ErrorFactory.errorHandle(status);
 			});
 		})['finally'](function () {
 			$scope.modalInstance = '';
@@ -209,10 +193,8 @@ ErrorFactory, foodItemUtilities) {
 		var keyMessage = '';
 
 		$scope.modalInstance.result.then(function () {
-			newFood.menuGroupId = foodItemUtilities.createMenuGroupIdFromFoodMenu(newFood.FoodMenus);
-
-			foodItemFactory.updateFoodItem(newFood).success(function (response) {
-				if (response.IsSuccessful === true) {
+			foodItemFactory.updateStatusFoodItem(newFood).success(function (response) {
+				if (response.IsSuccessful) {
 					keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
 					notificationFactory.success(keyMessage);
 				}
@@ -275,7 +257,7 @@ ErrorFactory, foodItemUtilities) {
 			var currentPage = $scope.currentPage;
 
 			foodItemFactory.deleteFoodItem(food.FoodId).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					updatePaging(food, currentPage);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
@@ -283,209 +265,10 @@ ErrorFactory, foodItemUtilities) {
 					notificationFactory.error("", response.Message);
 				}
 			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
+				ErrorFactory.errorHandle(status);
 			});
 		})['finally'](function () {
 			$scope.modalInstance = '';
 		});
-	};
-} ]);
-
-
-foodItemManagementModule.controller('CreateFoodItemController',
-['$scope', '$modalInstance', 'menuOptions', 'notificationFactory', 'ErrorFactory', 'foodItemFactory',
-'foodItemUtilities',
-function ($scope, $modalInstance, menuOptions, notificationFactory, ErrorFactory, foodItemFactory,
-foodItemUtilities) {
-	/*
-	** Declare variables.
-	*/
-	$scope.groupOptions = menuOptions;
-
-	$scope.food = {
-		foodEngName: '',
-		foodVnmName: '',
-		isActive: false,
-		groupIds: '',
-		menuGroupId: ''
-	};
-
-	/*
-	** Set scope of form to current scope.
-	*/
-	$scope.setFormScope = function (formScope) {
-		$scope.formScope = formScope;
-	};
-
-	/*
-	** Create food item.
-	*/
-	foodItemUtilities.showMessageValidateFoodItem($scope);
-
-	$scope.create = function (food) {
-		$scope.submitted = true;
-		$scope.disabledSubmitButton = true;
-
-		if (foodItemUtilities.validateFoodItem(food) === true) {
-			food.menuGroupId = foodItemUtilities.createMenuGroupId(food.groupIds);
-			$modalInstance.close(food);
-		}
-		else {
-			$scope.disabledSubmitButton = false;
-		}
-	};
-
-	/*
-	** Create and continue.
-	*/
-	$scope.createAndContinue = function (food) {
-		$scope.submitted = true;
-		$scope.disabledSubmitButton = true;
-
-		if (foodItemUtilities.validateFoodItem(food) === true) {
-			food.menuGroupId = foodItemUtilities.createMenuGroupId(food.groupIds);
-
-			foodItemFactory.insertFoodItem(food).success(function (response) {
-				$scope.submitted = false;
-				$scope.disabledSubmitButton = false;
-
-				if (response.IsSuccessful === true) {
-					$scope.$broadcast("resetFoodItem");
-					notificationFactory.success("DataChangeSuccessfully");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
-			})['finally'](function () {
-				$scope.disabledSubmitButton = false;
-			});
-		}
-		else {
-			$scope.disabledSubmitButton = false;
-		}
-	};
-
-	$scope.cancel = function () {
-		$modalInstance.dismiss("cancel");
-	};
-} ]);
-
-foodItemManagementModule.controller('EditFoodItemController',
-['$scope', '$modalInstance', 'menuOptions', 'foodItem', 'foodItemUtilities',
-function ($scope, $modalInstance, menuOptions, foodItem, foodItemUtilities) {
-	/*
-	** Declare variables.
-	*/
-	$scope.groupOptions = menuOptions;
-	$scope.food = foodItem;
-
-	/*
-	** Set scope of form to current scope.
-	*/
-	$scope.setFormScope = function (formScope) {
-		$scope.formScope = formScope;
-	};
-
-	/*
-	** Disable or enable food menu multiselect.
-	*/
-	$scope.$watch('food.IsActive', function (newValue) {
-		if (newValue === false) {
-			$scope.$broadcast("disableChosenSelect");
-		}
-		else {
-			$scope.$broadcast("enableChosenSelect");
-		}
-	});
-
-	/*
-	** Create list group Id.
-	*/
-	var createGroupIds = function (foodMenus) {
-		var groupIds = [];
-
-		angular.forEach(foodMenus, function (menu) {
-			groupIds.push(menu.MenuId);
-		});
-
-		return groupIds;
-	};
-
-	$scope.food.groupIds = createGroupIds(foodItem.FoodMenus);
-
-	/*
-	** Update food menus.
-	*/
-	var findFoodByMenu = function (menuId, groupMenus) {
-		var food = '';
-
-		for(var i=0 ; i < groupMenus.length; i++) {
-			var currentMenu = groupMenus[i];
-			
-			if (currentMenu.MenuId === menuId) {
-				food = currentMenu;
-			}
-		}
-
-		return food;
-	};
-
-	var updateFoodMenus = function (food) {
-		food.FoodMenus = [];
-
-		angular.forEach(food.groupIds, function (menuId) {
-			var addedFood = findFoodByMenu(menuId, $scope.groupOptions);
-			food.FoodMenus.push(addedFood);
-		});
-
-		return food;
-	};
-
-	/*
-	** Update food item.
-	*/
-	foodItemUtilities.showMessageValidateFoodItem($scope);
-
-	$scope.updateFoodItem = function (food) {
-		var editedFood = {
-			foodId: food.FoodId,
-			foodVnmName: food.FoodVnmName,
-			foodEngName: food.FoodEngName,
-			isActive: food.IsActive,
-			menuGroupId: foodItemUtilities.createMenuGroupId(food.groupIds)
-		};
-
-		food = updateFoodMenus(food);
-
-		var objFood = {
-			editedFood: editedFood,
-			food: food
-		};
-
-		$scope.submitted = true;
-		$scope.disabledSubmitButton = true;
-
-		if (foodItemUtilities.validateFoodItem(editedFood) === true) {
-			$modalInstance.close(objFood);
-		}
-		else {
-			$scope.disabledSubmitButton = false;
-		}
-	};
-
-	$scope.cancel = function () {
-		$modalInstance.dismiss("cancel");
 	};
 } ]);

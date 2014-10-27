@@ -219,6 +219,8 @@
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration-directive.js" />
     <Content Include="Src\App\EmployeeRegistration\Templates\modalConfirmApplyTemplate.html" />
     <Content Include="Src\App\EmployeeRegistration\Templates\registerMeal.html" />
+    <Content Include="Src\App\FoodItemManagement\editFoodItem-controller.js" />
+    <Content Include="Src\App\FoodItemManagement\createFoodItem-controller.js" />
     <Content Include="Src\App\FoodItemManagement\foodItemManagement-controller.js" />
     <Content Include="Src\App\FoodItemManagement\foodItemManagement-directive.js" />
     <Content Include="Src\App\FoodItemManagement\foodItemManagement-factory.js" />

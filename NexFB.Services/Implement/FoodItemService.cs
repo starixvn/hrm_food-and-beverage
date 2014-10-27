@@ -5,6 +5,7 @@
 // ------------------------------------------------------------------------
 // <history>
 //   <change who="Josh.Phan" date="9/23/2014 10:05:42 AM">Created.</change>
+//   <change who="Quinn.Vo" date="2014.10.27">Add Update Status of food item.</change>
 // </history>
 
 namespace NexFB.Services.Implement
@@ -17,6 +18,7 @@ namespace NexFB.Services.Implement
     using NexFB.Models.FoodItemManagement;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
+    using NexFB.Resources;
     using NexFB.Services.Interface;
 
     /// <summary>
@@ -62,14 +64,22 @@ namespace NexFB.Services.Implement
         public CommandResult InsertFoodItem(InsertFoodItemCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            CommandResult result = null;
 
             if (criteria.IsValid())
             {
-                commandResult = Repository.Insert(criteria);
+                result = Repository.Insert(criteria);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Lang.InvalidInputData
+                };
             }
 
-            return commandResult;
+            return result;
         }
 
         /// <summary>
@@ -80,14 +90,22 @@ namespace NexFB.Services.Implement
         public CommandResult UpdateFoodItem(UpdateFoodItemCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            CommandResult result = null;
 
             if (criteria.IsValid())
             {
-                commandResult = Repository.Update(criteria);
+                result = Repository.Update(criteria);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Lang.InvalidInputData
+                };
             }
 
-            return commandResult;
+            return result;
         }
 
         /// <summary>
@@ -98,14 +116,48 @@ namespace NexFB.Services.Implement
         public CommandResult DeleteFoodItem(DeleteFoodItemCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            CommandResult result = null;
 
             if (criteria.IsValid())
             {
-                commandResult = Repository.Delete(criteria);
+                result = Repository.Delete(criteria);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Lang.InvalidInputData
+                };
             }
 
-            return commandResult;
+            return result;
+        }
+
+        /// <summary>
+        /// Update status of Food item.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult UpdateStatusFoodItem(UpdateStatusFoodItemCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult result = null;
+
+            if (criteria.IsValid())
+            {
+                result = Repository.Update(criteria);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Lang.InvalidInputData
+                };
+            }
+
+            return result;
         }
 
         /// <summary>

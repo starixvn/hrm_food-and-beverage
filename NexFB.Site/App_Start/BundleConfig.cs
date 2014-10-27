@@ -92,6 +92,8 @@ namespace NexFB.Site
                 "~/Src/App/Ordering/ordering-directive.js",
                 "~/Src/App/FoodItemManagement/foodItemManagement-route.js",
                 "~/Src/App/FoodItemManagement/foodItemManagement-controller.js",
+                "~/Src/App/FoodItemManagement/createFoodItem-controller.js",
+                "~/Src/App/FoodItemManagement/editFoodItem-controller.js",
                 "~/Src/App/FoodItemManagement/foodItemManagement-factory.js",
                 "~/Src/App/FoodItemManagement/foodItemManagement-directive.js",
                 "~/Src/App/FoodMenuManagement/foodMenuManagement-route.js",

@@ -7,9 +7,9 @@
     <div class="row filter">
         <form class="form-inline" role="form">
             <div class="form-group" name="multiSelectOption">
-                <label data-translate="Menu"></label>
-				<add-class-to-role-filter multi-select input-model="menuOptions" button-label="MenuVnmName" helper-elements="all reset"
-					item-label="MenuVnmName MenuEngMaker" tick-property="ticked" max-labels="0" class="multi-select menu-select">
+                <label data-translate="SetMenu"></label>
+				<add-class-to-role-filter multi-select input-model="setMenuItems" button-label="SetMenuVnmName" helper-elements="all reset"
+					item-label="SetMenuVnmName" tick-property="ticked" max-labels="0" class="multi-select menu-select">
 				</add-class-to-role-filter>
             </div>
             <div class="form-group status-box" >
@@ -51,7 +51,7 @@
                     <th data-translate="SymbolCount"></th>
                     <th data-translate="FoodItemVnm"></th>
                     <th data-translate="FoodItemEng"></th>
-                    <th data-translate="Menu"></th>
+                    <th data-translate="SetMenu"></th>
                     <th class="width-60" data-translate="Active"></th>
                     <th class="width-80" data-translate="Action" ng-if="policy.permission == 2"></th>
                 </tr>
@@ -62,12 +62,15 @@
 					<td ng-bind="food.FoodVnmName"></td>
 					<td ng-bind="food.FoodEngName"></td>
 					<td>
-						<div ng-show="food.FoodMenus.length == 1">
-							<span ng-bind="food.FoodMenus[0].MenuVnmName + ' (' + food.FoodMenus[0].MenuEngName + ')'"></span>
+						<div ng-show="food.SetMenus.length == 1">
+							<span ng-bind="food.SetMenus[0].SetMenuVnmName"></span>
 						</div>
-						<div ng-show="food.FoodMenus.length > 1">
+						<div ng-show="food.SetMenus.length >= 4">
+							<em><span ng-bind="food.SetMenus.length + ' selected'"></span></em>
+						</div>
+						<div ng-show="food.SetMenus.length > 1 && food.SetMenus.length < 4">
 							<ul class="group-toggle-item">
-								<li ng-repeat="menuGroup in food.FoodMenus" ng-bind="menuGroup.MenuVnmName + ' (' + menuGroup.MenuEngName + ')'"></li>
+								<li ng-repeat="setMenu in food.SetMenus" ng-bind="setMenu.SetMenuVnmName"></li>
 							</ul>
 						</div>
 					</td>
@@ -76,8 +79,8 @@
 						<img class="ico-tick" ng-if="policy.permission == 1 && food.IsActive" />
 					</td>
  					<td class="text-center" ng-if="policy.permission == 2">
-						<a class="glyphicon glyphicon-edit" href="" ng-click="edit(food)"></a>
-						<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteFoodItem(food)"></a>
+						<a class="glyphicon glyphicon-edit" href="" ng-click="edit(food)" ng-attr-title='{{"Edit" | translate}}'></a>
+						<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteFoodItem(food)" ng-attr-title='{{"Delete" | translate}}'></a>
 					</td>
 				</tr>
 				<tr ng-show="foodItems.length == 0 || pagedItems.length == 0">

@@ -5,6 +5,7 @@
 // ------------------------------------------------------------------------
 // <history>
 //   <change who="Josh.Phan" date="9/16/2014 2:09:44 PM">Created.</change>
+//   <change who="Quinn.Vo" date="2014.10.27">Add UpdateStatusFoodItem.</change>
 // </history>
 
 namespace NexFB.Site.Controllers.API
@@ -94,6 +95,19 @@ namespace NexFB.Site.Controllers.API
             };
 
             return _foodItemService.DeleteFoodItem(criteria);
+        }
+
+        [ApiAuthorize(FunctionKey = FBFunctionKey.FoodItemManagement, Policy = Policy.Host)]
+        [HttpPut]
+        public CommandResult UpdateStatusFoodItem(UpdateStatusFoodItemCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = this.CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _foodItemService.UpdateStatusFoodItem(criteria);
         }
 
         public int GetUserPermissionOnFoodItem()

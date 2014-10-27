@@ -603,8 +603,8 @@
   <data name="EditSideDish" xml:space="preserve">
     <value>Edit Side Dish</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="MenuCode" xml:space="preserve">
     <value>Menu code</value>

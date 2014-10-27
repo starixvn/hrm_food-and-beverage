@@ -3,15 +3,18 @@
 
 foodItemManagementModule.factory('foodItemFactory', ['$http', function ($http) {
 	return {
-		getAllFoodItem: function (menuGroupId, isActive) {
+		getAllFoodItem: function (setMenuId, isActive) {
 			return $http.get('/api/FoodItemManagement/GetAllFoodItem',
-				{ params: { menuGroupId: menuGroupId, isActive: isActive} });
+				{ params: { setMenuId: setMenuId, isActive: isActive} });
 		},
 		insertFoodItem: function (food) {
 			return $http.post('/api/FoodItemManagement/InsertFoodItem', food);
 		},
 		updateFoodItem: function (food) {
 			return $http.put('/api/FoodItemManagement/UpdateFoodItem', food);
+		},
+		updateStatusFoodItem: function (food) {
+			return $http.put('/api/FoodItemManagement/UpdateStatusFoodItem', food);
 		},
 		deleteFoodItem: function (foodId) {
 			return $http['delete']('/api/FoodItemManagement/DeleteFoodItem', { params: { foodId: foodId} });
@@ -59,26 +62,14 @@ foodItemManagementModule.factory('foodItemUtilities',
 			});
 	};
 
-	utility.createMenuGroupId = function (groupIds) {
-		var menuGroupId = '';
+	utility.createMenuGroupId = function (setMenuIds) {
+		var setMenuId = '';
 
-		angular.forEach(groupIds, function (menuId) {
-			menuGroupId = menuGroupId !== '' ? menuGroupId + ',' + menuId : menuId;
+		angular.forEach(setMenuIds, function (tempSetMenuId) {
+			setMenuId = setMenuId !== '' ? setMenuId + ',' + tempSetMenuId : tempSetMenuId;
 		});
 
-		return menuGroupId;
-	};
-
-	utility.createMenuGroupIdFromFoodMenu = function (foodMenus) {
-		var menuGroupId = '';
-
-		angular.forEach(foodMenus, function (foodMenu) {
-			var id = foodMenu.MenuId;
-
-			menuGroupId = menuGroupId !== '' ? menuGroupId + ',' + id : id;
-		});
-
-		return menuGroupId;
+		return setMenuId;
 	};
 
 	return utility;
