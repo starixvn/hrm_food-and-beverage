@@ -9,7 +9,6 @@ setMenuFactory, notificationFactory, ErrorFactory) {
 	/*
 	** Declare variables.
 	*/
-	$scope.menuItems = menuItems;
 	$scope.foodItems = foodItems;
 
 	$scope.clearData = function () {
@@ -25,6 +24,20 @@ setMenuFactory, notificationFactory, ErrorFactory) {
 	};
 
 	$scope.clearData();
+
+	var getMenus = function (menuItems) {
+		var menus = [];
+
+		angular.forEach(menuItems, function (menu) {
+			if (menu.IsActive) {
+				menus.push(menu);
+			}
+		});
+
+		return menus;
+	};
+
+	$scope.menuItems = getMenus(menuItems);
 
 	/*
 	** Add new food menu.

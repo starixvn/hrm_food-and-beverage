@@ -39,7 +39,7 @@ foodMenuFactory, ErrorFactory) {
 	/*
 	** Get all menu.
 	*/
-	foodMenuFactory.getAllFoodMenu('', '', true).success(function (menus) {
+	foodMenuFactory.getAllFoodMenu('', '', null).success(function (menus) {
 		$scope.menuItems = menus;
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
