@@ -52,7 +52,17 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const string HubHost = "HubHost";
 
+        public const string SessionTimeout = "SessionTimeout";
+
         public const string HubHostLocal = "HubHostLocal";
+
+        public const string LogoMarginMoreThan900 = "0,0,0,10";
+
+        public const string LogoMarginLessThan900 = "0,0,0,-15";
+
+        public const string SentenceMarginMoreThan900 = "0,0,0,20";
+
+        public const string SentenceMarginLessThan900 = "0,0,0,0";
 
         private ConstantValue()
         {

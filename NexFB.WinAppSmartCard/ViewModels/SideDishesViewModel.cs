@@ -23,6 +23,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
+    using NexFB.WinAppSmartCard.GlobalResources.Resources;
 
     /// <summary>
     /// Side Dishes ViewModel.
@@ -292,12 +293,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         private bool CanExecuteAddQuantityCommand()
         {
-            if (ObservableSideOrder.Any(x => x.SelectedValueDropDown == int.MaxValue))
+            if (!ObservableSideOrder.Any(x => x.SelectedValueDropDown == int.MaxValue) || ObservableSideOrder.Count == 0)
             {
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         private bool CanExecuteSubQuantityCommand()
@@ -323,7 +324,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             if ((ObservableSideOrder.Count > 0 && ObservableSideOrder.All(x => x.SelectedValueDropDown == int.MaxValue))
                 || ObservableSideOrder.Count == 0)
             {
-                this.ShowErrorMessage("The order must contains at least 1 food item");
+                this.ShowErrorMessage(MainScreenResources.Message_ContainFood);
             }
             else
             {
@@ -379,7 +380,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                 if (foodMapping.Count == 0)
                 {
-                    this.ShowErrorMessage("There are no side dishes available");
+                    this.ShowErrorMessage(MainScreenResources.Message_NoMoreDish);
                 }
                 else
                 {
@@ -394,7 +395,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                     if (foodMapping.Count == 1)
                     {
-                        this.ShowErrorMessage("There are no food to add. You can only add more quantity");
+                        this.ShowErrorMessage(MainScreenResources.Message_UnavailableSideDish);
                     }
                     else
                     {
@@ -504,6 +505,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 int orderNo = (int)value;
                 SideFood deletedItem = ObservableSideOrder.Where(x => x.OrderNo == orderNo).SingleOrDefault();
                 ObservableSideOrder.Remove(deletedItem);
+                if (ObservableSideOrder.Count == 0)
+                {
+                    AddFoodEnable = true;
+                }
+
                 if (deletedItem.SelectedValueDropDown != int.MaxValue)
                 {
                     HasSelectedFood.Remove(deletedItem.SelectedValueDropDown);

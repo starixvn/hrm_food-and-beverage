@@ -9,12 +9,15 @@
 
 namespace NexFB.WinAppSmartCard.ViewModels
 {
+    using System;
     using System.Configuration;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Interop;
+    using System.Windows.Threading;
     using AutoMapper;
     using BlogsPrajeesh.BlogSpot.WPFControls;
     using Microsoft.AspNet.SignalR.Client.Hubs;
@@ -25,6 +28,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinApp.Core.InternetBased;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
+    using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using NexFB.WinAppSmartCard.GlobalResources.Services;
 
     /// <summary>
@@ -34,6 +38,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     {
         private static string _host = ConfigurationManager.AppSettings[ConstantValue.HubHost];
         private static string _hostLocal = ConfigurationManager.AppSettings[ConstantValue.HubHostLocal];
+        private static string _sessionTimeout = ConfigurationManager.AppSettings[ConstantValue.SessionTimeout];
         private static double _screenWidth = SystemParameters.PrimaryScreenWidth;
         private static double _screeHeight = SystemParameters.PrimaryScreenHeight;
 
@@ -48,6 +53,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private MenuColor _sideDishesMenu = new MenuColor();
         private bool _mainButtonEnable;
         private bool _sideButtonEnable;
+        private string _logoMargin;
+        private string _sentenceMargin;
+        private EventHandler _handler;
 
         public MainViewModel()
         {
@@ -63,6 +71,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
             CheckCurrentScreen();
             this.MainButtonEnable = true;
             this.SideButtonEnable = true;
+
+            SessionTimeout();
         }
 
         #region Properties
@@ -281,6 +291,52 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
+        public string LogoMargin
+        {
+            get
+            {
+                if (_screeHeight > 900)
+                {
+                    _logoMargin = ConstantValue.LogoMarginMoreThan900;
+                }
+                else
+                {
+                    _logoMargin = ConstantValue.LogoMarginLessThan900;
+                }
+
+                return _logoMargin;
+            }
+
+            set
+            {
+                _logoMargin = value;
+                OnPropertyChanged("LogoMargin");
+            }
+        }
+
+        public string SentenceMargin
+        {
+            get
+            {
+                if (_screeHeight > 900)
+                {
+                    _sentenceMargin = ConstantValue.SentenceMarginMoreThan900;
+                }
+                else
+                {
+                    _sentenceMargin = ConstantValue.SentenceMarginLessThan900;
+                }
+
+                return _sentenceMargin;
+            }
+
+            set
+            {
+                _sentenceMargin = value;
+                OnPropertyChanged("SentenceMargin");
+            }
+        }
+
         #endregion
         #region Public Methods
 
@@ -308,7 +364,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         }
                         else
                         {
-                            this.ShowErrorMessage("Can't indentify your card number");
+                            this.ShowErrorMessage(MainScreenResources.Message_IdentifyCard);
                         }
 
                         break;
@@ -530,7 +586,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 {
                     if (MainScreenVisible == ConstantValue.Visible)
                     {
-                        this.ShowErrorMessage("You are already included in another order");
+                        this.ShowErrorMessage(MainScreenResources.Message_AlreadyOrder);
                     }
                     else
                     {
@@ -587,6 +643,54 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 }
             }) { IsBackground = true };
             ThreadLocal.Start();
+        }
+
+        /// <summary>
+        /// Timer to count session time out.
+        /// </summary>
+        private void SessionTimeout()
+        {
+            int timeout = 0;
+            bool isNumeric = false;
+            if (_sessionTimeout != null)
+            {
+                isNumeric = int.TryParse(_sessionTimeout, out timeout);
+            }
+
+            if (isNumeric)
+            {
+                _handler = delegate
+                {
+                    DispatcherTimer timer = new DispatcherTimer();
+                    timer.Interval = TimeSpan.FromSeconds(timeout);
+                    timer.Tick += delegate
+                    {
+                        if (timer != null)
+                        {
+                            timer.Stop();
+                            timer = null;
+                            ComponentDispatcher.ThreadIdle -= _handler;
+                            if (MainScreenVisible == ConstantValue.Visible)
+                            {
+                                ExecuteReturnToStandByScreen();
+                            }
+
+                            ComponentDispatcher.ThreadIdle += _handler;
+                        }
+                    };
+
+                    timer.Start();
+                    Dispatcher.CurrentDispatcher.Hooks.OperationPosted += delegate
+                    {
+                        if (timer != null)
+                        {
+                            timer.Stop();
+                            timer = null;
+                        }
+                    };
+                };
+                ComponentDispatcher.ThreadIdle += _handler;
+            }
         }
 
         #endregion

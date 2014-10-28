@@ -34,7 +34,7 @@
 					<Label Content="{x:Static resx:WinFormMainResource.KeypadInfo}" FontSize="19" HorizontalAlignment="Left" 
 					Margin="8,10,0,0" Name="label2" VerticalAlignment="Center" />
 					<Grid HorizontalAlignment="Left" Height="{Binding DataContext.KeypadHeight, RelativeSource={RelativeSource AncestorType=Window}}"
-						Name="gridKeyPad" Width="452" Grid.Row="1" VerticalAlignment="Top">
+						Name="gridKeyPad" Width="452" Grid.Row="1" VerticalAlignment="Top" Margin="5,0,0,0">
 						<Grid.RowDefinitions>
 							<RowDefinition />
 							<RowDefinition />
@@ -159,8 +159,8 @@
 				Command="{Binding Path=AddCommand}" CommandParameter="NUMPADM" Content="{x:Static resx:WinFormMainResource.Add}" Margin="33,10,4,-2" />
 						</Grid>
 						<Grid Grid.ColumnSpan="5" Height="60">
-							<Border VerticalAlignment="Center" HorizontalAlignment="Center" Height="60" Width="450" BorderThickness="2"
-				 Mouse.PreviewMouseDown="ResultTextBlock_PreviewMouseDown" x:Name="ResultTextBlock">
+							<Border VerticalAlignment="Center" HorizontalAlignment="Center" Height="60" Width="452" Margin="-2,0,0,0" 
+							BorderThickness="2" Mouse.PreviewMouseDown="ResultTextBlock_PreviewMouseDown" x:Name="ResultTextBlock">
 								<Label Width="450" Height="60" Content="{Binding Result}" HorizontalContentAlignment="Right" VerticalAlignment="Center" FontSize="35" Background="#fff"/>
 							</Border>
 						</Grid>
@@ -232,9 +232,9 @@
 						</StackPanel>
 					</Button>
 				</Grid>
-				<Grid Background="#E2E2E2" HorizontalAlignment="Stretch" Margin="0,63,0,0" Name="grid9" VerticalAlignment="Stretch">
+				<Grid Background="#E2E2E2" HorizontalAlignment="Stretch" Margin="0,63,0,-2" Name="grid9" VerticalAlignment="Stretch">
 					<ListBox ItemsSource="{Binding Path=UserInGroup}" Name="employeeOrder"
-				Style="{StaticResource CustomLBStyle}" Margin="2,3,2,1" BorderThickness="0">
+				Style="{StaticResource CustomLBStyle}" Margin="2,3,1,1" BorderThickness="0">
 						<ListBox.ItemContainerStyle>
 							<Style TargetType="ListBoxItem">
 								<Setter Property="Padding" Value="0"/>
@@ -244,14 +244,14 @@
 							<DataTemplate>
 								<Button Command="{Binding DataContext.DefaultEmployeeSelected, RelativeSource={RelativeSource AncestorType=ListBox}}" 
 							CommandParameter="{Binding Path=SysId}"
-							 Style="{StaticResource EmployeeInGroupTile}" Background="#fff" Padding="0" Margin="0,0,0,5"
+							 Style="{StaticResource EmployeeInGroupTile}" Background="#fff" Padding="0" Margin="0,1,0,1"
 							HorizontalAlignment="Stretch" Name="button16" VerticalAlignment="Stretch" >
 									<Grid HorizontalAlignment="Stretch" Name="border1" Background="{Binding Path=EmployeeOrderMealColor}"
 							 VerticalAlignment="Stretch" MinWidth="455"  Height="69">
 										<Image Source="pack://application:,,,/Images/kahn.png"
 									Name="image2" Stretch="Fill" Width="69" HorizontalAlignment="Left" Height="70" />
 										<Grid Height="69" Name="grid10" VerticalAlignment="Center" HorizontalAlignment="Right" Background="{Binding Path=EmployeeOrderMealColor}">
-											<Grid MinWidth="385">
+											<Grid Width="384">
 												<Label Content="{Binding Path=NickNameHasOrdered}" FontSize="18" FontWeight="Black"
 									 VerticalAlignment="Top" Margin="2,-5,-2,0" Foreground="#004069" />
 												<DockPanel Margin="0,22,4,0" >

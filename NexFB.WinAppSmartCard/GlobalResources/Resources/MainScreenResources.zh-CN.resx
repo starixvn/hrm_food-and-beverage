@@ -153,8 +153,29 @@
   <data name="Menu" xml:space="preserve">
     <value>菜单</value>
   </data>
+  <data name="Message_AlreadyOrder" xml:space="preserve">
+    <value>这里没有中国的消息</value>
+  </data>
+  <data name="Message_AlreadyThisOrder" xml:space="preserve">
+    <value>这里没有中国的消息</value>
+  </data>
   <data name="Message_CancelOrder" xml:space="preserve">
     <value>您确定要取消订单 ?</value>
+  </data>
+  <data name="Message_ContainEmployee" xml:space="preserve">
+    <value>这里没有中国的消息</value>
+  </data>
+  <data name="Message_ContainFood" xml:space="preserve">
+    <value>这里没有中国的消息</value>
+  </data>
+  <data name="Message_IdentifyCard" xml:space="preserve">
+    <value>这里没有中国的消息</value>
+  </data>
+  <data name="Message_NoMoreDish" xml:space="preserve">
+    <value>这里没有中国的消息</value>
+  </data>
+  <data name="Message_UnavailableSideDish" xml:space="preserve">
+    <value>这里没有中国的消息</value>
   </data>
   <data name="Payment" xml:space="preserve">
     <value>付款</value>

@@ -671,7 +671,8 @@ namespace NexFB.WinApp.ViewModels
                 {
                     if (!UserInGroup.Any(x => x.SysId == sysId))
                     {
-                        KitchenEmployeeInfo employee = this.GetEmployeeBySysId(sysId);
+                        EmployeeInfo employeeInfo = employeeInGroup.Employees[0];
+                        KitchenEmployeeInfo employee = Mapper.Map<EmployeeInfo, KitchenEmployeeInfo>(employeeInfo);
                         if (employee != null)
                         {
                             UserInGroup.ToList().ForEach(x => x.IsSelectedMemberInGroup = false);

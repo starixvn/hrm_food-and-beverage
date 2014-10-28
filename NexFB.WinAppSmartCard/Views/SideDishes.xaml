@@ -273,13 +273,13 @@
 							<ColumnDefinition />
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
-						<Button Background="#66B5D6" Foreground="White" Command="{Binding Path=SaveDataCommand}" Margin="0,0,5,0"
+						<Button Background="#66B5D6" Foreground="White" Command="{Binding Path=SaveDataCommand}" Margin="0,0,15,0"
 						CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
 					Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Confirm]}" Height="40" Style="{StaticResource TileButton}"
 					HorizontalAlignment="Right" Name="button1" VerticalAlignment="Top" Width="108" />
 
 						<Button Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-							Background="#EF4339" Foreground="White" Grid.Column="1" Margin="5,0,0,0"
+							Background="#EF4339" Foreground="White" Grid.Column="1" Margin="15,0,0,0"
 						CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
 					Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Cancel]}" Height="40" Style="{StaticResource TileButton}"
 					HorizontalAlignment="Left" VerticalAlignment="Top" Width="108" />

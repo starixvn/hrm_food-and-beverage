@@ -169,11 +169,74 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to cancel order ?.
+        ///   Looks up a localized string similar to You are already included in another order..
+        /// </summary>
+        internal static string Message_AlreadyOrder {
+            get {
+                return ResourceManager.GetString("Message_AlreadyOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are already incuded in this order..
+        /// </summary>
+        internal static string Message_AlreadyThisOrder {
+            get {
+                return ResourceManager.GetString("Message_AlreadyThisOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to cancel this order ?.
         /// </summary>
         internal static string Message_CancelOrder {
             get {
                 return ResourceManager.GetString("Message_CancelOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The order must contains at least 1 emloyee..
+        /// </summary>
+        internal static string Message_ContainEmployee {
+            get {
+                return ResourceManager.GetString("Message_ContainEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The order must contains at least 1 food item..
+        /// </summary>
+        internal static string Message_ContainFood {
+            get {
+                return ResourceManager.GetString("Message_ContainFood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot identify your card number..
+        /// </summary>
+        internal static string Message_IdentifyCard {
+            get {
+                return ResourceManager.GetString("Message_IdentifyCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no more side dishes to select. You can only add more quantity..
+        /// </summary>
+        internal static string Message_NoMoreDish {
+            get {
+                return ResourceManager.GetString("Message_NoMoreDish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no side dishes available..
+        /// </summary>
+        internal static string Message_UnavailableSideDish {
+            get {
+                return ResourceManager.GetString("Message_UnavailableSideDish", resourceCulture);
             }
         }
         
@@ -187,7 +250,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Payment.
+        ///   Looks up a localized string similar to Total .
         /// </summary>
         internal static string Payment {
             get {
@@ -205,7 +268,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select dishes.
+        ///   Looks up a localized string similar to Please choose.
         /// </summary>
         internal static string SelectDishes {
             get {
@@ -214,7 +277,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Side Dishes.
+        ///   Looks up a localized string similar to Side Dish.
         /// </summary>
         internal static string SideDishes {
             get {
@@ -223,7 +286,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Swipe your card to be added to the group.
+        ///   Looks up a localized string similar to Swap your card to be added to the group..
         /// </summary>
         internal static string SwipeCardLabel {
             get {
@@ -232,7 +295,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ticket Creator: .
+        ///   Looks up a localized string similar to Meal Orderer.
         /// </summary>
         internal static string TicketCreator {
             get {
@@ -241,7 +304,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meal Ticket Number: .
+        ///   Looks up a localized string similar to Created Order No: .
         /// </summary>
         internal static string TicketLabel {
             get {

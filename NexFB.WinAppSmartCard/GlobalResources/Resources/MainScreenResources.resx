@@ -153,32 +153,53 @@
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
   </data>
+  <data name="Message_AlreadyOrder" xml:space="preserve">
+    <value>You are already included in another order.</value>
+  </data>
+  <data name="Message_AlreadyThisOrder" xml:space="preserve">
+    <value>You are already incuded in this order.</value>
+  </data>
   <data name="Message_CancelOrder" xml:space="preserve">
-    <value>Are you sure you want to cancel order ?</value>
+    <value>Are you sure you want to cancel this order ?</value>
+  </data>
+  <data name="Message_ContainEmployee" xml:space="preserve">
+    <value>The order must contains at least 1 emloyee.</value>
+  </data>
+  <data name="Message_ContainFood" xml:space="preserve">
+    <value>The order must contains at least 1 food item.</value>
+  </data>
+  <data name="Message_IdentifyCard" xml:space="preserve">
+    <value>Cannot identify your card number.</value>
+  </data>
+  <data name="Message_NoMoreDish" xml:space="preserve">
+    <value>There are no more side dishes to select. You can only add more quantity.</value>
+  </data>
+  <data name="Message_UnavailableSideDish" xml:space="preserve">
+    <value>There are no side dishes available.</value>
   </data>
   <data name="NumberCount" xml:space="preserve">
     <value>#</value>
   </data>
   <data name="Payment" xml:space="preserve">
-    <value>Payment</value>
+    <value>Total </value>
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>Quantity</value>
   </data>
   <data name="SelectDishes" xml:space="preserve">
-    <value>Please select dishes</value>
+    <value>Please choose</value>
   </data>
   <data name="SideDishes" xml:space="preserve">
-    <value>Side Dishes</value>
+    <value>Side Dish</value>
   </data>
   <data name="SwipeCardLabel" xml:space="preserve">
-    <value>Swipe your card to be added to the group</value>
+    <value>Swap your card to be added to the group.</value>
   </data>
   <data name="TicketCreator" xml:space="preserve">
-    <value>Ticket Creator: </value>
+    <value>Meal Orderer</value>
   </data>
   <data name="TicketLabel" xml:space="preserve">
-    <value>Meal Ticket Number: </value>
+    <value>Created Order No: </value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>

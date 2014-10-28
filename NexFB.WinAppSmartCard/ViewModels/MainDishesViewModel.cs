@@ -23,6 +23,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
+    using NexFB.WinAppSmartCard.GlobalResources.Resources;
 
     /// <summary>
     /// Main Dishes ViewModel.
@@ -224,7 +225,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 }
                 else
                 {
-                    this.ShowErrorMessage("You are already included in this order");
+                    this.ShowErrorMessage(MainScreenResources.Message_AlreadyThisOrder);
                 }
             }
         }
@@ -311,7 +312,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (ObservableListEmployee.Count == 0)
             {
-                this.ShowErrorMessage("The order must contain at least 1 employee");
+                this.ShowErrorMessage(MainScreenResources.Message_ContainEmployee);
             }
             else
             {

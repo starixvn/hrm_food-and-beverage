@@ -153,8 +153,29 @@
   <data name="Menu" xml:space="preserve">
     <value>Thực đơn</value>
   </data>
+  <data name="Message_AlreadyOrder" xml:space="preserve">
+    <value>Bạn đã có tên trong phiếu ăn khác.</value>
+  </data>
+  <data name="Message_AlreadyThisOrder" xml:space="preserve">
+    <value>Bạn đã có tên trong phiếu ăn này.</value>
+  </data>
   <data name="Message_CancelOrder" xml:space="preserve">
     <value>Bạn có chắc chắn muốn hủy gọi món không?</value>
+  </data>
+  <data name="Message_ContainEmployee" xml:space="preserve">
+    <value>Phiếu ăn phải có ít nhất 1 nhân viên.</value>
+  </data>
+  <data name="Message_ContainFood" xml:space="preserve">
+    <value>Phiếu ăn phải có ít nhất 1 món ăn.</value>
+  </data>
+  <data name="Message_IdentifyCard" xml:space="preserve">
+    <value>Không thể xác định được số thẻ của bạn.</value>
+  </data>
+  <data name="Message_NoMoreDish" xml:space="preserve">
+    <value>Hiện tại không còn món ăn phụ để chọn. Bạn chỉ có thể tăng thêm số phần ăn.</value>
+  </data>
+  <data name="Message_UnavailableSideDish" xml:space="preserve">
+    <value>Hiện tại không có món ăn phụ.</value>
   </data>
   <data name="NumberCount" xml:space="preserve">
     <value>#</value>
