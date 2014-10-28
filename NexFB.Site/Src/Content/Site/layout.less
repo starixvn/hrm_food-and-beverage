@@ -50,8 +50,18 @@ a:focus {
         box-shadow: 1px 1px 3px 3px #F2F2F2;
         height: 28px;
         padding-left: 7px;
+		width: auto;
 		&.txt-phone {
 			width: 193px;
+		}
+	}
+	select{
+		min-width: 110px;
+		width: auto;
+		z-index: 9999;
+		position: relative;
+		&:focus {
+			outline: none;
 		}
 	}
 
