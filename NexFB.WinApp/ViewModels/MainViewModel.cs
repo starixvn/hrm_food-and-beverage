@@ -52,12 +52,26 @@ namespace NexFB.WinApp.ViewModels
 
         public Task SendNewOrder(int orderId)
         {
-            return Proxy.Invoke("SendNewOrder", orderId);
+            if (InternetAvailability.IsInternetAvailable())
+            {
+                return Proxy.Invoke("SendNewOrder", orderId);
+            }
+            else
+            {
+                return ProxyLocal.Invoke("SendNewOrder", orderId);
+            }
         }
 
         public Task SendEditOrder(int orderId)
         {
-            return Proxy.Invoke("SendEditOrder", orderId);
+            if (InternetAvailability.IsInternetAvailable())
+            {
+                return Proxy.Invoke("SendEditOrder", orderId);
+            }
+            else
+            {
+                return ProxyLocal.Invoke("SendEditOrder", orderId);
+            }
         }
 
         #region RelayCommands
@@ -516,7 +530,14 @@ namespace NexFB.WinApp.ViewModels
 
         private Task SendMessage(int orderId, int screenControl)
         {
-            return Proxy.Invoke("KitchenNotify", orderId, screenControl);
+            if (InternetAvailability.IsInternetAvailable())
+            {
+                return Proxy.Invoke("KitchenNotify", orderId, screenControl);
+            }
+            else
+            {
+                return ProxyLocal.Invoke("KitchenNotify", orderId, screenControl);
+            }
         }
 
         /// <summary>

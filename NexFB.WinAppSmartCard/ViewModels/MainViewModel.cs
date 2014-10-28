@@ -71,7 +71,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             CheckCurrentScreen();
             this.MainButtonEnable = true;
             this.SideButtonEnable = true;
-
             SessionTimeout();
         }
 

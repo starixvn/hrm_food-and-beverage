@@ -267,14 +267,10 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public void ToggleMainMenu()
         {
-            Application.Current.Dispatcher.BeginInvoke(
-                        DispatcherPriority.Background,
-                        new Action(() =>
-                        {
-                            MainViewModel.SideButtonEnable = true;
-                            MainViewModel.MainButtonEnable = false;
-                            this.AddFoodEnable = false;
-                        }));
+            MainViewModel.SideButtonEnable = true;
+            MainViewModel.MainButtonEnable = false;
+            this.AddFoodEnable = false;
+            digitalClockDispatcher = new DispatcherTimer();
         }
 
         #endregion
@@ -351,16 +347,34 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     {
                         OrderNo = result.OrderNo;
                         MainViewModel.SendMessage(result.OrderId);
-
                         CountDownTimer = 30;
                         ShowNotificationScreen();
-                        TimerDigitalClock();
+                        StartCloseTimer();
                     }
                     else
                     {
                         this.ShowErrorMessage(result.CommandResult.Message);
                     }
                 }
+            }
+        }
+
+        private void StartCloseTimer()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += (sender, e) => TimerTick(sender, e);
+            timer.Start();
+        }
+
+        private void TimerTick(object sender, EventArgs e)
+        {
+            CountDownTimer -= 1;
+            if (CountDownTimer == 0)
+            {
+                DispatcherTimer timer = (DispatcherTimer)sender;
+                timer.Stop();
+                MainViewModel.ExecuteReturnToStandByScreen();
             }
         }
 
@@ -535,32 +549,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             ScreenOrderVisible = ConstantValue.Hidden;
             ScreenNotificationVisible = ConstantValue.Visible;
-        }
-
-        private void TimerDigitalClock()
-        {
-            digitalClockDispatcher.Interval = new TimeSpan(0, 0, 1);
-            digitalClockDispatcher.Tick += new EventHandler(TimerTick);
-            digitalClockDispatcher.Start();
-        }
-
-        /// <summary>
-        /// Timer counter to return idle screen.
-        /// </summary>
-        /// <param name="sender">Object sender.</param>
-        /// <param name="e">Events argument.</param>
-        private void TimerTick(object sender, EventArgs e)
-        {
-            CountDownTimer -= 1;
-            if (CountDownTimer == 0)
-            {
-                if (MainViewModel != null)
-                {
-                    MainViewModel.ExecuteReturnToStandByScreen();
-                }
-
-                digitalClockDispatcher.Stop();
-            }
         }
 
         #endregion
