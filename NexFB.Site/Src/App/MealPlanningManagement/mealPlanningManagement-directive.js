@@ -5,7 +5,7 @@
 mealPlanningManagementModule.directive('mealPlanningMultiSelect', function () {
 	return {
 		link: function (scope, iElement) {
-			scope.$watchCollection('groupOptions', function () {
+			scope.$watchCollection('foodOptions', function () {
 				iElement.trigger("chosen:updated");
 			});
 
@@ -14,13 +14,13 @@ mealPlanningManagementModule.directive('mealPlanningMultiSelect', function () {
 
 				if (params.selected) {
 					index = parseInt(params.selected);
-					var addedFood = scope.groupOptions[index];
+					var addedFood = scope.foodOptions[index];
 					scope.foodItems.push(addedFood);
 				}
 				else if (params.deselected) {
 					index = parseInt(params.deselected);
 
-					var removedFood = scope.groupOptions[index],
+					var removedFood = scope.foodOptions[index],
 						indexInFoodItems = scope.foodItems.indexOf(removedFood);
 
 					scope.foodItems.splice(indexInFoodItems, 1);
@@ -32,12 +32,39 @@ mealPlanningManagementModule.directive('mealPlanningMultiSelect', function () {
 	};
 });
 
+mealPlanningManagementModule.directive('foodAndSetmenu', function () {
+	return {
+		link: function (scope, iElement) {
+			iElement.change(function () {
+				scope.getFoodItemsBySetMenu(scope.mealPlanning.setMenuId);
+				scope.$apply();
+				var menuChosenSelect = $("[name='foodSelect']");
+				$(menuChosenSelect).trigger("chosen:updated");
+			});
+		}
+	};
+});
+
+mealPlanningManagementModule.directive('foodAndSetmenuEdit', function () {
+	return {
+		link: function (scope, iElement) {
+			iElement.change(function () {
+				scope.getFoodItemsBySetMenu(scope.mealPlanning.SetMenu.SetMenuId);
+				scope.$apply();
+				var menuChosenSelect = $("[name='foodSelect']");
+				$(menuChosenSelect).trigger("chosen:updated");
+			});
+		}
+	};
+});
+
 mealPlanningManagementModule.directive('resetMealPlanning', function () {
 	return {
 		link: function (scope) {
 			scope.$on('resetMealPlanning', function () {
 				scope.mealPlanning.onDate = '';
 				scope.mealPlanning.menuId = '';
+				scope.mealPlanning.setMenuId = '';
 				scope.mealPlanning.isActive = false;
 				scope.mealPlanning.date = new Date();
 

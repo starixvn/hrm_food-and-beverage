@@ -49,7 +49,7 @@
         <table class="table table-bordered table-striped col-sm-12">
             <thead>
                 <tr class="header-table">
-                    <th colspan="9" ng-show="policy.permission == 2">
+                    <th colspan="10" ng-show="policy.permission == 2">
                         <a class="pull-left button-icon create-button" ng-click="addMealPlanning('', false)"
                             ng-show="policy.permission == 2"><span class="icon plus"></span><span class="button-text"
                                 data-translate="CreateMealPlanning"></span></a>
@@ -73,6 +73,8 @@
                     </th>
                     <th class="" data-translate="EmployeeType">
                     </th>
+					<th data-translate="SetMenu">
+                    </th>
                     <th class="width-300" data-translate="FoodItem">
                     </th>
                     <th class="width-60" data-translate="Active">
@@ -82,56 +84,60 @@
                 </tr>
             </thead>
             <tbody ng-repeat="mealPlanning in pagedItems[currentPage]">
-                <tr ng-repeat="food in mealPlanning.FoodMenu.FoodItems" ng-show="mealPlanning.FoodMenu.FoodItems.length > 0">
+                <tr ng-repeat="food in mealPlanning.SetMenu.FoodItems" ng-show="mealPlanning.SetMenu.FoodItems.length > 0">
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
-                        ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center"
+                        ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" class="text-center"
                         ng-bind="mealPlanning.itemIndex + 1">
                     </td>
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
-                        ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" ng-bind="mealPlanning.FoodMenu.MenuVnmName">
+                        ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" ng-bind="mealPlanning.Menu.MenuVnmName">
                     </td>
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
-                        ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" ng-bind="mealPlanning.Date | customDate">
+                        ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" ng-bind="mealPlanning.Date | customDate">
                     </td>
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
-                        ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}">
-                        <div ng-if="mealPlanning.FoodMenu.Meals.length == 1">
-                            <span ng-bind="mealPlanning.FoodMenu.Meals[0].MealEngName"></span>
+                        ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}">
+                        <div ng-if="mealPlanning.Menu.Meals.length == 1">
+                            <span ng-bind="mealPlanning.Menu.Meals[0].MealEngName"></span>
                         </div>
-                        <div ng-if="mealPlanning.FoodMenu.Meals.length > 1">
+                        <div ng-if="mealPlanning.Menu.Meals.length > 1">
                             <ul class="group-toggle-item">
-                                <li ng-repeat="meal in mealPlanning.FoodMenu.Meals" ng-bind="meal.MealEngName"></li>
+                                <li ng-repeat="meal in mealPlanning.Menu.Meals" ng-bind="meal.MealEngName"></li>
                             </ul>
                         </div>
                     </td>
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
-                        ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center">
-                        <span data-translate="Yes" ng-if="mealPlanning.FoodMenu.IsVegetarian"></span><span
-                            data-translate="No" ng-if="!mealPlanning.FoodMenu.IsVegetarian"></span>
+                        ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" class="text-center">
+                        <span data-translate="Yes" ng-if="mealPlanning.Menu.IsVegetarian"></span><span
+                            data-translate="No" ng-if="!mealPlanning.Menu.IsVegetarian"></span>
                     </td>
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
-                        ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}">
-                        <div ng-if="mealPlanning.FoodMenu.EmployeeTypes.length == 1">
-                            <span ng-bind="mealPlanning.FoodMenu.EmployeeTypes[0].EmployeeTypeName"></span>
+                        ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}">
+                        <div ng-if="mealPlanning.Menu.EmployeeTypes.length == 1">
+                            <span ng-bind="mealPlanning.Menu.EmployeeTypes[0].EmployeeTypeName"></span>
                         </div>
-                        <div ng-if="mealPlanning.FoodMenu.EmployeeTypes.length > 1">
+                        <div ng-if="mealPlanning.Menu.EmployeeTypes.length > 1">
                             <ul class="group-toggle-item">
-                                <li ng-repeat="type in mealPlanning.FoodMenu.EmployeeTypes" ng-bind="type.EmployeeTypeName">
+                                <li ng-repeat="type in mealPlanning.Menu.EmployeeTypes" ng-bind="type.EmployeeTypeName">
                                 </li>
                             </ul>
                         </div>
+                    </td>
+					<td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
+                        ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}">
+                        <span ng-bind="mealPlanning.SetMenu.SetMenuVnmName"></span>
                     </td>
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
                         ng-bind="food.FoodVnmName">
                     </td>
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
-                        ng-show="$first" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center">
+                        ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" class="text-center">
                         <input type="checkbox" ng-checked="mealPlanning.IsActive" ng-click="confirmActive(mealPlanning)"
                             ng-if="policy.permission == 2" ng-disabled="mealPlanning.IsDisable" />
                         <img class="ico-tick" ng-if="policy.permission == 1 && mealPlanning.IsActive" />
                     </td>
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
-                        ng-show="$first && policy.permission == 2" rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}"
+                        ng-show="$first && policy.permission == 2" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}"
                         class="text-center">
                         <div ng-show="!mealPlanning.IsDisable">
                             <a class="glyphicon glyphicon-edit" href="" ng-click="edit(mealPlanning)"></a><a
@@ -140,38 +146,41 @@
                         </div>
                     </td>
                 </tr>
-                <tr ng-show="mealPlanning.FoodMenu.FoodItems.length == 0">
+                <tr ng-show="mealPlanning.SetMenu.FoodItems.length == 0">
                     <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}" class="text-center"
                         ng-bind="mealPlanning.itemIndex + 1">
                     </td>
-                    <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}" ng-bind="mealPlanning.FoodMenu.MenuVnmName">
+                    <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}" ng-bind="mealPlanning.Menu.MenuVnmName">
                     </td>
                     <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}" ng-bind="mealPlanning.Date | customDate">
                     </td>
                     <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}">
-                        <div ng-if="mealPlanning.FoodMenu.Meals.length == 1">
-                            <span ng-bind="mealPlanning.FoodMenu.Meals[0].MealEngName"></span>
+                        <div ng-if="mealPlanning.Menu.Meals.length == 1">
+                            <span ng-bind="mealPlanning.Menu.Meals[0].MealEngName"></span>
                         </div>
-                        <div ng-if="mealPlanning.FoodMenu.Meals.length > 1">
+                        <div ng-if="mealPlanning.Menu.Meals.length > 1">
                             <ul class="group-toggle-item">
-                                <li ng-repeat="meal in mealPlanning.FoodMenu.Meals" ng-bind="meal.MealEngName"></li>
+                                <li ng-repeat="meal in mealPlanning.Menu.Meals" ng-bind="meal.MealEngName"></li>
                             </ul>
                         </div>
                     </td>
                     <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}" class="text-center">
-                        <span data-translate="Yes" ng-if="mealPlanning.FoodMenu.IsVegetarian"></span><span
-                            data-translate="No" ng-if="!mealPlanning.FoodMenu.IsVegetarian"></span>
+                        <span data-translate="Yes" ng-if="mealPlanning.Menu.IsVegetarian"></span><span
+                            data-translate="No" ng-if="!mealPlanning.Menu.IsVegetarian"></span>
                     </td>
                     <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}">
-                        <div ng-if="mealPlanning.FoodMenu.EmployeeTypes.length == 1">
-                            <span ng-bind="mealPlanning.FoodMenu.EmployeeTypes[0].EmployeeTypeName"></span>
+                        <div ng-if="mealPlanning.Menu.EmployeeTypes.length == 1">
+                            <span ng-bind="mealPlanning.Menu.EmployeeTypes[0].EmployeeTypeName"></span>
                         </div>
-                        <div ng-if="mealPlanning.FoodMenu.EmployeeTypes.length > 1">
+                        <div ng-if="mealPlanning.Menu.EmployeeTypes.length > 1">
                             <ul class="group-toggle-item">
-                                <li ng-repeat="type in mealPlanning.FoodMenu.EmployeeTypes" ng-bind="type.EmployeeTypeName">
+                                <li ng-repeat="type in mealPlanning.Menu.EmployeeTypes" ng-bind="type.EmployeeTypeName">
                                 </li>
                             </ul>
                         </div>
+                    </td>
+					<td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}">
+                        <span ng-bind="mealPlanning.SetMenu.SetMenuVnmName"></span>
                     </td>
                     <td ng-show="!mealPlanning.IsExist && policy.permission == 2" ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}"
                         class="text-center" colspan="3">
@@ -184,13 +193,13 @@
                     <td ng-show="mealPlanning.IsExist" ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}">
                     </td>
                     <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}" ng-show="mealPlanning.IsExist"
-                        rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center">
+                        rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" class="text-center">
                         <input type="checkbox" ng-checked="mealPlanning.IsActive" ng-click="confirmActive(mealPlanning)"
                             ng-show="policy.permission == 2" ng-disabled="mealPlanning.IsDisable" />
                         <img class="ico-tick" ng-if="policy.permission == 1 && mealPlanning.IsActive" />
                     </td>
                     <td ng-show="mealPlanning.IsExist && policy.permission == 2" ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}"
-                        rowspan="{{mealPlanning.FoodMenu.FoodItems.length}}" class="text-center">
+                        rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" class="text-center">
                         <div ng-show="!mealPlanning.IsDisable">
                             <a class="glyphicon glyphicon-edit" href="" ng-click="edit(mealPlanning)"></a><a
                                 class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteMealPlanning(mealPlanning)">
@@ -201,13 +210,13 @@
             </tbody>
             <tbody ng-if="mealPlannings.length == 0 || pagedItems.length == 0">
                 <tr>
-                    <td class="empty-result" colspan="9" data-translate="EmptyResult">
+                    <td class="empty-result" colspan="10" data-translate="EmptyResult">
                     </td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="9" class="paging">
+                    <td colspan="10" class="paging">
                         <span data-translate="Show"></span>
                         <select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
                             ng-options="entry for entry in entries">

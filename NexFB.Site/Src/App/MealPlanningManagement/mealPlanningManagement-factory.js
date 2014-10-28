@@ -7,10 +7,10 @@ mealPlanningManagementModule.factory('mealPlanningFactory', ['$http', function (
 			return $http.get('/api/MealPlanning/GetAllMealPlanning',
 				{ params: { fromDate: fromDate, toDate: toDate, mealId: mealId, employeeTypeId: employeeTypeId} });
 		},
-		getBasicFoodItem: function (foodId, menuGroupId, isActive) {
-			return $http.get('/api/FoodItemManagement/GetBasicFoodItem',
-				{ params: { foodId: foodId, menuGroupId: menuGroupId, isActive: isActive} });
-		},
+//		getBasicFoodItem: function (foodId, menuGroupId, isActive) {
+//			return $http.get('/api/FoodItemManagement/GetBasicFoodItem',
+//				{ params: { foodId: foodId, menuGroupId: menuGroupId, isActive: isActive} });
+//		},
 		insertMealPlanning: function (mealPlanning) {
 			return $http.post('/api/MealPlanning/InsertMealPlanning', mealPlanning);
 		},
@@ -38,8 +38,8 @@ mealPlanningManagementModule.factory('mealPlanningFactory', ['$http', function (
 } ]);
 
 mealPlanningManagementModule.factory('mealPlanningUtilities', [
-'notificationFactory', 'mealPlanningFactory', 'ErrorFactory', 
-function (notificationFactory, mealPlanningFactory, ErrorFactory) {
+'notificationFactory',
+function (notificationFactory) {
 	var utilities = {};
 
 	utilities.validateMealPlanning = function (mealPlanning) {
@@ -74,18 +74,18 @@ function (notificationFactory, mealPlanningFactory, ErrorFactory) {
 		return foodId;
 	};
 
-	utilities.getBasicFoodItems = function (foodId, menuId, isActive, scope) {
-		mealPlanningFactory.getBasicFoodItem(foodId, menuId, isActive).success(function (foodItems) {
-			scope.groupOptions = foodItems;
-		}).error(function (response, status) {
-			if (status === 405) {
-				ErrorFactory.errorHandle(status);
-			}
-			else {
-				notificationFactory.error("ErrorMessage");
-			}
-		});
-	};
+//	utilities.getBasicFoodItems = function (foodId, menuId, isActive, scope) {
+//		mealPlanningFactory.getBasicFoodItem(foodId, menuId, isActive).success(function (foodItems) {
+//			scope.groupOptions = foodItems;
+//		}).error(function (response, status) {
+//			if (status === 405) {
+//				ErrorFactory.errorHandle(status);
+//			}
+//			else {
+//				notificationFactory.error("ErrorMessage");
+//			}
+//		});
+//	};
 
 	/*
 	** Upward or downward food item.

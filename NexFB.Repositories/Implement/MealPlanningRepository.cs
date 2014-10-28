@@ -14,9 +14,9 @@ namespace NexFB.Repositories.Implement
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
-    using NexFB.Models.FoodItemManagement;
     using NexFB.Models.FoodMealPlanning;
     using NexFB.Models.FoodMenuManagement;
+    using NexFB.Models.SetMenuManagement;
     using NexFB.Repositories.Interface;
 
     /// <summary>
@@ -47,23 +47,31 @@ namespace NexFB.Repositories.Implement
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    IEnumerable<MealPlanningModel> mealPlannings = multi.Read<MealPlanningModel, FoodMenuModel, MealPlanningModel>(
-                        (mepl, menu) =>
+                    IEnumerable<MealPlanningModel> mealPlannings = 
+                        multi.Read<MealPlanningModel, FoodMenuModel, SetMenuModel, MealPlanningModel>(
+                        (mepl, menu, setMenu) =>
                         {
-                            mepl.FoodMenu = menu;
+                            mepl.Menu = menu;
+                            mepl.SetMenu = setMenu;
                             return mepl;
                         },
-                        "MenuId");
+                        "MenuId, FoodSetId");
+
                     IList<dynamic> rawMeals = multi.Read<dynamic>().ToList();
                     IList<dynamic> rawEmployeeTypes = multi.Read<dynamic>().ToList();
-                    ////IList<dynamic> rawFoodItems = multi.Read<dynamic>().ToList();
+                    IList<dynamic> rawFoodItems = multi.Read<dynamic>().ToList();
 
                     foreach (MealPlanningModel mealPlanning in mealPlannings)
                     {
-                        int menuId = mealPlanning.FoodMenu.MenuId;
-                        mealPlanning.FoodMenu.Meals = _commonRepository.GetMealsOfMenu(menuId, rawMeals);
-                        mealPlanning.FoodMenu.EmployeeTypes = _commonRepository.GetEmployeeTypeOfMenu(menuId, rawEmployeeTypes);
-                        ////mealPlanning.FoodMenu.FoodItems = GetFoodItemsOfMenu(menuId, mealPlanning.Date, rawFoodItems);
+                        int menuId = mealPlanning.Menu.MenuId;
+                        mealPlanning.Menu.Meals = _commonRepository.GetMealsOfMenu(menuId, rawMeals);
+                        mealPlanning.Menu.EmployeeTypes = _commonRepository.GetEmployeeTypeOfMenu(menuId, rawEmployeeTypes);
+                        if (mealPlanning.SetMenu == null)
+                        {
+                            mealPlanning.SetMenu = new SetMenuModel();
+                        }
+
+                        mealPlanning.SetMenu.FoodItems = GetFoodItemsOfSetMenu(menuId, mealPlanning.Date, rawFoodItems);
 
                         if (mealPlanning.Date.Date < DateTime.Now.Date)
                         {
@@ -83,17 +91,17 @@ namespace NexFB.Repositories.Implement
         /// <param name="date"> The date to plan.</param>
         /// <param name="rawFoodItems">The list food items from database.</param>
         /// <returns>The list Food Item belong to current menu.</returns>
-        private IList<FoodItemModel> GetFoodItemsOfMenu(
+        private IList<FoodSetMenuModel> GetFoodItemsOfSetMenu(
             int menuId,
             DateTime date,
             IList<dynamic> rawFoodItems)
         {
-            IList<FoodItemModel> foodItems = new List<FoodItemModel>();
+            IList<FoodSetMenuModel> foodItems = new List<FoodSetMenuModel>();
             IEnumerable<dynamic> rawFoodItemsOfMenu = rawFoodItems.Where(x => x.MenuID == menuId && date == x.Date);
 
             foreach (dynamic rawFoodItem in rawFoodItemsOfMenu)
             {
-                var foodItem = new FoodItemModel
+                var foodItem = new FoodSetMenuModel
                 {
                     FoodId = rawFoodItem.FoodID,
                     FoodEngName = rawFoodItem.FoodEngName,

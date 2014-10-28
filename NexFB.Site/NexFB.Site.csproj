@@ -237,6 +237,8 @@
     <Content Include="Src\App\FoodMenuManagement\Templates\create.html" />
     <Content Include="Src\App\FoodMenuManagement\Templates\edit.html" />
     <Content Include="Src\App\FoodMenuManagement\Templates\index.html" />
+    <Content Include="Src\App\MealPlanningManagement\editMealPlanning-controller.js" />
+    <Content Include="Src\App\MealPlanningManagement\createMealPlanning-controller.js" />
     <Content Include="Src\App\MealPlanningManagement\mealPlanningManagement-controller.js" />
     <Content Include="Src\App\MealPlanningManagement\mealPlanningManagement-factory.js" />
     <Content Include="Src\App\MealPlanningManagement\mealPlanningManagement-route.js" />

@@ -11,6 +11,7 @@ namespace NexFB.Models.FoodMealPlanning
 {
     using System;
     using NexFB.Models.FoodMenuManagement;
+    using NexFB.Models.SetMenuManagement;
 
     /// <summary>
     /// The Meal Planning model.
@@ -25,6 +26,8 @@ namespace NexFB.Models.FoodMealPlanning
 
         public bool IsDisable { get; set; }
 
-        public FoodMenuModel FoodMenu { get; set; }
+        public SetMenuModel SetMenu { get; set; }
+
+        public FoodMenuModel Menu { get; set; }
     }
 }

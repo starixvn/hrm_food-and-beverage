@@ -711,4 +711,7 @@
   <data name="InvalidInputRegisterMeal" xml:space="preserve">
     <value>You can only register either Vegetarian or Non-vegetarian.</value>
   </data>
+  <data name="SelectSetMenu" xml:space="preserve">
+    <value>Select the set menu</value>
+  </data>
 </root>

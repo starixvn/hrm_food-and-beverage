@@ -23,6 +23,9 @@ namespace NexFB.Criteria.FoodMealPlanning
 
         public string FoodId { get; set; }
 
+        [SpParam(SqlParamName = "FoodSetID")]
+        public int? SetMenuId { get; set; }
+
         public bool IsActive { get; set; }
 
         public int CreatedBy { get; set; }

@@ -110,6 +110,8 @@ namespace NexFB.Site
                 "~/Src/App/SetMenuManagement/setMenuManagement-directive.js",
                 "~/Src/App/MealPlanningManagement/mealPlanningManagement-route.js",
                 "~/Src/App/MealPlanningManagement/mealPlanningManagement-controller.js",
+                "~/Src/App/MealPlanningManagement/createMealPlanning-controller.js",
+                "~/Src/App/MealPlanningManagement/editMealPlanning-controller.js",
                 "~/Src/App/MealPlanningManagement/mealPlanningManagement-factory.js",
                 "~/Src/App/MealPlanningManagement/mealPlanningManagement-directive.js",
                 "~/Src/App/SideDishManagement/sideDishManagement-route.js",

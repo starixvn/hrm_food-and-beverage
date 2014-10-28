@@ -231,6 +231,10 @@
   </Function>
 	<Function Name="MealPlanningManagement">
 		<Setting Key="FoodPlan_GetMenuByOnDate" SpName="FoodPlan_GetMenuByOnDate" DbName="NexFB" Plain="0" >
+      <Mapping DataField="FoodSetId" ObjectProperty="SetMenuId" Class="SetMenuModel"/>
+      <Mapping DataField="FoodSetCode" ObjectProperty="SetMenuCode" Class="SetMenuModel"/>
+      <Mapping DataField="FoodSetVNMName" ObjectProperty="SetMenuVnmName" Class="SetMenuModel"/>
+      <Mapping DataField="FoodSetENGName" ObjectProperty="SetMenuEngName" Class="SetMenuModel"/>
 		</Setting>
 		<Setting Key="FoodPlan_Insert" SpName="FoodPlan_Insert" DbName="NexFB" Plain="0" >
 		</Setting>
