@@ -112,8 +112,8 @@
     <Compile Include="DependencyProperties\WaterMark.cs" />
     <Compile Include="DependencyProperties\WatermarkAdorner.cs" />
     <Compile Include="ViewModels\AwaitingDeliverViewModel.cs" />
-    <Compile Include="ViewModels\OrderFoodData.cs" />
-    <Compile Include="ViewModels\OrderFoodPreviewData.cs" />
+    <Compile Include="ViewModels\Partials\OrderFood\OrderFoodData.cs" />
+    <Compile Include="ViewModels\Partials\OrderFood\OrderFoodPreviewData.cs" />
     <Compile Include="ViewModels\Partials\Main\MainModelProperty.cs" />
     <Compile Include="ViewModels\Partials\OrderFood\OrderFoodProperty.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />

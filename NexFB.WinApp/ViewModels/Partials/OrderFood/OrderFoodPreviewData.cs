@@ -7,7 +7,7 @@
 //   <change who="Bradley.Mac" date="2014.10.10">Created</change>
 // </history>
 
-namespace NexFB.WinApp.ViewModels
+namespace NexFB.WinApp.ViewModels.Partials.OrderFood
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;

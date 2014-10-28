@@ -85,6 +85,8 @@
 					<Label Content="{x:Static resx:WinFormMainResource.OrderOwner}" 
 				FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
 					<Label Content="{Binding Path=EmployeeInfo.FullName}" FontWeight="Bold" FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
+					<Label Content="{Binding Path=EmployeeInfo.NickName}" ContentStringFormat=" ({0})"
+					 FontWeight="Bold" FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
 					<Label Content=" - " FontWeight="Bold" FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />
 					<Label Content="{Binding Path=EmployeeInfo.Code}" ContentStringFormat="#{0} "
 					FontWeight="Bold" FontSize="14" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" />

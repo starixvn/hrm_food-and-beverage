@@ -37,6 +37,8 @@ namespace NexFB.WinApp.ViewModels.Partials.Main
         private string _keypadVisibility;
         private string _searchTextBoxVisibility;
         private double _displayWidth;
+        private double _keypadHeight;
+        private int _keypadFontSize;
 
         private MenuColor _menu1 = new MenuColor();
         private MenuColor _menu2 = new MenuColor();
@@ -375,6 +377,52 @@ namespace NexFB.WinApp.ViewModels.Partials.Main
             {
                 _displayWidth = value;
                 this.OnPropertyChanged("DisplayWidth");
+            }
+        }
+
+        public double KeypadHeight
+        {
+            get
+            {
+                if (_screeHeight > 800)
+                {
+                    _keypadHeight = 400;
+                }
+                else
+                {
+                    _keypadHeight = 250;
+                }
+
+                return _keypadHeight;
+            }
+
+            set
+            {
+                _keypadHeight = value;
+                this.OnPropertyChanged("KeypadHeight");
+            }
+        }
+
+        public int KeypadFontSize
+        {
+            get
+            {
+                if (_screeHeight > 800)
+                {
+                    _keypadFontSize = 38;
+                }
+                else
+                {
+                    _keypadFontSize = 25;
+                }
+
+                return _keypadFontSize;
+            }
+
+            set
+            {
+                _keypadFontSize = value;
+                this.OnPropertyChanged("KeypadFontSize");
             }
         }
 
