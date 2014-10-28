@@ -136,6 +136,7 @@
 							<Setter Property="Background" TargetName="border" Value="#F0F0F0"/>
 							<Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
 						</Trigger>
+
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>

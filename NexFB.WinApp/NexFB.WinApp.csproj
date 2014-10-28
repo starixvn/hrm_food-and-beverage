@@ -114,6 +114,8 @@
     <Compile Include="ViewModels\AwaitingDeliverViewModel.cs" />
     <Compile Include="ViewModels\OrderFoodData.cs" />
     <Compile Include="ViewModels\OrderFoodPreviewData.cs" />
+    <Compile Include="ViewModels\Partials\Main\MainModelProperty.cs" />
+    <Compile Include="ViewModels\Partials\OrderFood\OrderFoodProperty.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="Views\EmployeeSelectionWindow.xaml.cs">
       <DependentUpon>EmployeeSelectionWindow.xaml</DependentUpon>

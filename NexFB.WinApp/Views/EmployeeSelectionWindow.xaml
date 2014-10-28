@@ -1,7 +1,8 @@
 ﻿<Window x:Class="NexFB.WinApp.Views.EmployeeSelectionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="EmployeeSelectionWindow" Height="220" Width="700"
+		xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
+        Title="EmployeeSelectionWindow" Height="250" Width="700" ResizeMode="NoResize"
 		 Topmost="True" ShowInTaskbar="False" WindowStyle="None">
 	<Window.Resources>
 		<!-- Style to get rid of the selection visual -->
@@ -15,31 +16,55 @@
 			</Setter>
 		</Style>
 	</Window.Resources>
-	<Grid Background="Black">
-		<Label Foreground="#fff" Content="{Binding Path=MessageHeader}" Height="40" FontSize="20"
-		HorizontalAlignment="Left" Margin="12,0,0,0" Name="label1" VerticalAlignment="Top" />
-		<ListBox VerticalAlignment="Top" Background="Black" BorderBrush="Black" 
-		ItemsSource="{Binding DuplicateUser}" SelectedItem="{Binding SelectedItem}" Margin="0,36,0,0">
-			<ListBox.ItemTemplate>
-				<DataTemplate >
-					<Viewbox Height="30"
-					HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,7,0,0">
-						<RadioButton Foreground="#fff" Content="{Binding Path=EmployeeSelectionGeneralInfo}" GroupName="Properties" >
-							<RadioButton.IsChecked>
-								<Binding Path="IsChecked" Mode="TwoWay" />
-							</RadioButton.IsChecked>
-					</RadioButton>
-					</Viewbox>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
-		<Button Command="{Binding Path=SaveDialogCommand}"
+	<Border BorderBrush="Silver" BorderThickness="1" >
+		<Grid>
+			<StackPanel Orientation="Vertical">
+				<Border Margin="0,0,0,7" BorderBrush="Silver" BorderThickness="0,0,0,1" Height="40">
+					<StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+						<Image Source="pack://application:,,,/Images/alert.png" Height="24" Width="24"/>
+						<Label Content="{Binding Path=MessageHeader}" Height="40" FontSize="20"
+					HorizontalAlignment="Left" Margin="5,3,0,0" Name="label1" VerticalAlignment="Top" Foreground="Red"/>
+					</StackPanel>
+				</Border>
+
+
+				<ListBox VerticalAlignment="Top" Margin="10,0,0,0"
+				ItemsSource="{Binding DuplicateUser}" SelectedItem="{Binding SelectedItem}" >
+					<ListBox.Template>
+						<ControlTemplate>
+							<ItemsPresenter />
+						</ControlTemplate>
+					</ListBox.Template>
+					<ListBox.ItemTemplate>
+						<DataTemplate >
+							<Viewbox Height="27"
+					HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,0,0">
+								<RadioButton  Content="{Binding Path=EmployeeSelectionGeneralInfo}" GroupName="Properties" >
+									<RadioButton.IsChecked>
+										<Binding Path="IsChecked" Mode="TwoWay" />
+									</RadioButton.IsChecked>
+								</RadioButton>
+							</Viewbox>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+
+				<Grid Margin="0,15,0,0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Button Command="{Binding Path=SaveDialogCommand}"
 		CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-		Style="{StaticResource TileButton}" Background="Blue" Content="OK" Foreground="White" Margin="0,0,90,0"
-		Height="35" HorizontalAlignment="Right" Name="button1" VerticalAlignment="Bottom" Width="75" />
-		<Button Command="{Binding Path=CancelDialogCommand}"
+		Style="{StaticResource TileButton}" Background="#64B4D5" Content="{x:Static resx:WinFormMainResource.Confirmation}" Foreground="White" Margin="0,0,3,0"
+		Height="35" HorizontalAlignment="Right" Name="button1" VerticalAlignment="Center" Width="120" FontSize="18"/>
+					<Button Command="{Binding Path=CancelDialogCommand}" Grid.Column="1"
 		CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"  
-		Style="{StaticResource TileButton}" Content="Cancel" Height="35" Background="#e2e2e2" Margin="0,0,5,0"
-		HorizontalAlignment="Right" Name="button2" VerticalAlignment="Bottom" Width="75" />
-	</Grid>
+		Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Back}" Height="35" Background="#ef4339" Margin="3,0,0,0"
+		HorizontalAlignment="Left" Name="button2" VerticalAlignment="Center" Width="120" Foreground="#fff" FontSize="18"/>
+				</Grid>
+			</StackPanel>
+		</Grid>
+	</Border>
+	
 </Window>

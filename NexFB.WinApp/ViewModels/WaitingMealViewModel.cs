@@ -138,15 +138,22 @@ namespace NexFB.WinApp.ViewModels
         {
             if (!WaitingMeals.Any(x => x.OrderId == order.OrderId))
             {
-                Order lastNewOrder = WaitingMeals.Where(x => x.CurrentStatusId == 1).LastOrDefault();
-                if (lastNewOrder != null)
+                if (order.CurrentStatusId == 1)
                 {
-                    int index = WaitingMeals.IndexOf(lastNewOrder);
-                    WaitingMeals.Insert(index + 1, order);
+                    Order lastNewOrder = WaitingMeals.Where(x => x.CurrentStatusId == 1).LastOrDefault();
+                    if (lastNewOrder != null)
+                    {
+                        int index = WaitingMeals.IndexOf(lastNewOrder);
+                        WaitingMeals.Insert(index + 1, order);
+                    }
+                    else
+                    {
+                        WaitingMeals.Insert(0, order);
+                    }
                 }
                 else
                 {
-                    WaitingMeals.Insert(0, order);
+                    WaitingMeals.Add(order);
                 }
             }
         }

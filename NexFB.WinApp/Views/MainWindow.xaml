@@ -16,17 +16,17 @@
 		<!--l:ControlBox.HasMinimizeButton="True"
 	l:ControlBox.HasMaximizeButton="True"-->
 		<!--ResizeMode="NoResize"-->
-			<DropShadowEffect x:Key="DropShadowEffect" ShadowDepth="1" Direction="-90" BlurRadius="5" />
+		<DropShadowEffect x:Key="DropShadowEffect" ShadowDepth="1" Direction="-90" BlurRadius="5" />
 
-			<LinearGradientBrush x:Key="IPhoneSteelBackground" EndPoint="0.5,1.272" StartPoint="0.5,0">
-				<GradientStop Color="#FF9097A3" Offset="0"/>
-				<GradientStop Color="#FF444D5B" Offset="1"/>
-			</LinearGradientBrush>
+		<LinearGradientBrush x:Key="IPhoneSteelBackground" EndPoint="0.5,1.272" StartPoint="0.5,0">
+			<GradientStop Color="#FF9097A3" Offset="0"/>
+			<GradientStop Color="#FF444D5B" Offset="1"/>
+		</LinearGradientBrush>
 
-			<Style x:Key="buttonBorder" TargetType="Border" >
-				<!--<Setter Property="Button.Effect" Value="{StaticResource DropShadowEffect}"/>
+		<Style x:Key="buttonBorder" TargetType="Border" >
+			<!--<Setter Property="Button.Effect" Value="{StaticResource DropShadowEffect}"/>
 				<Setter Property="Margin" Value="4"/>-->
-			</Style>
+		</Style>
 
 		<Style TargetType="Button">
 			<!--<Setter Property="ClickMode" Value="Press"/>-->
@@ -38,6 +38,8 @@
 	</Window.Resources>
 
 	<!--NexFB Main Grid-->
+
+
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="44"/>
@@ -184,4 +186,6 @@
 			</Border>
 		</Grid>
 	</Grid>
+
+
 </Window>

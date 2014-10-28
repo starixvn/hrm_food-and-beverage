@@ -60,6 +60,10 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string DefaultButtonOrderBorderColor = "#fff";
 
+        public const string DefaultButtonOrderColor = "#6cb23e";
+
+        public const string SelectedButtonOrderColor = "#427720";
+
         public const string Hidden = "Hidden";
 
         public const string Visible = "Visible";
