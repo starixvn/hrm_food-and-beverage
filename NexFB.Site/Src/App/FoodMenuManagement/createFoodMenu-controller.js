@@ -11,7 +11,20 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 	*/
 	$scope.mealsOption = angular.copy(mealsOption);
 	$scope.employeeTypesOption = angular.copy(employeeTypesOption);
-	$scope.setMenuItems = setMenuItems;
+
+	var getSetMenus = function (setMenuItems) {
+		var setMenus = [];
+
+		angular.forEach(setMenuItems, function (setMenu) {
+			if (setMenu.IsActive) {
+				setMenus.push(setMenu);
+			}
+		});
+
+		return setMenus;
+	};
+
+	$scope.setMenuItems = getSetMenus(setMenuItems);
 
 	$scope.foodMenu = {
 		menuVnmName: '',
@@ -65,13 +78,13 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 
 				if (response.IsSuccessful) {
 					if (isContinue) {
-						$modalInstance.close();
-					}
-					else {
 						$scope.$broadcast("resetFoodMenu");
 					}
+					else {
+						$modalInstance.close();
+					}
 					notificationFactory.success("DataChangeSuccessfully");
-					
+
 				}
 				else if (response.Code === 101) {
 					notificationFactory.error("DuplicateFoodMenuMessage");
@@ -81,49 +94,6 @@ foodMenuFactory, notificationFactory, ErrorFactory) {
 				}
 			}).error(function (response, status) {
 				ErrorFactory.errorHandle(status);
-			});
-		}
-		else {
-			$scope.disabledSubmitButton = false;
-		}
-	};
-
-	/*
-	** Add new food menu and continue.
-	*/
-	$scope.addAndContinue = function (foodMenu) {
-		$scope.disabledSubmitButton = true;
-
-		if (foodMenu) {
-			foodMenu.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
-			foodMenu.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-
-			if (!foodMenu.pricePerMeal) {
-				foodMenu.pricePerMeal = 0;
-			}
-			if (!foodMenu.pricePerDay) {
-				foodMenu.pricePerDay = 0;
-			}
-		}
-
-		if (foodMenuUtilities.validateFoodMenu(foodMenu) === true) {
-			foodMenu.setMenuId = foodMenuUtilities.createSetMenuId(foodMenu.rawSetMenuIds);
-
-			foodMenuFactory.insertFoodMenu(foodMenu).success(function (response) {
-				if (response.IsSuccessful === true) {
-					$scope.$broadcast("resetFoodMenu");
-					notificationFactory.success("DataChangeSuccessfully");
-				}
-				else if (response.Code === 101) {
-					notificationFactory.error("DuplicateFoodMenuMessage");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			})['finally'](function () {
-				$scope.disabledSubmitButton = false;
 			});
 		}
 		else {

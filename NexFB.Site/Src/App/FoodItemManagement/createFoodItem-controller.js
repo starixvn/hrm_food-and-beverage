@@ -9,7 +9,6 @@ foodItemUtilities) {
 	/*
 	** Declare variables.
 	*/
-	$scope.setMenuItems = setMenuItems;
 
 	$scope.food = {
 		foodEngName: '',
@@ -18,6 +17,20 @@ foodItemUtilities) {
 		setMenuIds: [],
 		setMenuId: ''
 	};
+
+	var getSetMenus = function (setMenuItems) {
+		var setMenus = [];
+
+		angular.forEach(setMenuItems, function (setMenu) {
+			if (setMenu.IsActive) {
+				setMenus.push(setMenu);
+			}
+		});
+
+		return setMenus;
+	};
+
+	$scope.setMenuItems = getSetMenus(setMenuItems);
 
 	/*
 	** Set scope of form to current scope.

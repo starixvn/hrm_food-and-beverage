@@ -7,8 +7,29 @@ function ($scope, $modalInstance, setMenuItems, foodItem, foodItemUtilities) {
 	/*
 	** Declare variables.
 	*/
-	$scope.setMenuItems = setMenuItems;
+
 	$scope.food = foodItem;
+
+	var getSetMenus = function (setMenuItems) {
+		var setMenus = [];
+
+		angular.forEach(setMenuItems, function (setMenu) {
+			if (setMenu.IsActive) {
+				setMenus.push(setMenu);
+			}
+			else {
+				angular.forEach($scope.food.SetMenus, function (foodSetMenu) {
+					if (setMenu.SetMenuId === foodSetMenu.SetMenuId) {
+						setMenus.push(setMenu);
+					}
+				});
+			}
+		});
+
+		return setMenus;
+	};
+
+	$scope.setMenuItems = getSetMenus(setMenuItems);
 
 	/*
 	** Set scope of form to current scope.
@@ -71,7 +92,7 @@ function ($scope, $modalInstance, setMenuItems, foodItem, foodItemUtilities) {
 			foodVnmName: food.FoodVnmName,
 			foodEngName: food.FoodEngName,
 			isActive: food.IsActive,
-			setMenuId: foodItemUtilities.createMenuGroupId(food.setMenuIds)
+			setMenuId: foodItemUtilities.createSetMenuId(food.setMenuIds)
 		};
 
 		food = updateFoodSetMenus(food);

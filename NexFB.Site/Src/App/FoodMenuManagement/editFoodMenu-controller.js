@@ -10,21 +10,29 @@ foodMenuUtilities, foodMenuFactory, notificationFactory, ErrorFactory, commonFac
 	** Declare variables.
 	*/
 	$scope.foodMenu = foodMenu;
-	$scope.setMenuItems = setMenuItems;
 	$scope.mealsOption = angular.copy(mealsOption);
 	$scope.employeeTypesOption = angular.copy(employeeTypesOption);
 
-	/*
-	** Disable or enable food item multiselect.
-	*/
-	$scope.$watch('foodMenu.IsActive', function (newValue) {
-		if (!newValue) {
-			$scope.$broadcast("disableChosenSelect");
-		}
-		else {
-			$scope.$broadcast("enableChosenSelect");
-		}
-	});
+	var getSetMenus = function (setMenuItems) {
+		var setMenus = [];
+
+		angular.forEach(setMenuItems, function (setMenu) {
+			if (setMenu.IsActive) {
+				setMenus.push(setMenu);
+			}
+			else {
+				angular.forEach(foodMenu.SetMenus, function (foodSetMenu) {
+					if (setMenu.SetMenuId === foodSetMenu.SetMenuId) {
+						setMenus.push(setMenu);
+					}
+				});
+			}
+		});
+
+		return setMenus;
+	};
+
+	$scope.setMenuItems = getSetMenus(setMenuItems);
 
 	/*
 	** Create list food item Id.
@@ -117,7 +125,7 @@ foodMenuUtilities, foodMenuFactory, notificationFactory, ErrorFactory, commonFac
 	};
 
 	/*
-	** Update Food Items.
+	** Update Set menu.
 	*/
 	var getSetMenuById = function (setMenuId, setMenuItems) {
 		var setMenuItem = '',
