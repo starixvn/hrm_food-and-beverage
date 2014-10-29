@@ -24,6 +24,7 @@ namespace NexFB.Models.Ordering
             Members = new List<OrderMemberModel>();
             Location = new Location();
             CurrentMenus = new List<Menu>();
+            MenuQuantity = new List<MenuQuantityModel>();
             IsShowMember = false;
         }
 

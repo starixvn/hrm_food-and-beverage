@@ -129,11 +129,6 @@ namespace NexFB.Repositories.Implement
                         {
                             foreach (MenuQuantityModel menu in ordersQuatity)
                             {
-                                if (order.MenuQuantity == null)
-                                {
-                                    order.MenuQuantity = new List<MenuQuantityModel>();
-                                }
-
                                 order.MenuQuantity.Add(menu);
                             }
                         }
