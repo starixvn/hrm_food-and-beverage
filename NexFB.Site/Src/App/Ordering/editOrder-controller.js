@@ -3,9 +3,9 @@
 
 orderingModule.controller('EditOrderController',
 ['$scope', '$modalInstance', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory',
-'orderId', 'locations', '$translate', 'commonFactory', 'ErrorFactory',
+'orderId', 'locations', '$translate', 'commonFactory', 'ErrorFactory', 'orderingUtilities',
 function ($scope, $modalInstance, $modal, orderingFactory, orderingService, notificationFactory,
-	orderId, locations, $translate, commonFactory, ErrorFactory) {
+	orderId, locations, $translate, commonFactory, ErrorFactory, orderingUtilities) {
 
     $scope.newMember = {};
     $scope.alterEdit = {};
@@ -377,14 +377,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
     ** Calculate total price of all member in order
     */
     $scope.calculateTotalAmount = function (members) {
-        var total = 0;
-
-        angular.forEach(members, function (member) {
-            angular.forEach(member.Menus, function (menu) {
-                total += menu.TotalAmount;
-            });
-        });
-
+		var total = orderingUtilities.calculateTotalAmount(members);
         return total;
     };
 } ]);

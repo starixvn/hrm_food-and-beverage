@@ -338,7 +338,7 @@
 						<div class="form-group required">
 							<label class="control-label width-100" data-translate="DeliveryArea">
 							</label>
-							<select ng-model="savedOrder.Location.LocationId">
+							<select ng-model="sideDishOrder.Location.LocationId">
 								<option style="display: none" value="0">{{"SelectLocation" | translate}}</option>
 								<option ng-repeat="lc in locations" value="{{lc.LocationId}}">{{lc.Name}}</option>
 							</select>
@@ -398,6 +398,11 @@
 									<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="removeMember($index, member.Member.UserId, 3)"></a>
                                 </td>
                             </tr>
+							<tr class="total-price">
+								<td colspan="3"></td>
+								<td class="text-right" ng-bind="calculateTotalAmount(sideDishOrder.Members) | number"></td>
+								<td></td>
+							</tr>
 							<tr ng-show="sideDishOrder == '' || sideDishOrder.Members == ''">
 								<td class="empty-result" colspan="5" data-translate="EmptyResult">
 								</td>

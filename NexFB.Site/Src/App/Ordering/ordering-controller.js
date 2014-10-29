@@ -3,9 +3,9 @@
 
 orderingModule.controller("OrderingController",
 ['$translate', '$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService',
-'notificationFactory', 'ErrorFactory',
+'notificationFactory', 'ErrorFactory', 'orderingUtilities',
 function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderingService,
-	notificationFactory, ErrorFactory) {
+	notificationFactory, ErrorFactory, orderingUtilities) {
 	$scope.getMessage = function () {
 		$translate('ConfirmMessageSaveOrder').then(function (message) {
 			$scope.confirmMessageSaveOrder = message;
@@ -620,6 +620,14 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		})['finally'](function () {
 			$scope.modalInstance = '';
 		});
+	};
+
+	/*
+	** Calculate total price of all member in order
+	*/
+	$scope.calculateTotalAmount = function (members) {
+		var total = orderingUtilities.calculateTotalAmount(members);
+		return total;
 	};
 } ]);
 

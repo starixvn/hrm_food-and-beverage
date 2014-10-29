@@ -85,3 +85,24 @@ orderingModule.factory("orderingFactory",
 		};
 	} ]
 );
+
+	orderingModule.factory('orderingUtilities', function () {
+		var utilities = {};
+
+		/*
+		** Calculate total price of all member in order
+		*/
+		utilities.calculateTotalAmount = function (members) {
+			var total = 0;
+
+			angular.forEach(members, function (member) {
+				angular.forEach(member.Menus, function (menu) {
+					total += menu.TotalAmount;
+				});
+			});
+
+			return total;
+		};
+
+		return utilities;
+	});
