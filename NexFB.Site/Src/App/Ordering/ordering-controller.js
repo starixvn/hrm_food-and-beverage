@@ -597,7 +597,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	};
 
 	$scope.loadData(function () {
-		$scope.bindAction();
+	    $scope.bindAction();
 	});
 
 	/*

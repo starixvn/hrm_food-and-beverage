@@ -75,6 +75,15 @@ orderingModule.directive('clearSearchMemberInput', function () {
 		}
 	};
 });
+ orderingModule.directive('onChangeSelect', function () {
+ return {
+  link: function (scope, iElement) {
+   iElement.change(function () {
+    $(this).blur();
+   })
+  }
+ };
+});
 
 orderingModule.filter('range', function () {
 	return function (input, total) {
