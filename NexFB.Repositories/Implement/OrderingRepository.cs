@@ -146,9 +146,14 @@ namespace NexFB.Repositories.Implement
                             "SysID");
 
                         members = GroupMenusOfMember(members, orders);
-
                         order.Members = members.ToList();
-                        order.CurrentMenus = members != null && members.Count() > 0 ? members.FirstOrDefault().Menus : null;
+
+                        IEnumerable<OrderMemberModel> creator = members.Where(x => x.Member.UserId == order.CreatorOrder.UserId);
+
+                        if (creator != null && creator.Count() > 0)
+                        {
+                            order.CurrentMenus = members != null && members.Count() > 0 ? members.FirstOrDefault().Menus : null;
+                        }
                     }
                 }
             }

@@ -632,8 +632,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 } ]);
 
 orderingModule.controller('SelectSideDishController',
-['$scope', 'member', 'orderingFactory', '$modalInstance', 'ErrorFactory',
-function ($scope, member, orderingFactory, $modalInstance, ErrorFactory) {
+['$scope', 'member', 'orderingFactory', '$modalInstance', 'ErrorFactory', 'notificationFactory',
+function ($scope, member, orderingFactory, $modalInstance, ErrorFactor, notificationFactory) {
 
 	$scope.member = member;
 	$scope.menus = $scope.member.Menus;
@@ -689,7 +689,13 @@ function ($scope, member, orderingFactory, $modalInstance, ErrorFactory) {
 
 	$scope.save = function () {
 		var menus = createMenusFromSideDishes($scope.sideDishes);
-		$modalInstance.close(menus);
+
+		if (typeof menus !== undefined && menus.length > 0) {
+			$modalInstance.close(menus);
+		}
+		else {
+			notificationFactory.error("InvalidFoodItem");
+		}
 	};
 
 	$scope.cancel = function () {

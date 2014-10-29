@@ -46,9 +46,12 @@
                     </span>
                 </td>
                 <td>
-                    <ul class="list-order list-unstyled" ng-repeat="menu in order.MenuQuantity">
+				<span ng-show="order.MenuQuantity.length == 1">{{order.MenuQuantity[0].Quantity}} x "{{order.MenuQuantity[0].Menu.Name}}"</span>
+				<div ng-show="order.MenuQuantity.length > 1">
+					<ul class="list-order list-unstyled" ng-repeat="menu in order.MenuQuantity">
                         <li>{{menu.Quantity}} x "{{menu.Menu.Name}}"</li>
                     </ul>
+				</div>
                 </td>
                 <td class="text-center">
                     <span class="lnk-member"><a href="javascript:;" ng-bind="order.MemberCount" ng-mouseover="showMember(order)"
