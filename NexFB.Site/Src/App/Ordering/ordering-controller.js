@@ -41,7 +41,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			angular.forEach(order.Members, function (value) {
 				if (value.Member.UserId === $scope.currentUser.UserId) {
 					isRelatedCurrentUser = true;
-					order.MyMeal = value.Menu;
+					order.CurrentMenus = value.Menus;
 				}
 			});
 		}
@@ -84,7 +84,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			angular.forEach(order.Members, function (value) {
 				if (value.Member.UserId === $scope.currentUser.UserId) {
 					isRelatedCurrentUser = true;
-					order.MyMeal = value.Menu;
+					order.CurrentMenus = value.Menus;
 				}
 			});
 		}

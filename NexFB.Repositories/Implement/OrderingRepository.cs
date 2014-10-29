@@ -147,7 +147,7 @@ namespace NexFB.Repositories.Implement
 
                         if (creator != null && creator.Count() > 0)
                         {
-                            order.CurrentMenus = members != null && members.Count() > 0 ? members.FirstOrDefault().Menus : null;
+                            order.CurrentMenus = creator.First().Menus;
                         }
                     }
                 }
