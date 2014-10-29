@@ -60,7 +60,7 @@ namespace NexFB.Models.Kitchen
                 }
                 else
                 {
-                    return string.Empty;
+                    return "N/A";
                 }
             }
         }

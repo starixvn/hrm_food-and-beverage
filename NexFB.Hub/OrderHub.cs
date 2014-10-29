@@ -109,24 +109,12 @@ namespace NexFB.Hub
 
         private void SendNewOrderForApp(int orderId)
         {
-            var criteria = new GetMealOrderByIdCriteria()
-            {
-                OrderId = orderId
-            };
-
-            Order order = _kitchenService.GetMealOrderById(criteria);
-            Clients.All.newOrderForApp(order);
+            Clients.All.newOrderForApp(orderId);
         }
 
         private void SendEditOrderForApp(int orderId)
         {
-            var criteria = new GetMealOrderByIdCriteria()
-            {
-                OrderId = orderId
-            };
-
-            Order order = _kitchenService.GetMealOrderById(criteria);
-            Clients.All.editOrderForApp(order);
+            Clients.All.editOrderForApp(orderId);
         }
 
         /// <summary>

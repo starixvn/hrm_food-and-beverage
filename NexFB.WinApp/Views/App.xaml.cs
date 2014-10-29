@@ -65,6 +65,8 @@ namespace NexFB.WinApp
         private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             string errorMessage = Lang.ErrorMessage + "\n\nError details:\n" + e.Exception.Message;
+            MessageBox.Show(sender.GetType().ToString());
+            MessageBox.Show(e.Exception.InnerException.ToString());
             e.Handled = true;
             if (MessageBox.Show(errorMessage, Lang.UnhandledException, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
             {

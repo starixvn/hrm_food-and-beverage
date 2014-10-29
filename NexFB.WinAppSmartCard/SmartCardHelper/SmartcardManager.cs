@@ -229,8 +229,17 @@ namespace NexFB.WinAppSmartCard.SmartCardHelper
                             {
                                 case SmartcardState.Inserted:
                                     {
-                                        int attribute = _states[0].Attribute();
-                                        string data = ByteArrayToString(_states[0].RGBAttribute(), attribute);
+                                        string data = string.Empty;
+                                        int deviceCount = _states.Length;
+                                        for (int item = 0; item < deviceCount; item++)
+                                        {
+                                            int attribute = _states[item].Attribute();
+                                            if (attribute > 0)
+                                            {
+                                                data = ByteArrayToString(_states[item].RGBAttribute(), attribute);
+                                            }
+                                        }
+                                        
                                         CardNumber = data;
                                         break;
                                     }

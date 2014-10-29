@@ -103,8 +103,8 @@ namespace NexFB.WinApp.ViewModels
             if (WaitingMeals.Any(x => x.OrderId == order.OrderId))
             {
                 var oldOrder = WaitingMeals.Where(x => x.OrderId == order.OrderId).FirstOrDefault();
-                oldOrder = order;
-                WaitingMeals = new ObservableCollection<Order>(this.WaitingMeals);
+                WaitingMeals.Remove(oldOrder);
+                NewOrderDataAndSort(order);
             }
         }
 

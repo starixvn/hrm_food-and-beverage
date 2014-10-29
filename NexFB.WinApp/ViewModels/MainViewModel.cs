@@ -385,8 +385,9 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
-        private void OnNewOrder(Order order)
+        private void OnNewOrder(int orderId)
         {
+            Order order = this.GetOrderById(orderId);
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => NewOrder(order)));
         }
 
@@ -395,8 +396,9 @@ namespace NexFB.WinApp.ViewModels
             StartTimerGetData(Constant.GetNewOrder, order);
         }
 
-        private void OnEditOrder(Order order)
+        private void OnEditOrder(int orderId)
         {
+            Order order = this.GetOrderById(orderId);
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => EditOrder(order)));
         }
 
@@ -550,12 +552,12 @@ namespace NexFB.WinApp.ViewModels
             {
                 Connection = new HubConnection(_host);
                 Proxy = Connection.CreateHubProxy("order");
-                Proxy.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
+                Proxy.On<int>("newOrderForApp", (orderId) => OnNewOrder(orderId));
                 Proxy.On<int>("appNotifyReceiveNewOrder", (orderId) => OnKitchenStaffReceiveOrder(orderId));
                 Proxy.On<int>("appNotifyAwaitingDeliverOrder", (orderId) => OnKitchenStaffAwaitingDeliverOrder(orderId));
                 Proxy.On<int>("appNotifyUndoDeliveredOrder", (orderId) => OnKitchenStaffUndoDeliveredOrder(orderId));
                 Proxy.On<int>("deleteOrderForApp", (orderId) => OnDeleteOrder(orderId));
-                Proxy.On<Order>("editOrderForApp", (order) => OnEditOrder(order));
+                Proxy.On<int>("editOrderForApp", (orderId) => OnEditOrder(orderId));
                 Connection.Start().Wait();
 
                 while (Active)
@@ -576,12 +578,12 @@ namespace NexFB.WinApp.ViewModels
             {
                 ConnectionLocal = new HubConnection(_hostLocal);
                 ProxyLocal = ConnectionLocal.CreateHubProxy("order");
-                ProxyLocal.On<Order>("newOrderForApp", (order) => OnNewOrder(order));
+                ProxyLocal.On<int>("newOrderForApp", (orderId) => OnNewOrder(orderId));
                 ProxyLocal.On<int>("appNotifyReceiveNewOrder", (orderId) => OnKitchenStaffReceiveOrder(orderId));
                 ProxyLocal.On<int>("appNotifyAwaitingDeliverOrder", (orderId) => OnKitchenStaffAwaitingDeliverOrder(orderId));
                 ProxyLocal.On<int>("appNotifyUndoDeliveredOrder", (orderId) => OnKitchenStaffUndoDeliveredOrder(orderId));
                 ProxyLocal.On<int>("deleteOrderForApp", (orderId) => OnDeleteOrder(orderId));
-                ProxyLocal.On<Order>("editOrderForApp", (order) => OnEditOrder(order));
+                ProxyLocal.On<int>("editOrderForApp", (orderId) => OnEditOrder(orderId));
                 ConnectionLocal.Start().Wait();
 
                 while (ActiveLocal)
