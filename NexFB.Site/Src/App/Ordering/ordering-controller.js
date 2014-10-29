@@ -597,7 +597,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	};
 
 	$scope.loadData(function () {
-	    $scope.bindAction();
+		$scope.bindAction();
 	});
 
 	/*
@@ -633,7 +633,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 orderingModule.controller('SelectSideDishController',
 ['$scope', 'member', 'orderingFactory', '$modalInstance', 'ErrorFactory', 'notificationFactory',
-function ($scope, member, orderingFactory, $modalInstance, ErrorFactor, notificationFactory) {
+function ($scope, member, orderingFactory, $modalInstance, ErrorFactory, notificationFactory) {
 
 	$scope.member = member;
 	$scope.menus = $scope.member.Menus;
