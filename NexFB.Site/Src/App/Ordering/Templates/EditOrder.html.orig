@@ -1,0 +1,191 @@
+﻿<div>
+    <div class="modal-header">
+        <div class="popup-header">
+            {{"EditOrder" | translate}} #{{order.OrderNo}}<span class="close-popup" ng-click="cancel()"></span>
+        </div>
+    </div>
+    <div class="modal-body assign-role-modal">
+        <div class="col-sm-12 edit-order">
+					<div class="row form-order">
+						<div class="form-group">
+                            <span data-translate="OrderPerson">
+                            </span>
+                            :
+							<span class="bold">{{order.CreatorOrder.NickName}}</span>
+                        </div>
+					</div>
+            <div class="row form-inline form-order">
+                <div class="form-group">
+                    <label data-translate="DeliveryArea">
+                    </label>
+                    <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.Location.LocationId"
+							ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
+								|| (order.Status.StatusId != 1) || order.OrderFrom == 'P'" class="form-control"
+							class="ddlLocation">
+                    </select> 
+                </div>
+                <div class="form-group" ng-show="(order.OrderFrom == 'W' && order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)">
+                      <label data-translate="Member">
+                    </label>
+                    <input class="form-control txtMember custom-padding" ng-model="searchKey" placeholder="full name or nick name"
+					search-auto-complete search-employees="searchEmployees" ng-change="getEmployee(searchKey)"
+					employee="newMember.employee" id="txtEmployee" ng-enter="add(true)"/>
+                </div>
+                <div class="form-group btn-add">
+                     <a href="javascript:;" ng-show="(order.OrderFrom == 'W' && order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)"
+                        ng-click="add()" class="button"><i class="glyphicon glyphicon-plus icon-plus">
+                        </i>
+                        <label data-translate="Add">
+                        </label>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-bordered table-striped table-member">
+                    <thead>
+                        <tr>
+                            <th class="width-40" data-translate="SymbolCount">
+                            </th>
+                            <th data-translate="Member">
+                            </th>
+                            <th data-translate="Menu" ng-show="order.OrderFrom == 'W' && !order.IsSideDishOrder">
+                            </th>
+							<th data-translate="FoodItemCamalcase" ng-show="(order.OrderFrom == 'W' && order.IsSideDishOrder) || order.OrderFrom == 'P'">
+							</th>
+							<th data-translate="Amount" ng-show="(order.OrderFrom == 'W' && order.IsSideDishOrder) || order.OrderFrom == 'P'">
+							</th>
+                            <th class="col-action" data-translate="Action">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="member in order.Members">
+                            <td class="text-center" ng-bind="$index + 1">
+                            </td>
+                            <td ng-class="{'is-ordered' : member.CurrentStatus != null && !existInCurrentOrder}">
+                                <span>{{member.Member.NickName}}</span> <span ng-show="member.CurrentStatus != null && !existInCurrentOrder">
+                                    (Ordered)</span>
+                            </td>
+                            <td>
+								<div ng-show="order.OrderFrom == 'W'">
+									<div ng-show="!order.IsSideDishOrder">
+										<div ng-show="!alterEdit.alternativeMenu{{member.Member.UserId}}">
+											<span>{{member.Menus[0].Name}}</span>
+											<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, false)" 
+												ng-show="member.Menus[0].IsHaveAlternativeMenu && order.Status.StatusId == 1 && 
+													((member.Member.UserId != order.CreatorOrder.UserId 
+													&& member.Member.UserId == order.CurrentUser.UserId) 
+													|| order.CreatorOrder.UserId == order.CurrentUser.UserId)" title="Select Alternative Menus" >
+											</a>
+										</div>
+										<div ng-show="alterEdit.alternativeMenu{{member.Member.UserId}}">
+<<<<<<< HEAD
+											<select class="ddlMenu" name="editOrderMenu{{member.Member.UserId}}" ng-model="member.Menus[0].MenuId" get-selected-edit-menu on-change-select >
+=======
+											<select class="ddlMenu" name="editOrderMenu{{member.Member.UserId}}" ng-model="member.Menus[0].MenuId" get-selected-edit-menu >
+>>>>>>> #25084 - fix bug edit order popup
+												<option ng-repeat="altMenu in member.AllMenus" ng-bind="altMenu.Name" value="{{altMenu.MenuId}}" 
+													ng-selected="{{(member.Menus[0].MenuId == altMenu.MenuId) && ((member.Menus[0].IsMainMenu && altMenu.IsMainMenu) 
+														|| (!member.Menus[0].IsMainMenu && !altMenu.IsMainMenu))}}" isMainMenu={{altMenu.IsMainMenu}}>
+												</option>
+											</select>
+										</div>
+									</div>
+									<div ng-show="order.IsSideDishOrder && member.Menus">
+										<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
+											<li>{{menu.QuantityOrder}} x "{{menu.Name}}"</li>
+										</ul>
+									</div>
+									<span ng-show="order.IsSideDishOrder && !member.Menus" data-translate="SelectFoodItem"></span>
+								</div>
+								<div ng-show="order.OrderFrom == 'P'">
+									<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
+											<li>{{menu.QuantityOrder}} x "{{menu.Name}}"</li>
+									</ul>
+								</div>
+                            </td>
+							<td ng-show="(order.OrderFrom == 'W' && order.IsSideDishOrder) || order.OrderFrom == 'P'" class="text-right">
+								<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
+									<span data-translate="NoneAvailable" ng-if="menu.TotalAmount == 0"></span>
+									<li ng-if="menu.TotalAmount != 0">{{menu.TotalAmount | number}}</li>
+								</ul>
+							</td>
+                            <td class="text-center">
+                                <a href="javascript:;" ng-click="editSideDish(member)" ng-show="order.OrderFrom == 'W' && order.IsSideDishOrder && 
+										order.Status.StatusId == 1
+										    && ((member.Member.UserId != order.CreatorOrder.UserId 
+										    && member.Member.UserId == order.CurrentUser.UserId) 
+										    || order.CreatorOrder.UserId == order.CurrentUser.UserId) " class="glyphicon glyphicon-edit">
+                                </a>
+                                <a href="javascript:;" ng-click="removeMember($index)" ng-show="order.OrderFrom == 'W' && (
+										((order.IsSideDishOrder && order.Status.StatusId == 1) ||
+										!order.IsSideDishOrder && (order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3))
+										    && ((member.Member.UserId != order.CreatorOrder.UserId 
+										    && member.Member.UserId == order.CurrentUser.UserId) 
+										    || order.CreatorOrder.UserId == order.CurrentUser.UserId)) " class="glyphicon glyphicon-remove margin-icon icon-remove">
+                                </a>
+                            </td>
+                        </tr>
+						<tr class="total-price" ng-show="order.IsSideDishOrder">
+							<td colspan="3"></td>
+							<td class="text-right" ng-bind="calculateTotalAmount(order.Members) | number"></td>
+							<td></td>
+						</tr>
+                        <tr ng-show="order == '' || order.Members == ''">
+                            <td class="empty-result" colspan="5" data-translate="EmptyResult">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row form-inline form-order">
+                <div class="form-group">
+                    <label data-translate="Remark">
+                    </label>
+                    <input ng-model="order.Remark" type="text" class="txt-remark" maxlength="500" 
+						ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
+						|| (order.Status.StatusId != 1) || order.OrderFrom == 'P'"/>
+                </div>
+                <div class="form-group phone">
+                    <label data-translate="Phone">
+                    </label>
+                    <input ng-model="order.Phone" type="text" class="txt-phone" maxlength="50" 
+						ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
+						|| (order.Status.StatusId != 1) || order.OrderFrom == 'P'"/>
+                </div>
+            </div>
+            <div class="row form-inline form-order">
+                <label ng-show="order.Status.StatusId == 1" class="order-status-new">
+                   <span ng-bind="getStatusOrderMessage(order)"></span>
+                </label>
+                <label ng-show="order.Status.StatusId == 2" class="order-status-received">
+                    <span ng-bind="getStatusOrderMessage(order)"></span>
+                </label>
+				<label ng-show="order.Status.StatusId == 3 && order.Members.length > 0" class="order-status-reduced">
+					<span ng-bind="getStatusOrderMessage(order)"></span>
+				</label>
+				<label ng-show="order.Status.StatusId == 3 && order.Members.length == 0" class="order-status-reduced">
+					<span ng-bind="getStatusOrderMessage(order)"></span>
+				</label>
+                <label ng-show="order.Status.StatusId == 4" class="order-status-delivered">
+                    <span ng-bind="getStatusOrderMessage(order)"></span>
+                </label>
+				<label ng-show="order.Status.StatusId == 5" class="order-status-edited">
+					<span ng-bind="getStatusOrderMessage(order)"></span>
+				</label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+		<button class="button" ng-click="saveEditOrder(order)" data-translate="Save"
+		ng-show = "order.OrderFrom == 'W' && ((order.IsSideDishOrder && order.Status.StatusId == 1) ||
+			(!order.IsSideDishOrder && (order.Status.StatusId == 1 || order.Status.StatusId == 2 || order.Status.StatusId == 3)))" >
+        </button>
+        <button class="button btn-delete" ng-click="deleteOrder(order.OrderId)" data-translate="Delete"
+            ng-show="order.OrderFrom == 'W' &&
+				(order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)">
+        </button>
+        <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+        </button>
+    </div>
+</div>

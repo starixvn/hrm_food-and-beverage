@@ -64,7 +64,7 @@
                             </td>
                             <td ng-class="{'is-ordered' : member.CurrentStatus != null && !existInCurrentOrder}">
                                 <span>{{member.Member.NickName}}</span> <span ng-show="member.CurrentStatus != null && !existInCurrentOrder">
-                                    (Ordered)</span>
+                                    (Ordered)</span><span class="icon-notice"></span>
                             </td>
                             <td>
 								<div ng-show="order.OrderFrom == 'W'">
