@@ -26,7 +26,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	$scope.savedOrder = [];
 	$scope.myOrder = [];
 
-	$.connection.hub.start();
+	
 	var orderSignalR = $.connection.order;
 	$scope.sendNewOrder = function (orderId) {
 		orderSignalR.server.sendNewOrder(orderId);
@@ -116,6 +116,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			$scope.$apply();
 		}
 	};
+
+	$.connection.hub.start();
 
 	$scope.$watch(function () {
 		return orderingService.getMyOrder();

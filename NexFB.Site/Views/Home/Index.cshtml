@@ -9,7 +9,7 @@
 
 <div class="row header">
 	<a class="logo" href="/Ordering/Index">
-        <img src="~/Src/Content/Site/Images/logo.png" alt="F&B" title="F&B"/>
+        <img src="~/Src/Content/Site/Images/logo.png" alt="F&amp;B" title="F&amp;B"/>
     </a>
 	<div class="nav">
 		<nav id="navbar-example" class="navbar navbar-static top-menu" role="navigation">
@@ -45,21 +45,23 @@
 						}
 					}
 				}
+				
+				</ul>
 			</div>
 		</nav>
-		<div id="user_utilities" class="user-info info" ng-controller="LogoutController">
+		<div id="user_utilities" class="user-info info" data-ng-controller="LogoutController">
 			<h2>@Model.FullName - @Model.NickName
 			</h2>
 			<a class="dropdown-arrow" href="javascript:;">
 			</a>
 			<ol>
 				<li>
-					<a href="" ng-click="logout()">Logout</a>
+					<a href="" data-ng-click="logout()">Logout</a>
 				</li>
 			</ol>
 		</div>
 	</div>
 </div>
 
-<div class="row" ng-view>
+<div class="row" data-ng-view>
 </div>
