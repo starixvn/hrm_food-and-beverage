@@ -118,27 +118,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		}
 	};
 
-	$.connection.hub.logging = true;
 	$.connection.hub.start();
-	$.connection.hub.stateChanged(function (change) {
-		console.log(change);
-	});
-	//	$.connection.hub.error(function (error) {
-	//		console.log('SignalR error: ' + error)
-	//	});
-	$.connection.hub.disconnected(function () {
-		console.log('SignalR disconnected: ');
-	});
 
-	$.connection.hub.reconnected(function () {
-		console.log('SignalR reconnected');
-	});
-	$.connection.hub.reconnecting(function () {
-		console.log('SignalR reconnecting');
-	});
-
-	//$.connection.hub.stop();
-	$.connection.hub.start();
 	$scope.$watch(function () {
 		return orderingService.getMyOrder();
 	}, function (value) {
