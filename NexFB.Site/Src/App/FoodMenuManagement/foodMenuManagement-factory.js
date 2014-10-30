@@ -75,7 +75,7 @@ function (notificationFactory) {
 		var mealId = '';
 
 		angular.forEach(mealsOption, function (value) {
-			if (value.ticked === true) {
+			if (value.ticked) {
 				var id = value.MealId.toString();
 				mealId = mealId !== '' ? mealId + ',' + id : id;
 			}
@@ -88,7 +88,7 @@ function (notificationFactory) {
 		var employeeTypeId = '';
 
 		angular.forEach(employeeTypesOption, function (value) {
-			if (value.ticked === true) {
+			if (value.ticked) {
 				var id = value.EmployeeTypeId.toString();
 				employeeTypeId = employeeTypeId !== '' ? employeeTypeId + ',' + id : id;
 			}

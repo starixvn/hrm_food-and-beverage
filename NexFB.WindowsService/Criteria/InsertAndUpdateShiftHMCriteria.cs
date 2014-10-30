@@ -11,6 +11,7 @@ namespace NexFB.WindowsService.Criteria
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using Fanex.Data.Repository;
 
@@ -68,7 +69,7 @@ namespace NexFB.WindowsService.Criteria
 
         public override bool IsValid()
         {
-            return true;
+            return DepartmentId > 0 && Shifts != null && Shifts.Any();
         }
     }
 }

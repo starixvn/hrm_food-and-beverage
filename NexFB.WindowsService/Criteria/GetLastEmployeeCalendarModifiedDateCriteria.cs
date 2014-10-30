@@ -25,7 +25,7 @@ namespace NexFB.WindowsService.Criteria
 
         public override bool IsValid()
         {
-            return true;
+            return DepartmentId > 0;
         }
     }
 }

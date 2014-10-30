@@ -278,7 +278,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 
 				$scope.modalInstance.result.then(function () {
 					mealPlanningFactory.activateMealPlanning(newMealPlanning).success(function (response) {
-						if (response.IsSuccessful === true) {
+						if (response.IsSuccessful) {
 							keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
 							notificationFactory.success(keyMessage);
 						}
@@ -338,7 +338,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 				onDate = mealPlanning.Date;
 
 			mealPlanningFactory.deleteMealPlanning(menuId, onDate).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					updateDeleteMealPlanning(mealPlanning);
 					notificationFactory.success("DataChangeSuccessfully");
 				}

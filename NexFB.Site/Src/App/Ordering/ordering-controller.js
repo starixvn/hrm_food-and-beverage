@@ -26,7 +26,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	$scope.savedOrder = [];
 	$scope.myOrder = [];
 
-	
+
+
 	var orderSignalR = $.connection.order;
 	$scope.sendNewOrder = function (orderId) {
 		orderSignalR.server.sendNewOrder(orderId);
@@ -117,8 +118,27 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		}
 	};
 
+	$.connection.hub.logging = true;
 	$.connection.hub.start();
+	$.connection.hub.stateChanged(function (change) {
+		console.log(change);
+	});
+	//	$.connection.hub.error(function (error) {
+	//		console.log('SignalR error: ' + error)
+	//	});
+	$.connection.hub.disconnected(function () {
+		console.log('SignalR disconnected: ');
+	});
 
+	$.connection.hub.reconnected(function () {
+		console.log('SignalR reconnected');
+	});
+	$.connection.hub.reconnecting(function () {
+		console.log('SignalR reconnecting');
+	});
+
+	//$.connection.hub.stop();
+	$.connection.hub.start();
 	$scope.$watch(function () {
 		return orderingService.getMyOrder();
 	}, function (value) {
@@ -235,6 +255,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 	$scope.bindAction = function () {
 		$scope.$on('$routeChangeStart', function () {
+			alert('a');
 			if ($scope.modalEditOrderInstance) {
 				$scope.modalEditOrderInstance.dismiss('cancel');
 			}
@@ -332,7 +353,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					if (!isSideDishOrder) {
 						orderingFactory.createOrder(order)
 						.success(function (response) {
-							if (response.result.IsSuccessful === true) {
+							if (response.result.IsSuccessful) {
 								notificationFactory.success("DataChangeSuccessfully");
 								$scope.sendNewOrder(response.orderId);
 								$scope.getDefaultForAddOrder();
@@ -348,7 +369,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					else {
 						orderingFactory.createOrderSideDish(order)
 						.success(function (response) {
-							if (response.result.IsSuccessful === true) {
+							if (response.result.IsSuccessful) {
 								notificationFactory.success("DataChangeSuccessfully");
 								$scope.sendNewOrder(response.orderId);
 								$scope.getDefaultForAddOrder();
@@ -391,7 +412,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				// Saved Order
 				else if (typeOrder === 2) {
 					orderingFactory.removeMember(memberId).success(function (response) {
-						if (response.IsSuccessful === true) {
+						if (response.IsSuccessful) {
 							$scope.savedOrder.Members.splice(index, 1);
 							notificationFactory.success("DataChangeSuccessfully");
 						}
@@ -493,7 +514,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 						if (!isExisted) {
 							orderingFactory.addMember(member).success(function (response) {
-								if (response.IsSuccessful === true) {
+								if (response.IsSuccessful) {
 									savedMembers.push(member);
 									orderingService.setMemberSavedOrder(savedMembers);
 									notificationFactory.success("DataChangeSuccessfully");

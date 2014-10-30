@@ -15,7 +15,6 @@ namespace NexFB.Repositories.Implement
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
-    using NexFB.Models.AlternativeMenuManagement;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
     using NexFB.Repositories.Interface;

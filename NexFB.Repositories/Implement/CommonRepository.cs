@@ -12,7 +12,6 @@ namespace NexFB.Repositories.Implement
     using System.Collections.Generic;
     using System.Linq;
     using NexFB.Models.Employee;
-    using NexFB.Models.FoodItemManagement;
     using NexFB.Models.MealRegistration;
     using NexFB.Repositories.Interface;
 
