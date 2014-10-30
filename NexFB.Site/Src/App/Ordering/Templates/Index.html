@@ -190,7 +190,7 @@
 										</a>
 									</div>
 									<div ng-show="alter.alternativeMenu{{member.Member.UserId}}">
-										<select name="newOrderMenu" ng-model="member.Menus[0].MenuId" get-selected-menu on-change-select >
+										<select name="newOrderMenu" ng-model="member.Menus[0].MenuId" class="ddlMenu" get-selected-menu on-change-select >
 											<option ng-repeat="altMenu in member.AllMenus" ng-bind="altMenu.Name" value="{{altMenu.MenuId}}" 
 												ng-selected="{{member.Menu[0].MenuId == altMenu.MenuId && altMenu.IsMainMenu}}" isMainMenu={{altMenu.IsMainMenu}}>
 											</option>

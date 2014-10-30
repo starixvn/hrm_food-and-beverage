@@ -46,7 +46,7 @@ sideDishManagementModule.factory('sideDishUtilities', ['notificationFactory', fu
 				valid = false;
 				notificationFactory.error('PriceRequire');
 			}
-			if (!sideDish.unitId) {
+			if (sideDish.unitId === '' || sideDish.unitId === undefined) {
 				valid = false;
 				notificationFactory.error('UnitRequire');
 			}

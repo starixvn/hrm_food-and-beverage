@@ -24,7 +24,7 @@ namespace NexFB.Models.SideDishManagement
         {
             get
             {
-                return UnitVnmName;
+                return UnitEngName;
             }
         }
     }
