@@ -62,10 +62,7 @@
                         <tr ng-repeat="member in order.Members">
                             <td class="text-center" ng-bind="$index + 1">
                             </td>
-                            <td ng-class="{'is-ordered' : member.CurrentStatus != null && !existInCurrentOrder}">
-                                <span>{{member.Member.NickName}}</span> 
-                                    (Ordered)</span>
-                                <span class="icon-notice" ng-show="member.CurrentStaus == 5 && !order.IsSideDishOrder"></span>
+                            <td ng-bind="member.Member.NickName">
                             </td>
                             <td>
 								<div ng-show="order.OrderFrom == 'W' && order.Status.StatusId != 5">

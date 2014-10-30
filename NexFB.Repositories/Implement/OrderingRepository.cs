@@ -142,6 +142,7 @@ namespace NexFB.Repositories.Implement
 
                         members = GroupMenusOfMember(members, orders);
                         order.Members = members.ToList();
+                        order.IsSideDishOrder = CheckOrderHasSideDish(order.Members);
 
                         IEnumerable<OrderMemberModel> creator = members.Where(x => x.Member.UserId == order.CreatorOrder.UserId);
 
@@ -257,12 +258,25 @@ namespace NexFB.Repositories.Implement
             };
 
             Menu menu = GetMenuOfMember(dynamicObject);
+            Status currentStatus = GetStatusOfMember(dynamicObject);
 
             orderMember.IsOrder = true;
             orderMember.Member = member;
             orderMember.Menus.Add(menu);
+            orderMember.CurrentStatus = currentStatus;
 
             return orderMember;
+        }
+
+        private Status GetStatusOfMember(dynamic dynamicObject)
+        {
+            var status = new Status
+            {
+                StatusId = dynamicObject.CurrentStatusID,
+                Name = dynamicObject.CurrentStatusName
+            };
+
+            return status;
         }
 
         /// <summary>
@@ -365,8 +379,6 @@ namespace NexFB.Repositories.Implement
 
                     if (rowsSameId != null && rowsSameId.Count() > 0)
                     {
-                        order.IsSideDishOrder = CheckOrderHasSideDish(rowsSameId);
-
                         var groupMember = new OrderMemberModel
                         {
                             OrderId = rowsSameId.First().OrderId,
@@ -426,7 +438,6 @@ namespace NexFB.Repositories.Implement
                     if (menu.IsSideDish)
                     {
                         hasSideDish = true;
-                        break;
                     }
                 }
             }
