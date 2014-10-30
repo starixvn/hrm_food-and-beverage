@@ -365,7 +365,7 @@ namespace NexFB.Repositories.Implement
 
                     if (rowsSameId != null && rowsSameId.Count() > 0)
                     {
-                        order.IsSideDishOrder = rowsSameId.First().Menus.FirstOrDefault().IsSideDish;
+                        order.IsSideDishOrder = CheckOrderHasSideDish(rowsSameId);
 
                         var groupMember = new OrderMemberModel
                         {
@@ -408,6 +408,30 @@ namespace NexFB.Repositories.Implement
             };
 
             return menu;
+        }
+
+        /// <summary>
+        /// Check that order has side dish food item or not.
+        /// </summary>
+        /// <param name="members">The enumerator members.</param>
+        /// <returns>The boolean has side dish or not.</returns>
+        private bool CheckOrderHasSideDish(IEnumerable<OrderMemberModel> members)
+        {
+            bool hasSideDish = false;
+
+            foreach (OrderMemberModel member in members)
+            {
+                foreach (Menu menu in member.Menus)
+                {
+                    if (menu.IsSideDish)
+                    {
+                        hasSideDish = true;
+                        break;
+                    }
+                }
+            }
+
+            return hasSideDish;
         }
 
         private bool GetBoolValue(dynamic value)

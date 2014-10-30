@@ -63,11 +63,18 @@
                             <td class="text-center" ng-bind="$index + 1">
                             </td>
                             <td ng-class="{'is-ordered' : member.CurrentStatus != null && !existInCurrentOrder}">
+<<<<<<< HEAD
                                 <span>{{member.Member.NickName}}</span> <span ng-show="member.CurrentStatus != null && !existInCurrentOrder">
-                                    (Ordered)</span>
+                                    (Ordered)</span><span class="icon-notice"></span>
+=======
+                                <span>{{member.Member.NickName}}</span> 
+								<span ng-show="member.CurrentStatus != null && !existInCurrentOrder">(Ordered)</span>
+								<span ng-show="member.CurrentStaus == 5 && !order.IsSideDishOrder">
+								</span>
+>>>>>>> #25246 - Edit Order - Missing "!" icon on edited member of an Edited Order
                             </td>
                             <td>
-								<div ng-show="order.OrderFrom == 'W'">
+								<div ng-show="order.OrderFrom == 'W' && order.Status.StatusId != 5">
 									<div ng-show="!order.IsSideDishOrder">
 										<div ng-show="!alterEdit.alternativeMenu{{member.Member.UserId}}">
 											<span>{{member.Menus[0].Name}}</span>
@@ -79,11 +86,7 @@
 											</a>
 										</div>
 										<div ng-show="alterEdit.alternativeMenu{{member.Member.UserId}}">
-<<<<<<< HEAD
 											<select class="ddlMenu" name="editOrderMenu{{member.Member.UserId}}" ng-model="member.Menus[0].MenuId" get-selected-edit-menu on-change-select >
-=======
-											<select class="ddlMenu" name="editOrderMenu{{member.Member.UserId}}" ng-model="member.Menus[0].MenuId" get-selected-edit-menu >
->>>>>>> #25084 - fix bug edit order popup
 												<option ng-repeat="altMenu in member.AllMenus" ng-bind="altMenu.Name" value="{{altMenu.MenuId}}" 
 													ng-selected="{{(member.Menus[0].MenuId == altMenu.MenuId) && ((member.Menus[0].IsMainMenu && altMenu.IsMainMenu) 
 														|| (!member.Menus[0].IsMainMenu && !altMenu.IsMainMenu))}}" isMainMenu={{altMenu.IsMainMenu}}>
@@ -98,7 +101,7 @@
 									</div>
 									<span ng-show="order.IsSideDishOrder && !member.Menus" data-translate="SelectFoodItem"></span>
 								</div>
-								<div ng-show="order.OrderFrom == 'P'">
+								<div ng-show="order.OrderFrom == 'P' || order.Status.StatusId == 5">
 									<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
 											<li>{{menu.QuantityOrder}} x "{{menu.Name}}"</li>
 									</ul>
