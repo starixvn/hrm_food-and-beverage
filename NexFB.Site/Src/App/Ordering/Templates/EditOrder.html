@@ -79,8 +79,8 @@
 										<div ng-show="alterEdit.alternativeMenu{{member.Member.UserId}}">
 											<select class="ddlMenu" name="editOrderMenu{{member.Member.UserId}}" ng-model="member.Menus[0].MenuId" get-selected-edit-menu on-change-select >
 												<option ng-repeat="altMenu in member.AllMenus" ng-bind="altMenu.Name" value="{{altMenu.MenuId}}" 
-													ng-selected="{{(member.Menus[0].MenuId == altMenu.MenuId) && ((member.Menus[0].IsMainMenu && altMenu.IsMainMenu) 
-														|| (!member.Menus[0].IsMainMenu && !altMenu.IsMainMenu))}}" isMainMenu={{altMenu.IsMainMenu}}>
+													ng-selected="(member.Menus[0].MenuId == altMenu.MenuId) && ((member.Menus[0].IsMainMenu && altMenu.IsMainMenu) 
+														|| (!member.Menus[0].IsMainMenu && !altMenu.IsMainMenu))" isMainMenu={{altMenu.IsMainMenu}}>
 												</option>
 											</select>
 										</div>

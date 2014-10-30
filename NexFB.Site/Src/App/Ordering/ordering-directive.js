@@ -97,3 +97,4 @@ orderingModule.filter('range', function () {
 		return input;
 	};
 });
+
