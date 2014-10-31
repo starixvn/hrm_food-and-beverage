@@ -20,6 +20,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using AutoMapper;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
+    using NexFB.Models.SmartCardOrder;
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
@@ -201,39 +202,129 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// <param name="mainViewModel">Main ViewModel.</param>
         public void AddEmployeeOrderToList(Employee employeeInfo, int currentCulture, MainViewModel mainViewModel)
         {
-            if (ObservableListEmployee != null)
+            CurrentCulture = currentCulture;
+            if (OrderOwner == null)
             {
-                if (!ObservableListEmployee.Any(x => x.SysId == employeeInfo.SysId))
-                {
-                    employeeInfo.OrderNo = ObservableListEmployee.Count + 1;
-                    employeeInfo.CurrentCulture = currentCulture;
-                    HideMenuList(employeeInfo);
-                    if (OrderOwner == null)
-                    {
-                        OrderOwner = employeeInfo;
-                    }
+                OrderOwner = employeeInfo;
+            }
 
-                    Application.Current.Dispatcher.BeginInvoke(
-                        DispatcherPriority.Background,
-                        new Action(() =>
-                    {
-                        ObservableListEmployee.Add(employeeInfo);
-                        CurrentCulture = currentCulture;
-                        MainViewModel = mainViewModel;
-                        ToggleSideMenu();
-                    }));
-                }
-                else
+            if (ScreenOrderVisible == ConstantValue.Visible)
+            {
+                if (ObservableListEmployee != null)
                 {
-                    this.ShowErrorMessage(MainScreenResources.Message_AlreadyThisOrder);
+                    if (!ObservableListEmployee.Any(x => x.SysId == employeeInfo.SysId))
+                    {
+                        employeeInfo.OrderNo = ObservableListEmployee.Count + 1;
+                        employeeInfo.CurrentCulture = currentCulture;
+                        HideMenuList(employeeInfo);
+                        GetAlternativeFood(employeeInfo);
+                        ProcessAddDataInCurrentThread(employeeInfo, mainViewModel);
+                    }
+                    else
+                    {
+                        this.ShowErrorMessage(MainScreenResources.Message_AlreadyThisOrder);
+                    }
                 }
             }
+            else
+            {
+                DisplayEmployeeHasAlreadyOrdered(employeeInfo, currentCulture, mainViewModel);
+            }
+        }
+
+        /// <summary>
+        /// Display info for employee who has already ordered.
+        /// </summary>
+        /// <param name="employeeInfo">Employee Info.</param>
+        /// <param name="currentCulture">Current culture.</param>
+        /// <param name="mainViewModel">Main ViewModel.</param>
+        public void DisplayEmployeeHasAlreadyOrdered(Employee employeeInfo, int currentCulture, MainViewModel mainViewModel)
+        {
+            if (ObservableListEmployee.Count == 0)
+            {
+                var getEmployeeOrderBySysId = new GetMyOrderBySysIdCriteria() { SysId = OrderOwner.SysId };
+                List<SCEmployeeOrder> employeeOrders = this.SmartCardOrderService.GetMyOrderBySysId(getEmployeeOrderBySysId);
+                if (employeeOrders != null)
+                {
+                    SCEmployeeOrder employeeOrder = employeeOrders.FirstOrDefault();
+                    OrderNo = employeeOrder.OrderNo;
+                    employeeInfo.OrderNo = 1;
+                    employeeInfo.MenuVnmName = employeeOrder.MealVnmName;
+                    employeeInfo.MenuEngName = employeeOrder.MealEngName;
+                    employeeInfo.CurrentCulture = currentCulture;
+                    employeeInfo.DisplayNotifyMenuName = employeeInfo.DisplayMenuName;
+                    CountDownTimer = 30;
+                    TimerDigitalClock();
+                }
+
+                GetAlternativeFood(employeeInfo);
+                ProcessAddDataInCurrentThread(employeeInfo, mainViewModel);
+            }
+            else
+            {
+                this.ShowErrorMessage(MainScreenResources.Message_ReceivedOrder);
+            }
+        }
+
+        /// <summary>
+        /// Get alternative Food.
+        /// </summary>
+        /// <param name="employeeInfo">Employee Info.</param>
+        public void GetAlternativeFood(Employee employeeInfo)
+        {
+            var getAlternativeFoodCriteria = new GetAlternativeFoodBySysIdCriteria() { SysId = employeeInfo.SysId };
+            List<FoodOrder> alternativeFood = this.SmartCardOrderService.GetAlternativeFoodBySysId(getAlternativeFoodCriteria);
+            if (alternativeFood != null)
+            {
+                List<Food> foodMapping = Mapper.Map<List<FoodOrder>, List<Food>>(alternativeFood);
+                Food currentMainFood = new Food()
+                {
+                    FoodId = int.MaxValue,
+                    FoodVnmName = employeeInfo.MenuVnmName,
+                    FoodEngName = employeeInfo.MenuEngName,
+                    CurrentCulture = CurrentCulture
+                };
+
+                SelectedFood = currentMainFood;
+                foodMapping.Insert(0, currentMainFood);
+                foodMapping.ForEach(x => x.CurrentCulture = CurrentCulture);
+                employeeInfo.ListAlternativeFood = foodMapping;
+            }
+        }
+
+        /// <summary>
+        /// Process add data.
+        /// </summary>
+        /// <param name="employeeInfo">Employee Info.</param>
+        /// <param name="mainViewModel">Main View model.</param>
+        public void ProcessAddDataInCurrentThread(Employee employeeInfo, MainViewModel mainViewModel)
+        {
+            Application.Current.Dispatcher.BeginInvoke(
+            DispatcherPriority.Background,
+            new Action(() =>
+            {
+                ObservableListEmployee.Add(employeeInfo);
+                MainViewModel = mainViewModel;
+                ToggleSideMenu();
+            }));
         }
 
         public void CancelTimerDispatcher()
         {
             digitalClockDispatcher.Stop();
             CountDownTimer = 0;
+        }
+
+        public void ShowOrderScreen()
+        {
+            ScreenOrderVisible = ConstantValue.Visible;
+            ScreenNotificationVisible = ConstantValue.Hidden;
+        }
+
+        public void ShowNotificationScreen()
+        {
+            ScreenOrderVisible = ConstantValue.Hidden;
+            ScreenNotificationVisible = ConstantValue.Visible;
         }
 
         #endregion
@@ -282,26 +373,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
             if (value != null)
             {
                 int employeeSysId = (int)value;
-                var getAlternativeFoodCriteria = new GetAlternativeFoodBySysIdCriteria() { SysId = employeeSysId };
-                List<FoodOrder> alternativeFood = this.SmartCardOrderService.GetAlternativeFoodBySysId(getAlternativeFoodCriteria);
-                if (alternativeFood != null)
-                {
-                    Employee selectedEmployee = ObservableListEmployee.Where(x => x.SysId == employeeSysId).SingleOrDefault();
-                    List<Food> foodMapping = Mapper.Map<List<FoodOrder>, List<Food>>(alternativeFood);
-                    Food currentMainFood = new Food()
-                    {
-                        FoodId = int.MaxValue,
-                        FoodVnmName = selectedEmployee.MenuVnmName,
-                        FoodEngName = selectedEmployee.MenuEngName,
-                    };
-
-                    SelectedFood = currentMainFood;
-                    foodMapping.Insert(0, currentMainFood);
-                    foodMapping.ForEach(x => x.CurrentCulture = CurrentCulture);
-                    selectedEmployee.ListAlternativeFood = foodMapping;
-                    ObservableListEmployee = new ObservableCollection<Employee>(this.ObservableListEmployee);
-                    ShowMenuList(selectedEmployee);
-                }
+                Employee selectedEmployee = ObservableListEmployee.Where(x => x.SysId == employeeSysId).SingleOrDefault();
+                ShowMenuList(selectedEmployee);
             }
         }
 
@@ -322,6 +395,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 {
                     foreach (var employee in ObservableListEmployee)
                     {
+                        DisplayOrderedMeal(employee);
                         if (employee.SelectedValueDropDown == 0 || employee.SelectedValueDropDown == int.MaxValue)
                         {
                             orderDetails.AppendFormat(_OrderDetails, employee.SysId, 1, 1);
@@ -343,9 +417,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 OrderResult result = this.SmartCardOrderService.InsertOrderFood(insertOrderCriteria);
                 if (result.CommandResult.Code == 0)
                 {
-                    MainViewModel.MainButtonEnable = false;
                     OrderNo = result.OrderNo;
                     MainViewModel.SendMessage(result.OrderId);
+                    MainViewModel.MainTabReadOnly = true;
 
                     CountDownTimer = 30;
                     ShowNotificationScreen();
@@ -355,6 +429,29 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 {
                     this.ShowErrorMessage(result.CommandResult.Message);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Display order info after ordered.
+        /// </summary>
+        /// <param name="employee">Selected Employee.</param>
+        private void DisplayOrderedMeal(Employee employee)
+        {
+            if (employee.SelectedValueDropDown > 0 && employee.SelectedValueDropDown != int.MaxValue)
+            {
+                if (CurrentCulture == ConstantValue.VietNamCulture)
+                {
+                    employee.DisplayNotifyMenuName = employee.ListAlternativeFood.Where(x => x.FoodId == employee.SelectedValueDropDown).SingleOrDefault().FoodVnmName;
+                }
+                else
+                {
+                    employee.DisplayNotifyMenuName = employee.ListAlternativeFood.Where(x => x.FoodId == employee.SelectedValueDropDown).SingleOrDefault().FoodEngName;
+                }
+            }
+            else
+            {
+                employee.DisplayNotifyMenuName = employee.DisplayMenuName;
             }
         }
 
@@ -368,18 +465,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             employeeInfo.FoodInfoVisibility = ConstantValue.Hidden;
             employeeInfo.FoodListVisibility = ConstantValue.Visible;
-        }
-
-        private void ShowOrderScreen()
-        {
-            ScreenOrderVisible = ConstantValue.Visible;
-            ScreenNotificationVisible = ConstantValue.Hidden;
-        }
-
-        private void ShowNotificationScreen()
-        {
-            ScreenOrderVisible = ConstantValue.Hidden;
-            ScreenNotificationVisible = ConstantValue.Visible;
         }
 
         private void TimerDigitalClock()

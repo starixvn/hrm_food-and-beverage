@@ -50,6 +50,6 @@ namespace NexFB.Core.Enums
         /// Edited order.
         /// </summary>
         [Description("Edited Order")]
-        EditedOrder = 1,
+        EditedOrder = 5,
     }
 }

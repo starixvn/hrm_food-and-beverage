@@ -133,7 +133,7 @@
     <value>HỦY</value>
   </data>
   <data name="CannotFindEmployeeCode" xml:space="preserve">
-    <value>Mã nhân viên: #{0} không tồn tại. Vui lòng nhập lại mã khác!</value>
+    <value>Mã nhân viên: #{0} không tồn tại. Vui lòng thử mã khác!</value>
   </data>
   <data name="ChooseDishes" xml:space="preserve">
     <value>Món Chính</value>
@@ -178,16 +178,16 @@
     <value>Hidden</value>
   </data>
   <data name="IllegalEmployeeCode" xml:space="preserve">
-    <value>Mã nhân viên phải bao gồm 5 chữ số. Vui lòng nhập lại!</value>
+    <value>Mã nhân viên phải có ít nhất 5 kí tự.</value>
   </data>
   <data name="InvoicePrinting" xml:space="preserve">
-    <value>Hóa đơn đang được in...</value>
+    <value>Hóa đơn đang được in.</value>
   </data>
   <data name="KeypadInfo" xml:space="preserve">
     <value>Nhập mã hoặc số lượng</value>
   </data>
   <data name="LocalPrinterError" xml:space="preserve">
-    <value>Local printer error. Please notify the Administrators!</value>
+    <value>Máy in bị lỗi. vui lòng thông báo quản trị viên!</value>
   </data>
   <data name="Main" xml:space="preserve">
     <value> Chính</value>
@@ -311,5 +311,29 @@
   </data>
   <data name="Dash" xml:space="preserve">
     <value>- </value>
+  </data>
+  <data name="Message_Atleast" xml:space="preserve">
+    <value>Vui lòng chọn ít nhất 1 món ăn</value>
+  </data>
+  <data name="Message_Atleast1" xml:space="preserve">
+    <value>Phiếu ăn phải có ít nhất 1 món ăn.</value>
+  </data>
+  <data name="Message_CancelOrder" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn hủy gọi món không?</value>
+  </data>
+  <data name="Message_EmployeeExist" xml:space="preserve">
+    <value>Nhân viên này đã có tên trong phiếu ăn.</value>
+  </data>
+  <data name="Message_OrderSuccessful" xml:space="preserve">
+    <value>Gọi món thành công.</value>
+  </data>
+  <data name="Message_PickRoom" xml:space="preserve">
+    <value>Vui lòng lựa chọn phòng.</value>
+  </data>
+  <data name="Message_Unhandled" xml:space="preserve">
+    <value>Đã xảy ra lỗi không mong muốn. Vui lòng thông báo cho quản trị viên!</value>
+  </data>
+  <data name="ReceiveUpper1" xml:space="preserve">
+    <value>LƯU</value>
   </data>
 </root>

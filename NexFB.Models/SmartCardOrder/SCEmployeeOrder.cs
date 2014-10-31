@@ -16,42 +16,18 @@ namespace NexFB.Models.SmartCardOrder
     /// </summary>
     public class SCEmployeeOrder
     {
-        public int SysId { get; set; }
+        public int OrderId { get; set; }
 
-        public int EmpId { get; set; }
+        public int QuantityOrder { get; set; }
 
-        public int DepartmentId { get; set; }
+        public int OrderNo { get; set; }
 
-        public int TeamId { get; set; }
+        public string MealEngName { get; set; }
 
-        public string EmpTeamCode { get; set; }
+        public string MealVnmName { get; set; }
 
-        public string EmpTeamName { get; set; }
+        public bool IsMainMenu { get; set; }
 
-        public string DomainUsername { get; set; }
-
-        public string Code { get; set; }
-
-        public string FullName { get; set; }
-
-        public string NickName { get; set; }
-
-        public bool Enable { get; set; }
-
-        public string EmpCategoryId { get; set; }
-
-        public string CategoryName { get; set; }
-
-        public int LocationId { get; set; }
-
-        public string LocationVnmName { get; set; }
-
-        public string LocationEngName { get; set; }
-
-        public string FloorName { get; set; }
-
-        public bool IsLocal { get; set; }
-
-        public DateTime JoinedDate { get; set; }
+        public bool IsSideDish { get; set; }
     }
 }

@@ -49,6 +49,8 @@ namespace NexFB.WinApp.Core.Models
         private string _employeeOrderMealText;
         private string _orderSummary;
         private bool _isDeleteMainFood;
+        private bool _disabledAutoAddFood;
+
         private List<EmployeeOrderDetails> _listMainMenuOrderDeatails;
         private List<EmployeeOrderDetails> _listAlternativeMenuOrderDeatails;
 
@@ -56,6 +58,20 @@ namespace NexFB.WinApp.Core.Models
         {
             ListMainMenuOrderDeatails = new List<EmployeeOrderDetails>();
             ListAlternativeMenuOrderDeatails = new List<EmployeeOrderDetails>();
+        }
+
+        public bool DisabledAutoAddFood
+        {
+            get
+            {
+                return _disabledAutoAddFood;
+            }
+
+            set
+            {
+                _disabledAutoAddFood = value;
+                OnPropertyChanged("DisabledAutoAddFood");
+            }
         }
 
         public List<EmployeeOrderDetails> ListMainMenuOrderDeatails

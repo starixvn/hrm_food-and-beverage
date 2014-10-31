@@ -13,6 +13,7 @@ namespace NexFB.Repositories.Implement
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using NexFB.Core.Enums;
     using NexFB.Models.Kitchen;
     using NexFB.Repositories.Interface;
 
@@ -28,8 +29,8 @@ namespace NexFB.Repositories.Implement
         /// <returns>List Order..</returns>
         public List<Order> GetMealOrder(ICriteria criteria)
         {
-            List<Order> waitingMeals = new List<Order>();
-            List<OrderMenu> menus = new List<OrderMenu>();
+            var waitingMeals = new List<Order>();
+            var menus = new List<OrderMenu>();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
@@ -62,8 +63,8 @@ namespace NexFB.Repositories.Implement
         /// <returns>Order Entity.</returns>
         public Order GetOrderDetails(ICriteria criteria)
         {
-            Order orderDetails = new Order();
-            List<OrderMenu> menus = new List<OrderMenu>();
+            var orderDetails = new Order();
+            var menus = new List<OrderMenu>();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
@@ -73,9 +74,10 @@ namespace NexFB.Repositories.Implement
                     if (orderDetails != null)
                     {
                         orderDetails.ListMenu = menus;
-                        if (orderDetails.CurrentStatusId == 2 || orderDetails.CurrentStatusId == 3)
+                        if (orderDetails.CurrentStatusId == (int)OrderStatus.ReceivedOrder
+                            || orderDetails.CurrentStatusId == (int)OrderStatus.ReducedOrder)
                         {
-                            bool isEdited = menus.Any(x => x.IsDeleted == true);
+                            bool isEdited = menus.Any(x => x.IsDeleted);
                             orderDetails.IsEdited = isEdited;
                         }
                     }
@@ -92,8 +94,8 @@ namespace NexFB.Repositories.Implement
         /// <returns>Order Entity.</returns>
         public Order GetMealOrderById(ICriteria criteria)
         {
-            Order mealOrder = new Order();
-            List<OrderMenu> menus = new List<OrderMenu>();
+            var mealOrder = new Order();
+            var menus = new List<OrderMenu>();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
@@ -121,7 +123,7 @@ namespace NexFB.Repositories.Implement
         /// <returns>Employees and group belonged to.</returns>
         public EmployeeInGroup GetEmployeeInGroup(ICriteria criteria)
         {
-            EmployeeInGroup employeeInGroup = new EmployeeInGroup();
+            var employeeInGroup = new EmployeeInGroup();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))

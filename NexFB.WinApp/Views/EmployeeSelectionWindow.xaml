@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
-        Title="EmployeeSelectionWindow" Height="250" Width="700" ResizeMode="NoResize"
+        Title="EmployeeSelectionWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize"
 		 Topmost="True" ShowInTaskbar="False" WindowStyle="None">
 	<Window.Resources>
 		<!-- Style to get rid of the selection visual -->
@@ -16,8 +16,8 @@
 			</Setter>
 		</Style>
 	</Window.Resources>
-	<Border BorderBrush="Silver" BorderThickness="1" >
-		<Grid>
+	<Border BorderBrush="Silver" BorderThickness="1">
+		<Grid Margin="15">
 			<StackPanel Orientation="Vertical">
 				<Border Margin="0,0,0,7" BorderBrush="Silver" BorderThickness="0,0,0,1" Height="40">
 					<StackPanel Orientation="Horizontal" Margin="10,0,0,0">
@@ -28,7 +28,7 @@
 				</Border>
 
 
-				<ListBox VerticalAlignment="Top" Margin="10,0,0,0"
+				<ListBox VerticalAlignment="Top" Margin="10,0,10,0"
 				ItemsSource="{Binding DuplicateUser}" SelectedItem="{Binding SelectedItem}" >
 					<ListBox.Template>
 						<ControlTemplate>
@@ -37,8 +37,8 @@
 					</ListBox.Template>
 					<ListBox.ItemTemplate>
 						<DataTemplate >
-							<Viewbox Height="27"
-					HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,0,0">
+							<Viewbox Height="30"
+					HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,15,0,0">
 								<RadioButton  Content="{Binding Path=EmployeeSelectionGeneralInfo}" GroupName="Properties" >
 									<RadioButton.IsChecked>
 										<Binding Path="IsChecked" Mode="TwoWay" />
@@ -49,19 +49,19 @@
 					</ListBox.ItemTemplate>
 				</ListBox>
 
-				<Grid Margin="0,15,0,0">
+				<Grid Margin="0,20,0,0">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Button Command="{Binding Path=SaveDialogCommand}"
 		CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-		Style="{StaticResource TileButton}" Background="#64B4D5" Content="{x:Static resx:WinFormMainResource.Confirmation}" Foreground="White" Margin="0,0,3,0"
-		Height="35" HorizontalAlignment="Right" Name="button1" VerticalAlignment="Center" Width="120" FontSize="18"/>
+		Style="{StaticResource TileButton}" Background="#64B4D5" Content="{x:Static resx:WinFormMainResource.Confirmation}" Foreground="White" Margin="0,0,10,0"
+		Height="45" HorizontalAlignment="Right" Name="button1" VerticalAlignment="Center" Width="125" FontSize="20"/>
 					<Button Command="{Binding Path=CancelDialogCommand}" Grid.Column="1"
 		CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"  
-		Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Back}" Height="35" Background="#ef4339" Margin="3,0,0,0"
-		HorizontalAlignment="Left" Name="button2" VerticalAlignment="Center" Width="120" Foreground="#fff" FontSize="18"/>
+		Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Back}" Height="45" Background="#ef4339" Margin="10,0,0,0"
+		HorizontalAlignment="Left" Name="button2" VerticalAlignment="Center" Width="125" Foreground="#fff" FontSize="20"/>
 				</Grid>
 			</StackPanel>
 		</Grid>

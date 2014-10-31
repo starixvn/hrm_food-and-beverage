@@ -12,6 +12,7 @@ namespace NexFB.Services.Interface
     using System.Collections.Generic;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
+using NexFB.Models.SmartCardOrder;
 
     /// <summary>
     /// Interface SmartCardOrderService.
@@ -27,5 +28,7 @@ namespace NexFB.Services.Interface
         OrderResult InsertOrderSideFood(InsertOrderSideDishesByUserCriteria criteria);
 
         List<FoodOrder> GetSideFoodBySysId(GetSideFoodBySysIdCriteria criteria);
+
+        List<SCEmployeeOrder> GetMyOrderBySysId(GetMyOrderBySysIdCriteria criteria);
     }
 }

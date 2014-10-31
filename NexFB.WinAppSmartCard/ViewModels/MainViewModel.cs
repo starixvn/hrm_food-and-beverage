@@ -51,7 +51,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private Employee _orderOwner;
         private MenuColor _mainDishesMenu = new MenuColor();
         private MenuColor _sideDishesMenu = new MenuColor();
-        private bool _mainButtonEnable;
+        private bool _mainTabReadOnly;
         private bool _sideButtonEnable;
         private string _logoMargin;
         private string _sentenceMargin;
@@ -69,7 +69,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ReturnStandByScreenCommand = new RelayCommand((x) => CanExecuteReturnStandByScreen(), (y) => ExecuteReturnToStandByScreen());
             ChangeCulture();
             CheckCurrentScreen();
-            this.MainButtonEnable = true;
             this.SideButtonEnable = true;
             SessionTimeout();
         }
@@ -262,17 +261,17 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        public bool MainButtonEnable
+        public bool MainTabReadOnly
         {
             get
             {
-                return _mainButtonEnable;
+                return _mainTabReadOnly;
             }
 
             set
             {
-                _mainButtonEnable = value;
-                OnPropertyChanged("MainButtonEnable");
+                _mainTabReadOnly = value;
+                OnPropertyChanged("MainTabReadOnly");
             }
         }
 
@@ -386,6 +385,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public void ExecuteReturnToStandByScreen()
         {
+            this.MainTabReadOnly = false;
             CurrentCardNumber = string.Empty;
             OrderOwner = null;
             ExecuteMainDishesCommand();
@@ -440,6 +440,15 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             CancelDispatcherTimer();
             CurrentViewModel = new MainDishesViewModel();
+            if (MainTabReadOnly)
+            {
+                ((MainDishesViewModel)CurrentViewModel).ShowNotificationScreen();
+            }
+            else
+            {
+                ((MainDishesViewModel)CurrentViewModel).ShowOrderScreen();
+            }
+
             if (OrderOwner != null)
             {
                 ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, CurrentCulture, this);
@@ -591,12 +600,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     {
                         ExecuteSideDishesCommand();
                         ((SideDishesViewModel)CurrentViewModel).ToggleMainMenu();
+                        this.MainTabReadOnly = true;
                     }
                 }
                 else
                 {
-                    this.MainButtonEnable = true;
-                    this.SideButtonEnable = true;
+                    MainTabReadOnly = false;
                     ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(employeeInfoMapping, CurrentCulture, this);
                 }
 
@@ -669,11 +678,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                             timer.Stop();
                             timer = null;
                             ComponentDispatcher.ThreadIdle -= _handler;
-                            if (MainScreenVisible == ConstantValue.Visible)
-                            {
-                                ExecuteReturnToStandByScreen();
-                            }
-
+                            ExecuteSessionOut();
                             ComponentDispatcher.ThreadIdle += _handler;
                         }
                     };
@@ -689,6 +694,29 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     };
                 };
                 ComponentDispatcher.ThreadIdle += _handler;
+            }
+        }
+
+        /// <summary>
+        /// Execute Session Out.
+        /// </summary>
+        private void ExecuteSessionOut()
+        {
+            if (MainScreenVisible == ConstantValue.Visible)
+            {
+                if (Application.Current.Windows.Count > 1)
+                {
+                    WindowCollection windows = Application.Current.Windows;
+                    foreach (Window item in windows)
+                    {
+                        if (item.GetType().Name == "WPFMessageBox")
+                        {
+                            item.Close();
+                        }
+                    }
+                }
+
+                ExecuteReturnToStandByScreen();
             }
         }
 

@@ -267,10 +267,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public void ToggleMainMenu()
         {
-            MainViewModel.SideButtonEnable = true;
-            MainViewModel.MainButtonEnable = false;
             this.AddFoodEnable = false;
-            digitalClockDispatcher = new DispatcherTimer();
         }
 
         #endregion
@@ -317,8 +314,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         private void ExecuteSaveDataCommand()
         {
-            if ((ObservableSideOrder.Count > 0 && ObservableSideOrder.All(x => x.SelectedValueDropDown == int.MaxValue))
-                || ObservableSideOrder.Count == 0)
+            HasSelectedFood = new List<int>();
+            if ((ObservableSideOrder.Count > 0 && ObservableSideOrder.All(x => x.SelectedValueDropDown == int.MaxValue)) || ObservableSideOrder.Count == 0)
             {
                 this.ShowErrorMessage(MainScreenResources.Message_ContainFood);
             }
@@ -332,7 +329,15 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     {
                         if (item.SelectedValueDropDown > 0 && item.SelectedValueDropDown != int.MaxValue)
                         {
-                            orderDetails.AppendFormat(_OrderDetails, item.SelectedValueDropDown, item.Quantity);
+                            if (!HasSelectedFood.Any(x => x == item.SelectedValueDropDown))
+                            {
+                                orderDetails.AppendFormat(
+                                    _OrderDetails,
+                                    item.SelectedValueDropDown,
+                                    ObservableSideOrder.Where(x => x.SelectedValueDropDown == item.SelectedValueDropDown).Sum(x => x.Quantity));
+                            }
+
+                            HasSelectedFood.Add(item.SelectedValueDropDown);
                         }
                     }
 
@@ -389,9 +394,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 List<Food> foodMapping = Mapper.Map<List<FoodOrder>, List<Food>>(sideFoods);
 
-                // Except food has selected before.
-                foodMapping = foodMapping.Where(x => !HasSelectedFood.Contains(x.FoodId)).ToList();
-
                 if (foodMapping.Count == 0)
                 {
                     this.ShowErrorMessage(MainScreenResources.Message_NoMoreDish);
@@ -425,7 +427,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                         sideFoodData.DropDownChanged += new SideFood.OnDropDownValueChanged(GetPriceChanged);
 
-                        sideFoodData.ListSideFood.ForEach(x => x.CurrentCulture = CurrentCulture);
+                        sideFoodData.ListSideFood.ForEach(x => { x.CurrentCulture = CurrentCulture; x.CurrentItemNo = sideFoodData.OrderNo; });
                         ObservableSideOrder.Add(sideFoodData);
                     }
                 }
@@ -465,7 +467,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 int selectedFood = (int)sender;
                 if (selectedFood != int.MaxValue && selectedFood > 0)
                 {
-                    HasSelectedFood.Add(selectedFood);
                     DisplayTotalPrice();
                     this.AddFoodEnable = true;
                 }
@@ -522,11 +523,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 if (ObservableSideOrder.Count == 0)
                 {
                     AddFoodEnable = true;
-                }
-
-                if (deletedItem.SelectedValueDropDown != int.MaxValue)
-                {
-                    HasSelectedFood.Remove(deletedItem.SelectedValueDropDown);
                 }
 
                 DisplayTotalPrice();

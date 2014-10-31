@@ -232,6 +232,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You cannot join in a received order.
+        /// </summary>
+        internal static string Message_ReceivedOrder {
+            get {
+                return ResourceManager.GetString("Message_ReceivedOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are no side dishes available..
         /// </summary>
         internal static string Message_UnavailableSideDish {
@@ -286,7 +295,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Swap your card to be added to the group..
+        ///   Looks up a localized string similar to Swipe your card to be added to the group..
         /// </summary>
         internal static string SwipeCardLabel {
             get {

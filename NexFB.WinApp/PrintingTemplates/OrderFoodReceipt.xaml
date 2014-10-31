@@ -25,8 +25,8 @@
 
 				<Grid Height="36" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="649" Margin="23,127,0,0">
 					<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-						<Label FontSize="16" Content="{Binding Path=PrintLabel}" Height="28" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-						<Label FontSize="16" Content="{Binding Path=CurrentDateString}" Height="28" VerticalAlignment="Top" HorizontalAlignment="Center" />
+						<Label FontSize="16" Content="{Binding Path=PrintLabel}" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+						<Label FontSize="16" Content="{Binding Path=CurrentDateString}" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" />
 					</DockPanel>
 
 				</Grid>
@@ -34,12 +34,12 @@
 				<Border BorderBrush="Black" BorderThickness="0,1,0,1" Height="33" HorizontalAlignment="Left" Margin="23,171,0,0" VerticalAlignment="Top" Width="660">
 					<Grid Height="29" Width="660">
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition />
-							<ColumnDefinition />
-							<ColumnDefinition />
+							<ColumnDefinition Width="180"/>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="170"/>
 						</Grid.ColumnDefinitions>
 						<TextBlock FontSize="13" Height="23" HorizontalAlignment="Left" Margin="6,6,0,0" Text="{x:Static resx:WinFormMainResource.NameBilingual}" VerticalAlignment="Top" />
-						<TextBlock FontSize="13" Grid.Column="1" Margin="0,6,0,0" Height="23" HorizontalAlignment="Center" Text="{x:Static resx:WinFormMainResource.SetMenu}" VerticalAlignment="Top" />
+						<TextBlock FontSize="13" Grid.Column="1" Margin="0,6,20,0" Height="23" HorizontalAlignment="Right" Text="{x:Static resx:WinFormMainResource.SetMenu}" VerticalAlignment="Top" />
 						<TextBlock Grid.Column="2" Height="23" HorizontalAlignment="Right" Margin="0,6,10,0" VerticalAlignment="Top" Text="{x:Static resx:WinFormMainResource.Amount}" />
 					</Grid>
 				</Border>
@@ -50,12 +50,13 @@
 						<DataTemplate>
 							<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="660" >
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition />
-									<ColumnDefinition />
-									<ColumnDefinition />
+									<ColumnDefinition Width="180"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="170"/>
 								</Grid.ColumnDefinitions>
 								<Label FontSize="12" ContentStringFormat="> {0} " Content="{Binding Path=DisplayName}" Height="28" HorizontalAlignment="Left" Margin="0,6,0,0" VerticalAlignment="Top" />
-								<Label FontSize="12" Content="{Binding Path=SetMenuAndQuantity}" Grid.Column="1" Height="28" HorizontalAlignment="Right" Margin="0,6,65,0" VerticalAlignment="Top" />
+								<TextBlock FontSize="12" TextWrapping="WrapWithOverflow"
+								 Text="{Binding Path=SetMenuAndQuantity}" Grid.Column="1" Height="28" HorizontalAlignment="Right" Margin="0,6,25,0" VerticalAlignment="Top" />
 								<Label FontSize="12" Content="{Binding Path=DisplayPrice}" Grid.Column="2" Height="28" HorizontalAlignment="Right" Margin="0,6,10,0" VerticalAlignment="Top" />
 							</Grid>
 						</DataTemplate>
@@ -64,14 +65,14 @@
 				<Border BorderBrush="Black" BorderThickness="0,0,0,1" Height="1" Width="660" />
 				<Grid Height="39" Width="660">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-						<ColumnDefinition />
+						<ColumnDefinition Width="180"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="170"/>
 					</Grid.ColumnDefinitions>
 					<TextBlock FontSize="16" Height="34" HorizontalAlignment="Left" Margin="3,5,0,0" Text="{x:Static resx:WinFormMainResource.TotalBilingual}" VerticalAlignment="Top" />
-					<TextBlock FontSize="20" Text="{Binding ElementName=GeneralInfo, Path=DataContext.TotalOrder}"
-				 FontWeight="Bold" Grid.Column="1" Height="28" HorizontalAlignment="Right" Margin="0,0,65,0" VerticalAlignment="Top" />
-					<TextBlock FontSize="20" Text="{Binding ElementName=GeneralInfo, Path=DataContext.TotalAmount}"
+					<TextBlock FontSize="16" Text="{Binding ElementName=GeneralInfo, Path=DataContext.TotalOrder}"
+				 FontWeight="Bold" Grid.Column="1" Height="28" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Top" />
+					<TextBlock FontSize="16" Text="{Binding ElementName=GeneralInfo, Path=DataContext.TotalAmount}"
 				 FontWeight="Bold" Grid.Column="2" Height="28" HorizontalAlignment="Right" Margin="0,0,12,0" VerticalAlignment="Top" />
 				</Grid>
 				<Grid Height="99" Width="660">

@@ -16,6 +16,7 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Services;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
+    using NexFB.Models.SmartCardOrder;
     using NexFB.Services.Interface;
 
     /// <summary>
@@ -105,6 +106,23 @@ namespace NexFB.Services.Implement
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Get My Order By SysId.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>List employee orders.</returns>
+        public List<SCEmployeeOrder> GetMyOrderBySysId(GetMyOrderBySysIdCriteria criteria)
+        {
+            List<SCEmployeeOrder> employeeOrders = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                employeeOrders = this.GetData<SCEmployeeOrder>(criteria).ToList();
+            }
+
+            return employeeOrders;
         }
     }
 }

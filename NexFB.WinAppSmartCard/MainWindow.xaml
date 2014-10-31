@@ -38,7 +38,7 @@
 			VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="{Binding Path=SentenceMargin}">
 				<TextBlock  Name="textBlock1" Text="QUẸT THẺ ĐỂ ĐẶT MÓN ĂN" FontSize="28"
 				HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold"/>
-				<TextBlock Name="textBlock2" Text="SWAP YOUR CARD TO ORDER MEAL" FontWeight="Bold"
+				<TextBlock Name="textBlock2" Text="SWIPE YOUR CARD TO ORDER MEAL" FontWeight="Bold"
 				HorizontalAlignment="Center" FontSize="28" VerticalAlignment="Center"/>
 				<TextBlock Text="請掃卡訂餐" FontWeight="Bold" Foreground="#fff"
 				HorizontalAlignment="Center" FontSize="28" VerticalAlignment="Center"/>
@@ -50,7 +50,7 @@
 				<RowDefinition />
 			</Grid.RowDefinitions>
 			<DockPanel Grid.Row="0" Background="#464646">
-				<Button IsEnabled="{Binding MainButtonEnable}"
+				<Button
 				 Command="{Binding Path=MainDishesCommand}" Background="{Binding Path=MainDishesMenu.BackgroundColor}"
 			Foreground="{Binding Path=MainDishesMenu.ForegroundColor}" FontWeight="{Binding Path=MainDishesMenu.FontWeight}"
 				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.MainDishes]}" 

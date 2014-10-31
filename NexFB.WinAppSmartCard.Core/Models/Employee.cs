@@ -30,6 +30,8 @@ namespace NexFB.WinAppSmartCard.Core.Models
         private string _foodListVisibility;
         private List<Food> _listAlternativeFood;
         private int _selectedValueDropDown;
+        private string _displayMenuName;
+        private string _displayNotifyMenuName;
 
         public int SelectedValueDropDown
         {
@@ -41,6 +43,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
             set
             {
                 _selectedValueDropDown = value;
+
                 this.OnPropertyChanged("SelectedValueDropDown");
             }
         }
@@ -207,27 +210,51 @@ namespace NexFB.WinAppSmartCard.Core.Models
                 {
                     if (!string.IsNullOrEmpty(MenuVnmName))
                     {
-                        return MenuVnmName;
+                        _displayMenuName = MenuVnmName;
                     }
-
-                    return ConstantValue.MainDishVietnamese;
+                    else
+                    {
+                        _displayMenuName = ConstantValue.MainDishVietnamese;
+                    }
                 }
                 else
                 {
                     if (!string.IsNullOrEmpty(MenuEngName))
                     {
-                        return MenuEngName;
+                        _displayMenuName = MenuEngName;
                     }
                     else
                     {
                         if (CurrentCulture == 3)
                         {
-                            return ConstantValue.MainDishChinese;
+                            _displayMenuName = ConstantValue.MainDishChinese;
                         }
 
-                        return ConstantValue.MainDishEnglish;
+                        _displayMenuName = ConstantValue.MainDishEnglish;
                     }
                 }
+
+                return _displayMenuName;
+            }
+
+            set
+            {
+                _displayMenuName = value;
+                this.OnPropertyChanged("DisplayMenuName");
+            }
+        }
+
+        public string DisplayNotifyMenuName
+        {
+            get
+            {
+                return _displayNotifyMenuName;
+            }
+
+            set
+            {
+                _displayNotifyMenuName = value;
+                this.OnPropertyChanged("DisplayNotifyMenuName");
             }
         }
     }

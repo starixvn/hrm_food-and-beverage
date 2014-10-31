@@ -56,7 +56,7 @@ namespace NexFB.Models.Kitchen
                 CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
                 if (Price > 0)
                 {
-                    return string.Format(culture, "{0:C}", Price);
+                    return string.Format(culture, "{0:C}", QuantityOrder * Price);
                 }
                 else
                 {

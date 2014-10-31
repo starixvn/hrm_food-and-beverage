@@ -12,6 +12,7 @@ namespace NexFB.WinApp.ViewModels
     using System;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
+    using System.Threading.Tasks;
     using System.Windows.Documents;
     using System.Windows.Threading;
     using NexFB.Criteria.Kitchen;
@@ -101,13 +102,19 @@ namespace NexFB.WinApp.ViewModels
         /// </summary>
         /// <param name="orderId">Id of printing order.</param>
         /// <param name="invoiceNumber">First or Second invoice.</param>
+        /// <param name="receiveFromKitchenOrder">Is request received from kitchen.</param>
         /// <returns>Check is printed.</returns>
-        public bool ExecutePrintInvoice(int orderId, int invoiceNumber)
+        public bool ExecutePrintInvoice(int orderId, int invoiceNumber, bool receiveFromKitchenOrder)
         {
             string releaseMode = ConfigurationManager.AppSettings[Constant.ReleaseMode];
             var template = (FixedDocument)_printingHelper.LoadTemplate(Constant.OrderFoodReceiptTemplate);
             var criteria = new GetOrderDetailsCriteria() { OrderId = orderId };
             Order model = _kitchenService.GetOrderDetails(criteria);
+            if (receiveFromKitchenOrder)
+            {
+                model.CurrentStatusId = 1;
+            }
+
             model.InvoiceNumber = invoiceNumber;
             _printingHelper.InjectData(template, model);
 
@@ -121,6 +128,7 @@ namespace NexFB.WinApp.ViewModels
                     bool printed = false;
                     printed = _printingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
                     StartCloseTimer(notifyWindows);
+
                     return printed;
                 }
                 else

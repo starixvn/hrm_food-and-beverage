@@ -23,6 +23,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
         private int _quantity;
         private decimal _price;
         private int _currentCulture;
+        private int _currentItemNo;
 
         public decimal Price
         {
@@ -49,6 +50,20 @@ namespace NexFB.WinAppSmartCard.Core.Models
             {
                 _quantity = value;
                 this.OnPropertyChanged("Quantity");
+            }
+        }
+
+        public int CurrentItemNo
+        {
+            get
+            {
+                return _currentItemNo;
+            }
+
+            set
+            {
+                _currentItemNo = value;
+                this.OnPropertyChanged("CurrentItemNo");
             }
         }
 

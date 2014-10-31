@@ -184,7 +184,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                if (InvoiceNumber == 0 || InvoiceNumber == 1)
+                if (InvoiceNumber == (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice)
                 {
                     return WinFormMainResource.Black;
                 }
@@ -197,7 +197,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                if (InvoiceNumber == 2)
+                if (InvoiceNumber == (int)InvoiceNumberStatus.DeliverOrderFoodInvoice)
                 {
                     return WinFormMainResource.StrokeDash;
                 }
@@ -210,7 +210,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                if (InvoiceNumber == 0 || InvoiceNumber == 1)
+                if (InvoiceNumber == (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice)
                 {
                     return WinFormMainResource.White;
                 }
@@ -223,7 +223,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                int totalOrder = ListMenu.Where(x => !x.IsDeleted).Count();
+                int totalOrder = ListMenu.Where(x => !x.IsDeleted).Sum(x => x.QuantityOrder);
                 return totalOrder;
             }
         }
@@ -233,14 +233,14 @@ namespace NexFB.Models.Kitchen
             get
             {
                 CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
-                decimal totalAmount = ListMenu.Sum(x => x.Price);
+                decimal totalAmount = ListMenu.Sum(x => x.Price * x.QuantityOrder);
                 if (totalAmount > 0)
                 {
                     return string.Format(culture, "{0:C}", totalAmount);
                 }
                 else
                 {
-                    return string.Empty;
+                    return "0";
                 }
             }
         }
@@ -262,12 +262,25 @@ namespace NexFB.Models.Kitchen
                     return WinFormMainResource.Receive;
                 }
 
-                if (CurrentStatusId == 2 || CurrentStatusId == 3)
+                if (CurrentStatusId == (int)OrderStatus.ReceivedOrder || CurrentStatusId == (int)OrderStatus.ReducedOrder)
                 {
                     return WinFormMainResource.Export;
                 }
 
                 return string.Empty;
+            }
+        }
+
+        public bool DisabledButton
+        {
+            get
+            {
+                if (CurrentStatusId == (int)OrderStatus.EditedOrder)
+                {
+                    return false;
+                }
+
+                return true;
             }
         }
     }

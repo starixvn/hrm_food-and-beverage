@@ -60,6 +60,7 @@
     <Compile Include="Criteria\ResultCriteria.cs" />
     <Compile Include="Enums\DepartmentIdentity.cs" />
     <Compile Include="Enums\HashProvider.cs" />
+    <Compile Include="Enums\InvoiceNumberStatus.cs" />
     <Compile Include="Enums\Meal.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Enums\Policy.cs" />

@@ -115,7 +115,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mã nhân viên: #{0} không tồn tại. Vui lòng nhập lại mã khác!.
+        ///   Looks up a localized string similar to Mã nhân viên: #{0} không tồn tại. Vui lòng thử mã khác!.
         /// </summary>
         public static string CannotFindEmployeeCode {
             get {
@@ -259,7 +259,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mã nhân viên phải bao gồm 5 chữ số. Vui lòng nhập lại!.
+        ///   Looks up a localized string similar to Mã nhân viên phải có ít nhất 5 kí tự..
         /// </summary>
         public static string IllegalEmployeeCode {
             get {
@@ -268,7 +268,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hóa đơn đang được in....
+        ///   Looks up a localized string similar to Hóa đơn đang được in..
         /// </summary>
         public static string InvoicePrinting {
             get {
@@ -286,7 +286,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Local printer error. Please notify the Administrators!.
+        ///   Looks up a localized string similar to Máy in bị lỗi. vui lòng thông báo quản trị viên!.
         /// </summary>
         public static string LocalPrinterError {
             get {
@@ -318,6 +318,69 @@ namespace NexFB.Resources {
         public static string Member {
             get {
                 return ResourceManager.GetString("Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vui lòng chọn ít nhất 1 món ăn.
+        /// </summary>
+        public static string Message_Atleast {
+            get {
+                return ResourceManager.GetString("Message_Atleast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phiếu ăn phải có ít nhất 1 món ăn..
+        /// </summary>
+        public static string Message_Atleast1 {
+            get {
+                return ResourceManager.GetString("Message_Atleast1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bạn có chắc chắn muốn hủy gọi món không?.
+        /// </summary>
+        public static string Message_CancelOrder {
+            get {
+                return ResourceManager.GetString("Message_CancelOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhân viên này đã có tên trong phiếu ăn..
+        /// </summary>
+        public static string Message_EmployeeExist {
+            get {
+                return ResourceManager.GetString("Message_EmployeeExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gọi món thành công..
+        /// </summary>
+        public static string Message_OrderSuccessful {
+            get {
+                return ResourceManager.GetString("Message_OrderSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vui lòng lựa chọn phòng..
+        /// </summary>
+        public static string Message_PickRoom {
+            get {
+                return ResourceManager.GetString("Message_PickRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đã xảy ra lỗi không mong muốn. Vui lòng thông báo cho quản trị viên!.
+        /// </summary>
+        public static string Message_Unhandled {
+            get {
+                return ResourceManager.GetString("Message_Unhandled", resourceCulture);
             }
         }
         
@@ -489,6 +552,15 @@ namespace NexFB.Resources {
         public static string ReceiveUpper {
             get {
                 return ResourceManager.GetString("ReceiveUpper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LƯU.
+        /// </summary>
+        public static string ReceiveUpper1 {
+            get {
+                return ResourceManager.GetString("ReceiveUpper1", resourceCulture);
             }
         }
         

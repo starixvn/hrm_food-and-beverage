@@ -58,6 +58,8 @@ namespace NexFB.WinApp.ViewModels.Partials.OrderFood
         private string _keyPadVisible;
         private string _numPadVisible;
         private string _overlayVisible;
+        private bool _isDataEdit;
+        private string _saveButtonVisible;
 
         public ICommand NumPadPressed { get; set; }
 
@@ -104,6 +106,20 @@ namespace NexFB.WinApp.ViewModels.Partials.OrderFood
             {
                 _totalOrder = value;
                 OnPropertyChanged("TotalOrder");
+            }
+        }
+
+        public string SaveButtonVisible
+        {
+            get
+            {
+                return _saveButtonVisible;
+            }
+
+            set
+            {
+                _saveButtonVisible = value;
+                OnPropertyChanged("SaveButtonVisible");
             }
         }
 
@@ -608,6 +624,20 @@ namespace NexFB.WinApp.ViewModels.Partials.OrderFood
             {
                 _allObservableLocation = value;
                 OnPropertyChanged("AllObservationLocation");
+            }
+        }
+
+        public bool IsDataEdit
+        {
+            get
+            {
+                return _isDataEdit;
+            }
+
+            set
+            {
+                _isDataEdit = value;
+                this.OnPropertyChanged("IsDataEdit");
             }
         }
 

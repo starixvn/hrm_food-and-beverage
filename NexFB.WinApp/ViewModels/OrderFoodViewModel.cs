@@ -22,6 +22,7 @@ namespace NexFB.WinApp.ViewModels
     using System.Windows.Media;
     using System.Windows.Threading;
     using AutoMapper;
+    using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.Kitchen;
@@ -88,8 +89,11 @@ namespace NexFB.WinApp.ViewModels
             AllObservationLocation = OrderFoodData.GetAllLocation;
             AllObservationGroup = OrderFoodData.GetAllGroup;
             MainViewModel = mainViewModel;
+
             if (order != null)
             {
+                SaveButtonVisible = Constant.Visible;
+                IsDataEdit = true;
                 PrepareEditData(order);
             }
         }
@@ -289,7 +293,11 @@ namespace NexFB.WinApp.ViewModels
             {
                 if (EmployeeInfo != null || (UserInGroup.Any() && UserInGroup.Count > 0) || (CommonKitchenOrder.Any() && CommonKitchenOrder.Count > 0))
                 {
-                    MessageBoxResult confirmCancel = MessageBox.Show("Xác nhận hủy gọi món?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    MessageBoxResult confirmCancel = MessageBox.Show(
+                        WinFormMainResource.Message_CancelOrder,
+                        WinFormMainResource.Confirmation, 
+                        MessageBoxButton.YesNo, 
+                        MessageBoxImage.Warning);
                     if (confirmCancel == MessageBoxResult.Yes)
                     {
                         ResetCurrentModel(value);
@@ -557,12 +565,13 @@ namespace NexFB.WinApp.ViewModels
             if (value != null)
             {
                 var sysId = (int)value;
-                KitchenEmployeeInfo previousEmployee = UserInGroup.Where(x => x.ListMainMenuOrderDeatails.Count == 0 && x.IsDeleteMainFood).SingleOrDefault();
+                KitchenEmployeeInfo previousEmployee = UserInGroup.Where(x => (x.ListMainMenuOrderDeatails.Count == 0 && x.ListAlternativeMenuOrderDeatails.Count == 0)
+                    && x.IsDeleteMainFood).SingleOrDefault();
                 if (previousEmployee != null)
                 {
                     if (previousEmployee.SysId != sysId)
                     {
-                        MessageBox.Show("Xin chọn ít nhất một món ăn");
+                        MessageBox.Show(WinFormMainResource.Message_Atleast);
                     }
                 }
                 else
@@ -579,6 +588,7 @@ namespace NexFB.WinApp.ViewModels
                     if (EmployeeInfo == null)
                     {
                         EmployeeInfo = currentSelectedEmployee;
+                        LocationName = EmployeeInfo.LocationName;
                     }
 
                     ChangeMenuColor(currentSelectedEmployee);
@@ -601,16 +611,16 @@ namespace NexFB.WinApp.ViewModels
         /// <param name="value">Dialog object.</param>
         public void ExecuteSaveDialogCommand(object value)
         {
-            if (DuplicateUser.Any(x => x.IsChecked == true))
+            if (DuplicateUser.Any(x => x.IsChecked))
             {
                 if (EmployeeInfo == null)
                 {
-                    EmployeeInfo = DuplicateUser.Where(x => x.IsChecked == true).FirstOrDefault();
+                    EmployeeInfo = DuplicateUser.Where(x => x.IsChecked).FirstOrDefault();
                     GetEmployeeInGroup(EmployeeInfo.SysId, value);
                 }
                 else
                 {
-                    GetEmployeeInGroup(DuplicateUser.Where(x => x.IsChecked == true).FirstOrDefault().SysId, value);
+                    GetEmployeeInGroup(DuplicateUser.Where(x => x.IsChecked).FirstOrDefault().SysId, value);
                 }
             }
         }
@@ -689,7 +699,7 @@ namespace NexFB.WinApp.ViewModels
                     }
                     else
                     {
-                        MessageBox.Show("Employee has already existed in the current order");
+                        MessageBox.Show(WinFormMainResource.Message_EmployeeExist);
                     }
                 }
 
@@ -946,7 +956,8 @@ namespace NexFB.WinApp.ViewModels
         {
             bool isMainFoodMenu = CheckMainFoodMenu;
             bool isAlternativeFoodMenu = CheckAlternativeFoodMenu;
-            if (!currentSelectedEmployee.ListMainMenuOrderDeatails.Any(x => x.SelectedMenuItemId == int.MaxValue))
+            if (!currentSelectedEmployee.ListMainMenuOrderDeatails.Any(x => x.SelectedMenuItemId == int.MaxValue) 
+                && !IsDataEdit && !currentSelectedEmployee.DisabledAutoAddFood)
             {
                 if (!currentSelectedEmployee.IsDeleteMainFood)
                 {
@@ -1010,6 +1021,8 @@ namespace NexFB.WinApp.ViewModels
             {
                 CommonKitchenOrder.ToList().ForEach(x => { x.IsFocusedMealMenu = false; });
             }
+
+            UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
         }
 
         /// <summary>
@@ -1106,10 +1119,10 @@ namespace NexFB.WinApp.ViewModels
             }
             else
             {
-                if (MessageBox.Show("Order thành công!", string.Empty, MessageBoxButton.OK) == MessageBoxResult.OK)
+                if (MessageBox.Show(WinFormMainResource.Message_OrderSuccessful, string.Empty, MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     ExecuteCancelDialogOrderConfirmation(value);
-                    ExecutePrintInvoice(ReferenceCode, Constant.DeliverOrderFoodInvoice);
+                    ExecutePrintInvoice(ReferenceCode, (int)InvoiceNumberStatus.DeliverOrderFoodInvoice, false);
                     this.MainViewModel.SendEditOrder(ReferenceCode);
                     ResetCurrentModel();
                 }
@@ -1143,10 +1156,10 @@ namespace NexFB.WinApp.ViewModels
             }
             else
             {
-                if (MessageBox.Show("Order thành công!", string.Empty, MessageBoxButton.OK) == MessageBoxResult.OK)
+                if (MessageBox.Show(WinFormMainResource.Message_OrderSuccessful, string.Empty, MessageBoxButton.OK) == MessageBoxResult.OK)
                 {
                     ExecuteCancelDialogOrderConfirmation(value);
-                    ExecutePrintInvoice(result.OrderId, Constant.ReceiveOrderFoodInvoice);
+                    ExecutePrintInvoice(result.OrderId, (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice, true);
                     this.MainViewModel.SendNewOrder(result.OrderId);
                     ResetCurrentModel();
                 }
@@ -1163,28 +1176,18 @@ namespace NexFB.WinApp.ViewModels
             {
                 if (EmployeeInfo.LocationId < 1 && LocationId < 1)
                 {
-                    MessageBox.Show("Vui lòng lựa chọn phòng");
+                    MessageBox.Show(WinFormMainResource.Message_PickRoom);
                     return false;
                 }
-            }
-            else
-            {
-                MessageBox.Show("Chưa có thông tin người gọi món");
-                return false;
             }
 
             if (UserInGroup != null && UserInGroup.Count > 0)
             {
                 if (!UserInGroup.Any(x => x.ListMainMenuOrderDeatails.Count > 0 || x.ListAlternativeMenuOrderDeatails.Count > 0))
                 {
-                    MessageBox.Show("Không thể order với tổng s món ăn bằng 0");
+                    MessageBox.Show(WinFormMainResource.Message_Atleast1);
                     return false;
                 }
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng nhập thông tin gọi món!");
-                return false;
             }
 
             return true;
@@ -1207,6 +1210,7 @@ namespace NexFB.WinApp.ViewModels
             EmployeeInfo = null;
             Result = null;
             LocationName = null;
+            LocationId = 0;
             GridUserVisibility = Constant.Hidden;
             MessageHeader = string.Empty;
             BorderButtonMainFood = defaultColor;
@@ -1223,6 +1227,8 @@ namespace NexFB.WinApp.ViewModels
             ReferenceCode = 0;
             NumPadVisible = Constant.Visible;
             KeyPadVisible = Constant.Hidden;
+            SaveButtonVisible = Constant.Hidden;
+            IsDataEdit = false;
             if (value != null)
             {
                 Border textBlockBorder = (Border)value;
@@ -1302,7 +1308,9 @@ namespace NexFB.WinApp.ViewModels
                             {
                                 SysId = employeeMapping.SysId
                             };
-                            foreach (OrderMenu orderDetail in employeeMapping.ListOrderDetails)
+
+                            IEnumerable<OrderMenu> orderData = employeeMapping.ListOrderDetails.Where(x => !x.IsDeleted);
+                            foreach (OrderMenu orderDetail in orderData)
                             {
                                 if ((orderDetail.IsMainMenu && !orderDetail.IsSideDish) || (!orderDetail.IsMainMenu && !orderDetail.IsSideDish))
                                 {
@@ -1339,6 +1347,7 @@ namespace NexFB.WinApp.ViewModels
 
                                 kitchenEmployeeInfo.NickName = orderDetail.NickName;
                                 kitchenEmployeeInfo.IsPlaceOrder = true;
+                                kitchenEmployeeInfo.DisabledAutoAddFood = true;
                             }
 
                             data.Add(kitchenEmployeeInfo);
@@ -1347,6 +1356,7 @@ namespace NexFB.WinApp.ViewModels
                         }
                     }
 
+                    IsDataEdit = false;
                     UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(data);
                     CommonKitchenOrder = OrderFoodData.GetAllGroup;
                     ExecutePickGroupCommand();
@@ -1382,10 +1392,6 @@ namespace NexFB.WinApp.ViewModels
                         AddSelectedMenuItemToList(currentSelectedItem.ItemId, currentSelectedMember, 2, moreQuantity);
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Please select an item to add more quantity!");
             }
 
             Result = string.Empty;

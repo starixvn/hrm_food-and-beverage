@@ -153,8 +153,11 @@
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD0" Content="0" Margin="12,14,-28,-6" />
 						</Grid>
 						<Grid Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" >
-							<Button FontWeight="Black" x:Name="button18"  FontSize="31" Style="{StaticResource buttonKeypad}"
+							<Button FontWeight="Black"  FontSize="31" Style="{StaticResource buttonKeypad}" 
 				 Command="{Binding Path=ReceiveCommand}" Content="{x:Static resx:WinFormMainResource.ReceiveUpper}" Margin="33,7,4,1" />
+
+							<Button FontWeight="Black" FontSize="31" Style="{StaticResource buttonKeypad}" Visibility="{Binding Path=SaveButtonVisible}"
+				 Command="{Binding Path=ReceiveCommand}" Content="{x:Static resx:WinFormMainResource.ReceiveUpper1}" Margin="33,7,4,1" />
 						</Grid>
 						<Grid Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2">
 							<Button FontWeight="Black" x:Name="buttonKeyH"  FontSize="31" Style="{StaticResource buttonKeypad}"

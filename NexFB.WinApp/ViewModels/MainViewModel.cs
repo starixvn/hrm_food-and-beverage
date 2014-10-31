@@ -18,6 +18,7 @@ namespace NexFB.WinApp.ViewModels
     using System.Windows;
     using System.Windows.Threading;
     using Microsoft.AspNet.SignalR.Client.Hubs;
+    using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
@@ -237,7 +238,7 @@ namespace NexFB.WinApp.ViewModels
             if (value != null)
             {
                 int orderId = (int)value;
-                bool printed = ExecutePrintInvoice(orderId, Constant.DeliverOrderFoodInvoice);
+                bool printed = ExecutePrintInvoice(orderId, (int)InvoiceNumberStatus.DeliverOrderFoodInvoice, false);
                 if (printed)
                 {
                     var criteria = new ProcessDeliverOrderCriteria() { OrderId = orderId };
@@ -275,7 +276,7 @@ namespace NexFB.WinApp.ViewModels
             if (value != null)
             {
                 int orderId = (int)value;
-                bool printed = ExecutePrintInvoice(orderId, Constant.ReceiveOrderFoodInvoice);
+                bool printed = ExecutePrintInvoice(orderId, (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice, false);
 
                 if (printed)
                 {
