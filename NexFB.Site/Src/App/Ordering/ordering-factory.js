@@ -104,5 +104,17 @@ orderingModule.factory("orderingFactory",
 			return total;
 		};
 
+		utilities.getSelectedMenu = function (currentMenus, allMenus) {
+			var resultMenu = '';
+
+			angular.forEach(allMenus, function (menu) {
+				if (menu.MenuId === currentMenus.MenuId && menu.IsMainMenu === currentMenus.IsMainMenu) {
+					resultMenu = menu;
+				}
+			});
+
+			return resultMenu;
+		};
+
 		return utilities;
 	});

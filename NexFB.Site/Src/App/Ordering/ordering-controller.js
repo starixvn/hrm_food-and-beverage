@@ -571,8 +571,10 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	*/
 	$scope.alter = {};
 	$scope.alterSaved = {};
+	$scope.selectedNewMenu = [];
+	$scope.selectedSavedMenu = [];
 
-	$scope.getAlternativeMenus = function (member, isSavedOrder) {
+	$scope.getAlternativeMenus = function (member, isSavedOrder, index) {
 		var userId = member.Member.UserId,
 			key = '';
 
@@ -580,10 +582,12 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			member.AllMenus = allMenus;
 
 			if (isSavedOrder) {
+				$scope.selectedSavedMenu[index] = orderingUtilities.getSelectedMenu(member.Menus[0], allMenus);
 				key = 'alternativeMenu' + userId;
 				$scope.alterSaved[key] = true;
 			}
 			else {
+				$scope.selectedNewMenu[index] = orderingUtilities.getSelectedMenu(member.Menus[0], allMenus);
 				key = 'alternativeMenu' + userId;
 				$scope.alter[key] = true;
 			}

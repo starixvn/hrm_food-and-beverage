@@ -339,11 +339,15 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	/*
 	** Get alternative menus.
 	*/
-	$scope.getAlternativeMenus = function (member) {
+	$scope.selectedMenu = [];
+
+	$scope.getAlternativeMenus = function (member, index) {
 		var userId = member.Member.UserId;
 
 		orderingFactory.getAlternativeMenuByUserId(userId).success(function (allMenus) {
 			member.AllMenus = allMenus;
+			$scope.selectedMenu[index] = orderingUtilities.getSelectedMenu(member.Menus[0], allMenus);
+
 			var key = 'alternativeMenu' + userId;
 			$scope.alterEdit[key] = true;
 		}).error(function (response, status) {

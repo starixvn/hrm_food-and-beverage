@@ -48,11 +48,11 @@
                             </th>
                             <th data-translate="Member">
                             </th>
-                            <th data-translate="Menu" ng-show="order.OrderFrom == 'W' && !order.IsSideDishOrder">
+                            <th data-translate="Menu" ng-show="!order.IsSideDishOrder">
                             </th>
-							<th data-translate="FoodItemCamalcase" ng-show="(order.OrderFrom == 'W' && order.IsSideDishOrder) || order.OrderFrom == 'P'">
+							<th data-translate="FoodItemCamalcase" ng-show="order.IsSideDishOrder">
 							</th>
-							<th data-translate="Amount" ng-show="(order.OrderFrom == 'W' && order.IsSideDishOrder) || order.OrderFrom == 'P'">
+							<th data-translate="Amount" ng-show="order.IsSideDishOrder">
 							</th>
                             <th class="col-action" data-translate="Action">
                             </th>
@@ -69,7 +69,7 @@
 									<div ng-show="!order.IsSideDishOrder">
 										<div ng-show="!alterEdit.alternativeMenu{{member.Member.UserId}}">
 											<span>{{member.Menus[0].Name}}</span>
-											<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, false)" 
+											<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, $index)" 
 												ng-show="member.Menus[0].IsHaveAlternativeMenu && order.Status.StatusId == 1 && 
 													((member.Member.UserId != order.CreatorOrder.UserId 
 													&& member.Member.UserId == order.CurrentUser.UserId) 
@@ -77,11 +77,8 @@
 											</a>
 										</div>
 										<div ng-show="alterEdit.alternativeMenu{{member.Member.UserId}}">
-											<select class="ddlMenu" name="editOrderMenu{{member.Member.UserId}}" ng-model="member.Menus[0].MenuId" get-selected-edit-menu on-change-select >
-												<option ng-repeat="altMenu in member.AllMenus" ng-bind="altMenu.Name" value="{{altMenu.MenuId}}" 
-													ng-selected="(member.Menus[0].MenuId == altMenu.MenuId) && ((member.Menus[0].IsMainMenu && altMenu.IsMainMenu) 
-														|| (!member.Menus[0].IsMainMenu && !altMenu.IsMainMenu))" isMainMenu={{altMenu.IsMainMenu}}>
-												</option>
+											<select class="dllMenu" name="editOrderMenu{{member.Member.UserId}}" ng-model="selectedMenu[$index]" on-change-select get-selected-edit-menu
+												ng-options="altMenu as altMenu.Name for altMenu in member.AllMenus" >
 											</select>
 										</div>
 									</div>
@@ -98,7 +95,7 @@
 									</ul>
 								</div>
                             </td>
-							<td ng-show="(order.OrderFrom == 'W' && order.IsSideDishOrder) || order.OrderFrom == 'P'" class="text-right">
+							<td ng-show="order.IsSideDishOrder" class="text-right">
 								<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
 									<span data-translate="NoneAvailable" ng-if="menu.TotalAmount == 0"></span>
 									<li ng-if="menu.TotalAmount != 0">{{menu.TotalAmount | number}}</li>
