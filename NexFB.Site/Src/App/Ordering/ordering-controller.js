@@ -236,7 +236,6 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 	$scope.bindAction = function () {
 		$scope.$on('$routeChangeStart', function () {
-			alert('a');
 			if ($scope.modalEditOrderInstance) {
 				$scope.modalEditOrderInstance.dismiss('cancel');
 			}
