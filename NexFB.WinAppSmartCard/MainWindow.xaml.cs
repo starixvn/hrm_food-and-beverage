@@ -9,22 +9,58 @@
 
 namespace NexFB.WinAppSmartCard
 {
+    using System;
+    using System.Configuration;
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Interop;
+    using NexFB.WinAppSmartCard.Core.Constants;
+    using NexFB.WinAppSmartCard.Core.Helpers;
+    using NexFB.WinAppSmartCard.ViewModels;
 
     /// <summary>
     /// Interaction logic for MainWindow.
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static string _sessionTimeout = ConfigurationManager.AppSettings[ConstantValue.SessionTimeout];
         private static double _screenWidth = SystemParameters.PrimaryScreenWidth;
         private double _screeHeight = SystemParameters.PrimaryScreenHeight;
+        private int _logOffTime = 0;
 
         public MainWindow()
         {
             InitializeComponent();
             this.Height = _screeHeight;
             this.Width = _screenWidth;
+            this.Loaded += (sender, e) => MainWindow_Loaded();
+        }
+
+        public void InitializeAutoLogoffFeature()
+        {
+            HwndSource windowSpecificOSMessageListener = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
+            windowSpecificOSMessageListener.AddHook(new HwndSourceHook(CallBackMethod));
+            AutoLogOffHelper.LogOffTime = _logOffTime;
+            AutoLogOffHelper.MakeAutoLogOffEvent += (sender, e) => AutoLogOffHelper_MakeAutoLogOffEvent();
+            AutoLogOffHelper.StartAutoLogoffOption();
+        }
+
+        /// <summary>
+        /// Method Window Loaded.
+        /// </summary>
+        private void MainWindow_Loaded()
+        {
+            bool isNumeric = false;
+            if (_sessionTimeout != null)
+            {
+                isNumeric = int.TryParse(_sessionTimeout, out _logOffTime);
+                if (!isNumeric)
+                {
+                    _logOffTime = 60;
+                }
+            }
+
+            ////InitializeAutoLogoffFeature();
         }
 
         private void LanguageButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -32,6 +68,54 @@ namespace NexFB.WinAppSmartCard
             var contextMenu = languageButton.ContextMenu;
             contextMenu.PlacementTarget = this;
             contextMenu.IsOpen = true;
+        }
+
+        /// <summary>
+        /// Call Back Method to detect user interact with screen.
+        /// </summary>
+        /// <param name="hwnd">The window handle.</param>
+        /// <param name="msg">The message ID.</param>
+        /// <param name="widthParam">The message's width Parameter value.</param>
+        /// <param name="longParam">The message's long Parameter value.</param>
+        /// <param name="handled">A value that indicates whether the message was handled. Set the value to true if the message was handled; otherwise, false.</param>
+        /// <returns>Represents the method that handles Win32 window messages.</returns>
+        private IntPtr CallBackMethod(IntPtr hwnd, int msg, IntPtr widthParam, IntPtr longParam, ref bool handled)
+        {
+            ////  Listening OS message to test whether it is a user activity
+            if ((msg >= 0x0200 && msg <= 0x020A) || (msg <= 0x0106 && msg >= 0x00A0) || msg == 0x0021)
+            {
+                AutoLogOffHelper.ResetLogoffTimer();
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine(msg.ToString());
+            }
+
+            return IntPtr.Zero;
+        }
+
+        /// <summary>
+        /// Auto Log Off Event.
+        /// </summary>
+        private void AutoLogOffHelper_MakeAutoLogOffEvent()
+        {
+            var currentViewModel = (MainViewModel)this.DataContext;
+            if (currentViewModel.MainScreenVisible == NexFB.WinAppSmartCard.Core.Constants.ConstantValue.Visible)
+            {
+                if (Application.Current.Windows.Count > 1)
+                {
+                    WindowCollection windows = Application.Current.Windows;
+                    foreach (Window item in windows)
+                    {
+                        if (item.GetType().Name == "WPFMessageBox")
+                        {
+                            item.Close();
+                        }
+                    }
+                }
+
+                currentViewModel.ExecuteReturnToStandByScreen();
+            }
         }
     }
 }

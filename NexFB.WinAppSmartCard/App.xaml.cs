@@ -37,15 +37,15 @@ namespace NexFB.WinAppSmartCard
             mainWindow.DataContext = mainViewModel;
             mainWindow.Show();
 
-            manager.CardNumberChanged += new EventHandler<CardNumberChangedEventArgs>((sender, ex) => OnCardNumberChange(ex, mainViewModel));
+            manager.CardNumberChanged += new EventHandler<CardNumberChangedEventArgs>((sender, ex) => OnCardNumberChange(ex, mainViewModel, mainWindow));
             ResourceManagerService.RegisterManager(@"MainScreenResources", MainScreenResources.ResourceManager, true);
             DbSettingProviderManager.Current.Start();
             mappingRegister.Register();
         }
 
-        private void OnCardNumberChange(CardNumberChangedEventArgs e, MainViewModel mainViewModel)
+        private void OnCardNumberChange(CardNumberChangedEventArgs e, MainViewModel mainViewModel, MainWindow mainWindow)
         {
-            mainViewModel.OnSmartCardNumberchanged(e.CardNumber);
+            mainViewModel.OnSmartCardNumberchanged(e.CardNumber, mainWindow);
         }
     }
 }

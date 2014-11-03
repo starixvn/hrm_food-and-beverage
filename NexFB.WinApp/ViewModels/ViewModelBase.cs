@@ -12,9 +12,9 @@ namespace NexFB.WinApp.ViewModels
     using System;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
-    using System.Threading.Tasks;
     using System.Windows.Documents;
     using System.Windows.Threading;
+    using BlogsPrajeesh.BlogSpot.WPFControls;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
     using NexFB.Services.Implement;
@@ -146,16 +146,20 @@ namespace NexFB.WinApp.ViewModels
             return false;
         }
 
+        public void ShowErrorMessage(string message)
+        {
+            WPFMessageBox.Show(message);
+        }
+
         private void StartCloseTimer(NotificationWindow windows)
         {
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1.5d);
-            timer.Tick += (sender, e) => TimerTick(sender, e, windows);
+            timer.Tick += (sender, e) => TimerTick(sender, windows);
             timer.Start();
         }
 
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", Justification = "Reviewed. Suppression is OK here.")]
-        private void TimerTick(object sender, EventArgs e, NotificationWindow windows)
+        private void TimerTick(object sender, NotificationWindow windows)
         {
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();

@@ -20,6 +20,10 @@ namespace NexFB.WinApp.Core.Constants
 
         public const int DeliverOrderFoodInvoice = 2;
 
+        public const int MainMenuId = 1;
+
+        public const int AlternativeMenuId = 2;
+
         public const double BannerResolution1280 = 522;
 
         public const double BannerResolution1024 = 400;
@@ -117,6 +121,16 @@ namespace NexFB.WinApp.Core.Constants
         public const string FixedMeal = "Món Chính";
 
         public const string NA = "N/A";
+
+        public const int ReleaseAllButton = 0;
+
+        public const int PickRoomButton = 1;
+
+        public const int PickGroupButton = 2;
+
+        public const int ChooseMainFoodButton = 3;
+
+        public const int ChooseAlternativeFoodButton = 4;
 
         private Constant()
         {

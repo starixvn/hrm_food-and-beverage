@@ -11,12 +11,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
 {
     using System;
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Interop;
     using System.Windows.Threading;
     using AutoMapper;
     using BlogsPrajeesh.BlogSpot.WPFControls;
@@ -27,6 +27,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinApp.Core.InternetBased;
     using NexFB.WinAppSmartCard.Core.Constants;
+    using NexFB.WinAppSmartCard.Core.Helpers;
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using NexFB.WinAppSmartCard.GlobalResources.Services;
@@ -38,7 +39,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
     {
         private static string _host = ConfigurationManager.AppSettings[ConstantValue.HubHost];
         private static string _hostLocal = ConfigurationManager.AppSettings[ConstantValue.HubHostLocal];
-        private static string _sessionTimeout = ConfigurationManager.AppSettings[ConstantValue.SessionTimeout];
         private static double _screenWidth = SystemParameters.PrimaryScreenWidth;
         private static double _screeHeight = SystemParameters.PrimaryScreenHeight;
 
@@ -55,7 +55,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private bool _sideButtonEnable;
         private string _logoMargin;
         private string _sentenceMargin;
-        private EventHandler _handler;
 
         public MainViewModel()
         {
@@ -70,7 +69,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ChangeCulture();
             CheckCurrentScreen();
             this.SideButtonEnable = true;
-            SessionTimeout();
         }
 
         #region Properties
@@ -342,7 +340,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// On change Card Number.
         /// </summary>
         /// <param name="newCardNumber">New Card number.</param>
-        public void OnSmartCardNumberchanged(string newCardNumber)
+        /// <param name="mainWindow">Current Main Window.</param>
+        public void OnSmartCardNumberchanged(string newCardNumber, MainWindow mainWindow)
         {
             if (!string.IsNullOrEmpty(newCardNumber))
             {
@@ -371,6 +370,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     default:
                         break;
                 }
+
+                Application.Current.Dispatcher.BeginInvoke(
+                DispatcherPriority.Background,
+                new Action(() =>
+                {
+                    AutoLogOffHelper.ResetLogoffTimer();
+                    mainWindow.InitializeAutoLogoffFeature();
+                }));
             }
         }
 
@@ -616,6 +623,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// <summary>
         /// Connect to server hub.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void InitializeHubConnection()
         {
             Active = true;
@@ -623,7 +631,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 Connection = new HubConnection(_host);
                 Proxy = Connection.CreateHubProxy("order");
-                Connection.Start().Wait();
+                try
+                {
+                    Connection.Start().Wait();
+                }
+                catch (Exception)
+                {
+                    return;
+                }
 
                 while (Active)
                 {
@@ -636,6 +651,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// <summary>
         /// Connect to local hub.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void InitializeHubConnectionLocal()
         {
             ActiveLocal = true;
@@ -643,7 +659,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 ConnectionLocal = new HubConnection(_hostLocal);
                 ProxyLocal = ConnectionLocal.CreateHubProxy("order");
-                ConnectionLocal.Start().Wait();
+                try
+                {
+                    ConnectionLocal.Start().Wait();
+                }
+                catch (Exception)
+                {
+                    return;
+                }
 
                 while (ActiveLocal)
                 {
@@ -651,73 +674,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 }
             }) { IsBackground = true };
             ThreadLocal.Start();
-        }
-
-        /// <summary>
-        /// Timer to count session time out.
-        /// </summary>
-        private void SessionTimeout()
-        {
-            int timeout = 0;
-            bool isNumeric = false;
-            if (_sessionTimeout != null)
-            {
-                isNumeric = int.TryParse(_sessionTimeout, out timeout);
-            }
-
-            if (isNumeric)
-            {
-                _handler = delegate
-                {
-                    DispatcherTimer timer = new DispatcherTimer();
-                    timer.Interval = TimeSpan.FromSeconds(timeout);
-                    timer.Tick += delegate
-                    {
-                        if (timer != null)
-                        {
-                            timer.Stop();
-                            timer = null;
-                            ComponentDispatcher.ThreadIdle -= _handler;
-                            ExecuteSessionOut();
-                            ComponentDispatcher.ThreadIdle += _handler;
-                        }
-                    };
-
-                    timer.Start();
-                    Dispatcher.CurrentDispatcher.Hooks.OperationPosted += delegate
-                    {
-                        if (timer != null)
-                        {
-                            timer.Stop();
-                            timer = null;
-                        }
-                    };
-                };
-                ComponentDispatcher.ThreadIdle += _handler;
-            }
-        }
-
-        /// <summary>
-        /// Execute Session Out.
-        /// </summary>
-        private void ExecuteSessionOut()
-        {
-            if (MainScreenVisible == ConstantValue.Visible)
-            {
-                if (Application.Current.Windows.Count > 1)
-                {
-                    WindowCollection windows = Application.Current.Windows;
-                    foreach (Window item in windows)
-                    {
-                        if (item.GetType().Name == "WPFMessageBox")
-                        {
-                            item.Close();
-                        }
-                    }
-                }
-
-                ExecuteReturnToStandByScreen();
-            }
         }
 
         #endregion

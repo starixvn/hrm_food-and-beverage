@@ -546,6 +546,7 @@ namespace NexFB.WinApp.ViewModels
         /// <summary>
         /// Connect to server hub.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void InitializeHubConnection()
         {
             Active = true;
@@ -559,7 +560,14 @@ namespace NexFB.WinApp.ViewModels
                 Proxy.On<int>("appNotifyUndoDeliveredOrder", (orderId) => OnKitchenStaffUndoDeliveredOrder(orderId));
                 Proxy.On<int>("deleteOrderForApp", (orderId) => OnDeleteOrder(orderId));
                 Proxy.On<int>("editOrderForApp", (orderId) => OnEditOrder(orderId));
-                Connection.Start().Wait();
+                try
+                {
+                    Connection.Start().Wait();
+                }
+                catch (Exception)
+                {
+                    return;
+                }
 
                 while (Active)
                 {
@@ -572,6 +580,7 @@ namespace NexFB.WinApp.ViewModels
         /// <summary>
         /// Connect to local Hub.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void InitializeHubConnectionLocal()
         {
             ActiveLocal = true;
@@ -585,7 +594,14 @@ namespace NexFB.WinApp.ViewModels
                 ProxyLocal.On<int>("appNotifyUndoDeliveredOrder", (orderId) => OnKitchenStaffUndoDeliveredOrder(orderId));
                 ProxyLocal.On<int>("deleteOrderForApp", (orderId) => OnDeleteOrder(orderId));
                 ProxyLocal.On<int>("editOrderForApp", (orderId) => OnEditOrder(orderId));
-                ConnectionLocal.Start().Wait();
+                try
+                {
+                    ConnectionLocal.Start().Wait();
+                }
+                catch (Exception)
+                {
+                    return;
+                }
 
                 while (ActiveLocal)
                 {

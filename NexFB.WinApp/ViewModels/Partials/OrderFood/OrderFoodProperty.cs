@@ -18,7 +18,7 @@ namespace NexFB.WinApp.ViewModels.Partials.OrderFood
     /// <summary>
     /// Properties of OrderFoodViewModel.
     /// </summary>
-    public class OrderFoodProperty : ViewModelBase
+    public class OrderFoodProperty : OrderFoodDynamicScreen
     {
         private static ObservableCollection<CommonKitchenOrder> _commonKitchenOrder = new ObservableCollection<CommonKitchenOrder>();
         private static ObservableCollection<CommonKitchenOrder> _allObservableLocation = new ObservableCollection<CommonKitchenOrder>();
@@ -728,5 +728,46 @@ namespace NexFB.WinApp.ViewModels.Partials.OrderFood
         }
 
         #endregion
+
+        public void ShowOverlay()
+        {
+            OverlayVisible = Constant.Visible;
+        }
+
+        public void HideOverlay()
+        {
+            OverlayVisible = Constant.Hidden;
+        }
+
+        public void ShowGridDisplayUser()
+        {
+            GridUserVisibility = Constant.Visible;
+        }
+
+        public void HideGridDisplayUser()
+        {
+            GridUserVisibility = Constant.Hidden;
+        }
+
+        /// <summary>
+        /// Release data in middle side when user have an action.
+        /// </summary>
+        /// <param name="isLocationData">Check current menu is Location Data.</param>
+        /// <param name="currentSelectedItem">Current selected item.</param>
+        public void ReleaseDataMiddleSide(bool isLocationData, CommonKitchenOrder currentSelectedItem)
+        {
+            if (!isLocationData)
+            {
+                CommonKitchenOrder.ToList().ForEach(x => x.IsFocusedMealMenu = false);
+                currentSelectedItem.IsSelectedMealMenu = true;
+                currentSelectedItem.IsFocusedMealMenu = true;
+                IsMenuFocused = true;
+            }
+            else
+            {
+                CommonKitchenOrder.ToList().ForEach(x => x.IsSelectedMealMenu = false);
+                currentSelectedItem.IsSelectedMealMenu = true;
+            }
+        }
     }
 }

@@ -58,6 +58,9 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="BlogsPrajeesh.BlogSpot.WPFControls">
+      <HintPath>..\packages\SmartCard\WPFMessageBoxPOSKitchen\BlogsPrajeesh.BlogSpot.WPFControls.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
     </Reference>
@@ -113,6 +116,7 @@
     <Compile Include="DependencyProperties\WatermarkAdorner.cs" />
     <Compile Include="ViewModels\AwaitingDeliverViewModel.cs" />
     <Compile Include="ViewModels\Partials\OrderFood\OrderFoodData.cs" />
+    <Compile Include="ViewModels\Partials\OrderFood\OrderFoodDynamicScreen.cs" />
     <Compile Include="ViewModels\Partials\OrderFood\OrderFoodPreviewData.cs" />
     <Compile Include="ViewModels\Partials\Main\MainModelProperty.cs" />
     <Compile Include="ViewModels\Partials\OrderFood\OrderFoodProperty.cs" />
