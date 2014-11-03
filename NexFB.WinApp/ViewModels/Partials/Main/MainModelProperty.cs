@@ -19,7 +19,7 @@ namespace NexFB.WinApp.ViewModels.Partials.Main
     using NexFB.WinApp.Core.Models;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Main Model Property.
     /// </summary>
     public class MainModelProperty : ViewModelBase
     {

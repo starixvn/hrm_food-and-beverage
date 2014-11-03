@@ -16,7 +16,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
     using NexFB.WinApp.Core.NotifyBase;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Side Food.
     /// </summary>
     public class SideFood : PropertyChangedBase
     {

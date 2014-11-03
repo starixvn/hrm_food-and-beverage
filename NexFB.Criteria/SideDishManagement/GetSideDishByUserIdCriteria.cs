@@ -12,7 +12,7 @@ namespace NexFB.Criteria.SideDishManagement
     using Fanex.Data.Repository;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Get Side Dish By User Id Criteria.
     /// </summary>
     public class GetSideDishByUserIdCriteria : CriteriaBase
     {

@@ -12,7 +12,7 @@ namespace NexFB.WinApp.Core.InternetBased
     using System.Runtime.InteropServices;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Native Methods.
     /// </summary>
     internal static class NativeMethods
     {

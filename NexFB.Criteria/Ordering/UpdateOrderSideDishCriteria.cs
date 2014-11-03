@@ -18,7 +18,7 @@ namespace NexFB.Criteria.Ordering
     using NexFB.Models.Ordering;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Update Order Side Dish Criteria.
     /// </summary>
     public class UpdateOrderSideDishCriteria : CriteriaBase
     {

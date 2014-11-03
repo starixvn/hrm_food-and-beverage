@@ -13,7 +13,7 @@ namespace NexFB.Criteria.AlternativeMenuManagement
     using Fanex.Data.Repository;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Update Alternative Menu Criteria.
     /// </summary>
     public class UpdateAlternativeMenuCriteria : CriteriaBase
     {
