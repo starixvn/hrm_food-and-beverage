@@ -35,8 +35,8 @@ notificationFactory) {
 		$scope.policy = {
 			permission: permission
 		};
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -44,8 +44,8 @@ notificationFactory) {
 	*/
 	foodMenuFactory.getAllEmployeeType().success(function (employeeTypes) {
 		$scope.employeeTypesOption = employeeTypes;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -150,7 +150,7 @@ notificationFactory) {
 
 		$scope.modalInstance.result.then(function () {
 			alternativeMenuFactory.activateAlternativeMenu(newAltMenu).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
 					notificationFactory.success(keyMessage);
 				}
@@ -213,7 +213,7 @@ notificationFactory) {
 			var currentPage = $scope.currentPage;
 
 			alternativeMenuFactory.deleteAlternativeMenu(altMenu.AlternativeMenuId).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					updatePaging(altMenu, currentPage);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
@@ -256,7 +256,7 @@ alternativeMenuFactory, ErrorFactory, notificationFactory) {
 
 		if (alternativeMenuUtilities.validateAlternativeMenu(altMenu)) {
 			alternativeMenuFactory.insertAlternativeMenu(altMenu).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					notificationFactory.success("DataChangeSuccessfully");
 					$modalInstance.close();
 				}
@@ -329,7 +329,7 @@ alternativeMenuFactory, notificationFactory, ErrorFactory, commonFactory) {
 			altMenu.EmployeeTypes = commonFactory.updateEmployeeTypes(updatedAltMenu.employeeTypeId, $scope.employeeTypesOption);
 
 			alternativeMenuFactory.updateAlternativeMenu(updatedAltMenu).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					notificationFactory.success("DataChangeSuccessfully");
 					$modalInstance.close(altMenu);
 				}

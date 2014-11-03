@@ -25,8 +25,8 @@ notificationFactory) {
 		$scope.policy = {
 			permission: permission
 		};
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -44,8 +44,8 @@ notificationFactory) {
 	*/
 	foodMenuFactory.getAllEmployeeType().success(function (employeeTypes) {
 		$scope.employeeTypesOption = employeeTypes;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -53,8 +53,8 @@ notificationFactory) {
 	*/
 	sideDishManagementFactory.getAllFoodUnit(null).success(function (units) {
 		$scope.unitOptions = units;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*

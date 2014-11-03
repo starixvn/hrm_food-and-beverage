@@ -5,7 +5,7 @@ foodItemManagementModule.directive('resetFoodItem', function () {
 	var clearInputData = function (food) {
 		food.foodEngName = '';
 		food.foodVnmName = '';
-		food.isActive = false;
+		food.isActive = true;
 		food.setMenuIds = [];
 		food.setMenuId = '';
 	};

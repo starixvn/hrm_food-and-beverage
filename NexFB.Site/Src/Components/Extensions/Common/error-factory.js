@@ -5,7 +5,6 @@ appModule.factory("ErrorFactory", ['$location', '$window', 'notificationFactory'
 function ($location, $window, notificationFactory) {
 	return {
 		errorHandle: function (status) {
-			debugger;
 			if (status === 405) {
 				$location.path('/Home/AccessDenied');
 			}

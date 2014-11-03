@@ -19,28 +19,23 @@ function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory)
 			getFunctionByRole(roleId);
 			$scope.roleOptions = roles;
 		}
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	userControlFactory.getManageRolePermission().success(function (permission) {
 		$scope.policy = {
 			permission: permission
 		};
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	var getFunctionByRole = function (roleId) {
 		userControlFactory.getFunctionByRole(roleId).success(function (functionGroup) {
 			$scope.functionGroup = functionGroup;
 		}).error(function (response, status) {
-			if (status === 405) {
-				ErrorFactory.errorHandle(status);
-			}
-			else {
-				notificationFactory.error("ErrorMessage");
-			}
+			ErrorFactory.errorHandle(status);
 		});
 	};
 
@@ -52,7 +47,7 @@ function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory)
 		$scope.disabledSubmitButton = true;
 
 		userControlFactory.assignPermissionToRole(roleFunction).success(function (response) {
-			if (response.IsSuccessful === true) {
+			if (response.IsSuccessful) {
 				notificationFactory.success("DataChangeSuccessfully");
 			}
 			else {
@@ -61,13 +56,7 @@ function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory)
 
 			$scope.disabledSubmitButton = false;
 		}).error(function (response, status) {
-			if (status === 405) {
-				ErrorFactory.errorHandle(status);
-			}
-			else {
-				notificationFactory.error("ErrorMessage");
-			}
-
+			ErrorFactory.errorHandle(status);
 			$scope.disabledSubmitButton = false;
 		});
 	};
@@ -91,22 +80,22 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 		$scope.policy = {
 			permission: parseInt(permission)
 		};
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	userControlFactory.getAllDepartment().success(function (departments) {
 		$scope.departmentOptions = departments;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	$scope.getTeamByCompany = function (departmentId) {
 		if (departmentId) {
 			userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
 				$scope.teamOptions = teams;
-			}).error(function () {
-				notificationFactory.error("ErrorMessage");
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
 			});
 		}
 		else {
@@ -118,8 +107,8 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 
 	userControlFactory.getAllSystemRole().success(function (roles) {
 		$scope.roleOptions = roles;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	$scope.showEntries = function () {
@@ -136,12 +125,7 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 			commonFactory.tablePagination($scope, employees, $scope.entrySelected);
 		})
 		.error(function (response, status) {
-			if (status === 405) {
-				ErrorFactory.errorHandle(status);
-			}
-			else {
-				notificationFactory.error("ErrorMessage");
-			}
+			ErrorFactory.errorHandle(status);
 		});
 	}
 
@@ -151,7 +135,7 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 		filter.roleId = '';
 
 		angular.forEach($scope.roleOptions, function (value) {
-			if (value.ticked === true) {
+			if (value.ticked) {
 				var roleId = value.RoleId;
 				filter.roleId = filter.roleId !== '' ? filter.roleId + ',' + roleId : roleId;
 			}
@@ -178,7 +162,7 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 		modalAssignInstance.result.then(function (userRoles) {
 
 			userControlFactory.assignRoleToUser(userRoles).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					employee.Roles = userRoles.rolesName;
 					notificationFactory.success("DataChangeSuccessfully");
 				}
@@ -208,20 +192,20 @@ function ($scope, $modalInstance, userId, userControlFactory, notificationFactor
 	userControlFactory.getEmployeeRoleById(userId).success(function (employee) {
 		$scope.employee = employee;
 		$scope.roles = employee.RoleItems;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	userControlFactory.getAllSystemRole(false).success(function (systemRoles) {
 		$scope.systemRoles = systemRoles;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	userControlFactory.getAllDepartment().success(function (departments) {
 		$scope.departments = departments;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	$scope.checkRolePermission = function (roleId) {

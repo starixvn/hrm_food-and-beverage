@@ -9,7 +9,7 @@ mealRegistrationModule.directive('onlyOneCheck', function () {
 				var mealId = $(this).val(),
 					currentElementId = $(this).prop('id'),
 					currentChecked = $(this).prop('checked'),
-					isVegetarian = currentElementId.replace('meal' + mealId, '') === '_non' ? false : true,
+					isVegetarian = currentElementId.replace('meal' + mealId, '') !== '_non',
 					anotherElementId = isVegetarian ? ('#meal' + mealId + '_non') : ('#meal' + mealId);
 
 				if (currentChecked) {
@@ -177,7 +177,7 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 					var checkedElement = checkedElements[i],
 						mealId = $(checkedElement).val(),
 						checkedElementId = $(checkedElement).prop('id'),
-						isVegetarian = checkedElementId.replace('meal' + mealId, '') === '_non' ? false : true;
+						isVegetarian = checkedElementId.replace('meal' + mealId, '') !== '_non';
 
 					// Check user cannot register non-veggie and veggie.
 					if (isTypeMeal === '') {

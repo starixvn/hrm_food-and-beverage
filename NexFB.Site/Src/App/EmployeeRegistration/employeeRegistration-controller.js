@@ -2,16 +2,16 @@
 /*global mealRegistrationModule*/
 
 mealRegistrationModule.controller('EmployeeRegistrationMealController',
-['$scope', 'mealRegistrationFactory', 'mealRegistrationUtilities', 'notificationFactory', '$route', '$window',
-function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificationFactory, $route, $window) {
+['$scope', 'mealRegistrationFactory', 'mealRegistrationUtilities', 'notificationFactory', '$route', '$window', 'ErrorFactory',
+function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificationFactory, $route, $window, ErrorFactory) {
 	mealRegistrationUtilities.getTabHeading($scope);
 
 	mealRegistrationFactory.getUserPermissionOnRegistration().success(function (permission) {
 		$scope.policy = {
 			permission: permission
 		};
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	$scope.goHomePage = function () {
@@ -51,13 +51,13 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	var getRegisterMealByRangeDate = function (fromDate, toDate, mealId) {
 		mealRegistrationFactory.getRegisterMealByRangeDate(fromDate.toDateString(), toDate.toDateString(), mealId).success(function (mealDates) {
 			$scope.allWeekMeals = mealDates;
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
 		});
 	};
 
 	$scope.$watch('tabMonthly', function (newValue) {
-		if (newValue === true) {
+		if (newValue) {
 			var changedMonth = $scope.currentDate,
 				fromDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth(), 1),
 				toDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth() + 1, 0);
@@ -99,8 +99,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	*/
 	mealRegistrationFactory.getAllMealTimesheet().success(function (mealTimesheet) {
 		$scope.mealTimesheet = mealTimesheet;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -479,7 +479,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 	};
 
 	$scope.$watch('tabDefault', function (newValue) {
-		if (newValue === true) {
+		if (newValue) {
 			getDefaultRegisterMeal();
 		}
 	});

@@ -65,7 +65,7 @@ mealPlanningManagementModule.directive('resetMealPlanning', function () {
 				scope.mealPlanning.onDate = '';
 				scope.mealPlanning.menuId = '';
 				scope.mealPlanning.setMenuId = '';
-				scope.mealPlanning.isActive = false;
+				scope.mealPlanning.isActive = true;
 				scope.mealPlanning.date = new Date();
 
 				var menuChosenSelect = $("[name='foodSelect']");

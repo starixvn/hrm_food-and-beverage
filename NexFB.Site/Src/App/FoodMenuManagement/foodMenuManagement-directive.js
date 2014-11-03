@@ -18,7 +18,7 @@ foodMenuManagementModule.directive('resetFoodMenu', function () {
 		foodMenu.menuVnmName = '';
 		foodMenu.menuEngName = '';
 		foodMenu.isVegetarian = false;
-		foodMenu.isActive = false;
+		foodMenu.isActive = true;
 		foodMenu.mealId = '';
 		foodMenu.employeeTypeId = '';
 		foodMenu.setMenuId = '';

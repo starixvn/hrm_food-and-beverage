@@ -40,8 +40,8 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 	*/
 	mealPlanningFactory.getAllMealTimesheet().success(function (mealTimesheets) {
 		$scope.mealTimesheets = mealTimesheets;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 	/*
 	** Paging.
@@ -78,8 +78,8 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 	*/
 	foodMenuFactory.getAllFoodMenuToFilter().success(function (foodMenus) {
 		$scope.menuOptions = foodMenus;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -87,8 +87,8 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 	*/
 	foodMenuFactory.getAllMealTimesheet().success(function (meals) {
 		$scope.mealsOption = meals;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -96,8 +96,8 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 	*/
 	foodMenuFactory.getAllEmployeeType().success(function (employeeTypes) {
 		$scope.employeeTypesOption = employeeTypes;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -107,8 +107,8 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 		$scope.policy = {
 			permission: permission
 		};
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	var checkRightMeal = function (mealPlannings) {
@@ -346,12 +346,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 					notificationFactory.error("", response.Message);
 				}
 			}).error(function (response, status) {
-				if (status === 405) {
-					ErrorFactory.errorHandle(status);
-				}
-				else {
-					notificationFactory.error("ErrorMessage");
-				}
+				ErrorFactory.errorHandle(status);
 			});
 		})['finally'](function () {
 			$scope.modalInstance = '';

@@ -35,8 +35,8 @@ notificationFactory) {
 		$scope.policy = {
 			permission: permission
 		};
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -44,8 +44,8 @@ notificationFactory) {
 	*/
 	shiftMealMappingFactory.getAllDepartment().success(function (departments) {
 		$scope.departmentOptions = departments;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -133,7 +133,7 @@ notificationFactory) {
 				};
 
 				shiftMealMappingFactory.updateShiftMeal(updateShift).success(function (response) {
-					if (response.IsSuccessful === true) {
+					if (response.IsSuccessful) {
 						notificationFactory.success("DataChangeSuccessfully");
 					}
 					else {

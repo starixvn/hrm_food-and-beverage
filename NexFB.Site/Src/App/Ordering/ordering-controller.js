@@ -21,12 +21,9 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	};
 
 	$scope.getMessage();
-
 	$scope.newOrder = [];
 	$scope.savedOrder = [];
 	$scope.myOrder = [];
-
-
 
 	var orderSignalR = $.connection.order;
 	$scope.sendNewOrder = function (orderId) {
