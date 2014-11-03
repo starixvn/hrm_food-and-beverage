@@ -128,6 +128,13 @@ namespace NexFB.Site
                 "~/Src/App/Report/report-route.js",
                 "~/Src/App/Report/monthlyReportLocal-controller.js",
                 "~/Src/App/Report/report-factory.js"));
+                "~/Src/App/GroupControl/groupControl-route.js",
+                "~/Src/App/GroupControl/groupControl-controller.js",
+                "~/Src/App/GroupControl/createGroup-controller.js",
+                "~/Src/App/GroupControl/editGroup-controller.js",
+                "~/Src/App/GroupControl/groupControl-factory.js",
+                "~/Src/App/GroupControl/groupControl-directive.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/extensions").Include(
                 "~/Src/Components/Extensions/Common/error-factory.js",

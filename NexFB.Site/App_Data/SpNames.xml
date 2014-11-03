@@ -297,4 +297,14 @@
 		<Setting Key="RPT_MonthMainDishByLocal" SpName="RPT_MonthMainDishByLocal" DbName="NexFB" Plain="0" >
 		</Setting>
 	</Function>
+  <Function Name="ManageGroup">
+    <Setting Key="GroupOrderAdmin_EditActiveGroup" SpName="GroupOrderAdmin_EditActiveGroup" DbName="NexFB" Plain="0" ></Setting>
+    <Setting Key="GroupOrderAdmin_EditGroup" SpName="GroupOrderAdmin_EditGroup" DbName="NexFB" Plain="0" ></Setting>
+    <Setting Key="GroupOrderAdmin_GetGroup" SpName="GroupOrderAdmin_GetGroup" DbName="NexFB" Plain="0" ></Setting>
+    <Setting Key="GroupOrderAdmin_GetMember" SpName="GroupOrderAdmin_GetMember" DbName="NexFB" Plain="0" ></Setting>
+    <Setting Key="GroupOrderAdmin_InsertGroup" SpName="GroupOrderAdmin_InsertGroup" DbName="NexFB" Plain="0" ></Setting>
+    <Setting Key="GroupOrderAdmin_InsertMember" SpName="GroupOrderAdmin_InsertMember" DbName="NexFB" Plain="0" ></Setting>
+    <Setting Key="GroupOrderAdmin_RemoveMember" SpName="GroupOrderAdmin_RemoveMember" DbName="NexFB" Plain="0" ></Setting>
+    <Setting Key="GroupOrderAdmin_DeleteGroup" SpName="GroupOrderAdmin_DeleteGroup" DbName="NexFB" Plain="0" ></Setting>    
+  </Function>
 </Functions>

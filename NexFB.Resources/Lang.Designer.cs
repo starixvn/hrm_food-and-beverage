@@ -133,6 +133,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Groups.
+        /// </summary>
+        public static string AllGroups {
+            get {
+                return ResourceManager.GetString("AllGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All meals.
         /// </summary>
         public static string AllMeals {
@@ -372,6 +381,15 @@ namespace NexFB.Resources {
         public static string CreateFoodMenu {
             get {
                 return ResourceManager.GetString("CreateFoodMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Group.
+        /// </summary>
+        public static string CreateGroup {
+            get {
+                return ResourceManager.GetString("CreateGroup", resourceCulture);
             }
         }
         
@@ -862,6 +880,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group.
+        /// </summary>
+        public static string Group {
+            get {
+                return ResourceManager.GetString("Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -966,6 +993,15 @@ namespace NexFB.Resources {
         public static string ManageFoodItem {
             get {
                 return ResourceManager.GetString("ManageFoodItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Group.
+        /// </summary>
+        public static string ManageGroup {
+            get {
+                return ResourceManager.GetString("ManageGroup", resourceCulture);
             }
         }
         

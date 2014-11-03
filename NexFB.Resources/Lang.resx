@@ -719,15 +719,27 @@
   </data>
   <data name="MessageDeliveredNoMemberStatusOrder" xml:space="preserve">
     <value>Order #{0} by {1} has been ready since {2}.</value>
+    </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
   </data>
   <data name="MonthlyMainDishReportLocal" xml:space="preserve">
     <value>Monthly Main Dish Report - Local</value>
   </data>
+  <data name="ManageGroup" xml:space="preserve">
+    <value>Manage Group</value>
+  </data>
   <data name="DepartmentSection" xml:space="preserve">
     <value>Department/Section</value>
+    </data>
+  <data name="AllGroups" xml:space="preserve">
+    <value>All Groups</value>
   </data>
   <data name="Qty" xml:space="preserve">
     <value>Qty</value>
+    </data>
+  <data name="CreateGroup" xml:space="preserve">
+    <value>Create Group</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>

@@ -96,6 +96,16 @@ namespace NexFB.Site
                name: "Monthly Main Dish Report Local",
                url: "MonthlyReportLocal/Index",
                defaults: new { controller = "Home", action = "Index" });
+               
+	    routes.MapRoute(
+               name: "Manage Group",
+               url: "ManageGroup/Index",
+               defaults: new { controller = "Home", action = "Index" });
+               
+            routes.MapRoute(
+               name: "Manage User In Group",
+               url: "ManageGroup/User",
+               defaults: new { controller = "Home", action = "Index" });
 
             routes.MapRoute(
                 name: "Default",

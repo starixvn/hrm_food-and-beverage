@@ -1,0 +1,25 @@
+﻿<div>
+    <div class="modal-header">
+        <div class="popup-header">
+            {{"CreateGroup" | translate}}<span class="close-popup" ng-click="cancel()"></span>
+        </div>
+    </div>
+    <div class="modal-body manage-group-body-modal">
+        <form class="form-horizontal form-manage-group" role="form" name="createGroupForm" ng-init="setFormScope(this)">
+            <div class="form-group">
+	            <label class="col-sm-1 text-right">{{"Group" | translate}}</label>
+	            <div class="col-sm-2 field">
+	                <input type="text" class="form-control" maxlength="100" ng-model="group.groupName" required />
+	            </div>
+	            <label class="col-sm-1 text-right">{{"Active" | translate}}</label>
+	            <div class="col-sm-2 field">
+		            <input type="checkbox" class="form-control" ng-model="group.isActive" ng-check="group.isActive" />
+	            </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="button" data-translate="Submit" ng-disabled="!createGroupForm.$valid" ng-click="addGroup(group)" />
+        <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel" />
+	</div>
+</div>

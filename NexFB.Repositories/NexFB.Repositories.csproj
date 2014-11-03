@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Implement\AlternativeMenuRepository.cs" />
     <Compile Include="Implement\CommonRepository.cs" />
+    <Compile Include="Implement\GroupControlRepository.cs" />
     <Compile Include="Implement\ReportRepository.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
@@ -70,6 +71,7 @@
     <Compile Include="Implement\OrderingRepository.cs" />
     <Compile Include="Implement\ShiftMealMappingRepository.cs" />
     <Compile Include="Implement\SideDishRepository.cs" />
+    <Compile Include="Interface\IGroupControlRepository.cs" />
     <Compile Include="Interface\IReportRepository.cs" />
     <Compile Include="Interface\ISetMenuRepository.cs" />
     <Compile Include="Interface\IAlternativeMenuRepository.cs" />

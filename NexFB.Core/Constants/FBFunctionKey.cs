@@ -55,5 +55,9 @@ namespace NexFB.Core.Constants
         public const string AlternativeMenuManagement = "AlternativeMenuManagement";
 
         public const string MealRegistrationByShift = "MealRegistrationByShift";
+
+        public const string ManageGroup = "ManageGroup";
+
+        public const string ManageUserInGroup = "ManageUserInGroup";
     }
 }

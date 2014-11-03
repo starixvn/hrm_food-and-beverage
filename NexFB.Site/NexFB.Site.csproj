@@ -183,6 +183,7 @@
     <Compile Include="Controllers\API\BaseController.cs" />
     <Compile Include="Controllers\API\CommonController.cs" />
     <Compile Include="Controllers\API\ReportController.cs" />
+    <Compile Include="Controllers\API\GroupControlController.cs" />
     <Compile Include="Controllers\API\SetMenuManagementController.cs" />
     <Compile Include="Controllers\API\OrderMemberController.cs" />
     <Compile Include="Controllers\API\FoodItemManagementController.cs" />
@@ -238,6 +239,15 @@
     <Content Include="Src\App\FoodMenuManagement\Templates\create.html" />
     <Content Include="Src\App\FoodMenuManagement\Templates\edit.html" />
     <Content Include="Src\App\FoodMenuManagement\Templates\index.html" />
+    <Content Include="Src\App\GroupControl\editGroup-controller.js" />
+    <Content Include="Src\App\GroupControl\createGroup-controller.js" />
+    <Content Include="Src\App\GroupControl\groupControl-route.js" />
+    <Content Include="Src\App\GroupControl\groupControl-factory.js" />
+    <Content Include="Src\App\GroupControl\groupControl-directive.js" />
+    <Content Include="Src\App\GroupControl\groupControl-controller.js" />
+    <Content Include="Src\App\GroupControl\Templates\ManageGroup\edit.html" />
+    <Content Include="Src\App\GroupControl\Templates\ManageGroup\create.html" />
+    <Content Include="Src\App\GroupControl\Templates\ManageGroup\index.html" />
     <Content Include="Src\App\MealPlanningManagement\editMealPlanning-controller.js" />
     <Content Include="Src\App\MealPlanningManagement\createMealPlanning-controller.js" />
     <Content Include="Src\App\MealPlanningManagement\mealPlanningManagement-controller.js" />
@@ -404,6 +414,7 @@
     <Content Include="Src\App\ShiftMealMapping\shiftMealMapping.less" />
     <Content Include="Src\App\SetMenuManagement\setMenuManagement.less" />
     <None Include="Src\App\Report\report.less" />
+    <None Include="Src\App\GroupControl\groupControl.less" />
     <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
