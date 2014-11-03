@@ -50,10 +50,10 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 			});
 		}
 
-		var deafultHeadingCache = mealRegistrationCacheFactory.get("defaultHeading");
+		var defaultHeadingCache = mealRegistrationCacheFactory.get("defaultHeading");
 
-		if (deafultHeadingCache) {
-			scope.defaultHeading = deafultHeadingCache;
+		if (defaultHeadingCache) {
+			scope.defaultHeading = defaultHeadingCache;
 		}
 		else {
 			$translate("Default").then(function (message) {
@@ -287,7 +287,8 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 			// Don't check Sunday and Saturday
 			if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
 				if (!date.IsDisabled) {
-					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate() &&
+							toDay.getFullYear() === currentDate.getFullYear()) {
 						angular.forEach(date.Meals, function (meal) {
 							var currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
 								rightMeal = utility.checkRightMeal(currentTimesheet);
@@ -317,7 +318,8 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 				currentDate = new Date(date.WorkDate);
 
 			if (!date.IsDisabled) {
-				if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+				if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate() &&
+						toDay.getFullYear() === currentDate.getFullYear()) {
 					angular.forEach(date.Meals, function (meal) {
 						var currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
 								rightMeal = utility.checkRightMeal(currentTimesheet);
@@ -347,7 +349,8 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 
 			if (!date.IsDisabled) {
 				if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
-					if (toDay.getMonth() !== currentDate.getMonth() || toDay.getDate() !== currentDate.getDate()) {
+					if (toDay.getFullYear() !== currentDate.getFullYear() || toDay.getMonth() !== currentDate.getMonth() || 
+							toDay.getDate() !== currentDate.getDate()) {
 						resultDate = date;
 						i = allDateInWeek.length;
 					}
@@ -369,7 +372,8 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 
 			if (!date.IsDisabled) {
 				if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
-					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+					if (toDay.getFullYear() === currentDate.getFullYear() || toDay.getMonth() === currentDate.getMonth() && 
+							toDay.getDate() === currentDate.getDate()) {
 						resultDate = date;
 						i = allDateInWeek.length;
 					}
@@ -423,7 +427,8 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 				checked = false;
 
 				if (!date.IsDisabled) {
-					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate() &&
+							toDay.getFullYear() === currentDate.getFullYear()) {
 						checked = checkSameMealWithToday(sealedDate, date, mealTimesheet);
 					}
 					else {
@@ -498,7 +503,8 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 				currentDate = new Date(date.WorkDate);
 
 			if (!date.IsDisabled) {
-				if (toDay.getMonth() !== currentDate.getMonth() || toDay.getDate() !== currentDate.getDate()) {
+				if (toDay.getFullYear() !== currentDate.getFullYear() || toDay.getMonth() !== currentDate.getMonth() || 
+						toDay.getDate() !== currentDate.getDate()) {
 					resultDate = date;
 					i = weeks.length;
 				}
@@ -521,7 +527,8 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 				checked = false;
 
 				if (!date.IsDisabled) {
-					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate() &&
+							toDay.getFullYear() === currentDate.getFullYear()) {
 						checked = checkSameMealWithToday(sealedDate, date, mealTimesheet);
 					}
 					else {
@@ -571,7 +578,8 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 				currentDate = new Date(date.WorkDate);
 
 			if (!date.IsDisabled) {
-				if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
+				if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate() &&
+						toDay.getFullYear() === currentDate.getFullYear()) {
 					resultDate = date;
 					i = weekLength;
 				}

@@ -1807,7 +1807,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This group will not be saved for next orders..
+        ///   Looks up a localized string similar to Group member will not be saved for next orders..
         /// </summary>
         public static string WarningGroupNotSave {
             get {

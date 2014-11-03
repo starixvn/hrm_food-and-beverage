@@ -328,7 +328,7 @@
     <value>Vegetarian</value>
   </data>
   <data name="WarningGroupNotSave" xml:space="preserve">
-    <value>This group will not be saved for next orders.</value>
+    <value>Group member will not be saved for next orders.</value>
   </data>
   <data name="Wed" xml:space="preserve">
     <value>Wed</value>

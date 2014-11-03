@@ -79,7 +79,8 @@ mealRegistrationModule.directive('checkMealTimesheet', function () {
 			var toDay = new Date(),
 				currentWorkDate = new Date(workDate);
 
-			if (toDay.getMonth() === currentWorkDate.getMonth() && toDay.getDate() === currentWorkDate.getDate()) {
+			if (toDay.getMonth() === currentWorkDate.getMonth() && toDay.getDate() === currentWorkDate.getDate() &&
+					toDay.getFullYear() === currentWorkDate.getFullYear()) {
 				var currentHour = toDay.getHours(),
 					currentMinute = toDay.getMinutes(),
 					registerHour = new Date(currentTimesheet.RegisterTime + 'Z').getUTCHours(),
@@ -150,7 +151,8 @@ mealRegistrationModule.directive('disableCurrentDay', function () {
 				var toDay = new Date(),
 					currentWorkDate = new Date(workDate);
 
-				if (toDay.getMonth() === currentWorkDate.getMonth() && toDay.getDate() === currentWorkDate.getDate()) {
+				if (toDay.getMonth() === currentWorkDate.getMonth() && toDay.getDate() === currentWorkDate.getDate() &&
+						toDay.getFullYear() === currentWorkDate.getFullYear()) {
 					scope.currentDate[meal.MealId] = true;
 				}
 			}
@@ -187,12 +189,9 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 					}
 
 					// In daily registration form of the current date, Vegetarian options are disabled
-					if (workDate) {
-						if (toDay.getMonth() === workDate.getMonth() && toDay.getDate() === workDate.getDate()) {
-							if (isVegetarian) {
-								validVegetarianCurrentDate = false;
-							}
-						}
+					if (workDate && toDay.getMonth() === workDate.getMonth() && toDay.getDate() === workDate.getDate() &&
+								toDay.getFullYear() === workDate.getFullYear() && isVegetarian) {
+						validVegetarianCurrentDate = false;
 					}
 				}
 

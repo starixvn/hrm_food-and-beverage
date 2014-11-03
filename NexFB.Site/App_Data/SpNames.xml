@@ -293,4 +293,8 @@
 		<Setting Key="Shift_Edit_ByShiftID" SpName="Shift_Edit_ByShiftID" DbName="NexFB" Plain="0" >
 		</Setting>
 	</Function>
+	<Function Name="Report">
+		<Setting Key="RPT_MonthMainDishByLocal" SpName="RPT_MonthMainDishByLocal" DbName="NexFB" Plain="0" >
+		</Setting>
+	</Function>
 </Functions>
