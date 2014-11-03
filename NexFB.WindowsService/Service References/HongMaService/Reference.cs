@@ -41,6 +41,9 @@ namespace NexFB.WindowsService.HongMaService {
         private bool IsEnabledField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsLocalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime JoinedDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -142,6 +145,19 @@ namespace NexFB.WindowsService.HongMaService {
                 if ((this.IsEnabledField.Equals(value) != true)) {
                     this.IsEnabledField = value;
                     this.RaisePropertyChanged("IsEnabled");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsLocal {
+            get {
+                return this.IsLocalField;
+            }
+            set {
+                if ((this.IsLocalField.Equals(value) != true)) {
+                    this.IsLocalField = value;
+                    this.RaisePropertyChanged("IsLocal");
                 }
             }
         }

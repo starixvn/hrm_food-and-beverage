@@ -49,6 +49,9 @@ namespace NexFB.WebService.Models
         public DateTime JoinedDate { get; set; }
 
         [DataMember]
+        public bool IsLocal { get; set; }
+
+        [DataMember]
         public DateTime ModifiedDate { get; set; }
 
         [DataMember]

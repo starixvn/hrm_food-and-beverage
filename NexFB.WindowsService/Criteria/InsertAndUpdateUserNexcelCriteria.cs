@@ -55,7 +55,7 @@ namespace NexFB.WindowsService.Criteria
                             user.JoinedDate,
                             user.ModifiedDate,
                             user.TeamId,
-                            true,
+                            user.IsLocal,
                             user.EmployeeCard);
                     }
                 }

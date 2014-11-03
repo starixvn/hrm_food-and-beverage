@@ -14,6 +14,7 @@
       <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsEnabled" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsLocal" type="xs:boolean" />
       <xs:element minOccurs="0" name="JoinedDate" type="xs:dateTime" />
       <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
       <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
