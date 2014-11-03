@@ -10,14 +10,13 @@
 namespace NexFB.WinApp.ViewModels.Partials.OrderFood
 {
     using System.Windows;
+using System.Windows.Forms;
 
     /// <summary>
     /// Order Food Dynamic Screen.
     /// </summary>
     public class OrderFoodDynamicScreen : ViewModelBase
     {
-        private static double _screenWidth = SystemParameters.PrimaryScreenWidth;
-        private static double _screeHeight = SystemParameters.PrimaryScreenHeight;
         private static int _paddingValue5 = 5;
         private static int _paddingValue6 = 6;
         private static int _paddingValue8 = 8;
@@ -323,16 +322,18 @@ namespace NexFB.WinApp.ViewModels.Partials.OrderFood
         #endregion
 
         /// <summary>
-        /// Initialize data.
+        /// Initialize Data.
         /// </summary>
-        public void InitializeData()
+        /// <param name="screenWidth">Screen Width.</param>
+        /// <param name="screenHeight">Screen Height.</param>
+        public void InitializeData(double screenWidth, double screenHeight)
         {
-            LeftSide = RightSide = (_screenWidth * 37 / 100) - _paddingValue10;
-            MiddleSide = _screenWidth - (LeftSide + RightSide) - _paddingValue6;
+            LeftSide = RightSide = (screenWidth * 37 / 100) - _paddingValue10;
+            MiddleSide = screenWidth - (LeftSide + RightSide) - _paddingValue6;
 
-            LeftSideGeneralInfo = (_screeHeight * 30 / 100) - _paddingValue5;
-            LeftSideKeyPad = (_screeHeight * 55 / 100) - _paddingValue5;
-            LeftSideActionButton = _screeHeight - (LeftSideGeneralInfo + LeftSideKeyPad) - _paddingValue5;
+            LeftSideGeneralInfo = (screenHeight * 30 / 100) - _paddingValue5;
+            LeftSideKeyPad = (screenHeight * 55 / 100) - _paddingValue5;
+            LeftSideActionButton = screenHeight - (LeftSideGeneralInfo + LeftSideKeyPad) - _paddingValue5;
 
             LeftSideImageWidth = 178;
             LeftSideImageHeight = 180;
@@ -347,25 +348,25 @@ namespace NexFB.WinApp.ViewModels.Partials.OrderFood
             KeyPadResult = 60;
             KeyPadMainButton = LeftSideKeyPad - (KeyPadHeader + KeyPadResult) - 80;
 
-            if (_screeHeight <= 768)
+            if (screenHeight <= 768)
             {
                 GeneralInfoFontSize = 17;
                 KeyPadResultFontSize = 30;
             }
 
-            if (_screeHeight > 768 && _screeHeight <= 800)
+            if (screenHeight > 768 && screenHeight <= 800)
             {
                 GeneralInfoFontSize = 18;
                 KeyPadResultFontSize = 32;
             }
 
-            if (_screeHeight > 800 && _screeHeight <= 960)
+            if (screenHeight > 800 && screenHeight <= 960)
             {
                 GeneralInfoFontSize = 19;
                 KeyPadResultFontSize = 34;
             }
 
-            if (_screeHeight > 960)
+            if (screenHeight > 960)
             {
                 GeneralInfoFontSize = 20;
                 KeyPadResultFontSize = 35;

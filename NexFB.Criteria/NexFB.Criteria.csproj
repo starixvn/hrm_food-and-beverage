@@ -49,6 +49,7 @@
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlternativeMenuManagement\ActivateAlternativeMenuCriteria.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Kitchen\GetMealOrderByIdCriteria.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="Kitchen\GetOrderDetailsByOrderNoCriteria.cs" />
     <Compile Include="Kitchen\GetOrderDetailsCriteria.cs" />
     <Compile Include="Kitchen\GetUserByGroupIdCriteria.cs" />
     <Compile Include="Kitchen\GetEmployeeInGroupBySysIdCriteria.cs" />

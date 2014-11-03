@@ -34,6 +34,8 @@ namespace NexFB.WinApp.ViewModels
         private IKitchenService _kitchenService;
         private ICommonService _commonService;
         private IPrintHelper _printingHelper;
+        private double _screenWidth;
+        private double _screeHeight;
 
         #endregion
 
@@ -90,6 +92,34 @@ namespace NexFB.WinApp.ViewModels
 
                 _commonService = value;
                 OnPropertyChanged("CommonService");
+            }
+        }
+
+        public double ScreenWidth
+        {
+            get
+            {
+                return _screenWidth;
+            }
+
+            set
+            {
+                _screenWidth = value;
+                this.OnPropertyChanged("ScreenWidth");
+            }
+        }
+
+        public double ScreenHeight
+        {
+            get
+            {
+                return _screeHeight;
+            }
+
+            set
+            {
+                _screeHeight = value;
+                this.OnPropertyChanged("ScreenHeight");
             }
         }
 

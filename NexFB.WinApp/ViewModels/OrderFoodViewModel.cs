@@ -73,7 +73,7 @@ namespace NexFB.WinApp.ViewModels
         /// <param name="order">Order from edit screen.</param>
         public void InitializeData(MainViewModel mainViewModel, Order order)
         {
-            base.InitializeData();
+            base.InitializeData(mainViewModel.ScreenWidth, mainViewModel.ScreenHeight);
             ResetCurrentModel();
             CurrentCulture();
             ChangeButtonBorder(Constant.ReleaseAllButton);
@@ -1002,34 +1002,27 @@ namespace NexFB.WinApp.ViewModels
         /// <param name="currentSelectedEmployee">Current selected employee.</param>
         public void ChangeMemberOrderColor(KitchenEmployeeInfo currentSelectedEmployee)
         {
-            if (currentSelectedEmployee.Quantity == 0)
+            if (currentSelectedEmployee.IsPlaceOrder)
             {
                 if (currentSelectedEmployee.IsVegetarian)
                 {
-                    if (currentSelectedEmployee.IsPlaceOrder)
-                    {
-                        currentSelectedEmployee.EmployeeOrderMealColor = Constant.RegisterVegetarianMealColor;
-                    }
-                    else
-                    {
-                        currentSelectedEmployee.EmployeeOrderMealColor = Constant.UNRegisterMealColor;
-                    }
+                    currentSelectedEmployee.EmployeeOrderMealColor = Constant.RegisterVegetarianMealColor;
                 }
                 else
                 {
-                    if (currentSelectedEmployee.IsPlaceOrder)
-                    {
-                        currentSelectedEmployee.EmployeeOrderMealColor = Constant.RegisterNonVegetarianMealColor;
-                    }
-                    else
-                    {
-                        currentSelectedEmployee.EmployeeOrderMealColor = Constant.UNRegisterMealColor;
-                    }
+                    currentSelectedEmployee.EmployeeOrderMealColor = Constant.RegisterNonVegetarianMealColor;
                 }
             }
             else
             {
-                currentSelectedEmployee.EmployeeOrderMealColor = Constant.HasOrderMealBeforeColor;
+                if (currentSelectedEmployee.Quantity > 0)
+                {
+                    currentSelectedEmployee.EmployeeOrderMealColor = Constant.HasOrderMealBeforeColor;
+                }
+                else
+                {
+                    currentSelectedEmployee.EmployeeOrderMealColor = Constant.UNRegisterMealColor;
+                }
             }
         }
 

@@ -60,6 +60,7 @@
 		</Setting>
 		<Setting Key="POS_Insert_OrderMeal" SpName="POS_Insert_OrderMeal" DbName="NexFB" Plain="0" ></Setting>
 		<Setting Key="POS_Edit_OrderMeal" SpName="POS_Edit_OrderMeal" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_Get_OrderRequestByOrderNo" SpName="POS_Get_OrderRequestByOrderNo" DbName="NexFB" Plain="0" ></Setting>
 	</Function>
 
 </Functions>

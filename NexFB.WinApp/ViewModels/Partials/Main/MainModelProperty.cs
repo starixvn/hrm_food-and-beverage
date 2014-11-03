@@ -25,8 +25,6 @@ namespace NexFB.WinApp.ViewModels.Partials.Main
     {
         private static string _delayTime = ConfigurationManager.AppSettings[Constant.DatabaseDelayTime];
         private static string _autoRefeshTime = ConfigurationManager.AppSettings[Constant.AutoRefeshTime];
-        private static double _screenWidth = SystemParameters.PrimaryScreenWidth;
-        private static double _screeHeight = SystemParameters.PrimaryScreenHeight;
         private static double _displayBanner = Constant.BannerResolution1280;
 
         private ViewModelBase _currentViewModel;
@@ -337,39 +335,11 @@ namespace NexFB.WinApp.ViewModels.Partials.Main
             }
         }
 
-        public double ScreenWidth
-        {
-            get
-            {
-                return _screenWidth;
-            }
-
-            set
-            {
-                _screenWidth = value;
-                this.OnPropertyChanged("ScreenWidth");
-            }
-        }
-
-        public double ScreenHeight
-        {
-            get
-            {
-                return _screeHeight;
-            }
-
-            set
-            {
-                _screeHeight = value;
-                this.OnPropertyChanged("ScreenHeight");
-            }
-        }
-
         public double DisplayWidth
         {
             get
             {
-                _displayWidth = _screenWidth - Constant.RemainingWidth;
+                _displayWidth = ScreenWidth - Constant.RemainingWidth;
                 return _displayWidth;
             }
 
@@ -384,7 +354,7 @@ namespace NexFB.WinApp.ViewModels.Partials.Main
         {
             get
             {
-                if (_screeHeight > 800)
+                if (ScreenHeight > 800)
                 {
                     _keypadHeight = 400;
                 }
@@ -407,7 +377,7 @@ namespace NexFB.WinApp.ViewModels.Partials.Main
         {
             get
             {
-                if (_screeHeight > 800)
+                if (ScreenHeight > 800)
                 {
                     _keypadFontSize = 38;
                 }
@@ -430,7 +400,7 @@ namespace NexFB.WinApp.ViewModels.Partials.Main
         {
             get
             {
-                if (_screenWidth <= 1024)
+                if (ScreenWidth <= 1024)
                 {
                     _displayBanner = Constant.BannerResolution1024;
                 }

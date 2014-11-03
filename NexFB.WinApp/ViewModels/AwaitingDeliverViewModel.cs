@@ -86,15 +86,23 @@ namespace NexFB.WinApp.ViewModels
         {
             get
             {
-                var criteria = new GetAwaitingDeliverMealOrderCriteria();
-                List<Order> awaitingDeliverMeals = KitchenService.GetAwaitingDeliverMealOrder(criteria);
+                List<Order> awaitingDeliverMeals = new List<Order>();
                 if (!string.IsNullOrEmpty(SearchValue))
                 {
-                    awaitingDeliverMeals = awaitingDeliverMeals.Where(x => x.TwoDigitOrderNo.StartsWith(SearchValue, StringComparison.Ordinal)).ToList();
+                    var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() { OrderNo = int.Parse(SearchValue) };
+                    Order order = KitchenService.GetOrderDetailsByOrderNo(getOrderDetailsCriteria);
+                    if (order != null)
+                    {
+                        awaitingDeliverMeals.Add(order);
+                    }
+                }
+                else
+                {
+                    var criteria = new GetAwaitingDeliverMealOrderCriteria();
+                    awaitingDeliverMeals = KitchenService.GetAwaitingDeliverMealOrder(criteria);
                 }
 
-                ObservableCollection<Order> observableWaitingDeliverMeals = new ObservableCollection<Order>(awaitingDeliverMeals);
-                return observableWaitingDeliverMeals;
+                return new ObservableCollection<Order>(awaitingDeliverMeals);
             }
         }
 

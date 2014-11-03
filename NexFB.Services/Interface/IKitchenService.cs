@@ -34,6 +34,8 @@ namespace NexFB.Services.Interface
 
         Order GetOrderDetails(GetOrderDetailsCriteria criteria);
 
+        Order GetOrderDetailsByOrderNo(GetOrderDetailsByOrderNoCriteria criteria);
+
         Order GetMealOrderById(GetMealOrderByIdCriteria criteria);
 
         List<GroupOrder> GetAllGroupOrder(GetGroupNameCriteria criteria);

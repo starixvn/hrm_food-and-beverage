@@ -501,34 +501,27 @@ namespace NexFB.WinApp.Core.Models
         {
             get
             {
-                if (Quantity == 0)
+                if (IsPlaceOrder)
                 {
                     if (IsVegetarian)
                     {
-                        if (IsPlaceOrder)
-                        {
-                            _employeeOrderMealColor = Constant.RegisterVegetarianMealColor;
-                        }
-                        else
-                        {
-                            _employeeOrderMealColor = Constant.UNRegisterMealColor;
-                        }
+                        _employeeOrderMealColor = Constant.RegisterVegetarianMealColor;
                     }
                     else
                     {
-                        if (IsPlaceOrder)
-                        {
-                            _employeeOrderMealColor = Constant.RegisterNonVegetarianMealColor;
-                        }
-                        else
-                        {
-                            _employeeOrderMealColor = Constant.UNRegisterMealColor;
-                        }
+                        _employeeOrderMealColor = Constant.RegisterNonVegetarianMealColor;
                     }
                 }
                 else
                 {
-                    _employeeOrderMealColor = Constant.HasOrderMealBeforeColor;
+                    if (Quantity > 0)
+                    {
+                        _employeeOrderMealColor = Constant.HasOrderMealBeforeColor;
+                    }
+                    else
+                    {
+                        _employeeOrderMealColor = Constant.UNRegisterMealColor;
+                    }
                 }
 
                 return _employeeOrderMealColor;

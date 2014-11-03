@@ -60,6 +60,7 @@
     <EmbeddedResource Include="WinFormMainResource.en-US.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>WinFormMainResource.en-US.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WinFormMainResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

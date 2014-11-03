@@ -11,7 +11,9 @@ namespace NexFB.WinApp
 {
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Forms;
     using System.Windows.Input;
+    using System.Windows.Interop;
     using NexFB.WinApp.Core.Constants;
     using NexFB.WinApp.DependencyProperties;
     using NexFB.WinApp.ViewModels;
@@ -24,7 +26,11 @@ namespace NexFB.WinApp
         public MainWindow()
         {
             InitializeComponent();
+            Screen screen = Screen.FromHandle(new WindowInteropHelper(this).Handle);
             this.DataContext = new MainViewModel();
+            MainViewModel currentViewModel = (MainViewModel)this.DataContext;
+            currentViewModel.ScreenWidth = screen.Bounds.Width;
+            currentViewModel.ScreenHeight = screen.Bounds.Height;
         }
 
         /// <summary>
@@ -52,7 +58,7 @@ namespace NexFB.WinApp
         /// <param name="e">Text Change event.</param>
         private void SortResult_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var itemSender = sender as TextBox;
+            var itemSender = sender as System.Windows.Controls.TextBox;
             if (!string.IsNullOrEmpty(SortResult.Text))
             {
                 Watermark.RemoveWatermark(itemSender);

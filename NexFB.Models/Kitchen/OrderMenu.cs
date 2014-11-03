@@ -65,30 +65,6 @@ namespace NexFB.Models.Kitchen
             }
         }
 
-        public string QuantityPerTotal
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(GeneralInfo))
-                {
-                    if (QuantityOrder == TotalOrder)
-                    {
-                        return TotalOrder.ToString();
-                    }
-                    else
-                    {
-                        string quantityPerTotal = string.Empty;
-                        quantityPerTotal = QuantityOrder.ToString() + WinFormMainResource.QuantityPerTotal + TotalOrder.ToString();
-                        return quantityPerTotal;
-                    }
-                }
-                else
-                {
-                    return GeneralInfo;
-                }
-            }
-        }
-
         public string SetMenuAndQuantity
         {
             get
