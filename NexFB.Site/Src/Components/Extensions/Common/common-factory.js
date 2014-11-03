@@ -80,7 +80,7 @@ appModule.factory('commonFactory',
 			for (var attr in item) {
 				var childItem = item[attr];
 
-				if (childItem != null && /^[a-zA-Z0-9]*$/.test(attr) === true &&
+				if (childItem != null && /^[a-zA-Z0-9]*$/.test(attr) &&
 					attr.toLowerCase().search('id') === -1 && attr.toLowerCase().search('length') === -1 &&
 					attr.toLowerCase().search('index') === -1 && attr.toLowerCase().search('hash') === -1 &&
 					attr.toLowerCase().search('time') === -1 && attr.toLowerCase().search('date') === -1 &&

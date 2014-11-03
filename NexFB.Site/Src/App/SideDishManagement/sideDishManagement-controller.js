@@ -94,7 +94,7 @@ notificationFactory) {
 
 		$scope.modalInstance.result.then(function (sideDish) {
 			sideDishManagementFactory.insertSideDish(sideDish).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					notificationFactory.success("DataChangeSuccessfully");
 				}
 				else {
@@ -142,7 +142,7 @@ notificationFactory) {
 
 		$scope.modalInstance.result.then(function (allInfoSideDish) {
 			sideDishManagementFactory.updateSideDish(allInfoSideDish.updatedSideDish).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					updatedSideDish(sideDish, allInfoSideDish.sideDish);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
@@ -187,7 +187,7 @@ notificationFactory) {
 
 		$scope.modalInstance.result.then(function () {
 			sideDishManagementFactory.activateSideDish(newSideDish).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
 					notificationFactory.success(keyMessage);
 				}
@@ -251,7 +251,7 @@ notificationFactory) {
 			var currentPage = $scope.currentPage;
 
 			sideDishManagementFactory.deleteSideDish(sideDish.FoodId).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					updatePaging(sideDish, currentPage);
 					notificationFactory.success("DataChangeSuccessfully");
 				}

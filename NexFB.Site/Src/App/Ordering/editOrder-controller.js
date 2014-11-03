@@ -118,7 +118,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		$scope.modalConfirmSaveEditInstance.result.then(function () {
 			if (!order.IsSideDishOrder) {
 				orderingFactory.editOrder(order).success(function (response) {
-					if (response.IsSuccessful === true) {
+					if (response.IsSuccessful) {
 						notificationFactory.success("DataChangeSuccessfully");
 						var returnObject = {
 							order: order,
@@ -137,7 +137,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			}
 			else {
 				orderingFactory.editOrderSideDish(order).success(function (response) {
-					if (response.IsSuccessful === true) {
+					if (response.IsSuccessful) {
 						notificationFactory.success("DataChangeSuccessfully");
 						var returnObject = {
 							order: order,
@@ -204,7 +204,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 
 		$scope.modalRemoveMemberInstance.result.then(function () {
 			orderingFactory.deleteOrder(orderId).success(function (response) {
-				if (response.IsSuccessful === true) {
+				if (response.IsSuccessful) {
 					notificationFactory.success("DataChangeSuccessfully");
 					var returnObject = {
 						order: [],
