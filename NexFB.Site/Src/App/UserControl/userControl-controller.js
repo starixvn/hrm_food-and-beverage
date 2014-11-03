@@ -186,8 +186,8 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 } ]);
 
 userControlModule.controller('AssignRoleToUserController',
-['$scope', '$modalInstance', 'userId', 'userControlFactory', 'notificationFactory',
-function ($scope, $modalInstance, userId, userControlFactory, notificationFactory) {
+['$scope', '$modalInstance', 'userId', 'userControlFactory', 'ErrorFactory',
+function ($scope, $modalInstance, userId, userControlFactory, ErrorFactory) {
 
 	userControlFactory.getEmployeeRoleById(userId).success(function (employee) {
 		$scope.employee = employee;
