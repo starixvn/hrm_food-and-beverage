@@ -336,8 +336,8 @@
   <data name="Week" xml:space="preserve">
     <value>Week</value>
   </data>
-  <data name="AllWeek" xml:space="preserve">
-    <value>All week</value>
+  <data name="AllWeeks" xml:space="preserve">
+    <value>All weeks</value>
   </data>
   <data name="InvalidInputData" xml:space="preserve">
     <value>Invalid input.</value>
@@ -349,7 +349,7 @@
     <value>Edit order</value>
   </data>
   <data name="ApplyMealTemplateWarning" xml:space="preserve">
-    <value>Are you sure you want to submit this serial registration ? All upcoming registrations of the year will be overwritten.</value>
+    <value>Are you sure you want to submit this registration?</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -373,10 +373,10 @@
     <value>Edit Menu</value>
   </data>
   <data name="MonthlyWeeklyDefaultWarning" xml:space="preserve">
-    <value>Warning: Monthly and weekly registration will not be applied for Saturday and Sunday</value>
+    <value>Notice: Monthly and weekly registration will not take effect on Saturday and Sunday.</value>
   </data>
   <data name="SerialRegisterWarning" xml:space="preserve">
-    <value>Are you sure you want to submit this serial registration ? All upcoming registrations of the same period will be overwritten.</value>
+    <value>Are you sure you want to submit this registration?</value>
   </data>
   <data name="CreateMealPlanning" xml:space="preserve">
     <value>Create Meal Planning</value>
@@ -394,7 +394,7 @@
     <value>The location field is required!</value>
   </data>
   <data name="DefaultRegistrationWarning" xml:space="preserve">
-    <value>Warning: All Week registration does not include Saturday and Sunday</value>
+    <value>Notice: All Weeks registration will not take effect on Saturday and Sunday.</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>

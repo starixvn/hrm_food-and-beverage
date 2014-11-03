@@ -182,25 +182,25 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 
 		switch (date) {
 			case 'Sun':
-				fullName = 'Sundays';
+				fullName = 'Every Sunday';
 				break;
 			case 'Mon':
-				fullName = 'Mondays';
+				fullName = 'Every Monday';
 				break;
 			case 'Tue':
-				fullName = 'Tuesdays';
+				fullName = 'Every Tuesday';
 				break;
 			case 'Wed':
-				fullName = 'Wednesdays';
+				fullName = 'Every Wednesday';
 				break;
 			case 'Thu':
-				fullName = 'Thursdays';
+				fullName = 'Every Thursday';
 				break;
 			case 'Fri':
-				fullName = 'Fridays';
+				fullName = 'Every Friday';
 				break;
 			case 'Sat':
-				fullName = 'Saturdays';
+				fullName = 'Every Saturday';
 				break;
 		}
 

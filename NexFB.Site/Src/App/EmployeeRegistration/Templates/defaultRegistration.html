@@ -24,9 +24,9 @@
 			<tr>
 				<td class="text-center lbl-week week-middle" >
 					<a href="" ng-click="registerMealWeek(weekMeals)" ng-if="policy.permission == 2">
-						{{"AllWeek" | translate}}
+						{{"AllWeeks" | translate}}
 					</a>
-					<span class="black" ng-if="policy.permission == 1">{{"AllWeek" | translate}}
+					<span class="black" ng-if="policy.permission == 1">{{"AllWeeks" | translate}}
 					</span>
 				</td>
 				<td ng-repeat="date in weekMeals" ng-click="policy.permission != 2 || registerMeal(date, $index)"
