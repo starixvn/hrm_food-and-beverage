@@ -391,7 +391,7 @@
     <value>No menu available!</value>
   </data>
   <data name="InvalidLocation" xml:space="preserve">
-    <value>The location field is required!</value>
+    <value>The delivery area is required!</value>
   </data>
   <data name="DefaultRegistrationWarning" xml:space="preserve">
     <value>Notice: All Weeks registration will not take effect on Saturday and Sunday.</value>
@@ -439,7 +439,7 @@
     <value>Are you sure you want to remove this member?</value>
   </data>
   <data name="ConfirmMessageSaveOrder" xml:space="preserve">
-    <value>Are you sure you want to save this order?</value>
+    <value>Are you sure you want to place this order?</value>
   </data>
   <data name="ConfirmMessageUpdateOrder" xml:space="preserve">
     <value>Are you sure you want to update this order? Once received, no more members accepted.</value>

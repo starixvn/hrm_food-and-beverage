@@ -313,7 +313,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to save this order?.
+        ///   Looks up a localized string similar to Are you sure you want to place this order?.
         /// </summary>
         public static string ConfirmMessageSaveOrder {
             get {
@@ -898,7 +898,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The location field is required!.
+        ///   Looks up a localized string similar to The delivery area is required!.
         /// </summary>
         public static string InvalidLocation {
             get {
