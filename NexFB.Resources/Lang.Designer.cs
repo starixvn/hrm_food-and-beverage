@@ -1789,7 +1789,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Unit field is requried!.
+        ///   Looks up a localized string similar to The Unit field is required!.
         /// </summary>
         public static string UnitRequire {
             get {
