@@ -73,6 +73,13 @@
     <Compile Include="Ordering\MealOrderingModel.cs" />
     <Compile Include="Ordering\MenuQuantityModel.cs" />
     <Compile Include="Ordering\OrderMemberModel.cs" />
+    <Compile Include="Report\MonthlyMainDishReportLocal\MealDayOfMonthModel.cs" />
+    <Compile Include="Report\MonthlyMainDishReportLocal\MealItemMonthModel.cs" />
+    <Compile Include="Report\MonthlyMainDishReportLocal\MealMonthModel.cs" />
+    <Compile Include="Report\MonthlyMainDishReportLocal\MonthlyLocalReportModel.cs" />
+    <Compile Include="Report\MonthlyMainDishReportLocal\RawMonthlyLocalReportModel.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="SetMenuManagement\MenuSetMenuModel.cs" />
     <Compile Include="SetMenuManagement\FoodSetMenuModel.cs" />
     <Compile Include="SetMenuManagement\SetMenuModel.cs" />
@@ -96,9 +103,7 @@
       <Name>NexFB.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Report\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

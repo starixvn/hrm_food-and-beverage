@@ -50,11 +50,15 @@
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\AlternativeMenuRepository.cs" />
     <Compile Include="Implement\CommonRepository.cs" />
+    <Compile Include="Implement\ReportRepository.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Implement\SetMenuRepository.cs" />
     <Compile Include="Implement\FoodItemRepository.cs" />
     <Compile Include="Implement\FoodMenuRepository.cs">
@@ -66,6 +70,7 @@
     <Compile Include="Implement\OrderingRepository.cs" />
     <Compile Include="Implement\ShiftMealMappingRepository.cs" />
     <Compile Include="Implement\SideDishRepository.cs" />
+    <Compile Include="Interface\IReportRepository.cs" />
     <Compile Include="Interface\ISetMenuRepository.cs" />
     <Compile Include="Interface\IAlternativeMenuRepository.cs" />
     <Compile Include="Interface\ICommonRepository.cs" />
