@@ -11,7 +11,6 @@ namespace NexFB.WinApp.ViewModels
 {
     using System;
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using System.Windows.Documents;
     using System.Windows.Threading;
     using BlogsPrajeesh.BlogSpot.WPFControls;
