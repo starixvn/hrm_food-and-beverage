@@ -28,6 +28,6 @@ namespace NexFB.Models.Report.MonthlyMainDishReportLocal
 
         public MealDayOfMonthModel Total { get; set; }
 
-        public MealDayOfMonthModel WeekDay { get; set; }
+        public MealDayOfMonthModel WeekDays { get; set; }
     }
 }

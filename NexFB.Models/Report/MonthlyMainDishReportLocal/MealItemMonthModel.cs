@@ -25,6 +25,6 @@ namespace NexFB.Models.Report.MonthlyMainDishReportLocal
 
         public Team Team { get; set; }
 
-        public MealDayOfMonthModel MealsMonth { get; set; }
+        public MealDayOfMonthModel NumberMealsMonth { get; set; }
     }
 }

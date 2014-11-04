@@ -1483,7 +1483,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -- Please select order location --.
+        ///   Looks up a localized string similar to -- Please select delivery area --.
         /// </summary>
         public static string SelectLocation {
             get {

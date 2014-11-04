@@ -40,6 +40,8 @@ namespace NexFB.Repositories.Implement
                 if (rawReport != null)
                 {
                     report.Meals = GetMealsInMonth(rawReport);
+                    report.WeekDays = GetWeekDay(rawReport);
+                    report.Total = CalculateTotalMeals(report.Meals);
                 }
 
                 return report;
@@ -49,12 +51,11 @@ namespace NexFB.Repositories.Implement
         /// <summary>
         /// Get meals in month.
         /// </summary>
-        /// <param name="rawReport">The data that returned from database.</param>
+        /// <param name="rawReport">The raw data that returned from database.</param>
         /// <returns>The list meals in month.</returns>
         private List<MealMonthModel> GetMealsInMonth(IEnumerable<dynamic> rawReport)
         {
             var meals = new List<MealMonthModel>();
-
             IEnumerable<dynamic> rawMealIds = rawReport.Select(x => x.MealID).Distinct();
 
             foreach (dynamic mealId in rawMealIds)
@@ -69,10 +70,10 @@ namespace NexFB.Repositories.Implement
         }
 
         /// <summary>
-        /// Get meal item in month.
+        /// Get meal items in month.
         /// </summary>
-        /// <param name="rawMeals">The enumerator of meal item.</param>
-        /// <returns>The meal in month model.</returns>
+        /// <param name="rawMeals">The enumerator of meal items.</param>
+        /// <returns>The meal in month.</returns>
         private MealMonthModel GetMealItemInMonth(IEnumerable<dynamic> rawMeals)
         {
             var mealReport = new MealMonthModel();
@@ -115,8 +116,8 @@ namespace NexFB.Repositories.Implement
                 Employee = GetEmployeeOfMealItem(rawMeal),
                 EmployeeType = GetEmloyeeTypeOfMealItem(rawMeal),
                 Department = GetDepartmentOfMealItem(rawMeal),
-                Team = GetTeamOfMealItem(rawMeal)
-                ////MealsMonth = GetNumberMealsOfItem(rawMeal)
+                Team = GetTeamOfMealItem(rawMeal),
+                NumberMealsMonth = GetNumberMealsOfItem(rawMeal)
             };
 
             return mealItem;
@@ -194,9 +195,75 @@ namespace NexFB.Repositories.Implement
             return team;
         }
 
-        ////private MealDayOfMonthModel GetNumberMealsOfItem(dynamic rawMeal)
-        ////{
-        ////    throw new System.NotImplementedException();
-        ////}
+        /// <summary>
+        /// Get number meals of item in month.
+        /// </summary>
+        /// <param name="rawMeal">The raw data of current meal item.</param>
+        /// <returns>The model contain number meals of item in month.</returns>
+        private MealDayOfMonthModel GetNumberMealsOfItem(dynamic rawMeal)
+        {
+            var mealDayOfMonth = new MealDayOfMonthModel();
+
+            for (int i = 0; i < 31; i++)
+            {
+                string key = (i + 1).ToString();
+                mealDayOfMonth.NumberMeals[i] = rawMeal[key];
+            }
+
+            mealDayOfMonth.TotalQuantity = rawMeal.TotalQty;
+            mealDayOfMonth.Amount = rawMeal.Amount;
+
+            return mealDayOfMonth;
+        }
+
+        /// <summary>
+        /// Get weekday in month.
+        /// </summary>
+        /// <param name="rawReport">The raw data of report.</param>
+        /// <returns>The model contain weekdays in month.</returns>
+        private MealDayOfMonthModel GetWeekDay(IEnumerable<dynamic> rawReport)
+        {
+            var weekDays = new MealDayOfMonthModel();
+            IEnumerable<dynamic> rawWeekDays = rawReport.Where(x => x.MealID == null);
+
+            foreach (dynamic rawWeekDay in rawWeekDays)
+            {
+                for (int i = 0; i < 31; i++)
+                {
+                    string key = (i + 1).ToString();
+                    weekDays.NumberMeals[i] = rawWeekDay[key];
+                }
+            }
+
+            return weekDays;
+        }
+
+        /// <summary>
+        /// Calculate total meals in month.
+        /// </summary>
+        /// <param name="meals">The list meals in month.</param>
+        /// <returns>The model contain total meals in month.</returns>
+        private MealDayOfMonthModel CalculateTotalMeals(List<MealMonthModel> meals)
+        {
+            var total = new MealDayOfMonthModel();
+
+            foreach (MealMonthModel meal in meals)
+            {
+                foreach (MealItemMonthModel mealItem in meal.MealItems)
+                {
+                    List<int> numberMeals = mealItem.NumberMealsMonth.NumberMeals;
+
+                    for (int i = 0; i < numberMeals.Count(); i++)
+                    {
+                        total.NumberMeals[i] += numberMeals[i];
+                    }
+
+                    total.TotalQuantity += mealItem.NumberMealsMonth.TotalQuantity;
+                    total.Amount += mealItem.NumberMealsMonth.Amount;
+                }
+            }
+
+            return total;
+        }
     }
 }

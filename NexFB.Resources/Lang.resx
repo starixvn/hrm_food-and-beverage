@@ -463,7 +463,7 @@
     <value>Order #{0} by {1} was reduced quantity at {2}. The order contains {3}.</value>
   </data>
   <data name="SelectLocation" xml:space="preserve">
-    <value>-- Please select order location --</value>
+    <value>-- Please select delivery area --</value>
   </data>
   <data name="ActivationFail" xml:space="preserve">
     <value>Activated unsuccessfully!</value>
