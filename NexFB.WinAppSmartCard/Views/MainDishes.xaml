@@ -140,13 +140,13 @@
 
 					<StackPanel Orientation="Horizontal" Margin="0,3,0,0">
 						<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}"
-						 HorizontalAlignment="Left" Margin="15,20,0,0" VerticalAlignment="Top" FontSize="20" Foreground="#fff"/>
-						<Label Content="{Binding Path=OrderOwner.NickName}" Foreground="#2c98e0" FontWeight="Black"
-						 HorizontalAlignment="Left" Margin="-8,20,0,0"  VerticalAlignment="Top" FontSize="20"/>
+						 HorizontalAlignment="Left" Margin="15,20,5,0" VerticalAlignment="Top" FontSize="22" Foreground="#fff"/>
+						<Label Content="{Binding Path=OrderOwner.DisplayOrderNickname}" Foreground="#2c98e0" FontWeight="Black"
+						 HorizontalAlignment="Left" Margin="-8,20,0,0"  VerticalAlignment="Top" FontSize="22"/>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal" Grid.Row="1" >
 						<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.SwipeCardLabel]}"
-						 HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" FontSize="20" Foreground="#fff"/>
+						 HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#fff"/>
 					</StackPanel>
 
 				</Grid>
@@ -255,15 +255,15 @@
 
 					<StackPanel Orientation="Horizontal" Margin="0,3,0,0">
 						<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketLabel]}"
-						 HorizontalAlignment="Left" Margin="15,20,0,0" VerticalAlignment="Top" FontSize="20" Foreground="#fff"/>
+						 HorizontalAlignment="Left" Margin="15,20,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#fff"/>
 						<Label Content="{Binding Path=OrderNo}" Foreground="#EF4339" FontWeight="Black"
-						 HorizontalAlignment="Left" Margin="-8,20,0,0"  VerticalAlignment="Top" FontSize="20"/>
+						 HorizontalAlignment="Left" Margin="-8,20,0,0"  VerticalAlignment="Top" FontSize="25"/>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,-7,0,0">
 						<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}"
-						 HorizontalAlignment="Left" Margin="15,5,0,0" VerticalAlignment="Top" FontSize="20" Foreground="#fff"/>
-						<Label Content="{Binding Path=OrderOwner.NickName}" Foreground="#2c98e0" FontWeight="Black"
-						 HorizontalAlignment="Left" Margin="-8,5,0,0"  VerticalAlignment="Top" FontSize="20"/>
+						 HorizontalAlignment="Left" Margin="15,5,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#fff"/>
+						<Label Content="{Binding Path=OrderOwner.DisplayOrderNickname}" Foreground="#2c98e0" FontWeight="Black"
+						 HorizontalAlignment="Left" Margin="-6,5,0,0"  VerticalAlignment="Top" FontSize="25"/>
 					</StackPanel>
 				</Grid>
 			</Grid>

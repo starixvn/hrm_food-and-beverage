@@ -32,6 +32,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
         private int _selectedValueDropDown;
         private string _displayMenuName;
         private string _displayNotifyMenuName;
+        private string _groupOrderNickName;
 
         public int SelectedValueDropDown
         {
@@ -225,7 +226,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
                     }
                     else
                     {
-                        if (CurrentCulture == 3)
+                        if (CurrentCulture == ConstantValue.ChinaCulture)
                         {
                             _displayMenuName = ConstantValue.MainDishChinese;
                         }
@@ -255,6 +256,35 @@ namespace NexFB.WinAppSmartCard.Core.Models
             {
                 _displayNotifyMenuName = value;
                 this.OnPropertyChanged("DisplayNotifyMenuName");
+            }
+        }
+
+        public string GroupOrderNickName
+        {
+            get
+            {
+                return _groupOrderNickName;
+            }
+
+            set
+            {
+                _groupOrderNickName = value;
+                this.OnPropertyChanged("GroupOrderNickName");
+            }
+        }
+
+        public string DisplayOrderNickname
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(GroupOrderNickName))
+                {
+                    return NickName;
+                }
+                else
+                {
+                    return GroupOrderNickName;
+                }
             }
         }
     }

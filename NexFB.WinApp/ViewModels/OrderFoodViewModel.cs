@@ -98,12 +98,7 @@ namespace NexFB.WinApp.ViewModels
         ////Button Pick Room
         public bool CanExecutePickRoomCommand()
         {
-            if (EmployeeInfo != null)
-            {
-                return true;
-            }
-
-            return false;
+            return EmployeeInfo != null;
         }
 
         public void ExecutePickRoomCommand()
@@ -130,12 +125,7 @@ namespace NexFB.WinApp.ViewModels
         /// <returns>Boolean to check.</returns>
         public bool CanExecuteChooseMainFoodCommand()
         {
-            if (UserInGroup.Any(x => x.IsSelectedMemberInGroup))
-            {
-                return true;
-            }
-
-            return false;
+            return UserInGroup.Any(x => x.IsSelectedMemberInGroup);
         }
 
         /// <summary>
@@ -242,12 +232,24 @@ namespace NexFB.WinApp.ViewModels
             return true;
         }
 
+        /// <summary>
+        /// Execute Select all user in group.
+        /// </summary>
         public void ExecuteSelectAllUserInGroupCommand()
         {
             UserInGroup.ToList().ForEach(x => x.IsPlaceOrder = true);
             foreach (KitchenEmployeeInfo item in UserInGroup)
             {
                 ChangeMenuColor(item);
+            }
+
+            if (EmployeeInfo == null)
+            {
+                KitchenEmployeeInfo currentSelectedEmployee = UserInGroup.FirstOrDefault();
+                EmployeeInfo = currentSelectedEmployee;
+                currentSelectedEmployee.IsSelectedMemberInGroup = true;
+                LocationId = currentSelectedEmployee.LocationId;
+                LocationName = IsVnmCulture ? currentSelectedEmployee.LocationVnmName : currentSelectedEmployee.LocationEngName;
             }
 
             UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
@@ -305,12 +307,7 @@ namespace NexFB.WinApp.ViewModels
         public bool CanExecuteReceiveCommand()
         {
             bool hasOrderFood = UserInGroup.Any(x => x.ListMainMenuOrderDeatails.Count > 0 || x.ListAlternativeMenuOrderDeatails.Count > 0);
-            if (EmployeeInfo != null && hasOrderFood)
-            {
-                return true;
-            }
-
-            return false;
+            return EmployeeInfo != null && hasOrderFood;
         }
 
         /// <summary>
@@ -338,8 +335,9 @@ namespace NexFB.WinApp.ViewModels
 
         public bool CanExecuteAddCommand()
         {
-            if (CommonKitchenOrder != null && (this.CheckMainFoodMenu || this.CheckAlternativeFoodMenu)
-                && CommonKitchenOrder.Any(x => x.IsFocusedMealMenu))
+            bool isInChooseFood = this.CheckMainFoodMenu || this.CheckAlternativeFoodMenu;
+            bool isMenuFocused = CommonKitchenOrder.Any(x => x.IsFocusedMealMenu);
+            if (isInChooseFood && isMenuFocused)
             {
                 return false;
             }
@@ -399,12 +397,7 @@ namespace NexFB.WinApp.ViewModels
 
         public bool CanExecuteCancelCommand()
         {
-            if (EmployeeInfo != null || CommonKitchenOrder.Count > 0 || (Result != null && Result.Count() > 0))
-            {
-                return true;
-            }
-
-            return false;
+            return EmployeeInfo != null || CommonKitchenOrder.Count > 0 || (Result != null && Result.Count() > 0);
         }
 
         /// <summary>
@@ -491,14 +484,8 @@ namespace NexFB.WinApp.ViewModels
             bool hasSelectedMemberInGroup = UserInGroup.Any(x => x.IsSelectedMemberInGroup);
             bool hasMiddleSideDataFocused = CommonKitchenOrder.Any(x => x.IsFocusedMealMenu);
             bool hasTextBlockFocused = this.TextBlockFocused && !string.IsNullOrEmpty(Result);
-            if (hasMiddleSideDataFocused || hasSelectedMemberInGroup || hasTextBlockFocused)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+
+            return hasMiddleSideDataFocused || hasSelectedMemberInGroup || hasTextBlockFocused;
         }
 
         /// <summary>

@@ -427,7 +427,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                         sideFoodData.DropDownChanged += new SideFood.OnDropDownValueChanged(GetPriceChanged);
 
-                        sideFoodData.ListSideFood.ForEach(x => { x.CurrentCulture = CurrentCulture; x.CurrentItemNo = sideFoodData.OrderNo; });
+                        sideFoodData.ListSideFood.ForEach(x => { x.CurrentCulture = MainViewModel.CurrentCulture; x.CurrentItemNo = sideFoodData.OrderNo; });
                         ObservableSideOrder.Add(sideFoodData);
                     }
                 }

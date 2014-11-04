@@ -124,6 +124,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select a food item.
+        /// </summary>
+        internal static string DropdownHeader {
+            get {
+                return ResourceManager.GetString("DropdownHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         internal static string English {
@@ -142,7 +151,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Main Dishes.
+        ///   Looks up a localized string similar to Main Dish.
         /// </summary>
         internal static string MainDishes {
             get {
@@ -232,6 +241,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alternative Menu is not recommended, are you sure you want to proceed?.
+        /// </summary>
+        internal static string Message_PickAlternativeFood {
+            get {
+                return ResourceManager.GetString("Message_PickAlternativeFood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You cannot join in a received order.
         /// </summary>
         internal static string Message_ReceivedOrder {
@@ -304,7 +322,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meal Orderer.
+        ///   Looks up a localized string similar to Meal Orderer:.
         /// </summary>
         internal static string TicketCreator {
             get {

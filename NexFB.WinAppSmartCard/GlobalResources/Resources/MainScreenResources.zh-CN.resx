@@ -138,6 +138,9 @@
   <data name="Dishes" xml:space="preserve">
     <value>菜</value>
   </data>
+  <data name="DropdownHeader" xml:space="preserve">
+    <value>请选择菜</value>
+  </data>
   <data name="English" xml:space="preserve">
     <value>英语</value>
   </data>
@@ -172,6 +175,9 @@
     <value>这里没有中国的消息</value>
   </data>
   <data name="Message_NoMoreDish" xml:space="preserve">
+    <value>这里没有中国的消息</value>
+  </data>
+  <data name="Message_PickAlternativeFood" xml:space="preserve">
     <value>这里没有中国的消息</value>
   </data>
   <data name="Message_ReceivedOrder" xml:space="preserve">

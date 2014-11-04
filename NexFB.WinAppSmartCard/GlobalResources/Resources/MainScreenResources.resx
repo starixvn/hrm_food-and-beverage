@@ -138,6 +138,9 @@
   <data name="Dishes" xml:space="preserve">
     <value>Dishes</value>
   </data>
+  <data name="DropdownHeader" xml:space="preserve">
+    <value>Please select a food item</value>
+  </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
   </data>
@@ -145,7 +148,7 @@
     <value>Exit</value>
   </data>
   <data name="MainDishes" xml:space="preserve">
-    <value>Main Dishes</value>
+    <value>Main Dish</value>
   </data>
   <data name="Member" xml:space="preserve">
     <value>Member</value>
@@ -174,6 +177,9 @@
   <data name="Message_NoMoreDish" xml:space="preserve">
     <value>There are no more side dishes to select. You can only add more quantity.</value>
   </data>
+  <data name="Message_PickAlternativeFood" xml:space="preserve">
+    <value>Alternative Menu is not recommended, are you sure you want to proceed?</value>
+  </data>
   <data name="Message_ReceivedOrder" xml:space="preserve">
     <value>You cannot join in a received order</value>
   </data>
@@ -199,7 +205,7 @@
     <value>Swipe your card to be added to the group.</value>
   </data>
   <data name="TicketCreator" xml:space="preserve">
-    <value>Meal Orderer</value>
+    <value>Meal Orderer:</value>
   </data>
   <data name="TicketLabel" xml:space="preserve">
     <value>Created Order No: </value>

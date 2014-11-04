@@ -18,6 +18,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System.Windows.Input;
     using System.Windows.Threading;
     using AutoMapper;
+    using BlogsPrajeesh.BlogSpot.WPFControls;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
     using NexFB.Models.SmartCardOrder;
@@ -253,6 +254,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     employeeInfo.MenuEngName = employeeOrder.MealEngName;
                     employeeInfo.CurrentCulture = currentCulture;
                     employeeInfo.DisplayNotifyMenuName = employeeInfo.DisplayMenuName;
+                    employeeInfo.GroupOrderNickName = employeeOrder.OrderNickName;
                     CountDownTimer = 30;
                     TimerDigitalClock();
                 }
@@ -373,9 +375,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (value != null)
             {
-                int employeeSysId = (int)value;
-                Employee selectedEmployee = ObservableListEmployee.Where(x => x.SysId == employeeSysId).SingleOrDefault();
-                ShowMenuList(selectedEmployee);
+                WPFMessageBoxResult editOrderConfirm = this.ShowWarningEditOrder();
+                if (editOrderConfirm == WPFMessageBoxResult.Yes)
+                {
+                    int employeeSysId = (int)value;
+                    Employee selectedEmployee = ObservableListEmployee.Where(x => x.SysId == employeeSysId).SingleOrDefault();
+                    ShowMenuList(selectedEmployee);
+                }
             }
         }
 

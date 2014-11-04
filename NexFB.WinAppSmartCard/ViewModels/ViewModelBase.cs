@@ -96,6 +96,16 @@ namespace NexFB.WinAppSmartCard.ViewModels
             return messageResult;
         }
 
+        public WPFMessageBoxResult ShowWarningEditOrder()
+        {
+            WPFMessageBoxResult messageResult = WPFMessageBox.Show(
+                string.Empty,
+                MainScreenResources.Message_PickAlternativeFood,
+                WPFMessageBoxButtons.YesNo,
+                WPFMessageBoxImage.Alert);
+            return messageResult;
+        }
+
         #endregion
     }
 }

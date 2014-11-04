@@ -106,13 +106,20 @@ namespace NexFB.WinApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Edit order data.
+        /// </summary>
+        /// <param name="order">Selected order.</param>
         public void EditDataInWaitingMeals(Order order)
         {
             if (WaitingMeals.Any(x => x.OrderId == order.OrderId))
             {
                 var oldOrder = WaitingMeals.Where(x => x.OrderId == order.OrderId).FirstOrDefault();
                 WaitingMeals.Remove(oldOrder);
-                NewOrderDataAndSort(order);
+                if (order.ListMenu.Count > 0)
+                {
+                    NewOrderDataAndSort(order);
+                }
             }
         }
 
