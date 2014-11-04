@@ -714,4 +714,7 @@
   <data name="SelectSetMenu" xml:space="preserve">
     <value>Select the set menu</value>
   </data>
+  <data name="ConfirmMessageAlternativeMenu" xml:space="preserve">
+    <value>Alternative Menu is not recommended, are you sure you want to proceed?</value>
+  </data>
 </root>

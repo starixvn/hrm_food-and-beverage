@@ -38,6 +38,9 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		$translate('MessageEditedStatusOrder').then(function (message) {
 			$scope.messageEditedStatusOrder = message;
 		});
+		$translate('ConfirmMessageAlternativeMenu').then(function (message) {
+			$scope.confirmMessageAlternativeMenu = message;
+		});
 	};
 	$scope.getMessage();
 
@@ -342,16 +345,34 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	$scope.selectedMenu = [];
 
 	$scope.getAlternativeMenus = function (member, index) {
-		var userId = member.Member.UserId;
 
-		orderingFactory.getAlternativeMenuByUserId(userId).success(function (allMenus) {
-			member.AllMenus = allMenus;
-			$scope.selectedMenu[index] = orderingUtilities.getSelectedMenu(member.Menus[0], allMenus);
+		$scope.modalConfirmAlternativeMenuInstance = $modal.open({
+			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
+			controller: "ModalConfirmController2",
+			backdrop: 'static',
+			resolve: {
+				content: function () {
+					return $scope.confirmMessageAlternativeMenu;
+				}
+			},
+			windowClass: "modal-confirm-center1"
+		});
 
-			var key = 'alternativeMenu' + userId;
-			$scope.alterEdit[key] = true;
-		}).error(function (response, status) {
-			ErrorFactory.errorHandle(status);
+		$scope.modalConfirmAlternativeMenuInstance.result.then(function () {
+			var userId = member.Member.UserId;
+
+			orderingFactory.getAlternativeMenuByUserId(userId).success(function (allMenus) {
+				member.AllMenus = allMenus;
+				$scope.selectedMenu[index] = orderingUtilities.getSelectedMenu(member.Menus[0], allMenus);
+
+				var key = 'alternativeMenu' + userId;
+				$scope.alterEdit[key] = true;
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
+		}, function () {
+		})['finally'](function () {
+			$scope.modalConfirmAlternativeMenuInstance = undefined;
 		});
 	};
 

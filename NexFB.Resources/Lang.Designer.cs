@@ -295,6 +295,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alternative Menu is not recommended, are you sure you want to proceed?.
+        /// </summary>
+        public static string ConfirmMessageAlternativeMenu {
+            get {
+                return ResourceManager.GetString("ConfirmMessageAlternativeMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this order?.
         /// </summary>
         public static string ConfirmMessageDeleteOrder {

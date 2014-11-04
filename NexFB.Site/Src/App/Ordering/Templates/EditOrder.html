@@ -20,7 +20,7 @@
                     </label>
                     <select ng-options="lc.LocationId as lc.Name for lc in locations" ng-model="order.Location.LocationId"
 							ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
-								|| (order.Status.StatusId != 1) || order.OrderFrom == 'P'" class="form-control"
+								|| (order.Status.StatusId != 1) || order.OrderFrom == 'P' || order.OrderFrom == 'P-U'" class="form-control"
 							class="ddlLocation">
                     </select> 
                 </div>
@@ -89,7 +89,7 @@
 									</div>
 									<span ng-show="order.IsSideDishOrder && !member.Menus" data-translate="SelectFoodItem"></span>
 								</div>
-								<div ng-show="order.OrderFrom == 'P' || order.Status.StatusId == 5">
+								<div ng-show="order.OrderFrom == 'P' || order.OrderFrom == 'P-U' || order.Status.StatusId == 5">
 									<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
 											<li>{{menu.QuantityOrder}} x "{{menu.Name}}"</li>
 									</ul>
@@ -135,14 +135,14 @@
                     </label>
                     <input ng-model="order.Remark" type="text" class="txt-remark" maxlength="500" 
 						ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
-						|| (order.Status.StatusId != 1) || order.OrderFrom == 'P'"/>
+						|| (order.Status.StatusId != 1) || order.OrderFrom == 'P' || order.OrderFrom == 'P-U'"/>
                 </div>
                 <div class="form-group phone">
                     <label data-translate="Phone">
                     </label>
                     <input ng-model="order.Phone" type="text" class="txt-phone" maxlength="50" 
 						ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
-						|| (order.Status.StatusId != 1) || order.OrderFrom == 'P'"/>
+						|| (order.Status.StatusId != 1) || order.OrderFrom == 'P' || order.OrderFrom == 'P-U'"/>
                 </div>
             </div>
             <div class="row form-inline form-order">
