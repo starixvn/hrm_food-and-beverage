@@ -861,6 +861,9 @@ select.ddlMenu{
 			&.phone-box {
 				margin-right:0;
 				width: 190px;
+				.txtPhone {
+					width: 88%;
+				}
 			}
 			&.btn-add {
 				margin-right: 0;
@@ -1101,6 +1104,11 @@ select.ddlMenu{
 		&:nth-last-child(2) {
 			margin-left: 24px;
 		}
+	}
+}
+@media(max-width: 1280px) {
+	.form-inline.form-order .form-group.phone-box {
+		float: right;
 	}
 }
 
