@@ -14,8 +14,8 @@ namespace NexFB.WinAppSmartCard
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Interop;
+    using AutoLogOffHelper;
     using NexFB.WinAppSmartCard.Core.Constants;
-    using NexFB.WinAppSmartCard.Core.Helpers;
     using NexFB.WinAppSmartCard.ViewModels;
 
     /// <summary>
@@ -40,9 +40,9 @@ namespace NexFB.WinAppSmartCard
         {
             HwndSource windowSpecificOSMessageListener = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
             windowSpecificOSMessageListener.AddHook(new HwndSourceHook(CallBackMethod));
-            AutoLogOffHelper.LogOffTime = _logOffTime;
-            AutoLogOffHelper.MakeAutoLogOffEvent += (sender, e) => AutoLogOffHelper_MakeAutoLogOffEvent();
-            AutoLogOffHelper.StartAutoLogoffOption();
+            AutoLogOff.LogOffTime = _logOffTime;
+            AutoLogOff.MakeAutoLogOffEvent += (sender, e) => AutoLogOffHelper_MakeAutoLogOffEvent();
+            AutoLogOff.StartAutoLogoffOption();
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace NexFB.WinAppSmartCard
             ////  Listening OS message to test whether it is a user activity
             if ((msg >= 0x0200 && msg <= 0x020A) || (msg <= 0x0106 && msg >= 0x00A0) || msg == 0x0021)
             {
-                AutoLogOffHelper.ResetLogoffTimer();
+                AutoLogOff.ResetLogoffTimer();
             }
             else
             {

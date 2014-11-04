@@ -18,6 +18,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Threading;
+    using AutoLogOffHelper;
     using AutoMapper;
     using BlogsPrajeesh.BlogSpot.WPFControls;
     using Microsoft.AspNet.SignalR.Client.Hubs;
@@ -27,7 +28,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinApp.Core.Commands;
     using NexFB.WinApp.Core.InternetBased;
     using NexFB.WinAppSmartCard.Core.Constants;
-    using NexFB.WinAppSmartCard.Core.Helpers;
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using NexFB.WinAppSmartCard.GlobalResources.Services;
@@ -375,7 +375,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 DispatcherPriority.Background,
                 new Action(() =>
                 {
-                    AutoLogOffHelper.ResetLogoffTimer();
+                    AutoLogOff.ResetLogoffTimer();
                     mainWindow.InitializeAutoLogoffFeature();
                 }));
             }
