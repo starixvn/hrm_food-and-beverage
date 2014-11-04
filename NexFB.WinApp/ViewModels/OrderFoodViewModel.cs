@@ -55,7 +55,6 @@ namespace NexFB.WinApp.ViewModels
         #endregion
 
         #region Constructors
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Reviewed. Suppression is OK here.")]
         public OrderFoodViewModel(MainViewModel mainViewModel, Order order = null)
         {
             InitializeData(mainViewModel, order);
@@ -647,7 +646,6 @@ namespace NexFB.WinApp.ViewModels
         /// Change Menu color.
         /// </summary>
         /// <param name="currentSelectedEmployee">Menu color of Current Selected employee.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public void ChangeMenuColor(KitchenEmployeeInfo currentSelectedEmployee)
         {
             bool checkMainFoodMenu = CheckMainFoodMenu;
@@ -677,9 +675,7 @@ namespace NexFB.WinApp.ViewModels
                     employeeOrderDetails = currentSelectedEmployee.ListAlternativeMenuOrderDeatails;
                 }
 
-                //// Get list id of foods that user has ordered.
                 List<int> selectedMainMenu = employeeOrderDetails.Select(x => x.SelectedMenuItemId).ToList();
-                //// Fill data order of curren user to view.
                 List<CommonKitchenOrder> employeeMenus = CommonKitchenOrder.Where(x => selectedMainMenu.Contains(x.ItemId)).ToList();
                 foreach (var menu in employeeMenus)
                 {
@@ -692,14 +688,13 @@ namespace NexFB.WinApp.ViewModels
                         }
                     }
                 }
-
-                CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>(this.CommonKitchenOrder);
             }
             else
             {
                 ExecuteChooseMainFoodCommand();
             }
 
+            CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>(this.CommonKitchenOrder);
             UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
         }
 
@@ -1276,7 +1271,6 @@ namespace NexFB.WinApp.ViewModels
         /// Mapping data from entity to object in app.
         /// </summary>
         /// <param name="order">Data from DB.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public void PrepareEditData(Order order)
         {
             if (order != null)

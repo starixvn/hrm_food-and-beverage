@@ -262,6 +262,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
             else
             {
+                mainViewModel.MainTabReadOnly = true;
                 this.ShowErrorMessage(MainScreenResources.Message_ReceivedOrder);
             }
         }

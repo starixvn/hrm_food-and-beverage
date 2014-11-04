@@ -49,6 +49,13 @@ namespace NexFB.WinApp
                     }
 
                     mappingRegister.Register();
+
+                    ////var conStr = ConfigurationManager.ConnectionStrings["NexFB"].ConnectionString;
+                    ////using (SqlConnection connection = new SqlConnection(conStr))
+                    ////{
+                    ////    connection.Open();
+                    ////}
+
                     DbSettingProviderManager.Current.Start();
                 }
                 else

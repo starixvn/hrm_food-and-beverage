@@ -9,11 +9,11 @@
 
 namespace NexFB.WinApp.ViewModels
 {
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Documents;
+    using NexFB.Core.Enums;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
 
@@ -146,9 +146,9 @@ namespace NexFB.WinApp.ViewModels
         {
             if (!WaitingMeals.Any(x => x.OrderId == order.OrderId))
             {
-                if (order.CurrentStatusId == 1)
+                if (order.CurrentStatusId == (int)OrderStatus.NewOrder)
                 {
-                    Order lastNewOrder = WaitingMeals.Where(x => x.CurrentStatusId == 1).LastOrDefault();
+                    Order lastNewOrder = WaitingMeals.Where(x => x.CurrentStatusId == (int)OrderStatus.NewOrder).LastOrDefault();
                     if (lastNewOrder != null)
                     {
                         int index = WaitingMeals.IndexOf(lastNewOrder);
