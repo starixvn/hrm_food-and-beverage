@@ -116,12 +116,21 @@ orderingModule.factory("orderingFactory",
 			return resultMenu;
 		};
 
-//		utilities.sortOrderIdByDesc = function (orders) {
-//			for (var i = 0; i < orders.length; i++) {
-//				var order = orders[i];
-//				
-//			}
-//		};
+		utilities.sortOrderIdByDesc = function (order, orders) {
+			if (orders.length === 0) {
+				orders.push(order);
+			}
+			else {
+				for (var i = 0; i < orders.length; i++) {
+					if (order.OrderId > orders[i].OrderId) {
+						orders.splice(i, 0, order);
+						i = orders.length;
+					}
+				}
+			}
+
+			return orders;
+		};
 
 		return utilities;
 	});

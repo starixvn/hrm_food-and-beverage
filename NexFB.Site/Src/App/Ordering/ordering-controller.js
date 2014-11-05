@@ -50,7 +50,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 		if (isRelatedCurrentUser) {
 			var data = orderingService.getMyOrder();
-			data.push(order);
+			data = orderingUtilities.sortOrderIdByDesc(order, data);
 			orderingService.setMyOrder(data);
 			$scope.$apply();
 		}
@@ -92,7 +92,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		}
 
 		if (isRelatedCurrentUser) {
-			data.push(order);
+			data = orderingUtilities.sortOrderIdByDesc(order, data);
 		}
 
 		orderingService.setMyOrder(data);
