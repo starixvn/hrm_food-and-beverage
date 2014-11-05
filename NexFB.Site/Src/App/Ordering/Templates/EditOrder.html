@@ -161,6 +161,9 @@
                 <label ng-show="order.Status.StatusId == 4" class="order-status-delivered">
                     <span ng-bind="getStatusOrderMessage(order)"></span>
                 </label>
+				<label ng-show="order.Status.StatusId == 4 && order.Members.length == 0" class="order-status-reduced">
+					<span ng-bind="getStatusOrderMessage(order)"></span>
+				</label>
 				<label ng-show="order.Status.StatusId == 5" class="order-status-edited">
 					<span ng-bind="getStatusOrderMessage(order)"></span>
 				</label>

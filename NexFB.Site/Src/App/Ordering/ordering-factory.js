@@ -116,5 +116,12 @@ orderingModule.factory("orderingFactory",
 			return resultMenu;
 		};
 
+//		utilities.sortOrderIdByDesc = function (orders) {
+//			for (var i = 0; i < orders.length; i++) {
+//				var order = orders[i];
+//				
+//			}
+//		};
+
 		return utilities;
 	});

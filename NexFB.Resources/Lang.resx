@@ -717,4 +717,7 @@
   <data name="ConfirmMessageAlternativeMenu" xml:space="preserve">
     <value>Alternative Menu is not recommended, are you sure you want to proceed?</value>
   </data>
+  <data name="MessageDeliveredNoMemberStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} has been ready since {2}.</value>
+  </data>
 </root>

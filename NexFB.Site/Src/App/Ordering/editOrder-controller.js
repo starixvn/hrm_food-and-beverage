@@ -35,6 +35,9 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		$translate('MessageDeliveredStatusOrder').then(function (message) {
 			$scope.messageDeliveredStatusOrder = message;
 		});
+		$translate('MessageDeliveredNoMemberStatusOrder').then(function (message) {
+			$scope.messageDeliveredNoMemberStatusOrder = message;
+		});
 		$translate('MessageEditedStatusOrder').then(function (message) {
 			$scope.messageEditedStatusOrder = message;
 		});
@@ -89,9 +92,15 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 						message = "";
 				}
 
-				if (typeof order.Members !== 'undefined' && order.Members.length === 0 && order.Status.StatusId === 3) {
-					message = commonFactory.formatString(
+				if (typeof order.Members !== 'undefined' && order.Members.length === 0) {
+					if (order.Status.StatusId === 3) {
+						message = commonFactory.formatString(
 							$scope.messageReducedNoMemberStatusOrder, order.OrderNo, order.CreatorOrder.NickName, order.ModifiedTime);
+					}
+					if (order.Status.StatusId === 4) {
+						message = commonFactory.formatString(
+							$scope.messageDeliveredNoMemberStatusOrder, order.OrderNo, order.CreatorOrder.NickName, order.ModifiedTime);
+					}
 				}
 
 				return message;
