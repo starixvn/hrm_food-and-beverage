@@ -35,7 +35,7 @@ namespace NexFB.WinApp
         {
             try
             {
-                if (InternetAvailability.IsInternetAvailable())
+                if (DBConnectionAvailability.IsDBConnectionAvailable())
                 {
                     base.OnStartup(e);
                     InitializeApp();

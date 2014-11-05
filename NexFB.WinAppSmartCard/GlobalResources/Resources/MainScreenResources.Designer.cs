@@ -322,7 +322,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meal Owner:.
+        ///   Looks up a localized string similar to Meal Owner: .
         /// </summary>
         internal static string TicketCreator {
             get {

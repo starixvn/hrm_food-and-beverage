@@ -30,6 +30,19 @@ namespace NexFB.WinAppSmartCard
         /// <param name="e">Startup Event.</param>
         protected override void OnStartup(StartupEventArgs e)
         {
+            InitializeApp();
+        }
+
+        private void OnCardNumberChange(CardNumberChangedEventArgs e, MainViewModel mainViewModel, MainWindow mainWindow)
+        {
+            mainViewModel.OnSmartCardNumberchanged(e.CardNumber, mainWindow);
+        }
+
+        /// <summary>
+        /// Initialize app.
+        /// </summary>
+        private void InitializeApp()
+        {
             IMappingRegister mappingRegister = new CoreMappingRegister();
             SmartcardManager manager = new SmartcardManager();
             MainWindow mainWindow = new MainWindow();
@@ -41,11 +54,6 @@ namespace NexFB.WinAppSmartCard
             ResourceManagerService.RegisterManager(@"MainScreenResources", MainScreenResources.ResourceManager, true);
             DbSettingProviderManager.Current.Start();
             mappingRegister.Register();
-        }
-
-        private void OnCardNumberChange(CardNumberChangedEventArgs e, MainViewModel mainViewModel, MainWindow mainWindow)
-        {
-            mainViewModel.OnSmartCardNumberchanged(e.CardNumber, mainWindow);
         }
     }
 }

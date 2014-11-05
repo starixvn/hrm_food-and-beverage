@@ -36,6 +36,8 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string LocalDB = "LocalDB";
 
+        public const string ServerDB = "ServerDB";
+
         public const string HubHost = "HubHost";
 
         public const string HubHostLocal = "HubHostLocal";

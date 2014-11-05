@@ -205,7 +205,7 @@
     <value>Swipe your card to join this group</value>
   </data>
   <data name="TicketCreator" xml:space="preserve">
-    <value>Meal Owner:</value>
+    <value>Meal Owner: </value>
   </data>
   <data name="TicketLabel" xml:space="preserve">
     <value>Created Order No: </value>

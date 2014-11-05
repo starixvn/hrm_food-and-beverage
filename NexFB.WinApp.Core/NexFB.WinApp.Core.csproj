@@ -34,6 +34,10 @@
     <Reference Include="AutoMapper">
       <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="ReachFramework" />
@@ -50,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constant.cs" />
+    <Compile Include="InternetBased\DBConnectionAvailability.cs" />
     <Compile Include="InternetBased\InternetAvailability.cs" />
     <Compile Include="InternetBased\NativeMethods.cs" />
     <Compile Include="Mapping\CoreMappingRegister.cs" />
