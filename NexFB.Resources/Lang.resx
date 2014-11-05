@@ -720,4 +720,16 @@
   <data name="MessageDeliveredNoMemberStatusOrder" xml:space="preserve">
     <value>Order #{0} by {1} has been ready since {2}.</value>
   </data>
+  <data name="MonthlyMainDishReportLocal" xml:space="preserve">
+    <value>Monthly Main Dish Report - Local</value>
+  </data>
+  <data name="DepartmentSection" xml:space="preserve">
+    <value>Department/Section</value>
+  </data>
+  <data name="Qty" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
 </root>

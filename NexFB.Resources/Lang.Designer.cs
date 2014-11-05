@@ -502,6 +502,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Department/Section.
+        /// </summary>
+        public static string DepartmentSection {
+            get {
+                return ResourceManager.GetString("DepartmentSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dinner.
         /// </summary>
         public static string Dinner {
@@ -1177,6 +1186,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monthly Main Dish Report - Local.
+        /// </summary>
+        public static string MonthlyMainDishReportLocal {
+            get {
+                return ResourceManager.GetString("MonthlyMainDishReportLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notice: Monthly and weekly registration will not take effect on Saturday and Sunday..
         /// </summary>
         public static string MonthlyWeeklyDefaultWarning {
@@ -1371,6 +1389,15 @@ namespace NexFB.Resources {
         public static string PriceRequire {
             get {
                 return ResourceManager.GetString("PriceRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qty.
+        /// </summary>
+        public static string Qty {
+            get {
+                return ResourceManager.GetString("Qty", resourceCulture);
             }
         }
         
@@ -1758,6 +1785,15 @@ namespace NexFB.Resources {
         public static string ToDayMenu {
             get {
                 return ResourceManager.GetString("ToDayMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string Total {
+            get {
+                return ResourceManager.GetString("Total", resourceCulture);
             }
         }
         

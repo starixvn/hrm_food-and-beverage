@@ -37,7 +37,7 @@ namespace NexFB.Repositories.Implement
 
                 IEnumerable<dynamic> rawReport = db.Query<dynamic>(criteria.GetSpParams());
 
-                if (rawReport != null)
+                if (rawReport != null && rawReport.Count() > 1)
                 {
                     report.Meals = GetMealsInMonth(rawReport);
                     report.WeekDays = GetWeekDay(rawReport);
@@ -56,7 +56,7 @@ namespace NexFB.Repositories.Implement
         private List<MealMonthModel> GetMealsInMonth(IEnumerable<dynamic> rawReport)
         {
             var meals = new List<MealMonthModel>();
-            IEnumerable<dynamic> rawMealIds = rawReport.Select(x => x.MealID).Distinct();
+            IEnumerable<dynamic> rawMealIds = rawReport.Where(x => x.MealID != null).Select(x => x.MealID).Distinct();
 
             foreach (dynamic mealId in rawMealIds)
             {
@@ -98,7 +98,7 @@ namespace NexFB.Repositories.Implement
             {
                 MealId = rawMeal.MealID,
                 MealEngName = rawMeal.MealEngName,
-                MealVnmName = rawMeal.MeaVNMName
+                MealVnmName = rawMeal.MealVNMName
             };
 
             return meal;
@@ -172,27 +172,51 @@ namespace NexFB.Repositories.Implement
             return null;
         }
 
+        /// <summary>
+        /// Get department of meal item.
+        /// </summary>
+        /// <param name="rawMeal">The data of current meal item.</param>
+        /// <returns>The department.</returns>
         private Department GetDepartmentOfMealItem(dynamic rawMeal)
         {
-            var department = new Department
-            {
-                DepartmentId = rawMeal.DepartmentID,
-                Name = rawMeal.DepartmentName
-            };
+            int? departmentId = rawMeal.DepartmentID;
 
-            return department;
+            if (departmentId.HasValue)
+            {
+                var department = new Department
+                {
+                    DepartmentId = (int)departmentId,
+                    Name = rawMeal.DepartmentName
+                };
+
+                return department;
+            }
+
+            return null;
         }
 
+        /// <summary>
+        /// Get team of meal item.
+        /// </summary>
+        /// <param name="rawMeal">The data of current meal item.</param>
+        /// <returns>The Team model.</returns>
         private Team GetTeamOfMealItem(dynamic rawMeal)
         {
-            var team = new Team
-            {
-                TeamId = rawMeal.EmpTeamID,
-                Code = rawMeal.EmpTeamCode,
-                Name = rawMeal.EmpTeamName
-            };
+            int? teamId = rawMeal.EmpTeamID;
 
-            return team;
+            if (teamId.HasValue)
+            {
+                var team = new Team
+                {
+                    TeamId = (int)teamId,
+                    Code = rawMeal.EmpTeamCode,
+                    Name = rawMeal.EmpTeamName
+                };
+
+                return team;
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -204,12 +228,7 @@ namespace NexFB.Repositories.Implement
         {
             var mealDayOfMonth = new MealDayOfMonthModel();
 
-            for (int i = 0; i < 31; i++)
-            {
-                string key = (i + 1).ToString();
-                mealDayOfMonth.NumberMeals[i] = rawMeal[key];
-            }
-
+            mealDayOfMonth.NumberMeals = GetNumberMealsInMonth(rawMeal);
             mealDayOfMonth.TotalQuantity = rawMeal.TotalQty;
             mealDayOfMonth.Amount = rawMeal.Amount;
 
@@ -224,16 +243,9 @@ namespace NexFB.Repositories.Implement
         private MealDayOfMonthModel GetWeekDay(IEnumerable<dynamic> rawReport)
         {
             var weekDays = new MealDayOfMonthModel();
-            IEnumerable<dynamic> rawWeekDays = rawReport.Where(x => x.MealID == null);
 
-            foreach (dynamic rawWeekDay in rawWeekDays)
-            {
-                for (int i = 0; i < 31; i++)
-                {
-                    string key = (i + 1).ToString();
-                    weekDays.NumberMeals[i] = rawWeekDay[key];
-                }
-            }
+            dynamic rawWeekDay = rawReport.Where(x => x.MealID == null).First();
+            weekDays.NumberMeals = GetNumberMealsInMonth(rawWeekDay);
 
             return weekDays;
         }
@@ -255,7 +267,14 @@ namespace NexFB.Repositories.Implement
 
                     for (int i = 0; i < numberMeals.Count(); i++)
                     {
-                        total.NumberMeals[i] += numberMeals[i];
+                        if (total.NumberMeals.Count < numberMeals.Count())
+                        {
+                            total.NumberMeals.Add(numberMeals[i]);
+                        }
+                        else
+                        {
+                            total.NumberMeals[i] += numberMeals[i];
+                        }
                     }
 
                     total.TotalQuantity += mealItem.NumberMealsMonth.TotalQuantity;
@@ -264,6 +283,63 @@ namespace NexFB.Repositories.Implement
             }
 
             return total;
+        }
+
+        /// <summary>
+        /// Get number meals of day in month.
+        /// </summary>
+        /// <param name="rawWeekDay">The data of current meal item.</param>
+        /// <returns>The list number meals of day in month.</returns>
+        private List<int> GetNumberMealsInMonth(dynamic rawWeekDay)
+        {
+            var numberMeals = new List<int>();
+            numberMeals.Add(rawWeekDay.D1);
+            numberMeals.Add(rawWeekDay.D2);
+            numberMeals.Add(rawWeekDay.D3);
+            numberMeals.Add(rawWeekDay.D4);
+            numberMeals.Add(rawWeekDay.D5);
+            ////numberMeals.Add(rawWeekDay.D6);
+            ////numberMeals.Add(rawWeekDay.D7);
+            ////numberMeals.Add(rawWeekDay.D8);
+            ////numberMeals.Add(rawWeekDay.D9);
+            ////numberMeals.Add(rawWeekDay.D10);
+            ////numberMeals.Add(rawWeekDay.D11);
+            ////numberMeals.Add(rawWeekDay.D12);
+            ////numberMeals.Add(rawWeekDay.D13);
+            ////numberMeals.Add(rawWeekDay.D14);
+            ////numberMeals.Add(rawWeekDay.D15);
+            ////numberMeals.Add(rawWeekDay.D16);
+            ////numberMeals.Add(rawWeekDay.D17);
+            ////numberMeals.Add(rawWeekDay.D18);
+            ////numberMeals.Add(rawWeekDay.D19);
+            ////numberMeals.Add(rawWeekDay.D20);
+            ////numberMeals.Add(rawWeekDay.D21);
+            ////numberMeals.Add(rawWeekDay.D22);
+            ////numberMeals.Add(rawWeekDay.D23);
+            ////numberMeals.Add(rawWeekDay.D24);
+            ////numberMeals.Add(rawWeekDay.D25);
+            ////numberMeals.Add(rawWeekDay.D26);
+            ////numberMeals.Add(rawWeekDay.D27);
+            ////numberMeals.Add(rawWeekDay.D28);
+            ////int? day29 = rawWeekDay.D29;
+            ////if (day29.HasValue)
+            ////{
+            ////    numberMeals.Add((int)day29);
+            ////}
+
+            ////int? day30 = rawWeekDay.D30;
+            ////if (day30.HasValue)
+            ////{
+            ////    numberMeals.Add((int)day30);
+            ////}
+
+            ////int? day31 = rawWeekDay.D31;
+            ////if (day31.HasValue)
+            ////{
+            ////    numberMeals.Add((int)day31);
+            ////}
+
+            return numberMeals;
         }
     }
 }

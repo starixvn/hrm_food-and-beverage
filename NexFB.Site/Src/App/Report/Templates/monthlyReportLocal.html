@@ -1,1 +1,34 @@
 ﻿
+<div class="col-sm-10">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+			<li class="current" data-translate="MonthlyMainDishReportLocal"></li>
+        </ul>
+    </div>
+    <div class="row filter">
+        <form class="form-inline" role="form">
+        </form>
+    </div>
+    <div class="row">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th data-translate="SymbolCount" rowspan="2" ></th>
+                    <th data-translate="NickName" rowspan="2" ></th>
+                    <th data-translate="EmployeeType" rowspan="2" ></th>
+                    <th data-translate="DepartmentSection" rowspan="2" ></th>
+					<th colspan="31">Oct-14</th>
+					<th colspan="2" data-translate="Total"></th>
+				</tr>
+				<tr>
+					<th ng-repeat="day in localReport.WeekDays.NumberMeals" ng-bind="$index + 1">
+					</th>
+					<th data-translate="Qty"></th>
+					<th data-translate="Amount"></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+        </table>
+    </div>
+</div>
