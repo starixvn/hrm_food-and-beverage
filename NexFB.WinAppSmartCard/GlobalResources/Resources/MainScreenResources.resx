@@ -202,10 +202,10 @@
     <value>Side Dish</value>
   </data>
   <data name="SwipeCardLabel" xml:space="preserve">
-    <value>Swipe your card to be added to the group.</value>
+    <value>Swipe your card to join this group</value>
   </data>
   <data name="TicketCreator" xml:space="preserve">
-    <value>Meal Orderer:</value>
+    <value>Meal Owner:</value>
   </data>
   <data name="TicketLabel" xml:space="preserve">
     <value>Created Order No: </value>

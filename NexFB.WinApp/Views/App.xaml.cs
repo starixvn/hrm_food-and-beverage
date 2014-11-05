@@ -14,6 +14,7 @@ namespace NexFB.WinApp
     using System.Globalization;
     using System.Windows;
     using System.Windows.Threading;
+    using Fanex.Data;
     using Fanex.Data.Configuration;
     using NexFB.Resources;
     using NexFB.WinApp.Core.Constants;
@@ -37,29 +38,32 @@ namespace NexFB.WinApp
                 if (InternetAvailability.IsInternetAvailable())
                 {
                     base.OnStartup(e);
-                    string defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
-                    IMappingRegister mappingRegister = new CoreMappingRegister();
-                    if (string.IsNullOrEmpty(defaultLanguage))
-                    {
-                        WinFormMainResource.Culture = new CultureInfo(Constant.DefaultCulture);
-                    }
-                    else
-                    {
-                        WinFormMainResource.Culture = new CultureInfo(defaultLanguage);
-                    }
-
-                    mappingRegister.Register();
-                    ////var conStr = ConfigurationManager.ConnectionStrings["NexFBLocal"].ConnectionString;
-                    ////using (SqlConnection connection = new SqlConnection(conStr))
-                    ////{
-                    ////    connection.Open();
-                    ////}
-
-                    DbSettingProviderManager.Current.Start();
+                    InitializeApp();
                 }
                 else
                 {
-                    DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_NetworkConnectionException);
+                    InitializeApp();
+                    string databaseLocalBackup = ConfigurationManager.AppSettings[Constant.LocalDB];
+                    if (string.IsNullOrEmpty(databaseLocalBackup))
+                    {
+                        DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_NetworkConnectionException);
+                    }
+                    else
+                    {
+                        var conStr = ConnectionStringGetter.GetConnectionString(databaseLocalBackup);
+                        if (!string.IsNullOrEmpty(conStr))
+                        {
+                            var settingDataSource = DbSettingProviderManager.Current.SettingDataSource;
+                            if (settingDataSource != null)
+                            {
+                                foreach (var item in settingDataSource)
+                                {
+                                    item.Value.ConnectionString = conStr;
+                                    item.Value.DbName = databaseLocalBackup;
+                                }
+                            }
+                        }
+                    }
                 }
             }
             catch
@@ -85,6 +89,26 @@ namespace NexFB.WinApp
             {
                 Shutdown();
             }
+        }
+
+        /// <summary>
+        /// Initialize App data.
+        /// </summary>
+        private void InitializeApp()
+        {
+            string defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
+            IMappingRegister mappingRegister = new CoreMappingRegister();
+            if (string.IsNullOrEmpty(defaultLanguage))
+            {
+                WinFormMainResource.Culture = new CultureInfo(Constant.DefaultCulture);
+            }
+            else
+            {
+                WinFormMainResource.Culture = new CultureInfo(defaultLanguage);
+            }
+
+            mappingRegister.Register();
+            DbSettingProviderManager.Current.Start();
         }
     }
 }

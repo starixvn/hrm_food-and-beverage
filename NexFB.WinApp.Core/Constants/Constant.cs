@@ -34,6 +34,8 @@ namespace NexFB.WinApp.Core.Constants
 
         public const string ReleaseMode = "ReleaseMode";
 
+        public const string LocalDB = "LocalDB";
+
         public const string HubHost = "HubHost";
 
         public const string HubHostLocal = "HubHostLocal";

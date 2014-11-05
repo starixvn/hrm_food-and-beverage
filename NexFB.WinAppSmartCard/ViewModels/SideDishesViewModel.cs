@@ -48,6 +48,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private string _screenOrderVisible;
         private string _screenNotificationVisible;
         private bool _addFoodEnable;
+        private bool _sideDishTimerLive;
 
         public SideDishesViewModel(Employee orderOwner, int currentCulture, MainViewModel mainViewModel)
         {
@@ -84,6 +85,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 _orderOwner = value;
                 OnPropertyChanged("OrderOwner");
+            }
+        }
+
+        public bool SideDishTimerLive
+        {
+            get
+            {
+                return _sideDishTimerLive;
+            }
+
+            set
+            {
+                _sideDishTimerLive = value;
+                OnPropertyChanged("SideDishTimerLive");
             }
         }
 
@@ -261,6 +276,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public void CancelTimerDispatcher()
         {
+            SideDishTimerLive = false;
             digitalClockDispatcher.Stop();
             CountDownTimer = 0;
         }
@@ -372,11 +388,18 @@ namespace NexFB.WinAppSmartCard.ViewModels
             timer.Start();
         }
 
+        /// <summary>
+        /// Timer tick count down.
+        /// </summary>
+        /// <param name="sender">Object sender.</param>
+        /// <param name="e">Event Args.</param>
         private void TimerTick(object sender, EventArgs e)
         {
             CountDownTimer -= 1;
+            SideDishTimerLive = true;
             if (CountDownTimer == 0)
             {
+                SideDishTimerLive = false;
                 DispatcherTimer timer = (DispatcherTimer)sender;
                 timer.Stop();
                 MainViewModel.ExecuteReturnToStandByScreen();
@@ -465,15 +488,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
             if (sender != null)
             {
                 int selectedFood = (int)sender;
-                if (selectedFood != int.MaxValue && selectedFood > 0)
-                {
-                    DisplayTotalPrice();
-                    this.AddFoodEnable = true;
-                }
-                else
-                {
-                    this.AddFoodEnable = false;
-                }
+                this.AddFoodEnable = selectedFood != int.MaxValue && selectedFood > 0;
+                DisplayTotalPrice();
             }
         }
 

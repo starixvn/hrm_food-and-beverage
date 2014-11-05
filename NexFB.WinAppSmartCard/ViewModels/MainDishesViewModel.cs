@@ -45,6 +45,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private string _screenNotificationVisible;
         private int _orderNo;
         private int _countDownTimer;
+        private bool _mainDishTimerLive;
         private MainViewModel _mainViewModel;
 
         public MainDishesViewModel()
@@ -76,6 +77,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 _selectedFood = value;
                 this.OnPropertyChanged("SelectedFood");
+            }
+        }
+
+        public bool MainDishTimerLive
+        {
+            get
+            {
+                return _mainDishTimerLive;
+            }
+
+            set
+            {
+                _mainDishTimerLive = value;
+                this.OnPropertyChanged("MainDishTimerLive");
             }
         }
 
@@ -314,6 +329,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public void CancelTimerDispatcher()
         {
+            MainDishTimerLive = false;
             digitalClockDispatcher.Stop();
             CountDownTimer = 0;
         }
@@ -489,10 +505,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private void TimerTick(object sender, EventArgs e)
         {
             CountDownTimer -= 1;
+            MainDishTimerLive = true;
             if (CountDownTimer == 0)
             {
                 if (MainViewModel != null)
                 {
+                    MainDishTimerLive = false;
                     MainViewModel.ExecuteReturnToStandByScreen();
                 }
 

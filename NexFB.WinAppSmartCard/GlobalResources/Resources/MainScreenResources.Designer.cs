@@ -313,7 +313,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Swipe your card to be added to the group..
+        ///   Looks up a localized string similar to Swipe your card to join this group.
         /// </summary>
         internal static string SwipeCardLabel {
             get {
@@ -322,7 +322,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meal Orderer:.
+        ///   Looks up a localized string similar to Meal Owner:.
         /// </summary>
         internal static string TicketCreator {
             get {

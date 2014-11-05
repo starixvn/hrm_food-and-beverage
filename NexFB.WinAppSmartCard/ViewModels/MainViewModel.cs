@@ -347,25 +347,29 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 this.CurrentCardNumber = newCardNumber;
                 string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+                string cardValue = newCardNumber.Substring(newCardNumber.Length - 5, 5);
+                var getEmployeeByCardNumber = new GetEmployeeByCardNumberCriteria() { CardNumber = cardValue };
+                EmployeeInfo employeeData = this.SmartCardOrderService.GetEmployeeByCardId(getEmployeeByCardNumber);
+
                 switch (currentViewModel)
                 {
                     case ConstantValue.MainDishesViewModel:
-                        string cardValue = newCardNumber.Substring(newCardNumber.Length - 5, 5);
-                        var getEmployeeByCardNumber = new GetEmployeeByCardNumberCriteria() { CardNumber = cardValue };
-                        EmployeeInfo employeeData = this.SmartCardOrderService.GetEmployeeByCardId(getEmployeeByCardNumber);
-                        if (employeeData != null)
+                        if (((MainDishesViewModel)CurrentViewModel).MainDishTimerLive)
                         {
-                            var getEmployeeInGroupCriteria = new GetEmployeeInGroupBySysIdCriteria() { SysId = employeeData.SysId };
-                            EmployeeInGroup employeeInGrop = this.KitchenService.GetEmployeeInGroup(getEmployeeInGroupCriteria);
-                            CheckDataToAddToGrid(employeeInGrop, employeeData);
+                            ReturnToStandByScreenAndCreateNewSession(cardValue);
                         }
-                        else
-                        {
-                            this.ShowErrorMessage(MainScreenResources.Message_IdentifyCard);
-                        }
+
+                        AddDataWhenTimerLive(cardValue, employeeData, false);
 
                         break;
                     case ConstantValue.SideDishesViewModel:
+                        if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
+                        {
+                            ReturnToStandByScreenAndCreateNewSession(cardValue);
+                        }
+
+                        AddDataWhenTimerLive(cardValue, employeeData, true);
+
                         break;
                     default:
                         break;
@@ -397,6 +401,15 @@ namespace NexFB.WinAppSmartCard.ViewModels
             OrderOwner = null;
             ExecuteMainDishesCommand();
             CheckCurrentScreen();
+        }
+
+        public void ReturnToStandByScreenAndCreateNewSession(string cardValue)
+        {
+            this.MainTabReadOnly = false;
+            OrderOwner = null;
+            ExecuteMainDishesCommand();
+            MainScreenVisible = ConstantValue.Hidden;
+            StandbyScreenVisible = ConstantValue.Visible;
         }
 
         public Task SendMessage(int orderId)
@@ -586,7 +599,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         /// <param name="employeeInGrop">Employee place order data.</param>
         /// <param name="employeeData">Current employee info.</param>
-        private void CheckDataToAddToGrid(EmployeeInGroup employeeInGrop, EmployeeInfo employeeData)
+        /// /// <param name="isSideDishView">Check for main dish tab or side dish tab.</param>
+        private void CheckDataToAddToGrid(EmployeeInGroup employeeInGrop, EmployeeInfo employeeData, bool isSideDishView)
         {
             if (employeeInGrop != null)
             {
@@ -601,7 +615,10 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 {
                     if (MainScreenVisible == ConstantValue.Visible)
                     {
-                        this.ShowErrorMessage(MainScreenResources.Message_AlreadyOrder);
+                        if (!isSideDishView)
+                        {
+                            this.ShowErrorMessage(MainScreenResources.Message_AlreadyOrder);
+                        }
                     }
                     else
                     {
@@ -617,6 +634,26 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 }
 
                 CheckCurrentScreen();
+            }
+        }
+
+        /// <summary>
+        /// Process continue to add data when timer is tick.
+        /// </summary>
+        /// <param name="cardValue">New card Number.</param>
+        /// <param name="employeeData">Employee data.</param>
+        /// <param name="isSideDishView">Check for main dish tab or side dish tab.</param>
+        private void AddDataWhenTimerLive(string cardValue, EmployeeInfo employeeData, bool isSideDishView)
+        {
+            if (employeeData != null)
+            {
+                var getEmployeeInGroupCriteria = new GetEmployeeInGroupBySysIdCriteria() { SysId = employeeData.SysId };
+                EmployeeInGroup employeeInGrop = this.KitchenService.GetEmployeeInGroup(getEmployeeInGroupCriteria);
+                CheckDataToAddToGrid(employeeInGrop, employeeData, isSideDishView);
+            }
+            else
+            {
+                this.ShowErrorMessage(MainScreenResources.Message_IdentifyCard);
             }
         }
 
