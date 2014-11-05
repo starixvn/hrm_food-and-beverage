@@ -55,6 +55,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private bool _sideButtonEnable;
         private string _logoMargin;
         private string _sentenceMargin;
+        private bool _isMainDishTab;
 
         public MainViewModel()
         {
@@ -273,6 +274,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
+        public bool IsMainDishTab
+        {
+            get
+            {
+                return _isMainDishTab;
+            }
+
+            set
+            {
+                _isMainDishTab = value;
+                OnPropertyChanged("IsMainDishTab");
+            }
+        }
+
         public bool SideButtonEnable
         {
             get
@@ -458,27 +473,32 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         private void ExecuteMainDishesCommand()
         {
-            CancelDispatcherTimer();
-            CurrentViewModel = new MainDishesViewModel();
-            if (MainTabReadOnly)
+            if (!IsMainDishTab)
             {
-                ((MainDishesViewModel)CurrentViewModel).ShowNotificationScreen();
-            }
-            else
-            {
-                ((MainDishesViewModel)CurrentViewModel).ShowOrderScreen();
-            }
+                IsMainDishTab = true;
+                CancelDispatcherTimer();
+                CurrentViewModel = new MainDishesViewModel();
+                if (MainTabReadOnly)
+                {
+                    ((MainDishesViewModel)CurrentViewModel).ShowNotificationScreen();
+                }
+                else
+                {
+                    ((MainDishesViewModel)CurrentViewModel).ShowOrderScreen();
+                }
 
-            if (OrderOwner != null)
-            {
-                ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, CurrentCulture, this);
-            }
+                if (OrderOwner != null)
+                {
+                    ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, CurrentCulture, this);
+                }
 
-            CheckCurrentViewModel();
+                CheckCurrentViewModel();
+            }
         }
 
         private void ExecuteSideDishesCommand()
         {
+            IsMainDishTab = false;
             CancelDispatcherTimer();
             CurrentViewModel = new SideDishesViewModel(OrderOwner, CurrentCulture, this);
             CheckCurrentViewModel();
@@ -510,12 +530,30 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 CurrentCulture = int.Parse((string)value);
                 ChangeCulture();
+                CheckDataForLanguageChange();
             }
         }
 
         #endregion
 
         #region Private Methods
+
+        /// <summary>
+        /// Refresh data for language change.
+        /// </summary>
+        private void CheckDataForLanguageChange()
+        {
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+            switch (currentViewModel)
+            {
+                case ConstantValue.MainDishesViewModel:
+                    ((MainDishesViewModel)CurrentViewModel).CheckDataForLanguageChange(OrderOwner, CurrentCulture, this);
+                    break;
+                case ConstantValue.SideDishesViewModel:
+                    ((SideDishesViewModel)CurrentViewModel).CheckDataForLanguageChange();
+                    break;
+            }
+        }
 
         /// <summary>
         /// Set Default Menu Color.

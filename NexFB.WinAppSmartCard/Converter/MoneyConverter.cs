@@ -32,7 +32,7 @@ namespace NexFB.WinAppSmartCard.Converter
             if (value != null)
             {
                 decimal price = (decimal)value;
-                CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+                CultureInfo currentCulture = CultureInfo.GetCultureInfo("vi-VN"); 
                 if (price > 0)
                 {
                     return string.Format(currentCulture, "{0:C}", price);

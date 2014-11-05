@@ -248,6 +248,15 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
+        public void CheckDataForLanguageChange(Employee employeeInfo, int currentCulture, MainViewModel mainViewModel)
+        {
+            if (ObservableListEmployee.Count == 1)
+            {
+                ObservableListEmployee = new ObservableCollection<Employee>();
+                AddEmployeeOrderToList(employeeInfo, currentCulture, mainViewModel);
+            }
+        }
+
         /// <summary>
         /// Display info for employee who has already ordered.
         /// </summary>
@@ -375,11 +384,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 int employeeSysId = (int)value;
                 Employee employeeRemoved = ObservableListEmployee.Where(x => x.SysId == employeeSysId).SingleOrDefault();
-                if (employeeRemoved != null)
+                ObservableListEmployee.Remove(employeeRemoved);
+                if (employeeRemoved.SysId == OrderOwner.SysId)
                 {
-                    ObservableListEmployee.Remove(employeeRemoved);
-                    ToggleSideMenu();
+                    OrderOwner = ObservableListEmployee.FirstOrDefault();
+                    this.MainViewModel.OrderOwner = this.OrderOwner;
                 }
+
+                ToggleSideMenu();
             }
         }
 

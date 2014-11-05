@@ -286,6 +286,15 @@ namespace NexFB.WinAppSmartCard.ViewModels
             this.AddFoodEnable = false;
         }
 
+        public void CheckDataForLanguageChange()
+        {
+            if (ObservableSideOrder.Count == 1)
+            {
+                ObservableSideOrder = new ObservableCollection<SideFood>();
+                ExecuteAddFoodCommand();
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -475,7 +484,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
 
             ExecuteAddFoodCommand();
-            CanExecuteAddFoodCommand();
         }
 
         /// <summary>

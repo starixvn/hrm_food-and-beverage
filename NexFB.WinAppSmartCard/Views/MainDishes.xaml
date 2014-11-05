@@ -180,8 +180,7 @@
 													<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=DisplayMenuName}"
 												 FontSize="20" Foreground="{Binding Path=Color}" HorizontalAlignment="Left"/>
 
-													<Button 
-												Style="{StaticResource TileButton}" CommandParameter="{Binding Path=SysId}"
+													<Button Style="{StaticResource TileButton}" CommandParameter="{Binding Path=SysId}"
 											Command="{Binding DataContext.EditMenu, RelativeSource={RelativeSource AncestorType=ListBox}}">
 														<Button.Template>
 															<ControlTemplate>

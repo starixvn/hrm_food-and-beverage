@@ -110,48 +110,53 @@ namespace NexFB.WinApp.ViewModels.Partials.OrderFood
         /// <returns>String order details.</returns>
         public string DisplayEmployeeOrderSummary(KitchenEmployeeInfo currentSelectedMember)
         {
-            var listMainOrder = currentSelectedMember.ListMainMenuOrderDeatails;
-            var listAlternativeOrder = currentSelectedMember.ListAlternativeMenuOrderDeatails;
-            int sumMainOrder = listMainOrder.Sum(x => x.SelectedMenuItemQuantity);
-            int sumAlternativeOrder = listAlternativeOrder.Sum(x => x.SelectedMenuItemQuantity);
-            string orderInfoSummary = string.Empty;
-
-            if (listMainOrder.Count > 0)
+            if (currentSelectedMember != null)
             {
-                orderInfoSummary += CombineDataOrderSummary(listMainOrder);
-            }
+                var listMainOrder = currentSelectedMember.ListMainMenuOrderDeatails;
+                var listAlternativeOrder = currentSelectedMember.ListAlternativeMenuOrderDeatails;
+                int sumMainOrder = listMainOrder.Sum(x => x.SelectedMenuItemQuantity);
+                int sumAlternativeOrder = listAlternativeOrder.Sum(x => x.SelectedMenuItemQuantity);
+                string orderInfoSummary = string.Empty;
 
-            orderInfoSummary += " - ";
-            if (listAlternativeOrder.Count > 0)
-            {
-                orderInfoSummary += CombineDataOrderSummary(listAlternativeOrder);
-            }
+                if (listMainOrder.Count > 0)
+                {
+                    orderInfoSummary += CombineDataOrderSummary(listMainOrder);
+                }
 
-            if (orderInfoSummary.Count() > 100)
-            {
-                orderInfoSummary = string.Empty;
+                orderInfoSummary += " - ";
                 if (listAlternativeOrder.Count > 0)
                 {
-                    if (listMainOrder.Count > 0)
+                    orderInfoSummary += CombineDataOrderSummary(listAlternativeOrder);
+                }
+
+                if (orderInfoSummary.Count() > 100)
+                {
+                    orderInfoSummary = string.Empty;
+                    if (listAlternativeOrder.Count > 0)
                     {
-                        orderInfoSummary += WinFormMainResource.Parentheses1 + sumMainOrder + WinFormMainResource.Main + WinFormMainResource.CommaSeparated
-                            + sumAlternativeOrder + WinFormMainResource.Snack + WinFormMainResource.Parentheses2;
+                        if (listMainOrder.Count > 0)
+                        {
+                            orderInfoSummary += WinFormMainResource.Parentheses1 + sumMainOrder + WinFormMainResource.Main + WinFormMainResource.CommaSeparated
+                                + sumAlternativeOrder + WinFormMainResource.Snack + WinFormMainResource.Parentheses2;
+                        }
+                        else
+                        {
+                            orderInfoSummary += WinFormMainResource.Parentheses1 + sumAlternativeOrder + WinFormMainResource.Snack + WinFormMainResource.Parentheses2;
+                        }
                     }
                     else
                     {
-                        orderInfoSummary += WinFormMainResource.Parentheses1 + sumAlternativeOrder + WinFormMainResource.Snack + WinFormMainResource.Parentheses2;
+                        if (listMainOrder.Count > 0)
+                        {
+                            orderInfoSummary += WinFormMainResource.Parentheses1 + sumMainOrder + WinFormMainResource.Main + WinFormMainResource.Parentheses2;
+                        }
                     }
                 }
-                else
-                {
-                    if (listMainOrder.Count > 0)
-                    {
-                        orderInfoSummary += WinFormMainResource.Parentheses1 + sumMainOrder + WinFormMainResource.Main + WinFormMainResource.Parentheses2;
-                    }
-                }
+
+                return orderInfoSummary;
             }
 
-            return orderInfoSummary;
+            return string.Empty;
         }
 
         /// <summary>

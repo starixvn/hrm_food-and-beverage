@@ -245,13 +245,16 @@ namespace NexFB.WinApp.ViewModels
 
             if (EmployeeInfo == null)
             {
-                KitchenEmployeeInfo currentSelectedEmployee = UserInGroup.FirstOrDefault();
-                EmployeeInfo = currentSelectedEmployee;
-                currentSelectedEmployee.IsSelectedMemberInGroup = true;
-                LocationId = currentSelectedEmployee.LocationId;
-                LocationName = IsVnmCulture ? currentSelectedEmployee.LocationVnmName : currentSelectedEmployee.LocationEngName;
+                ////CommonKitchenOrder = AllObservationFood;
+                KitchenEmployeeInfo firstEmployeeInGroup = UserInGroup.FirstOrDefault();
+                EmployeeInfo = firstEmployeeInGroup;
+                LocationName = firstEmployeeInGroup.LocationName;
+                LocationId = firstEmployeeInGroup.LocationId;
+                ////ExecuteEmployeeInGroupSelected(firstEmployeeInGroup.SysId);
             }
 
+            CommonKitchenOrder = AllObservationGroup;
+            ChangeButtonBorder(Constant.PickGroupButton);
             UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
         }
 
@@ -1266,7 +1269,7 @@ namespace NexFB.WinApp.ViewModels
                 EmployeeInfo = GetEmployeeBySysId(order.SysId);
                 LocationId = order.LocationId;
                 LocationName = IsVnmCulture ? order.VnmName : order.EngName;
-                List<OrderMenu> orderMenus = order.ListMenu;
+                List<OrderMenu> orderMenus = order.ListMenu.Where(x => !x.IsDeleted).ToList();
 
                 if (orderMenus != null)
                 {
