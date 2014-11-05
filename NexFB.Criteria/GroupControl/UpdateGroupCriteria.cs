@@ -1,17 +1,8 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="UpdateFoodMenuCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/29/2014 12:33:49 PM">Created.</change>
-// </history>
-
-using System;
-using Fanex.Data.Repository;
-
-namespace NexFB.Criteria.GroupControl
+﻿namespace NexFB.Criteria.GroupControl
 {
+    using System;
+    using Fanex.Data.Repository;
+
     /// <summary>
     /// Update food menu criteria.
     /// </summary>

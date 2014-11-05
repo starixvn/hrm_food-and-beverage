@@ -248,6 +248,11 @@
     <Content Include="Src\App\GroupControl\Templates\ManageGroup\edit.html" />
     <Content Include="Src\App\GroupControl\Templates\ManageGroup\create.html" />
     <Content Include="Src\App\GroupControl\Templates\ManageGroup\index.html" />
+    <Content Include="Src\App\ManageUserInGroup\manageUserInGroup-controller.js" />
+    <Content Include="Src\App\ManageUserInGroup\manageUserInGroup-directive.js" />
+    <Content Include="Src\App\ManageUserInGroup\manageUserInGroup-factory.js" />
+    <Content Include="Src\App\ManageUserInGroup\mangeUserInGroup-route.js" />
+    <Content Include="Src\App\ManageUserInGroup\Templates\index.html" />
     <Content Include="Src\App\MealPlanningManagement\editMealPlanning-controller.js" />
     <Content Include="Src\App\MealPlanningManagement\createMealPlanning-controller.js" />
     <Content Include="Src\App\MealPlanningManagement\mealPlanningManagement-controller.js" />
@@ -415,6 +420,7 @@
     <Content Include="Src\App\SetMenuManagement\setMenuManagement.less" />
     <None Include="Src\App\Report\report.less" />
     <None Include="Src\App\GroupControl\groupControl.less" />
+    <None Include="Src\App\ManageUserInGroup\manageUserInGroup.less" />
     <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />

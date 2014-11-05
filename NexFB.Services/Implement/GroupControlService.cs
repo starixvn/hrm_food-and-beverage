@@ -15,6 +15,8 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Services;
     using NexFB.Criteria.GroupControl;
     using NexFB.Models.GroupControl;
+    using NexFB.Repositories.Implement;
+    using NexFB.Repositories.Interface;
     using NexFB.Services.Interface;
 
     /// <summary>
@@ -22,6 +24,18 @@ namespace NexFB.Services.Implement
     /// </summary>
     public class GroupControlService : BaseService, IGroupControlService
     {
+        private readonly IGroupControlRepository _groupControlRepository;
+
+         public GroupControlService()
+            : this(null)
+        {
+        }
+
+         public GroupControlService(IGroupControlRepository groupControlRepository)
+        {
+            _groupControlRepository = groupControlRepository ?? new GroupControlRepository();
+        }
+
         public IEnumerable<GroupModel> GetGroup(GetGroupCriteria criteria)
         {
             return GetData<GroupModel>(criteria);
@@ -69,6 +83,23 @@ namespace NexFB.Services.Implement
             }
 
             return commandResult;
+        }
+
+        public IEnumerable<MemberModel> GetMember(GetMemberCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            return _groupControlRepository.GetMember(criteria);
+        }
+
+        public CommandResult InsertMember(InsertMemberCriteria criteria)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public CommandResult RemoveMember(RemoveMemberCriteria criteria)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

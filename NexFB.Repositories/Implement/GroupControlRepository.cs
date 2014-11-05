@@ -38,5 +38,43 @@ namespace NexFB.Repositories.Implement
                 }
             }
         }
+
+        /// <summary>
+        /// Get groups.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The group list.</returns>
+        public IEnumerable<MemberModel> GetMember(ICriteria criteria)
+        {
+            var members = new List<MemberModel>();
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    IList<dynamic> rawMembers = multi.Read<dynamic>().ToList();
+                    IList<dynamic> rawGroups = multi.Read<dynamic>().ToList();
+
+                    foreach (var member in rawMembers)
+                    {
+                        var groups = rawGroups.Where(t => t.SysID == member.SysID).ToList();
+
+                        members.Add(new MemberModel
+                            {
+                                SysId = member.SysID,
+                                EmpId = member.EmpId,
+                                DepartmentId = member.DepartmentID,
+                                DepartmentName = member.DepartmentName,
+                                Fullname = member.FullName,
+                                Nickname = member.NickName,
+                                GroupIds = groups.Select(t => t.GroupID).Cast<int?>(),
+                                GroupNames = groups.Select(t => t.GroupName).Cast<string>(),
+                                JoinedDate = member.JoinedDate
+                            });
+                    }
+                }
+            }
+
+            return members;
+        }
     }
 }

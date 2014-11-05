@@ -20,16 +20,10 @@ namespace NexFB.Criteria.GroupControl
 
         public string GroupID { get; set; }
 
-        public GetGroupCriteria()
-        {
-            
-        }
-
         public override string GetSettingKey()
         {
             return "GroupOrderAdmin_GetGroup";
         }
-
 
         public override bool IsValid()
         {

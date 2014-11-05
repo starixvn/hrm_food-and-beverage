@@ -58,6 +58,7 @@
     <Compile Include="FoodMealPlanning\MealPlanningModel.cs" />
     <Compile Include="FoodMenuManagement\FoodMenuModel.cs" />
     <Compile Include="GroupControl\GroupModel.cs" />
+    <Compile Include="GroupControl\MemberModel.cs" />
     <Compile Include="Kitchen\EmployeeInGroup.cs" />
     <Compile Include="Kitchen\FoodOrder.cs" />
     <Compile Include="Kitchen\GroupOrder.cs" />

@@ -1,17 +1,8 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="DeleteFoodMenuByMenuIdCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/29/2014 11:08:42 AM">Created.</change>
-// </history>
-
-using System;
-using Fanex.Data.Repository;
-
-namespace NexFB.Criteria.GroupControl
+﻿namespace NexFB.Criteria.GroupControl
 {
+    using System;
+    using Fanex.Data.Repository;
+
     /// <summary>
     /// Delete food menu by menu Id criteria.
     /// </summary>

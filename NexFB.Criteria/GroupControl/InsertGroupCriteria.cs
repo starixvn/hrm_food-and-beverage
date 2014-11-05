@@ -1,19 +1,10 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="InsertFoodMenuCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/26/2014 2:36:27 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.GroupControl
+﻿namespace NexFB.Criteria.GroupControl
 {
     using System;
     using Fanex.Data.Repository;
 
     /// <summary>
-    /// Insert food menu criteria.
+    /// Insert group criteria.
     /// </summary>
     public class InsertGroupCriteria : CriteriaBase
     {

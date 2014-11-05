@@ -1,16 +1,8 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="UserControlController.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/26/2014 2:04:39 PM">Created.</change>
-// </history>
-
-namespace NexFB.Site.Controllers.API
+﻿namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
@@ -28,7 +20,8 @@ namespace NexFB.Site.Controllers.API
     /// </summary>
     public class GroupControlController : BaseController
     {
-        private IGroupControlService _groupControlService;
+        private readonly IGroupControlService _groupControlService;
+
         private readonly IWebCommonService _webCommonService;
 
         public GroupControlController()
@@ -42,6 +35,17 @@ namespace NexFB.Site.Controllers.API
         {
             _groupControlService = groupControlService ?? new GroupControlService();
             _webCommonService = webCommonService ?? new WebCommonService();
+        }
+
+        #region Manage Group
+
+        public IEnumerable<object> GetAllGroup()
+        {
+            var criteria = new GetGroupCriteria();
+
+            var groups = _groupControlService.GetGroup(criteria);
+
+            return groups.Select(t => new { t.GroupId, t.GroupName });
         }
 
         [ApiAuthorize(FunctionKey = FBFunctionKey.ManageGroup, Policy = Policy.Read)]
@@ -99,6 +103,40 @@ namespace NexFB.Site.Controllers.API
             }
 
             return _groupControlService.UpdateGroup(criteria);
+        } 
+
+        #endregion
+
+        #region Manage User In Group
+
+        [ApiAuthorize(FunctionKey = FBFunctionKey.ManageUserInGroup, Policy = Policy.Read)]
+        public IEnumerable<MemberModel> GetMember(
+            string departmentId = null,
+            string employeeTypeId = null,
+            string query = null,
+            string groupId = null,
+            DateTime? joinedDateFrom = null,
+            DateTime? joinedDateTo = null)
+        {
+            var criteria = new GetMemberCriteria
+                {
+                    DepartmentId = departmentId,
+                    EmployeeTypeId = employeeTypeId,
+                    Query = query,
+                    GroupId = groupId,
+                    JoinedDateFrom = joinedDateFrom,
+                    JoinedDateTo = joinedDateTo
+                };
+
+            return _groupControlService.GetMember(criteria);
         }
+
+        public int GetUserPermissionOnManageUserInGroup()
+        {
+            int policy = _webCommonService.GetPermission(FBFunctionKey.ManageUserInGroup);
+            return policy;
+        }
+
+        #endregion
     }
 }

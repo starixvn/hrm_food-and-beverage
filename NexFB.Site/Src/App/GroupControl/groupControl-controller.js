@@ -55,8 +55,6 @@ function ($scope, $modal, $route, commonFactory, groupControlFactory, notificati
         }
     });
 
-
-
     /*
     ** Get user permission on food menu.
     */
@@ -124,7 +122,7 @@ function ($scope, $modal, $route, commonFactory, groupControlFactory, notificati
     };
 
     /*
-    ** Delete food menu.
+    ** Delete group.
     */
     var updatePaging = function (group, currentPage) {
         var index = $scope.groups.indexOf(group);

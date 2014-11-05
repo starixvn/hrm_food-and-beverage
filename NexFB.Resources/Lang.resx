@@ -744,4 +744,13 @@
   <data name="Total" xml:space="preserve">
     <value>Total</value>
   </data>
+  <data name="AllEmployeeTypes" xml:space="preserve">
+    <value>All Employee Types</value>
+  </data>
+  <data name="AssignMemberToGroup" xml:space="preserve">
+    <value>Assign Member To Group</value>
+  </data>
+  <data name="UserGroupManagementUser" xml:space="preserve">
+    <value>User Group Management  - User</value>
+  </data>
 </root>
