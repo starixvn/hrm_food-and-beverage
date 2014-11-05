@@ -61,7 +61,7 @@ namespace NexFB.Repositories.Implement
             foreach (dynamic mealId in rawMealIds)
             {
                 IEnumerable<dynamic> rawMeals = rawReport.Where(x => x.MealID == mealId);
-                MealMonthModel meal = GetMealItemInMonth(rawMeals);
+                MealMonthModel meal = CreateMealInMonth(rawMeals);
 
                 meals.Add(meal);
             }
@@ -74,7 +74,7 @@ namespace NexFB.Repositories.Implement
         /// </summary>
         /// <param name="rawMeals">The enumerator of meal items.</param>
         /// <returns>The meal in month.</returns>
-        private MealMonthModel GetMealItemInMonth(IEnumerable<dynamic> rawMeals)
+        private MealMonthModel CreateMealInMonth(IEnumerable<dynamic> rawMeals)
         {
             var mealReport = new MealMonthModel();
 

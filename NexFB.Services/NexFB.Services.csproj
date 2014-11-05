@@ -52,9 +52,11 @@
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\AlternativeMenuService.cs" />
+    <Compile Include="Implement\ReportService.cs" />
     <Compile Include="Implement\SetMenuService.cs" />
     <Compile Include="Implement\FoodItemService.cs" />
     <Compile Include="Implement\FoodMenuService.cs" />
@@ -65,6 +67,7 @@
     <Compile Include="Implement\ShiftMealMappingService.cs" />
     <Compile Include="Implement\SideDishService.cs" />
     <Compile Include="Implement\SmartCardOrderService.cs" />
+    <Compile Include="Interface\IReportService.cs" />
     <Compile Include="Interface\ISetMenuService.cs" />
     <Compile Include="Interface\IAlternativeMenuService.cs" />
     <Compile Include="Interface\IFoodItemService.cs" />

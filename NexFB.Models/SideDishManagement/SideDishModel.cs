@@ -34,7 +34,7 @@ namespace NexFB.Models.SideDishManagement
         {
             get
             {
-                return FoodVnmName;
+                return FoodEngName;
             }
         }
 

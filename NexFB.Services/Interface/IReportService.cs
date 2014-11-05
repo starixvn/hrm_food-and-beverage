@@ -1,0 +1,22 @@
+﻿// ----------------------------------------------------------------------
+// <copyright file="IReportService.cs" company="Nexcel Solutions Viet Nam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// ------------------------------------------------------------------------
+// <history>
+//   <change who="Josh.Phan" date="11/5/2014 8:56:49 AM">Created.</change>
+// </history>
+
+namespace NexFB.Services.Interface
+{
+    using NexFB.Criteria.Report;
+    using NexFB.Models.Report.MonthlyMainDishReportLocal;
+
+    /// <summary>
+    /// The interface of report service.
+    /// </summary>
+    public interface IReportService
+    {
+        MonthlyLocalReportModel GetMonthlyMainDishReportLocal(GetMonthlyMainDishReportLocalCriteria criteria);
+    }
+}
