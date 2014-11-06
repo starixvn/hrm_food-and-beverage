@@ -72,6 +72,8 @@ namespace NexFB.Site
                 "~/Src/App/SideDishManagement/sideDishManagement.less",
                 "~/Src/App/AlternativeMenuManagement/alternativeMenuManagement.less",
                 "~/Src/App/ShiftMealMapping/shiftMealMapping.less",
+                "~/Src/App/GroupControl/groupControl.less",
+                "~/Src/App/ManageUserInGroup/manageUserInGroup.less",
                 "~/Src/App/Report/report.less");
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(

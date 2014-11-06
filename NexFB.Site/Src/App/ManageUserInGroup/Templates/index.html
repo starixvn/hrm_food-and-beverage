@@ -16,19 +16,19 @@
             <div class="form-group">
                 <label data-translate="Group"></label>
                 <div class="sel-meal field selectbox">
-                    <div multi-select input-model="groupOptions" button-label="GroupId"
+                    <add-class-to-role-filter multi-select input-model="groupOptions" button-label="GroupId"
                         helper-elements="all reset" item-label="GroupName" tick-property="ticked"
                         max-labels="0" class="multi-select">
-                    </div>
+                    </add-class-to-role-filter>
                 </div>
             </div>
             <div class="form-group">
                 <label data-translate="EmployeeType"></label>
                 <div class="sel-meal field selectbox">
-                    <div multi-select input-model="employeeTypeOptions" button-label="EmployeeTypeId"
+                    <add-class-to-role-filter multi-select input-model="employeeTypeOptions" button-label="EmployeeTypeId"
                         helper-elements="all reset" item-label="EmployeeTypeName" tick-property="ticked"
                         max-labels="0" class="multi-select employee-type">
-					</div>
+					</add-class-to-role-filter>
                 </div>
             </div>
             <br/>
@@ -73,7 +73,7 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr class="yellow-row" ng-show="members.length > 0">
+	            <tr ng-class="{selected: globalMember.SysId === selectedMember}" ng-show="pagedItems.length > 0" ng-click="selectMember(globalMember.SysId)">
 	                <td ng-bind="globalMember.Nickname">
 	                </td>
 	                <td class="text-center" ng-bind="globalMember.DepartmentName">
@@ -98,7 +98,7 @@
                         </div>
 	                </td>
 	            </tr>
-	            <tr ng-repeat="member in pagedItems[currentPage] track by member.SysId">
+	            <tr ng-class="{selected: member.SysId === selectedMember}" ng-repeat="member in pagedItems[currentPage] track by member.SysId" ng-click="selectMember(member.SysId)">
 	                <td ng-bind="member.Nickname">
 	                </td>
 	                <td class="text-center" ng-bind="member.DepartmentName">

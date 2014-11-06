@@ -5,6 +5,7 @@ manageUserInGroupModule.controller("ManageUserInGroupController",
 ['$scope', '$modal', '$route', '$log', '$routeParams', 'commonFactory', 'manageUserInGroupFactory', 'manageUserInGroupUtilities', 'notificationFactory', 'ErrorFactory',
 function ($scope, $modal, $route, $log, $routeParams, commonFactory, manageUserInGroupFactory, manageUserInGroupUtilities, notificationFactory, ErrorFactory) {
     var groupId = parseInt($routeParams.groupId, 10);
+    console.log(groupId);
 
     var originalFilter = {
         DepartmentId: '',
@@ -34,7 +35,7 @@ function ($scope, $modal, $route, $log, $routeParams, commonFactory, manageUserI
     $scope.HasEditing = false;
     $scope.globalMember = angular.copy(globalMember);
     $scope.filter = angular.copy(originalFilter);
-    $scope.filter.GroupId = groupId;
+    $scope.filter.GroupId = isNaN(groupId) ? '' : groupId;
 
     $scope.calendar = {
         startDateOpened: false
@@ -141,9 +142,8 @@ function ($scope, $modal, $route, $log, $routeParams, commonFactory, manageUserI
     manageUserInGroupFactory.getAllGroup().success(function (groups) {
         if (groups) {
             originalGroupOptions = angular.copy(groups);
-
             angular.forEach(groups, function (group) {
-                group.ticked = group.GroupId === groupId;
+                group.ticked = isNaN(groupId) ? false : group.GroupId === groupId;
             });
 
             globalMember.GroupOptions = angular.copy(originalGroupOptions);
@@ -300,7 +300,10 @@ function ($scope, $modal, $route, $log, $routeParams, commonFactory, manageUserI
             });
     };
 
-
-
     /*####### End: Assign Multiple Member ####*/
+
+    $scope.selectMember = function (SysId) {
+        console.log(SysId);
+        $scope.selectedMember = SysId;
+    };
 } ]);
