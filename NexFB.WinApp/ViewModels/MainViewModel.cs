@@ -44,7 +44,7 @@ namespace NexFB.WinApp.ViewModels
         {
             ////var allScreens = System.Windows.Forms.Screen.AllScreens;
             CurrentViewModel = new WaitingMealViewModel();
-            this.CheckCurrentViewModel();
+            this.CheckCurrentCulture();
             CheckCurrentViewModel();
             InitializeRelayCommand();
             InitializeHubConnection();

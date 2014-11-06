@@ -434,7 +434,7 @@ namespace NexFB.WinApp.ViewModels.Partials.Main
         /// Check Current Culture.
         /// </summary>
         /// <returns>Vietnamese or English culture.</returns>
-        private int CheckCurrentCulture()
+        public int CheckCurrentCulture()
         {
             string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
             if (string.IsNullOrEmpty(_defaultLanguage) || _defaultLanguage == Constant.DefaultCulture)
