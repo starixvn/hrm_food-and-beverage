@@ -15,12 +15,12 @@
             </div>
             <div class="form-group">
                 <label data-translate="Group"></label>
-                <add-class-to-role-filter class="sel-meal field selectbox">
-                    <div multi-select input-model="groupOptions" button-label="GroupId"
+                <div class="sel-meal field selectbox">
+                    <add-class-to-role-filter multi-select input-model="groupOptions" button-label="GroupId"
                         helper-elements="all reset" item-label="GroupName" tick-property="ticked"
                         max-labels="0" class="multi-select">
-                    </div>
-                </add-class-to-role-filter>
+                    </add-class-to-role-filter>
+                </div>
             </div>
             <div class="form-group">
                 <label data-translate="EmployeeType"></label>
@@ -84,14 +84,18 @@
 	                    <div class="view-mode" ng-show="!globalMember.IsEditing" style="text-align: center">
 	                        --- <a title="Assign All Members To Group" href="javascript:void(0);" class="glyphicon glyphicon-edit" ng-click="editMultipleMembers()"></a>
 	                    </div>
-                        <div class="field selectbox" ng-show="globalMember.IsEditing">
-                            <div multi-select input-model="globalMember.GroupOptions" button-label="GroupId"
-                                 helper-elements="all reset" item-label="GroupName" tick-property="ticked"
-                                 max-labels="0" class="multi-select" on-item-click="changeSelectedGroup(globalMember.GroupOptions)">
+                        <div ng-show="globalMember.IsEditing">
+                            <div class="field selectbox" >
+                                <add-class-to-role-filter multi-select input-model="globalMember.GroupOptions" button-label="GroupId"
+                                        helper-elements="all reset" item-label="GroupName" tick-property="ticked"
+                                        max-labels="0" class="multi-select" on-item-click="changeSelectedGroup(globalMember.GroupOptions)">
+                                </add-class-to-role-filter>
                             </div>
-                            <a class="glyphicon glyphicon-ok" href="javascript:void(0)" ng-show="globalMember.IsEditing" ng-click="assignMultipleMembers()"></a>
-	                        <a class="glyphicon glyphicon-remove icon-remove" href="javascript:void(0)" ng-show="globalMember.IsEditing" ng-click="cancelAssignMultipleMembers()"></a>
-	                    </div>
+                            <div>
+                                <a class="glyphicon glyphicon-ok" href="javascript:void(0)" ng-show="globalMember.IsEditing" ng-click="assignMultipleMembers()"></a>
+                                <a class="glyphicon glyphicon-remove icon-remove" href="javascript:void(0)" ng-show="globalMember.IsEditing" ng-click="cancelAssignMultipleMembers()"></a>
+                            </div>
+                        </div>
 	                </td>
 	            </tr>
 	            <tr ng-repeat="member in pagedItems[currentPage] track by member.SysId">
@@ -108,14 +112,18 @@
 	                        </ul>
 	                        <a title="Assign Member To Group" href="javascript:void(0);" class="glyphicon glyphicon-edit" ng-click="editMember(member)"></a>
 	                    </div>
-	                    <div class="field selectbox" ng-show="member.IsEditing">
-	                        <div multi-select input-model="member.GroupOptions" button-label="GroupId"
-	                             helper-elements="all reset" item-label="GroupName" tick-property="ticked"
-	                             max-labels="0" class="multi-select">
-	                        </div>
-                            <a class="glyphicon glyphicon-ok" href="" ng-show="member.IsEditing" ng-click="assignMember(member)"></a>
-	                        <a class="glyphicon glyphicon-remove icon-remove" ng-show="member.IsEditing" href="" ng-click="cancelAssignMember(member)"></a>
-	                    </div>
+                        <div ng-show="member.IsEditing">
+                            <div class="field selectbox">
+                                <add-class-to-role-filter multi-select input-model="member.GroupOptions" button-label="GroupId"
+                                     helper-elements="all reset" item-label="GroupName" tick-property="ticked"
+                                     max-labels="0" class="multi-select">
+                                </add-class-to-role-filter>
+                            </div>
+                            <div>
+                                    <a class="glyphicon glyphicon-ok" href="" ng-show="member.IsEditing" ng-click="assignMember(member)"></a>
+                                    <a class="glyphicon glyphicon-remove icon-remove" ng-show="member.IsEditing" href="" ng-click="cancelAssignMember(member)"></a>
+                            </div>
+                        </div>
 	                </td>
 	            </tr>
 	            <tr ng-show="members.length == 0">

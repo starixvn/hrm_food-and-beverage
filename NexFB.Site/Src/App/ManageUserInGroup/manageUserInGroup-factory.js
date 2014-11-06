@@ -17,16 +17,10 @@ manageUserInGroupModule.factory('manageUserInGroupFactory', ['$http', function (
 		},
         getUserPermissionOnManageUserInGroup: function () {
             return $http.get('/api/GroupControl/GetUserPermissionOnManageUserInGroup');
-        }
-//      deleteGroup: function (groupId) {
-//			return $http['delete']('/api/GroupControl/DeleteGroup', { params: { groupId: groupId} });
-//		},
-//        insertGroup: function (group) {
-//			return $http.post('/api/GroupControl/InsertGroup', group);
-//		},
-//        updateGroup: function (group) {
-//			return $http.put('/api/GroupControl/UpdateGroup', group);
-//		}
+        },
+        assignMemberToGroup: function (filter) {
+			return $http.post('/api/GroupControl/AssignMemberToGroup', filter);
+		}
     };
 } ]);
 
@@ -47,17 +41,29 @@ function (notificationFactory) {
         return employeeTypeIds.join(',');
     };
 
-    utility.getGroupId = function (groupOptions) {
-        var groupIds = [];
+    utility.getSelectedGroups = function (groupOptions) {
+        var groups = [];
 
         angular.forEach(groupOptions, function (value) {
             if (value.ticked) {
-                groupIds.push(value.GroupId);
+                groups.push({
+                    GroupId: value.GroupId,
+                    GroupName: value.GroupName
+                });
 
             }
         });
 
-        return groupIds.join(',');
+        return groups;
+    };
+
+    utility.getGroupIds = function(groups) {
+        var groupIds = [];
+        angular.forEach(groups, function(group) {
+            groupIds.push(group.GroupId);
+        });
+
+        return groupIds;
     };
 
     return utility;

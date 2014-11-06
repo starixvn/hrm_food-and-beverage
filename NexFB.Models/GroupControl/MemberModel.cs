@@ -29,10 +29,8 @@ namespace NexFB.Models.GroupControl
 
         public string DepartmentName { get; set; }
 
-        public IEnumerable<int?> GroupIds { get; set; }
-
-        public IEnumerable<string> GroupNames { get; set; }
-
         public DateTime? JoinedDate { get; set; }
+
+        public IEnumerable<dynamic> AssignedGroups { get; set; }
     }
 }

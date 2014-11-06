@@ -66,8 +66,11 @@ namespace NexFB.Repositories.Implement
                                 DepartmentName = member.DepartmentName,
                                 Fullname = member.FullName,
                                 Nickname = member.NickName,
-                                GroupIds = groups.Select(t => t.GroupID).Cast<int?>(),
-                                GroupNames = groups.Select(t => t.GroupName).Cast<string>(),
+                                AssignedGroups = groups.Select(t => new
+                                    {
+                                        GroupId = t.GroupID == null ? null : int.Parse(t.GroupID.ToString()),
+                                        GroupName = t.GroupName
+                                    }).ToList(),
                                 JoinedDate = member.JoinedDate
                             });
                     }

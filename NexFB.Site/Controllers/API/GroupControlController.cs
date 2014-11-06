@@ -13,6 +13,7 @@ namespace NexFB.Site.Controllers.API
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Text;
     using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
@@ -173,6 +174,52 @@ namespace NexFB.Site.Controllers.API
         {
             int policy = _webCommonService.GetPermission(FBFunctionKey.ManageUserInGroup);
             return policy;
+        }
+
+        [ApiAuthorize(FunctionKey = FBFunctionKey.ManageGroup, Policy = Policy.Host)]
+        [HttpPost]
+        public CommandResult AssignMemberToGroup(InsertMemberCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                TransformXmlPara(criteria);
+                criteria.ModifiedBy = CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _groupControlService.AssignMemberToGroup(criteria);
+        }
+
+        /// <summary>
+        /// Transform xml para for criteria.
+        /// </summary>
+        /// <param name="criteria">Input criteria.</param>
+        private void TransformXmlPara(InsertMemberCriteria criteria)
+        {
+            var sysIds = criteria.SysIds.Split(';').ToList();
+            var rawGroupIds = criteria.GroupIds.Split(';').ToList();
+
+            var document = new StringBuilder();
+            document.Append("<ROOT>");
+
+            if (sysIds.Count > 0 && sysIds.Count == rawGroupIds.Count)
+            {
+                var length = sysIds.Count;
+
+                for (int i = 0; i < length; i++)
+                {
+                    var groups = rawGroupIds[i].Split(',').ToList();
+
+                    foreach (var group in groups)
+                    {
+                        document.AppendFormat("<User SysId='{0}' GroupId='{1}'></User>", sysIds[i], group);
+                    }
+                }
+            }
+
+            document.Append("</ROOT>");
+
+            criteria.MemberId = document.ToString();
         }
 
         #endregion

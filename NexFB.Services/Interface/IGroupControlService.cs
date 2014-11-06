@@ -29,6 +29,6 @@ namespace NexFB.Services.Interface
 
         IEnumerable<MemberModel> GetMember(GetMemberCriteria criteria);
 
-        CommandResult InsertMember(InsertMemberCriteria criteria);
+        CommandResult AssignMemberToGroup(InsertMemberCriteria criteria);
     }
 }

@@ -107,9 +107,23 @@ namespace NexFB.Services.Implement
             return _groupControlRepository.GetMember(criteria);
         }
 
-        public CommandResult InsertMember(InsertMemberCriteria criteria)
+        /// <summary>
+        /// Assign member to group.
+        /// </summary>
+        /// <param name="criteria">Criteria input.</param>
+        /// <returns>Command result.</returns>
+        public CommandResult AssignMemberToGroup(InsertMemberCriteria criteria)
         {
-            throw new System.NotImplementedException();
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            var commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Insert(criteria);
+            }
+
+            return commandResult;
         }
     }
 }

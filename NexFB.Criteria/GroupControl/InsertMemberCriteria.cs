@@ -17,9 +17,20 @@ namespace NexFB.Criteria.GroupControl
     /// </summary>
     public class InsertMemberCriteria : CriteriaBase
     {
+        public InsertMemberCriteria()
+        {
+            GroupIds = string.Empty;
+
+            SysIds = string.Empty;
+        }
+
         public string MemberId { get; set; }
 
-        public int GroupId { get; set; }
+        [SpParam(Ignored = true)]
+        public string SysIds { get; set; }
+
+        [SpParam(Ignored = true)]
+        public string GroupIds { get; set; }
 
         public int ModifiedBy { get; set; }
 
@@ -29,10 +40,10 @@ namespace NexFB.Criteria.GroupControl
         {
             return "GroupOrderAdmin_InsertMember";
         }
-
+        
         public override bool IsValid()
         {
-            return GroupId > 0;
+            return !string.IsNullOrEmpty(MemberId);
         }
     }
 }
