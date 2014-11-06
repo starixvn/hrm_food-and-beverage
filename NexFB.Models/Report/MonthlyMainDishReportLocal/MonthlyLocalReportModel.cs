@@ -24,6 +24,8 @@ namespace NexFB.Models.Report.MonthlyMainDishReportLocal
 
         public DateTime Month { get; set; }
 
+        public bool IsGroupByEmployee { get; set; }
+
         public List<MealMonthModel> Meals { get; set; }
 
         public MealDayOfMonthModel Total { get; set; }

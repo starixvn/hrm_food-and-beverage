@@ -328,5 +328,23 @@ namespace NexFB.Services.Implement
 
             return result;
         }
+
+        /// <summary>
+        /// Get last modified date order Id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The order contains last modified date.</returns>
+        public MealOrderingModel GetLastModifiedDateByOrderId(GetLastMofifiedDateByOrderIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var order = new MealOrderingModel();
+
+            if (criteria.IsValid())
+            {
+                order = GetDataEntity<MealOrderingModel>(criteria);
+            }
+
+            return order;
+        }
     }
 }

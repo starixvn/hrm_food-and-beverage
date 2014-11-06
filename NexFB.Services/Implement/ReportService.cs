@@ -10,6 +10,7 @@
 namespace NexFB.Services.Implement
 {
     using Fanex.Common.Helper;
+    using NexFB.Core.Enums;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Repositories.Implement;
@@ -46,6 +47,8 @@ namespace NexFB.Services.Implement
             if (criteria.IsValid())
             {
                 report = _reportRepository.GetMonthlyMainDishReportLocal(criteria);
+                report.Month = criteria.ReportDate;
+                report.IsGroupByEmployee = criteria.GroupBy == (int)GroupByReport.Employee;
             }
 
             return report;

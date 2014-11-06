@@ -753,4 +753,7 @@
   <data name="UserGroupManagementUser" xml:space="preserve">
     <value>User Group Management  - User</value>
   </data>
+  <data name="OrderChangeWarning" xml:space="preserve">
+    <value>Order changed! Please refresh the page before submitting your action.</value>
+  </data>
 </root>

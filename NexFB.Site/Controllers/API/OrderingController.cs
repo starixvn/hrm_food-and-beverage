@@ -332,5 +332,16 @@ namespace NexFB.Site.Controllers.API
             CommandResult result = _orderService.UpdateOrderSideDish(criteria);
             return result;
         }
+
+        public MealOrderingModel GetLastModifiedDateByOrderId(int orderId)
+        {
+            var criteria = new GetLastMofifiedDateByOrderIdCriteria
+            {
+                OrderId = orderId
+            };
+
+            MealOrderingModel order = _orderService.GetLastModifiedDateByOrderId(criteria);
+            return order;
+        }
     }
 }

@@ -3,12 +3,13 @@
 
 orderingModule.controller('EditOrderController',
 ['$scope', '$modalInstance', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory',
-'orderId', 'locations', '$translate', 'commonFactory', 'ErrorFactory', 'orderingUtilities',
+'orderId', 'locations', '$translate', 'commonFactory', 'ErrorFactory', 'orderingUtilities', 'startTime',
 function ($scope, $modalInstance, $modal, orderingFactory, orderingService, notificationFactory,
-	orderId, locations, $translate, commonFactory, ErrorFactory, orderingUtilities) {
+	orderId, locations, $translate, commonFactory, ErrorFactory, orderingUtilities, startTime) {
 
 	$scope.newMember = {};
 	$scope.alterEdit = {};
+	$scope.startTime = startTime;
 
 	$scope.getMessage = function () {
 		$translate('ConfirmMessageUpdateOrder').then(function (message) {
@@ -128,44 +129,58 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		});
 
 		$scope.modalConfirmSaveEditInstance.result.then(function () {
-			if (!order.IsSideDishOrder) {
-				orderingFactory.editOrder(order).success(function (response) {
-					if (response.IsSuccessful) {
-						notificationFactory.success("DataChangeSuccessfully");
-						var returnObject = {
-							order: order,
-							isDeleted: false,
-							orderId: 0
-						};
-						$modalInstance.close(returnObject);
+
+			orderingFactory.getLastModifiedDateByOrderId(order.OrderId).success(function (lastOrder) {
+				var lastModifiedDate = lastOrder.ModifiedDate != null ? new Date(lastOrder.ModifiedDate + 'Z') : '',
+					timeValid = orderingUtilities.checkModifiedDate($scope.startTime, lastModifiedDate);
+
+				if (timeValid) {
+					if (!order.IsSideDishOrder) {
+						orderingFactory.editOrder(order).success(function (response) {
+							if (response.IsSuccessful) {
+								notificationFactory.success("DataChangeSuccessfully");
+								var returnObject = {
+									order: order,
+									isDeleted: false,
+									orderId: 0
+								};
+								$modalInstance.close(returnObject);
+							}
+							else {
+								notificationFactory.error('', response.Message);
+							}
+						})
+						.error(function (response, status) {
+							ErrorFactory.errorHandle(status);
+						});
 					}
 					else {
-						notificationFactory.error('', response.Message);
+						orderingFactory.editOrderSideDish(order).success(function (response) {
+							if (response.IsSuccessful) {
+								notificationFactory.success("DataChangeSuccessfully");
+								var returnObject = {
+									order: order,
+									isDeleted: false,
+									orderId: 0
+								};
+								$modalInstance.close(returnObject);
+							}
+							else {
+								notificationFactory.error('', response.Message);
+							}
+						})
+						.error(function (response, status) {
+							ErrorFactory.errorHandle(status);
+						});
 					}
-				})
-				.error(function (response, status) {
-					ErrorFactory.errorHandle(status);
-				});
-			}
-			else {
-				orderingFactory.editOrderSideDish(order).success(function (response) {
-					if (response.IsSuccessful) {
-						notificationFactory.success("DataChangeSuccessfully");
-						var returnObject = {
-							order: order,
-							isDeleted: false,
-							orderId: 0
-						};
-						$modalInstance.close(returnObject);
-					}
-					else {
-						notificationFactory.error('', response.Message);
-					}
-				})
-				.error(function (response, status) {
-					ErrorFactory.errorHandle(status);
-				});
-			}
+				}
+				else {
+					notificationFactory.error("OrderChangeWarning");
+				}
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
+
 		});
 	};
 
@@ -249,6 +264,14 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 
 		if ($scope.modalAddMemberInstance) {
 			$scope.modalAddMemberInstance.dismiss('cancel');
+		}
+
+		if ($scope.modalInstance) {
+			$scope.modalInstance.dismiss('cancel');
+		}
+
+		if ($scope.modalConfirmAlternativeMenuInstance) {
+			$scope.modalConfirmAlternativeMenuInstance.dismiss('cancel');
 		}
 	});
 
@@ -392,6 +415,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/app/Ordering/Templates/SelectSideDish.html',
 			controller: "SelectSideDishController",
+			backdrop: 'static',
 			resolve: {
 				member: function () {
 					return angular.copy(member);
@@ -403,7 +427,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		$scope.modalInstance.result.then(function (menus) {
 			member.Menus = menus;
 		})['finally'](function () {
-			$scope.modalInstance = '';
+			$scope.modalInstance = undefined;
 		});
 	};
 

@@ -252,6 +252,14 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			if ($scope.modalAddMemberInstance) {
 				$scope.modalAddMemberInstance.dismiss('cancel');
 			}
+
+			if ($scope.modalConfirmAlternativeMenuInstance) {
+				$scope.modalConfirmAlternativeMenuInstance.dismiss('cancel');
+			}
+
+			if ($scope.modalInstance) {
+				$scope.modalInstance.dismiss('cancel');
+			}
 		});
 
 		$scope.ValidateNewOrder = function (order, isSideDishOrder) {
@@ -427,6 +435,9 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 						},
 						locations: function () {
 							return $scope.locations;
+						},
+						startTime: function () {
+							return new Date();
 						}
 					}
 				});
@@ -633,6 +644,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/app/Ordering/Templates/SelectSideDish.html',
 			controller: "SelectSideDishController",
+			backdrop: 'static',
 			resolve: {
 				member: function () {
 					return angular.copy(member);
@@ -644,7 +656,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		$scope.modalInstance.result.then(function (menus) {
 			member.Menus = menus;
 		})['finally'](function () {
-			$scope.modalInstance = '';
+			$scope.modalInstance = undefined;
 		});
 	};
 

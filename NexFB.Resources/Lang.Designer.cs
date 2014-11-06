@@ -1366,6 +1366,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order changed! Please refresh the page before submitting your action..
+        /// </summary>
+        public static string OrderChangeWarning {
+            get {
+                return ResourceManager.GetString("OrderChangeWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order meal.
         /// </summary>
         public static string OrderMeal {

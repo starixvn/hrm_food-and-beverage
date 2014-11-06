@@ -43,5 +43,7 @@ namespace NexFB.Services.Interface
         CommandResult InsertOrderSideDish(InsertOrderSideDishCriteria criteria);
 
         CommandResult UpdateOrderSideDish(UpdateOrderSideDishCriteria criteria);
+
+        MealOrderingModel GetLastModifiedDateByOrderId(GetLastMofifiedDateByOrderIdCriteria criteria);
     }
 }

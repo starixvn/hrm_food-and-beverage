@@ -91,16 +91,11 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 	});
 
 	$scope.getTeamByCompany = function (departmentId) {
-		if (departmentId) {
-			userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
-				$scope.teamOptions = teams;
-			}).error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			});
-		}
-		else {
-			$scope.teamOptions = '';
-		}
+		userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
+			$scope.teamOptions = teams;
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
 
 		$scope.filter.teamId = '';
 	};

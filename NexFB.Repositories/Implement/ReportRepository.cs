@@ -293,51 +293,132 @@ namespace NexFB.Repositories.Implement
         private List<int> GetNumberMealsInMonth(dynamic rawWeekDay)
         {
             var numberMeals = new List<int>();
+
+            numberMeals = GetNumberMealsFirstWeek(rawWeekDay, numberMeals);
+            numberMeals = GetNumberMealsSecondWeek(rawWeekDay, numberMeals);
+            numberMeals = GetNumberMealsThridWeek(rawWeekDay, numberMeals);
+            numberMeals = GetNumberMealsFourthWeek(rawWeekDay, numberMeals);
+            numberMeals = GetNumberMealsFifthWeek(rawWeekDay, numberMeals);
+
+            return numberMeals;
+        }
+
+        /// <summary>
+        /// Get number meals of first week in month.
+        /// </summary>
+        /// <param name="rawWeekDay">The data of meal item.</param>
+        /// <param name="numberMeals">The list number meals of day in month.</param>
+        /// <returns>The list number meals contain number meals of first week.</returns>
+        private List<int> GetNumberMealsFirstWeek(dynamic rawWeekDay, List<int> numberMeals)
+        {
             numberMeals.Add(rawWeekDay.D1);
             numberMeals.Add(rawWeekDay.D2);
             numberMeals.Add(rawWeekDay.D3);
             numberMeals.Add(rawWeekDay.D4);
             numberMeals.Add(rawWeekDay.D5);
-            ////numberMeals.Add(rawWeekDay.D6);
-            ////numberMeals.Add(rawWeekDay.D7);
-            ////numberMeals.Add(rawWeekDay.D8);
-            ////numberMeals.Add(rawWeekDay.D9);
-            ////numberMeals.Add(rawWeekDay.D10);
-            ////numberMeals.Add(rawWeekDay.D11);
-            ////numberMeals.Add(rawWeekDay.D12);
-            ////numberMeals.Add(rawWeekDay.D13);
-            ////numberMeals.Add(rawWeekDay.D14);
-            ////numberMeals.Add(rawWeekDay.D15);
-            ////numberMeals.Add(rawWeekDay.D16);
-            ////numberMeals.Add(rawWeekDay.D17);
-            ////numberMeals.Add(rawWeekDay.D18);
-            ////numberMeals.Add(rawWeekDay.D19);
-            ////numberMeals.Add(rawWeekDay.D20);
-            ////numberMeals.Add(rawWeekDay.D21);
-            ////numberMeals.Add(rawWeekDay.D22);
-            ////numberMeals.Add(rawWeekDay.D23);
-            ////numberMeals.Add(rawWeekDay.D24);
-            ////numberMeals.Add(rawWeekDay.D25);
-            ////numberMeals.Add(rawWeekDay.D26);
-            ////numberMeals.Add(rawWeekDay.D27);
-            ////numberMeals.Add(rawWeekDay.D28);
-            ////int? day29 = rawWeekDay.D29;
-            ////if (day29.HasValue)
-            ////{
-            ////    numberMeals.Add((int)day29);
-            ////}
+            numberMeals.Add(rawWeekDay.D6);
+            numberMeals.Add(rawWeekDay.D7);
 
-            ////int? day30 = rawWeekDay.D30;
-            ////if (day30.HasValue)
-            ////{
-            ////    numberMeals.Add((int)day30);
-            ////}
+            return numberMeals;
+        }
 
-            ////int? day31 = rawWeekDay.D31;
-            ////if (day31.HasValue)
-            ////{
-            ////    numberMeals.Add((int)day31);
-            ////}
+        /// <summary>
+        /// Get number meals of second week in month.
+        /// </summary>
+        /// <param name="rawWeekDay">The data of meal item.</param>
+        /// <param name="numberMeals">The list number meals of day in month.</param>
+        /// <returns>The list number meals contain number meals of second week.</returns>
+        private List<int> GetNumberMealsSecondWeek(dynamic rawWeekDay, List<int> numberMeals)
+        {
+            numberMeals.Add(rawWeekDay.D8);
+            numberMeals.Add(rawWeekDay.D9);
+            numberMeals.Add(rawWeekDay.D10);
+            numberMeals.Add(rawWeekDay.D11);
+            numberMeals.Add(rawWeekDay.D12);
+            numberMeals.Add(rawWeekDay.D13);
+            numberMeals.Add(rawWeekDay.D14);
+
+            return numberMeals;
+        }
+
+        /// <summary>
+        /// Get number meals of third week in month.
+        /// </summary>
+        /// <param name="rawWeekDay">The data of meal item.</param>
+        /// <param name="numberMeals">The list number meals of day in month.</param>
+        /// <returns>The list number meals contain number meals of third week.</returns>
+        private List<int> GetNumberMealsThridWeek(dynamic rawWeekDay, List<int> numberMeals)
+        {
+            numberMeals.Add(rawWeekDay.D15);
+            numberMeals.Add(rawWeekDay.D16);
+            numberMeals.Add(rawWeekDay.D17);
+            numberMeals.Add(rawWeekDay.D18);
+            numberMeals.Add(rawWeekDay.D19);
+            numberMeals.Add(rawWeekDay.D20);
+            numberMeals.Add(rawWeekDay.D21);
+
+            return numberMeals;
+        }
+
+        /// <summary>
+        /// Get number meals of fourth week in month.
+        /// </summary>
+        /// <param name="rawWeekDay">The data of meal item.</param>
+        /// <param name="numberMeals">The list number meals of day in month.</param>
+        /// <returns>The list number meals contain number meals of fourth week.</returns>
+        private List<int> GetNumberMealsFourthWeek(dynamic rawWeekDay, List<int> numberMeals)
+        {
+            numberMeals.Add(rawWeekDay.D22);
+            numberMeals.Add(rawWeekDay.D23);
+            numberMeals.Add(rawWeekDay.D24);
+            numberMeals.Add(rawWeekDay.D25);
+            numberMeals.Add(rawWeekDay.D26);
+            numberMeals.Add(rawWeekDay.D27);
+            numberMeals.Add(rawWeekDay.D28);
+
+            return numberMeals;
+        }
+
+        /// <summary>
+        /// Get number meals of fifth week in month.
+        /// </summary>
+        /// <param name="rawWeekDay">The data of meal item.</param>
+        /// <param name="numberMeals">The list number meals of day in month.</param>
+        /// <returns>The list number meals contain number meals of fifth week.</returns>
+        private List<int> GetNumberMealsFifthWeek(dynamic rawWeekDay, List<int> numberMeals)
+        {
+            int? day29 = rawWeekDay.D29;
+
+            if (day29.HasValue)
+            {
+                numberMeals.Add((int)day29);
+            }
+            else
+            {
+                numberMeals.Add(0);
+            }
+
+            int? day30 = rawWeekDay.D30;
+
+            if (day30.HasValue)
+            {
+                numberMeals.Add((int)day30);
+            }
+            else
+            {
+                numberMeals.Add(0);
+            }
+
+            int? day31 = rawWeekDay.D31;
+
+            if (day31.HasValue)
+            {
+                numberMeals.Add((int)day31);
+            }
+            else
+            {
+                numberMeals.Add(0);
+            }
 
             return numberMeals;
         }
