@@ -533,7 +533,16 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     AddFoodEnable = true;
                 }
 
+                UpdateOrderNo();
                 DisplayTotalPrice();
+            }
+        }
+
+        private void UpdateOrderNo()
+        {
+            for (int i = 0; i < ObservableSideOrder.Count; i++)
+            {
+                ObservableSideOrder[i].OrderNo = i + 1;
             }
         }
 

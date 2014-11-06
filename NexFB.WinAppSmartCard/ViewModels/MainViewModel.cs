@@ -423,6 +423,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             this.MainTabReadOnly = false;
             OrderOwner = null;
+            IsMainDishTab = false;
             ExecuteMainDishesCommand();
             MainScreenVisible = ConstantValue.Hidden;
             StandbyScreenVisible = ConstantValue.Visible;
