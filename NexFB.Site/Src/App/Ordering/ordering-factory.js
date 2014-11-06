@@ -121,11 +121,18 @@ orderingModule.factory("orderingFactory",
 				orders.push(order);
 			}
 			else {
+				var smallest = true;
+
 				for (var i = 0; i < orders.length; i++) {
 					if (order.OrderId > orders[i].OrderId) {
 						orders.splice(i, 0, order);
 						i = orders.length;
+						smallest = false;
 					}
+				}
+
+				if (smallest) {
+					orders.push(order);
 				}
 			}
 
