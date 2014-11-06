@@ -71,7 +71,7 @@ namespace NexFB.Site.Controllers.API
         /// <param name="isActive">IsActive input.</param>
         /// <returns>Group list.</returns>
         [ApiAuthorize(FunctionKey = FBFunctionKey.ManageGroup, Policy = Policy.Read)]
-        public IEnumerable<GroupModel> GetGroup(string groupId, bool? isActive)
+        public IEnumerable<GroupModel> GetGroup(string groupId = null, bool? isActive = null)
         {
             var criteria = new GetGroupCriteria
                 {

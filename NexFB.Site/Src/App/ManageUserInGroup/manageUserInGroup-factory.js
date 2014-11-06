@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global groupControlModule*/
+/*global manageUserInGroupModule*/
 
 manageUserInGroupModule.factory('manageUserInGroupFactory', ['$http', function ($http) {
     return {
@@ -24,9 +24,8 @@ manageUserInGroupModule.factory('manageUserInGroupFactory', ['$http', function (
     };
 } ]);
 
-
 manageUserInGroupModule.factory('manageUserInGroupUtilities', ['notificationFactory',
-function (notificationFactory) {
+function () {
     var utility = {};
 
     utility.getEmployeeTypeId = function (employeeTypeOptions) {

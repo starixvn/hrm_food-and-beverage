@@ -245,9 +245,9 @@
     <Content Include="Src\App\GroupControl\groupControl-factory.js" />
     <Content Include="Src\App\GroupControl\groupControl-directive.js" />
     <Content Include="Src\App\GroupControl\groupControl-controller.js" />
-    <Content Include="Src\App\GroupControl\Templates\ManageGroup\edit.html" />
-    <Content Include="Src\App\GroupControl\Templates\ManageGroup\create.html" />
-    <Content Include="Src\App\GroupControl\Templates\ManageGroup\index.html" />
+    <Content Include="Src\App\GroupControl\Templates\edit.html" />
+    <Content Include="Src\App\GroupControl\Templates\create.html" />
+    <Content Include="Src\App\GroupControl\Templates\index.html" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup-controller.js" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup-directive.js" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup-factory.js" />

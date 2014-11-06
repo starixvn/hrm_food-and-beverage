@@ -79,7 +79,7 @@ function ($scope, $modal, $route, commonFactory, groupControlFactory, notificati
         $scope.originalPage = $scope.currentPage;
 
         $scope.modalInstance = $modal.open({
-            templateUrl: '/src/app/GroupControl/Templates/ManageGroup/create.html',
+            templateUrl: '/src/app/GroupControl/Templates/create.html',
             controller: "CreateGroupController",
             windowClass: "modal-confirm-center manage-group-modal"
         });
@@ -104,7 +104,7 @@ function ($scope, $modal, $route, commonFactory, groupControlFactory, notificati
 
     $scope.editGroup = function (group) {
         $scope.modalInstance = $modal.open({
-            templateUrl: '/src/app/GroupControl/Templates/ManageGroup/edit.html',
+            templateUrl: '/src/app/GroupControl/Templates/edit.html',
             controller: "EditGroupController",
             resolve: {
                 group: function () {

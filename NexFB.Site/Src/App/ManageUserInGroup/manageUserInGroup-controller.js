@@ -2,15 +2,17 @@
 /*global manageUserInGroupModule*/
 
 manageUserInGroupModule.controller("ManageUserInGroupController",
-['$scope', '$modal', '$route', '$log', 'commonFactory', 'manageUserInGroupFactory', 'manageUserInGroupUtilities', 'notificationFactory', 'ErrorFactory',
-function ($scope, $modal, $route, $log, commonFactory, manageUserInGroupFactory, manageUserInGroupUtilities, notificationFactory, ErrorFactory) {
+['$scope', '$modal', '$route', '$log', '$routeParams', 'commonFactory', 'manageUserInGroupFactory', 'manageUserInGroupUtilities', 'notificationFactory', 'ErrorFactory',
+function ($scope, $modal, $route, $log, $routeParams, commonFactory, manageUserInGroupFactory, manageUserInGroupUtilities, notificationFactory, ErrorFactory) {
+    var groupId = parseInt($routeParams.groupId, 10);
+
     var originalFilter = {
         DepartmentId: '',
         GroupId: '',
         EmployeeTypeId: '',
         JoinedDateFrom: '',
         JoinedDateTo: '',
-        Query: 'justin'
+        Query: ''
     };
 
     var originalGroupOptions = [];
@@ -32,6 +34,7 @@ function ($scope, $modal, $route, $log, commonFactory, manageUserInGroupFactory,
     $scope.HasEditing = false;
     $scope.globalMember = angular.copy(globalMember);
     $scope.filter = angular.copy(originalFilter);
+    $scope.filter.GroupId = groupId;
 
     $scope.calendar = {
         startDateOpened: false
@@ -138,14 +141,15 @@ function ($scope, $modal, $route, $log, commonFactory, manageUserInGroupFactory,
     manageUserInGroupFactory.getAllGroup().success(function (groups) {
         if (groups) {
             originalGroupOptions = angular.copy(groups);
-            angular.forEach(originalGroupOptions, function (option) {
-                option.ticked = false;
+
+            angular.forEach(groups, function (group) {
+                group.ticked = group.GroupId === groupId;
             });
 
             globalMember.GroupOptions = angular.copy(originalGroupOptions);
-            $scope.groupOptions = angular.copy(originalGroupOptions);
+            $scope.groupOptions = angular.copy(groups);
 
-            getMembers(originalFilter);
+            getMembers($scope.filter);
         }
     }).error(function () {
         notificationFactory.error("ErrorMessage");

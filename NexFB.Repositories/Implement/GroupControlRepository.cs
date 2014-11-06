@@ -51,12 +51,17 @@ namespace NexFB.Repositories.Implement
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    IList<dynamic> rawMembers = multi.Read<dynamic>().ToList();
-                    IList<dynamic> rawGroups = multi.Read<dynamic>().ToList();
+                    var rawMembers = multi.Read<dynamic>().ToList();
+                    var rawGroups = multi.Read<dynamic>().ToList();
 
                     foreach (var member in rawMembers)
                     {
                         var groups = rawGroups.Where(t => t.SysID == member.SysID).ToList();
+                        var assignedGroups = groups.Select(t => new
+                            {
+                                GroupId = t.GroupID == null ? null : int.Parse(t.GroupID.ToString()),
+                                GroupName = t.GroupName
+                            });
 
                         members.Add(new MemberModel
                             {
@@ -66,11 +71,7 @@ namespace NexFB.Repositories.Implement
                                 DepartmentName = member.DepartmentName,
                                 Fullname = member.FullName,
                                 Nickname = member.NickName,
-                                AssignedGroups = groups.Select(t => new
-                                    {
-                                        GroupId = t.GroupID == null ? null : int.Parse(t.GroupID.ToString()),
-                                        GroupName = t.GroupName
-                                    }).ToList(),
+                                AssignedGroups = assignedGroups,
                                 JoinedDate = member.JoinedDate
                             });
                     }

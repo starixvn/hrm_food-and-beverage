@@ -16,19 +16,19 @@
             <div class="form-group">
                 <label data-translate="Group"></label>
                 <div class="sel-meal field selectbox">
-                    <add-class-to-role-filter multi-select input-model="groupOptions" button-label="GroupId"
+                    <div multi-select input-model="groupOptions" button-label="GroupId"
                         helper-elements="all reset" item-label="GroupName" tick-property="ticked"
                         max-labels="0" class="multi-select">
-                    </add-class-to-role-filter>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label data-translate="EmployeeType"></label>
                 <div class="sel-meal field selectbox">
-                    <add-class-to-role-filter multi-select input-model="employeeTypeOptions" button-label="EmployeeTypeId"
+                    <div multi-select input-model="employeeTypeOptions" button-label="EmployeeTypeId"
                         helper-elements="all reset" item-label="EmployeeTypeName" tick-property="ticked"
                         max-labels="0" class="multi-select employee-type">
-					</add-class-to-role-filter>
+					</div>
                 </div>
             </div>
             <br/>
@@ -86,10 +86,10 @@
 	                    </div>
                         <div ng-show="globalMember.IsEditing">
                             <div class="field selectbox" >
-                                <add-class-to-role-filter multi-select input-model="globalMember.GroupOptions" button-label="GroupId"
+                                <div multi-select input-model="globalMember.GroupOptions" button-label="GroupId"
                                         helper-elements="all reset" item-label="GroupName" tick-property="ticked"
                                         max-labels="0" class="multi-select" on-item-click="changeSelectedGroup(globalMember.GroupOptions)">
-                                </add-class-to-role-filter>
+                                </div>
                             </div>
                             <div>
                                 <a class="glyphicon glyphicon-ok" href="javascript:void(0)" ng-show="globalMember.IsEditing" ng-click="assignMultipleMembers()"></a>
@@ -114,10 +114,10 @@
 	                    </div>
                         <div ng-show="member.IsEditing">
                             <div class="field selectbox">
-                                <add-class-to-role-filter multi-select input-model="member.GroupOptions" button-label="GroupId"
+                                <div multi-select input-model="member.GroupOptions" button-label="GroupId"
                                      helper-elements="all reset" item-label="GroupName" tick-property="ticked"
                                      max-labels="0" class="multi-select">
-                                </add-class-to-role-filter>
+                                </div>
                             </div>
                             <div>
                                     <a class="glyphicon glyphicon-ok" href="" ng-show="member.IsEditing" ng-click="assignMember(member)"></a>
