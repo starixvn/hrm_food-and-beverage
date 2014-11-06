@@ -1,4 +1,13 @@
-﻿namespace NexFB.Repositories.Interface
+﻿// --------------------------------------------------------------------------
+// <copyright file="IGroupControlRepository.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Brian.Dinh" date="2014.11.6">Created</change>
+// </history>
+
+namespace NexFB.Repositories.Interface
 {
     using System.Collections.Generic;
     using Fanex.Data.Repository;

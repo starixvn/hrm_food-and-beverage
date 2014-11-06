@@ -96,10 +96,5 @@ namespace NexFB.Services.Implement
         {
             throw new System.NotImplementedException();
         }
-
-        public CommandResult RemoveMember(RemoveMemberCriteria criteria)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

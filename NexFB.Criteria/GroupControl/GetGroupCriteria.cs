@@ -18,7 +18,7 @@ namespace NexFB.Criteria.GroupControl
     {
         public bool? IsActive { get; set; }
 
-        public string GroupID { get; set; }
+        public string GroupId { get; set; }
 
         public override string GetSettingKey()
         {

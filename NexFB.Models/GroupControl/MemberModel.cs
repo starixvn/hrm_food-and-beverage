@@ -1,4 +1,13 @@
-﻿namespace NexFB.Models.GroupControl
+﻿// --------------------------------------------------------------------------
+// <copyright file="MemberModel.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Brian.Dinh" date="2014.11.6">Created</change>
+// </history>
+
+namespace NexFB.Models.GroupControl
 {
     using System;
     using System.Collections.Generic;

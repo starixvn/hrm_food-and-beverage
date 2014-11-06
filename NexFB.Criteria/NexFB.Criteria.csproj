@@ -82,7 +82,6 @@
     <Compile Include="FoodMenuManagement\GetAllFoodMenuCriteria.cs" />
     <Compile Include="FoodMenuManagement\InsertFoodMenuCriteria.cs" />
     <Compile Include="FoodMenuManagement\UpdateFoodMenuCriteria.cs" />
-    <Compile Include="GroupControl\RemoveMemberCriteria.cs" />
     <Compile Include="GroupControl\InsertMemberCriteria.cs" />
     <Compile Include="GroupControl\GetMemberCriteria.cs" />
     <Compile Include="GroupControl\DeleteGroupByGroupIdCriteria.cs" />

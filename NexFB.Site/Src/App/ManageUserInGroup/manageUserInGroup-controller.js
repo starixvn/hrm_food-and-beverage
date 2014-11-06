@@ -13,6 +13,20 @@ function ($scope, $modal, $route, $log, commonFactory, manageUserInGroupFactory,
         Query: ''
     };
 
+    var globalMember = {
+        SysId: '',
+        EmpId: '',
+        Fullname: '',
+        Nickname: 'All selected employee',
+        DepartmentId: '',
+        DepartmentName: '',
+        GroupIds: [],
+        GroupNames: [],
+        JoinedDate: ''
+    };
+
+    $scope.globalMember = globalMember;
+    
     $scope.filter = originalFilter;
 
     $scope.calendar = {
@@ -59,45 +73,31 @@ function ($scope, $modal, $route, $log, commonFactory, manageUserInGroupFactory,
     }).error(function (response, status) {
         ErrorFactory.errorHandle(status);
     });
+    
+    
 
-    var initDropdowns = function () {
-        /*
-        ** Get all groups for drop down.
-        */
-        manageUserInGroupFactory.getAllGroup().success(function (groups) {
-            if (groups) {
-                angular.forEach(groups, function (group) {
-                    group.ticked = true;
-                });
-                
-                $scope.groupOptions = groups;
-            }
-        }).error(function () {
-            notificationFactory.error("ErrorMessage");
-        });
+    /*
+    ** Get all company for drop down.
+    */
+    manageUserInGroupFactory.getAllDepartment().success(function (companies) {
+        if (companies) {
+            $scope.companyOptions = companies;
+        }
+    }).error(function () {
+        notificationFactory.error("ErrorMessage");
+    });
 
-        /*
-        ** Get all company for drop down.
-        */
-        manageUserInGroupFactory.getAllDepartment().success(function (companies) {
-            if (companies) {
-                $scope.companyOptions = companies;
-            }
-        }).error(function () {
-            notificationFactory.error("ErrorMessage");
-        });
-
-        /*
-        ** Get all employee type for drop down.
-        */
-        manageUserInGroupFactory.getAllEmployeeType().success(function (types) {
-            if (types) {
-                $scope.employeeTypeOptions = types;
-            }
-        }).error(function () {
-            notificationFactory.error("ErrorMessage");
-        });
-    };
+    /*
+    ** Get all employee type for drop down.
+    */
+    manageUserInGroupFactory.getAllEmployeeType().success(function (types) {
+        if (types) {
+            $scope.employeeTypeOptions = types;
+        }
+    }).error(function () {
+        notificationFactory.error("ErrorMessage");
+    });
+    
 
     var getMembers = function (filter) {
         manageUserInGroupFactory.getMembers(filter).success(function (members) {
@@ -111,9 +111,21 @@ function ($scope, $modal, $route, $log, commonFactory, manageUserInGroupFactory,
         });
     };
 
-    initDropdowns();
+    /*
+    ** Get all groups for drop down.
+    */
+    manageUserInGroupFactory.getAllGroup().success(function (groups) {
+        if (groups) {
+            angular.forEach(groups, function (group) {
+                group.ticked = true;
+            });
 
-    getMembers(originalFilter);
+            $scope.groupOptions = groups;
+            getMembers(originalFilter);
+        }
+    }).error(function () {
+        notificationFactory.error("ErrorMessage");
+    });
 
     $scope.query = function (filter) {
         if (filter) {
@@ -130,13 +142,5 @@ function ($scope, $modal, $route, $log, commonFactory, manageUserInGroupFactory,
 
             getMembers(customizeFilter);
         }
-    };
-
-    $scope.assignMember = function () {
-        alert("assign user");
-    };
-
-    $scope.removeMember = function () {
-        alert('remove member');
     };
 } ]);

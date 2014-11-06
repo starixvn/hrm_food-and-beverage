@@ -1,7 +1,17 @@
-﻿namespace NexFB.Site.Controllers.API
+﻿// --------------------------------------------------------------------------
+// <copyright file="GroupControlController.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Brian.Dinh" date="2014.11.6">Created</change>
+// </history>
+
+namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Http;
     using NexFB.Core.Constants;
@@ -39,6 +49,11 @@
 
         #region Manage Group
 
+        /// <summary>
+        /// Get all group.
+        /// </summary>
+        /// <returns>Group list.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Accept")]
         public IEnumerable<object> GetAllGroup()
         {
             var criteria = new GetGroupCriteria();
@@ -48,18 +63,25 @@
             return groups.Select(t => new { t.GroupId, t.GroupName });
         }
 
+        /// <summary>
+        /// Get group.
+        /// </summary>
+        /// <param name="groupId">GroupId input.</param>
+        /// <param name="isActive">IsActive input.</param>
+        /// <returns>Group list.</returns>
         [ApiAuthorize(FunctionKey = FBFunctionKey.ManageGroup, Policy = Policy.Read)]
         public IEnumerable<GroupModel> GetGroup(string groupId, bool? isActive)
         {
             var criteria = new GetGroupCriteria
                 {
-                    GroupID = groupId,
+                    GroupId = groupId,
                     IsActive = isActive
                 };
 
             return _groupControlService.GetGroup(criteria);
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Accept")]
         public int GetUserPermissionOnManageGroup()
         {
             int policy = _webCommonService.GetPermission(FBFunctionKey.ManageGroup);
@@ -92,6 +114,11 @@
             return _groupControlService.InsertGroup(criteria);
         }
 
+        /// <summary>
+        /// Update Group.
+        /// </summary>
+        /// <param name="criteria">Criteria input.</param>
+        /// <returns>Command result.</returns>
         [ApiAuthorize(FunctionKey = FBFunctionKey.ManageGroup, Policy = Policy.Host)]
         [HttpPut]
         public CommandResult UpdateGroup(UpdateGroupCriteria criteria)
@@ -131,6 +158,7 @@
             return _groupControlService.GetMember(criteria);
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Accept")]
         public int GetUserPermissionOnManageUserInGroup()
         {
             int policy = _webCommonService.GetPermission(FBFunctionKey.ManageUserInGroup);
