@@ -136,6 +136,16 @@ namespace NexFB.Site.Controllers.API
 
         #region Manage User In Group
 
+        /// <summary>
+        /// Get members.
+        /// </summary>
+        /// <param name="departmentId">DepartmentId input.</param>
+        /// <param name="employeeTypeId">EmployeeTypeId input.</param>
+        /// <param name="query">Query input.</param>
+        /// <param name="groupId">GroupId input.</param>
+        /// <param name="joinedDateFrom">Joined date from.</param>
+        /// <param name="joinedDateTo">Joined date to.</param>
+        /// <returns>Member list.</returns>
         [ApiAuthorize(FunctionKey = FBFunctionKey.ManageUserInGroup, Policy = Policy.Read)]
         public IEnumerable<MemberModel> GetMember(
             string departmentId = null,

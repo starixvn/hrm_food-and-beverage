@@ -41,6 +41,11 @@ namespace NexFB.Services.Implement
             return GetData<GroupModel>(criteria);
         }
 
+        /// <summary>
+        /// Delete group.
+        /// </summary>
+        /// <param name="criteria">Criteria input.</param>
+        /// <returns>Command result.</returns>
         public CommandResult DeleteGroup(DeleteGroupByGroupIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -54,6 +59,11 @@ namespace NexFB.Services.Implement
             return commandResult;
         }
 
+        /// <summary>
+        /// Insert group.
+        /// </summary>
+        /// <param name="criteria">Criteria input.</param>
+        /// <returns>Command result.</returns>
         public CommandResult InsertGroup(InsertGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -68,6 +78,11 @@ namespace NexFB.Services.Implement
             return commandResult;
         }
 
+        /// <summary>
+        /// Update group.
+        /// </summary>
+        /// <param name="criteria">Criteria input.</param>
+        /// <returns>Command result.</returns>
         public CommandResult UpdateGroup(UpdateGroupCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");

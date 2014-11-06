@@ -9,6 +9,9 @@
 
 namespace NexFB.Models.GroupControl
 {
+    /// <summary>
+    /// Group model.
+    /// </summary>
     public class GroupModel
     {
         public int GroupId { get; set; }

@@ -12,6 +12,9 @@ namespace NexFB.Models.GroupControl
     using System;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Member model.
+    /// </summary>
     public class MemberModel
     {
         public int SysId { get; set; }
