@@ -41,7 +41,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private int _countDownTimer;
         private int _orderNo;
         private ObservableCollection<SideFood> _observableSideOrder = new ObservableCollection<SideFood>();
-        private int _currentCulture;
         private Food _selectedFood;
         private List<int> _hasSelectedFood = new List<int>();
         private MainViewModel _mainViewModel;
@@ -53,7 +52,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
         public SideDishesViewModel(Employee orderOwner, int currentCulture, MainViewModel mainViewModel)
         {
             ShowOrderScreen();
-            CurrentCulture = currentCulture;
             InitializeSideFoodData(orderOwner, mainViewModel);
             AddFoodCommand = new RelayCommand((x) => CanExecuteAddFoodCommand(), (y) => ExecuteAddFoodCommand());
             AddQuantityCommand = new RelayCommand((x) => CanExecuteAddQuantityCommand(), (y) => ExecuteAddQuantityCommand(y));
@@ -127,20 +125,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 _observableSideOrder = value;
                 OnPropertyChanged("ObservableSideOrder");
-            }
-        }
-
-        public int CurrentCulture
-        {
-            get
-            {
-                return _currentCulture;
-            }
-
-            set
-            {
-                _currentCulture = value;
-                OnPropertyChanged("CurrentCulture");
             }
         }
 
@@ -342,7 +326,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             HasSelectedFood = new List<int>();
             if ((ObservableSideOrder.Count > 0 && ObservableSideOrder.All(x => x.SelectedValueDropDown == int.MaxValue)) || ObservableSideOrder.Count == 0)
             {
-                this.ShowErrorMessage(MainScreenResources.Message_ContainFood);
+                this.ShowErrorMessage(MainViewModel.CurrentCulture, MainScreenResources.Message_ContainFood);
             }
             else
             {
@@ -383,7 +367,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     }
                     else
                     {
-                        this.ShowErrorMessage(result.CommandResult.Message);
+                        this.ShowErrorMessage(MainViewModel.CurrentCulture, result.CommandResult.Message);
                     }
                 }
             }
@@ -428,7 +412,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                 if (foodMapping.Count == 0)
                 {
-                    this.ShowErrorMessage(MainScreenResources.Message_NoMoreDish);
+                    this.ShowErrorMessage(MainViewModel.CurrentCulture, MainScreenResources.Message_NoMoreDish);
                 }
                 else
                 {
@@ -443,7 +427,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                     if (foodMapping.Count == 1)
                     {
-                        this.ShowErrorMessage(MainScreenResources.Message_UnavailableSideDish);
+                        this.ShowErrorMessage(MainViewModel.CurrentCulture, MainScreenResources.Message_UnavailableSideDish);
                     }
                     else
                     {

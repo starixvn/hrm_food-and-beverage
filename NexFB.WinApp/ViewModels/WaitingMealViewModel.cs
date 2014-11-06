@@ -116,7 +116,14 @@ namespace NexFB.WinApp.ViewModels
             {
                 var oldOrder = WaitingMeals.Where(x => x.OrderId == order.OrderId).FirstOrDefault();
                 WaitingMeals.Remove(oldOrder);
-                if (order.ListMenu.Count > 0)
+                if (order.CurrentStatusId == (int)OrderStatus.NewOrder)
+                {
+                    if (order.ListMenu.Count > 0)
+                    {
+                        NewOrderDataAndSort(order);
+                    }
+                }
+                else
                 {
                     NewOrderDataAndSort(order);
                 }

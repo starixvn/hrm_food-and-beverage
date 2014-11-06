@@ -28,6 +28,7 @@ namespace NexFB.WinApp.ViewModels
     using NexFB.WinApp.Core.InternetBased;
     using NexFB.WinApp.ViewModels.Partials.Main;
     using NexFB.WinApp.Views;
+    using WPFMessageBoxCustomControl;
 
     /// <summary>
     /// Main ViewModel.
@@ -43,6 +44,7 @@ namespace NexFB.WinApp.ViewModels
         {
             ////var allScreens = System.Windows.Forms.Screen.AllScreens;
             CurrentViewModel = new WaitingMealViewModel();
+            this.CheckCurrentViewModel();
             CheckCurrentViewModel();
             InitializeRelayCommand();
             InitializeHubConnection();
@@ -245,7 +247,7 @@ namespace NexFB.WinApp.ViewModels
                     CommandResult received = KitchenService.DeliverOrder(criteria);
                     if (received.Code != 0)
                     {
-                        MessageBox.Show(received.Message.ToString());
+                        WPFMessageBox.Show(CurrentCulture, received.Message.ToString());
                     }
                     else
                     {
@@ -263,7 +265,7 @@ namespace NexFB.WinApp.ViewModels
             }
             else
             {
-                MessageBox.Show(Lang.ErrorMessage.ToString());
+                WPFMessageBox.Show(CurrentCulture, Lang.ErrorMessage.ToString());
             }
         }
 
@@ -284,7 +286,7 @@ namespace NexFB.WinApp.ViewModels
                     CommandResult received = KitchenService.ReceiveOrder(criteria);
                     if (received.Code != 0)
                     {
-                        MessageBox.Show(received.Message.ToString());
+                        WPFMessageBox.Show(CurrentCulture, received.Message.ToString());
                     }
                     else
                     {
@@ -302,7 +304,7 @@ namespace NexFB.WinApp.ViewModels
             }
             else
             {
-                MessageBox.Show(Lang.ErrorMessage.ToString());
+                WPFMessageBox.Show(CurrentCulture, Lang.ErrorMessage.ToString());
             }
         }
 
@@ -319,7 +321,7 @@ namespace NexFB.WinApp.ViewModels
                 CommandResult result = KitchenService.UndoOrder(criteria);
                 if (result.Code != 0)
                 {
-                    MessageBox.Show(result.Message);
+                    WPFMessageBox.Show(CurrentCulture, result.Message);
                 }
                 else
                 {
@@ -336,7 +338,7 @@ namespace NexFB.WinApp.ViewModels
             }
             else
             {
-                MessageBox.Show(Lang.ErrorMessage);
+                WPFMessageBox.Show(CurrentCulture, Lang.ErrorMessage);
             }
         }
 
@@ -349,7 +351,7 @@ namespace NexFB.WinApp.ViewModels
             int orderId = 0;
             if (value == null)
             {
-                MessageBox.Show(Lang.ErrorMessage);
+                WPFMessageBox.Show(CurrentCulture, Lang.ErrorMessage);
             }
             else
             {

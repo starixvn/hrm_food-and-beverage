@@ -336,4 +336,7 @@
   <data name="ReceiveUpper1" xml:space="preserve">
     <value>LƯU</value>
   </data>
+  <data name="Message_CancelOrderEdit" xml:space="preserve">
+    <value>Bạn có muốn hủy bỏ chỉnh sửa này không?</value>
+  </data>
 </root>

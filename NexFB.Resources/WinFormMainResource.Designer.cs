@@ -349,6 +349,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bạn có muốn hủy bỏ chỉnh sửa này không?.
+        /// </summary>
+        public static string Message_CancelOrderEdit {
+            get {
+                return ResourceManager.GetString("Message_CancelOrderEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nhân viên này đã có tên trong phiếu ăn..
         /// </summary>
         public static string Message_EmployeeExist {

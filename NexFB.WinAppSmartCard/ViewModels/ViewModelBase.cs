@@ -12,11 +12,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System;
     using System.Windows;
     using System.Windows.Threading;
-    using BlogsPrajeesh.BlogSpot.WPFControls;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.WinApp.Core.NotifyBase;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
+    using WPFMessageBoxCustomControl;
+    using WPFMessageBoxCustomControl.Enums;
 
     /// <summary>
     /// ViewModel Base.
@@ -81,14 +82,15 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         #region Methods
 
-        public void ShowErrorMessage(string message)
+        public void ShowErrorMessage(int currentCulture, string message)
         {
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { WPFMessageBox.Show(message); }));
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { WPFMessageBox.Show(currentCulture, message); }));
         }
 
-        public WPFMessageBoxResult ShowWarningCancelOrder()
+        public WPFMessageBoxResult ShowWarningCancelOrder(int currentCulture)
         {
             WPFMessageBoxResult messageResult = WPFMessageBox.Show(
+                currentCulture,
                 string.Empty,
                 MainScreenResources.Message_CancelOrder,
                 WPFMessageBoxButtons.YesNo,
@@ -96,9 +98,10 @@ namespace NexFB.WinAppSmartCard.ViewModels
             return messageResult;
         }
 
-        public WPFMessageBoxResult ShowWarningEditOrder()
+        public WPFMessageBoxResult ShowWarningEditOrder(int currentCulture)
         {
             WPFMessageBoxResult messageResult = WPFMessageBox.Show(
+                currentCulture,
                 string.Empty,
                 MainScreenResources.Message_PickAlternativeFood,
                 WPFMessageBoxButtons.YesNo,

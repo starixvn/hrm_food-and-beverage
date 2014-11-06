@@ -13,7 +13,6 @@ namespace NexFB.WinApp.ViewModels
     using System.Configuration;
     using System.Windows.Documents;
     using System.Windows.Threading;
-    using BlogsPrajeesh.BlogSpot.WPFControls;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
     using NexFB.Services.Implement;
@@ -22,6 +21,7 @@ namespace NexFB.WinApp.ViewModels
     using NexFB.WinApp.Core.NotifyBase;
     using NexFB.WinApp.Core.PrintHelper;
     using NexFB.WinApp.Views;
+    using WPFMessageBoxCustomControl;
 
     /// <summary>
     /// ViewModel Base.
@@ -175,9 +175,9 @@ namespace NexFB.WinApp.ViewModels
             return false;
         }
 
-        public void ShowErrorMessage(string message)
+        public void ShowErrorMessage(int currentCulture, string message)
         {
-            WPFMessageBox.Show(message);
+            WPFMessageBox.Show(currentCulture, message);
         }
 
         private void StartCloseTimer(NotificationWindow windows)

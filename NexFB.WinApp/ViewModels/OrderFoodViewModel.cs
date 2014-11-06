@@ -13,7 +13,6 @@ namespace NexFB.WinApp.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Text;
@@ -22,7 +21,6 @@ namespace NexFB.WinApp.ViewModels
     using System.Windows.Media;
     using System.Windows.Threading;
     using AutoMapper;
-    using BlogsPrajeesh.BlogSpot.WPFControls;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.Employee;
@@ -35,6 +33,8 @@ namespace NexFB.WinApp.ViewModels
     using NexFB.WinApp.ViewModels.Partials.OrderFood;
     using NexFB.WinApp.Views;
     using NexFB.WinApp.Views.ManageOrder;
+    using WPFMessageBoxCustomControl;
+    using WPFMessageBoxCustomControl.Enums;
 
     /// <summary>
     /// Order Food ViewModel.
@@ -278,7 +278,7 @@ namespace NexFB.WinApp.ViewModels
                 {
                     if (previousEmployee.SysId != sysId)
                     {
-                        this.ShowErrorMessage(WinFormMainResource.Message_Atleast);
+                        this.ShowErrorMessage(CurrentCulture(), WinFormMainResource.Message_Atleast);
                     }
                 }
                 else
@@ -391,7 +391,7 @@ namespace NexFB.WinApp.ViewModels
                 }
                 else
                 {
-                    this.ShowErrorMessage(string.Format(WinFormMainResource.CannotFindEmployeeCode, Result));
+                    this.ShowErrorMessage(CurrentCulture(), string.Format(WinFormMainResource.CannotFindEmployeeCode, Result));
                 }
 
                 Result = null;
@@ -413,15 +413,20 @@ namespace NexFB.WinApp.ViewModels
             {
                 if (EmployeeInfo != null || (UserInGroup.Any() && UserInGroup.Count > 0) || CommonKitchenOrder.Count > 0)
                 {
+                    ShowOverlay();
+                    string confirmMessage = ReferenceCode == 0 ? WinFormMainResource.Message_CancelOrder : WinFormMainResource.Message_CancelOrderEdit;
                     WPFMessageBoxResult confirmCancel = WPFMessageBox.Show(
+                        CurrentCulture(),
                         WinFormMainResource.Confirmation,
-                        WinFormMainResource.Message_CancelOrder,
+                        confirmMessage,
                         WPFMessageBoxButtons.YesNo,
                         WPFMessageBoxImage.Alert);
                     if (confirmCancel == WPFMessageBoxResult.Yes)
                     {
                         ResetCurrentModel(value);
                     }
+
+                    HideOverlay();
                 }
                 else
                 {
@@ -810,7 +815,7 @@ namespace NexFB.WinApp.ViewModels
                     }
                     else
                     {
-                        this.ShowErrorMessage(WinFormMainResource.Message_EmployeeExist);
+                        this.ShowErrorMessage(CurrentCulture(), WinFormMainResource.Message_EmployeeExist);
                     }
 
                     result = true;
@@ -886,7 +891,7 @@ namespace NexFB.WinApp.ViewModels
             else
             {
                 ResetCurrentModel();
-                this.ShowErrorMessage(WinFormMainResource.Message_Unhandled);
+                this.ShowErrorMessage(CurrentCulture(), WinFormMainResource.Message_Unhandled);
                 return false;
             }
         }
@@ -1097,11 +1102,11 @@ namespace NexFB.WinApp.ViewModels
             CommandResult result = KitchenService.EditOrderFood(editOrderMealCriteria);
             if (result.Code != 0)
             {
-                this.ShowErrorMessage(result.Message);
+                this.ShowErrorMessage(CurrentCulture(), result.Message);
             }
             else
             {
-                if (WPFMessageBox.Show(string.Empty, WinFormMainResource.Message_OrderSuccessful, WPFMessageBoxButtons.OK) == WPFMessageBoxResult.Ok)
+                if (WPFMessageBox.Show(CurrentCulture(), string.Empty, WinFormMainResource.Message_OrderSuccessful, WPFMessageBoxButtons.OK) == WPFMessageBoxResult.Ok)
                 {
                     ExecuteCancelDialogOrderConfirmation(value);
                     ExecutePrintInvoice(ReferenceCode, (int)InvoiceNumberStatus.DeliverOrderFoodInvoice, false);
@@ -1134,11 +1139,11 @@ namespace NexFB.WinApp.ViewModels
             OrderResult result = KitchenService.InsertOrderFood(insertOrderMealCriteria);
             if (result.CommandResult.Code != 0)
             {
-                this.ShowErrorMessage(result.CommandResult.Message);
+                this.ShowErrorMessage(CurrentCulture(), result.CommandResult.Message);
             }
             else
             {
-                if (WPFMessageBox.Show(string.Empty, WinFormMainResource.Message_OrderSuccessful, WPFMessageBoxButtons.OK) == WPFMessageBoxResult.Ok)
+                if (WPFMessageBox.Show(CurrentCulture(), string.Empty, WinFormMainResource.Message_OrderSuccessful, WPFMessageBoxButtons.OK) == WPFMessageBoxResult.Ok)
                 {
                     ExecuteCancelDialogOrderConfirmation(value);
                     ExecutePrintInvoice(result.OrderId, (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice, true);
@@ -1158,7 +1163,7 @@ namespace NexFB.WinApp.ViewModels
             {
                 if (EmployeeInfo.LocationId < 1 && LocationId < 1)
                 {
-                    this.ShowErrorMessage(WinFormMainResource.Message_PickRoom);
+                    this.ShowErrorMessage(CurrentCulture(), WinFormMainResource.Message_PickRoom);
                     return false;
                 }
             }
@@ -1167,7 +1172,7 @@ namespace NexFB.WinApp.ViewModels
             {
                 if (!UserInGroup.Any(x => x.ListMainMenuOrderDeatails.Count > 0 || x.ListAlternativeMenuOrderDeatails.Count > 0))
                 {
-                    this.ShowErrorMessage(WinFormMainResource.Message_Atleast1);
+                    this.ShowErrorMessage(CurrentCulture(), WinFormMainResource.Message_Atleast1);
                     return false;
                 }
             }
@@ -1243,18 +1248,6 @@ namespace NexFB.WinApp.ViewModels
             }
 
             return totalCharacter;
-        }
-
-        public void CurrentCulture()
-        {
-            if (string.IsNullOrEmpty(_defaultLanguage) || _defaultLanguage == Constant.DefaultCulture)
-            {
-                IsVnmCulture = true;
-            }
-            else
-            {
-                IsVnmCulture = false;
-            }
         }
 
         /// <summary>
@@ -1407,6 +1400,24 @@ namespace NexFB.WinApp.ViewModels
             }
 
             return employee;
+        }
+
+        /// <summary>
+        /// Check Current Culture.
+        /// </summary>
+        /// <returns>Vietnamese or English culture.</returns>
+        private int CurrentCulture()
+        {
+            if (string.IsNullOrEmpty(_defaultLanguage) || _defaultLanguage == Constant.DefaultCulture)
+            {
+                IsVnmCulture = true;
+                return Constant.VietNamCulture;
+            }
+            else
+            {
+                IsVnmCulture = false;
+                return Constant.EnglishCulture;
+            }
         }
 
         /// <summary>

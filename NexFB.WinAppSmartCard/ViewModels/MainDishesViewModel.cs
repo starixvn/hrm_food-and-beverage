@@ -18,7 +18,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System.Windows.Input;
     using System.Windows.Threading;
     using AutoMapper;
-    using BlogsPrajeesh.BlogSpot.WPFControls;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
     using NexFB.Models.SmartCardOrder;
@@ -26,6 +25,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
+    using WPFMessageBoxCustomControl.Enums;
 
     /// <summary>
     /// Main Dishes ViewModel.
@@ -39,7 +39,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         private ObservableCollection<Employee> _observableListEmployee = new ObservableCollection<Employee>();
         private Employee _orderOwner;
-        private int _currentCulture;
         private Food _selectedFood;
         private string _screenOrderVisible;
         private string _screenNotificationVisible;
@@ -50,9 +49,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public MainDishesViewModel()
         {
-            RemoveEmployeeOrder = new RelayCommand((x) => CanExecuteRemoveEmployeeOrder(), (y) => ExecuteRemoveEmployeeOrder(y));
             EditMenu = new RelayCommand((x) => CanExecuteEditMenu(), (y) => ExecuteEditMenu(y));
             ConfirmCommand = new RelayCommand((x) => CanExecuteConfirmCommand(), (y) => ExecuteConfirmCommand());
+            RemoveEmployeeOrder = new RelayCommand((x) => CanExecuteRemoveEmployeeOrder(), (y) => ExecuteRemoveEmployeeOrder(y));
             ShowOrderScreen();
         }
 
@@ -119,20 +118,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 _countDownTimer = value;
                 this.OnPropertyChanged("CountDownTimer");
-            }
-        }
-
-        public int CurrentCulture
-        {
-            get
-            {
-                return _currentCulture;
-            }
-
-            set
-            {
-                _currentCulture = value;
-                OnPropertyChanged("CurrentCulture");
             }
         }
 
@@ -214,11 +199,10 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// Add Employee To Order List.
         /// </summary>
         /// <param name="employeeInfo">Employee Info.</param>
-        /// <param name="currentCulture">Current culture.</param>
         /// <param name="mainViewModel">Main ViewModel.</param>
-        public void AddEmployeeOrderToList(Employee employeeInfo, int currentCulture, MainViewModel mainViewModel)
+        public void AddEmployeeOrderToList(Employee employeeInfo, MainViewModel mainViewModel)
         {
-            CurrentCulture = currentCulture;
+            MainViewModel = mainViewModel;
             if (OrderOwner == null)
             {
                 OrderOwner = employeeInfo;
@@ -231,29 +215,29 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     if (!ObservableListEmployee.Any(x => x.SysId == employeeInfo.SysId))
                     {
                         employeeInfo.OrderNo = ObservableListEmployee.Count + 1;
-                        employeeInfo.CurrentCulture = currentCulture;
+                        employeeInfo.CurrentCulture = mainViewModel.CurrentCulture;
                         HideMenuList(employeeInfo);
                         GetAlternativeFood(employeeInfo);
                         ProcessAddDataInCurrentThread(employeeInfo, mainViewModel);
                     }
                     else
                     {
-                        this.ShowErrorMessage(MainScreenResources.Message_AlreadyThisOrder);
+                        this.ShowErrorMessage(MainViewModel.CurrentCulture, MainScreenResources.Message_AlreadyThisOrder);
                     }
                 }
             }
             else
             {
-                DisplayEmployeeHasAlreadyOrdered(employeeInfo, currentCulture, mainViewModel);
+                DisplayEmployeeHasAlreadyOrdered(employeeInfo, mainViewModel);
             }
         }
 
-        public void CheckDataForLanguageChange(Employee employeeInfo, int currentCulture, MainViewModel mainViewModel)
+        public void CheckDataForLanguageChange(Employee employeeInfo, MainViewModel mainViewModel)
         {
             if (ObservableListEmployee.Count == 1)
             {
                 ObservableListEmployee = new ObservableCollection<Employee>();
-                AddEmployeeOrderToList(employeeInfo, currentCulture, mainViewModel);
+                AddEmployeeOrderToList(employeeInfo, mainViewModel);
             }
         }
 
@@ -261,9 +245,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// Display info for employee who has already ordered.
         /// </summary>
         /// <param name="employeeInfo">Employee Info.</param>
-        /// <param name="currentCulture">Current culture.</param>
         /// <param name="mainViewModel">Main ViewModel.</param>
-        public void DisplayEmployeeHasAlreadyOrdered(Employee employeeInfo, int currentCulture, MainViewModel mainViewModel)
+        public void DisplayEmployeeHasAlreadyOrdered(Employee employeeInfo, MainViewModel mainViewModel)
         {
             if (ObservableListEmployee.Count == 0)
             {
@@ -276,7 +259,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     employeeInfo.OrderNo = 1;
                     employeeInfo.MenuVnmName = employeeOrder.MealVnmName;
                     employeeInfo.MenuEngName = employeeOrder.MealEngName;
-                    employeeInfo.CurrentCulture = currentCulture;
+                    employeeInfo.CurrentCulture = mainViewModel.CurrentCulture;
                     employeeInfo.DisplayNotifyMenuName = employeeInfo.DisplayMenuName;
                     employeeInfo.GroupOrderNickName = employeeOrder.OrderNickName;
                     CountDownTimer = 30;
@@ -289,7 +272,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             else
             {
                 mainViewModel.MainTabReadOnly = true;
-                this.ShowErrorMessage(MainScreenResources.Message_ReceivedOrder);
+                this.ShowErrorMessage(MainViewModel.CurrentCulture, MainScreenResources.Message_ReceivedOrder);
             }
         }
 
@@ -309,12 +292,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     FoodId = int.MaxValue,
                     FoodVnmName = employeeInfo.MenuVnmName,
                     FoodEngName = employeeInfo.MenuEngName,
-                    CurrentCulture = CurrentCulture
+                    CurrentCulture = MainViewModel.CurrentCulture
                 };
 
                 SelectedFood = currentMainFood;
                 foodMapping.Insert(0, currentMainFood);
-                foodMapping.ForEach(x => x.CurrentCulture = CurrentCulture);
+                foodMapping.ForEach(x => x.CurrentCulture = MainViewModel.CurrentCulture);
                 employeeInfo.ListAlternativeFood = foodMapping;
             }
         }
@@ -331,7 +314,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             new Action(() =>
             {
                 ObservableListEmployee.Add(employeeInfo);
-                MainViewModel = mainViewModel;
                 ToggleSideMenu();
             }));
         }
@@ -391,8 +373,19 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     this.MainViewModel.OrderOwner = this.OrderOwner;
                 }
 
+                UpdateOrderNo();
                 ToggleSideMenu();
             }
+        }
+
+        private void UpdateOrderNo()
+        {
+            for (int i = 0; i < ObservableListEmployee.Count; i++)
+            {
+                ObservableListEmployee[i].OrderNo = i + 1;
+            }
+
+            ObservableListEmployee = new ObservableCollection<Employee>(this.ObservableListEmployee);
         }
 
         /// <summary>
@@ -403,7 +396,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (value != null)
             {
-                WPFMessageBoxResult editOrderConfirm = this.ShowWarningEditOrder();
+                WPFMessageBoxResult editOrderConfirm = this.ShowWarningEditOrder(MainViewModel.CurrentCulture);
                 if (editOrderConfirm == WPFMessageBoxResult.Yes)
                 {
                     int employeeSysId = (int)value;
@@ -420,7 +413,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (ObservableListEmployee.Count == 0)
             {
-                this.ShowErrorMessage(MainScreenResources.Message_ContainEmployee);
+                this.ShowErrorMessage(MainViewModel.CurrentCulture, MainScreenResources.Message_ContainEmployee);
             }
             else
             {
@@ -462,7 +455,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 }
                 else
                 {
-                    this.ShowErrorMessage(result.CommandResult.Message);
+                    this.ShowErrorMessage(MainViewModel.CurrentCulture, result.CommandResult.Message);
                 }
             }
         }
@@ -475,7 +468,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (employee.SelectedValueDropDown > 0 && employee.SelectedValueDropDown != int.MaxValue)
             {
-                if (CurrentCulture == ConstantValue.VietNamCulture)
+                if (MainViewModel.CurrentCulture == ConstantValue.VietNamCulture)
                 {
                     employee.DisplayNotifyMenuName = employee.ListAlternativeFood.Where(x => x.FoodId == employee.SelectedValueDropDown).SingleOrDefault().FoodVnmName;
                 }

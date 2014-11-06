@@ -136,6 +136,10 @@ namespace NexFB.WinApp.Core.Constants
 
         public const int ChooseAlternativeFoodButton = 4;
 
+        public const int EnglishCulture = 1;
+
+        public const int VietNamCulture = 2;
+
         private Constant()
         {
         }

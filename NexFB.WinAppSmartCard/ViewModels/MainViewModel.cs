@@ -20,7 +20,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System.Windows.Threading;
     using AutoLogOffHelper;
     using AutoMapper;
-    using BlogsPrajeesh.BlogSpot.WPFControls;
     using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.SmartCardOrder;
@@ -31,6 +30,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using NexFB.WinAppSmartCard.GlobalResources.Services;
+    using WPFMessageBoxCustomControl.Enums;
 
     /// <summary>
     /// Main View Model.
@@ -62,10 +62,10 @@ namespace NexFB.WinAppSmartCard.ViewModels
             InitializeHubConnection();
             InitializeHubConnectionLocal();
             ExecuteMainDishesCommand();
+            CancelCommand = new RelayCommand((x) => CanExecuteCancelCommand(), (y) => ExecuteCancelCommand());
             MainDishesCommand = new RelayCommand((x) => CanExecuteMainDishesCommand(), (y) => ExecuteMainDishesCommand());
             SideDishesCommand = new RelayCommand((x) => CanExecuteSideDishesCommand(), (y) => ExecuteSideDishesCommand());
             ChangeLanguageCommand = new RelayCommand((x) => CanExecuteChangeLanguageCommand(), (y) => ExecuteChangeLanguageCommand(y));
-            CancelCommand = new RelayCommand((x) => CanExecuteCancelCommand(), (y) => ExecuteCancelCommand());
             ReturnStandByScreenCommand = new RelayCommand((x) => CanExecuteReturnStandByScreen(), (y) => ExecuteReturnToStandByScreen());
             ChangeCulture();
             CheckCurrentScreen();
@@ -402,7 +402,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public void ExecuteCancelCommand()
         {
-            WPFMessageBoxResult cancelOrder = this.ShowWarningCancelOrder();
+            WPFMessageBoxResult cancelOrder = this.ShowWarningCancelOrder(this.CurrentCulture);
             if (cancelOrder == WPFMessageBoxResult.Yes)
             {
                 ExecuteReturnToStandByScreen();
@@ -414,6 +414,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             this.MainTabReadOnly = false;
             CurrentCardNumber = string.Empty;
             OrderOwner = null;
+            IsMainDishTab = false;
             ExecuteMainDishesCommand();
             CheckCurrentScreen();
         }
@@ -489,7 +490,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                 if (OrderOwner != null)
                 {
-                    ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, CurrentCulture, this);
+                    ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, this);
                 }
 
                 CheckCurrentViewModel();
@@ -547,7 +548,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             switch (currentViewModel)
             {
                 case ConstantValue.MainDishesViewModel:
-                    ((MainDishesViewModel)CurrentViewModel).CheckDataForLanguageChange(OrderOwner, CurrentCulture, this);
+                    ((MainDishesViewModel)CurrentViewModel).CheckDataForLanguageChange(OrderOwner, this);
                     break;
                 case ConstantValue.SideDishesViewModel:
                     ((SideDishesViewModel)CurrentViewModel).CheckDataForLanguageChange();
@@ -655,7 +656,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     {
                         if (!isSideDishView)
                         {
-                            this.ShowErrorMessage(MainScreenResources.Message_AlreadyOrder);
+                            this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_AlreadyOrder);
                         }
                     }
                     else
@@ -668,7 +669,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 else
                 {
                     MainTabReadOnly = false;
-                    ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(employeeInfoMapping, CurrentCulture, this);
+                    ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(employeeInfoMapping, this);
                 }
 
                 CheckCurrentScreen();
@@ -691,7 +692,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
             else
             {
-                this.ShowErrorMessage(MainScreenResources.Message_IdentifyCard);
+                this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_IdentifyCard);
             }
         }
 

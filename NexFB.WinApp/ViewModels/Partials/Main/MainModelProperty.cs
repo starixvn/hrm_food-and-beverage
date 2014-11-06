@@ -37,6 +37,7 @@ namespace NexFB.WinApp.ViewModels.Partials.Main
         private double _displayWidth;
         private double _keypadHeight;
         private int _keypadFontSize;
+        private int _currentCulture;
 
         private MenuColor _menu1 = new MenuColor();
         private MenuColor _menu2 = new MenuColor();
@@ -412,6 +413,37 @@ namespace NexFB.WinApp.ViewModels.Partials.Main
             {
                 _displayBanner = value;
                 this.OnPropertyChanged("DisplayBanner");
+            }
+        }
+
+        public int CurrentCulture
+        {
+            get
+            {
+                return _currentCulture;
+            }
+
+            set
+            {
+                _currentCulture = value;
+                this.OnPropertyChanged("CurrentCulture");
+            }
+        }
+
+        /// <summary>
+        /// Check Current Culture.
+        /// </summary>
+        /// <returns>Vietnamese or English culture.</returns>
+        private int CheckCurrentCulture()
+        {
+            string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
+            if (string.IsNullOrEmpty(_defaultLanguage) || _defaultLanguage == Constant.DefaultCulture)
+            {
+                return Constant.VietNamCulture;
+            }
+            else
+            {
+                return Constant.EnglishCulture;
             }
         }
     }
