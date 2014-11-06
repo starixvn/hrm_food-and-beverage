@@ -861,6 +861,7 @@ select.ddlMenu{
 			&.phone-box {
 				margin-right:0;
 				width: 190px;
+				float: right;
 				.txtPhone {
 					width: 88%;
 				}
@@ -1106,9 +1107,9 @@ select.ddlMenu{
 		}
 	}
 }
-@media(max-width: 1280px) {
+@media (max-width: 1280px), (min-width: 1280px) {
 	.form-inline.form-order .form-group.phone-box {
-		float: right;
+		float: none;
 	}
 }
 
