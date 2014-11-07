@@ -2,8 +2,10 @@
 /*global reportModule*/
 
 reportModule.controller('MonthlyMainDishReportLocalController',
-['$scope', 'reportFactory', 'ErrorFactory', 'userControlFactory', 'foodMenuFactory',
-function ($scope, reportFactory, ErrorFactory, userControlFactory, foodMenuFactory) {
+['$scope', 'reportFactory', 'ErrorFactory', 'userControlFactory', 'foodMenuFactory', 'foodMenuUtilities',
+'reportUtilities',
+function ($scope, reportFactory, ErrorFactory, userControlFactory, foodMenuFactory, foodMenuUtilities,
+reportUtilities) {
 
 	/*
 	** Declare variable.
@@ -11,7 +13,7 @@ function ($scope, reportFactory, ErrorFactory, userControlFactory, foodMenuFacto
 	var currentDate = new Date();
 
 	$scope.filter = {
-		currentDate: currentDate,
+		reportDate: currentDate,
 		groupBy: 0
 	};
 
@@ -90,4 +92,15 @@ function ($scope, reportFactory, ErrorFactory, userControlFactory, foodMenuFacto
 	};
 
 	getMonthlyReportLocal('2014 Nov', "", "", "", "", 0);
+
+	/*
+	** Query data.
+	*/
+	$scope.query = function (filter) {
+		filter.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
+		filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
+		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
+
+		getMonthlyReportLocal(filter.reportDate.toDateString(), filter.departmentId, filter.employeeTypeId, filter.teamId, filter.mealId, filter.groupBy);
+	};
 } ]);

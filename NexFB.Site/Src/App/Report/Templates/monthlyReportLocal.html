@@ -29,7 +29,7 @@
 			</div>
 			<div class="form-group">
 				<input readonly type="text" class="form-control" datepicker-popup="{{format}}" datepicker-mode="popUpMode" ng-click="open($event)" 
-					ng-model="filter.currentDate" is-open="opened" datepicker-options="dateOptions" show-button-bar="false"/>
+					ng-model="filter.reportDate" is-open="opened" datepicker-options="dateOptions" show-button-bar="false"/>
 				<span class="input-group-btn">
 					<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 				</span>
@@ -47,61 +47,65 @@
 					<option data-translate="Department" value="1"></option>
 				</select>
 			</div>
+			<div class="form-group">
+				<button class="button" ng-click="query(filter)" data-translate="Submit">
+				</button>
+            </div>
         </form>
     </div>
     <div class="row">
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th data-translate="SymbolCount" rowspan="2" ></th>
-                    <th data-translate="NickName" rowspan="2" ng-show="localReport.IsGroupByEmployee" ></th>
-                    <th data-translate="EmployeeType" rowspan="2" ng-show="localReport.IsGroupByEmployee" ></th>
-                    <th data-translate="DepartmentSection" rowspan="2" ></th>
-					<th colspan="31" ng-bind="localReport.Month"></th>
-					<th colspan="2" data-translate="Total"></th>
-				</tr>
-				<tr>
-					<th ng-repeat="day in localReport.WeekDays.NumberMeals track by $index" ng-bind="$index + 1">
-					</th>
-					<th data-translate="Qty"></th>
-					<th data-translate="Amount"></th>
-				</tr>
-			</thead>
-			<tbody ng-repeat="meal in localReport.Meals">
-				<tr>
-					<td colspan="37" ng-bind="meal.Meal.MealEngName"></td>
-				</tr>
-				<tr ng-repeat="mealItem in meal.MealItems">
-					<td ng-bind="$index + 1">
-					</td>
-					<td ng-bind="mealItem.Employee.NickName" ng-show="localReport.IsGroupByEmployee">
-					</td>
-					<td ng-bind="mealItem.EmployeeType.EmployeeTypeName" ng-show="localReport.IsGroupByEmployee">
-					</td>
-					<td>{{mealItem.Department.Name + ' > ' + mealItem.Team.Name}}
-					</td>
-					<td ng-repeat="dayMeal in mealItem.NumberMealsMonth.NumberMeals track by $index" ng-bind="dayMeal">
-					</td>
-					<td ng-bind="mealItem.NumberMealsMonth.TotalQuantity">
-					</td>
-					<td ng-bind="mealItem.NumberMealsMonth.Amount">
-					</td>
-				</tr>
-			</tbody>
-			<tbody>
-				<tr>
-					<td colspan="4" data-translate="Total" ng-show="localReport.IsGroupByEmployee">
-					</td>
-					<td colspan="2" data-translate="Total" ng-show="!localReport.IsGroupByEmployee">
-					</td>
-					<td ng-repeat="totalDayMeal in localReport.Total.NumberMeals track by $index" ng-bind="totalDayMeal">
-					</td>
-					<td ng-bind="localReport.Total.TotalQuantity">
-					</td>
-					<td ng-bind="localReport.Total.Amount">
-					</td>
-				</tr>
-			</tbody>
-        </table>
+			<table st-table="localReport" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th data-translate="SymbolCount" rowspan="2" ></th>
+						<th data-translate="NickName" rowspan="2" ng-show="localReport.IsGroupByEmployee" ></th>
+						<th data-translate="EmployeeType" rowspan="2" ng-show="localReport.IsGroupByEmployee" ></th>
+						<th data-translate="DepartmentSection" rowspan="2" ></th>
+						<th colspan="31" ng-bind="localReport.Month"></th>
+						<th colspan="2" data-translate="Total"></th>
+					</tr>
+					<tr>
+						<th ng-repeat="day in localReport.WeekDays.NumberMeals track by $index" ng-bind="$index + 1">
+						</th>
+						<th data-translate="Qty"></th>
+						<th data-translate="Amount"></th>
+					</tr>
+				</thead>
+				<tbody ng-repeat="meal in localReport.Meals">
+					<tr>
+						<td colspan="37" ng-bind="meal.Meal.MealEngName"></td>
+					</tr>
+					<tr ng-repeat="mealItem in meal.MealItems">
+						<td ng-bind="$index + 1">
+						</td>
+						<td ng-bind="mealItem.Employee.NickName" ng-show="localReport.IsGroupByEmployee">
+						</td>
+						<td ng-bind="mealItem.EmployeeType.EmployeeTypeName" ng-show="localReport.IsGroupByEmployee">
+						</td>
+						<td>{{mealItem.Department.Name + ' > ' + mealItem.Team.Name}}
+						</td>
+						<td ng-repeat="dayMeal in mealItem.NumberMealsMonth.NumberMeals track by $index" ng-bind="dayMeal">
+						</td>
+						<td ng-bind="mealItem.NumberMealsMonth.TotalQuantity">
+						</td>
+						<td ng-bind="mealItem.NumberMealsMonth.Amount">
+						</td>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr>
+						<td colspan="4" data-translate="Total" ng-show="localReport.IsGroupByEmployee">
+						</td>
+						<td colspan="2" data-translate="Total" ng-show="!localReport.IsGroupByEmployee">
+						</td>
+						<td ng-repeat="totalDayMeal in localReport.Total.NumberMeals track by $index" ng-bind="totalDayMeal">
+						</td>
+						<td ng-bind="localReport.Total.TotalQuantity">
+						</td>
+						<td ng-bind="localReport.Total.Amount">
+						</td>
+					</tr>
+				</tbody>
+			</table>
     </div>
 </div>

@@ -129,12 +129,9 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		});
 
 		$scope.modalConfirmSaveEditInstance.result.then(function () {
-
-			orderingFactory.getLastModifiedDateByOrderId(order.OrderId).success(function (lastOrder) {
-				var lastModifiedDate = lastOrder.ModifiedDate != null ? new Date(lastOrder.ModifiedDate + 'Z') : '',
-					timeValid = orderingUtilities.checkModifiedDate($scope.startTime, lastModifiedDate);
-
-				if (timeValid) {
+			orderingFactory.checkValidModifiedTime(startTime.toJSON(), order.OrderId)
+			.success(function (isTimeValid) {
+				if (isTimeValid) {
 					if (!order.IsSideDishOrder) {
 						orderingFactory.editOrder(order).success(function (response) {
 							if (response.IsSuccessful) {
@@ -169,9 +166,9 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 								notificationFactory.error('', response.Message);
 							}
 						})
-						.error(function (response, status) {
-							ErrorFactory.errorHandle(status);
-						});
+									.error(function (response, status) {
+										ErrorFactory.errorHandle(status);
+									});
 					}
 				}
 				else {
@@ -180,7 +177,6 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			}).error(function (response, status) {
 				ErrorFactory.errorHandle(status);
 			});
-
 		});
 	};
 

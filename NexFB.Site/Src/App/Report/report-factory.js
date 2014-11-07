@@ -15,3 +15,23 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 		}
 	};
 } ]);
+
+reportModule.factory('reportUtilities', function () {
+
+	var utilities = {};
+
+	utilities.getTeamId = function (teamOptions) {
+		var teamId = '';
+
+		angular.forEach(teamOptions, function (value) {
+			if (value.ticked) {
+				var id = value.TeamId.toString();
+				teamId = teamId !== '' ? teamId + ',' + id : id;
+			}
+		});
+
+		return teamId;
+	};
+
+	return utilities;
+});

@@ -333,7 +333,14 @@ namespace NexFB.Site.Controllers.API
             return result;
         }
 
-        public MealOrderingModel GetLastModifiedDateByOrderId(int orderId)
+        /// <summary>
+        /// Check start time (the time when user open popup edit) must be greater than the last modified time of this order.
+        /// </summary>
+        /// <param name="startTime">The start time.</param>
+        /// <param name="orderId">The order Id.</param>
+        /// <returns>The boolean to know that user can update order or not.</returns>
+        [HttpGet]
+        public bool CheckValidModifiedTime(string startTime, int orderId)
         {
             var criteria = new GetLastMofifiedDateByOrderIdCriteria
             {
@@ -341,7 +348,14 @@ namespace NexFB.Site.Controllers.API
             };
 
             MealOrderingModel order = _orderService.GetLastModifiedDateByOrderId(criteria);
-            return order;
+            DateTime startDateTime = DateTime.Parse(startTime);
+
+            if (startDateTime > order.ModifiedDate)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

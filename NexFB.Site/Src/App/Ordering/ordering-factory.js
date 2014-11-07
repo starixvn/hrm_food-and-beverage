@@ -82,8 +82,9 @@ orderingModule.factory("orderingFactory",
 			editOrderSideDish: function (order) {
 				return $http.put('/api/Ordering/UpdateOrderSideDish', order);
 			},
-			getLastModifiedDateByOrderId: function (orderId) {
-				return $http.get('/api/Ordering/GetLastModifiedDateByOrderId', { params: { orderId: orderId } });
+			checkValidModifiedTime: function (startTime, orderId) {
+				return $http.get('/api/Ordering/CheckValidModifiedTime',
+					{ params: { startTime: startTime, orderId: orderId } });
 			}
 		};
 	} ]
@@ -140,45 +141,6 @@ orderingModule.factory("orderingFactory",
 			}
 
 			return orders;
-		};
-
-		utilities.checkModifiedDate = function (startTime, lastModifiedTime) {
-			var timeValid = false;
-
-			if (!lastModifiedTime) {
-				timeValid = true;
-			}
-			else {
-				var newStartTime = angular.copy(startTime),
-					newModifiedTime = angular.copy(lastModifiedTime);
-
-				newStartTime.setHours(0, 0, 0, 0);
-				newModifiedTime.setHours(0, 0, 0, 0);
-
-				if (newModifiedTime < newStartTime) {
-					timeValid = true;
-				}
-				else {
-					var startTimeHour = startTime.getHours(),
-						startTimeMinute = startTime.getMinutes(),
-						startTimeSecond = startTime.getSeconds(),
-						modifiedTimeHour = lastModifiedTime.getUTCHours(),
-						modifiedTimeMinute = lastModifiedTime.getUTCMinutes(),
-						modifiedTimeSecond = lastModifiedTime.getUTCSeconds();
-
-					if (modifiedTimeHour < startTimeHour) {
-						timeValid = true;
-					}
-					else if (modifiedTimeHour === startTimeHour && modifiedTimeMinute < startTimeMinute) {
-						timeValid = true;
-					}
-					else if (modifiedTimeHour === startTimeHour && modifiedTimeMinute === startTimeMinute && modifiedTimeSecond < startTimeSecond) {
-						timeValid = true;
-					}
-				}
-			}
-
-			return timeValid;
 		};
 
 		return utilities;
