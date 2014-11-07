@@ -73,6 +73,7 @@ notificationFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/app/AlternativeMenuManagement/Templates/create.html',
 			controller: "CreateAlternativeMenuController",
+			backdrop: 'static',
 			resolve: {
 				employeeTypesOption: function () {
 					return angular.copy($scope.employeeTypesOption);
@@ -102,6 +103,7 @@ notificationFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/app/AlternativeMenuManagement/Templates/edit.html',
 			controller: "EditAlternativeMenuController",
+			backdrop: 'static',
 			resolve: {
 				altMenu: function () {
 					return angular.copy(altMenu);
@@ -135,6 +137,7 @@ notificationFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
+			backdrop: 'static',
 			resolve: {
 				name: function () {
 					return altMenu.AlternativeMenuVnmName;
@@ -198,6 +201,7 @@ notificationFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
+			backdrop: 'static',
 			resolve: {
 				action: function () {
 					return 'delete';

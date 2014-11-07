@@ -108,6 +108,7 @@ notificationFactory) {
 			$scope.modalInstance = $modal.open({
 				templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
 				controller: "ModalConfirmController",
+				backdrop: 'static',
 				resolve: {
 					action: function () {
 						return 'save';

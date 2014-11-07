@@ -166,6 +166,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/app/MealPlanningManagement/Templates/create.html',
 			controller: "CreateMealPlanningController",
+			backdrop: 'static',
 			resolve: {
 				mealPlanning: function () {
 					return mealPlanning;
@@ -205,6 +206,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/app/MealPlanningManagement/Templates/edit.html',
 			controller: "EditMealPlanningController",
+			backdrop: 'static',
 			resolve: {
 				mealPlanning: function () {
 					return angular.copy(mealPlanning);
@@ -263,6 +265,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 				$scope.modalInstance = $modal.open({
 					templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
 					controller: "ModalConfirmController",
+					backdrop: 'static',
 					resolve: {
 						name: function () {
 							return mealPlanning.Menu.MenuVnmName + ' ( on ' + new Date(mealPlanning.Date).toString("MMM dd, yyyy") + ')';
@@ -322,6 +325,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
+			backdrop: 'static',
 			resolve: {
 				action: function () {
 					return 'delete';

@@ -107,6 +107,7 @@ ErrorFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/app/FoodMenuManagement/Templates/create.html',
 			controller: "CreateFoodMenuController",
+			backdrop: 'static',
 			resolve: {
 				mealsOption: function () {
 					return $scope.mealsOption;
@@ -151,6 +152,7 @@ ErrorFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/app/FoodMenuManagement/Templates/edit.html',
 			controller: "EditFoodMenuController",
+			backdrop: 'static',
 			resolve: {
 				foodMenu: function () {
 					return angular.copy(foodMenu);
@@ -190,6 +192,7 @@ ErrorFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
+			backdrop: 'static',
 			resolve: {
 				name: function () {
 					return foodMenu.MenuVnmName + ' (' + foodMenu.MenuEngName + ')';
@@ -259,6 +262,7 @@ ErrorFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
+			backdrop: 'static',
 			resolve: {
 				action: function () {
 					return 'delete';

@@ -147,6 +147,7 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 		var modalAssignInstance = $modal.open({
 			templateUrl: '/src/app/UserControl/Templates/UserPermission/assignRole.html',
 			controller: "AssignRoleToUserController",
+			backdrop: 'static',
 			resolve: {
 				userId: function () {
 					return employee.UserId;

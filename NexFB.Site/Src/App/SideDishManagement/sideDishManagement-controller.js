@@ -81,6 +81,7 @@ notificationFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/app/SideDishManagement/Templates/create.html',
 			controller: "CreateSideDishController",
+			backdrop: 'static',
 			resolve: {
 				employeeTypesOption: function () {
 					return angular.copy($scope.employeeTypesOption);
@@ -126,6 +127,7 @@ notificationFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/app/SideDishManagement/Templates/edit.html',
 			controller: "EditSideDishController",
+			backdrop: 'static',
 			resolve: {
 				sideDish: function () {
 					return angular.copy(sideDish);
@@ -172,6 +174,7 @@ notificationFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
+			backdrop: 'static',
 			resolve: {
 				name: function () {
 					return sideDish.FoodVnmName;
@@ -236,6 +239,7 @@ notificationFactory) {
 		$scope.modalInstance = $modal.open({
 			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
+			backdrop: 'static',
 			resolve: {
 				action: function () {
 					return 'delete';

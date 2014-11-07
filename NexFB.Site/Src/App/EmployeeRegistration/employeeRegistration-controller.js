@@ -175,6 +175,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
+			backdrop: 'static',
 			resolve: {
 				meals: function () {
 					return angular.copy(date.Meals);
@@ -252,6 +253,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
+			backdrop: 'static',
 			resolve: {
 				meals: function () {
 					var date = mealRegistrationUtilities.getDateNotToday(week);
@@ -322,6 +324,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
+			backdrop: 'static',
 			resolve: {
 				meals: function () {
 					var date = mealRegistrationUtilities.getDateNotTodayInMonth(allWeekMeals);
@@ -406,6 +409,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
+			backdrop: 'static',
 			resolve: {
 				meals: function () {
 					var date = mealRegistrationUtilities.getWeekDayNotTodayInMonth(allWeekMeals, weekDayIndex);
@@ -501,6 +505,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
+			backdrop: 'static',
 			resolve: {
 				meals: function () {
 					return angular.copy(date.Meals);
@@ -570,6 +575,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
+			backdrop: 'static',
 			resolve: {
 				meals: function () {
 					return angular.copy(weekMeals[1].Meals);
@@ -628,6 +634,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 		$scope.modalRegisterInstance = $modal.open({
 			templateUrl: '/src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
 			controller: "ApplyTemplateConfirmController",
+			backdrop: 'static',
 			resolve: {
 				applyTemplate: function () {
 					return true;
@@ -696,6 +703,7 @@ isSerialRegistration, $modal, notificationFactory) {
 			$scope.modalConfirmInstance = $modal.open({
 				templateUrl: '/src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
 				controller: "ApplyTemplateConfirmController",
+				backdrop: 'static',
 				resolve: {
 					applyTemplate: function () {
 						return false;
