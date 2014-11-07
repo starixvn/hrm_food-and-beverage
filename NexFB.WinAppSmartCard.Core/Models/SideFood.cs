@@ -13,7 +13,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using NexFB.WinApp.Core.NotifyBase;
+    using NexFB.Pos.Core.NotifyBase;
 
     /// <summary>
     /// Side Food.

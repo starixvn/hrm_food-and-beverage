@@ -14,13 +14,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
-    using System.Windows;
     using System.Windows.Input;
     using System.Windows.Threading;
     using AutoMapper;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
-    using NexFB.WinApp.Core.Commands;
+    using NexFB.Pos.Core.Commands;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
@@ -49,7 +48,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private bool _addFoodEnable;
         private bool _sideDishTimerLive;
 
-        public SideDishesViewModel(Employee orderOwner, int currentCulture, MainViewModel mainViewModel)
+        public SideDishesViewModel(Employee orderOwner, MainViewModel mainViewModel)
         {
             ShowOrderScreen();
             InitializeSideFoodData(orderOwner, mainViewModel);

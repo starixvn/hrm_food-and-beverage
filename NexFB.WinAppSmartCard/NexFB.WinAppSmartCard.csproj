@@ -58,9 +58,9 @@
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
       <HintPath>..\packages\EnterpriseLibrary.Data.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
@@ -189,13 +189,13 @@
       <Project>{487D35C7-B5F4-4CA5-902B-7C300569912F}</Project>
       <Name>NexFB.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NexFB.Pos.Core\NexFB.Pos.Core.csproj">
+      <Project>{92F81CC6-4794-471E-9FFE-89D61CDAF2A8}</Project>
+      <Name>NexFB.Pos.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NexFB.Services\NexFB.Services.csproj">
       <Project>{C6EF79D3-5127-4DA2-A334-44109F771D33}</Project>
       <Name>NexFB.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NexFB.WinApp.Core\NexFB.WinApp.Core.csproj">
-      <Project>{64A4E7F4-92F1-4DE3-8C03-687496864BB8}</Project>
-      <Name>NexFB.WinApp.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\NexFB.WinAppSmartCard.Core\NexFB.WinAppSmartCard.Core.csproj">
       <Project>{09E8D442-CFB1-41DD-B479-590864561ABB}</Project>

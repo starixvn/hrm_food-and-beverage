@@ -24,8 +24,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
-    using NexFB.WinApp.Core.Commands;
-    using NexFB.WinApp.Core.InternetBased;
+    using NexFB.Pos.Core.Commands;
+    using NexFB.Pos.Core.InternetBased;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
@@ -371,19 +371,19 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     case ConstantValue.MainDishesViewModel:
                         if (((MainDishesViewModel)CurrentViewModel).MainDishTimerLive)
                         {
-                            ReturnToStandByScreenAndCreateNewSession(cardValue);
+                            ReturnToStandByScreenAndCreateNewSession();
                         }
 
-                        AddDataWhenTimerLive(cardValue, employeeData, false);
+                        AddDataWhenTimerLive(employeeData, false);
 
                         break;
                     case ConstantValue.SideDishesViewModel:
                         if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
                         {
-                            ReturnToStandByScreenAndCreateNewSession(cardValue);
+                            ReturnToStandByScreenAndCreateNewSession();
                         }
 
-                        AddDataWhenTimerLive(cardValue, employeeData, true);
+                        AddDataWhenTimerLive(employeeData, true);
 
                         break;
                     default:
@@ -419,7 +419,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             CheckCurrentScreen();
         }
 
-        public void ReturnToStandByScreenAndCreateNewSession(string cardValue)
+        public void ReturnToStandByScreenAndCreateNewSession()
         {
             this.MainTabReadOnly = false;
             OrderOwner = null;
@@ -502,7 +502,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             IsMainDishTab = false;
             CancelDispatcherTimer();
-            CurrentViewModel = new SideDishesViewModel(OrderOwner, CurrentCulture, this);
+            CurrentViewModel = new SideDishesViewModel(OrderOwner, this);
             CheckCurrentViewModel();
         }
 
@@ -680,10 +680,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// <summary>
         /// Process continue to add data when timer is tick.
         /// </summary>
-        /// <param name="cardValue">New card Number.</param>
         /// <param name="employeeData">Employee data.</param>
         /// <param name="isSideDishView">Check for main dish tab or side dish tab.</param>
-        private void AddDataWhenTimerLive(string cardValue, EmployeeInfo employeeData, bool isSideDishView)
+        private void AddDataWhenTimerLive(EmployeeInfo employeeData, bool isSideDishView)
         {
             if (employeeData != null)
             {

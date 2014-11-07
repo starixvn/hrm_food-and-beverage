@@ -10,7 +10,7 @@
 namespace NexFB.WinAppSmartCard.Core.Models
 {
     using System.Collections.Generic;
-    using NexFB.WinApp.Core.NotifyBase;
+    using NexFB.Pos.Core.NotifyBase;
     using NexFB.WinAppSmartCard.Core.Constants;
 
     /// <summary>

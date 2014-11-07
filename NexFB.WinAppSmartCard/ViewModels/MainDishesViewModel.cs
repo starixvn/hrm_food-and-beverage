@@ -21,7 +21,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
     using NexFB.Models.SmartCardOrder;
-    using NexFB.WinApp.Core.Commands;
+    using NexFB.Pos.Core.Commands;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
@@ -218,7 +218,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         employeeInfo.CurrentCulture = mainViewModel.CurrentCulture;
                         HideMenuList(employeeInfo);
                         GetAlternativeFood(employeeInfo);
-                        ProcessAddDataInCurrentThread(employeeInfo, mainViewModel);
+                        ProcessAddDataInCurrentThread(employeeInfo);
                     }
                     else
                     {
@@ -267,7 +267,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 }
 
                 GetAlternativeFood(employeeInfo);
-                ProcessAddDataInCurrentThread(employeeInfo, mainViewModel);
+                ProcessAddDataInCurrentThread(employeeInfo);
             }
             else
             {
@@ -306,8 +306,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// Process add data.
         /// </summary>
         /// <param name="employeeInfo">Employee Info.</param>
-        /// <param name="mainViewModel">Main View model.</param>
-        public void ProcessAddDataInCurrentThread(Employee employeeInfo, MainViewModel mainViewModel)
+        public void ProcessAddDataInCurrentThread(Employee employeeInfo)
         {
             Application.Current.Dispatcher.BeginInvoke(
             DispatcherPriority.Background,

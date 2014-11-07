@@ -67,15 +67,12 @@
       <Project>{487D35C7-B5F4-4CA5-902B-7C300569912F}</Project>
       <Name>NexFB.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NexFB.WinApp.Core\NexFB.WinApp.Core.csproj">
-      <Project>{64A4E7F4-92F1-4DE3-8C03-687496864BB8}</Project>
-      <Name>NexFB.WinApp.Core</Name>
+    <ProjectReference Include="..\NexFB.Pos.Core\NexFB.Pos.Core.csproj">
+      <Project>{92F81CC6-4794-471E-9FFE-89D61CDAF2A8}</Project>
+      <Name>NexFB.Pos.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="NotifyBase\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

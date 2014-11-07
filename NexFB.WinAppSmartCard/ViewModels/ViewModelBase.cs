@@ -12,9 +12,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System;
     using System.Windows;
     using System.Windows.Threading;
+    using NexFB.Pos.Core.NotifyBase;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
-    using NexFB.WinApp.Core.NotifyBase;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using WPFMessageBoxCustomControl;
     using WPFMessageBoxCustomControl.Enums;
