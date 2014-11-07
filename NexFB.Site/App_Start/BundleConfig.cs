@@ -64,6 +64,7 @@ namespace NexFB.Site
                 "~/Src/Content/Site/layout.less",
                 "~/Src/App/EmployeeRegistration/employeeRegistration.less",
                 "~/Src/App/UserControl/userControl.less",
+                "~/Src/App/GroupControl/groupControl.less",
                 "~/Src/App/Ordering/ordering.less",
                 "~/Src/App/FoodItemManagement/foodItemManagement.less",
                 "~/Src/App/FoodMenuManagement/foodMenuManagement.less",
