@@ -46,7 +46,6 @@ namespace NexFB.Repositories.Implement
         /// <returns>The group list.</returns>
         public IEnumerable<MemberModel> GetMember(ICriteria criteria)
         {
-            var members = new List<MemberModel>();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
@@ -54,28 +53,41 @@ namespace NexFB.Repositories.Implement
                     var rawMembers = multi.Read<dynamic>().ToList();
                     var rawGroups = multi.Read<dynamic>().ToList();
 
-                    foreach (var member in rawMembers)
-                    {
-                        var groups = rawGroups.Where(t => t.SysID == member.SysID).ToList();
-                        var assignedGroups = groups.Select(t => new
-                            {
-                                GroupId = t.GroupID == null ? null : int.Parse(t.GroupID.ToString()),
-                                GroupName = t.GroupName
-                            });
-
-                        members.Add(new MemberModel
-                            {
-                                SysId = member.SysID,
-                                EmpId = member.EmpId,
-                                DepartmentId = member.DepartmentID,
-                                DepartmentName = member.DepartmentName,
-                                Fullname = member.FullName,
-                                Nickname = member.NickName,
-                                AssignedGroups = assignedGroups,
-                                JoinedDate = member.JoinedDate
-                            });
-                    }
+                    return GetMemberList(rawMembers, rawGroups);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Get member list.
+        /// </summary>
+        /// <param name="rawMembers">The raw members list.</param>
+        /// <param name="rawGroups">The raw groups list.</param>
+        /// <returns>The member list.</returns>
+        private static IEnumerable<MemberModel> GetMemberList(IEnumerable<dynamic> rawMembers, IEnumerable<dynamic> rawGroups)
+        {
+            var members = new List<MemberModel>();
+
+            foreach (var member in rawMembers)
+            {
+                var groups = rawGroups.Where(t => t.SysID == member.SysID).ToList();
+                var assignedGroups = groups.Select(t => new
+                    {
+                        GroupId = t.GroupID == null ? null : int.Parse(t.GroupID.ToString()),
+                        GroupName = t.GroupName
+                    });
+
+                members.Add(new MemberModel
+                    {
+                        SysId = member.SysID,
+                        EmpId = member.EmpId,
+                        DepartmentId = member.DepartmentID,
+                        DepartmentName = member.DepartmentName,
+                        Fullname = member.FullName,
+                        Nickname = member.NickName,
+                        AssignedGroups = assignedGroups,
+                        JoinedDate = member.JoinedDate
+                    });
             }
 
             return members;

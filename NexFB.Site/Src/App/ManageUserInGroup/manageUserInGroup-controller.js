@@ -2,8 +2,10 @@
 /*global manageUserInGroupModule*/
 
 manageUserInGroupModule.controller("ManageUserInGroupController",
-['$scope', '$modal', '$route', '$log', '$routeParams', 'commonFactory', 'manageUserInGroupFactory', 'manageUserInGroupUtilities', 'notificationFactory', 'ErrorFactory',
-function ($scope, $modal, $route, $log, $routeParams, commonFactory, manageUserInGroupFactory, manageUserInGroupUtilities, notificationFactory, ErrorFactory) {
+['$scope', '$modal', '$route', '$log', '$routeParams', 'commonFactory', 
+    'manageUserInGroupFactory', 'manageUserInGroupUtilities', 'notificationFactory', 'ErrorFactory',
+function ($scope, $modal, $route, $log, $routeParams, commonFactory, 
+    manageUserInGroupFactory, manageUserInGroupUtilities, notificationFactory, ErrorFactory) {
     var groupId = parseInt($routeParams.groupId, 10);
     console.log(groupId);
 
