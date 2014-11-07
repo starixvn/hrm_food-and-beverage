@@ -297,6 +297,7 @@
     <Content Include="Src\App\MealPlanningManagement\mealPlanningManagement-directive.js" />
     <Content Include="Src\Components\Extensions\Filters\fb-filter.js" />
     <Content Include="Src\Components\Extensions\Services\fb-service.js" />
+    <Content Include="Src\Components\Libs\angular-sanitize-1.2.6.js" />
     <Content Include="Src\Components\Libs\chosen.jquery.min.js" />
     <Content Include="Src\Components\Libs\date.js" />
     <Content Include="Src\Components\Libs\datepicker.js" />
@@ -339,6 +340,7 @@
     <Content Include="Src\Components\Libs\bootstrap.min.js" />
     <Content Include="Src\Components\Libs\jquery-2.1.0-vsdoc.js" />
     <Content Include="Src\Components\Libs\jquery-2.1.0.min.js" />
+    <Content Include="Src\Components\Libs\ng-cells-0.3.3.js" />
     <Content Include="Src\Components\Libs\smart-table.min.js" />
     <Content Include="Src\Components\Libs\tai-placeholder.js" />
     <Content Include="Src\Components\Libs\toastr.js" />
@@ -371,6 +373,8 @@
     <Content Include="Src\Content\Common\Images\ui-icons_ffd27a_256x240.png" />
     <Content Include="Src\Content\Common\Images\ui-icons_ffffff_256x240.png" />
     <Content Include="Src\Content\Common\jquery-ui.min.css" />
+    <Content Include="Src\Content\Common\ng-cells-0.3.3.css" />
+    <Content Include="Src\Content\Common\table.css" />
     <Content Include="Src\Content\Common\toastr.css" />
     <Content Include="Src\Content\Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Src\Content\Site\auth\images\bg-login.jpg" />

@@ -131,7 +131,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		$scope.modalConfirmSaveEditInstance.result.then(function () {
 			orderingFactory.checkValidModifiedTime(startTime.toJSON(), order.OrderId)
 			.success(function (isTimeValid) {
-				if (isTimeValid) {
+				if (isTimeValid === 'true') {
 					if (!order.IsSideDishOrder) {
 						orderingFactory.editOrder(order).success(function (response) {
 							if (response.IsSuccessful) {
@@ -166,12 +166,12 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 								notificationFactory.error('', response.Message);
 							}
 						})
-									.error(function (response, status) {
-										ErrorFactory.errorHandle(status);
-									});
+						.error(function (response, status) {
+							ErrorFactory.errorHandle(status);
+						});
 					}
-				}
-				else {
+							}
+				else if (isTimeValid === 'false') {
 					notificationFactory.error("OrderChangeWarning");
 				}
 			}).error(function (response, status) {

@@ -38,7 +38,9 @@ namespace NexFB.Site
                 "~/Src/Content/Common/toastr.css",
                 "~/Src/Content/Common/angular-multi-select.css",
                 "~/Src/Content/Common/jquery-ui.min.css",
-                "~/Src/Content/Common/chosen.min.css"));
+                "~/Src/Content/Common/chosen.min.css",
+                "~/Src/Content/Common/table.css",
+                "~/Src/Content/Common/ng-cells-0.3.3.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Src/Components/Libs/jquery-2.1.0.min.js",
@@ -54,7 +56,8 @@ namespace NexFB.Site
                 "~/Src/Components/Libs/date.js",
                 "~/Src/Components/Libs/chosen.jquery.min.js",
                 "~/Src/Components/Libs/tai-placeholder.js",
-                "~/Src/Components/Libs/smart-table.min.js"));
+                "~/Src/Components/Libs/angular-sanitize-1.2.6.js",
+                "~/Src/Components/Libs/ng-cells-0.3.3.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
                 "~/Src/Components/Libs/jquery.signalR-1.1.4.min.js"));
