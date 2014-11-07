@@ -20,6 +20,8 @@ namespace NexFB.PosKitchen
     using NexFB.Pos.Core.InternetBased;
     using NexFB.Pos.Core.Mapping;
     using NexFB.Resources;
+    using System.Net;
+    using System;
 
     /// <summary>
     /// Interaction logic.
@@ -33,6 +35,7 @@ namespace NexFB.PosKitchen
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         protected override void OnStartup(StartupEventArgs e)
         {
+            ////TranslateText();
             try
             {
                 if (DBConnectionAvailability.IsDBConnectionAvailable())
@@ -109,5 +112,18 @@ namespace NexFB.PosKitchen
                 WinFormMainResource.Culture = new CultureInfo(defaultLanguage);
             }
         }
+
+        ////public string TranslateText()
+        ////{
+        ////    string url = String.Format("http://www.google.com/translate_t?hl=en&ie=UTF8&text={0}&langpair={1}", "What are", "en|vi");
+        ////    WebClient webClient = new WebClient();
+        ////    webClient.Encoding = System.Text.Encoding.UTF8;
+        ////    string result = webClient.DownloadString(url);
+        ////    result = result.Substring(result.IndexOf("<span title=\"") + "<span title=\"".Length);
+        ////    result = result.Substring(result.IndexOf(">") + 1);
+        ////    result = result.Substring(0, result.IndexOf("</span>"));
+        ////    MessageBox.Show(result.ToString());
+        ////    return result.Trim();
+        ////}
     }
 }
