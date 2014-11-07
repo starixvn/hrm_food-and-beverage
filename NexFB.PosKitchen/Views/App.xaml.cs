@@ -20,8 +20,6 @@ namespace NexFB.PosKitchen
     using NexFB.Pos.Core.InternetBased;
     using NexFB.Pos.Core.Mapping;
     using NexFB.Resources;
-    using System.Net;
-    using System;
 
     /// <summary>
     /// Interaction logic.
