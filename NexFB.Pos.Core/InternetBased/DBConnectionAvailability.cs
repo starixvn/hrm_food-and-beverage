@@ -13,6 +13,7 @@ namespace NexFB.Pos.Core.InternetBased
     using System.Configuration;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Data;
     using NexFB.Pos.Core.Constants;
 
@@ -25,6 +26,7 @@ namespace NexFB.Pos.Core.InternetBased
         /// Check Database connection.
         /// </summary>
         /// <returns>Boolean to check.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         public static bool IsDBConnectionAvailable()
         {
             SqlConnection sqlConnection;

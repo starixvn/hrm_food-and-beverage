@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper">
-      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=3.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.1.0\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Data">
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
@@ -68,8 +69,12 @@
     <Compile Include="Models\OrderPreview.cs" />
     <Compile Include="NotifyBase\NotifiableCollection.cs" />
     <Compile Include="NotifyBase\PropertyChangedBase.cs" />
-    <Compile Include="PrintHelper\IPrintHelper.cs" />
-    <Compile Include="PrintHelper\PrintHelper.cs" />
+    <Compile Include="PrintHelper\IPrintHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PrintHelper\PrintHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +87,7 @@
       <Name>NexFB.Resources</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

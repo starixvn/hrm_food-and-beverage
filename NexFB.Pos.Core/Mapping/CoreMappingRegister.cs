@@ -29,28 +29,11 @@ namespace NexFB.Pos.Core.Mapping
             string defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
             if (string.IsNullOrEmpty(defaultLanguage) || defaultLanguage == Constant.DefaultCulture)
             {
-                Mapper.CreateMap<Location, CommonKitchenOrder>()
-                   .ForMember(x => x.ItemId, x => x.MapFrom(y => y.LocationId))
-                   .ForMember(x => x.ItemName, x => x.MapFrom(y => y.NameVN));
-
-                Mapper.CreateMap<FoodOrder, CommonKitchenOrder>()
-                   .ForMember(x => x.ItemId, x => x.MapFrom(y => y.FoodId))
-                   .ForMember(x => x.ItemName, x => x.MapFrom(y => y.FoodVnmName))
-                   .ForMember(x => x.Price, x => x.MapFrom(y => y.Price));
-
-                Mapper.CreateMap<OrderMenu, KitchenEmployeeInfo>()
-                  .ForMember(x => x.GroupOrderId, x => x.MapFrom(y => y.OrderId));
+                MappingDataVietNamese();
             }
             else
             {
-                Mapper.CreateMap<Location, CommonKitchenOrder>()
-                 .ForMember(x => x.ItemId, x => x.MapFrom(y => y.LocationId))
-                 .ForMember(x => x.ItemName, x => x.MapFrom(y => y.NameEN));
-
-                Mapper.CreateMap<FoodOrder, CommonKitchenOrder>()
-                  .ForMember(x => x.ItemId, x => x.MapFrom(y => y.FoodId))
-                  .ForMember(x => x.ItemName, x => x.MapFrom(y => y.FoodEngName))
-                  .ForMember(x => x.Price, x => x.MapFrom(y => y.Price));
+                MappingDataEnglish();
             }
 
             Mapper.CreateMap<GroupOrder, CommonKitchenOrder>()
@@ -64,6 +47,36 @@ namespace NexFB.Pos.Core.Mapping
         {
             Mapper.CreateMap<TLeft, TRight>();
             Mapper.CreateMap<TRight, TLeft>();
+        }
+
+        /// <summary>
+        /// Mapping data for Vietnamese Culture.
+        /// </summary>
+        private void MappingDataVietNamese()
+        {
+            Mapper.CreateMap<Location, CommonKitchenOrder>()
+               .ForMember(x => x.ItemId, x => x.MapFrom(y => y.LocationId))
+               .ForMember(x => x.ItemName, x => x.MapFrom(y => y.NameVN));
+
+            Mapper.CreateMap<FoodOrder, CommonKitchenOrder>()
+               .ForMember(x => x.ItemId, x => x.MapFrom(y => y.FoodId))
+               .ForMember(x => x.ItemName, x => x.MapFrom(y => y.FoodVnmName))
+               .ForMember(x => x.Price, x => x.MapFrom(y => y.Price));
+
+            Mapper.CreateMap<OrderMenu, KitchenEmployeeInfo>()
+              .ForMember(x => x.GroupOrderId, x => x.MapFrom(y => y.OrderId));
+        }
+
+        private void MappingDataEnglish()
+        {
+            Mapper.CreateMap<Location, CommonKitchenOrder>()
+             .ForMember(x => x.ItemId, x => x.MapFrom(y => y.LocationId))
+             .ForMember(x => x.ItemName, x => x.MapFrom(y => y.NameEN));
+
+            Mapper.CreateMap<FoodOrder, CommonKitchenOrder>()
+              .ForMember(x => x.ItemId, x => x.MapFrom(y => y.FoodId))
+              .ForMember(x => x.ItemName, x => x.MapFrom(y => y.FoodEngName))
+              .ForMember(x => x.Price, x => x.MapFrom(y => y.Price));
         }
     }
 }
