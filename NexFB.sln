@@ -60,7 +60,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexFB.WinAppSmartCard", "Ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexFB.WinAppSmartCard.Core", "NexFB.WinAppSmartCard.Core\NexFB.WinAppSmartCard.Core.csproj", "{09E8D442-CFB1-41DD-B479-590864561ABB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PosKitchen", "PosKitchen", "{BD2BADD7-CA61-4393-B78E-18B5F03EA365}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinAppPosKitchen", "WinAppPosKitchen", "{BD2BADD7-CA61-4393-B78E-18B5F03EA365}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexFB.PosKitchen", "NexFB.PosKitchen\NexFB.PosKitchen.csproj", "{3693F6BE-D439-45A7-B1FD-6CF54FD07DE4}"
 EndProject

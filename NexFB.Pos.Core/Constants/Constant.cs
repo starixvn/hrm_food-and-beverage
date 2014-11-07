@@ -28,7 +28,7 @@ namespace NexFB.Pos.Core.Constants
 
         public const double BannerResolution1024 = 400;
 
-        public const double RemainingWidth = 270;
+        public const double RemainingWidth = 380;
 
         public const string DefaultLanguage = "DefaultLanguage";
 
