@@ -64,18 +64,13 @@ namespace NexFB.Repositories.Implement
         /// <param name="rawMembers">The raw members list.</param>
         /// <param name="rawGroups">The raw groups list.</param>
         /// <returns>The member list.</returns>
-        private static IEnumerable<MemberModel> GetMemberList(IEnumerable<dynamic> rawMembers, IEnumerable<dynamic> rawGroups)
+        private IEnumerable<MemberModel> GetMemberList(IEnumerable<dynamic> rawMembers, IEnumerable<dynamic> rawGroups)
         {
             var members = new List<MemberModel>();
 
             foreach (var member in rawMembers)
             {
-                var groups = rawGroups.Where(t => t.SysID == member.SysID).ToList();
-                var assignedGroups = groups.Select(t => new
-                    {
-                        GroupId = t.GroupID == null ? null : int.Parse(t.GroupID.ToString()),
-                        GroupName = t.GroupName
-                    });
+                var assignedGroups = GetAssignedGroups(rawGroups, member);
 
                 members.Add(new MemberModel
                     {
@@ -91,6 +86,18 @@ namespace NexFB.Repositories.Implement
             }
 
             return members;
+        }
+
+        private IEnumerable<dynamic> GetAssignedGroups(IEnumerable<dynamic> rawGroups, dynamic member)
+        {
+            var groups = rawGroups.Where(t => t.SysID == member.SysID).ToList();
+            var assignedGroups = groups.Select(t => new
+                {
+                    GroupId = t.GroupID == null ? null : int.Parse(t.GroupID.ToString()),
+                    GroupName = t.GroupName
+                });
+
+            return assignedGroups;
         }
     }
 }

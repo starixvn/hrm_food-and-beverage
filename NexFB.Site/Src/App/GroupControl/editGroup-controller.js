@@ -7,13 +7,8 @@ groupControlModule.controller('EditGroupController',
         
     $scope.group = group;
 
-    $scope.updateGroup = function (group) {
-
-        var editedGroup = {
-            groupId: group.GroupId,
-            groupName: group.GroupName,
-            isActive: group.IsActive
-        };
+    $scope.updateGroup = function (grp) {
+        var editedGroup = angular.copy(grp);
 
         groupControlFactory.updateGroup(editedGroup).success(function (response) {
             if (response.IsSuccessful) {
