@@ -1,4 +1,4 @@
-﻿<div class="col-sm-9">
+﻿<div class="col-sm-10">
     <div class="row sub-header">
         <ul class="breadcrumb list-inline pull-left">
             <li class="current" data-translate="UserGroupManagementUser"></li>
@@ -6,51 +6,51 @@
     </div>
     
     <div class="row filter">
-        <form class="form-inline" role="form">
+        <form class="form-horizontal form-multiLine" role="form">
             <div class="form-group">
-                <label data-translate="Company"></label>
-                <select ng-model="filter.DepartmentId" ng-options="opt.DepartmentId as opt.Name for opt in companyOptions" class="form-control">
-                    <option value="">-- {{"AllCompanies" | translate}} --</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label data-translate="Group"></label>
-                <div class="sel-meal field selectbox">
-                    <add-class-to-role-filter multi-select input-model="groupOptions" button-label="GroupId"
+                <label class="col-sm-1 text-right" data-translate="Company"></label>
+                <div class="col-sm-2 field">
+                    <select ng-model="filter.DepartmentId" ng-options="opt.DepartmentId as opt.Name for opt in companyOptions" class="form-control">
+                        <option value="">-- {{"AllCompanies" | translate}} --</option>
+                    </select>
+                </div>
+                <label class="col-sm-1 text-right" data-translate="Group"></label>
+                <div class="col-sm-2 field">
+                     <add-class-to-role-filter multi-select input-model="groupOptions" button-label="GroupId"
                         helper-elements="all reset" item-label="GroupName" tick-property="ticked"
                         max-labels="0" class="multi-select">
                     </add-class-to-role-filter>
                 </div>
-            </div>
-            <div class="form-group">
-                <label data-translate="EmployeeType"></label>
-                <div class="sel-meal field selectbox">
+                <label class="col-sm-1 text-right long-text" data-translate="EmployeeType"></label>
+                <div class="col-sm-2 field">
                     <add-class-to-role-filter multi-select input-model="employeeTypeOptions" button-label="EmployeeTypeId"
                         helper-elements="all reset" item-label="EmployeeTypeName" tick-property="ticked"
                         max-labels="0" class="multi-select employee-type">
 					</add-class-to-role-filter>
                 </div>
             </div>
-            <br/>
             <div class="form-group">
-                <label data-translate="JoinedFrom"></label>
-                <input class="calendar-form-control" type="text" ng-model="filter.JoinedDateFrom" datepicker-popup
+                <label class="col-sm-1 text-right" data-translate="JoinedFrom"></label>
+                <div class="col-sm-2 field">
+                    <input class="calendar-form-control" type="text" ng-model="filter.JoinedDateFrom" datepicker-popup
                     is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
-                <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
-            </div>
-            <div class="form-group">
-                <label data-translate="To"></label>
-                <input class="calendar-form-control" type="text" ng-model="filter.JoinedDateTo" datepicker-popup
+                    <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
+                </div>
+                <label class="col-sm-1 text-right" data-translate="To"></label>
+                <div class="col-sm-2 field">
+                    <input class="calendar-form-control" type="text" ng-model="filter.JoinedDateTo" datepicker-popup
                     is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
-                <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+                    <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+                </div>
+                <label class="col-sm-1 text-right long-text" data-translate="MemberName"></label>
+                <div class="col-sm-2 field">
+                    <input type="text" class="form-control" ng-model="filter.Query"/>
+                </div>
+                <div class="col-sm-2 pull-right">
+                     <input type="button" value="Submit" class="button" ng-click="query(filter)"/>
+                </div>
             </div>
-            <div class="form-group">
-                <label data-translate="MemberName"></label>
-                <input type="text" ng-model="filter.Query"/>
-            </div>
-            <div class="form-group">
-                <input type="button" value="Submit" class="button" ng-click="query(filter)"/>
-            </div>
+            
         </form>
     </div>
     
@@ -91,7 +91,7 @@
                                         max-labels="0" class="multi-select" on-item-click="changeSelectedGroup(globalMember.GroupOptions)">
                                 </div>
                             </div>
-                            <div>
+                            <div class="icon-box">
                                 <a class="glyphicon glyphicon-ok" href="javascript:void(0)" ng-show="globalMember.IsEditing" ng-click="assignMultipleMembers()"></a>
                                 <a class="glyphicon glyphicon-remove icon-remove" href="javascript:void(0)" ng-show="globalMember.IsEditing" ng-click="cancelAssignMultipleMembers()"></a>
                             </div>
@@ -105,23 +105,23 @@
 	                </td>
 	                <td class="text-center" ng-bind="member.JoinedDate | customDate">
 	                </td>
-	                <td>
-	                    <div class="view-mode" ng-show="!member.IsEditing" style="text-align: center">
-	                        <ul >
+	                <td class="last-cloumn">
+	                    <div class="view-mode" ng-show="!member.IsEditing" >
+	                        <ul class="pull-left group-list">
 	                            <li ng-repeat="group in member.AssignedGroups" >{{group.GroupName}}</li>
 	                        </ul>
-	                        <a title="Assign Member To Group" href="javascript:void(0);" class="glyphicon glyphicon-edit" ng-click="editMember(member)"></a>
 	                    </div>
+                        <a title="Assign Member To Group" href="javascript:void(0);" class="glyphicon glyphicon-edit pull-left icon-edit" ng-click="editMember(member)"></a>
                         <div ng-show="member.IsEditing">
-                            <div class="field selectbox">
+                            <div class="field selectbox ">
                                 <div multi-select input-model="member.GroupOptions" button-label="GroupId"
                                      helper-elements="all reset" item-label="GroupName" tick-property="ticked"
                                      max-labels="0" class="multi-select">
                                 </div>
                             </div>
-                            <div>
-                                    <a class="glyphicon glyphicon-ok" href="" ng-show="member.IsEditing" ng-click="assignMember(member)"></a>
-                                    <a class="glyphicon glyphicon-remove icon-remove" ng-show="member.IsEditing" href="" ng-click="cancelAssignMember(member)"></a>
+                            <div class="icon-box">
+                                <a class="glyphicon glyphicon-ok" href="" ng-show="member.IsEditing" ng-click="assignMember(member)"></a>
+                                <a class="glyphicon glyphicon-remove icon-remove" ng-show="member.IsEditing" href="" ng-click="cancelAssignMember(member)"></a>
                             </div>
                         </div>
 	                </td>

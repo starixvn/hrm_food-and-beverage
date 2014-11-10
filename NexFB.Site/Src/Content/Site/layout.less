@@ -359,11 +359,6 @@ a:focus {
         .form-group {
             margin-right: 10px;
             line-height: 22px;
-
-            input[type="checkbox"] {
-                position: relative;
-                top: 2px;
-            }
         }
 
         label {
@@ -618,7 +613,7 @@ select.ddlMenu{
     cursor: pointer;
 }
 
-.dropdown-menu.ng-valid-date {
+.dropdown-menu {
     background-color: #fff;
     padding: 0 0 10px;
 
@@ -1034,6 +1029,7 @@ select.ddlMenu{
 	width: 20px;
 	float: right;
 }
+
 /********************************************************/
 /*					        Message                     */
 /********************************************************/
@@ -1053,6 +1049,39 @@ select.ddlMenu{
 	background: #eeeeee;
 	border: 1px solid #ccc;
 	border-radius: 4px;
+}
+/* form horizontal */
+.form-multiLine {
+	.form-group {
+		margin: 0 0 10px;
+	}
+	.col-sm-2.field {
+		padding: 0;
+		width: 15.33%;
+		&.selectbox {
+			width: 13%;
+		}
+		.text-usergroup {
+			width: 118px;
+		}
+	}
+
+	label.col-sm-1 {
+		padding: 3px 7px 0 0;
+	}
+
+	.long-text {
+		width: 14.33%;
+	}
+
+	.short-text {
+		width: 9.333%;
+	}
+
+	.list-checkbox {
+		margin-left: 45px;
+		float: left;
+	}
 }
 @media (max-width: 770px) {
     .container-fluid.page {
@@ -1169,9 +1198,5 @@ select.ddlMenu{
     .colons .control-label:after {
         content: ":";
     }
-
-    input[type="checkbox"] {
-        position: relative;
-        top: 2px;
-    }
+    
 }
