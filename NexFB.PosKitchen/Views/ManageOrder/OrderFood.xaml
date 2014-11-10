@@ -56,7 +56,7 @@
 						</Grid.ColumnDefinitions>
 						<Grid Grid.Column="0" Width="{Binding Path=LeftSideImageWidth}"
                               HorizontalAlignment="Left" Background="#e2e2e2" Margin="0" Name="grid6" VerticalAlignment="Top">
-							<Image Source="pack://application:,,,/Images/no-avatar.jpg" Margin="0"
+							<Image Source="{Binding Path=OwnerImage}" Margin="0"
                                    HorizontalAlignment="Left" Name="image1" Stretch="Fill" VerticalAlignment="Top" />
 						</Grid>
 						<Grid Grid.Column="1" Width="{Binding Path=LeftSideInfoDetails}" Background="#e2e2e2">
@@ -409,7 +409,7 @@
                                           Width="{Binding DataContext.RightSide, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                           Height="{Binding DataContext.RightSideImageHeight, RelativeSource={RelativeSource AncestorType=ListBox}}">
 
-										<Image Source="pack://application:,,,/Images/kahn.png" Stretch="Fill" HorizontalAlignment="Left"
+										<Image Source="{Binding Path=ImageSource}" Stretch="Fill" HorizontalAlignment="Left"
                                                Width="{Binding DataContext.RightSideImageWidth, RelativeSource={RelativeSource AncestorType=ListBox}}" 
                                                Height="{Binding DataContext.RightSideImageHeight, RelativeSource={RelativeSource AncestorType=ListBox}}" />
 										<Grid Height="{Binding DataContext.RightSideImageHeight, RelativeSource={RelativeSource AncestorType=ListBox}}" 

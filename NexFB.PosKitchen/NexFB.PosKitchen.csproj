@@ -131,7 +131,9 @@
     <Compile Include="ViewModels\AwaitingDeliverViewModel.cs" />
     <Compile Include="ViewModels\DeliveredFoodViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\OrderFoodViewModel.cs" />
+    <Compile Include="ViewModels\OrderFoodViewModel.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="ViewModels\Partials\Main\MainModelProperty.cs" />
     <Compile Include="ViewModels\Partials\OrderFood\OrderFoodData.cs" />
     <Compile Include="ViewModels\Partials\OrderFood\OrderFoodDynamicScreen.cs" />
@@ -161,6 +163,15 @@
     <Compile Include="Views\SettingWindow.xaml.cs">
       <DependentUpon>SettingWindow.xaml</DependentUpon>
     </Compile>
+    <Resource Include="Images\SMS\00067.jpg" />
+    <Resource Include="Images\SMS\00431.jpg" />
+    <Resource Include="Images\SMS\02580.jpg" />
+    <Resource Include="Images\Nexcel\02303.jpg" />
+    <Resource Include="Images\Nexcel\02355.jpg" />
+    <Resource Include="Images\Nexcel\02358.jpg" />
+    <Resource Include="Images\HongMa\HM0007.jpg" />
+    <Resource Include="Images\HongMa\HM0015.jpg" />
+    <Resource Include="Images\HongMa\HM0022.jpg" />
     <Content Include="PrintingTemplates\OrderFoodReceipt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

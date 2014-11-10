@@ -108,6 +108,24 @@ namespace NexFB.Pos.Core.Constants
 
         public const string CancelImageDisabled = "pack://application:,,,/Images/button_cancel_disabled.png";
 
+        public const string DefaultAvatar = "pack://application:,,,/Images/no-avatar.jpg";
+
+        public const string NexcelAvatar = "pack://application:,,,/Images/Nexcel/{0}.jpg";
+
+        public const string SmsAvatar = "pack://application:,,,/Images/SMS/{0}.jpg";
+
+        public const string HongMaAvatar = "pack://application:,,,/Images/HongMa/{0}.jpg";
+
+        public const string POSKitchenAssembly = "NexFB.PosKitchen";
+
+        public const string DefaultImagePath = "images/no-avatar.jpg";
+
+        public const string NexcelImagePath = "images/nexcel/{0}.jpg";
+
+        public const string SmsImagePath = "images/sms/{0}.jpg";
+
+        public const string HongMaImagePath = "images/hongma/{0}.jpg";
+
         public const string DefaultMealMenuSelected = "#46A3E1";
 
         public const string Expat = "EXPAT";

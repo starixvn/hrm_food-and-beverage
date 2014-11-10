@@ -128,7 +128,7 @@ namespace NexFB.Repositories.Implement
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    employeeInGroup.GroupOrder = multi.Read<GroupOrder>().SingleOrDefault();
+                    employeeInGroup.GroupOrder = multi.Read<GroupOrder>().ToList();
                     employeeInGroup.Employees = multi.Read<EmployeeInfo>().ToList();
                 }
             }

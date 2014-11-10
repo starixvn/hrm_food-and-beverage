@@ -60,6 +60,7 @@ namespace NexFB.PosKitchen.ViewModels.Partials.OrderFood
         private string _overlayVisible;
         private bool _isDataEdit;
         private string _saveButtonVisible;
+        private string _ownerImage;
 
         public ICommand NumPadPressed { get; set; }
 
@@ -106,6 +107,20 @@ namespace NexFB.PosKitchen.ViewModels.Partials.OrderFood
             {
                 _totalOrder = value;
                 OnPropertyChanged("TotalOrder");
+            }
+        }
+
+        public string OwnerImage
+        {
+            get
+            {
+                return _ownerImage;
+            }
+
+            set
+            {
+                _ownerImage = value;
+                OnPropertyChanged("OwnerImage");
             }
         }
 

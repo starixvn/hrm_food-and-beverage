@@ -16,7 +16,7 @@ namespace NexFB.Models.Kitchen
     /// </summary>
     public class EmployeeInGroup
     {
-        public GroupOrder GroupOrder { get; set; }
+        public List<GroupOrder> GroupOrder { get; set; }
 
         public List<EmployeeInfo> Employees { get; set; }
     }

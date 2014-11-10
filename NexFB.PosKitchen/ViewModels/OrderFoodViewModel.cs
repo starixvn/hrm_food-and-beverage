@@ -248,6 +248,7 @@ namespace NexFB.PosKitchen.ViewModels
                 ////CommonKitchenOrder = AllObservationFood;
                 KitchenEmployeeInfo firstEmployeeInGroup = UserInGroup.FirstOrDefault();
                 EmployeeInfo = firstEmployeeInGroup;
+                OwnerImage = firstEmployeeInGroup.ImageSource;
                 LocationName = firstEmployeeInGroup.LocationName;
                 LocationId = firstEmployeeInGroup.LocationId;
                 ////ExecuteEmployeeInGroupSelected(firstEmployeeInGroup.SysId);
@@ -295,7 +296,8 @@ namespace NexFB.PosKitchen.ViewModels
                     if (EmployeeInfo == null)
                     {
                         EmployeeInfo = currentSelectedEmployee;
-                        LocationName = EmployeeInfo.LocationName;
+                        LocationName = currentSelectedEmployee.LocationName;
+                        OwnerImage = currentSelectedEmployee.ImageSource;
                     }
 
                     ChangeMenuColor(currentSelectedEmployee);
@@ -366,6 +368,7 @@ namespace NexFB.PosKitchen.ViewModels
                         if (EmployeeInfo == null)
                         {
                             EmployeeInfo = selectedEmployeeInfo;
+                            OwnerImage = EmployeeInfo.ImageSource;
                             LocationName = EmployeeInfo.LocationName;
                         }
 
@@ -599,6 +602,7 @@ namespace NexFB.PosKitchen.ViewModels
                 if (EmployeeInfo == null)
                 {
                     EmployeeInfo = DuplicateUser.Where(x => x.IsChecked).FirstOrDefault();
+                    OwnerImage = EmployeeInfo.ImageSource;
                     GetEmployeeInGroup(EmployeeInfo.SysId, value);
                 }
                 else
@@ -782,17 +786,18 @@ namespace NexFB.PosKitchen.ViewModels
             bool result = false;
             if (employeeInGroup != null)
             {
-                if (employeeInGroup.GroupOrder != null)
+                if (employeeInGroup.GroupOrder.Count > 0)
                 {
-                    int groupOrderId = employeeInGroup.GroupOrder.GroupOrderId;
-                    EmployeeInfo.GroupOrderId = groupOrderId;
-                    ExecutePickGroupCommand();
-
-                    CommonKitchenOrder currentSelectedItem = CommonKitchenOrder.Where(x => x.ItemId == groupOrderId).FirstOrDefault();
-                    currentSelectedItem.IsSelectedMealMenu = true;
-                    AddMemberInGroupToGrid(currentSelectedItem);
-
-                    result = CheckValidEmployeeData(sysId, value);
+                    foreach (var group in employeeInGroup.GroupOrder)
+                    {
+                        int groupOrderId = group.GroupOrderId;
+                        EmployeeInfo.GroupOrderId = groupOrderId;
+                        ExecutePickGroupCommand();
+                        CommonKitchenOrder currentSelectedItem = CommonKitchenOrder.Where(x => x.ItemId == groupOrderId).FirstOrDefault();
+                        currentSelectedItem.IsSelectedMealMenu = true;
+                        AddMemberInGroupToGrid(currentSelectedItem);
+                        result = CheckValidEmployeeData(sysId, value);
+                    }
                 }
                 else
                 {
@@ -805,7 +810,6 @@ namespace NexFB.PosKitchen.ViewModels
                             employee.IsSelectedMemberInGroup = true;
                             employee.IsPlaceOrder = true;
                             UserInGroup.Add(employee);
-
                             ShowGridDisplayUser();
                             CloseEmployeeSelectionDialog(value);
                         }
@@ -845,27 +849,26 @@ namespace NexFB.PosKitchen.ViewModels
             {
                 if (currentSelectedItem.IsSelectedMealMenu)
                 {
-                    List<KitchenEmployeeInfo> employees = GetUserByGroup(currentSelectedItem.ItemId);
-                    if (employees.Any() && employees.Count > 0)
-                    {
-                        List<int> listSysId = UserInGroup.Select(x => x.SysId).ToList();
-                        employees = employees.Where(x => !listSysId.Contains(x.SysId)).ToList();
-                        employees.ForEach(x => UserInGroup.Add(x));
-                        ShowGridDisplayUser();
-                        UserInGroup.ToList().ForEach(x => x.IsSelectedMemberInGroup = false);
-                    }
+                    PrepareDataEmployeeInGroup(currentSelectedItem.ItemId);
                 }
                 else
                 {
                     //// Unselected item in group.
                     if (UserInGroup != null)
                     {
-                        List<KitchenEmployeeInfo> currenUserInGroup = UserInGroup.Where(x => x.GroupOrderId != currentSelectedItem.ItemId || x.IsPlaceOrder).ToList();
-                        UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(currenUserInGroup.Where(x => x.GroupOrderId > 0 || x.IsPlaceOrder));
+                        UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup.Where(x => x.IsPlaceOrder));
+                        List<CommonKitchenOrder> selectedGroups = CommonKitchenOrder.Where(x => x.IsSelectedMealMenu).ToList();
+                        foreach (var group in selectedGroups)
+                        {
+                            PrepareDataEmployeeInGroup(group.ItemId);
+                        }
+
                         if (UserInGroup.Count == 0)
                         {
                             HideGridDisplayUser();
                         }
+
+                        UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
                     }
                 }
             }
@@ -1197,6 +1200,7 @@ namespace NexFB.PosKitchen.ViewModels
             EmployeeInfo = null;
             Result = null;
             LocationName = null;
+            OwnerImage = Constant.DefaultAvatar;
             LocationId = 0;
             GridUserVisibility = Constant.Hidden;
             MessageHeader = string.Empty;
@@ -1374,6 +1378,23 @@ namespace NexFB.PosKitchen.ViewModels
 
             Result = string.Empty;
             timer.Stop();
+        }
+
+        /// <summary>
+        /// Get All Employee in a group and add them to the group in POS.
+        /// </summary>
+        /// <param name="groupId">Selected Group Id.</param>
+        private void PrepareDataEmployeeInGroup(int groupId)
+        {
+            List<KitchenEmployeeInfo> employees = GetUserByGroup(groupId);
+            if (employees.Any() && employees.Count > 0)
+            {
+                List<int> listSysId = UserInGroup.Select(x => x.SysId).ToList();
+                employees = employees.Where(x => !listSysId.Contains(x.SysId)).ToList();
+                employees.ForEach(x => UserInGroup.Add(x));
+                ShowGridDisplayUser();
+                UserInGroup.ToList().ForEach(x => x.IsSelectedMemberInGroup = false);
+            }
         }
 
         /// <summary>

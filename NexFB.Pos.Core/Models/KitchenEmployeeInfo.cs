@@ -9,8 +9,12 @@
 
 namespace NexFB.Pos.Core.Models
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Linq;
+    using System.Reflection;
+    using NexFB.Core.Enums;
     using NexFB.Pos.Core.Constants;
     using NexFB.Pos.Core.NotifyBase;
 
@@ -50,6 +54,7 @@ namespace NexFB.Pos.Core.Models
         private string _orderSummary;
         private bool _isDeleteMainFood;
         private bool _disabledAutoAddFood;
+        private string _imageSource;
 
         private List<EmployeeOrderDetails> _listMainMenuOrderDeatails;
         private List<EmployeeOrderDetails> _listAlternativeMenuOrderDeatails;
@@ -58,6 +63,48 @@ namespace NexFB.Pos.Core.Models
         {
             ListMainMenuOrderDeatails = new List<EmployeeOrderDetails>();
             ListAlternativeMenuOrderDeatails = new List<EmployeeOrderDetails>();
+        }
+
+        public string ImageSource
+        {
+            get
+            {
+                string imagePath = string.Empty;
+                switch (DepartmentId)
+                {
+                    case (int)DepartmentIdentity.Nexcel:
+                        _imageSource = string.Format(Constant.NexcelAvatar, Code.Trim());
+                        imagePath = string.Format(Constant.NexcelImagePath, Code.Trim());
+                        break;
+                    case (int)DepartmentIdentity.Sms:
+                        _imageSource = string.Format(Constant.SmsAvatar, Code.Trim());
+                        imagePath = string.Format(Constant.SmsImagePath, Code.Trim());
+                        break;
+                    case (int)DepartmentIdentity.HongMA:
+                        _imageSource = string.Format(Constant.HongMaAvatar, Code.Trim());
+                        imagePath = string.Format(Constant.HongMaImagePath, Code.Trim());
+                        break;
+                    default:
+                        _imageSource = Constant.DefaultAvatar;
+                        imagePath = Constant.DefaultImagePath;
+                        break;
+                }
+
+                if (GetResourceNames(imagePath))
+                {
+                    return _imageSource;
+                }
+                else
+                {
+                    return Constant.DefaultAvatar;
+                }
+            }
+
+            set
+            {
+                _imageSource = value;
+                OnPropertyChanged("ImageSource");
+            }
         }
 
         public bool DisabledAutoAddFood
@@ -560,6 +607,28 @@ namespace NexFB.Pos.Core.Models
                 _orderSummary = value;
                 this.OnPropertyChanged("OrderSummary");
             }
+        }
+
+        /// <summary>
+        /// Method get resource path exists in an assembly.
+        /// </summary>
+        /// <param name="resourcePath">Resource path.</param>
+        /// <returns>Check path exists or not.</returns>
+        private bool GetResourceNames(string resourcePath)
+        {
+            string[] resourceNames;
+            string assemblyName = Constant.POSKitchenAssembly;
+            var assembly = Assembly.Load(assemblyName);
+            string resName = assemblyName + ".g.resources";
+            using (var stream = assembly.GetManifestResourceStream(resName))
+            {
+                using (var reader = new System.Resources.ResourceReader(stream))
+                {
+                    resourceNames = reader.Cast<DictionaryEntry>().Select(entry => (string)entry.Key).ToArray();
+                }
+            }
+
+            return resourceNames.Contains(resourcePath);
         }
     }
 }
