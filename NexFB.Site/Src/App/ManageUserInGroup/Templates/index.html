@@ -105,15 +105,18 @@
 	                </td>
 	                <td class="text-center" ng-bind="member.JoinedDate | customDate">
 	                </td>
-	                <td class="last-cloumn">
+	                <td class="last-column">
 	                    <div class="view-mode" ng-show="!member.IsEditing" >
 	                        <ul class="pull-left group-list">
 	                            <li ng-repeat="group in member.AssignedGroups" >{{group.GroupName}}</li>
 	                        </ul>
+                            <div class="edit-box">
+                                <a title="Assign Member To Group" href="javascript:void(0);" class="glyphicon glyphicon-edit pull-left icon-edit" ng-click="editMember(member)"></a>
+                            </div>
 	                    </div>
-                        <a title="Assign Member To Group" href="javascript:void(0);" class="glyphicon glyphicon-edit pull-left icon-edit" ng-click="editMember(member)"></a>
+                        
                         <div ng-show="member.IsEditing">
-                            <div class="field selectbox ">
+                            <div class="field selectbox group-box ">
                                 <div multi-select input-model="member.GroupOptions" button-label="GroupId"
                                      helper-elements="all reset" item-label="GroupName" tick-property="ticked"
                                      max-labels="0" class="multi-select">
