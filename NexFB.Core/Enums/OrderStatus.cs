@@ -51,5 +51,17 @@ namespace NexFB.Core.Enums
         /// </summary>
         [Description("Edited Order")]
         EditedOrder = 5,
+
+        /// <summary>
+        /// Canceled order.
+        /// </summary>
+        [Description("Canceled Order")]
+        CanceledOrder = 6,
+
+        /// <summary>
+        /// Deleted order.
+        /// </summary>
+        [Description("Deleted Order")]
+        DeletedOrder = 99,
     }
 }

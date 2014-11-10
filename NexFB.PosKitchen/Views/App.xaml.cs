@@ -36,7 +36,6 @@ namespace NexFB.PosKitchen
             try
             {
                 DbSettingProviderManager.Current.Start();
-                UpdateManager.UpdateApp();
                 if (DBConnectionAvailability.IsDBConnectionAvailable())
                 {
                     base.OnStartup(e);
@@ -110,6 +109,8 @@ namespace NexFB.PosKitchen
             {
                 WinFormMainResource.Culture = new CultureInfo(defaultLanguage);
             }
+
+            UpdateManager.UpdateApp();
         }
 
         ////public string TranslateText()

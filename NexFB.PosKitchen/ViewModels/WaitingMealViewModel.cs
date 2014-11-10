@@ -116,14 +116,8 @@ namespace NexFB.PosKitchen.ViewModels
             {
                 var oldOrder = WaitingMeals.Where(x => x.OrderId == order.OrderId).FirstOrDefault();
                 WaitingMeals.Remove(oldOrder);
-                if (order.CurrentStatusId == (int)OrderStatus.NewOrder)
-                {
-                    if (order.ListMenu.Count > 0)
-                    {
-                        NewOrderDataAndSort(order);
-                    }
-                }
-                else
+
+                if (!(order.CurrentStatusId == (int)OrderStatus.DeletedOrder))
                 {
                     NewOrderDataAndSort(order);
                 }

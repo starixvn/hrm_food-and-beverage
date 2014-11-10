@@ -81,8 +81,8 @@ namespace NexFB.Pos.Core.Models
                         imagePath = string.Format(Constant.SmsImagePath, Code.Trim());
                         break;
                     case (int)DepartmentIdentity.HongMA:
-                        _imageSource = string.Format(Constant.HongMaAvatar, Code.Trim());
-                        imagePath = string.Format(Constant.HongMaImagePath, Code.Trim());
+                        _imageSource = string.Format(Constant.HongMAAvatar, Code.Trim());
+                        imagePath = string.Format(Constant.HongMAImagePath, Code.Trim());
                         break;
                     default:
                         _imageSource = Constant.DefaultAvatar;
@@ -617,7 +617,7 @@ namespace NexFB.Pos.Core.Models
         private bool GetResourceNames(string resourcePath)
         {
             string[] resourceNames;
-            string assemblyName = Constant.POSKitchenAssembly;
+            string assemblyName = Constant.PosKitchenAssembly;
             var assembly = Assembly.Load(assemblyName);
             string resName = assemblyName + ".g.resources";
             using (var stream = assembly.GetManifestResourceStream(resName))
