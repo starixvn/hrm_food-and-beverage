@@ -719,7 +719,7 @@
   </data>
   <data name="MessageDeliveredNoMemberStatusOrder" xml:space="preserve">
     <value>Order #{0} by {1} has been ready since {2}.</value>
-    </data>
+  </data>
   <data name="Group" xml:space="preserve">
     <value>Group</value>
   </data>
@@ -731,13 +731,13 @@
   </data>
   <data name="DepartmentSection" xml:space="preserve">
     <value>Department/Section</value>
-    </data>
+  </data>
   <data name="AllGroups" xml:space="preserve">
     <value>All Groups</value>
   </data>
   <data name="Qty" xml:space="preserve">
     <value>Qty</value>
-    </data>
+  </data>
   <data name="CreateGroup" xml:space="preserve">
     <value>Create Group</value>
   </data>
@@ -755,5 +755,14 @@
   </data>
   <data name="OrderChangeWarning" xml:space="preserve">
     <value>Order changed! Please refresh the page before submitting your action.</value>
+  </data>
+  <data name="OrderTime" xml:space="preserve">
+    <value>Order Time</value>
+  </data>
+  <data name="TakeAway" xml:space="preserve">
+    <value>Take Away</value>
+  </data>
+  <data name="TakeAwayRemark" xml:space="preserve">
+    <value>[Take away/Đem đi]</value>
   </data>
 </root>

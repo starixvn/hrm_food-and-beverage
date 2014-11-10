@@ -22,6 +22,10 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		$translate('ConfirmMessageAlternativeMenu').then(function (message) {
 			$scope.confirmMessageAlternativeMenu = message;
 		});
+
+		$translate('TakeAwayRemark').then(function (message) {
+			$scope.takeAwayRemark = message;
+		});
 	};
 
 	$scope.getMessage();
@@ -177,7 +181,10 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				});
 
 				data.Members = newMembers;
+				data.TakeAway = false;
 				$scope.newOrder = data;
+				$scope.newOrder.OrderTime = new Date();
+				$scope.newOrder.OrderTime.toISOString();
 				orderingService.setMemberNewOrder(data.Members);
 			})
 			.error(function (response, status) {
@@ -188,6 +195,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			.success(function (data) {
 				$scope.savedOrder = data;
 				orderingService.setMemberSavedOrder(data.Members);
+				orderingUtilities.setDefaultLocationToSavedOrder($scope.savedOrderLocations, $scope.savedOrder.Location.LocationId);
 			})
 			.error(function (response, status) {
 				ErrorFactory.errorHandle(status);
@@ -205,6 +213,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					newMembers.push(member);
 				}
 
+				data.TakeAway = false;
 				data.Members = newMembers;
 				$scope.sideDishOrder = data;
 				orderingService.setMemberSideDishOrder(data.Members);
@@ -226,6 +235,9 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		orderingFactory.getLocation()
 			.success(function (data) {
 				$scope.locations = data;
+				$scope.newOrderLocations = angular.copy(data);
+				$scope.savedOrderLocations = angular.copy(data);
+				$scope.sideDishOrderLocations = angular.copy(data);
 				$scope.getDefaultForAddOrder();
 			})
 			.error(function (response, status) {
@@ -295,7 +307,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				}
 			}
 
-			if (order.Location === null || order.Location.LocationId === 0) {
+			if (!order.Location || !order.Location.LocationId) {
 				isValid = false;
 				notificationFactory.error("InvalidLocation");
 			}
@@ -322,8 +334,15 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			});
 		};
 
-		$scope.saveAddOrder = function (order, isSideDishOrder) {
+		$scope.saveAddOrder = function (order, typeOrder) {
+			if (order.Location !== null) {
+				order.Location.LocationId = orderingUtilities.getOrderLocation(typeOrder, $scope);
+			}
+
+			var isSideDishOrder = typeOrder === 3;
+
 			if ($scope.ValidateNewOrder(order, isSideDishOrder)) {
+
 				$scope.modalConfirmSaveOrderInstance = $modal.open({
 					templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
 					controller: "ModalConfirmController2",
@@ -339,7 +358,11 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				$scope.modalConfirmSaveOrderInstance.result.then(function () {
 					closeAlternativeSelect();
 
-					if (!isSideDishOrder) {
+					if (order.TakeAway) {
+						order.Remark = !order.Remark ? $scope.takeAwayRemark : $scope.takeAwayRemark + "," + order.Remark;
+					}
+
+					if (typeOrder !== 3) {
 						orderingFactory.createOrder(order)
 						.success(function (response) {
 							if (response.result.IsSuccessful) {
@@ -373,6 +396,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					}
 				}, function () {
 				})['finally'](function () {
+					orderingUtilities.resetSelectOrderLocation($scope);
 					$scope.modalConfirmSaveOrderInstance = undefined;
 				});
 			}
@@ -666,6 +690,13 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	$scope.calculateTotalAmount = function (members) {
 		var total = orderingUtilities.calculateTotalAmount(members);
 		return total;
+	};
+
+	/*
+	** Enable new order time.
+	*/
+	$scope.enableNewOrderTime = function () {
+		$scope.newOrder.OrderTime = new Date();
 	};
 } ]);
 

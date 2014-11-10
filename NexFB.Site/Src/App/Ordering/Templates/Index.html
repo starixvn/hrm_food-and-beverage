@@ -138,10 +138,9 @@
                     <div class="form-group required">
                         <label class="control-label width-100" data-translate="DeliveryArea">
                         </label>
-                        <select ng-model="newOrder.Location.LocationId">
-                            <option style="display: none" value="0">{{"SelectLocation" | translate}}</option>
-                            <option ng-repeat="lc in locations" value="{{lc.LocationId}}">{{lc.Name}}</option>
-                        </select>
+						<add-class-to-role-filter multi-select input-model="newOrderLocations" button-label="Name" helper-elements="all reset filter"
+							item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select" >
+						</add-class-to-role-filter>
                     </div>
                     <div class="form-group">
                         <label class="control-label width-100" data-translate="Member">
@@ -216,6 +215,11 @@
                             </label>
                             <input ng-model="newOrder.Phone" type="text" maxlength="50" class="txtPhone" />
                         </div>
+						<div class="form-group">
+							<input type="checkbox" ng-model="newOrder.TakeAway" />
+							<label data-translate="TakeAway">
+							</label>
+						</div>
                     </div>
                     <div class="row row-cust">
                         <p class="row txt-warning">
@@ -223,7 +227,7 @@
                             <label data-translate="WarningGroupNotSave">
                             </label>
                         </p>
-                        <button ng-click="saveAddOrder(newOrder)" class="button btn-order" data-translate="Order">
+                        <button ng-click="saveAddOrder(newOrder, 1)" class="button btn-order" data-translate="Order">
                         </button>
                     </div>
                 </div>
@@ -236,10 +240,9 @@
                     <div class="form-group required">
                         <label class="control-label width-100" data-translate="DeliveryArea">
                         </label>
-                        <select ng-model="savedOrder.Location.LocationId">
-                            <option style="display: none" value="0">{{"SelectLocation" | translate}}</option>
-                            <option ng-repeat="lc in locations" value="{{lc.LocationId}}">{{lc.Name}}</option>
-                        </select>
+						<add-class-to-role-filter multi-select input-model="savedOrderLocations" button-label="Name" helper-elements="all reset filter"
+							item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select" >
+						</add-class-to-role-filter>
                     </div>
                     <div class="form-group">
                         <label class="control-label width-100" data-translate="Member">
@@ -320,9 +323,14 @@
                             </label>
                             <input ng-model="savedOrder.Phone" type="text" maxlength="50" class="txtPhone" />
                         </div>
+						<div class="form-group">
+							<input type="checkbox" ng-model="savedOrder.TakeAway" />
+							<label data-translate="TakeAway">
+							</label>
+						</div>
                     </div>
                     <div class="row row-cust">
-                        <button ng-click="saveAddOrder(savedOrder)" class="button btn-order" data-translate="Order">
+                        <button ng-click="saveAddOrder(savedOrder, 2)" class="button btn-order" data-translate="Order">
                         </button>
                     </div>
                 </div>
@@ -335,10 +343,9 @@
 						<div class="form-group required">
 							<label class="control-label width-100" data-translate="DeliveryArea">
 							</label>
-							<select ng-model="sideDishOrder.Location.LocationId">
-								<option style="display: none" value="0">{{"SelectLocation" | translate}}</option>
-								<option ng-repeat="lc in locations" value="{{lc.LocationId}}">{{lc.Name}}</option>
-							</select>
+							<add-class-to-role-filter multi-select input-model="sideDishOrderLocations" button-label="Name" helper-elements="all reset filter"
+								item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select" >
+							</add-class-to-role-filter>
 						</div>
 						<div class="form-group">
 							<label class="control-label width-100" data-translate="Member"></label>
@@ -417,9 +424,14 @@
                             </label>
                             <input ng-model="sideDishOrder.Phone" type="text" maxlength="50" class="txtPhone"/>
                         </div>
+						<div class="form-group">
+							<input type="checkbox" ng-model="sideDishOrder.TakeAway" />
+							<label data-translate="TakeAway">
+							</label>
+						</div>
                     </div>
                     <div class="row row-cust">
-                        <button ng-click="saveAddOrder(sideDishOrder, true)" class="button btn-order" data-translate="Order">
+                        <button ng-click="saveAddOrder(sideDishOrder, 3)" class="button btn-order" data-translate="Order">
                         </button>
                     </div>
                 </div>

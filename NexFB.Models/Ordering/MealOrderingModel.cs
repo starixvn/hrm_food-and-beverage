@@ -32,11 +32,15 @@ namespace NexFB.Models.Ordering
 
         public int OrderNo { get; set; }
 
+        public DateTime OrderTime { get; set; }
+
         public IList<OrderMemberModel> Members { get; set; }
 
         public int MemberCount { get; set; }
 
         public Employee CreatorOrder { get; set; }
+
+        public bool TakeAway { get; set; }
 
         public string Phone { get; set; }
 

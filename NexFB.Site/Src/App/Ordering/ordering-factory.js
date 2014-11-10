@@ -143,5 +143,54 @@ orderingModule.factory("orderingFactory",
 			return orders;
 		};
 
+		utilities.setDefaultLocationToSavedOrder = function (savedOrderLocations, locationId) {
+			angular.forEach(savedOrderLocations, function (value) {
+				if (value.LocationId === locationId) {
+					value.ticked = true;
+				}
+			});
+		};
+
+		utilities.getOrderLocation = function (typeOrder, scope) {
+			var locationId = '';
+
+			// New Order
+			if (typeOrder === 1) {
+				angular.forEach(scope.newOrderLocations, function (value) {
+					if (value.ticked) {
+						locationId = value.LocationId;
+					}
+				});
+			}
+			// Saved Order
+			else if (typeOrder === 2) {
+				angular.forEach(scope.savedOrderLocations, function (value) {
+					if (value.ticked) {
+						locationId = value.LocationId;
+					}
+				});
+			}
+			// Side Dish Order
+			else if (typeOrder === 3) {
+				angular.forEach(scope.sideDishOrderLocations, function (value) {
+					if (value.ticked) {
+						locationId = value.LocationId;
+					}
+				});
+			}
+
+			return locationId;
+		};
+
+		utilities.resetSelectOrderLocation = function (scope) {
+			angular.forEach(scope.newOrderLocations, function (value) {
+				value.ticked = false;
+			});
+
+			angular.forEach(scope.sideDishOrderLocations, function (value) {
+				value.ticked = false;
+			});
+		};
+
 		return utilities;
 	});

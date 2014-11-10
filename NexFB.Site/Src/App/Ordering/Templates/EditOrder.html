@@ -144,6 +144,11 @@
 						ng-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
 						|| (order.Status.StatusId != 1) || order.OrderFrom == 'P' || order.OrderFrom == 'P-U'"/>
                 </div>
+				<div class="form-group">
+					<input type="checkbox" ng-model="order.TakeAway" ng-click="updateRemark(order)" />
+					<label data-translate="TakeAway">
+					</label>
+				</div>
             </div>
             <div class="row form-inline form-order">
                 <label ng-show="order.Status.StatusId == 1" class="order-status-new">

@@ -45,6 +45,9 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		$translate('ConfirmMessageAlternativeMenu').then(function (message) {
 			$scope.confirmMessageAlternativeMenu = message;
 		});
+		$translate('TakeAwayRemark').then(function (message) {
+			$scope.takeAwayRemark = message;
+		});
 	};
 	$scope.getMessage();
 
@@ -170,7 +173,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 							ErrorFactory.errorHandle(status);
 						});
 					}
-							}
+				}
 				else if (isTimeValid === 'false') {
 					notificationFactory.error("OrderChangeWarning");
 				}
@@ -433,5 +436,18 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	$scope.calculateTotalAmount = function (members) {
 		var total = orderingUtilities.calculateTotalAmount(members);
 		return total;
+	};
+
+	/*
+	** Update remark.
+	*/
+	$scope.updateRemark = function (order) {
+		if (!order.TakeAway) {
+			order.Remark = !order.Remark ? $scope.takeAwayRemark : $scope.takeAwayRemark + "," + order.Remark;
+		}
+		else {
+			order.Remark = order.Remark.replace($scope.takeAwayRemark, "");
+			order.Remark = order.Remark.replace(",", "");
+		}
 	};
 } ]);
