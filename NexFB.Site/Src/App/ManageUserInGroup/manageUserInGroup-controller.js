@@ -2,9 +2,9 @@
 /*global manageUserInGroupModule*/
 
 manageUserInGroupModule.controller("ManageUserInGroupController",
-['$scope', '$modal', '$route', '$log', '$routeParams', 'commonFactory', 
+['$scope', '$modal', '$route', '$log', '$routeParams', 'commonFactory',
     'manageUserInGroupFactory', 'manageUserInGroupUtilities', 'notificationFactory', 'ErrorFactory',
-function ($scope, $modal, $route, $log, $routeParams, commonFactory, 
+function ($scope, $modal, $route, $log, $routeParams, commonFactory,
     manageUserInGroupFactory, manageUserInGroupUtilities, notificationFactory, ErrorFactory) {
     var groupId = parseInt($routeParams.groupId, 10);
     console.log(groupId);
@@ -132,6 +132,7 @@ function ($scope, $modal, $route, $log, $routeParams, commonFactory,
 
                 commonFactory.tablePagination($scope, $scope.members, $scope.entrySelected);
                 $scope.currentPage = $scope.originalPage;
+                $scope.previousPage = $scope.currentPage;
             }
         }).error(function () {
             notificationFactory.error("ErrorMessage");
@@ -289,6 +290,7 @@ function ($scope, $modal, $route, $log, $routeParams, commonFactory,
         manageUserInGroupFactory.assignMemberToGroup(filter)
             .success(function () {
                 $scope.globalMember.IsEditing = false;
+                $scope.globalMember.HasEditing = false;
                 $scope.globalMember.AssignedGroups = [];
                 $scope.globalMember.GroupOptions = angular.copy(originalGroupOptions);
 
@@ -305,7 +307,28 @@ function ($scope, $modal, $route, $log, $routeParams, commonFactory,
     /*####### End: Assign Multiple Member ####*/
 
     $scope.selectMember = function (SysId) {
-        console.log(SysId);
         $scope.selectedMember = SysId;
     };
+
+    $scope.resetMember = function () {
+        var members = $scope.pagedItems[$scope.previousPage];
+        angular.forEach(members, function (member) {
+            if (member.IsEditing) {
+                member.IsEditing = false;
+                member.GroupOptions = angular.copy(member.BackupGroupOptions);
+            }
+        });
+
+        $scope.HasEditing = false;
+        $scope.globalMember.IsEditing = false;
+        $scope.globalMember.GroupOptions = angular.copy($scope.globalMember.BackupGroupOptions);
+        $scope.previousPage = $scope.currentPage;
+    };
+
+    $scope.$watch('currentPage', function () {
+        var current = parseInt($scope.currentPage);
+        if (!isNaN(current)) {
+            $scope.resetMember();
+        }
+    });
 } ]);

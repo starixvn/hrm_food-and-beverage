@@ -149,6 +149,6 @@
 	    </table>
     </div>
     <div class="pull-right">
-        <input type="button" class="button" value="Save All" ng-show="HasEditing" ng-click="assignMultipleMembers()"/>
+        <input type="button" class="button" ng-class="{hide: !HasEditing}" value="Save All" ng-click="assignMultipleMembers()"/>
     </div>
 </div>
