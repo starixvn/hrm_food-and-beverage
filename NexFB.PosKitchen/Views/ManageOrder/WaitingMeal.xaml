@@ -48,8 +48,8 @@
 
 							<!--Order Owner Image-->
 							<Grid Grid.Column="1" Width="105" Height="95">
-								<Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Silver" BorderThickness="3">
-									<Image Source="pack://application:,,,/Images/kahn.png" Stretch="Fill" />
+								<Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Silver" BorderThickness="1">
+									<Image Source="{Binding Path=ImageSource}" Stretch="Fill" />
 								</Border>
 							</Grid>
 
@@ -107,7 +107,7 @@
 															<ColumnDefinition/>
 															<ColumnDefinition/>
 														</Grid.ColumnDefinitions>
-														<Label Foreground="#e76957" FontSize="15" Grid.Column="0" Content="{Binding Path=MenuVnmName}" ContentStringFormat=" {0} :"></Label>
+														<Label Foreground="#00A750" FontSize="15" Grid.Column="0" Content="{Binding Path=MenuVnmName}" ContentStringFormat=" {0} :"></Label>
 														<Label FontWeight="Black" FontSize="15" Grid.Column="1" Content="{Binding Path=QuantityPerTotal}" Margin="0,0,11,0"></Label>
 													</Grid>
 
@@ -138,9 +138,17 @@
 							</Grid>
 
 							<!--Order status-->
-							<Grid Grid.Column="3" Width="150" VerticalAlignment="Top">
-								<Button Height="40" Width="85" Content="{Binding Path=ButtonLabel}"
-								 Foreground="White" Style="{StaticResource TileButton}"  Margin="38,8,20,40" />
+							<Grid Grid.Column="3" Width="150" VerticalAlignment="Top" Margin="0,9,0,0">
+								<Button Height="40" Width="85" Content="{Binding Path=ButtonLabel}" VerticalAlignment="Top"
+								 Foreground="White" Style="{StaticResource TileButton}"  Margin="45,-3,20,0" />
+
+								<!--<Button Foreground="White" Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Back}"
+									 HorizontalAlignment="Left" Margin="45,-3,20,0" Name="button1" VerticalAlignment="Top" Width="85" Height="40"/>-->
+								<Button Background="#EA4B35"  Foreground="White" Style="{StaticResource TileButton}" 
+									Content="{x:Static resx:WinFormMainResource.CancelOrder}" Height="40" HorizontalAlignment="Left"
+									Margin="45,40,20,0" VerticalAlignment="Top" Width="85" CommandParameter="{Binding Path=OrderId}"
+									Command="{Binding DataContext.CancelOrderCommand, RelativeSource={RelativeSource AncestorType=Window}}" />
+
 							</Grid>
 						</Grid>
 					</Border>

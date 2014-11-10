@@ -339,4 +339,10 @@
   <data name="Message_CancelOrderEdit" xml:space="preserve">
     <value>Bạn có muốn hủy bỏ chỉnh sửa này không?</value>
   </data>
+  <data name="CancelOrder" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="Message_PermanentCancelOrder" xml:space="preserve">
+    <value>Bạn có muốn hủy phiếu ăn này không?</value>
+  </data>
 </root>

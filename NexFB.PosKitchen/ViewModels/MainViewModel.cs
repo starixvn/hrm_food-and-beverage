@@ -29,6 +29,7 @@ namespace NexFB.PosKitchen.ViewModels
     using NexFB.PosKitchen.Views;
     using NexFB.Resources;
     using WPFMessageBoxCustomControl;
+    using WPFMessageBoxCustomControl.Enums;
 
     /// <summary>
     /// Main ViewModel.
@@ -116,6 +117,11 @@ namespace NexFB.PosKitchen.ViewModels
         }
 
         private bool CanExecuteNumPadReleased()
+        {
+            return true;
+        }
+
+        private bool CanExecuteCancelCommand()
         {
             return true;
         }
@@ -360,6 +366,43 @@ namespace NexFB.PosKitchen.ViewModels
                 Order order = KitchenService.GetOrderDetails(getOrderDetailsCriteria);
                 CurrentViewModel = new OrderFoodViewModel(this, order);
                 CheckCurrentViewModel();
+            }
+        }
+
+        /// <summary>
+        /// Execute Cancel Command.
+        /// </summary>
+        /// <param name="value">Current Order Id.</param>
+        private void ExecuteCancelCommand(object value)
+        {
+            if (value != null)
+            {
+                WPFMessageBoxResult confirmCancel = WPFMessageBox.Show(
+                    Constant.VietNamCulture,
+                    WinFormMainResource.Confirmation,
+                    WinFormMainResource.Message_PermanentCancelOrder,
+                    WPFMessageBoxButtons.YesNo,
+                    WPFMessageBoxImage.Alert);
+
+                if (confirmCancel == WPFMessageBoxResult.Yes)
+                {
+                    int orderId = (int)value;
+                    var cancelOrderCriteria = new CancelOrderCriteria()
+                    {
+                        OrderId = orderId,
+                        ModifiedDate = DateTime.Now
+                    };
+
+                    CommandResult result = this.KitchenService.CancelOrder(cancelOrderCriteria);
+                    if (result.Code != 0)
+                    {
+                        this.ShowErrorMessage(Constant.VietNamCulture, result.Message.ToString());
+                    }
+                    else
+                    {
+                        ProcessDataFromCurrentList(orderId);
+                    }
+                }
             }
         }
 
@@ -617,7 +660,6 @@ namespace NexFB.PosKitchen.ViewModels
         /// <summary>
         /// Method Initialize RelayCommand.
         /// </summary>
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Reviewed. Suppression is OK here.")]
         private void InitializeRelayCommand()
         {
             ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
@@ -627,10 +669,16 @@ namespace NexFB.PosKitchen.ViewModels
             NumPadPressed = new RelayCommand((x) => CanExecuteNumPadPressed(), (y) => ExecuteNumPadPressed(y));
             NumPadReleased = new RelayCommand((x) => CanExecuteNumPadReleased(), (y) => ExecuteNumPadPressed(y));
             DisplayKeyPad = new RelayCommand((x) => CanDisplayKeyPad(), (y) => ExecuteDisplayKeyPad());
+            InitializeCommondCommand();
+        }
+
+        private void InitializeCommondCommand()
+        {
             CloseWindow = new RelayCommand((x) => ((Window)x).Close());
             ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (y) => ExecuteReceiveOrderFoodCommand(y));
             DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (y) => ExecuteDeliverOrderFoodCommand(y));
             UndoOrderCommand = new RelayCommand((x) => CanExecuteUndoOrderCommand(), (x) => ExecuteUndoOrderCommand(x));
+            CancelOrderCommand = new RelayCommand((x) => CanExecuteCancelCommand(), (y) => ExecuteCancelCommand(y));
             EditOrderCommand = new RelayCommand((x) => CanExecuteEditOrderCommand(), (x) => ExecuteEditOrderCommand(x));
             SettingCommand = new RelayCommand((x) => CanExecuteSettingCommand(), (y) => ExecuteSettingCommand());
         }

@@ -88,6 +88,7 @@
     <Compile Include="GroupControl\GetGroupCriteria.cs" />
     <Compile Include="GroupControl\InsertGroupCriteria.cs" />
     <Compile Include="GroupControl\UpdateGroupCriteria.cs" />
+    <Compile Include="Kitchen\CancelOrderCriteria.cs" />
     <Compile Include="Kitchen\EditOrderMealCriteria.cs" />
     <Compile Include="Kitchen\GetAlternativeFoodCriteria.cs" />
     <Compile Include="Kitchen\GetAwaitingDeliverMealOrderCriteria.cs" />

@@ -135,6 +135,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>CANCEL</value>
   </data>
+  <data name="CancelOrder" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="CannotFindEmployeeCode" xml:space="preserve">
     <value>The member code: #{0} is not available. Please try another code!</value>
   </data>

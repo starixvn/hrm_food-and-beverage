@@ -260,5 +260,17 @@ namespace NexFB.Services.Implement
 
             return result;
         }
+
+        public CommandResult CancelOrder(CancelOrderCriteria criteria)
+        {
+            CommandResult result = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                result = this.Repository.Update(criteria);
+            }
+
+            return result;
+        }
     }
 }

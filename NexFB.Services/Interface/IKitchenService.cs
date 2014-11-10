@@ -55,5 +55,7 @@ namespace NexFB.Services.Interface
         OrderResult InsertOrderFood(InsertOrderMealCriteria criteria);
 
         CommandResult EditOrderFood(EditOrderMealCriteria criteria);
+
+        CommandResult CancelOrder(CancelOrderCriteria criteria);
     }
 }

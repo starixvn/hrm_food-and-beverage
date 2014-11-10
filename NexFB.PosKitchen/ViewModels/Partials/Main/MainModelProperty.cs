@@ -89,6 +89,8 @@ namespace NexFB.PosKitchen.ViewModels.Partials.Main
 
         public ICommand SettingCommand { get; set; }
 
+        public ICommand CancelOrderCommand { get; set; }
+
         public ViewModelBase CurrentViewModel
         {
             get

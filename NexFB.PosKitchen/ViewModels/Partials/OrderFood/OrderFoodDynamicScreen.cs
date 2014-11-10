@@ -331,8 +331,8 @@ namespace NexFB.PosKitchen.ViewModels.Partials.OrderFood
             LeftSide = RightSide = (screenWidth * 37 / 100) - _paddingValue10;
             MiddleSide = screenWidth - (LeftSide + RightSide) - _paddingValue6;
 
-            LeftSideGeneralInfo = (screenHeight * 30 / 100) - _paddingValue5;
-            LeftSideKeyPad = (screenHeight * 55 / 100) - _paddingValue5;
+            LeftSideGeneralInfo = (screenHeight * 33 / 100) - _paddingValue5;
+            LeftSideKeyPad = (screenHeight * 52 / 100) - _paddingValue5;
             LeftSideActionButton = screenHeight - (LeftSideGeneralInfo + LeftSideKeyPad) - _paddingValue5;
 
             LeftSideImageWidth = 178;

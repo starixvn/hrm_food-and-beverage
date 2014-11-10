@@ -115,6 +115,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hủy.
+        /// </summary>
+        public static string CancelOrder {
+            get {
+                return ResourceManager.GetString("CancelOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mã nhân viên: #{0} không tồn tại. Vui lòng thử mã khác!.
         /// </summary>
         public static string CannotFindEmployeeCode {
@@ -372,6 +381,15 @@ namespace NexFB.Resources {
         public static string Message_OrderSuccessful {
             get {
                 return ResourceManager.GetString("Message_OrderSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bạn có muốn hủy phiếu ăn này không?.
+        /// </summary>
+        public static string Message_PermanentCancelOrder {
+            get {
+                return ResourceManager.GetString("Message_PermanentCancelOrder", resourceCulture);
             }
         }
         

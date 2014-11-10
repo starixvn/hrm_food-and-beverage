@@ -10,9 +10,11 @@
 namespace NexFB.Models.Kitchen
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Reflection;
     using NexFB.Core.Enums;
     using NexFB.Resources;
 
@@ -51,6 +53,8 @@ namespace NexFB.Models.Kitchen
         public string FloorName { get; set; }
 
         public int SysId { get; set; }
+
+        public int DepartmentId { get; set; }
 
         public string NickName { get; set; }
 
@@ -282,6 +286,65 @@ namespace NexFB.Models.Kitchen
 
                 return true;
             }
+        }
+
+        public string ImageSource
+        {
+            get
+            {
+                string imagePath = string.Empty;
+                string imageSource = string.Empty;
+                switch (DepartmentId)
+                {
+                    case (int)DepartmentIdentity.Nexcel:
+                        imageSource = string.Format("pack://application:,,,/Images/Nexcel/{0}.jpg", Code.Trim());
+                        imagePath = string.Format("images/nexcel/{0}.jpg", Code.Trim());
+                        break;
+                    case (int)DepartmentIdentity.Sms:
+                        imageSource = string.Format("pack://application:,,,/Images/SMS/{0}.jpg", Code.Trim());
+                        imagePath = string.Format("images/sms/{0}.jpg", Code.Trim());
+                        break;
+                    case (int)DepartmentIdentity.HongMA:
+                        imageSource = string.Format("pack://application:,,,/Images/HongMa/{0}.jpg", Code.Trim());
+                        imagePath = string.Format("images/hongma/{0}.jpg", Code.Trim());
+                        break;
+                    default:
+                        imageSource = "pack://application:,,,/Images/no-avatar.jpg";
+                        imagePath = "images/no-avatar.jpg";
+                        break;
+                }
+
+                if (GetResourceNames(imagePath))
+                {
+                    return imageSource;
+                }
+                else
+                {
+                    return "pack://application:,,,/Images/no-avatar.jpg";
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get Resource of application.
+        /// </summary>
+        /// <param name="resourcePath">Find Resource path.</param>
+        /// <returns>Boolean to check.</returns>
+        private bool GetResourceNames(string resourcePath)
+        {
+            string[] resourceNames;
+            string assemblyName = "NexFB.PosKitchen";
+            var assembly = Assembly.Load(assemblyName);
+            string resName = assemblyName + ".g.resources";
+            using (var stream = assembly.GetManifestResourceStream(resName))
+            {
+                using (var reader = new System.Resources.ResourceReader(stream))
+                {
+                    resourceNames = reader.Cast<DictionaryEntry>().Select(entry => (string)entry.Key).ToArray();
+                }
+            }
+
+            return resourceNames.Contains(resourcePath);
         }
     }
 }
