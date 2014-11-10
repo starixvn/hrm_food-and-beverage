@@ -33,9 +33,10 @@ namespace NexFB.PosKitchen
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         protected override void OnStartup(StartupEventArgs e)
         {
-            ////TranslateText();
             try
             {
+                DbSettingProviderManager.Current.Start();
+                UpdateManager.UpdateApp();
                 if (DBConnectionAvailability.IsDBConnectionAvailable())
                 {
                     base.OnStartup(e);
@@ -100,7 +101,7 @@ namespace NexFB.PosKitchen
             string defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
             IMappingRegister mappingRegister = new CoreMappingRegister();
             mappingRegister.Register();
-            DbSettingProviderManager.Current.Start();
+            
             if (string.IsNullOrEmpty(defaultLanguage))
             {
                 WinFormMainResource.Culture = new CultureInfo(Constant.DefaultCulture);
