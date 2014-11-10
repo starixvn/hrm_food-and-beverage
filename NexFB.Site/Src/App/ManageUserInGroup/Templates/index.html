@@ -110,7 +110,7 @@
 	                        <ul class="pull-left group-list">
 	                            <li ng-repeat="group in member.AssignedGroups" >{{group.GroupName}}</li>
 	                        </ul>
-                            <div ng-class="{'edit-box': member.AssignedGroups.length > 0}">
+                            <div ng-class="{'have-group': member.AssignedGroups.length > 1}" class="edit-box">
                                 <a title="Assign Member To Group" href="javascript:void(0);" class="glyphicon glyphicon-edit pull-left icon-edit" ng-click="editMember(member)"></a>
                             </div>
 	                    </div>

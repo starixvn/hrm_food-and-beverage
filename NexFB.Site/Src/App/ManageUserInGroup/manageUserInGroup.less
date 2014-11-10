@@ -15,3 +15,46 @@
 	float: left;
 	margin: 5px 0 0 10px;
 }
+
+.last-column {
+	height: 100%;
+	.group-box {
+		float: left;
+		width: 77%;
+		.multiSelect .multiSelectButton {
+			text-shadow: none;
+			font-size: 13px;
+			color: #222;
+			.caret {
+				top: 13px;
+			}
+		}
+		.multiSelect .multiSelectItem {
+			text-align: left;
+		}
+	}
+	.icon-box {
+		height: 100%;
+		
+	}
+	.view-mode {
+		display: inline-block;
+		position: relative;
+		.edit-box {
+			display: inline-block;
+			height: auto;
+			vertical-align: middle;
+			width: auto;
+			&.have-group {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+			}
+			a.glyphicon.icon-edit {
+				margin-left: 18px;
+				top: 45%;
+			}
+		}
+	}
+	
+}
