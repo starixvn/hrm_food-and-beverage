@@ -762,6 +762,13 @@
   <data name="TakeAway" xml:space="preserve">
     <value>Take Away</value>
   </data>
+   </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+</data>
   <data name="TakeAwayRemark" xml:space="preserve">
     <value>Mang về</value>
   </data>

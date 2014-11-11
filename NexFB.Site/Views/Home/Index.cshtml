@@ -1,5 +1,6 @@
 ﻿@using NexFB.Models.Authority
 @using NexFB.Web
+@using NexFB.Resources
 @model UserSession
 @{
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -56,7 +57,10 @@
 			</a>
 			<ol>
 				<li>
-					<a href="" data-ng-click="logout()">Logout</a>
+					<a href="javascript:;" data-ng-click="logout()">@Lang.ChangePassword</a>
+				</li>
+				<li>
+					<a href="javascript:;" data-ng-click="logout()">@Lang.Logout</a>
 				</li>
 			</ol>
 		</div>
