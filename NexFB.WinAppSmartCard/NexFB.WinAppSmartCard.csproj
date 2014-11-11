@@ -223,6 +223,8 @@
     <Resource Include="Images\sub.png" />
     <Resource Include="Images\bg.jpg" />
     <Resource Include="Images\logo.png" />
+    <Resource Include="Images\checkbox-checked.png" />
+    <Resource Include="Images\checkbox-unchecked.png" />
     <Content Include="SpNames.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

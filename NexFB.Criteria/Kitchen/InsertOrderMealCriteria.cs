@@ -33,6 +33,8 @@ namespace NexFB.Criteria.Kitchen
 
         public DateTime CreatedDate { get; set; }
 
+        public bool TakeAway { get; set; }
+
         public override bool IsValid()
         {
             return Owner > 0;

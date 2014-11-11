@@ -345,4 +345,7 @@
   <data name="Message_PermanentCancelOrder" xml:space="preserve">
     <value>Bạn có muốn hủy phiếu ăn này không?</value>
   </data>
+  <data name="TakeAway" xml:space="preserve">
+    <value>Mang đi</value>
+  </data>
 </root>

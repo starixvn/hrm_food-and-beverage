@@ -47,9 +47,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private string _screenNotificationVisible;
         private bool _addFoodEnable;
         private bool _sideDishTimerLive;
+        private bool _takeAwayChecked;
 
         public SideDishesViewModel(Employee orderOwner, MainViewModel mainViewModel)
         {
+            TakeAwayChecked = false;
             ShowOrderScreen();
             InitializeSideFoodData(orderOwner, mainViewModel);
             AddFoodCommand = new RelayCommand((x) => CanExecuteAddFoodCommand(), (y) => ExecuteAddFoodCommand());
@@ -82,6 +84,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 _orderOwner = value;
                 OnPropertyChanged("OrderOwner");
+            }
+        }
+
+        public bool TakeAwayChecked
+        {
+            get
+            {
+                return _takeAwayChecked;
+            }
+
+            set
+            {
+                _takeAwayChecked = value;
+                this.OnPropertyChanged("TakeAwayChecked");
             }
         }
 
@@ -353,16 +369,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     {
                         CreatedBy = OrderOwner.SysId,
                         CreatedDate = DateTime.Now,
+                        TakeAway = TakeAwayChecked,
                         ListDetail = orderDetails.Append(_EndRootTag).ToString()
                     };
                     OrderResult result = this.SmartCardOrderService.InsertOrderSideFood(insertSideOrderCriteria);
                     if (result.CommandResult.Code == 0)
                     {
-                        OrderNo = result.OrderNo;
-                        MainViewModel.SendMessage(result.OrderId);
-                        CountDownTimer = 30;
-                        ShowNotificationScreen();
-                        StartCloseTimer();
+                        OrderSuccessAction(result);
                     }
                     else
                     {
@@ -370,6 +383,15 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     }
                 }
             }
+        }
+
+        private void OrderSuccessAction(OrderResult result)
+        {
+            OrderNo = result.OrderNo;
+            MainViewModel.SendMessage(result.OrderId);
+            CountDownTimer = 30;
+            ShowNotificationScreen();
+            StartCloseTimer();
         }
 
         private void StartCloseTimer()

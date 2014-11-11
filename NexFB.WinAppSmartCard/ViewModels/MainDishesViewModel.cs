@@ -46,6 +46,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private int _countDownTimer;
         private bool _mainDishTimerLive;
         private MainViewModel _mainViewModel;
+        private bool _takeAwayChecked;
 
         public MainDishesViewModel()
         {
@@ -53,6 +54,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ConfirmCommand = new RelayCommand((x) => CanExecuteConfirmCommand(), (y) => ExecuteConfirmCommand());
             RemoveEmployeeOrder = new RelayCommand((x) => CanExecuteRemoveEmployeeOrder(), (y) => ExecuteRemoveEmployeeOrder(y));
             ShowOrderScreen();
+            TakeAwayChecked = false;
         }
 
         #region Properties
@@ -76,6 +78,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 _selectedFood = value;
                 this.OnPropertyChanged("SelectedFood");
+            }
+        }
+
+        public bool TakeAwayChecked
+        {
+            get
+            {
+                return _takeAwayChecked;
+            }
+
+            set
+            {
+                _takeAwayChecked = value;
+                this.OnPropertyChanged("TakeAwayChecked");
             }
         }
 
@@ -410,6 +426,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         private void ExecuteConfirmCommand()
         {
+            var abc = TakeAwayChecked;
             if (ObservableListEmployee.Count == 0)
             {
                 this.ShowErrorMessage(MainViewModel.CurrentCulture, MainScreenResources.Message_ContainEmployee);
@@ -438,25 +455,31 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 {
                     CreatedDate = DateTime.Now,
                     CreatedBy = OrderOwner.SysId,
+                    TakeAway = TakeAwayChecked,
                     ListDetail = orderDetails.Append(_EndRootTag).ToString()
                 };
 
                 OrderResult result = this.SmartCardOrderService.InsertOrderFood(insertOrderCriteria);
                 if (result.CommandResult.Code == 0)
                 {
-                    OrderNo = result.OrderNo;
-                    MainViewModel.SendMessage(result.OrderId);
-                    MainViewModel.MainTabReadOnly = true;
-
-                    CountDownTimer = 30;
-                    ShowNotificationScreen();
-                    TimerDigitalClock();
+                    OrderSuccessAction(result);
                 }
                 else
                 {
                     this.ShowErrorMessage(MainViewModel.CurrentCulture, result.CommandResult.Message);
                 }
             }
+        }
+
+        private void OrderSuccessAction(OrderResult result)
+        {
+            OrderNo = result.OrderNo;
+            MainViewModel.SendMessage(result.OrderId);
+            MainViewModel.MainTabReadOnly = true;
+
+            CountDownTimer = 30;
+            ShowNotificationScreen();
+            TimerDigitalClock();
         }
 
         /// <summary>

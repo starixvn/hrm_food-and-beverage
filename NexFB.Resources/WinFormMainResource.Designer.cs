@@ -691,6 +691,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mang đi.
+        /// </summary>
+        public static string TakeAway {
+            get {
+                return ResourceManager.GetString("TakeAway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tổng cộng.
         /// </summary>
         public static string Total {

@@ -82,9 +82,10 @@
 		</Setter>
 	</Style>
 
+
+
 	<!--Scroll Viewer-->
-	<Style x:Key="{x:Type ScrollViewer}" 
-    TargetType="{x:Type ScrollViewer}">
+	<Style x:Key="{x:Type ScrollViewer}" TargetType="{x:Type ScrollViewer}">
 		<Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
 		<Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
 		<Setter Property="PanningMode" Value="Both"/>

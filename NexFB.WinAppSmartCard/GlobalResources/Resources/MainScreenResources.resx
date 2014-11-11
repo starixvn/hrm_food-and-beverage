@@ -204,6 +204,9 @@
   <data name="SwipeCardLabel" xml:space="preserve">
     <value>Swipe your card to join this group</value>
   </data>
+  <data name="TakeAway" xml:space="preserve">
+    <value>Take Away</value>
+  </data>
   <data name="TicketCreator" xml:space="preserve">
     <value>Meal Owner: </value>
   </data>

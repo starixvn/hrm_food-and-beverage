@@ -201,6 +201,9 @@
   <data name="SwipeCardLabel" xml:space="preserve">
     <value>刷卡要添加到该组</value>
   </data>
+  <data name="TakeAway" xml:space="preserve">
+    <value>带走</value>
+  </data>
   <data name="TicketCreator" xml:space="preserve">
     <value>票务创造者 : </value>
   </data>

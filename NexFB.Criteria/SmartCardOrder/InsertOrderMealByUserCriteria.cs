@@ -30,6 +30,8 @@ namespace NexFB.Criteria.SmartCardOrder
 
         public int CreatedBy { get; set; }
 
+        public bool TakeAway { get; set; }
+
         public override bool IsValid()
         {
             return !string.IsNullOrEmpty(ListDetail);

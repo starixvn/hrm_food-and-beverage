@@ -322,6 +322,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Take Away.
+        /// </summary>
+        internal static string TakeAway {
+            get {
+                return ResourceManager.GetString("TakeAway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meal Owner: .
         /// </summary>
         internal static string TicketCreator {

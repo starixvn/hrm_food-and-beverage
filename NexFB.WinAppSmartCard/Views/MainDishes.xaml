@@ -124,6 +124,7 @@
 			</Grid.Background>
 		</Grid>
 
+		<!--Screen Order-->
 		<Grid Margin="12,0,0,0" Visibility="{Binding Path=ScreenOrderVisible}">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="130"/>
@@ -218,23 +219,49 @@
 								</ListBox>
 							</ScrollViewer>
 						</Grid>
+						<Grid Background="#fff" Height="50" Margin="1,0,1,0">
+							<ToggleButton Foreground="#014A81" FontSize="20" x:Name="TakeAwayOptions" IsChecked="{Binding Path=TakeAwayChecked}"
+							Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TakeAway]}">
+								<ToggleButton.Template>
+									<ControlTemplate TargetType="{x:Type ToggleButton}">
+										<StackPanel Orientation="Horizontal">
+											<ContentPresenter Content="{TemplateBinding Content}"
+											Margin="15,0,10,0" VerticalAlignment="Center"/>
+											<Image Width="32" Height="32">
+												<Image.Style>
+													<Style>
+														<Setter Property="Image.Source" Value="pack://application:,,,/Images/checkbox-unchecked.png" />
+														<Style.Triggers>
+															<DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
+																<Setter Property="Image.Source" Value="pack://application:,,,/Images/checkbox-checked.png" />
+															</DataTrigger>
+														</Style.Triggers>
+													</Style>
+												</Image.Style>
+											</Image>
+										</StackPanel>
+									</ControlTemplate>
+								</ToggleButton.Template>
+							</ToggleButton>
+						</Grid>
 						<Grid VerticalAlignment="Bottom" Margin="0,30,0,10">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition />
 								<ColumnDefinition />
 							</Grid.ColumnDefinitions>
 							<Button Background="#66B5D6" Foreground="White" Command="{Binding Path=ConfirmCommand}" Margin="0,0,15,0"
-					Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Confirm]}" Height="40" Style="{StaticResource TileButton}"
-					HorizontalAlignment="Right" Name="button1" VerticalAlignment="Top" Width="108" />
+							Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Confirm]}" Height="40" Style="{StaticResource TileButton}"
+							HorizontalAlignment="Right" Name="button1" VerticalAlignment="Top" Width="108" />
 
 							<Button Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 							Background="#EF4339" Foreground="White" Grid.Column="1" Margin="15,0,0,0"
-					Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Cancel]}" Height="40" Style="{StaticResource TileButton}"
-					HorizontalAlignment="Left" VerticalAlignment="Top" Width="108" />
+							Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Cancel]}" Height="40" Style="{StaticResource TileButton}"
+							HorizontalAlignment="Left" VerticalAlignment="Top" Width="108" />
 						</Grid>
 					</StackPanel>
 				</Grid>
 			</Grid>
+			
 		</Grid>
 
 		<!--Screen Notification-->
@@ -301,6 +328,30 @@
 
 							</ScrollViewer>
 						</Grid>
+						<Grid Background="#fff" Height="50" Margin="1,0,1,0">
+							<ToggleButton Foreground="#014A81" FontSize="20" IsEnabled="False" x:Name="TakeAwayOptionsReadOnly" IsChecked="{Binding Path=TakeAwayChecked}"
+							Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TakeAway]}">
+								<ToggleButton.Template>
+									<ControlTemplate TargetType="{x:Type ToggleButton}">
+										<StackPanel Orientation="Horizontal">
+											<ContentPresenter Content="{TemplateBinding Content}" Margin="15,0,10,0" VerticalAlignment="Center"/>
+											<Image Width="32" Height="32">
+												<Image.Style>
+													<Style>
+														<Setter Property="Image.Source" Value="pack://application:,,,/Images/checkbox-unchecked.png" />
+														<Style.Triggers>
+															<DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
+																<Setter Property="Image.Source" Value="pack://application:,,,/Images/checkbox-checked.png" />
+															</DataTrigger>
+														</Style.Triggers>
+													</Style>
+												</Image.Style>
+											</Image>
+										</StackPanel>
+									</ControlTemplate>
+								</ToggleButton.Template>
+							</ToggleButton>
+						</Grid>
 						<Grid VerticalAlignment="Bottom" Margin="0,30,0,10">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition />
@@ -322,6 +373,7 @@
 				</Grid>
 			</Grid>
 		</Grid>
+
 	</Grid>
 
 

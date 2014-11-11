@@ -172,6 +172,8 @@
     <Resource Include="Images\HongMa\HM0007.jpg" />
     <Resource Include="Images\HongMa\HM0015.jpg" />
     <Resource Include="Images\HongMa\HM0022.jpg" />
+    <Resource Include="Images\checkbox-checked.png" />
+    <Resource Include="Images\checkbox-unchecked.png" />
     <Content Include="PrintingTemplates\OrderFoodReceipt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

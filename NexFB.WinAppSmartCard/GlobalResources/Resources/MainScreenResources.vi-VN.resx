@@ -204,6 +204,9 @@
   <data name="SwipeCardLabel" xml:space="preserve">
     <value>Quẹt thẻ để vào nhóm</value>
   </data>
+  <data name="TakeAway" xml:space="preserve">
+    <value>Mang về</value>
+  </data>
   <data name="TicketCreator" xml:space="preserve">
     <value>Người tạo phiếu ăn: </value>
   </data>

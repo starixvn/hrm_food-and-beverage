@@ -70,6 +70,8 @@ namespace NexFB.Models.Kitchen
 
         public bool IsSelectedMemberInGroup { get; set; }
 
+        public bool TakeAway { get; set; }
+
         public List<OrderMenu> ListMenu { get; set; }
 
         public List<OrderMenu> DisplayListMenu
