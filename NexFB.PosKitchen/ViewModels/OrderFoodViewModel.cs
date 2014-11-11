@@ -85,6 +85,11 @@ namespace NexFB.PosKitchen.ViewModels
 
             if (order != null)
             {
+                if (order.CurrentStatusId == (int)OrderStatus.CanceledOrder)
+                {
+                    IsCanceledOrder = true;
+                }
+
                 SaveButtonVisible = Constant.Visible;
                 IsDataEdit = true;
                 PrepareEditData(order);
@@ -312,7 +317,7 @@ namespace NexFB.PosKitchen.ViewModels
         public bool CanExecuteReceiveCommand()
         {
             bool hasOrderFood = UserInGroup.Any(x => x.ListMainMenuOrderDeatails.Count > 0 || x.ListAlternativeMenuOrderDeatails.Count > 0);
-            return EmployeeInfo != null && hasOrderFood;
+            return EmployeeInfo != null && hasOrderFood && !IsCanceledOrder;
         }
 
         /// <summary>
@@ -1217,6 +1222,7 @@ namespace NexFB.PosKitchen.ViewModels
             IsMenuFocused = false;
             TextBlockFocused = false;
             TakeAwayChecked = false;
+            IsCanceledOrder = false;
             OrderNo = string.Empty;
             ReferenceCode = 0;
             NumPadVisible = Constant.Visible;

@@ -62,6 +62,7 @@ namespace NexFB.PosKitchen.ViewModels.Partials.OrderFood
         private string _saveButtonVisible;
         private bool _takeAwayChecked;
         private string _ownerImage;
+        private bool _isCanceledOrder;
 
         public ICommand NumPadPressed { get; set; }
 
@@ -108,6 +109,20 @@ namespace NexFB.PosKitchen.ViewModels.Partials.OrderFood
             {
                 _takeAwayChecked = value;
                 this.OnPropertyChanged("TakeAwayChecked");
+            }
+        }
+
+        public bool IsCanceledOrder
+        {
+            get
+            {
+                return _isCanceledOrder;
+            }
+
+            set
+            {
+                _isCanceledOrder = value;
+                this.OnPropertyChanged("IsCanceledOrder");
             }
         }
 
