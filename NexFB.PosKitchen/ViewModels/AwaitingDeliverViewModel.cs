@@ -9,10 +9,10 @@
 
 namespace NexFB.PosKitchen.ViewModels
 {
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using NexFB.Core.Enums;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
 
@@ -91,7 +91,9 @@ namespace NexFB.PosKitchen.ViewModels
                 {
                     var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() { OrderNo = int.Parse(SearchValue) };
                     Order order = KitchenService.GetOrderDetailsByOrderNo(getOrderDetailsCriteria);
-                    if (order != null)
+                    if (order != null &&
+                        (order.CurrentStatusId == (int)OrderStatus.ReceivedOrder
+                        || order.CurrentStatusId == (int)OrderStatus.ReducedOrder))
                     {
                         awaitingDeliverMeals.Add(order);
                     }

@@ -74,6 +74,18 @@ namespace NexFB.Services.Implement
             return waitingMeals;
         }
 
+        public List<Order> GetCanceledMealOrder(GetCanceledMealOrderCriteria criteria)
+        {
+            List<Order> canceledMeals = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                canceledMeals = this._kitchenRepository.GetMealOrder(criteria);
+            }
+
+            return canceledMeals;
+        }
+
         public CommandResult ReceiveOrder(ProcessReceiveOrderCriteria criteria)
         {
             CommandResult received = null;

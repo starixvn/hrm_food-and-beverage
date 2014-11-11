@@ -81,31 +81,6 @@ namespace NexFB.PosKitchen.ViewModels
         #region RelayCommands
 
         // Can Execute Command
-        private bool CanExecuteViewPendingFoood()
-        {
-            return true;
-        }
-
-        private bool CanExecuteViewAwaitingDeliverFood()
-        {
-            return true;
-        }
-
-        private bool CanExecuteViewDeliveredFood()
-        {
-            return true;
-        }
-
-        private bool CanExecuteViewOrderFood()
-        {
-            return true;
-        }
-
-        private bool CanDisplayKeyPad()
-        {
-            return true;
-        }
-
         private bool CanExecuteNumPadPressed()
         {
             if (SearchResult != null && SearchResult.Length == 3)
@@ -113,42 +88,6 @@ namespace NexFB.PosKitchen.ViewModels
                 return false;
             }
 
-            return true;
-        }
-
-        private bool CanExecuteNumPadReleased()
-        {
-            return true;
-        }
-
-        private bool CanExecuteCancelCommand()
-        {
-            return true;
-        }
-
-        // Can Execute Command.
-        private bool CanExecuteReceiveOrderFoodCommand()
-        {
-            return true;
-        }
-
-        private bool CanExecuteDeliverOrderFoodCommand()
-        {
-            return true;
-        }
-
-        private bool CanExecuteUndoOrderCommand()
-        {
-            return true;
-        }
-
-        private bool CanExecuteEditOrderCommand()
-        {
-            return true;
-        }
-
-        private bool CanExecuteSettingCommand()
-        {
             return true;
         }
 
@@ -174,6 +113,12 @@ namespace NexFB.PosKitchen.ViewModels
         private void ExecuteViewDeliveredFood()
         {
             CurrentViewModel = new DeliveredFoodViewModel(DeliveredSearchResult, this);
+            CheckCurrentViewModel();
+        }
+
+        private void ExecuteViewCanceledFood()
+        {
+            CurrentViewModel = new CanceledFoodViewModel(CanceledSearchResult);
             CheckCurrentViewModel();
         }
 
@@ -227,6 +172,11 @@ namespace NexFB.PosKitchen.ViewModels
                     if (currentViewModel == Constant.DeliveredFoodViewModel)
                     {
                         ExecuteViewDeliveredFood();
+                    }
+
+                    if (currentViewModel == Constant.CanceledFoodViewModel)
+                    {
+                        ExecuteViewCanceledFood();
                     }
 
                     break;
@@ -662,25 +612,26 @@ namespace NexFB.PosKitchen.ViewModels
         /// </summary>
         private void InitializeRelayCommand()
         {
-            ViewPedingFoodCommand = new RelayCommand((x) => CanExecuteViewPendingFoood(), (y) => ExecuteViewPendingFood());
-            ViewDeliveredFoodCommand = new RelayCommand((x) => CanExecuteViewDeliveredFood(), (y) => ExecuteViewDeliveredFood());
-            ViewOrderFoodCommand = new RelayCommand((x) => CanExecuteViewOrderFood(), (y) => ExecuteViewOrderFood());
-            ViewAwaitingDeliverFoodCommand = new RelayCommand((x) => CanExecuteViewAwaitingDeliverFood(), (y) => ExecuteViewAwaitingDeliverFood());
+            DisplayKeyPad = new RelayCommand((x) => ExecuteDisplayKeyPad());
+            NumPadReleased = new RelayCommand((x) => ExecuteNumPadPressed(x));
+            ViewOrderFoodCommand = new RelayCommand((x) => ExecuteViewOrderFood());
+            ViewPedingFoodCommand = new RelayCommand((x) => ExecuteViewPendingFood());
+            ViewCanceledFoodCommand = new RelayCommand((x) => ExecuteViewCanceledFood());
+            ViewDeliveredFoodCommand = new RelayCommand((x) => ExecuteViewDeliveredFood());
+            ViewAwaitingDeliverFoodCommand = new RelayCommand((x) => ExecuteViewAwaitingDeliverFood());
             NumPadPressed = new RelayCommand((x) => CanExecuteNumPadPressed(), (y) => ExecuteNumPadPressed(y));
-            NumPadReleased = new RelayCommand((x) => CanExecuteNumPadReleased(), (y) => ExecuteNumPadPressed(y));
-            DisplayKeyPad = new RelayCommand((x) => CanDisplayKeyPad(), (y) => ExecuteDisplayKeyPad());
             InitializeCommondCommand();
         }
 
         private void InitializeCommondCommand()
         {
             CloseWindow = new RelayCommand((x) => ((Window)x).Close());
-            ReceiveOrderFoodCommand = new RelayCommand((x) => CanExecuteReceiveOrderFoodCommand(), (y) => ExecuteReceiveOrderFoodCommand(y));
-            DeliverOrderFoodCommand = new RelayCommand((x) => CanExecuteDeliverOrderFoodCommand(), (y) => ExecuteDeliverOrderFoodCommand(y));
-            UndoOrderCommand = new RelayCommand((x) => CanExecuteUndoOrderCommand(), (x) => ExecuteUndoOrderCommand(x));
-            CancelOrderCommand = new RelayCommand((x) => CanExecuteCancelCommand(), (y) => ExecuteCancelCommand(y));
-            EditOrderCommand = new RelayCommand((x) => CanExecuteEditOrderCommand(), (x) => ExecuteEditOrderCommand(x));
-            SettingCommand = new RelayCommand((x) => CanExecuteSettingCommand(), (y) => ExecuteSettingCommand());
+            SettingCommand = new RelayCommand((x) => ExecuteSettingCommand());
+            CancelOrderCommand = new RelayCommand((x) => ExecuteCancelCommand(x));
+            UndoOrderCommand = new RelayCommand((x) => ExecuteUndoOrderCommand(x));
+            EditOrderCommand = new RelayCommand((x) => ExecuteEditOrderCommand(x));
+            ReceiveOrderFoodCommand = new RelayCommand((x) => ExecuteReceiveOrderFoodCommand(x));
+            DeliverOrderFoodCommand = new RelayCommand((x) => ExecuteDeliverOrderFoodCommand(x));
         }
 
         /// <summary>
@@ -736,6 +687,20 @@ namespace NexFB.PosKitchen.ViewModels
                     Menu3.BackgroundColor = Constant.DefaultMenuColor;
                     Menu3.ForegroundColor = Constant.Menu3Color;
                     Menu3.FontWeight = Constant.FontWeightBold;
+                    break;
+                case Constant.CanceledFoodViewModel:
+                    if (string.IsNullOrEmpty(CanceledSearchResult))
+                    {
+                        SearchResult = string.Empty;
+                    }
+                    else
+                    {
+                        SearchResult = CanceledSearchResult;
+                    }
+
+                    Menu5.BackgroundColor = Constant.DefaultMenuColor;
+                    Menu5.ForegroundColor = Constant.Menu5Color;
+                    Menu5.FontWeight = Constant.FontWeightBold;
                     break;
                 case Constant.OrderFoodViewModel:
                     Menu4.BackgroundColor = Constant.DefaultMenuColor;

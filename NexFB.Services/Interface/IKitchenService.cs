@@ -26,6 +26,8 @@ namespace NexFB.Services.Interface
 
         List<Order> GetDeliveredMealOrder(GetDeliveredMealOrderCriteria criteria);
 
+        List<Order> GetCanceledMealOrder(GetCanceledMealOrderCriteria criteria);
+
         CommandResult ReceiveOrder(ProcessReceiveOrderCriteria criteria);
 
         CommandResult DeliverOrder(ProcessDeliverOrderCriteria criteria);

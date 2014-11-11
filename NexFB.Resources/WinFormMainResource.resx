@@ -348,4 +348,10 @@
   <data name="TakeAway" xml:space="preserve">
     <value>Mang đi</value>
   </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Đã hủy</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Xem</value>
+  </data>
 </root>

@@ -62,6 +62,7 @@
 		<Setting Key="POS_Edit_OrderMeal" SpName="POS_Edit_OrderMeal" DbName="NexFB" Plain="0" ></Setting>
 		<Setting Key="POS_Get_OrderRequestByOrderNo" SpName="POS_Get_OrderRequestByOrderNo" DbName="NexFB" Plain="0" ></Setting>
 		<Setting Key="POS_Cancel_OrderMeal" SpName="POS_Cancel_OrderMeal" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_Get_ListRequestRejectedByPOS" SpName="POS_Get_ListRequestRejectedByPOS" DbName="NexFB" Plain="0" ></Setting>
 	</Function>
 
 </Functions>

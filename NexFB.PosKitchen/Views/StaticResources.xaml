@@ -29,6 +29,10 @@
 		<views:AwaitingDeliver />
 	</DataTemplate>
 
+	<DataTemplate DataType="{x:Type vm:CanceledFoodViewModel}">
+		<views:CanceledMeal />
+	</DataTemplate>
+
 	<!--Selected Item in Listbox-->
 	<Style x:Key="CustomLBStyle" TargetType="{x:Type ListBox}">
 		<Style.Resources>

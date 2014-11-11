@@ -31,6 +31,7 @@ namespace NexFB.PosKitchen.ViewModels.Partials.Main
         private string _waitingSearchResult;
         private string _awaitingDeliverSearchResult;
         private string _deliveredSearchResult;
+        private string _canceledSearchResult;
         private string _keypadVisibility;
         private string _searchTextBoxVisibility;
         private double _displayWidth;
@@ -74,6 +75,8 @@ namespace NexFB.PosKitchen.ViewModels.Partials.Main
         public ICommand ViewPedingFoodCommand { get; set; }
 
         public ICommand ViewDeliveredFoodCommand { get; set; }
+
+        public ICommand ViewCanceledFoodCommand { get; set; }
 
         public ICommand ViewOrderFoodCommand { get; set; }
 
@@ -164,6 +167,11 @@ namespace NexFB.PosKitchen.ViewModels.Partials.Main
                     DeliveredSearchResult = _searchResult;
                 }
 
+                if (currentViewModel == Constant.CanceledFoodViewModel)
+                {
+                    CanceledSearchResult = _searchResult;
+                }
+
                 this.OnPropertyChanged("SearchResult");
             }
         }
@@ -207,6 +215,20 @@ namespace NexFB.PosKitchen.ViewModels.Partials.Main
             {
                 _deliveredSearchResult = value;
                 this.OnPropertyChanged("DeliveredSearchResult");
+            }
+        }
+
+        public string CanceledSearchResult
+        {
+            get
+            {
+                return _canceledSearchResult;
+            }
+
+            set
+            {
+                _canceledSearchResult = value;
+                this.OnPropertyChanged("CanceledSearchResult");
             }
         }
 

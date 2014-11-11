@@ -92,6 +92,7 @@
     <Compile Include="Kitchen\EditOrderMealCriteria.cs" />
     <Compile Include="Kitchen\GetAlternativeFoodCriteria.cs" />
     <Compile Include="Kitchen\GetAwaitingDeliverMealOrderCriteria.cs" />
+    <Compile Include="Kitchen\GetCanceledMealOrderCriteria.cs" />
     <Compile Include="Kitchen\GetEmployeeBySysIdCriteria.cs" />
     <Compile Include="Kitchen\GetFoodNameCriteria.cs" />
     <Compile Include="Kitchen\GetGroupNameCriteria.cs" />

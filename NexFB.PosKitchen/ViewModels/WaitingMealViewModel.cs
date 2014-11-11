@@ -91,7 +91,10 @@ namespace NexFB.PosKitchen.ViewModels
                 {
                     var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() { OrderNo = int.Parse(SearchValue) };
                     Order order = KitchenService.GetOrderDetailsByOrderNo(getOrderDetailsCriteria);
-                    if (order != null)
+                    if (order != null &&
+                        (order.CurrentStatusId == (int)OrderStatus.NewOrder
+                        || order.CurrentStatusId == (int)OrderStatus.ReceivedOrder
+                        || order.CurrentStatusId == (int)OrderStatus.ReducedOrder))
                     {
                         waitingMeals.Add(order);
                     }

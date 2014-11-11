@@ -86,6 +86,8 @@ namespace NexFB.Pos.Core.Constants
 
         public const string DeliveredFoodViewModel = "DELIVEREDFOODVIEWMODEL";
 
+        public const string CanceledFoodViewModel = "CANCELEDFOODVIEWMODEL";
+
         public const string OrderFoodViewModel = "ORDERFOODVIEWMODEL";
 
         public const int WaitingFoodScreen = 1;
