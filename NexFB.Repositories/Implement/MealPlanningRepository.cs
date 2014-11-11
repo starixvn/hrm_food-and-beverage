@@ -66,6 +66,7 @@ namespace NexFB.Repositories.Implement
                         int menuId = mealPlanning.Menu.MenuId;
                         mealPlanning.Menu.Meals = _commonRepository.GetMealsOfMenu(menuId, rawMeals);
                         mealPlanning.Menu.EmployeeTypes = _commonRepository.GetEmployeeTypeOfMenu(menuId, rawEmployeeTypes);
+
                         if (mealPlanning.SetMenu == null)
                         {
                             mealPlanning.SetMenu = new SetMenuModel();

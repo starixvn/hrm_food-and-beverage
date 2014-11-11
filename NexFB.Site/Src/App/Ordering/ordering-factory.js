@@ -155,7 +155,7 @@ orderingModule.factory("orderingFactory",
 			var locationId = '';
 
 			// New Order
-			if (typeOrder === 1) {
+			if (typeOrder === 0) {
 				angular.forEach(scope.newOrderLocations, function (value) {
 					if (value.ticked) {
 						locationId = value.LocationId;
@@ -163,7 +163,7 @@ orderingModule.factory("orderingFactory",
 				});
 			}
 			// Saved Order
-			else if (typeOrder === 2) {
+			else if (typeOrder === 1) {
 				angular.forEach(scope.savedOrderLocations, function (value) {
 					if (value.ticked) {
 						locationId = value.LocationId;
@@ -171,7 +171,7 @@ orderingModule.factory("orderingFactory",
 				});
 			}
 			// Side Dish Order
-			else if (typeOrder === 3) {
+			else if (typeOrder === 2) {
 				angular.forEach(scope.sideDishOrderLocations, function (value) {
 					if (value.ticked) {
 						locationId = value.LocationId;

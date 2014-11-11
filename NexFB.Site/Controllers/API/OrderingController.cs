@@ -231,7 +231,8 @@ namespace NexFB.Site.Controllers.API
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
                 Remark = model.Remark,
-                Members = model.Members
+                Members = model.Members,
+                TakeAway = model.TakeAway
             };
 
             CommandResult result = _orderService.UpdateOrder(criteria);
@@ -330,7 +331,8 @@ namespace NexFB.Site.Controllers.API
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
                 Remark = model.Remark,
-                Members = model.Members
+                Members = model.Members,
+                TakeAway = model.TakeAway
             };
 
             CommandResult result = _orderService.UpdateOrderSideDish(criteria);

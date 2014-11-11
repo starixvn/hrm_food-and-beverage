@@ -36,7 +36,9 @@
                             ng-click="editOrder(order.OrderId)">{{order.Status.Name}} </a><a ng-switch-when="3"
                                 class="lbl-reduced" href="javascript:;" ng-click="editOrder(order.OrderId)">{{order.Status.Name}}
                             </a><a ng-switch-when="4" class="lbl-delivered" href="javascript:;" ng-click="editOrder(order.OrderId)">
-                                {{order.Status.Name}} </a><a ng-switch-when="5" class="lbl-edited" href="javascript:;"
+                                {{order.Status.Name}} </a> <a ng-switch-when="5" class="lbl-edited" href="javascript:;"
+                                    ng-click="editOrder(order.OrderId)">{{order.Status.Name}} </a>
+							<a ng-switch-when="6" class="lbl-rejected" href="javascript:;"
                                     ng-click="editOrder(order.OrderId)">{{order.Status.Name}} </a>
                     <br />
                     <span>{{order.ModifiedTime}} </span>
@@ -74,7 +76,11 @@
                     {{order.Location.Name}}
                 </td>
                 <td>
-                    {{order.Remark}}
+					<span ng-show="order.Remarks.length == 1" ng-bind="order.Remark">
+					</span>
+					<ul class="group-toggle-item" ng-show="order.Remarks.length > 1">
+						<li ng-repeat="remark in order.Remarks" ng-bind="remark"></li>
+					</ul>
                 </td>
             </tr>
             <tr ng-show="myOrder == ''">
@@ -161,8 +167,7 @@
                     <table class="table table-bordered table-striped table-member">
                         <thead>
                             <tr>
-                                <th class="width-40">
-                                    #
+                                <th class="width-40" data-translate="SymbolCount">
                                 </th>
                                 <th data-translate="Member">
                                 </th>
@@ -208,7 +213,7 @@
                         <div class="form-group">
                             <label data-translate="Remark">
                             </label>
-                            <input ng-model="newOrder.Remark" type="text" class="txt-remark" maxlength="500" />
+                            <input ng-model="newOrder.rawRemark" type="text" class="txt-remark" maxlength="500" />
                         </div>
                         <div class="form-group phone-box">
                             <label data-translate="Phone">
@@ -227,7 +232,7 @@
                             <label data-translate="WarningGroupNotSave">
                             </label>
                         </p>
-                        <button ng-click="saveAddOrder(newOrder, 1)" class="button btn-order" data-translate="Order">
+                        <button ng-click="saveAddOrder(newOrder, typeOrder.newOrder)" class="button btn-order" data-translate="Order">
                         </button>
                     </div>
                 </div>
@@ -316,7 +321,7 @@
                         <div class="form-group">
                             <label data-translate="Remark">
                             </label>
-                            <input ng-model="savedOrder.Remark" type="text" class="txt-remark" maxlength="500" />
+                            <input ng-model="savedOrder.rawRemark" type="text" class="txt-remark" maxlength="500" />
                         </div>
                         <div class="form-group phone-box">
                             <label data-translate="Phone">
@@ -330,7 +335,7 @@
 						</div>
                     </div>
                     <div class="row row-cust">
-                        <button ng-click="saveAddOrder(savedOrder, 2)" class="button btn-order" data-translate="Order">
+                        <button ng-click="saveAddOrder(savedOrder, typeOrder.savedOrder)" class="button btn-order" data-translate="Order">
                         </button>
                     </div>
                 </div>
@@ -417,7 +422,7 @@
                         <div class="form-group">
                             <label data-translate="Remark">
                             </label>
-                            <input ng-model="sideDishOrder.Remark" type="text" class="txt-remark" maxlength="500"/>
+                            <input ng-model="sideDishOrder.rawRemark" type="text" class="txt-remark" maxlength="500"/>
                         </div>
                         <div class="form-group phone-box">
                             <label data-translate="Phone">
@@ -431,7 +436,7 @@
 						</div>
                     </div>
                     <div class="row row-cust">
-                        <button ng-click="saveAddOrder(sideDishOrder, 3)" class="button btn-order" data-translate="Order">
+                        <button ng-click="saveAddOrder(sideDishOrder, typeOrder.sideDishOrder)" class="button btn-order" data-translate="Order">
                         </button>
                     </div>
                 </div>

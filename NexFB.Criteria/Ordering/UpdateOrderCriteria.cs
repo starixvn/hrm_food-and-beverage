@@ -31,6 +31,8 @@ namespace NexFB.Criteria.Ordering
 
         public string Remark { get; set; }
 
+        public bool TakeAway { get; set; }
+
         [SpParam(SqlParamName = "IsSaveOrder")]
         public bool IsSavedOrder { get; set; }
 

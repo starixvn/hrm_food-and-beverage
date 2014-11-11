@@ -28,6 +28,15 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		});
 	};
 
+	/*
+	** Declare variables.
+	*/
+	$scope.typeOrder = {
+		newOrder: 0,
+		savedOrder: 1,
+		sideDishOrder: 2
+	};
+
 	$scope.getMessage();
 	$scope.newOrder = [];
 	$scope.savedOrder = [];
@@ -54,6 +63,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 		if (isRelatedCurrentUser) {
 			var data = orderingService.getMyOrder();
+			order.Remarks = order.Remark.split(",");
 			data = orderingUtilities.sortOrderIdByDesc(order, data);
 			orderingService.setMyOrder(data);
 			$scope.$apply();
@@ -96,6 +106,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		}
 
 		if (isRelatedCurrentUser) {
+			order.Remarks = order.Remark.split(",");
 			data = orderingUtilities.sortOrderIdByDesc(order, data);
 		}
 
@@ -182,6 +193,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 				data.Members = newMembers;
 				data.TakeAway = false;
+
 				$scope.newOrder = data;
 				$scope.newOrder.OrderTime = new Date();
 				$scope.newOrder.OrderTime.toISOString();
@@ -225,6 +237,10 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 		orderingFactory.getMyOrder()
 			.success(function (data) {
+				angular.forEach(data, function (order) {
+					order.Remarks = order.Remark.split(",");
+				});
+
 				orderingService.setMyOrder(data);
 				$scope.myOrder = data;
 			})
@@ -274,7 +290,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			}
 		});
 
-		$scope.ValidateNewOrder = function (order, isSideDishOrder) {
+		$scope.ValidateNewOrder = function (order, typeOrder) {
 			var isValid = true;
 
 			if (order.Members.length < 1) {
@@ -294,7 +310,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				}
 			}
 
-			if (isSideDishOrder) {
+			if (typeOrder === $scope.typeOrder.sideDishOrder) {
 				isValid = true;
 				angular.forEach(order.Members, function (member) {
 					if (member.Menus !== undefined && member.Menus.length === 0) {
@@ -311,6 +327,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				isValid = false;
 				notificationFactory.error("InvalidLocation");
 			}
+
 
 			return isValid;
 		};
@@ -339,9 +356,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				order.Location.LocationId = orderingUtilities.getOrderLocation(typeOrder, $scope);
 			}
 
-			var isSideDishOrder = typeOrder === 3;
-
-			if ($scope.ValidateNewOrder(order, isSideDishOrder)) {
+			if ($scope.ValidateNewOrder(order, typeOrder)) {
 
 				$scope.modalConfirmSaveOrderInstance = $modal.open({
 					templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
@@ -359,10 +374,10 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					closeAlternativeSelect();
 
 					if (order.TakeAway) {
-						order.Remark = !order.Remark ? $scope.takeAwayRemark : $scope.takeAwayRemark + "," + order.Remark;
+						order.Remark = !order.rawRemark ? $scope.takeAwayRemark : $scope.takeAwayRemark + "," + order.rawRemark;
 					}
 
-					if (typeOrder !== 3) {
+					if (typeOrder !== $scope.typeOrder.sideDishOrder) {
 						orderingFactory.createOrder(order)
 						.success(function (response) {
 							if (response.result.IsSuccessful) {

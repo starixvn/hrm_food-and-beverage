@@ -763,6 +763,15 @@
     <value>Take Away</value>
   </data>
   <data name="TakeAwayRemark" xml:space="preserve">
-    <value>[Take away/Đem đi]</value>
+    <value>Mang về</value>
+  </data>
+  <data name="Accepted" xml:space="preserve">
+    <value>Accepted</value>
+  </data>
+  <data name="Delivered" xml:space="preserve">
+    <value>Delivered</value>
+  </data>
+  <data name="MessageRejectedStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} has been Rejected at {2}. Status history: \n\rCreated: {3}\n\rAccepted: {4}\n\rDelivered: {5}</value>
   </data>
 </root>

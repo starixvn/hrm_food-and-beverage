@@ -42,11 +42,20 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		$translate('MessageEditedStatusOrder').then(function (message) {
 			$scope.messageEditedStatusOrder = message;
 		});
+		$translate('MessageRejectedStatusOrder').then(function (message) {
+			$scope.messageRejectedStatusOrder = message;
+		});
 		$translate('ConfirmMessageAlternativeMenu').then(function (message) {
 			$scope.confirmMessageAlternativeMenu = message;
 		});
 		$translate('TakeAwayRemark').then(function (message) {
 			$scope.takeAwayRemark = message;
+		});
+		$translate('Accepted').then(function (message) {
+			$scope.accepted = message;
+		});
+		$translate('Delivered').then(function (message) {
+			$scope.delivered = message;
 		});
 	};
 	$scope.getMessage();
@@ -54,9 +63,15 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	$scope.locations = locations;
 	$(".ddlLocation").width($(".ddlLocationNew").width());
 
+	var removeTakeAwayRemark = function (order) {
+		order.Remark = order.Remark.replace($scope.takeAwayRemark, "").replace(",", "");
+		order.rawRemark = angular.copy(order.Remark);
+	};
+
 	orderingFactory.getOrderById(orderId)
 		.success(function (data) {
 			$scope.order = data;
+			removeTakeAwayRemark($scope.order);
 			orderingService.setMemberEditOrder(data.Members);
 
 			$scope.getStatusOrderMessage = function (order) {
@@ -91,6 +106,21 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 					case 5:
 						message = commonFactory.formatString(
 							$scope.messageEditedStatusOrder, order.OrderNo, order.CreatorOrder.NickName, order.ModifiedTime, quantity);
+						break;
+					case 6:
+						message = commonFactory.formatString(
+							$scope.messageRejectedStatusOrder, order.OrderNo, order.CreatorOrder.NickName, order.ModifiedTime, 
+								order.CreatedTime, order.AcceptanceTime, order.DeliveryTime);
+
+						if (!order.AcceptanceTime) {
+							message = message.replace($scope.accepted, "");
+							message = message.replace("\n\r:", "");
+						}
+						if (!order.DeliveryTime) {
+							message = message.replace($scope.delivered, "");
+							message = message.replace("\n\r:", "");
+						}
+
 						break;
 					default:
 						message = "";
@@ -135,6 +165,10 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			orderingFactory.checkValidModifiedTime(startTime.toJSON(), order.OrderId)
 			.success(function (isTimeValid) {
 				if (isTimeValid === 'true') {
+					if (order.TakeAway) {
+						order.Remark = !order.rawRemark ? $scope.takeAwayRemark : $scope.takeAwayRemark + "," + order.rawRemark;
+					}
+
 					if (!order.IsSideDishOrder) {
 						orderingFactory.editOrder(order).success(function (response) {
 							if (response.IsSuccessful) {
@@ -436,18 +470,5 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	$scope.calculateTotalAmount = function (members) {
 		var total = orderingUtilities.calculateTotalAmount(members);
 		return total;
-	};
-
-	/*
-	** Update remark.
-	*/
-	$scope.updateRemark = function (order) {
-		if (!order.TakeAway) {
-			order.Remark = !order.Remark ? $scope.takeAwayRemark : $scope.takeAwayRemark + "," + order.Remark;
-		}
-		else {
-			order.Remark = order.Remark.replace($scope.takeAwayRemark, "");
-			order.Remark = order.Remark.replace(",", "");
-		}
 	};
 } ]);

@@ -32,6 +32,8 @@ namespace NexFB.Criteria.Ordering
 
         public string Remark { get; set; }
 
+        public bool TakeAway { get; set; }
+
         public int ModifiedBy { get; set; }
 
         public DateTime ModifiedDate { get; set; }

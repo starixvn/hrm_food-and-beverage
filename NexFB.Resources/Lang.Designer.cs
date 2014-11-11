@@ -61,6 +61,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accepted.
+        /// </summary>
+        public static string Accepted {
+            get {
+                return ResourceManager.GetString("Accepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Action.
         /// </summary>
         public static string Action {
@@ -525,6 +534,15 @@ namespace NexFB.Resources {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivered.
+        /// </summary>
+        public static string Delivered {
+            get {
+                return ResourceManager.GetString("Delivered", resourceCulture);
             }
         }
         
@@ -1222,6 +1240,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order #{0} by {1} has been Rejected at {2}. Status history: \n\rCreated: {3}\n\rAccepted: {4}\n\rDelivered: {5}.
+        /// </summary>
+        public static string MessageRejectedStatusOrder {
+            get {
+                return ResourceManager.GetString("MessageRejectedStatusOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mon.
         /// </summary>
         public static string Mon {
@@ -1816,7 +1843,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Take away/Đem đi].
+        ///   Looks up a localized string similar to Mang về.
         /// </summary>
         public static string TakeAwayRemark {
             get {

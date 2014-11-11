@@ -34,6 +34,10 @@ namespace NexFB.Models.Ordering
 
         public DateTime OrderTime { get; set; }
 
+        public DateTime? AcceptanceDate { get; set; }
+
+        public DateTime? DeliveryDate { get; set; }
+
         public IList<OrderMemberModel> Members { get; set; }
 
         public int MemberCount { get; set; }
@@ -67,6 +71,30 @@ namespace NexFB.Models.Ordering
             get
             {
                 return ModifiedDate.ToString(Constants.TimeFormat);
+            }
+        }
+
+        public string CreatedTime
+        {
+            get
+            {
+                return OrderTime.ToString(Constants.TimeFormat);
+            }
+        }
+
+        public string AcceptanceTime
+        {
+            get
+            {
+                return AcceptanceDate.HasValue ? ((DateTime)AcceptanceDate).ToString(Constants.TimeFormat) : string.Empty;
+            }
+        }
+
+        public string DeliveryTime
+        {
+            get
+            {
+                return DeliveryDate.HasValue ? ((DateTime)DeliveryDate).ToString(Constants.TimeFormat) : string.Empty;
             }
         }
 
