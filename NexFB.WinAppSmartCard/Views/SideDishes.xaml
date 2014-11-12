@@ -271,33 +271,6 @@
 					FontSize="20" HorizontalAlignment="Center" Grid.Column="2"/>
 					</Grid>
 
-					<!--Take Away options-->
-					<Grid Background="#fff" Height="50" Margin="1,0,1,0">
-					<ToggleButton Foreground="#014A81" FontSize="20" x:Name="TakeAwayOptions" IsChecked="{Binding Path=TakeAwayChecked}"
-							Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TakeAway]}">
-						<ToggleButton.Template>
-							<ControlTemplate TargetType="{x:Type ToggleButton}">
-								<StackPanel Orientation="Horizontal">
-									<ContentPresenter Content="{TemplateBinding Content}"
-											Margin="15,0,10,0" VerticalAlignment="Center"/>
-										<Image Width="26" Height="26">
-										<Image.Style>
-											<Style>
-													<Setter Property="Image.Source" Value="pack://application:,,,/Images/checkbox-unchecked.png" />
-												<Style.Triggers>
-													<DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
-															<Setter Property="Image.Source" Value="pack://application:,,,/Images/checkbox-checked.png" />
-													</DataTrigger>
-												</Style.Triggers>
-											</Style>
-										</Image.Style>
-									</Image>
-								</StackPanel>
-							</ControlTemplate>
-						</ToggleButton.Template>
-					</ToggleButton>
-			</Grid>
-
 			<!--Action Button-->
 					<Grid VerticalAlignment="Bottom" Margin="0,30,0,10">
 						<Grid.ColumnDefinitions>
@@ -398,32 +371,6 @@
 					FontSize="20" HorizontalAlignment="Center" Grid.Column="2"/>
 						<TextBlock Margin="0,0,5,0" VerticalAlignment="Center" FontWeight="Black" Foreground="#c72413"
 					Text="{Binding Path=TotalPrice, Converter={StaticResource moneyConverter}}" FontSize="20" HorizontalAlignment="Right" Grid.Column="3"/>
-					</Grid>
-
-					<!--Take away options-->
-					<Grid Background="#fff" Height="50" Margin="1,0,1,0">
-						<ToggleButton Foreground="#014A81" FontSize="20" IsEnabled="False" x:Name="TakeAwayOptionsReadOnly" IsChecked="{Binding Path=TakeAwayChecked}"
-							Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TakeAway]}">
-							<ToggleButton.Template>
-								<ControlTemplate TargetType="{x:Type ToggleButton}">
-									<StackPanel Orientation="Horizontal">
-										<ContentPresenter Content="{TemplateBinding Content}" Margin="15,0,10,0" VerticalAlignment="Center"/>
-										<Image Width="26" Height="26">
-											<Image.Style>
-												<Style>
-													<Setter Property="Image.Source" Value="pack://application:,,,/Images/checkbox-unchecked.png" />
-													<Style.Triggers>
-														<DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
-															<Setter Property="Image.Source" Value="pack://application:,,,/Images/checkbox-checked.png" />
-														</DataTrigger>
-													</Style.Triggers>
-												</Style>
-											</Image.Style>
-										</Image>
-									</StackPanel>
-								</ControlTemplate>
-							</ToggleButton.Template>
-						</ToggleButton>
 					</Grid>
 
 					<!--Action button-->
