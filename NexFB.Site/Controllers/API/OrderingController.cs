@@ -205,7 +205,6 @@ namespace NexFB.Site.Controllers.API
                 Phone = model.Phone,
                 Remark = model.Remark,
                 Members = model.Members,
-                OrderTime = DateTime.Now,
                 TakeAway = model.TakeAway
             };
 
@@ -307,7 +306,6 @@ namespace NexFB.Site.Controllers.API
                 Phone = model.Phone,
                 Remark = model.Remark,
                 Members = model.Members,
-                OrderTime = model.OrderTime,
                 TakeAway = model.TakeAway
             };
 

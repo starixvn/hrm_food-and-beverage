@@ -30,8 +30,6 @@ namespace NexFB.Criteria.Ordering
         [Output]
         public int OrderId { get; set; }
 
-        public DateTime OrderTime { get; set; }
-
         public bool TakeAway { get; set; }
 
         public int? LocationId { get; set; }

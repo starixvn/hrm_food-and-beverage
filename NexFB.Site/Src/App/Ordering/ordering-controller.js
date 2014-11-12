@@ -195,8 +195,6 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				data.TakeAway = false;
 
 				$scope.newOrder = data;
-				$scope.newOrder.OrderTime = new Date();
-				$scope.newOrder.OrderTime.toISOString();
 				orderingService.setMemberNewOrder(data.Members);
 			})
 			.error(function (response, status) {
@@ -705,13 +703,6 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	$scope.calculateTotalAmount = function (members) {
 		var total = orderingUtilities.calculateTotalAmount(members);
 		return total;
-	};
-
-	/*
-	** Enable new order time.
-	*/
-	$scope.enableNewOrderTime = function () {
-		$scope.newOrder.OrderTime = new Date();
 	};
 } ]);
 
