@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DialogueMaster.Babel">
+      <HintPath>..\packages\AutoDetectLanguage\DialogueMaster.Babel.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Common">
       <HintPath>..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
     </Reference>
@@ -53,6 +56,7 @@
       <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
@@ -73,6 +77,7 @@
     <Compile Include="Repositories\IBaseRepository.cs" />
     <Compile Include="Security\Encryptor.cs" />
     <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Translator\FBTranslator.cs" />
     <Compile Include="Utilities\Enumerations.cs" />
   </ItemGroup>
   <ItemGroup>

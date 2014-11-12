@@ -12,10 +12,12 @@ namespace NexFB.Models.Kitchen
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
     using NexFB.Core.Enums;
+    using NexFB.Core.Translator;
     using NexFB.Resources;
 
     /// <summary>
@@ -324,6 +326,19 @@ namespace NexFB.Models.Kitchen
                 {
                     return "pack://application:,,,/Images/no-avatar.jpg";
                 }
+            }
+        }
+
+        public string TranslateRemark
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Remark))
+                {
+                    return FBTranslator.AutoTranslation(Remark);
+                }
+
+                return Remark;
             }
         }
 

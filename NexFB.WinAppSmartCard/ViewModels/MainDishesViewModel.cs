@@ -426,7 +426,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         private void ExecuteConfirmCommand()
         {
-            var abc = TakeAwayChecked;
             if (ObservableListEmployee.Count == 0)
             {
                 this.ShowErrorMessage(MainViewModel.CurrentCulture, MainScreenResources.Message_ContainEmployee);

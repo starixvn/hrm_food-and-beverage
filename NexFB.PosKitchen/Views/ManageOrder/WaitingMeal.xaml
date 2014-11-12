@@ -131,7 +131,7 @@
 													</Style>
 												</Image.Style>
 											</Image>
-											<TextBlock Foreground="Red" Text="{Binding Path=Remark}" FontSize="13" Margin="4,1,0,0"/>
+											<TextBlock Foreground="Red" Text="{Binding Path=TranslateRemark}" FontSize="13" Margin="4,1,0,0"/>
 										</StackPanel>
 									</Label>
 								</StackPanel>
