@@ -98,8 +98,7 @@
             <table class="row table table-odering table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th class="width-40">
-                            #
+                        <th class="width-40" data-translate="SymbolCount">
                         </th>
                         <th class="">
                             <label data-translate="ToDayMenu">
@@ -194,9 +193,14 @@
 										</a>
 									</div>
 									<div ng-show="alter.alternativeMenu{{member.Member.UserId}}">
-										<select class="ddlMenu" name="newOrderMenu" ng-options="menu as menu.MenuCode + ' - '+ menu.Name for menu in member.AllMenus" 
+										<select class="ddlMenu" name="newOrderMenu" ng-options="menu as menu.Name + '' + ' (' + menu.NameVN + ')' for menu in member.AllMenus" 
 											get-selected-menu on-change-select ng-model="selectedNewMenu[$index]" >
 										</select>
+<!--										<select class="ddlMenu" name="newOrderMenu" ng-model="selectedNewMenu[$index]" get-selected-menu on-change-select >
+											<option ng-repeat="menu in member.AllMenus" ng-bind-html="menu.Name + '<br />' + ' (' + menu.NameVN + ')'"
+												ng-selected="menu == selectedNewMenu[$index]" value="{{menu}}" >
+											</option>
+										</select>-->
 									</div>
                                 </td>
                                 <td class="text-center">

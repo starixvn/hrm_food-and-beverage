@@ -56,8 +56,8 @@ namespace NexFB.Site
                 "~/Src/Components/Libs/date.js",
                 "~/Src/Components/Libs/chosen.jquery.min.js",
                 "~/Src/Components/Libs/tai-placeholder.js",
-                "~/Src/Components/Libs/angular-sanitize-1.2.6.js",
-                "~/Src/Components/Libs/ng-cells-0.3.3.js"));
+                "~/Src/Components/Libs/ng-cells-0.3.3.js",
+                "~/Src/Components/Libs/angular-sanitize.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
                 "~/Src/Components/Libs/jquery.signalR-1.1.4.min.js"));

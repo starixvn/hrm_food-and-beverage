@@ -297,9 +297,7 @@
     <Content Include="Src\App\MealPlanningManagement\mealPlanningManagement-directive.js" />
     <Content Include="Src\Components\Extensions\Filters\fb-filter.js" />
     <Content Include="Src\Components\Extensions\Services\fb-service.js" />
-    <Content Include="Src\Components\Libs\angular-sanitize-1.2.6.js">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Content>
+    <Content Include="Src\Components\Libs\angular-sanitize.min.js" />
     <Content Include="Src\Components\Libs\chosen.jquery.min.js" />
     <Content Include="Src\Components\Libs\date.js" />
     <Content Include="Src\Components\Libs\datepicker.js" />

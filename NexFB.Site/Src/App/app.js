@@ -5,7 +5,7 @@ var appModule = angular.module("appModule",
 ['mealRegistrationModule', 'userControlModule', 'orderingModule', 'foodItemManagementModule',
 'foodMenuManagementModule', 'mealPlanningManagementModule', 'sideDishManagementModule', 'alternativeMenuModule',
 'shiftMealMappingModule', 'setMenuManagementModule', 'reportModule', 'groupControlModule', 'manageUserInGroupModule',
-'ui.bootstrap', 'pascalprecht.translate', 'multi-select', 'taiPlaceholder'])
+'ui.bootstrap', 'pascalprecht.translate', 'multi-select', 'taiPlaceholder', 'ngSanitize'])
 .config(['$locationProvider', '$translateProvider', '$routeProvider', 'datepickerConfig', 'datepickerPopupConfig',
 function ($locationProvider, $translateProvider, $routeProvider, datepickerConfig, datepickerPopupConfig) {
 	$translateProvider.useLoader('resourceFactory', {});
