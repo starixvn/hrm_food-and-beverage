@@ -43,7 +43,6 @@ namespace NexFB.PosKitchen.ViewModels
 
         public MainViewModel()
         {
-            ////var allScreens = System.Windows.Forms.Screen.AllScreens;
             CurrentViewModel = new WaitingMealViewModel();
             this.CheckCurrentCulture();
             CheckCurrentViewModel();
@@ -209,7 +208,7 @@ namespace NexFB.PosKitchen.ViewModels
                     {
                         if (InternetAvailability.IsInternetAvailable())
                         {
-                            ProcessDataFromCurrentList(orderId);
+                            ProcessDataFromCurrentList(orderId, false);
                             SendMessage(orderId, Constant.AwaitingDeliverFoodScreen);
                         }
                         else
@@ -248,7 +247,7 @@ namespace NexFB.PosKitchen.ViewModels
                     {
                         if (InternetAvailability.IsInternetAvailable())
                         {
-                            ProcessDataFromCurrentList(orderId);
+                            ProcessDataFromCurrentList(orderId, false);
                             SendMessage(orderId, Constant.WaitingFoodScreen);
                         }
                         else
@@ -283,7 +282,7 @@ namespace NexFB.PosKitchen.ViewModels
                 {
                     if (InternetAvailability.IsInternetAvailable())
                     {
-                        ProcessDataFromCurrentList(orderId);
+                        ProcessDataFromCurrentList(orderId, false);
                         SendMessage(orderId, Constant.DeliveredFoodScreen);
                     }
                     else
@@ -350,7 +349,8 @@ namespace NexFB.PosKitchen.ViewModels
                     }
                     else
                     {
-                        ProcessDataFromCurrentList(orderId);
+                        ProcessDataFromCurrentList(orderId, false);
+                        SendMessage(orderId, Constant.CanceledFoodScreen);
                     }
                 }
             }
@@ -364,7 +364,8 @@ namespace NexFB.PosKitchen.ViewModels
         /// Remove order from list.
         /// </summary>
         /// <param name="orderId">Current order id.</param>
-        private void ProcessDataFromCurrentList(int orderId)
+        /// <param name="isRejectedOrder">Check for rejected order case.</param>
+        private void ProcessDataFromCurrentList(int orderId, bool isRejectedOrder)
         {
             string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
             switch (currentViewModel)
@@ -377,6 +378,14 @@ namespace NexFB.PosKitchen.ViewModels
                     break;
                 case Constant.DeliveredFoodViewModel:
                     ((DeliveredFoodViewModel)CurrentViewModel).DeleteDataInDeliveredMeals(orderId);
+                    break;
+                case Constant.CanceledFoodViewModel:
+                    if (isRejectedOrder)
+                    {
+                        Order rejectedOrder = GetOrderById(orderId);
+                        ((CanceledFoodViewModel)CurrentViewModel).AddRejectedOrderToList(rejectedOrder);
+                    }
+
                     break;
             }
         }
@@ -454,6 +463,11 @@ namespace NexFB.PosKitchen.ViewModels
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => KitchenStaffUndoDeliveredOrder(orderId)));
         }
 
+        private void OnKitchenRejectedOrder(int orderId)
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => KitchenStaffRejectedOrder(orderId)));
+        }
+
         /// <summary>
         /// Kitchen Staff receive order.
         /// </summary>
@@ -516,6 +530,11 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
+        private void KitchenStaffRejectedOrder(int orderId)
+        {
+            ProcessDataFromCurrentList(orderId, true);
+        }
+
         private Order GetOrderById(int orderId)
         {
             var criteria = new GetMealOrderByIdCriteria()
@@ -554,6 +573,7 @@ namespace NexFB.PosKitchen.ViewModels
                 Proxy.On<int>("appNotifyReceiveNewOrder", (orderId) => OnKitchenStaffReceiveOrder(orderId));
                 Proxy.On<int>("appNotifyAwaitingDeliverOrder", (orderId) => OnKitchenStaffAwaitingDeliverOrder(orderId));
                 Proxy.On<int>("appNotifyUndoDeliveredOrder", (orderId) => OnKitchenStaffUndoDeliveredOrder(orderId));
+                Proxy.On<int>("appNotifyRejectedOrder", (orderId) => OnKitchenRejectedOrder(orderId));
                 Proxy.On<int>("deleteOrderForApp", (orderId) => OnDeleteOrder(orderId));
                 Proxy.On<int>("editOrderForApp", (orderId) => OnEditOrder(orderId));
                 try
@@ -588,6 +608,7 @@ namespace NexFB.PosKitchen.ViewModels
                 ProxyLocal.On<int>("appNotifyReceiveNewOrder", (orderId) => OnKitchenStaffReceiveOrder(orderId));
                 ProxyLocal.On<int>("appNotifyAwaitingDeliverOrder", (orderId) => OnKitchenStaffAwaitingDeliverOrder(orderId));
                 ProxyLocal.On<int>("appNotifyUndoDeliveredOrder", (orderId) => OnKitchenStaffUndoDeliveredOrder(orderId));
+                ProxyLocal.On<int>("appNotifyRejectedOrder", (orderId) => OnKitchenRejectedOrder(orderId));
                 ProxyLocal.On<int>("deleteOrderForApp", (orderId) => OnDeleteOrder(orderId));
                 ProxyLocal.On<int>("editOrderForApp", (orderId) => OnEditOrder(orderId));
                 try

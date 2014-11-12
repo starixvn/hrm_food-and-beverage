@@ -11,6 +11,7 @@ namespace NexFB.PosKitchen.ViewModels
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using NexFB.Core.Enums;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
@@ -95,6 +96,27 @@ namespace NexFB.PosKitchen.ViewModels
                 }
 
                 return new ObservableCollection<Order>(canceledMeals);
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Method add new item to Rejected order list.
+        /// </summary>
+        /// <param name="order">New order item.</param>
+        public void AddRejectedOrderToList(Order order)
+        {
+            if (order != null)
+            {
+                if (!CanceledMeals.Any(x => x.OrderId == order.OrderId))
+                {
+                    CanceledMeals.Add(order);
+                }
+
+                CanceledMeals = new ObservableCollection<Order>(this.CanceledMeals);
             }
         }
 

@@ -96,6 +96,8 @@ namespace NexFB.Pos.Core.Constants
 
         public const int DeliveredFoodScreen = 3;
 
+        public const int CanceledFoodScreen = 4;
+
         public const int GetNewOrder = 1;
 
         public const int GetAllData = 2;

@@ -74,6 +74,9 @@ namespace NexFB.Hub
                 case 3:
                     Clients.All.appNotifyUndoDeliveredOrder(orderId);
                     break;
+                case 4:
+                    Clients.All.appNotifyRejectedOrder(orderId);
+                    break;
             }
         }
 
