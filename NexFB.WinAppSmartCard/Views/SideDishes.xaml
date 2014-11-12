@@ -280,7 +280,7 @@
 								<StackPanel Orientation="Horizontal">
 									<ContentPresenter Content="{TemplateBinding Content}"
 											Margin="15,0,10,0" VerticalAlignment="Center"/>
-									<Image Width="32" Height="32">
+										<Image Width="26" Height="26">
 										<Image.Style>
 											<Style>
 													<Setter Property="Image.Source" Value="pack://application:,,,/Images/checkbox-unchecked.png" />
@@ -408,7 +408,7 @@
 								<ControlTemplate TargetType="{x:Type ToggleButton}">
 									<StackPanel Orientation="Horizontal">
 										<ContentPresenter Content="{TemplateBinding Content}" Margin="15,0,10,0" VerticalAlignment="Center"/>
-										<Image Width="32" Height="32">
+										<Image Width="26" Height="26">
 											<Image.Style>
 												<Style>
 													<Setter Property="Image.Source" Value="pack://application:,,,/Images/checkbox-unchecked.png" />

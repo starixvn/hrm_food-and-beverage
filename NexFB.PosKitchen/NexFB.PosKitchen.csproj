@@ -103,6 +103,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -179,9 +180,9 @@
     <Resource Include="Images\HongMa\HM0007.jpg" />
     <Resource Include="Images\HongMa\HM0015.jpg" />
     <Resource Include="Images\HongMa\HM0022.jpg" />
+    <Resource Include="Icon.ico" />
     <Resource Include="Images\checkbox-checked.png" />
     <Resource Include="Images\checkbox-unchecked.png" />
-    <Resource Include="Icon.ico" />
     <Content Include="PrintingTemplates\OrderFoodReceipt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
