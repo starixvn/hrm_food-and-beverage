@@ -65,8 +65,8 @@ namespace NexFB.Repositories.Implement
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    var data = multi.Read<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
-                        (od, e, s, m, l) => 
+                    var data = multi.Read<MealOrderingModel, Employee, Status, Location, MealOrderingModel>(
+                        (od, e, s, l) => 
                     {
                         od.CreatorOrder = e;
                         od.Status = s;

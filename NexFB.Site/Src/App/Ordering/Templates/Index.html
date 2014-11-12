@@ -194,7 +194,8 @@
 										</a>
 									</div>
 									<div ng-show="alter.alternativeMenu{{member.Member.UserId}}">
-										<select class="ddlMenu" name="newOrderMenu" ng-model="selectedNewMenu[$index]" ng-options="menu as menu.Name for menu in member.AllMenus" get-selected-menu on-change-select >
+										<select class="ddlMenu" name="newOrderMenu" ng-options="menu as menu.MenuCode + ' - '+ menu.Name for menu in member.AllMenus" 
+											get-selected-menu on-change-select ng-model="selectedNewMenu[$index]" >
 										</select>
 									</div>
                                 </td>
