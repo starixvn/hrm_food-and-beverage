@@ -799,15 +799,15 @@
     <value>The Old Password field is required!</value>
   </data>
   <data name="ValidateLengthPassword" xml:space="preserve">
-    <value>Password length must be at least 6 characters.</value>
+    <value>Password must be at least 6 characters long.</value>
   </data>
   <data name="ValidateWrongConfirmPassword" xml:space="preserve">
-    <value>Your password and confirmation password do not match.</value>
+    <value>Password does not match the confirm password.</value>
   </data>
   <data name="ValidateWrongPassword" xml:space="preserve">
-    <value>Old password is incorrect.</value>
+    <value>The old password is incorrect.</value>
   </data>
   <data name="NoPermissionChangePassword" xml:space="preserve">
-    <value>You don't have permission to change password.</value>
+    <value>You do not have permission to change your password.</value>
   </data>
 </root>

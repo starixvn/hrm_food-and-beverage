@@ -1411,7 +1411,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You don&apos;t have permission to change password..
+        ///   Looks up a localized string similar to You do not have permission to change your password..
         /// </summary>
         public static string NoPermissionChangePassword {
             get {
@@ -2059,7 +2059,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password length must be at least 6 characters..
+        ///   Looks up a localized string similar to Password must be at least 6 characters long..
         /// </summary>
         public static string ValidateLengthPassword {
             get {
@@ -2068,7 +2068,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your password and confirmation password do not match..
+        ///   Looks up a localized string similar to Password does not match the confirm password..
         /// </summary>
         public static string ValidateWrongConfirmPassword {
             get {
@@ -2077,7 +2077,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Old password is incorrect..
+        ///   Looks up a localized string similar to The old password is incorrect..
         /// </summary>
         public static string ValidateWrongPassword {
             get {
