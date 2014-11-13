@@ -22,7 +22,7 @@
 	</Window.Triggers>
 
 	<Grid>
-		<Grid Visibility="{Binding Path=StandbyScreenVisible}">
+		<Grid Visibility="{Binding Path=StandbyScreenVisible}" Mouse.MouseDown="Grid_MouseDown">
 			<Grid.Background>
 				<ImageBrush ImageSource="pack://application:,,,/Images/POS_IdleScreen.jpg"/>
 			</Grid.Background>

@@ -117,5 +117,14 @@ namespace NexFB.WinAppSmartCard
                 currentViewModel.ExecuteReturnToStandByScreen();
             }
         }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 3)
+            {
+                ////System.Windows.Forms.Application.Restart();
+                System.Windows.Application.Current.Shutdown();
+            }
+        }
     }
 }

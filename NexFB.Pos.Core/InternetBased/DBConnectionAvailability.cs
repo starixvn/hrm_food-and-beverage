@@ -26,15 +26,31 @@ namespace NexFB.Pos.Core.InternetBased
         /// Check Database connection.
         /// </summary>
         /// <returns>Boolean to check.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
-        public static bool IsDBConnectionAvailable()
+        public static bool MainDBConnectionAvailable()
+        {
+            string serverDatabase = ConfigurationManager.AppSettings[Constant.ServerDB];
+            return InitializeDBConnection(serverDatabase);
+        }
+
+        public static bool LocalDBConnectionAvailable()
+        {
+            string localDatabase = ConfigurationManager.AppSettings[Constant.LocalDB];
+            return InitializeDBConnection(localDatabase);
+        }
+
+        /// <summary>
+        /// Initialize Database connection, and check for connection available.
+        /// </summary>
+        /// <param name="targetDatabase">Database to check.</param>
+        /// <returns>Boolean to check.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]        
+        private static bool InitializeDBConnection(string targetDatabase)
         {
             SqlConnection sqlConnection;
             bool connectionResult = false;
-            string serverDatabase = ConfigurationManager.AppSettings[Constant.ServerDB];
-            if (!string.IsNullOrEmpty(serverDatabase))
+            if (!string.IsNullOrEmpty(targetDatabase))
             {
-                string connectionString = ConnectionStringGetter.GetConnectionString(serverDatabase);
+                string connectionString = ConnectionStringGetter.GetConnectionString(targetDatabase);
                 sqlConnection = new SqlConnection(connectionString);
                 try
                 {

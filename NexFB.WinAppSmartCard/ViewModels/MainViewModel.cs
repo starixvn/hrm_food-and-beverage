@@ -56,9 +56,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private string _logoMargin;
         private string _sentenceMargin;
         private bool _isMainDishTab;
+        private bool _isMainHub;
 
         public MainViewModel()
         {
+            IsMainHub = DBConnectionAvailability.MainDBConnectionAvailable();
             InitializeHubConnection();
             InitializeHubConnectionLocal();
             ExecuteMainDishesCommand();
@@ -112,6 +114,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 _currentTime = value;
                 OnPropertyChanged("CurrentTime");
+            }
+        }
+
+        public bool IsMainHub
+        {
+            get
+            {
+                return _isMainHub;
+            }
+
+            set
+            {
+                _isMainHub = value;
+                OnPropertyChanged("IsMainHub");
             }
         }
 
@@ -431,7 +447,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public Task SendMessage(int orderId)
         {
-            if (InternetAvailability.IsInternetAvailable())
+            if (IsMainHub)
             {
                 return Proxy.Invoke("SendNewOrder", orderId);
             }

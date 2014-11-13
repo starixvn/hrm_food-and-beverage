@@ -10,8 +10,14 @@
 namespace NexFB.WinAppSmartCard
 {
     using System;
+    using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
+    using Fanex.Data;
     using Fanex.Data.Configuration;
+    using NexFB.Pos.Core.InternetBased;
+    using NexFB.Resources;
+    using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Mapping;
     using NexFB.WinAppSmartCard.Events;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
@@ -30,7 +36,22 @@ namespace NexFB.WinAppSmartCard
         /// <param name="e">Startup Event.</param>
         protected override void OnStartup(StartupEventArgs e)
         {
-            InitializeApp();
+            base.OnStartup(e);
+            if (DBConnectionAvailability.MainDBConnectionAvailable())
+            {
+                InitializeApp();
+            }
+            else
+            {
+                if (DBConnectionAvailability.LocalDBConnectionAvailable())
+                {
+                    ChangeConnectionToLocalDB();
+                }
+                else
+                {
+                    App_NetworkConnectionException();
+                }
+            }
         }
 
         private void OnCardNumberChange(CardNumberChangedEventArgs e, MainViewModel mainViewModel, MainWindow mainWindow)
@@ -41,19 +62,66 @@ namespace NexFB.WinAppSmartCard
         /// <summary>
         /// Initialize app.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]        
         private void InitializeApp()
         {
-            IMappingRegister mappingRegister = new CoreMappingRegister();
-            SmartcardManager manager = new SmartcardManager();
-            MainWindow mainWindow = new MainWindow();
-            MainViewModel mainViewModel = new MainViewModel();
-            mainWindow.DataContext = mainViewModel;
-            mainWindow.Show();
+            try
+            {
+                IMappingRegister mappingRegister = new CoreMappingRegister();
+                SmartcardManager manager = new SmartcardManager();
+                MainWindow mainWindow = new MainWindow();
+                MainViewModel mainViewModel = new MainViewModel();
+                mainWindow.DataContext = mainViewModel;
+                mainWindow.Show();
 
-            manager.CardNumberChanged += new EventHandler<CardNumberChangedEventArgs>((sender, ex) => OnCardNumberChange(ex, mainViewModel, mainWindow));
-            ResourceManagerService.RegisterManager(@"MainScreenResources", MainScreenResources.ResourceManager, true);
-            DbSettingProviderManager.Current.Start();
-            mappingRegister.Register();
+                manager.CardNumberChanged += new EventHandler<CardNumberChangedEventArgs>((sender, ex) => OnCardNumberChange(ex, mainViewModel, mainWindow));
+                ResourceManagerService.RegisterManager(@"MainScreenResources", MainScreenResources.ResourceManager, true);
+                DbSettingProviderManager.Current.Start();
+                mappingRegister.Register();
+            }
+            catch (Exception e)
+            {
+                App_DispatcherUnhandledException(e);
+            }
+        }
+
+        /// <summary>
+        /// Change connection From server to local when have problem to connect server DB.
+        /// </summary>
+        private void ChangeConnectionToLocalDB()
+        {
+            InitializeApp();
+            string databaseLocalBackup = ConfigurationManager.AppSettings[ConstantValue.LocalDB];
+            var conStr = ConnectionStringGetter.GetConnectionString(databaseLocalBackup);
+            if (!string.IsNullOrEmpty(conStr))
+            {
+                var settingDataSource = DbSettingProviderManager.Current.SettingDataSource;
+                if (settingDataSource != null)
+                {
+                    foreach (var item in settingDataSource)
+                    {
+                        item.Value.ConnectionString = conStr;
+                        item.Value.DbName = databaseLocalBackup;
+                    }
+                }
+            }
+        }
+
+        private void App_DispatcherUnhandledException(Exception e)
+        {
+            string errorMessage = Lang.ErrorMessage + "\n\nError details:\n" + e.InnerException;
+            if (MessageBox.Show(errorMessage, Lang.UnhandledException, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+            {
+                Shutdown();
+            }
+        }
+
+        private void App_NetworkConnectionException()
+        {
+            if (MessageBox.Show(Lang.NetworkConnectionError, Lang.ErrorNetworkConnectionHeader, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+            {
+                Shutdown();
+            }
         }
     }
 }

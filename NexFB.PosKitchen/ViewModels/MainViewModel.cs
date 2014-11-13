@@ -43,6 +43,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         public MainViewModel()
         {
+            IsMainHub = DBConnectionAvailability.MainDBConnectionAvailable();
             CurrentViewModel = new WaitingMealViewModel();
             this.CheckCurrentCulture();
             CheckCurrentViewModel();
@@ -55,7 +56,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         public Task SendNewOrder(int orderId)
         {
-            if (InternetAvailability.IsInternetAvailable())
+            if (IsMainHub)
             {
                 return Proxy.Invoke("SendNewOrder", orderId);
             }
@@ -67,7 +68,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         public Task SendEditOrder(int orderId)
         {
-            if (InternetAvailability.IsInternetAvailable())
+            if (IsMainHub)
             {
                 return Proxy.Invoke("SendEditOrder", orderId);
             }
@@ -206,7 +207,7 @@ namespace NexFB.PosKitchen.ViewModels
                     }
                     else
                     {
-                        if (InternetAvailability.IsInternetAvailable())
+                        if (IsMainHub)
                         {
                             ProcessDataFromCurrentList(orderId, false);
                             SendMessage(orderId, Constant.AwaitingDeliverFoodScreen);
@@ -245,7 +246,7 @@ namespace NexFB.PosKitchen.ViewModels
                     }
                     else
                     {
-                        if (InternetAvailability.IsInternetAvailable())
+                        if (IsMainHub)
                         {
                             ProcessDataFromCurrentList(orderId, false);
                             SendMessage(orderId, Constant.WaitingFoodScreen);
@@ -280,7 +281,7 @@ namespace NexFB.PosKitchen.ViewModels
                 }
                 else
                 {
-                    if (InternetAvailability.IsInternetAvailable())
+                    if (IsMainHub)
                     {
                         ProcessDataFromCurrentList(orderId, false);
                         SendMessage(orderId, Constant.DeliveredFoodScreen);
@@ -548,7 +549,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         private Task SendMessage(int orderId, int screenControl)
         {
-            if (InternetAvailability.IsInternetAvailable())
+            if (IsMainHub)
             {
                 return Proxy.Invoke("KitchenNotify", orderId, screenControl);
             }

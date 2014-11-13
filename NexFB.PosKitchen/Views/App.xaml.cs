@@ -30,45 +30,23 @@ namespace NexFB.PosKitchen
         /// Startup method.
         /// </summary>
         /// <param name="e">Startup events.</param>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         protected override void OnStartup(StartupEventArgs e)
         {
-            try
+            base.OnStartup(e);
+            if (DBConnectionAvailability.MainDBConnectionAvailable())
             {
-                if (DBConnectionAvailability.IsDBConnectionAvailable())
+                InitializeApp();
+            }
+            else
+            {
+                if (DBConnectionAvailability.LocalDBConnectionAvailable())
                 {
-                    base.OnStartup(e);
-                    InitializeApp();
+                    ChangeConnectionToLocalDB();
                 }
                 else
                 {
-                    InitializeApp();
-                    string databaseLocalBackup = ConfigurationManager.AppSettings[Constant.LocalDB];
-                    if (string.IsNullOrEmpty(databaseLocalBackup))
-                    {
-                        DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_NetworkConnectionException);
-                    }
-                    else
-                    {
-                        var conStr = ConnectionStringGetter.GetConnectionString(databaseLocalBackup);
-                        if (!string.IsNullOrEmpty(conStr))
-                        {
-                            var settingDataSource = DbSettingProviderManager.Current.SettingDataSource;
-                            if (settingDataSource != null)
-                            {
-                                foreach (var item in settingDataSource)
-                                {
-                                    item.Value.ConnectionString = conStr;
-                                    item.Value.DbName = databaseLocalBackup;
-                                }
-                            }
-                        }
-                    }
+                    DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_NetworkConnectionException);
                 }
-            }
-            catch
-            {
-                DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);
             }
         }
 
@@ -94,24 +72,61 @@ namespace NexFB.PosKitchen
         /// <summary>
         /// Initialize App data.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]        
         private void InitializeApp()
         {
-            string defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
-            IMappingRegister mappingRegister = new CoreMappingRegister();
-            mappingRegister.Register();
-            
-            if (string.IsNullOrEmpty(defaultLanguage))
+            try
             {
-                WinFormMainResource.Culture = new CultureInfo(Constant.DefaultCulture);
+                string defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
+                IMappingRegister mappingRegister = new CoreMappingRegister();
+                mappingRegister.Register();
+
+                if (string.IsNullOrEmpty(defaultLanguage))
+                {
+                    WinFormMainResource.Culture = new CultureInfo(Constant.DefaultCulture);
+                }
+                else
+                {
+                    WinFormMainResource.Culture = new CultureInfo(defaultLanguage);
+                }
+
+                DbSettingProviderManager.Current.Start();
+            }
+            catch
+            {
+                DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);
+            }
+
+            ////UpdateManager.UpdateApp();
+        }
+
+        /// <summary>
+        /// Change connection From server to local when have problem to connect server DB.
+        /// </summary>
+        private void ChangeConnectionToLocalDB()
+        {
+            InitializeApp();
+            string databaseLocalBackup = ConfigurationManager.AppSettings[Constant.LocalDB];
+            if (string.IsNullOrEmpty(databaseLocalBackup))
+            {
+                DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_NetworkConnectionException);
             }
             else
             {
-                WinFormMainResource.Culture = new CultureInfo(defaultLanguage);
+                var conStr = ConnectionStringGetter.GetConnectionString(databaseLocalBackup);
+                if (!string.IsNullOrEmpty(conStr))
+                {
+                    var settingDataSource = DbSettingProviderManager.Current.SettingDataSource;
+                    if (settingDataSource != null)
+                    {
+                        foreach (var item in settingDataSource)
+                        {
+                            item.Value.ConnectionString = conStr;
+                            item.Value.DbName = databaseLocalBackup;
+                        }
+                    }
+                }
             }
-
-            DbSettingProviderManager.Current.Start();
-
-            ////UpdateManager.UpdateApp();
         }
     }
 }

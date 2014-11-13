@@ -38,6 +38,7 @@ namespace NexFB.PosKitchen.ViewModels.Partials.Main
         private double _keypadHeight;
         private int _keypadFontSize;
         private int _currentCulture;
+        private bool _isMainHub;
 
         private MenuColor _menu1 = new MenuColor();
         private MenuColor _menu2 = new MenuColor();
@@ -450,6 +451,20 @@ namespace NexFB.PosKitchen.ViewModels.Partials.Main
             {
                 _currentCulture = value;
                 this.OnPropertyChanged("CurrentCulture");
+            }
+        }
+
+        public bool IsMainHub
+        {
+            get
+            {
+                return _isMainHub;
+            }
+
+            set
+            {
+                _isMainHub = value;
+                this.OnPropertyChanged("IsMainHub");
             }
         }
 

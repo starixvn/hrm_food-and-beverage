@@ -44,6 +44,8 @@ namespace NexFB.Models.Kitchen
 
         public string Remark { get; set; }
 
+        public string RemarkVnm { get; set; }
+
         public string Phone { get; set; }
 
         public int LocationId { get; set; }
@@ -326,20 +328,6 @@ namespace NexFB.Models.Kitchen
                 {
                     return "pack://application:,,,/Images/no-avatar.jpg";
                 }
-            }
-        }
-
-        public string TranslateRemark
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(Remark))
-                {
-                    ////return FBTranslator.AutoTranslation(Remark);
-                    return Remark;
-                }
-
-                return Remark;
             }
         }
 

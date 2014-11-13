@@ -52,6 +52,10 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const string HubHost = "HubHost";
 
+        public const string LocalDB = "LocalDB";
+
+        public const string ServerDB = "ServerDB";
+
         public const string SessionTimeout = "SessionTimeout";
 
         public const string HubHostLocal = "HubHostLocal";
