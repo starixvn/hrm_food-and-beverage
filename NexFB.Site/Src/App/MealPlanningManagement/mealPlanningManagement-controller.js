@@ -198,9 +198,9 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 	** Edit meal planning.
 	*/
 	$scope.edit = function (mealPlanning) {
-		var udpatedData = function (updateMealPlanning, foodItems) {
+		var udpatedData = function (updateMealPlanning, setMenu) {
 			mealPlanning.IsActive = updateMealPlanning.isActive;
-			mealPlanning.SetMenu.FoodItems = foodItems;
+			mealPlanning.SetMenu = setMenu;
 		};
 
 		$scope.modalInstance = $modal.open({
@@ -225,7 +225,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 		});
 
 		$scope.modalInstance.result.then(function (informationMealPlanning) {
-			udpatedData(informationMealPlanning.updateMealPlanning, informationMealPlanning.foodItems);
+			udpatedData(informationMealPlanning.updateMealPlanning, informationMealPlanning.setMenu);
 		})['finally'](function () {
 			$scope.modalInstance = '';
 		});

@@ -3,6 +3,19 @@
 
 // multi-select use Chosen plugin
 mealPlanningManagementModule.directive('mealPlanningMultiSelect', function () {
+
+	var getIndexOfRemoveFood = function (foodItems, removedFood) {
+		var removedIndex = -1;
+
+		angular.forEach(foodItems, function (foodItem, index) {
+			if (foodItem.FoodId === removedFood.FoodId) {
+				removedIndex = index;
+			}
+		});
+
+		return removedIndex;
+	};
+
 	return {
 		link: function (scope, iElement) {
 			scope.$watchCollection('foodOptions', function () {
@@ -21,7 +34,7 @@ mealPlanningManagementModule.directive('mealPlanningMultiSelect', function () {
 					index = parseInt(params.deselected);
 
 					var removedFood = scope.foodOptions[index],
-						indexInFoodItems = scope.foodItems.indexOf(removedFood);
+						indexInFoodItems = getIndexOfRemoveFood(scope.foodItems, removedFood);
 
 					scope.foodItems.splice(indexInFoodItems, 1);
 				}

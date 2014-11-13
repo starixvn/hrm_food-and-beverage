@@ -27,8 +27,7 @@
 	<div class="form-group">
 		<label data-translate="SetMenu"></label>
 		<select ng-model="mealPlanning.setMenuId" ng-options="opt.SetMenuId as opt.SetMenuVnmName for opt in setMenuItems"
-		 food-and-setmenu 
-			class="form-control">
+			food-and-setmenu class="form-control">
 			<option value="">-- {{"SelectSetMenu" | translate}} --</option>
 		</select>
 	</div>
@@ -36,10 +35,11 @@
 	
     <div class="meal-planning">
         <label>
-            {{"FoodItems" | translate}}:</label>
+            {{"FoodItems" | translate}}:
+		</label>
         <div class="menu-box">
             <select name="foodSelect" class="chosen-select" data-placeholder="Select food item(s)"
-                multiple meal-planning-multi-select name="foodItemGroup" ng-model="rawFoodIds"
+                multiple meal-planning-multi-select name="foodItemGroup" ng-model="foodIds.rawFoodIds"
                 ng-options="opt.FoodId as opt.FoodVnmName for opt in foodOptions">
             </select>
         </div>

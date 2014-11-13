@@ -13,8 +13,9 @@ currentMealPlanning) {
 	$scope.foodItems = [];
 	$scope.currentMealPlanning = currentMealPlanning;
 	$scope.foodOptions = foodOptions;
-	$scope.rawFoodIds = [];
-
+	$scope.foodIds = {
+		rawFoodIds : []
+	};
 
 	$scope.calendar = {
 		startDateOpened: false
@@ -40,12 +41,13 @@ currentMealPlanning) {
 	*/
 	$scope.getFoodItemsBySetMenu = function (setMenuId) {
 		$scope.foodItems = [];
-		$scope.rawFoodIds = [];
+		$scope.foodIds.rawFoodIds = [];
+
 		angular.forEach($scope.setMenuItems, function (setMenu) {
 			if (setMenu.SetMenuId === setMenuId) {
 				angular.forEach(setMenu.FoodItems, function (food) {
 					$scope.foodItems.push(food);
-					$scope.rawFoodIds.push(food.FoodId);
+					$scope.foodIds.rawFoodIds.push(food.FoodId);
 				});
 			}
 		});
@@ -62,14 +64,14 @@ currentMealPlanning) {
 		});
 	};
 
-//	/*
-//	** Get all set menu to filter.
-//	*/
-//	setMenuFactory.getSetMenu(null, true).success(function (setMenus) {
-//		$scope.setMenuItems = setMenus;
-//	}).error(function (response, status) {
-//		ErrorFactory.errorHandle(status);
-//	});
+	//	/*
+	//	** Get all set menu to filter.
+	//	*/
+	//	setMenuFactory.getSetMenu(null, true).success(function (setMenus) {
+	//		$scope.setMenuItems = setMenus;
+	//	}).error(function (response, status) {
+	//		ErrorFactory.errorHandle(status);
+	//	});
 
 	/*
 	** Set index to sort.

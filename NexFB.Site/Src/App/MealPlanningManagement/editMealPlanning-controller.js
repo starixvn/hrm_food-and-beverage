@@ -2,7 +2,7 @@
 /*global mealPlanningManagementModule*/
 
 mealPlanningManagementModule.controller('EditMealPlanningController',
-['$scope', '$modalInstance', 'mealPlanning', 'menuOptions', 'foodOptions', 'commonFactory', 
+['$scope', '$modalInstance', 'mealPlanning', 'menuOptions', 'foodOptions', 'commonFactory',
 'mealPlanningFactory', 'setMenuFactory',
 'mealPlanningUtilities', 'ErrorFactory', 'mealTimesheets', 'notificationFactory',
 function ($scope, $modalInstance, mealPlanning, menuOptions, foodOptions, commonFactory, mealPlanningFactory,
@@ -124,6 +124,18 @@ setMenuFactory, mealPlanningUtilities, ErrorFactory, mealTimesheets, notificatio
 			foodId: mealPlanningUtilities.getFoodId($scope.foodItems)
 		};
 
+		var getSelectedSetMenu = function (setMenuId, setMenuItems) {
+			var selectedSetMenu = '';
+
+			angular.forEach(setMenuItems, function (setMenu) {
+				if (setMenu.SetMenuId === setMenuId) {
+					selectedSetMenu = setMenu;
+				}
+			});
+
+			return selectedSetMenu;
+		};
+
 		var disable = checkOverdueMeal(mealPlanning);
 
 		if (disable) {
@@ -139,9 +151,12 @@ setMenuFactory, mealPlanningUtilities, ErrorFactory, mealTimesheets, notificatio
 			}
 		}
 		else {
+			var selectedSetMenu = getSelectedSetMenu(mealPlanning.SetMenu.SetMenuId, $scope.setMenuItems);
+			selectedSetMenu.FoodItems = $scope.foodItems;
+
 			var informationMealPlanning = {
 				updateMealPlanning: updateMealPlanning,
-				foodItems: $scope.foodItems
+				setMenu: selectedSetMenu
 			};
 
 			if (mealPlanningUtilities.validateMealPlanning(updateMealPlanning)) {
