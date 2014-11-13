@@ -65,7 +65,6 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 
 	var removeTakeAwayRemark = function (order) {
 		order.Remark = order.Remark.replace($scope.takeAwayRemark, "").replace(",", "");
-		order.rawRemark = angular.copy(order.Remark);
 	};
 
 	orderingFactory.getOrderById(orderId)
@@ -165,9 +164,6 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			orderingFactory.checkValidModifiedTime(startTime.toJSON(), order.OrderId)
 			.success(function (isTimeValid) {
 				if (isTimeValid === 'true') {
-					if (order.TakeAway) {
-						order.Remark = !order.rawRemark ? $scope.takeAwayRemark : $scope.takeAwayRemark + "," + order.rawRemark;
-					}
 
 					if (!order.IsSideDishOrder) {
 						orderingFactory.editOrder(order).success(function (response) {

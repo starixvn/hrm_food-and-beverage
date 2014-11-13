@@ -22,10 +22,6 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		$translate('ConfirmMessageAlternativeMenu').then(function (message) {
 			$scope.confirmMessageAlternativeMenu = message;
 		});
-
-		$translate('TakeAwayRemark').then(function (message) {
-			$scope.takeAwayRemark = message;
-		});
 	};
 
 	/*
@@ -370,10 +366,6 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 				$scope.modalConfirmSaveOrderInstance.result.then(function () {
 					closeAlternativeSelect();
-
-					if (order.TakeAway) {
-						order.Remark = !order.rawRemark ? $scope.takeAwayRemark : $scope.takeAwayRemark + "," + order.rawRemark;
-					}
 
 					if (typeOrder !== $scope.typeOrder.sideDishOrder) {
 						orderingFactory.createOrder(order)

@@ -13,6 +13,7 @@ namespace NexFB.Services.Implement
     using Fanex.Common.Helper;
     using NexFB.Core.Models;
     using NexFB.Core.Services;
+    using NexFB.Core.Translator;
     using NexFB.Criteria.Ordering;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
@@ -345,6 +346,14 @@ namespace NexFB.Services.Implement
             }
 
             return order;
+        }
+
+        public string TranslatorRemark(string remark, bool takeAway)
+        {
+            string translatedText = FBTranslator.AutoTranslation(remark);
+            translatedText = takeAway ? Resources.Lang.TakeAwayRemark + "," + translatedText : translatedText;
+
+            return translatedText;
         }
     }
 }
