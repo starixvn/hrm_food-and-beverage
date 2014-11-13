@@ -39,6 +39,8 @@ namespace NexFB.Criteria.Ordering
 
         public string Remark { get; set; }
 
+        public string RemarkVNM { get; set; }
+
         public int CreatedBy { get; set; }
 
         public DateTime CreatedDate { get; set; }

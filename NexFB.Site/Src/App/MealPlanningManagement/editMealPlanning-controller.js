@@ -46,7 +46,7 @@ setMenuFactory, mealPlanningUtilities, ErrorFactory, mealTimesheets, notificatio
 	/*
 	** Get all set menu to filter.
 	*/
-	setMenuFactory.getSetMenu(null, true).success(function (setMenus) {
+	setMenuFactory.getSetMenu($scope.mealPlanning.Menu.MenuId, true).success(function (setMenus) {
 		$scope.setMenuItems = setMenus;
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);

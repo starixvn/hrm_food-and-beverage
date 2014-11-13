@@ -8,7 +8,7 @@
             <div class="form-group required">
                 <label class="control-label" data-translate="Menu"></label>
         <select ng-model="mealPlanning.menuId" ng-options="opt.MenuId as opt.MenuVnmName for opt in menuOptions"
-            required class="form-control" ng-disabled="currentMealPlanning">
+            required class="form-control" ng-disabled="currentMealPlanning" ng-change="getSetMenu(mealPlanning.menuId)">
             <option value="">-- {{"SelectMenu" | translate}} --</option>
         </select>
     </div>

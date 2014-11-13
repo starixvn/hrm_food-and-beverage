@@ -15,6 +15,7 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
+    using NexFB.Core.Translator;
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.Ordering;
     using NexFB.Criteria.SideDishManagement;
@@ -204,6 +205,7 @@ namespace NexFB.Site.Controllers.API
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
                 Remark = model.Remark,
+                RemarkVNM = FBTranslator.AutoTranslation(model.Remark),
                 Members = model.Members,
                 TakeAway = model.TakeAway
             };
@@ -230,6 +232,7 @@ namespace NexFB.Site.Controllers.API
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
                 Remark = model.Remark,
+                RemarkVNM = FBTranslator.AutoTranslation(model.Remark),
                 Members = model.Members,
                 TakeAway = model.TakeAway
             };
@@ -305,6 +308,7 @@ namespace NexFB.Site.Controllers.API
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
                 Remark = model.Remark,
+                RemarkVNM = FBTranslator.AutoTranslation(model.Remark),
                 Members = model.Members,
                 TakeAway = model.TakeAway
             };
@@ -329,6 +333,7 @@ namespace NexFB.Site.Controllers.API
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
                 Remark = model.Remark,
+                RemarkVNM = FBTranslator.AutoTranslation(model.Remark),
                 Members = model.Members,
                 TakeAway = model.TakeAway
             };

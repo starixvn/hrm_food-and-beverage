@@ -52,13 +52,24 @@ currentMealPlanning) {
 	};
 
 	/*
-	** Get all set menu to filter.
+	** Get Set Menu bu Menu Id.
 	*/
-	setMenuFactory.getSetMenu(null, true).success(function (setMenus) {
-		$scope.setMenuItems = setMenus;
-	}).error(function (response, status) {
-		ErrorFactory.errorHandle(status);
-	});
+	$scope.getSetMenu = function (menuId) {
+		setMenuFactory.getSetMenu(menuId, true).success(function (setMenus) {
+			$scope.setMenuItems = setMenus;
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
+	};
+
+//	/*
+//	** Get all set menu to filter.
+//	*/
+//	setMenuFactory.getSetMenu(null, true).success(function (setMenus) {
+//		$scope.setMenuItems = setMenus;
+//	}).error(function (response, status) {
+//		ErrorFactory.errorHandle(status);
+//	});
 
 	/*
 	** Set index to sort.
