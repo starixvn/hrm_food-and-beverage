@@ -204,8 +204,8 @@ namespace NexFB.Site.Controllers.API
                 IsSavedOrder = model.IsSavedOrder,
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
-                RemarkVNM = _orderService.TranslatorRemark(model.Remark, model.TakeAway),
-                Remark = model.TakeAway ? Resources.Lang.TakeAwayRemark + "," + model.Remark : model.Remark,
+                RemarkVNM = _orderService.TranslateRemark(model.Remark, model.TakeAway),
+                Remark = _orderService.GetRemark(model.Remark, model.TakeAway),
                 Members = model.Members,
                 TakeAway = model.TakeAway
             };
@@ -231,8 +231,8 @@ namespace NexFB.Site.Controllers.API
                 IsSavedOrder = false,
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
-                RemarkVNM = _orderService.TranslatorRemark(model.Remark, model.TakeAway),
-                Remark = model.TakeAway ? Resources.Lang.TakeAwayRemark + "," + model.Remark : model.Remark,
+                RemarkVNM = _orderService.TranslateRemark(model.Remark, model.TakeAway),
+                Remark = _orderService.GetRemark(model.Remark, model.TakeAway),
                 Members = model.Members,
                 TakeAway = model.TakeAway
             };
@@ -307,8 +307,8 @@ namespace NexFB.Site.Controllers.API
                 CreatedDate = DateTime.Now,
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
-                RemarkVNM = _orderService.TranslatorRemark(model.Remark, model.TakeAway),
-                Remark = model.TakeAway ? Resources.Lang.TakeAwayRemark + "," + model.Remark : model.Remark,
+                RemarkVNM = _orderService.TranslateRemark(model.Remark, model.TakeAway),
+                Remark = _orderService.GetRemark(model.Remark, model.TakeAway),
                 Members = model.Members,
                 TakeAway = model.TakeAway
             };
@@ -332,8 +332,8 @@ namespace NexFB.Site.Controllers.API
                 ModifiedDate = DateTime.Now,
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
-                RemarkVNM = _orderService.TranslatorRemark(model.Remark, model.TakeAway),
-                Remark = model.TakeAway ? Resources.Lang.TakeAwayRemark + "," + model.Remark : model.Remark,
+                RemarkVNM = _orderService.TranslateRemark(model.Remark, model.TakeAway),
+                Remark = _orderService.GetRemark(model.Remark, model.TakeAway),
                 Members = model.Members,
                 TakeAway = model.TakeAway
             };

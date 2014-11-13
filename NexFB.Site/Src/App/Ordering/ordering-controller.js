@@ -106,6 +106,11 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			data = orderingUtilities.sortOrderIdByDesc(order, data);
 		}
 
+		// if Kitchen rejected order, get default order for employee
+		if (order.Status.StatusId === 6) {
+			$scope.getDefaultForAddOrder();
+		}
+
 		orderingService.setMyOrder(data);
 		$scope.$apply();
 	};

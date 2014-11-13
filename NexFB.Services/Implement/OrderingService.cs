@@ -348,12 +348,44 @@ namespace NexFB.Services.Implement
             return order;
         }
 
-        public string TranslatorRemark(string remark, bool takeAway)
+        /// <summary>
+        /// Translate remark into vietnamese.
+        /// </summary>
+        /// <param name="remark">The remark of order.</param>
+        /// <param name="takeAway">The boolean take away.</param>
+        /// <returns>The translated text.</returns>
+        public string TranslateRemark(string remark, bool takeAway)
         {
-            string translatedText = FBTranslator.AutoTranslation(remark);
-            translatedText = takeAway ? Resources.Lang.TakeAwayRemark + "," + translatedText : translatedText;
+            string translatedText = string.Empty;
+
+            if (!string.IsNullOrEmpty(remark))
+            {
+                translatedText = FBTranslator.AutoTranslation(remark);
+            }
+
+            translatedText = GetRemark(translatedText, takeAway);
 
             return translatedText;
+        }
+
+        /// <summary>
+        /// Get remark of order.
+        /// </summary>
+        /// <param name="remark">The remark of order.</param>
+        /// <param name="takeAway">The boolean take away.</param>
+        /// <returns>The remark include take away.</returns>
+        public string GetRemark(string remark, bool takeAway)
+        {
+            if (!string.IsNullOrEmpty(remark))
+            {
+                remark = takeAway ? Resources.Lang.TakeAwayRemark + "," + remark : remark;
+            }
+            else
+            {
+                remark = takeAway ? Resources.Lang.TakeAwayRemark : string.Empty;
+            }
+
+            return remark;
         }
     }
 }
