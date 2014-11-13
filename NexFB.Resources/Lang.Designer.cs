@@ -385,6 +385,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm New Password.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Alternative Menu.
         /// </summary>
         public static string CreateAlternativeMenu {
@@ -1339,6 +1348,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Password.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Work date +1.
         /// </summary>
         public static string NextWorkDate {
@@ -1393,11 +1411,29 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission to change password..
+        /// </summary>
+        public static string NoPermissionChangePassword {
+            get {
+                return ResourceManager.GetString("NoPermissionChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All meals in a shift must be consecutive!.
         /// </summary>
         public static string NotContinuousMealInShift {
             get {
                 return ResourceManager.GetString("NotContinuousMealInShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Password.
+        /// </summary>
+        public static string OldPassword {
+            get {
+                return ResourceManager.GetString("OldPassword", resourceCulture);
             }
         }
         
@@ -1569,6 +1605,33 @@ namespace NexFB.Resources {
         public static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Confirm New Password field is required!.
+        /// </summary>
+        public static string RequireConfirmPassword {
+            get {
+                return ResourceManager.GetString("RequireConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The New Password field is required!.
+        /// </summary>
+        public static string RequireNewPassword {
+            get {
+                return ResourceManager.GetString("RequireNewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Old Password field is required!.
+        /// </summary>
+        public static string RequireOldPassword {
+            get {
+                return ResourceManager.GetString("RequireOldPassword", resourceCulture);
             }
         }
         
@@ -1992,6 +2055,33 @@ namespace NexFB.Resources {
         public static string UserGroupManagementUser {
             get {
                 return ResourceManager.GetString("UserGroupManagementUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password length must be at least 6 characters..
+        /// </summary>
+        public static string ValidateLengthPassword {
+            get {
+                return ResourceManager.GetString("ValidateLengthPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password and confirmation password do not match..
+        /// </summary>
+        public static string ValidateWrongConfirmPassword {
+            get {
+                return ResourceManager.GetString("ValidateWrongConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old password is incorrect..
+        /// </summary>
+        public static string ValidateWrongPassword {
+            get {
+                return ResourceManager.GetString("ValidateWrongPassword", resourceCulture);
             }
         }
         

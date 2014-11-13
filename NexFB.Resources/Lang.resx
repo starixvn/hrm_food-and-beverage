@@ -767,7 +767,7 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
-</data>
+  </data>
   <data name="TakeAwayRemark" xml:space="preserve">
     <value>Mang về</value>
   </data>
@@ -779,5 +779,35 @@
   </data>
   <data name="MessageRejectedStatusOrder" xml:space="preserve">
     <value>Order #{0} by {1} has been Rejected at {2}. Status history: \n\rCreated: {3}\n\rAccepted: {4}\n\rDelivered: {5}</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm New Password</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Old Password</value>
+  </data>
+  <data name="RequireConfirmPassword" xml:space="preserve">
+    <value>The Confirm New Password field is required!</value>
+  </data>
+  <data name="RequireNewPassword" xml:space="preserve">
+    <value>The New Password field is required!</value>
+  </data>
+  <data name="RequireOldPassword" xml:space="preserve">
+    <value>The Old Password field is required!</value>
+  </data>
+  <data name="ValidateLengthPassword" xml:space="preserve">
+    <value>Password length must be at least 6 characters.</value>
+  </data>
+  <data name="ValidateWrongConfirmPassword" xml:space="preserve">
+    <value>Your password and confirmation password do not match.</value>
+  </data>
+  <data name="ValidateWrongPassword" xml:space="preserve">
+    <value>Old password is incorrect.</value>
+  </data>
+  <data name="NoPermissionChangePassword" xml:space="preserve">
+    <value>You don't have permission to change password.</value>
   </data>
 </root>

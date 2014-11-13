@@ -61,6 +61,8 @@
     <Compile Include="AlternativeMenuManagement\UpdateAlternativeMenuCriteria.cs" />
     <Compile Include="Department\GetAllDepartmentCriteria.cs" />
     <Compile Include="Department\GetAllLocationCriteria.cs" />
+    <Compile Include="Employee\ChangePasswordCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeByIdCriteria.cs" />
     <Compile Include="Employee\GetAllEmployeeFunctionCriteria.cs" />
     <Compile Include="Employee\GetAllEmployeeTypeCriteria.cs" />
     <Compile Include="Employee\GetEmployeeCriteria.cs" />

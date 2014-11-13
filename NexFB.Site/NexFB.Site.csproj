@@ -182,6 +182,7 @@
     <Compile Include="Controllers\API\AlternativeMenuController.cs" />
     <Compile Include="Controllers\API\BaseController.cs" />
     <Compile Include="Controllers\API\CommonController.cs" />
+    <Compile Include="Controllers\API\ChangePasswordController.cs" />
     <Compile Include="Controllers\API\ReportController.cs" />
     <Compile Include="Controllers\API\GroupControlController.cs" />
     <Compile Include="Controllers\API\SetMenuManagementController.cs" />
@@ -218,6 +219,9 @@
     <Content Include="Src\App\AlternativeMenuManagement\Templates\create.html" />
     <Content Include="Src\App\AlternativeMenuManagement\Templates\edit.html" />
     <Content Include="Src\App\AlternativeMenuManagement\Templates\index.html" />
+    <Content Include="Src\App\ChangePassword\changePassword-controller.js" />
+    <Content Include="Src\App\ChangePassword\changePassword-factory.js" />
+    <Content Include="Src\App\ChangePassword\Templates\index.html" />
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration-directive.js" />
     <Content Include="Src\App\EmployeeRegistration\Templates\modalConfirmApplyTemplate.html" />
     <Content Include="Src\App\EmployeeRegistration\Templates\registerMeal.html" />
@@ -317,7 +321,7 @@
     <Content Include="Src\App\Ordering\Templates\AddMember.html" />
     <Content Include="Src\App\Ordering\Templates\Index.html" />
     <Content Include="Src\App\Resources\resources-controller.js" />
-    <Content Include="Src\App\Logout\logout-controller.js" />
+    <Content Include="Src\App\Authentication\authentication-controller.js" />
     <Content Include="Src\App\Resources\resources-factory.js" />
     <Content Include="Src\App\UserControl\Templates\RolePermission\index.html" />
     <Content Include="Src\App\UserControl\Templates\RolePermission\treeHostCheckbox.html" />
@@ -423,6 +427,7 @@
     <Content Include="Src\App\AlternativeMenuManagement\alternativeMenuManagement.less" />
     <Content Include="Src\App\ShiftMealMapping\shiftMealMapping.less" />
     <Content Include="Src\App\SetMenuManagement\setMenuManagement.less" />
+    <Content Include="Src\App\ChangePassword\changePassword.less" />
     <None Include="Src\App\Report\report.less" />
     <Content Include="Src\App\GroupControl\groupControl.less" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup.less" />
@@ -566,7 +571,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50546</DevelopmentServerPort>
+          <DevelopmentServerPort>50547</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

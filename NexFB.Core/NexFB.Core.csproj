@@ -76,6 +76,7 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\IBaseRepository.cs" />
     <Compile Include="Security\Encryptor.cs" />
+    <Compile Include="Security\Random.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Translator\FBTranslator.cs" />
     <Compile Include="Utilities\Enumerations.cs" />

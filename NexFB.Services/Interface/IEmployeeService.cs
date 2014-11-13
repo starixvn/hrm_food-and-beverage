@@ -10,6 +10,7 @@
 namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
+    using NexFB.Core.Models;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
     using NexFB.Models.Entities;
@@ -17,11 +18,15 @@ namespace NexFB.Services.Interface
 
     public interface IEmployeeService
     {
+        UserSession GetUserById(GetEmployeeByIdCriteria criteria);
+
         UserSession GetUserByDomain(GetEmployeeByDomainCriteria criteria);
 
         UserSession GetUserByCode(GetEmployeeByCodeCriteria criteria);
 
         int ValidateUser(UserSession user, string password);
+
+        CommandResult UpdatePassword(ChangePasswordCriteria criteria);
 
         IList<MenuGroup> GetEmployeeMenuById(GetEmployeeMenuBySystemIdCriteria criteria);
 

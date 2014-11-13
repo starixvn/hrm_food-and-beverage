@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
   <Function Name="Employee">
+    <Setting Key="Employee_ChangePassword" SpName="Employee_ChangePassword" DbName="NexFB" Plain="0" >
+    </Setting>
+    <Setting Key="Employee_GetEmployeeBySysID" SpName="Employee_GetEmployeeBySysID" DbName="NexFB" Plain="0" >
+      <Mapping DataField="SysID" ObjectProperty="UserId"/>
+    </Setting>
     <Setting Key="Employee_GetEmployeeByDomain" SpName="Employee_GetEmployeeByDomain" DbName="NexFB" Plain="0" >
 		<Mapping DataField="SysID" ObjectProperty="UserId"/>
     </Setting>

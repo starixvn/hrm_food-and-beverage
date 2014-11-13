@@ -50,19 +50,26 @@ namespace NexFB.Site.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
-            UserSession user = GetUserLogin(model);
-            if (user != null)
+            if (!string.IsNullOrWhiteSpace(model.Username) && !string.IsNullOrWhiteSpace(model.Password))
             {
-                SessionManager.CurrentUser = user;
-                FormsAuthentication.SetAuthCookie(model.Username, false);
-
-                var returnUrl = "/";
-                if (!string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
+                UserSession user = GetUserLogin(model);
+                if (user != null)
                 {
-                    returnUrl = Request.QueryString["ReturnUrl"];
-                }
+                    SessionManager.CurrentUser = user;
+                    FormsAuthentication.SetAuthCookie(model.Username, false);
 
-                Response.Redirect(returnUrl);
+                    var returnUrl = "/";
+                    if (!string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
+                    {
+                        returnUrl = Request.QueryString["ReturnUrl"];
+                    }
+
+                    Response.Redirect(returnUrl);
+                }
+                else
+                {
+                    model.IsLoginFail = true;
+                }
             }
             else
             {

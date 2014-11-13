@@ -1,6 +1,7 @@
 ﻿@using NexFB.Models.Authority
 @using NexFB.Web
 @using NexFB.Resources
+@using NexFB.Core.Constants
 @model UserSession
 @{
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,7 +10,7 @@
 }
 
 <div class="row header">
-	<a class="logo" href="/Ordering/Index">
+	<a class="logo" href="~/Ordering/Index">
         <img src="~/Src/Content/Site/Images/logo.png" alt="F&amp;B" title="F&amp;B"/>
     </a>
 	<div class="nav">
@@ -50,15 +51,19 @@
 				</ul>
 			</div>
 		</nav>
-		<div id="user_utilities" class="user-info info" data-ng-controller="LogoutController">
+		<div id="user_utilities" class="user-info info" data-ng-controller="AuthenticationController">
 			<h2>@Model.FullName - @Model.NickName
 			</h2>
 			<a class="dropdown-arrow" href="javascript:;">
 			</a>
 			<ol>
-				<li>
-					<a href="javascript:;" data-ng-click="logout()">@Lang.ChangePassword</a>
-				</li>
+				@if (@Model.DepartmentId == Constants.NexcelDepartment)
+				{ 
+					<li>
+						<a href="javascript:;" data-ng-click="changePassword()">@Lang.ChangePassword</a>
+					</li>
+				}
+				
 				<li>
 					<a href="javascript:;" data-ng-click="logout()">@Lang.Logout</a>
 				</li>

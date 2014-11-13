@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlternativeMenuManagement\AlternativeMenuModel.cs" />
+    <Compile Include="Authority\ChangePasswordModel.cs" />
     <Compile Include="Authority\LoginModel.cs" />
     <Compile Include="Authority\MenuGroup.cs" />
     <Compile Include="Authority\MenuItem.cs" />

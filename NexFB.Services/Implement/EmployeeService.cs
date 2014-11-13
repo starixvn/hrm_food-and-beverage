@@ -13,12 +13,14 @@ namespace NexFB.Services.Implement
     using System.Linq;
     using Fanex.Common.Helper;
     using NexFB.Core.Enums;
+    using NexFB.Core.Models;
     using NexFB.Core.Security;
     using NexFB.Core.Services;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
     using NexFB.Models.Entities;
     using NexFB.Models.UserControl;
+    using NexFB.Resources;
     using NexFB.Services.Interface;
 
     /// <summary>
@@ -26,6 +28,24 @@ namespace NexFB.Services.Implement
     /// </summary>
     public class EmployeeService : BaseService, IEmployeeService
     {
+        /// <summary>
+        /// Function to get user by id.
+        /// </summary>
+        /// <param name="criteria">GGetEmployeeById Criteria.</param>
+        /// <returns>User Session.</returns>
+        public UserSession GetUserById(GetEmployeeByIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            UserSession user = null;
+
+            if (criteria.IsValid())
+            {
+                user = GetDataEntity<UserSession>(criteria);
+            }
+
+            return user;
+        }
+
         /// <summary>
         /// Function to get user by domain.
         /// </summary>
@@ -81,6 +101,34 @@ namespace NexFB.Services.Implement
             }
 
             return retCode;
+        }
+
+        /// <summary>
+        /// Update password of user.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult UpdatePassword(ChangePasswordCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult result = null;
+
+            if (criteria.IsValid())
+            {
+                string hashPassword = Encryptor.ComputeHash(HashProvider.Sha1, criteria.Password);
+                criteria.Password = hashPassword;
+                result = Repository.Update(criteria);
+            }
+            else
+            {
+                result = new CommandResult()
+                {
+                    Code = 1,
+                    Message = Lang.InvalidInputData
+                };
+            }
+
+            return result;
         }
 
         /// <summary>

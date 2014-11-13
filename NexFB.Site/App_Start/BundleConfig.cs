@@ -79,6 +79,7 @@ namespace NexFB.Site
                 "~/Src/App/ShiftMealMapping/shiftMealMapping.less",
                 "~/Src/App/GroupControl/groupControl.less",
                 "~/Src/App/ManageUserInGroup/manageUserInGroup.less",
+                "~/Src/App/ChangePassword/changePassword.less",
                 "~/Src/App/Report/report.less");
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
@@ -93,7 +94,7 @@ namespace NexFB.Site
                 "~/Src/App/UserControl/userControl-directive.js",
                 "~/Src/App/Resources/resources-controller.js",
                 "~/Src/App/Resources/resources-factory.js",
-                "~/Src/App/Logout/logout-controller.js",
+                "~/Src/App/Authentication/authentication-controller.js",
                 "~/Src/App/Ordering/ordering-route.js",
                 "~/Src/App/Ordering/ordering-controller.js",
                 "~/Src/App/Ordering/editOrder-controller.js",
@@ -144,7 +145,9 @@ namespace NexFB.Site
                 "~/Src/App/ManageUserInGroup/mangeUserInGroup-route.js",
                 "~/Src/App/ManageUserInGroup/manageUserInGroup-controller.js",
                 "~/Src/App/ManageUserInGroup/manageUserInGroup-factory.js",
-                "~/Src/App/ManageUserInGroup/manageUserInGroup-directive.js"));
+                "~/Src/App/ManageUserInGroup/manageUserInGroup-directive.js",
+                "~/Src/App/ChangePassword/changePassword-controller.js",
+                "~/Src/App/ChangePassword/changePassword-factory.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/extensions").Include(
                 "~/Src/Components/Extensions/Common/error-factory.js",

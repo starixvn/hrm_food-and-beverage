@@ -19,6 +19,13 @@ namespace NexFB.Core.Security
     /// </summary>
     public static class Encryptor
     {
+        public static string ComputeHash(HashProvider hashAlgorithm, string plainText, int saltSize = 8)
+        {
+            // Random salt
+            byte[] salt = Random.RngCrypto(saltSize);
+            return ComputeHash(hashAlgorithm, plainText, salt);
+        }
+
         /// <summary>
         /// Function to Compare String To Hash.
         /// </summary>
