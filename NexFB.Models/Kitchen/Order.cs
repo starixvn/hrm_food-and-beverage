@@ -335,7 +335,8 @@ namespace NexFB.Models.Kitchen
             {
                 if (!string.IsNullOrEmpty(Remark))
                 {
-                    return FBTranslator.AutoTranslation(Remark);
+                    ////return FBTranslator.AutoTranslation(Remark);
+                    return Remark;
                 }
 
                 return Remark;

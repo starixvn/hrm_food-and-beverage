@@ -34,10 +34,10 @@ namespace NexFB.Pos.Core.InternetBased
             string serverDatabase = ConfigurationManager.AppSettings[Constant.ServerDB];
             if (!string.IsNullOrEmpty(serverDatabase))
             {
+                string connectionString = ConnectionStringGetter.GetConnectionString(serverDatabase);
+                sqlConnection = new SqlConnection(connectionString);
                 try
                 {
-                    string connectionString = ConnectionStringGetter.GetConnectionString(serverDatabase);
-                    sqlConnection = new SqlConnection(connectionString);
                     sqlConnection.Open();
                     connectionResult = sqlConnection.State == ConnectionState.Open;
                 }

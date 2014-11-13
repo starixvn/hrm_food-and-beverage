@@ -35,7 +35,6 @@ namespace NexFB.PosKitchen
         {
             try
             {
-                DbSettingProviderManager.Current.Start();
                 if (DBConnectionAvailability.IsDBConnectionAvailable())
                 {
                     base.OnStartup(e);
@@ -110,20 +109,9 @@ namespace NexFB.PosKitchen
                 WinFormMainResource.Culture = new CultureInfo(defaultLanguage);
             }
 
-            UpdateManager.UpdateApp();
-        }
+            DbSettingProviderManager.Current.Start();
 
-        ////public string TranslateText()
-        ////{
-        ////    string url = String.Format("http://www.google.com/translate_t?hl=en&ie=UTF8&text={0}&langpair={1}", "What are", "en|vi");
-        ////    WebClient webClient = new WebClient();
-        ////    webClient.Encoding = System.Text.Encoding.UTF8;
-        ////    string result = webClient.DownloadString(url);
-        ////    result = result.Substring(result.IndexOf("<span title=\"") + "<span title=\"".Length);
-        ////    result = result.Substring(result.IndexOf(">") + 1);
-        ////    result = result.Substring(0, result.IndexOf("</span>"));
-        ////    MessageBox.Show(result.ToString());
-        ////    return result.Trim();
-        ////}
+            ////UpdateManager.UpdateApp();
+        }
     }
 }
