@@ -13,6 +13,7 @@ namespace NexFB.WinAppSmartCard
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
+    using System.Windows.Threading;
     using Fanex.Data;
     using Fanex.Data.Configuration;
     using NexFB.Pos.Core.InternetBased;
@@ -30,6 +31,12 @@ namespace NexFB.WinAppSmartCard
     /// </summary>
     public partial class App : Application
     {
+        public App()
+            : base()
+        {
+            this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+        }
+
         /// <summary>
         /// Startup Method.
         /// </summary>
@@ -65,24 +72,17 @@ namespace NexFB.WinAppSmartCard
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]        
         private void InitializeApp()
         {
-            try
-            {
-                IMappingRegister mappingRegister = new CoreMappingRegister();
-                SmartcardManager manager = new SmartcardManager();
-                MainWindow mainWindow = new MainWindow();
-                MainViewModel mainViewModel = new MainViewModel();
-                mainWindow.DataContext = mainViewModel;
-                mainWindow.Show();
+            IMappingRegister mappingRegister = new CoreMappingRegister();
+            SmartcardManager manager = new SmartcardManager();
+            MainWindow mainWindow = new MainWindow();
+            MainViewModel mainViewModel = new MainViewModel();
+            mainWindow.DataContext = mainViewModel;
+            mainWindow.Show();
 
-                manager.CardNumberChanged += new EventHandler<CardNumberChangedEventArgs>((sender, ex) => OnCardNumberChange(ex, mainViewModel, mainWindow));
-                ResourceManagerService.RegisterManager(@"MainScreenResources", MainScreenResources.ResourceManager, true);
-                DbSettingProviderManager.Current.Start();
-                mappingRegister.Register();
-            }
-            catch (Exception e)
-            {
-                App_DispatcherUnhandledException(e);
-            }
+            manager.CardNumberChanged += new EventHandler<CardNumberChangedEventArgs>((sender, ex) => OnCardNumberChange(ex, mainViewModel, mainWindow));
+            ResourceManagerService.RegisterManager(@"MainScreenResources", MainScreenResources.ResourceManager, true);
+            DbSettingProviderManager.Current.Start();
+            mappingRegister.Register();
         }
 
         /// <summary>
@@ -107,9 +107,10 @@ namespace NexFB.WinAppSmartCard
             }
         }
 
-        private void App_DispatcherUnhandledException(Exception e)
+        private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            string errorMessage = Lang.ErrorMessage + "\n\nError details:\n" + e.InnerException;
+            string errorMessage = Lang.ErrorMessage + "\n\nError details:\n" + e.Exception.InnerException;
+            e.Handled = true;
             if (MessageBox.Show(errorMessage, Lang.UnhandledException, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
             {
                 Shutdown();

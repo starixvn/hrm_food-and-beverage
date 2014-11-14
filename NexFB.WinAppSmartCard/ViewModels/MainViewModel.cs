@@ -653,21 +653,19 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// <summary>
         /// Check Data before add to Main Screen.
         /// </summary>
-        /// <param name="employeeInGrop">Employee place order data.</param>
         /// <param name="employeeData">Current employee info.</param>
         /// /// <param name="isSideDishView">Check for main dish tab or side dish tab.</param>
-        private void CheckDataToAddToGrid(EmployeeInGroup employeeInGrop, EmployeeInfo employeeData, bool isSideDishView)
+        private void CheckDataToAddToGrid(EmployeeInfo employeeData, bool isSideDishView)
         {
-            if (employeeInGrop != null)
+            if (employeeData != null)
             {
-                EmployeeInfo employeeInfo = employeeInGrop.Employees.Where(x => x.SysId == employeeData.SysId).SingleOrDefault();
-                Employee employeeInfoMapping = Mapper.Map<EmployeeInfo, Employee>(employeeInfo);
+                Employee employeeInfoMapping = Mapper.Map<EmployeeInfo, Employee>(employeeData);
                 if (OrderOwner == null)
                 {
                     OrderOwner = employeeInfoMapping;
                 }
 
-                if (employeeInfo.Quantity > 0)
+                if (employeeData.Quantity > 0)
                 {
                     if (MainScreenVisible == ConstantValue.Visible)
                     {
@@ -702,9 +700,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (employeeData != null)
             {
-                var getEmployeeInGroupCriteria = new GetEmployeeInGroupBySysIdCriteria() { SysId = employeeData.SysId };
-                EmployeeInGroup employeeInGrop = this.KitchenService.GetEmployeeInGroup(getEmployeeInGroupCriteria);
-                CheckDataToAddToGrid(employeeInGrop, employeeData, isSideDishView);
+                CheckDataToAddToGrid(employeeData, isSideDishView);
             }
             else
             {
