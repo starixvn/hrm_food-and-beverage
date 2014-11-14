@@ -73,11 +73,6 @@ namespace NexFB.Repositories.Implement
                         }
 
                         mealPlanning.SetMenu.FoodItems = GetFoodItemsOfSetMenu(menuId, mealPlanning.Date, rawFoodItems);
-
-                        if (mealPlanning.Date.Date < DateTime.Now.Date)
-                        {
-                            mealPlanning.IsDisable = true;
-                        }
                     }
 
                     return mealPlannings;

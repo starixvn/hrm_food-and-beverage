@@ -93,18 +93,7 @@ notificationFactory) {
 			windowClass: "modal-confirm-center side-dish-modal"
 		});
 
-		$scope.modalInstance.result.then(function (sideDish) {
-			sideDishManagementFactory.insertSideDish(sideDish).success(function (response) {
-				if (response.IsSuccessful) {
-					notificationFactory.success("DataChangeSuccessfully");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			});
-		})['finally'](function () {
+		$scope.modalInstance.result.then()['finally'](function () {
 			getAllSideDish(null, null);
 			$scope.modalInstance = '';
 		});
@@ -143,17 +132,7 @@ notificationFactory) {
 		});
 
 		$scope.modalInstance.result.then(function (allInfoSideDish) {
-			sideDishManagementFactory.updateSideDish(allInfoSideDish.updatedSideDish).success(function (response) {
-				if (response.IsSuccessful) {
-					updatedSideDish(sideDish, allInfoSideDish.sideDish);
-					notificationFactory.success("DataChangeSuccessfully");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			});
+			updatedSideDish(sideDish, allInfoSideDish.sideDish);
 		})['finally'](function () {
 			$scope.modalInstance = '';
 		});
@@ -273,7 +252,9 @@ notificationFactory) {
 
 sideDishManagementModule.controller('CreateSideDishController',
 ['$scope', '$modalInstance', 'unitOptions', 'employeeTypesOption', 'foodMenuUtilities', 'sideDishUtilities',
-function ($scope, $modalInstance, unitOptions, employeeTypesOption, foodMenuUtilities, sideDishUtilities) {
+'sideDishManagementFactory', 'notificationFactory', 'ErrorFactory',
+function ($scope, $modalInstance, unitOptions, employeeTypesOption, foodMenuUtilities, sideDishUtilities,
+sideDishManagementFactory, notificationFactory, ErrorFactory) {
 	/*
 	** Declare variables.
 	*/
@@ -285,8 +266,8 @@ function ($scope, $modalInstance, unitOptions, employeeTypesOption, foodMenuUtil
 		foodVnmName: '',
 		foodEngName: '',
 		unitId: '',
-		isActive: false,
-		price:'',
+		isActive: true,
+		price: '',
 		employeeTypeId: ''
 	};
 
@@ -301,7 +282,19 @@ function ($scope, $modalInstance, unitOptions, employeeTypesOption, foodMenuUtil
 		}
 
 		if (sideDishUtilities.validateSideDish(sideDish)) {
-			$modalInstance.close(sideDish);
+			sideDishManagementFactory.insertSideDish(sideDish).success(function (response) {
+				if (response.IsSuccessful) {
+					notificationFactory.success("DataChangeSuccessfully");
+					$modalInstance.close(sideDish);
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			})['finally'](function () {
+				$scope.disabledSubmitButton = false;
+			});
 		}
 		else {
 			$scope.disabledSubmitButton = false;
@@ -314,10 +307,10 @@ function ($scope, $modalInstance, unitOptions, employeeTypesOption, foodMenuUtil
 } ]);
 
 sideDishManagementModule.controller('EditSideDishController',
-['$scope', '$modalInstance', 'sideDish', 'unitOptions', 'employeeTypesOption', 'foodMenuUtilities', 
-'sideDishUtilities', 'commonFactory',
+['$scope', '$modalInstance', 'sideDish', 'unitOptions', 'employeeTypesOption', 'foodMenuUtilities',
+'sideDishUtilities', 'commonFactory', 'sideDishManagementFactory', 'notificationFactory', 'ErrorFactory',
 function ($scope, $modalInstance, sideDish, unitOptions, employeeTypesOption, foodMenuUtilities,
-sideDishUtilities, commonFactory) {
+sideDishUtilities, commonFactory, sideDishManagementFactory, notificationFactory, ErrorFactory) {
 	/*
 	** Declare variables.
 	*/
@@ -389,7 +382,19 @@ sideDishUtilities, commonFactory) {
 				sideDish: sideDish
 			};
 
-			$modalInstance.close(allInfoSideDish);
+			sideDishManagementFactory.updateSideDish(allInfoSideDish.updatedSideDish).success(function (response) {
+				if (response.IsSuccessful) {
+					notificationFactory.success("DataChangeSuccessfully");
+					$modalInstance.close(allInfoSideDish);
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			})['finally'](function () {
+				$scope.disabledSubmitButton = false;
+			});
 		}
 		else {
 			$scope.disabledSubmitButton = false;

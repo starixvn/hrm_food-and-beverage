@@ -244,7 +244,7 @@ alternativeMenuFactory, ErrorFactory, notificationFactory) {
 		alternativeMenuCode: '',
 		alternativeMenuVnmName: '',
 		alternativeMenuEngName: '',
-		isActive: '',
+		isActive: true,
 		employeeTypeId: ''
 	};
 
@@ -269,6 +269,8 @@ alternativeMenuFactory, ErrorFactory, notificationFactory) {
 				}
 			}).error(function (response, status) {
 				ErrorFactory.errorHandle(status);
+			})['finally'](function () {
+				$scope.disabledSubmitButton = false;
 			});
 
 		}

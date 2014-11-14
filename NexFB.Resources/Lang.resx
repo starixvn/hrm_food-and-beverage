@@ -523,7 +523,7 @@
     <value>P.P.Meal: Price Per Meal</value>
   </data>
   <data name="FoodMenuEmployeeTypeRequire" xml:space="preserve">
-    <value>The Employee type field is required!</value>
+    <value>The Employee Type field is required!</value>
   </data>
   <data name="FoodMenuEngNameRequire" xml:space="preserve">
     <value>The Menu (Eng) field is required!</value>
@@ -622,10 +622,10 @@
     <value>The Menu code field is required!</value>
   </data>
   <data name="MenuNameEngRequire" xml:space="preserve">
-    <value>The Menu name (Eng) field is required!</value>
+    <value>The Menu (Eng) field is required!</value>
   </data>
   <data name="MenuNameVietRequire" xml:space="preserve">
-    <value>The Menu name (Viet) field is required!</value>
+    <value>The Menu (Viet) field is required!</value>
   </data>
   <data name="EditAlternativeMenu" xml:space="preserve">
     <value>Edit Alternative Menu</value>

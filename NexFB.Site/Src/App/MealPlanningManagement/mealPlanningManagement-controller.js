@@ -111,18 +111,18 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 		ErrorFactory.errorHandle(status);
 	});
 
-	var checkRightMeal = function (mealPlannings) {
-		angular.forEach(mealPlannings, function (mealPlanning) {
-			if (!mealPlanning.IsDisable) {
-				var numberMeals = mealPlanning.Menu.Meals.length,
-				lastMeal = numberMeals > 0 ? mealPlanning.Menu.Meals[numberMeals - 1] : '';
+//	var checkRightMeal = function (mealPlannings) {
+//		angular.forEach(mealPlannings, function (mealPlanning) {
+//			if (!mealPlanning.IsDisable) {
+//				var numberMeals = mealPlanning.Menu.Meals.length,
+//				lastMeal = numberMeals > 0 ? mealPlanning.Menu.Meals[numberMeals - 1] : '';
 
-				if (lastMeal) {
-					mealPlanning.IsDisable = mealPlanningUtilities.checkMealTimesheet($scope.mealTimesheets, lastMeal, mealPlanning.Date);
-				}
-			}
-		});
-	};
+//				if (lastMeal) {
+//					mealPlanning.IsDisable = mealPlanningUtilities.checkMealTimesheet($scope.mealTimesheets, lastMeal, mealPlanning.Date);
+//				}
+//			}
+//		});
+//	};
 	/*
 	** Get all meal planning.
 	*/
@@ -130,9 +130,9 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 		mealPlanningFactory.getAllMealPlanning(fromDate, toDate, mealId, employeeTypeId)
 		.success(function (mealPlannings) {
 			$scope.mealPlannings = mealPlannings;
-			if ($scope.mealPlannings && $scope.mealPlannings !== 'null') {
-				checkRightMeal($scope.mealPlannings);
-			}
+//			if ($scope.mealPlannings && $scope.mealPlannings !== 'null') {
+//				checkRightMeal($scope.mealPlannings);
+//			}
 
 			commonFactory.tablePagination($scope, $scope.mealPlannings, $scope.entrySelected);
 			$scope.currentPage = $scope.originalPage;
