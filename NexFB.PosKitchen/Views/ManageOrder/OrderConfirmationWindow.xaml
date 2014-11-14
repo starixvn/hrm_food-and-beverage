@@ -152,6 +152,32 @@
 						Content="{Binding TotalPrice}"  FontWeight="Black"/>
 					</Grid>
 
+					<Grid Background="#fff" Height="50" Margin="1,0,1,0">
+						<ToggleButton Foreground="#014A81" FontSize="20" x:Name="TakeAwayOptions" IsChecked="{Binding Path=TakeAwayChecked}"
+							Content="{x:Static resx:WinFormMainResource.TakeAway}">
+							<ToggleButton.Template>
+								<ControlTemplate TargetType="{x:Type ToggleButton}">
+									<StackPanel Orientation="Horizontal">
+										<ContentPresenter Content="{TemplateBinding Content}"
+											Margin="15,0,10,0" VerticalAlignment="Center"/>
+										<Image Width="26" Height="26">
+											<Image.Style>
+												<Style>
+													<Setter Property="Image.Source" Value="pack://application:,,,/Images/checkbox-unchecked.png" />
+													<Style.Triggers>
+														<DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
+															<Setter Property="Image.Source" Value="pack://application:,,,/Images/checkbox-checked.png" />
+														</DataTrigger>
+													</Style.Triggers>
+												</Style>
+											</Image.Style>
+										</Image>
+									</StackPanel>
+								</ControlTemplate>
+							</ToggleButton.Template>
+						</ToggleButton>
+					</Grid>
+
 					<Grid VerticalAlignment="Bottom" Margin="0,20,0,15">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />

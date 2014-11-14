@@ -46,6 +46,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private int _countDownTimer;
         private bool _mainDishTimerLive;
         private MainViewModel _mainViewModel;
+        private bool _takeAwayChecked;
 
         public MainDishesViewModel()
         {
@@ -53,6 +54,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ConfirmCommand = new RelayCommand((x) => CanExecuteConfirmCommand(), (y) => ExecuteConfirmCommand());
             RemoveEmployeeOrder = new RelayCommand((x) => CanExecuteRemoveEmployeeOrder(), (y) => ExecuteRemoveEmployeeOrder(y));
             ShowOrderScreen();
+            TakeAwayChecked = false;
         }
 
         #region Properties
@@ -64,6 +66,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
         public ICommand ConfirmCommand { get; set; }
 
         public ICommand CancelCommand { get; set; }
+
+        public bool TakeAwayChecked
+        {
+            get
+            {
+                return _takeAwayChecked;
+            }
+
+            set
+            {
+                _takeAwayChecked = value;
+                this.OnPropertyChanged("TakeAwayChecked");
+            }
+        }
 
         public Food SelectedFood
         {
@@ -438,7 +454,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 {
                     CreatedDate = DateTime.Now,
                     CreatedBy = OrderOwner.SysId,
-                    TakeAway = false,
+                    TakeAway = TakeAwayChecked,
                     ListDetail = orderDetails.Append(_EndRootTag).ToString()
                 };
 

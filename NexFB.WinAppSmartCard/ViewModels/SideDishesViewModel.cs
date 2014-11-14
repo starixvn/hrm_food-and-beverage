@@ -47,9 +47,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private string _screenNotificationVisible;
         private bool _addFoodEnable;
         private bool _sideDishTimerLive;
+        private bool _takeAwayChecked;
 
         public SideDishesViewModel(Employee orderOwner, MainViewModel mainViewModel)
         {
+            TakeAwayChecked = false;
             ShowOrderScreen();
             InitializeSideFoodData(orderOwner, mainViewModel);
             AddFoodCommand = new RelayCommand((x) => CanExecuteAddFoodCommand(), (y) => ExecuteAddFoodCommand());
@@ -70,6 +72,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
         public ICommand SubQuantityCommand { get; set; }
 
         public ICommand SaveDataCommand { get; set; }
+
+        public bool TakeAwayChecked
+        {
+            get
+            {
+                return _takeAwayChecked;
+            }
+
+            set
+            {
+                _takeAwayChecked = value;
+                this.OnPropertyChanged("TakeAwayChecked");
+            }
+        }
 
         public Employee OrderOwner
         {
@@ -353,7 +369,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     {
                         CreatedBy = OrderOwner.SysId,
                         CreatedDate = DateTime.Now,
-                        TakeAway = false,
+                        TakeAway = TakeAwayChecked,
                         ListDetail = orderDetails.Append(_EndRootTag).ToString()
                     };
                     OrderResult result = this.SmartCardOrderService.InsertOrderSideFood(insertSideOrderCriteria);
