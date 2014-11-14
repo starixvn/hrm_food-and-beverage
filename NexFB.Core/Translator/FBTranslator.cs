@@ -35,7 +35,9 @@ namespace NexFB.Core.Translator
             string translatedText = string.Empty;
             try
             {
+                sourceText = sourceText.ToLower();
                 ICategoryList result = _languageModel.ClassifyText(sourceText);
+
                 if (result != null)
                 {
                     languageName = result[0].Name;
