@@ -608,6 +608,7 @@ namespace NexFB.PosKitchen.ViewModels
                 {
                     EmployeeInfo = DuplicateUser.Where(x => x.IsChecked).FirstOrDefault();
                     OwnerImage = EmployeeInfo.ImageSource;
+                    LocationName = EmployeeInfo.LocationName;
                     GetEmployeeInGroup(EmployeeInfo.SysId, value);
                 }
                 else
