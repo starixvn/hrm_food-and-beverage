@@ -31,8 +31,8 @@ namespace NexFB.Core.Translator
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]        
         public static string AutoTranslation(string sourceText)
         {
+            string languageName = "vi";
             string translatedText = string.Empty;
-
             try
             {
                 sourceText = sourceText.ToLower();
@@ -40,19 +40,11 @@ namespace NexFB.Core.Translator
 
                 if (result != null)
                 {
-                    bool isVietnamese = false;
+                    languageName = result[0].Name;
 
-                    for (int i = 0; i < result.Count; i++)
+                    if (languageName != "vi")
                     {
-                        if (result[i].Name == "vi")
-                        {
-                            isVietnamese = true;
-                        }
-                    }
-
-                    if (!isVietnamese)
-                    {
-                        translatedText = TranslateText(sourceText);
+                        translatedText = TranslateText(languageName, sourceText);
                     }
                     else
                     {
@@ -71,14 +63,15 @@ namespace NexFB.Core.Translator
         /// <summary>
         /// Google translate text.
         /// </summary>
+        /// <param name="sourceLanguage">Translate from language.</param>
         /// <param name="sourceText">Source text.</param>
         /// <returns>Vietnamese language.</returns>
-        private static string TranslateText(string sourceText)
+        private static string TranslateText(string sourceLanguage, string sourceText)
         {
             string url = string.Format(
                 "http://www.google.com/translate_t?hl=en&ie=UTF8&text={0}&langpair={1}",
                 HttpUtility.UrlEncode(sourceText),
-                "auto|vi");
+                string.Format("{0}|vi", sourceLanguage));
             WebClient webClient = new WebClient();
             ////webClient.Encoding = System.Text.Encoding.UTF8;
             string result = webClient.DownloadString(url);
