@@ -49,7 +49,7 @@ namespace NexFB.Core.Translator
                         }
                     }
 
-                    if (isVietnamese)
+                    if (!isVietnamese)
                     {
                         translatedText = TranslateText(sourceText);
                     }
