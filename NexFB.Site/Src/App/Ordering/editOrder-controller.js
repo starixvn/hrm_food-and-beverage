@@ -64,7 +64,11 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	$(".ddlLocation").width($(".ddlLocationNew").width());
 
 	var removeTakeAwayRemark = function (order) {
-		order.Remark = order.Remark.replace($scope.takeAwayRemark, "").replace(",", "");
+		var removeTakeAwayRemark = order.Remark.replace($scope.takeAwayRemark, "");
+
+		if (order.Remark !== removeTakeAwayRemark) {
+			order.Remark = removeTakeAwayRemark.replace(",","");
+		}
 	};
 
 	orderingFactory.getOrderById(orderId)
@@ -108,7 +112,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 						break;
 					case 6:
 						message = commonFactory.formatString(
-							$scope.messageRejectedStatusOrder, order.OrderNo, order.CreatorOrder.NickName, order.ModifiedTime, 
+							$scope.messageRejectedStatusOrder, order.OrderNo, order.CreatorOrder.NickName, order.ModifiedTime,
 								order.CreatedTime, order.AcceptanceTime, order.DeliveryTime);
 
 						if (!order.AcceptanceTime) {

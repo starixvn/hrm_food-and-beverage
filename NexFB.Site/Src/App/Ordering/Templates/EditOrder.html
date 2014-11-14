@@ -70,7 +70,7 @@
 										<div ng-show="!alterEdit.alternativeMenu{{member.Member.UserId}}">
 											<span>{{member.Menus[0].Name}}</span>
 											<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, $index)" 
-												ng-show="member.Menus[0].IsHaveAlternativeMenu && order.Status.StatusId == 1 && 
+												ng-show="member.Menus[0].MenuId != -1 && member.Menus[0].IsHaveAlternativeMenu && order.Status.StatusId == 1 && 
 													((member.Member.UserId != order.CreatorOrder.UserId 
 													&& member.Member.UserId == order.CurrentUser.UserId) 
 													|| order.CreatorOrder.UserId == order.CurrentUser.UserId)" title="Select Alternative Menus" >

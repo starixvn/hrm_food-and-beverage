@@ -143,7 +143,7 @@
                     <div class="form-group required">
                         <label class="control-label width-100" data-translate="DeliveryArea">
                         </label>
-						<add-class-to-role-filter multi-select input-model="newOrderLocations" button-label="Name" helper-elements="all reset filter"
+						<add-class-to-role-filter multi-select input-model="newOrderLocations" button-label="Name" helper-elements="all reset filter" change-placeholder
 							item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select delivery-area-ddl" >
 						</add-class-to-role-filter>
                     </div>
@@ -189,7 +189,7 @@
 									<div ng-show="!alter.alternativeMenu{{member.Member.UserId}}">
 										<span ng-show="member.CurrentStatus == null">{{member.Menus[0].Name}}</span>
 										<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, false, $index)" 
-											ng-show="member.Menus[0].IsHaveAlternativeMenu" title="Select Alternative Menus" >
+											ng-show="member.Menus[0].MenuId != -1 && member.Menus[0].IsHaveAlternativeMenu" title="Select Alternative Menus" >
 										</a>
 									</div>
 									<div ng-show="alter.alternativeMenu{{member.Member.UserId}}">
@@ -251,7 +251,7 @@
                         <label class="control-label width-100" data-translate="DeliveryArea">
                         </label>
 						<add-class-to-role-filter multi-select input-model="savedOrderLocations" button-label="Name" helper-elements="all reset filter"
-							item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select" >
+							item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select" change-placeholder >
 						</add-class-to-role-filter>
                     </div>
                     <div class="form-group">
@@ -299,7 +299,7 @@
 									<div ng-show="!alterSaved.alternativeMenu{{member.Member.UserId}}">
 										<span ng-show="member.CurrentStatus == null">{{member.Menus[0].Name}}</span>
 										<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, true, $index)" 
-											ng-show="member.Menus[0].IsHaveAlternativeMenu && member.CurrentStatus == null" title="Select Alternative Menus" >
+											ng-show="member.Menus[0].MenuId != -1 && member.Menus[0].IsHaveAlternativeMenu && member.CurrentStatus == null" title="Select Alternative Menus" >
 										</a>
 									</div>
 									<div ng-show="alterSaved.alternativeMenu{{member.Member.UserId}} && member.CurrentStatus == null">
@@ -354,7 +354,7 @@
 							<label class="control-label width-100" data-translate="DeliveryArea">
 							</label>
 							<add-class-to-role-filter multi-select input-model="sideDishOrderLocations" button-label="Name" helper-elements="all reset filter"
-								item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select" >
+								item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select" change-placeholder>
 							</add-class-to-role-filter>
 						</div>
 						<div class="form-group">

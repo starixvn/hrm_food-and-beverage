@@ -74,9 +74,24 @@ orderingModule.directive('onChangeSelect', function () {
 			iElement.change(function () {
 				$(this).blur();
 			});
+			
 		}
 	};
 });
+
+orderingModule.directive('changePlaceholder', ['$timeout', function (timer) {
+	return {
+		restrict: 'A',
+		link: function (scope, iElement) {
+			var changePlaceHolder = function () {
+				var searchInput = iElement.find('.inputFilter');
+				$(searchInput).attr('placeholder', 'Enter delivery area');
+			};
+
+			timer(changePlaceHolder, 0);
+		}
+	};
+} ]);
 
 orderingModule.filter('range', function () {
 	return function (input, total) {
