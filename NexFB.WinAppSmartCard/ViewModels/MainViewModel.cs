@@ -10,6 +10,7 @@
 namespace NexFB.WinAppSmartCard.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -21,9 +22,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using AutoLogOffHelper;
     using AutoMapper;
     using Microsoft.AspNet.SignalR.Client.Hubs;
-    using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
+    using NexFB.Models.SmartCardOrder;
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.InternetBased;
     using NexFB.WinAppSmartCard.Core.Constants;
@@ -659,13 +660,18 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (employeeData != null)
             {
+                var getTotalOrder = new GetMyOrderBySysIdCriteria() { SysId = employeeData.SysId };
+                List<SCEmployeeOrder> employeeOrders = this.SmartCardOrderService.GetMyOrderBySysId(getTotalOrder);
+                int totalQuantity = employeeOrders.Sum(x => x.QuantityOrder);
+                employeeData.Quantity = totalQuantity;
+
                 Employee employeeInfoMapping = Mapper.Map<EmployeeInfo, Employee>(employeeData);
                 if (OrderOwner == null)
                 {
                     OrderOwner = employeeInfoMapping;
                 }
 
-                if (employeeData.Quantity > 0)
+                if (employeeInfoMapping.Quantity > 0)
                 {
                     if (MainScreenVisible == ConstantValue.Visible)
                     {

@@ -39,6 +39,9 @@
 													<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="3">
 														<Setter Property="Text" Value="{Binding Path=ReceiveDateString}"/>
 													</DataTrigger>
+													<DataTrigger Binding="{Binding Path=CurrentStatusId}" Value="6">
+														<Setter Property="Text" Value="{Binding Path=RejectedDateString}"/>
+													</DataTrigger>
 												</Style.Triggers>
 											</Style>
 										</TextBlock.Style>

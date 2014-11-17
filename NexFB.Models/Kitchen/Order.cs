@@ -12,12 +12,10 @@ namespace NexFB.Models.Kitchen
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
     using NexFB.Core.Enums;
-    using NexFB.Core.Translator;
     using NexFB.Resources;
 
     /// <summary>
@@ -26,6 +24,8 @@ namespace NexFB.Models.Kitchen
     [Serializable]
     public class Order
     {
+        private const string PosDateFormat = "{0:dd/MM/yyyy HH:mm}";
+
         public DateTime OnDate { get; set; }
 
         public DateTime RegisterDate { get; set; }
@@ -33,6 +33,8 @@ namespace NexFB.Models.Kitchen
         public DateTime ReceiveDate { get; set; }
 
         public DateTime DeliverDate { get; set; }
+
+        public DateTime RejectedDate { get; set; }
 
         public int OrderId { get; set; }
 
@@ -139,7 +141,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                return string.Format("{0:dd/MM/yyyy HH:mm}", RegisterDate);
+                return string.Format(PosDateFormat, RegisterDate);
             }
         }
 
@@ -147,7 +149,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                return string.Format("{0:dd/MM/yyyy HH:mm}", ReceiveDate);
+                return string.Format(PosDateFormat, ReceiveDate);
             }
         }
 
@@ -155,7 +157,15 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                return string.Format("{0:dd/MM/yyyy HH:mm}", DeliverDate);
+                return string.Format(PosDateFormat, DeliverDate);
+            }
+        }
+
+        public string RejectedDateString
+        {
+            get
+            {
+                return string.Format(PosDateFormat, RejectedDate);
             }
         }
 
@@ -163,7 +173,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                return string.Format("{0:dd/MM/yyyy HH:mm}", DateTime.Now);
+                return string.Format(PosDateFormat, DateTime.Now);
             }
         }
 

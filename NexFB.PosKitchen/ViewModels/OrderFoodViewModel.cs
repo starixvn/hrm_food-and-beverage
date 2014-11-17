@@ -1107,7 +1107,7 @@ namespace NexFB.PosKitchen.ViewModels
                 Alternative = alternativeMenuData.Append(_EndRootTag).ToString(),
                 Foods = additionalMenuData.Append(_EndRootTag).ToString(),
                 OrderId = ReferenceCode,
-                TakeAway = TakeAwayChecked
+                TakeAway = false
             };
             CommandResult result = KitchenService.EditOrderFood(editOrderMealCriteria);
             if (result.Code != 0)
@@ -1144,7 +1144,7 @@ namespace NexFB.PosKitchen.ViewModels
                 Menus = mainMenuData.Append(_EndRootTag).ToString(),
                 Alternative = alternativeMenuData.Append(_EndRootTag).ToString(),
                 Foods = additionalMenuData.Append(_EndRootTag).ToString(),
-                TakeAway = TakeAwayChecked
+                TakeAway = false
             };
 
             OrderResult result = KitchenService.InsertOrderFood(insertOrderMealCriteria);
@@ -1223,7 +1223,6 @@ namespace NexFB.PosKitchen.ViewModels
             IsMenuFocused = false;
             TextBlockFocused = false;
             IsCanceledOrder = false;
-            TakeAwayChecked = false;
             OrderNo = string.Empty;
             ReferenceCode = 0;
             NumPadVisible = Constant.Visible;
@@ -1272,7 +1271,6 @@ namespace NexFB.PosKitchen.ViewModels
         {
             if (order != null)
             {
-                TakeAwayChecked = order.TakeAway;
                 List<KitchenEmployeeInfo> data = new List<KitchenEmployeeInfo>();
                 EmployeeInfo = GetEmployeeBySysId(order.SysId);
                 LocationId = order.LocationId;

@@ -33,7 +33,7 @@
 							<!--Order Owner Image-->
 							<Grid Grid.Column="1" Width="105" Height="95">
 								<Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Silver" BorderThickness="1">
-									<Image Source="{Binding Path=ImageSource}" />
+									<Image Source="{Binding Path=ImageSource}" Stretch="Fill"/>
 								</Border>
 							</Grid>
 

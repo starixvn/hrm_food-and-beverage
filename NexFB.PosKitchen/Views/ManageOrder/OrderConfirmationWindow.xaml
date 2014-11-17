@@ -152,7 +152,7 @@
 						Content="{Binding TotalPrice}"  FontWeight="Black"/>
 					</Grid>
 
-					<Grid Background="#fff" Height="50" Margin="1,0,1,0">
+					<!--<Grid Background="#fff" Height="50" Margin="1,0,1,0">
 						<ToggleButton Foreground="#014A81" FontSize="20" x:Name="TakeAwayOptions" IsChecked="{Binding Path=TakeAwayChecked}"
 							Content="{x:Static resx:WinFormMainResource.TakeAway}">
 							<ToggleButton.Template>
@@ -176,7 +176,7 @@
 								</ControlTemplate>
 							</ToggleButton.Template>
 						</ToggleButton>
-					</Grid>
+					</Grid>-->
 
 					<Grid VerticalAlignment="Bottom" Margin="0,20,0,15">
 						<Grid.ColumnDefinitions>

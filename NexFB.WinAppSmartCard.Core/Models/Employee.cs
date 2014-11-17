@@ -33,6 +33,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
         private string _displayMenuName;
         private string _displayNotifyMenuName;
         private string _groupOrderNickName;
+        private int _quantity;
 
         public int SelectedValueDropDown
         {
@@ -285,6 +286,20 @@ namespace NexFB.WinAppSmartCard.Core.Models
                 {
                     return GroupOrderNickName;
                 }
+            }
+        }
+
+        public int Quantity
+        {
+            get
+            {
+                return _quantity;
+            }
+
+            set
+            {
+                _quantity = value;
+                this.OnPropertyChanged("Quantity");
             }
         }
     }
