@@ -5,32 +5,31 @@
 </div>
 <div class="modal-body assign-role-modal meal-planning-body-modal">
     <form class="form-inline" role="form">
-            <div class="form-group required">
-                <label class="control-label" data-translate="Menu"></label>
-        <select ng-model="mealPlanning.menuId" ng-options="opt.MenuId as opt.MenuVnmName for opt in menuOptions"
-            required class="form-control" ng-disabled="currentMealPlanning" ng-change="getSetMenu(mealPlanning.menuId)">
-            <option value="">-- {{"SelectMenu" | translate}} --</option>
-        </select>
-    </div>
-            <div class="form-group required">
-                <label class="control-label" data-translate="Date"></label>
-        <input class="calendar-form-control" type="text" ng-model="mealPlanning.date" datepicker-popup
-            is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" ng-disabled="currentMealPlanning" />
-        <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)" ng-show="!currentMealPlanning"></calendar-image>
-    </div>
-    <div class="form-group">
-        <input type="checkbox" ng-model="mealPlanning.isActive" />
-        <label data-translate="Active">
-        </label>
-    </div>
-
-	<div class="form-group">
-		<label data-translate="SetMenu"></label>
-		<select ng-model="mealPlanning.setMenuId" ng-options="opt.SetMenuId as opt.SetMenuVnmName for opt in setMenuItems"
-			food-and-setmenu class="form-control">
-			<option value="">-- {{"SelectSetMenu" | translate}} --</option>
-		</select>
-	</div>
+		<div class="form-group required">
+			<label class="control-label" data-translate="Menu"></label>
+			<select ng-model="mealPlanning.menuId" ng-options="opt.MenuId as opt.MenuVnmName for opt in menuOptions"
+				required class="form-control" ng-disabled="currentMealPlanning" ng-change="getSetMenu(mealPlanning.menuId)">
+				<option value="">-- {{"SelectMenu" | translate}} --</option>
+			</select>
+		</div>
+		<div class="form-group required">
+			<label class="control-label" data-translate="Date"></label>
+			<input class="calendar-form-control" type="text" ng-model="mealPlanning.date" datepicker-popup
+				is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" ng-disabled="currentMealPlanning" />
+			<calendar-image class="calendar-image" ng-click="openPopupStartDate($event)" ng-show="!currentMealPlanning"></calendar-image>
+		</div>
+		<div class="form-group">
+			<input type="checkbox" ng-model="mealPlanning.isActive" />
+			<label data-translate="Active">
+			</label>
+		</div>
+		<div class="form-group">
+			<label data-translate="SetMenu"></label>
+			<select ng-model="mealPlanning.setMenuId" ng-options="opt.SetMenuId as opt.SetMenuVnmName for opt in setMenuItems"
+				food-and-setmenu class="form-control">
+				<option value="">-- {{"SelectSetMenu" | translate}} --</option>
+			</select>
+		</div>
     </form>
 	
     <div class="meal-planning">

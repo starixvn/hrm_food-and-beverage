@@ -11,6 +11,7 @@ namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
@@ -160,6 +161,42 @@ namespace NexFB.Site.Controllers.API
             };
 
             return _mealPlanningService.GetFoodByOnDate(criteria);
+        }
+
+        /// <summary>
+        /// Check meal planning is disabled or not.
+        /// </summary>
+        /// <param name="date">The date of meal planning.</param>
+        /// <param name="mealId">The meal Id.</param>
+        /// <param name="employeeTypeId">The employee type Id.</param>
+        /// <param name="menuId">The menu Id.</param>
+        /// <returns>The isDisable variable.</returns>
+        [HttpGet]
+        public bool CheckDisableMealPlanning(
+            DateTime date,
+            string mealId,
+            string employeeTypeId,
+            string menuId)
+        {
+            var criteria = new GetAllMealPlanningByOnDateCriteria
+            {
+                FromDate = date,
+                ToDate = date,
+                MealId = mealId,
+                EmployeeTypeId = employeeTypeId,
+                MenuId = menuId
+            };
+
+            IEnumerable<MealPlanningModel> mealPlannings = _mealPlanningService.GetMealPlanningByOnDate(criteria);
+            bool isDisable = false;
+
+            if (mealPlannings != null)
+            {
+                MealPlanningModel mealPlanning = mealPlannings.ToList().FirstOrDefault();
+                isDisable = mealPlanning.IsDisable;
+            }
+
+            return isDisable;
         }
     }
 }

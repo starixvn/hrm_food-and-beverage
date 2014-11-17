@@ -7,10 +7,6 @@ mealPlanningManagementModule.factory('mealPlanningFactory', ['$http', function (
 			return $http.get('/api/MealPlanning/GetAllMealPlanning',
 				{ params: { fromDate: fromDate, toDate: toDate, mealId: mealId, employeeTypeId: employeeTypeId} });
 		},
-//		getBasicFoodItem: function (foodId, menuGroupId, isActive) {
-//			return $http.get('/api/FoodItemManagement/GetBasicFoodItem',
-//				{ params: { foodId: foodId, menuGroupId: menuGroupId, isActive: isActive} });
-//		},
 		insertMealPlanning: function (mealPlanning) {
 			return $http.post('/api/MealPlanning/InsertMealPlanning', mealPlanning);
 		},
@@ -31,8 +27,12 @@ mealPlanningManagementModule.factory('mealPlanningFactory', ['$http', function (
 			return $http.get('/api/Common/GetAllMealTimesheet');
 		},
 		getFoodByOnDate: function (date, menuGroupId) {
-			return $http.get('/api/MealPlanning/GetFoodByOnDate', 
-				{ params: { date: date, menuGroupId: menuGroupId } });
+			return $http.get('/api/MealPlanning/GetFoodByOnDate',
+				{ params: { date: date, menuGroupId: menuGroupId} });
+		},
+		checkDisableMealPlanning: function (onDate, mealId, employeeTypeId, menuId) {
+			return $http.get('/api/MealPlanning/CheckDisableMealPlanning',
+				{ params: { date: onDate, mealId: mealId, employeeTypeId: employeeTypeId, menuId: menuId }});
 		}
 	};
 } ]);
@@ -74,19 +74,6 @@ function (notificationFactory) {
 		return foodId;
 	};
 
-//	utilities.getBasicFoodItems = function (foodId, menuId, isActive, scope) {
-//		mealPlanningFactory.getBasicFoodItem(foodId, menuId, isActive).success(function (foodItems) {
-//			scope.groupOptions = foodItems;
-//		}).error(function (response, status) {
-//			if (status === 405) {
-//				ErrorFactory.errorHandle(status);
-//			}
-//			else {
-//				notificationFactory.error("ErrorMessage");
-//			}
-//		});
-//	};
-
 	/*
 	** Upward or downward food item.
 	*/
@@ -112,47 +99,24 @@ function (notificationFactory) {
 		}
 	};
 
-	utilities.checkRightMeal = function (currentTimesheet, onDate) {
-		if (onDate) {
-			var toDay = new Date(),
-				currentOnDate = new Date(onDate);
+	utilities.createMealId = function (meals) {
+		var mealId = '';
 
-			if (toDay.getMonth() === currentOnDate.getMonth() && toDay.getDate() === currentOnDate.getDate() && 
-					toDay.getFullYear() === currentOnDate.getFullYear()) {
-				var currentHour = toDay.getHours(),
-					currentMinute = toDay.getMinutes(),
-					startHour = new Date(currentTimesheet.StartTime + 'Z').getUTCHours(),
-					startMinute = new Date(currentTimesheet.StartTime + 'Z').getUTCMinutes();
-
-				if (currentHour > startHour) {
-					return false;
-				}
-				else if (currentHour === startHour && currentMinute > startMinute) {
-					return false;
-				}
-			}
-		}
-
-		return true;
-	};
-
-	var getCurrentTimesheet = function (mealTimesheet, mealId) {
-		var currentTimesheet = '';
-
-		angular.forEach(mealTimesheet, function (timesheetItem) {
-			if (timesheetItem.MealId === mealId) {
-				currentTimesheet = timesheetItem;
-			}
+		angular.forEach(meals, function (meal) {
+			mealId = mealId !== '' ? mealId + ',' + meal.MealId : meal.MealId;
 		});
 
-		return currentTimesheet;
+		return mealId;
 	};
 
-	utilities.checkMealTimesheet = function (mealTimesheets, meal, onDate) {
-		var currentTimesheet = getCurrentTimesheet(mealTimesheets, meal.MealId),
-			rightMeal = utilities.checkRightMeal(currentTimesheet, onDate);
+	utilities.createEmployeeTypeId = function (employeeTypes) {
+		var employeeTypeId = '';
 
-		return !rightMeal;
+		angular.forEach(employeeTypes, function (employeeType) {
+			employeeTypeId = employeeTypeId !== '' ? employeeTypeId + ',' + employeeType.EmployeeTypeId : employeeType.EmployeeTypeId;
+		});
+
+		return employeeTypeId;
 	};
 
 	return utilities;

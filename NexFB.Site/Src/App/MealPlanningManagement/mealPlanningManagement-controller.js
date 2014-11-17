@@ -111,18 +111,6 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 		ErrorFactory.errorHandle(status);
 	});
 
-//	var checkRightMeal = function (mealPlannings) {
-//		angular.forEach(mealPlannings, function (mealPlanning) {
-//			if (!mealPlanning.IsDisable) {
-//				var numberMeals = mealPlanning.Menu.Meals.length,
-//				lastMeal = numberMeals > 0 ? mealPlanning.Menu.Meals[numberMeals - 1] : '';
-
-//				if (lastMeal) {
-//					mealPlanning.IsDisable = mealPlanningUtilities.checkMealTimesheet($scope.mealTimesheets, lastMeal, mealPlanning.Date);
-//				}
-//			}
-//		});
-//	};
 	/*
 	** Get all meal planning.
 	*/
@@ -130,10 +118,6 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 		mealPlanningFactory.getAllMealPlanning(fromDate, toDate, mealId, employeeTypeId)
 		.success(function (mealPlannings) {
 			$scope.mealPlannings = mealPlannings;
-//			if ($scope.mealPlannings && $scope.mealPlannings !== 'null') {
-//				checkRightMeal($scope.mealPlannings);
-//			}
-
 			commonFactory.tablePagination($scope, $scope.mealPlannings, $scope.entrySelected);
 			$scope.currentPage = $scope.originalPage;
 		}).error(function (response, status) {
@@ -198,9 +182,14 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 	** Edit meal planning.
 	*/
 	$scope.edit = function (mealPlanning) {
-		var udpatedData = function (updateMealPlanning, setMenu) {
+		var udpatedData = function (updateMealPlanning, setMenu, foodItems) {
 			mealPlanning.IsActive = updateMealPlanning.isActive;
-			mealPlanning.SetMenu = setMenu;
+
+			if (setMenu) {
+				mealPlanning.SetMenu = setMenu;
+			}
+
+			mealPlanning.SetMenu.FoodItems = foodItems;
 		};
 
 		$scope.modalInstance = $modal.open({
@@ -225,7 +214,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 		});
 
 		$scope.modalInstance.result.then(function (informationMealPlanning) {
-			udpatedData(informationMealPlanning.updateMealPlanning, informationMealPlanning.setMenu);
+			udpatedData(informationMealPlanning.updateMealPlanning, informationMealPlanning.setMenu, informationMealPlanning.foodItems);
 		})['finally'](function () {
 			$scope.modalInstance = '';
 		});
@@ -244,15 +233,14 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 
 		mealPlanning.IsActive = newMealPlanning.IsActive;
 
-		var numberMeals = mealPlanning.Menu.Meals.length,
-				lastMeal = numberMeals > 0 ? mealPlanning.Menu.Meals[numberMeals - 1] : '';
+		var mealId = mealPlanningUtilities.createMealId(mealPlanning.Menu.Meals),
+			employeeTypeId = mealPlanningUtilities.createEmployeeTypeId(mealPlanning.Menu.EmployeeTypes);
 
-		if (lastMeal) {
-			var disable = mealPlanningUtilities.checkMealTimesheet($scope.mealTimesheets, lastMeal, mealPlanning.Date);
-
-			if (disable) {
+		mealPlanningFactory.checkDisableMealPlanning(mealPlanning.Date.toString(), mealId, employeeTypeId, mealPlanning.Menu.MenuId)
+		.success(function (isDisable) {
+			if (isDisable === 'true') {
 				mealPlanning.IsActive = !newMealPlanning.IsActive;
-				mealPlanning.IsDisable = disable;
+				mealPlanning.IsDisable = isDisable;
 
 				if (action === 'activate') {
 					notificationFactory.error("MealPlanningActivateWarning");
@@ -307,7 +295,9 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 					$scope.modalInstance = '';
 				});
 			}
-		}
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
 	};
 
 	/*

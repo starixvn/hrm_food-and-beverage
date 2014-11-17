@@ -67,7 +67,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		var removeTakeAwayRemark = order.Remark.replace($scope.takeAwayRemark, "");
 
 		if (order.Remark !== removeTakeAwayRemark) {
-			order.Remark = removeTakeAwayRemark.replace(",","");
+			order.Remark = removeTakeAwayRemark.replace(",", "");
 		}
 	};
 
@@ -76,6 +76,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			$scope.order = data;
 			removeTakeAwayRemark($scope.order);
 			orderingService.setMemberEditOrder(data.Members);
+			orderingUtilities.setDefaultLocation($scope.locations, data.Location.LocationId);
 
 			$scope.getStatusOrderMessage = function (order) {
 				var message = '';
@@ -151,7 +152,23 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		$modalInstance.dismiss("cancel");
 	};
 
+	var getOrderLocation = function () {
+		var locationId = '';
+
+		angular.forEach($scope.locations, function (value) {
+			if (value.ticked) {
+				locationId = value.LocationId;
+			}
+		});
+
+		return locationId;
+	};
+
 	var saveOrder = function (order) {
+		if (order.Location !== null) {
+			order.Location.LocationId = getOrderLocation();
+		}
+
 		$scope.modalConfirmSaveEditInstance = $modal.open({
 			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
 			controller: "ModalConfirmController2",

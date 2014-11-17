@@ -1393,6 +1393,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No menu available!..
+        /// </summary>
+        public static string NoMenuAvailableWarning {
+            get {
+                return ResourceManager.GetString("NoMenuAvailableWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to N/A.
         /// </summary>
         public static string NoneAvailable {

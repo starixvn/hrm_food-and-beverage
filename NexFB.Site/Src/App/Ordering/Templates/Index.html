@@ -101,9 +101,8 @@
                         <th class="width-40" data-translate="SymbolCount">
                         </th>
                         <th class="">
-                            <label data-translate="ToDayMenu">
+                            <label>{{"ToDayMenu" | translate}}:
                             </label>
-                            :
                             <label>
                                 {{menu.Name}}</label>
                         </th>
@@ -143,7 +142,7 @@
                     <div class="form-group required">
                         <label class="control-label width-100" data-translate="DeliveryArea">
                         </label>
-						<add-class-to-role-filter multi-select input-model="newOrderLocations" button-label="Name" helper-elements="all reset filter" change-placeholder
+						<add-class-to-role-filter multi-select input-model="newOrderLocations" button-label="Name" helper-elements="filter" change-placeholder
 							item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select delivery-area-ddl" >
 						</add-class-to-role-filter>
                     </div>
@@ -225,11 +224,6 @@
                             </label>
                             <input ng-model="newOrder.Phone" type="text" maxlength="50" class="txtPhone" />
                         </div>
-						<div class="form-group takeAway">
-							<input type="checkbox" ng-model="newOrder.TakeAway" />
-							<label data-translate="TakeAway">
-							</label>
-						</div>
                     </div>
                     <div class="row row-cust">
                         <p class="row txt-warning">
@@ -250,7 +244,7 @@
                     <div class="form-group required">
                         <label class="control-label width-100" data-translate="DeliveryArea">
                         </label>
-						<add-class-to-role-filter multi-select input-model="savedOrderLocations" button-label="Name" helper-elements="all reset filter"
+						<add-class-to-role-filter multi-select input-model="savedOrderLocations" button-label="Name" helper-elements="filter"
 							item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select" change-placeholder >
 						</add-class-to-role-filter>
                     </div>
@@ -333,11 +327,6 @@
                             </label>
                             <input ng-model="savedOrder.Phone" type="text" maxlength="50" class="txtPhone" />
                         </div>
-						<div class="form-group takeAway">
-							<input type="checkbox" ng-model="savedOrder.TakeAway" />
-							<label data-translate="TakeAway">
-							</label>
-						</div>
                     </div>
                     <div class="row row-cust">
                         <button ng-click="saveAddOrder(savedOrder, typeOrder.savedOrder)" class="button btn-order" data-translate="Order">
@@ -353,7 +342,7 @@
 						<div class="form-group required">
 							<label class="control-label width-100" data-translate="DeliveryArea">
 							</label>
-							<add-class-to-role-filter multi-select input-model="sideDishOrderLocations" button-label="Name" helper-elements="all reset filter"
+							<add-class-to-role-filter multi-select input-model="sideDishOrderLocations" button-label="Name" helper-elements="filter"
 								item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select" change-placeholder>
 							</add-class-to-role-filter>
 						</div>

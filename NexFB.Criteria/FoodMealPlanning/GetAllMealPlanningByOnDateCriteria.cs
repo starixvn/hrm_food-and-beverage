@@ -23,6 +23,8 @@ namespace NexFB.Criteria.FoodMealPlanning
 
         public string MealId { get; set; }
 
+        public string MenuId { get; set; }
+
         public string EmployeeTypeId { get; set; }
 
         public override string GetSettingKey()

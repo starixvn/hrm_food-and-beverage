@@ -163,7 +163,7 @@ namespace NexFB.Services.Implement
         /// </summary>
         /// <param name="mealPlanning">The meal planning.</param>
         /// <returns>Is disabled or not.</returns>
-        private bool CheckDisableMealPlanning(MealPlanningModel mealPlanning)
+        public bool CheckDisableMealPlanning(MealPlanningModel mealPlanning)
         {
             bool isDisable = false;
 

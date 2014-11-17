@@ -810,4 +810,7 @@
   <data name="NoPermissionChangePassword" xml:space="preserve">
     <value>You do not have permission to change your password.</value>
   </data>
+  <data name="NoMenuAvailableWarning" xml:space="preserve">
+    <value>No menu available!.</value>
+  </data>
 </root>

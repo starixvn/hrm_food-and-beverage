@@ -3,8 +3,7 @@
 
 mealPlanningManagementModule.controller('EditMealPlanningController',
 ['$scope', '$modalInstance', 'mealPlanning', 'menuOptions', 'foodOptions', 'commonFactory',
-'mealPlanningFactory', 'setMenuFactory',
-'mealPlanningUtilities', 'ErrorFactory', 'mealTimesheets', 'notificationFactory',
+'mealPlanningFactory', 'setMenuFactory', 'mealPlanningUtilities', 'ErrorFactory', 'mealTimesheets', 'notificationFactory',
 function ($scope, $modalInstance, mealPlanning, menuOptions, foodOptions, commonFactory, mealPlanningFactory,
 setMenuFactory, mealPlanningUtilities, ErrorFactory, mealTimesheets, notificationFactory) {
 	/*
@@ -96,21 +95,6 @@ setMenuFactory, mealPlanningUtilities, ErrorFactory, mealTimesheets, notificatio
 	};
 
 	/*
-	** Check overdue meal planning.
-	*/
-	var checkOverdueMeal = function (mealPlanning) {
-		var disable = false,
-			numberMeals = mealPlanning.Menu.Meals.length,
-			lastMeal = numberMeals > 0 ? mealPlanning.Menu.Meals[numberMeals - 1] : '';
-
-		if (lastMeal) {
-			disable = mealPlanningUtilities.checkMealTimesheet($scope.mealTimesheets, lastMeal, mealPlanning.Date);
-		}
-
-		return disable;
-	};
-
-	/*
 	** Edit meal planning.
 	*/
 	$scope.editMealPlanning = function (mealPlanning) {
@@ -136,31 +120,34 @@ setMenuFactory, mealPlanningUtilities, ErrorFactory, mealTimesheets, notificatio
 			return selectedSetMenu;
 		};
 
-		var disable = checkOverdueMeal(mealPlanning);
+		var mealId = mealPlanningUtilities.createMealId(mealPlanning.Menu.Meals),
+			employeeTypeId = mealPlanningUtilities.createEmployeeTypeId(mealPlanning.Menu.EmployeeTypes);
 
-		if (disable) {
-			var action = !mealPlanning.IsActive ? "activate" : "deactivate";
-			mealPlanning.IsActive = !updateMealPlanning.IsActive;
-			mealPlanning.IsDisable = disable;
+		mealPlanningFactory.checkDisableMealPlanning(mealPlanning.Date.toString(), mealId, employeeTypeId, mealPlanning.Menu.MenuId)
+		.success(function (isDisable) {
+			if (isDisable === 'true') {
+				var action = !mealPlanning.IsActive ? "activate" : "deactivate";
+				mealPlanning.IsActive = !updateMealPlanning.IsActive;
+				mealPlanning.IsDisable = true;
 
-			if (action === 'activate') {
-				notificationFactory.error("MealPlanningActivateWarning");
+				if (action === 'activate') {
+					notificationFactory.error("MealPlanningActivateWarning");
+				}
+				else {
+					notificationFactory.error("MealPlanningDeactivateWarning");
+				}
 			}
 			else {
-				notificationFactory.error("MealPlanningDeactivateWarning");
-			}
-		}
-		else {
-			var selectedSetMenu = getSelectedSetMenu(mealPlanning.SetMenu.SetMenuId, $scope.setMenuItems);
-			selectedSetMenu.FoodItems = $scope.foodItems;
+				var selectedSetMenu = getSelectedSetMenu(mealPlanning.SetMenu.SetMenuId, $scope.setMenuItems);
 
-			var informationMealPlanning = {
-				updateMealPlanning: updateMealPlanning,
-				setMenu: selectedSetMenu
-			};
+				var informationMealPlanning = {
+					updateMealPlanning: updateMealPlanning,
+					setMenu: selectedSetMenu,
+					foodItems: $scope.foodItems
+				};
 
-			if (mealPlanningUtilities.validateMealPlanning(updateMealPlanning)) {
-				mealPlanningFactory.updateMealPlanning(informationMealPlanning.updateMealPlanning)
+				if (mealPlanningUtilities.validateMealPlanning(updateMealPlanning)) {
+					mealPlanningFactory.updateMealPlanning(informationMealPlanning.updateMealPlanning)
 				.success(function (response) {
 					$scope.disabledSubmitButton = false;
 
@@ -176,11 +163,14 @@ setMenuFactory, mealPlanningUtilities, ErrorFactory, mealTimesheets, notificatio
 
 					ErrorFactory.errorHandle(status);
 				});
+				}
+				else {
+					$scope.disabledSubmitButton = false;
+				}
 			}
-			else {
-				$scope.disabledSubmitButton = false;
-			}
-		}
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
 	};
 
 	$scope.cancel = function () {

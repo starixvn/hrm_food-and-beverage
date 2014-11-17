@@ -14,7 +14,7 @@ currentMealPlanning) {
 	$scope.currentMealPlanning = currentMealPlanning;
 	$scope.foodOptions = foodOptions;
 	$scope.foodIds = {
-		rawFoodIds : []
+		rawFoodIds: []
 	};
 
 	$scope.calendar = {
@@ -25,7 +25,7 @@ currentMealPlanning) {
 		menuId: mealPlanning !== '' ? mealPlanning.Menu.MenuId : '',
 		setMenuId: mealPlanning !== '' ? mealPlanning.SetMenu.SetMenuId : '',
 		onDate: '',
-		isActive: true, //mealPlanning !== '' ? mealPlanning.IsActive : '',
+		isActive: true,
 		date: mealPlanning !== '' ? mealPlanning.Date : new Date()
 	};
 
@@ -43,35 +43,34 @@ currentMealPlanning) {
 		$scope.foodItems = [];
 		$scope.foodIds.rawFoodIds = [];
 
-		angular.forEach($scope.setMenuItems, function (setMenu) {
-			if (setMenu.SetMenuId === setMenuId) {
-				angular.forEach(setMenu.FoodItems, function (food) {
-					$scope.foodItems.push(food);
-					$scope.foodIds.rawFoodIds.push(food.FoodId);
-				});
-			}
-		});
+		if (setMenuId) {
+			angular.forEach($scope.setMenuItems, function (setMenu) {
+				if (setMenu.SetMenuId === setMenuId) {
+					angular.forEach(setMenu.FoodItems, function (food) {
+						$scope.foodItems.push(food);
+						$scope.foodIds.rawFoodIds.push(food.FoodId);
+					});
+				}
+			});
+		}
 	};
 
 	/*
 	** Get Set Menu bu Menu Id.
 	*/
 	$scope.getSetMenu = function (menuId) {
-		setMenuFactory.getSetMenu(menuId, true).success(function (setMenus) {
-			$scope.setMenuItems = setMenus;
-		}).error(function (response, status) {
-			ErrorFactory.errorHandle(status);
-		});
+		if (menuId) {
+			setMenuFactory.getSetMenu(menuId, true).success(function (setMenus) {
+				$scope.setMenuItems = setMenus;
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
+		}
+		else {
+			$scope.setMenuItems = [];
+			$scope.mealPlanning.setMenuId = '';
+		}
 	};
-
-	//	/*
-	//	** Get all set menu to filter.
-	//	*/
-	//	setMenuFactory.getSetMenu(null, true).success(function (setMenus) {
-	//		$scope.setMenuItems = setMenus;
-	//	}).error(function (response, status) {
-	//		ErrorFactory.errorHandle(status);
-	//	});
 
 	/*
 	** Set index to sort.

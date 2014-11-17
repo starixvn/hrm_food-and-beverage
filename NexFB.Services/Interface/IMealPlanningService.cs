@@ -31,5 +31,7 @@ namespace NexFB.Services.Interface
         CommandResult ActivateMealPlanning(ActivateMealPlanningCriteria criteria);
 
         IEnumerable<FoodItemModel> GetFoodByOnDate(GetFoodMealPlanningByOnDateCriteria criteria);
+
+        bool CheckDisableMealPlanning(MealPlanningModel mealPlanning);
     }
 }

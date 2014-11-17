@@ -22,6 +22,10 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		$translate('ConfirmMessageAlternativeMenu').then(function (message) {
 			$scope.confirmMessageAlternativeMenu = message;
 		});
+
+		$translate('NoMenuAvailableWarning').then(function (message) {
+			$scope.noMenuAvailableWarning = message;
+		});
 	};
 
 	/*
@@ -206,7 +210,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			.success(function (data) {
 				$scope.savedOrder = data;
 				orderingService.setMemberSavedOrder(data.Members);
-				orderingUtilities.setDefaultLocationToSavedOrder($scope.savedOrderLocations, $scope.savedOrder.Location.LocationId);
+				orderingUtilities.setDefaultLocation($scope.savedOrderLocations, $scope.savedOrder.Location.LocationId);
 			})
 			.error(function (response, status) {
 				ErrorFactory.errorHandle(status);
@@ -327,6 +331,21 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				notificationFactory.error("InvalidLocation");
 			}
 
+			var memberNonMenuMessage = '';
+
+			angular.forEach(order.Members, function (member) {
+				angular.forEach(member.Menus, function (menu) {
+					if (menu.MenuId === -1) {
+						memberNonMenuMessage += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + member.Member.NickName;
+					}
+				});
+			});
+
+			if (memberNonMenuMessage) {
+				var message = $scope.noMenuAvailableWarning + memberNonMenuMessage;
+				isValid = false;
+				notificationFactory.error("", message);
+			}
 
 			return isValid;
 		};
@@ -468,7 +487,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 							return orderId;
 						},
 						locations: function () {
-							return $scope.locations;
+							return angular.copy($scope.locations);
 						},
 						startTime: function () {
 							return new Date();
@@ -558,7 +577,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 						$scope.savedMember = {};
 					}
 					else if (!isSideDishOrder) {
-						if (member.CurrentStatus != null) {
+						// User has order or user has order but change menu
+						if (member.CurrentStatus != null || order.OrderId === 0) {
 							notificationFactory.error('', $scope.warningMessageExistMember);
 						}
 						else {

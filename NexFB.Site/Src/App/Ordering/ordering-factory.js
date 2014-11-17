@@ -143,8 +143,8 @@ orderingModule.factory("orderingFactory",
 			return orders;
 		};
 
-		utilities.setDefaultLocationToSavedOrder = function (savedOrderLocations, locationId) {
-			angular.forEach(savedOrderLocations, function (value) {
+		utilities.setDefaultLocation = function (locations, locationId) {
+			angular.forEach(locations, function (value) {
 				if (value.LocationId === locationId) {
 					value.ticked = true;
 				}
