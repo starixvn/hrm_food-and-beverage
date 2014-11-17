@@ -34,6 +34,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
         private string _displayNotifyMenuName;
         private string _groupOrderNickName;
         private int _quantity;
+        private bool _allowOrder;
 
         public int SelectedValueDropDown
         {
@@ -45,8 +46,21 @@ namespace NexFB.WinAppSmartCard.Core.Models
             set
             {
                 _selectedValueDropDown = value;
-
                 this.OnPropertyChanged("SelectedValueDropDown");
+            }
+        }
+
+        public bool AllowOrder
+        {
+            get
+            {
+                return _allowOrder;
+            }
+
+            set
+            {
+                _allowOrder = value;
+                this.OnPropertyChanged("AllowOrder");
             }
         }
 

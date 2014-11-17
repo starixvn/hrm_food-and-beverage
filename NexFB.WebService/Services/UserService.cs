@@ -19,6 +19,7 @@ namespace NexFB.WebService.Services
     using NexFB.Core.Services;
     using NexFB.WebService.Criteria;
     using NexFB.WebService.Models;
+    using NexFB.WebService.Translator;
 
     /// <summary>
     /// User Service.
@@ -138,6 +139,11 @@ namespace NexFB.WebService.Services
             }
 
             return photos;
+        }
+
+        public string GetTextTranslation(string sourceText)
+        {
+            return FBTranslator.AutoTranslation(sourceText);
         }
     }
 }

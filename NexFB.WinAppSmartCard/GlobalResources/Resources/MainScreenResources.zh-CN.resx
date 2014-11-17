@@ -186,6 +186,9 @@
   <data name="Message_UnavailableSideDish" xml:space="preserve">
     <value>这里没有中国的消息</value>
   </data>
+  <data name="Message_UnhandledError" xml:space="preserve">
+    <value>这里没有中国的消息</value>
+  </data>
   <data name="Payment" xml:space="preserve">
     <value>付款</value>
   </data>

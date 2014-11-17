@@ -124,5 +124,17 @@ namespace NexFB.Services.Implement
 
             return employeeOrders;
         }
+
+        public OrderStatus EmployeeOrderStatus(GetEmployeeOrderStatusCriteria criteria)
+        {
+            OrderStatus orderStatus = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                orderStatus = this.GetDataEntity<OrderStatus>(criteria);
+            }
+
+            return orderStatus;
+        }
     }
 }

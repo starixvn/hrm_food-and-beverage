@@ -186,6 +186,9 @@
   <data name="Message_UnavailableSideDish" xml:space="preserve">
     <value>Hiện tại không có món ăn phụ.</value>
   </data>
+  <data name="Message_UnhandledError" xml:space="preserve">
+    <value>Đã xảy ra lỗi không mong muốn. Vui lòng thông báo cho quản trị viên!</value>
+  </data>
   <data name="NumberCount" xml:space="preserve">
     <value>#</value>
   </data>

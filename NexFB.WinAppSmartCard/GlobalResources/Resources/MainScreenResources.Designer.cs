@@ -268,6 +268,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occurred. Please notify the administrator!.
+        /// </summary>
+        internal static string Message_UnhandledError {
+            get {
+                return ResourceManager.GetString("Message_UnhandledError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to #.
         /// </summary>
         internal static string NumberCount {

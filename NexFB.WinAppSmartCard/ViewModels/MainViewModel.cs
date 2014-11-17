@@ -10,10 +10,8 @@
 namespace NexFB.WinAppSmartCard.ViewModels
 {
     using System;
-    using System.Collections.Generic;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
@@ -660,40 +658,48 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (employeeData != null)
             {
-                var getTotalOrder = new GetMyOrderBySysIdCriteria() { SysId = employeeData.SysId };
-                List<SCEmployeeOrder> employeeOrders = this.SmartCardOrderService.GetMyOrderBySysId(getTotalOrder);
-                int totalQuantity = employeeOrders.Sum(x => x.QuantityOrder);
-                employeeData.Quantity = totalQuantity;
-
-                Employee employeeInfoMapping = Mapper.Map<EmployeeInfo, Employee>(employeeData);
-                if (OrderOwner == null)
+                var getEmployeeOrderStatus = new GetEmployeeOrderStatusCriteria() { SysId = employeeData.SysId };
+                OrderStatus orderStatus = this.SmartCardOrderService.EmployeeOrderStatus(getEmployeeOrderStatus);
+                if (orderStatus != null)
                 {
-                    OrderOwner = employeeInfoMapping;
-                }
+                    employeeData.AllowOrder = orderStatus.IsAllowOrder;
+                    employeeData.MenuEngName = orderStatus.MenuEngName;
+                    employeeData.MenuVnmName = orderStatus.MenuVnmName;
 
-                if (employeeInfoMapping.Quantity > 0)
-                {
-                    if (MainScreenVisible == ConstantValue.Visible)
+                    Employee employeeInfoMapping = Mapper.Map<EmployeeInfo, Employee>(employeeData);
+                    if (OrderOwner == null)
                     {
-                        if (!isSideDishView)
+                        OrderOwner = employeeInfoMapping;
+                    }
+
+                    if (!employeeInfoMapping.AllowOrder)
+                    {
+                        if (MainScreenVisible == ConstantValue.Visible)
                         {
-                            this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_AlreadyOrder);
+                            if (!isSideDishView)
+                            {
+                                this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_AlreadyOrder);
+                            }
+                        }
+                        else
+                        {
+                            ExecuteSideDishesCommand();
+                            ((SideDishesViewModel)CurrentViewModel).ToggleMainMenu();
+                            this.MainTabReadOnly = true;
                         }
                     }
                     else
                     {
-                        ExecuteSideDishesCommand();
-                        ((SideDishesViewModel)CurrentViewModel).ToggleMainMenu();
-                        this.MainTabReadOnly = true;
+                        MainTabReadOnly = false;
+                        ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(employeeInfoMapping, this);
                     }
+
+                    CheckCurrentScreen();
                 }
                 else
                 {
-                    MainTabReadOnly = false;
-                    ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(employeeInfoMapping, this);
+                    this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_UnhandledError);
                 }
-
-                CheckCurrentScreen();
             }
         }
 

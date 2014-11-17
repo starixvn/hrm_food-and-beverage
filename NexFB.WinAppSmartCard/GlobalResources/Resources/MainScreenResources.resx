@@ -186,6 +186,9 @@
   <data name="Message_UnavailableSideDish" xml:space="preserve">
     <value>There are no side dishes available.</value>
   </data>
+  <data name="Message_UnhandledError" xml:space="preserve">
+    <value>An unexpected error occurred. Please notify the administrator!</value>
+  </data>
   <data name="NumberCount" xml:space="preserve">
     <value>#</value>
   </data>

@@ -31,5 +31,8 @@ namespace NexFB.WebService.Services
 
         [OperationContract]
         IList<PhotoModel> GetPhoto(DateTime? fromDate);
+
+        [OperationContract]
+        string GetTextTranslation(string sourceText);
     }
 }

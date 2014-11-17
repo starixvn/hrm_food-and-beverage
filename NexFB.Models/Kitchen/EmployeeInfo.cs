@@ -63,5 +63,7 @@ namespace NexFB.Models.Kitchen
         public int IsLocal { get; set; }
 
         public int Quantity { get; set; }
+
+        public bool AllowOrder { get; set; }
     }
 }
