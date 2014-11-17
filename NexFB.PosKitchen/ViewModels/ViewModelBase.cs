@@ -13,6 +13,7 @@ namespace NexFB.PosKitchen.ViewModels
     using System.Configuration;
     using System.Windows.Documents;
     using System.Windows.Threading;
+    using NexFB.Core.Enums;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
     using NexFB.Pos.Core.Constants;
@@ -141,38 +142,46 @@ namespace NexFB.PosKitchen.ViewModels
             Order model = _kitchenService.GetOrderDetails(criteria);
             if (receiveFromKitchenOrder)
             {
-                model.CurrentStatusId = 1;
+                model.CurrentStatusId = (int)OrderStatus.NewOrder;
             }
 
-            model.InvoiceNumber = invoiceNumber;
-            _printingHelper.InjectData(template, model);
-
-            if (!string.IsNullOrEmpty(releaseMode))
+            if (model.CurrentStatusId == (int)OrderStatus.ReducedOrder || model.CurrentStatusId == (int)OrderStatus.NewOrder)
             {
-                NotificationWindow notifyWindows = new NotificationWindow();
-                notifyWindows.Show();
+                model.InvoiceNumber = invoiceNumber;
+                _printingHelper.InjectData(template, model);
 
-                if (releaseMode.ToUpper().ToString() == "RELEASE")
+                if (!string.IsNullOrEmpty(releaseMode))
                 {
-                    bool printed = false;
-                    printed = _printingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
-                    StartCloseTimer(notifyWindows);
+                    NotificationWindow notifyWindows = new NotificationWindow();
+                    notifyWindows.Show();
 
-                    return printed;
+                    if (releaseMode.ToUpper().ToString() == "RELEASE")
+                    {
+                        bool printed = false;
+                        printed = _printingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);
+                        StartCloseTimer(notifyWindows);
+
+                        return printed;
+                    }
+                    else
+                    {
+                        string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
+                        string[] paths = receiptDocument.Split('\\');
+                        var fileName = paths[paths.Length - 1];
+                        string receiptDocumentCustom = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + fileName;
+                        _printingHelper.ConvertToXps(template, receiptDocumentCustom);
+                        StartCloseTimer(notifyWindows);
+
+                        return true;
+                    }
                 }
-                else
-                {
-                    string receiptDocument = System.IO.Path.GetTempFileName() + ".xps";
-                    string[] paths = receiptDocument.Split('\\');
-                    var fileName = paths[paths.Length - 1];
-                    string receiptDocumentCustom = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\" + fileName;
-                    _printingHelper.ConvertToXps(template, receiptDocumentCustom);
-                    StartCloseTimer(notifyWindows);
-                    return true;
-                }
+
+                return false;
             }
-
-            return false;
+            else
+            {
+                return true;
+            }
         }
 
         public void ShowErrorMessage(int currentCulture, string message)
