@@ -4,7 +4,7 @@
             {{"EditOrder" | translate}} #{{order.OrderNo}}<span class="close-popup" ng-click="cancel()"></span>
         </div>
     </div>
-    <div class="modal-body assign-role-modal">
+    <div class="modal-body assign-role-modal modal-body-edit-ordering">
         <div class="col-sm-12 edit-order">
 					<div class="row form-order">
 						<div class="form-group">
@@ -17,10 +17,10 @@
                 <div class="form-group">
                     <label data-translate="DeliveryArea">
                     </label>
-					<div multi-select input-model="locations" button-label="Name" helper-elements="filter" item-label="Name" tick-property="ticked" max-labels="1" 
+					<add-class-to-role-filter multi-select input-model="locations" button-label="Name" helper-elements="filter" item-label="Name" tick-property="ticked" max-labels="1" 
 						max-height="150px" selection-mode="single" class="multi-select" change-placeholder is-disabled="order.CreatorOrder.UserId != order.CurrentUser.UserId
-								|| (order.Status.StatusId != 1) || order.OrderFrom == 'P' || order.OrderFrom == 'P-U'">
-					</div>
+								|| (order.Status.StatusId != 1) || order.OrderFrom == 'P' || order.OrderFrom == 'P-U'" class="form-control">
+					</add-class-to-role-filter>
                 </div>
                 <div class="form-group" ng-show="(order.OrderFrom == 'W' && order.Status.StatusId == 1 && order.CreatorOrder.UserId == order.CurrentUser.UserId)">
                       <label data-translate="Member">
