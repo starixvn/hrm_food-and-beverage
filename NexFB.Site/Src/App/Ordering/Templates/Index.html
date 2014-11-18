@@ -76,7 +76,7 @@
                     {{order.Location.Name}}
                 </td>
                 <td>
-					<span ng-show="order.Remarks.length == 1" ng-bind="order.Remark">
+					<span ng-show="order.Remarks.length == 1" ng-bind="order.Remarks[0]">
 					</span>
 					<ul class="group-toggle-item" ng-show="order.Remarks.length > 1">
 						<li ng-repeat="remark in order.Remarks" ng-bind="remark"></li>
@@ -137,13 +137,13 @@
                     <label data-translate="NewOrder">
                     </label>
                 </div>
-                <div class="col-sm-12 boxcontent" ng-class="{'boxcontent-collapse' : newOrder.Status != null}" close-order-content >
+                <div class="col-sm-12 boxcontent" ng-class="{'boxcontent-collapse' : newOrder.Status != null && !newOrder.RawIsAllowOrder}" close-order-content >
                     <form class="row form-horizontal form-order order-group" role="form">
                     <div class="form-group required">
                         <label class="control-label width-100" data-translate="DeliveryArea">
                         </label>
                         <div class="sel-ordering">
-						    <add-class-to-role-filter multi-select input-model="newOrderLocations" button-label="Name" helper-elements="filter" change-placeholder
+						    <add-class-to-role-filter multi-select input-model="newOrderLocations" button-label="Name" helper-elements="all filter" change-placeholder
 							    item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select delivery-area-ddl" >
 						    </add-class-to-role-filter>
                         </div>
@@ -182,15 +182,17 @@
                                 <td class="text-center">
                                     {{$index + 1}}
                                 </td>
-                                <td ng-class="{'is-ordered' : member.CurrentStatus != null}">
-                                    <span>{{member.Member.NickName}}</span> <span ng-show="member.CurrentStatus != null">
-                                        (Ordered)</span>
+                                <td ng-class="{'is-ordered' : member.CurrentStatus != null && !member.IsAllowOrder}">
+                                    <span>{{member.Member.NickName}}</span> 
+									<span ng-show="member.CurrentStatus != null && !member.IsAllowOrder">
+                                        ({{"Ordered" | translate}})</span>
                                 </td>
                                 <td>
 									<div ng-show="!alter.alternativeMenu{{member.Member.UserId}}">
-										<span ng-show="member.CurrentStatus == null">{{member.Menus[0].Name}}</span>
+										<span ng-show="member.CurrentStatus == null || (member.CurrentStatus != null && member.IsAllowOrder)">{{member.Menus[0].Name}}</span>
 										<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, false, $index)" 
-											ng-show="member.Menus[0].MenuId != -1 && member.Menus[0].IsHaveAlternativeMenu" title="Select Alternative Menus" >
+											ng-show="member.Menus[0].MenuId != -1 && member.Menus[0].IsHaveAlternativeMenu && member.CurrentStatus == null || (member.CurrentStatus != null && member.IsAllowOrder)" 
+											title="Select Alternative Menus" >
 										</a>
 									</div>
 									<div ng-show="alter.alternativeMenu{{member.Member.UserId}}">
@@ -247,7 +249,7 @@
                         <label class="control-label width-100" data-translate="DeliveryArea">
                         </label>
                         <div class="sel-ordering">
-						    <add-class-to-role-filter multi-select input-model="savedOrderLocations" button-label="Name" helper-elements="filter"
+						    <add-class-to-role-filter multi-select input-model="savedOrderLocations" button-label="Name" helper-elements="all filter"
 							    item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select" change-placeholder >
 						    </add-class-to-role-filter>
                         </div>
@@ -271,8 +273,7 @@
                     <table class="table table-bordered table-striped table-member">
                         <thead>
                             <tr>
-                                <th class="width-40">
-                                    #
+                                <th class="width-40" data-translate="SymbolCount" >
                                 </th>
                                 <th data-translate="Member">
                                 </th>
@@ -289,24 +290,26 @@
                                 <td class="text-center">
                                     {{$index + 1}}
                                 </td>
-                                <td ng-class="{'is-ordered' : member.CurrentStatus != null}">
-                                    <span>{{member.Member.NickName}}</span> <span ng-show="member.CurrentStatus != null">
-                                        (Ordered)</span>
+                                <td ng-class="{'is-ordered' : member.CurrentStatus != null && !member.IsAllowOrder}">
+                                    <span>{{member.Member.NickName}}</span> 
+									<span ng-show="member.CurrentStatus != null && !member.IsAllowOrder">
+                                    ({{"Ordered" | translate}})</span>
                                 </td>
                                 <td>
 									<div ng-show="!alterSaved.alternativeMenu{{member.Member.UserId}}">
-										<span ng-show="member.CurrentStatus == null">{{member.Menus[0].Name}}</span>
+										<span ng-show="member.CurrentStatus == null || (member.CurrentStatus != null && member.IsAllowOrder)">{{member.Menus[0].Name}}</span>
 										<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, true, $index)" 
-											ng-show="member.Menus[0].MenuId != -1 && member.Menus[0].IsHaveAlternativeMenu && member.CurrentStatus == null" title="Select Alternative Menus" >
+											ng-show="member.Menus[0].MenuId != -1 && member.Menus[0].IsHaveAlternativeMenu && (member.CurrentStatus == null || (member.CurrentStatus != null && member.IsAllowOrder))" 
+											title="Select Alternative Menus" >
 										</a>
 									</div>
-									<div ng-show="alterSaved.alternativeMenu{{member.Member.UserId}} && member.CurrentStatus == null">
+									<div ng-show="alterSaved.alternativeMenu{{member.Member.UserId}}">
 										<select class="ddlMenu" name="savedOrderMenu" ng-model="selectedSavedMenu[$index]" ng-options="menu as menu.Name for menu in member.AllMenus" get-selected-saved-menu on-change-select >
 										</select>
 									</div>
                                 </td>
                                 <td class="text-center">
-                                    <input type="checkbox" ng-model="member.IsOrder" ng-disabled="member.CurrentStatus != null" />
+                                    <input type="checkbox" ng-model="member.IsOrder" ng-disabled="member.CurrentStatus != null && !member.IsAllowOrder" />
                                 </td>
                                 <td class="text-center">
                                     <a ng-click="removeMember($index, member.Member.UserId, 2)" ng-show="member.Member.UserId != savedOrder.CreatorOrder.UserId"
@@ -347,7 +350,7 @@
 							<label class="control-label width-100" data-translate="DeliveryArea">
 							</label>
                             <div class="sel-ordering">
-							    <add-class-to-role-filter multi-select input-model="sideDishOrderLocations" button-label="Name" helper-elements="filter"
+							    <add-class-to-role-filter multi-select input-model="sideDishOrderLocations" button-label="Name" helper-elements="all filter"
 								    item-label="Name" tick-property="ticked" max-labels="1" max-height="300px" selection-mode="single" class="multi-select" change-placeholder>
 							    </add-class-to-role-filter>
                             </div>

@@ -131,6 +131,7 @@
       <Mapping DataField="IsHaveAltMenu" ObjectProperty="IsHaveAlternativeMenu" Class="Menu"/>
       <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location"/>
       <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" Class="Location"/>
+      <Mapping DataField="IsAllowOrder" ObjectProperty="RawIsAllowOrder" Class="MealOrderingModel"/>
     </Setting>
     <Setting Key="MealOrder_Get_OrderSaveOrderBySysID" SpName="MealOrder_Get_OrderSaveOrderBySysID" DbName="NexFB" Plain="0" >
       <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status"/>
@@ -141,6 +142,7 @@
       <Mapping DataField="IsHaveAltMenu" ObjectProperty="IsHaveAlternativeMenu" Class="Menu"/>
       <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location"/>
       <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" Class="Location"/>
+      <Mapping DataField="IsAllowOrder" ObjectProperty="RawIsAllowOrder" Class="MealOrderingModel"/>
     </Setting>
     <Setting Key="MealOrder_Get_OrderByOrderID" SpName="MealOrder_Get_OrderByOrderID" DbName="NexFB" Plain="0" >
       <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId"/>

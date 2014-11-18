@@ -48,6 +48,8 @@ namespace NexFB.Models.Ordering
 
         public string Phone { get; set; }
 
+        public bool RawIsAllowOrder { get; set; }
+
         public string Remark { get; set; }
 
         public string OrderFrom { get; set; }

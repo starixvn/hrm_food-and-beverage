@@ -30,6 +30,8 @@ namespace NexFB.Models.Ordering
 
         public bool IsOrder { get; set; }
 
+        public bool IsAllowOrder { get; set; }
+
         public Status CurrentStatus { get; set; }
     }
 }

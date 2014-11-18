@@ -768,9 +768,6 @@
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
-  <data name="TakeAwayRemark" xml:space="preserve">
-    <value>Mang về</value>
-  </data>
   <data name="Accepted" xml:space="preserve">
     <value>Accepted</value>
   </data>
@@ -812,5 +809,17 @@
   </data>
   <data name="NoMenuAvailableWarning" xml:space="preserve">
     <value>No menu available!.</value>
+  </data>
+  <data name="GroupOverOrderWarning" xml:space="preserve">
+    <value>There are some members have already ordered 3 times a day.</value>
+  </data>
+  <data name="MemberOverOrderWarning" xml:space="preserve">
+    <value>You can order 3 times a day only.</value>
+  </data>
+  <data name="Ordered" xml:space="preserve">
+    <value>Ordered</value>
+  </data>
+  <data name="TakeAwayRemark" xml:space="preserve">
+    <value>Take away</value>
   </data>
 </root>

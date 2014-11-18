@@ -175,7 +175,8 @@ namespace NexFB.Repositories.Implement
                             {
                                 IsOrder = s == null,
                                 Member = e,
-                                CurrentStatus = s
+                                CurrentStatus = s,
+                                IsAllowOrder = od.RawIsAllowOrder
                             };
 
                             memberOrder.Menus.Add(m);
@@ -222,7 +223,8 @@ namespace NexFB.Repositories.Implement
                         {
                             IsOrder = s == null,
                             Member = e,
-                            CurrentStatus = s
+                            CurrentStatus = s,
+                            IsAllowOrder = od.RawIsAllowOrder
                         };
 
                         if (m != null)

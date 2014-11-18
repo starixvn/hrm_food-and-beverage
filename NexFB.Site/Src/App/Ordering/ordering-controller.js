@@ -26,6 +26,10 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		$translate('NoMenuAvailableWarning').then(function (message) {
 			$scope.noMenuAvailableWarning = message;
 		});
+
+		$translate('TakeAwayRemark').then(function (message) {
+			$scope.takeAway = message;
+		});
 	};
 
 	/*
@@ -63,7 +67,17 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 		if (isRelatedCurrentUser) {
 			var data = orderingService.getMyOrder();
-			order.Remarks = order.Remark.split(",");
+			order.Remarks = order.Remark ? order.Remark.split(",") : [];
+
+			if (order.TakeAway) {
+				if (order.Remarks.length !== 0) {
+					order.Remarks.splice(0, 0, $scope.takeAway);
+				}
+				else {
+					order.Remarks.push($scope.takeAway);
+				}
+			}
+
 			data = orderingUtilities.sortOrderIdByDesc(order, data);
 			orderingService.setMyOrder(data);
 			$scope.$apply();
@@ -106,7 +120,17 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		}
 
 		if (isRelatedCurrentUser) {
-			order.Remarks = order.Remark.split(",");
+			order.Remarks = order.Remark ? order.Remark.split(",") : [];
+
+			if (order.TakeAway) {
+				if (order.Remarks.length !== 0) {
+					order.Remarks.splice(0, 0, $scope.takeAway);
+				}
+				else {
+					order.Remarks.push($scope.takeAway);
+				}
+			}
+
 			data = orderingUtilities.sortOrderIdByDesc(order, data);
 		}
 
@@ -194,6 +218,10 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					if (member.IsOrder) {
 						newMembers.push(member);
 					}
+					else if (member.IsAllowOrder && member.CurrentStatus.StatusId === 4) {
+						member.IsOrder = true;
+						newMembers.push(member);
+					}
 				});
 
 				data.Members = newMembers;
@@ -241,7 +269,16 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		orderingFactory.getMyOrder()
 			.success(function (data) {
 				angular.forEach(data, function (order) {
-					order.Remarks = order.Remark.split(",");
+					order.Remarks = order.Remark ? order.Remark.split(",") : [];
+
+					if (order.TakeAway) {
+						if (order.Remarks.length !== 0) {
+							order.Remarks.splice(0, 0, $scope.takeAway);
+						}
+						else {
+							order.Remarks.push($scope.takeAway);
+						}
+					}
 				});
 
 				orderingService.setMyOrder(data);
@@ -296,23 +333,44 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		$scope.ValidateNewOrder = function (order, typeOrder) {
 			var isValid = true;
 
-			if (!order.IsAllowOrder) {
-				isValid = false;
-			}
-
 			if (order.Members.length < 1) {
 				isValid = false;
 				notificationFactory.error("InvalidInputData");
 			}
 			else {
 				isValid = false;
+				var isGroupOverOrder = false,
+					isMemberOverOrder = false;
+
 				angular.forEach(order.Members, function (value) {
 					if (value.IsOrder) {
 						isValid = true;
 					}
+
+					if (typeOrder !== $scope.typeOrder.sideDishOrder) {
+						if (value.IsAllowOrder) {
+							isValid = true;
+						}
+						else if (value.CurrentStatus && value.CurrentStatus.StatusId === 4) {
+							isValid = false;
+
+							if (typeOrder === $scope.typeOrder.newOrder) {
+								isMemberOverOrder = true;
+							}
+							else if (typeOrder === $scope.typeOrder.savedOrder) {
+								isGroupOverOrder = true;
+							}
+						}
+					}
 				});
 
-				if (!isValid) {
+				if (isMemberOverOrder) {
+					notificationFactory.error("MemberOverOrderWarning");
+				}
+				else if (isGroupOverOrder) {
+					notificationFactory.error("GroupOverOrderWarning");
+				}
+				else if (!isValid) {
 					notificationFactory.error("InvalidInputData");
 				}
 			}
@@ -582,7 +640,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					}
 					else if (!isSideDishOrder) {
 						// User has order or user has order but change menu
-						if (member.CurrentStatus != null || order.OrderId === 0) {
+						if (member.CurrentStatus != null || order.Members.length === 0) {
 							notificationFactory.error('', $scope.warningMessageExistMember);
 						}
 						else {
