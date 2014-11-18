@@ -14,7 +14,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
-    using System.Windows.Input;
     using System.Windows.Threading;
     using AutoMapper;
     using NexFB.Criteria.SmartCardOrder;
@@ -23,31 +22,18 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
+    using NexFB.WinAppSmartCard.ViewModels.Properties;
 
     /// <summary>
     /// Side Dishes ViewModel.
     /// </summary>
-    public class SideDishesViewModel : ViewModelBase
+    public class SideDishesViewModel : SideDishModelProperty
     {
         private const string _OrderDetails = "<User FoodId='{0}' Qty='{1}'></User>";
         private const string _BeginRootTag = "<ROOT>";
         private const string _EndRootTag = "</ROOT>";
-
         private static DispatcherTimer digitalClockDispatcher = new DispatcherTimer();
-        private Employee _orderOwner;
-        private decimal _totalPrice;
-        private int _totalItem;
-        private int _countDownTimer;
-        private int _orderNo;
-        private ObservableCollection<SideFood> _observableSideOrder = new ObservableCollection<SideFood>();
-        private Food _selectedFood;
-        private List<int> _hasSelectedFood = new List<int>();
         private MainViewModel _mainViewModel;
-        private string _screenOrderVisible;
-        private string _screenNotificationVisible;
-        private bool _addFoodEnable;
-        private bool _sideDishTimerLive;
-        private bool _takeAwayChecked;
 
         public SideDishesViewModel(Employee orderOwner, MainViewModel mainViewModel)
         {
@@ -63,128 +49,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         #region Properties
 
-        public ICommand AddFoodCommand { get; set; }
-
-        public ICommand DeletedFoodCommand { get; set; }
-
-        public ICommand AddQuantityCommand { get; set; }
-
-        public ICommand SubQuantityCommand { get; set; }
-
-        public ICommand SaveDataCommand { get; set; }
-
-        public bool TakeAwayChecked
-        {
-            get
-            {
-                return _takeAwayChecked;
-            }
-
-            set
-            {
-                _takeAwayChecked = value;
-                this.OnPropertyChanged("TakeAwayChecked");
-            }
-        }
-
-        public Employee OrderOwner
-        {
-            get
-            {
-                return _orderOwner;
-            }
-
-            set
-            {
-                _orderOwner = value;
-                OnPropertyChanged("OrderOwner");
-            }
-        }
-
-        public bool SideDishTimerLive
-        {
-            get
-            {
-                return _sideDishTimerLive;
-            }
-
-            set
-            {
-                _sideDishTimerLive = value;
-                OnPropertyChanged("SideDishTimerLive");
-            }
-        }
-
-        public decimal TotalPrice
-        {
-            get
-            {
-                return _totalPrice;
-            }
-
-            set
-            {
-                _totalPrice = value;
-                OnPropertyChanged("TotalPrice");
-            }
-        }
-
-        public ObservableCollection<SideFood> ObservableSideOrder
-        {
-            get
-            {
-                return _observableSideOrder;
-            }
-
-            set
-            {
-                _observableSideOrder = value;
-                OnPropertyChanged("ObservableSideOrder");
-            }
-        }
-
-        public Food SelectedFood
-        {
-            get
-            {
-                return _selectedFood;
-            }
-
-            set
-            {
-                _selectedFood = value;
-                this.OnPropertyChanged("SelectedFood");
-            }
-        }
-
-        public List<int> HasSelectedFood
-        {
-            get
-            {
-                return _hasSelectedFood;
-            }
-
-            set
-            {
-                _hasSelectedFood = value;
-                this.OnPropertyChanged("HasSelectedFood");
-            }
-        }
-
-        public int TotalItem
-        {
-            get
-            {
-                return _totalItem;
-            }
-
-            set
-            {
-                _totalItem = value;
-                this.OnPropertyChanged("TotalItem");
-            }
-        }
-
         public MainViewModel MainViewModel
         {
             get
@@ -196,76 +60,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 _mainViewModel = value;
                 this.OnPropertyChanged("MainViewModel");
-            }
-        }
-
-        public string ScreenOrderVisible
-        {
-            get
-            {
-                return _screenOrderVisible;
-            }
-
-            set
-            {
-                _screenOrderVisible = value;
-                OnPropertyChanged("ScreenOrderVisible");
-            }
-        }
-
-        public string ScreenNotificationVisible
-        {
-            get
-            {
-                return _screenNotificationVisible;
-            }
-
-            set
-            {
-                _screenNotificationVisible = value;
-                OnPropertyChanged("ScreenNotificationVisible");
-            }
-        }
-
-        public int CountDownTimer
-        {
-            get
-            {
-                return _countDownTimer;
-            }
-
-            set
-            {
-                _countDownTimer = value;
-                this.OnPropertyChanged("CountDownTimer");
-            }
-        }
-
-        public int OrderNo
-        {
-            get
-            {
-                return _orderNo;
-            }
-
-            set
-            {
-                _orderNo = value;
-                this.OnPropertyChanged("OrderNo");
-            }
-        }
-
-        public bool AddFoodEnable
-        {
-            get
-            {
-                return _addFoodEnable;
-            }
-
-            set
-            {
-                _addFoodEnable = value;
-                this.OnPropertyChanged("AddFoodEnable");
             }
         }
 

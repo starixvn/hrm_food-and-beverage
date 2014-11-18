@@ -346,7 +346,7 @@
     <value>Bạn có muốn hủy phiếu ăn này không?</value>
   </data>
   <data name="TakeAway" xml:space="preserve">
-    <value>Mang đi</value>
+    <value>Mang về</value>
   </data>
   <data name="Canceled" xml:space="preserve">
     <value>Đã hủy</value>

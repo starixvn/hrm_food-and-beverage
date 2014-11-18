@@ -15,7 +15,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System.Linq;
     using System.Text;
     using System.Windows;
-    using System.Windows.Input;
     using System.Windows.Threading;
     using AutoMapper;
     using NexFB.Criteria.SmartCardOrder;
@@ -25,26 +24,18 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
+    using NexFB.WinAppSmartCard.ViewModels.Properties;
     using WPFMessageBoxCustomControl.Enums;
 
     /// <summary>
     /// Main Dishes ViewModel.
     /// </summary>
-    public class MainDishesViewModel : ViewModelBase
+    public class MainDishesViewModel : MainDishModelProperty
     {
         private const string _OrderDetails = "<User SysId='{0}' MenuId='{1}' IsMainMenu='{2}'></User>";
         private const string _BeginRootTag = "<ROOT>";
         private const string _EndRootTag = "</ROOT>";
         private static DispatcherTimer digitalClockDispatcher = new DispatcherTimer();
-
-        private ObservableCollection<Employee> _observableListEmployee = new ObservableCollection<Employee>();
-        private Employee _orderOwner;
-        private Food _selectedFood;
-        private string _screenOrderVisible;
-        private string _screenNotificationVisible;
-        private int _orderNo;
-        private int _countDownTimer;
-        private bool _mainDishTimerLive;
         private MainViewModel _mainViewModel;
 
         public MainDishesViewModel()
@@ -56,126 +47,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
         }
 
         #region Properties
-
-        public ICommand RemoveEmployeeOrder { get; set; }
-
-        public ICommand EditMenu { get; set; }
-
-        public ICommand ConfirmCommand { get; set; }
-
-        public ICommand CancelCommand { get; set; }
-
-        public Food SelectedFood
-        {
-            get
-            {
-                return _selectedFood;
-            }
-
-            set
-            {
-                _selectedFood = value;
-                this.OnPropertyChanged("SelectedFood");
-            }
-        }
-
-        public bool MainDishTimerLive
-        {
-            get
-            {
-                return _mainDishTimerLive;
-            }
-
-            set
-            {
-                _mainDishTimerLive = value;
-                this.OnPropertyChanged("MainDishTimerLive");
-            }
-        }
-
-        public int OrderNo
-        {
-            get
-            {
-                return _orderNo;
-            }
-
-            set
-            {
-                _orderNo = value;
-                this.OnPropertyChanged("OrderNo");
-            }
-        }
-
-        public int CountDownTimer
-        {
-            get
-            {
-                return _countDownTimer;
-            }
-
-            set
-            {
-                _countDownTimer = value;
-                this.OnPropertyChanged("CountDownTimer");
-            }
-        }
-
-        public string ScreenOrderVisible
-        {
-            get
-            {
-                return _screenOrderVisible;
-            }
-
-            set
-            {
-                _screenOrderVisible = value;
-                OnPropertyChanged("ScreenOrderVisible");
-            }
-        }
-
-        public string ScreenNotificationVisible
-        {
-            get
-            {
-                return _screenNotificationVisible;
-            }
-
-            set
-            {
-                _screenNotificationVisible = value;
-                OnPropertyChanged("ScreenNotificationVisible");
-            }
-        }
-
-        public Employee OrderOwner
-        {
-            get
-            {
-                return _orderOwner;
-            }
-
-            set
-            {
-                _orderOwner = value;
-                OnPropertyChanged("OrderOwner");
-            }
-        }
-
-        public ObservableCollection<Employee> ObservableListEmployee
-        {
-            get
-            {
-                return _observableListEmployee;
-            }
-
-            set
-            {
-                _observableListEmployee = value;
-                this.OnPropertyChanged("ObservableListEmployee");
-            }
-        }
 
         public MainViewModel MainViewModel
         {
@@ -397,8 +268,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 ObservableListEmployee[i].OrderNo = i + 1;
             }
-
-            ObservableListEmployee = new ObservableCollection<Employee>(this.ObservableListEmployee);
         }
 
         /// <summary>

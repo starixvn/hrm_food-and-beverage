@@ -700,7 +700,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mang đi.
+        ///   Looks up a localized string similar to Mang về.
         /// </summary>
         public static string TakeAway {
             get {

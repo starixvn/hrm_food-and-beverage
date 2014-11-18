@@ -126,6 +126,9 @@
     <Compile Include="SmartCardHelper\UnsafeNativeMethods.cs" />
     <Compile Include="ViewModels\MainDishesViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Properties\MainDishModelProperty.cs" />
+    <Compile Include="ViewModels\Properties\MainModelProperty.cs" />
+    <Compile Include="ViewModels\Properties\SideDishModelProperty.cs" />
     <Compile Include="ViewModels\SideDishesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\MainDishes.xaml.cs">
@@ -273,6 +276,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

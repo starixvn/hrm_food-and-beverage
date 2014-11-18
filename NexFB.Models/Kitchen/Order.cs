@@ -78,6 +78,26 @@ namespace NexFB.Models.Kitchen
 
         public bool TakeAway { get; set; }
 
+        public string DisplayRemak
+        {
+            get
+            {
+                if (TakeAway)
+                {
+                    if (!string.IsNullOrEmpty(RemarkVnm))
+                    {
+                        return string.Format("{0}, {1}", WinFormMainResource.TakeAway, RemarkVnm);
+                    }
+
+                    return string.Format(WinFormMainResource.TakeAway);
+                }
+                else
+                {
+                    return RemarkVnm;
+                }
+            }
+        }
+
         public List<OrderMenu> ListMenu { get; set; }
 
         public List<OrderMenu> DisplayListMenu
