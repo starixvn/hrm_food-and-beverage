@@ -56,6 +56,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private string _sentenceMargin;
         private bool _isMainDishTab;
         private bool _isMainHub;
+        private bool _isAllowChangeLanguage;
 
         public MainViewModel()
         {
@@ -113,6 +114,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 _currentTime = value;
                 OnPropertyChanged("CurrentTime");
+            }
+        }
+
+        public bool IsAllowChangeLanguage
+        {
+            get
+            {
+                return _isAllowChangeLanguage;
+            }
+
+            set
+            {
+                _isAllowChangeLanguage = value;
+                OnPropertyChanged("IsAllowChangeLanguage");
             }
         }
 
@@ -472,7 +487,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         private bool CanExecuteChangeLanguageCommand()
         {
-            return true;
+            return IsAllowChangeLanguage;
         }
 
         private bool CanExecuteCancelCommand()
@@ -609,6 +624,26 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     break;
             }
         }
+
+        ////private bool AllowChangeLanguage()
+        ////{
+        ////    string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+        ////    switch (currentViewModel)
+        ////    {
+        ////        case ConstantValue.MainDishesViewModel:
+        ////            if (((MainDishesViewModel)CurrentViewModel).ObservableListEmployee.Count > 1)
+        ////            {
+        ////                return false;
+        ////            }
+
+        ////            return true;
+        ////            break;
+        ////        case ConstantValue.SideDishesViewModel:
+        ////            break;
+        ////        default:
+        ////            break;
+        ////    }
+        ////}
 
         /// <summary>
         /// Change Culture.

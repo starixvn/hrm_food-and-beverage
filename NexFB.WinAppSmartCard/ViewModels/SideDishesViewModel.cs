@@ -294,6 +294,18 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
+        public void CheckAllowChangeLanguage()
+        {
+            if (this.ObservableSideOrder.Count > 1)
+            {
+                MainViewModel.IsAllowChangeLanguage = false;
+            }
+            else
+            {
+                MainViewModel.IsAllowChangeLanguage = true;
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -468,6 +480,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         ObservableSideOrder.Add(sideFoodData);
                     }
                 }
+
+                CheckAllowChangeLanguage();
             }
         }
 
@@ -556,6 +570,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                 UpdateOrderNo();
                 DisplayTotalPrice();
+                CheckAllowChangeLanguage();
             }
         }
 

@@ -314,7 +314,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 ObservableListEmployee.Add(employeeInfo);
                 ToggleSideMenu();
+                CheckAllowChangeLanguage();
             }));
+        }
+
+        public void CheckAllowChangeLanguage()
+        {
+            if (this.ObservableListEmployee.Count > 1)
+            {
+                MainViewModel.IsAllowChangeLanguage = false;
+            }
+            else
+            {
+                MainViewModel.IsAllowChangeLanguage = true;
+            }
         }
 
         public void CancelTimerDispatcher()
@@ -374,6 +387,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                 UpdateOrderNo();
                 ToggleSideMenu();
+                CheckAllowChangeLanguage();
             }
         }
 

@@ -54,6 +54,8 @@ namespace NexFB.PosKitchen.ViewModels
             StartTimerGetData(Constant.GetAllData, null);
         }
 
+        #region Tasks Send Data To Hub
+
         public Task SendNewOrder(int orderId)
         {
             if (IsMainHub)
@@ -77,6 +79,8 @@ namespace NexFB.PosKitchen.ViewModels
                 return ProxyLocal.Invoke("SendEditOrder", orderId);
             }
         }
+
+        #endregion
 
         #region RelayCommands
 
