@@ -298,6 +298,10 @@
       <Project>{C6EF79D3-5127-4DA2-A334-44109F771D33}</Project>
       <Name>NexFB.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NexFB.WebService\NexFB.WebService.csproj">
+      <Project>{A09F4C58-4F91-440E-90DE-CC64009BA244}</Project>
+      <Name>NexFB.WebService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PublishFile Include="SpNames.xml">

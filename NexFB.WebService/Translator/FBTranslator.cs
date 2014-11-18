@@ -10,19 +10,18 @@
 namespace NexFB.WebService.Translator
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Net;
     using System.Web;
-    using DialogueMaster.Babel;
-    using DialogueMaster.Classification;
+    using NLangDetect.Core;
 
     /// <summary>
     /// The translator.
     /// </summary>
     public static class FBTranslator
     {
-        private static IBabelModel _languageModel = BabelModel._AllModel;
-
         /// <summary>
         /// Auto Translation text.
         /// </summary>
@@ -31,31 +30,19 @@ namespace NexFB.WebService.Translator
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         public static string AutoTranslation(string sourceText)
         {
-            string translatedText = string.Empty;
+            LanguageDetector.Initialize();
+            string translatedText = sourceText;
             try
             {
                 sourceText = sourceText.ToLower();
-                ICategoryList result = _languageModel.ClassifyText(sourceText);
+                List<Language> results = LanguageDetector.DetectLanguage(sourceText);
 
-                if (result != null)
+                if (results != null && results.Count > 0)
                 {
-                    bool isVietnamese = false;
-
-                    for (int i = 0; i < result.Count; i++)
-                    {
-                        if (result[i].Name == "vi")
-                        {
-                            isVietnamese = true;
-                        }
-                    }
-
+                    bool isVietnamese = results.Any(x => x.Name.ToString().ToLower() == "vi");
                     if (!isVietnamese)
                     {
                         translatedText = TranslateText(sourceText);
-                    }
-                    else
-                    {
-                        translatedText = sourceText;
                     }
                 }
             }
