@@ -75,8 +75,8 @@ appModule.directive('ngBox', function () {
 appModule.directive('addClassToRoleFilter', ['$compile', function ($compile) {
 	return {
 		restrict: 'E',
-		link: function (scope) {
-			var button = $("button.multiSelectButton");
+		link: function (scope, iElement) {
+			var button = iElement.find("button.multiSelectButton");
 
 			button.removeClass('button').addClass('form-control');
 			$compile(button)(scope);
