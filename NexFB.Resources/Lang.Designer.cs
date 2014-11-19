@@ -1411,7 +1411,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No menu available!..
+        ///   Looks up a localized string similar to There is no menu available for.
         /// </summary>
         public static string NoMenuAvailableWarning {
             get {
