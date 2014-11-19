@@ -40,9 +40,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public MainDishesViewModel()
         {
-            EditMenu = new RelayCommand((x) => CanExecuteEditMenu(), (y) => ExecuteEditMenu(y));
-            ConfirmCommand = new RelayCommand((x) => CanExecuteConfirmCommand(), (y) => ExecuteConfirmCommand());
-            RemoveEmployeeOrder = new RelayCommand((x) => CanExecuteRemoveEmployeeOrder(), (y) => ExecuteRemoveEmployeeOrder(y));
+            EditMenu = new RelayCommand((y) => ExecuteEditMenu(y));
+            ConfirmCommand = new RelayCommand((y) => ExecuteConfirmCommand());
+            RemoveEmployeeOrder = new RelayCommand((y) => ExecuteRemoveEmployeeOrder(y));
             ShowOrderScreen();
         }
 
@@ -191,14 +191,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public void CheckAllowChangeLanguage()
         {
-            if (this.ObservableListEmployee.Count > 1)
-            {
-                MainViewModel.IsAllowChangeLanguage = false;
-            }
-            else
-            {
-                MainViewModel.IsAllowChangeLanguage = true;
-            }
+            MainViewModel.IsAllowChangeLanguage = this.ObservableListEmployee.Count < 2;
         }
 
         public void CancelTimerDispatcher()
@@ -223,21 +216,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
         #endregion
 
         #region Private Methods
-
-        private bool CanExecuteRemoveEmployeeOrder()
-        {
-            return true;
-        }
-
-        private bool CanExecuteEditMenu()
-        {
-            return true;
-        }
-
-        private bool CanExecuteConfirmCommand()
-        {
-            return true;
-        }
 
         /// <summary>
         /// Remove employee from list.

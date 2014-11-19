@@ -59,33 +59,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         #region Properties
 
-        public Thread Thread { get; set; }
-
-        public IHubProxy Proxy { get; set; }
-
-        public HubConnection Connection { get; set; }
-
-        public bool Active { get; set; }
-
-        public Thread ThreadLocal { get; set; }
-
-        public IHubProxy ProxyLocal { get; set; }
-
-        public HubConnection ConnectionLocal { get; set; }
-
-        public bool ActiveLocal { get; set; }
-
-        // Relay Command
-        public ICommand MainDishesCommand { get; set; }
-
-        public ICommand SideDishesCommand { get; set; }
-
-        public ICommand ChangeLanguageCommand { get; set; }
-
-        public ICommand CancelCommand { get; set; }
-
-        public ICommand ReturnStandByScreenCommand { get; set; }
-
         public ViewModelBase CurrentViewModel
         {
             get

@@ -39,12 +39,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             TakeAwayChecked = false;
             ShowOrderScreen();
+            InitializeRelayCommand();
             InitializeSideFoodData(orderOwner, mainViewModel);
-            AddFoodCommand = new RelayCommand((x) => CanExecuteAddFoodCommand(), (y) => ExecuteAddFoodCommand());
-            AddQuantityCommand = new RelayCommand((x) => CanExecuteAddQuantityCommand(), (y) => ExecuteAddQuantityCommand(y));
-            SubQuantityCommand = new RelayCommand((x) => CanExecuteSubQuantityCommand(), (y) => ExecuteSubQuantityCommand(y));
-            DeletedFoodCommand = new RelayCommand((x) => CanExecuteDeleteFoodCommand(), (y) => ExecuteDeleteFoodCommand(y));
-            SaveDataCommand = new RelayCommand((x) => CanExecuteSaveDataCommand(), (y) => ExecuteSaveDataCommand());
         }
 
         #region Properties
@@ -90,14 +86,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public void CheckAllowChangeLanguage()
         {
-            if (this.ObservableSideOrder.Count > 1)
-            {
-                MainViewModel.IsAllowChangeLanguage = false;
-            }
-            else
-            {
-                MainViewModel.IsAllowChangeLanguage = true;
-            }
+            MainViewModel.IsAllowChangeLanguage = this.ObservableSideOrder.Count < 2;
         }
 
         #endregion
@@ -122,21 +111,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
 
             return false;
-        }
-
-        private bool CanExecuteSubQuantityCommand()
-        {
-            return true;
-        }
-
-        private bool CanExecuteDeleteFoodCommand()
-        {
-            return true;
-        }
-
-        private bool CanExecuteSaveDataCommand()
-        {
-            return true;
         }
 
         /// <summary>
@@ -297,6 +271,15 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
 
             ExecuteAddFoodCommand();
+        }
+
+        private void InitializeRelayCommand()
+        {
+            SaveDataCommand = new RelayCommand((y) => ExecuteSaveDataCommand());
+            DeletedFoodCommand = new RelayCommand((y) => ExecuteDeleteFoodCommand(y));
+            SubQuantityCommand = new RelayCommand((y) => ExecuteSubQuantityCommand(y));
+            AddFoodCommand = new RelayCommand((x) => CanExecuteAddFoodCommand(), (y) => ExecuteAddFoodCommand());
+            AddQuantityCommand = new RelayCommand((x) => CanExecuteAddQuantityCommand(), (y) => ExecuteAddQuantityCommand(y));
         }
 
         /// <summary>

@@ -9,7 +9,10 @@
 
 namespace NexFB.WinAppSmartCard.ViewModels.Properties
 {
+    using System.Threading;
     using System.Windows;
+    using System.Windows.Input;
+    using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
 
@@ -36,6 +39,33 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
         private bool _isMainDishTab;
         private bool _isMainHub;
         private bool _isAllowChangeLanguage;
+
+        public Thread Thread { get; set; }
+
+        public IHubProxy Proxy { get; set; }
+
+        public HubConnection Connection { get; set; }
+
+        public bool Active { get; set; }
+
+        public Thread ThreadLocal { get; set; }
+
+        public IHubProxy ProxyLocal { get; set; }
+
+        public HubConnection ConnectionLocal { get; set; }
+
+        public bool ActiveLocal { get; set; }
+
+        // Relay Command
+        public ICommand MainDishesCommand { get; set; }
+
+        public ICommand SideDishesCommand { get; set; }
+
+        public ICommand ChangeLanguageCommand { get; set; }
+
+        public ICommand CancelCommand { get; set; }
+
+        public ICommand ReturnStandByScreenCommand { get; set; }
 
         public double ScreenWidth
         {
