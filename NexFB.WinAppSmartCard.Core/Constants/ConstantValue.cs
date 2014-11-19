@@ -68,6 +68,14 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const string SentenceMarginLessThan900 = "0,0,0,0";
 
+        public const string SideDishOrderDetails = "<User FoodId='{0}' Qty='{1}'></User>";
+
+        public const string MainDishOrderDetails = "<User SysId='{0}' MenuId='{1}' IsMainMenu='{2}'></User>";
+
+        public const string BeginRootTag = "<ROOT>";
+
+        public const string EndRootTag = "</ROOT>";
+
         private ConstantValue()
         {
         }

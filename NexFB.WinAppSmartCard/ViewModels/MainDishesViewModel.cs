@@ -32,9 +32,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
     /// </summary>
     public class MainDishesViewModel : MainDishModelProperty
     {
-        private const string _OrderDetails = "<User SysId='{0}' MenuId='{1}' IsMainMenu='{2}'></User>";
-        private const string _BeginRootTag = "<ROOT>";
-        private const string _EndRootTag = "</ROOT>";
         private static DispatcherTimer digitalClockDispatcher = new DispatcherTimer();
         private MainViewModel _mainViewModel;
 
@@ -277,7 +274,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
             else
             {
-                var orderDetails = new StringBuilder(_BeginRootTag);
+                var orderDetails = new StringBuilder(ConstantValue.BeginRootTag);
 
                 if (ObservableListEmployee.Any() && ObservableListEmployee.Count > 0)
                 {
@@ -286,11 +283,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         DisplayOrderedMeal(employee);
                         if (employee.SelectedValueDropDown == 0 || employee.SelectedValueDropDown == int.MaxValue)
                         {
-                            orderDetails.AppendFormat(_OrderDetails, employee.SysId, 1, 1);
+                            orderDetails.AppendFormat(ConstantValue.MainDishOrderDetails, employee.SysId, 1, 1);
                         }
                         else
                         {
-                            orderDetails.AppendFormat(_OrderDetails, employee.SysId, employee.SelectedValueDropDown, 0);
+                            orderDetails.AppendFormat(ConstantValue.MainDishOrderDetails, employee.SysId, employee.SelectedValueDropDown, 0);
                         }
                     }
                 }
@@ -300,7 +297,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     CreatedDate = DateTime.Now,
                     CreatedBy = OrderOwner.SysId,
                     TakeAway = false,
-                    ListDetail = orderDetails.Append(_EndRootTag).ToString()
+                    ListDetail = orderDetails.Append(ConstantValue.EndRootTag).ToString()
                 };
 
                 OrderResult result = this.SmartCardOrderService.InsertOrderFood(insertOrderCriteria);

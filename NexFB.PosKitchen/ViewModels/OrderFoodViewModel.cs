@@ -43,11 +43,6 @@ namespace NexFB.PosKitchen.ViewModels
     {
         #region Fields
 
-        private const string _AdditionalMenuTemplate = "<User SysId='{0}' FoodId='{1}' Qty='{2}'></User>";
-        private const string _MainMenuTemplate = "<User SysId='{0}' MenuId='{1}' Qty='{2}'></User>";
-        private const string _AlternativeMenuTemplate = "<User SysId='{0}' FoodId='{1}' Qty='{2}'></User>";
-        private const string _BeginRootTag = "<ROOT>";
-        private const string _EndRootTag = "</ROOT>";
         private static readonly OrderFoodData OrderFoodData = new OrderFoodData();
         private static readonly OrderFoodPreviewData OrderFoodPreviewData = new OrderFoodPreviewData();
         private static string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
@@ -549,9 +544,9 @@ namespace NexFB.PosKitchen.ViewModels
         public void ExecuteSaveOrderCommand(object value)
         {
             int locationId = EmployeeInfo.LocationId;
-            var mainMenuData = new StringBuilder(_BeginRootTag);
-            var alternativeMenuData = new StringBuilder(_BeginRootTag);
-            var additionalMenuData = new StringBuilder(_BeginRootTag);
+            var mainMenuData = new StringBuilder(Constant.BeginRootTag);
+            var alternativeMenuData = new StringBuilder(Constant.BeginRootTag);
+            var additionalMenuData = new StringBuilder(Constant.BeginRootTag);
 
             foreach (KitchenEmployeeInfo user in UserInGroup)
             {
@@ -563,11 +558,11 @@ namespace NexFB.PosKitchen.ViewModels
                     {
                         if (mainOrder.SelectedMenuItemId == int.MaxValue)
                         {
-                            mainMenuData.AppendFormat(_MainMenuTemplate, user.SysId, 1, mainOrder.SelectedMenuItemQuantity);
+                            mainMenuData.AppendFormat(Constant.MainMenuTemplate, user.SysId, 1, mainOrder.SelectedMenuItemQuantity);
                         }
                         else
                         {
-                            alternativeMenuData.AppendFormat(_AlternativeMenuTemplate, user.SysId, mainOrder.SelectedMenuItemId, mainOrder.SelectedMenuItemQuantity);
+                            alternativeMenuData.AppendFormat(Constant.AlternativeMenuTemplate, user.SysId, mainOrder.SelectedMenuItemId, mainOrder.SelectedMenuItemQuantity);
                         }
                     }
                 }
@@ -576,7 +571,7 @@ namespace NexFB.PosKitchen.ViewModels
                 {
                     foreach (EmployeeOrderDetails additionalOrder in additionalOrders)
                     {
-                        additionalMenuData.AppendFormat(_AdditionalMenuTemplate, user.SysId, additionalOrder.SelectedMenuItemId, additionalOrder.SelectedMenuItemQuantity);
+                        additionalMenuData.AppendFormat(Constant.AdditionalMenuTemplate, user.SysId, additionalOrder.SelectedMenuItemId, additionalOrder.SelectedMenuItemQuantity);
                     }
                 }
             }
@@ -1103,9 +1098,9 @@ namespace NexFB.PosKitchen.ViewModels
                 Owner = EmployeeInfo.SysId,
                 ModifiedDate = DateTime.Now,
                 LocationId = locationId > 0 ? locationId : LocationId,
-                Menus = mainMenuData.Append(_EndRootTag).ToString(),
-                Alternative = alternativeMenuData.Append(_EndRootTag).ToString(),
-                Foods = additionalMenuData.Append(_EndRootTag).ToString(),
+                Menus = mainMenuData.Append(Constant.EndRootTag).ToString(),
+                Alternative = alternativeMenuData.Append(Constant.EndRootTag).ToString(),
+                Foods = additionalMenuData.Append(Constant.EndRootTag).ToString(),
                 OrderId = ReferenceCode,
                 TakeAway = false
             };
@@ -1141,9 +1136,9 @@ namespace NexFB.PosKitchen.ViewModels
                 Owner = EmployeeInfo.SysId,
                 CreatedDate = DateTime.Now,
                 LocationId = locationId > 0 ? locationId : LocationId,
-                Menus = mainMenuData.Append(_EndRootTag).ToString(),
-                Alternative = alternativeMenuData.Append(_EndRootTag).ToString(),
-                Foods = additionalMenuData.Append(_EndRootTag).ToString(),
+                Menus = mainMenuData.Append(Constant.EndRootTag).ToString(),
+                Alternative = alternativeMenuData.Append(Constant.EndRootTag).ToString(),
+                Foods = additionalMenuData.Append(Constant.EndRootTag).ToString(),
                 TakeAway = false
             };
 

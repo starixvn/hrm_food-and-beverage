@@ -162,6 +162,16 @@ namespace NexFB.Pos.Core.Constants
 
         public const int VietNamCulture = 2;
 
+        public const string AdditionalMenuTemplate = "<User SysId='{0}' FoodId='{1}' Qty='{2}'></User>";
+
+        public const string MainMenuTemplate = "<User SysId='{0}' MenuId='{1}' Qty='{2}'></User>";
+
+        public const string AlternativeMenuTemplate = "<User SysId='{0}' FoodId='{1}' Qty='{2}'></User>";
+
+        public const string BeginRootTag = "<ROOT>";
+
+        public const string EndRootTag = "</ROOT>";
+
         private Constant()
         {
         }

@@ -29,9 +29,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
     /// </summary>
     public class SideDishesViewModel : SideDishModelProperty
     {
-        private const string _OrderDetails = "<User FoodId='{0}' Qty='{1}'></User>";
-        private const string _BeginRootTag = "<ROOT>";
-        private const string _EndRootTag = "</ROOT>";
         private static DispatcherTimer digitalClockDispatcher = new DispatcherTimer();
         private MainViewModel _mainViewModel;
 
@@ -126,7 +123,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             else
             {
                 ObservableSideOrder = new ObservableCollection<SideFood>(this.ObservableSideOrder.Where(x => x.SelectedValueDropDown != int.MaxValue));
-                var orderDetails = new StringBuilder(_BeginRootTag);
+                var orderDetails = new StringBuilder(ConstantValue.BeginRootTag);
                 if (ObservableSideOrder.Any() && ObservableSideOrder.Count > 0)
                 {
                     foreach (SideFood item in ObservableSideOrder)
@@ -136,7 +133,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                             if (!HasSelectedFood.Any(x => x == item.SelectedValueDropDown))
                             {
                                 orderDetails.AppendFormat(
-                                    _OrderDetails,
+                                    ConstantValue.SideDishOrderDetails,
                                     item.SelectedValueDropDown,
                                     ObservableSideOrder.Where(x => x.SelectedValueDropDown == item.SelectedValueDropDown).Sum(x => x.Quantity));
                             }
@@ -150,7 +147,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         CreatedBy = OrderOwner.SysId,
                         CreatedDate = DateTime.Now,
                         TakeAway = TakeAwayChecked,
-                        ListDetail = orderDetails.Append(_EndRootTag).ToString()
+                        ListDetail = orderDetails.Append(ConstantValue.EndRootTag).ToString()
                     };
                     OrderResult result = this.SmartCardOrderService.InsertOrderSideFood(insertSideOrderCriteria);
                     if (result.CommandResult.Code == 0)
