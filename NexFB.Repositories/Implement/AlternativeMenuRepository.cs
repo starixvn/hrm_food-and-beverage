@@ -58,16 +58,11 @@ namespace NexFB.Repositories.Implement
         {
             IList<EmployeeTypeModel> employeeTypes = new List<EmployeeTypeModel>();
 
-            foreach (dynamic rawEmployeeType in employeeeTypesOfMenu)
-            {
-                var employeeType = new EmployeeTypeModel
+            employeeTypes = employeeeTypesOfMenu.Select(x => new EmployeeTypeModel
                 {
-                    EmployeeTypeId = rawEmployeeType.EmployeeTypeID,
-                    EmployeeTypeName = rawEmployeeType.EmployeeTypeName
-                };
-
-                employeeTypes.Add(employeeType);
-            }
+                    EmployeeTypeId = x.EmployeeTypeID,
+                    EmployeeTypeName = x.EmployeeTypeName
+                }).ToList();
 
             return employeeTypes;
         }

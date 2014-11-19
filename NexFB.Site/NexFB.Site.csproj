@@ -220,8 +220,6 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <None Include="Service References\TranslatorService\configuration91.svcinfo" />
-    <None Include="Service References\TranslatorService\configuration.svcinfo" />
     <None Include="Service References\TranslatorService\NexFB.Site.TranslatorService.EmployeeCalendarModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -237,6 +235,9 @@
     <None Include="Service References\TranslatorService\NexFB.Site.TranslatorService.UserModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\TranslatorService\Service.disco" />
+    <None Include="Service References\TranslatorService\configuration91.svcinfo" />
+    <None Include="Service References\TranslatorService\configuration.svcinfo" />
     <None Include="Service References\TranslatorService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -453,16 +454,16 @@
     <Content Include="Src\App\ShiftMealMapping\shiftMealMapping.less" />
     <Content Include="Src\App\SetMenuManagement\setMenuManagement.less" />
     <Content Include="Src\App\ChangePassword\changePassword.less" />
-    <None Include="Service References\TranslatorService\NexFB.WebService.Models.xsd">
+    <None Include="Service References\TranslatorService\Service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\TranslatorService\service.wsdl" />
-    <None Include="Service References\TranslatorService\service.xsd">
+    <None Include="Service References\TranslatorService\Service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\TranslatorService\service1.xsd">
+    <None Include="Service References\TranslatorService\Service2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\TranslatorService\UserService.wsdl" />
     <None Include="Src\App\Report\report.less" />
     <Content Include="Src\App\GroupControl\groupControl.less" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup.less" />
@@ -612,7 +613,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52703</DevelopmentServerPort>
+          <DevelopmentServerPort>53288</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

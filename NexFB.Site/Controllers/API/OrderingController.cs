@@ -11,11 +11,11 @@ namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading;
     using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
-    using NexFB.Core.Translator;
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.Ordering;
     using NexFB.Criteria.SideDishManagement;
@@ -234,7 +234,7 @@ namespace NexFB.Site.Controllers.API
                 IsSavedOrder = false,
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
-                RemarkVNM = _orderService.TranslateRemark(model.Remark),
+                RemarkVNM = TranslateRemark(model.Remark),
                 Remark = model.Remark,
                 Members = model.Members,
                 TakeAway = model.TakeAway
@@ -310,7 +310,7 @@ namespace NexFB.Site.Controllers.API
                 CreatedDate = DateTime.Now,
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
-                RemarkVNM = _orderService.TranslateRemark(model.Remark),
+                RemarkVNM = TranslateRemark(model.Remark),
                 Remark = model.Remark,
                 Members = model.Members,
                 TakeAway = model.TakeAway
@@ -335,7 +335,7 @@ namespace NexFB.Site.Controllers.API
                 ModifiedDate = DateTime.Now,
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
-                RemarkVNM = _orderService.TranslateRemark(model.Remark),
+                RemarkVNM = TranslateRemark(model.Remark),
                 Remark = model.Remark,
                 Members = model.Members,
                 TakeAway = model.TakeAway
@@ -375,16 +375,32 @@ namespace NexFB.Site.Controllers.API
         /// </summary>
         /// <param name="remark">The remark of order.</param>
         /// <returns>The translated text.</returns>
-        public string TranslateRemark(string remark)
+        private string TranslateRemark(string remark)
         {
             string translatedText = string.Empty;
 
             if (!string.IsNullOrEmpty(remark))
             {
-                translatedText = _translatorService.GetTextTranslation(remark);
+                Thread translatorThread = new Thread(
+                    () =>
+                    {
+                        translatedText = ThreadTranslator(remark);
+                    });
+
+                translatorThread.Start();
+
+                if (!translatorThread.Join(TimeSpan.FromSeconds(3)))
+                {
+                    translatedText = remark;
+                }
             }
 
             return translatedText;
+        }
+
+        private string ThreadTranslator(string remark)
+        {
+            return _translatorService.GetTextTranslation(remark);
         }
     }
 }

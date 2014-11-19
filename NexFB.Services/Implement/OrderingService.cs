@@ -13,7 +13,6 @@ namespace NexFB.Services.Implement
     using Fanex.Common.Helper;
     using NexFB.Core.Models;
     using NexFB.Core.Services;
-    using NexFB.Core.Translator;
     using NexFB.Criteria.Ordering;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
@@ -346,23 +345,6 @@ namespace NexFB.Services.Implement
             }
 
             return order;
-        }
-
-        /// <summary>
-        /// Translate remark into vietnamese.
-        /// </summary>
-        /// <param name="remark">The remark of order.</param>
-        /// <returns>The translated text.</returns>
-        public string TranslateRemark(string remark)
-        {
-            string translatedText = string.Empty;
-
-            if (!string.IsNullOrEmpty(remark))
-            {
-                translatedText = FBTranslator.AutoTranslation(remark);
-            }
-
-            return translatedText;
         }
     }
 }
