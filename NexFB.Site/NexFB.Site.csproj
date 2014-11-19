@@ -98,7 +98,7 @@
     <Reference Include="MsieJavaScriptEngine">
       <HintPath>..\packages\MsieJavaScriptEngine.1.4.4\lib\net40\MsieJavaScriptEngine.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -108,6 +108,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -203,6 +205,11 @@
     </Compile>
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\TranslatorService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -213,6 +220,27 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="Service References\TranslatorService\configuration91.svcinfo" />
+    <None Include="Service References\TranslatorService\configuration.svcinfo" />
+    <None Include="Service References\TranslatorService\NexFB.Site.TranslatorService.EmployeeCalendarModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TranslatorService\NexFB.Site.TranslatorService.PhotoModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TranslatorService\NexFB.Site.TranslatorService.ShiftModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TranslatorService\NexFB.Site.TranslatorService.TeamModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TranslatorService\NexFB.Site.TranslatorService.UserModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TranslatorService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Src\App\AlternativeMenuManagement\alternativeMenuManagement-controller.js" />
     <Content Include="Src\App\AlternativeMenuManagement\alternativeMenuManagement-factory.js" />
     <Content Include="Src\App\AlternativeMenuManagement\alternativeMenuManagement-route.js" />
@@ -425,6 +453,16 @@
     <Content Include="Src\App\ShiftMealMapping\shiftMealMapping.less" />
     <Content Include="Src\App\SetMenuManagement\setMenuManagement.less" />
     <Content Include="Src\App\ChangePassword\changePassword.less" />
+    <None Include="Service References\TranslatorService\NexFB.WebService.Models.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TranslatorService\service.wsdl" />
+    <None Include="Service References\TranslatorService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TranslatorService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Src\App\Report\report.less" />
     <Content Include="Src\App\GroupControl\groupControl.less" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup.less" />
@@ -552,6 +590,12 @@
       <Name>NexFB.Web</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\TranslatorService\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -568,7 +612,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50547</DevelopmentServerPort>
+          <DevelopmentServerPort>52703</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

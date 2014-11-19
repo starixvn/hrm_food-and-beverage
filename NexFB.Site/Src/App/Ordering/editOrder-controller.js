@@ -63,18 +63,9 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	$scope.locations = locations;
 	$(".ddlLocation").width($(".ddlLocationNew").width());
 
-	var removeTakeAwayRemark = function (order) {
-		var removeTakeAwayRemark = order.Remark.replace($scope.takeAwayRemark, "");
-
-		if (order.Remark !== removeTakeAwayRemark) {
-			order.Remark = removeTakeAwayRemark.replace(",", "");
-		}
-	};
-
 	orderingFactory.getOrderById(orderId)
 		.success(function (data) {
 			$scope.order = data;
-			removeTakeAwayRemark($scope.order);
 			orderingService.setMemberEditOrder(data.Members);
 			orderingUtilities.setDefaultLocation($scope.locations, data.Location.LocationId);
 

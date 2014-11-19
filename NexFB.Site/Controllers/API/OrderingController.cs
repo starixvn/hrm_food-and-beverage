@@ -34,20 +34,23 @@ namespace NexFB.Site.Controllers.API
         private readonly IOrderingService _orderService;
         private readonly IEmployeeService _employeeService;
         private readonly ISideDishService _sideDishService;
+        private TranslatorService.UserServiceClient _translatorService;
 
         public OrderingController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public OrderingController(
             IOrderingService orderService,
             IEmployeeService employeeService,
-            ISideDishService sideDishService)
+            ISideDishService sideDishService,
+            TranslatorService.UserServiceClient translatorService)
         {
             _orderService = orderService ?? new OrderingService();
             _employeeService = employeeService ?? new EmployeeService();
             _sideDishService = sideDishService ?? new SideDishService();
+            _translatorService = translatorService ?? new TranslatorService.UserServiceClient();
         }
 
         /// <summary>
@@ -204,7 +207,7 @@ namespace NexFB.Site.Controllers.API
                 IsSavedOrder = model.IsSavedOrder,
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
-                RemarkVNM = _orderService.TranslateRemark(model.Remark),
+                RemarkVNM = TranslateRemark(model.Remark),
                 Remark = model.Remark,
                 Members = model.Members,
                 TakeAway = model.TakeAway
@@ -365,6 +368,23 @@ namespace NexFB.Site.Controllers.API
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Translate remark into vietnamese.
+        /// </summary>
+        /// <param name="remark">The remark of order.</param>
+        /// <returns>The translated text.</returns>
+        public string TranslateRemark(string remark)
+        {
+            string translatedText = string.Empty;
+
+            if (!string.IsNullOrEmpty(remark))
+            {
+                translatedText = _translatorService.GetTextTranslation(remark);
+            }
+
+            return translatedText;
         }
     }
 }
