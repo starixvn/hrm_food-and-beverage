@@ -41,6 +41,15 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		sideDishOrder: 2
 	};
 
+	$scope.orderStatus = {
+		New: 1,
+		Accepted: 2,
+		Reduced: 3,
+		Delivered: 4,
+		Edited: 5,
+		Rejected: 6
+	};
+
 	$scope.getMessage();
 	$scope.newOrder = [];
 	$scope.savedOrder = [];
@@ -103,7 +112,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 		var isRelatedCurrentUser = false;
 		if ($scope.currentUser.UserId === order.CreatorOrder.UserId) {
-			if ((order.Status.StatusId === 1 || order.Status.StatusId === 99) && order.Members.length === 0) {
+			if (order.Status.StatusId === $scope.orderStatus.New && order.Members.length === 0) {
 				isRelatedCurrentUser = false;
 			}
 			else {
@@ -134,8 +143,9 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			data = orderingUtilities.sortOrderIdByDesc(order, data);
 		}
 
-		// if Kitchen rejected order, get default order for employee
-		if (order.Status.StatusId === 6) {
+		// if Kitchen rejected order or kitchen delivered order and user can order again -> get default order for employee
+		if (order.Status.StatusId === $scope.orderStatus.Rejected || 
+			(order.Status.StatusId === $scope.orderStatus.Delivered && order.RawIsAllowOrder)) {
 			$scope.getDefaultForAddOrder();
 		}
 
@@ -218,7 +228,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					if (member.IsOrder) {
 						newMembers.push(member);
 					}
-					else if (member.IsAllowOrder && member.CurrentStatus.StatusId === 4) {
+					else if (member.IsAllowOrder && member.CurrentStatus.StatusId === $scope.orderStatus.Delivered) {
 						member.IsOrder = true;
 						newMembers.push(member);
 					}
@@ -351,7 +361,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 						if (value.IsAllowOrder) {
 							isValid = true;
 						}
-						else if (value.CurrentStatus && value.CurrentStatus.StatusId === 4) {
+						else if (value.CurrentStatus && value.CurrentStatus.StatusId === $scope.orderStatus.Delivered) {
 							isValid = false;
 
 							if (typeOrder === $scope.typeOrder.newOrder) {
@@ -508,13 +518,13 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 			$scope.modalRemoveMemberInstance.result.then(function () {
 				// New Order
-				if (typeOrder === 1) {
+				if (typeOrder === $scope.typeOrder.newOrder) {
 					$scope.newOrder.Members.splice(index, 1);
 					var key = 'alternativeMenu' + memberId;
 					$scope.alter[key] = false;
 				}
 				// Saved Order
-				else if (typeOrder === 2) {
+				else if (typeOrder === $scope.typeOrder.savedOrder) {
 					orderingFactory.removeMember(memberId).success(function (response) {
 						if (response.IsSuccessful) {
 							$scope.savedOrder.Members.splice(index, 1);
@@ -529,7 +539,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					});
 				}
 				// Side dish Order
-				else if (typeOrder === 3) {
+				else if (typeOrder === $scope.typeOrder.sideDishOrder) {
 					$scope.sideDishOrder.Members.splice(index, 1);
 				}
 			}, function () {

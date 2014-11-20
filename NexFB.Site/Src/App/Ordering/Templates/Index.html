@@ -65,7 +65,14 @@
                     </span>
                 </td>
                 <td>
-                    <span ng-show="order.CurrentMenus.length == 1">{{order.CurrentMenus[0].Name}}</span>
+					<div ng-show="order.CurrentMenus.length == 1">
+						<span ng-show="order.CurrentMenus[0].QuantityOrder > 1">
+							{{order.CurrentMenus[0].QuantityOrder}} x "{{order.CurrentMenus[0].Name}}"
+						</span>
+						<span ng-show="order.CurrentMenus[0].QuantityOrder == 1">
+							{{order.CurrentMenus[0].Name}}
+						</span>
+					</div>
 					<div ng-show="order.CurrentMenus.length > 1">
 						<ul class="list-order list-unstyled" ng-repeat="menu in order.CurrentMenus">
 							<li>{{menu.QuantityOrder}} x "{{menu.Name}}"</li>
@@ -207,7 +214,7 @@
 									</div>
                                 </td>
                                 <td class="text-center">
-                                    <a href="javascript:;" ng-click="removeMember($index, member.Member.UserId, 1)"
+                                    <a href="javascript:;" ng-click="removeMember($index, member.Member.UserId, typeOrder.newOrder)"
                                         class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
                                 </td>
                             </tr>
@@ -312,7 +319,7 @@
                                     <input type="checkbox" ng-model="member.IsOrder" ng-disabled="member.CurrentStatus != null && !member.IsAllowOrder" />
                                 </td>
                                 <td class="text-center">
-                                    <a ng-click="removeMember($index, member.Member.UserId, 2)" ng-show="member.Member.UserId != savedOrder.CreatorOrder.UserId"
+                                    <a ng-click="removeMember($index, member.Member.UserId, typeOrder.savedOrder)" ng-show="member.Member.UserId != savedOrder.CreatorOrder.UserId"
                                         href="javascript:;" class="glyphicon glyphicon-remove margin-icon icon-remove">
                                     </a>
                                 </td>
@@ -407,7 +414,7 @@
                                 </td>
                                 <td class="text-center">
 									<a class="glyphicon glyphicon-edit icon-edit" href="" ng-click="editSideDish(member)"></a>
-									<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="removeMember($index, member.Member.UserId, 3)"></a>
+									<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="removeMember($index, member.Member.UserId, typeOrder.sideDishOrder)"></a>
                                 </td>
                             </tr>
 							<tr class="total-price">

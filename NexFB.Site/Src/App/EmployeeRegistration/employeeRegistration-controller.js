@@ -690,11 +690,14 @@ isSerialRegistration, $modal, notificationFactory) {
 	}
 
 	$scope.validateMealRegistration = function (validChecked, validVegetarianCurrentDate) {
+		if (!validChecked) {
+			notificationFactory.error("InvalidInputRegisterMeal");
+		}
+		if (!validVegetarianCurrentDate) {
+			notificationFactory.error("RegisterVegetarianWarning");
+		}
 		if (validChecked && validVegetarianCurrentDate) {
 			$scope.$broadcast('getMealRegistration');
-		}
-		else if (!validChecked) {
-			notificationFactory.error("InvalidInputRegisterMeal");
 		}
 	};
 

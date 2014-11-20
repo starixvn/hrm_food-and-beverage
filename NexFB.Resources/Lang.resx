@@ -682,7 +682,7 @@
     <value>N/A</value>
   </data>
   <data name="DuplicateSetMenuMessage" xml:space="preserve">
-    <value>This set menu exists</value>
+    <value>This set menu already exists.</value>
   </data>
   <data name="CreateSetMenu" xml:space="preserve">
     <value>Create Set Menu</value>
@@ -827,5 +827,8 @@
   </data>
   <data name="FoodCodeRequire" xml:space="preserve">
     <value>The Food Code field is required!</value>
+  </data>
+  <data name="RegisterVegetarianWarning" xml:space="preserve">
+    <value>You must register a vegetarian meal at least 7 days ago.</value>
   </data>
 </root>

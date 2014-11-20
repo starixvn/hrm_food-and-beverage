@@ -601,7 +601,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This set menu exists.
+        ///   Looks up a localized string similar to This set menu already exists..
         /// </summary>
         public static string DuplicateSetMenuMessage {
             get {
@@ -1632,6 +1632,15 @@ namespace NexFB.Resources {
         public static string RegisterMeal {
             get {
                 return ResourceManager.GetString("RegisterMeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must register a vegetarian meal at least 7 days ago..
+        /// </summary>
+        public static string RegisterVegetarianWarning {
+            get {
+                return ResourceManager.GetString("RegisterVegetarianWarning", resourceCulture);
             }
         }
         

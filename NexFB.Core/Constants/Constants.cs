@@ -28,9 +28,11 @@ namespace NexFB.Core.Constants
 
         public const string TimeFormat = "HH:mm:ss";
 
-        public const string Hidden = "Hidden";
+        public const string Hidden = "Hidden";        
 
         public const string Visible = "Visible";
+        
+        public const int MaximumTimeTranslateRemark = 5;
 
         private Constants()
         {
