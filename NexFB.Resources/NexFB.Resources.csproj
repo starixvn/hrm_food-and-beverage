@@ -40,15 +40,15 @@
       <DependentUpon>Lang.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WinFormMainResource.en-US.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WinFormMainResource.en-US.resx</DependentUpon>
-    </Compile>
     <Compile Include="WinFormMainResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WinFormMainResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WinFormMainResource.vi-VN.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WinFormMainResource.vi-VN.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -57,14 +57,14 @@
       <LastGenOutput>Lang.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinFormMainResource.en-US.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>WinFormMainResource.en-US.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="WinFormMainResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WinFormMainResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinFormMainResource.vi-VN.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WinFormMainResource.vi-VN.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

@@ -7,7 +7,7 @@
 //   <change who="Bradley.Mac" date="2014.11.3">Created</change>
 // </history>
 
-namespace NexFB.PosKitchen.ViewModels.Partials.OrderFood
+namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
 {
     using System.Windows;
     using System.Windows.Forms;

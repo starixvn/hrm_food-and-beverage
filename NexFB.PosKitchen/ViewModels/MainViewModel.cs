@@ -25,7 +25,7 @@ namespace NexFB.PosKitchen.ViewModels
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.Constants;
     using NexFB.Pos.Core.InternetBased;
-    using NexFB.PosKitchen.ViewModels.Partials.Main;
+    using NexFB.PosKitchen.ViewModels.Properties.Main;
     using NexFB.PosKitchen.Views;
     using NexFB.Resources;
     using WPFMessageBoxCustomControl;

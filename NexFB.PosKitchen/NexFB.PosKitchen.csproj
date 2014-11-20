@@ -139,11 +139,11 @@
     <Compile Include="ViewModels\OrderFoodViewModel.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="ViewModels\Partials\Main\MainModelProperty.cs" />
-    <Compile Include="ViewModels\Partials\OrderFood\OrderFoodData.cs" />
-    <Compile Include="ViewModels\Partials\OrderFood\OrderFoodDynamicScreen.cs" />
-    <Compile Include="ViewModels\Partials\OrderFood\OrderFoodPreviewData.cs" />
-    <Compile Include="ViewModels\Partials\OrderFood\OrderFoodProperty.cs" />
+    <Compile Include="ViewModels\Properties\Main\MainModelProperty.cs" />
+    <Compile Include="ViewModels\Properties\OrderFood\OrderFoodData.cs" />
+    <Compile Include="ViewModels\Properties\OrderFood\OrderFoodDynamicScreen.cs" />
+    <Compile Include="ViewModels\Properties\OrderFood\OrderFoodPreviewData.cs" />
+    <Compile Include="ViewModels\Properties\OrderFood\OrderFoodProperty.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WaitingMealViewModel.cs" />

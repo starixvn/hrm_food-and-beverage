@@ -7,7 +7,7 @@
 //   <change who="Bradley.Mac" date="2014.10.10">Created</change>
 // </history>
 
-namespace NexFB.PosKitchen.ViewModels.Partials.OrderFood
+namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;

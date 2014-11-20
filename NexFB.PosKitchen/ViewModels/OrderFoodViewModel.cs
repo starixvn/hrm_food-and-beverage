@@ -29,7 +29,7 @@ namespace NexFB.PosKitchen.ViewModels
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.Constants;
     using NexFB.Pos.Core.Models;
-    using NexFB.PosKitchen.ViewModels.Partials.OrderFood;
+    using NexFB.PosKitchen.ViewModels.Properties.OrderFood;
     using NexFB.PosKitchen.Views;
     using NexFB.PosKitchen.Views.ManageOrder;
     using NexFB.Resources;
@@ -50,6 +50,7 @@ namespace NexFB.PosKitchen.ViewModels
         #endregion
 
         #region Constructors
+
         public OrderFoodViewModel(MainViewModel mainViewModel, Order order = null)
         {
             InitializeData(mainViewModel, order);
@@ -543,7 +544,7 @@ namespace NexFB.PosKitchen.ViewModels
         /// <param name="value">Current Screen.</param>
         public void ExecuteSaveOrderCommand(object value)
         {
-            int locationId = EmployeeInfo.LocationId;
+            int locationId = LocationId;
             var mainMenuData = new StringBuilder(Constant.BeginRootTag);
             var alternativeMenuData = new StringBuilder(Constant.BeginRootTag);
             var additionalMenuData = new StringBuilder(Constant.BeginRootTag);
@@ -1097,7 +1098,7 @@ namespace NexFB.PosKitchen.ViewModels
             {
                 Owner = EmployeeInfo.SysId,
                 ModifiedDate = DateTime.Now,
-                LocationId = locationId > 0 ? locationId : LocationId,
+                LocationId = locationId,
                 Menus = mainMenuData.Append(Constant.EndRootTag).ToString(),
                 Alternative = alternativeMenuData.Append(Constant.EndRootTag).ToString(),
                 Foods = additionalMenuData.Append(Constant.EndRootTag).ToString(),
@@ -1135,7 +1136,7 @@ namespace NexFB.PosKitchen.ViewModels
             {
                 Owner = EmployeeInfo.SysId,
                 CreatedDate = DateTime.Now,
-                LocationId = locationId > 0 ? locationId : LocationId,
+                LocationId = locationId,
                 Menus = mainMenuData.Append(Constant.EndRootTag).ToString(),
                 Alternative = alternativeMenuData.Append(Constant.EndRootTag).ToString(),
                 Foods = additionalMenuData.Append(Constant.EndRootTag).ToString(),
@@ -1293,6 +1294,7 @@ namespace NexFB.PosKitchen.ViewModels
                     IsDataEdit = false;
                     UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(data);
                     CommonKitchenOrder = OrderFoodData.GetAllGroup;
+                    LocationId = order.LocationId;
                     ExecutePickGroupCommand();
                     ShowGridDisplayUser();
                     OrderNo = order.OrderNo.ToString().PadLeft(3, '0');

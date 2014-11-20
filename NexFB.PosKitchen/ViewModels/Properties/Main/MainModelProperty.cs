@@ -7,7 +7,7 @@
 //   <change who="Bradley.Mac" date="2014.10.27">Created</change>
 // </history>
 
-namespace NexFB.PosKitchen.ViewModels.Partials.Main
+namespace NexFB.PosKitchen.ViewModels.Properties.Main
 {
     using System;
     using System.Configuration;

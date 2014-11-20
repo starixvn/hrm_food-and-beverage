@@ -15,6 +15,7 @@ namespace NexFB.Models.Kitchen
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
+    using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Resources;
 
@@ -77,6 +78,14 @@ namespace NexFB.Models.Kitchen
         public bool IsSelectedMemberInGroup { get; set; }
 
         public bool TakeAway { get; set; }
+
+        public string PhoneAvailable
+        {
+            get
+            {
+                return string.IsNullOrEmpty(Phone) ? Constants.Hidden : Constants.Visible;
+            }
+        }
 
         public string DisplayRemak
         {

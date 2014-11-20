@@ -118,97 +118,103 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add" xml:space="preserve">
-    <value>THÊM</value>
+    <value>ADD</value>
   </data>
   <data name="AlternativeFood" xml:space="preserve">
-    <value>Món Phụ</value>
+    <value>Alternative Food</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Quay lại</value>
+    <value>Back</value>
   </data>
   <data name="Black" xml:space="preserve">
     <value>Black</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>HỦY</value>
+    <value>CANCEL</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="CancelOrder" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="CannotFindEmployeeCode" xml:space="preserve">
-    <value>Mã nhân viên: #{0} không tồn tại. Vui lòng thử mã khác!</value>
+    <value>The member code: #{0} is not available. Please try another code!</value>
   </data>
   <data name="ChooseDishes" xml:space="preserve">
-    <value>Món Chính</value>
+    <value>Main Food</value>
   </data>
   <data name="CommaSeparated" xml:space="preserve">
     <value> , </value>
   </data>
   <data name="Confirmation" xml:space="preserve">
-    <value>Xác nhận</value>
+    <value>Confirmation</value>
   </data>
-  <data name="DeliverBilingual" xml:space="preserve">
-    <value>Xuất / Out : </value>
+  <data name="Dash" xml:space="preserve">
+    <value>- </value>
   </data>
   <data name="Delivered" xml:space="preserve">
-    <value>Đã xuất</value>
+    <value>Delivered</value>
   </data>
   <data name="Dishes" xml:space="preserve">
-    <value>Món ăn</value>
+    <value>Dishes</value>
   </data>
   <data name="DisplayDeletedName" xml:space="preserve">
-    <value>     (X) </value>
+    <value>     (X)</value>
   </data>
   <data name="DisplayDeletedOrder" xml:space="preserve">
     <value>---------------</value>
   </data>
   <data name="DuplicateEmployeeMessage" xml:space="preserve">
-    <value>Có {0} nhân viên trùng mã Code. Vui lòng lựa chọn 1 người!</value>
+    <value>There are {0} person have the same code. Please select one!</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Sửa</value>
+    <value>Edit</value>
   </data>
   <data name="EditBilingual" xml:space="preserve">
     <value>Sửa / Edited</value>
   </data>
   <data name="Export" xml:space="preserve">
-    <value>Xuất</value>
-  </data>
-  <data name="FloorBilingual" xml:space="preserve">
-    <value>Tầng / Floor : </value>
+    <value>Export</value>
   </data>
   <data name="Hidden" xml:space="preserve">
     <value>Hidden</value>
   </data>
   <data name="IllegalEmployeeCode" xml:space="preserve">
-    <value>Mã nhân viên phải có ít nhất 5 kí tự.</value>
+    <value>The employee code must contain 5 digits. Please try again!</value>
   </data>
   <data name="InvoicePrinting" xml:space="preserve">
-    <value>Hóa đơn đang được in.</value>
+    <value>The invoice is printing...</value>
   </data>
   <data name="KeypadInfo" xml:space="preserve">
-    <value>Nhập mã hoặc số lượng</value>
+    <value>Enter employee code or quantity order</value>
   </data>
   <data name="LocalPrinterError" xml:space="preserve">
-    <value>Máy in bị lỗi. vui lòng thông báo quản trị viên!</value>
+    <value>Local printer error. Please notify the Administrators!</value>
   </data>
   <data name="Main" xml:space="preserve">
-    <value> Chính</value>
+    <value> Main</value>
   </data>
   <data name="MainFood" xml:space="preserve">
-    <value>Món Chính</value>
+    <value>Main Food</value>
   </data>
   <data name="Member" xml:space="preserve">
-    <value>Thành viên</value>
+    <value>Member</value>
   </data>
   <data name="NameBilingual" xml:space="preserve">
-    <value>Tên / Name </value>
+    <value>Tên / Name</value>
   </data>
   <data name="Order" xml:space="preserve">
-    <value>Gọi món</value>
+    <value>Order</value>
   </data>
   <data name="OrderFoodConfirmation" xml:space="preserve">
-    <value>Xác nhận gọi món</value>
+    <value>Order Food Confirmation</value>
   </data>
   <data name="OrderOwner" xml:space="preserve">
-    <value>Người gọi món : </value>
+    <value>Order Owner :</value>
   </data>
   <data name="Parentheses1" xml:space="preserve">
     <value>( </value>
@@ -217,28 +223,28 @@
     <value> )</value>
   </data>
   <data name="Pending" xml:space="preserve">
-    <value>Chờ xuất</value>
+    <value>Pending</value>
   </data>
   <data name="PickGroup" xml:space="preserve">
-    <value>Chọn Nhóm</value>
+    <value>Pick Group</value>
   </data>
   <data name="PickRoom" xml:space="preserve">
-    <value>Chọn Phòng</value>
+    <value>Pick Room</value>
   </data>
   <data name="PlaceOfDelivery" xml:space="preserve">
-    <value>Nơi nhận : </value>
+    <value>Place Of Delivery : </value>
   </data>
   <data name="Print" xml:space="preserve">
-    <value>In</value>
+    <value>Print</value>
   </data>
   <data name="PrintInvoiceHeader" xml:space="preserve">
-    <value>Hóa đơn</value>
+    <value>Order Meal Invoice</value>
   </data>
   <data name="Quantity" xml:space="preserve">
-    <value>Số lượng : </value>
+    <value>Quantity : </value>
   </data>
   <data name="Quantity1" xml:space="preserve">
-    <value>Số lượng</value>
+    <value>Quantity</value>
   </data>
   <data name="QuantityPerOrder" xml:space="preserve">
     <value>  x  </value>
@@ -247,111 +253,105 @@
     <value>/</value>
   </data>
   <data name="Receive" xml:space="preserve">
-    <value>Nhận</value>
+    <value>Receive</value>
   </data>
   <data name="ReceiveBilingual" xml:space="preserve">
-    <value>Nhận / In : </value>
+    <value>Nhận / In :</value>
   </data>
   <data name="ReceiveUpper" xml:space="preserve">
-    <value>NHẬN</value>
+    <value>RECEIVE</value>
   </data>
   <data name="ReduceBilingual" xml:space="preserve">
-    <value>Giảm / Reduced</value>
+    <value>ReduceBilingual</value>
   </data>
   <data name="Ref" xml:space="preserve">
-    <value>Ref : </value>
+    <value>Ref :</value>
   </data>
   <data name="RemarkBilingual" xml:space="preserve">
-    <value>Ghi chú / Remark : </value>
+    <value>Ghi chú / Remark :</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Tìm kiếm...</value>
+    <value>Search...</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
-    <value>Chọn hết</value>
+    <value>Select All</value>
   </data>
   <data name="SetMenu" xml:space="preserve">
     <value>Set Menu / Qty</value>
   </data>
-  <data name="sharps" xml:space="preserve">
-    <value>#</value>
-  </data>
   <data name="Snack" xml:space="preserve">
-    <value> Phụ</value>
+    <value> Snack</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value> </value>
   </data>
   <data name="Statistic" xml:space="preserve">
-    <value>Thống kê</value>
+    <value>Statistic</value>
   </data>
   <data name="StrokeDash" xml:space="preserve">
     <value>2,2</value>
   </data>
+  <data name="TakeAway" xml:space="preserve">
+    <value>Take Away</value>
+  </data>
   <data name="Total" xml:space="preserve">
-    <value>Tổng cộng</value>
+    <value>Total</value>
   </data>
   <data name="TotalBilingual" xml:space="preserve">
-    <value>Tổng Cộng / Total : </value>
+    <value>Tổng Cộng / Total :</value>
   </data>
   <data name="UnitPrice" xml:space="preserve">
-    <value>Thành tiền</value>
+    <value>Unit Price</value>
   </data>
   <data name="Visible" xml:space="preserve">
     <value>Visible</value>
   </data>
   <data name="Waiting" xml:space="preserve">
-    <value>Đang chờ</value>
+    <value>Waiting</value>
   </data>
   <data name="White" xml:space="preserve">
     <value>White</value>
   </data>
-  <data name="Amount" xml:space="preserve">
-    <value>Thành Tiền / Amount</value>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
   </data>
-  <data name="Space" xml:space="preserve">
-    <value> </value>
-  </data>
-  <data name="Dash" xml:space="preserve">
-    <value>- </value>
+  <data name="DeliverBilingual" xml:space="preserve">
+    <value>Xuất / Out :</value>
   </data>
   <data name="Message_Atleast" xml:space="preserve">
-    <value>Vui lòng chọn ít nhất 1 món ăn</value>
+    <value>Please select at least 1 food item.</value>
   </data>
   <data name="Message_Atleast1" xml:space="preserve">
-    <value>Phiếu ăn phải có ít nhất 1 món ăn.</value>
+    <value>The order must contains at least 1 food item.</value>
   </data>
   <data name="Message_CancelOrder" xml:space="preserve">
-    <value>Bạn có chắc chắn muốn hủy gọi món không?</value>
-  </data>
-  <data name="Message_EmployeeExist" xml:space="preserve">
-    <value>Nhân viên này đã có tên trong phiếu ăn.</value>
-  </data>
-  <data name="Message_OrderSuccessful" xml:space="preserve">
-    <value>Gọi món thành công.</value>
-  </data>
-  <data name="Message_PickRoom" xml:space="preserve">
-    <value>Vui lòng lựa chọn phòng.</value>
-  </data>
-  <data name="Message_Unhandled" xml:space="preserve">
-    <value>Đã xảy ra lỗi không mong muốn. Vui lòng thông báo cho quản trị viên!</value>
-  </data>
-  <data name="ReceiveUpper1" xml:space="preserve">
-    <value>LƯU</value>
+    <value>Are you sure you want to cancel this order?</value>
   </data>
   <data name="Message_CancelOrderEdit" xml:space="preserve">
-    <value>Bạn có muốn hủy bỏ chỉnh sửa này không?</value>
+    <value>Do you want to cancel those changes?</value>
   </data>
-  <data name="CancelOrder" xml:space="preserve">
-    <value>Hủy</value>
+  <data name="Message_EmployeeExist" xml:space="preserve">
+    <value>This member is already included in this order.</value>
+  </data>
+  <data name="Message_OrderSuccessful" xml:space="preserve">
+    <value>Order successful.</value>
   </data>
   <data name="Message_PermanentCancelOrder" xml:space="preserve">
-    <value>Bạn có muốn hủy phiếu ăn này không?</value>
+    <value>Are you sure you want to cancel this order?</value>
   </data>
-  <data name="TakeAway" xml:space="preserve">
-    <value>Mang về</value>
+  <data name="Message_PickRoom" xml:space="preserve">
+    <value>Please select delivery area.</value>
   </data>
-  <data name="Canceled" xml:space="preserve">
-    <value>Đã hủy</value>
+  <data name="Message_Unhandled" xml:space="preserve">
+    <value>An unexpected error occurred. Please notify the administrator!</value>
   </data>
-  <data name="View" xml:space="preserve">
-    <value>Xem</value>
+  <data name="ReceiveUpper1" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="sharps" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="FloorBilingual" xml:space="preserve">
+    <value>Tầng / Floor :</value>
   </data>
 </root>

@@ -80,7 +80,7 @@
 										<Label Grid.Column="2" Content="-" />
 										<Label Grid.Column="3" Content="{Binding Path=NickName}" />
 										<Label Grid.Column="4" Content="{Binding Path=Code}" ContentStringFormat="#{0}" />
-										<Label Grid.Column="5">
+										<Label Grid.Column="5" Visibility="{Binding Path=PhoneAvailable}">
 											<StackPanel Orientation="Horizontal">
 												<Image Width="25" Height="25" Source="pack://application:,,,/Images/phone-icon.png" Stretch="Uniform"/>
 												<TextBlock Text="{Binding Path=Phone}" Margin="4,0,0,0"/>
