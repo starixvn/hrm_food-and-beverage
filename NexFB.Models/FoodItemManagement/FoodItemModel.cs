@@ -28,6 +28,8 @@ namespace NexFB.Models.FoodItemManagement
 
         public string FoodVnmName { get; set; }
 
+        public string FoodCode { get; set; }
+
         public string FoodPhoto { get; set; }
 
         public bool? IsActive { get; set; }

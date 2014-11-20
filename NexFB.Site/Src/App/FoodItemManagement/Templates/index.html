@@ -30,14 +30,14 @@
         <table class="table table-bordered table-striped col-sm-12">
             <thead>
 				<tr class="header-table">
-					<th colspan="6" ng-show="policy.permission == 2">
+					<th colspan="7" ng-show="policy.permission == 2">
 							<a class="pull-left button-icon create-button" ng-click="addFoodItem()" ng-if="policy.permission == 2">
 								<span class="icon plus"></span>
 								<span class="button-text" data-translate="CreateFoodItem"></span>
 							</a>
 						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
 					</th>
-					<th colspan="5" ng-show="policy.permission == 1">
+					<th colspan="6" ng-show="policy.permission == 1">
 						<div class="pull-left table-entries">
 							<a class="button-icon" ng-click="addFoodItem()" ng-if="policy.permission == 2">
 								<span class="icon plus"></span>
@@ -49,6 +49,7 @@
 				</tr>
                 <tr>
                     <th data-translate="SymbolCount"></th>
+					<th data-translate="FoodCode"></th>
                     <th data-translate="FoodItemVnm"></th>
                     <th data-translate="FoodItemEng"></th>
                     <th data-translate="SetMenu"></th>
@@ -59,6 +60,7 @@
 			<tbody>
 				<tr ng-repeat="food in pagedItems[currentPage] track by food.FoodId">
 					<td class="text-center" ng-bind="food.itemIndex + 1"></td>
+					<td class="center" ng-bind="food.FoodCode"></td>
 					<td ng-bind="food.FoodVnmName"></td>
 					<td ng-bind="food.FoodEngName"></td>
 					<td>
@@ -84,15 +86,15 @@
 					</td>
 				</tr>
 				<tr ng-show="foodItems.length == 0 || pagedItems.length == 0">
-					<td class="empty-result" colspan="6" data-translate="EmptyResult" ng-show="policy.permission == 2">
+					<td class="empty-result" colspan="7" data-translate="EmptyResult" ng-show="policy.permission == 2">
 					</td>
-					<td class="empty-result" colspan="5" data-translate="EmptyResult" ng-show="policy.permission == 1">
+					<td class="empty-result" colspan="6" data-translate="EmptyResult" ng-show="policy.permission == 1">
 					</td>
 				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="6" class="paging" >
+					<td colspan="7" class="paging" >
 						<div class="pull-left table-entries">
 							<span data-translate="Show"></span>
 							<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"

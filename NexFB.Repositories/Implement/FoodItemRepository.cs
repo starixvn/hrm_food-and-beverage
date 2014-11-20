@@ -57,17 +57,12 @@ namespace NexFB.Repositories.Implement
             {
                 IEnumerable<RawFoodSetMenuModel> setMenuOfItem = foodMenus.Where(x => x.FoodId == foodItem.FoodId);
 
-                foreach (RawFoodSetMenuModel rawSetMenu in setMenuOfItem)
+                foodItem.SetMenus = setMenuOfItem.Select(x => new SetMenuModel
                 {
-                    var setMenu = new SetMenuModel
-                    {
-                        SetMenuId = rawSetMenu.SetMenuId,
-                        SetMenuVnmName = rawSetMenu.SetMenuVnmName,
-                        SetMenuEngName = rawSetMenu.SetMenuEngName
-                    };
-
-                    foodItem.SetMenus.Add(setMenu);
-                }
+                    SetMenuId = x.SetMenuId,
+                    SetMenuVnmName = x.SetMenuVnmName,
+                    SetMenuEngName = x.SetMenuEngName
+                }).ToList();
             }
 
             return foodItems;

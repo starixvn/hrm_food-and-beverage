@@ -84,13 +84,12 @@ function ($scope, $modalInstance, setMenuItems, foodItem, foodItemUtilities) {
 	/*
 	** Update food item.
 	*/
-	foodItemUtilities.showMessageValidateFoodItem($scope);
-
 	$scope.updateFoodItem = function (food) {
 		var editedFood = {
 			foodId: food.FoodId,
 			foodVnmName: food.FoodVnmName,
 			foodEngName: food.FoodEngName,
+			foodCode: food.FoodCode,
 			isActive: food.IsActive,
 			setMenuId: foodItemUtilities.createSetMenuId(food.setMenuIds)
 		};

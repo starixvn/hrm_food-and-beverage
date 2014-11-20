@@ -822,4 +822,10 @@
   <data name="TakeAwayRemark" xml:space="preserve">
     <value>Take away</value>
   </data>
+  <data name="FoodCode" xml:space="preserve">
+    <value>Food Code</value>
+  </data>
+  <data name="FoodCodeRequire" xml:space="preserve">
+    <value>The Food Code field is required!</value>
+  </data>
 </root>

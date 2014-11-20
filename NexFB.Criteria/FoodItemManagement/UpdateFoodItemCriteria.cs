@@ -26,6 +26,8 @@ namespace NexFB.Criteria.FoodItemManagement
 
         public string FoodEngName { get; set; }
 
+        public string FoodCode { get; set; }
+
         public string FoodPhoto { get; set; }
 
         public bool? IsActive { get; set; }
@@ -41,7 +43,8 @@ namespace NexFB.Criteria.FoodItemManagement
 
         public override bool IsValid()
         {
-            return FoodId > 0;
+            return FoodId > 0 && !string.IsNullOrEmpty(FoodEngName) && 
+                !string.IsNullOrEmpty(FoodVnmName) && !string.IsNullOrEmpty(FoodCode);
         }
     }
 }

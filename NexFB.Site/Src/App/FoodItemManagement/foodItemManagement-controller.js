@@ -131,6 +131,7 @@ ErrorFactory) {
 	var updateChangedFoodItem = function (food, changedFood) {
 		food.FoodVnmName = changedFood.FoodVnmName;
 		food.FoodEngName = changedFood.FoodEngName;
+		food.FoodCode = changedFood.FoodCode;
 		food.SetMenus = changedFood.SetMenus;
 		food.IsActive = changedFood.IsActive;
 	};

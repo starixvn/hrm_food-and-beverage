@@ -23,6 +23,8 @@ namespace NexFB.Criteria.FoodItemManagement
 
         public string FoodPhoto { get; set; }
 
+        public string FoodCode { get; set; }
+
         [SpParam(SqlParamName = "FoodSetID")]
         public string SetMenuId { get; set; }
 
@@ -39,7 +41,8 @@ namespace NexFB.Criteria.FoodItemManagement
 
         public override bool IsValid()
         {
-            return !string.IsNullOrEmpty(FoodEngName) && !string.IsNullOrEmpty(FoodVnmName);
+            return !string.IsNullOrEmpty(FoodEngName) && !string.IsNullOrEmpty(FoodVnmName) && 
+                        !string.IsNullOrEmpty(FoodCode);
         }
     }
 }

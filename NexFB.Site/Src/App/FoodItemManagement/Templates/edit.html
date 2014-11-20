@@ -9,16 +9,19 @@
          <form novalidate class="form-inline form-fooditem" role="form" name="form" ng-init="setFormScope(this)">
             <div class="form-group required">
                 <label class="control-label" data-translate="FoodItemVnm"></label>
-                <input type="text" class="form-control" maxlength="300" ng-model="food.FoodVnmName" name="vnmName" required />
+                <input type="text" class="form-control" maxlength="300" ng-model="food.FoodVnmName" />
             </div>
             <div class="form-group required">
                 <label class="control-label" data-translate="FoodEngName"></label>
-                <input type="text" class="form-control" maxlength="300" ng-model="food.FoodEngName" name="engName" required />
+                <input type="text" class="form-control" maxlength="300" ng-model="food.FoodEngName" />
             </div>
             <div class="form-group">
                 <label class="checkbox"><input type="checkbox" ng-model="food.IsActive"/> {{"Active" | translate}}</label>
-                
             </div>
+			<div class="form-group required">
+				<label class="control-label" data-translate="FoodCode"></label>
+				<input type="text" class="form-control" maxlength="300" ng-model="food.FoodCode" />
+			</div>
         </form>
         <div class="food-item">
             <div>{{"SetMenu" | translate}}</div>

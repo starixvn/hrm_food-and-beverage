@@ -30,36 +30,27 @@ foodItemManagementModule.factory('foodItemUtilities',
 	var utility = {};
 
 	utility.validateFoodItem = function (food) {
+		var isValid = true;
+
 		if (!food) {
-			return false;
+			isValid = false;
 		}
 		else {
-			if (!food.foodVnmName) {
-				return false;
+			if (!food.foodCode) {
+				isValid = false;
+				notificationFactory.error("FoodCodeRequire");
 			}
-
 			if (!food.foodEngName) {
-				return false;
+				isValid = false;
+				notificationFactory.error("FoodEngNameRequire");
+			}
+			if (!food.foodVnmName) {
+				isValid = false;
+				notificationFactory.error("FoodVnmNameRequire");
 			}
 		}
 
-		return true;
-	};
-
-	utility.showMessageValidateFoodItem = function (scope) {
-		scope.$watchCollection('[submitted, formScope.form.$invalid, \
-			formScope.form.vnmName.$error.required, formScope.form.engName.$error.required]', function (newVals) {
-				if (newVals[0] && newVals[1]) {
-					if (newVals[3]) {
-						notificationFactory.error("FoodEngNameRequire");
-					}
-					if (newVals[2]) {
-						notificationFactory.error("FoodVnmNameRequire");
-					}
-
-					scope.submitted = false;
-				}
-			});
+		return isValid;
 	};
 
 	utility.createSetMenuId = function (setMenuIds) {

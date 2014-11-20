@@ -13,6 +13,7 @@ foodItemUtilities) {
 	$scope.food = {
 		foodEngName: '',
 		foodVnmName: '',
+		foodCode: '',
 		isActive: true,
 		setMenuIds: [],
 		setMenuId: ''
@@ -42,8 +43,6 @@ foodItemUtilities) {
 	/*
 	** Create food item.
 	*/
-	foodItemUtilities.showMessageValidateFoodItem($scope);
-
 	$scope.create = function (food) {
 		$scope.submitted = true;
 		$scope.disabledSubmitButton = true;

@@ -389,7 +389,7 @@ namespace NexFB.Site.Controllers.API
 
                 translatorThread.Start();
 
-                if (!translatorThread.Join(TimeSpan.FromSeconds(3)))
+                if (!translatorThread.Join(TimeSpan.FromSeconds(4)))
                 {
                     translatedText = remark;
                 }

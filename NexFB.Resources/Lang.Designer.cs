@@ -718,6 +718,24 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Food Code.
+        /// </summary>
+        public static string FoodCode {
+            get {
+                return ResourceManager.GetString("FoodCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Food Code field is required!.
+        /// </summary>
+        public static string FoodCodeRequire {
+            get {
+                return ResourceManager.GetString("FoodCodeRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (English).
         /// </summary>
         public static string FoodEngName {
