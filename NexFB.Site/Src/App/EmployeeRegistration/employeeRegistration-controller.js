@@ -37,6 +37,15 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	};
 
 	/*
+	** Get setting of register meal.
+	*/
+	mealRegistrationFactory.getRegisterMealSetting().success(function (setting) {
+		$scope.registerSetting = setting;
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
+	});
+
+	/*
 	** Open pop-up calendar.
 	*/
 	$scope.open = function ($event) {
@@ -232,20 +241,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	*/
 	var updatedRegistrationMealToWeek = function (week, meals) {
 		angular.forEach(week.WeekMeals, function (date) {
-			if (!date.IsDisabled) {
-				var toDay = new Date(),
-					currentDate = new Date(date.WorkDate);
-
-				// Don't update Sunday and Saturday
-				if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
-					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
-						mealRegistrationUtilities.updateMealForToDay(date, meals, $scope.mealTimesheet);
-					}
-					else {
-						date.Meals = angular.copy(meals);
-					}
-				}
-			}
+			mealRegistrationUtilities.updateMealForDate(date, meals, $scope.mealTimesheet, $scope.registerSetting);
 		});
 	};
 
@@ -271,7 +267,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 					return $scope.mealTimesheet;
 				},
 				isSameMeal: function () {
-					return mealRegistrationUtilities.checkSameMealInWeek(week, $scope.mealTimesheet);
+					var sealedDate = mealRegistrationUtilities.getDateNotToday(week);
+					return mealRegistrationUtilities.checkSameMealInWeek(week, $scope.mealTimesheet, sealedDate);
 				},
 				mode: function () {
 					return 'month';
@@ -388,18 +385,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	var updatedRegistrationMealToSameDateInWeek = function (weeks, meals, weekDayIndex) {
 		angular.forEach(weeks, function (week) {
 			var date = week.WeekMeals[weekDayIndex];
-
-			if (!date.IsDisabled) {
-				var toDay = new Date(),
-					currentDate = new Date(date.WorkDate);
-
-				if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate()) {
-					mealRegistrationUtilities.updateMealForToDay(date, meals, $scope.mealTimesheet);
-				}
-				else {
-					date.Meals = angular.copy(meals);
-				}
-			}
+			mealRegistrationUtilities.updateMealForDate(date, meals, $scope.mealTimesheet);
 		});
 	};
 
@@ -678,7 +664,8 @@ isSerialRegistration, $modal, notificationFactory) {
 		4: true
 	};
 
-	$scope.currentDate = {};
+	$scope.vegetarianDate = {};
+	$scope.nonVegetarianDate = {};
 
 	if (mode === 'month') {
 		$scope.workDate = workDate;

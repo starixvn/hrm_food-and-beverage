@@ -1,5 +1,6 @@
 ﻿'use strict';
 /*global mealRegistrationModule*/
+/*jshint maxdepth:6 */
 
 mealRegistrationModule.factory('mealRegistrationFactory', ['$http', function ($http) {
 	return {
@@ -24,6 +25,9 @@ mealRegistrationModule.factory('mealRegistrationFactory', ['$http', function ($h
 		},
 		getUserPermissionOnRegistration: function () {
 			return $http.get('/api/MealRegistration/GetUserPermissionOnRegistration');
+		},
+		getRegisterMealSetting: function () {
+			return $http.get('/api/MealRegistration/GetRegisterMealSetting');
 		}
 	};
 } ]);
@@ -73,13 +77,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 				// Don't effect Sunday and Saturday
 				if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
 					var workDate = !date.IsDisabled ? date.WorkDate.toString() : '';
-
-					if (!onDate) {
-						onDate = workDate;
-					}
-					else {
-						onDate += ',' + workDate;
-					}
+					onDate = onDate ? onDate + ',' + workDate : workDate;
 				}
 			}
 		});
@@ -92,13 +90,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 
 		angular.forEach(weeks, function (week) {
 			var registerDateInWeek = utility.getRegisterDateInWeek(week);
-
-			if (!onDate) {
-				onDate = registerDateInWeek;
-			}
-			else {
-				onDate += ',' + registerDateInWeek;
-			}
+			onDate = onDate ? onDate + ',' + registerDateInWeek : registerDateInWeek;
 		});
 
 		return onDate;
@@ -133,7 +125,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		return true;
 	};
 
-	utility.updateMealForToDay = function (date, meals, mealTimesheet) {
+	var updateMealForToDay = function (date, meals, mealTimesheet) {
 		for (var i = 0; i < date.Meals.length; i++) {
 			var meal = date.Meals[i],
 				updateMeal = meals[i];
@@ -180,6 +172,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 	utility.getFullNameWeekday = function (date) {
 		var fullName = '';
 
+		//TODO : get text from resources.
 		switch (date) {
 			case 'Sun':
 				fullName = 'Every Sunday';
@@ -210,6 +203,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 	utility.getFullNameWeekdayFromIndex = function (weekDayIndex) {
 		var fullName = '';
 
+		//TODO : get text from resources.
 		switch (weekDayIndex) {
 			case 0:
 				fullName = 'Sundays';
@@ -245,13 +239,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 
 			if (!date.IsDisabled) {
 				var workDate = date.WorkDate.toString();
-
-				if (!onDate) {
-					onDate = workDate;
-				}
-				else {
-					onDate += ',' + workDate;
-				}
+				onDate = onDate ? onDate + ',' + workDate : workDate;
 			}
 		});
 
@@ -349,7 +337,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 
 			if (!date.IsDisabled) {
 				if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
-					if (toDay.getFullYear() !== currentDate.getFullYear() || toDay.getMonth() !== currentDate.getMonth() || 
+					if (toDay.getFullYear() !== currentDate.getFullYear() || toDay.getMonth() !== currentDate.getMonth() ||
 							toDay.getDate() !== currentDate.getDate()) {
 						resultDate = date;
 						i = allDateInWeek.length;
@@ -372,7 +360,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 
 			if (!date.IsDisabled) {
 				if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
-					if (toDay.getFullYear() === currentDate.getFullYear() || toDay.getMonth() === currentDate.getMonth() && 
+					if (toDay.getFullYear() === currentDate.getFullYear() || toDay.getMonth() === currentDate.getMonth() &&
 							toDay.getDate() === currentDate.getDate()) {
 						resultDate = date;
 						i = allDateInWeek.length;
@@ -413,11 +401,10 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		return isSameMeal;
 	};
 
-	utility.checkSameMealInWeek = function (week, mealTimesheet) {
+	utility.checkSameMealInWeek = function (week, mealTimesheet, sealedDate) {
 		var isSameMeal = true,
 			length = week.WeekMeals.length,
-			toDay = new Date(),
-			sealedDate = utility.getDateNotToday(week);
+			toDay = new Date();
 
 		if (sealedDate) {
 			// Don't check Sunday and Saturday
@@ -480,13 +467,21 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 	};
 
 	utility.checkSameMealInMonth = function (weeks, mealTimesheet) {
-		var isSameMeal = true;
+		var isSameMeal = true,
+			sealedDate = '';
 
-		angular.forEach(weeks, function (week) {
-			var checked = utility.checkSameMealInWeek(week, mealTimesheet);
+		angular.forEach(weeks, function (week, index) {
+			if (index === 0 || !sealedDate) {
+				sealedDate = utility.getDateNotToday(week);
+			}
+
+			var checked = utility.checkSameMealInWeek(week, mealTimesheet, sealedDate);
 
 			if (!checked) {
 				isSameMeal = false;
+			}
+			else if (!sealedDate) {
+				sealedDate = utility.getDateIsToday(week);
 			}
 		});
 
@@ -503,7 +498,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 				currentDate = new Date(date.WorkDate);
 
 			if (!date.IsDisabled) {
-				if (toDay.getFullYear() !== currentDate.getFullYear() || toDay.getMonth() !== currentDate.getMonth() || 
+				if (toDay.getFullYear() !== currentDate.getFullYear() || toDay.getMonth() !== currentDate.getMonth() ||
 						toDay.getDate() !== currentDate.getDate()) {
 					resultDate = date;
 					i = weeks.length;
@@ -587,6 +582,39 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		}
 
 		return resultDate;
+	};
+
+	utility.updateMealForDate = function (date, meals, mealTimesheet, registerSetting) {
+		if (!date.IsDisabled) {
+			var toDay = new Date(),
+				currentDate = new Date(date.WorkDate);
+
+			// Don't update Sunday and Saturday
+			if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
+				if (toDay.getMonth() === currentDate.getMonth() && toDay.getFullYear() === currentDate.getFullYear()) {
+					if (toDay.getDate() === currentDate.getDate()) {
+						updateMealForToDay(date, meals, mealTimesheet);
+					}
+					else if (currentDate.getDate() > toDay.getDate() && currentDate.getDate() < toDay.getDate() + registerSetting.Order) {
+						for (var i = 0; i < meals.length; i++) {
+							var updateMeal = meals[i];
+
+							if (!updateMeal.IsVegetarian) {
+								date.Meals[i] = angular.copy(updateMeal);
+							}
+						}
+					}
+					else {
+						date.Meals = angular.copy(meals);
+					}
+				}
+				else {
+					date.Meals = angular.copy(meals);
+				}
+			}
+		}
+
+		return date;
 	};
 
 	return utility;

@@ -129,6 +129,24 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
+        /// Get setting of register meal.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The setting model.</returns>
+        public RegisterMealSetting GetRegisterMealSetting(GetRegisterMealSettingCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            RegisterMealSetting setting = new RegisterMealSetting();
+
+            if (criteria.IsValid())
+            {
+                setting = GetDataEntity<RegisterMealSetting>(criteria);
+            }
+
+            return setting;
+        }
+
+        /// <summary>
         /// Group meal by date.
         /// </summary>
         /// <param name="rawDefaultMeals">The list meal.</param>

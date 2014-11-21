@@ -1,5 +1,6 @@
 ﻿'use strict';
 /*global orderingModule*/
+/*jshint maxdepth:6 */
 
 orderingModule.controller("OrderingController",
 ['$translate', '$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService',
@@ -143,9 +144,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			data = orderingUtilities.sortOrderIdByDesc(order, data);
 		}
 
-		// if Kitchen rejected order or kitchen delivered order and user can order again -> get default order for employee
-		if (order.Status.StatusId === $scope.orderStatus.Rejected || 
-			(order.Status.StatusId === $scope.orderStatus.Delivered && order.RawIsAllowOrder)) {
+		// if Kitchen rejected order or user can order again -> get default order for employee
+		if (order.Status.StatusId === $scope.orderStatus.Rejected || order.RawIsAllowOrder) {
 			$scope.getDefaultForAddOrder();
 		}
 
@@ -228,7 +228,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					if (member.IsOrder) {
 						newMembers.push(member);
 					}
-					else if (member.IsAllowOrder && member.CurrentStatus.StatusId === $scope.orderStatus.Delivered) {
+					else if (member.IsAllowOrder) {
 						member.IsOrder = true;
 						newMembers.push(member);
 					}
@@ -348,20 +348,17 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				notificationFactory.error("InvalidInputData");
 			}
 			else {
-				isValid = false;
 				var isGroupOverOrder = false,
 					isMemberOverOrder = false;
 
-				angular.forEach(order.Members, function (value) {
-					if (value.IsOrder) {
-						isValid = true;
-					}
+				for (var i = 0; i < order.Members.length; i++) {
+					var value = order.Members[i];
 
-					if (typeOrder !== $scope.typeOrder.sideDishOrder) {
+					if (value.IsOrder && typeOrder !== $scope.typeOrder.sideDishOrder) {
 						if (value.IsAllowOrder) {
 							isValid = true;
 						}
-						else if (value.CurrentStatus && value.CurrentStatus.StatusId === $scope.orderStatus.Delivered) {
+						else if (value.CurrentStatus) {
 							isValid = false;
 
 							if (typeOrder === $scope.typeOrder.newOrder) {
@@ -370,9 +367,11 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 							else if (typeOrder === $scope.typeOrder.savedOrder) {
 								isGroupOverOrder = true;
 							}
+
+							i = order.Members.length;
 						}
 					}
-				});
+				}
 
 				if (isMemberOverOrder) {
 					notificationFactory.error("MemberOverOrderWarning");

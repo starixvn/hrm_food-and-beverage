@@ -55,3 +55,5 @@ using System.Diagnostics.CodeAnalysis;
     Target = "NexFB.Site.Controllers.API.AlternativeMenuController.#GetUserPermissionOnAlternativeMenu()", Justification = "Reviewed. Suppression is OK here.")]
 [module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
     Target = "NexFB.Site.Controllers.API.ShiftMealMappingController.#GetUserPermissionOnShiftMealMapping()", Justification = "Reviewed. Suppression is OK here.")]
+[module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
+    Target = "NexFB.Site.Controllers.API.MealRegistrationController.#GetRegisterMealSetting()", Justification = "Reviewed. Suppression is OK here.")]

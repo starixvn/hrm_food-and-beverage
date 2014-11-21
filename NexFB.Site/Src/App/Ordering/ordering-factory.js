@@ -145,6 +145,8 @@ orderingModule.factory("orderingFactory",
 
 		utilities.setDefaultLocation = function (locations, locationId) {
 			angular.forEach(locations, function (value) {
+				value.ticked = false;
+
 				if (value.LocationId === locationId) {
 					value.ticked = true;
 				}

@@ -65,10 +65,15 @@
                             <td ng-bind="member.Member.NickName">
                             </td>
                             <td>
-								<div ng-show="order.OrderFrom == 'W' && order.Status.StatusId != 5">
+								<div ng-show="order.OrderFrom == 'W'">
 									<div ng-show="!order.IsSideDishOrder">
 										<div ng-show="!alterEdit.alternativeMenu{{member.Member.UserId}}">
-											<span>{{member.Menus[0].Name}}</span>
+											<div ng-show="member.Menus.length > 1 || member.Menus[0].QuantityOrder > 1">
+												<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
+													<li>{{menu.QuantityOrder}} x "{{menu.Name}}"</li>
+												</ul>
+											</div>
+											<span ng-show="member.Menus.length == 1 && member.Menus[0].QuantityOrder == 1">{{member.Menus[0].Name}}</span>
 											<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, $index)" 
 												ng-show="member.Menus[0].MenuId != -1 && member.Menus[0].IsHaveAlternativeMenu && order.Status.StatusId == 1 && 
 													((member.Member.UserId != order.CreatorOrder.UserId 
@@ -89,7 +94,7 @@
 									</div>
 									<span ng-show="order.IsSideDishOrder && !member.Menus" data-translate="SelectFoodItem"></span>
 								</div>
-								<div ng-show="order.OrderFrom == 'P' || order.OrderFrom == 'P-U' || order.Status.StatusId == 5">
+								<div ng-show="order.OrderFrom == 'P' || order.OrderFrom == 'P-U'">
 									<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
 											<li>{{menu.QuantityOrder}} x "{{menu.Name}}"</li>
 									</ul>

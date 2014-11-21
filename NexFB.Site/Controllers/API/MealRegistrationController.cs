@@ -131,5 +131,13 @@ namespace NexFB.Site.Controllers.API
             int policy = _webCommonService.GetPermission(FBFunctionKey.Registration);
             return policy;
         }
+
+        public RegisterMealSetting GetRegisterMealSetting()
+        {
+            var criteria = new GetRegisterMealSettingCriteria();
+            RegisterMealSetting setting = _mealRegistrationService.GetRegisterMealSetting(criteria);
+
+            return setting;
+        }
     }
 }

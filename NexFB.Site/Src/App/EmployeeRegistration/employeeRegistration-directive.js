@@ -140,7 +140,7 @@ mealRegistrationModule.directive('getClassByName', function () {
 });
 
 // In daily registration form of the current date, Vegetarian options are disabled
-mealRegistrationModule.directive('disableCurrentDay', function () {
+mealRegistrationModule.directive('disableVegetarianDay', function () {
 	return {
 		restrict: 'A',
 		link: function (scope) {
@@ -156,7 +156,11 @@ mealRegistrationModule.directive('disableCurrentDay', function () {
 						currentDate = currentWorkDate.getDate();
 
 					if (currentDate >= toDate && currentDate < toDate + 7) {
-						scope.currentDate[meal.MealId] = true;
+						scope.vegetarianDate[meal.MealId] = true;
+
+						if (currentDate === toDate && meal.IsVegetarian) {
+							scope.nonVegetarianDate[meal.MealId] = true;
+						}
 					}
 				}
 			}

@@ -28,5 +28,7 @@ namespace NexFB.Services.Interface
         CommandResult RegisterMealByDefault(SetRegisterMealByDefaultCriteria criteria);
 
         CommandResult ApplyRegisterMealFromTemplate(ApplyRegisterMealFromTemplateCriteria criteria);
+
+        RegisterMealSetting GetRegisterMealSetting(GetRegisterMealSettingCriteria criteria);
     }
 }
