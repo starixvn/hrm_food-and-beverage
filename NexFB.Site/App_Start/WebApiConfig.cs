@@ -6,10 +6,11 @@
 // <history>
 //   <change who="Josh.Phan" date="8/21/2014 3:32:16 PM">Created.</change>
 // </history>
- 
+
 namespace NexFB.Site
 {
     using System.Web.Http;
+    using NexFB.Web.Attributes;
 
     /// <summary>
     /// Web API config.
@@ -31,6 +32,8 @@ namespace NexFB.Site
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional });
+
+            config.Filters.Add(new ExceptionHandlingAttribute());
         }
     }
 }

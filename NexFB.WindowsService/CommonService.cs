@@ -15,7 +15,7 @@ namespace NexFB.WindowsService
     using System.Configuration;
     using System.IO;
     using System.Linq;
-    using NexFB.Core.Constants;
+    using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Core.Services;
     using NexFB.WindowsService.Criteria;
@@ -61,13 +61,13 @@ namespace NexFB.WindowsService
         public CommandResult UpdateUserForNexcel()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateUser(Constants.NexcelDepartment);
+            DateTime fromDate = GetDateFromBeforeUpdateUser((int)DepartmentIdentity.Nexcel);
             IList<NexcelService.UserModel> users = NexcelService.GetUser(fromDate);
             if (users != null && users.Any())
             {
                 var insertCriteria = new InsertAndUpdateUserNexcelCriteria()
                 {
-                    DepartmentId = Constants.NexcelDepartment,
+                    DepartmentId = (int)DepartmentIdentity.Nexcel,
                     Users = users
                 };
 
@@ -84,13 +84,13 @@ namespace NexFB.WindowsService
         public CommandResult UpdateTeamForNexcel()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateTeam(Constants.NexcelDepartment);
+            DateTime fromDate = GetDateFromBeforeUpdateTeam((int)DepartmentIdentity.Nexcel);
             IList<NexcelService.TeamModel> teams = NexcelService.GetTeam(fromDate);
             if (teams != null && teams.Any())
             {
                 var insertCriteria = new InsertAndUpdateTeamNexcelCriteria()
                 {
-                    DepartmentId = Constants.NexcelDepartment,
+                    DepartmentId = (int)DepartmentIdentity.Nexcel,
                     Teams = teams
                 };
 
@@ -112,7 +112,7 @@ namespace NexFB.WindowsService
             {
                 var criteria = new InsertAndUpdateShiftNexcelCriteria()
                 {
-                    DepartmentId = Constants.NexcelDepartment,
+                    DepartmentId = (int)DepartmentIdentity.Nexcel,
                     Shifts = shifts
                 };
 
@@ -129,13 +129,13 @@ namespace NexFB.WindowsService
         public CommandResult UpdateEmployeeCalendarForNexcel()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar(Constants.NexcelDepartment);
+            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar((int)DepartmentIdentity.Nexcel);
             IList<NexcelService.EmployeeCalendarModel> calendars = NexcelService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
             {
                 var criteria = new InsertAndUpdateEmployeeCalendarNexcelCriteria()
                 {
-                    DepartmentId = Constants.NexcelDepartment,
+                    DepartmentId = (int)DepartmentIdentity.Nexcel,
                     EmployeeCalendars = calendars
                 };
 
@@ -169,14 +169,14 @@ namespace NexFB.WindowsService
         public CommandResult UpdateUserForHM()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateUser(Constants.HMDepartment);
+            DateTime fromDate = GetDateFromBeforeUpdateUser((int)DepartmentIdentity.HongMA);
             IList<HongMaService.UserModel> users = HongmaService.GetUser(fromDate);
 
             if (users != null && users.Any())
             {
                 var insertCriteria = new InsertAndUpdateUserHMCriteria()
                 {
-                    DepartmentId = Constants.HMDepartment,
+                    DepartmentId = (int)DepartmentIdentity.HongMA,
                     Users = users
                 };
 
@@ -193,13 +193,13 @@ namespace NexFB.WindowsService
         public CommandResult UpdateTeamForHM()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateTeam(Constants.HMDepartment);
+            DateTime fromDate = GetDateFromBeforeUpdateTeam((int)DepartmentIdentity.HongMA);
             IList<HongMaService.TeamModel> teams = HongmaService.GetTeam(fromDate);
             if (teams != null && teams.Any())
             {
                 var insertCriteria = new InsertAndUpdateTeamHMCriteria()
                 {
-                    DepartmentId = Constants.HMDepartment,
+                    DepartmentId = (int)DepartmentIdentity.HongMA,
                     Teams = teams
                 };
 
@@ -221,7 +221,7 @@ namespace NexFB.WindowsService
             {
                 var criteria = new InsertAndUpdateShiftHMCriteria()
                 {
-                    DepartmentId = Constants.HMDepartment,
+                    DepartmentId = (int)DepartmentIdentity.HongMA,
                     Shifts = shifts
                 };
 
@@ -238,13 +238,13 @@ namespace NexFB.WindowsService
         public CommandResult UpdateEmployeeCalendarForHM()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar(Constants.HMDepartment);
+            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar((int)DepartmentIdentity.HongMA);
             IList<HongMaService.EmployeeCalendarModel> calendars = HongmaService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
             {
                 var criteria = new InsertAndUpdateEmployeeCalendarHMCriteria()
                 {
-                    DepartmentId = Constants.HMDepartment,
+                    DepartmentId = (int)DepartmentIdentity.HongMA,
                     EmployeeCalendars = calendars
                 };
 
@@ -278,13 +278,13 @@ namespace NexFB.WindowsService
         public CommandResult UpdateUserForSms()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateUser(Constants.SmsDepartment);
+            DateTime fromDate = GetDateFromBeforeUpdateUser((int)DepartmentIdentity.Sms);
             IList<SMSService.UserModel> users = SmsService.GetUser(fromDate);
             if (users != null && users.Any())
             {
                 var insertCriteria = new InsertAndUpdateUserSmsCriteria()
                 {
-                    DepartmentId = Constants.SmsDepartment,
+                    DepartmentId = (int)DepartmentIdentity.Sms,
                     Users = users
                 };
 
@@ -301,13 +301,13 @@ namespace NexFB.WindowsService
         public CommandResult UpdateTeamForSms()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateTeam(Constants.SmsDepartment);
+            DateTime fromDate = GetDateFromBeforeUpdateTeam((int)DepartmentIdentity.Sms);
             IList<SMSService.TeamModel> teams = SmsService.GetTeam(fromDate);
             if (teams != null && teams.Any())
             {
                 var insertCriteria = new InsertAndUpdateTeamSmsCriteria()
                 {
-                    DepartmentId = Constants.SmsDepartment,
+                    DepartmentId = (int)DepartmentIdentity.Sms,
                     Teams = teams
                 };
 
@@ -329,7 +329,7 @@ namespace NexFB.WindowsService
             {
                 var criteria = new InsertAndUpdateShiftSmsCriteria()
                 {
-                    DepartmentId = Constants.SmsDepartment,
+                    DepartmentId = (int)DepartmentIdentity.Sms,
                     Shifts = shifts
                 };
 
@@ -346,13 +346,13 @@ namespace NexFB.WindowsService
         public CommandResult UpdateEmployeeCalendarForSms()
         {
             CommandResult result  = null;
-            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar(Constants.SmsDepartment);
+            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar((int)DepartmentIdentity.Sms);
             IList<SMSService.EmployeeCalendarModel> calendars = SmsService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
             {
                 var criteria = new InsertAndUpdateEmployeeCalendarSmsCriteria()
                 {
-                    DepartmentId = Constants.SmsDepartment,
+                    DepartmentId = (int)DepartmentIdentity.Sms,
                     EmployeeCalendars = calendars
                 };
 

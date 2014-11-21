@@ -831,4 +831,7 @@
   <data name="RegisterVegetarianWarning" xml:space="preserve">
     <value>You must register a vegetarian meal at least 7 days ago.</value>
   </data>
+  <data name="FnBWelcome" xml:space="preserve">
+    <value>Welcome to F&amp;B</value>
+  </data>
 </root>

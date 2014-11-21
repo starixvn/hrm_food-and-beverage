@@ -16,7 +16,7 @@ namespace NexFB.Criteria.UserControl
     /// </summary>
     public class GetFunctionByRoleCriteria : CriteriaBase
     {
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
 
         public override string GetSettingKey()
         {
@@ -25,7 +25,7 @@ namespace NexFB.Criteria.UserControl
 
         public override bool IsValid()
         {
-            return RoleId > 0;
+            return true;
         }
     }
 }

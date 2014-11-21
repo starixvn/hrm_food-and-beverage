@@ -44,14 +44,7 @@ namespace NexFB.Core.Services
         /// <returns>List Object.</returns>
         public virtual IEnumerable<T> GetData<T>(ICriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-
-            if (criteria.IsValid())
-            {
-                return _dynamicRepository.Fetch<T>(criteria);
-            }
-
-            return new List<T>();
+            return _dynamicRepository.Fetch<T>(criteria);
         }
 
         /// <summary>
@@ -62,12 +55,7 @@ namespace NexFB.Core.Services
         /// <returns>The object.</returns>
         public virtual T GetDataEntity<T>(ICriteria criteria)
         {
-            if (criteria.IsValid())
-            {
-                return _dynamicRepository.Get<T>(criteria);
-            }
-
-            return default(T);
+            return _dynamicRepository.Get<T>(criteria);
         }
     }
 }

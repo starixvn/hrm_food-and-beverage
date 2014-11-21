@@ -2,6 +2,7 @@
 @using NexFB.Web
 @using NexFB.Resources
 @using NexFB.Core.Constants
+@using NexFB.Core.Enums
 @model UserSession
 @{
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -37,7 +38,7 @@
 					}
 										</ul>
 									</li>
-							index += 1;
+							index ++;
 						}
 						else
 						{
@@ -57,7 +58,7 @@
 			<a class="dropdown-arrow" href="javascript:;">
 			</a>
 			<ol>
-				@if (@Model.DepartmentId == Constants.NexcelDepartment)
+				@if (@Model.DepartmentId == (int)DepartmentIdentity.Nexcel)
 				{ 
 					<li>
 						<a href="javascript:;" data-ng-click="changePassword()">@Lang.ChangePassword</a>

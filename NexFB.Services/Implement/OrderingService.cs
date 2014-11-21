@@ -18,7 +18,6 @@ namespace NexFB.Services.Implement
     using NexFB.Models.Ordering;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
-    using NexFB.Resources;
     using NexFB.Services.Interface;
 
     /// <summary>
@@ -142,18 +141,10 @@ namespace NexFB.Services.Implement
         public CommandResult InserOrder(InsertOrderCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult result = null;
+            var result = new CommandResult();
             if (criteria.IsValid())
             {
                 result = Repository.Insert(criteria, hasGetOutputParams: true);
-            }
-            else
-            {
-                result = new CommandResult()
-                {
-                    Code = 1,
-                    Message = Lang.InvalidInputData
-                };
             }
 
             return result;
@@ -167,18 +158,10 @@ namespace NexFB.Services.Implement
         public CommandResult UpdateOrder(UpdateOrderCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult result = null;
+            var result = new CommandResult();
             if (criteria.IsValid())
             {
                 result = Repository.Update(criteria);
-            }
-            else
-            {
-                result = new CommandResult()
-                {
-                    Code = 1,
-                    Message = Lang.InvalidInputData
-                };
             }
 
             return result;
@@ -192,18 +175,10 @@ namespace NexFB.Services.Implement
         public CommandResult DeleteOrder(DeleteOrderCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult result = null;
+            var result = new CommandResult();
             if (criteria.IsValid())
             {
                 result = Repository.Delete(criteria);
-            }
-            else
-            {
-                result = new CommandResult()
-                {
-                    Code = 1,
-                    Message = Lang.InvalidInputData
-                };
             }
 
             return result;
@@ -217,18 +192,10 @@ namespace NexFB.Services.Implement
         public CommandResult AddMember(AddMemberCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult result = null;
+            var result = new CommandResult();
             if (criteria.IsValid())
             {
                 result = Repository.Insert(criteria);
-            }
-            else
-            {
-                result = new CommandResult()
-                {
-                    Code = 1,
-                    Message = Lang.InvalidInputData
-                };
             }
 
             return result;
@@ -242,18 +209,10 @@ namespace NexFB.Services.Implement
         public CommandResult RemoveMember(RemoveMemberCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult result = null;
+            var result = new CommandResult();
             if (criteria.IsValid())
             {
                 result = Repository.Delete(criteria);
-            }
-            else
-            {
-                result = new CommandResult()
-                {
-                    Code = 1,
-                    Message = Lang.InvalidInputData
-                };
             }
 
             return result;
@@ -285,19 +244,11 @@ namespace NexFB.Services.Implement
         public CommandResult InsertOrderSideDish(InsertOrderSideDishCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult result = null;
+            var result = new CommandResult();
 
             if (criteria.IsValid())
             {
                 result = Repository.Insert(criteria, hasGetOutputParams: true);
-            }
-            else
-            {
-                result = new CommandResult()
-                {
-                    Code = 1,
-                    Message = Lang.InvalidInputData
-                };
             }
 
             return result;
@@ -311,19 +262,11 @@ namespace NexFB.Services.Implement
         public CommandResult UpdateOrderSideDish(UpdateOrderSideDishCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult result = null;
+            var result = new CommandResult();
 
             if (criteria.IsValid())
             {
                 result = Repository.Update(criteria);
-            }
-            else
-            {
-                result = new CommandResult()
-                {
-                    Code = 1,
-                    Message = Lang.InvalidInputData
-                };
             }
 
             return result;

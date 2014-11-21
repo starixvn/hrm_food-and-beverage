@@ -94,7 +94,7 @@ namespace NexFB.Services.Implement
             }
             else
             {
-                commandResult.IsSuccessful = false;
+                commandResult.Code = 1;
             }
 
             return commandResult;

@@ -726,6 +726,16 @@ namespace NexFB.Resources {
             }
         }
         
+         /// <summary>
+        ///   Looks up a localized string similar to Welcome to F&amp;B.
+        /// </summary>
+        public static string FnBWelcome {
+            get {
+                return ResourceManager.GetString("FnBWelcome", resourceCulture);
+            }
+        }
+
+        
         /// <summary>
         ///   Looks up a localized string similar to The Food Code field is required!.
         /// </summary>

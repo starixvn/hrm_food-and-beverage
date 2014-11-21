@@ -134,6 +134,18 @@ namespace NexFB.Services.Implement
             return commandResult;
         }
 
+        public IList<RoleFunctionModel> GetAllRoleFunction(GetFunctionByRoleCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<RoleFunctionModel> roleFunctions = null;
+            if (criteria.IsValid())
+            {
+                roleFunctions = this.GetData<RoleFunctionModel>(criteria).ToList();
+            }
+
+            return roleFunctions;
+        }
+
         /// <summary>
         /// Get function by role recursion.
         /// </summary>

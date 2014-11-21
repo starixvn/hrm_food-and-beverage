@@ -7,7 +7,7 @@
 //   <change who="Josh.Phan" date="8/25/2014 1:17:20 PM">Created.</change>
 // </history>
 
-namespace NexFB.Site
+namespace NexFB.Web.Attributes
 {
     using System;
     using System.Web;

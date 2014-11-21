@@ -20,7 +20,6 @@ namespace NexFB.Services.Implement
     using NexFB.Models.Authority;
     using NexFB.Models.Entities;
     using NexFB.Models.UserControl;
-    using NexFB.Resources;
     using NexFB.Services.Interface;
 
     /// <summary>
@@ -88,19 +87,13 @@ namespace NexFB.Services.Implement
         /// <param name="user">Employee need validate.</param>
         /// <param name="password">Password of employee.</param>
         /// <returns>Result of validate.</returns>
-        public int ValidateUser(UserSession user, string password)
+        public bool IsValidateUser(UserSession user, string password)
         {
-            ////  1: wrong user or password
-            ////  0: success
-            int retCode = 1;
-            if (user != null
-                && !string.IsNullOrWhiteSpace(user.Password) 
-                && Encryptor.CompareStringToHash(HashProvider.Sha1, password, user.Password))
-            {
-                retCode = 0;
-            }
+            bool isValid = user != null
+                && !string.IsNullOrWhiteSpace(user.Password)
+                && Encryptor.CompareStringToHash(HashProvider.Sha1, password, user.Password);
 
-            return retCode;
+            return isValid;
         }
 
         /// <summary>
@@ -111,21 +104,13 @@ namespace NexFB.Services.Implement
         public CommandResult UpdatePassword(ChangePasswordCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult result = null;
+            var result = new CommandResult();
 
             if (criteria.IsValid())
             {
                 string hashPassword = Encryptor.ComputeHash(HashProvider.Sha1, criteria.Password);
                 criteria.Password = hashPassword;
                 result = Repository.Update(criteria);
-            }
-            else
-            {
-                result = new CommandResult()
-                {
-                    Code = 1,
-                    Message = Lang.InvalidInputData
-                };
             }
 
             return result;

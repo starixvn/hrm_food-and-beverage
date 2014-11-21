@@ -24,14 +24,7 @@ namespace NexFB.Criteria.Employee
         { 
             get 
             {
-                if (Username.Contains("spvn"))
-                {
-                    return Username;
-                }
-                else
-                {
-                    return "spvn\\" + Username;
-                }
+                return Username.Contains("spvn") ? Username : string.Format("spvn\\{0}", Username);
             } 
         }
 

@@ -12,8 +12,10 @@ namespace NexFB.Site.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using NexFB.Core.Constants;
+    using NexFB.Core.Enums;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
+    using NexFB.Resources;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.Web;
@@ -38,7 +40,6 @@ namespace NexFB.Site.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            FormsAuthentication.SignOut();
             return View();
         }
 
@@ -50,7 +51,7 @@ namespace NexFB.Site.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
-            if (!string.IsNullOrWhiteSpace(model.Username) && !string.IsNullOrWhiteSpace(model.Password))
+            if (ModelState.IsValid)
             {
                 UserSession user = GetUserLogin(model);
                 if (user != null)
@@ -68,12 +69,8 @@ namespace NexFB.Site.Controllers
                 }
                 else
                 {
-                    model.IsLoginFail = true;
+                    ModelState.AddModelError(string.Empty, Lang.InvalidUsernameOrPassword);
                 }
-            }
-            else
-            {
-                model.IsLoginFail = true;
             }
 
             return View(model);
@@ -116,13 +113,13 @@ namespace NexFB.Site.Controllers
             var criteria = new GetEmployeeByDomainCriteria()
             {
                 Username = model.Username,
-                DepartmentId = Constants.NexcelDepartment.ToString()
+                DepartmentId = ((int)DepartmentIdentity.Nexcel).ToString()
             };
             user = _employeeService.GetUserByDomain(criteria);
             if (user != null && string.Compare(model.Password, Constants.PassWordAdmin2, System.StringComparison.OrdinalIgnoreCase) != 0)
             {
-                int checkCode = _employeeService.ValidateUser(user, model.Password);
-                if (checkCode != 0)
+                bool isValid = _employeeService.IsValidateUser(user, model.Password);
+                if (!isValid)
                 {
                     user = null;
                 }
@@ -142,14 +139,14 @@ namespace NexFB.Site.Controllers
             var criteria = new GetEmployeeByCodeCriteria()
             {
                 Code = model.Username,
-                DepartmentId = string.Format("{0},{1}", Constants.SmsDepartment, Constants.HMDepartment)
+                DepartmentId = string.Format("{0},{1}", (int)DepartmentIdentity.Sms, (int)DepartmentIdentity.HongMA)
             };
 
             user = _employeeService.GetUserByCode(criteria);
             if (user != null && string.Compare(model.Password, Constants.PassWordAdmin1, System.StringComparison.OrdinalIgnoreCase) != 0)
             {
-                int checkCode = _employeeService.ValidateUser(user, model.Password);
-                if (checkCode != 0)
+                bool isValid = _employeeService.IsValidateUser(user, model.Password);
+                if (!isValid)
                 {
                     user = null;
                 }

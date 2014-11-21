@@ -24,7 +24,7 @@ namespace NexFB.Services.Interface
 
         UserSession GetUserByCode(GetEmployeeByCodeCriteria criteria);
 
-        int ValidateUser(UserSession user, string password);
+        bool IsValidateUser(UserSession user, string password);
 
         CommandResult UpdatePassword(ChangePasswordCriteria criteria);
 

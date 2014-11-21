@@ -10,7 +10,7 @@
 namespace NexFB.Site.Controllers.API
 {
     using System.Web.Http;
-    using NexFB.Core.Constants;
+    using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
@@ -43,13 +43,8 @@ namespace NexFB.Site.Controllers.API
         [HttpPut]
         public CommandResult UpdatePassword(ChangePasswordModel model)
         {
-            var result = new CommandResult()
-            {
-                Code = 1,
-                Message = Lang.InvalidInputData
-            };
-
-            if (this.CurrentUser.DepartmentId == Constants.NexcelDepartment)
+            var result = new CommandResult();
+            if (this.CurrentUser.DepartmentId == (int)DepartmentIdentity.Nexcel)
             {
                 if (!string.IsNullOrWhiteSpace(model.OldPassword)
                 && !string.IsNullOrWhiteSpace(model.NewPassword)
@@ -62,8 +57,8 @@ namespace NexFB.Site.Controllers.API
                     };
 
                     UserSession user = _employeeService.GetUserById(getUserCriteria);
-                    int checkCode = _employeeService.ValidateUser(user, model.OldPassword);
-                    if (checkCode == 0)
+                    bool isValid = _employeeService.IsValidateUser(user, model.OldPassword);
+                    if (isValid)
                     {
                         var criteria = new ChangePasswordCriteria()
                         {

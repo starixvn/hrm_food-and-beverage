@@ -95,6 +95,7 @@
     <Compile Include="UserControl\EmployeeRoleModel.cs" />
     <Compile Include="UserControl\FunctionModel.cs" />
     <Compile Include="UserControl\RoleDepartmentModel.cs" />
+    <Compile Include="UserControl\RoleFunctionModel.cs" />
     <Compile Include="UserControl\RoleSystemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

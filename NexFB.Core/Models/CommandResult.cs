@@ -9,11 +9,19 @@
 
 namespace NexFB.Core.Models
 {
+    using NexFB.Resources;
+
     /// <summary>
     /// The model contain error code and error message.
     /// </summary>
     public class CommandResult
     {
+        public CommandResult()
+        {
+            Code = 1;
+            Message = Lang.InvalidInputData;
+        }
+
         public int Code { get; set; }
 
         public string Message { get; set; }
@@ -23,11 +31,6 @@ namespace NexFB.Core.Models
             get
             {
                 return Code == 0;
-            }
-
-            set
-            {
-                IsSuccessful = value;
             }
         }
     }

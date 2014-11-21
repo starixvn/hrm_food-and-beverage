@@ -29,7 +29,6 @@ namespace NexFB.Web.Attributes
     public sealed class ApiAuthorizeAttribute : AuthorizeAttribute
     {
         private string _functionKey;
-        private Policy _policy;
         private IWebCommonService _webCommonService;
 
         public ApiAuthorizeAttribute()
@@ -55,18 +54,7 @@ namespace NexFB.Web.Attributes
             }
         }
 
-        public Policy Policy
-        {
-            get
-            {
-                return _policy;
-            }
-
-            set
-            {
-                _policy = value;
-            }
-        }
+        public Policy Policy { get; set; }
 
         /// <summary>
         /// Authorization event handler.

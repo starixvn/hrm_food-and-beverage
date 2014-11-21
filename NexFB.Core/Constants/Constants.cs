@@ -20,12 +20,6 @@ namespace NexFB.Core.Constants
 
         public const string PassWordAdmin2 = "@dm!nf&bnexcel";
 
-        public const int NexcelDepartment = 1;
-
-        public const int SmsDepartment = 2;
-
-        public const int HMDepartment = 3;
-
         public const string TimeFormat = "HH:mm:ss";
 
         public const string Hidden = "Hidden";        

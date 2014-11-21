@@ -9,6 +9,7 @@
 
 namespace NexFB.Site
 {
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -32,80 +33,32 @@ namespace NexFB.Site
                url: "Auth/Login",
                defaults: new { controller = "Auth", action = "Login" });
 
-            routes.MapRoute(
-               name: "Manage Role",
-               url: "ManageRole/Index",
-               defaults: new { controller = "Home", action = "Index" });
-
-            routes.MapRoute(
-               name: "Manage User",
-               url: "ManageUser/Index",
-               defaults: new { controller = "Home", action = "Index" });
-
-            routes.MapRoute(
-               name: "Meal ordering",
-               url: "Ordering/Index",
-               defaults: new { controller = "Home", action = "Index" });
-
-            routes.MapRoute(
-               name: "Registration Meal",
-               url: "Registration/Index",
-               defaults: new { controller = "Home", action = "Index" });
-
-            routes.MapRoute(
-               name: "Food Item Management",
-               url: "FoodItemManagement/Index",
-               defaults: new { controller = "Home", action = "Index" });
-
-            routes.MapRoute(
-               name: "Food Menu Management",
-               url: "MenuManagement/Index",
-               defaults: new { controller = "Home", action = "Index" });
-
-            routes.MapRoute(
-               name: "Set Menu Management",
-               url: "SetMenuManagement/Index",
-               defaults: new { controller = "Home", action = "Index" });
-
-            routes.MapRoute(
-               name: "Meal Planning Management",
-               url: "MealPlanningManagement/Index",
-               defaults: new { controller = "Home", action = "Index" });
-
-            routes.MapRoute(
-               name: "Access denied",
-               url: "Home/AccessDenied",
-               defaults: new { controller = "Home", action = "Index" });
-
-            routes.MapRoute(
-               name: "Side Dish Management",
-               url: "SideDishManagement/Index",
-               defaults: new { controller = "Home", action = "Index" });
-
-            routes.MapRoute(
-               name: "Alternative Menu Management",
-               url: "AlternativeMenuManagement/Index",
-               defaults: new { controller = "Home", action = "Index" });
-
-            routes.MapRoute(
-               name: "Shift Meal Mapping",
-               url: "ShiftMealMapping/Index",
-               defaults: new { controller = "Home", action = "Index" });
-
-            routes.MapRoute(
-               name: "Monthly Main Dish Report Local",
-               url: "MonthlyReportLocal/Index",
-               defaults: new { controller = "Home", action = "Index" });
-               
-            routes.MapRoute(
-               name: "Manage Group",
-               url: "ManageGroup/Index",
-               defaults: new { controller = "Home", action = "Index" });
-               
-            routes.MapRoute(
-               name: "Manage User In Group",
-               url: "ManageGroup/User",
-               defaults: new { controller = "Home", action = "Index" });
+            var homeRouteUrls = new List<string> 
+            {
+                "ManageRole/Index",
+                "ManageUser/Index",
+                "Ordering/Index",
+                "Registration/Index",
+                "FoodItemManagement/Index",
+                "MenuManagement/Index",
+                "SetMenuManagement/Index",
+                "MealPlanningManagement/Index",
+                "Home/AccessDenied",
+                "SideDishManagement/Index",
+                "AlternativeMenuManagement/Index",
+                "ShiftMealMapping/Index",
+                "MonthlyReportLocal/Index",
+                "ManageGroup/Index",
+                "ManageGroup/User"
+            };
+            homeRouteUrls.ForEach(url => routes.MapRoute(
+                name: url,
+                url: url,
+                defaults: new
+                {
+                    controller = "Home",
+                    action = "Index"
+                }));
 
             routes.MapRoute(
                 name: "Default",

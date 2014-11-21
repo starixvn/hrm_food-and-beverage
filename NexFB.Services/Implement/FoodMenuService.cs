@@ -123,10 +123,6 @@ namespace NexFB.Services.Implement
             {
                 commandResult = Repository.Update(criteria);
             }
-            else
-            {
-                commandResult.IsSuccessful = false;
-            }
 
             return commandResult;
         }
@@ -144,10 +140,6 @@ namespace NexFB.Services.Implement
             if (criteria.IsValid())
             {
                 commandResult = Repository.Update(criteria);
-            }
-            else
-            {
-                commandResult.IsSuccessful = false;
             }
 
             return commandResult;
