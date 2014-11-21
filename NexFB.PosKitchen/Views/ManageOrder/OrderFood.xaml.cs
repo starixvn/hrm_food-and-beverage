@@ -54,6 +54,8 @@ namespace NexFB.PosKitchen.Views.ManageOrder
                     userInGroup.ToList().ForEach(x => x.IsSelectedMemberInGroup = false);
                 }
             }
+
+            currentViewModel.ExecutePickGroupCommand();
         }
 
         private void Grid_PreviewMouseDown(object sender, MouseButtonEventArgs e)

@@ -172,34 +172,19 @@
 							</Grid.ColumnDefinitions>
 
 							<!--Row 0-->
-							<Grid Grid.Row="0" Visibility="{Binding NumVisible}">
+							<Grid Grid.Row="0">
 								<Button   Style="{StaticResource buttonKeypad}"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD1" Content="1" Margin="0,4,-5,4" />
 							</Grid>
 
-							<Grid Grid.Row="0" Visibility="{Binding KeyPadVisible}">
-								<Button  Style="{StaticResource buttonKeypad}"
-				Command="{Binding NumPadPressed}" CommandParameter="NUMPADH" Content="H" Margin="0,4,-5,4" />
-							</Grid>
-
-							<Grid Grid.Column="1" Grid.Row="0" Visibility="{Binding NumPadVisible}">
+							<Grid Grid.Column="1" Grid.Row="0">
 								<Button  Style="{StaticResource buttonKeypad}"
 				 Command="{Binding NumPadPressed}" CommandParameter="NUMPAD2" Content="2" Margin="12,4,-17,4" />
 							</Grid>
 
-							<Grid Grid.Column="1" Grid.Row="0" Visibility="{Binding KeyPadVisible}">
-								<Button  Style="{StaticResource buttonKeypad}"
-				 Command="{Binding NumPadPressed}" CommandParameter="NUMPADM" Content="M" Margin="12,4,-17,4" />
-							</Grid>
-
-							<Grid Grid.Column="2" Grid.Row="0" Visibility="{Binding NumPadVisible}">
+							<Grid Grid.Column="2" Grid.Row="0">
 								<Button Style="{StaticResource buttonKeypad}"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD3" Content="3" Margin="24,4,-27,4" />
-							</Grid>
-
-							<Grid Grid.Column="2" Grid.Row="0" Visibility="{Binding KeyPadVisible}">
-								<Button Style="{StaticResource buttonKeypad}"
-				Command="{Binding NumPadPressed}" CommandParameter="NUMPADS" Content="S" Margin="24,4,-27,4" />
 							</Grid>
 
 							<Grid Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2">
@@ -212,34 +197,19 @@
 
 							<!--Row 1-->
 
-							<Grid Grid.Row="1" Visibility="{Binding NumPadVisible}">
+							<Grid Grid.Row="1">
 								<Button Style="{StaticResource buttonKeypad}"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD4" Content="4" Margin="0,7,-5,1" />
 							</Grid>
 
-							<Grid Grid.Row="1" Visibility="{Binding KeyPadVisible}">
-								<Button Style="{StaticResource buttonKeypad}"
-				Command="{Binding NumPadPressed}" CommandParameter="NUMPADN" Content="N" Margin="0,7,-5,1" />
-							</Grid>
-
-							<Grid Grid.Column="1" Grid.Row="1" Visibility="{Binding NumPadVisible}">
+							<Grid Grid.Column="1" Grid.Row="1">
 								<Button Style="{StaticResource buttonKeypad}"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD5" Content="5" Margin="12,7,-17,1" />
 							</Grid>
 
-							<Grid Grid.Column="1" Grid.Row="1" Visibility="{Binding KeyPadVisible}">
-								<Button Style="{StaticResource buttonKeypad}"
-				Command="{Binding NumPadPressed}" CommandParameter="NUMPADE" Content="E" Margin="12,7,-17,1" />
-							</Grid>
-
-							<Grid Grid.Column="2" Grid.Row="1" Visibility="{Binding NumPadVisible}">
+							<Grid Grid.Column="2" Grid.Row="1">
 								<Button Style="{StaticResource buttonKeypad}"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD6" Content="6" Margin="24,7,-27,1" />
-							</Grid>
-
-							<Grid Grid.Column="2" Grid.Row="1" Visibility="{Binding KeyPadVisible}">
-								<Button Style="{StaticResource buttonKeypad}" 
-				Command="{Binding NumPadPressed}" CommandParameter="NUMPADX" Content="X" Margin="24,7,-27,1" />
 							</Grid>
 
 							<Grid Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" >
@@ -251,34 +221,19 @@
 
 							<!--Row 2-->
 
-							<Grid Grid.Row="2" Visibility="{Binding NumPadVisible}">
+							<Grid Grid.Row="2">
 								<Button Style="{StaticResource buttonKeypad}" Content="7"
 				 BorderThickness="1" Command="{Binding Path=NumPadPressed}" CommandParameter="NUMPAD7" Margin="0,10,-5,-2" ></Button>
 							</Grid>
 
-							<Grid Grid.Row="2" Visibility="{Binding KeyPadVisible}">
-								<Button Style="{StaticResource buttonKeypad}"  Content="D"
-				 BorderThickness="1" Command="{Binding Path=NumPadPressed}" CommandParameter="NUMPADD" Margin="0,10,-5,-2" ></Button>
-							</Grid>
-
-							<Grid Grid.Column="1" Grid.Row="2" Visibility="{Binding NumPadVisible}">
+							<Grid Grid.Column="1" Grid.Row="2">
 								<Button Style="{StaticResource buttonKeypad}"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD8" BorderThickness="1" Content="8" Margin="12,10,-17,-2" />
 							</Grid>
 
-							<Grid Grid.Column="1" Grid.Row="2" Visibility="{Binding KeyPadVisible}">
-								<Button Style="{StaticResource buttonKeypad}"
-				Command="{Binding NumPadPressed}" CommandParameter="NUMPADC" BorderThickness="1" Content="C" Margin="12,10,-17,-2" />
-							</Grid>
-
-							<Grid Grid.Column="2" Grid.Row="2" Visibility="{Binding NumPadVisible}">
+							<Grid Grid.Column="2" Grid.Row="2">
 								<Button Style="{StaticResource buttonKeypad}"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD9" Content="9" Margin="24,10,-28,-2" Grid.RowSpan="2" />
-							</Grid>
-
-							<Grid Grid.Column="2" Grid.Row="2" Visibility="{Binding KeyPadVisible}">
-								<Button Style="{StaticResource buttonKeypad}"
-				Command="{Binding NumPadPressed}" CommandParameter="NUMPADL" BorderThickness="1" Content="L" Margin="24,10,-28,-2" />
 							</Grid>
 
 							<Grid Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2">
@@ -287,7 +242,7 @@
 							</Grid>
 
 							<!--Row 3-->
-							<Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Visibility="{Binding NumPadVisible}">
+							<Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
 								<Button Style="{StaticResource buttonKeypad}" x:Name="button17" 
 								Command="{Binding NumPadPressed}" CommandParameter="NUMPAD0" Content="0" Margin="12,14,-28,-6" />
 							</Grid>
@@ -304,10 +259,8 @@
 									<Grid>
 										<!--<Image Visibility="{Binding NumPadVisible}"
 									Source="pack://application:,,,/Images/arrow-icon.png" Height="51" Width="27" />-->
-										<Label Content="123" Visibility="{Binding KeyPadVisible}" HorizontalAlignment="Center"
-									VerticalAlignment="Center" FontWeight="Black" FontSize="{Binding DataContext.KeypadFontSize, RelativeSource={RelativeSource AncestorType=Window}}"/>
-										<Label Content="ABC" Visibility="{Binding NumPadVisible}" HorizontalAlignment="Center"
-									VerticalAlignment="Center" FontWeight="Black" FontSize="{Binding DataContext.KeypadFontSize, RelativeSource={RelativeSource AncestorType=Window}}"/>
+										<Label Content="ABC"  HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"
+									 FontSize="{Binding DataContext.KeypadFontSize, RelativeSource={RelativeSource AncestorType=Window}}"/>
 									</Grid>
 
 								</Button>

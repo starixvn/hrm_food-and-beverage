@@ -47,11 +47,27 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private double _keyPadResult;
         private double _keyPadMainButton;
 
+        private double _virtualKeyboardAnimation;
+
         public OrderFoodDynamicScreen()
         {
         }
 
         #region Properties
+
+        public double VirtualKeyboardAnimation
+        {
+            get
+            {
+                return _virtualKeyboardAnimation;
+            }
+
+            set
+            {
+                _virtualKeyboardAnimation = value;
+                OnPropertyChanged("VirtualKeyboardAnimation");
+            }
+        }
 
         public double KeyPadMainButton
         {
@@ -347,6 +363,8 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             KeyPadHeader = 60;
             KeyPadResult = 60;
             KeyPadMainButton = LeftSideKeyPad - (KeyPadHeader + KeyPadResult) - 80;
+
+            VirtualKeyboardAnimation = screenHeight - KeyPadMainButton - _paddingValue15;
 
             if (screenHeight <= 768)
             {

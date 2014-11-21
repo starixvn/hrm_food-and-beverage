@@ -55,8 +55,6 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private string _orderNo;
         private int _referenceCode;
         private bool _textBlockFocused;
-        private string _keyPadVisible;
-        private string _numPadVisible;
         private string _overlayVisible;
         private bool _isDataEdit;
         private string _saveButtonVisible;
@@ -96,6 +94,8 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         public ICommand SaveOrderCommand { get; set; }
 
         public ICommand ChangeKeyPad { get; set; }
+
+        public ICommand CloseVirtualKeyboard { get; set; }
 
         public bool IsCanceledOrder
         {
@@ -472,34 +472,6 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             {
                 _textBlockFocused = value;
                 this.OnPropertyChanged("TextBlockFocused");
-            }
-        }
-
-        public string KeyPadVisible
-        {
-            get
-            {
-                return _keyPadVisible;
-            }
-
-            set
-            {
-                _keyPadVisible = value;
-                this.OnPropertyChanged("KeyPadVisible");
-            }
-        }
-
-        public string NumPadVisible
-        {
-            get
-            {
-                return _numPadVisible;
-            }
-
-            set
-            {
-                _numPadVisible = value;
-                this.OnPropertyChanged("NumPadVisible");
             }
         }
 

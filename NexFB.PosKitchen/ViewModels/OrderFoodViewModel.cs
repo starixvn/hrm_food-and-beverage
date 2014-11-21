@@ -641,6 +641,15 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
+        public void ExecuteCloseVirtualKeyboard(object value)
+        {
+            if (value != null)
+            {
+                var currentWindow = (VirtualKeyboard)value;
+                currentWindow.Close();
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -908,16 +917,12 @@ namespace NexFB.PosKitchen.ViewModels
         /// </summary>
         public void ExecuteChangeKeyPad()
         {
-            if (NumPadVisible == Constant.Visible)
+            VirtualKeyboard virtalKeyboard = new VirtualKeyboard()
             {
-                NumPadVisible = Constant.Hidden;
-                KeyPadVisible = Constant.Visible;
-            }
-            else
-            {
-                NumPadVisible = Constant.Visible;
-                KeyPadVisible = Constant.Hidden;
-            }
+                DataContext = this,
+                Owner = Application.Current.MainWindow
+            };
+            virtalKeyboard.Show();
         }
 
         /// <summary>
@@ -1223,8 +1228,6 @@ namespace NexFB.PosKitchen.ViewModels
             IsCanceledOrder = false;
             OrderNo = string.Empty;
             ReferenceCode = 0;
-            NumPadVisible = Constant.Visible;
-            KeyPadVisible = Constant.Hidden;
             //// Change Text From Nhận to Lưu
             SaveButtonVisible = Constant.Hidden;
             OverlayVisible = Constant.Hidden;
@@ -1499,6 +1502,7 @@ namespace NexFB.PosKitchen.ViewModels
             CancelDialogOrderConfirmation = new RelayCommand((x) => CanExecuteCancelDialogOrderConfirmation(), (y) => ExecuteCancelDialogOrderConfirmation(y));
             SaveOrderCommand = new RelayCommand((x) => CanSaveOrderCommand(), (y) => ExecuteSaveOrderCommand(y));
             ChangeKeyPad = new RelayCommand((x) => CanExecuteNumPadPressed(), (y) => ExecuteChangeKeyPad());
+            CloseVirtualKeyboard = new RelayCommand((x) => ExecuteCloseVirtualKeyboard(x));
         }
 
         private void RegisterNumPadRelayCommand()

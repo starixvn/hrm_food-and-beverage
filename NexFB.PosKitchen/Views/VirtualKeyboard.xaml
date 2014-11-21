@@ -1,0 +1,303 @@
+﻿<Window x:Class="NexFB.PosKitchen.Views.VirtualKeyboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
+        Title="VirtualKeyboard" SizeToContent="WidthAndHeight" ShowInTaskbar="False"
+		Topmost="True" ResizeMode="NoResize" WindowStyle="None">
+
+	<Window.Triggers>
+		<EventTrigger RoutedEvent="Window.Loaded">
+			<BeginStoryboard>
+				<Storyboard >
+					<DoubleAnimation Duration="0:0:.1" Storyboard.TargetProperty="Top" From="{Binding Source={x:Static SystemParameters.FullPrimaryScreenHeight}}"
+					To="{Binding Path=VirtualKeyboardAnimation}" AccelerationRatio=".1"/>
+				</Storyboard>
+			</BeginStoryboard>
+		</EventTrigger>
+	</Window.Triggers>
+
+	<Grid Background="#898989" Height="{Binding Path=KeyPadMainButton}" Width="1000" >
+		<Grid.RowDefinitions>
+			<RowDefinition Height="50"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		
+		<!--Close keypad-->
+		<Grid Grid.Row="0">
+			<Button Style="{StaticResource TileButton}" Command="{Binding Path=CloseVirtualKeyboard}"
+			 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+				Foreground="White" Background="Red" HorizontalAlignment="Right" VerticalAlignment="Top" Height="41" Margin="0,3,0,0">
+				<Button.Template>
+					<ControlTemplate>
+						<Border Width="50" Height="50" Background="#898989" HorizontalAlignment="Center" VerticalAlignment="Center" >
+							<Image Width="40" Height="40" Source="pack://application:,,,/Images/close.png" />
+						</Border>
+					</ControlTemplate>
+				</Button.Template>
+			</Button>
+		</Grid>
+
+		<!--Main content-->
+		<Grid Grid.Row="1" Margin="5,0,5,10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="10"/>
+				<ColumnDefinition  Width="230"/>
+			</Grid.ColumnDefinitions>
+
+			<!--Column KeyPad-->
+			<Grid Grid.Column="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+
+				<!--Row 0-->
+				<Grid Grid.Row="0" Grid.Column="0">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADQ" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="Q" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="0" Grid.Column="1">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADW" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="W" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="0" Grid.Column="2">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADE" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="E" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="0" Grid.Column="3">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADR" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="R" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="0" Grid.Column="4">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADT" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="T" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="0" Grid.Column="5">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADY" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="Y" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="0" Grid.Column="6">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADU" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="U" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="0" Grid.Column="7">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADI" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="I" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="0" Grid.Column="8">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD0" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="O" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="0" Grid.Column="9">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADP" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="P" Margin="3" />
+				</Grid>
+
+				<!--Row 1-->
+				<Grid Grid.Row="1" Grid.Column="0">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADA" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="A" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="1" Grid.Column="1">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADS" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="S" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="1" Grid.Column="2">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADD" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="D" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="1" Grid.Column="3">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADF" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="F" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="1" Grid.Column="4">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADG" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="G" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="1" Grid.Column="5">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADH" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="H" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="1" Grid.Column="6">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADJ" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="J" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="1" Grid.Column="7">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADK" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="K" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="1" Grid.Column="8">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADL" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="L" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="1" Grid.Column="9">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADH." FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="." Margin="3" />
+				</Grid>
+
+				<!--Row 2-->
+
+				<Grid Grid.Row="2" Grid.Column="1">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADZ" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="Z" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="2" Grid.Column="2">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADX" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="X" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="2" Grid.Column="3">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADC" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="C" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="2" Grid.Column="4">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADV" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="V" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="2" Grid.Column="5">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADB" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="B" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="2" Grid.Column="6">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADN" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="N" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="2" Grid.Column="7">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADM" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="M" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="2" Grid.Column="8" Grid.ColumnSpan="2">
+					<Button Command="{Binding NumPadReleased}" CommandParameter="BACK" Margin="3" Style="{StaticResource buttonKeypad}">
+						<Path Stretch="Fill" Width="30" Height="14" Data="F1M555.0371,274.4893L552.7871,276.7383L549.9861,273.9373L547.1991,276.7243L545.1131,274.6393L547.9001,271.8523L545.0101,268.9603L547.2601,266.7113L550.1501,269.6023L552.8921,266.8613L554.9761,268.9463L552.2361,271.6883z M555.3751,264.0003L544.8751,264.0003C543.1251,264.1253,535.0001,270.7503,535.0001,272.2503C535.0001,273.7503,543.1251,279.3753,544.8751,279.5003L555.3751,279.5003C558.8751,279.5003,559.3751,277.7093,559.3751,275.5003L559.3751,268.0003C559.3751,265.7913,558.7501,264.0003,555.3751,264.0003" Fill="#FF333333"/>
+					</Button>
+				</Grid>
+
+				<!--Row 3-->
+
+				<Grid Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="4">
+					<Button Command="{Binding Path=AddCommand}" Content="{x:Static resx:WinFormMainResource.Add}"
+				Style="{StaticResource buttonKeypad}" Margin="3"  FontSize="25" FontWeight="Bold"/>
+				</Grid>
+
+
+			</Grid>
+
+			<!--Grid NumPad-->
+			<Grid Grid.Column="2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+
+				<!--Row 0-->
+				<Grid Grid.Row="0" Grid.Column="0">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD1" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="1" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="0" Grid.Column="1">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD2" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="2" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="0" Grid.Column="2">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD3" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="3" Margin="3" />
+				</Grid>
+
+				<!--Row 1-->
+				<Grid Grid.Row="1" Grid.Column="0">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD4" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="4" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="1" Grid.Column="1">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD5" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="5" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="1" Grid.Column="2">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD6" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="6" Margin="3" />
+				</Grid>
+
+				<!--Row 2-->
+				<Grid Grid.Row="2" Grid.Column="0">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD7" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="7" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="2" Grid.Column="1">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD8" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="8" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="2" Grid.Column="2">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD9" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="9" Margin="3" />
+				</Grid>
+
+				<!--Row 3-->
+				<Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD0" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="0" Margin="3" />
+				</Grid>
+
+				<Grid Grid.Row="3" Grid.Column="2">
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD*" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="*" Margin="3" />
+				</Grid>
+
+			</Grid>
+
+		</Grid>
+	</Grid>
+
+
+</Window>

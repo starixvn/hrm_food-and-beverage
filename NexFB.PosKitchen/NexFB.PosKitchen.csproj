@@ -171,6 +171,13 @@
     <Compile Include="Views\SettingWindow.xaml.cs">
       <DependentUpon>SettingWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\VirtualKeyboard.xaml.cs">
+      <DependentUpon>VirtualKeyboard.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\VirtualKeyboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Resource Include="Images\SMS\00067.jpg" />
     <Resource Include="Images\SMS\00431.jpg" />
     <Resource Include="Images\SMS\02580.jpg" />
