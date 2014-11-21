@@ -99,6 +99,15 @@ namespace NexFB.Site.Controllers
                 user = CheckLoginByCode(model);
             }
 
+            if (user != null)
+            {
+                var getallFunctionCriteria = new GetAllEmployeeFunctionCriteria
+                {
+                    SystemId = user.UserId
+                };
+                user.Functions = _employeeService.GetAllEmployeeFunction(getallFunctionCriteria);
+            }
+
             return user;
         }
 

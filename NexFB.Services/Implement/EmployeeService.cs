@@ -140,14 +140,14 @@ namespace NexFB.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list Function model.</returns>
-        public IList<FunctionModel> GetAllEmployeeFunction(GetAllEmployeeFunctionCriteria criteria)
+        public IList<UserFunction> GetAllEmployeeFunction(GetAllEmployeeFunctionCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<FunctionModel> functions = null;
+            IList<UserFunction> functions = null;
 
             if (criteria.IsValid())
             {
-                functions = GetData<FunctionModel>(criteria).ToList();
+                functions = GetData<UserFunction>(criteria).ToList();
             }
 
             return functions;

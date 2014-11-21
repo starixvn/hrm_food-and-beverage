@@ -10,6 +10,7 @@
 namespace NexFB.Models.Authority
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// User Session.
@@ -34,5 +35,7 @@ namespace NexFB.Models.Authority
         public int DepartmentId { get; set; }
 
         public string Roles { get; set; }
+
+        public IList<UserFunction> Functions { get; set; }
     }
 }

@@ -466,10 +466,10 @@
     <None Include="Src\App\Report\report.less" />
     <Content Include="Src\App\GroupControl\groupControl.less" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup.less" />
-    <None Include="Src\Components\Libs\angular-resource.min.js.map" />
-    <None Include="Src\Components\Libs\angular-route.min.js.map" />
-    <None Include="Src\Components\Libs\angular.min.js.map" />
-    <None Include="Src\Components\Libs\jquery-2.1.0.min.map" />
+    <Content Include="Src\Components\Libs\angular-resource.min.js.map" />
+    <Content Include="Src\Components\Libs\angular-route.min.js.map" />
+    <Content Include="Src\Components\Libs\angular.min.js.map" />
+    <Content Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
     <Content Include="Src\Content\Fonts\big_noodle_titling.ttf" />

@@ -59,7 +59,7 @@
     <Compile Include="Services\Implement\WebCommonService.cs" />
     <Compile Include="Services\Interface\IWebCommonService.cs" />
     <Compile Include="SessionManager.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
   </ItemGroup>
   <ItemGroup>

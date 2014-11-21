@@ -11,7 +11,7 @@ namespace NexFB.Web.Services.Implement
 {
     using System.Linq;
     using NexFB.Core.Enums;
-    using NexFB.Models.UserControl;
+    using NexFB.Models.Authority;
     using NexFB.Web.Services.Interface;
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace NexFB.Web.Services.Implement
         /// <returns>True if has permission, false: otherwise.</returns>
         public bool HasPermissionOnFunction(string functionKey, Policy policy)
         {
-            RoleFunctionModel currentFunction = SessionManager.Functions
+            UserFunction currentFunction = SessionManager.CurrentUser.Functions
                         .Where(func => func.FunctionKey.Equals(functionKey)).FirstOrDefault();
 
             if (currentFunction != null)

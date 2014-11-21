@@ -29,7 +29,5 @@ namespace NexFB.Services.Interface
         EmployeeModel GetEmployeeRoleById(GetEmployeeRoleByIdCriteria criteria);
 
         CommandResult AssignRoleToUser(AssignRoleToUserCriteria criteria);
-
-        IList<RoleFunctionModel> GetAllRoleFunction(GetFunctionByRoleCriteria criteria);
     }
 }

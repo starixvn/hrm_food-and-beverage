@@ -30,7 +30,7 @@ namespace NexFB.Services.Interface
 
         IList<MenuGroup> GetEmployeeMenuById(GetEmployeeMenuBySystemIdCriteria criteria);
 
-        IList<FunctionModel> GetAllEmployeeFunction(GetAllEmployeeFunctionCriteria criteria);
+        IList<UserFunction> GetAllEmployeeFunction(GetAllEmployeeFunctionCriteria criteria);
 
         IList<Employee> GetEmployeeByQuery(GetEmployeeCriteria criteria);
     }

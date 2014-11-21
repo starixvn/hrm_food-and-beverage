@@ -7,7 +7,7 @@
 @{
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	var index = 1;
-	var menuGroups = SessionManager.MenuGroups as IList<MenuGroup>;
+	var menuGroups = (IList<MenuGroup>)ViewBag.MenuGroup;
 }
 
 <div class="row header">
