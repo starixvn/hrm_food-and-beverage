@@ -369,8 +369,9 @@ namespace NexFB.PosKitchen.ViewModels
                         if (EmployeeInfo == null)
                         {
                             EmployeeInfo = selectedEmployeeInfo;
-                            OwnerImage = EmployeeInfo.ImageSource;
-                            LocationName = EmployeeInfo.LocationName;
+                            OwnerImage = selectedEmployeeInfo.ImageSource;
+                            LocationName = selectedEmployeeInfo.LocationName;
+                            LocationId = selectedEmployeeInfo.LocationId;
                         }
 
                         bool result = GetEmployeeInGroup(selectedEmployeeInfo.SysId);
@@ -605,6 +606,7 @@ namespace NexFB.PosKitchen.ViewModels
                     EmployeeInfo = DuplicateUser.Where(x => x.IsChecked).FirstOrDefault();
                     OwnerImage = EmployeeInfo.ImageSource;
                     LocationName = EmployeeInfo.LocationName;
+                    LocationId = EmployeeInfo.LocationId;
                     GetEmployeeInGroup(EmployeeInfo.SysId, value);
                 }
                 else
@@ -1168,7 +1170,7 @@ namespace NexFB.PosKitchen.ViewModels
         {
             if (EmployeeInfo != null)
             {
-                if (EmployeeInfo.LocationId < 1 && LocationId < 1)
+                if (LocationId < 1)
                 {
                     this.ShowErrorMessage(CurrentCulture(), WinFormMainResource.Message_PickRoom);
                     return false;
