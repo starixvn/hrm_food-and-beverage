@@ -88,6 +88,17 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				}
 			}
 
+			// Check user can continue order or not
+			orderingFactory.getAddNewOrder()
+			.success(function (data) {
+				if (data.RawIsAllowOrder) {
+					$scope.getDefaultForAddOrder(data);
+				}
+			})
+			.error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
+
 			data = orderingUtilities.sortOrderIdByDesc(order, data);
 			orderingService.setMyOrder(data);
 			$scope.$apply();
@@ -177,6 +188,17 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			orderingService.setMyOrder(data);
 			$scope.$apply();
 		}
+
+		// Check user can continue order or not
+		orderingFactory.getAddNewOrder()
+			.success(function (data) {
+				if (data.RawIsAllowOrder) {
+					$scope.getDefaultForAddOrder(data);
+				}
+			})
+			.error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
 	};
 
 	$.connection.hub.start();
