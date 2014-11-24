@@ -126,17 +126,35 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 	};
 
 	var updateMealForToDay = function (date, meals, mealTimesheet) {
-		for (var i = 0; i < date.Meals.length; i++) {
-			var meal = date.Meals[i],
-				updateMeal = meals[i];
+		var isUpdateVegetarian = false,
+			isCurrentVegetarian = false;
 
-			if (!updateMeal.IsVegetarian) {
-				var currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
-					rightMeal = utility.checkRightMeal(currentTimesheet);
-
-				date.Meals[i] = rightMeal ? angular.copy(updateMeal) : angular.copy(meal);
+		for (var i = 0; i < meals.length; i++) {
+			if (meals[i].IsVegetarian) {
+				isUpdateVegetarian = true;
+				i = meals.length;
 			}
 		}
+
+		for (var j = 0; j < date.Meals.length; j++) {
+			if (date.Meals[j].IsVegetarian) {
+				isCurrentVegetarian = true;
+				j = date.Meals.length;
+			}
+		}
+
+		if (!isUpdateVegetarian && !isCurrentVegetarian) {
+			for (var k = 0; k < date.Meals.length; k++) {
+				var meal = date.Meals[k],
+					updateMeal = meals[k],
+					currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
+					rightMeal = utility.checkRightMeal(currentTimesheet);
+
+				date.Meals[k] = rightMeal ? angular.copy(updateMeal) : angular.copy(meal);
+			}
+		}
+
+		return date;
 	};
 
 	utility.getWeekDayIndex = function (date) {
@@ -593,7 +611,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 			if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
 				if (toDay.getMonth() === currentDate.getMonth() && toDay.getFullYear() === currentDate.getFullYear()) {
 					if (toDay.getDate() === currentDate.getDate()) {
-						updateMealForToDay(date, meals, mealTimesheet);
+						date = updateMealForToDay(date, meals, mealTimesheet);
 					}
 					else if (currentDate.getDate() > toDay.getDate() && currentDate.getDate() < toDay.getDate() + registerSetting.Order) {
 						for (var i = 0; i < meals.length; i++) {
@@ -615,6 +633,15 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		}
 
 		return date;
+	};
+
+	utility.resetDisableMeal = function (meals) {
+		angular.forEach(meals, function (meal) {
+			meal.IsDisableVegetarian = false;
+			meal.IsDisableNonVegetarian = false;
+		});
+
+		return meals;
 	};
 
 	return utility;

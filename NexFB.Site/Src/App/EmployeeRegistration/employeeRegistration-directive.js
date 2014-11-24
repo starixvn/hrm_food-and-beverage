@@ -139,35 +139,6 @@ mealRegistrationModule.directive('getClassByName', function () {
 	};
 });
 
-// In daily registration form of the current date, Vegetarian options are disabled
-mealRegistrationModule.directive('disableVegetarianDay', function () {
-	return {
-		restrict: 'A',
-		link: function (scope) {
-			var workDate = scope.workDate,
-				meal = scope.meal;
-
-			if (workDate) {
-				var toDay = new Date(),
-					currentWorkDate = new Date(workDate);
-
-				if (toDay.getMonth() === currentWorkDate.getMonth() && toDay.getFullYear() === currentWorkDate.getFullYear()) {
-					var toDate = toDay.getDate(),
-						currentDate = currentWorkDate.getDate();
-
-					if (currentDate >= toDate && currentDate < toDate + 7) {
-						scope.vegetarianDate[meal.MealId] = true;
-
-						if (currentDate === toDate && meal.IsVegetarian) {
-							scope.nonVegetarianDate[meal.MealId] = true;
-						}
-					}
-				}
-			}
-		}
-	};
-});
-
 mealRegistrationModule.directive('validateMealRegistration', function () {
 	return {
 		restrict: 'A',
@@ -201,7 +172,7 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 						var dateOfToDay = toDay.getDate(),
 							dateOfWorkDate = workDate.getDate();
 
-						if (dateOfWorkDate >= dateOfToDay && dateOfWorkDate < dateOfToDay + 7) {
+						if (dateOfWorkDate >= dateOfToDay && dateOfWorkDate < dateOfToDay + scope.registerSetting.Order) {
 							validVegetarianCurrentDate = false;
 						}
 					}

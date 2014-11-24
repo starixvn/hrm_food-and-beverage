@@ -23,11 +23,11 @@
 						</td>
 						<td class="text-center width-100">
 							<input id="meal{{meal.MealId}}_non" type="checkbox" value="{{meal.MealId}}" only-one-check
-								 ng-checked="meal.IsVegetarian == false && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || nonVegetarianDate.{{meal.MealId}}" />
+								 ng-checked="meal.IsVegetarian == false && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || meal.IsDisableNonVegetarian" />
 						</td>
 						<td class="text-center width-100">
-							<input id="meal{{meal.MealId}}" type="checkbox" value="{{meal.MealId}}" only-one-check disable-vegetarian-day
-								 ng-checked="meal.IsVegetarian && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || vegetarianDate.{{meal.MealId}}"/>
+							<input id="meal{{meal.MealId}}" type="checkbox" value="{{meal.MealId}}" only-one-check 
+								 ng-checked="meal.IsVegetarian && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || meal.IsDisableVegetarian"/>
 						</td>
 					</tr>
 				</tbody>

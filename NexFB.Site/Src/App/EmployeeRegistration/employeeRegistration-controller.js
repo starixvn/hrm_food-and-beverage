@@ -206,6 +206,9 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				},
 				isSerialRegistration: function () {
 					return false;
+				},
+				registerSetting: function () {
+					return $scope.registerSetting;
 				}
 			},
 			windowClass: "modal-confirm-center register-meal-dialog"
@@ -258,7 +261,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 						date = mealRegistrationUtilities.getDateIsToday(week);
 					}
 
-					return angular.copy(date.Meals);
+					var copyMeal = angular.copy(date.Meals);
+					return mealRegistrationUtilities.resetDisableMeal(copyMeal);
 				},
 				workDate: function () {
 					return '';
@@ -278,6 +282,9 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				},
 				isSerialRegistration: function () {
 					return true;
+				},
+				registerSetting: function () {
+					return $scope.registerSetting;
 				}
 			},
 			windowClass: "modal-confirm-center register-meal-dialog"
@@ -330,7 +337,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 						date = mealRegistrationUtilities.getDateIsTodayInMonth(allWeekMeals);
 					}
 
-					return angular.copy(date.Meals);
+					var copyMeal = angular.copy(date.Meals);
+					return mealRegistrationUtilities.resetDisableMeal(copyMeal);
 				},
 				workDate: function () {
 					return '';
@@ -349,6 +357,9 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				},
 				isSerialRegistration: function () {
 					return true;
+				},
+				registerSetting: function () {
+					return $scope.registerSetting;
 				}
 			},
 			windowClass: "modal-confirm-center register-meal-dialog"
@@ -385,7 +396,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	var updatedRegistrationMealToSameDateInWeek = function (weeks, meals, weekDayIndex) {
 		angular.forEach(weeks, function (week) {
 			var date = week.WeekMeals[weekDayIndex];
-			mealRegistrationUtilities.updateMealForDate(date, meals, $scope.mealTimesheet);
+			mealRegistrationUtilities.updateMealForDate(date, meals, $scope.mealTimesheet, $scope.registerSetting);
 		});
 	};
 
@@ -404,7 +415,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 						date = mealRegistrationUtilities.getWeekDayIsToday(allWeekMeals, weekDayIndex);
 					}
 
-					return angular.copy(date.Meals);
+					var copyMeal = angular.copy(date.Meals);
+					return mealRegistrationUtilities.resetDisableMeal(copyMeal);
 				},
 				workDate: function () {
 					return '';
@@ -423,6 +435,9 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 				},
 				isSerialRegistration: function () {
 					return true;
+				},
+				registerSetting: function () {
+					return $scope.registerSetting;
 				}
 			},
 			windowClass: "modal-confirm-center register-meal-dialog"
@@ -513,6 +528,9 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 				},
 				isSerialRegistration: function () {
 					return false;
+				},
+				registerSetting: function () {
+					return null;
 				}
 			},
 			windowClass: "modal-confirm-center register-meal-dialog"
@@ -583,6 +601,9 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 				},
 				isSerialRegistration: function () {
 					return true;
+				},
+				registerSetting: function () {
+					return $scope.registerSetting;
 				}
 			},
 			windowClass: "modal-confirm-center register-meal-dialog"
@@ -651,12 +672,14 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 
 mealRegistrationModule.controller('RegisterMealController',
 ['meals', '$scope', 'workDate', '$modalInstance', 'mealTimesheet', 'mode', 'isSameMeal', 'timePeriod',
-'isSerialRegistration', '$modal', 'notificationFactory',
+'isSerialRegistration', '$modal', 'notificationFactory', 'registerSetting',
 function (meals, $scope, workDate, $modalInstance, mealTimesheet, mode, isSameMeal, timePeriod,
-isSerialRegistration, $modal, notificationFactory) {
+isSerialRegistration, $modal, notificationFactory, registerSetting) {
 	$scope.meals = meals;
 	$scope.mode = mode;
 	$scope.timePeriod = timePeriod;
+	$scope.registerSetting = registerSetting;
+
 	$scope.rightMeal = {
 		1: true,
 		2: true,
