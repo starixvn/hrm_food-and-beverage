@@ -188,17 +188,6 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			orderingService.setMyOrder(data);
 			$scope.$apply();
 		}
-
-		// Check user can continue order or not
-		orderingFactory.getAddNewOrder()
-			.success(function (data) {
-				if (data.RawIsAllowOrder) {
-					$scope.getDefaultForAddOrder(data);
-				}
-			})
-			.error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			});
 	};
 
 	$.connection.hub.start();
@@ -508,7 +497,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 							if (response.result.IsSuccessful) {
 								notificationFactory.success("DataChangeSuccessfully");
 								$scope.sendNewOrder(response.orderId);
-								$scope.getDefaultForAddOrder();
+								//$scope.getDefaultForAddOrder();
 							}
 							else {
 								notificationFactory.error('', response.result.Message);
@@ -609,13 +598,13 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				$scope.modalEditOrderInstance.result.then(function (receiveObject) {
 					if (receiveObject.isDeleted) {
 						$scope.sendDeleteOrder(receiveObject.orderId);
+						$scope.getDefaultForAddOrder();
 					}
 					else {
 						$scope.sendEditOrder(receiveObject.order.OrderId);
 					}
 
 					closeAlternativeSelect();
-					$scope.getDefaultForAddOrder();
 				}, function () {
 				})['finally'](function () {
 					$scope.modalEditOrderInstance = undefined;
