@@ -67,6 +67,8 @@
 		<Setting Key="POS_Get_ListRequestRejectedByPOS" SpName="POS_Get_ListRequestRejectedByPOS" DbName="NexFB" Plain="0" >
 			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
 		</Setting>
+		<Setting Key="POS_Get_MyStatusBySysID" SpName="POS_Get_MyStatusBySysID" DbName="NexFB" Plain="0" ></Setting>
+
 	</Function>
 
 </Functions>

@@ -354,4 +354,10 @@
   <data name="FloorBilingual" xml:space="preserve">
     <value>Tầng / Floor :</value>
   </data>
+  <data name="Message_EditSuccessful" xml:space="preserve">
+    <value>Edit order Successful.</value>
+  </data>
+  <data name="Message_MenuUnavailable" xml:space="preserve">
+    <value>No menu available.</value>
+  </data>
 </root>

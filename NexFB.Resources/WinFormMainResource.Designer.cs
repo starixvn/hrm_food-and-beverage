@@ -376,11 +376,29 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit order Successful..
+        /// </summary>
+        public static string Message_EditSuccessful {
+            get {
+                return ResourceManager.GetString("Message_EditSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This member is already included in this order..
         /// </summary>
         public static string Message_EmployeeExist {
             get {
                 return ResourceManager.GetString("Message_EmployeeExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No menu available..
+        /// </summary>
+        public static string Message_MenuUnavailable {
+            get {
+                return ResourceManager.GetString("Message_MenuUnavailable", resourceCulture);
             }
         }
         

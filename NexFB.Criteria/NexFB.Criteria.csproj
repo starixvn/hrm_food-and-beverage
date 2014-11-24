@@ -96,6 +96,7 @@
     <Compile Include="Kitchen\GetAwaitingDeliverMealOrderCriteria.cs" />
     <Compile Include="Kitchen\GetCanceledMealOrderCriteria.cs" />
     <Compile Include="Kitchen\GetEmployeeBySysIdCriteria.cs" />
+    <Compile Include="Kitchen\GetEmployeeOrderStatusCriteria.cs" />
     <Compile Include="Kitchen\GetFoodNameCriteria.cs" />
     <Compile Include="Kitchen\GetGroupNameCriteria.cs" />
     <Compile Include="Kitchen\GetMealOrderByIdCriteria.cs">

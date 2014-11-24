@@ -17,6 +17,7 @@ namespace NexFB.Services.Implement
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
+    using NexFB.Models.SmartCardOrder;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
     using NexFB.Services.Interface;
@@ -283,6 +284,18 @@ namespace NexFB.Services.Implement
             }
 
             return result;
+        }
+
+        public EmployeeOrderStatus EmployeeOrderStatus(GetEmployeeOrderStatusCriteria criteria)
+        {
+            EmployeeOrderStatus orderStatus = null;
+            Check.Argument.IsNotNull(criteria, "criteria");
+            if (criteria.IsValid())
+            {
+                orderStatus = this.GetDataEntity<EmployeeOrderStatus>(criteria);
+            }
+
+            return orderStatus;
         }
     }
 }

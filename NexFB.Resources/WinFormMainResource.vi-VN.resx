@@ -354,4 +354,10 @@
   <data name="View" xml:space="preserve">
     <value>Xem</value>
   </data>
+  <data name="Message_EditSuccessful" xml:space="preserve">
+    <value>Chỉnh sửa thành công.</value>
+  </data>
+  <data name="Message_MenuUnavailable" xml:space="preserve">
+    <value>Không có thực đơn dành cho nhân viên này.</value>
+  </data>
 </root>

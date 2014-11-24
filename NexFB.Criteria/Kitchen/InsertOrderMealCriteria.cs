@@ -23,7 +23,8 @@ namespace NexFB.Criteria.Kitchen
 
         public int LocationId { get; set; }
 
-        public int Owner { get; set; }
+        [SpParam(SqlParamName = "Owner")]
+        public int OwnerId { get; set; }
 
         public string Foods { get; set; }
 
@@ -37,7 +38,7 @@ namespace NexFB.Criteria.Kitchen
 
         public override bool IsValid()
         {
-            return Owner > 0;
+            return OwnerId > 0 && LocationId > 0;
         }
 
         public override string GetSettingKey()

@@ -14,6 +14,7 @@ namespace NexFB.Services.Interface
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
+using NexFB.Models.SmartCardOrder;
 
     /// <summary>
     /// Interface Kitchen Service.
@@ -59,5 +60,7 @@ namespace NexFB.Services.Interface
         CommandResult EditOrderFood(EditOrderMealCriteria criteria);
 
         CommandResult CancelOrder(CancelOrderCriteria criteria);
+
+        EmployeeOrderStatus EmployeeOrderStatus(GetEmployeeOrderStatusCriteria criteria);
     }
 }

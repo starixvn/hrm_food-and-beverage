@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="OrderStatus.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="EmployeeOrderStatus.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Bradley.Mac" date="2014.11.17">Created</change>
+//   <change who="Bradley.Mac" date="2014.11.24">Created</change>
 // </history>
 
 namespace NexFB.Models.SmartCardOrder
@@ -12,9 +12,13 @@ namespace NexFB.Models.SmartCardOrder
     /// <summary>
     /// Order Status.
     /// </summary>
-    public class OrderStatus
+    public class EmployeeOrderStatus
     {
         public int MealId { get; set; }
+
+        public int OrderId { get; set; }
+
+        public int MenuId { get; set; }
 
         public string MenuEngName { get; set; }
 

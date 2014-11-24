@@ -60,6 +60,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private string _saveButtonVisible;
         private string _ownerImage;
         private bool _isCanceledOrder;
+        private bool _allowReduceOrderToZero;
 
         public ICommand NumPadPressed { get; set; }
 
@@ -108,6 +109,20 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             {
                 _isCanceledOrder = value;
                 this.OnPropertyChanged("IsCanceledOrder");
+            }
+        }
+
+        public bool AllowReduceOrderToZero
+        {
+            get
+            {
+                return _allowReduceOrderToZero;
+            }
+
+            set
+            {
+                _allowReduceOrderToZero = value;
+                this.OnPropertyChanged("AllowReduceOrderToZero");
             }
         }
 

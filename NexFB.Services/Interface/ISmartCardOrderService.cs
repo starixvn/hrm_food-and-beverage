@@ -31,6 +31,6 @@ namespace NexFB.Services.Interface
 
         List<SCEmployeeOrder> GetMyOrderBySysId(GetMyOrderBySysIdCriteria criteria);
 
-        OrderStatus EmployeeOrderStatus(GetEmployeeOrderStatusCriteria criteria);
+        EmployeeOrderStatus EmployeeOrderStatus(GetEmployeeOrderStatusCriteria criteria);
     }
 }

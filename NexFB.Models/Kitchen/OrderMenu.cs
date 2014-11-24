@@ -49,6 +49,8 @@ namespace NexFB.Models.Kitchen
 
         public string GeneralInfo { get; set; }
 
+        public bool IsVegetarian { get; set; }
+
         public string DisplayPrice
         {
             get

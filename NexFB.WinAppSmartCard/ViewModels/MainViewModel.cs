@@ -394,7 +394,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             if (employeeData != null)
             {
                 var getEmployeeOrderStatus = new GetEmployeeOrderStatusCriteria() { SysId = employeeData.SysId };
-                OrderStatus orderStatus = this.SmartCardOrderService.EmployeeOrderStatus(getEmployeeOrderStatus);
+                EmployeeOrderStatus orderStatus = this.SmartCardOrderService.EmployeeOrderStatus(getEmployeeOrderStatus);
                 if (orderStatus != null)
                 {
                     employeeData.AllowOrder = orderStatus.IsAllowOrder;
