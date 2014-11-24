@@ -72,6 +72,10 @@ currentMealPlanning) {
 		}
 	};
 
+	if ($scope.mealPlanning.menuId) {
+		$scope.getSetMenu($scope.mealPlanning.menuId);
+	}
+
 	/*
 	** Set index to sort.
 	*/
