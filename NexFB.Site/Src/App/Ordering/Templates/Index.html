@@ -196,9 +196,9 @@
                                 </td>
                                 <td>
 									<div ng-show="!alter.alternativeMenu{{member.Member.UserId}}">
-										<span ng-show="member.CurrentStatus == null || (member.CurrentStatus != null && member.IsAllowOrder)">{{member.Menus[0].Name}}</span>
+										<span ng-show="member.IsAllowOrder">{{member.Menus[0].Name}}</span>
 										<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, false, $index)" 
-											ng-show="member.Menus[0].MenuId != -1 && member.Menus[0].IsHaveAlternativeMenu && member.CurrentStatus == null || (member.CurrentStatus != null && member.IsAllowOrder)" 
+											ng-show="member.Menus[0].MenuId != -1 && member.Menus[0].IsHaveAlternativeMenu && member.IsAllowOrder" 
 											title="Select Alternative Menus" >
 										</a>
 									</div>
@@ -304,9 +304,9 @@
                                 </td>
                                 <td>
 									<div ng-show="!alterSaved.alternativeMenu{{member.Member.UserId}}">
-										<span ng-show="member.CurrentStatus == null || (member.CurrentStatus != null && member.IsAllowOrder)">{{member.Menus[0].Name}}</span>
+										<span ng-show="member.IsAllowOrder">{{member.Menus[0].Name}}</span>
 										<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, true, $index)" 
-											ng-show="member.Menus[0].MenuId != -1 && member.Menus[0].IsHaveAlternativeMenu && (member.CurrentStatus == null || (member.CurrentStatus != null && member.IsAllowOrder))" 
+											ng-show="member.Menus[0].MenuId != -1 && member.Menus[0].IsHaveAlternativeMenu && member.IsAllowOrder" 
 											title="Select Alternative Menus" >
 										</a>
 									</div>

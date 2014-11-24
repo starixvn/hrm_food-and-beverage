@@ -142,11 +142,17 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			}
 
 			data = orderingUtilities.sortOrderIdByDesc(order, data);
-		}
 
-		// if Kitchen rejected order or user can order again -> get default order for employee
-		if (order.Status.StatusId === $scope.orderStatus.Rejected || order.RawIsAllowOrder) {
-			$scope.getDefaultForAddOrder();
+			// Check user can continue order or not
+			orderingFactory.getAddNewOrder()
+			.success(function (data) {
+				if (data.RawIsAllowOrder) {
+					$scope.getDefaultForAddOrder(data);
+				}
+			})
+			.error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
 		}
 
 		orderingService.setMyOrder(data);
@@ -218,58 +224,70 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			ErrorFactory.errorHandle(status);
 		});
 
-		$scope.getDefaultForAddOrder = function () {
-			orderingFactory.getAddNewOrder()
-			.success(function (data) {
-				var newMembers = [];
+		var getNewOrder = function (data) {
+			var newMembers = [];
 
-				angular.forEach(data.Members, function (member) {
-					// new order
-					if (member.IsOrder) {
-						newMembers.push(member);
-					}
-					else if (member.IsAllowOrder) {
-						member.IsOrder = true;
-						newMembers.push(member);
-					}
-				});
-
-				data.Members = newMembers;
-				data.TakeAway = false;
-
-				$scope.newOrder = data;
-				orderingService.setMemberNewOrder(data.Members);
-			})
-			.error(function (response, status) {
-				ErrorFactory.errorHandle(status);
+			angular.forEach(data.Members, function (member) {
+				// new order
+				if (member.IsOrder) {
+					newMembers.push(member);
+				}
+				else if (member.IsAllowOrder) {
+					member.IsOrder = true;
+					newMembers.push(member);
+				}
 			});
+
+			data.Members = newMembers;
+			data.TakeAway = false;
+
+			$scope.newOrder = data;
+			orderingService.setMemberNewOrder(data.Members);
+		};
+
+		var getSideDishOrder = function (data) {
+			var newMembers = [];
+
+			if (data.Members != null && data.Members.length > 0) {
+				var member = data.Members[0];
+				member.IsOrder = true;
+				member.Menus = [];
+				newMembers.push(member);
+			}
+
+			data.TakeAway = false;
+			data.Members = newMembers;
+			$scope.sideDishOrder = data;
+			orderingService.setMemberSideDishOrder(data.Members);
+		};
+
+		var getOrder = function (data) {
+			var newOrder = angular.copy(data),
+				sideDishOrder = angular.copy(data);
+
+			getNewOrder(newOrder);
+			getSideDishOrder(sideDishOrder);
+		};
+
+		$scope.getDefaultForAddOrder = function (newOrderData) {
+			if (!newOrderData) {
+				orderingFactory.getAddNewOrder()
+				.success(function (data) {
+					getOrder(data);
+				})
+				.error(function (response, status) {
+					ErrorFactory.errorHandle(status);
+				});
+			}
+			else {
+				getOrder(newOrderData);
+			}
 
 			orderingFactory.getSavedOrder()
 			.success(function (data) {
 				$scope.savedOrder = data;
 				orderingService.setMemberSavedOrder(data.Members);
 				orderingUtilities.setDefaultLocation($scope.savedOrderLocations, $scope.savedOrder.Location.LocationId);
-			})
-			.error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			});
-
-			// Side Dish order
-			orderingFactory.getAddNewOrder()
-			.success(function (data) {
-				var newMembers = [];
-
-				if (data.Members != null && data.Members.length > 0) {
-					var member = data.Members[0];
-					member.IsOrder = true;
-					member.Menus = [];
-					newMembers.push(member);
-				}
-
-				data.TakeAway = false;
-				data.Members = newMembers;
-				$scope.sideDishOrder = data;
-				orderingService.setMemberSideDishOrder(data.Members);
 			})
 			.error(function (response, status) {
 				ErrorFactory.errorHandle(status);
