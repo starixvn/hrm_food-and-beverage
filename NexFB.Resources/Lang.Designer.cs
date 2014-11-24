@@ -133,6 +133,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The selected member has already ordered 3 times..
+        /// </summary>
+        public static string AddOverOrderMemberWarning {
+            get {
+                return ResourceManager.GetString("AddOverOrderMemberWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Companies.
         /// </summary>
         public static string AllCompanies {
@@ -205,11 +214,11 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All weeks.
+        ///   Looks up a localized string similar to All weekdays.
         /// </summary>
-        public static string AllWeeks {
+        public static string AllWeekdays {
             get {
-                return ResourceManager.GetString("AllWeeks", resourceCulture);
+                return ResourceManager.GetString("AllWeekdays", resourceCulture);
             }
         }
         
@@ -538,7 +547,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notice: All Weeks registration will not take effect on Saturday and Sunday..
+        ///   Looks up a localized string similar to Notice: press Apply button to use the default week above for all weeks..
         /// </summary>
         public static string DefaultRegistrationWarning {
             get {
@@ -718,15 +727,6 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Food Code.
-        /// </summary>
-        public static string FoodCode {
-            get {
-                return ResourceManager.GetString("FoodCode", resourceCulture);
-            }
-        }
-        
-         /// <summary>
         ///   Looks up a localized string similar to Welcome to F&amp;B.
         /// </summary>
         public static string FnBWelcome {
@@ -734,7 +734,15 @@ namespace NexFB.Resources {
                 return ResourceManager.GetString("FnBWelcome", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Food Code.
+        /// </summary>
+        public static string FoodCode {
+            get {
+                return ResourceManager.GetString("FoodCode", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to The Food Code field is required!.
@@ -1264,6 +1272,15 @@ namespace NexFB.Resources {
         public static string MessageDeliveredStatusOrder {
             get {
                 return ResourceManager.GetString("MessageDeliveredStatusOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order #{0} by {1} has been edited at {2}..
+        /// </summary>
+        public static string MessageEditedNoMemberStatusOrder {
+            get {
+                return ResourceManager.GetString("MessageEditedNoMemberStatusOrder", resourceCulture);
             }
         }
         

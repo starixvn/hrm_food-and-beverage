@@ -336,8 +336,8 @@
   <data name="Week" xml:space="preserve">
     <value>Week</value>
   </data>
-  <data name="AllWeeks" xml:space="preserve">
-    <value>All weeks</value>
+  <data name="AllWeekdays" xml:space="preserve">
+    <value>All weekdays</value>
   </data>
   <data name="InvalidInputData" xml:space="preserve">
     <value>Invalid input.</value>
@@ -394,7 +394,7 @@
     <value>The delivery area is required!</value>
   </data>
   <data name="DefaultRegistrationWarning" xml:space="preserve">
-    <value>Notice: All Weeks registration will not take effect on Saturday and Sunday.</value>
+    <value>Notice: press Apply button to use the default week above for all weeks.</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
@@ -833,5 +833,11 @@
   </data>
   <data name="FnBWelcome" xml:space="preserve">
     <value>Welcome to F&amp;B</value>
+  </data>
+  <data name="AddOverOrderMemberWarning" xml:space="preserve">
+    <value>The selected member has already ordered 3 times.</value>
+  </data>
+  <data name="MessageEditedNoMemberStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} has been edited at {2}.</value>
   </data>
 </root>

@@ -9,6 +9,7 @@
 
 namespace NexFB.Services.Implement
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Common.Helper;
@@ -50,6 +51,7 @@ namespace NexFB.Services.Implement
             if (criteria.IsValid())
             {
                 mealDates = _mealRegistrationRepository.GetRegisterMealByRangeDate(criteria);
+                CheckDisableDate(mealDates);
             }
 
             return mealDates;
@@ -144,6 +146,55 @@ namespace NexFB.Services.Implement
             }
 
             return setting;
+        }
+
+        /// <summary>
+        /// Check date is disable or not.
+        /// </summary>
+        /// <param name="allWeeks">The list all weeks in month.</param>
+        private void CheckDisableDate(IList<MealRegisterModel> allWeeks)
+        {
+            foreach (MealRegisterModel week in allWeeks)
+            {
+                foreach (MealDateModel date in week.WeekMeals)
+                {
+                    if (date.WorkDate.Date < DateTime.Now.Date)
+                    {
+                        date.IsDisabled = true;
+                    }
+                    else
+                    {
+                        var criteria = new GetRegisterMealSettingCriteria();
+                        RegisterMealSetting setting = GetRegisterMealSetting(criteria);
+
+                        CheckDisableMeal(date, setting.Order);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Check disable vegetarian and non-vegetarian.
+        /// </summary>
+        /// <param name="mealDate">The meal in date.</param>
+        /// <param name="limitDay">The limit day.</param>
+        private void CheckDisableMeal(MealDateModel mealDate, int limitDay)
+        {
+            var today = DateTime.Now;
+            var endDay = DateTime.Now.AddDays(limitDay);
+
+            foreach (MealModel meal in mealDate.Meals)
+            {
+                if (mealDate.WorkDate.Date >= today.Date && mealDate.WorkDate.Date < endDay.Date)
+                {
+                    meal.IsDisableVegetarian = true;
+
+                    if (mealDate.WorkDate.Date == today.Date && meal.IsVegetarian == 1)
+                    {
+                        meal.IsDisableNonVegetarian = true;
+                    }
+                }
+            }
         }
 
         /// <summary>

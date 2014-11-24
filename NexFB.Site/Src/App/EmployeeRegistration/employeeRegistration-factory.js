@@ -126,15 +126,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 	};
 
 	var updateMealForToDay = function (date, meals, mealTimesheet) {
-		var isUpdateVegetarian = false,
-			isCurrentVegetarian = false;
-
-		for (var i = 0; i < meals.length; i++) {
-			if (meals[i].IsVegetarian) {
-				isUpdateVegetarian = true;
-				i = meals.length;
-			}
-		}
+		var isCurrentVegetarian = false;
 
 		for (var j = 0; j < date.Meals.length; j++) {
 			if (date.Meals[j].IsVegetarian) {
@@ -143,14 +135,17 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 			}
 		}
 
-		if (!isUpdateVegetarian && !isCurrentVegetarian) {
+		if (!isCurrentVegetarian) {
 			for (var k = 0; k < date.Meals.length; k++) {
 				var meal = date.Meals[k],
-					updateMeal = meals[k],
-					currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
+					updateMeal = meals[k];
+
+				if (!updateMeal.IsVegetarian) {
+					var currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
 					rightMeal = utility.checkRightMeal(currentTimesheet);
 
-				date.Meals[k] = rightMeal ? angular.copy(updateMeal) : angular.copy(meal);
+					date.Meals[k] = rightMeal ? angular.copy(updateMeal) : angular.copy(meal);
+				}
 			}
 		}
 

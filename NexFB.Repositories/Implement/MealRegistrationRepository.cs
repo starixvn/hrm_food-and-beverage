@@ -97,42 +97,10 @@ namespace NexFB.Repositories.Implement
                 mealDate.Meals[2].IsVegetarian = rawMealDate.Dinner;
                 mealDate.Meals[3].IsVegetarian = rawMealDate.Supper;
 
-                if (rawMealDate.WorkDate.Date < DateTime.Now.Date)
-                {
-                    mealDate.IsDisabled = true;
-                }
-                else
-                {
-                    CheckIsDisableMeal(mealDate);
-                }
-
                 mealDates.Add(mealDate);
             }
 
             return mealDates;
-        }
-
-        /// <summary>
-        /// Check disable vegetarian and non-vegetarian.
-        /// </summary>
-        /// <param name="mealDate">The meal in date.</param>
-        private void CheckIsDisableMeal(MealDateModel mealDate)
-        {
-            var today = DateTime.Now;
-            var endDay = DateTime.Now.AddDays(7);
-
-            foreach (MealModel meal in mealDate.Meals)
-            {
-                if (mealDate.WorkDate.Date >= today.Date && mealDate.WorkDate.Date < endDay.Date)
-                {
-                    meal.IsDisableVegetarian = true;
-
-                    if (mealDate.WorkDate.Date == today.Date && meal.IsVegetarian == 1)
-                    {
-                        meal.IsDisableNonVegetarian = true;
-                    }
-                }
-            }
         }
 
         /// <summary>

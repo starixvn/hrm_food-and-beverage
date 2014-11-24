@@ -620,7 +620,8 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				Member: '',
 				Menus: '',
 				AllMenus: '',
-				IsOrder: true
+				IsOrder: true,
+				IsAllowOrder: false
 			};
 			member.Member = newMember.employee;
 			var userId = member.Member.UserId;
@@ -631,61 +632,72 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 					if (order.Members && order.Members.length > 0) {
 						member.Menus = order.Members[0].Menus;
+						member.IsAllowOrder = order.Members[0].IsAllowOrder;
 					}
 
 					var isExisted = false;
 
 					if (isSavedOrder) {
-						if (member.CurrentStatus != null) {
-							member.IsOrder = false;
+						if (!member.IsAllowOrder) {
+							notificationFactory.error("AddOverOrderMemberWarning");
 						}
-						var savedMembers = orderingService.getMemberSavedOrder();
-						angular.forEach(savedMembers, function (value) {
-							if (value.Member.UserId === member.Member.UserId) {
-								isExisted = true;
+						else {
+							if (member.CurrentStatus != null) {
+								member.IsOrder = false;
 							}
-						});
-
-						if (!isExisted) {
-							orderingFactory.addMember(member).success(function (response) {
-								if (response.IsSuccessful) {
-									savedMembers.push(member);
-									orderingService.setMemberSavedOrder(savedMembers);
-									notificationFactory.success("DataChangeSuccessfully");
-								}
-								else {
-									notificationFactory.error('', response.Message);
-								}
-							});
-						}
-						else {
-							notificationFactory.error('', $scope.warningMessageExistMember);
-						}
-
-						$scope.$broadcast('clearSearchMemberInput');
-						$scope.savedMember = {};
-					}
-					else if (!isSideDishOrder) {
-						// User has order or user has order but change menu
-						if (member.CurrentStatus != null || order.Members.length === 0) {
-							notificationFactory.error('', $scope.warningMessageExistMember);
-						}
-						else {
-							var members = orderingService.getMemberNewOrder();
-
-							angular.forEach(members, function (value) {
+							var savedMembers = orderingService.getMemberSavedOrder();
+							angular.forEach(savedMembers, function (value) {
 								if (value.Member.UserId === member.Member.UserId) {
 									isExisted = true;
 								}
 							});
 
 							if (!isExisted) {
-								members.push(member);
-								orderingService.setMemberNewOrder(members);
-								notificationFactory.success("DataChangeSuccessfully");
+								orderingFactory.addMember(member).success(function (response) {
+									if (response.IsSuccessful) {
+										savedMembers.push(member);
+										orderingService.setMemberSavedOrder(savedMembers);
+										notificationFactory.success("DataChangeSuccessfully");
+									}
+									else {
+										notificationFactory.error('', response.Message);
+									}
+								});
 							}
 							else {
 								notificationFactory.error('', $scope.warningMessageExistMember);
+							}
+						}
+
+						$scope.$broadcast('clearSearchMemberInput');
+						$scope.savedMember = {};
+					}
+					else if (!isSideDishOrder) {
+						if (!member.IsAllowOrder) {
+							notificationFactory.error("AddOverOrderMemberWarning");
+						}
+						else {
+							// User has order or user has order but change menu
+							if (order.Members.length === 0) {
+								notificationFactory.error('', $scope.warningMessageExistMember);
+							}
+							else {
+								var members = orderingService.getMemberNewOrder();
+
+								angular.forEach(members, function (value) {
+									if (value.Member.UserId === member.Member.UserId) {
+										isExisted = true;
+									}
+								});
+
+								if (!isExisted) {
+									members.push(member);
+									orderingService.setMemberNewOrder(members);
+									notificationFactory.success("DataChangeSuccessfully");
+								}
+								else {
+									notificationFactory.error('', $scope.warningMessageExistMember);
+								}
 							}
 						}
 
