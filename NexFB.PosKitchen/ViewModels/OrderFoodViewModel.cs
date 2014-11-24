@@ -301,6 +301,7 @@ namespace NexFB.PosKitchen.ViewModels
                         EmployeeInfo = currentSelectedEmployee;
                         LocationName = currentSelectedEmployee.LocationName;
                         OwnerImage = currentSelectedEmployee.ImageSource;
+                        LocationId = currentSelectedEmployee.LocationId;
                     }
 
                     ChangeMenuColor(currentSelectedEmployee);

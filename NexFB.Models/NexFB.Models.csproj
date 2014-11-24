@@ -60,6 +60,7 @@
     <Compile Include="GroupControl\GroupModel.cs" />
     <Compile Include="GroupControl\MemberModel.cs" />
     <Compile Include="Kitchen\EmployeeInGroup.cs" />
+    <Compile Include="Kitchen\EmployeeOrderStatus.cs" />
     <Compile Include="Kitchen\FoodOrder.cs" />
     <Compile Include="Kitchen\GroupOrder.cs" />
     <Compile Include="Kitchen\EmployeeInfo.cs" />
@@ -91,7 +92,6 @@
     <Compile Include="ShiftMealMapping\ShiftMealMappingModel.cs" />
     <Compile Include="SideDishManagement\SideDishModel.cs" />
     <Compile Include="SideDishManagement\UnitModel.cs" />
-    <Compile Include="SmartCardOrder\EmployeeOrderStatus.cs" />
     <Compile Include="SmartCardOrder\SCEmployeeOrder.cs" />
     <Compile Include="UserControl\EmployeeRoleModel.cs" />
     <Compile Include="UserControl\FunctionModel.cs" />

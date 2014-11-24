@@ -30,7 +30,5 @@ namespace NexFB.Services.Interface
         List<FoodOrder> GetSideFoodBySysId(GetSideFoodBySysIdCriteria criteria);
 
         List<SCEmployeeOrder> GetMyOrderBySysId(GetMyOrderBySysIdCriteria criteria);
-
-        EmployeeOrderStatus EmployeeOrderStatus(GetEmployeeOrderStatusCriteria criteria);
     }
 }

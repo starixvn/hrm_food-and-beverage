@@ -15,14 +15,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Input;
     using System.Windows.Threading;
     using AutoLogOffHelper;
     using AutoMapper;
     using Microsoft.AspNet.SignalR.Client.Hubs;
+    using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
-    using NexFB.Models.SmartCardOrder;
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.InternetBased;
     using NexFB.WinAppSmartCard.Core.Constants;
@@ -394,7 +393,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             if (employeeData != null)
             {
                 var getEmployeeOrderStatus = new GetEmployeeOrderStatusCriteria() { SysId = employeeData.SysId };
-                EmployeeOrderStatus orderStatus = this.SmartCardOrderService.EmployeeOrderStatus(getEmployeeOrderStatus);
+                EmployeeOrderStatus orderStatus = this.KitchenService.EmployeeOrderStatus(getEmployeeOrderStatus);
                 if (orderStatus != null)
                 {
                     employeeData.AllowOrder = orderStatus.IsAllowOrder;
