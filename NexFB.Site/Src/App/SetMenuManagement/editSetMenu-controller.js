@@ -15,14 +15,14 @@ setMenuFactory, notificationFactory, ErrorFactory) {
 
 	$scope.validateEditSetMenu = function (setMenu) {
 		var isValid = true;
-		if (angular.isUndefined(setMenu.SetMenuVnmName) || setMenu.SetMenuVnmName.length < 1) {
-			isValid = false;
-			notificationFactory.error("SetMenuNameRequire");
-		}
 
-		if (setMenu.RawFoodIds.length < 1) {
+		if (setMenu.RawFoodIds !== undefined && setMenu.RawFoodIds.length === 0) {
 			isValid = false;
 			notificationFactory.error("FoodItemRequire");
+		}
+		if (!setMenu.SetMenuVnmName) {
+			isValid = false;
+			notificationFactory.error("SetMenuNameRequire");
 		}
 
 		return isValid;

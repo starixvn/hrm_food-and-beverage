@@ -8,10 +8,12 @@
         <form class="form-inline" role="form">
             <div class="form-group">
                 <label data-translate="Menu"></label>
-				<select ng-model="filter.menuId" ng-options="opt.MenuId as opt.MenuVnmName for opt in menuItems"
-					required class="form-control">
-					<option value="">-- {{"AllMenus" | translate}} --</option>
-				</select>
+				<div class="sel-menu field selectbox">
+					<add-class-to-role-filter multi-select input-model="menuItems" button-label="MenuVnmName"
+						helper-elements="all filter reset" item-label="MenuVnmName" tick-property="ticked" max-labels="0"
+						max-height="300px" class="multi-select">
+					</add-class-to-role-filter>
+				</div>
             </div>
 			<div class="form-group">
                 <label data-translate="Status"></label>

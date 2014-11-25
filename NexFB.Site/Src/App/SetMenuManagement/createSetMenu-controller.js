@@ -10,6 +10,7 @@ setMenuFactory, notificationFactory, ErrorFactory) {
 	** Declare variables.
 	*/
 	$scope.foodItems = foodItems;
+	$scope.menuItems = menuItems;
 
 	$scope.clearData = function () {
 		$scope.setMenu = {
@@ -25,20 +26,6 @@ setMenuFactory, notificationFactory, ErrorFactory) {
 
 	$scope.clearData();
 
-	var getMenus = function (menuItems) {
-		var menus = [];
-
-		angular.forEach(menuItems, function (menu) {
-			if (menu.IsActive) {
-				menus.push(menu);
-			}
-		});
-
-		return menus;
-	};
-
-	$scope.menuItems = getMenus(menuItems);
-
 	/*
 	** Add new food menu.
 	*/
@@ -46,14 +33,14 @@ setMenuFactory, notificationFactory, ErrorFactory) {
 	$scope.validateNewSetMenu = function (setMenu) {
 		var isValid = true;
 
-		if (setMenu.SetMenuVnmName.length < 1) {
-			isValid = false;
-			notificationFactory.error("SetMenuNameRequire");
-		}
-
-		if (setMenu.RawFoodIds.length < 1) {
+		if (setMenu.RawFoodIds !== undefined && setMenu.RawFoodIds.length === 0) {
 			isValid = false;
 			notificationFactory.error("FoodItemRequire");
+		}
+
+		if (!setMenu.SetMenuVnmName) {
+			isValid = false;
+			notificationFactory.error("SetMenuNameRequire");
 		}
 
 		return isValid;
@@ -84,6 +71,7 @@ setMenuFactory, notificationFactory, ErrorFactory) {
 				}
 			}).error(function (response, status) {
 				ErrorFactory.errorHandle(status);
+				$scope.disabledSubmitButton = false;
 			});
 		}
 

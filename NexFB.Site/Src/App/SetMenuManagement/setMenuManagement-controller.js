@@ -83,8 +83,21 @@ foodMenuFactory, ErrorFactory) {
 	/*
 	** Query to filter data.
 	*/
+	var getMenuId = function (menuItems) {
+		var menuId = '';
+
+		angular.forEach(menuItems, function (value) {
+			if (value.ticked) {
+				menuId = menuId !== '' ? menuId + ',' + value.MenuId : value.MenuId;
+			}
+		});
+
+		return menuId;
+	};
+
 	$scope.query = function (filter) {
 		if (filter) {
+			filter.menuId = getMenuId($scope.menuItems);
 			getSetMenu(filter.menuId, filter.isActive);
 		}
 	};
@@ -101,7 +114,7 @@ foodMenuFactory, ErrorFactory) {
 			backdrop: 'static',
 			resolve: {
 				menuItems: function () {
-					return $scope.menuItems;
+					return angular.copy($scope.menuItems);
 				},
 				foodItems: function () {
 					return $scope.foodItems;
@@ -131,7 +144,7 @@ foodMenuFactory, ErrorFactory) {
 						return data;
 					},
 					menuItems: function () {
-						return $scope.menuItems;
+						return angular.copy($scope.menuItems);
 					},
 					foodItems: function () {
 						return $scope.foodItems;
