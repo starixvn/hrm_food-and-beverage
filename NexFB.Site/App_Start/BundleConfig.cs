@@ -31,7 +31,8 @@ namespace NexFB.Site
 
             bundles.AddAndInclude(
                 "~/bundles/less",
-                "~/Src/Content/Less/bootstrap.less");
+                "~/Src/Content/Less/bootstrap.less",
+                "~/Src/Content/Less/Fanex.Grid.less");
 
             bundles.Add(new StyleBundle("~/Src/Content/Common/css").Include(
                 "~/Src/Content/Common/bootstrap-theme.min.css",
@@ -55,7 +56,8 @@ namespace NexFB.Site
                 "~/Src/Components/Libs/datepicker.js",
                 "~/Src/Components/Libs/date.js",
                 "~/Src/Components/Libs/chosen.jquery.min.js",
-                "~/Src/Components/Libs/tai-placeholder.js"));
+                "~/Src/Components/Libs/tai-placeholder.js",
+                "~/Src/Components/Libs/Fanex.Grid.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
                 "~/Src/Components/Libs/jquery.signalR-1.1.4.min.js"));
@@ -134,6 +136,7 @@ namespace NexFB.Site
                 "~/Src/App/Report/report-route.js",
                 "~/Src/App/Report/monthlyReportLocal-controller.js",
                 "~/Src/App/Report/report-factory.js",
+                "~/Src/App/Report/report-directive.js",
                 "~/Src/App/GroupControl/groupControl-route.js",
                 "~/Src/App/GroupControl/groupControl-controller.js",
                 "~/Src/App/GroupControl/createGroup-controller.js",

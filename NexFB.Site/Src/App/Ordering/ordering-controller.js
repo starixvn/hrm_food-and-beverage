@@ -229,10 +229,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 			angular.forEach(data.Members, function (member) {
 				// new order
-				if (member.IsOrder) {
-					newMembers.push(member);
-				}
-				else if (member.IsAllowOrder) {
+				if (member.IsAllowOrder) {
 					member.IsOrder = true;
 					newMembers.push(member);
 				}
@@ -372,7 +369,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				for (var i = 0; i < order.Members.length; i++) {
 					var value = order.Members[i];
 
-					if (value.IsOrder && typeOrder !== $scope.typeOrder.sideDishOrder) {
+					if (typeOrder !== $scope.typeOrder.sideDishOrder) {
 						if (value.IsAllowOrder) {
 							isValid = true;
 						}

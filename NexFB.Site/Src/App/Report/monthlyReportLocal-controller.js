@@ -85,6 +85,7 @@ reportUtilities) {
 		reportFactory.getMonthlyMainDishReportByLocal(reportDate, departmentId, employeeTypeId, teamId, mealId, groupBy)
 			.success(function (report) {
 				$scope.localReport = report;
+				$scope.$broadcast('renderMontlyReport');
 			})
 			.error(function (response, status) {
 				ErrorFactory.errorHandle(status);

@@ -298,6 +298,7 @@
     <Content Include="Src\App\Ordering\Templates\EditOrder.html" />
     <Content Include="Src\App\Ordering\Templates\SelectSideDish.html" />
     <Content Include="Src\App\Report\monthlyReportLocal-controller.js" />
+    <Content Include="Src\App\Report\report-directive.js" />
     <Content Include="Src\App\Report\report-factory.js" />
     <Content Include="Src\App\Report\report-route.js" />
     <Content Include="Src\App\Report\Templates\monthlyReportLocal.html" />
@@ -333,6 +334,7 @@
     <Content Include="Src\Components\Libs\chosen.jquery.min.js" />
     <Content Include="Src\Components\Libs\date.js" />
     <Content Include="Src\Components\Libs\datepicker.js" />
+    <Content Include="Src\Components\Libs\Fanex.Grid.js" />
     <Content Include="Src\Components\Libs\jquery-ui.min.js" />
     <Content Include="Src\Components\Libs\jquery.signalR-1.1.4.js" />
     <Content Include="Src\Components\Libs\jquery.signalR-1.1.4.min.js" />
@@ -435,6 +437,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <None Include="Src\Content\Less\Fanex.Grid.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
