@@ -354,35 +354,26 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 						member.IsAllowOrder = order.Members[0].IsAllowOrder;
 					}
 
-					if (!member.IsAllowOrder) {
-						notificationFactory.error("AddOverOrderMemberWarning");
-					}
-					else {
-						var isExisted = false;
+					var isExisted = false;
 
-						if (member.CurrentStatus != null && $scope.order.OrderId !== order.OrderId) {
+					var editMembers = orderingService.getMemberEditOrder();
+					angular.forEach(editMembers, function (value) {
+						if (value.Member.UserId === member.Member.UserId) {
+							isExisted = true;
+						}
+					});
+
+					if (!isExisted) {
+						if (member.IsAllowOrder || (!member.IsAllowOrder && $scope.order.OrderId === order.OrderId)) {
+							editMembers.push(member);
+							orderingService.setMemberEditOrder(editMembers);
+						}
+						else if (!member.IsAllowOrder) {
 							notificationFactory.error('', $scope.warningMessageExistMember);
 						}
-						else if (member.CurrentStatus === null || (member.CurrentStatus !== null && $scope.order.OrderId === order.OrderId)) {
-							if (member.CurrentStatus !== null && $scope.order.OrderId === order.OrderId) {
-								$scope.existInCurrentOrder = true;
-							}
-
-							var editMembers = orderingService.getMemberEditOrder();
-							angular.forEach(editMembers, function (value) {
-								if (value.Member.UserId === member.Member.UserId) {
-									isExisted = true;
-								}
-							});
-
-							if (!isExisted) {
-								editMembers.push(member);
-								orderingService.setMemberEditOrder(editMembers);
-							}
-							else {
-								notificationFactory.error('', $scope.warningMessageExistMember);
-							}
-						}
+					}
+					else {
+						notificationFactory.error('', $scope.warningMessageExistMember);
 					}
 				})
 				.error(function (response, status) {

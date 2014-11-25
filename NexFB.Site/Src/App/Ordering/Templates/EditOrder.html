@@ -73,7 +73,7 @@
 													<li>{{menu.QuantityOrder}} x "{{menu.Name}}"</li>
 												</ul>
 											</div>
-											<span ng-show="member.Menus.length == 1 && member.Menus[0].QuantityOrder == 1">{{member.Menus[0].Name}}</span>
+											<span ng-show="member.Menus.length == 1 && member.Menus[0].QuantityOrder <= 1">{{member.Menus[0].Name}}</span>
 											<a class="glyphicon glyphicon-edit" href="" ng-click="getAlternativeMenus(member, $index)" 
 												ng-show="member.Menus[0].MenuId != -1 && member.Menus[0].IsHaveAlternativeMenu && order.Status.StatusId == 1 && 
 													((member.Member.UserId != order.CreatorOrder.UserId 
