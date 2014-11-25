@@ -357,8 +357,9 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
 
             RightSideImageWidth = RightSideImageHeight = 70;
             RightSideInfoDetails = RightSide - RightSideImageWidth - _paddingValue5;
-            RightSideWrapper = RightSide - _paddingValue8;
-            MiddleSideWrapper = MiddleSide - _paddingValue15;
+            RightSideWrapper = RightSide - _paddingValue10;
+
+            MiddleSideWrapper = MiddleSide - _paddingValue8;
 
             KeyPadHeader = 60;
             KeyPadResult = 60;

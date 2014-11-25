@@ -276,11 +276,11 @@ namespace NexFB.PosKitchen.ViewModels
             if (value != null)
             {
                 var sysId = (int)value;
-                KitchenEmployeeInfo previousEmployee = UserInGroup.Where(x => (x.ListMainMenuOrderDeatails.Count == 0 && x.ListAlternativeMenuOrderDeatails.Count == 0)
+                KitchenEmployeeInfo employeeHasDeletedOrder = UserInGroup.Where(x => (x.ListMainMenuOrderDeatails.Count == 0 && x.ListAlternativeMenuOrderDeatails.Count == 0)
                     && x.IsDeleteMainFood).SingleOrDefault();
-                if (previousEmployee != null)
+                if (employeeHasDeletedOrder != null)
                 {
-                    if (previousEmployee.SysId != sysId)
+                    if (employeeHasDeletedOrder.SysId != sysId)
                     {
                         this.ShowErrorMessage(CurrentCulture(), WinFormMainResource.Message_Atleast);
                     }

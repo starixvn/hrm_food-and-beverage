@@ -106,7 +106,7 @@
 				<StackPanel Orientation="Vertical">
 					<Grid MaxHeight="600">
 						<ScrollViewer>
-							<ListBox BorderThickness="1,0,1,1" Margin="0,0,20,0" Background="{StaticResource customBlueBrushOpacity}" 
+							<ListBox BorderThickness="1,0,1,1" Margin="0,0,40,0" Background="{StaticResource customBlueBrushOpacity}" 
 						HorizontalContentAlignment="Stretch" ItemsSource="{Binding OrderPreviewData}" Style="{StaticResource calcyListbox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}">
 								<ListBox.ItemTemplate>
 									<DataTemplate>
@@ -128,7 +128,7 @@
 											<TextBlock Text="{Binding Path=Dishes}" FontSize="16" Foreground="{Binding Path=Color}"
 										HorizontalAlignment="Left" VerticalAlignment="Center"  Grid.Column="2" Margin="5,0,0,0" />
 											<TextBlock Text="{Binding Path=Quantity}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="3"/>
-											<TextBlock Text="{Binding Path=Price}" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center"  Grid.Column="4" Margin="0,0,7,0"/>
+											<TextBlock Text="{Binding Path=Price}" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center"  Grid.Column="4" Margin="0,0,10,0"/>
 										</Grid>
 									</DataTemplate>
 								</ListBox.ItemTemplate>
@@ -148,7 +148,7 @@
 						<Border BorderThickness="1" BorderBrush="Lavender" Grid.Column="2"></Border>
 						<Label HorizontalAlignment="Right" Content="{x:Static resx:WinFormMainResource.Total}" FontWeight="Black"/>
 						<Label Grid.Column="1" HorizontalAlignment="Center" Content="{Binding TotalOrder}" FontWeight="Black" />
-						<Label Grid.Column="2" HorizontalAlignment="Right" Foreground="Red" Margin="0,0,2,0"
+						<Label Grid.Column="2" HorizontalAlignment="Right" Foreground="Red" Margin="0,0,17,0"
 						Content="{Binding TotalPrice}"  FontWeight="Black"/>
 					</Grid>
 
