@@ -1330,7 +1330,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Order #{0} by {1} has been Rejected at {2}. Status history: \n\rCreated: {3}\n\rAccepted: {4}\n\rDelivered: {5}.
+        ///   Looks up a localized string similar to Order #{0} by {1} has been Rejected at {2}. Status history: \nCreated: {3}\nAccepted: {4}\nDelivered: {5}.
         /// </summary>
         public static string MessageRejectedStatusOrder {
             get {
@@ -1663,7 +1663,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must register a vegetarian meal at least 7 days ago..
+        ///   Looks up a localized string similar to You must register a vegetarian meal at least 7 days in advance..
         /// </summary>
         public static string RegisterVegetarianWarning {
             get {

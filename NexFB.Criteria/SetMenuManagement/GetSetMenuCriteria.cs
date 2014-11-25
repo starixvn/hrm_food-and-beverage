@@ -17,7 +17,7 @@ namespace NexFB.Criteria.SetMenuManagement
     public class GetSetMenuCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "MenuGroupID")]
-        public int? MenuId { get; set; }
+        public string MenuId { get; set; }
 
         public bool? IsActive { get; set; }
 

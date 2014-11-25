@@ -135,7 +135,7 @@ namespace NexFB.Site.Controllers.API
             return result;
         }
 
-        public IList<SetMenuModel> GetSetMenu(int? menuId = null, bool? isActive = null)
+        public IList<SetMenuModel> GetSetMenu(string menuId = "", bool? isActive = null)
         {
             var criteria = new GetSetMenuCriteria
             {

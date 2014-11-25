@@ -775,7 +775,7 @@
     <value>Delivered</value>
   </data>
   <data name="MessageRejectedStatusOrder" xml:space="preserve">
-    <value>Order #{0} by {1} has been Rejected at {2}. Status history: \n\rCreated: {3}\n\rAccepted: {4}\n\rDelivered: {5}</value>
+    <value>Order #{0} by {1} has been Rejected at {2}. Status history: \nCreated: {3}\nAccepted: {4}\nDelivered: {5}</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm New Password</value>
@@ -829,7 +829,7 @@
     <value>The Food Code field is required!</value>
   </data>
   <data name="RegisterVegetarianWarning" xml:space="preserve">
-    <value>You must register a vegetarian meal at least 7 days ago.</value>
+    <value>You must register a vegetarian meal at least 7 days in advance.</value>
   </data>
   <data name="FnBWelcome" xml:space="preserve">
     <value>Welcome to F&amp;B</value>
