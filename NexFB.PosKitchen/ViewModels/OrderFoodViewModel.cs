@@ -1501,7 +1501,7 @@ namespace NexFB.PosKitchen.ViewModels
         private void StartTimerAddQuantity()
         {
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Interval = TimeSpan.FromSeconds(0.5);
             timer.Tick += TimerTickToAddQuantity;
             timer.Start();
         }
