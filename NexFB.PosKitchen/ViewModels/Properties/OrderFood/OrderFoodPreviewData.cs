@@ -25,7 +25,6 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         /// Prepare data for kitchen preview.
         /// </summary>
         /// <param name="kitchenEmployeeInfo">Employee kitchen Info.</param>
-        /// <param name="isVnmCulture">Check for VN culture.</param>
         /// <returns>List of order preview.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public List<OrderPreview> PrepareDataForKitchenPreview(List<KitchenEmployeeInfo> kitchenEmployeeInfo)

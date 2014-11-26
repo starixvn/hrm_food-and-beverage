@@ -110,5 +110,14 @@ namespace NexFB.Models.Kitchen
                 return setName;
             }
         }
+
+        public int DisplayRowHeight
+        {
+            get
+            {
+                //// Grater than 20 letter set Height = 40, else Height = 28
+                return SetMenuAndQuantity.Length > 20 ? 40 : 28;
+            }
+        }
     }
 }

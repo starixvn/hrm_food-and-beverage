@@ -307,12 +307,7 @@ namespace NexFB.PosKitchen.ViewModels
                         LocationId = currentSelectedEmployee.LocationId;
                     }
 
-                    if (!CanOrderMainFood)
-                    {
-                        ExecuteChooseAlternativeFoodCommand();
-                    }
-
-                    ChangeMenuColor(currentSelectedEmployee);
+                    DisabledMainFoodMenu();
                 }
             }
         }

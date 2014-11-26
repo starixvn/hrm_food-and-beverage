@@ -61,7 +61,7 @@
 
 				<!--Row 2-->
 				<Border BorderBrush="Black" BorderThickness="0,1,0,1" Grid.Row="2"
-					 Height="24" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,6,0,0">
+					 Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,6,0,0">
 					<Grid Height="20" Width="271">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="65"/>
@@ -72,7 +72,7 @@
 						Text="{x:Static resx:WinFormMainResource.NameBilingual}" VerticalAlignment="Top" />
 
 						<TextBlock FontSize="10" Grid.Column="1" Height="23" HorizontalAlignment="Center"
-						 Text="{x:Static resx:WinFormMainResource.SetMenu}" VerticalAlignment="Top" />
+						 Text="{x:Static resx:WinFormMainResource.SetMenu}" VerticalAlignment="Top"  Margin="-3,0,0,0"/>
 
 						<TextBlock FontSize="10" Grid.Column="2" Height="23" HorizontalAlignment="Right" VerticalAlignment="Top" 
 						Text="{x:Static resx:WinFormMainResource.Amount}" Margin="0,0,15,0"/>
@@ -80,25 +80,35 @@
 				</Border>
 
 				<!--Row 3-->
-				<StackPanel Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top">
-					<ListBox BorderThickness="0" ItemsSource="{Binding Path=ListMenu}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+				<StackPanel Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-7,0,0">
+					<ListBox BorderThickness="0" ItemsSource="{Binding Path=ListMenu}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,0,0,5">
+						<ListBox.Template>
+							<ControlTemplate>
+								<ItemsPresenter />
+							</ControlTemplate>
+						</ListBox.Template>
+
 						<ListBox.ItemTemplate>
 							<DataTemplate>
-								<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="271" Margin="0,-8,0,0">
+								<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="271" Margin="0,-5,0,-10">
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="80" />
+										<ColumnDefinition Width="90" />
 										<ColumnDefinition Width="*" />
-										<ColumnDefinition Width="60" />
+										<ColumnDefinition Width="75" />
 									</Grid.ColumnDefinitions>
-									<Label FontSize="10" ContentStringFormat="> {0} " Content="{Binding Path=DisplayName}" Height="28" 
-									HorizontalAlignment="Left" Margin="0,0,0,-15" VerticalAlignment="Top" />
+									<Grid.RowDefinitions>
+										<RowDefinition Height="{Binding Path=DisplayRowHeight}"/>
+									</Grid.RowDefinitions>
+
+									<Label FontSize="10" ContentStringFormat="> {0} " Content="{Binding Path=DisplayName}" 
+									HorizontalAlignment="Left" Margin="0,0,0,-15" VerticalAlignment="Stretch" />
 
 									<TextBlock FontSize="10" TextWrapping="WrapWithOverflow" 
-									Text="{Binding Path=SetMenuAndQuantity}" Grid.Column="1" Height="28"
-									HorizontalAlignment="Left" Margin="7,5,0,-15" VerticalAlignment="Top" />
+									Text="{Binding Path=SetMenuAndQuantity}" Grid.Column="1"
+									HorizontalAlignment="Left" Margin="7,5,0,-15" VerticalAlignment="Stretch" />
 
 									<Label FontSize="10" Content="{Binding Path=DisplayPrice}" Grid.Column="2"
-									 Height="28" HorizontalAlignment="Right" Margin="0,0,5,-15" VerticalAlignment="Top" />
+									 HorizontalAlignment="Right" Margin="0,0,5,-15" VerticalAlignment="Stretch" />
 								</Grid>
 							</DataTemplate>
 						</ListBox.ItemTemplate>
@@ -111,10 +121,10 @@
 							<ColumnDefinition Width="80"/>
 							<ColumnDefinition Width="80"/>
 						</Grid.ColumnDefinitions>
-						<TextBlock FontSize="12" Height="28" HorizontalAlignment="Left" Margin="5,0,0,0" Text="{x:Static resx:WinFormMainResource.TotalBilingual}" VerticalAlignment="Top" />
-						<TextBlock FontSize="12" Text="{Binding ElementName=GeneralInfo, Path=DataContext.TotalOrder}"
-				 FontWeight="Bold" Grid.Column="1" Height="28" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Top" />
-						<TextBlock FontSize="12" Text="{Binding ElementName=GeneralInfo, Path=DataContext.TotalAmount}"
+						<TextBlock FontSize="10" Height="28" HorizontalAlignment="Left" Margin="5,0,0,0" Text="{x:Static resx:WinFormMainResource.TotalBilingual}" VerticalAlignment="Top" />
+						<TextBlock FontSize="10" Text="{Binding ElementName=GeneralInfo, Path=DataContext.TotalOrder}"
+				 FontWeight="Bold" Grid.Column="1" Height="28" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" />
+						<TextBlock FontSize="10" Text="{Binding ElementName=GeneralInfo, Path=DataContext.TotalAmount}"
 				 FontWeight="Bold" Grid.Column="2" Height="28" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Top" />
 					</Grid>
 
@@ -128,16 +138,16 @@
 								</VisualBrush>
 							</Border.BorderBrush>
 							<Grid>
-								<TextBlock FontSize="12" Height="23" HorizontalAlignment="Left" Margin="10,4,0,0" 
+								<TextBlock FontSize="10" Height="23" HorizontalAlignment="Left" Margin="10,4,0,0" 
 						Text="{x:Static resx:WinFormMainResource.Ref}" VerticalAlignment="Top" />
 
-								<TextBlock FontSize="12" Height="23" HorizontalAlignment="Left" Margin="36,4,0,0" 
+								<TextBlock FontSize="10" Height="23" HorizontalAlignment="Left" Margin="36,4,0,0" 
 						Text="{Binding ElementName=GeneralInfo, Path=DataContext.OrderId}" VerticalAlignment="Top" />
 
-								<TextBlock FontSize="12" Height="23" HorizontalAlignment="Left" Margin="10,23,0,0" 
+								<TextBlock FontSize="10" Height="23" HorizontalAlignment="Left" Margin="10,23,0,0" 
 						Text="{x:Static resx:WinFormMainResource.RemarkBilingual}" VerticalAlignment="Top" />
 
-								<TextBlock FontSize="12" HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="WrapWithOverflow"
+								<TextBlock FontSize="10" HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="WrapWithOverflow"
 						Text="{Binding ElementName=GeneralInfo, Path=DataContext.Remark}" VerticalAlignment="Top" />
 
 								<Grid Visibility="{Binding ElementName=GeneralInfo, Path=DataContext.HasEdited}">
@@ -150,7 +160,9 @@
 						</Border>
 					</Grid>
 				</StackPanel>
+
+
 			</Grid>
 		</FixedPage>
 	</PageContent>
-</FixedDocument>
+</FixedDocument>	
