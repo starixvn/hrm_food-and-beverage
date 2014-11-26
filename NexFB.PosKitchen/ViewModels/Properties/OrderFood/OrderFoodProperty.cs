@@ -61,6 +61,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private string _ownerImage;
         private bool _isCanceledOrder;
         private bool _allowReduceOrderToZero;
+        private bool _canOrderMainFood;
 
         public ICommand NumPadPressed { get; set; }
 
@@ -109,6 +110,20 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             {
                 _isCanceledOrder = value;
                 this.OnPropertyChanged("IsCanceledOrder");
+            }
+        }
+
+        public bool CanOrderMainFood
+        {
+            get
+            {
+                return _canOrderMainFood;
+            }
+
+            set
+            {
+                _canOrderMainFood = value;
+                this.OnPropertyChanged("CanOrderMainFood");
             }
         }
 

@@ -114,7 +114,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         /// <param name="employeeInfo">Employee Info.</param>
         /// <param name="mainViewModel">Main ViewModel.</param>
-        public void DisplayEmployeeHasAlreadyOrdered(Employee employeeInfo, MainViewModel mainViewModel)
+        public void DisplayEmployeeHasAlreadyOrdered(Employee employeeInfo, MainModelProperty mainViewModel)
         {
             if (ObservableListEmployee.Count == 0)
             {

@@ -287,6 +287,14 @@ namespace NexFB.Pos.Core.Models
             }
         }
 
+        public bool CanOrderMainFood
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(MenuVnmName);
+            }
+        }
+
         public int GroupOrderId
         {
             get

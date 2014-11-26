@@ -28,7 +28,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         /// <param name="isVnmCulture">Check for VN culture.</param>
         /// <returns>List of order preview.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public List<OrderPreview> PrepareDataForKitchenPreview(List<KitchenEmployeeInfo> kitchenEmployeeInfo, bool isVnmCulture)
+        public List<OrderPreview> PrepareDataForKitchenPreview(List<KitchenEmployeeInfo> kitchenEmployeeInfo)
         {
             kitchenEmployeeInfo = kitchenEmployeeInfo.Where(x => x.ListMainMenuOrderDeatails.Count > 0
                 || x.ListAlternativeMenuOrderDeatails.Count > 0).ToList();
@@ -54,7 +54,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
                             };
                             if (orderPreview.UnitPrice > 0)
                             {
-                                orderPreview.Price = isVnmCulture ? string.Format(culture, "{0:C}", orderPreview.UnitPrice) : string.Format("{0:C}", orderPreview.UnitPrice);
+                                orderPreview.Price = orderPreview.UnitPrice.ToString("#,###", culture.NumberFormat);
                             }
                             else
                             {
@@ -81,7 +81,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
                             };
                             if (orderPreview.UnitPrice > 0)
                             {
-                                orderPreview.Price = isVnmCulture ? string.Format(culture, "{0:C}", orderPreview.UnitPrice) : string.Format("{0:C}", orderPreview.UnitPrice);
+                                orderPreview.Price = orderPreview.UnitPrice.ToString("#,###", culture.NumberFormat);
                             }
                             else
                             {

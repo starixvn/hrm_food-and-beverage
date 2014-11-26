@@ -285,7 +285,7 @@ namespace NexFB.Models.Kitchen
                 decimal totalAmount = ListMenu.Sum(x => x.Price * x.QuantityOrder);
                 if (totalAmount > 0)
                 {
-                    return string.Format(culture, "{0:C}", totalAmount);
+                    return totalAmount.ToString("#,###", culture.NumberFormat);
                 }
                 else
                 {
