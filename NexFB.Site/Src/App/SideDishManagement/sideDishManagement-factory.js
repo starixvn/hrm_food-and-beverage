@@ -24,6 +24,9 @@ sideDishManagementModule.factory('sideDishManagementFactory', ['$http', function
 		},
 		getPermissionOnSideDish: function () {
 			return $http.get('/api/SideDishManagement/GetUserPermissionOnSideDish');
+		},
+		updateKitchenOnly: function (sideDish) {
+			return $http.put('/api/SideDishManagement/UpdateKitchenOnlyByFoodId', sideDish);
 		}
 	};
 } ]);

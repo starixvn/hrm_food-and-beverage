@@ -2,8 +2,10 @@
 /*global foodItemManagementModule*/
 
 foodItemManagementModule.controller('EditFoodItemController',
-['$scope', '$modalInstance', 'setMenuItems', 'foodItem', 'foodItemUtilities',
-function ($scope, $modalInstance, setMenuItems, foodItem, foodItemUtilities) {
+['$scope', '$modalInstance', 'setMenuItems', 'foodItem', 'foodItemUtilities', 'foodItemFactory',
+'notificationFactory', 'ErrorFactory',
+function ($scope, $modalInstance, setMenuItems, foodItem, foodItemUtilities, foodItemFactory,
+notificationFactory, ErrorFactory) {
 	/*
 	** Declare variables.
 	*/
@@ -96,16 +98,23 @@ function ($scope, $modalInstance, setMenuItems, foodItem, foodItemUtilities) {
 
 		food = updateFoodSetMenus(food);
 
-		var objFood = {
-			editedFood: editedFood,
-			food: food
-		};
-
 		$scope.submitted = true;
 		$scope.disabledSubmitButton = true;
 
 		if (foodItemUtilities.validateFoodItem(editedFood)) {
-			$modalInstance.close(objFood);
+			foodItemFactory.updateFoodItem(editedFood).success(function (response) {
+				if (response.IsSuccessful) {
+					notificationFactory.success("DataChangeSuccessfully");
+					$modalInstance.close(food);
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			})['finally'](function () {
+				$scope.disabledSubmitButton = false;
+			});
 		}
 		else {
 			$scope.disabledSubmitButton = false;

@@ -44,6 +44,8 @@ namespace NexFB.Models.SideDishManagement
 
         public bool IsActive { get; set; }
 
+        public bool KitchenOnly { get; set; }
+
         public UnitModel Unit { get; set; }
 
         public IList<EmployeeTypeModel> EmployeeTypes { get; set; }

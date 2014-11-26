@@ -107,19 +107,7 @@ ErrorFactory) {
 			windowClass: "modal-confirm-center food-item-modal"
 		});
 
-		$scope.modalInstance.result.then(function (food) {
-
-			foodItemFactory.insertFoodItem(food).success(function (response) {
-				if (response.IsSuccessful) {
-					notificationFactory.success("DataChangeSuccessfully");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			});
-		})['finally'](function () {
+		$scope.modalInstance.result.then()['finally'](function () {
 			getAllFoodItem(null, null);
 			$scope.modalInstance = '';
 		});
@@ -152,18 +140,8 @@ ErrorFactory) {
 			windowClass: "modal-confirm-center food-item-modal"
 		});
 
-		$scope.modalInstance.result.then(function (objFood) {
-			foodItemFactory.updateFoodItem(objFood.editedFood).success(function (response) {
-				if (response.IsSuccessful) {
-					updateChangedFoodItem(food, objFood.food);
-					notificationFactory.success("DataChangeSuccessfully");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			});
+		$scope.modalInstance.result.then(function (changedFood) {
+			updateChangedFoodItem(food, changedFood);
 		})['finally'](function () {
 			$scope.modalInstance = '';
 		});

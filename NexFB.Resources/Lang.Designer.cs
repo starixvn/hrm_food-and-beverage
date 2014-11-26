@@ -313,6 +313,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want this food item to be viewed by kitchen staff only?.
+        /// </summary>
+        public static string CheckKitchenOnlyMsg {
+            get {
+                return ResourceManager.GetString("CheckKitchenOnlyMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check-out.
         /// </summary>
         public static string CheckOut {
@@ -1065,6 +1074,24 @@ namespace NexFB.Resources {
         public static string ItemRequire {
             get {
                 return ResourceManager.GetString("ItemRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kitchen only.
+        /// </summary>
+        public static string KitchenOnly {
+            get {
+                return ResourceManager.GetString("KitchenOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ordered by kitchen staff only.
+        /// </summary>
+        public static string KitchenOnlyLabel {
+            get {
+                return ResourceManager.GetString("KitchenOnlyLabel", resourceCulture);
             }
         }
         
@@ -2091,6 +2118,15 @@ namespace NexFB.Resources {
         public static string Tue {
             get {
                 return ResourceManager.GetString("Tue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want this food item to be viewed by all users?.
+        /// </summary>
+        public static string UncheckKitchenOnlyMsg {
+            get {
+                return ResourceManager.GetString("UncheckKitchenOnlyMsg", resourceCulture);
             }
         }
         

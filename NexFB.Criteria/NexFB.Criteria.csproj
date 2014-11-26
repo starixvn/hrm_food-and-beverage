@@ -142,6 +142,7 @@
     <Compile Include="ShiftMealMapping\UpdateShiftMealByShiftIdCriteria.cs" />
     <Compile Include="SideDishManagement\ActivateSideDishCriteria.cs" />
     <Compile Include="SideDishManagement\DeleteSideDishCriteria.cs" />
+    <Compile Include="SideDishManagement\UpdateKitchenOnlyByFoodIdCriteria.cs" />
     <Compile Include="SideDishManagement\GetAllFoodUnitCriteria.cs" />
     <Compile Include="SideDishManagement\GetAllSideDishCriteria.cs" />
     <Compile Include="SideDishManagement\GetSideDishByUserIdCriteria.cs" />

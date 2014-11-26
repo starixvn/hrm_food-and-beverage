@@ -3,9 +3,20 @@
 
 sideDishManagementModule.controller('SideDishManagementController',
 ['$scope', 'sideDishManagementFactory', 'commonFactory', 'ErrorFactory', '$modal', 'foodMenuFactory',
-'notificationFactory',
+'notificationFactory', '$translate',
 function ($scope, sideDishManagementFactory, commonFactory, ErrorFactory, $modal, foodMenuFactory,
-notificationFactory) {
+notificationFactory, $translate) {
+
+	var getMessage = function () {
+		$translate('CheckKitchenOnlyMsg').then(function (message) {
+			$scope.checkKitchenOnlyMessage = message;
+		});
+		$translate('UncheckKitchenOnlyMsg').then(function (message) {
+			$scope.uncheckKitchenOnlyMessage = message;
+		});
+	};
+
+	getMessage();
 
 	/*
 	** Paging.
@@ -108,6 +119,7 @@ notificationFactory) {
 			sideDish.FoodVnmName = updatedSideDish.FoodVnmName;
 			sideDish.FoodEngName = updatedSideDish.FoodEngName;
 			sideDish.IsActive = updatedSideDish.IsActive;
+			sideDish.KitchenOnly = updatedSideDish.KitchenOnly;
 			sideDish.Price = isNaN(updatedSideDish.Price) ? parseInt(updatedSideDish.Price.replace(/\,/g, '')) : updatedSideDish.Price;
 			sideDish.Unit = updatedSideDish.Unit;
 			sideDish.EmployeeTypes = updatedSideDish.EmployeeTypes;
@@ -196,6 +208,52 @@ notificationFactory) {
 		});
 	};
 
+	$scope.confirmKitchenOnly = function (sideDish) {
+		var messageContent = !sideDish.KitchenOnly ? $scope.checkKitchenOnlyMessage : $scope.uncheckKitchenOnlyMessage,
+			newSideDish = {
+				foodId: sideDish.FoodId,
+				KitchenOnly: !sideDish.KitchenOnly
+			};
+
+		sideDish.KitchenOnly = newSideDish.KitchenOnly;
+
+		$scope.modalInstance = $modal.open({
+			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent2.html',
+			controller: "ModalConfirmController2",
+			backdrop: 'static',
+			resolve: {
+				content: function () {
+					return messageContent;
+				}
+			},
+			windowClass: "modal-confirm-center food-item-modal"
+		});
+
+		$scope.modalInstance.result.then(function () {
+			sideDishManagementFactory.updateKitchenOnly(newSideDish).success(function (response) {
+				if (response.IsSuccessful) {
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					sideDish.KitchenOnly = !newSideDish.KitchenOnly;
+					notificationFactory.error("DataChangeFail");
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					sideDish.KitchenOnly = !newSideDish.KitchenOnly;
+					notificationFactory.error("DataChangeFail");
+				}
+			});
+		}, function () {
+			sideDish.KitchenOnly = !newSideDish.KitchenOnly;
+		})['finally'](function () {
+			$scope.modalInstance = '';
+		});
+	};
+
 	/*
 	** Delete side dish.
 	*/
@@ -267,6 +325,7 @@ sideDishManagementFactory, notificationFactory, ErrorFactory) {
 		foodEngName: '',
 		unitId: '',
 		isActive: true,
+		kitchenOnly: false,
 		price: '',
 		employeeTypeId: ''
 	};
@@ -368,6 +427,7 @@ sideDishUtilities, commonFactory, sideDishManagementFactory, notificationFactory
 			foodVnmName: sideDish.FoodVnmName,
 			foodEngName: sideDish.FoodEngName,
 			isActive: sideDish.IsActive,
+			kitchenOnly: sideDish.KitchenOnly,
 			unitId: sideDish.Unit.UnitId,
 			price: sideDish.Price,
 			employeeTypeId: foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption)

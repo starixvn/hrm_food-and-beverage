@@ -161,5 +161,23 @@ namespace NexFB.Services.Implement
 
             return sideDishes;
         }
+
+        /// <summary>
+        /// Edit kitchen only by food Id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult UpdateKitchenOnlyByFoodId(UpdateKitchenOnlyByFoodIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
     }
 }

@@ -29,6 +29,8 @@ namespace NexFB.Criteria.SideDishManagement
 
         public bool? IsActive { get; set; }
 
+        public bool KitchenOnly { get; set; }
+
         public int UnitId { get; set; }
 
         public double Price { get; set; }

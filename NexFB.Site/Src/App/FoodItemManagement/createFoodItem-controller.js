@@ -49,7 +49,20 @@ foodItemUtilities) {
 
 		if (foodItemUtilities.validateFoodItem(food)) {
 			food.setMenuId = foodItemUtilities.createSetMenuId(food.setMenuIds);
-			$modalInstance.close(food);
+
+			foodItemFactory.insertFoodItem(food).success(function (response) {
+				if (response.IsSuccessful) {
+					notificationFactory.success("DataChangeSuccessfully");
+					$modalInstance.close();
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			})['finally'](function () {
+				$scope.disabledSubmitButton = false;
+			});
 		}
 		else {
 			$scope.disabledSubmitButton = false;
@@ -64,7 +77,7 @@ foodItemUtilities) {
 		$scope.disabledSubmitButton = true;
 
 		if (foodItemUtilities.validateFoodItem(food)) {
-			food.menuGroupId = foodItemUtilities.createSetMenuId(food.setMenuIds);
+			food.setMenuId = foodItemUtilities.createSetMenuId(food.setMenuIds);
 
 			foodItemFactory.insertFoodItem(food).success(function (response) {
 				$scope.submitted = false;

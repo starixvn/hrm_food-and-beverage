@@ -126,5 +126,22 @@ namespace NexFB.Site.Controllers.API
             int policy = _webCommonService.GetPermission(FBFunctionKey.SideDishManagement);
             return policy;
         }
+
+        /// <summary>
+        /// Update kitchen only by food Id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        [HttpPut]
+        public CommandResult UpdateKitchenOnlyByFoodId(UpdateKitchenOnlyByFoodIdCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _sideDishService.UpdateKitchenOnlyByFoodId(criteria);
+        }
     }
 }

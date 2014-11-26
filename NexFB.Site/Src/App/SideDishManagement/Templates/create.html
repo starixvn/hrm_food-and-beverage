@@ -6,28 +6,28 @@
 <div class="modal-body side-dish-body-modal">
     <form class="form-horizontal col-sm-11" role="form">
     <div class="form-group required">
-        <label class="col-sm-4 control-label" data-translate="Code">
+        <label class="col-sm-5 control-label" data-translate="Code">
         </label>
-        <div class="col-sm-8 field">
+        <div class="col-sm-7 field">
             <input type="text" class="form-control" ng-model="sideDish.foodCode" required />
         </div>
     </div>
     <div class="form-group required">
-        <label class="col-sm-4 control-label" data-translate="FoodItemVnm">
+        <label class="col-sm-5 control-label" data-translate="FoodItemVnm">
         </label>
-        <div class="col-sm-8 field">
+        <div class="col-sm-7 field">
             <input type="text" class="form-control" ng-model="sideDish.foodVnmName" required />
         </div>
     </div>
     <div class="form-group required">
-        <label class="col-sm-4 control-label" data-translate="FoodItemEng">
+        <label class="col-sm-5 control-label" data-translate="FoodItemEng">
         </label>
-        <div class="col-sm-8 field">
+        <div class="col-sm-7 field">
             <input type="text" class="form-control" ng-model="sideDish.foodEngName" required />
         </div>
     </div>
     <div class="form-group required">
-        <label class="col-sm-4 control-label" data-translate="Unit">
+        <label class="col-sm-5 control-label" data-translate="Unit">
         </label>
         <div class="col-sm-5 field">
             <select ng-model="sideDish.unitId" ng-options="opt.UnitId as opt.UnitVnmName for opt in unitOptions"
@@ -37,15 +37,15 @@
         </div>
     </div>
     <div class="form-group required">
-        <label class="col-sm-4 control-label" data-translate="Price">
+        <label class="col-sm-5 control-label" data-translate="Price">
         </label>
-        <div class="col-sm-8 field">
+        <div class="col-sm-7 field">
             <input type="text" class="form-control" ng-model="sideDish.price" number-only="number"
                 required />
         </div>
     </div>
     <div class="form-group required">
-        <label class="col-sm-4 control-label" data-translate="EmployeeType">
+        <label class="col-sm-5 control-label" data-translate="EmployeeType">
         </label>
         <div class="col-sm-5 field selectbox">
             <add-class-to-role-filter multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId"
@@ -54,10 +54,17 @@
 					</add-class-to-role-filter>
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label side-dish-active-label" data-translate="Active">
+	<div class="form-group">
+        <label class="col-sm-5 control-label side-dish-active-label" data-translate="KitchenOnlyLabel">
         </label>
-        <div class="col-sm-8 field side-dish-active-div">
+        <div class="col-sm-7 field side-dish-active-div">
+            <input type="checkbox" ng-model="sideDish.kitchenOnly" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-5 control-label side-dish-active-label" data-translate="Active">
+        </label>
+        <div class="col-sm-7 field side-dish-active-div">
             <input type="checkbox" ng-model="sideDish.isActive" />
         </div>
     </div>

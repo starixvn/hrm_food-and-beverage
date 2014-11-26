@@ -271,6 +271,8 @@
 		</Setting>
 		<Setting Key="FoodAdd_DeleteByFoodID" SpName="FoodAdd_DeleteByFoodID" DbName="NexFB" Plain="0" >
 		</Setting>
+		<Setting Key="Food_EditKitchenOnlyByFoodID" SpName="Food_EditKitchenOnlyByFoodID" DbName="NexFB" Plain="0" >
+		</Setting>
 	</Function>
 	<Function Name="AlternativeMenuManagement">
 		<Setting Key="AlternativeMenu_GetItem" SpName="AlternativeMenu_GetItem" DbName="NexFB" Plain="0" >

@@ -840,4 +840,16 @@
   <data name="MessageEditedNoMemberStatusOrder" xml:space="preserve">
     <value>Order #{0} by {1} has been edited at {2}.</value>
   </data>
+  <data name="KitchenOnly" xml:space="preserve">
+    <value>Kitchen only</value>
+  </data>
+  <data name="KitchenOnlyLabel" xml:space="preserve">
+    <value>Ordered by kitchen staff only</value>
+  </data>
+  <data name="CheckKitchenOnlyMsg" xml:space="preserve">
+    <value>Do you want this food item to be viewed by kitchen staff only?</value>
+  </data>
+  <data name="UncheckKitchenOnlyMsg" xml:space="preserve">
+    <value>Do you want this food item to be viewed by all users?</value>
+  </data>
 </root>
