@@ -988,15 +988,6 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are some members have already ordered 3 times a day..
-        /// </summary>
-        public static string GroupOverOrderWarning {
-            get {
-                return ResourceManager.GetString("GroupOverOrderWarning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -1200,15 +1191,6 @@ namespace NexFB.Resources {
         public static string Member {
             get {
                 return ResourceManager.GetString("Member", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You can order 3 times a day only..
-        /// </summary>
-        public static string MemberOverOrderWarning {
-            get {
-                return ResourceManager.GetString("MemberOverOrderWarning", resourceCulture);
             }
         }
         
@@ -1596,6 +1578,15 @@ namespace NexFB.Resources {
         public static string OverdueMealInShift {
             get {
                 return ResourceManager.GetString("OverdueMealInShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected member have already ordered in over limit order a day or included in another order..
+        /// </summary>
+        public static string OverOrderWarning {
+            get {
+                return ResourceManager.GetString("OverOrderWarning", resourceCulture);
             }
         }
         

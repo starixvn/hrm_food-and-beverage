@@ -31,6 +31,10 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		$translate('TakeAwayRemark').then(function (message) {
 			$scope.takeAway = message;
 		});
+
+		$translate('OverOrderWarning').then(function (message) {
+			$scope.overOrderWarning = message;
+		});
 	};
 
 	/*
@@ -363,39 +367,25 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 				notificationFactory.error("InvalidInputData");
 			}
 			else {
-				var isGroupOverOrder = false,
-					isMemberOverOrder = false;
+				var overOrderMessage = '';
 
 				for (var i = 0; i < order.Members.length; i++) {
 					var value = order.Members[i];
 
-					if (typeOrder !== $scope.typeOrder.sideDishOrder) {
+					if (typeOrder !== $scope.typeOrder.sideDishOrder && value.IsOrder) {
 						if (value.IsAllowOrder) {
 							isValid = true;
 						}
-						else if (value.CurrentStatus) {
-							isValid = false;
-
-							if (typeOrder === $scope.typeOrder.newOrder) {
-								isMemberOverOrder = true;
-							}
-							else if (typeOrder === $scope.typeOrder.savedOrder) {
-								isGroupOverOrder = true;
-							}
-
-							i = order.Members.length;
+						else {
+							overOrderMessage += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + value.Member.NickName;
 						}
 					}
 				}
 
-				if (isMemberOverOrder) {
-					notificationFactory.error("MemberOverOrderWarning");
-				}
-				else if (isGroupOverOrder) {
-					notificationFactory.error("GroupOverOrderWarning");
-				}
-				else if (!isValid) {
-					notificationFactory.error("InvalidInputData");
+				if (overOrderMessage) {
+					isValid = false;
+					overOrderMessage = $scope.overOrderWarning + overOrderMessage;
+					notificationFactory.error("", overOrderMessage);
 				}
 			}
 

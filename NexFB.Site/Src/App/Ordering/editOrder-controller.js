@@ -369,7 +369,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 							orderingService.setMemberEditOrder(editMembers);
 						}
 						else if (!member.IsAllowOrder) {
-							notificationFactory.error('', $scope.warningMessageExistMember);
+							notificationFactory.error("AddOverOrderMemberWarning");
 						}
 					}
 					else {

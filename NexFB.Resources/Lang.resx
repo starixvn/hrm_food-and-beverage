@@ -810,11 +810,8 @@
   <data name="NoMenuAvailableWarning" xml:space="preserve">
     <value>There is no menu available for</value>
   </data>
-  <data name="GroupOverOrderWarning" xml:space="preserve">
-    <value>There are some members have already ordered 3 times a day.</value>
-  </data>
-  <data name="MemberOverOrderWarning" xml:space="preserve">
-    <value>You can order 3 times a day only.</value>
+  <data name="OverOrderWarning" xml:space="preserve">
+    <value>The selected member have already ordered in over limit order a day or included in another order.</value>
   </data>
   <data name="Ordered" xml:space="preserve">
     <value>Ordered</value>
