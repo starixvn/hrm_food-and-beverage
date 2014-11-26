@@ -166,13 +166,16 @@
     <value>Are you sure you want to cancel this order ?</value>
   </data>
   <data name="Message_ContainEmployee" xml:space="preserve">
-    <value>The order must contains at least 1 emloyee.</value>
+    <value>The order must contain at least 1 emloyee.</value>
   </data>
   <data name="Message_ContainFood" xml:space="preserve">
-    <value>The order must contains at least 1 food item.</value>
+    <value>The order must contain at least 1 food item.</value>
   </data>
   <data name="Message_IdentifyCard" xml:space="preserve">
     <value>Cannot identify your card number.</value>
+  </data>
+  <data name="Message_NoMenu" xml:space="preserve">
+    <value>There is no menu available for {0}</value>
   </data>
   <data name="Message_NoMoreDish" xml:space="preserve">
     <value>There are no more side dishes to select. You can only add more quantity.</value>

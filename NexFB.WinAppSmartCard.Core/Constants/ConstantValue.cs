@@ -76,6 +76,8 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const string EndRootTag = "</ROOT>";
 
+        public const int NoMenuAvailableCode = -1;
+
         private ConstantValue()
         {
         }

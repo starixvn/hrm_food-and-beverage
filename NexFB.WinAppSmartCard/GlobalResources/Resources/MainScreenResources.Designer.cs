@@ -205,7 +205,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The order must contains at least 1 emloyee..
+        ///   Looks up a localized string similar to The order must contain at least 1 emloyee..
         /// </summary>
         internal static string Message_ContainEmployee {
             get {
@@ -214,7 +214,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The order must contains at least 1 food item..
+        ///   Looks up a localized string similar to The order must contain at least 1 food item..
         /// </summary>
         internal static string Message_ContainFood {
             get {
@@ -228,6 +228,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         internal static string Message_IdentifyCard {
             get {
                 return ResourceManager.GetString("Message_IdentifyCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no menu available for {0}.
+        /// </summary>
+        internal static string Message_NoMenu {
+            get {
+                return ResourceManager.GetString("Message_NoMenu", resourceCulture);
             }
         }
         

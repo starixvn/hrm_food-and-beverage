@@ -206,25 +206,71 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (!IsMainDishTab)
             {
-                IsMainDishTab = true;
-                CancelDispatcherTimer();
-                CurrentViewModel = new MainDishesViewModel();
-                if (MainTabReadOnly)
+                if (OrderOwner == null)
                 {
-                    ((MainDishesViewModel)CurrentViewModel).ShowNotificationScreen();
+                    SelectMainDishAction();
                 }
                 else
                 {
-                    ((MainDishesViewModel)CurrentViewModel).ShowOrderScreen();
-                }
+                    if (OrderOwner.MenuId == ConstantValue.NoMenuAvailableCode)
+                    {
+                        this.ShowErrorMessage(this.CurrentCulture, string.Format(MainScreenResources.Message_NoMenu, OrderOwner.NickName));
+                    }
+                    else
+                    {
+                        IsMainDishTab = true;
+                        CancelDispatcherTimer();
+                        CurrentViewModel = new MainDishesViewModel();
+                        if (OrderOwner.AllowOrder)
+                        {
+                            // Show order food screen.
+                            ((MainDishesViewModel)CurrentViewModel).ShowOrderScreen();
+                            if (OrderOwner != null)
+                            {
+                                ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, this);
+                            }
 
-                if (OrderOwner != null)
-                {
-                    ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, this);
-                }
+                            CheckCurrentViewModel();
+                        }
+                        else
+                        {
+                            // Show order details
+                            ((MainDishesViewModel)CurrentViewModel).ShowNotificationScreen();
+                            if (OrderOwner != null)
+                            {
+                                ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, this);
+                            }
 
-                CheckCurrentViewModel();
+                            CheckCurrentViewModel();
+                        }
+                    }
+                }
             }
+        }
+
+        /// <summary>
+        /// Action when press button Select Main dish.
+        /// </summary>
+        private void SelectMainDishAction()
+        {
+            IsMainDishTab = true;
+            CancelDispatcherTimer();
+            CurrentViewModel = new MainDishesViewModel();
+            if (MainTabReadOnly)
+            {
+                ((MainDishesViewModel)CurrentViewModel).ShowNotificationScreen();
+            }
+            else
+            {
+                ((MainDishesViewModel)CurrentViewModel).ShowOrderScreen();
+            }
+
+            if (OrderOwner != null)
+            {
+                ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, this);
+            }
+
+            CheckCurrentViewModel();
         }
 
         private void ExecuteSideDishesCommand()
@@ -324,26 +370,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        ////private bool AllowChangeLanguage()
-        ////{
-        ////    string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
-        ////    switch (currentViewModel)
-        ////    {
-        ////        case ConstantValue.MainDishesViewModel:
-        ////            if (((MainDishesViewModel)CurrentViewModel).ObservableListEmployee.Count > 1)
-        ////            {
-        ////                return false;
-        ////            }
-
-        ////            return true;
-        ////            break;
-        ////        case ConstantValue.SideDishesViewModel:
-        ////            break;
-        ////        default:
-        ////            break;
-        ////    }
-        ////}
-
         /// <summary>
         /// Change Culture.
         /// </summary>
@@ -399,6 +425,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     employeeData.AllowOrder = orderStatus.IsAllowOrder;
                     employeeData.MenuEngName = orderStatus.MenuEngName;
                     employeeData.MenuVnmName = orderStatus.MenuVnmName;
+                    employeeData.MenuId = orderStatus.MenuId;
 
                     Employee employeeInfoMapping = Mapper.Map<EmployeeInfo, Employee>(employeeData);
                     if (OrderOwner == null)
