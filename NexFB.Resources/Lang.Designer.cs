@@ -133,7 +133,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The selected member has already ordered 3 times..
+        ///   Looks up a localized string similar to This member has reached his meal limit or included in another order..
         /// </summary>
         public static string AddOverOrderMemberWarning {
             get {

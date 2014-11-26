@@ -382,6 +382,7 @@
     <Content Include="Src\Content\Common\bootstrap-theme.min.css" />
     <Content Include="Src\Content\Common\chosen-sprite.png" />
     <Content Include="Src\Content\Common\chosen.min.css" />
+    <Content Include="Src\Content\Common\Fanex.Grid.css" />
     <Content Include="Src\Content\Common\Images\animated-overlay.gif" />
     <Content Include="Src\Content\Common\Images\auth-bg.png" />
     <Content Include="Src\Content\Common\Images\delete.png" />
@@ -437,7 +438,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <None Include="Src\Content\Less\Fanex.Grid.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

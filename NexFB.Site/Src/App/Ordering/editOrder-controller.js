@@ -112,11 +112,11 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 
 						if (!order.AcceptanceTime) {
 							message = message.replace($scope.accepted, "");
-							message = message.replace("\n\r:", "");
+							message = message.replace("\n:", "");
 						}
 						if (!order.DeliveryTime) {
 							message = message.replace($scope.delivered, "");
-							message = message.replace("\n\r:", "");
+							message = message.replace("\n:", "");
 						}
 
 						break;

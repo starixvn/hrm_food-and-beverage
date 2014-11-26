@@ -41,7 +41,8 @@ namespace NexFB.Site
                 "~/Src/Content/Common/jquery-ui.min.css",
                 "~/Src/Content/Common/chosen.min.css",
                 "~/Src/Content/Common/table.css",
-                "~/Src/Content/Common/ng-cells-0.3.3.css"));
+                "~/Src/Content/Common/ng-cells-0.3.3.css",
+                "~/Src/Content/Common/Fanex.Grid.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Src/Components/Libs/jquery-2.1.0.min.js",

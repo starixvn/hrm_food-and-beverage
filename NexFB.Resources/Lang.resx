@@ -835,7 +835,7 @@
     <value>Welcome to F&amp;B</value>
   </data>
   <data name="AddOverOrderMemberWarning" xml:space="preserve">
-    <value>The selected member has already ordered 3 times.</value>
+    <value>This member has reached his meal limit or included in another order.</value>
   </data>
   <data name="MessageEditedNoMemberStatusOrder" xml:space="preserve">
     <value>Order #{0} by {1} has been edited at {2}.</value>
