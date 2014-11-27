@@ -809,6 +809,13 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		var total = orderingUtilities.calculateTotalAmount(members);
 		return total;
 	};
+
+	/*
+	** Open manual file.
+	*/
+	$scope.getManual = function () {
+		$scope.orderingManualLink = '/file/usermanual/Employee Order (WEB).pdf';
+	};
 } ]);
 
 orderingModule.controller('SelectSideDishController',

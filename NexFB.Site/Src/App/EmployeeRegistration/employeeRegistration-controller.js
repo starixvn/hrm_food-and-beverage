@@ -17,6 +17,13 @@ function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificati
 	$scope.goHomePage = function () {
 		$window.location.href = "/Ordering/Index";
 	};
+
+	/*
+	** Open manual file.
+	*/
+	$scope.getManual = function () {
+		$scope.registrationManualLink = '/file/usermanual/Meal Registration.pdf';
+	};
 } ]);
 
 mealRegistrationModule.controller('MonthlyRegistrationController',

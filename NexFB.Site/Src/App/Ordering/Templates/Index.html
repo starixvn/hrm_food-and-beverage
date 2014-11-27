@@ -2,13 +2,14 @@
     <div class="row table-title">
         <label data-translate="MyOrder">
         </label>
-        <span class="icon-info"></span>
+		<a href="" ng-href="{{orderingManualLink}}" ng-click="getManual()" target="_blank">
+			<span class="icon-info"><//span>
+		</a>
     </div>
     <table class="row table table-bordered table-odering table-striped">
         <thead>
             <tr>
-                <th class="width-40">
-                    #
+                <th class="width-40" data-translate="SymbolCount">
                 </th>
                 <th class="width-120" data-translate="Status">
                 </th>
