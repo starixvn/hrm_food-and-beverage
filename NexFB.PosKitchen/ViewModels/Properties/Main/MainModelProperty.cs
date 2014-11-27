@@ -39,6 +39,8 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
         private int _keypadFontSize;
         private int _currentCulture;
         private bool _isMainHub;
+        private string _buttonTextEnglish;
+        private string _buttonTextVietnamese;
 
         private MenuColor _menu1 = new MenuColor();
         private MenuColor _menu2 = new MenuColor();
@@ -468,6 +470,34 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
             }
         }
 
+        public string ButtonTextEnglish
+        {
+            get
+            {
+                return _buttonTextEnglish;
+            }
+
+            set
+            {
+                _buttonTextEnglish = value;
+                this.OnPropertyChanged("LineBreakVisible");
+            }
+        }
+
+        public string ButtonTextVietnamese
+        {
+            get
+            {
+                return _buttonTextVietnamese;
+            }
+
+            set
+            {
+                _buttonTextVietnamese = value;
+                this.OnPropertyChanged("ButtonTextVietnamese");
+            }
+        }
+
         /// <summary>
         /// Check Current Culture.
         /// </summary>
@@ -477,10 +507,14 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
             string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
             if (string.IsNullOrEmpty(_defaultLanguage) || _defaultLanguage == Constant.DefaultCulture)
             {
+                ButtonTextVietnamese = Constant.Visible;
+                ButtonTextEnglish = Constant.Hidden;
                 return Constant.VietNamCulture;
             }
             else
             {
+                ButtonTextVietnamese = Constant.Hidden;
+                ButtonTextEnglish = Constant.Visible;
                 return Constant.EnglishCulture;
             }
         }

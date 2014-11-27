@@ -179,9 +179,14 @@
     <EmbeddedResource Include="GlobalResources\Resources\MainScreenResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MainScreenResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="GlobalResources\Resources\MainScreenResources.vi-VN.resx" />
-    <EmbeddedResource Include="GlobalResources\Resources\MainScreenResources.zh-CN.resx" />
+    <EmbeddedResource Include="GlobalResources\Resources\MainScreenResources.vi-VN.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalResources\Resources\MainScreenResources.zh-CN.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

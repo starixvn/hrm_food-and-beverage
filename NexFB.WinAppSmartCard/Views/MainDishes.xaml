@@ -294,7 +294,7 @@
 												<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=NickName}" FontSize="20" HorizontalAlignment="Left" Grid.Column="1"/>
 												<StackPanel Orientation="Horizontal" Grid.Column="2" >
 													<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=DisplayNotifyMenuName}"
-												 FontSize="20" Foreground="{Binding Path=Color}" HorizontalAlignment="Left"/>
+												 FontSize="20" Foreground="{Binding Path=Color}" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"/>
 												</StackPanel>
 
 											</Grid>

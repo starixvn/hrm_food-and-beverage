@@ -220,6 +220,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         FoodId = int.MaxValue,
                         FoodVnmName = ConstantValue.SelectDishesVietnamese,
                         FoodEngName = ConstantValue.SelectDishesEnglish,
+                        FoodChineseName = ConstantValue.SelectDishesChinese
                     };
                     foodMapping.Insert(0, dropdownHeader);
 

@@ -20,6 +20,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
         private int _foodId;
         private string _foodVnmName;
         private string _foodEngName;
+        private string _foodChineseName;
         private int _quantity;
         private decimal _price;
         private int _currentCulture;
@@ -109,6 +110,20 @@ namespace NexFB.WinAppSmartCard.Core.Models
             }
         }
 
+        public string FoodChineseName
+        {
+            get
+            {
+                return _foodChineseName;
+            }
+
+            set
+            {
+                _foodChineseName = value;
+                this.OnPropertyChanged("FoodChineseName");
+            }
+        }
+
         public int CurrentCulture
         {
             get
@@ -127,14 +142,36 @@ namespace NexFB.WinAppSmartCard.Core.Models
         {
             get
             {
-                if (CurrentCulture == ConstantValue.VietNamCulture)
+                var foodName = string.Empty;
+                if (FoodId == int.MaxValue)
                 {
-                    return FoodVnmName;
+                    switch (CurrentCulture)
+                    {
+                        case ConstantValue.VietNamCulture:
+                            foodName = FoodVnmName;
+                            break;
+                        case ConstantValue.EnglishCulture:
+                            foodName = FoodEngName;
+                            break;
+                        case ConstantValue.ChinaCulture:
+                            foodName = FoodChineseName;
+                            break;
+                    }
                 }
                 else
                 {
-                    return FoodEngName;
+                    switch (CurrentCulture)
+                    {
+                        case ConstantValue.VietNamCulture:
+                            foodName = FoodVnmName;
+                            break;
+                        default:
+                            foodName = FoodEngName;
+                            break;
+                    }
                 }
+
+                return foodName;
             }
         }
     }

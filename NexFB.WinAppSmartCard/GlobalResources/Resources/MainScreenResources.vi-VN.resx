@@ -139,7 +139,7 @@
     <value>Món ăn</value>
   </data>
   <data name="DropdownHeader" xml:space="preserve">
-    <value>Vui lòng chọn món</value>
+    <value>Xin chọn món</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>Tiếng Anh</value>
@@ -175,7 +175,7 @@
     <value>Không thể xác định được số thẻ của bạn.</value>
   </data>
   <data name="Message_NoMenu" xml:space="preserve">
-    <value>Hiện tại không có thực đơn cho nhân viên {0}</value>
+    <value>Không có thực đơn khả dụng trong bữa ăn này</value>
   </data>
   <data name="Message_NoMoreDish" xml:space="preserve">
     <value>Hiện tại không còn món ăn phụ để chọn. Bạn chỉ có thể tăng thêm số phần ăn.</value>

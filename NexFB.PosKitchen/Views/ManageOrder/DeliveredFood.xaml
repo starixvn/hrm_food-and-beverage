@@ -123,19 +123,32 @@
 
 							<!--Order status-->
 							<Grid Grid.Column="3" Width="150" VerticalAlignment="Top" Margin="0,9,0,0">
-								<Button Command="{Binding DataContext.UndoOrderCommand, RelativeSource={RelativeSource AncestorType=Window}}" IsEnabled="{Binding Path=DisabledButton}"
-									 CommandParameter="{Binding Path=OrderId}" Background="#7B38BC" Foreground="White" Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Back}"
-									 HorizontalAlignment="Left" Margin="30,-3,10,0" Name="button1" VerticalAlignment="Top" Width="85" Height="40"/>
+
 								<Button Command="{Binding DataContext.EditOrderCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 									CommandParameter="{Binding Path=OrderId}"
 									 Background="#898989"  Foreground="White" Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Edit}"
-									 Height="40" HorizontalAlignment="Left" Margin="-57,40,5,0"
+									 Height="70" HorizontalAlignment="Left" Margin="-160,2,0,0"
 									 Name="button2" VerticalAlignment="Top" Width="85" />
 
 								<Button Background="#EA4B35"  Foreground="White" Style="{StaticResource TileButton}" 
-									Content="{x:Static resx:WinFormMainResource.CancelOrder}" Height="40" HorizontalAlignment="Left"
-									Margin="30,40,10,0" VerticalAlignment="Top" Width="85" CommandParameter="{Binding Path=OrderId}"
+									Content="{x:Static resx:WinFormMainResource.Cancel}" Height="70" HorizontalAlignment="Left"
+									Margin="-70,2,0,0" VerticalAlignment="Top" Width="85" CommandParameter="{Binding Path=OrderId}"
 									Command="{Binding DataContext.CancelOrderCommand, RelativeSource={RelativeSource AncestorType=Window}}" />
+
+								<Button Command="{Binding DataContext.UndoOrderCommand, RelativeSource={RelativeSource AncestorType=Window}}" IsEnabled="{Binding Path=DisabledButton}"
+									 CommandParameter="{Binding Path=OrderId}" Background="#7B38BC" Foreground="White" Style="{StaticResource TileButton}" 
+									 HorizontalAlignment="Left" Margin="20,2,0,0" Name="button1" VerticalAlignment="Top" Width="85" Height="70">
+									<Grid>
+										<StackPanel Visibility="{Binding DataContext.ButtonTextVietnamese, RelativeSource={RelativeSource AncestorType=Window}}">
+											<TextBlock Text="{x:Static resx:WinFormMainResource.Back}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+											<TextBlock Text="{x:Static resx:WinFormMainResource.Back2}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+										</StackPanel>
+
+										<TextBlock  Visibility="{Binding DataContext.ButtonTextEnglish, RelativeSource={RelativeSource AncestorType=Window}}"
+										Text="{x:Static resx:WinFormMainResource.Back}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+									</Grid>
+								</Button>
 							</Grid>
 						</Grid>
 					</Border>

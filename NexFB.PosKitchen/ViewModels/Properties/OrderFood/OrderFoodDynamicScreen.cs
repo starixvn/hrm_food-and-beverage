@@ -21,7 +21,6 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private static int _paddingValue6 = 6;
         private static int _paddingValue8 = 8;
         private static int _paddingValue10 = 10;
-        private static int _paddingValue15 = 15;
         private double _leftSide;
         private double _middleSide;
         private double _rightSide;
@@ -365,7 +364,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             KeyPadResult = 60;
             KeyPadMainButton = LeftSideKeyPad - (KeyPadHeader + KeyPadResult) - 80;
 
-            VirtualKeyboardAnimation = screenHeight - KeyPadMainButton - _paddingValue15;
+            VirtualKeyboardAnimation = screenHeight - KeyPadMainButton - 25;
 
             if (screenHeight <= 768)
             {

@@ -126,11 +126,11 @@
 								<Button Content="{x:Static resx:WinFormMainResource.Export}" Background="#F8AA48" 
 									CommandParameter="{Binding Path=OrderId}" VerticalAlignment="Top" HorizontalAlignment="Left"
 									Command="{Binding DataContext.DeliverOrderFoodCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-									Height="40" Width="85" Foreground="White" Style="{StaticResource TileButton}" Margin="30,-3,20,0" />
+									Height="70" Width="85" Foreground="White" Style="{StaticResource TileButton}" Margin="-70,2,0,0" />
 
 								<Button Background="#EA4B35"  Foreground="White" Style="{StaticResource TileButton}" 
-									Content="{x:Static resx:WinFormMainResource.CancelOrder}" Height="40" HorizontalAlignment="Left"
-									Margin="30,40,20,0" VerticalAlignment="Top" Width="85" CommandParameter="{Binding Path=OrderId}"
+									Content="{x:Static resx:WinFormMainResource.Cancel}" Height="70" HorizontalAlignment="Left"
+									Margin="20,2,0,0" VerticalAlignment="Top" Width="85" CommandParameter="{Binding Path=OrderId}"
 									Command="{Binding DataContext.CancelOrderCommand, RelativeSource={RelativeSource AncestorType=Window}}" />
 							</Grid>
 						</Grid>

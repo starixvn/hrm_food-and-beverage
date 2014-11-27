@@ -640,6 +640,7 @@ namespace NexFB.PosKitchen.ViewModels
             {
                 var currentWindow = (VirtualKeyboard)value;
                 currentWindow.Close();
+                FullKeyPadVisible = false;
             }
         }
 
@@ -963,12 +964,16 @@ namespace NexFB.PosKitchen.ViewModels
         /// </summary>
         public void ExecuteChangeKeyPad()
         {
-            VirtualKeyboard virtalKeyboard = new VirtualKeyboard()
+            if (!FullKeyPadVisible)
             {
-                DataContext = this,
-                Owner = Application.Current.MainWindow
-            };
-            virtalKeyboard.Show();
+                VirtualKeyboard virtalKeyboard = new VirtualKeyboard()
+                {
+                    DataContext = this,
+                    Owner = Application.Current.MainWindow
+                };
+                virtalKeyboard.Show();
+                FullKeyPadVisible = true;
+            }
         }
 
         /// <summary>

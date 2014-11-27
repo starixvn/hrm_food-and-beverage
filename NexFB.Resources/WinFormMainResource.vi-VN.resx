@@ -124,7 +124,7 @@
     <value>Món Phụ</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Quay lại</value>
+    <value>QUAY</value>
   </data>
   <data name="Black" xml:space="preserve">
     <value>Black</value>
@@ -163,13 +163,13 @@
     <value>Có {0} nhân viên trùng mã Code. Vui lòng lựa chọn 1 người!</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Sửa</value>
+    <value>SỬA</value>
   </data>
   <data name="EditBilingual" xml:space="preserve">
     <value>Sửa / Edited</value>
   </data>
   <data name="Export" xml:space="preserve">
-    <value>Xuất</value>
+    <value>XUẤT</value>
   </data>
   <data name="FloorBilingual" xml:space="preserve">
     <value>Tầng / Floor : </value>
@@ -352,12 +352,15 @@
     <value>Đã hủy</value>
   </data>
   <data name="View" xml:space="preserve">
-    <value>Xem</value>
+    <value>XEM</value>
   </data>
   <data name="Message_EditSuccessful" xml:space="preserve">
     <value>Chỉnh sửa thành công.</value>
   </data>
   <data name="Message_MenuUnavailable" xml:space="preserve">
     <value>Không có thực đơn dành cho nhân viên này.</value>
+  </data>
+  <data name="Back2" xml:space="preserve">
+    <value>LẠI</value>
   </data>
 </root>

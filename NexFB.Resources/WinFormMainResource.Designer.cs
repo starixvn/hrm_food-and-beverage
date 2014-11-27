@@ -88,11 +88,20 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back.
+        ///   Looks up a localized string similar to BACK.
         /// </summary>
         public static string Back {
             get {
                 return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Back2 {
+            get {
+                return ResourceManager.GetString("Back2", resourceCulture);
             }
         }
         
@@ -124,7 +133,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
+        ///   Looks up a localized string similar to CANCEL.
         /// </summary>
         public static string CancelOrder {
             get {
@@ -232,7 +241,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to EDIT.
         /// </summary>
         public static string Edit {
             get {
@@ -250,7 +259,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export.
+        ///   Looks up a localized string similar to EXPORT.
         /// </summary>
         public static string Export {
             get {
@@ -583,7 +592,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Receive.
+        ///   Looks up a localized string similar to RECEIVE.
         /// </summary>
         public static string Receive {
             get {
@@ -754,7 +763,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View.
+        ///   Looks up a localized string similar to VIEW.
         /// </summary>
         public static string View {
             get {

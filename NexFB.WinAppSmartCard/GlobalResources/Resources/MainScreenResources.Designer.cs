@@ -232,7 +232,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is no menu available for {0}.
+        ///   Looks up a localized string similar to No menu available for the current meal.
         /// </summary>
         internal static string Message_NoMenu {
             get {

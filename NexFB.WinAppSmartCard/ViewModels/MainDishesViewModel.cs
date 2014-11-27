@@ -17,6 +17,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System.Windows;
     using System.Windows.Threading;
     using AutoMapper;
+    using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
     using NexFB.Models.SmartCardOrder;
@@ -96,7 +97,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
             else
             {
-                DisplayEmployeeHasAlreadyOrdered(employeeInfo, mainViewModel);
+                DisplayEmployeeHasAlreadyOrdered();
             }
         }
 
@@ -112,34 +113,51 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// <summary>
         /// Display info for employee who has already ordered.
         /// </summary>
-        /// <param name="employeeInfo">Employee Info.</param>
-        /// <param name="mainViewModel">Main ViewModel.</param>
-        public void DisplayEmployeeHasAlreadyOrdered(Employee employeeInfo, MainModelProperty mainViewModel)
+        public void DisplayEmployeeHasAlreadyOrdered()
         {
             if (ObservableListEmployee.Count == 0)
             {
                 var getEmployeeOrderBySysId = new GetMyOrderBySysIdCriteria() { SysId = OrderOwner.SysId };
                 List<SCEmployeeOrder> employeeOrders = this.SmartCardOrderService.GetMyOrderBySysId(getEmployeeOrderBySysId);
-                if (employeeOrders != null)
+                if (employeeOrders != null && employeeOrders.Count > 0)
                 {
-                    SCEmployeeOrder employeeOrder = employeeOrders.FirstOrDefault();
-                    OrderNo = employeeOrder.OrderNo;
-                    employeeInfo.OrderNo = 1;
-                    employeeInfo.MenuVnmName = employeeOrder.MealVnmName;
-                    employeeInfo.MenuEngName = employeeOrder.MealEngName;
-                    employeeInfo.CurrentCulture = mainViewModel.CurrentCulture;
-                    employeeInfo.DisplayNotifyMenuName = employeeInfo.DisplayMenuName;
-                    employeeInfo.GroupOrderNickName = employeeOrder.OrderNickName;
-                    CountDownTimer = 30;
-                    TimerDigitalClock();
-                }
+                    int maxValue = employeeOrders.Where(x => !x.IsSideDish).Max(x => x.OrderId);
+                    SCEmployeeOrder employeeOrder = employeeOrders.Where(x => x.OrderId == maxValue).FirstOrDefault();
+                    var getOrderDetailsCriteria = new GetOrderDetailsCriteria() { OrderId = employeeOrder.OrderId };
+                    Order order = KitchenService.GetOrderDetails(getOrderDetailsCriteria);
+                    if (order != null)
+                    {
+                        OrderNo = order.OrderNo;
+                        List<OrderMenu> listOrder = order.ListMenu;
+                        if (listOrder != null && listOrder.Count > 0)
+                        {
+                            foreach (var item in listOrder)
+                            {
+                                Employee employee = new Employee()
+                                {
+                                    OrderNo = ObservableListEmployee.Count + 1,
+                                    MenuVnmName = item.MenuVnmName,
+                                    MenuEngName = item.MenuEngName,
+                                    CurrentCulture = MainViewModel.CurrentCulture,
+                                    Quantity = item.QuantityOrder,
+                                    NickName = item.NickName,
+                                    GroupOrderNickName = employeeOrder.OrderNickName
+                                };
+                                employee.DisplayNotifyMenuName = string.Format("{0} x {1}", employee.DisplayMenuName, employee.Quantity);
+                                ObservableListEmployee.Add(employee);
+                            }
 
-                GetAlternativeFood(employeeInfo);
-                ProcessAddDataInCurrentThread(employeeInfo);
+                            OrderOwner.GroupOrderNickName = employeeOrder.OrderNickName;
+
+                            CountDownTimer = 30;
+                            TimerDigitalClock();
+                        }
+                    }
+                }
             }
             else
             {
-                mainViewModel.MainTabReadOnly = true;
+                MainViewModel.MainTabReadOnly = true;
                 this.ShowErrorMessage(MainViewModel.CurrentCulture, MainScreenResources.Message_ReceivedOrder);
             }
         }

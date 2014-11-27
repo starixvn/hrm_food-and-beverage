@@ -214,7 +214,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 {
                     if (OrderOwner.MenuId == ConstantValue.NoMenuAvailableCode)
                     {
-                        this.ShowErrorMessage(this.CurrentCulture, string.Format(MainScreenResources.Message_NoMenu, OrderOwner.NickName));
+                        this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_NoMenu);
                     }
                     else
                     {
@@ -223,26 +223,16 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         CurrentViewModel = new MainDishesViewModel();
                         if (OrderOwner.AllowOrder)
                         {
-                            // Show order food screen.
                             ((MainDishesViewModel)CurrentViewModel).ShowOrderScreen();
-                            if (OrderOwner != null)
-                            {
-                                ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, this);
-                            }
-
-                            CheckCurrentViewModel();
                         }
                         else
                         {
                             // Show order details
                             ((MainDishesViewModel)CurrentViewModel).ShowNotificationScreen();
-                            if (OrderOwner != null)
-                            {
-                                ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, this);
-                            }
-
-                            CheckCurrentViewModel();
                         }
+
+                        ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, this);
+                        CheckCurrentViewModel();
                     }
                 }
             }

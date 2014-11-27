@@ -19,6 +19,9 @@
 			<Mapping DataField="QtyOrder" ObjectProperty="QuantityOrder"/>
 		</Setting>
 		<Setting Key="POS_Get_MyStatusBySysID" SpName="POS_Get_MyStatusBySysID" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="POS_Get_OrderDetail" SpName="POS_Get_OrderDetail" DbName="NexFB" Plain="0" >
+			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
+		</Setting>
 
 	</Function>
 </Functions>

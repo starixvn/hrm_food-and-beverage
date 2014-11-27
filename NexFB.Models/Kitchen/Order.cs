@@ -308,12 +308,12 @@ namespace NexFB.Models.Kitchen
             {
                 if (CurrentStatusId == 1)
                 {
-                    return WinFormMainResource.Receive;
+                    return WinFormMainResource.Receive.ToUpper();
                 }
 
                 if (CurrentStatusId == (int)OrderStatus.ReceivedOrder || CurrentStatusId == (int)OrderStatus.ReducedOrder)
                 {
-                    return WinFormMainResource.Export;
+                    return WinFormMainResource.Export.ToUpper();
                 }
 
                 return string.Empty;

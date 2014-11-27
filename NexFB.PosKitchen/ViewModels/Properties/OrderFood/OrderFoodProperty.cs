@@ -62,6 +62,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private bool _isCanceledOrder;
         private bool _allowReduceOrderToZero;
         private bool _canOrderMainFood;
+        private bool _fullKeyPadVisible;
 
         public ICommand NumPadPressed { get; set; }
 
@@ -110,6 +111,20 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             {
                 _isCanceledOrder = value;
                 this.OnPropertyChanged("IsCanceledOrder");
+            }
+        }
+
+        public bool FullKeyPadVisible
+        {
+            get
+            {
+                return _fullKeyPadVisible;
+            }
+
+            set
+            {
+                _fullKeyPadVisible = value;
+                this.OnPropertyChanged("FullKeyPadVisible");
             }
         }
 

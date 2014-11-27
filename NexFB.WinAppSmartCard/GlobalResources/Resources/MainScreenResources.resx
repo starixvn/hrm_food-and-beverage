@@ -175,7 +175,7 @@
     <value>Cannot identify your card number.</value>
   </data>
   <data name="Message_NoMenu" xml:space="preserve">
-    <value>There is no menu available for {0}</value>
+    <value>No menu available for the current meal</value>
   </data>
   <data name="Message_NoMoreDish" xml:space="preserve">
     <value>There are no more side dishes to select. You can only add more quantity.</value>

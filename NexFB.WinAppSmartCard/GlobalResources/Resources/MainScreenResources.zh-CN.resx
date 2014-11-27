@@ -139,7 +139,7 @@
     <value>菜</value>
   </data>
   <data name="DropdownHeader" xml:space="preserve">
-    <value>请选择菜</value>
+    <value>請選擇食單</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>英语</value>
@@ -175,7 +175,7 @@
     <value>这里没有中国的消息</value>
   </data>
   <data name="Message_NoMenu" xml:space="preserve">
-    <value>这里没有中国的消息 {0}</value>
+    <value>系統找不到餐單設定</value>
   </data>
   <data name="Message_NoMoreDish" xml:space="preserve">
     <value>这里没有中国的消息</value>
@@ -212,6 +212,9 @@
   </data>
   <data name="TicketCreator" xml:space="preserve">
     <value>票务创造者 : </value>
+  </data>
+  <data name="TicketLabel" xml:space="preserve">
+    <value>訂單編號 :</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>总</value>
