@@ -374,6 +374,8 @@
     <Content Include="Src\Components\Libs\bootstrap.min.js" />
     <Content Include="Src\Components\Libs\jquery-2.1.0-vsdoc.js" />
     <Content Include="Src\Components\Libs\jquery-2.1.0.min.js" />
+    <Content Include="Src\Components\Libs\moment.min.js" />
+    <Content Include="Src\Components\Libs\numeral.min.js" />
     <Content Include="Src\Components\Libs\tai-placeholder.js" />
     <Content Include="Src\Components\Libs\toastr.js" />
     <Content Include="Src\Components\Libs\ui-bootstrap-tpls-0.11.0.min.js" />
@@ -385,9 +387,12 @@
     <Content Include="Src\Content\Common\Fanex.Grid.css" />
     <Content Include="Src\Content\Common\Images\animated-overlay.gif" />
     <Content Include="Src\Content\Common\Images\auth-bg.png" />
+    <Content Include="Src\Content\Common\Images\collapse-small.png" />
     <Content Include="Src\Content\Common\Images\delete.png" />
     <Content Include="Src\Content\Common\Images\edit.png" />
     <Content Include="Src\Content\Common\Images\EPA.png" />
+    <Content Include="Src\Content\Common\Images\excel-icon.png" />
+    <Content Include="Src\Content\Common\Images\expand-small.png" />
     <Content Include="Src\Content\Common\Images\lock.png" />
     <Content Include="Src\Content\Common\Images\sprite_btn.png" />
     <Content Include="Src\Content\Common\Images\title-bg.jpg" />

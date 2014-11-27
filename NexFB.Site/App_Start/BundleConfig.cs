@@ -58,7 +58,9 @@ namespace NexFB.Site
                 "~/Src/Components/Libs/date.js",
                 "~/Src/Components/Libs/chosen.jquery.min.js",
                 "~/Src/Components/Libs/tai-placeholder.js",
-                "~/Src/Components/Libs/Fanex.Grid.js"));
+                "~/Src/Components/Libs/Fanex.Grid.js",
+                "~/Src/Components/Libs/moment.min.js",
+                "~/Src/Components/Libs/numeral.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
                 "~/Src/Components/Libs/jquery.signalR-1.1.4.min.js"));

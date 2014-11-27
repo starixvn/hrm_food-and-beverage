@@ -25,6 +25,9 @@ reportUtilities) {
 		formatMonth: 'MMM'
 	};
 
+	$scope.numberFormat = reportUtilities.getNumberFormat();
+	$scope.monthFormat = reportUtilities.getMonthFormat();
+
 	/*
 	** Open pop-up calendar.
 	*/
@@ -92,7 +95,7 @@ reportUtilities) {
 			});
 	};
 
-	getMonthlyReportLocal('2014 Nov', "", "", "", "", 0);
+	getMonthlyReportLocal(new Date().toDateString(), "", "", "", "", 0);
 
 	/*
 	** Query data.
@@ -103,5 +106,11 @@ reportUtilities) {
 		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
 
 		getMonthlyReportLocal(filter.reportDate.toDateString(), filter.departmentId, filter.employeeTypeId, filter.teamId, filter.mealId, filter.groupBy);
+	};
+
+	/*
+	** Export excel.
+	*/
+	$scope.exportExcel = function () {
 	};
 } ]);

@@ -37,7 +37,7 @@ namespace NexFB.Repositories.Implement
 
                 IEnumerable<dynamic> rawReport = db.Query<dynamic>(criteria.GetSpParams());
 
-                if (rawReport != null && rawReport.Count() > 1)
+                if (rawReport != null)
                 {
                     report.Meals = GetMealsInMonth(rawReport);
                     report.WeekDays = GetWeekDay(rawReport);

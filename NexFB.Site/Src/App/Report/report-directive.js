@@ -1,5 +1,5 @@
 ﻿'use strict';
-/*global reportModule*/
+/*global reportModule, moment*/
 
 
 reportModule.directive('renderMonthlyReport', function () {
@@ -77,7 +77,7 @@ reportModule.directive('renderMonthlyReport', function () {
 		return rows;
 	};
 
-	var generateGroupHeader = function (month, isGroupByEmployee) {
+	var generateGroupHeader = function (month, isGroupByEmployee, monthFormat) {
 		var groupHeader = [];
 
 		if (isGroupByEmployee) {
@@ -88,7 +88,7 @@ reportModule.directive('renderMonthlyReport', function () {
 						{ HeaderText: "Nick", Name: "NickName", MergeRowNumber: 2 },
 						{ HeaderText: "Employee Type", Name: "EmployeeType", MergeRowNumber: 2 },
 						{ HeaderText: "Department/Section", Name: "Department", MergeRowNumber: 2 },
-						{ HeaderText: "" + month, Name: "1", MergeColNumber: 31 },
+						{ HeaderText: "" + moment(month).format(monthFormat), Name: "1", MergeColNumber: 31 },
 						{ HeaderText: "Total", Name: "Quantity", MergeColNumber: 2 }
 					]
 				}
@@ -100,7 +100,7 @@ reportModule.directive('renderMonthlyReport', function () {
 					Columns: [
 						{ HeaderText: "#", Name: "Meal", MergeRowNumber: 2 },
 						{ HeaderText: "Department/Section", Name: "Department", MergeRowNumber: 2 },
-						{ HeaderText: "" + month, Name: "1", MergeColNumber: 31 },
+						{ HeaderText: "" + moment(month).format(monthFormat), Name: "1", MergeColNumber: 31 },
 						{ HeaderText: "Total", Name: "Quantity", MergeColNumber: 2 }
 					]
 				}
@@ -110,68 +110,77 @@ reportModule.directive('renderMonthlyReport', function () {
 		return groupHeader;
 	};
 
-	var generateDataHeader = function (weekdays, isGroupByEmployee) {
+	var generateDataHeader = function (weekdays, isGroupByEmployee, numberFormat) {
 		var columns = [];
 
 		if (isGroupByEmployee) {
 			columns = [
-				{ HeaderText: "#", Width: 40, Name: "Meal", HeaderAlign: "center", CellAlign: "center" },
-				{ HeaderText: "Nick", Width: 80, Name: "NickName", HeaderAlign: "center", CellAlign: "center" },
+				{ HeaderText: "#", Width: 40, Name: "Meal", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
+				{ HeaderText: "Nick", Width: 90, Name: "NickName", HeaderAlign: "center", CellAlign: "center" },
 				{ HeaderText: "Employee Type", Width: 150, Name: "EmployeeType", HeaderAlign: "center", CellAlign: "left" },
 				{ HeaderText: "Department/Section", Width: 150, Name: "Department", HeaderAlign: "center", CellAlign: "left" }
 			];
 		}
 		else {
 			columns = [
-				{ HeaderText: "#", Width: 40, Name: "Meal", HeaderAlign: "center", CellAlign: "center" },
-				{ HeaderText: "Department/Section", Width: 100, Name: "Department", HeaderAlign: "center", CellAlign: "left" }
+				{ HeaderText: "#", Width: 40, Name: "Meal", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
+				{ HeaderText: "Department/Section", Width: 120, Name: "Department", HeaderAlign: "center", CellAlign: "left" }
 			];
 		}
 
-		var numberMealsLength = weekdays.NumberMeals.length;
+		var numberMealsLength = weekdays ? weekdays.NumberMeals.length : 31;
 
 		for (var i = 0; i < numberMealsLength; i++) {
-			var mealHeader = { HeaderText: "" + (i + 1), Width: 30, Name: "" + (i + 1), HeaderAlign: "center", CellAlign: "right" };
+			var currentDate = weekdays.NumberMeals[i],
+				weekendClass = currentDate === 7 || currentDate === 1 ? "red" : "",
+				mealHeader = { HeaderText: "" + (i + 1), Width: 30, Name: "" + (i + 1), HeaderAlign: "center", CellAlign: "right", CssClass: weekendClass };
 			columns.push(mealHeader);
 		}
 
 		columns.push({ HeaderText: "Qty", Width: 80, Name: "Quantity", HeaderAlign: "center", CellAlign: "right" });
-		columns.push({ HeaderText: "Amount", Width: 80, Name: "Amount", HeaderAlign: "center", CellAlign: "right" });
+		columns.push({ HeaderText: "Amount", Width: 80, Name: "Amount", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat });
 
 		return columns;
 	};
 
 	var generateDataFooter = function (weekdays, isGroupByEmployee) {
-		var columns = [];
+		var columns = [],
+			footerRow = [];
 
-		if (isGroupByEmployee) {
-			columns = [
+		if (weekdays) {
+			if (isGroupByEmployee) {
+				columns = [
 				{ Value: "Total", Name: "Meal", MergeColNumber: 4 }
 			];
-		}
-		else {
-			columns = [
+			}
+			else {
+				columns = [
 				{ Value: "Total", Name: "Meal", MergeColNumber: 2 }
+			];
+			}
+
+			var numberMealsLength = weekdays.NumberMeals.length;
+
+			for (var i = 0; i < numberMealsLength; i++) {
+				var mealFooter = { Value: weekdays.NumberMeals[i], Name: "" + (i + 1), CellAlign: 'right' };
+				columns.push(mealFooter);
+			}
+
+			columns.push({ Value: weekdays.TotalQuantity, Name: "Quantity" });
+			columns.push({ Value: weekdays.Amount, Name: "Amount" });
+
+			footerRow = [
+				{
+					Columns: columns
+				}
 			];
 		}
 
-		var numberMealsLength = weekdays.NumberMeals.length;
-
-		for (var i = 0; i < numberMealsLength; i++) {
-			var mealFooter = { Value: weekdays.NumberMeals[i], Name: "" + (i + 1), CellAlign: 'right' };
-			columns.push(mealFooter);
-		}
-
-		columns.push({ Value: weekdays.TotalQuantity, Name: "Quantity" });
-		columns.push({ Value: weekdays.Amount, Name: "Amount" });
-
-		var footerRow = [
-			{
-				Columns: columns
-			}
-		];
-
 		return footerRow;
+	};
+
+	var exportExcel = function (scope) {
+		scope.exportExcel.call(this);
 	};
 
 	return {
@@ -180,8 +189,8 @@ reportModule.directive('renderMonthlyReport', function () {
 				var id = iElement.attr('id'),
 					report = scope.localReport,
 					bodyData = generateDataBody(report),
-					groupHeaderData = generateGroupHeader(report.Month, report.IsGroupByEmployee),
-					headerData = generateDataHeader(report.WeekDays, report.IsGroupByEmployee),
+					groupHeaderData = generateGroupHeader(report.Month, report.IsGroupByEmployee, scope.monthFormat),
+					headerData = generateDataHeader(report.WeekDays, report.IsGroupByEmployee, scope.numberFormat),
 					footerData = generateDataFooter(report.Total, report.IsGroupByEmployee);
 
 				var gridOptions = {
@@ -193,11 +202,14 @@ reportModule.directive('renderMonthlyReport', function () {
 					showTitle: true,
 					titleInfo:
 						{
-							text: "Monthly Report"
+							text: "Monthly Main Dish Report - Local",
+							showExcelButton: true,
+							exportExcelFunction: exportExcel(scope)
 						},
-					numberOfFrozenColumn: report.IsGroupByEmployee ? 4 : 2,
+					//					numberOfFrozenColumn: report.IsGroupByEmployee ? 4 : 2,
 					showFooter: true,
-					footerRows: footerData
+					footerRows: footerData,
+					gridExpandHeight: 300
 				};
 
 				$('#' + id).fanexGrid(gridOptions);

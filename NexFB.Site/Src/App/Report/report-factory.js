@@ -18,7 +18,9 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 
 reportModule.factory('reportUtilities', function () {
 
-	var utilities = {};
+	var utilities = {},
+		numberFormat = '0,0',
+		monthFormat = 'MMM-YYYY';
 
 	utilities.getTeamId = function (teamOptions) {
 		var teamId = '';
@@ -31,6 +33,14 @@ reportModule.factory('reportUtilities', function () {
 		});
 
 		return teamId;
+	};
+
+	utilities.getNumberFormat = function () {
+		return numberFormat;
+	};
+
+	utilities.getMonthFormat = function () {
+		return monthFormat;
 	};
 
 	return utilities;
