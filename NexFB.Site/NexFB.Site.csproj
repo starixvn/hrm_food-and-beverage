@@ -219,6 +219,8 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="File\UserManual\Employee Order %28WEB%29.pdf" />
+    <Content Include="File\UserManual\Meal Registration.pdf" />
     <None Include="Service References\TranslatorService\NexFB.Site.TranslatorService.EmployeeCalendarModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
