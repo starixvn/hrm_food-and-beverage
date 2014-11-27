@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="88cb1840-e1fd-46cf-9e67-b0bcc791db7f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="46b1c54b-9ea4-475c-8a5f-258bc98e8739" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -21,11 +21,11 @@
     <MetadataSource Address="http://10.18.200.209:8466/service.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="23603ff7-7d04-4cd1-ae58-83e62d61c714" SourceId="1" SourceUrl="http://tfs209.spvn.local:8466/Service.svc?xsd=xsd0" />
-    <MetadataFile FileName="UserService.wsdl" MetadataType="Wsdl" ID="993534f3-5fda-4bed-8b3c-211f50e8a4f7" SourceId="1" SourceUrl="http://tfs209.spvn.local:8466/Service.svc?wsdl" />
-    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="424f9afe-74b4-40db-b024-20204a9e63fb" SourceId="1" SourceUrl="http://tfs209.spvn.local:8466/Service.svc?xsd=xsd2" />
-    <MetadataFile FileName="Service.disco" MetadataType="Disco" ID="8e8e7d58-fb5d-429b-a6fc-58beace3cd03" SourceId="1" SourceUrl="http://tfs209.spvn.local:8466/Service.svc?disco" />
-    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="f7cd2af0-8d07-4a1e-9663-f7fe8b6b424c" SourceId="1" SourceUrl="http://tfs209.spvn.local:8466/Service.svc?xsd=xsd1" />
+    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="ddb123a6-5898-4f30-84f9-c67aef2d27b4" SourceId="1" SourceUrl="http://tfs209.spvn.local:8466/Service.svc?xsd=xsd0" />
+    <MetadataFile FileName="UserService.wsdl" MetadataType="Wsdl" ID="7d3ceebf-47cb-446b-95fb-2d591fa88e0c" SourceId="1" SourceUrl="http://tfs209.spvn.local:8466/Service.svc?wsdl" />
+    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="73c7db81-d85c-43ea-bc68-824c12ea2f9b" SourceId="1" SourceUrl="http://tfs209.spvn.local:8466/Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="Service.disco" MetadataType="Disco" ID="23cbba3b-3670-4d49-8206-4e908f1a0a15" SourceId="1" SourceUrl="http://tfs209.spvn.local:8466/Service.svc?disco" />
+    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="da899f14-f087-441e-a581-feeb566a9112" SourceId="1" SourceUrl="http://tfs209.spvn.local:8466/Service.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -816,6 +816,9 @@ namespace NexFB.WindowsService.NexcelService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetPhoto", ReplyAction="http://tempuri.org/IUserService/GetPhotoResponse")]
         NexFB.WindowsService.NexcelService.PhotoModel[] GetPhoto(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetTextTranslation", ReplyAction="http://tempuri.org/IUserService/GetTextTranslationResponse")]
+        string GetTextTranslation(string sourceText);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -863,6 +866,10 @@ namespace NexFB.WindowsService.NexcelService {
         
         public NexFB.WindowsService.NexcelService.PhotoModel[] GetPhoto(System.Nullable<System.DateTime> fromDate) {
             return base.Channel.GetPhoto(fromDate);
+        }
+        
+        public string GetTextTranslation(string sourceText) {
+            return base.Channel.GetTextTranslation(sourceText);
         }
     }
 }

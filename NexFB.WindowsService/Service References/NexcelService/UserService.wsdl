@@ -37,6 +37,12 @@
   <wsdl:message name="IUserService_GetPhoto_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPhotoResponse" />
   </wsdl:message>
+  <wsdl:message name="IUserService_GetTextTranslation_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTextTranslation" />
+  </wsdl:message>
+  <wsdl:message name="IUserService_GetTextTranslation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTextTranslationResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUserService">
     <wsdl:operation name="GetUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserService/GetUser" message="tns:IUserService_GetUser_InputMessage" />
@@ -57,6 +63,10 @@
     <wsdl:operation name="GetPhoto">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserService/GetPhoto" message="tns:IUserService_GetPhoto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserService/GetPhotoResponse" message="tns:IUserService_GetPhoto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTextTranslation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserService/GetTextTranslation" message="tns:IUserService_GetTextTranslation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserService/GetTextTranslationResponse" message="tns:IUserService_GetTextTranslation_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUserService" type="tns:IUserService">
@@ -99,6 +109,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPhoto">
       <soap:operation soapAction="http://tempuri.org/IUserService/GetPhoto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTextTranslation">
+      <soap:operation soapAction="http://tempuri.org/IUserService/GetTextTranslation" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
