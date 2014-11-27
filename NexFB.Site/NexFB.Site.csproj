@@ -419,6 +419,7 @@
     <Content Include="Src\Content\Site\Images\calendar.png" />
     <Content Include="Src\Content\Site\Images\chevron-right.png" />
     <Content Include="Src\Content\Site\Images\icon-search.png" />
+    <Content Include="Src\Content\Site\Images\info-ico.png" />
     <Content Include="Src\Content\Site\Images\line-menu.png" />
     <Content Include="Src\Content\Site\Images\logo.png" />
     <Content Include="Src\Content\Site\Images\logo1.png" />
