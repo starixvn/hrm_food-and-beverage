@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddFood" xml:space="preserve">
-    <value>Add Food</value>
+    <value>Add more food items</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -163,7 +163,7 @@
     <value>You are already incuded in this order.</value>
   </data>
   <data name="Message_CancelOrder" xml:space="preserve">
-    <value>Are you sure you want to cancel this order ?</value>
+    <value>Are you sure you want to cancel the order ?</value>
   </data>
   <data name="Message_ContainEmployee" xml:space="preserve">
     <value>The order must contain at least 1 emloyee.</value>
@@ -181,7 +181,7 @@
     <value>There are no more side dishes to select. You can only add more quantity.</value>
   </data>
   <data name="Message_PickAlternativeFood" xml:space="preserve">
-    <value>Alternative Menu is not recommended, are you sure you want to proceed?</value>
+    <value>Please read with care the company's policy before chosing alternative menu. Kitchen staff has right to reject your order. Thank you.</value>
   </data>
   <data name="Message_ReceivedOrder" xml:space="preserve">
     <value>You cannot join in a received order</value>
@@ -214,7 +214,7 @@
     <value>Take Away</value>
   </data>
   <data name="TicketCreator" xml:space="preserve">
-    <value>Meal Owner: </value>
+    <value>Order Owner: </value>
   </data>
   <data name="TicketLabel" xml:space="preserve">
     <value>Created Order No: </value>

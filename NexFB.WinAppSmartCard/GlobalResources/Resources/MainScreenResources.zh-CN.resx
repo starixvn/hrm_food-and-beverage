@@ -163,7 +163,7 @@
     <value>这里没有中国的消息</value>
   </data>
   <data name="Message_CancelOrder" xml:space="preserve">
-    <value>您确定要取消订单 ?</value>
+    <value>你是否要取消訂單 ?</value>
   </data>
   <data name="Message_ContainEmployee" xml:space="preserve">
     <value>这里没有中国的消息</value>
@@ -181,7 +181,7 @@
     <value>这里没有中国的消息</value>
   </data>
   <data name="Message_PickAlternativeFood" xml:space="preserve">
-    <value>这里没有中国的消息</value>
+    <value>你必須要清楚公司的規定關於轉換其他餐單. 廚房職員有權利取消你的需求.</value>
   </data>
   <data name="Message_ReceivedOrder" xml:space="preserve">
     <value>这里没有中国的消息</value>

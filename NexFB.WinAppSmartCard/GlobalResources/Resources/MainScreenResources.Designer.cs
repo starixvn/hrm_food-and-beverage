@@ -61,7 +61,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Food.
+        ///   Looks up a localized string similar to Add more food items.
         /// </summary>
         internal static string AddFood {
             get {
@@ -196,7 +196,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to cancel this order ?.
+        ///   Looks up a localized string similar to Are you sure you want to cancel the order ?.
         /// </summary>
         internal static string Message_CancelOrder {
             get {
@@ -250,7 +250,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alternative Menu is not recommended, are you sure you want to proceed?.
+        ///   Looks up a localized string similar to Please read with care the company&apos;s policy before chosing alternative menu. Kitchen staff has right to reject your order. Thank you..
         /// </summary>
         internal static string Message_PickAlternativeFood {
             get {
@@ -349,7 +349,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meal Owner: .
+        ///   Looks up a localized string similar to Order Owner: .
         /// </summary>
         internal static string TicketCreator {
             get {

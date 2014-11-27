@@ -116,7 +116,8 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WPFMessageBoxCustomControl">
+    <Reference Include="WPFMessageBoxCustomControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\PosMessageBox\WPFMessageBoxCustomControl.dll</HintPath>
     </Reference>
   </ItemGroup>
