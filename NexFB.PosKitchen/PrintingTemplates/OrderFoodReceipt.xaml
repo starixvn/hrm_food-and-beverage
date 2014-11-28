@@ -148,7 +148,7 @@
 						Text="{x:Static resx:WinFormMainResource.RemarkBilingual}" VerticalAlignment="Top" />
 
 								<TextBlock FontSize="10" HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="WrapWithOverflow"
-						Text="{Binding ElementName=GeneralInfo, Path=DataContext.Remark}" VerticalAlignment="Top" />
+						Text="{Binding ElementName=GeneralInfo, Path=DataContext.DisplayRemak}" VerticalAlignment="Top" />
 
 								<Grid Visibility="{Binding ElementName=GeneralInfo, Path=DataContext.HasEdited}">
 									<Rectangle Height="34" Fill="Black" HorizontalAlignment="Left" Margin="128,3,0,0" Stroke="Black" VerticalAlignment="Top" Width="140" />
@@ -160,7 +160,6 @@
 						</Border>
 					</Grid>
 				</StackPanel>
-
 
 			</Grid>
 		</FixedPage>

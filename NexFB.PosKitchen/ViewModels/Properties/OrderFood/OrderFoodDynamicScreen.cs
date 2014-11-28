@@ -25,6 +25,9 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private double _middleSide;
         private double _rightSide;
 
+        private int _generalInfoFontSize;
+        private int _keypadResultFontSize;
+
         private double _leftSideGeneralInfo;
         private double _leftSideActionButton;
         private double _leftSideKeyPad;
@@ -38,9 +41,6 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private double _rightSideInfoDetails;
         private double _rightSideWrapper;
         private double _middleSideWrapper;
-
-        private int _generalInfoFontSize;
-        private int _keypadResultFontSize;
 
         private double _keyPadHeader;
         private double _keyPadResult;
