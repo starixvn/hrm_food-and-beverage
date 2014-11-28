@@ -336,6 +336,7 @@
     <Content Include="Src\Components\Libs\chosen.jquery.min.js" />
     <Content Include="Src\Components\Libs\date.js" />
     <Content Include="Src\Components\Libs\datepicker.js" />
+    <Content Include="Src\Components\Libs\Fanex.Grid.js" />
     <Content Include="Src\Components\Libs\jquery-ui.min.js" />
     <Content Include="Src\Components\Libs\jquery.signalR-1.1.4.js" />
     <Content Include="Src\Components\Libs\jquery.signalR-1.1.4.min.js" />
@@ -473,6 +474,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\TranslatorService\UserService.wsdl" />
+    <None Include="Src\App\Report\ExcelTemplates\MonthlyMainDishReportLocal.xls" />
     <None Include="Src\App\Report\report.less" />
     <Content Include="Src\App\GroupControl\groupControl.less" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup.less" />
@@ -606,6 +608,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\TranslatorService\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

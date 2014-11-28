@@ -403,7 +403,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	var updatedRegistrationMealToSameDateInWeek = function (weeks, meals, weekDayIndex) {
 		angular.forEach(weeks, function (week) {
 			var date = week.WeekMeals[weekDayIndex];
-			mealRegistrationUtilities.updateMealForDate(date, meals, $scope.mealTimesheet, $scope.registerSetting);
+			mealRegistrationUtilities.updateMealForDate(date, meals, $scope.mealTimesheet, $scope.registerSetting, true);
 		});
 	};
 

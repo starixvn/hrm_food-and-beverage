@@ -144,7 +144,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 					var currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
 					rightMeal = utility.checkRightMeal(currentTimesheet);
 
-					date.Meals[k] = rightMeal ? angular.copy(updateMeal) : angular.copy(meal);
+					date.Meals[k].IsVegetarian = rightMeal ? updateMeal.IsVegetarian : meal.IsVegetarian;
 				}
 			}
 		}
@@ -597,32 +597,45 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		return resultDate;
 	};
 
-	utility.updateMealForDate = function (date, meals, mealTimesheet, registerSetting) {
+	utility.updateMealForDate = function (date, meals, mealTimesheet, registerSetting, isWeekday) {
 		if (!date.IsDisabled) {
 			var toDay = new Date(),
-				currentDate = new Date(date.WorkDate);
+				sevenDay = new Date().setDate(toDay.getDate() + registerSetting.Order),
+				nextSevenDay = new Date(sevenDay),
+				currentDate = new Date(date.WorkDate),
+				isUpdate = false;
 
-			// Don't update Sunday and Saturday
-			if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
-				if (toDay.getMonth() === currentDate.getMonth() && toDay.getFullYear() === currentDate.getFullYear()) {
-					if (toDay.getDate() === currentDate.getDate()) {
-						date = updateMealForToDay(date, meals, mealTimesheet);
-					}
-					else if (currentDate.getDate() > toDay.getDate() && currentDate.getDate() < toDay.getDate() + registerSetting.Order) {
-						for (var i = 0; i < meals.length; i++) {
-							var updateMeal = meals[i];
+			toDay.setHours(0, 0, 0, 0);
+			nextSevenDay.setHours(0, 0, 0, 0);
+			currentDate.setHours(0, 0, 0, 0);
 
-							if (!updateMeal.IsVegetarian) {
-								date.Meals[i] = angular.copy(updateMeal);
-							}
+			if (!isWeekday) {
+				// Don't update Sunday and Saturday
+				if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
+					isUpdate = true;
+				}
+			}
+			else {
+				isUpdate = true;
+			}
+
+			if (isUpdate) {
+				if (toDay.getTime() === currentDate.getTime()) {
+					date = updateMealForToDay(date, meals, mealTimesheet);
+				}
+				else if (currentDate > toDay && currentDate < nextSevenDay) {
+					for (var i = 0; i < meals.length; i++) {
+						var updateMeal = meals[i];
+
+						if (!updateMeal.IsVegetarian) {
+							date.Meals[i].IsVegetarian = updateMeal.IsVegetarian;
 						}
-					}
-					else {
-						date.Meals = angular.copy(meals);
 					}
 				}
 				else {
-					date.Meals = angular.copy(meals);
+					angular.forEach(date.Meals, function (meal, index) {
+						meal.IsVegetarian = meals[index].IsVegetarian;
+					});
 				}
 			}
 		}

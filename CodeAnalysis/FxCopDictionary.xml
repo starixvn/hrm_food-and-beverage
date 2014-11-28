@@ -11,6 +11,8 @@
     <CasingExceptions>
       <Acronym>API</Acronym>
       <Acronym>VNM</Acronym>
+      <Acronym>HSSF</Acronym>
+      <Acronym>NPOI</Acronym>
     </CasingExceptions>
   </Acronyms>
 </Dictionary>
