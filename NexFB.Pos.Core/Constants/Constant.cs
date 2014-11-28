@@ -16,13 +16,9 @@ namespace NexFB.Pos.Core.Constants
     {
         public const string OrderFoodReceiptTemplate = "PrintingTemplates\\OrderFoodReceipt.xaml";
 
-        public const int ReceiveOrderFoodInvoice = 1;
+        public const int DisabledEmployeeOrder = -1;
 
-        public const int DeliverOrderFoodInvoice = 2;
-
-        public const int MainMenuId = 1;
-
-        public const int AlternativeMenuId = 2;
+        public const int DefaultMainFoodValue = 1;
 
         public const double BannerResolution1280 = 522;
 
@@ -66,8 +62,6 @@ namespace NexFB.Pos.Core.Constants
 
         public const string DefaultMenuColor = "#fff";
 
-        public const string DefaultButtonOrderBorderColor = "#fff";
-
         public const string DefaultButtonOrderColor = "#6cb23e";
 
         public const string SelectedButtonOrderColor = "#427720";
@@ -89,18 +83,6 @@ namespace NexFB.Pos.Core.Constants
         public const string CanceledFoodViewModel = "CANCELEDFOODVIEWMODEL";
 
         public const string OrderFoodViewModel = "ORDERFOODVIEWMODEL";
-
-        public const int WaitingFoodScreen = 1;
-
-        public const int AwaitingDeliverFoodScreen = 2;
-
-        public const int DeliveredFoodScreen = 3;
-
-        public const int CanceledFoodScreen = 4;
-
-        public const int GetNewOrder = 1;
-
-        public const int GetAllData = 2;
 
         public const string DevMode = "DEV";
 
@@ -148,22 +130,6 @@ namespace NexFB.Pos.Core.Constants
 
         public const string NA = "N/A";
 
-        public const int ReleaseAllButton = 0;
-
-        public const int PickRoomButton = 1;
-
-        public const int PickGroupButton = 2;
-
-        public const int ChooseMainFoodButton = 3;
-
-        public const int ChooseAlternativeFoodButton = 4;
-
-        public const int EnglishCulture = 1;
-
-        public const int VietNamCulture = 2;
-
-        public const int DefaultMainFoodValue = 1;
-
         public const string AdditionalMenuTemplate = "<User SysId='{0}' FoodId='{1}' Qty='{2}'></User>";
 
         public const string MainMenuTemplate = "<User SysId='{0}' MenuId='{1}' Qty='{2}'></User>";
@@ -173,8 +139,6 @@ namespace NexFB.Pos.Core.Constants
         public const string BeginRootTag = "<ROOT>";
 
         public const string EndRootTag = "</ROOT>";
-
-        public const int DisabledEmployeeOrder = -1;
 
         private Constant()
         {

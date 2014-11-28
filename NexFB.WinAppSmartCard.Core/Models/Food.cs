@@ -9,8 +9,8 @@
 
 namespace NexFB.WinAppSmartCard.Core.Models
 {
+    using NexFB.Pos.Core.Enums;
     using NexFB.Pos.Core.NotifyBase;
-    using NexFB.WinAppSmartCard.Core.Enums;
 
     /// <summary>
     /// Food Model.

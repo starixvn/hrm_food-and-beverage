@@ -24,6 +24,7 @@ namespace NexFB.PosKitchen.ViewModels
     using NexFB.Models.Kitchen;
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.Constants;
+    using NexFB.Pos.Core.Enums;
     using NexFB.Pos.Core.InternetBased;
     using NexFB.PosKitchen.ViewModels.Properties.Main;
     using NexFB.PosKitchen.Views;
@@ -51,7 +52,7 @@ namespace NexFB.PosKitchen.ViewModels
             InitializeHubConnection();
             InitializeHubConnectionLocal();
             TimerDigitalClock();
-            StartTimerGetData(Constant.GetAllData, null);
+            StartTimerGetData((int)QueryData.GetAllData, null);
         }
 
         #region Tasks Send Data To Hub
@@ -214,7 +215,7 @@ namespace NexFB.PosKitchen.ViewModels
                         if (IsMainHub)
                         {
                             ProcessDataFromCurrentList(orderId, false);
-                            SendMessage(orderId, Constant.AwaitingDeliverFoodScreen);
+                            SendMessage(orderId, (int)KitchenScreen.AwaitingDeliverFoodScreen);
                         }
                         else
                         {
@@ -253,7 +254,7 @@ namespace NexFB.PosKitchen.ViewModels
                         if (IsMainHub)
                         {
                             ProcessDataFromCurrentList(orderId, false);
-                            SendMessage(orderId, Constant.WaitingFoodScreen);
+                            SendMessage(orderId, (int)KitchenScreen.WaitingFoodScreen);
                         }
                         else
                         {
@@ -288,7 +289,7 @@ namespace NexFB.PosKitchen.ViewModels
                     if (IsMainHub)
                     {
                         ProcessDataFromCurrentList(orderId, false);
-                        SendMessage(orderId, Constant.DeliveredFoodScreen);
+                        SendMessage(orderId, (int)KitchenScreen.DeliveredFoodScreen);
                     }
                     else
                     {
@@ -332,7 +333,7 @@ namespace NexFB.PosKitchen.ViewModels
             if (value != null)
             {
                 WPFMessageBoxResult confirmCancel = WPFMessageBox.Show(
-                    Constant.VietNamCulture,
+                    (int)LanguageLocalization.VietNamCulture,
                     WinFormMainResource.Confirmation,
                     WinFormMainResource.Message_PermanentCancelOrder,
                     WPFMessageBoxButtons.YesNo,
@@ -350,12 +351,12 @@ namespace NexFB.PosKitchen.ViewModels
                     CommandResult result = this.KitchenService.CancelOrder(cancelOrderCriteria);
                     if (result.Code != 0)
                     {
-                        this.ShowErrorMessage(Constant.VietNamCulture, result.Message.ToString());
+                        this.ShowErrorMessage((int)LanguageLocalization.VietNamCulture, result.Message.ToString());
                     }
                     else
                     {
                         ProcessDataFromCurrentList(orderId, false);
-                        SendMessage(orderId, Constant.CanceledFoodScreen);
+                        SendMessage(orderId, (int)KitchenScreen.CanceledFoodScreen);
                     }
                 }
             }
@@ -403,7 +404,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         private void NewOrder(Order order)
         {
-            StartTimerGetData(Constant.GetNewOrder, order);
+            StartTimerGetData((int)QueryData.GetNewOrder, order);
         }
 
         private void OnEditOrder(int orderId)
@@ -762,7 +763,7 @@ namespace NexFB.PosKitchen.ViewModels
         {
             DispatcherTimer timer = new DispatcherTimer();
 
-            if (getType == Constant.GetNewOrder)
+            if (getType == (int)QueryData.GetNewOrder)
             {
                 timer.Interval = TimeSpan.FromSeconds(DelayTime);
             }
@@ -789,7 +790,7 @@ namespace NexFB.PosKitchen.ViewModels
             DispatcherTimer timer = (DispatcherTimer)sender;
             string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
 
-            if (getType == Constant.GetNewOrder)
+            if (getType == (int)QueryData.GetNewOrder)
             {
                 if (currentViewModel == Constant.WaitingMealViewModel)
                 {

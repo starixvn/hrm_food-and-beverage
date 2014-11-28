@@ -16,11 +16,18 @@ namespace NexFB.Pos.Core.Models
     /// </summary>
     public class EmployeeOrderDetails : PropertyChangedBase
     {
+        #region Private Fields
+
         private int _selectedMenuItemId;
         private int _selectedMenuItemQuantity;
-        private string _selectedMenuItemName;
         private decimal _selectedMenuItemPrice;
+
+        private string _selectedMenuItemName;
         private bool _isMainMenu;
+
+        #endregion
+
+        #region Public Properties
 
         public int SelectedMenuItemId
         {
@@ -36,17 +43,17 @@ namespace NexFB.Pos.Core.Models
             }
         }
 
-        public bool IsMainMenu
+        public decimal SelectedMenuItemPrice
         {
             get
             {
-                return _isMainMenu;
+                return _selectedMenuItemPrice;
             }
 
             set
             {
-                _isMainMenu = value;
-                this.OnPropertyChanged("IsMainMenu");
+                _selectedMenuItemPrice = value;
+                this.OnPropertyChanged("SelectedMenuItemPrice");
             }
         }
 
@@ -78,18 +85,20 @@ namespace NexFB.Pos.Core.Models
             }
         }
 
-        public decimal SelectedMenuItemPrice
+        public bool IsMainMenu
         {
             get
             {
-                return _selectedMenuItemPrice;
+                return _isMainMenu;
             }
 
             set
             {
-                _selectedMenuItemPrice = value;
-                this.OnPropertyChanged("SelectedMenuItemPrice");
+                _isMainMenu = value;
+                this.OnPropertyChanged("IsMainMenu");
             }
         }
+
+        #endregion
     }
 }

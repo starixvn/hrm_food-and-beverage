@@ -737,7 +737,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         public void ChangeButtonBorder(int currentButton)
         {
             string red = Constant.Red;
-            string defaultColor = Constant.DefaultButtonOrderBorderColor;
+            string defaultColor = Constant.DefaultMenuColor;
             string defaulBackgroundColor = Constant.DefaultButtonOrderColor;
             string selectedBackgroundColor = Constant.SelectedButtonOrderColor;
             switch (currentButton)

@@ -26,9 +26,9 @@ namespace NexFB.PosKitchen.ViewModels
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
-    using NexFB.Models.SmartCardOrder;
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.Constants;
+    using NexFB.Pos.Core.Enums;
     using NexFB.Pos.Core.Models;
     using NexFB.PosKitchen.ViewModels.Properties.OrderFood;
     using NexFB.PosKitchen.Views;
@@ -72,7 +72,7 @@ namespace NexFB.PosKitchen.ViewModels
             base.InitializeData(mainViewModel.ScreenWidth, mainViewModel.ScreenHeight);
             ResetCurrentModel();
             CurrentCulture();
-            ChangeButtonBorder(Constant.ReleaseAllButton);
+            ChangeButtonBorder((int)KitchenGroupButton.ReleaseAllButton);
             HideGridDisplayUser();
             AllObservationFood = OrderFoodData.GetAllFood;
             AllObservationAlternativeFood = OrderFoodData.GetAllAlternativeFood;
@@ -102,7 +102,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         public void ExecutePickRoomCommand()
         {
-            ChangeButtonBorder(Constant.PickRoomButton);
+            ChangeButtonBorder((int)KitchenGroupButton.PickRoomButton);
             CommonKitchenOrder = AllObservationLocation;
         }
 
@@ -114,7 +114,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         public void ExecutePickGroupCommand()
         {
-            ChangeButtonBorder(Constant.PickGroupButton);
+            ChangeButtonBorder((int)KitchenGroupButton.PickGroupButton);
             CommonKitchenOrder = AllObservationGroup;
         }
 
@@ -132,7 +132,7 @@ namespace NexFB.PosKitchen.ViewModels
         /// </summary>
         public void ExecuteChooseMainFoodCommand()
         {
-            ChangeButtonBorder(Constant.ChooseMainFoodButton);
+            ChangeButtonBorder((int)KitchenGroupButton.ChooseMainFoodButton);
             CommonKitchenOrder = AllObservationFood;
             if (UserInGroup.Any(x => x.IsSelectedMemberInGroup))
             {
@@ -152,7 +152,7 @@ namespace NexFB.PosKitchen.ViewModels
         /// </summary>
         public void ExecuteChooseAlternativeFoodCommand()
         {
-            ChangeButtonBorder(Constant.ChooseAlternativeFoodButton);
+            ChangeButtonBorder((int)KitchenGroupButton.ChooseAlternativeFoodButton);
             CommonKitchenOrder = AllObservationAlternativeFood;
             if (UserInGroup.Any(x => x.IsSelectedMemberInGroup))
             {
@@ -203,12 +203,12 @@ namespace NexFB.PosKitchen.ViewModels
                             }
 
                             CurrentSelectedMainMenuId = itemId;
-                            AddSelectedMenuItemToList(itemId, currentSelectedMember, Constant.MainMenuId, additionalQuantity);
+                            AddSelectedMenuItemToList(itemId, currentSelectedMember, (int)MenuType.MainMenu, additionalQuantity);
                         }
                         else
                         {
                             CurrentSelectedAlternativeMenuId = itemId;
-                            AddSelectedMenuItemToList(itemId, currentSelectedMember, Constant.AlternativeMenuId, additionalQuantity);
+                            AddSelectedMenuItemToList(itemId, currentSelectedMember, (int)MenuType.AlternativeMenu, additionalQuantity);
                         }
                     }
                 }
@@ -254,7 +254,7 @@ namespace NexFB.PosKitchen.ViewModels
             }
 
             CommonKitchenOrder = AllObservationGroup;
-            ChangeButtonBorder(Constant.PickGroupButton);
+            ChangeButtonBorder((int)KitchenGroupButton.PickGroupButton);
             UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
         }
 
@@ -663,12 +663,12 @@ namespace NexFB.PosKitchen.ViewModels
             {
                 if (CanOrderMainFood)
                 {
-                    ChangeButtonBorder(Constant.ChooseMainFoodButton);
+                    ChangeButtonBorder((int)KitchenGroupButton.ChooseMainFoodButton);
                     CommonKitchenOrder = AllObservationFood;
                 }
                 else
                 {
-                    ChangeButtonBorder(Constant.ChooseAlternativeFoodButton);
+                    ChangeButtonBorder((int)KitchenGroupButton.ChooseAlternativeFoodButton);
                     CommonKitchenOrder = AllObservationAlternativeFood;
                 }
             }
@@ -763,12 +763,12 @@ namespace NexFB.PosKitchen.ViewModels
 
                 switch (menu)
                 {
-                    case Constant.MainMenuId:
+                    case (int)MenuType.MainMenu:
                         currentMenuList = currentSelectedMember.ListMainMenuOrderDeatails;
                         employeeOrderDetails = currentMenuList.Where(x => x.SelectedMenuItemId == itemId).SingleOrDefault();
 
                         break;
-                    case Constant.AlternativeMenuId:
+                    case (int)MenuType.AlternativeMenu:
                         currentMenuList = currentSelectedMember.ListAlternativeMenuOrderDeatails;
                         employeeOrderDetails = currentMenuList.Where(x => x.SelectedMenuItemId == itemId).SingleOrDefault();
                         break;
@@ -1039,7 +1039,7 @@ namespace NexFB.PosKitchen.ViewModels
                 currentSelectedEmployee.ListMainMenuOrderDeatails = new List<EmployeeOrderDetails>();
                 currentSelectedEmployee.ListAlternativeMenuOrderDeatails = new List<EmployeeOrderDetails>();
                 currentSelectedEmployee.OrderSummary = null;
-                ChangeButtonBorder(Constant.PickGroupButton);
+                ChangeButtonBorder((int)KitchenGroupButton.PickGroupButton);
                 ChangeMemberOrderColor(currentSelectedEmployee);
                 CommonKitchenOrder = AllObservationGroup;
             }
@@ -1286,7 +1286,7 @@ namespace NexFB.PosKitchen.ViewModels
         /// <param name="value">Parameter value.</param>
         public void ResetCurrentModel(object value = null)
         {
-            string defaultColor = Constant.DefaultButtonOrderBorderColor;
+            string defaultColor = Constant.DefaultMenuColor;
             CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>();
             UserInGroup = new ObservableCollection<KitchenEmployeeInfo>();
             DuplicateUser = new ObservableCollection<KitchenEmployeeInfo>();
@@ -1466,11 +1466,11 @@ namespace NexFB.PosKitchen.ViewModels
                 {
                     if (CheckMainFoodMenu)
                     {
-                        AddSelectedMenuItemToList(currentSelectedItem.ItemId, currentSelectedMember, Constant.MainMenuId, moreQuantity);
+                        AddSelectedMenuItemToList(currentSelectedItem.ItemId, currentSelectedMember, (int)MenuType.MainMenu, moreQuantity);
                     }
                     else
                     {
-                        AddSelectedMenuItemToList(currentSelectedItem.ItemId, currentSelectedMember, Constant.AlternativeMenuId, moreQuantity);
+                        AddSelectedMenuItemToList(currentSelectedItem.ItemId, currentSelectedMember, (int)MenuType.AlternativeMenu, moreQuantity);
                     }
                 }
             }
@@ -1531,12 +1531,12 @@ namespace NexFB.PosKitchen.ViewModels
             if (string.IsNullOrEmpty(_defaultLanguage) || _defaultLanguage == Constant.DefaultCulture)
             {
                 IsVnmCulture = true;
-                return Constant.VietNamCulture;
+                return (int)LanguageLocalization.VietNamCulture;
             }
             else
             {
                 IsVnmCulture = false;
-                return Constant.EnglishCulture;
+                return (int)LanguageLocalization.EnglishCulture;
             }
         }
 

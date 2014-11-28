@@ -16,13 +16,20 @@ namespace NexFB.Pos.Core.Models
     /// </summary>
     public class OrderPreview : PropertyChangedBase
     {
+        #region Private Fields
+
         private int _orderNo;
-        private string _nickName;
-        private string _dishes;
         private int _quantity;
         private decimal _unitPrice;
+
+        private string _nickName;
+        private string _dishes;
         private string _price;
         private string _color;
+
+        #endregion
+
+        #region Public Properties
 
         public string Price
         {
@@ -121,5 +128,7 @@ namespace NexFB.Pos.Core.Models
                 this.OnPropertyChanged("OrderNo");
             }
         }
+
+        #endregion
     }
 }

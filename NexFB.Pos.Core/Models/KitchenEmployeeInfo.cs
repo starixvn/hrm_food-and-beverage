@@ -21,41 +21,45 @@ namespace NexFB.Pos.Core.Models
     /// </summary>
     public class KitchenEmployeeInfo : PropertyChangedBase
     {
+        #region Private Fields
+
         private static string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
-        private int _groupOrderId;
+        private int _sysId;
+        private int _empId;
         private int _mealId;
+        private int _menuId;
+        private int _quantity;
+        private int _locationId;
+        private int _departmentId;
+        private int _groupOrderId;
+
+        private string _code;
+        private string _fullName;
+        private string _nickName;
+        private string _menuEngName;
+        private string _menuVnmName;
         private string _mealEngName;
+        private string _imageSource;
         private string _mealVnmName;
+        private string _orderSummary;
+        private string _departmentName;
+        private string _locationEngName;
+        private string _locationVnmName;
+        private string _employeeOrderMealText;
+        private string _employeeOrderMealColor;
+
+        private bool _isDeleteMainFood;
+        private bool _disabledAutoAddFood;
+        private bool _isVegetarian;
         private bool _isSelectedMemberInGroup;
         private bool _isPlaceOrder;
         private bool _isLocal;
         private bool _isChecked;
 
-        private int _sysId;
-        private int _empId;
-        private string _code;
-        private string _fullName;
-        private string _nickName;
-        private int _menuId;
-        private string _menuEngName;
-        private string _menuVnmName;
-        private int _departmentId;
-        private string _departmentName;
-        private int _locationId;
-        private string _locationEngName;
-        private string _locationVnmName;
-        private bool _isVegetarian;
-        private int _quantity;
-
-        private string _employeeOrderMealColor;
-        private string _employeeOrderMealText;
-        private string _orderSummary;
-        private bool _isDeleteMainFood;
-        private bool _disabledAutoAddFood;
-        private string _imageSource;
-
         private List<EmployeeOrderDetails> _listMainMenuOrderDeatails;
         private List<EmployeeOrderDetails> _listAlternativeMenuOrderDeatails;
+
+        #endregion
 
         public KitchenEmployeeInfo()
         {
@@ -63,129 +67,75 @@ namespace NexFB.Pos.Core.Models
             ListAlternativeMenuOrderDeatails = new List<EmployeeOrderDetails>();
         }
 
-        public string ImageSource
+        #region Public Properties
+
+        public int MealId
         {
             get
             {
-                string imagePath = string.Empty;
-                switch (DepartmentId)
-                {
-                    case (int)DepartmentIdentity.Nexcel:
-                        _imageSource = string.Format(Constant.NexcelAvatar, Code.Trim());
-                        imagePath = string.Format(Constant.NexcelImagePath, Code.Trim());
-                        break;
-                    case (int)DepartmentIdentity.Sms:
-                        _imageSource = string.Format(Constant.SmsAvatar, Code.Trim());
-                        imagePath = string.Format(Constant.SmsImagePath, Code.Trim());
-                        break;
-                    case (int)DepartmentIdentity.HongMA:
-                        _imageSource = string.Format(Constant.HongMAAvatar, Code.Trim());
-                        imagePath = string.Format(Constant.HongMAImagePath, Code.Trim());
-                        break;
-                    default:
-                        _imageSource = Constant.DefaultAvatar;
-                        imagePath = Constant.DefaultImagePath;
-                        break;
-                }
-
-                if (ResourceManagerHelper.GetResourceNames(imagePath))
-                {
-                    return _imageSource;
-                }
-                else
-                {
-                    return Constant.DefaultAvatar;
-                }
+                return _mealId;
             }
 
             set
             {
-                _imageSource = value;
-                OnPropertyChanged("ImageSource");
+                _mealId = value;
+                this.OnPropertyChanged("MealId");
             }
         }
 
-        public bool DisabledAutoAddFood
+        public int SysId
         {
             get
             {
-                return _disabledAutoAddFood;
+                return _sysId;
             }
 
             set
             {
-                _disabledAutoAddFood = value;
-                OnPropertyChanged("DisabledAutoAddFood");
+                _sysId = value;
+                this.OnPropertyChanged("SysId");
             }
         }
 
-        public List<EmployeeOrderDetails> ListMainMenuOrderDeatails
+        public int EmpId
         {
             get
             {
-                return _listMainMenuOrderDeatails;
+                return _empId;
             }
 
             set
             {
-                _listMainMenuOrderDeatails = value;
-                this.OnPropertyChanged("ListMainMenuOrderDeatails");
+                _empId = value;
+                this.OnPropertyChanged("EmpId");
             }
         }
 
-        public List<EmployeeOrderDetails> ListAlternativeMenuOrderDeatails
+        public int MenuId
         {
             get
             {
-                return _listAlternativeMenuOrderDeatails;
+                return _menuId;
             }
 
             set
             {
-                _listAlternativeMenuOrderDeatails = value;
-                this.OnPropertyChanged("ListAlternativeMenuOrderDeatails");
+                _menuId = value;
+                this.OnPropertyChanged("MenuId");
             }
         }
 
-        public bool IsDeleteMainFood
+        public int DepartmentId
         {
             get
             {
-                return _isDeleteMainFood;
+                return _departmentId;
             }
 
             set
             {
-                _isDeleteMainFood = value;
-                this.OnPropertyChanged("IsDeleteMainFood");
-            }
-        }
-
-        public bool IsPlaceOrder
-        {
-            get
-            {
-                return _isPlaceOrder;
-            }
-
-            set
-            {
-                _isPlaceOrder = value;
-                this.OnPropertyChanged("IsPlaceOrder");
-            }
-        }
-
-        public bool IsVegetarian
-        {
-            get
-            {
-                return _isVegetarian;
-            }
-
-            set
-            {
-                _isVegetarian = value;
-                this.OnPropertyChanged("IsVegetarian");
+                _departmentId = value;
+                this.OnPropertyChanged("DepartmentId");
             }
         }
 
@@ -217,6 +167,55 @@ namespace NexFB.Pos.Core.Models
             }
         }
 
+        public int GroupOrderId
+        {
+            get
+            {
+                return _groupOrderId;
+            }
+
+            set
+            {
+                _groupOrderId = value;
+                this.OnPropertyChanged("GroupOrderId");
+            }
+        }
+
+        public string ImageSource
+        {
+            get
+            {
+                string imagePath = string.Empty;
+                switch (DepartmentId)
+                {
+                    case (int)DepartmentIdentity.Nexcel:
+                        _imageSource = string.Format(Constant.NexcelAvatar, Code.Trim());
+                        imagePath = string.Format(Constant.NexcelImagePath, Code.Trim());
+                        break;
+                    case (int)DepartmentIdentity.Sms:
+                        _imageSource = string.Format(Constant.SmsAvatar, Code.Trim());
+                        imagePath = string.Format(Constant.SmsImagePath, Code.Trim());
+                        break;
+                    case (int)DepartmentIdentity.HongMA:
+                        _imageSource = string.Format(Constant.HongMAAvatar, Code.Trim());
+                        imagePath = string.Format(Constant.HongMAImagePath, Code.Trim());
+                        break;
+                    default:
+                        _imageSource = Constant.DefaultAvatar;
+                        imagePath = Constant.DefaultImagePath;
+                        break;
+                }
+
+                return ResourceManagerHelper.GetResourceNames(imagePath) ? _imageSource : Constant.DefaultAvatar;
+            }
+
+            set
+            {
+                _imageSource = value;
+                OnPropertyChanged("ImageSource");
+            }
+        }
+
         public string LocationEngName
         {
             get
@@ -242,6 +241,209 @@ namespace NexFB.Pos.Core.Models
             {
                 _locationVnmName = value;
                 this.OnPropertyChanged("LocationVnmName");
+            }
+        }
+
+        public string Code
+        {
+            get
+            {
+                return _code;
+            }
+
+            set
+            {
+                _code = value;
+                this.OnPropertyChanged("Code");
+            }
+        }
+
+        public string FullName
+        {
+            get
+            {
+                return _fullName;
+            }
+
+            set
+            {
+                _fullName = value;
+                this.OnPropertyChanged("FullName");
+            }
+        }
+
+        public string NickName
+        {
+            get
+            {
+                return _nickName;
+            }
+
+            set
+            {
+                _nickName = value;
+                this.OnPropertyChanged("NickName");
+            }
+        }
+
+        public string NickNameHasOrdered
+        {
+            get
+            {
+                return Quantity > 0 ? NickName + " (" + Quantity + ") " : NickName;
+            }
+        }
+
+        public string MealEngName
+        {
+            get
+            {
+                return _mealEngName;
+            }
+
+            set
+            {
+                _mealEngName = value;
+                this.OnPropertyChanged("MealEngName");
+            }
+        }
+
+        public string MealVnmName
+        {
+            get
+            {
+                return _mealVnmName;
+            }
+
+            set
+            {
+                _mealVnmName = value;
+                this.OnPropertyChanged("MealVnmName");
+            }
+        }
+
+        public string MenuVnmName
+        {
+            get
+            {
+                return _menuVnmName;
+            }
+
+            set
+            {
+                _menuVnmName = value;
+                this.OnPropertyChanged("MenuVnmName");
+            }
+        }
+
+        public string MenuEngName
+        {
+            get
+            {
+                return _menuEngName;
+            }
+
+            set
+            {
+                _menuEngName = value;
+                this.OnPropertyChanged("MenuEngName");
+            }
+        }
+
+        public string DepartmentName
+        {
+            get
+            {
+                return _departmentName;
+            }
+
+            set
+            {
+                _departmentName = value;
+                this.OnPropertyChanged("DepartmentName");
+            }
+        }
+
+        public string FullNameUpper
+        {
+            get
+            {
+                return FullName.ToUpper();
+            }
+        }
+
+        public string DeparmentNameDetails
+        {
+            get
+            {
+                return IsLocal ? DepartmentName + " - " + Constant.Local : DepartmentName + " - " + Constant.Expat;
+            }
+        }
+
+        public string LocationName
+        {
+            get
+            {
+                return (string.IsNullOrEmpty(_defaultLanguage) || _defaultLanguage == Constant.DefaultCulture) ? LocationVnmName : LocationEngName;
+            }
+        }
+
+        public string EmployeeSelectionGeneralInfo
+        {
+            get
+            {
+                return FullName + " (" + NickName + ") " + "from " + DeparmentNameDetails;
+            }
+        }
+
+        public string EmployeeOrderMealColor
+        {
+            get
+            {
+                if (IsPlaceOrder)
+                {
+                    _employeeOrderMealColor = IsVegetarian ? Constant.RegisterVegetarianMealColor : Constant.RegisterNonVegetarianMealColor;
+                }
+                else
+                {
+                    _employeeOrderMealColor = Quantity > 0 ? Constant.HasOrderMealBeforeColor : Constant.UNRegisterMealColor;
+                }
+
+                return _employeeOrderMealColor;
+            }
+
+            set
+            {
+                _employeeOrderMealColor = value;
+                this.OnPropertyChanged("EmployeeOrderMealColor");
+            }
+        }
+
+        public string EmployeeOrderMealText
+        {
+            get
+            {
+                return _employeeOrderMealText;
+            }
+
+            set
+            {
+                _employeeOrderMealText = value;
+                this.OnPropertyChanged("EmployeeOrderMealText");
+            }
+        }
+
+        public string OrderSummary
+        {
+            get
+            {
+                return _orderSummary;
+            }
+
+            set
+            {
+                _orderSummary = value;
+                this.OnPropertyChanged("OrderSummary");
             }
         }
 
@@ -295,324 +497,90 @@ namespace NexFB.Pos.Core.Models
             }
         }
 
-        public int GroupOrderId
+        public bool DisabledAutoAddFood
         {
             get
             {
-                return _groupOrderId;
+                return _disabledAutoAddFood;
             }
 
             set
             {
-                _groupOrderId = value;
-                this.OnPropertyChanged("GroupOrderId");
+                _disabledAutoAddFood = value;
+                OnPropertyChanged("DisabledAutoAddFood");
             }
         }
 
-        public int MealId
+        public bool IsDeleteMainFood
         {
             get
             {
-                return _mealId;
+                return _isDeleteMainFood;
             }
 
             set
             {
-                _mealId = value;
-                this.OnPropertyChanged("MealId");
+                _isDeleteMainFood = value;
+                this.OnPropertyChanged("IsDeleteMainFood");
             }
         }
 
-        public int SysId
+        public bool IsPlaceOrder
         {
             get
             {
-                return _sysId;
+                return _isPlaceOrder;
             }
 
             set
             {
-                _sysId = value;
-                this.OnPropertyChanged("SysId");
+                _isPlaceOrder = value;
+                this.OnPropertyChanged("IsPlaceOrder");
             }
         }
 
-        public int EmpId
+        public bool IsVegetarian
         {
             get
             {
-                return _empId;
+                return _isVegetarian;
             }
 
             set
             {
-                _empId = value;
-                this.OnPropertyChanged("EmpId");
+                _isVegetarian = value;
+                this.OnPropertyChanged("IsVegetarian");
             }
         }
 
-        public string Code
+        public List<EmployeeOrderDetails> ListMainMenuOrderDeatails
         {
             get
             {
-                return _code;
+                return _listMainMenuOrderDeatails;
             }
 
             set
             {
-                _code = value;
-                this.OnPropertyChanged("Code");
+                _listMainMenuOrderDeatails = value;
+                this.OnPropertyChanged("ListMainMenuOrderDeatails");
             }
         }
 
-        public string FullName
+        public List<EmployeeOrderDetails> ListAlternativeMenuOrderDeatails
         {
             get
             {
-                return _fullName;
+                return _listAlternativeMenuOrderDeatails;
             }
 
             set
             {
-                _fullName = value;
-                this.OnPropertyChanged("FullName");
+                _listAlternativeMenuOrderDeatails = value;
+                this.OnPropertyChanged("ListAlternativeMenuOrderDeatails");
             }
         }
 
-        public string NickName
-        {
-            get
-            {
-                return _nickName;
-            }
-
-            set
-            {
-                _nickName = value;
-                this.OnPropertyChanged("NickName");
-            }
-        }
-
-        public string NickNameHasOrdered
-        {
-            get
-            {
-                if (Quantity > 0)
-                {
-                    return NickName + " (" + Quantity + ") ";
-                }
-
-                return NickName;
-            }
-        }
-
-        public string MealEngName
-        {
-            get
-            {
-                return _mealEngName;
-            }
-
-            set
-            {
-                _mealEngName = value;
-                this.OnPropertyChanged("MealEngName");
-            }
-        }
-
-        public string MealVnmName
-        {
-            get
-            {
-                return _mealVnmName;
-            }
-
-            set
-            {
-                _mealVnmName = value;
-                this.OnPropertyChanged("MealVnmName");
-            }
-        }
-
-        public int MenuId
-        {
-            get
-            {
-                return _menuId;
-            }
-
-            set
-            {
-                _menuId = value;
-                this.OnPropertyChanged("MenuId");
-            }
-        }
-
-        public string MenuVnmName
-        {
-            get
-            {
-                return _menuVnmName;
-            }
-
-            set
-            {
-                _menuVnmName = value;
-                this.OnPropertyChanged("MenuVnmName");
-            }
-        }
-
-        public string MenuEngName
-        {
-            get
-            {
-                return _menuEngName;
-            }
-
-            set
-            {
-                _menuEngName = value;
-                this.OnPropertyChanged("MenuEngName");
-            }
-        }
-
-        public string DepartmentName
-        {
-            get
-            {
-                return _departmentName;
-            }
-
-            set
-            {
-                _departmentName = value;
-                this.OnPropertyChanged("DepartmentName");
-            }
-        }
-
-        public int DepartmentId
-        {
-            get
-            {
-                return _departmentId;
-            }
-
-            set
-            {
-                _departmentId = value;
-                this.OnPropertyChanged("DepartmentId");
-            }
-        }
-
-        public string FullNameUpper
-        {
-            get
-            {
-                return FullName.ToUpper();
-            }
-        }
-
-        public string DeparmentNameDetails
-        {
-            get
-            {
-                if (IsLocal)
-                {
-                    return DepartmentName + " - " + Constant.Local;
-                }
-                else
-                {
-                    return DepartmentName + " - " + Constant.Expat;
-                }
-            }
-        }
-
-        public string LocationName
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_defaultLanguage) || _defaultLanguage == Constant.DefaultCulture)
-                {
-                    return LocationVnmName;
-                }
-                else
-                {
-                    return LocationEngName;
-                }
-            }
-        }
-
-        public string EmployeeSelectionGeneralInfo
-        {
-            get
-            {
-                return FullName + " (" + NickName + ") " + "from " + DeparmentNameDetails;
-            }
-        }
-
-        public string EmployeeOrderMealColor
-        {
-            get
-            {
-                if (IsPlaceOrder)
-                {
-                    if (IsVegetarian)
-                    {
-                        _employeeOrderMealColor = Constant.RegisterVegetarianMealColor;
-                    }
-                    else
-                    {
-                        _employeeOrderMealColor = Constant.RegisterNonVegetarianMealColor;
-                    }
-                }
-                else
-                {
-                    if (Quantity > 0)
-                    {
-                        _employeeOrderMealColor = Constant.HasOrderMealBeforeColor;
-                    }
-                    else
-                    {
-                        _employeeOrderMealColor = Constant.UNRegisterMealColor;
-                    }
-                }
-
-                return _employeeOrderMealColor;
-            }
-
-            set
-            {
-                _employeeOrderMealColor = value;
-                this.OnPropertyChanged("EmployeeOrderMealColor");
-            }
-        }
-
-        public string EmployeeOrderMealText
-        {
-            get
-            {
-                return _employeeOrderMealText;
-            }
-
-            set
-            {
-                _employeeOrderMealText = value;
-                this.OnPropertyChanged("EmployeeOrderMealText");
-            }
-        }
-
-        public string OrderSummary
-        {
-            get
-            {
-                return _orderSummary;
-            }
-
-            set
-            {
-                _orderSummary = value;
-                this.OnPropertyChanged("OrderSummary");
-            }
-        }
+        #endregion
     }
 }

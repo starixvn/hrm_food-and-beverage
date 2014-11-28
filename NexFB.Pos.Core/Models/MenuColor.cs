@@ -16,9 +16,15 @@ namespace NexFB.Pos.Core.Models
     /// </summary>
     public class MenuColor : PropertyChangedBase
     {
+        #region Private Fields
+
         private string _background;
         private string _foreground;
         private string _fontWeight;
+
+        #endregion
+
+        #region Public Properties
 
         public string BackgroundColor
         {
@@ -61,5 +67,7 @@ namespace NexFB.Pos.Core.Models
                 this.OnPropertyChanged("FontWeight");
             }
         }
+
+        #endregion
     }
 }

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="LanguageLocalization.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="MenuType.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -7,14 +7,14 @@
 //   <change who="Bradley.Mac" date="2014.11.28">Created</change>
 // </history>
 
-namespace NexFB.WinAppSmartCard.Core.Enums
+namespace NexFB.Pos.Core.Enums
 {
     using System.ComponentModel;
 
     /// <summary>
-    /// Language Localization.
+    /// Invoice Type.
     /// </summary>
-    public enum LanguageLocalization
+    public enum MenuType
     {
         /// <summary>
         /// The none item.
@@ -23,21 +23,15 @@ namespace NexFB.WinAppSmartCard.Core.Enums
         None = 0,
 
         /// <summary>
-        /// English Culture.
+        /// Main Menu.
         /// </summary>
-        [Description("EnglishCulture")]
-        EnglishCulture = 1,
+        [Description("MainMenu")]
+        MainMenu = 1,
 
         /// <summary>
-        /// VietNam Culture.
+        /// Alternative Menu.
         /// </summary>
-        [Description("VietNamCulture")]
-        VietNamCulture = 2,
-
-        /// <summary>
-        /// China Culture.
-        /// </summary>
-        [Description("ChinaCulture")]
-        ChinaCulture = 3,
+        [Description("AlternativeMenu")]
+        AlternativeMenu = 2,
     }
 }

@@ -15,6 +15,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
     using System.Windows.Input;
     using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.Pos.Core.Constants;
+    using NexFB.Pos.Core.Enums;
     using NexFB.Pos.Core.Models;
 
     /// <summary>
@@ -509,13 +510,13 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
             {
                 ButtonTextVietnamese = Constant.Visible;
                 ButtonTextEnglish = Constant.Hidden;
-                return Constant.VietNamCulture;
+                return (int)LanguageLocalization.VietNamCulture;
             }
             else
             {
                 ButtonTextVietnamese = Constant.Hidden;
                 ButtonTextEnglish = Constant.Visible;
-                return Constant.EnglishCulture;
+                return (int)LanguageLocalization.EnglishCulture;
             }
         }
     }

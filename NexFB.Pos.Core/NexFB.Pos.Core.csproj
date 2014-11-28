@@ -56,6 +56,11 @@
   <ItemGroup>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Constants\Constant.cs" />
+    <Compile Include="Enums\MenuType.cs" />
+    <Compile Include="Enums\KitchenGroupButton.cs" />
+    <Compile Include="Enums\KitchenScreen.cs" />
+    <Compile Include="Enums\LanguageLocalization.cs" />
+    <Compile Include="Enums\QueryData.cs" />
     <Compile Include="Helpers\ResourceManagerHelper.cs" />
     <Compile Include="InternetBased\DBConnectionAvailability.cs" />
     <Compile Include="InternetBased\InternetAvailability.cs" />

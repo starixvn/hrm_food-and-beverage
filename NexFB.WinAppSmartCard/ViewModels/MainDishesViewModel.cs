@@ -22,8 +22,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.Models.Kitchen;
     using NexFB.Models.SmartCardOrder;
     using NexFB.Pos.Core.Commands;
+    using NexFB.Pos.Core.Enums;
     using NexFB.WinAppSmartCard.Core.Constants;
-    using NexFB.WinAppSmartCard.Core.Enums;
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.Core.Resources;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
