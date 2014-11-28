@@ -21,7 +21,7 @@ namespace NexFB.Pos.Core.Commands
         private readonly Action<object> _execute;
 
         /// <summary>
-        /// The event of an object.
+        /// Initializes a new instance of the <see cref="RelayCommand" /> class.
         /// </summary>
         /// <param name="canExecute">Check permission to execute event.</param>
         /// <param name="execute">The result when execute event.</param>
