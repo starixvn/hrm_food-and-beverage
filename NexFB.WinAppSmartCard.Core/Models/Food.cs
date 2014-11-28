@@ -17,26 +17,34 @@ namespace NexFB.WinAppSmartCard.Core.Models
     /// </summary>
     public class Food : PropertyChangedBase
     {
+        #region Private fields
+
         private int _foodId;
+        private int _quantity;
+        private int _currentItemNo;
+        private int _currentCulture;
+
+        private decimal _price;
+
         private string _foodVnmName;
         private string _foodEngName;
         private string _foodChineseName;
-        private int _quantity;
-        private decimal _price;
-        private int _currentCulture;
-        private int _currentItemNo;
 
-        public decimal Price
+        #endregion
+
+        #region Public Properties
+
+        public int FoodId
         {
             get
             {
-                return _price;
+                return _foodId;
             }
 
             set
             {
-                _price = value;
-                this.OnPropertyChanged("Price");
+                _foodId = value;
+                this.OnPropertyChanged("FoodId");
             }
         }
 
@@ -68,17 +76,31 @@ namespace NexFB.WinAppSmartCard.Core.Models
             }
         }
 
-        public int FoodId
+        public int CurrentCulture
         {
             get
             {
-                return _foodId;
+                return _currentCulture;
             }
 
             set
             {
-                _foodId = value;
-                this.OnPropertyChanged("FoodId");
+                _currentCulture = value;
+                this.OnPropertyChanged("CurrentCulture");
+            }
+        }
+
+        public decimal Price
+        {
+            get
+            {
+                return _price;
+            }
+
+            set
+            {
+                _price = value;
+                this.OnPropertyChanged("Price");
             }
         }
 
@@ -124,20 +146,6 @@ namespace NexFB.WinAppSmartCard.Core.Models
             }
         }
 
-        public int CurrentCulture
-        {
-            get
-            {
-                return _currentCulture;
-            }
-
-            set
-            {
-                _currentCulture = value;
-                this.OnPropertyChanged("CurrentCulture");
-            }
-        }
-
         public string DisplayFoodName
         {
             get
@@ -160,19 +168,13 @@ namespace NexFB.WinAppSmartCard.Core.Models
                 }
                 else
                 {
-                    switch (CurrentCulture)
-                    {
-                        case (int)LanguageLocalization.VietNamCulture:
-                            foodName = FoodVnmName;
-                            break;
-                        default:
-                            foodName = FoodEngName;
-                            break;
-                    }
+                    foodName = CurrentCulture == (int)LanguageLocalization.VietNamCulture ? FoodVnmName : FoodEngName;
                 }
 
                 return foodName;
             }
         }
+
+        #endregion
     }
 }

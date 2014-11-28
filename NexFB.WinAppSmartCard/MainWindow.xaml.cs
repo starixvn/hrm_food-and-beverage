@@ -16,6 +16,7 @@ namespace NexFB.WinAppSmartCard
     using System.Windows.Interop;
     using AutoLogOffHelper;
     using NexFB.WinAppSmartCard.Core.Constants;
+    using NexFB.WinAppSmartCard.Core.Resources;
     using NexFB.WinAppSmartCard.ViewModels;
 
     /// <summary>
@@ -100,7 +101,7 @@ namespace NexFB.WinAppSmartCard
         private void AutoLogOffHelper_MakeAutoLogOffEvent()
         {
             var currentViewModel = (MainViewModel)this.DataContext;
-            if (currentViewModel.MainScreenVisible == NexFB.WinAppSmartCard.Core.Constants.ConstantValue.Visible)
+            if (currentViewModel.MainScreenVisible == CommonResources.Visible)
             {
                 if (Application.Current.Windows.Count > 1)
                 {

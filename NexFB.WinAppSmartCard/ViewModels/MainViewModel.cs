@@ -27,6 +27,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Enums;
     using NexFB.WinAppSmartCard.Core.Models;
+    using NexFB.WinAppSmartCard.Core.Resources;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using NexFB.WinAppSmartCard.GlobalResources.Services;
     using NexFB.WinAppSmartCard.ViewModels.Properties;
@@ -155,8 +156,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
             OrderOwner = null;
             IsMainDishTab = false;
             ExecuteMainDishesCommand();
-            MainScreenVisible = ConstantValue.Hidden;
-            StandbyScreenVisible = ConstantValue.Visible;
+            MainScreenVisible = CommonResources.Hidden;
+            StandbyScreenVisible = CommonResources.Visible;
         }
 
         public Task SendMessage(int orderId)
@@ -393,13 +394,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (string.IsNullOrEmpty(CurrentCardNumber))
             {
-                MainScreenVisible = ConstantValue.Hidden;
-                StandbyScreenVisible = ConstantValue.Visible;
+                MainScreenVisible = CommonResources.Hidden;
+                StandbyScreenVisible = CommonResources.Visible;
             }
             else
             {
-                MainScreenVisible = ConstantValue.Visible;
-                StandbyScreenVisible = ConstantValue.Hidden;
+                MainScreenVisible = CommonResources.Visible;
+                StandbyScreenVisible = CommonResources.Hidden;
             }
         }
 
@@ -429,7 +430,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                     if (!employeeInfoMapping.AllowOrder)
                     {
-                        if (MainScreenVisible == ConstantValue.Visible)
+                        if (MainScreenVisible == CommonResources.Visible)
                         {
                             if (!isSideDishView)
                             {

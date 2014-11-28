@@ -14,6 +14,8 @@ namespace NexFB.WinAppSmartCard.Core.Constants
     /// </summary>
     public sealed class ConstantValue
     {
+        public const int NoMenuAvailableCode = -1;
+
         public const string MainDishesMenuColor = "#66B5D6";
 
         public const string SideDishesMenuColor = "#ef4339";
@@ -24,26 +26,6 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const string FontWeightNormal = "Normal";
 
-        public const string MainDishesViewModel = "MainDishesViewModel";
-
-        public const string SideDishesViewModel = "SideDishesViewModel";
-
-        public const string Hidden = "Hidden";
-
-        public const string Visible = "Visible";
-
-        public const string MainDishVietnamese = "Món Chính";
-
-        public const string MainDishChinese = "主菜";
-
-        public const string MainDishEnglish = "Main Dishes";
-
-        public const string SelectDishesVietnamese = "Xin chọn món";
-
-        public const string SelectDishesChinese = "請選擇菜單";
-
-        public const string SelectDishesEnglish = "Please select a food item";
-
         public const string HubHost = "HubHost";
 
         public const string LocalDB = "LocalDB";
@@ -53,6 +35,10 @@ namespace NexFB.WinAppSmartCard.Core.Constants
         public const string SessionTimeout = "SessionTimeout";
 
         public const string HubHostLocal = "HubHostLocal";
+
+        public const string MainDishesViewModel = "MainDishesViewModel";
+
+        public const string SideDishesViewModel = "SideDishesViewModel";
 
         public const string LogoMarginMoreThan900 = "0,0,0,10";
 
@@ -70,7 +56,7 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const string EndRootTag = "</ROOT>";
 
-        public const int NoMenuAvailableCode = -1;
+        public const string VietNameseCultureCode = "vi-VN";
 
         private ConstantValue()
         {

@@ -93,12 +93,7 @@ namespace NexFB.Models.Kitchen
             {
                 if (TakeAway)
                 {
-                    if (!string.IsNullOrEmpty(RemarkVnm))
-                    {
-                        return string.Format("{0}, {1}", WinFormMainResource.TakeAway, RemarkVnm);
-                    }
-
-                    return string.Format(WinFormMainResource.TakeAway);
+                    return !string.IsNullOrEmpty(RemarkVnm) ? string.Format("{0}, {1}", WinFormMainResource.TakeAway, RemarkVnm) : WinFormMainResource.TakeAway;
                 }
                 else
                 {
@@ -155,14 +150,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                if (CurrentStatusId == (int)OrderStatus.NewOrder)
-                {
-                    return WinFormMainResource.ReceiveBilingual;
-                }
-                else
-                {
-                    return WinFormMainResource.DeliverBilingual;
-                }
+                return CurrentStatusId == (int)OrderStatus.NewOrder ? WinFormMainResource.ReceiveBilingual : WinFormMainResource.DeliverBilingual;
             }
         }
 
@@ -218,14 +206,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                if (IsEdited)
-                {
-                    return WinFormMainResource.Visible;
-                }
-                else
-                {
-                    return WinFormMainResource.Hidden;
-                }
+                return IsEdited ? WinFormMainResource.Visible : WinFormMainResource.Hidden;
             }
         }
 
@@ -233,12 +214,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                if (InvoiceNumber == (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice)
-                {
-                    return WinFormMainResource.Black;
-                }
-
-                return string.Empty;
+                return InvoiceNumber == (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice ? WinFormMainResource.Black : string.Empty;
             }
         }
 
@@ -246,12 +222,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                if (InvoiceNumber == (int)InvoiceNumberStatus.DeliverOrderFoodInvoice)
-                {
-                    return WinFormMainResource.StrokeDash;
-                }
-
-                return string.Empty;
+                return InvoiceNumber == (int)InvoiceNumberStatus.DeliverOrderFoodInvoice ? WinFormMainResource.StrokeDash : string.Empty;
             }
         }
 
@@ -259,12 +230,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                if (InvoiceNumber == (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice)
-                {
-                    return WinFormMainResource.White;
-                }
-
-                return string.Empty;
+                return InvoiceNumber == (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice ? WinFormMainResource.White : string.Empty;
             }
         }
 
@@ -272,8 +238,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                int totalOrder = ListMenu.Where(x => !x.IsDeleted).Sum(x => x.QuantityOrder);
-                return totalOrder;
+                return ListMenu.Where(x => !x.IsDeleted).Sum(x => x.QuantityOrder);
             }
         }
 
@@ -283,14 +248,8 @@ namespace NexFB.Models.Kitchen
             {
                 CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
                 decimal totalAmount = ListMenu.Sum(x => x.Price * x.QuantityOrder);
-                if (totalAmount > 0)
-                {
-                    return totalAmount.ToString("#,###", culture.NumberFormat);
-                }
-                else
-                {
-                    return "0";
-                }
+
+                return totalAmount > 0 ? totalAmount.ToString("#,###", culture.NumberFormat) : "0";
             }
         }
 
@@ -306,17 +265,18 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                if (CurrentStatusId == 1)
+                string text = string.Empty;
+                if (CurrentStatusId == (int)OrderStatus.NewOrder)
                 {
-                    return WinFormMainResource.Receive.ToUpper();
+                    text = WinFormMainResource.Receive.ToUpper();
                 }
 
                 if (CurrentStatusId == (int)OrderStatus.ReceivedOrder || CurrentStatusId == (int)OrderStatus.ReducedOrder)
                 {
-                    return WinFormMainResource.Export.ToUpper();
+                    text = WinFormMainResource.Export.ToUpper();
                 }
 
-                return string.Empty;
+                return text;
             }
         }
 
@@ -324,12 +284,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                if (CurrentStatusId == (int)OrderStatus.EditedOrder)
-                {
-                    return false;
-                }
-
-                return true;
+                return CurrentStatusId != (int)OrderStatus.EditedOrder;
             }
         }
 
@@ -339,6 +294,7 @@ namespace NexFB.Models.Kitchen
             {
                 string imagePath = string.Empty;
                 string imageSource = string.Empty;
+                string unavailableAvartarSource = "pack://application:,,,/Images/no-avatar.jpg";
                 switch (DepartmentId)
                 {
                     case (int)DepartmentIdentity.Nexcel:
@@ -359,14 +315,7 @@ namespace NexFB.Models.Kitchen
                         break;
                 }
 
-                if (GetResourceNames(imagePath))
-                {
-                    return imageSource;
-                }
-                else
-                {
-                    return "pack://application:,,,/Images/no-avatar.jpg";
-                }
+                return GetResourceNames(imagePath) ? imageSource : unavailableAvartarSource;
             }
         }
 

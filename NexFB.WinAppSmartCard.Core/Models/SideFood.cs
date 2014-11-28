@@ -20,19 +20,26 @@ namespace NexFB.WinAppSmartCard.Core.Models
     /// </summary>
     public class SideFood : PropertyChangedBase
     {
+        #region Private fields
+
         private int _orderNo;
-        private List<Food> _listSideFood;
         private int _quantity;
-        private decimal _originalPrice;
         private int _selectedValueDropDown;
+        private decimal _originalPrice;
         private decimal _changedPrice;
         private string _selectedFoodName;
 
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible", Justification = "Reviewed. Suppression is OK here.")]
-        [SuppressMessage("Microsoft.Design", "CA1003:UseGenericEventHandlerInstances", Justification = "Reviewed. Suppression is OK here.")]
+        private List<Food> _listSideFood;
+
+        #endregion
+
+        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible", Justification = "Will fix later.")]
+        [SuppressMessage("Microsoft.Design", "CA1003:UseGenericEventHandlerInstances", Justification = "Will fix later.")]
         public delegate void OnDropDownValueChanged(object sender, EventArgs e);
 
         public event OnDropDownValueChanged DropDownChanged;
+
+        #region Public Properties
 
         public int SelectedValueDropDown
         {
@@ -48,7 +55,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
                 {
                     if (value > 0)
                     {
-                        var currentSelectedItem = ListSideFood.Where(x => x.FoodId == value).SingleOrDefault();
+                        Food currentSelectedItem = ListSideFood.Where(x => x.FoodId == value).FirstOrDefault();
                         OriginalPrice = currentSelectedItem.Price;
                         ChangedPrice = currentSelectedItem.Price;
                         this.Quantity = 1;
@@ -149,5 +156,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
                 this.OnPropertyChanged("SelectedFoodName");
             }
         }
+
+        #endregion
     }
 }

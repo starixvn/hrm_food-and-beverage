@@ -25,6 +25,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Enums;
     using NexFB.WinAppSmartCard.Core.Models;
+    using NexFB.WinAppSmartCard.Core.Resources;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using NexFB.WinAppSmartCard.ViewModels.Properties;
     using WPFMessageBoxCustomControl.Enums;
@@ -78,7 +79,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 OrderOwner = employeeInfo;
             }
 
-            if (ScreenOrderVisible == ConstantValue.Visible)
+            if (ScreenOrderVisible == CommonResources.Visible)
             {
                 if (ObservableListEmployee != null)
                 {
@@ -219,14 +220,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public void ShowOrderScreen()
         {
-            ScreenOrderVisible = ConstantValue.Visible;
-            ScreenNotificationVisible = ConstantValue.Hidden;
+            ScreenOrderVisible = CommonResources.Visible;
+            ScreenNotificationVisible = CommonResources.Hidden;
         }
 
         public void ShowNotificationScreen()
         {
-            ScreenOrderVisible = ConstantValue.Hidden;
-            ScreenNotificationVisible = ConstantValue.Visible;
+            ScreenOrderVisible = CommonResources.Hidden;
+            ScreenNotificationVisible = CommonResources.Visible;
         }
 
         #endregion
@@ -367,14 +368,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         private void HideMenuList(Employee employeeInfo)
         {
-            employeeInfo.FoodInfoVisibility = ConstantValue.Visible;
-            employeeInfo.FoodListVisibility = ConstantValue.Hidden;
+            employeeInfo.FoodInfoVisibility = CommonResources.Visible;
+            employeeInfo.FoodListVisibility = CommonResources.Hidden;
         }
 
         private void ShowMenuList(Employee employeeInfo)
         {
-            employeeInfo.FoodInfoVisibility = ConstantValue.Hidden;
-            employeeInfo.FoodListVisibility = ConstantValue.Visible;
+            employeeInfo.FoodInfoVisibility = CommonResources.Hidden;
+            employeeInfo.FoodListVisibility = CommonResources.Visible;
         }
 
         private void TimerDigitalClock()

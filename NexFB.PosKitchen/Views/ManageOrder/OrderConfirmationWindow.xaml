@@ -137,7 +137,7 @@
 						</ScrollViewer>
 					</Grid>
 
-					<Grid Height="40" Margin="0,0,20,0">
+					<Grid Height="40" Margin="0,0,40,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*"/>
 							<ColumnDefinition Width="70"/>
@@ -189,10 +189,10 @@
 					HorizontalAlignment="Right" Margin="0,0,10,0" Name="button1" VerticalAlignment="Top" Width="125" FontSize="20"/>
 
 						<Button Background="#EF4339" Foreground="White"
-					Grid.Column="1" Content="{x:Static resx:WinFormMainResource.Back}" Height="45" Style="{StaticResource TileButton}"
+					Grid.Column="1" Content="{x:Static resx:WinFormMainResource.ReturnOrderScreen}" Height="45" Style="{StaticResource TileButton}"
 					HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="10,0,0,0" 
-					Command="{Binding Path=CancelDialogOrderConfirmation}" FontSize="20"
-		CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+					Command="{Binding Path=CancelDialogOrderConfirmation}" FontSize="20" 
+					CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
 					</Grid>
 				</StackPanel>
 			</Grid>

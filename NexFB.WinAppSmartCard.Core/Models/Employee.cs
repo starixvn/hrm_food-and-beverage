@@ -11,31 +11,40 @@ namespace NexFB.WinAppSmartCard.Core.Models
 {
     using System.Collections.Generic;
     using NexFB.Pos.Core.NotifyBase;
-    using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Enums;
+    using NexFB.WinAppSmartCard.Core.Resources;
 
     /// <summary>
     /// Class Employee.
     /// </summary>
     public class Employee : PropertyChangedBase
     {
-        private int _orderNo;
+        #region Private fields
+
         private int _sysId;
-        private string _nickName;
         private int _menuId;
+        private int _orderNo;
+        private int _quantity;
+        private int _currentCulture;
+        private int _selectedValueDropDown;
+
+        private string _nickName;
         private string _menuEngName;
         private string _menuVnmName;
-        private int _currentCulture;
-        private bool _isEditMenu;
+        private string _displayMenuName;
         private string _foodInfoVisibility;
         private string _foodListVisibility;
-        private List<Food> _listAlternativeFood;
-        private int _selectedValueDropDown;
-        private string _displayMenuName;
-        private string _displayNotifyMenuName;
         private string _groupOrderNickName;
-        private int _quantity;
+        private string _displayNotifyMenuName;
+
+        private bool _isEditMenu;
         private bool _allowOrder;
+
+        private List<Food> _listAlternativeFood;
+
+        #endregion
+
+        #region Public Properties
 
         public int SelectedValueDropDown
         {
@@ -51,31 +60,17 @@ namespace NexFB.WinAppSmartCard.Core.Models
             }
         }
 
-        public bool AllowOrder
+        public int Quantity
         {
             get
             {
-                return _allowOrder;
+                return _quantity;
             }
 
             set
             {
-                _allowOrder = value;
-                this.OnPropertyChanged("AllowOrder");
-            }
-        }
-
-        public List<Food> ListAlternativeFood
-        {
-            get
-            {
-                return _listAlternativeFood;
-            }
-
-            set
-            {
-                _listAlternativeFood = value;
-                this.OnPropertyChanged("istAlternativeFood");
+                _quantity = value;
+                this.OnPropertyChanged("Quantity");
             }
         }
 
@@ -90,34 +85,6 @@ namespace NexFB.WinAppSmartCard.Core.Models
             {
                 _orderNo = value;
                 this.OnPropertyChanged("OrderNo");
-            }
-        }
-
-        public string FoodInfoVisibility
-        {
-            get
-            {
-                return _foodInfoVisibility;
-            }
-
-            set
-            {
-                _foodInfoVisibility = value;
-                this.OnPropertyChanged("FoodInfoVisibility");
-            }
-        }
-
-        public string FoodListVisibility
-        {
-            get
-            {
-                return _foodListVisibility;
-            }
-
-            set
-            {
-                _foodListVisibility = value;
-                this.OnPropertyChanged("FoodListVisibility");
             }
         }
 
@@ -205,17 +172,31 @@ namespace NexFB.WinAppSmartCard.Core.Models
             }
         }
 
-        public bool IsEditMenu
+        public string FoodInfoVisibility
         {
             get
             {
-                return _isEditMenu;
+                return _foodInfoVisibility;
             }
 
             set
             {
-                _isEditMenu = value;
-                this.OnPropertyChanged("IsEditMenu");
+                _foodInfoVisibility = value;
+                this.OnPropertyChanged("FoodInfoVisibility");
+            }
+        }
+
+        public string FoodListVisibility
+        {
+            get
+            {
+                return _foodListVisibility;
+            }
+
+            set
+            {
+                _foodListVisibility = value;
+                this.OnPropertyChanged("FoodListVisibility");
             }
         }
 
@@ -225,14 +206,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
             {
                 if (CurrentCulture == (int)LanguageLocalization.VietNamCulture)
                 {
-                    if (!string.IsNullOrEmpty(MenuVnmName))
-                    {
-                        _displayMenuName = MenuVnmName;
-                    }
-                    else
-                    {
-                        _displayMenuName = ConstantValue.MainDishVietnamese;
-                    }
+                    _displayMenuName = string.IsNullOrEmpty(MenuVnmName) ? CommonResources.MainDishVietnamese : MenuVnmName;
                 }
                 else
                 {
@@ -244,10 +218,10 @@ namespace NexFB.WinAppSmartCard.Core.Models
                     {
                         if (CurrentCulture == (int)LanguageLocalization.ChinaCulture)
                         {
-                            _displayMenuName = ConstantValue.MainDishChinese;
+                            _displayMenuName = CommonResources.MainDishChinese;
                         }
 
-                        _displayMenuName = ConstantValue.MainDishEnglish;
+                        _displayMenuName = CommonResources.MainDishEnglish;
                     }
                 }
 
@@ -304,18 +278,48 @@ namespace NexFB.WinAppSmartCard.Core.Models
             }
         }
 
-        public int Quantity
+        public bool AllowOrder
         {
             get
             {
-                return _quantity;
+                return _allowOrder;
             }
 
             set
             {
-                _quantity = value;
-                this.OnPropertyChanged("Quantity");
+                _allowOrder = value;
+                this.OnPropertyChanged("AllowOrder");
             }
         }
+
+        public bool IsEditMenu
+        {
+            get
+            {
+                return _isEditMenu;
+            }
+
+            set
+            {
+                _isEditMenu = value;
+                this.OnPropertyChanged("IsEditMenu");
+            }
+        }
+
+        public List<Food> ListAlternativeFood
+        {
+            get
+            {
+                return _listAlternativeFood;
+            }
+
+            set
+            {
+                _listAlternativeFood = value;
+                this.OnPropertyChanged("istAlternativeFood");
+            }
+        }
+
+        #endregion
     }
 }

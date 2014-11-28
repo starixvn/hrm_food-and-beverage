@@ -144,7 +144,7 @@
 											<TextBlock Text="{x:Static resx:WinFormMainResource.Back2}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 										</StackPanel>
 
-										<TextBlock  Visibility="{Binding DataContext.ButtonTextEnglish, RelativeSource={RelativeSource AncestorType=Window}}"
+										<TextBlock Visibility="{Binding DataContext.ButtonTextEnglish, RelativeSource={RelativeSource AncestorType=Window}}"
 										Text="{x:Static resx:WinFormMainResource.Back}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
 									</Grid>

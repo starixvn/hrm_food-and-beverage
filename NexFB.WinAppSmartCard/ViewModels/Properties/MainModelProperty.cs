@@ -13,6 +13,7 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
     using System.Windows;
     using System.Windows.Input;
     using Microsoft.AspNet.SignalR.Client.Hubs;
+    using NexFB.Pos.Core.Models;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
 

@@ -21,6 +21,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.Pos.Core.Commands;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
+    using NexFB.WinAppSmartCard.Core.Resources;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using NexFB.WinAppSmartCard.ViewModels.Properties;
 
@@ -218,9 +219,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     Food dropdownHeader = new Food()
                     {
                         FoodId = int.MaxValue,
-                        FoodVnmName = ConstantValue.SelectDishesVietnamese,
-                        FoodEngName = ConstantValue.SelectDishesEnglish,
-                        FoodChineseName = ConstantValue.SelectDishesChinese
+                        FoodVnmName = CommonResources.SelectDishesVietnamese,
+                        FoodEngName = CommonResources.SelectDishesEnglish,
+                        FoodChineseName = CommonResources.SelectDishesChinese
                     };
                     foodMapping.Insert(0, dropdownHeader);
 
@@ -365,14 +366,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         private void ShowOrderScreen()
         {
-            ScreenOrderVisible = ConstantValue.Visible;
-            ScreenNotificationVisible = ConstantValue.Hidden;
+            ScreenOrderVisible = CommonResources.Visible;
+            ScreenNotificationVisible = CommonResources.Hidden;
         }
 
         private void ShowNotificationScreen()
         {
-            ScreenOrderVisible = ConstantValue.Hidden;
-            ScreenNotificationVisible = ConstantValue.Visible;
+            ScreenOrderVisible = CommonResources.Hidden;
+            ScreenNotificationVisible = CommonResources.Visible;
         }
 
         #endregion

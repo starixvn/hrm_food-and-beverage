@@ -363,4 +363,7 @@
   <data name="Back2" xml:space="preserve">
     <value>LẠI</value>
   </data>
+  <data name="ReturnOrderScreen" xml:space="preserve">
+    <value>Quay lại</value>
+  </data>
 </root>

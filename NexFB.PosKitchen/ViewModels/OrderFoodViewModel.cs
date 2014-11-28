@@ -82,14 +82,10 @@ namespace NexFB.PosKitchen.ViewModels
 
             if (order != null)
             {
-                if (order.CurrentStatusId == (int)OrderStatus.CanceledOrder)
-                {
-                    IsCanceledOrder = true;
-                }
-
+                AllowReduceOrderToZero = order.CurrentStatusId != (int)OrderStatus.CanceledOrder;
+                IsCanceledOrder = order.CurrentStatusId == (int)OrderStatus.CanceledOrder;
                 SaveButtonVisible = Constant.Visible;
                 IsDataEdit = true;
-                AllowReduceOrderToZero = true;
                 PrepareEditData(order);
             }
         }

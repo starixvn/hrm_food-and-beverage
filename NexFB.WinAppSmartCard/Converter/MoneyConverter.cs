@@ -11,8 +11,8 @@ namespace NexFB.WinAppSmartCard.Converter
 {
     using System;
     using System.Globalization;
-    using System.Threading;
     using System.Windows.Data;
+    using NexFB.WinAppSmartCard.Core.Constants;
 
     /// <summary>
     /// Money Converter.
@@ -29,17 +29,8 @@ namespace NexFB.WinAppSmartCard.Converter
         /// <returns>Value after formatting.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null)
-            {
-                decimal price = (decimal)value;
-                CultureInfo currentCulture = CultureInfo.GetCultureInfo("vi-VN"); 
-                if (price > 0)
-                {
-                    return string.Format(currentCulture, "{0:C}", price);
-                }
-            }
-
-            return string.Empty;
+            CultureInfo currentCulture = CultureInfo.GetCultureInfo(ConstantValue.VietNameseCultureCode);
+            return value != null ? ((decimal)value).ToString("#,###", currentCulture.NumberFormat) : string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
