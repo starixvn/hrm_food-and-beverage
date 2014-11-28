@@ -16,42 +16,22 @@ namespace NexFB.Pos.Core.Models
     /// </summary>
     public class CommonKitchenOrder : PropertyChangedBase
     {
+        #region Private fields
+
         private int _itemId;
-        private string _itemName;
-        private bool _isSelectedMealMenu;
-        private bool _isFocusedMealMenu;
-        private string _menuColor;
-        private bool _isMainMenu;
         private int _quantity;
         private decimal _price;
 
-        public decimal Price
-        {
-            get
-            {
-                return _price;
-            }
+        private string _itemName;
+        private string _menuColor;
 
-            set
-            {
-                _price = value;
-                this.OnPropertyChanged("Price");
-            }
-        }
+        private bool _isSelectedMealMenu;
+        private bool _isFocusedMealMenu;
+        private bool _isMainMenu;
 
-        public bool IsSelectedMealMenu
-        {
-            get
-            {
-                return _isSelectedMealMenu;
-            }
+        #endregion
 
-            set
-            {
-                _isSelectedMealMenu = value;
-                this.OnPropertyChanged("IsSelectedMealMenu");
-            }
-        }
+        #region Public Properties
 
         public int Quantity
         {
@@ -67,20 +47,6 @@ namespace NexFB.Pos.Core.Models
             }
         }
 
-        public bool IsFocusedMealMenu
-        {
-            get
-            {
-                return _isFocusedMealMenu;
-            }
-
-            set
-            {
-                _isFocusedMealMenu = value;
-                this.OnPropertyChanged("IsFocusedMealMenu");
-            }
-        }
-
         public int ItemId
         {
             get
@@ -92,6 +58,20 @@ namespace NexFB.Pos.Core.Models
             {
                 _itemId = value;
                 this.OnPropertyChanged("ItemId");
+            }
+        }
+
+        public decimal Price
+        {
+            get
+            {
+                return _price;
+            }
+
+            set
+            {
+                _price = value;
+                this.OnPropertyChanged("Price");
             }
         }
 
@@ -123,6 +103,34 @@ namespace NexFB.Pos.Core.Models
             }
         }
 
+        public bool IsFocusedMealMenu
+        {
+            get
+            {
+                return _isFocusedMealMenu;
+            }
+
+            set
+            {
+                _isFocusedMealMenu = value;
+                this.OnPropertyChanged("IsFocusedMealMenu");
+            }
+        }
+
+        public bool IsSelectedMealMenu
+        {
+            get
+            {
+                return _isSelectedMealMenu;
+            }
+
+            set
+            {
+                _isSelectedMealMenu = value;
+                this.OnPropertyChanged("IsSelectedMealMenu");
+            }
+        }
+
         public bool IsMainMenu
         {
             get
@@ -136,5 +144,7 @@ namespace NexFB.Pos.Core.Models
                 this.OnPropertyChanged("IsMainMenu");
             }
         }
+
+        #endregion
     }
 }
