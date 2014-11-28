@@ -23,11 +23,20 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
     /// </summary>
     public class MainModelProperty : ViewModelBase
     {
+        #region Private Fields
+
         private static string _delayTime = ConfigurationManager.AppSettings[Constant.DatabaseDelayTime];
         private static string _autoRefeshTime = ConfigurationManager.AppSettings[Constant.AutoRefeshTime];
         private static double _displayBanner = Constant.BannerResolution1280;
-
         private ViewModelBase _currentViewModel;
+
+        private int _keypadFontSize;
+        private int _currentCulture;
+        private double _displayWidth;
+        private double _keypadHeight;
+
+        private string _todayDate;
+        private string _todayTime;
         private string _searchResult;
         private string _waitingSearchResult;
         private string _awaitingDeliverSearchResult;
@@ -35,13 +44,10 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
         private string _canceledSearchResult;
         private string _keypadVisibility;
         private string _searchTextBoxVisibility;
-        private double _displayWidth;
-        private double _keypadHeight;
-        private int _keypadFontSize;
-        private int _currentCulture;
-        private bool _isMainHub;
         private string _buttonTextEnglish;
         private string _buttonTextVietnamese;
+
+        private bool _isMainHub;
 
         private MenuColor _menu1 = new MenuColor();
         private MenuColor _menu2 = new MenuColor();
@@ -49,8 +55,9 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
         private MenuColor _menu4 = new MenuColor();
         private MenuColor _menu5 = new MenuColor();
 
-        private string _todayDate;
-        private string _todayTime;
+        #endregion
+
+        #region Public Properties
 
         public Thread Thread { get; set; }
 
@@ -121,13 +128,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
         {
             get
             {
-                double delayTime = 0;
-                if (!string.IsNullOrEmpty(_delayTime))
-                {
-                    delayTime = double.Parse(_delayTime);
-                }
-
-                return delayTime;
+                return !string.IsNullOrEmpty(_delayTime) ? double.Parse(_delayTime) : 0;
             }
         }
 
@@ -135,13 +136,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
         {
             get
             {
-                double refeshTime = 0;
-                if (!string.IsNullOrEmpty(_autoRefeshTime))
-                {
-                    refeshTime = double.Parse(_autoRefeshTime);
-                }
-
-                return refeshTime;
+                return !string.IsNullOrEmpty(_autoRefeshTime) ? double.Parse(_autoRefeshTime) : 0;
             }
         }
 
@@ -156,24 +151,20 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
             {
                 _searchResult = value;
                 string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
-                if (currentViewModel == Constant.WaitingMealViewModel)
+                switch (currentViewModel)
                 {
-                    WaitingSearchResult = _searchResult;
-                }
-
-                if (currentViewModel == Constant.AwaitingDeliverViewModel)
-                {
-                    AwaitingDeliverSearchResult = _searchResult;
-                }
-
-                if (currentViewModel == Constant.DeliveredFoodViewModel)
-                {
-                    DeliveredSearchResult = _searchResult;
-                }
-
-                if (currentViewModel == Constant.CanceledFoodViewModel)
-                {
-                    CanceledSearchResult = _searchResult;
+                    case Constant.WaitingMealViewModel:
+                        WaitingSearchResult = _searchResult;
+                        break;
+                    case Constant.AwaitingDeliverViewModel:
+                        AwaitingDeliverSearchResult = _searchResult;
+                        break;
+                    case Constant.DeliveredFoodViewModel:
+                        DeliveredSearchResult = _searchResult;
+                        break;
+                    case Constant.CanceledFoodViewModel:
+                        CanceledSearchResult = _searchResult;
+                        break;
                 }
 
                 this.OnPropertyChanged("SearchResult");
@@ -382,15 +373,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
         {
             get
             {
-                if (ScreenHeight > 800)
-                {
-                    _keypadHeight = 400;
-                }
-                else
-                {
-                    _keypadHeight = 250;
-                }
-
+                _keypadHeight = ScreenHeight > 800 ? 400 : 250;
                 return _keypadHeight;
             }
 
@@ -405,15 +388,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
         {
             get
             {
-                if (ScreenHeight > 800)
-                {
-                    _keypadFontSize = 38;
-                }
-                else
-                {
-                    _keypadFontSize = 25;
-                }
-
+                _keypadFontSize = ScreenHeight > 800 ? 38 : 25;
                 return _keypadFontSize;
             }
 
@@ -428,11 +403,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
         {
             get
             {
-                if (ScreenWidth <= 1024)
-                {
-                    _displayBanner = Constant.BannerResolution1024;
-                }
-
+                _displayBanner = ScreenWidth <= 1024 ? Constant.BannerResolution1024 : _displayBanner;
                 return _displayBanner;
             }
 
@@ -499,6 +470,10 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
             }
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Check Current Culture.
         /// </summary>
@@ -519,5 +494,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
                 return (int)LanguageLocalization.EnglishCulture;
             }
         }
+
+        #endregion
     }
 }

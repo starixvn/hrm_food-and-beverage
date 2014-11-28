@@ -20,6 +20,11 @@ namespace NexFB.Pos.Core.Commands
         private readonly Predicate<object> _canExecute;
         private readonly Action<object> _execute;
 
+        /// <summary>
+        /// The event of an object.
+        /// </summary>
+        /// <param name="canExecute">Check permission to execute event.</param>
+        /// <param name="execute">The result when execute event.</param>
         public RelayCommand(Predicate<object> canExecute, Action<object> execute)
         {
             if (execute == null)

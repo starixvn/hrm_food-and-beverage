@@ -148,7 +148,7 @@
 						<Border BorderThickness="1" BorderBrush="Lavender" Grid.Column="2"></Border>
 						<Label HorizontalAlignment="Right" Content="{x:Static resx:WinFormMainResource.Total}" FontWeight="Black"/>
 						<Label Grid.Column="1" HorizontalAlignment="Center" Content="{Binding TotalOrder}" FontWeight="Black" />
-						<Label Grid.Column="2" HorizontalAlignment="Right" Foreground="Red" Margin="0,0,17,0"
+						<Label Grid.Column="2" HorizontalAlignment="Right" Foreground="Red" Margin="0,0,5,0"
 						Content="{Binding TotalPrice}"  FontWeight="Black"/>
 					</Grid>
 
