@@ -40,7 +40,7 @@
 				HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold"/>
 				<TextBlock Name="textBlock2" Text="SWIPE YOUR CARD TO ORDER MEAL" FontWeight="Bold"
 				HorizontalAlignment="Center" FontSize="28" VerticalAlignment="Center"/>
-				<TextBlock Text="請掃卡訂餐" FontWeight="Bold" Foreground="#fff"
+				<TextBlock Text="請刷卡訂餐" FontWeight="Bold" Foreground="#fff"
 				HorizontalAlignment="Center" FontSize="28" VerticalAlignment="Center"/>
 			</StackPanel>
 		</Grid>

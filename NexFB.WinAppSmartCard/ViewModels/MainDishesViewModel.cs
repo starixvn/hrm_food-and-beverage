@@ -23,6 +23,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.Models.SmartCardOrder;
     using NexFB.Pos.Core.Commands;
     using NexFB.WinAppSmartCard.Core.Constants;
+    using NexFB.WinAppSmartCard.Core.Enums;
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using NexFB.WinAppSmartCard.ViewModels.Properties;
@@ -349,7 +350,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (employee.SelectedValueDropDown > 0 && employee.SelectedValueDropDown != int.MaxValue)
             {
-                if (MainViewModel.CurrentCulture == ConstantValue.VietNamCulture)
+                if (MainViewModel.CurrentCulture == (int)LanguageLocalization.VietNamCulture)
                 {
                     employee.DisplayNotifyMenuName = employee.ListAlternativeFood.Where(x => x.FoodId == employee.SelectedValueDropDown).SingleOrDefault().FoodVnmName;
                 }

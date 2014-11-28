@@ -10,7 +10,7 @@
 namespace NexFB.WinAppSmartCard.Core.Models
 {
     using NexFB.Pos.Core.NotifyBase;
-    using NexFB.WinAppSmartCard.Core.Constants;
+    using NexFB.WinAppSmartCard.Core.Enums;
 
     /// <summary>
     /// Food Model.
@@ -147,13 +147,13 @@ namespace NexFB.WinAppSmartCard.Core.Models
                 {
                     switch (CurrentCulture)
                     {
-                        case ConstantValue.VietNamCulture:
+                        case (int)LanguageLocalization.VietNamCulture:
                             foodName = FoodVnmName;
                             break;
-                        case ConstantValue.EnglishCulture:
+                        case (int)LanguageLocalization.EnglishCulture:
                             foodName = FoodEngName;
                             break;
-                        case ConstantValue.ChinaCulture:
+                        case (int)LanguageLocalization.ChinaCulture:
                             foodName = FoodChineseName;
                             break;
                     }
@@ -162,7 +162,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
                 {
                     switch (CurrentCulture)
                     {
-                        case ConstantValue.VietNamCulture:
+                        case (int)LanguageLocalization.VietNamCulture:
                             foodName = FoodVnmName;
                             break;
                         default:

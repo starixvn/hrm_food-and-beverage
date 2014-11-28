@@ -181,7 +181,7 @@
     <value>Hiện tại không còn món ăn phụ để chọn. Bạn chỉ có thể tăng thêm số phần ăn.</value>
   </data>
   <data name="Message_PickAlternativeFood" xml:space="preserve">
-    <value>Vui lòng đọc kỹ quy định của Công ty về việc lựa chọn món ăn thay thế và Nhân viên bếp có quyền từ chối yều cầu của bạn khi cần thiết. Xin cảm ơn.</value>
+    <value>Vui lòng đọc kỹ quy định của Công ty về việc lựa chọn món ăn thay thế. Nhân viên bếp có quyền từ chối yêu cầu của bạn khi cần thiết. Xin cảm ơn.</value>
   </data>
   <data name="Message_ReceivedOrder" xml:space="preserve">
     <value>Phiếu ăn này đã được đặt, bạn không thể vào nhóm này được</value>

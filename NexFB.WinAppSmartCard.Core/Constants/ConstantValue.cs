@@ -28,12 +28,6 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const string SideDishesViewModel = "SideDishesViewModel";
 
-        public const int EnglishCulture = 1;
-
-        public const int VietNamCulture = 2;
-
-        public const int ChinaCulture = 3;
-
         public const string Hidden = "Hidden";
 
         public const string Visible = "Visible";
@@ -46,9 +40,9 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const string SelectDishesVietnamese = "Xin chọn món";
 
-        public const string SelectDishesChinese = "請選擇食單";
+        public const string SelectDishesChinese = "請選擇菜單";
 
-        public const string SelectDishesEnglish = "Please select a food Item";
+        public const string SelectDishesEnglish = "Please select a food item";
 
         public const string HubHost = "HubHost";
 

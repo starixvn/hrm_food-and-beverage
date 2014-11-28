@@ -12,6 +12,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
     using System.Collections.Generic;
     using NexFB.Pos.Core.NotifyBase;
     using NexFB.WinAppSmartCard.Core.Constants;
+    using NexFB.WinAppSmartCard.Core.Enums;
 
     /// <summary>
     /// Class Employee.
@@ -222,7 +223,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
         {
             get
             {
-                if (CurrentCulture == ConstantValue.VietNamCulture)
+                if (CurrentCulture == (int)LanguageLocalization.VietNamCulture)
                 {
                     if (!string.IsNullOrEmpty(MenuVnmName))
                     {
@@ -241,7 +242,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
                     }
                     else
                     {
-                        if (CurrentCulture == ConstantValue.ChinaCulture)
+                        if (CurrentCulture == (int)LanguageLocalization.ChinaCulture)
                         {
                             _displayMenuName = ConstantValue.MainDishChinese;
                         }

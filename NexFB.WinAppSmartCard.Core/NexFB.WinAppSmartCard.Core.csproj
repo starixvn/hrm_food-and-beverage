@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\ConstantValue.cs" />
+    <Compile Include="Enums\LanguageLocalization.cs" />
     <Compile Include="Mapping\CoreMappingRegister.cs">
       <SubType>Code</SubType>
     </Compile>

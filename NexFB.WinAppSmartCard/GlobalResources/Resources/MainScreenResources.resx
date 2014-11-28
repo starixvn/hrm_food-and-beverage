@@ -127,7 +127,7 @@
     <value>Chinese</value>
   </data>
   <data name="Confirm" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Order</value>
   </data>
   <data name="CurrentCulture" xml:space="preserve">
     <value>English</value>
@@ -136,7 +136,7 @@
     <value>Delete</value>
   </data>
   <data name="Dishes" xml:space="preserve">
-    <value>Dishes</value>
+    <value>Food Item</value>
   </data>
   <data name="DropdownHeader" xml:space="preserve">
     <value>Please select a food item</value>
@@ -166,7 +166,7 @@
     <value>Are you sure you want to cancel the order ?</value>
   </data>
   <data name="Message_ContainEmployee" xml:space="preserve">
-    <value>The order must contain at least 1 emloyee.</value>
+    <value>The order must contain at least 1 member.</value>
   </data>
   <data name="Message_ContainFood" xml:space="preserve">
     <value>The order must contain at least 1 food item.</value>
@@ -181,7 +181,7 @@
     <value>There are no more side dishes to select. You can only add more quantity.</value>
   </data>
   <data name="Message_PickAlternativeFood" xml:space="preserve">
-    <value>Please read with care the company's policy before chosing alternative menu. Kitchen staff has right to reject your order. Thank you.</value>
+    <value>Please read with care the company policies before choosing alternative menu. Kitchen staff has right to reject your order. Thank you.</value>
   </data>
   <data name="Message_ReceivedOrder" xml:space="preserve">
     <value>You cannot join in a received order</value>

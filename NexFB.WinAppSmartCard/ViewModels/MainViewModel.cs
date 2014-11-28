@@ -25,6 +25,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.InternetBased;
     using NexFB.WinAppSmartCard.Core.Constants;
+    using NexFB.WinAppSmartCard.Core.Enums;
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using NexFB.WinAppSmartCard.GlobalResources.Services;
@@ -365,19 +366,22 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         private void ChangeCulture()
         {
+            const int EnglishCultureCode = (int)LanguageLocalization.EnglishCulture;
+            const int ChineseCultureCode = (int)LanguageLocalization.ChinaCulture;
+
             switch (CurrentCulture)
             {
-                case ConstantValue.EnglishCulture:
+                case EnglishCultureCode:
                     ResourceManagerService.ChangeLocale("en-GB");
-                    CurrentCulture = ConstantValue.EnglishCulture;
+                    CurrentCulture = EnglishCultureCode;
                     break;
-                case ConstantValue.ChinaCulture:
+                case ChineseCultureCode:
                     ResourceManagerService.ChangeLocale("zh-CN");
-                    CurrentCulture = ConstantValue.ChinaCulture;
+                    CurrentCulture = ChineseCultureCode;
                     break;
                 default:
                     ResourceManagerService.ChangeLocale("vi-VN");
-                    CurrentCulture = ConstantValue.VietNamCulture;
+                    CurrentCulture = (int)LanguageLocalization.VietNamCulture;
                     break;
             }
         }

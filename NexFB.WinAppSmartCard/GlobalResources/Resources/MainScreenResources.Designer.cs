@@ -88,7 +88,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirm.
+        ///   Looks up a localized string similar to Order.
         /// </summary>
         internal static string Confirm {
             get {
@@ -115,7 +115,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dishes.
+        ///   Looks up a localized string similar to Food Item.
         /// </summary>
         internal static string Dishes {
             get {
@@ -205,7 +205,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The order must contain at least 1 emloyee..
+        ///   Looks up a localized string similar to The order must contain at least 1 member..
         /// </summary>
         internal static string Message_ContainEmployee {
             get {
@@ -250,7 +250,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please read with care the company&apos;s policy before chosing alternative menu. Kitchen staff has right to reject your order. Thank you..
+        ///   Looks up a localized string similar to Please read with care the company policies before choosing alternative menu. Kitchen staff has right to reject your order. Thank you..
         /// </summary>
         internal static string Message_PickAlternativeFood {
             get {
