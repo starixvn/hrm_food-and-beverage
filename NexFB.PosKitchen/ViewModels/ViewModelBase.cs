@@ -155,7 +155,7 @@ namespace NexFB.PosKitchen.ViewModels
                     NotificationWindow notifyWindows = new NotificationWindow();
                     notifyWindows.Show();
 
-                    if (releaseMode.ToUpper().ToString() == "RELEASE")
+                    if (releaseMode.ToUpper().ToString() == Constant.FinalMode)
                     {
                         bool printed = false;
                         printed = _printingHelper.Print(((IDocumentPaginatorSource)template).DocumentPaginator);

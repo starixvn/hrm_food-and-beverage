@@ -96,13 +96,6 @@ namespace NexFB.PosKitchen.ViewModels
             return true;
         }
 
-        // Execute Command
-        private void ExecuteSettingCommand()
-        {
-            SettingWindow settingWindow = new SettingWindow();
-            settingWindow.Show();
-        }
-
         private void ExecuteViewPendingFood()
         {
             CurrentViewModel = new WaitingMealViewModel(WaitingSearchResult);
@@ -164,24 +157,20 @@ namespace NexFB.PosKitchen.ViewModels
 
                 case "ENTER":
                     string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
-                    if (currentViewModel == Constant.WaitingMealViewModel)
+                    switch (currentViewModel)
                     {
-                        ExecuteViewPendingFood();
-                    }
-
-                    if (currentViewModel == Constant.AwaitingDeliverViewModel)
-                    {
-                        ExecuteViewAwaitingDeliverFood();
-                    }
-
-                    if (currentViewModel == Constant.DeliveredFoodViewModel)
-                    {
-                        ExecuteViewDeliveredFood();
-                    }
-
-                    if (currentViewModel == Constant.CanceledFoodViewModel)
-                    {
-                        ExecuteViewCanceledFood();
+                        case Constant.WaitingMealViewModel:
+                            ExecuteViewPendingFood();
+                            break;
+                        case Constant.AwaitingDeliverViewModel:
+                            ExecuteViewAwaitingDeliverFood();
+                            break;
+                        case Constant.DeliveredFoodViewModel:
+                            ExecuteViewDeliveredFood();
+                            break;
+                        case Constant.CanceledFoodViewModel:
+                            ExecuteViewCanceledFood();
+                            break;
                     }
 
                     break;
@@ -554,14 +543,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         private Task SendMessage(int orderId, int screenControl)
         {
-            if (IsMainHub)
-            {
-                return Proxy.Invoke("KitchenNotify", orderId, screenControl);
-            }
-            else
-            {
-                return ProxyLocal.Invoke("KitchenNotify", orderId, screenControl);
-            }
+            return IsMainHub ? Proxy.Invoke("KitchenNotify", orderId, screenControl) : ProxyLocal.Invoke("KitchenNotify", orderId, screenControl);
         }
 
         /// <summary>
@@ -653,7 +635,6 @@ namespace NexFB.PosKitchen.ViewModels
         private void InitializeCommondCommand()
         {
             CloseWindow = new RelayCommand((x) => ((Window)x).Close());
-            SettingCommand = new RelayCommand((x) => ExecuteSettingCommand());
             CancelOrderCommand = new RelayCommand((x) => ExecuteCancelCommand(x));
             UndoOrderCommand = new RelayCommand((x) => ExecuteUndoOrderCommand(x));
             EditOrderCommand = new RelayCommand((x) => ExecuteEditOrderCommand(x));
@@ -664,7 +645,6 @@ namespace NexFB.PosKitchen.ViewModels
         /// <summary>
         /// Check Current View model.
         /// </summary>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private void CheckCurrentViewModel()
         {
             DefaulMenuColor();
@@ -674,57 +654,25 @@ namespace NexFB.PosKitchen.ViewModels
             switch (currentViewModel)
             {
                 case Constant.WaitingMealViewModel:
-                    if (string.IsNullOrEmpty(WaitingSearchResult))
-                    {
-                        SearchResult = string.Empty;
-                    }
-                    else
-                    {
-                        SearchResult = WaitingSearchResult;
-                    }
-
+                    SearchResult = WaitingSearchResult ?? string.Empty;
                     Menu1.BackgroundColor = Constant.DefaultMenuColor;
                     Menu1.ForegroundColor = Constant.Menu1Color;
                     Menu1.FontWeight = Constant.FontWeightBold;
                     break;
                 case Constant.AwaitingDeliverViewModel:
-                    if (string.IsNullOrEmpty(AwaitingDeliverSearchResult))
-                    {
-                        SearchResult = string.Empty;
-                    }
-                    else
-                    {
-                        SearchResult = AwaitingDeliverSearchResult;
-                    }
-
+                    SearchResult = AwaitingDeliverSearchResult ?? string.Empty;
                     Menu2.BackgroundColor = Constant.DefaultMenuColor;
                     Menu2.ForegroundColor = Constant.Menu2Color;
                     Menu2.FontWeight = Constant.FontWeightBold;
                     break;
                 case Constant.DeliveredFoodViewModel:
-                    if (string.IsNullOrEmpty(DeliveredSearchResult))
-                    {
-                        SearchResult = string.Empty;
-                    }
-                    else
-                    {
-                        SearchResult = DeliveredSearchResult;
-                    }
-
+                    SearchResult = DeliveredSearchResult ?? string.Empty;
                     Menu3.BackgroundColor = Constant.DefaultMenuColor;
                     Menu3.ForegroundColor = Constant.Menu3Color;
                     Menu3.FontWeight = Constant.FontWeightBold;
                     break;
                 case Constant.CanceledFoodViewModel:
-                    if (string.IsNullOrEmpty(CanceledSearchResult))
-                    {
-                        SearchResult = string.Empty;
-                    }
-                    else
-                    {
-                        SearchResult = CanceledSearchResult;
-                    }
-
+                    SearchResult = CanceledSearchResult ?? string.Empty;
                     Menu5.BackgroundColor = Constant.DefaultMenuColor;
                     Menu5.ForegroundColor = Constant.Menu5Color;
                     Menu5.FontWeight = Constant.FontWeightBold;

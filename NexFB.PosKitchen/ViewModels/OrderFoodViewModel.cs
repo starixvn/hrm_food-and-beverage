@@ -106,12 +106,6 @@ namespace NexFB.PosKitchen.ViewModels
             CommonKitchenOrder = AllObservationLocation;
         }
 
-        ////Button Pick Group
-        public bool CanExecutePickGroupCommand()
-        {
-            return true;
-        }
-
         public void ExecutePickGroupCommand()
         {
             ChangeButtonBorder((int)KitchenGroupButton.PickGroupButton);
@@ -164,11 +158,6 @@ namespace NexFB.PosKitchen.ViewModels
         #endregion
 
         #region Middle Side Action
-
-        public bool CanExecuteMealMenuSelected()
-        {
-            return true;
-        }
 
         /// <summary>
         /// Execute Meal Menu Selected.
@@ -226,11 +215,6 @@ namespace NexFB.PosKitchen.ViewModels
 
         #region Right Side Action
 
-        public bool CanExecuteSelectAllUserInGroupCommand()
-        {
-            return true;
-        }
-
         /// <summary>
         /// Execute Select all user in group.
         /// </summary>
@@ -244,13 +228,11 @@ namespace NexFB.PosKitchen.ViewModels
 
             if (EmployeeInfo == null)
             {
-                ////CommonKitchenOrder = AllObservationFood;
                 KitchenEmployeeInfo firstEmployeeInGroup = UserInGroup.FirstOrDefault();
                 EmployeeInfo = firstEmployeeInGroup;
                 OwnerImage = firstEmployeeInGroup.ImageSource;
                 LocationName = firstEmployeeInGroup.LocationName;
                 LocationId = firstEmployeeInGroup.LocationId;
-                ////ExecuteEmployeeInGroupSelected(firstEmployeeInGroup.SysId);
             }
 
             CommonKitchenOrder = AllObservationGroup;
@@ -319,14 +301,7 @@ namespace NexFB.PosKitchen.ViewModels
         public bool CanExecuteReceiveCommand()
         {
             bool hasOrderFood = UserInGroup.Any(x => x.ListMainMenuOrderDeatails.Count > 0 || x.ListAlternativeMenuOrderDeatails.Count > 0);
-            if (AllowReduceOrderToZero)
-            {
-                return EmployeeInfo != null;
-            }
-            else
-            {
-                return EmployeeInfo != null && hasOrderFood && !IsCanceledOrder;
-            }
+            return AllowReduceOrderToZero ? EmployeeInfo != null : EmployeeInfo != null && hasOrderFood && !IsCanceledOrder;
         }
 
         /// <summary>
@@ -356,12 +331,7 @@ namespace NexFB.PosKitchen.ViewModels
         {
             bool isInChooseFood = this.CheckMainFoodMenu || this.CheckAlternativeFoodMenu;
             bool isMenuFocused = CommonKitchenOrder.Any(x => x.IsFocusedMealMenu);
-            if (isInChooseFood && isMenuFocused)
-            {
-                return false;
-            }
-
-            return true;
+            return !(isInChooseFood && isMenuFocused);
         }
 
         /// <summary>
@@ -435,22 +405,14 @@ namespace NexFB.PosKitchen.ViewModels
                 }
                 else
                 {
-                    if (!string.IsNullOrEmpty(Result))
-                    {
-                        Result = string.Empty;
-                    }
+                    Result = string.Empty;
                 }
             }
         }
 
         public bool CanExecuteNumPadPressed()
         {
-            if (Result != null && Result.Length == 6)
-            {
-                return false;
-            }
-
-            return true;
+            return !(Result != null && Result.Length == 6);
         }
 
         /// <summary>
@@ -462,23 +424,12 @@ namespace NexFB.PosKitchen.ViewModels
             var keyPadParameter = value.ToString();
             switch (keyPadParameter)
             {
-                case "ESC":
-                    break;
-
-                case "RETURN":
-                    break;
-
                 case "BACK":
-                    if (Result.Length > 0)
-                    {
-                        Result = Result.Remove(Result.Length - 1);
-                    }
-
+                    Result = Result.Length > 0 ? Result.Remove(Result.Length - 1) : string.Empty;
                     break;
 
                 default:
-                    string keypadValue = keyPadParameter.Substring(keyPadParameter.Length - 1, 1);
-                    Result += keypadValue;
+                    Result += keyPadParameter.Substring(keyPadParameter.Length - 1, 1);
                     if ((CheckMainFoodMenu || CheckAlternativeFoodMenu) && CommonKitchenOrder.Any(x => x.IsFocusedMealMenu))
                     {
                         StartTimerAddQuantity();
@@ -511,10 +462,7 @@ namespace NexFB.PosKitchen.ViewModels
 
             if (this.TextBlockFocused)
             {
-                if (!string.IsNullOrEmpty(Result))
-                {
-                    Result = Result.Remove(Result.Length - 1);
-                }
+                Result = Result.Remove(Result.Length - 1);
             }
             else
             {
@@ -533,11 +481,6 @@ namespace NexFB.PosKitchen.ViewModels
         #endregion
 
         #region Modal Confirm Action
-
-        public bool CanSaveOrderCommand()
-        {
-            return true;
-        }
 
         /// <summary>
         /// Save Order Command.
@@ -576,11 +519,6 @@ namespace NexFB.PosKitchen.ViewModels
             AddOrEditOrderData(value, mainMenuData, alternativeMenuData, additionalMenuData);
         }
 
-        public bool CanExecuteSaveDialogCommand()
-        {
-            return true;
-        }
-
         /// <summary>
         /// Add employee in dialog after user select an Employee.
         /// </summary>
@@ -605,19 +543,9 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        public bool CanExecuteCancelDialogCommand()
-        {
-            return true;
-        }
-
         public void ExecuteCancelDialogCommand(object value)
         {
             CloseDialog(value);
-        }
-
-        public bool CanExecuteCancelDialogOrderConfirmation()
-        {
-            return true;
         }
 
         public void ExecuteCancelDialogOrderConfirmation(object value)
@@ -698,14 +626,7 @@ namespace NexFB.PosKitchen.ViewModels
                 AddFixedMenuToEmployee(currentSelectedEmployee, checkMainFoodMenu);
                 CommonKitchenOrder.ToList().ForEach(x => { x.IsFocusedMealMenu = false; x.IsSelectedMealMenu = false; x.Quantity = 0; });
                 List<EmployeeOrderDetails> employeeOrderDetails = null;
-                if (checkMainFoodMenu)
-                {
-                    employeeOrderDetails = currentSelectedEmployee.ListMainMenuOrderDeatails;
-                }
-                else
-                {
-                    employeeOrderDetails = currentSelectedEmployee.ListAlternativeMenuOrderDeatails;
-                }
+                employeeOrderDetails = checkMainFoodMenu ? currentSelectedEmployee.ListMainMenuOrderDeatails : currentSelectedEmployee.ListAlternativeMenuOrderDeatails;
 
                 List<int> selectedMainMenu = employeeOrderDetails.Select(x => x.SelectedMenuItemId).ToList();
                 List<CommonKitchenOrder> employeeMenus = CommonKitchenOrder.Where(x => selectedMainMenu.Contains(x.ItemId)).ToList();
@@ -804,7 +725,6 @@ namespace NexFB.PosKitchen.ViewModels
             var getUserByGroupIdCriteria = new GetUserByGroupIdCriteria() { GroupOrderId = groupId };
             List<EmployeeInfo> users = this.KitchenService.GetUserByGroupId(getUserByGroupIdCriteria);
             List<KitchenEmployeeInfo> data = Mapper.Map<List<EmployeeInfo>, List<KitchenEmployeeInfo>>(users);
-
             return data;
         }
 
@@ -1053,25 +973,13 @@ namespace NexFB.PosKitchen.ViewModels
         {
             if (currentSelectedEmployee.IsPlaceOrder)
             {
-                if (currentSelectedEmployee.IsVegetarian)
-                {
-                    currentSelectedEmployee.EmployeeOrderMealColor = Constant.RegisterVegetarianMealColor;
-                }
-                else
-                {
-                    currentSelectedEmployee.EmployeeOrderMealColor = Constant.RegisterNonVegetarianMealColor;
-                }
+                currentSelectedEmployee.EmployeeOrderMealColor = currentSelectedEmployee.IsVegetarian ? 
+                    Constant.RegisterVegetarianMealColor : Constant.RegisterNonVegetarianMealColor;
             }
             else
             {
-                if (currentSelectedEmployee.Quantity > 0)
-                {
-                    currentSelectedEmployee.EmployeeOrderMealColor = Constant.HasOrderMealBeforeColor;
-                }
-                else
-                {
-                    currentSelectedEmployee.EmployeeOrderMealColor = Constant.UNRegisterMealColor;
-                }
+                currentSelectedEmployee.EmployeeOrderMealColor = currentSelectedEmployee.Quantity > 0 ? 
+                    Constant.HasOrderMealBeforeColor : Constant.UNRegisterMealColor;
             }
         }
 
@@ -1513,13 +1421,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         private KitchenEmployeeInfo MappingEmployeeData(EmployeeInfo employeeInfo)
         {
-            KitchenEmployeeInfo employee = null;
-            if (employeeInfo != null)
-            {
-                employee = Mapper.Map<EmployeeInfo, KitchenEmployeeInfo>(employeeInfo);
-            }
-
-            return employee;
+            return employeeInfo != null ? Mapper.Map<EmployeeInfo, KitchenEmployeeInfo>(employeeInfo) : null;
         }
 
         /// <summary>
@@ -1578,14 +1480,14 @@ namespace NexFB.PosKitchen.ViewModels
         {
             RegisterNumPadRelayCommand();
            
-            DefaulMenuSelected = new RelayCommand((x) => CanExecuteMealMenuSelected(), (y) => ExecuteMealMenuSelected(y));
+            DefaulMenuSelected = new RelayCommand((y) => ExecuteMealMenuSelected(y));
             DefaultEmployeeSelected = new RelayCommand((x) => CanExecuteEmployeeInGroupSelected(), (y) => ExecuteEmployeeInGroupSelected(y));
 
-            SaveDialogCommand = new RelayCommand((x) => CanExecuteSaveDialogCommand(), (y) => ExecuteSaveDialogCommand(y));
-            CancelDialogCommand = new RelayCommand((x) => CanExecuteCancelDialogCommand(), (y) => ExecuteCancelDialogCommand(y));
-            SelectAllUserInGroup = new RelayCommand((x) => CanExecuteSelectAllUserInGroupCommand(), (y) => ExecuteSelectAllUserInGroupCommand());
-            CancelDialogOrderConfirmation = new RelayCommand((x) => CanExecuteCancelDialogOrderConfirmation(), (y) => ExecuteCancelDialogOrderConfirmation(y));
-            SaveOrderCommand = new RelayCommand((x) => CanSaveOrderCommand(), (y) => ExecuteSaveOrderCommand(y));
+            SaveDialogCommand = new RelayCommand((y) => ExecuteSaveDialogCommand(y));
+            CancelDialogCommand = new RelayCommand((y) => ExecuteCancelDialogCommand(y));
+            SelectAllUserInGroup = new RelayCommand((y) => ExecuteSelectAllUserInGroupCommand());
+            CancelDialogOrderConfirmation = new RelayCommand((y) => ExecuteCancelDialogOrderConfirmation(y));
+            SaveOrderCommand = new RelayCommand((y) => ExecuteSaveOrderCommand(y));
             ChangeKeyPad = new RelayCommand((x) => CanExecuteNumPadPressed(), (y) => ExecuteChangeKeyPad());
             CloseVirtualKeyboard = new RelayCommand((x) => ExecuteCloseVirtualKeyboard(x));
         }
@@ -1602,7 +1504,7 @@ namespace NexFB.PosKitchen.ViewModels
             NumPadReleased = new RelayCommand((x) => CanExecuteNumPadReleased(), (y) => ExecuteNumPadReleased());
 
             PickRoomCommand = new RelayCommand((x) => CanExecutePickRoomCommand(), (y) => ExecutePickRoomCommand());
-            PickGroupCommand = new RelayCommand((x) => CanExecutePickGroupCommand(), (y) => ExecutePickGroupCommand());
+            PickGroupCommand = new RelayCommand((y) => ExecutePickGroupCommand());
             ChooseMainFoodCommand = new RelayCommand((x) => CanExecuteChooseMainFoodCommand(), (y) => ExecuteChooseMainFoodCommand());
             ChooseAlternativeFoodCommand = new RelayCommand((x) => CanExecuteChooseAlternativeFoodCommand(), (y) => ExecuteChooseAlternativeFoodCommand());
         }

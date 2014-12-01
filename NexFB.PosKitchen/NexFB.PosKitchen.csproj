@@ -145,7 +145,6 @@
     <Compile Include="ViewModels\Properties\OrderFood\OrderFoodDynamicScreen.cs" />
     <Compile Include="ViewModels\Properties\OrderFood\OrderFoodPreviewData.cs" />
     <Compile Include="ViewModels\Properties\OrderFood\OrderFoodProperty.cs" />
-    <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WaitingMealViewModel.cs" />
     <Compile Include="Views\ManageOrder\AwaitingDeliver.xaml.cs">
@@ -168,9 +167,6 @@
     </Compile>
     <Compile Include="Views\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SettingWindow.xaml.cs">
-      <DependentUpon>SettingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VirtualKeyboard.xaml.cs">
       <DependentUpon>VirtualKeyboard.xaml</DependentUpon>
@@ -240,10 +236,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NotificationWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SettingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

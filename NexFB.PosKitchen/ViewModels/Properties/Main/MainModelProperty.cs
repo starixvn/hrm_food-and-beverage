@@ -101,8 +101,6 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
 
         public ICommand EditOrderCommand { get; set; }
 
-        public ICommand SettingCommand { get; set; }
-
         public ICommand CancelOrderCommand { get; set; }
 
         public ViewModelBase CurrentViewModel
