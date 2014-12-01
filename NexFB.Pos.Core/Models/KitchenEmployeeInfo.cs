@@ -11,6 +11,7 @@ namespace NexFB.Pos.Core.Models
 {
     using System.Collections.Generic;
     using System.Configuration;
+    using System.IO;
     using NexFB.Core.Enums;
     using NexFB.Pos.Core.Constants;
     using NexFB.Pos.Core.Helpers;
@@ -185,28 +186,27 @@ namespace NexFB.Pos.Core.Models
         {
             get
             {
-                string imagePath = string.Empty;
+                string defaultImageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, Constant.DefaultAvatar);
                 switch (DepartmentId)
                 {
                     case (int)DepartmentIdentity.Nexcel:
-                        _imageSource = string.Format(Constant.NexcelAvatar, Code.Trim());
-                        imagePath = string.Format(Constant.NexcelImagePath, Code.Trim());
+                        var imageNexcelTemplate = string.Format(Constant.NexcelAvatar, Code.Trim());
+                        _imageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, imageNexcelTemplate);
                         break;
                     case (int)DepartmentIdentity.Sms:
-                        _imageSource = string.Format(Constant.SmsAvatar, Code.Trim());
-                        imagePath = string.Format(Constant.SmsImagePath, Code.Trim());
+                        var imageSmsTemplate = string.Format(Constant.SmsAvatar, Code.Trim());
+                        _imageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, imageSmsTemplate);
                         break;
                     case (int)DepartmentIdentity.HongMA:
-                        _imageSource = string.Format(Constant.HongMAAvatar, Code.Trim());
-                        imagePath = string.Format(Constant.HongMAImagePath, Code.Trim());
+                        var imageHongMaTemplate = string.Format(Constant.HongMAAvatar, Code.Trim());
+                        _imageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, imageHongMaTemplate);
                         break;
                     default:
-                        _imageSource = Constant.DefaultAvatar;
-                        imagePath = Constant.DefaultImagePath;
+                        _imageSource = defaultImageSource;
                         break;
                 }
 
-                return ResourceManagerHelper.GetResourceNames(imagePath) ? _imageSource : Constant.DefaultAvatar;
+                return ResourceManagerHelper.GetResourceNames(_imageSource) ? _imageSource : defaultImageSource;
             }
 
             set

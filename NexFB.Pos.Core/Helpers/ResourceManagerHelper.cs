@@ -9,10 +9,7 @@
 
 namespace NexFB.Pos.Core.Helpers
 {
-    using System.Collections;
-    using System.Linq;
-    using System.Reflection;
-    using NexFB.Pos.Core.Constants;
+    using System.IO;
 
     /// <summary>
     /// Resource Manager Helper.
@@ -22,23 +19,11 @@ namespace NexFB.Pos.Core.Helpers
         /// <summary>
         /// Method get resource path exists in an assembly.
         /// </summary>
-        /// <param name="resourcePath">Resource path.</param>
+        /// <param name="imageSource">Resource path.</param>
         /// <returns>Check path exists or not.</returns>
-        public static bool GetResourceNames(string resourcePath)
+        public static bool GetResourceNames(string imageSource)
         {
-            string[] resourceNames;
-            string assemblyName = Constant.PosKitchenAssembly;
-            var assembly = Assembly.Load(assemblyName);
-            string resName = assemblyName + ".g.resources";
-            using (var stream = assembly.GetManifestResourceStream(resName))
-            {
-                using (var reader = new System.Resources.ResourceReader(stream))
-                {
-                    resourceNames = reader.Cast<DictionaryEntry>().Select(entry => (string)entry.Key).ToArray();
-                }
-            }
-
-            return resourceNames.Contains(resourcePath);
+            return File.Exists(imageSource);
         }
     }
 }

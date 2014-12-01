@@ -14,6 +14,7 @@ namespace NexFB.PosKitchen.ViewModels
     using System.Collections.ObjectModel;
     using System.Configuration;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Windows;
@@ -1108,13 +1109,10 @@ namespace NexFB.PosKitchen.ViewModels
             }
             else
             {
-                if (WPFMessageBox.Show(CurrentCulture(), string.Empty, WinFormMainResource.Message_EditSuccessful, WPFMessageBoxButtons.OK) == WPFMessageBoxResult.Ok)
-                {
-                    ExecuteCancelDialogOrderConfirmation(value);
-                    ExecutePrintInvoice(ReferenceCode, (int)InvoiceNumberStatus.DeliverOrderFoodInvoice, false);
-                    this.MainViewModel.SendEditOrder(ReferenceCode);
-                    ResetCurrentModel();
-                }
+                ExecuteCancelDialogOrderConfirmation(value);
+                ExecutePrintInvoice(ReferenceCode, (int)InvoiceNumberStatus.DeliverOrderFoodInvoice, false);
+                this.MainViewModel.SendEditOrder(ReferenceCode);
+                ResetCurrentModel();
             }
         }
 
@@ -1146,13 +1144,10 @@ namespace NexFB.PosKitchen.ViewModels
             }
             else
             {
-                if (WPFMessageBox.Show(CurrentCulture(), string.Empty, WinFormMainResource.Message_OrderSuccessful, WPFMessageBoxButtons.OK) == WPFMessageBoxResult.Ok)
-                {
-                    ExecuteCancelDialogOrderConfirmation(value);
-                    ExecutePrintInvoice(result.OrderId, (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice, true);
-                    this.MainViewModel.SendNewOrder(result.OrderId);
-                    ResetCurrentModel();
-                }
+                ExecuteCancelDialogOrderConfirmation(value);
+                ExecutePrintInvoice(result.OrderId, (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice, true);
+                this.MainViewModel.SendNewOrder(result.OrderId);
+                ResetCurrentModel();
             }
         }
 
@@ -1205,7 +1200,7 @@ namespace NexFB.PosKitchen.ViewModels
             EmployeeInfo = null;
             Result = null;
             LocationName = null;
-            OwnerImage = Constant.DefaultAvatar;
+            OwnerImage = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, Constant.DefaultAvatar);
             LocationId = 0;
             GridUserVisibility = Constant.Hidden;
             MessageHeader = string.Empty;

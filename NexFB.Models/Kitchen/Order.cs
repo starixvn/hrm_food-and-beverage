@@ -13,6 +13,7 @@ namespace NexFB.Models.Kitchen
     using System.Collections;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using NexFB.Core.Constants;
@@ -292,30 +293,28 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                string imagePath = string.Empty;
                 string imageSource = string.Empty;
-                string unavailableAvartarSource = "pack://application:,,,/Images/no-avatar.jpg";
+                string defaultImageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Images\\no-avatar.jpg");
                 switch (DepartmentId)
                 {
                     case (int)DepartmentIdentity.Nexcel:
-                        imageSource = string.Format("pack://application:,,,/Images/Nexcel/{0}.jpg", Code.Trim());
-                        imagePath = string.Format("images/nexcel/{0}.jpg", Code.Trim());
+                        var imageNexcelTemplate = string.Format("Images\\Nexcel\\{0}.jpg", Code.Trim());
+                        imageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, imageNexcelTemplate);
                         break;
                     case (int)DepartmentIdentity.Sms:
-                        imageSource = string.Format("pack://application:,,,/Images/SMS/{0}.jpg", Code.Trim());
-                        imagePath = string.Format("images/sms/{0}.jpg", Code.Trim());
+                        var imageSmsTemplate = string.Format("Images\\SMS\\{0}.jpg", Code.Trim());
+                        imageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, imageSmsTemplate);
                         break;
                     case (int)DepartmentIdentity.HongMA:
-                        imageSource = string.Format("pack://application:,,,/Images/HongMa/{0}.jpg", Code.Trim());
-                        imagePath = string.Format("images/hongma/{0}.jpg", Code.Trim());
+                        var imageHongMaTemplate = string.Format("Images\\HongMa\\{0}.jpg", Code.Trim());
+                        imageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, imageHongMaTemplate);
                         break;
                     default:
-                        imageSource = "pack://application:,,,/Images/no-avatar.jpg";
-                        imagePath = "images/no-avatar.jpg";
+                        imageSource = defaultImageSource;
                         break;
                 }
 
-                return GetResourceNames(imagePath) ? imageSource : unavailableAvartarSource;
+                return GetResourceNames(imageSource) ? imageSource : defaultImageSource;
             }
         }
 
@@ -324,21 +323,9 @@ namespace NexFB.Models.Kitchen
         /// </summary>
         /// <param name="resourcePath">Find Resource path.</param>
         /// <returns>Boolean to check.</returns>
-        private bool GetResourceNames(string resourcePath)
+        private bool GetResourceNames(string imageSource)
         {
-            string[] resourceNames;
-            string assemblyName = "NexFB.PosKitchen";
-            var assembly = Assembly.Load(assemblyName);
-            string resName = assemblyName + ".g.resources";
-            using (var stream = assembly.GetManifestResourceStream(resName))
-            {
-                using (var reader = new System.Resources.ResourceReader(stream))
-                {
-                    resourceNames = reader.Cast<DictionaryEntry>().Select(entry => (string)entry.Key).ToArray();
-                }
-            }
-
-            return resourceNames.Contains(resourcePath);
+            return File.Exists(imageSource);
         }
     }
 }

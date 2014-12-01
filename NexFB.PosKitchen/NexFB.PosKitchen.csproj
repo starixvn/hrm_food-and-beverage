@@ -175,18 +175,45 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Resource Include="Images\SMS\00067.jpg" />
-    <Resource Include="Images\SMS\00431.jpg" />
-    <Resource Include="Images\SMS\02580.jpg" />
-    <Resource Include="Images\Nexcel\02303.jpg" />
-    <Resource Include="Images\Nexcel\02355.jpg" />
-    <Resource Include="Images\Nexcel\02358.jpg" />
-    <Resource Include="Images\HongMa\HM0007.jpg" />
-    <Resource Include="Images\HongMa\HM0015.jpg" />
-    <Resource Include="Images\HongMa\HM0022.jpg" />
+    <Content Include="Images\SMS\00067.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\SMS\00431.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\SMS\02580.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Nexcel\02303.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Nexcel\02355.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Nexcel\02358.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\HongMa\HM0007.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\HongMa\HM0015.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\HongMa\HM0022.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Icon.ico" />
     <Resource Include="Images\checkbox-checked.png" />
     <Resource Include="Images\checkbox-unchecked.png" />
+    <Content Include="Images\HongMa\no-avatar.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Nexcel\no-avatar.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\SMS\no-avatar.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="PrintingTemplates\OrderFoodReceipt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -322,7 +349,9 @@
     <Resource Include="Images\kahn.png" />
     <Resource Include="Images\logo.jpg" />
     <Resource Include="Images\multi.png" />
-    <Resource Include="Images\no-avatar.jpg" />
+    <Content Include="Images\no-avatar.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Images\phone-icon.png" />
     <Resource Include="Images\settings-icon.png" />
     <Resource Include="Images\window_close.png" />
