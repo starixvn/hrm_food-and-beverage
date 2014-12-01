@@ -192,7 +192,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     break;
                 default:
                     ResourceManagerService.ChangeLocale("en-GB");
-                    CurrentCulture = (int)LanguageLocalization.VietNamCulture;
+                    CurrentCulture = (int)LanguageLocalization.EnglishCulture;
                     break;
             }
         }
