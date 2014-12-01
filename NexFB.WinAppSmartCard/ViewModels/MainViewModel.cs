@@ -91,43 +91,43 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (!string.IsNullOrEmpty(newCardNumber))
             {
-                this.CurrentCardNumber = newCardNumber;
-                string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
-                string cardValue = newCardNumber.Substring(newCardNumber.Length - 5, 5);
-                var getEmployeeByCardNumber = new GetEmployeeByCardNumberCriteria() { CardNumber = cardValue };
-                EmployeeInfo employeeData = this.SmartCardOrderService.GetEmployeeByCardId(getEmployeeByCardNumber);
-
-                switch (currentViewModel)
-                {
-                    case ConstantValue.MainDishesViewModel:
-                        if (((MainDishesViewModel)CurrentViewModel).MainDishTimerLive)
-                        {
-                            ReturnToStandByScreenAndCreateNewSession();
-                        }
-
-                        AddDataWhenTimerLive(employeeData, false);
-
-                        break;
-                    case ConstantValue.SideDishesViewModel:
-                        if (((SideDishesViewModel)CurrentViewModel).OrderOwner == null)
-                        {
-                            if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
-                            {
-                                ReturnToStandByScreenAndCreateNewSession();
-                            }
-
-                            AddDataWhenTimerLive(employeeData, true);
-                        }
-
-                        break;
-                    default:
-                        break;
-                }
-
                 Application.Current.Dispatcher.BeginInvoke(
                 DispatcherPriority.Background,
                 new Action(() =>
                 {
+                    this.CurrentCardNumber = newCardNumber;
+                    string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+                    string cardValue = newCardNumber.Substring(newCardNumber.Length - 5, 5);
+                    var getEmployeeByCardNumber = new GetEmployeeByCardNumberCriteria() { CardNumber = cardValue };
+                    EmployeeInfo employeeData = this.SmartCardOrderService.GetEmployeeByCardId(getEmployeeByCardNumber);
+
+                    switch (currentViewModel)
+                    {
+                        case ConstantValue.MainDishesViewModel:
+                            if (((MainDishesViewModel)CurrentViewModel).MainDishTimerLive)
+                            {
+                                ReturnToStandByScreenAndCreateNewSession();
+                            }
+
+                            AddDataWhenTimerLive(employeeData, false);
+
+                            break;
+                        case ConstantValue.SideDishesViewModel:
+                            if (((SideDishesViewModel)CurrentViewModel).OrderOwner == null)
+                            {
+                                if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
+                                {
+                                    ReturnToStandByScreenAndCreateNewSession();
+                                }
+
+                                AddDataWhenTimerLive(employeeData, true);
+                            }
+
+                            break;
+                        default:
+                            break;
+                    }
+
                     AutoLogOff.ResetLogoffTimer();
                     mainWindow.InitializeAutoLogoffFeature();
                 }));
@@ -180,21 +180,18 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         public void ChangeCulture()
         {
-            const int EnglishCultureCode = (int)LanguageLocalization.EnglishCulture;
-            const int ChineseCultureCode = (int)LanguageLocalization.ChinaCulture;
-
             switch (CurrentCulture)
             {
-                case EnglishCultureCode:
-                    ResourceManagerService.ChangeLocale("en-GB");
-                    CurrentCulture = EnglishCultureCode;
+                case (int)LanguageLocalization.VietNamCulture:
+                    ResourceManagerService.ChangeLocale("vi-VN");
+                    CurrentCulture = (int)LanguageLocalization.VietNamCulture;
                     break;
-                case ChineseCultureCode:
+                case (int)LanguageLocalization.ChinaCulture:
                     ResourceManagerService.ChangeLocale("zh-CN");
-                    CurrentCulture = ChineseCultureCode;
+                    CurrentCulture = (int)LanguageLocalization.ChinaCulture;
                     break;
                 default:
-                    ResourceManagerService.ChangeLocale("vi-VN");
+                    ResourceManagerService.ChangeLocale("en-GB");
                     CurrentCulture = (int)LanguageLocalization.VietNamCulture;
                     break;
             }
@@ -416,7 +413,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (employeeData != null)
             {
-                ChangeCulture();
                 var getEmployeeOrderStatus = new GetEmployeeOrderStatusCriteria() { SysId = employeeData.SysId };
                 EmployeeOrderStatus orderStatus = this.KitchenService.EmployeeOrderStatus(getEmployeeOrderStatus);
                 if (orderStatus != null)

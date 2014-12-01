@@ -74,7 +74,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
         public void AddEmployeeOrderToList(Employee employeeInfo, MainViewModel mainViewModel)
         {
             MainViewModel = mainViewModel;
-            mainViewModel.ChangeCulture();
             if (OrderOwner == null)
             {
                 OrderOwner = employeeInfo;
