@@ -80,12 +80,12 @@
 	                </td>
 	                <td class="text-center" ng-bind="globalMember.JoinedDate">
 	                </td>
-	                <td>
-	                    <div class="view-mode" ng-show="!globalMember.IsEditing" style="text-align: center">
+	                <td class="last-column" style="text-align: center">
+	                    <div class="view-mode" ng-show="!globalMember.IsEditing" >
 	                        --- <a title="Assign All Members To Group" href="javascript:void(0);" class="glyphicon glyphicon-edit" ng-click="editMultipleMembers()"></a>
 	                    </div>
                         <div ng-show="globalMember.IsEditing">
-                            <div class="field selectbox" >
+                            <div class="field selectbox group-box" >
                                 <div multi-select input-model="globalMember.GroupOptions" button-label="GroupId"
                                         helper-elements="all reset" item-label="GroupName" tick-property="ticked"
                                         max-labels="0" class="multi-select" on-item-click="changeSelectedGroup(globalMember.GroupOptions)">
