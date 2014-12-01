@@ -241,7 +241,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are no more side dishes to select. You can only add more quantity..
+        ///   Looks up a localized string similar to There are no more side dishes to select..
         /// </summary>
         internal static string Message_NoMoreDish {
             get {

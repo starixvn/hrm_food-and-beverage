@@ -119,13 +119,15 @@ namespace NexFB.WinAppSmartCard
             }
         }
 
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        private void MenuItem_PreviewMouseDown_Exit(object sender, MouseButtonEventArgs e)
         {
-            if (e.ClickCount == 3)
-            {
-                ////System.Windows.Forms.Application.Restart();
-                System.Windows.Application.Current.Shutdown();
-            }
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        private void MenuItem_PreviewMouseDown_Restart(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Forms.Application.Restart();
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }

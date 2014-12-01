@@ -109,12 +109,15 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                         break;
                     case ConstantValue.SideDishesViewModel:
-                        if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
+                        if (((SideDishesViewModel)CurrentViewModel).OrderOwner == null)
                         {
-                            ReturnToStandByScreenAndCreateNewSession();
-                        }
+                            if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
+                            {
+                                ReturnToStandByScreenAndCreateNewSession();
+                            }
 
-                        AddDataWhenTimerLive(employeeData, true);
+                            AddDataWhenTimerLive(employeeData, true);
+                        }
 
                         break;
                     default:
@@ -169,6 +172,31 @@ namespace NexFB.WinAppSmartCard.ViewModels
             else
             {
                 return ProxyLocal.Invoke("SendNewOrder", orderId);
+            }
+        }
+
+        /// <summary>
+        /// Change Culture.
+        /// </summary>
+        public void ChangeCulture()
+        {
+            const int EnglishCultureCode = (int)LanguageLocalization.EnglishCulture;
+            const int ChineseCultureCode = (int)LanguageLocalization.ChinaCulture;
+
+            switch (CurrentCulture)
+            {
+                case EnglishCultureCode:
+                    ResourceManagerService.ChangeLocale("en-GB");
+                    CurrentCulture = EnglishCultureCode;
+                    break;
+                case ChineseCultureCode:
+                    ResourceManagerService.ChangeLocale("zh-CN");
+                    CurrentCulture = ChineseCultureCode;
+                    break;
+                default:
+                    ResourceManagerService.ChangeLocale("vi-VN");
+                    CurrentCulture = (int)LanguageLocalization.VietNamCulture;
+                    break;
             }
         }
 
@@ -363,31 +391,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
         }
 
         /// <summary>
-        /// Change Culture.
-        /// </summary>
-        private void ChangeCulture()
-        {
-            const int EnglishCultureCode = (int)LanguageLocalization.EnglishCulture;
-            const int ChineseCultureCode = (int)LanguageLocalization.ChinaCulture;
-
-            switch (CurrentCulture)
-            {
-                case EnglishCultureCode:
-                    ResourceManagerService.ChangeLocale("en-GB");
-                    CurrentCulture = EnglishCultureCode;
-                    break;
-                case ChineseCultureCode:
-                    ResourceManagerService.ChangeLocale("zh-CN");
-                    CurrentCulture = ChineseCultureCode;
-                    break;
-                default:
-                    ResourceManagerService.ChangeLocale("vi-VN");
-                    CurrentCulture = (int)LanguageLocalization.VietNamCulture;
-                    break;
-            }
-        }
-
-        /// <summary>
         /// Show main Screen or Standby screen.
         /// </summary>
         private void CheckCurrentScreen()
@@ -413,6 +416,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (employeeData != null)
             {
+                ChangeCulture();
                 var getEmployeeOrderStatus = new GetEmployeeOrderStatusCriteria() { SysId = employeeData.SysId };
                 EmployeeOrderStatus orderStatus = this.KitchenService.EmployeeOrderStatus(getEmployeeOrderStatus);
                 if (orderStatus != null)

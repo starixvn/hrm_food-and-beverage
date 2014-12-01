@@ -201,6 +201,11 @@
 											 SelectedItem="{Binding DataContext.SelectedFood, RelativeSource={RelativeSource AncestorType=ListBox}}"
 											 Style="{StaticResource ComboBoxFlatStyle}" FontSize="20"
 											 Height="44" VerticalAlignment="Center" Width="390" BorderBrush="Silver" BorderThickness="1">
+													<ComboBox.ItemContainerStyle>
+														<Style TargetType="ComboBoxItem">
+															<Setter Property="Padding" Value="7"/>
+														</Style>
+													</ComboBox.ItemContainerStyle>
 												</ComboBox>
 												<Button Style="{StaticResource TileButton}"
 											Command="{Binding DataContext.RemoveEmployeeOrder, RelativeSource={RelativeSource AncestorType=ListBox}}"

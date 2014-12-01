@@ -178,7 +178,7 @@
     <value>No menu available for the current meal</value>
   </data>
   <data name="Message_NoMoreDish" xml:space="preserve">
-    <value>There are no more side dishes to select. You can only add more quantity.</value>
+    <value>There are no more side dishes to select.</value>
   </data>
   <data name="Message_PickAlternativeFood" xml:space="preserve">
     <value>Please read with care the company policies before choosing alternative menu. Kitchen staff has right to reject your order. Thank you.</value>

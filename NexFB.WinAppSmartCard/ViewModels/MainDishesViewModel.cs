@@ -74,6 +74,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         public void AddEmployeeOrderToList(Employee employeeInfo, MainViewModel mainViewModel)
         {
             MainViewModel = mainViewModel;
+            mainViewModel.ChangeCulture();
             if (OrderOwner == null)
             {
                 OrderOwner = employeeInfo;
@@ -242,18 +243,21 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (value != null)
             {
-                int employeeSysId = (int)value;
-                Employee employeeRemoved = ObservableListEmployee.Where(x => x.SysId == employeeSysId).SingleOrDefault();
-                ObservableListEmployee.Remove(employeeRemoved);
-                if (employeeRemoved.SysId == OrderOwner.SysId)
+                if (ObservableListEmployee.Count > 1)
                 {
-                    OrderOwner = ObservableListEmployee.FirstOrDefault();
-                    this.MainViewModel.OrderOwner = this.OrderOwner;
-                }
+                    int employeeSysId = (int)value;
+                    Employee employeeRemoved = ObservableListEmployee.Where(x => x.SysId == employeeSysId).SingleOrDefault();
+                    ObservableListEmployee.Remove(employeeRemoved);
+                    if (employeeRemoved.SysId == OrderOwner.SysId)
+                    {
+                        OrderOwner = ObservableListEmployee.FirstOrDefault();
+                        this.MainViewModel.OrderOwner = this.OrderOwner;
+                    }
 
-                UpdateOrderNo();
-                ToggleSideMenu();
-                CheckAllowChangeLanguage();
+                    UpdateOrderNo();
+                    ToggleSideMenu();
+                    CheckAllowChangeLanguage();
+                }
             }
         }
 
@@ -337,7 +341,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             OrderNo = result.OrderNo;
             MainViewModel.SendMessage(result.OrderId);
             MainViewModel.MainTabReadOnly = true;
-
+            MainViewModel.SideButtonEnable = true;
             CountDownTimer = 30;
             ShowNotificationScreen();
             TimerDigitalClock();
