@@ -115,8 +115,18 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                //// Grater than 20 letter set Height = 40, else Height = 28
-                return SetMenuAndQuantity.Length > 20 ? 40 : 28;
+                //// Grater than 20 and less than 40 letter: set Height = 40, 
+                //// Less than 20 letter Height = 28
+                //// Grater than 40 letter Height = 52
+                var textLength = SetMenuAndQuantity.Length;
+                if (textLength < 40 && textLength > 20)
+                {
+                    return 40;
+                }
+                else
+                {
+                    return textLength >= 40 ? 52 : 28;
+                }
             }
         }
     }
