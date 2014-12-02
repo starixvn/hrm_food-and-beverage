@@ -6,12 +6,24 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 		getMonthlyMainDishReportByLocal: function (reportDate, departmentId, employeeTypeId, teamId, mealId, groupBy) {
 			return $http.get('/api/Report/GetMonthlyMainDishReportLocal',
 				{ params: { reportDate: reportDate,
-							departmentId: departmentId,
-							employeeTypeId: employeeTypeId,
-							teamId: teamId,
-							mealId: mealId,
-							groupBy: groupBy
-				} });
+					departmentId: departmentId,
+					employeeTypeId: employeeTypeId,
+					teamId: teamId,
+					mealId: mealId,
+					groupBy: groupBy
+				}
+				});
+		},
+		exportMonthlyMainDishReportByLocal: function (reportDate, departmentId, employeeTypeId, teamId, mealId, groupBy) {
+			return $http.get('/api/Report/ExportMonthlyMainDishReport',
+				{ params: { reportDate: reportDate,
+					departmentId: departmentId,
+					employeeTypeId: employeeTypeId,
+					teamId: teamId,
+					mealId: mealId,
+					groupBy: groupBy
+				}
+				});
 		}
 	};
 } ]);

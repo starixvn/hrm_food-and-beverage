@@ -475,8 +475,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\TranslatorService\UserService.wsdl" />
-    <None Include="Src\App\Report\ExcelTemplates\MonthlyMainDishReportLocal.xls" />
-    <None Include="Src\App\Report\report.less" />
+    <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishReportLocal.xls" />
+    <Content Include="Src\App\Report\report.less" />
     <Content Include="Src\App\GroupControl\groupControl.less" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup.less" />
     <Content Include="Src\Components\Libs\angular-resource.min.js.map" />

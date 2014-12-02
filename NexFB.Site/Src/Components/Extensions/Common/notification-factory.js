@@ -2,49 +2,52 @@
 'use strict';
 
 appModule.factory('notificationFactory', ['$translate', function ($translate) {
-	var options = {
+	var normalOptions = {
 		timeout: 4000
-	};
+	},
+		errorOptions = {
+			timeout: 7000
+		};
 
 	return {
 		success: function (keyMessage, message) {
 			if (message === '' || message === null || message === undefined) {
 				$translate(keyMessage).then(function (responseMessage) {
-					toastr.success(responseMessage, options);
+					toastr.success(responseMessage, normalOptions);
 				});
 			}
 			else {
-				toastr.success(message, options);
+				toastr.success(message, normalOptions);
 			}
 		},
 		error: function (keyMessage, message) {
 			if (message === '' || message === null || message === undefined) {
 				$translate(keyMessage).then(function (responseMessage) {
-					toastr.error(responseMessage, options);
+					toastr.error(responseMessage, errorOptions);
 				});
 			}
 			else {
-				toastr.error(message, options);
+				toastr.error(message, errorOptions);
 			}
 		},
 		warning: function (keyMessage, message) {
 			if (message === '' || message === null || message === undefined) {
 				$translate(keyMessage).then(function (responseMessage) {
-					toastr.warning(responseMessage, options);
+					toastr.warning(responseMessage, errorOptions);
 				});
 			}
 			else {
-				toastr.warning(message, options);
+				toastr.warning(message, errorOptions);
 			}
 		},
 		info: function (keyMessage, message) {
 			if (message === '' || message === null || message === undefined) {
 				$translate(keyMessage).then(function (responseMessage) {
-					toastr.info(responseMessage, options);
+					toastr.info(responseMessage, normalOptions);
 				});
 			}
 			else {
-				toastr.info(message, options);
+				toastr.info(message, normalOptions);
 			}
 		}
 	};

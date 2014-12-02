@@ -81,10 +81,6 @@
       <Project>{79FB6864-4696-4CC2-B94D-842C09CFAC0E}</Project>
       <Name>NexFB.Resources</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NexFB.Services\NexFB.Services.csproj">
-      <Project>{C6EF79D3-5127-4DA2-A334-44109F771D33}</Project>
-      <Name>NexFB.Services</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -26,7 +26,7 @@
 		<div class="form-group">
 			<label data-translate="SetMenu"></label>
 			<select ng-model="mealPlanning.setMenuId" ng-options="opt.SetMenuId as opt.SetMenuVnmName for opt in setMenuItems"
-				food-and-setmenu class="form-control">
+				food-and-setmenu class="form-control" ie-select-fix="setMenuItems" >
 				<option value="">-- {{"SelectSetMenu" | translate}} --</option>
 			</select>
 		</div>

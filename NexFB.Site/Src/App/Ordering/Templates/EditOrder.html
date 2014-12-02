@@ -83,7 +83,7 @@
 										</div>
 										<div ng-show="alterEdit.alternativeMenu{{member.Member.UserId}}">
 											<select class="dllMenu" name="editOrderMenu{{member.Member.UserId}}" ng-model="selectedMenu[$index]" on-change-select get-selected-edit-menu
-												ng-options="altMenu as altMenu.Name for altMenu in member.AllMenus" >
+												ng-options="altMenu as altMenu.Name + ' (' + altMenu.NameVN + ')' for altMenu in member.AllMenus" >
 											</select>
 										</div>
 									</div>

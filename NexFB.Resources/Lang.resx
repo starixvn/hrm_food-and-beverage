@@ -852,4 +852,16 @@
   <data name="EncodingNotSupported" xml:space="preserve">
     <value>Encoding '{0}' is not supported. Only supports gzip or deflate encoding.</value>
   </data>
+    <data name="MonthlyMainDishLocalReportName" xml:space="preserve">
+    <value>Monthly_Main_Dish_Report_Local</value>
+  </data>
+  <data name="MonthlyMainDishLocalReportTitle" xml:space="preserve">
+    <value>Monthly Main Dish Report - Local</value>
+  </data>
+  <data name="MonthlyMainDishLocalSheetName" xml:space="preserve">
+    <value>Monthly Main Dish Report Local</value>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>Group by</value>
+  </data>
 </root>

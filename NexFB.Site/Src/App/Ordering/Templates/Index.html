@@ -205,14 +205,9 @@
 										</a>
 									</div>
 									<div ng-show="alter.alternativeMenu{{member.Member.UserId}}">
-										<select class="ddlMenu" name="newOrderMenu" ng-options="menu as menu.Name for menu in member.AllMenus" 
+										<select class="ddlMenu" name="newOrderMenu" ng-options="menu as menu.Name + ' (' + menu.NameVN + ')' for menu in member.AllMenus" 
 											get-selected-menu on-change-select ng-model="selectedNewMenu[$index]" >
 										</select>
-<!--										<select class="ddlMenu" name="newOrderMenu" ng-model="selectedNewMenu[$index]" get-selected-menu on-change-select >
-											<option ng-repeat="menu in member.AllMenus" ng-bind-html="menu.Name + '<br />' + ' (' + menu.NameVN + ')'"
-												ng-selected="menu == selectedNewMenu[$index]" value="{{menu}}" >
-											</option>
-										</select>-->
 									</div>
                                 </td>
                                 <td class="text-center">
@@ -313,7 +308,7 @@
 										</a>
 									</div>
 									<div ng-show="alterSaved.alternativeMenu{{member.Member.UserId}}">
-										<select class="ddlMenu" name="savedOrderMenu" ng-model="selectedSavedMenu[$index]" ng-options="menu as menu.Name for menu in member.AllMenus" get-selected-saved-menu on-change-select >
+										<select class="ddlMenu" name="savedOrderMenu" ng-model="selectedSavedMenu[$index]" ng-options="menu as menu.Name + ' (' + menu.NameVN + ')' for menu in member.AllMenus" get-selected-saved-menu on-change-select >
 										</select>
 									</div>
                                 </td>

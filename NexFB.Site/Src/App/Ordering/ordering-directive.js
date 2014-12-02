@@ -6,7 +6,6 @@ orderingModule.directive('getSelectedMenu', function () {
 		link: function (scope, iElement) {
 			iElement.on('change', function () {
 				var index = scope.$index;
-				//scope.member.Menus[0] = JSON.parse(scope.selectedNewMenu[index]);
 				scope.member.Menus[0] = scope.selectedNewMenu[index];
 			});
 		}
@@ -18,7 +17,6 @@ orderingModule.directive('getSelectedSavedMenu', function () {
 		link: function (scope, iElement) {
 			iElement.on('change', function () {
 				var index = scope.$index;
-				//scope.member.Menus[0] = JSON.parse(scope.selectedSavedMenu[index]);
 				scope.member.Menus[0] = scope.selectedSavedMenu[index];
 			});
 		}
@@ -30,7 +28,6 @@ orderingModule.directive('getSelectedEditMenu', function () {
 		link: function (scope, iElement) {
 			iElement.on('change', function () {
 				var index = scope.$index;
-				//scope.member.Menus[0] = JSON.parse(scope.selectedMenu[index]);
 				scope.member.Menus[0] = scope.selectedMenu[index];
 			});
 		}

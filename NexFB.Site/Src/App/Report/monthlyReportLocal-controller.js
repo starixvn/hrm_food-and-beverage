@@ -111,6 +111,12 @@ reportUtilities) {
 	/*
 	** Export excel.
 	*/
-	$scope.exportExcel = function () {
+	$scope.exportExcel = function (filter) {
+		filter.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
+		filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
+		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
+
+		reportFactory.exportMonthlyMainDishReportByLocal(filter.reportDate.toDateString(), filter.departmentId, filter.employeeTypeId, 
+						filter.teamId, filter.mealId, filter.groupBy);
 	};
 } ]);

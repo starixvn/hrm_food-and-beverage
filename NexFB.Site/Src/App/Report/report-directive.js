@@ -179,10 +179,6 @@ reportModule.directive('renderMonthlyReport', function () {
 		return footerRow;
 	};
 
-	var exportExcel = function (scope) {
-		scope.exportExcel.call(this);
-	};
-
 	return {
 		link: function (scope, iElement) {
 			scope.$on('renderMonthlyReport', function () {
@@ -204,9 +200,11 @@ reportModule.directive('renderMonthlyReport', function () {
 						{
 							text: "Monthly Main Dish Report - Local",
 							showExcelButton: true,
-							exportExcelFunction: exportExcel(scope)
+							exportExcelFunction: function () {
+								scope.exportExcel.call(this, scope.filter);
+							}
 						},
-					//					numberOfFrozenColumn: report.IsGroupByEmployee ? 4 : 2,
+//					numberOfFrozenColumn: report.IsGroupByEmployee ? 4 : 2,
 					showFooter: true,
 					footerRows: footerData,
 					gridExpandHeight: 300

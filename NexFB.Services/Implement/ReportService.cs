@@ -9,12 +9,16 @@
 
 namespace NexFB.Services.Implement
 {
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Common.Helper;
     using NexFB.Core.Enums;
+    using NexFB.Core.Utilities;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
+    using NexFB.Resources;
     using NexFB.Services.Interface;
 
     /// <summary>
@@ -52,6 +56,196 @@ namespace NexFB.Services.Implement
             }
 
             return report;
+        }
+
+        /// <summary>
+        /// Export monthly main dish report in local.
+        /// </summary>
+        /// <param name="report">The report.</param>
+        /// <param name="templateLink">The url of template.</param>
+        public void ExportMonthlyMainDishReportLocal(MonthlyLocalReportModel report, string templateLink)
+        {
+            string reportName = Lang.MonthlyMainDishLocalReportName;
+            string reportTitle = Lang.MonthlyMainDishLocalReportTitle;
+            var writer = new ExcelTemplateWriter(templateLink, reportName, Lang.MonthlyMainDishLocalSheetName);
+
+            // Fill report title.
+            writer.CopyRows(0, 2);
+            writer.WriteRow(2, new object[] { reportTitle });
+            writer.CopyRows(3, 1);
+            writer.CopyRows(4, 1);
+
+            FillContentRow(report, ref writer, 4);
+            ////writer.Render();
+        }
+
+        private void FillContentRow(MonthlyLocalReportModel report, ref ExcelTemplateWriter writer, int rowIndex)
+        {
+            bool isGroupByEmployee = report.IsGroupByEmployee;
+
+            foreach (MealMonthModel meal in report.Meals)
+            {
+                rowIndex++;
+                FillContentMeal(meal, ref writer, ref rowIndex, isGroupByEmployee);
+            }
+        }
+
+        private void FillContentMeal(
+            MealMonthModel meal,
+            ref ExcelTemplateWriter writer,
+            ref int rowIndex,
+            bool isGroupByEmployee)
+        {
+            IEnumerable<object> records = CreateMealRecord(meal.MealItems, isGroupByEmployee);
+
+            writer.WriteRow(rowIndex, meal.Meal.MealEngName);
+            writer.WriteRow(rowIndex++, records);
+        }
+
+        /// <summary>
+        /// Create meal records.
+        /// </summary>
+        /// <param name="mealItems">The list meal items.</param>
+        /// <param name="isGroupByEmployee">Report group by employee or department.</param>
+        /// <returns>The enumerator object.</returns>
+        private IEnumerable<object> CreateMealRecord(List<MealItemMonthModel> mealItems, bool isGroupByEmployee)
+        {
+            IEnumerable<object> records = null;
+
+            if (isGroupByEmployee)
+            {
+                records = CreateMealGroupByEmployee(mealItems);
+            }
+            else
+            {
+                records = CreateMealGroupByDepartment(mealItems);
+            }
+
+            return records;
+        }
+
+        /// <summary>
+        ///  Create meal records of report group by employee.
+        /// </summary>
+        /// <param name="mealItems">The list meal items.</param>
+        /// <returns>The enumerator object.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private IEnumerable<object> CreateMealGroupByEmployee(List<MealItemMonthModel> mealItems)
+        {
+            IList<object> records = new List<object>();
+
+            for (int i = 0; i < mealItems.Count; i++)
+            {
+                MealItemMonthModel mealItem = mealItems[i];
+                List<int> numberMeals = mealItem.NumberMealsMonth.NumberMeals;
+
+                var record = new 
+                {
+                    Count = i + 1,
+                    Nick = mealItem.Employee.NickName,
+                    EmployeeType = mealItem.EmployeeType.EmployeeTypeName,
+                    DepartmentSection = mealItem.Department.Name + "> " + mealItem.Team.Name,
+                    Day1 = numberMeals[0],
+                    Day2 = numberMeals[1],
+                    Day3 = numberMeals[2],
+                    Day4 = numberMeals[3],
+                    Day5 = numberMeals[4],
+                    Day6 = numberMeals[5],
+                    Day7 = numberMeals[6],
+                    Day8 = numberMeals[7],
+                    Day9 = numberMeals[8],
+                    Day10 = numberMeals[9],
+                    Day11 = numberMeals[10],
+                    Day12 = numberMeals[11],
+                    Day13 = numberMeals[12],
+                    Day14 = numberMeals[13],
+                    Day15 = numberMeals[14],
+                    Day16 = numberMeals[15],
+                    Day17 = numberMeals[16],
+                    Day18 = numberMeals[17],
+                    Day19 = numberMeals[18],
+                    Day20 = numberMeals[19],
+                    Day21 = numberMeals[20],
+                    Day22 = numberMeals[21],
+                    Day23 = numberMeals[22],
+                    Day24 = numberMeals[23],
+                    Day25 = numberMeals[24],
+                    Day26 = numberMeals[25],
+                    Day27 = numberMeals[26],
+                    Day28 = numberMeals[27],
+                    Day29 = numberMeals[28],
+                    Day30 = numberMeals[29],
+                    Day31 = numberMeals[30],
+                    Quantity = mealItem.NumberMealsMonth.TotalQuantity,
+                    Amount = mealItem.NumberMealsMonth.Amount
+                };
+
+                records.Add(record);
+            }
+
+            return records;
+        }
+
+        /// <summary>
+        ///  Create meal records of report group by department.
+        /// </summary>
+        /// <param name="mealItems">The list meal items.</param>
+        /// <returns>The enumerator object.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private IEnumerable<object> CreateMealGroupByDepartment(List<MealItemMonthModel> mealItems)
+        {
+            IList<object> records = new List<object>();
+
+            for (int i = 0; i < mealItems.Count; i++)
+            {
+                MealItemMonthModel mealItem = mealItems[i];
+                List<int> numberMeals = mealItem.NumberMealsMonth.NumberMeals;
+
+                var record = new
+                {
+                    Count = i + 1,
+                    DepartmentSection = mealItem.Department.Name + "> " + mealItem.Team.Name,
+                    Day1 = numberMeals[0],
+                    Day2 = numberMeals[1],
+                    Day3 = numberMeals[2],
+                    Day4 = numberMeals[3],
+                    Day5 = numberMeals[4],
+                    Day6 = numberMeals[5],
+                    Day7 = numberMeals[6],
+                    Day8 = numberMeals[7],
+                    Day9 = numberMeals[8],
+                    Day10 = numberMeals[9],
+                    Day11 = numberMeals[10],
+                    Day12 = numberMeals[11],
+                    Day13 = numberMeals[12],
+                    Day14 = numberMeals[13],
+                    Day15 = numberMeals[14],
+                    Day16 = numberMeals[15],
+                    Day17 = numberMeals[16],
+                    Day18 = numberMeals[17],
+                    Day19 = numberMeals[18],
+                    Day20 = numberMeals[19],
+                    Day21 = numberMeals[20],
+                    Day22 = numberMeals[21],
+                    Day23 = numberMeals[22],
+                    Day24 = numberMeals[23],
+                    Day25 = numberMeals[24],
+                    Day26 = numberMeals[25],
+                    Day27 = numberMeals[26],
+                    Day28 = numberMeals[27],
+                    Day29 = numberMeals[28],
+                    Day30 = numberMeals[29],
+                    Day31 = numberMeals[30],
+                    Quantity = mealItem.NumberMealsMonth.TotalQuantity,
+                    Amount = mealItem.NumberMealsMonth.Amount
+                };
+
+                records.Add(record);
+            }
+
+            return records;
         }
     }
 }

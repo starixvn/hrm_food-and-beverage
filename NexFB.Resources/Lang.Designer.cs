@@ -997,6 +997,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group by.
+        /// </summary>
+        public static string GroupBy {
+            get {
+                return ResourceManager.GetString("GroupBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -1371,6 +1380,33 @@ namespace NexFB.Resources {
         public static string Monthly {
             get {
                 return ResourceManager.GetString("Monthly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly_Main_Dish_Report_Local.
+        /// </summary>
+        public static string MonthlyMainDishLocalReportName {
+            get {
+                return ResourceManager.GetString("MonthlyMainDishLocalReportName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly Main Dish Report - Local.
+        /// </summary>
+        public static string MonthlyMainDishLocalReportTitle {
+            get {
+                return ResourceManager.GetString("MonthlyMainDishLocalReportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly Main Dish Report Local.
+        /// </summary>
+        public static string MonthlyMainDishLocalSheetName {
+            get {
+                return ResourceManager.GetString("MonthlyMainDishLocalSheetName", resourceCulture);
             }
         }
         

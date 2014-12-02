@@ -18,5 +18,7 @@ namespace NexFB.Services.Interface
     public interface IReportService
     {
         MonthlyLocalReportModel GetMonthlyMainDishReportLocal(GetMonthlyMainDishReportLocalCriteria criteria);
+
+        void ExportMonthlyMainDishReportLocal(MonthlyLocalReportModel report, string templateLink);
     }
 }
