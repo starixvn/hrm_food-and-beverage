@@ -54,6 +54,8 @@
   <ItemGroup>
     <Compile Include="Attributes\ApiAuthorizeAttribute.cs" />
     <Compile Include="Attributes\ExceptionHandlingAttribute.cs" />
+    <Compile Include="Handlers\EncodingDelegateHandler.cs" />
+    <Compile Include="Handlers\CompressedContent.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implement\WebCommonService.cs" />
@@ -74,6 +76,10 @@
     <ProjectReference Include="..\NexFB.Models\NexFB.Models.csproj">
       <Project>{487D35C7-B5F4-4CA5-902B-7C300569912F}</Project>
       <Name>NexFB.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexFB.Resources\NexFB.Resources.csproj">
+      <Project>{79FB6864-4696-4CC2-B94D-842C09CFAC0E}</Project>
+      <Name>NexFB.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\NexFB.Services\NexFB.Services.csproj">
       <Project>{C6EF79D3-5127-4DA2-A334-44109F771D33}</Project>

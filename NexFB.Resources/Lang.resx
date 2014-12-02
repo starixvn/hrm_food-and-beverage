@@ -849,4 +849,7 @@
   <data name="UncheckKitchenOnlyMsg" xml:space="preserve">
     <value>Do you want this food item to be viewed by all users?</value>
   </data>
+  <data name="EncodingNotSupported" xml:space="preserve">
+    <value>Encoding '{0}' is not supported. Only supports gzip or deflate encoding.</value>
+  </data>
 </root>

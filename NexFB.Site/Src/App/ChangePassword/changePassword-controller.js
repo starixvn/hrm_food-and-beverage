@@ -31,10 +31,6 @@ function ($scope, $modalInstance, changePasswordFactory, notificationFactory, Er
 			isValid = false;
 			notificationFactory.error("RequireConfirmPassword");
 		}
-		else if (changePassword.ConfirmPassword.length < 6) {
-			isValid = false;
-			notificationFactory.error("ValidateLengthPassword");
-		}
 
 		if (isValid && changePassword.NewPassword !== changePassword.ConfirmPassword) {
 			isValid = false;

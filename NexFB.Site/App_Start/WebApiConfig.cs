@@ -11,6 +11,7 @@ namespace NexFB.Site
 {
     using System.Web.Http;
     using NexFB.Web.Attributes;
+    using NexFB.Web.Handlers;
 
     /// <summary>
     /// Web API config.
@@ -34,6 +35,7 @@ namespace NexFB.Site
                 defaults: new { id = RouteParameter.Optional });
 
             config.Filters.Add(new ExceptionHandlingAttribute());
+            config.MessageHandlers.Add(new EncodingDelegateHandler());
         }
     }
 }
