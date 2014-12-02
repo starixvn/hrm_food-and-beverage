@@ -186,7 +186,7 @@
 														<Button.Template>
 															<ControlTemplate>
 																<Border Background="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" >
-																	<Image Source="pack://application:,,,/Images/edit.png" Height="24" Width="28" Grid.Column="3" Margin="4,0,0,0"/>
+																	<Image Source="pack://application:,,,/Images/edit.png" Height="38" Width="40" Grid.Column="3" Margin="4,0,0,0"/>
 																</Border>
 															</ControlTemplate>
 														</Button.Template>
@@ -213,7 +213,7 @@
 													<Button.Template>
 														<ControlTemplate>
 															<Border Background="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" >
-																<Image Width="22" Height="22" Source="pack://application:,,,/Images/remove1.png" />
+																<Image Width="34" Height="30" Source="pack://application:,,,/Images/remove1.png" />
 															</Border>
 														</ControlTemplate>
 													</Button.Template>
@@ -231,12 +231,12 @@
 								<ColumnDefinition />
 							</Grid.ColumnDefinitions>
 							<Button Background="#66B5D6" Foreground="White" Command="{Binding Path=ConfirmCommand}" Margin="0,0,15,0"
-							Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Confirm]}" Height="40" Style="{StaticResource TileButton}"
+							Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Confirm]}" Height="50" Style="{StaticResource TileButton}"
 							HorizontalAlignment="Right" Name="button1" VerticalAlignment="Top" Width="108" />
 
 							<Button Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 							Background="#EF4339" Foreground="White" Grid.Column="1" Margin="15,0,0,0"
-							Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Cancel]}" Height="40" Style="{StaticResource TileButton}"
+							Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Cancel]}" Height="50" Style="{StaticResource TileButton}"
 							HorizontalAlignment="Left" VerticalAlignment="Top" Width="108" />
 						</Grid>
 					</StackPanel>
@@ -318,7 +318,7 @@
 								<Button Command="{Binding DataContext.ReturnStandByScreenCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 								Background="#66B5D6" Foreground="White" Margin="0,0,5,0"
 						CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-					 Height="40" Style="{StaticResource TileButton}"
+					 Height="50" Style="{StaticResource TileButton}"
 					HorizontalAlignment="Center" VerticalAlignment="Top" Width="108">
 									<StackPanel Orientation="Horizontal">
 										<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Exit]}" Foreground="#fff" FontSize="20"/>
