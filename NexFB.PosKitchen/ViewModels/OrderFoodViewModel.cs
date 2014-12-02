@@ -1264,6 +1264,7 @@ namespace NexFB.PosKitchen.ViewModels
             {
                 List<KitchenEmployeeInfo> data = new List<KitchenEmployeeInfo>();
                 EmployeeInfo = GetEmployeeBySysId(order.SysId);
+                OwnerImage = EmployeeInfo.ImageSource;
                 LocationId = order.LocationId;
                 LocationName = IsVnmCulture ? order.VnmName : order.EngName;
                 List<OrderMenu> orderMenus = order.ListMenu.Where(x => !x.IsDeleted).ToList();
@@ -1306,7 +1307,7 @@ namespace NexFB.PosKitchen.ViewModels
         /// <returns>Kitchen Employee Info entity.</returns>
         private KitchenEmployeeInfo MappingDataForEditAction(List<OrderMenu> orderData, int sysId)
         {
-            KitchenEmployeeInfo kitchenEmployeeInfo = new KitchenEmployeeInfo() { SysId = sysId };
+            KitchenEmployeeInfo kitchenEmployeeInfo = GetEmployeeBySysId(sysId);
             foreach (OrderMenu orderDetail in orderData)
             {
                 if ((orderDetail.IsMainMenu && !orderDetail.IsSideDish) || (!orderDetail.IsMainMenu && !orderDetail.IsSideDish))

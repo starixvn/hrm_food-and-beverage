@@ -22,6 +22,7 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
         private Employee _orderOwner;
         private Food _selectedFood;
         private string _screenOrderVisible;
+        private string _deleteButtonVisible;
         private string _screenNotificationVisible;
         private int _orderNo;
         private int _countDownTimer;
@@ -102,6 +103,20 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
             {
                 _screenOrderVisible = value;
                 OnPropertyChanged("ScreenOrderVisible");
+            }
+        }
+
+        public string DeleteButtonVisible
+        {
+            get
+            {
+                return _deleteButtonVisible;
+            }
+
+            set
+            {
+                _deleteButtonVisible = value;
+                OnPropertyChanged("DeleteButtonVisible");
             }
         }
 

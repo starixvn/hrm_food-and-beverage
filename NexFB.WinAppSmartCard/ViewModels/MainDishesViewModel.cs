@@ -180,6 +180,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     FoodId = int.MaxValue,
                     FoodVnmName = employeeInfo.MenuVnmName,
                     FoodEngName = employeeInfo.MenuEngName,
+                    FoodChineseName = employeeInfo.MenuEngName,
                     CurrentCulture = MainViewModel.CurrentCulture
                 };
 
@@ -202,6 +203,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 ObservableListEmployee.Add(employeeInfo);
                 ToggleSideMenu();
+                DeleteButtonVisible = AllowDeleteMemberInOrder();
                 CheckAllowChangeLanguage();
             }));
         }
@@ -255,6 +257,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                     UpdateOrderNo();
                     ToggleSideMenu();
+                    DeleteButtonVisible = AllowDeleteMemberInOrder();
                     CheckAllowChangeLanguage();
                 }
             }
@@ -419,6 +422,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
             {
                 MainViewModel.SideButtonEnable = true;
             }
+        }
+
+        private string AllowDeleteMemberInOrder()
+        {
+            return ObservableListEmployee.Count > 1 ? CommonResources.Visible : CommonResources.Hidden;
         }
 
         #endregion

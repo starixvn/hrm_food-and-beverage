@@ -161,7 +161,7 @@
 
 			<Grid HorizontalAlignment="Left" Margin="12,15,0,0" Grid.Row="1" Name="grid2" VerticalAlignment="Top">
 				<StackPanel Orientation="Vertical">
-					<Grid MaxHeight="450" Background="#fff">
+					<Grid MaxHeight="350" Background="#fff">
 						<ScrollViewer>
 							<ListBox BorderThickness="1,0,1,1" Margin="0" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
 							 ItemsSource="{Binding ObservableSideOrder}" Style="{StaticResource OrderListBox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}"
@@ -351,7 +351,7 @@
 
 			<Grid HorizontalAlignment="Left" Margin="12,15,0,0" Grid.Row="1" VerticalAlignment="Top">
 				<StackPanel Orientation="Vertical">
-					<Grid MaxHeight="450" Background="#fff">
+					<Grid MaxHeight="350" Background="#fff">
 						<ScrollViewer>
 							<ListBox BorderThickness="1,0,1,1" Margin="0" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
 							 ItemsSource="{Binding ObservableSideOrder}" Style="{StaticResource NotificationListBox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}">
