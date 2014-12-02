@@ -337,6 +337,7 @@
     <Content Include="Src\Components\Libs\date.js" />
     <Content Include="Src\Components\Libs\datepicker.js" />
     <Content Include="Src\Components\Libs\Fanex.Grid.js" />
+    <Content Include="Src\Components\Libs\head.js" />
     <Content Include="Src\Components\Libs\jquery-ui.min.js" />
     <Content Include="Src\Components\Libs\jquery.signalR-1.1.4.js" />
     <Content Include="Src\Components\Libs\jquery.signalR-1.1.4.min.js" />
