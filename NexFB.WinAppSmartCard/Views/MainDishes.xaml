@@ -26,8 +26,8 @@
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="85"/>
 									<ColumnDefinition Width="425"/>
-									<ColumnDefinition Width="400"/>
-									<ColumnDefinition Width="130"/>
+									<ColumnDefinition Width="420"/>
+									<ColumnDefinition Width="170"/>
 								</Grid.ColumnDefinitions>
 								<Border BorderThickness="1" BorderBrush="#999999" Grid.Column="0"></Border>
 								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
@@ -74,7 +74,7 @@
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="85"/>
 									<ColumnDefinition Width="425"/>
-									<ColumnDefinition Width="400"/>
+									<ColumnDefinition Width="420"/>
 								</Grid.ColumnDefinitions>
 								<Border BorderThickness="1" BorderBrush="#999999" Grid.Column="0"></Border>
 								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
@@ -156,7 +156,7 @@
 			<Grid Grid.Row="1" Margin="0,10,0,0">
 				<Grid HorizontalAlignment="Left" Margin="12,0,0,0" Grid.Row="1" Name="grid2" VerticalAlignment="Top">
 					<StackPanel Orientation="Vertical">
-						<Grid MaxHeight="600" Background="#fff">
+						<Grid MaxHeight="450" Background="#fff">
 							<ScrollViewer>
 								<ListBox BorderThickness="1,0,1,1" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
 							 ItemsSource="{Binding ObservableListEmployee}" Style="{StaticResource OrderListBox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}"
@@ -167,8 +167,8 @@
 												<Grid.ColumnDefinitions>
 													<ColumnDefinition Width="85"/>
 													<ColumnDefinition Width="425"/>
-													<ColumnDefinition Width="400"/>
-													<ColumnDefinition Width="130"/>
+													<ColumnDefinition Width="420"/>
+													<ColumnDefinition Width="170"/>
 												</Grid.ColumnDefinitions>
 												<Border BorderThickness="1,0,1,1" BorderBrush="#999999" Grid.Column="0"></Border>
 												<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
@@ -200,7 +200,7 @@
 											 SelectedValue="{Binding Path=SelectedValueDropDown, Mode=TwoWay}"
 											 SelectedItem="{Binding DataContext.SelectedFood, RelativeSource={RelativeSource AncestorType=ListBox}}"
 											 Style="{StaticResource ComboBoxFlatStyle}" FontSize="20"
-											 Height="44" VerticalAlignment="Center" Width="390" BorderBrush="Silver" BorderThickness="1">
+											 Height="44" VerticalAlignment="Center" Width="410" BorderBrush="Silver" BorderThickness="1">
 													<ComboBox.ItemContainerStyle>
 														<Style TargetType="ComboBoxItem">
 															<Setter Property="Padding" Value="7"/>
@@ -264,7 +264,7 @@
 						<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketLabel]}"
 						 HorizontalAlignment="Left" Margin="15,20,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#fff"/>
 						<Label Content="{Binding Path=OrderNo}" Foreground="#EF4339" FontWeight="Black"
-						 HorizontalAlignment="Left" Margin="-10,18,0,0"  VerticalAlignment="Top" FontSize="25"/>
+						 HorizontalAlignment="Left" Margin="-10,4,0,0"  VerticalAlignment="Top" FontSize="40"/>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,-7,0,0">
 						<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}"
@@ -278,7 +278,7 @@
 			<Grid Grid.Row="1" Margin="0,10,0,0">
 				<Grid HorizontalAlignment="Left" Margin="12,0,0,0" Grid.Row="1" VerticalAlignment="Top">
 					<StackPanel Orientation="Vertical">
-						<Grid MaxHeight="600" Background="#fff">
+						<Grid MaxHeight="450" Background="#fff">
 							<ScrollViewer>
 								<ListBox BorderThickness="1,0,1,1" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
 							 ItemsSource="{Binding ObservableListEmployee}" Style="{StaticResource NotificationListBox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}">
@@ -288,7 +288,7 @@
 												<Grid.ColumnDefinitions>
 													<ColumnDefinition Width="85"/>
 													<ColumnDefinition Width="425"/>
-													<ColumnDefinition Width="400"/>
+													<ColumnDefinition Width="420"/>
 												</Grid.ColumnDefinitions>
 												<Border BorderThickness="1,0,1,1" BorderBrush="#999999" Grid.Column="0"></Border>
 												<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="1"></Border>

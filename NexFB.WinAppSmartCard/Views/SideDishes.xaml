@@ -29,7 +29,7 @@
 									<ColumnDefinition Width="500"/>
 									<ColumnDefinition Width="220"/>
 									<ColumnDefinition Width="170"/>
-									<ColumnDefinition Width="90"/>
+									<ColumnDefinition Width="150"/>
 								</Grid.ColumnDefinitions>
 								<Border BorderThickness="1" BorderBrush="#999999" Grid.Column="0"></Border>
 								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
@@ -146,12 +146,12 @@
 					<RowDefinition Height="100"/>
 					<RowDefinition />
 				</Grid.RowDefinitions>
-				<DockPanel  VerticalAlignment="Bottom" Height="45">
+				<DockPanel  VerticalAlignment="Bottom" Height="45" Width="1115" HorizontalAlignment="Left">
 					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}" 
 					FontSize="22" VerticalAlignment="Bottom" Margin="3,0,-5,0" Foreground="#fff"/>
 					<Label Content="{Binding Path=OrderOwner.NickName}" FontSize="22" VerticalAlignment="Bottom" Foreground="#2c98e0" FontWeight="Black" Margin="-5,6,0,0"/>
 					<Button Command="{Binding Path=AddFoodCommand}" IsEnabled="{Binding Path=AddFoodEnable}"
-				Background="#6CB23E" Style="{StaticResource TileButton}" MinWidth="120"  Margin="0,0,165,0" HorizontalAlignment="Right">
+				Background="#6CB23E" Style="{StaticResource TileButton}" MinWidth="120"  Margin="0" HorizontalAlignment="Right">
 						<Label Foreground="#fff" FontSize="20" FontWeight="Black" Margin="7,0,7,0"
 					 Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.AddFood]}" />
 					</Button>
@@ -161,7 +161,7 @@
 
 			<Grid HorizontalAlignment="Left" Margin="12,15,0,0" Grid.Row="1" Name="grid2" VerticalAlignment="Top">
 				<StackPanel Orientation="Vertical">
-					<Grid MaxHeight="600" Background="#fff">
+					<Grid MaxHeight="450" Background="#fff">
 						<ScrollViewer>
 							<ListBox BorderThickness="1,0,1,1" Margin="0" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
 							 ItemsSource="{Binding ObservableSideOrder}" Style="{StaticResource OrderListBox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}"
@@ -174,7 +174,7 @@
 												<ColumnDefinition Width="500"/>
 												<ColumnDefinition Width="220"/>
 												<ColumnDefinition Width="170"/>
-												<ColumnDefinition Width="90"/>
+												<ColumnDefinition Width="150"/>
 											</Grid.ColumnDefinitions>
 											<Border BorderThickness="1,0,1,1" BorderBrush="#999999" Grid.Column="0"></Border>
 											<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
@@ -261,7 +261,7 @@
 							<ColumnDefinition Width="500"/>
 							<ColumnDefinition Width="220"/>
 							<ColumnDefinition Width="170"/>
-							<ColumnDefinition Width="90"/>
+							<ColumnDefinition Width="150"/>
 						</Grid.ColumnDefinitions>
 						<Border BorderThickness="1,0,0,1" BorderBrush="#999999" Grid.Column="0"></Border>
 						<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
@@ -340,7 +340,7 @@
 				<DockPanel  VerticalAlignment="Bottom" Height="45" Grid.Row="0" Margin="3,0,0,-10">
 					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketLabel]}" 
 					FontSize="22" VerticalAlignment="Bottom" Foreground="#fff"/>
-					<Label Content="{Binding Path=OrderNo}" FontSize="25" VerticalAlignment="Bottom" Foreground="#EF4339" FontWeight="Black" Margin="-8,3,0,0"/>
+					<Label Content="{Binding Path=OrderNo}" FontSize="40" VerticalAlignment="Bottom" Foreground="#EF4339" FontWeight="Black" Margin="-8,-10,0,0"/>
 				</DockPanel>
 				<DockPanel  VerticalAlignment="Top" Height="45" Grid.Row="1" Margin="3,0,0,0">
 					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}" 
@@ -351,7 +351,7 @@
 
 			<Grid HorizontalAlignment="Left" Margin="12,15,0,0" Grid.Row="1" VerticalAlignment="Top">
 				<StackPanel Orientation="Vertical">
-					<Grid MaxHeight="600" Background="#fff">
+					<Grid MaxHeight="450" Background="#fff">
 						<ScrollViewer>
 							<ListBox BorderThickness="1,0,1,1" Margin="0" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
 							 ItemsSource="{Binding ObservableSideOrder}" Style="{StaticResource NotificationListBox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}">
@@ -377,7 +377,7 @@
 											<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=Quantity}" FontSize="20" HorizontalAlignment="Center" Grid.Column="2"/>
 
 											<!--Payment-->
-											<TextBlock Margin="0,0,5,0" VerticalAlignment="Center" Text="{Binding Path=ChangedPrice, Converter={StaticResource moneyConverter}}" FontSize="20" HorizontalAlignment="Right" Grid.Column="3"/>
+											<TextBlock Margin="0,0,50,0" VerticalAlignment="Center" Text="{Binding Path=ChangedPrice, Converter={StaticResource moneyConverter}}" FontSize="20" HorizontalAlignment="Right" Grid.Column="3"/>
 										</Grid>
 									</DataTemplate>
 								</ListBox.ItemTemplate>
@@ -401,7 +401,7 @@
 						FontWeight="Black" FontSize="20" HorizontalAlignment="Right" Grid.Column="1"/>
 						<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=TotalItem}" FontWeight="Black"
 					FontSize="20" HorizontalAlignment="Center" Grid.Column="2"/>
-						<TextBlock Margin="0,0,5,0" VerticalAlignment="Center" FontWeight="Black" Foreground="#c72413"
+						<TextBlock Margin="0,0,50,0" VerticalAlignment="Center" FontWeight="Black" Foreground="#c72413"
 					Text="{Binding Path=TotalPrice, Converter={StaticResource moneyConverter}}" FontSize="20" HorizontalAlignment="Right" Grid.Column="3"/>
 					</Grid>
 

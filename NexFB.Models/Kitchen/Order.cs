@@ -294,20 +294,21 @@ namespace NexFB.Models.Kitchen
             get
             {
                 string imageSource = string.Empty;
-                string defaultImageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Images\\no-avatar.jpg");
+                string baseDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
+                string defaultImageSource = Path.Combine(baseDirectory, "Images\\no-avatar.jpg");
                 switch (DepartmentId)
                 {
                     case (int)DepartmentIdentity.Nexcel:
                         var imageNexcelTemplate = string.Format("Images\\Nexcel\\{0}.jpg", Code.Trim());
-                        imageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, imageNexcelTemplate);
+                        imageSource = Path.Combine(baseDirectory, imageNexcelTemplate);
                         break;
                     case (int)DepartmentIdentity.Sms:
                         var imageSmsTemplate = string.Format("Images\\SMS\\{0}.jpg", Code.Trim());
-                        imageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, imageSmsTemplate);
+                        imageSource = Path.Combine(baseDirectory, imageSmsTemplate);
                         break;
                     case (int)DepartmentIdentity.HongMA:
                         var imageHongMaTemplate = string.Format("Images\\HongMa\\{0}.jpg", Code.Trim());
-                        imageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, imageHongMaTemplate);
+                        imageSource = Path.Combine(baseDirectory, imageHongMaTemplate);
                         break;
                     default:
                         imageSource = defaultImageSource;

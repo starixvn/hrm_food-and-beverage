@@ -186,20 +186,21 @@ namespace NexFB.Pos.Core.Models
         {
             get
             {
-                string defaultImageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, Constant.DefaultAvatar);
+                string baseDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
+                string defaultImageSource = Path.Combine(baseDirectory, Constant.DefaultAvatar);
                 switch (DepartmentId)
                 {
                     case (int)DepartmentIdentity.Nexcel:
                         var imageNexcelTemplate = string.Format(Constant.NexcelAvatar, Code.Trim());
-                        _imageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, imageNexcelTemplate);
+                        _imageSource = Path.Combine(baseDirectory, imageNexcelTemplate);
                         break;
                     case (int)DepartmentIdentity.Sms:
                         var imageSmsTemplate = string.Format(Constant.SmsAvatar, Code.Trim());
-                        _imageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, imageSmsTemplate);
+                        _imageSource = Path.Combine(baseDirectory, imageSmsTemplate);
                         break;
                     case (int)DepartmentIdentity.HongMA:
                         var imageHongMaTemplate = string.Format(Constant.HongMAAvatar, Code.Trim());
-                        _imageSource = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, imageHongMaTemplate);
+                        _imageSource = Path.Combine(baseDirectory, imageHongMaTemplate);
                         break;
                     default:
                         _imageSource = defaultImageSource;
