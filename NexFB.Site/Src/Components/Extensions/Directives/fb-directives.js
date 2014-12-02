@@ -34,23 +34,24 @@ appModule.directive('searchAutoComplete', ['$timeout', function ($timeout) {
 				source: function (request, response) {
 					var employees = scope.searchEmployees();
 					var data = [];
-						angular.forEach(employees.data, function (employee) {
-							data.push(
+					angular.forEach(employees.data, function (employee) {
+						data.push(
 								{ value: employee.NickName + ' (' + employee.FullName + ')',
 									id: employee.UserId,
 									employee: employee
 								});
-							});
+					});
 
 					response(data);
 				},
 				select: function (event, ui) {
 					scope.employee = ui.item.employee;
 					$timeout(function () {
-						iElement.trigger('input');
+						//iElement.trigger('input');
 					}, 0);
 				},
-				appendTo: iElement.parent()
+				appendTo: iElement.parent(),
+				delay: 500
 			});
 		}
 	};
