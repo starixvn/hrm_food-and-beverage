@@ -322,7 +322,7 @@ namespace NexFB.Models.Kitchen
         /// <summary>
         /// Get Resource of application.
         /// </summary>
-        /// <param name="resourcePath">Find Resource path.</param>
+        /// <param name="imageSource">The source of image.</param>
         /// <returns>Boolean to check.</returns>
         private bool GetResourceNames(string imageSource)
         {
