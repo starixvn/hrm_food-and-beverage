@@ -175,7 +175,7 @@
     <value>EDIT</value>
   </data>
   <data name="EditBilingual" xml:space="preserve">
-    <value>Sửa / Edited</value>
+    <value>Edited</value>
   </data>
   <data name="Export" xml:space="preserve">
     <value>EXPORT</value>
@@ -205,7 +205,7 @@
     <value>Member</value>
   </data>
   <data name="NameBilingual" xml:space="preserve">
-    <value>Tên / Name</value>
+    <value>Name</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Order</value>
@@ -256,7 +256,7 @@
     <value>RECEIVE</value>
   </data>
   <data name="ReceiveBilingual" xml:space="preserve">
-    <value>Nhận / In :</value>
+    <value>In :</value>
   </data>
   <data name="ReceiveUpper" xml:space="preserve">
     <value>RECEIVE</value>
@@ -268,7 +268,7 @@
     <value>Ref :</value>
   </data>
   <data name="RemarkBilingual" xml:space="preserve">
-    <value>Ghi chú / Remark :</value>
+    <value>Remark :</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search...</value>
@@ -277,7 +277,7 @@
     <value>Select All</value>
   </data>
   <data name="SetMenu" xml:space="preserve">
-    <value>Set Menu / Qty</value>
+    <value>Order</value>
   </data>
   <data name="Snack" xml:space="preserve">
     <value> Snack</value>
@@ -298,7 +298,7 @@
     <value>Total</value>
   </data>
   <data name="TotalBilingual" xml:space="preserve">
-    <value>Tổng Cộng / Total :</value>
+    <value>Total :</value>
   </data>
   <data name="UnitPrice" xml:space="preserve">
     <value>Unit Price</value>
@@ -316,7 +316,7 @@
     <value>VIEW</value>
   </data>
   <data name="DeliverBilingual" xml:space="preserve">
-    <value>Xuất / Out :</value>
+    <value>Out :</value>
   </data>
   <data name="Message_Atleast" xml:space="preserve">
     <value>Please select at least 1 food item.</value>
@@ -352,7 +352,7 @@
     <value>#</value>
   </data>
   <data name="FloorBilingual" xml:space="preserve">
-    <value>Tầng / Floor :</value>
+    <value>Floor :</value>
   </data>
   <data name="Message_EditSuccessful" xml:space="preserve">
     <value>Edit order Successful.</value>
@@ -365,5 +365,11 @@
   </data>
   <data name="ReturnOrderScreen" xml:space="preserve">
     <value>Back</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
   </data>
 </root>

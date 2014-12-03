@@ -105,6 +105,8 @@ namespace NexFB.Models.Kitchen
 
         public List<OrderMenu> ListMenu { get; set; }
 
+        public List<MenuCount> MenuCount { get; set; }
+
         public List<OrderMenu> DisplayListMenu
         {
             get

@@ -10,7 +10,9 @@
 namespace NexFB.PosKitchen.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
+    using System.Linq;
     using System.Windows.Documents;
     using System.Windows.Threading;
     using NexFB.Core.Enums;
@@ -140,6 +142,7 @@ namespace NexFB.PosKitchen.ViewModels
             var template = (FixedDocument)_printingHelper.LoadTemplate(Constant.OrderFoodReceiptTemplate);
             var criteria = new GetOrderDetailsCriteria() { OrderId = orderId };
             Order model = _kitchenService.GetOrderDetails(criteria);
+            model.MenuCount = PrepareOrderDetailsCount(model);
             if (receiveFromKitchenOrder)
             {
                 model.CurrentStatusId = (int)OrderStatus.NewOrder;
@@ -202,6 +205,50 @@ namespace NexFB.PosKitchen.ViewModels
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
             windows.Close();
+        }
+
+        /// <summary>
+        /// Group data menu for print.
+        /// </summary>
+        /// <param name="order">Current printed order.</param>
+        /// <returns>List MenuCount object.</returns>
+        private List<MenuCount> PrepareOrderDetailsCount(Order order)
+        {
+            List<MenuCount> menuDetails = new List<MenuCount>();
+            if (order != null)
+            {
+                List<OrderMenu> orderMenus = order.ListMenu;
+                var groupItems = orderMenus.GroupBy(
+                      x => new
+                      {
+                          MenuId = x.MenuId,
+                          MainDish = x.IsMainMenu,
+                          SideDish = x.IsSideDish
+                      },
+                      x => new
+                      {
+                          MainDish = x.IsMainMenu,
+                          SideDish = x.IsSideDish,
+                          MenuVnmName = x.MenuVnmName,
+                          MenuEngName = x.MenuEngName,
+                          Quantity = x.QuantityOrder
+                      }).Select(
+                      x => new
+                      {
+                          MenuId = x.Key.MenuId,
+                          ListItem = x.ToList()
+                      }).ToList();
+
+                groupItems.ForEach(x => menuDetails.Add(new MenuCount()
+                {
+                    MenuId = x.MenuId,
+                    MenuVnmName = x.ListItem[0].MenuVnmName,
+                    MenuEngName = x.ListItem[0].MenuEngName,
+                    Quantity = x.ListItem.Sum(y => y.Quantity)
+                }));
+            }
+
+            return menuDetails;
         }
 
         #endregion

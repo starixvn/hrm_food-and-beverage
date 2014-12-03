@@ -145,7 +145,7 @@
     <value>Xác nhận</value>
   </data>
   <data name="DeliverBilingual" xml:space="preserve">
-    <value>Xuất / Out : </value>
+    <value>Xuất :</value>
   </data>
   <data name="Delivered" xml:space="preserve">
     <value>Đã xuất</value>
@@ -166,13 +166,13 @@
     <value>SỬA</value>
   </data>
   <data name="EditBilingual" xml:space="preserve">
-    <value>Sửa / Edited</value>
+    <value>Sửa</value>
   </data>
   <data name="Export" xml:space="preserve">
     <value>XUẤT</value>
   </data>
   <data name="FloorBilingual" xml:space="preserve">
-    <value>Tầng / Floor : </value>
+    <value>Tầng : </value>
   </data>
   <data name="Hidden" xml:space="preserve">
     <value>Hidden</value>
@@ -199,7 +199,7 @@
     <value>Thành viên</value>
   </data>
   <data name="NameBilingual" xml:space="preserve">
-    <value>Tên / Name </value>
+    <value>Tên</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Gọi món</value>
@@ -250,19 +250,19 @@
     <value>Nhận</value>
   </data>
   <data name="ReceiveBilingual" xml:space="preserve">
-    <value>Nhận / In : </value>
+    <value>Nhận : </value>
   </data>
   <data name="ReceiveUpper" xml:space="preserve">
     <value>NHẬN</value>
   </data>
   <data name="ReduceBilingual" xml:space="preserve">
-    <value>Giảm / Reduced</value>
+    <value>Giảm</value>
   </data>
   <data name="Ref" xml:space="preserve">
     <value>Ref : </value>
   </data>
   <data name="RemarkBilingual" xml:space="preserve">
-    <value>Ghi chú / Remark : </value>
+    <value>Ghi chú :</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Tìm kiếm...</value>
@@ -271,7 +271,7 @@
     <value>Chọn hết</value>
   </data>
   <data name="SetMenu" xml:space="preserve">
-    <value>Set Menu / Qty</value>
+    <value>Gọi món</value>
   </data>
   <data name="sharps" xml:space="preserve">
     <value>#</value>
@@ -289,7 +289,7 @@
     <value>Tổng cộng</value>
   </data>
   <data name="TotalBilingual" xml:space="preserve">
-    <value>Tổng Cộng / Total : </value>
+    <value>Tổng Cộng :</value>
   </data>
   <data name="UnitPrice" xml:space="preserve">
     <value>Thành tiền</value>
@@ -304,7 +304,7 @@
     <value>White</value>
   </data>
   <data name="Amount" xml:space="preserve">
-    <value>Thành Tiền / Amount</value>
+    <value>Thành Tiền</value>
   </data>
   <data name="Space" xml:space="preserve">
     <value> </value>
@@ -365,5 +365,11 @@
   </data>
   <data name="ReturnOrderScreen" xml:space="preserve">
     <value>Quay lại</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Chi tiết</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Thực đơn</value>
   </data>
 </root>

@@ -72,10 +72,10 @@
 			  x:Name="Contentcontrol" Content="{Binding CurrentViewModel}"  Margin="0,0,0,7" Grid.Row="1"/>
 			<!--Key Pad-->
 			<Grid x:Name="GridKeyPad"
-			 Visibility="{Binding Path=KeyPadVisibility}" Height="175" Width="263" 
-			HorizontalAlignment="Left" Margin="734,-11,0,0" VerticalAlignment="Top">
-				<Grid  HorizontalAlignment="Left"  Background="{DynamicResource IPhoneSteelBackground}"
-					Margin="12,12,0,0" Name="grid1" VerticalAlignment="Top" Width="245" Height="163">
+			 Visibility="{Binding Path=KeyPadVisibility}" Height="331" Width="389" 
+			HorizontalAlignment="Left" Margin="697,-11,0,0" VerticalAlignment="Top">
+				<Grid HorizontalAlignment="Left"  Background="{DynamicResource IPhoneSteelBackground}"
+					Margin="12,12,0,0" Name="grid1" VerticalAlignment="Top" Width="377" Height="319">
 					<Grid.RowDefinitions>
 						<RowDefinition />
 						<RowDefinition />
@@ -91,64 +91,64 @@
 					<Grid  Grid.Row="0">
 						<Border  Style="{StaticResource buttonBorder}"/>
 						<Button Name="button5" Background="WhiteSmoke" BorderThickness="1"
-				Command="{Binding Path=NumPadPressed}" CommandParameter="NUMPAD7" >7</Button>
+				Command="{Binding Path=NumPadPressed}" CommandParameter="NUMPAD7" FontSize="27">7</Button>
 					</Grid>
 					<Grid Grid.Column="1" Grid.Row="0">
 						<Border  Style="{StaticResource buttonBorder}" />
 						<Button x:Name="button6" Background="WhiteSmoke"
-				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD8"  BorderThickness="1" Content="8" />
+				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD8"  BorderThickness="1" Content="8" FontSize="27"/>
 					</Grid>
 					<Grid Grid.Column="2" Grid.Row="0">
 						<Border  Style="{StaticResource buttonBorder}" />
-						<Button x:Name="button7" Background="WhiteSmoke"
+						<Button x:Name="button7" Background="WhiteSmoke" FontSize="27"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD9"  Content="9" />
 					</Grid>
 					<Grid Grid.Column="0" Grid.Row="3">
 						<Border  Style="{StaticResource buttonBorder}"/>
 						<Button x:Name="button8" Command="{Binding NumPadReleased}" CommandParameter="BACK" >
-							<Path Stretch="Fill" Width="20" Height="12" Data="F1M555.0371,274.4893L552.7871,276.7383L549.9861,273.9373L547.1991,276.7243L545.1131,274.6393L547.9001,271.8523L545.0101,268.9603L547.2601,266.7113L550.1501,269.6023L552.8921,266.8613L554.9761,268.9463L552.2361,271.6883z M555.3751,264.0003L544.8751,264.0003C543.1251,264.1253,535.0001,270.7503,535.0001,272.2503C535.0001,273.7503,543.1251,279.3753,544.8751,279.5003L555.3751,279.5003C558.8751,279.5003,559.3751,277.7093,559.3751,275.5003L559.3751,268.0003C559.3751,265.7913,558.7501,264.0003,555.3751,264.0003" Fill="#FF333333"/>
+							<Path Stretch="Fill" Width="36" Height="18" Data="F1M555.0371,274.4893L552.7871,276.7383L549.9861,273.9373L547.1991,276.7243L545.1131,274.6393L547.9001,271.8523L545.0101,268.9603L547.2601,266.7113L550.1501,269.6023L552.8921,266.8613L554.9761,268.9463L552.2361,271.6883z M555.3751,264.0003L544.8751,264.0003C543.1251,264.1253,535.0001,270.7503,535.0001,272.2503C535.0001,273.7503,543.1251,279.3753,544.8751,279.5003L555.3751,279.5003C558.8751,279.5003,559.3751,277.7093,559.3751,275.5003L559.3751,268.0003C559.3751,265.7913,558.7501,264.0003,555.3751,264.0003" Fill="#FF333333"/>
 						</Button>
 					</Grid>
 					<Grid Grid.Row="1">
 						<Border  Style="{StaticResource buttonBorder}" />
-						<Button x:Name="button9" Background="WhiteSmoke"
+						<Button x:Name="button9" Background="WhiteSmoke" FontSize="27"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD4"  Content="4"/>
 					</Grid>
 					<Grid Grid.Column="1" Grid.Row="1">
 						<Border  Style="{StaticResource buttonBorder}" />
-						<Button x:Name="button10" Background="WhiteSmoke"
+						<Button x:Name="button10" Background="WhiteSmoke" FontSize="27"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD5"  Content="5" />
 					</Grid>
 					<Grid Grid.Column="2" Grid.Row="1">
 						<Border  Style="{StaticResource buttonBorder}" />
-						<Button x:Name="button11" Background="WhiteSmoke"
+						<Button x:Name="button11" Background="WhiteSmoke" FontSize="27"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD6"  Content="6" />
 					</Grid>
 					<Grid Grid.Row="2">
 						<Border  Style="{StaticResource buttonBorder}" />
-						<Button x:Name="button13" Background="WhiteSmoke"
+						<Button x:Name="button13" Background="WhiteSmoke" FontSize="27"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD1"  Content="1"/>
 					</Grid>
 					<Grid Grid.Column="1" Grid.Row="2">
 						<Border  Style="{StaticResource buttonBorder}" />
-						<Button x:Name="button14" Background="WhiteSmoke"
+						<Button x:Name="button14" Background="WhiteSmoke" FontSize="27"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD2"  Content="2"/>
 					</Grid>
 					<Grid Grid.Column="2" Grid.Row="2">
 						<Border  Style="{StaticResource buttonBorder}" />
-						<Button x:Name="button15" Background="WhiteSmoke"
+						<Button x:Name="button15" Background="WhiteSmoke" FontSize="27"
 				Command="{Binding NumPadPressed}" CommandParameter="NUMPAD3"  Content="3" />
 					</Grid>
 
 					<Grid Grid.Row="3" Grid.Column="1">
 						<Border  Style="{StaticResource buttonBorder}" />
-						<Button x:Name="button17" Background="WhiteSmoke"
+						<Button x:Name="button17" Background="WhiteSmoke" FontSize="27"
 							Command="{Binding NumPadPressed}" CommandParameter="NUMPAD0"  Content="0" />
 					</Grid>
 
 					<Grid Grid.Row="3" Grid.Column="2">
 						<Border  Style="{StaticResource buttonBorder}" />
-						<Button
+						<Button FontSize="27"
 						Content="OK" FontWeight="Black" x:Name="buttonOk" Background="WhiteSmoke" Command="{Binding NumPadReleased}" CommandParameter="ENTER">
 							<!--<Path Stretch="Fill" Width="21" Height="10" Data="M-32,20.125L-12.375,1.5 -12.375,10.3125 -0.5,10.3125 -0.5,29.9375 -12.375,29.9375 -12.375,39.75 -32,20.125z" Fill="#FF333333"/>-->
 						</Button>

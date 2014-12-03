@@ -187,7 +187,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Xuất / Out :.
+        ///   Looks up a localized string similar to Out :.
         /// </summary>
         public static string DeliverBilingual {
             get {
@@ -201,6 +201,15 @@ namespace NexFB.Resources {
         public static string Delivered {
             get {
                 return ResourceManager.GetString("Delivered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
             }
         }
         
@@ -250,7 +259,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sửa / Edited.
+        ///   Looks up a localized string similar to Edited.
         /// </summary>
         public static string EditBilingual {
             get {
@@ -268,7 +277,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tầng / Floor :.
+        ///   Looks up a localized string similar to Floor :.
         /// </summary>
         public static string FloorBilingual {
             get {
@@ -345,6 +354,15 @@ namespace NexFB.Resources {
         public static string Member {
             get {
                 return ResourceManager.GetString("Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menu.
+        /// </summary>
+        public static string Menu {
+            get {
+                return ResourceManager.GetString("Menu", resourceCulture);
             }
         }
         
@@ -448,7 +466,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tên / Name.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string NameBilingual {
             get {
@@ -601,7 +619,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nhận / In :.
+        ///   Looks up a localized string similar to In :.
         /// </summary>
         public static string ReceiveBilingual {
             get {
@@ -646,7 +664,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ghi chú / Remark :.
+        ///   Looks up a localized string similar to Remark :.
         /// </summary>
         public static string RemarkBilingual {
             get {
@@ -682,7 +700,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set Menu / Qty.
+        ///   Looks up a localized string similar to Order.
         /// </summary>
         public static string SetMenu {
             get {
@@ -754,7 +772,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tổng Cộng / Total :.
+        ///   Looks up a localized string similar to Total :.
         /// </summary>
         public static string TotalBilingual {
             get {

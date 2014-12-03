@@ -65,6 +65,7 @@
     <Compile Include="Kitchen\GroupOrder.cs" />
     <Compile Include="Kitchen\EmployeeInfo.cs" />
     <Compile Include="Kitchen\HubData.cs" />
+    <Compile Include="Kitchen\MenuCount.cs" />
     <Compile Include="Kitchen\OrderMenu.cs" />
     <Compile Include="Kitchen\Order.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>

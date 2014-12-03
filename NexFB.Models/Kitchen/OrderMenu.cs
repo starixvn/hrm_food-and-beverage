@@ -87,13 +87,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                string setName = WinFormMainResource.DisplayDeletedOrder;
-                if (!IsDeleted)
-                {
-                    setName = MenuVnmName + WinFormMainResource.QuantityPerOrder + QuantityOrder.ToString();
-                }
-
-                return setName;
+                return IsDeleted ? WinFormMainResource.DisplayDeletedName : MenuVnmName;
             }
         }
 
@@ -111,6 +105,14 @@ namespace NexFB.Models.Kitchen
             }
         }
 
+        public string DisplayQuantity
+        {
+            get
+            {
+                return IsDeleted ? WinFormMainResource.DisplayDeletedName : QuantityOrder.ToString();
+            }
+        }
+
         public int DisplayRowHeight
         {
             get
@@ -119,13 +121,13 @@ namespace NexFB.Models.Kitchen
                 //// Less than 20 letter Height = 28
                 //// Grater than 40 letter Height = 52
                 var textLength = SetMenuAndQuantity.Length;
-                if (textLength < 40 && textLength > 20)
+                if (textLength <= 40 && textLength > 20)
                 {
                     return 40;
                 }
                 else
                 {
-                    return textLength >= 40 ? 52 : 28;
+                    return textLength > 40 ? 52 : 28;
                 }
             }
         }
