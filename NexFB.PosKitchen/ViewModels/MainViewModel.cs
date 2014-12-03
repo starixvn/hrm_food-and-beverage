@@ -748,10 +748,10 @@ namespace NexFB.PosKitchen.ViewModels
                     if (order != null)
                     {
                         ((WaitingMealViewModel)CurrentViewModel).NewOrderDataAndSort(order);
-                        SystemSounds.Asterisk.Play();
                     }
                 }
 
+                SystemSounds.Asterisk.Play();
                 timer.Stop();
             }
             else
@@ -798,7 +798,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         private void TimerTick(object sender, EventArgs e)
         {
-            System.Media.SystemSounds.Asterisk.Play();
+            SystemSounds.Asterisk.Play();
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
         }
