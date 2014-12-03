@@ -10,8 +10,10 @@
 namespace NexFB.PosKitchen.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Media;
     using System.Threading;
     using System.Threading.Tasks;
@@ -27,7 +29,6 @@ namespace NexFB.PosKitchen.ViewModels
     using NexFB.Pos.Core.Enums;
     using NexFB.Pos.Core.InternetBased;
     using NexFB.PosKitchen.ViewModels.Properties.Main;
-    using NexFB.PosKitchen.Views;
     using NexFB.Resources;
     using WPFMessageBoxCustomControl;
     using WPFMessageBoxCustomControl.Enums;
@@ -41,6 +42,7 @@ namespace NexFB.PosKitchen.ViewModels
         private static string _hostLocal = ConfigurationManager.AppSettings[Constant.HubHostLocal];
         private static DispatcherTimer digitalClockDispatcher = new DispatcherTimer();
         private static DispatcherTimer refeshAppDataDispatcher = new DispatcherTimer();
+        private static DispatcherTimer newOrderNotify = new DispatcherTimer();
 
         public MainViewModel()
         {
@@ -98,6 +100,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         private void ExecuteViewPendingFood()
         {
+            newOrderNotify.Stop();
             CurrentViewModel = new WaitingMealViewModel(WaitingSearchResult);
             CheckCurrentViewModel();
         }
@@ -753,6 +756,7 @@ namespace NexFB.PosKitchen.ViewModels
             }
             else
             {
+                List<Order> waitingMeal = GetAllWaitingMeal();
                 switch (currentViewModel)
                 {
                     case Constant.WaitingMealViewModel:
@@ -760,12 +764,51 @@ namespace NexFB.PosKitchen.ViewModels
                         break;
                     case Constant.AwaitingDeliverViewModel:
                         ((AwaitingDeliverViewModel)CurrentViewModel).GetNewDataForApp();
+                        CheckConditionToStartNewOrderNotity(waitingMeal);
                         break;
                     case Constant.DeliveredFoodViewModel:
-                        ((DeliveredFoodViewModel)CurrentViewModel).GetNewDataForApp();
+                        ////((DeliveredFoodViewModel)CurrentViewModel).GetNewDataForApp();
+                        CheckConditionToStartNewOrderNotity(waitingMeal);
+                        break;
+                    case Constant.CanceledFoodViewModel:
+                        ((CanceledFoodViewModel)CurrentViewModel).GetNewDataForApp();
+                        CheckConditionToStartNewOrderNotity(waitingMeal);
+                        break;
+                    case Constant.OrderFoodViewModel:
+                        CheckConditionToStartNewOrderNotity(waitingMeal);
                         break;
                 }
             }
+        }
+
+        private void CheckConditionToStartNewOrderNotity(List<Order> orders)
+        {
+            if (orders != null && orders.Any(x => x.CurrentStatusId == (int)OrderStatus.NewOrder))
+            {
+                StartNewOrderSoundTimer();
+            }
+        }
+
+        private void StartNewOrderSoundTimer()
+        {
+            if (!newOrderNotify.IsEnabled)
+            {
+                newOrderNotify.Interval = TimeSpan.FromSeconds(2);
+                newOrderNotify.Tick += (sender, e) => TimerTick(sender, e);
+                newOrderNotify.Start();
+            }
+        }
+
+        private void TimerTick(object sender, EventArgs e)
+        {
+            System.Media.SystemSounds.Asterisk.Play();
+        }
+
+        private List<Order> GetAllWaitingMeal()
+        {
+            var criteria = new GetWaitingMealOrderCriteria();
+            List<Order> waitingMeal = KitchenService.GetWaitngMealOrder(criteria);
+            return waitingMeal;
         }
 
         /// <summary>

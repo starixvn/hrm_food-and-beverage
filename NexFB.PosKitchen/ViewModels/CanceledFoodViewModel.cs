@@ -103,6 +103,11 @@ namespace NexFB.PosKitchen.ViewModels
 
         #region Methods
 
+        public void GetNewDataForApp()
+        {
+            CanceledMeals = this.GetCanceledMealOrder;
+        }
+
         /// <summary>
         /// Method add new item to Rejected order list.
         /// </summary>
