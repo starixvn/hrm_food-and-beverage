@@ -174,14 +174,16 @@ namespace NexFB.PosKitchen.ViewModels
 
                 if (checkMainFoodMenu || CheckAlternativeFoodMenu || CheckGroupMenu)
                 {
-                    ReleaseDataMiddleSide(false, currentSelectedItem);
                     if (CheckGroupMenu)
                     {
+                        CommonKitchenOrder.ToList().ForEach(x => x.IsSelectedMealMenu = false);
+                        ReleaseDataMiddleSide(false, currentSelectedItem);
                         AddMemberInGroupToGrid(currentSelectedItem);
                         CurrentSelectedGroupId = itemId;
                     }
                     else
                     {
+                        ReleaseDataMiddleSide(false, currentSelectedItem);
                         KitchenEmployeeInfo currentSelectedMember = UserInGroup.Where(x => x.IsSelectedMemberInGroup).SingleOrDefault();
                         int additionalQuantity = 0;
                         if (checkMainFoodMenu)
@@ -1389,6 +1391,7 @@ namespace NexFB.PosKitchen.ViewModels
         /// <param name="groupId">Selected Group Id.</param>
         private void PrepareDataEmployeeInGroup(int groupId)
         {
+            UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup.Where(x => x.IsPlaceOrder));
             List<KitchenEmployeeInfo> employees = GetUserByGroup(groupId);
             if (employees.Any() && employees.Count > 0)
             {

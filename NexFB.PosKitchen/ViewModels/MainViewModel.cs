@@ -757,6 +757,7 @@ namespace NexFB.PosKitchen.ViewModels
             else
             {
                 List<Order> waitingMeal = GetAllWaitingMeal();
+                CheckConditionToStartNewOrderNotity(waitingMeal);
                 switch (currentViewModel)
                 {
                     case Constant.WaitingMealViewModel:
@@ -764,18 +765,14 @@ namespace NexFB.PosKitchen.ViewModels
                         break;
                     case Constant.AwaitingDeliverViewModel:
                         ((AwaitingDeliverViewModel)CurrentViewModel).GetNewDataForApp();
-                        CheckConditionToStartNewOrderNotity(waitingMeal);
                         break;
                     case Constant.DeliveredFoodViewModel:
                         ////((DeliveredFoodViewModel)CurrentViewModel).GetNewDataForApp();
-                        CheckConditionToStartNewOrderNotity(waitingMeal);
                         break;
                     case Constant.CanceledFoodViewModel:
                         ((CanceledFoodViewModel)CurrentViewModel).GetNewDataForApp();
-                        CheckConditionToStartNewOrderNotity(waitingMeal);
                         break;
                     case Constant.OrderFoodViewModel:
-                        CheckConditionToStartNewOrderNotity(waitingMeal);
                         break;
                 }
             }
@@ -802,6 +799,8 @@ namespace NexFB.PosKitchen.ViewModels
         private void TimerTick(object sender, EventArgs e)
         {
             System.Media.SystemSounds.Asterisk.Play();
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
         }
 
         private List<Order> GetAllWaitingMeal()

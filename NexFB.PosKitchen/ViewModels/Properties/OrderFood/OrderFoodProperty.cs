@@ -801,19 +801,19 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         /// </summary>
         /// <param name="isLocationData">Check current menu is Location Data.</param>
         /// <param name="currentSelectedItem">Current selected item.</param>
-        public void ReleaseDataMiddleSide(bool isLocationData, CommonKitchenOrder currentSelectedItem)
+        public void ReleaseDataMiddleSide(bool onlyPickOneInList, CommonKitchenOrder currentSelectedItem)
         {
-            if (!isLocationData)
+            if (onlyPickOneInList)
+            {
+                CommonKitchenOrder.ToList().ForEach(x => x.IsSelectedMealMenu = false);
+                currentSelectedItem.IsSelectedMealMenu = true;
+            }
+            else
             {
                 CommonKitchenOrder.ToList().ForEach(x => x.IsFocusedMealMenu = false);
                 currentSelectedItem.IsSelectedMealMenu = true;
                 currentSelectedItem.IsFocusedMealMenu = true;
                 IsMenuFocused = true;
-            }
-            else
-            {
-                CommonKitchenOrder.ToList().ForEach(x => x.IsSelectedMealMenu = false);
-                currentSelectedItem.IsSelectedMealMenu = true;
             }
         }
     }
