@@ -799,7 +799,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         /// <summary>
         /// Release data in middle side when user have an action.
         /// </summary>
-        /// <param name="isLocationData">Check current menu is Location Data.</param>
+        /// <param name="onlyPickOneInList">Check current menu is Location Data or Group Data.</param>
         /// <param name="currentSelectedItem">Current selected item.</param>
         public void ReleaseDataMiddleSide(bool onlyPickOneInList, CommonKitchenOrder currentSelectedItem)
         {
