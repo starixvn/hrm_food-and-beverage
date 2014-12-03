@@ -116,7 +116,16 @@ reportUtilities) {
 		filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
 		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
 
-		reportFactory.exportMonthlyMainDishReportByLocal(filter.reportDate.toDateString(), filter.departmentId, filter.employeeTypeId, 
-						filter.teamId, filter.mealId, filter.groupBy);
+		$scope.criteria = {
+			reportDate: filter.reportDate.toDateString(),
+			departmentId: filter.departmentId,
+			employeeTypeId: filter.employeeTypeId,
+			teamId: filter.teamId,
+			mealId: filter.mealId,
+			groupBy: filter.groupBy,
+			isLocal: 1
+		};
+
+		$scope.$broadcast('exportMonthlyMainDishLocalReport');
 	};
 } ]);

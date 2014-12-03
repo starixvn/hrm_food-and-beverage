@@ -35,7 +35,7 @@ namespace NexFB.Site
                 defaults: new { id = RouteParameter.Optional });
 
             config.Filters.Add(new ExceptionHandlingAttribute());
-            config.MessageHandlers.Add(new EncodingDelegateHandler());
+           //// config.MessageHandlers.Add(new EncodingDelegateHandler());
         }
     }
 }

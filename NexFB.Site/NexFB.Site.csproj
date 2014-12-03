@@ -198,6 +198,9 @@
     <Compile Include="Controllers\API\SideDishManagementController.cs" />
     <Compile Include="Controllers\API\UserControlController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\ExportReportController.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -337,6 +340,7 @@
     <Content Include="Src\Components\Libs\date.js" />
     <Content Include="Src\Components\Libs\datepicker.js" />
     <Content Include="Src\Components\Libs\Fanex.Grid.js" />
+    <Content Include="Src\Components\Libs\Fanex.Pagination.js" />
     <Content Include="Src\Components\Libs\head.js" />
     <Content Include="Src\Components\Libs\jquery-ui.min.js" />
     <Content Include="Src\Components\Libs\jquery.signalR-1.1.4.js" />
@@ -388,6 +392,7 @@
     <Content Include="Src\Content\Common\chosen-sprite.png" />
     <Content Include="Src\Content\Common\chosen.min.css" />
     <Content Include="Src\Content\Common\Fanex.Grid.css" />
+    <Content Include="Src\Content\Common\Fanex.Pagination.css" />
     <Content Include="Src\Content\Common\Images\animated-overlay.gif" />
     <Content Include="Src\Content\Common\Images\auth-bg.png" />
     <Content Include="Src\Content\Common\Images\collapse-small.png" />

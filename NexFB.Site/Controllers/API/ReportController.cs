@@ -10,22 +10,17 @@
 namespace NexFB.Site.Controllers.API
 {
     using System;
-    using System.Web;
     using System.Web.Http;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
-    using NexFB.Web;
 
     /// <summary>
     /// The report controller.
     /// </summary>
     public class ReportController : BaseController
     {
-        private const string MonthlyMainDishReportLocalGroupByEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishReportLocal.xls";
-        private const string MonthlyMainDishReportLocalTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishReportLocal.xls";
-
         private readonly IReportService _reportService;
 
         public ReportController()
@@ -75,52 +70,6 @@ namespace NexFB.Site.Controllers.API
 
             var report = _reportService.GetMonthlyMainDishReportLocal(criteria);
             return report;
-        }
-
-        /// <summary>
-        /// Export monthly main dish report in local.
-        /// </summary>
-        /// <param name="reportDate">The report date.</param>
-        /// <param name="departmentId">The department Id.</param>
-        /// <param name="employeeTypeId">The employee type Id.</param>
-        /// <param name="teamId">The team Id.</param>
-        /// <param name="mealId">The meal Id.</param>
-        /// <param name="groupBy">The group by.</param>
-        [HttpGet]
-        public void ExportMonthlyMainDishReport(
-            DateTime reportDate,
-            string departmentId = "",
-            string employeeTypeId = "",
-            string teamId = "",
-            string mealId = "",
-            int groupBy = 0)
-        {
-            var criteria = new GetMonthlyMainDishReportLocalCriteria
-            {
-                ReportDate = reportDate,
-                DepartmentId = departmentId,
-                EmployeeTypeId = employeeTypeId,
-                TeamId = teamId,
-                MealId = mealId,
-                GroupBy = groupBy
-            };
-
-            var report = _reportService.GetMonthlyMainDishReportLocal(criteria);
-            string templateUrl = string.Empty;
-
-            if (report != null)
-            {
-                if (report.IsGroupByEmployee)
-                {
-                    templateUrl = HttpContext.Current.Server.MapPath(MonthlyMainDishReportLocalGroupByEmployeeTemplatePath);
-                }
-                else
-                {
-                    templateUrl = HttpContext.Current.Server.MapPath(MonthlyMainDishReportLocalGroupByEmployeeTemplatePath);
-                }
-
-                _reportService.ExportMonthlyMainDishReportLocal(report, templateUrl);
-            }
         }
     }
 }

@@ -72,34 +72,59 @@ namespace NexFB.Services.Implement
             // Fill report title.
             writer.CopyRows(0, 2);
             writer.WriteRow(2, new object[] { reportTitle });
+
+            // Fill report header.
             writer.CopyRows(3, 1);
             writer.CopyRows(4, 1);
 
-            FillContentRow(report, ref writer, 4);
-            ////writer.Render();
+            FillContentRow(report, ref writer);
+            FillTotalRow(report, ref writer);
+            writer.SyncColumnsWidth(12);
+
+            writer.Render();
         }
 
-        private void FillContentRow(MonthlyLocalReportModel report, ref ExcelTemplateWriter writer, int rowIndex)
+        private void FillContentRow(MonthlyLocalReportModel report, ref ExcelTemplateWriter writer)
         {
             bool isGroupByEmployee = report.IsGroupByEmployee;
 
             foreach (MealMonthModel meal in report.Meals)
             {
-                rowIndex++;
-                FillContentMeal(meal, ref writer, ref rowIndex, isGroupByEmployee);
+                FillContentMeal(meal, ref writer, isGroupByEmployee);
             }
+        }
+
+        /// <summary>
+        /// Fill total row.
+        /// </summary>
+        /// <param name="report">The report.</param>
+        /// <param name="writer">The writer.</param>
+        private void FillTotalRow(MonthlyLocalReportModel report, ref ExcelTemplateWriter writer)
+        {
+            bool isGroupByEmployee = report.IsGroupByEmployee;
+            object record = null;
+
+            if (isGroupByEmployee)
+            {
+                record = CreateTotalMealEmployeeRecord(report.Total);
+            }
+            else
+            {
+                record = CreateTotalMealDepartmentRecord(report.Total);
+            }
+
+            writer.WriteRow(7, record);
         }
 
         private void FillContentMeal(
             MealMonthModel meal,
             ref ExcelTemplateWriter writer,
-            ref int rowIndex,
             bool isGroupByEmployee)
         {
             IEnumerable<object> records = CreateMealRecord(meal.MealItems, isGroupByEmployee);
 
-            writer.WriteRow(rowIndex, meal.Meal.MealEngName);
-            writer.WriteRow(rowIndex++, records);
+            writer.WriteRow(5, new object[] { meal.Meal.MealEngName });
+            writer.WriteRows(6, records);
         }
 
         /// <summary>
@@ -246,6 +271,110 @@ namespace NexFB.Services.Implement
             }
 
             return records;
+        }
+
+        /// <summary>
+        /// Create total meal row.
+        /// </summary>
+        /// <param name="totalMeal">The total meal.</param>
+        /// <returns>The total row.</returns>
+        private object CreateTotalMealEmployeeRecord(MealDayOfMonthModel totalMeal)
+        {
+            List<int> numberMeals = totalMeal.NumberMeals;
+
+            var record = new
+            {
+                Count = Lang.Total,
+                Nick = string.Empty,
+                EmployeeType = string.Empty,
+                DepartmentSection = string.Empty,
+                Day1 = numberMeals[0],
+                Day2 = numberMeals[1],
+                Day3 = numberMeals[2],
+                Day4 = numberMeals[3],
+                Day5 = numberMeals[4],
+                Day6 = numberMeals[5],
+                Day7 = numberMeals[6],
+                Day8 = numberMeals[7],
+                Day9 = numberMeals[8],
+                Day10 = numberMeals[9],
+                Day11 = numberMeals[10],
+                Day12 = numberMeals[11],
+                Day13 = numberMeals[12],
+                Day14 = numberMeals[13],
+                Day15 = numberMeals[14],
+                Day16 = numberMeals[15],
+                Day17 = numberMeals[16],
+                Day18 = numberMeals[17],
+                Day19 = numberMeals[18],
+                Day20 = numberMeals[19],
+                Day21 = numberMeals[20],
+                Day22 = numberMeals[21],
+                Day23 = numberMeals[22],
+                Day24 = numberMeals[23],
+                Day25 = numberMeals[24],
+                Day26 = numberMeals[25],
+                Day27 = numberMeals[26],
+                Day28 = numberMeals[27],
+                Day29 = numberMeals[28],
+                Day30 = numberMeals[29],
+                Day31 = numberMeals[30],
+                Quantity = totalMeal.TotalQuantity,
+                Amount = totalMeal.Amount
+            };
+
+            return record;
+        }
+
+        /// <summary>
+        /// Create total meal row.
+        /// </summary>
+        /// <param name="totalMeal">The total meal.</param>
+        /// <returns>The total row.</returns>
+        private object CreateTotalMealDepartmentRecord(MealDayOfMonthModel totalMeal)
+        {
+            List<int> numberMeals = totalMeal.NumberMeals;
+
+            var record = new
+            {
+                Count = Lang.Total,
+                Nick = string.Empty,
+                Day1 = numberMeals[0],
+                Day2 = numberMeals[1],
+                Day3 = numberMeals[2],
+                Day4 = numberMeals[3],
+                Day5 = numberMeals[4],
+                Day6 = numberMeals[5],
+                Day7 = numberMeals[6],
+                Day8 = numberMeals[7],
+                Day9 = numberMeals[8],
+                Day10 = numberMeals[9],
+                Day11 = numberMeals[10],
+                Day12 = numberMeals[11],
+                Day13 = numberMeals[12],
+                Day14 = numberMeals[13],
+                Day15 = numberMeals[14],
+                Day16 = numberMeals[15],
+                Day17 = numberMeals[16],
+                Day18 = numberMeals[17],
+                Day19 = numberMeals[18],
+                Day20 = numberMeals[19],
+                Day21 = numberMeals[20],
+                Day22 = numberMeals[21],
+                Day23 = numberMeals[22],
+                Day24 = numberMeals[23],
+                Day25 = numberMeals[24],
+                Day26 = numberMeals[25],
+                Day27 = numberMeals[26],
+                Day28 = numberMeals[27],
+                Day29 = numberMeals[28],
+                Day30 = numberMeals[29],
+                Day31 = numberMeals[30],
+                Quantity = totalMeal.TotalQuantity,
+                Amount = totalMeal.Amount
+            };
+
+            return record;
         }
     }
 }
