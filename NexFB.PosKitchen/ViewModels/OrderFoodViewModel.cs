@@ -749,54 +749,30 @@ namespace NexFB.PosKitchen.ViewModels
         /// <returns>Boolean to check.</returns>
         public bool GetEmployeeInGroup(int sysId, object value = null)
         {
-            var getEmployeeInGroupBySysIdCriteria = new GetEmployeeInGroupBySysIdCriteria() { SysId = sysId };
-            EmployeeInGroup employeeInGroup = this.KitchenService.GetEmployeeInGroup(getEmployeeInGroupBySysIdCriteria);
-            bool result = false;
-            if (employeeInGroup != null)
+            if (!UserInGroup.Any(x => x.SysId == sysId))
             {
-                CurrentSelectedEmployeeSysId = sysId;
-                if (employeeInGroup.GroupOrder.Count > 0)
+                KitchenEmployeeInfo employee = this.GetEmployeeBySysId(sysId);
+                CheckCanOrderMainFood(employee);
+                if (employee != null)
                 {
-                    foreach (var group in employeeInGroup.GroupOrder)
-                    {
-                        EmployeeInfo.GroupOrderId = group.GroupOrderId;
-                        ExecutePickGroupCommand();
-                        CommonKitchenOrder currentSelectedItem = CommonKitchenOrder.Where(x => x.ItemId == group.GroupOrderId).FirstOrDefault();
-                        currentSelectedItem.IsSelectedMealMenu = true;
-                        AddMemberInGroupToGrid(currentSelectedItem);
-                    }
-
-                    result = CheckValidEmployeeData(sysId, value);
+                    UserInGroup.ToList().ForEach(x => x.IsSelectedMemberInGroup = false);
+                    employee.IsSelectedMemberInGroup = true;
+                    employee.IsPlaceOrder = true;
+                    UserInGroup.Add(employee);
+                    ShowGridDisplayUser();
+                    CloseEmployeeSelectionDialog(value);
                 }
-                else
-                {
-                    if (!UserInGroup.Any(x => x.SysId == sysId))
-                    {
-                        KitchenEmployeeInfo employee = MappingEmployeeData(employeeInGroup.Employees.FirstOrDefault());
-                        CheckCanOrderMainFood(employee);
-                        if (employee != null)
-                        {
-                            UserInGroup.ToList().ForEach(x => x.IsSelectedMemberInGroup = false);
-                            employee.IsSelectedMemberInGroup = true;
-                            employee.IsPlaceOrder = true;
-                            UserInGroup.Add(employee);
-                            ShowGridDisplayUser();
-                            CloseEmployeeSelectionDialog(value);
-                        }
 
-                        DisabledMainFoodMenu();
-                        ChangeMenuColor(employee);
-                    }
-                    else
-                    {
-                        this.ShowErrorMessage(CurrentCulture(), WinFormMainResource.Message_EmployeeExist);
-                    }
-
-                    result = true;
-                }
+                DisabledMainFoodMenu();
+                ChangeMenuColor(employee);
+            }
+            else
+            {
+                this.ShowErrorMessage(CurrentCulture(), WinFormMainResource.Message_EmployeeExist);
+                return false;
             }
 
-            return result;
+            return true;
         }
 
         public void CloseEmployeeSelectionDialog(object value)
