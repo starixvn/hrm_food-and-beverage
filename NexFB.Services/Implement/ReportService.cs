@@ -11,6 +11,7 @@ namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Fanex.Common.Helper;
     using NexFB.Core.Enums;
     using NexFB.Core.Utilities;
@@ -47,15 +48,17 @@ namespace NexFB.Services.Implement
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             var report = new MonthlyLocalReportModel();
+            MonthlyLocalReportModel pagingReport = null;
 
             if (criteria.IsValid())
             {
                 report = _reportRepository.GetMonthlyMainDishReportLocal(criteria);
                 report.Month = criteria.ReportDate;
                 report.IsGroupByEmployee = criteria.GroupBy == (int)GroupByReport.Employee;
+                pagingReport = GetPaingReport(report, criteria.StartIndex, criteria.ItemsPerPage);
             }
 
-            return report;
+            return pagingReport;
         }
 
         /// <summary>
@@ -82,6 +85,121 @@ namespace NexFB.Services.Implement
             writer.SyncColumnsWidth(12);
 
             writer.Render();
+        }
+
+        /// <summary>
+        /// Get paging report.
+        /// </summary>
+        /// <param name="report">The report.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The paging report.</returns>
+        private MonthlyLocalReportModel GetPaingReport(
+            MonthlyLocalReportModel report,
+            int startIndex,
+            int itemsPerPage)
+        {
+            var pagingReport = new MonthlyLocalReportModel
+            {
+                IsGroupByEmployee = report.IsGroupByEmployee,
+                Month = report.Month,
+                Total = report.Total,
+                WeekDays = report.WeekDays,
+                TotalItem = CalculateTotalItem(report)
+            };
+
+            List<MealMonthModel> meals = LoopAndGetPagingReport(report, startIndex, itemsPerPage);
+            pagingReport.Meals = meals;
+
+            return pagingReport;
+        }
+
+        private int CalculateTotalItem(MonthlyLocalReportModel report)
+        {
+            int totalItem = 0;
+
+            foreach (MealMonthModel meal in report.Meals)
+            {
+                totalItem += meal.MealItems.Count;
+            }
+
+            return totalItem;
+        }
+
+        /// <summary>
+        /// Loop and get paging report.
+        /// </summary>
+        /// <param name="report">The report.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The list new meals.</returns>
+        private List<MealMonthModel> LoopAndGetPagingReport(
+            MonthlyLocalReportModel report,
+            int startIndex,
+            int itemsPerPage)
+        {
+            var meals = new List<MealMonthModel>();
+            int numberItemsInMeal = 0;
+            int numberMeals = report.Meals.Count;
+            int index = 0;
+
+            while (index < numberMeals)
+            {
+                MealMonthModel meal = report.Meals[index];
+                numberItemsInMeal = meal.MealItems.Count;
+
+                if (numberItemsInMeal > startIndex)
+                {
+                    int numberItemsRemain = numberItemsInMeal - startIndex;
+
+                    if (numberItemsRemain <= itemsPerPage)
+                    {
+                        MealMonthModel paingMeal = AddMealItemIntoPagingReport(startIndex, meal, itemsPerPage);
+                        meals.Add(paingMeal);
+
+                        if (numberItemsRemain == itemsPerPage)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            startIndex = 0;
+                            itemsPerPage -= numberItemsRemain;
+                        }
+                    }
+                    else
+                    {
+                        MealMonthModel paingMeal = AddMealItemIntoPagingReport(startIndex, meal, itemsPerPage);
+                        meals.Add(paingMeal);
+                    }
+                }
+                else
+                {
+                    startIndex -= numberItemsInMeal;
+                }
+
+                index++;
+            }
+
+            return meals;
+        }
+
+        /// <summary>
+        /// Create new meal of paging report.
+        /// </summary>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="meal">The current meal.</param>
+        /// <param name="items">The number items per page.</param>
+        /// <returns>The new meal.</returns>
+        private MealMonthModel AddMealItemIntoPagingReport(int startIndex, MealMonthModel meal, int items)
+        {
+            var newMeal = new MealMonthModel
+            {
+                Meal = meal.Meal,
+                MealItems = meal.MealItems.Skip(startIndex).Take(items).ToList()
+            };
+
+            return newMeal;
         }
 
         private void FillContentRow(MonthlyLocalReportModel report, ref ExcelTemplateWriter writer)

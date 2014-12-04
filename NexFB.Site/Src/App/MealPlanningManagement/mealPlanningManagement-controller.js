@@ -208,6 +208,9 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 				},
 				mealTimesheets: function () {
 					return $scope.mealTimesheets;
+				},
+				isOriginalActive: function () {
+					return mealPlanning.IsActive;
 				}
 			},
 			windowClass: "modal-confirm-center meal-planning-modal"

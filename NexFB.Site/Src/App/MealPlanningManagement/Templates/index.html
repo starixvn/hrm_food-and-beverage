@@ -139,11 +139,10 @@
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
                         ng-show="$first && policy.permission == 2" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}"
                         class="text-center">
-                        <div ng-show="!mealPlanning.IsDisable">
-                            <a class="glyphicon glyphicon-edit" href="" ng-click="edit(mealPlanning)"></a><a
-                                class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteMealPlanning(mealPlanning)">
-                            </a>
-                        </div>
+                        <div>
+                            <a class="glyphicon glyphicon-edit" href="" ng-click="edit(mealPlanning)" ng-show="!mealPlanning.IsDisable || mealPlanning.IsCurrentMeal" />
+							<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteMealPlanning(mealPlanning)" ng-show="!mealPlanning.IsDisable" />
+                           </div>
                     </td>
                 </tr>
                 <tr ng-show="mealPlanning.SetMenu.FoodItems.length == 0">
@@ -200,10 +199,9 @@
                     </td>
                     <td ng-show="mealPlanning.IsExist && policy.permission == 2" ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}"
                         rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" class="text-center">
-                        <div ng-show="!mealPlanning.IsDisable">
-                            <a class="glyphicon glyphicon-edit" href="" ng-click="edit(mealPlanning)"></a><a
-                                class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteMealPlanning(mealPlanning)">
-                            </a>
+                        <div>
+                            <a class="glyphicon glyphicon-edit" href="" ng-click="edit(mealPlanning)" ng-show="!mealPlanning.IsDisable || mealPlanning.IsCurrentMeal" />
+							<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteMealPlanning(mealPlanning)" ng-show="!mealPlanning.IsDisable" />
                         </div>
                     </td>
                 </tr>

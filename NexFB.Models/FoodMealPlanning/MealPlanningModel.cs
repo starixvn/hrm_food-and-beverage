@@ -26,6 +26,8 @@ namespace NexFB.Models.FoodMealPlanning
 
         public bool IsDisable { get; set; }
 
+        public bool IsCurrentMeal { get; set; }
+
         public SetMenuModel SetMenu { get; set; }
 
         public FoodMenuModel Menu { get; set; }

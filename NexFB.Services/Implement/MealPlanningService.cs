@@ -58,10 +58,14 @@ namespace NexFB.Services.Implement
             if (criteria.IsValid())
             {
                 mealPlannings = _mealPlanningRepository.GetMealPlanningByOnDate(criteria);
+                bool isDisable = false;
+                bool isCurrentMeal = false;
 
                 foreach (MealPlanningModel mealPlanning in mealPlannings)
                 {
-                    mealPlanning.IsDisable = CheckDisableMealPlanning(mealPlanning);
+                    CheckDisableMealPlanning(mealPlanning, ref isDisable, ref isCurrentMeal);
+                    mealPlanning.IsDisable = isDisable;
+                    mealPlanning.IsCurrentMeal = isCurrentMeal;
                 }
             }
 
@@ -162,11 +166,10 @@ namespace NexFB.Services.Implement
         /// Check meal planning is disabled or not.
         /// </summary>
         /// <param name="mealPlanning">The meal planning.</param>
-        /// <returns>Is disabled or not.</returns>
-        public bool CheckDisableMealPlanning(MealPlanningModel mealPlanning)
+        /// <param name="isDisable">The meal planning is disabled or not.</param>
+        /// <param name="isCurrentMeal">The meal planning is current meal.</param>
+        private void CheckDisableMealPlanning(MealPlanningModel mealPlanning, ref bool isDisable, ref bool isCurrentMeal)
         {
-            bool isDisable = false;
-
             if (mealPlanning.Date.Date < DateTime.Now.Date)
             {
                 isDisable = true;
@@ -178,21 +181,19 @@ namespace NexFB.Services.Implement
 
                 if (lastMeal != null)
                 {
-                    isDisable = CheckMealTimesheet(lastMeal);
+                    CheckMealTimesheet(lastMeal, ref isDisable, ref isCurrentMeal);
                 }
             }
-
-            return isDisable;
         }
 
         /// <summary>
         /// Check meal timesheet.
         /// </summary>
         /// <param name="lastMeal">The last meal of current meal planning.</param>
-        /// <returns>Is disabled or not.</returns>
-        private bool CheckMealTimesheet(MealModel lastMeal)
+        /// <param name="isDisable">The meal planning is disabled or not.</param>
+        /// <param name="isCurrentMeal">The meal planning is current meal.</param>
+        private void CheckMealTimesheet(MealModel lastMeal, ref bool isDisable, ref bool isCurrentMeal)
         {
-            bool isDisable = false;
             var criteria = new GetMealTimesheetCriteria();
             IEnumerable<MealTimesheet> mealTimesheets = _commonService.GetAllMealTimesheet(criteria);
             MealTimesheet lastTimesheet = GetLastTimesheet(mealTimesheets, lastMeal);
@@ -200,9 +201,8 @@ namespace NexFB.Services.Implement
             if (lastTimesheet != null)
             {
                 isDisable = CheckRightMeal(lastTimesheet);
+                isCurrentMeal = CheckCurrentMeal(lastTimesheet);
             }
-
-            return isDisable;
         }
 
         /// <summary>
@@ -232,6 +232,17 @@ namespace NexFB.Services.Implement
             }
 
             return true;
+        }
+
+        private bool CheckCurrentMeal(MealTimesheet lastTimesheet)
+        {
+            if (DateTime.Now.TimeOfDay >= lastTimesheet.StartTime.TimeOfDay &&
+                    DateTime.Now.TimeOfDay <= lastTimesheet.EndTime.TimeOfDay)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

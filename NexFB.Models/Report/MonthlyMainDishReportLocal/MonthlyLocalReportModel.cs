@@ -31,5 +31,7 @@ namespace NexFB.Models.Report.MonthlyMainDishReportLocal
         public MealDayOfMonthModel Total { get; set; }
 
         public MealDayOfMonthModel WeekDays { get; set; }
+
+        public int TotalItem { get; set; }
     }
 }

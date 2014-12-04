@@ -42,6 +42,8 @@ namespace NexFB.Site.Controllers.API
         /// <param name="teamId">The team Id.</param>
         /// <param name="mealId">The meal Id.</param>
         /// <param name="groupBy">The group by.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
         /// <param name="isDebug">The is debug.</param>
         /// <param name="isLocal">The is local.</param>
         /// <returns>The report.</returns>
@@ -53,6 +55,8 @@ namespace NexFB.Site.Controllers.API
             string teamId = "",
             string mealId = "",
             int groupBy = 0,
+            int startIndex = 0,
+            int itemsPerPage = 50,
             bool isDebug = false,
             int isLocal = 1)
         {
@@ -65,7 +69,9 @@ namespace NexFB.Site.Controllers.API
                 MealId = mealId,
                 GroupBy = groupBy,
                 IsDebug = isDebug,
-                IsLocal = isLocal
+                IsLocal = isLocal,
+                StartIndex = startIndex,
+                ItemsPerPage = itemsPerPage
             };
 
             var report = _reportService.GetMonthlyMainDishReportLocal(criteria);

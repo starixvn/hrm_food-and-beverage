@@ -233,7 +233,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 			angular.forEach(data.Members, function (member) {
 				// new order
-				if (member.IsAllowOrder) {
+				if (member.IsAllowOrder || member.Menus[0].MenuId === -1) {
 					member.IsOrder = true;
 					newMembers.push(member);
 				}
@@ -376,7 +376,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 						if (value.IsAllowOrder) {
 							isValid = true;
 						}
-						else {
+						else if (value.Menus[0].MenuId !== -1) {
 							overOrderMessage += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + value.Member.NickName;
 						}
 					}
@@ -411,7 +411,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 			angular.forEach(order.Members, function (member) {
 				angular.forEach(member.Menus, function (menu) {
-					if (menu.MenuId === -1 && member.IsOrder) {
+					if (menu.MenuId === -1) {
 						memberNonMenuMessage += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + member.Member.NickName;
 					}
 				});

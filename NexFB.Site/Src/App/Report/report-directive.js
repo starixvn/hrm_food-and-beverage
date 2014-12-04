@@ -182,6 +182,18 @@ reportModule.directive('renderMonthlyReport', function () {
 	return {
 		link: function (scope, iElement) {
 			scope.$on('renderMonthlyReport', function () {
+				function ReRenderAfterPaged(pageIndex, itemsPerPage) {
+					scope.filter.startIndex = pageIndex >= 0 ? (pageIndex * itemsPerPage) : 0;
+					scope.filter.itemsPerPage = itemsPerPage;
+
+					scope.gridOption.itemsPerPage = itemsPerPage;
+					scope.gridOption.currentPage = pageIndex;
+					scope.gridOption.startIndex = scope.filter.startIndex;
+
+					scope.getMonthlyReportLocal.call(this, scope.filter);
+					return false;
+				}
+
 				var id = iElement.attr('id'),
 					report = scope.localReport,
 					bodyData = generateDataBody(report),
@@ -207,7 +219,17 @@ reportModule.directive('renderMonthlyReport', function () {
 //					numberOfFrozenColumn: report.IsGroupByEmployee ? 4 : 2,
 					showFooter: true,
 					footerRows: footerData,
-					gridExpandHeight: 300
+					gridExpandHeight: 300,
+					showPager: true,
+					customPager: true,
+					pagerOption: {
+						startPerPage: 50,
+						totalItem: report.TotalItem,
+						itemsPerPageArray: [50, 100, 200, 500],
+						itemsPerPage: scope.gridOption.itemsPerPage,
+						currentPage: scope.gridOption.currentPage,
+						pagerSelectCallBack: ReRenderAfterPaged
+					}
 				};
 
 				$('#' + id).fanexGrid(gridOptions);

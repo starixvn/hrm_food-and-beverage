@@ -604,7 +604,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 					return 'default';
 				},
 				timePeriod: function () {
-					return 'All week ' + new Date().getFullYear();
+					return 'All weeks ' + new Date().getFullYear();
 				},
 				isSerialRegistration: function () {
 					return true;

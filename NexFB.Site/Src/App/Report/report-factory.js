@@ -3,16 +3,18 @@
 
 reportModule.factory('reportFactory', ['$http', function ($http) {
 	return {
-		getMonthlyMainDishReportByLocal: function (reportDate, departmentId, employeeTypeId, teamId, mealId, groupBy) {
+		getMonthlyMainDishReportByLocal: function (filter) {
 			return $http.get('/api/Report/GetMonthlyMainDishReportLocal',
-				{ params: { reportDate: reportDate,
-					departmentId: departmentId,
-					employeeTypeId: employeeTypeId,
-					teamId: teamId,
-					mealId: mealId,
-					groupBy: groupBy
+				{ params: { reportDate: filter.reportDate.toDateString(),
+					departmentId: filter.departmentId,
+					employeeTypeId: filter.employeeTypeId,
+					teamId: filter.teamId,
+					mealId: filter.mealId,
+					groupBy: filter.groupBy,
+					startIndex: filter.startIndex,
+					itemsPerPage: filter.itemsPerPage
 				}
-				});
+			});
 		}
 	};
 } ]);

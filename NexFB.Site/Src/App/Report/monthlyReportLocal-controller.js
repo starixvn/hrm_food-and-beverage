@@ -14,7 +14,9 @@ reportUtilities) {
 
 	$scope.filter = {
 		reportDate: currentDate,
-		groupBy: 0
+		groupBy: 0,
+		startIndex: 0,
+		itemsPerPage: 50
 	};
 
 	$scope.format = 'MMM yyyy';
@@ -25,8 +27,23 @@ reportUtilities) {
 		formatMonth: 'MMM'
 	};
 
+	$scope.gridOption = {
+		itemsPerPage: 50,
+		currentPage: 0,
+		startIndex: 0
+	};
+
 	$scope.numberFormat = reportUtilities.getNumberFormat();
 	$scope.monthFormat = reportUtilities.getMonthFormat();
+
+	/*
+	** Reset grid option.
+	*/
+	var resetGridOption = function () {
+		$scope.gridOption.itemsPerPage = 50;
+		$scope.gridOption.currentPage = 0;
+		$scope.gridOption.startIndex = 0;
+	};
 
 	/*
 	** Open pop-up calendar.
@@ -84,8 +101,8 @@ reportUtilities) {
 	/*
 	** Get monthly main dish report by local.
 	*/
-	var getMonthlyReportLocal = function (reportDate, departmentId, employeeTypeId, teamId, mealId, groupBy) {
-		reportFactory.getMonthlyMainDishReportByLocal(reportDate, departmentId, employeeTypeId, teamId, mealId, groupBy)
+	$scope.getMonthlyReportLocal = function (filter) {
+		reportFactory.getMonthlyMainDishReportByLocal(filter)
 			.success(function (report) {
 				$scope.localReport = report;
 				$scope.$broadcast('renderMonthlyReport');
@@ -95,17 +112,18 @@ reportUtilities) {
 			});
 	};
 
-	getMonthlyReportLocal(new Date().toDateString(), "", "", "", "", 0);
+	$scope.getMonthlyReportLocal($scope.filter);
 
 	/*
 	** Query data.
 	*/
 	$scope.query = function (filter) {
+		resetGridOption();
 		filter.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
 		filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
 		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
 
-		getMonthlyReportLocal(filter.reportDate.toDateString(), filter.departmentId, filter.employeeTypeId, filter.teamId, filter.mealId, filter.groupBy);
+		$scope.getMonthlyReportLocal(filter);
 	};
 
 	/*
