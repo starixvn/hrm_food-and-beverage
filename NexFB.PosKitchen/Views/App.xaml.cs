@@ -9,6 +9,7 @@
 
 namespace NexFB.PosKitchen
 {
+    using System;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
@@ -16,6 +17,7 @@ namespace NexFB.PosKitchen
     using System.Windows.Threading;
     using Fanex.Data;
     using Fanex.Data.Configuration;
+    using Fanex.Logging;
     using NexFB.Pos.Core.Constants;
     using NexFB.Pos.Core.InternetBased;
     using NexFB.Pos.Core.Mapping;
@@ -26,6 +28,12 @@ namespace NexFB.PosKitchen
     /// </summary>
     public partial class App : Application
     {
+        public App()
+            : base()
+        {
+            this.Dispatcher.UnhandledException += App_DispatcherUnhandledException;
+        }
+
         /// <summary>
         /// Startup method.
         /// </summary>
@@ -39,33 +47,7 @@ namespace NexFB.PosKitchen
             }
             else
             {
-                if (DBConnectionAvailability.LocalDBConnectionAvailable())
-                {
-                    ChangeConnectionToLocalDB();
-                }
-                else
-                {
-                    DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_NetworkConnectionException);
-                }
-            }
-        }
-
-        private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
-            string errorMessage = Lang.ErrorMessage + "\n\nError details:\n" + e.Exception.InnerException.Message;
-            e.Handled = true;
-            if (MessageBox.Show(errorMessage, Lang.UnhandledException, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
-            {
-                Shutdown();
-            }
-        }
-
-        private void App_NetworkConnectionException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
-            e.Handled = true;
-            if (MessageBox.Show(Lang.NetworkConnectionError, Lang.ErrorNetworkConnectionHeader, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
-            {
-                Shutdown();
+                ChangeConnectionToLocalDB();
             }
         }
 
@@ -75,27 +57,20 @@ namespace NexFB.PosKitchen
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]        
         private void InitializeApp()
         {
-            try
-            {
-                string defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
-                IMappingRegister mappingRegister = new CoreMappingRegister();
-                mappingRegister.Register();
+            string defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
+            IMappingRegister mappingRegister = new CoreMappingRegister();
+            mappingRegister.Register();
 
-                if (string.IsNullOrEmpty(defaultLanguage))
-                {
-                    WinFormMainResource.Culture = new CultureInfo(Constant.DefaultCulture);
-                }
-                else
-                {
-                    WinFormMainResource.Culture = new CultureInfo(defaultLanguage);
-                }
-
-                DbSettingProviderManager.Current.Start();
-            }
-            catch
+            if (string.IsNullOrEmpty(defaultLanguage))
             {
-                DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);
+                WinFormMainResource.Culture = new CultureInfo(Constant.DefaultCulture);
             }
+            else
+            {
+                WinFormMainResource.Culture = new CultureInfo(defaultLanguage);
+            }
+
+            DbSettingProviderManager.Current.Start();
 
             ////UpdateManager.UpdateApp();
         }
@@ -127,6 +102,39 @@ namespace NexFB.PosKitchen
                     }
                 }
             }
+        }
+
+        private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            Application_Error(e);
+            string errorMessage = Lang.ErrorMessage + "\n\nError details:\n" + e.Exception.Message;
+            e.Handled = true;
+            if (MessageBox.Show(errorMessage, Lang.UnhandledException, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+            {
+                Shutdown();
+            }
+        }
+
+        private void App_NetworkConnectionException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            Application_Error(e);
+            e.Handled = true;
+            if (MessageBox.Show(Lang.NetworkConnectionError, Lang.ErrorNetworkConnectionHeader, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+            {
+                Shutdown();
+            }
+        }
+
+        private void Application_Error(DispatcherUnhandledExceptionEventArgs e)
+        {
+            Exception ex = e.Exception;
+            string message = ex.Message +
+                    "\r\nSource: " + ex.Source +
+                     "\r\nDomain: POS Kitchen" +
+                    "\r\nTargetSite: " + ex.TargetSite +
+                    "\r\nStackTrace: " + ex.StackTrace;
+
+            LogService.Error(message);
         }
     }
 }

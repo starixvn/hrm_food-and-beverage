@@ -16,6 +16,7 @@ namespace NexFB.WinAppSmartCard
     using System.Windows.Threading;
     using Fanex.Data;
     using Fanex.Data.Configuration;
+    using Fanex.Logging;
     using NexFB.Pos.Core.InternetBased;
     using NexFB.Resources;
     using NexFB.WinAppSmartCard.Core.Constants;
@@ -81,8 +82,8 @@ namespace NexFB.WinAppSmartCard
 
             manager.CardNumberChanged += new EventHandler<CardNumberChangedEventArgs>((sender, ex) => OnCardNumberChange(ex, mainViewModel, mainWindow));
             ResourceManagerService.RegisterManager(@"MainScreenResources", MainScreenResources.ResourceManager, true);
-            DbSettingProviderManager.Current.Start();
             mappingRegister.Register();
+            DbSettingProviderManager.Current.Start();
         }
 
         /// <summary>
@@ -109,7 +110,8 @@ namespace NexFB.WinAppSmartCard
 
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            string errorMessage = Lang.ErrorMessage + "\n\nError details:\n" + e.Exception.InnerException;
+            Application_Error(e);
+            string errorMessage = Lang.ErrorMessage + "\n\nError details:\n" + e.Exception.Message;
             e.Handled = true;
             if (MessageBox.Show(errorMessage, Lang.UnhandledException, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
             {
@@ -123,6 +125,18 @@ namespace NexFB.WinAppSmartCard
             {
                 Shutdown();
             }
+        }
+
+        private void Application_Error(DispatcherUnhandledExceptionEventArgs e)
+        {
+            Exception ex = e.Exception;
+            string message = ex.Message +
+                    "\r\nSource: " + ex.Source +
+                     "\r\nDomain: POS Employee" +
+                    "\r\nTargetSite: " + ex.TargetSite +
+                    "\r\nStackTrace: " + ex.StackTrace;
+
+            LogService.Error(message);
         }
     }
 }

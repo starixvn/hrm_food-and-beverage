@@ -61,6 +61,7 @@
     <Compile Include="Enums\KitchenScreen.cs" />
     <Compile Include="Enums\LanguageLocalization.cs" />
     <Compile Include="Enums\QueryData.cs" />
+    <Compile Include="Helpers\NotificationSound.cs" />
     <Compile Include="Helpers\ResourceManagerHelper.cs" />
     <Compile Include="InternetBased\DBConnectionAvailability.cs" />
     <Compile Include="InternetBased\InternetAvailability.cs" />

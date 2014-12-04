@@ -27,6 +27,7 @@ namespace NexFB.PosKitchen.ViewModels
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.Constants;
     using NexFB.Pos.Core.Enums;
+    using NexFB.Pos.Core.Helpers;
     using NexFB.Pos.Core.InternetBased;
     using NexFB.PosKitchen.ViewModels.Properties.Main;
     using NexFB.Resources;
@@ -751,7 +752,7 @@ namespace NexFB.PosKitchen.ViewModels
                     }
                 }
 
-                SystemSounds.Asterisk.Play();
+                NotificationSound.PlayingNotificationSound();
                 timer.Stop();
             }
             else
@@ -798,7 +799,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         private void TimerTick(object sender, EventArgs e)
         {
-            SystemSounds.Asterisk.Play();
+            NotificationSound.PlayingNotificationSound();
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
         }
