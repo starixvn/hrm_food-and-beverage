@@ -763,6 +763,7 @@ namespace NexFB.PosKitchen.ViewModels
                     CloseEmployeeSelectionDialog(value);
                 }
 
+                CurrentSelectedEmployeeSysId = sysId;
                 DisabledMainFoodMenu();
                 ChangeMenuColor(employee);
             }

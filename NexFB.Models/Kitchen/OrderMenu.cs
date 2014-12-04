@@ -91,20 +91,6 @@ namespace NexFB.Models.Kitchen
             }
         }
 
-        public string DisplayName
-        {
-            get
-            {
-                string setName = NickName;
-                if (IsDeleted)
-                {
-                    setName += WinFormMainResource.DisplayDeletedName;
-                }
-
-                return setName;
-            }
-        }
-
         public string DisplayQuantity
         {
             get

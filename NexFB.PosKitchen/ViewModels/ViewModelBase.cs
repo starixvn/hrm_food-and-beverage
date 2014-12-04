@@ -231,21 +231,28 @@ namespace NexFB.PosKitchen.ViewModels
                           SideDish = x.IsSideDish,
                           MenuVnmName = x.MenuVnmName,
                           MenuEngName = x.MenuEngName,
-                          Quantity = x.QuantityOrder
+                          Quantity = x.QuantityOrder,
+                          IsDeleted = x.IsDeleted
                       }).Select(
                       x => new
                       {
                           MenuId = x.Key.MenuId,
-                          ListItem = x.ToList()
+                          ListItem = x.Where(y => !y.IsDeleted).ToList()
                       }).ToList();
 
-                groupItems.ForEach(x => menuDetails.Add(new MenuCount()
+                groupItems.ForEach(x =>
                 {
-                    MenuId = x.MenuId,
-                    MenuVnmName = x.ListItem[0].MenuVnmName,
-                    MenuEngName = x.ListItem[0].MenuEngName,
-                    Quantity = x.ListItem.Sum(y => y.Quantity)
-                }));
+                    if (x.ListItem.Count > 0)
+                    {
+                        menuDetails.Add(new MenuCount()
+                        {
+                            MenuId = x.MenuId,
+                            MenuVnmName = x.ListItem[0].MenuVnmName,
+                            MenuEngName = x.ListItem[0].MenuEngName,
+                            Quantity = x.ListItem.Sum(y => y.Quantity)
+                        });
+                    }
+                });
             }
 
             return menuDetails;

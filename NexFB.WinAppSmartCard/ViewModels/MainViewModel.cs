@@ -421,7 +421,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     employeeData.MenuEngName = orderStatus.MenuEngName;
                     employeeData.MenuVnmName = orderStatus.MenuVnmName;
                     employeeData.MenuId = orderStatus.MenuId;
-
                     Employee employeeInfoMapping = Mapper.Map<EmployeeInfo, Employee>(employeeData);
                     if (OrderOwner == null)
                     {
@@ -434,14 +433,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         {
                             if (!isSideDishView)
                             {
-                                if (employeeInfoMapping.MenuId == ConstantValue.NoMenuAvailableCode)
-                                {
-                                    this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_NoMenu);
-                                }
-                                else
-                                {
-                                    this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_AlreadyOrder);
-                                }
+                                ShowMessageCannotOrder(employeeInfoMapping);
                             }
                         }
                         else
@@ -463,6 +455,18 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 {
                     this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_UnhandledError);
                 }
+            }
+        }
+
+        private void ShowMessageCannotOrder(Employee employeeInfoMapping)
+        {
+            if (employeeInfoMapping.MenuId == ConstantValue.NoMenuAvailableCode)
+            {
+                this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_NoMenu);
+            }
+            else
+            {
+                this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_AlreadyOrder);
             }
         }
 

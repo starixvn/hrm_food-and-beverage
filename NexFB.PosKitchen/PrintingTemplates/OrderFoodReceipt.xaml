@@ -118,7 +118,7 @@
 										<RowDefinition Height="{Binding Path=DisplayRowHeight}"/>
 									</Grid.RowDefinitions>
 
-									<Label FontSize="10" ContentStringFormat="> {0} " Content="{Binding Path=DisplayName}" 
+									<Label FontSize="10" ContentStringFormat="> {0} " Content="{Binding Path=NickName}" 
 									HorizontalAlignment="Left" Margin="0,0,0,-15" VerticalAlignment="Stretch" />
 
 									<TextBlock FontSize="10" TextWrapping="WrapWithOverflow" 
@@ -213,7 +213,7 @@
 								<Grid Visibility="{Binding ElementName=GeneralInfo, Path=DataContext.HasEdited}">
 									<Rectangle Height="34" Fill="Black" HorizontalAlignment="Left" Margin="128,3,0,0" Stroke="Black" VerticalAlignment="Top" Width="140" />
 									<TextBlock FontWeight="Black" FontSize="15" Foreground="White" 
-							Height="31" HorizontalAlignment="Left" Margin="143,10,0,0"
+							Height="31" HorizontalAlignment="Left" Margin="183,10,0,0"
 							Text="{x:Static resx:WinFormMainResource.ReduceBilingual}" VerticalAlignment="Top" />
 								</Grid>
 							</Grid>
