@@ -62,26 +62,12 @@ namespace NexFB.PosKitchen.ViewModels
 
         public Task SendNewOrder(int orderId)
         {
-            if (IsMainHub)
-            {
-                return Proxy.Invoke("SendNewOrder", orderId);
-            }
-            else
-            {
-                return ProxyLocal.Invoke("SendNewOrder", orderId);
-            }
+            return IsMainHub ? Proxy.Invoke("SendNewOrder", orderId) : ProxyLocal.Invoke("SendNewOrder", orderId);
         }
 
         public Task SendEditOrder(int orderId)
         {
-            if (IsMainHub)
-            {
-                return Proxy.Invoke("SendEditOrder", orderId);
-            }
-            else
-            {
-                return ProxyLocal.Invoke("SendEditOrder", orderId);
-            }
+            return IsMainHub ? Proxy.Invoke("SendEditOrder", orderId) : ProxyLocal.Invoke("SendEditOrder", orderId);
         }
 
         #endregion
@@ -91,12 +77,7 @@ namespace NexFB.PosKitchen.ViewModels
         // Can Execute Command
         private bool CanExecuteNumPadPressed()
         {
-            if (SearchResult != null && SearchResult.Length == 3)
-            {
-                return false;
-            }
-
-            return true;
+            return string.IsNullOrEmpty(SearchResult) || SearchResult.Length < 3;
         }
 
         private void ExecuteViewPendingFood()
@@ -132,14 +113,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         private void ExecuteDisplayKeyPad()
         {
-            if (KeyPadVisibility == Constant.Visible)
-            {
-                KeyPadVisibility = Constant.Hidden;
-            }
-            else
-            {
-                KeyPadVisibility = Constant.Visible;
-            }
+            KeyPadVisibility = KeyPadVisibility == Constant.Visible ? Constant.Hidden : Constant.Visible;
         }
 
         /// <summary>

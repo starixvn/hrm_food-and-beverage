@@ -190,7 +190,7 @@ namespace NexFB.PosKitchen.ViewModels
                         {
                             if (itemId == int.MaxValue)
                             {
-                                //// Check for user used to deleted main food menu.
+                                //// Check for user had removed the main food menu.
                                 currentSelectedMember.IsDeleteMainFood = false;
                             }
 
@@ -807,13 +807,13 @@ namespace NexFB.PosKitchen.ViewModels
                             PrepareDataEmployeeInGroup(group.ItemId);
                         }
 
-                        if (UserInGroup.Count == 0)
-                        {
-                            HideGridDisplayUser();
-                        }
-
                         UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
                     }
+                }
+
+                if (UserInGroup != null)
+                {
+                    GridUserVisibility = UserInGroup.Count > 0 ? Constant.Visible : Constant.Hidden;
                 }
             }
         }
@@ -1180,7 +1180,6 @@ namespace NexFB.PosKitchen.ViewModels
             LocationName = null;
             OwnerImage = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, Constant.DefaultAvatar);
             LocationId = 0;
-            GridUserVisibility = Constant.Hidden;
             MessageHeader = string.Empty;
             BorderButtonMainFood = defaultColor;
             BorderButtonPickGroup = defaultColor;
@@ -1200,6 +1199,7 @@ namespace NexFB.PosKitchen.ViewModels
             OverlayVisible = Constant.Hidden;
             IsDataEdit = false;
             AllowReduceOrderToZero = false;
+            HideGridDisplayUser();
             if (value != null)
             {
                 Border textBlockBorder = (Border)value;

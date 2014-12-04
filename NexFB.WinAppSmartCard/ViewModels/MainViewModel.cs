@@ -434,7 +434,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         {
                             if (!isSideDishView)
                             {
-                                this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_AlreadyOrder);
+                                if (employeeInfoMapping.MenuId == ConstantValue.NoMenuAvailableCode)
+                                {
+                                    this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_NoMenu);
+                                }
+                                else
+                                {
+                                    this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_AlreadyOrder);
+                                }
                             }
                         }
                         else
