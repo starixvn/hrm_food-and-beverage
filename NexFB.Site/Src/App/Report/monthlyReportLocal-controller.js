@@ -16,7 +16,9 @@ reportUtilities) {
 		reportDate: currentDate,
 		groupBy: 0,
 		startIndex: 0,
-		itemsPerPage: 50
+		itemsPerPage: 50,
+		isExportReport: false,
+		isPagingCallback: false
 	};
 
 	$scope.format = 'MMM yyyy';

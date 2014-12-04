@@ -19,11 +19,12 @@ reportModule.directive('renderMonthlyReport', function () {
 		return numberMealsRow;
 	};
 
-	var generateDataBody = function (report) {
+	var generateDataBody = function (report, scope) {
 		var rows = [];
 
 		if (report && report.Meals) {
-			var currentSubRow = [];
+			var currentSubRow = [],
+				rowIndex = scope.gridOption.startIndex + 1;
 
 			for (var i = 0; i < report.Meals.length; i++) {
 				var meal = report.Meals[i],
@@ -49,7 +50,7 @@ reportModule.directive('renderMonthlyReport', function () {
 					if (report.IsGroupByEmployee) {
 						currentSubRow = {
 							Columns: [
-							{ Name: "Meal", Value: j + 1 },
+							{ Name: "Meal", Value: rowIndex, CssClass: "remove-padding-left" },
 							{ Name: "NickName", Value: mealItem.Employee.NickName },
 							{ Name: "EmployeeType", Value: mealItem.EmployeeType.EmployeeTypeName },
 							{ Name: "Department", Value: mealItem.Department.Name + ' > ' + mealItem.Team.Name }
@@ -59,7 +60,7 @@ reportModule.directive('renderMonthlyReport', function () {
 					else {
 						currentSubRow = {
 							Columns: [
-							{ Name: "Meal", Value: j + 1 },
+							{ Name: "Meal", Value: rowIndex, CssClass: "remove-padding-left" },
 							{ Name: "Department", Value: mealItem.Department.Name + ' > ' + mealItem.Team.Name }
 						]
 						};
@@ -68,6 +69,7 @@ reportModule.directive('renderMonthlyReport', function () {
 					var numberMealsRow = generateNumberMealsRow(mealItem.NumberMealsMonth);
 					currentSubRow.Columns = currentSubRow.Columns.concat(numberMealsRow);
 					currentRow.SubRows.push(currentSubRow);
+					rowIndex++;
 				}
 
 				rows.push(currentRow);
@@ -115,7 +117,7 @@ reportModule.directive('renderMonthlyReport', function () {
 
 		if (isGroupByEmployee) {
 			columns = [
-				{ HeaderText: "#", Width: 40, Name: "Meal", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
+				{ HeaderText: "#", Width: 60, Name: "Meal", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
 				{ HeaderText: "Nick", Width: 90, Name: "NickName", HeaderAlign: "center", CellAlign: "center" },
 				{ HeaderText: "Employee Type", Width: 150, Name: "EmployeeType", HeaderAlign: "center", CellAlign: "left" },
 				{ HeaderText: "Department/Section", Width: 150, Name: "Department", HeaderAlign: "center", CellAlign: "left" }
@@ -123,7 +125,7 @@ reportModule.directive('renderMonthlyReport', function () {
 		}
 		else {
 			columns = [
-				{ HeaderText: "#", Width: 40, Name: "Meal", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
+				{ HeaderText: "#", Width: 60, Name: "Meal", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
 				{ HeaderText: "Department/Section", Width: 120, Name: "Department", HeaderAlign: "center", CellAlign: "left" }
 			];
 		}
@@ -183,6 +185,7 @@ reportModule.directive('renderMonthlyReport', function () {
 		link: function (scope, iElement) {
 			scope.$on('renderMonthlyReport', function () {
 				function ReRenderAfterPaged(pageIndex, itemsPerPage) {
+					scope.filter.isPagingCallback = true;
 					scope.filter.startIndex = pageIndex >= 0 ? (pageIndex * itemsPerPage) : 0;
 					scope.filter.itemsPerPage = itemsPerPage;
 
@@ -196,7 +199,7 @@ reportModule.directive('renderMonthlyReport', function () {
 
 				var id = iElement.attr('id'),
 					report = scope.localReport,
-					bodyData = generateDataBody(report),
+					bodyData = generateDataBody(report, scope),
 					groupHeaderData = generateGroupHeader(report.Month, report.IsGroupByEmployee, scope.monthFormat),
 					headerData = generateDataHeader(report.WeekDays, report.IsGroupByEmployee, scope.numberFormat),
 					footerData = generateDataFooter(report.Total, report.IsGroupByEmployee);
@@ -216,7 +219,7 @@ reportModule.directive('renderMonthlyReport', function () {
 								scope.exportExcel.call(this, scope.filter);
 							}
 						},
-//					numberOfFrozenColumn: report.IsGroupByEmployee ? 4 : 2,
+					//					numberOfFrozenColumn: report.IsGroupByEmployee ? 4 : 2,
 					showFooter: true,
 					footerRows: footerData,
 					gridExpandHeight: 300,

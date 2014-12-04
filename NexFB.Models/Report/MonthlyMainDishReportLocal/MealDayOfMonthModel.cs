@@ -9,11 +9,13 @@
 
 namespace NexFB.Models.Report.MonthlyMainDishReportLocal
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
     /// The meal days of month model.
     /// </summary>
+    [Serializable]
     public class MealDayOfMonthModel
     {
         public MealDayOfMonthModel()

@@ -402,6 +402,7 @@
     <Content Include="Src\Content\Common\Images\excel-icon.png" />
     <Content Include="Src\Content\Common\Images\expand-small.png" />
     <Content Include="Src\Content\Common\Images\lock.png" />
+    <Content Include="Src\Content\Common\Images\seperations.png" />
     <Content Include="Src\Content\Common\Images\sprite_btn.png" />
     <Content Include="Src\Content\Common\Images\title-bg.jpg" />
     <Content Include="Src\Content\Common\Images\ui-bg_diagonals-thick_18_b81900_40x40.png" />

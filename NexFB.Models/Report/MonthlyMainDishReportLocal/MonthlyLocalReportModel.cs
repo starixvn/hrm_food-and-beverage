@@ -15,6 +15,7 @@ namespace NexFB.Models.Report.MonthlyMainDishReportLocal
     /// <summary>
     /// The monthly main dish report local model.
     /// </summary>
+    [Serializable]
     public class MonthlyLocalReportModel
     {
         public MonthlyLocalReportModel()

@@ -12,7 +12,9 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 					mealId: filter.mealId,
 					groupBy: filter.groupBy,
 					startIndex: filter.startIndex,
-					itemsPerPage: filter.itemsPerPage
+					itemsPerPage: filter.itemsPerPage,
+					isExportReport: filter.isExportReport,
+					isPagingCallback: filter.isPagingCallback
 				}
 			});
 		}

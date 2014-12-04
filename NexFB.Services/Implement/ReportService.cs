@@ -48,17 +48,15 @@ namespace NexFB.Services.Implement
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             var report = new MonthlyLocalReportModel();
-            MonthlyLocalReportModel pagingReport = null;
 
             if (criteria.IsValid())
             {
                 report = _reportRepository.GetMonthlyMainDishReportLocal(criteria);
                 report.Month = criteria.ReportDate;
                 report.IsGroupByEmployee = criteria.GroupBy == (int)GroupByReport.Employee;
-                pagingReport = GetPaingReport(report, criteria.StartIndex, criteria.ItemsPerPage);
             }
 
-            return pagingReport;
+            return report;
         }
 
         /// <summary>
@@ -94,7 +92,7 @@ namespace NexFB.Services.Implement
         /// <param name="startIndex">The start index.</param>
         /// <param name="itemsPerPage">The items per page.</param>
         /// <returns>The paging report.</returns>
-        private MonthlyLocalReportModel GetPaingReport(
+        public MonthlyLocalReportModel GetPaingReport(
             MonthlyLocalReportModel report,
             int startIndex,
             int itemsPerPage)
@@ -154,8 +152,8 @@ namespace NexFB.Services.Implement
 
                     if (numberItemsRemain <= itemsPerPage)
                     {
-                        MealMonthModel paingMeal = AddMealItemIntoPagingReport(startIndex, meal, itemsPerPage);
-                        meals.Add(paingMeal);
+                        MealMonthModel pagingMeal = AddMealItemIntoPagingReport(startIndex, meal, numberItemsRemain);
+                        meals.Add(pagingMeal);
 
                         if (numberItemsRemain == itemsPerPage)
                         {
@@ -171,6 +169,7 @@ namespace NexFB.Services.Implement
                     {
                         MealMonthModel paingMeal = AddMealItemIntoPagingReport(startIndex, meal, itemsPerPage);
                         meals.Add(paingMeal);
+                        break;
                     }
                 }
                 else

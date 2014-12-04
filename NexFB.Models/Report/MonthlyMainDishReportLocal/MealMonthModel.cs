@@ -9,12 +9,14 @@
 
 namespace NexFB.Models.Report.MonthlyMainDishReportLocal
 {
+    using System;
     using System.Collections.Generic;
     using NexFB.Models.MealRegistration;
 
     /// <summary>
     /// The meals in month model.
     /// </summary>
+    [Serializable]
     public class MealMonthModel
     {
         public MealMonthModel()

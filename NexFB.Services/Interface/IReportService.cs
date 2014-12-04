@@ -20,5 +20,7 @@ namespace NexFB.Services.Interface
         MonthlyLocalReportModel GetMonthlyMainDishReportLocal(GetMonthlyMainDishReportLocalCriteria criteria);
 
         void ExportMonthlyMainDishReportLocal(MonthlyLocalReportModel report, string templateLink);
+
+        MonthlyLocalReportModel GetPaingReport(MonthlyLocalReportModel report, int startIndex, int itemsPerPage);
     }
 }

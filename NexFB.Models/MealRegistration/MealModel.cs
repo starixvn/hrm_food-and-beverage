@@ -9,9 +9,12 @@
 
 namespace NexFB.Models.MealRegistration
 {
+    using System;
+
     /// <summary>
     /// The meal model.
     /// </summary>
+    [Serializable]
     public class MealModel
     {
         public int MealId { get; set; }

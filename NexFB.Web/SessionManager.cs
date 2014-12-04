@@ -52,5 +52,35 @@ namespace NexFB.Web
                 HttpContext.Current.Response.Cookies.Clear();
             }
         }
+
+        /// <summary>
+        /// Sets a value to session.
+        /// </summary>
+        /// <typeparam name="T">Type of value.</typeparam>
+        /// <param name="sessionKey">Session key.</param>
+        /// <param name="value">Value needs to be cached.</param>
+        public static void Set<T>(string sessionKey, T value)
+        {
+            HttpContext.Current.Session[sessionKey] = value;
+        }
+
+        /// <summary>
+        /// Gets a value from Session, then convert it to a specific type.
+        /// </summary>
+        /// <typeparam name="T">Type of value.</typeparam>
+        /// <param name="sessionKey">Session key.</param>
+        /// <returns>Value associated with passed key.</returns>
+        public static T Get<T>(string sessionKey)
+        {
+            try
+            {
+                T value = (T)HttpContext.Current.Session[sessionKey];
+                return value;
+            }
+            catch (NullReferenceException)
+            {
+                return default(T);
+            }
+        }
     }
 }

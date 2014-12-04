@@ -10,8 +10,8 @@
 namespace NexFB.Site
 {
     using System.Web.Http;
+    using Newtonsoft.Json.Serialization;
     using NexFB.Web.Attributes;
-    using NexFB.Web.Handlers;
 
     /// <summary>
     /// Web API config.
@@ -35,6 +35,7 @@ namespace NexFB.Site
                 defaults: new { id = RouteParameter.Optional });
 
             config.Filters.Add(new ExceptionHandlingAttribute());
+            ((DefaultContractResolver)config.Formatters.JsonFormatter.SerializerSettings.ContractResolver).IgnoreSerializableAttribute = true;
            //// config.MessageHandlers.Add(new EncodingDelegateHandler());
         }
     }

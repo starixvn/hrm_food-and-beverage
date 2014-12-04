@@ -63,7 +63,7 @@ namespace NexFB.Site
         {
             if (IsWebApiRequest())
             {
-                HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.ReadOnly);
+                HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
             }
         }
 

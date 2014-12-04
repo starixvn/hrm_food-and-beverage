@@ -9,11 +9,12 @@
              
 namespace NexFB.Site.Controllers
 {
-    using System;
     using System.Web.Mvc;
     using NexFB.Criteria.Report;
+    using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
+    using NexFB.Web;
 
     /// <summary>
     /// Export report controller.
@@ -47,8 +48,13 @@ namespace NexFB.Site.Controllers
         /// <returns>Excel file.</returns>
         public ActionResult ExportMonthlyMainDishReport(GetMonthlyMainDishReportLocalCriteria criteria)
         {
-            var report = _reportService.GetMonthlyMainDishReportLocal(criteria);
+            MonthlyLocalReportModel report = SessionManager.Get<MonthlyLocalReportModel>("test");
             string templateUrl = string.Empty;
+
+            if (report == null)
+            {
+                report = _reportService.GetMonthlyMainDishReportLocal(criteria);
+            }
 
             if (report != null)
             {

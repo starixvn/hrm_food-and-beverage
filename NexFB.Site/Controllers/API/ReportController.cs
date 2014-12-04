@@ -15,6 +15,7 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
+    using NexFB.Web;
 
     /// <summary>
     /// The report controller.
@@ -44,6 +45,7 @@ namespace NexFB.Site.Controllers.API
         /// <param name="groupBy">The group by.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="itemsPerPage">The items per page.</param>
+        /// <param name="isPagingCallback">The is paging callback.</param>
         /// <param name="isDebug">The is debug.</param>
         /// <param name="isLocal">The is local.</param>
         /// <returns>The report.</returns>
@@ -57,6 +59,7 @@ namespace NexFB.Site.Controllers.API
             int groupBy = 0,
             int startIndex = 0,
             int itemsPerPage = 50,
+            bool isPagingCallback = false,
             bool isDebug = false,
             int isLocal = 1)
         {
@@ -71,11 +74,24 @@ namespace NexFB.Site.Controllers.API
                 IsDebug = isDebug,
                 IsLocal = isLocal,
                 StartIndex = startIndex,
-                ItemsPerPage = itemsPerPage
+                ItemsPerPage = itemsPerPage,
+                IsPagingCallback = isPagingCallback
             };
+            MonthlyLocalReportModel fullReport = null;
 
-            var report = _reportService.GetMonthlyMainDishReportLocal(criteria);
-            return report;
+            if (criteria.IsPagingCallback)
+            {
+                 fullReport = SessionManager.Get<MonthlyLocalReportModel>("test");
+            }
+
+            if (fullReport == null)
+            {
+                fullReport = _reportService.GetMonthlyMainDishReportLocal(criteria);
+                SessionManager.Set<MonthlyLocalReportModel>("test", fullReport);
+            }
+
+            MonthlyLocalReportModel pagingReport = _reportService.GetPaingReport(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
+            return pagingReport;
         }
     }
 }
