@@ -77,10 +77,12 @@ namespace NexFB.Services.Implement
             // Fill report header.
             writer.CopyRows(3, 1);
             writer.CopyRows(4, 1);
+            writer.WriteCellRange(3, 1, 4, 31, report.Month);
+            WriteDayHeaderInMonth(report.WeekDays.NumberMeals, ref writer);
 
             FillContentRow(report, ref writer);
             FillTotalRow(report, ref writer);
-            writer.SyncColumnsWidth(12);
+            writer.SyncColumnsWidth(37);
 
             writer.Render();
         }
@@ -201,13 +203,34 @@ namespace NexFB.Services.Implement
             return newMeal;
         }
 
+        /// <summary>
+        /// Convert weekend number from positive number to negative number.
+        /// </summary>
+        /// <param name="weekdays">The weekdays in month.</param>
+        /// <param name="writer">The excel writer.</param>
+        private void WriteDayHeaderInMonth(List<int> weekdays, ref ExcelTemplateWriter writer)
+        {
+            int startCol = 4;
+
+            for (int i = 0; i < 31; i++)
+            {
+                int currentDate = weekdays[i];
+
+                if (currentDate == 7 || currentDate == 1)
+                {
+                    writer.WriteCellRange(4, 1, startCol + i, 1, -(i + 1));
+                }
+            }
+        }
+
         private void FillContentRow(MonthlyLocalReportModel report, ref ExcelTemplateWriter writer)
         {
             bool isGroupByEmployee = report.IsGroupByEmployee;
+            int rowIndex = 1;
 
             foreach (MealMonthModel meal in report.Meals)
             {
-                FillContentMeal(meal, ref writer, isGroupByEmployee);
+                FillContentMeal(meal, ref writer, isGroupByEmployee, ref rowIndex);
             }
         }
 
@@ -236,9 +259,10 @@ namespace NexFB.Services.Implement
         private void FillContentMeal(
             MealMonthModel meal,
             ref ExcelTemplateWriter writer,
-            bool isGroupByEmployee)
+            bool isGroupByEmployee,
+            ref int rowIndex)
         {
-            IEnumerable<object> records = CreateMealRecord(meal.MealItems, isGroupByEmployee);
+            IEnumerable<object> records = CreateMealRecord(meal.MealItems, isGroupByEmployee, ref rowIndex);
 
             writer.WriteRow(5, new object[] { meal.Meal.MealEngName });
             writer.WriteRows(6, records);
@@ -249,18 +273,22 @@ namespace NexFB.Services.Implement
         /// </summary>
         /// <param name="mealItems">The list meal items.</param>
         /// <param name="isGroupByEmployee">Report group by employee or department.</param>
+        /// <param name="rowIndex">The row index.</param>
         /// <returns>The enumerator object.</returns>
-        private IEnumerable<object> CreateMealRecord(List<MealItemMonthModel> mealItems, bool isGroupByEmployee)
+        private IEnumerable<object> CreateMealRecord(
+            List<MealItemMonthModel> mealItems,
+            bool isGroupByEmployee,
+            ref int rowIndex)
         {
             IEnumerable<object> records = null;
 
             if (isGroupByEmployee)
             {
-                records = CreateMealGroupByEmployee(mealItems);
+                records = CreateMealGroupByEmployee(mealItems, ref rowIndex);
             }
             else
             {
-                records = CreateMealGroupByDepartment(mealItems);
+                records = CreateMealGroupByDepartment(mealItems, ref rowIndex);
             }
 
             return records;
@@ -270,10 +298,11 @@ namespace NexFB.Services.Implement
         ///  Create meal records of report group by employee.
         /// </summary>
         /// <param name="mealItems">The list meal items.</param>
+        /// <param name="rowIndex">The row index.</param>
         /// <returns>The enumerator object.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private IEnumerable<object> CreateMealGroupByEmployee(List<MealItemMonthModel> mealItems)
+        private IEnumerable<object> CreateMealGroupByEmployee(List<MealItemMonthModel> mealItems, ref int rowIndex)
         {
             IList<object> records = new List<object>();
 
@@ -284,7 +313,7 @@ namespace NexFB.Services.Implement
 
                 var record = new 
                 {
-                    Count = i + 1,
+                    Count = rowIndex,
                     Nick = mealItem.Employee.NickName,
                     EmployeeType = mealItem.EmployeeType.EmployeeTypeName,
                     DepartmentSection = mealItem.Department.Name + "> " + mealItem.Team.Name,
@@ -324,6 +353,7 @@ namespace NexFB.Services.Implement
                 };
 
                 records.Add(record);
+                rowIndex++;
             }
 
             return records;
@@ -333,10 +363,11 @@ namespace NexFB.Services.Implement
         ///  Create meal records of report group by department.
         /// </summary>
         /// <param name="mealItems">The list meal items.</param>
+        /// <param name="rowIndex">The row index.</param>
         /// <returns>The enumerator object.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private IEnumerable<object> CreateMealGroupByDepartment(List<MealItemMonthModel> mealItems)
+        private IEnumerable<object> CreateMealGroupByDepartment(List<MealItemMonthModel> mealItems, ref int rowIndex)
         {
             IList<object> records = new List<object>();
 
@@ -347,7 +378,7 @@ namespace NexFB.Services.Implement
 
                 var record = new
                 {
-                    Count = i + 1,
+                    Count = rowIndex,
                     DepartmentSection = mealItem.Department.Name + "> " + mealItem.Team.Name,
                     Day1 = numberMeals[0],
                     Day2 = numberMeals[1],
@@ -385,6 +416,7 @@ namespace NexFB.Services.Implement
                 };
 
                 records.Add(record);
+                rowIndex++;
             }
 
             return records;

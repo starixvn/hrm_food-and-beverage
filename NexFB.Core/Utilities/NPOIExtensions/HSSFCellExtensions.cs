@@ -58,18 +58,14 @@ namespace NexFB.Core.Utilities.NPOIExtensions
                 {
                     cell.SetCellValue((bool)value);
                 }
-                else if (value is System.DateTime)
+                else if (value is DateTime)
                 {
-                    cell.SetCellValue((System.DateTime)value);
+                    cell.SetCellValue((DateTime)value);
                 }
                 else if (richTextString != null)
                 {
                     cell.SetCellValue(richTextString);
                 }
-                ////else
-                ////{
-                ////    cell.SetCellValue(Labels.Unknow);
-                ////}
             }
         }
 

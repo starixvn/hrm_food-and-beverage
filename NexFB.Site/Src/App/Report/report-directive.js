@@ -33,13 +33,19 @@ reportModule.directive('renderMonthlyReport', function () {
 
 				if (report.IsGroupByEmployee) {
 					currentRow = {
-						Columns: [{ Name: "Meal", Value: meal.Meal.MealEngName, MergeColNumber: 37, CellAlign: "left"}],
+						Columns: [
+							{ Name: "Meal", Value: meal.Meal.MealEngName, MergeColNumber: 4, CellAlign: "left" },
+							{ Name: "1", Value: "", MergeColNumber: 33 }
+						],
 						SubRows: []
 					};
 				}
 				else {
 					currentRow = {
-						Columns: [{ Name: "Meal", Value: meal.Meal.MealEngName, MergeColNumber: 35, CellAlign: "left"}],
+						Columns: [
+							{ Name: "Meal", Value: meal.Meal.MealEngName, MergeColNumber: 2, CellAlign: "left" },
+							{ Name: "1", Value: "", MergeColNumber: 33 }
+						],
 						SubRows: []
 					};
 				}
@@ -126,7 +132,7 @@ reportModule.directive('renderMonthlyReport', function () {
 		else {
 			columns = [
 				{ HeaderText: "#", Width: 60, Name: "Meal", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
-				{ HeaderText: "Department/Section", Width: 120, Name: "Department", HeaderAlign: "center", CellAlign: "left" }
+				{ HeaderText: "Department/Section", Width: 150, Name: "Department", HeaderAlign: "center", CellAlign: "left" }
 			];
 		}
 
@@ -219,7 +225,7 @@ reportModule.directive('renderMonthlyReport', function () {
 								scope.exportExcel.call(this, scope.filter);
 							}
 						},
-					//					numberOfFrozenColumn: report.IsGroupByEmployee ? 4 : 2,
+					numberOfFrozenColumn: report.IsGroupByEmployee ? 4 : 2,
 					showFooter: true,
 					footerRows: footerData,
 					gridExpandHeight: 300,

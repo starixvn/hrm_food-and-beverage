@@ -98,7 +98,7 @@
     <Reference Include="MsieJavaScriptEngine">
       <HintPath>..\packages\MsieJavaScriptEngine.1.4.4\lib\net40\MsieJavaScriptEngine.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -184,7 +184,7 @@
     <Compile Include="Controllers\API\BaseController.cs" />
     <Compile Include="Controllers\API\CommonController.cs" />
     <Compile Include="Controllers\API\ChangePasswordController.cs" />
-    <Compile Include="Controllers\API\ReportController.cs" />
+    <Compile Include="Controllers\API\Report\ReportController.cs" />
     <Compile Include="Controllers\API\GroupControlController.cs" />
     <Compile Include="Controllers\API\SetMenuManagementController.cs" />
     <Compile Include="Controllers\API\OrderMemberController.cs" />
@@ -481,7 +481,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\TranslatorService\UserService.wsdl" />
-    <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishReportLocal.xls" />
     <Content Include="Src\App\Report\report.less" />
     <Content Include="Src\App\GroupControl\groupControl.less" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup.less" />
@@ -489,6 +488,8 @@
     <Content Include="Src\Components\Libs\angular-route.min.js.map" />
     <Content Include="Src\Components\Libs\angular.min.js.map" />
     <Content Include="Src\Components\Libs\jquery-2.1.0.min.map" />
+    <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentReportLocal.xls" />
+    <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
     <Content Include="Src\Content\Fonts\big_noodle_titling.ttf" />

@@ -7,10 +7,11 @@
 //   <change who="Josh.Phan" date="11/5/2014 9:03:28 AM">Created.</change>
 // </history>
 
-namespace NexFB.Site.Controllers.API
+namespace NexFB.Site.Controllers.API.Report
 {
     using System;
     using System.Web.Http;
+    using NexFB.Core.Constants;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Services.Implement;
@@ -81,13 +82,13 @@ namespace NexFB.Site.Controllers.API
 
             if (criteria.IsPagingCallback)
             {
-                 fullReport = SessionManager.Get<MonthlyLocalReportModel>("test");
+                 fullReport = SessionManager.Get<MonthlyLocalReportModel>(ReportConstant.MonthlyMainDishReportLocalSessionKey + CurrentUser.UserId);
             }
 
             if (fullReport == null)
             {
                 fullReport = _reportService.GetMonthlyMainDishReportLocal(criteria);
-                SessionManager.Set<MonthlyLocalReportModel>("test", fullReport);
+                SessionManager.Set<MonthlyLocalReportModel>(ReportConstant.MonthlyMainDishReportLocalSessionKey + CurrentUser.UserId, fullReport);
             }
 
             MonthlyLocalReportModel pagingReport = _reportService.GetPaingReport(fullReport, criteria.StartIndex, criteria.ItemsPerPage);

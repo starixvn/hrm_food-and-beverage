@@ -26,7 +26,9 @@ namespace NexFB.Site
     public class MvcApplication : HttpApplication
     {
         private const string _WebApiPrefix = "api";
+        private const string _WebReportApiPrefix = "api/report";
         private static string _webApiExecutionPath = string.Format("~/{0}", _WebApiPrefix);
+        private static string _webReportApiExecutionPath = string.Format("~/{0}", _WebReportApiPrefix);
 
         protected void Application_Start()
         {
@@ -59,17 +61,32 @@ namespace NexFB.Site
             }
         }
 
+        /// <summary>
+        /// Post authorize request.
+        /// </summary>
         protected void Application_PostAuthorizeRequest()
         {
             if (IsWebApiRequest())
             {
-                HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+                if (IsReportApiRequest())
+                {
+                    HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+                }
+                else
+                {
+                    HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.ReadOnly);
+                }
             }
         }
 
         private static bool IsWebApiRequest()
         {
             return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith(_webApiExecutionPath, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsReportApiRequest()
+        {
+            return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith(_webReportApiExecutionPath, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

@@ -411,7 +411,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 			angular.forEach(order.Members, function (member) {
 				angular.forEach(member.Menus, function (menu) {
-					if (menu.MenuId === -1) {
+					if (menu.MenuId === -1 && member.IsOrder) {
 						memberNonMenuMessage += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + member.Member.NickName;
 					}
 				});

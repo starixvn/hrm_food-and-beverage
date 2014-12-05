@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Constants\FBFunctionKey.cs" />
+    <Compile Include="Constants\ReportConstant.cs" />
     <Compile Include="Criteria\ResultCriteria.cs" />
     <Compile Include="Enums\DepartmentIdentity.cs" />
     <Compile Include="Enums\GroupByReport.cs" />

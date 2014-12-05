@@ -10,6 +10,7 @@
 namespace NexFB.Site.Controllers
 {
     using System.Web.Mvc;
+    using NexFB.Core.Constants;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Services.Implement;
@@ -21,8 +22,8 @@ namespace NexFB.Site.Controllers
     /// </summary>
     public class ExportReportController : Controller
     {
-        private const string MonthlyMainDishReportLocalGroupByEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishReportLocal.xls";
-        private const string MonthlyMainDishReportLocalTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishReportLocal.xls";
+        private const string MonthlyMainDishReportLocalEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls";
+        private const string MonthlyMainDishReportLocalDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentReportLocal.xls";
 
         private readonly IReportService _reportService;
 
@@ -48,7 +49,8 @@ namespace NexFB.Site.Controllers
         /// <returns>Excel file.</returns>
         public ActionResult ExportMonthlyMainDishReport(GetMonthlyMainDishReportLocalCriteria criteria)
         {
-            MonthlyLocalReportModel report = SessionManager.Get<MonthlyLocalReportModel>("test");
+            MonthlyLocalReportModel report = SessionManager.Get<MonthlyLocalReportModel>(
+                ReportConstant.MonthlyMainDishReportLocalSessionKey + SessionManager.CurrentUser.UserId);
             string templateUrl = string.Empty;
 
             if (report == null)
@@ -60,11 +62,11 @@ namespace NexFB.Site.Controllers
             {
                 if (report.IsGroupByEmployee)
                 {
-                    templateUrl = Server.MapPath(MonthlyMainDishReportLocalGroupByEmployeeTemplatePath);
+                    templateUrl = Server.MapPath(MonthlyMainDishReportLocalEmployeeTemplatePath);
                 }
                 else
                 {
-                    templateUrl = Server.MapPath(MonthlyMainDishReportLocalGroupByEmployeeTemplatePath);
+                    templateUrl = Server.MapPath(MonthlyMainDishReportLocalDepartmentTemplatePath);
                 }
 
                 _reportService.ExportMonthlyMainDishReportLocal(report, templateUrl);

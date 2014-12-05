@@ -59,7 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\AlternativeMenuService.cs" />
-    <Compile Include="Implement\ReportService.cs" />
+    <Compile Include="Implement\ReportService.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Implement\GroupControlService.cs" />
     <Compile Include="Implement\SetMenuService.cs" />
     <Compile Include="Implement\FoodItemService.cs" />

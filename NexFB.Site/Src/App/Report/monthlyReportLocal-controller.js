@@ -14,6 +14,9 @@ reportUtilities) {
 
 	$scope.filter = {
 		reportDate: currentDate,
+		mealId: '',
+		employeeTypeId: '',
+		teamId: '',
 		groupBy: 0,
 		startIndex: 0,
 		itemsPerPage: 50,

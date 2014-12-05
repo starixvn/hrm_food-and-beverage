@@ -4,7 +4,7 @@
 reportModule.factory('reportFactory', ['$http', function ($http) {
 	return {
 		getMonthlyMainDishReportByLocal: function (filter) {
-			return $http.get('/api/Report/GetMonthlyMainDishReportLocal',
+			return $http.get('/api/report/Report/GetMonthlyMainDishReportLocal',
 				{ params: { reportDate: filter.reportDate.toDateString(),
 					departmentId: filter.departmentId,
 					employeeTypeId: filter.employeeTypeId,
