@@ -111,18 +111,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
                             }
 
                             AddDataWhenTimerLive(employeeData, false);
-
                             break;
                         case ConstantValue.SideDishesViewModel:
-                            if (((SideDishesViewModel)CurrentViewModel).OrderOwner == null)
-                            {
                                 if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
                                 {
                                     ReturnToStandByScreenAndCreateNewSession();
+                                    AddDataWhenTimerLive(employeeData, true);
                                 }
-
-                                AddDataWhenTimerLive(employeeData, true);
-                            }
 
                             break;
                         default:
@@ -146,8 +141,10 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public void ExecuteReturnToStandByScreen()
         {
-            this.MainTabReadOnly = false;
             CurrentCardNumber = string.Empty;
+
+            this.MainTabReadOnly = false;
+            
             OrderOwner = null;
             IsMainDishTab = false;
             ExecuteMainDishesCommand();
@@ -162,6 +159,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ExecuteMainDishesCommand();
             MainScreenVisible = CommonResources.Hidden;
             StandbyScreenVisible = CommonResources.Visible;
+        }
+
+        public void ReleaseData()
+        {
+            this.MainTabReadOnly = false;
+            OrderOwner = null;
+            IsMainDishTab = false;
+            ExecuteMainDishesCommand();
         }
 
         public Task SendMessage(int orderId)
