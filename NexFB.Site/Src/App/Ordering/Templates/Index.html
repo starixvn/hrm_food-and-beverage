@@ -3,7 +3,7 @@
         <label data-translate="MyOrder">
         </label>
 		<a href="" ng-href="{{orderingManualLink}}" ng-click="getManual()" target="_blank">
-			<span class="icon-info"><//span>
+			<span class="icon-info"></span>
 		</a>
     </div>
     <table class="row table table-bordered table-odering table-striped">
@@ -30,7 +30,7 @@
         <tbody>
             <tr ng-repeat="order in myOrder">
                 <td class="text-center">
-                    {{order.OrderNo}}
+                    <b>{{order.OrderNo}}</b>
                 </td>
                 <td class="text-center" ng-switch="order.Status.StatusId">
                     <a ng-switch-when="1" class="lbl-new" href="javascript:;" ng-click="editOrder(order.OrderId)">
@@ -143,6 +143,7 @@
             </div>
             <div class="row list-group-item" clear-search-member-input>
                 <div class="col-sm-12 boxtitle" ng-box>
+					<span class="icon-info"></span>
                     <label data-translate="NewOrder">
                     </label>
                 </div>

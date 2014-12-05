@@ -497,7 +497,7 @@
     <Content Include="Src\Components\Libs\angular.min.js.map" />
     <Content Include="Src\Components\Libs\jquery-2.1.0.min.map" />
     <Content Include="Src\App\Employee\employee.less" />
-    <Content Include=" <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentReportLocal.xls" />
+    <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentReportLocal.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls" />
 
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
