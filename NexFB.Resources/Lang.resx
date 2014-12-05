@@ -873,7 +873,10 @@
   <data name="CreateSpecialEmployee" xml:space="preserve">
     <value>Create Special Employee</value>
   </data>
-  <data name="Employee" xml:space="preserve">
+  <data name="EmployeeName" xml:space="preserve">
     <value>Employee Name</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Employee</value>
   </data>
 </root>
