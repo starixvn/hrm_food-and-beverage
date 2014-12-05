@@ -35,7 +35,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
 
         [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible", Justification = "Will fix later.")]
         [SuppressMessage("Microsoft.Design", "CA1003:UseGenericEventHandlerInstances", Justification = "Will fix later.")]
-        public delegate void OnDropDownValueChanged(int value);
+        public delegate void OnDropDownValueChanged(object sender, EventArgs e);
 
         public event OnDropDownValueChanged DropDownChanged;
 
@@ -68,7 +68,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
                     ChangedPrice = 0;
                 }
 
-                DropDownChanged(this.SelectedValueDropDown);
+                DropDownChanged(this.SelectedValueDropDown, new EventArgs());
                 this.OnPropertyChanged("SelectedValueDropDown");
             }
         }

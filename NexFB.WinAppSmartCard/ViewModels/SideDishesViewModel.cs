@@ -284,11 +284,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// <summary>
         /// Method get price changed.
         /// </summary>
-        /// <param name="selectedFood">Selected food id.</param>
-        private void GetPriceChanged(int selectedFood)
+        /// <param name="sender">Object sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void GetPriceChanged(object sender, EventArgs e)
         {
-            if (selectedFood > 0)
+            if (sender != null)
             {
+                int selectedFood = (int)sender;
                 this.AddFoodEnable = selectedFood != int.MaxValue && selectedFood > 0;
                 DisplayTotalPrice();
             }
