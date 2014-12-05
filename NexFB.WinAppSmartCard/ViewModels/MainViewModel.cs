@@ -48,11 +48,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
             InitializeHubConnection();
             InitializeHubConnectionLocal();
             ExecuteMainDishesCommand();
-            CancelCommand = new RelayCommand((x) => CanExecuteCancelCommand(), (y) => ExecuteCancelCommand());
-            MainDishesCommand = new RelayCommand((x) => CanExecuteMainDishesCommand(), (y) => ExecuteMainDishesCommand());
-            SideDishesCommand = new RelayCommand((x) => CanExecuteSideDishesCommand(), (y) => ExecuteSideDishesCommand());
+            CancelCommand = new RelayCommand((y) => ExecuteCancelCommand());
+            MainDishesCommand = new RelayCommand((y) => ExecuteMainDishesCommand());
+            SideDishesCommand = new RelayCommand((y) => ExecuteSideDishesCommand());
+            ReturnStandByScreenCommand = new RelayCommand((y) => ExecuteReturnToStandByScreen());
             ChangeLanguageCommand = new RelayCommand((x) => CanExecuteChangeLanguageCommand(), (y) => ExecuteChangeLanguageCommand(y));
-            ReturnStandByScreenCommand = new RelayCommand((x) => CanExecuteReturnStandByScreen(), (y) => ExecuteReturnToStandByScreen());
+
             ChangeCulture();
             CheckCurrentScreen();
             this.SideButtonEnable = true;
@@ -201,29 +202,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         #region Commands
 
-        private bool CanExecuteMainDishesCommand()
-        {
-            return true;
-        }
-
-        private bool CanExecuteSideDishesCommand()
-        {
-            return true;
-        }
-
         private bool CanExecuteChangeLanguageCommand()
         {
             return IsAllowChangeLanguage;
-        }
-
-        private bool CanExecuteCancelCommand()
-        {
-            return true;
-        }
-
-        private bool CanExecuteReturnStandByScreen()
-        {
-            return true;
         }
 
         /// <summary>

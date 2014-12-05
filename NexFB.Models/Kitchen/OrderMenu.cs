@@ -56,15 +56,7 @@ namespace NexFB.Models.Kitchen
             get
             {
                 CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
-                if (Price > 0)
-                {
-                    var price = QuantityOrder * Price;
-                    return price.ToString("#,###", culture.NumberFormat);
-                }
-                else
-                {
-                    return "N/A";
-                }
+                return Price > 0 ? (QuantityOrder * Price).ToString("#,###", culture.NumberFormat) : "N/A";
             }
         }
 
@@ -72,14 +64,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                if (string.IsNullOrEmpty(GeneralInfo))
-                {
-                    return QuantityOrder.ToString();
-                }
-                else
-                {
-                    return GeneralInfo;
-                }
+                return string.IsNullOrEmpty(GeneralInfo) ? QuantityOrder.ToString() : GeneralInfo;
             }
         }
 

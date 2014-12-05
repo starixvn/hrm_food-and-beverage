@@ -25,7 +25,7 @@ namespace NexFB.Criteria.Kitchen
 
         public override bool IsValid()
         {
-            return true;
+            return OrderId > 0;
         }
 
         public override string GetSettingKey()

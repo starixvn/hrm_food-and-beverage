@@ -251,7 +251,6 @@ namespace NexFB.Models.Kitchen
             {
                 CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
                 decimal totalAmount = ListMenu.Sum(x => x.Price * x.QuantityOrder);
-
                 return totalAmount > 0 ? totalAmount.ToString("#,###", culture.NumberFormat) : "0";
             }
         }
