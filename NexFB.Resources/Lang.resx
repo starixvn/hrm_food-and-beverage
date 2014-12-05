@@ -796,7 +796,7 @@
     <value>The Old Password field is required!</value>
   </data>
   <data name="ValidateLengthPassword" xml:space="preserve">
-    <value>Password must be at least 6 characters long.</value>
+    <value>Password must be between 6-32 characters.</value>
   </data>
   <data name="ValidateWrongConfirmPassword" xml:space="preserve">
     <value>Password does not match the confirm password.</value>
@@ -852,7 +852,7 @@
   <data name="EncodingNotSupported" xml:space="preserve">
     <value>Encoding '{0}' is not supported. Only supports gzip or deflate encoding.</value>
   </data>
-    <data name="MonthlyMainDishLocalReportName" xml:space="preserve">
+  <data name="MonthlyMainDishLocalReportName" xml:space="preserve">
     <value>Monthly_Main_Dish_Report_Local</value>
   </data>
   <data name="MonthlyMainDishLocalReportTitle" xml:space="preserve">
@@ -863,5 +863,17 @@
   </data>
   <data name="GroupBy" xml:space="preserve">
     <value>Group by</value>
+  </data>
+  <data name="CardNumber" xml:space="preserve">
+    <value>Card Number</value>
+  </data>
+  <data name="CreateEmployee" xml:space="preserve">
+    <value>Create Employee</value>
+  </data>
+  <data name="CreateSpecialEmployee" xml:space="preserve">
+    <value>Create Special Employee</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Employee Name</value>
   </data>
 </root>

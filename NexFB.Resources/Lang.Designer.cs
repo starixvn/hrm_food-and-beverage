@@ -295,6 +295,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Card Number.
+        /// </summary>
+        public static string CardNumber {
+            get {
+                return ResourceManager.GetString("CardNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Password.
         /// </summary>
         public static string ChangePassword {
@@ -430,6 +439,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Employee.
+        /// </summary>
+        public static string CreateEmployee {
+            get {
+                return ResourceManager.GetString("CreateEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Food Item.
         /// </summary>
         public static string CreateFoodItem {
@@ -489,6 +507,15 @@ namespace NexFB.Resources {
         public static string CreateSideDish {
             get {
                 return ResourceManager.GetString("CreateSideDish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Special Employee.
+        /// </summary>
+        public static string CreateSpecialEmployee {
+            get {
+                return ResourceManager.GetString("CreateSpecialEmployee", resourceCulture);
             }
         }
         
@@ -696,6 +723,15 @@ namespace NexFB.Resources {
         public static string EditSideDish {
             get {
                 return ResourceManager.GetString("EditSideDish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee Name.
+        /// </summary>
+        public static string Employee {
+            get {
+                return ResourceManager.GetString("Employee", resourceCulture);
             }
         }
         
@@ -2221,7 +2257,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password must be at least 6 characters long..
+        ///   Looks up a localized string similar to Password must be between 6-32 characters..
         /// </summary>
         public static string ValidateLengthPassword {
             get {

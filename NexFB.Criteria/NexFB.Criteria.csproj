@@ -62,11 +62,16 @@
     <Compile Include="Department\GetAllDepartmentCriteria.cs" />
     <Compile Include="Department\GetAllLocationCriteria.cs" />
     <Compile Include="Employee\ChangePasswordCriteria.cs" />
+    <Compile Include="Employee\GetSpecialUserByIdCriteria.cs" />
+    <Compile Include="Employee\GetSpecialEmployeeCriteria.cs" />
+    <Compile Include="Employee\DeleteSpecialUserCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByIdCriteria.cs" />
     <Compile Include="Employee\GetAllEmployeeFunctionCriteria.cs" />
     <Compile Include="Employee\GetAllEmployeeTypeCriteria.cs" />
     <Compile Include="Employee\GetEmployeeCriteria.cs" />
     <Compile Include="Employee\GetEmployeeMenuBySystemIdCriteria.cs" />
+    <Compile Include="Employee\InsertSpecialUserCriteria.cs" />
+    <Compile Include="Employee\UpdateSpecialUserCriteria.cs" />
     <Compile Include="FoodItemManagement\DeleteFoodItemCriteria.cs" />
     <Compile Include="FoodItemManagement\GetAllFoodItemCriteria.cs" />
     <Compile Include="FoodItemManagement\GetBasicFoodItemCriteria.cs" />

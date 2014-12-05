@@ -23,11 +23,17 @@ namespace NexFB.Models.Entities
 
         public string Code { get; set; }
 
+        public string EmployeeCard { get; set; }
+
         public string DomainUsername { get; set; }
 
         public string FullName { get; set; }
 
         public string NickName { get; set; }
+
+        public int DepartmentId { get; set; }
+
+        public int EmployeeType { get; set; }
 
         public string Email { get; set; }
 

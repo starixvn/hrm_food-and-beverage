@@ -33,5 +33,15 @@ namespace NexFB.Services.Interface
         IList<UserFunction> GetAllEmployeeFunction(GetAllEmployeeFunctionCriteria criteria);
 
         IList<Employee> GetEmployeeByQuery(GetEmployeeCriteria criteria);
+
+        Employee GetSpecialUserById(GetSpecialUserByIdCriteria criteria);
+
+        IList<Employee> GetSpecialUsers(GetSpecialEmployeeCriteria criteria);
+
+        CommandResult InsertSpecialUser(InsertSpecialUserCriteria criteria);
+
+        CommandResult UpdateSpecialUser(UpdateSpecialUserCriteria criteria);
+
+        CommandResult DeleteSpecialUser(DeleteSpecialUserCriteria criteria);
     }
 }

@@ -28,7 +28,7 @@ namespace NexFB.Services.Interface
 
         MealOrderingModel GetOrderById(GetOrderByIdCriteria criteria);
 
-        CommandResult InserOrder(InsertOrderCriteria criteria);
+        CommandResult InsertOrder(InsertOrderCriteria criteria);
 
         CommandResult UpdateOrder(UpdateOrderCriteria criteria);
 

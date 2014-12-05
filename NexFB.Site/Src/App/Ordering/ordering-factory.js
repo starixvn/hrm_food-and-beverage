@@ -33,7 +33,7 @@ orderingModule.factory("orderingFactory",
 				return $http.get('/api/Common/GetAllDepartment');
 			},
 			getEmployees: function (keyWord) {
-				return $http.get('/api/Ordering/GetEmployees',
+				return $http.get('/api/Employee/GetEmployees',
 					{
 						params: { keyWord: keyWord }
 					}

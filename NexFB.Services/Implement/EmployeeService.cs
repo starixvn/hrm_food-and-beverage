@@ -172,6 +172,93 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
+        /// Function to insert a special employee.
+        /// </summary>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Command Result.</returns>
+        public CommandResult InsertSpecialUser(InsertSpecialUserCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var result = new CommandResult();
+            if (criteria.IsValid())
+            {
+                result = Repository.Insert(criteria, hasGetOutputParams: true);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Function to update a special employee.
+        /// </summary>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateSpecialUser(UpdateSpecialUserCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var result = new CommandResult();
+            if (criteria.IsValid())
+            {
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Function to delete a special employee.
+        /// </summary>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Command Result.</returns>
+        public CommandResult DeleteSpecialUser(DeleteSpecialUserCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var result = new CommandResult();
+            if (criteria.IsValid())
+            {
+                result = Repository.Delete(criteria);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Function to get special employees.
+        /// </summary>
+        /// <param name="criteria">GetSpecialEmployee Criteria.</param>
+        /// <returns>The List of employees.</returns>
+        public IList<Employee> GetSpecialUsers(GetSpecialEmployeeCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<Employee> employees = null;
+
+            if (criteria.IsValid())
+            {
+                employees = GetData<Employee>(criteria).ToList();
+            }
+
+            return employees;
+        }
+
+        /// <summary>
+        /// Function to get special employee by id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Employee.</returns>
+        public Employee GetSpecialUserById(GetSpecialUserByIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            Employee employee = null;
+
+            if (criteria.IsValid())
+            {
+                employee = GetDataEntity<Employee>(criteria);
+            }
+
+            return employee;
+        }
+
+        /// <summary>
         /// Group menu item.
         /// </summary>
         /// <param name="menuItems">The enumerator menu item.</param>

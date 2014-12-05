@@ -138,7 +138,7 @@ namespace NexFB.Services.Implement
         /// </summary>
         /// <param name="criteria">Insert Order Criteria.</param>
         /// <returns>Command Result.</returns>
-        public CommandResult InserOrder(InsertOrderCriteria criteria)
+        public CommandResult InsertOrder(InsertOrderCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             var result = new CommandResult();
@@ -168,9 +168,9 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
-        /// Function to update a order.
+        /// Function to delete a order.
         /// </summary>
-        /// <param name="criteria">Update Order Criteria.</param>
+        /// <param name="criteria">Delete Order Criteria.</param>
         /// <returns>Command Result.</returns>
         public CommandResult DeleteOrder(DeleteOrderCriteria criteria)
         {

@@ -16,7 +16,6 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
-    using NexFB.Criteria.Employee;
     using NexFB.Criteria.Ordering;
     using NexFB.Criteria.SideDishManagement;
     using NexFB.Models.Entities;
@@ -32,23 +31,20 @@ namespace NexFB.Site.Controllers.API
     public class OrderingController : BaseController
     {
         private readonly IOrderingService _orderService;
-        private readonly IEmployeeService _employeeService;
         private readonly ISideDishService _sideDishService;
         private TranslatorService.UserServiceClient _translatorService;
 
         public OrderingController()
-            : this(null, null, null, null)
+            : this(null, null, null)
         {
         }
 
         public OrderingController(
             IOrderingService orderService,
-            IEmployeeService employeeService,
             ISideDishService sideDishService,
             TranslatorService.UserServiceClient translatorService)
         {
             _orderService = orderService ?? new OrderingService();
-            _employeeService = employeeService ?? new EmployeeService();
             _sideDishService = sideDishService ?? new SideDishService();
             _translatorService = translatorService ?? new TranslatorService.UserServiceClient();
         }
@@ -177,20 +173,6 @@ namespace NexFB.Site.Controllers.API
             return order;
         }
 
-        [HttpGet]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
-        public IList<Employee> GetEmployees(string keyWord)
-        {
-            var criteria = new GetEmployeeCriteria()
-            {
-                DepartmentId = this.CurrentUser.DepartmentId.ToString(),
-                Keyword = keyWord
-            };
-
-            IList<Employee> employees = _employeeService.GetEmployeeByQuery(criteria);
-            return employees;
-        }
-
         /// <summary>
         /// Function to insert a order.
         /// </summary>
@@ -213,7 +195,7 @@ namespace NexFB.Site.Controllers.API
                 TakeAway = model.TakeAway
             };
 
-            CommandResult result = _orderService.InserOrder(criteria);
+            CommandResult result = _orderService.InsertOrder(criteria);
             return new { result = result, orderId = criteria.OrderId };
         }
 
