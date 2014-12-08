@@ -61,6 +61,15 @@ reportUtilities) {
 	};
 
 	/*
+	** Get departmentId if user is admin.
+	*/
+	reportFactory.getDepartmentByUserRole().success(function (departmentId) {
+		$scope.filter.departmentId = parseInt(departmentId);
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
+	});
+
+	/*
 	** Get all department.
 	*/
 	userControlFactory.getAllDepartment().success(function (departments) {

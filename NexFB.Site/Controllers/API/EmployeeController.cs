@@ -82,7 +82,7 @@ namespace NexFB.Site.Controllers.API
                 Code = model.Code,
                 Name = model.NickName,
                 EmployeeCard = model.EmployeeCard,
-                DepartmentId = model.DepartmentId,
+                ////DepartmentId = model.DepartmentId,
                 EmployeeTypeId = model.EmployeeType
             };
 
@@ -104,7 +104,7 @@ namespace NexFB.Site.Controllers.API
                 Code = model.Code,
                 Name = model.NickName,
                 EmployeeCard = model.EmployeeCard,
-                DepartmentId = model.DepartmentId,
+                ////DepartmentId = model.DepartmentId,
                 EmployeeTypeId = model.EmployeeType
             };
 

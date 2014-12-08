@@ -16,7 +16,10 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 					isExportReport: filter.isExportReport,
 					isPagingCallback: filter.isPagingCallback
 				}
-			});
+				});
+		},
+		getDepartmentByUserRole: function () {
+			return $http.get('/api/report/GetDepartmentByUserRole');
 		}
 	};
 } ]);

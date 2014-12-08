@@ -149,7 +149,6 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 					validChecked = true,
 					isTypeMeal = '',
 					workDate = scope.workDate !== '' ? new Date(scope.workDate) : '',
-					toDay = new Date(),
 					validVegetarianCurrentDate = true;
 
 				for (var i = 0; i < checkedElements.length; i++) {
@@ -168,11 +167,17 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 					}
 
 					// In daily registration form of the current date, Vegetarian options are disabled
-					if (workDate && toDay.getMonth() === workDate.getMonth() && toDay.getFullYear() === workDate.getFullYear() && isVegetarian) {
-						var dateOfToDay = toDay.getDate(),
-							dateOfWorkDate = workDate.getDate();
+					if (workDate && isVegetarian) {
+						var todayNoTime = new Date(),
+							workDateNoTime = new Date(scope.workDate),
+							limitDateNoTime = new Date();
 
-						if (dateOfWorkDate >= dateOfToDay && dateOfWorkDate < dateOfToDay + scope.registerSetting.Order) {
+						todayNoTime.setHours(0, 0, 0, 0);
+						workDateNoTime.setHours(0, 0, 0, 0);
+						limitDateNoTime.setDate(todayNoTime.getDate() + scope.registerSetting.Order);
+						limitDateNoTime.setHours(0, 0, 0, 0);
+
+						if (+workDateNoTime >= +todayNoTime && workDateNoTime < limitDateNoTime) {
 							validVegetarianCurrentDate = false;
 						}
 					}

@@ -373,7 +373,7 @@
     <value>Edit Menu</value>
   </data>
   <data name="MonthlyWeeklyDefaultWarning" xml:space="preserve">
-    <value>Notice: Monthly and weekly registration will not take effect on Saturday and Sunday.</value>
+    <value>Monthly and weekly registration will not take effect on Saturday and Sunday.</value>
   </data>
   <data name="SerialRegisterWarning" xml:space="preserve">
     <value>Are you sure you want to submit this registration?</value>
@@ -878,5 +878,11 @@
   </data>
   <data name="Employee" xml:space="preserve">
     <value>Employee</value>
+  </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Notice</value>
+  </data>
+  <data name="SevenDayRegisterMealWarning" xml:space="preserve">
+    <value>Meals must be registered at least 7 days for Vegetarian and 1 day for Non-Vegetarian in advance.</value>
   </data>
 </root>

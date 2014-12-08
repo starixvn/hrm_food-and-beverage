@@ -12,6 +12,8 @@ namespace NexFB.Site.Controllers.API.Report
     using System;
     using System.Web.Http;
     using NexFB.Core.Constants;
+    using NexFB.Core.Enums;
+    using NexFB.Core.Utilities;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Services.Implement;
@@ -93,6 +95,29 @@ namespace NexFB.Site.Controllers.API.Report
 
             MonthlyLocalReportModel pagingReport = _reportService.GetPaingReport(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
             return pagingReport;
+        }
+
+        /// <summary>
+        /// Get department by user role.
+        /// </summary>
+        /// <returns>The department Id.</returns>
+        [HttpGet]
+        public int GetDepartmentByUserRole()
+        {
+            int departmentId = 0;
+            string role = CurrentUser.Roles;
+            int systemAdminRole = (int)RolesSystem.SA;
+            int adminRole = (int)RolesSystem.Admin;
+
+            if (!string.IsNullOrEmpty(role))
+            {
+                if (!role.Contains(systemAdminRole.ToString()) && role.Contains(adminRole.ToString()))
+                {
+                    departmentId = CurrentUser.DepartmentId;
+                }
+            }
+
+            return departmentId;
         }
     }
 }

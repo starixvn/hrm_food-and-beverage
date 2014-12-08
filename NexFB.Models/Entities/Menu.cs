@@ -51,5 +51,7 @@ namespace NexFB.Models.Entities
         }
 
         public IList<Food> FoodItems { get; set; }
+
+        public string FoodSetVNMName { get; set; }
     }
 }

@@ -626,34 +626,30 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 					if (isSavedOrder) {
 						if (!member.IsAllowOrder) {
-							notificationFactory.error("AddOverOrderMemberWarning");
+							member.IsOrder = false;
 						}
-						else {
-							if (member.CurrentStatus != null) {
-								member.IsOrder = false;
+
+						var savedMembers = orderingService.getMemberSavedOrder();
+						angular.forEach(savedMembers, function (value) {
+							if (value.Member.UserId === member.Member.UserId) {
+								isExisted = true;
 							}
-							var savedMembers = orderingService.getMemberSavedOrder();
-							angular.forEach(savedMembers, function (value) {
-								if (value.Member.UserId === member.Member.UserId) {
-									isExisted = true;
+						});
+
+						if (!isExisted) {
+							orderingFactory.addMember(member).success(function (response) {
+								if (response.IsSuccessful) {
+									savedMembers.push(member);
+									orderingService.setMemberSavedOrder(savedMembers);
+									notificationFactory.success("DataChangeSuccessfully");
+								}
+								else {
+									notificationFactory.error('', response.Message);
 								}
 							});
-
-							if (!isExisted) {
-								orderingFactory.addMember(member).success(function (response) {
-									if (response.IsSuccessful) {
-										savedMembers.push(member);
-										orderingService.setMemberSavedOrder(savedMembers);
-										notificationFactory.success("DataChangeSuccessfully");
-									}
-									else {
-										notificationFactory.error('', response.Message);
-									}
-								});
-							}
-							else {
-								notificationFactory.error('', $scope.warningMessageExistMember);
-							}
+						}
+						else {
+							notificationFactory.error('', $scope.warningMessageExistMember);
 						}
 
 						$scope.$broadcast('clearSearchMemberInput');
@@ -773,6 +769,16 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 	$scope.hideMember = function (order) {
 		order.IsShowMember = false;
+	};
+
+	$scope.showNameViet = function (menu, order) {
+		var key = 'IsShowNameViet' + menu.MenuId;
+		order[key] = true;
+	};
+
+	$scope.hideNameViet = function (menu, order) {
+		var key = 'IsShowNameViet' + menu.MenuId;
+		order[key] = false;
 	};
 
 	$scope.loadData(function () {

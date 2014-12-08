@@ -31,7 +31,7 @@ namespace NexFB.Models.Entities
 
         public string NickName { get; set; }
 
-        public int DepartmentId { get; set; }
+        ////public int DepartmentId { get; set; }
 
         public int EmployeeType { get; set; }
 

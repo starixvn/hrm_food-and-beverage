@@ -68,16 +68,43 @@
                 </td>
                 <td>
 					<div ng-show="order.CurrentMenus.length == 1">
-						<span ng-show="order.CurrentMenus[0].QuantityOrder > 1">
-							{{order.CurrentMenus[0].QuantityOrder}} x "{{order.CurrentMenus[0].Name}}"
-						</span>
-						<span ng-show="order.CurrentMenus[0].QuantityOrder == 1">
-							{{order.CurrentMenus[0].Name}}
+						<span class="lnk-member">
+							<a ng-show="order.CurrentMenus[0].QuantityOrder > 1" ng-mouseover="showNameViet(order.CurrentMenus[0], order)" 
+								ng-mouseout="hideNameViet(order.CurrentMenus[0], order)">
+								{{order.CurrentMenus[0].QuantityOrder}} x "{{order.CurrentMenus[0].Name}}"
+							</a>
+							<ul ng-show="order.IsShowNameViet{{order.CurrentMenus[0].MenuId}}" class="list-unstyled drop-menu">
+								<li>
+									<span class="chevron-right"></span>
+									<span ng-bind="order.CurrentMenus[0].NameVN"></span>
+								</li>
+							</ul>
+							<a ng-show="order.CurrentMenus[0].QuantityOrder == 1" ng-mouseover="showNameViet(order.CurrentMenus[0], order)" 
+								ng-mouseout="hideNameViet(order.CurrentMenus[0], order)">
+								{{order.CurrentMenus[0].Name}}
+							</a>
+							<ul ng-show="order.IsShowNameViet{{order.CurrentMenus[0].MenuId}}" class="list-unstyled drop-menu">
+								<li>
+									<span class="chevron-right"></span>
+									<span ng-bind="order.CurrentMenus[0].NameVN"></span>
+								</li>
+							</ul>
 						</span>
 					</div>
 					<div ng-show="order.CurrentMenus.length > 1">
 						<ul class="list-order list-unstyled" ng-repeat="menu in order.CurrentMenus">
-							<li>{{menu.QuantityOrder}} x "{{menu.Name}}"</li>
+							<span class="lnk-member">
+								<a ng-mouseover="showNameViet(menu, order)" 
+									ng-mouseout="hideNameViet(menu, order)">
+									{{menu.QuantityOrder}} x "{{menu.Name}}"
+								</a>
+								<ul ng-show="order.IsShowNameViet{{menu.MenuId}}" class="list-unstyled drop-menu">
+									<li>
+										<span class="chevron-right"></span>
+										<span ng-bind="menu.NameVN"></span>
+									</li>
+								</ul>
+							</span>
 						</ul>
 					</div>
                 </td>
@@ -113,7 +140,8 @@
                             <label>{{"ToDayMenu" | translate}}:
                             </label>
                             <label>
-                                {{menu.Name}}</label>
+                                {{menu.Name + ' (' + menu.FoodSetVNMName + ')'}}
+							</label>
                         </th>
                     </tr>
                 </thead>

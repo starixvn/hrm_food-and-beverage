@@ -1465,7 +1465,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notice: Monthly and weekly registration will not take effect on Saturday and Sunday..
+        ///   Looks up a localized string similar to Monthly and weekly registration will not take effect on Saturday and Sunday..
         /// </summary>
         public static string MonthlyWeeklyDefaultWarning {
             get {
@@ -1596,6 +1596,15 @@ namespace NexFB.Resources {
         public static string NotContinuousMealInShift {
             get {
                 return ResourceManager.GetString("NotContinuousMealInShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notice.
+        /// </summary>
+        public static string Notice {
+            get {
+                return ResourceManager.GetString("Notice", resourceCulture);
             }
         }
         
@@ -1974,6 +1983,15 @@ namespace NexFB.Resources {
         public static string SetMenuNameRequire {
             get {
                 return ResourceManager.GetString("SetMenuNameRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meals must be registered at least 7 days for Vegetarian and 1 day for Non-Vegetarian in advance..
+        /// </summary>
+        public static string SevenDayRegisterMealWarning {
+            get {
+                return ResourceManager.GetString("SevenDayRegisterMealWarning", resourceCulture);
             }
         }
         
