@@ -24,7 +24,6 @@
 	.boxtitle {
 		border-top: 1px solid #D2D2D2;
 		border-bottom: 1px solid #FAFAFA;
-		padding: 5px 12px 1px;
 		font-family: @font-group;
 		font-size: @font-size + 1;
 		/*text-shadow: 0.05em 0.05em #dbdbdb;*/
@@ -32,7 +31,10 @@
 		cursor: pointer;
 		position: relative;
 		#gradient .vertical(#EBEBEB, #E5E5E5);
-
+		> label {
+			position: relative;
+			bottom: 11px;
+		}
 		&.first {
 			border-top: 1px solid #FAFAFA;
 		}
