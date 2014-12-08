@@ -18,13 +18,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System.Windows.Threading;
     using AutoLogOffHelper;
     using AutoMapper;
+    using Microsoft.AspNet.SignalR.Client;
     using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.Enums;
-    using NexFB.Pos.Core.InternetBased;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.Core.Resources;
@@ -44,7 +44,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public MainViewModel()
         {
-            IsMainHub = DBConnectionAvailability.MainDBConnectionAvailable();
             InitializeHubConnection();
             InitializeHubConnectionLocal();
             ExecuteMainDishesCommand();
@@ -113,11 +112,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
                             AddDataWhenTimerLive(employeeData, false);
                             break;
                         case ConstantValue.SideDishesViewModel:
-                                if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
-                                {
-                                    ReturnToStandByScreenAndCreateNewSession();
-                                    AddDataWhenTimerLive(employeeData, true);
-                                }
+                            if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
+                            {
+                                ReturnToStandByScreenAndCreateNewSession();
+                                AddDataWhenTimerLive(employeeData, true);
+                            }
 
                             break;
                         default:
@@ -144,7 +143,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             CurrentCardNumber = string.Empty;
 
             this.MainTabReadOnly = false;
-            
+
             OrderOwner = null;
             IsMainDishTab = false;
             ExecuteMainDishesCommand();
@@ -169,15 +168,35 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ExecuteMainDishesCommand();
         }
 
+        /// <summary>
+        /// Send New Order to server hub.
+        /// </summary>
+        /// <param name="orderId">New order id.</param>
+        /// <returns>Task to execute.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         public Task SendMessage(int orderId)
         {
-            if (IsMainHub)
+            if (Connection.State == ConnectionState.Connected)
             {
-                return Proxy.Invoke("SendNewOrder", orderId);
+                try
+                {
+                    return Proxy.Invoke("SendNewOrder", orderId);
+                }
+                catch
+                {
+                    return Task.Factory.StartNew(new Action(() => { }));
+                }
             }
             else
             {
-                return ProxyLocal.Invoke("SendNewOrder", orderId);
+                try
+                {
+                    return ProxyLocal.Invoke("SendNewOrder", orderId);
+                }
+                catch
+                {
+                    return Task.Factory.StartNew(new Action(() => { }));
+                }
             }
         }
 

@@ -38,7 +38,6 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
         private string _logoMargin;
         private string _sentenceMargin;
         private bool _isMainDishTab;
-        private bool _isMainHub;
         private bool _isAllowChangeLanguage;
 
         public Thread Thread { get; set; }
@@ -121,20 +120,6 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
             {
                 _isAllowChangeLanguage = value;
                 OnPropertyChanged("IsAllowChangeLanguage");
-            }
-        }
-
-        public bool IsMainHub
-        {
-            get
-            {
-                return _isMainHub;
-            }
-
-            set
-            {
-                _isMainHub = value;
-                OnPropertyChanged("IsMainHub");
             }
         }
 

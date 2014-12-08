@@ -258,21 +258,30 @@
 						<RowDefinition></RowDefinition>
 						<RowDefinition></RowDefinition>
 					</Grid.RowDefinitions>
-					<Rectangle Width="420" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,20,0,0" />
-					<Rectangle Width="420" HorizontalAlignment="Left" Grid.Row="1" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,0,0,10" />
+
+					<Rectangle Width="480" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,20,0,0" />
+					<Rectangle Width="480" HorizontalAlignment="Left" Grid.Row="1" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,0,0,10" />
 
 					<StackPanel Orientation="Horizontal" Margin="0,3,0,0">
 						<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketLabel]}"
-						 HorizontalAlignment="Left" Margin="15,20,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#fff"/>
-						<Label Content="{Binding Path=OrderNo}" Foreground="#EF4339" FontWeight="Black"
-						 HorizontalAlignment="Left" Margin="-10,4,0,0"  VerticalAlignment="Top" FontSize="40"/>
+						 HorizontalAlignment="Left" Margin="130,20,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#fff"/>
+						<Label Content="{Binding Path=OrderNo}" Foreground="#fff" FontWeight="Black"
+						 HorizontalAlignment="Left" Margin="-10,17,0,0"  VerticalAlignment="Top" FontSize="25"/>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,-7,0,0">
 						<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}"
-						 HorizontalAlignment="Left" Margin="15,5,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#fff"/>
+						 HorizontalAlignment="Left" Margin="130,5,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#fff"/>
 						<Label Content="{Binding Path=OrderOwner.DisplayOrderNickname}" Foreground="#2c98e0" FontWeight="Black"
 						 HorizontalAlignment="Left" Margin="-9,3,0,0"  VerticalAlignment="Top" FontSize="25"/>
 					</StackPanel>
+
+					<Grid HorizontalAlignment="Left" VerticalAlignment="Center" Grid.RowSpan="2" Width="120">
+						<Border HorizontalAlignment="Center" VerticalAlignment="Center"  >
+							<TextBlock Text="{Binding Path=OrderNo}" FontSize="65" Margin="20,0,0,0" Foreground="#fff"
+							 HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+						</Border>
+					</Grid>
+
 				</Grid>
 			</Grid>
 
@@ -310,7 +319,7 @@
 
 							</ScrollViewer>
 						</Grid>
-						
+
 						<Grid VerticalAlignment="Bottom" Margin="0,30,0,10">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition />

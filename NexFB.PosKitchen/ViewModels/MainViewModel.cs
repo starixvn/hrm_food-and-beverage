@@ -14,11 +14,11 @@ namespace NexFB.PosKitchen.ViewModels
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Media;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Threading;
+    using Microsoft.AspNet.SignalR.Client;
     using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
@@ -47,7 +47,6 @@ namespace NexFB.PosKitchen.ViewModels
 
         public MainViewModel()
         {
-            IsMainHub = DBConnectionAvailability.MainDBConnectionAvailable();
             CurrentViewModel = new WaitingMealViewModel();
             this.CheckCurrentCulture();
             CheckCurrentViewModel();
@@ -60,14 +59,68 @@ namespace NexFB.PosKitchen.ViewModels
 
         #region Tasks Send Data To Hub
 
+        /// <summary>
+        /// Send new order to hub.
+        /// </summary>
+        /// <param name="orderId">New order id.</param>
+        /// <returns>Task executed.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         public Task SendNewOrder(int orderId)
         {
-            return IsMainHub ? Proxy.Invoke("SendNewOrder", orderId) : ProxyLocal.Invoke("SendNewOrder", orderId);
+            if (Connection.State == ConnectionState.Connected)
+            {
+                try
+                {
+                    return Proxy.Invoke("SendNewOrder", orderId);
+                }
+                catch
+                {
+                    return Task.Factory.StartNew(new Action(() => { }));
+                }
+            }
+            else
+            {
+                try
+                {
+                    return ProxyLocal.Invoke("SendNewOrder", orderId);
+                }
+                catch
+                {
+                    return Task.Factory.StartNew(new Action(() => { }));
+                }
+            }
         }
 
+        /// <summary>
+        /// Send Edit order to hub.
+        /// </summary>
+        /// <param name="orderId">Edited order id.</param>
+        /// <returns>Task executed.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         public Task SendEditOrder(int orderId)
         {
-            return IsMainHub ? Proxy.Invoke("SendEditOrder", orderId) : ProxyLocal.Invoke("SendEditOrder", orderId);
+            if (Connection.State == ConnectionState.Connected)
+            {
+                try
+                {
+                    return Proxy.Invoke("SendEditOrder", orderId);
+                }
+                catch
+                {
+                    return Task.Factory.StartNew(new Action(() => { }));
+                }
+            }
+            else
+            {
+                try
+                {
+                    return ProxyLocal.Invoke("SendEditOrder", orderId);
+                }
+                catch
+                {
+                    return Task.Factory.StartNew(new Action(() => { }));
+                }
+            }
         }
 
         #endregion
@@ -179,7 +232,7 @@ namespace NexFB.PosKitchen.ViewModels
                     }
                     else
                     {
-                        if (IsMainHub)
+                        if (Connection.State == ConnectionState.Connected || ConnectionLocal.State == ConnectionState.Connected)
                         {
                             ProcessDataFromCurrentList(orderId, false);
                             SendMessage(orderId, (int)KitchenScreen.AwaitingDeliverFoodScreen);
@@ -218,7 +271,7 @@ namespace NexFB.PosKitchen.ViewModels
                     }
                     else
                     {
-                        if (IsMainHub)
+                        if (Connection.State == ConnectionState.Connected || ConnectionLocal.State == ConnectionState.Connected)
                         {
                             ProcessDataFromCurrentList(orderId, false);
                             SendMessage(orderId, (int)KitchenScreen.WaitingFoodScreen);
@@ -253,7 +306,7 @@ namespace NexFB.PosKitchen.ViewModels
                 }
                 else
                 {
-                    if (IsMainHub)
+                    if (Connection.State == ConnectionState.Connected || ConnectionLocal.State == ConnectionState.Connected)
                     {
                         ProcessDataFromCurrentList(orderId, false);
                         SendMessage(orderId, (int)KitchenScreen.DeliveredFoodScreen);
@@ -519,15 +572,43 @@ namespace NexFB.PosKitchen.ViewModels
             return order;
         }
 
+        /// <summary>
+        /// Send notify to hub server.
+        /// </summary>
+        /// <param name="orderId">Current order id.</param>
+        /// <param name="screenControl">From screen control.</param>
+        /// <returns>Executed task.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         private Task SendMessage(int orderId, int screenControl)
         {
-            return IsMainHub ? Proxy.Invoke("KitchenNotify", orderId, screenControl) : ProxyLocal.Invoke("KitchenNotify", orderId, screenControl);
+            if (Connection.State == ConnectionState.Connected)
+            {
+                try
+                {
+                    return Proxy.Invoke("KitchenNotify", orderId, screenControl);
+                }
+                catch
+                {
+                    return Task.Factory.StartNew(new Action(() => { }));
+                }
+            }
+            else
+            {
+                try
+                {
+                    return ProxyLocal.Invoke("KitchenNotify", orderId, screenControl);
+                }
+                catch
+                {
+                    return Task.Factory.StartNew(new Action(() => { }));
+                }
+            }
         }
 
         /// <summary>
         /// Connect to server hub.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         private void InitializeHubConnection()
         {
             Active = true;
@@ -562,7 +643,7 @@ namespace NexFB.PosKitchen.ViewModels
         /// <summary>
         /// Connect to local Hub.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         private void InitializeHubConnectionLocal()
         {
             ActiveLocal = true;

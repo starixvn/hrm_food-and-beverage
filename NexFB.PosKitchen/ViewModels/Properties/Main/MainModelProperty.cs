@@ -47,8 +47,6 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
         private string _buttonTextEnglish;
         private string _buttonTextVietnamese;
 
-        private bool _isMainHub;
-
         private MenuColor _menu1 = new MenuColor();
         private MenuColor _menu2 = new MenuColor();
         private MenuColor _menu3 = new MenuColor();
@@ -423,20 +421,6 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
             {
                 _currentCulture = value;
                 this.OnPropertyChanged("CurrentCulture");
-            }
-        }
-
-        public bool IsMainHub
-        {
-            get
-            {
-                return _isMainHub;
-            }
-
-            set
-            {
-                _isMainHub = value;
-                this.OnPropertyChanged("IsMainHub");
             }
         }
 
