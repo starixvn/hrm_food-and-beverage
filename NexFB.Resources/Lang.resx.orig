@@ -911,9 +911,9 @@
   </data>
   <data name="RegistrationRuleWarning" xml:space="preserve">
     <value>Registration rules</value>
-<<<<<<< HEAD
   </data>
   <data name="LabelCheckboxTranslateRemark" xml:space="preserve">
+<<<<<<< HEAD
     <value>Translate remark to Vietnamese (for kitchen staff)</value>
   </data>
    <data name="DailyMainDishReport" xml:space="preserve">
@@ -928,6 +928,7 @@
   <data name="MemberName" xml:space="preserve">
     <value>Member Name</value>
 =======
->>>>>>> #27373 - Change notice in registration form
+    <value>Translate remark to Vietnamese</value>
+>>>>>>> #27368 - Add checkbox allow translate remark
   </data>
 </root>
