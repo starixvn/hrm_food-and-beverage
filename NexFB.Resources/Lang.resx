@@ -912,7 +912,10 @@
   <data name="RegistrationRuleWarning" xml:space="preserve">
     <value>Registration rules</value>
   </data>
-  <data name="DailyMainDishReport" xml:space="preserve">
+  <data name="LabelCheckboxTranslateRemark" xml:space="preserve">
+    <value>Translate remark to Vietnamese</value>    
+  </data>
+   <data name="DailyMainDishReport" xml:space="preserve">
     <value>Daily Main Dish Report - Price Per Meal</value>
   </data>
 </root>

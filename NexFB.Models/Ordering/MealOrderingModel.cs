@@ -103,5 +103,7 @@ namespace NexFB.Models.Ordering
         public bool IsShowMember { get; set; }
 
         public bool IsSideDishOrder { get; set; }
+
+        public bool IsTranslateRemark { get; set; }
     }
 }

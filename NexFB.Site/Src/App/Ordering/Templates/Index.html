@@ -266,6 +266,13 @@
                             <input ng-model="newOrder.Phone" type="text" maxlength="50" class="txtPhone" />
                         </div>
                     </div>
+					<div class="row form-inline form-order">
+						<div class="form-group">
+							<input type="checkbox" ng-model="newOrder.IsTranslateRemark" />
+							<label data-translate="LabelCheckboxTranslateRemark">
+							</label>
+						</div>
+					</div>
                     <div class="row row-cust">
                         <p class="row txt-warning">
                             <i class="glyphicon glyphicon-exclamation-sign icon-warning"></i>
@@ -373,6 +380,13 @@
                             <input ng-model="savedOrder.Phone" type="text" maxlength="50" class="txtPhone" />
                         </div>
                     </div>
+					<div class="row form-inline form-order">
+						<div class="form-group">
+							<input type="checkbox" ng-model="savedOrder.IsTranslateRemark" />
+							<label data-translate="LabelCheckboxTranslateRemark">
+							</label>
+						</div>
+					</div>
                     <div class="row row-cust">
                         <button ng-click="saveAddOrder(savedOrder, typeOrder.savedOrder)" class="button btn-order" data-translate="Order">
                         </button>
@@ -477,6 +491,13 @@
 							</label>
 						</div>
                     </div>
+					<div class="row form-inline form-order">
+						<div class="form-group">
+							<input type="checkbox" ng-model="sideDishOrder.IsTranslateRemark" />
+							<label data-translate="LabelCheckboxTranslateRemark">
+							</label>
+						</div>
+					</div>
                     <div class="row row-cust">
                         <button ng-click="saveAddOrder(sideDishOrder, typeOrder.sideDishOrder)" class="button btn-order" data-translate="Order">
                         </button>

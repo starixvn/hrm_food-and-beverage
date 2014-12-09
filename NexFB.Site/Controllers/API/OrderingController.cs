@@ -182,14 +182,14 @@ namespace NexFB.Site.Controllers.API
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
         public object InsertOrder(MealOrderingModel model)
         {
-            var criteria = new InsertOrderCriteria() 
+            var criteria = new InsertOrderCriteria()
             { 
                 CreatedBy = this.CurrentUser.UserId,
                 CreatedDate = DateTime.Now,
                 IsSavedOrder = model.IsSavedOrder,
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
-                RemarkVNM = TranslateRemark(model.Remark),
+                RemarkVNM = model.IsTranslateRemark ? TranslateRemark(model.Remark) : model.Remark,
                 Remark = model.Remark,
                 Members = model.Members,
                 TakeAway = model.TakeAway
@@ -216,7 +216,7 @@ namespace NexFB.Site.Controllers.API
                 IsSavedOrder = false,
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
-                RemarkVNM = TranslateRemark(model.Remark),
+                RemarkVNM = model.IsTranslateRemark ? TranslateRemark(model.Remark) : model.Remark,
                 Remark = model.Remark,
                 Members = model.Members,
                 TakeAway = model.TakeAway
@@ -292,7 +292,7 @@ namespace NexFB.Site.Controllers.API
                 CreatedDate = DateTime.Now,
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
-                RemarkVNM = TranslateRemark(model.Remark),
+                RemarkVNM = model.IsTranslateRemark ? TranslateRemark(model.Remark) : model.Remark,
                 Remark = model.Remark,
                 Members = model.Members,
                 TakeAway = model.TakeAway
@@ -317,7 +317,7 @@ namespace NexFB.Site.Controllers.API
                 ModifiedDate = DateTime.Now,
                 LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
                 Phone = model.Phone,
-                RemarkVNM = TranslateRemark(model.Remark),
+                RemarkVNM = model.IsTranslateRemark ? TranslateRemark(model.Remark) : model.Remark,
                 Remark = model.Remark,
                 Members = model.Members,
                 TakeAway = model.TakeAway

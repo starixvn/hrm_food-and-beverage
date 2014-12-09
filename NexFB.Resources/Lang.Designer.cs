@@ -1168,6 +1168,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Translate remark to Vietnamese.
+        /// </summary>
+        public static string LabelCheckboxTranslateRemark {
+            get {
+                return ResourceManager.GetString("LabelCheckboxTranslateRemark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Location.
         /// </summary>
         public static string Location {
