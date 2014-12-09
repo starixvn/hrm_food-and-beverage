@@ -883,7 +883,11 @@
     <value>Notice</value>
   </data>
   <data name="SevenDayRegisterMealWarning" xml:space="preserve">
+<<<<<<< HEAD
     <value>Vegetarian: register 7 days in advance.</value>
+=======
+    <value>Vegetarian meals must be registed at least 7 days in advance.</value>
+>>>>>>> #27373 - Update message contents when register meal week and month
   </data>
   <data name="TodaySetMenu" xml:space="preserve">
     <value>Set menu</value>
@@ -892,6 +896,7 @@
     <value />
   </data>
   <data name="NonUpdateVegetarianWarning" xml:space="preserve">
+<<<<<<< HEAD
     <value>Warning: Vegetarian meals will not take effect on 7 days from today.</value>
   </data>
   <data name="UpdateVegetarianInfo" xml:space="preserve">
@@ -915,11 +920,10 @@
   <data name="LabelCheckboxTranslateRemark" xml:space="preserve">
     <value>Translate remark to Vietnamese (for kitchen staff)</value>
   </data>
-<<<<<<< HEAD
    <data name="DailyMainDishReport" xml:space="preserve">
     <value>Daily Main Dish Report - Price Per Meal</value>
-=======
-  <data name="JoinedDate" xml:space="preserve">
+  </data>
+    <data name="JoinedDate" xml:space="preserve">
     <value>Joined Date</value>
   </data>
   <data name="JoinedFrom" xml:space="preserve">
@@ -927,6 +931,11 @@
   </data>
   <data name="MemberName" xml:space="preserve">
     <value>Member Name</value>
->>>>>>> #27490 - Change label and default : Company to Department, Fixed bug don't show + button for unplanned meal
+=======
+    <value>Vegetarian meals must be registed at least 7 days in advance.</value>
+  </data>
+  <data name="UpdateVegetarianInfo" xml:space="preserve">
+    <value>Update Successfully!&lt;br/&gt;Warning: Vegetarian meals will not take effect on 6 days from today.</value>
+>>>>>>> #27373 - Update message contents when register meal week and month
   </data>
 </root>
