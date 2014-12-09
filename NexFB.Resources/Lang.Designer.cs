@@ -367,7 +367,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alternative Menu is not recommended, are you sure you want to proceed?.
+        ///   Looks up a localized string similar to Please read with care the company policies before choosing alternative menu. Kitchen staff has right to reject your order. Thank you..
         /// </summary>
         public static string ConfirmMessageAlternativeMenu {
             get {
