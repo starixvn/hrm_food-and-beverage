@@ -1582,6 +1582,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vegetarian meals must be registed at least 7 days in advance..
+        /// </summary>
+        public static string NonUpdateVegetarianWarning {
+            get {
+                return ResourceManager.GetString("NonUpdateVegetarianWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Non-Vegetarian.
         /// </summary>
         public static string NonVegetarian {
@@ -1996,7 +2005,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meals must be registered at least 7 days for Vegetarian and 1 day for Non-Vegetarian in advance..
+        ///   Looks up a localized string similar to Vegetarian meals must be registed at least 7 days in advance..
         /// </summary>
         public static string SevenDayRegisterMealWarning {
             get {
@@ -2289,6 +2298,15 @@ namespace NexFB.Resources {
         public static string UnitRequire {
             get {
                 return ResourceManager.GetString("UnitRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Successfully!&lt;br/&gt;Warning: Vegetarian meals will not take effect on 6 days from today..
+        /// </summary>
+        public static string UpdateVegetarianInfo {
+            get {
+                return ResourceManager.GetString("UpdateVegetarianInfo", resourceCulture);
             }
         }
         

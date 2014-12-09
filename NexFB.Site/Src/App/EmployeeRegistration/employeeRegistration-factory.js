@@ -598,6 +598,8 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 	};
 
 	utility.updateMealForDate = function (date, meals, mealTimesheet, registerSetting, isWeekday) {
+		var hasDateEffectedVegetarian = false;
+
 		if (!date.IsDisabled) {
 			var toDay = new Date(),
 				sevenDay = new Date().setDate(toDay.getDate() + registerSetting.Order),
@@ -635,12 +637,16 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 				else {
 					angular.forEach(date.Meals, function (meal, index) {
 						meal.IsVegetarian = meals[index].IsVegetarian;
+
+						if (meal.IsVegetarian) {
+							hasDateEffectedVegetarian = true;
+						}
 					});
 				}
 			}
 		}
 
-		return date;
+		return hasDateEffectedVegetarian;
 	};
 
 	utility.resetDisableMeal = function (meals) {

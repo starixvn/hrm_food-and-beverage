@@ -883,13 +883,19 @@
     <value>Notice</value>
   </data>
   <data name="SevenDayRegisterMealWarning" xml:space="preserve">
-    <value>Meals must be registered at least 7 days for Vegetarian and 1 day for Non-Vegetarian in advance.</value>
+    <value>Vegetarian meals must be registed at least 7 days in advance.</value>
   </data>
   <data name="TodaySetMenu" xml:space="preserve">
     <value>Set menu</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value />
+  </data>
+  <data name="NonUpdateVegetarianWarning" xml:space="preserve">
+    <value>Vegetarian meals must be registed at least 7 days in advance.</value>
+  </data>
+  <data name="UpdateVegetarianInfo" xml:space="preserve">
+    <value>Update Successfully!&lt;br/&gt;Warning: Vegetarian meals will not take effect on 6 days from today.</value>
   </data>
   <data name="DailyMainDishReport" xml:space="preserve">
     <value>Daily Main Dish Report - Price Per Meal</value>

@@ -250,9 +250,17 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	** Register meal for a week.
 	*/
 	var updatedRegistrationMealToWeek = function (week, meals) {
+		var hasDateEffectedVegetarian = false;
+
 		angular.forEach(week.WeekMeals, function (date) {
-			mealRegistrationUtilities.updateMealForDate(date, meals, $scope.mealTimesheet, $scope.registerSetting);
+			var isEffected = mealRegistrationUtilities.updateMealForDate(date, meals, $scope.mealTimesheet, $scope.registerSetting);
+
+			if (isEffected) {
+				hasDateEffectedVegetarian = true;
+			}
 		});
+
+		return hasDateEffectedVegetarian;
 	};
 
 	$scope.registerMealWeek = function (week, index) {
@@ -305,8 +313,20 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 
 			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
 				if (response.IsSuccessful) {
-					updatedRegistrationMealToWeek(week, registrationInfo.meals);
-					notificationFactory.success("DataChangeSuccessfully");
+					var isUpdateVegetarian = registrationInfo.meals[0].IsVegetarian,
+						hasDateEffectedVegetarian = updatedRegistrationMealToWeek(week, registrationInfo.meals);
+
+					if (isUpdateVegetarian) {
+						if (hasDateEffectedVegetarian) {
+							notificationFactory.success("UpdateVegetarianInfo");
+						}
+						else {
+							notificationFactory.success("NonUpdateVegetarianWarning");
+						}
+					}
+					else {
+						notificationFactory.success("DataChangeSuccessfully");
+					}
 				}
 				else {
 					notificationFactory.error("", response.Message);
