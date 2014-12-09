@@ -368,12 +368,14 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			}
 			else {
 				var overOrderMessage = '';
+				var numberMembersOrder = 0;
 
 				for (var i = 0; i < order.Members.length; i++) {
 					var value = order.Members[i];
 
 					if (typeOrder !== $scope.typeOrder.sideDishOrder && value.IsOrder) {
 						if (value.IsAllowOrder) {
+							numberMembersOrder += 1;
 							isValid = true;
 						}
 						else if (value.Menus[0].MenuId !== -1) {
@@ -382,6 +384,10 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					}
 				}
 
+				if (numberMembersOrder === 0 && typeOrder !== $scope.typeOrder.sideDishOrder) {
+					isValid = false;
+					notificationFactory.error("InvalidInputData");
+				}
 				if (overOrderMessage) {
 					isValid = false;
 					overOrderMessage = $scope.overOrderWarning + overOrderMessage;
@@ -657,7 +663,14 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 					}
 					else if (!isSideDishOrder) {
 						if (!member.IsAllowOrder) {
-							notificationFactory.error("AddOverOrderMemberWarning");
+							if (member.Menus && member.Menus[0].MenuId === -1) {
+								var memberNonMenuMessage = '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + member.Member.NickName,
+									message = $scope.noMenuAvailableWarning + memberNonMenuMessage;
+								notificationFactory.error("", message);
+							}
+							else {
+								notificationFactory.error("AddOverOrderMemberWarning");
+							}
 						}
 						else {
 							// User has order or user has order but change menu

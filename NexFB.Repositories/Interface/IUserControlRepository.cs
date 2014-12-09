@@ -12,6 +12,7 @@ namespace NexFB.Repositories.Interface
     using System.Collections.Generic;
     using Fanex.Data.Repository;
     using NexFB.Models.Employee;
+    using NexFB.Models.Entities;
 
     /// <summary>
     /// The interface of User Control repository.
@@ -21,5 +22,7 @@ namespace NexFB.Repositories.Interface
         IEnumerable<EmployeeModel> GetAllEmployeeRole(ICriteria criteria);
 
         EmployeeModel GetEmployeeRoleById(ICriteria criteria);
+
+        IEnumerable<Department> GetDepartmentUserHasPermission(ICriteria criteria);
     }
 }

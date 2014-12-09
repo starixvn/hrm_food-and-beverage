@@ -10,15 +10,19 @@
 namespace NexFB.Site.Controllers.API.Report
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
-    using NexFB.Core.Utilities;
+    using NexFB.Criteria.Department;
     using NexFB.Criteria.Report;
+    using NexFB.Criteria.UserControl;
+    using NexFB.Models.Entities;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.Web;
+    using NexFB.Web.Attributes;
 
     /// <summary>
     /// The report controller.
@@ -26,15 +30,22 @@ namespace NexFB.Site.Controllers.API.Report
     public class ReportController : BaseController
     {
         private readonly IReportService _reportService;
+        private readonly ICommonService _commonService;
+        private readonly IUserControlService _userControlService;
 
         public ReportController()
-            : this(null)
+            : this(null, null, null)
         {
         }
 
-        public ReportController(IReportService reportService)
+        public ReportController(
+            IReportService reportService,
+            ICommonService commonService,
+            IUserControlService userControlService)
         {
             _reportService = reportService ?? new ReportService();
+            _commonService = commonService ?? new CommonService();
+            _userControlService = userControlService ?? new UserControlService();
         }
 
         /// <summary>
@@ -53,6 +64,7 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="isLocal">The is local.</param>
         /// <returns>The report.</returns>
         [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.MonthlyMainDishReportLocal, Policy = Policy.Read)]
         public MonthlyLocalReportModel GetMonthlyMainDishReportLocal(
             DateTime reportDate,
             string departmentId = "",
@@ -102,22 +114,32 @@ namespace NexFB.Site.Controllers.API.Report
         /// </summary>
         /// <returns>The department Id.</returns>
         [HttpGet]
-        public int GetDepartmentByUserRole()
+        public IEnumerable<Department> GetDepartmentByUserRole()
         {
-            int departmentId = 0;
-            string role = CurrentUser.Roles;
+            IEnumerable<Department> departments = null;
             int systemAdminRole = (int)RolesSystem.SA;
             int adminRole = (int)RolesSystem.Admin;
+            string roles = CurrentUser.Roles;
 
-            if (!string.IsNullOrEmpty(role))
+            if (!string.IsNullOrEmpty(roles))
             {
-                if (!role.Contains(systemAdminRole.ToString()) && role.Contains(adminRole.ToString()))
+                if (roles.Contains(systemAdminRole.ToString()))
                 {
-                    departmentId = CurrentUser.DepartmentId;
+                    var criteria = new GetAllDepartmentCriteria();
+                    departments = _commonService.GetAllDepartment(criteria);
+                }
+                else if (roles.Contains(adminRole.ToString()))
+                {
+                    var criteria = new GetEmployeeRoleByIdCriteria
+                    {
+                        SystemId = CurrentUser.UserId,
+                        RoleId = adminRole.ToString()
+                    };
+                    departments = _userControlService.GetDepartmentUserHasPermission(criteria);
                 }
             }
 
-            return departmentId;
+            return departments;
         }
     }
 }

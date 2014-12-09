@@ -127,6 +127,26 @@ namespace NexFB.Repositories.Implement
         }
 
         /// <summary>
+        /// Get departments that user has Admin permission.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Departments.</returns>
+        public IEnumerable<Department> GetDepartmentUserHasPermission(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    multi.Read();
+                    multi.Read();
+                    IEnumerable<Department> rolesDepartment = multi.Read<Department>();
+
+                    return rolesDepartment;
+                }
+            }
+        }
+
+        /// <summary>
         /// Get roles of employees.
         /// </summary>
         /// <param name="employees">The enumerator employees.</param>

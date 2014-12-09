@@ -14,6 +14,7 @@ reportUtilities) {
 
 	$scope.filter = {
 		reportDate: currentDate,
+		departmentId: '',
 		mealId: '',
 		employeeTypeId: '',
 		teamId: '',
@@ -23,6 +24,8 @@ reportUtilities) {
 		isExportReport: false,
 		isPagingCallback: false
 	};
+
+	$scope.originalDepartmentId = '';
 
 	$scope.format = 'MMM yyyy';
 	$scope.popUpMode = 'month';
@@ -60,20 +63,31 @@ reportUtilities) {
 		$scope.opened = true;
 	};
 
-	/*
-	** Get departmentId if user is admin.
-	*/
-	reportFactory.getDepartmentByUserRole().success(function (departmentId) {
-		$scope.filter.departmentId = parseInt(departmentId);
-	}).error(function (response, status) {
-		ErrorFactory.errorHandle(status);
-	});
+	var getDepartmentFilter = function (departments) {
+		var departmentId = '';
+
+		if (departments) {
+			if (departments.length === 1) {
+				departmentId = departments[0].DepartmentId;
+			}
+			else {
+				angular.forEach(departments, function (department) {
+					departmentId = departmentId ? departmentId + ',' + department.DepartmentId : department.DepartmentId;
+				});
+			}
+		}
+
+		$scope.filter.departmentId = departmentId;
+		$scope.originalDepartmentId = departmentId;
+	};
 
 	/*
 	** Get all department.
 	*/
-	userControlFactory.getAllDepartment().success(function (departments) {
+	reportFactory.getDepartmentByUserRole().success(function (departments) {
 		$scope.departmentOptions = departments;
+		getDepartmentFilter(departments);
+		$scope.getMonthlyReportLocal($scope.filter);
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
@@ -126,8 +140,6 @@ reportUtilities) {
 			});
 	};
 
-	$scope.getMonthlyReportLocal($scope.filter);
-
 	/*
 	** Query data.
 	*/
@@ -136,6 +148,10 @@ reportUtilities) {
 		filter.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
 		filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
 		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
+
+		if (!filter.departmentId) {
+			filter.departmentId = $scope.originalDepartmentId;
+		}
 
 		$scope.getMonthlyReportLocal(filter);
 	};

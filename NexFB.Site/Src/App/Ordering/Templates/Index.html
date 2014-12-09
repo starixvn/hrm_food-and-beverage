@@ -140,7 +140,11 @@
                             <label>{{"ToDayMenu" | translate}}:
                             </label>
                             <label>
-                                {{menu.Name + ' (' + menu.FoodSetVNMName + ')'}}
+                                {{menu.Name}}
+							</label>
+							<label ng-show="menu.FoodSetVNMName">
+								({{"TodaySetMenu" | translate}}:
+								{{menu.FoodSetVNMName + ')'}}
 							</label>
                         </th>
                     </tr>

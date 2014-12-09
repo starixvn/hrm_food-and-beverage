@@ -885,4 +885,10 @@
   <data name="SevenDayRegisterMealWarning" xml:space="preserve">
     <value>Meals must be registered at least 7 days for Vegetarian and 1 day for Non-Vegetarian in advance.</value>
   </data>
+  <data name="TodaySetMenu" xml:space="preserve">
+    <value>Set menu</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
 </root>

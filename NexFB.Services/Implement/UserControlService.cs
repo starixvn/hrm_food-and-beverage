@@ -16,6 +16,7 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Services;
     using NexFB.Criteria.UserControl;
     using NexFB.Models.Employee;
+    using NexFB.Models.Entities;
     using NexFB.Models.UserControl;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
@@ -132,6 +133,24 @@ namespace NexFB.Services.Implement
             }
 
             return commandResult;
+        }
+
+        /// <summary>
+        /// Get departments that user has Admin permission.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The enumerator Role Department model.</returns>
+        public IEnumerable<Department> GetDepartmentUserHasPermission(GetEmployeeRoleByIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<Department> departments = null;
+
+            if (criteria.IsValid())
+            {
+                departments = _userControlRepository.GetDepartmentUserHasPermission(criteria);
+            }
+
+            return departments;
         }
 
         /// <summary>

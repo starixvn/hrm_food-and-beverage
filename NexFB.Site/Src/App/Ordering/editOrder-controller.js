@@ -60,6 +60,9 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		$translate('Delivered').then(function (message) {
 			$scope.delivered = message;
 		});
+		$translate('NoMenuAvailableWarning').then(function (message) {
+			$scope.noMenuAvailableWarning = message;
+		});
 	};
 	$scope.getMessage();
 
@@ -369,7 +372,14 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 							orderingService.setMemberEditOrder(editMembers);
 						}
 						else if (!member.IsAllowOrder) {
-							notificationFactory.error("AddOverOrderMemberWarning");
+							if (member.Menus && member.Menus[0].MenuId === -1) {
+								var memberNonMenuMessage = '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + member.Member.NickName,
+									message = $scope.noMenuAvailableWarning + memberNonMenuMessage;
+								notificationFactory.error("", message);
+							}
+							else {
+								notificationFactory.error("AddOverOrderMemberWarning");
+							}
 						}
 					}
 					else {

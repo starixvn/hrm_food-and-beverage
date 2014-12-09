@@ -19,6 +19,8 @@ namespace NexFB.Criteria.UserControl
         [SpParam(SqlParamName = "SysId")]
         public int SystemId { get; set; }
 
+        public string RoleId { get; set; }
+
         public override string GetSettingKey()
         {
             return "UserCtrl_GetEmployeeBySysId";

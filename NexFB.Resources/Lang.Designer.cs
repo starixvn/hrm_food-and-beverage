@@ -2086,6 +2086,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
         public static string Submit {
@@ -2199,6 +2208,15 @@ namespace NexFB.Resources {
         public static string ToDayMenu {
             get {
                 return ResourceManager.GetString("ToDayMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set menu.
+        /// </summary>
+        public static string TodaySetMenu {
+            get {
+                return ResourceManager.GetString("TodaySetMenu", resourceCulture);
             }
         }
         
