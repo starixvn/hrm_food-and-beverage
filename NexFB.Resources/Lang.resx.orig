@@ -913,8 +913,8 @@
     <value>Registration rules</value>
   </data>
   <data name="LabelCheckboxTranslateRemark" xml:space="preserve">
-<<<<<<< HEAD
     <value>Translate remark to Vietnamese (for kitchen staff)</value>
+<<<<<<< HEAD
   </data>
    <data name="DailyMainDishReport" xml:space="preserve">
     <value>Daily Main Dish Report - Price Per Meal</value>
@@ -928,7 +928,6 @@
   <data name="MemberName" xml:space="preserve">
     <value>Member Name</value>
 =======
-    <value>Translate remark to Vietnamese</value>
->>>>>>> #27368 - Add checkbox allow translate remark
+>>>>>>> #27368 - Change label
   </data>
 </root>
