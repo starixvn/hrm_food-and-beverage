@@ -913,7 +913,7 @@
     <value>Registration rules</value>
   </data>
   <data name="LabelCheckboxTranslateRemark" xml:space="preserve">
-    <value>Translate remark to Vietnamese</value>    
+    <value>Translate remark to Vietnamese (for kitchen staff)</value>
   </data>
    <data name="DailyMainDishReport" xml:space="preserve">
     <value>Daily Main Dish Report - Price Per Meal</value>

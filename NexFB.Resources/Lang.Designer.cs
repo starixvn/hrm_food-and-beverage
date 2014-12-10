@@ -1168,7 +1168,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Translate remark to Vietnamese.
+        ///   Looks up a localized string similar to Translate remark to Vietnamese (for kitchen staff).
         /// </summary>
         public static string LabelCheckboxTranslateRemark {
             get {
