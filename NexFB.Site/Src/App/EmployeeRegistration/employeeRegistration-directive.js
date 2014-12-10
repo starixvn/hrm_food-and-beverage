@@ -6,14 +6,16 @@ mealRegistrationModule.directive('onlyOneCheck', function () {
 		restrict: 'A',
 		link: function (scope, iElement) {
 			iElement.on("click", function () {
-				var mealId = $(this).val(),
-					currentElementId = $(this).prop('id'),
+				var currentElementId = $(this).prop('id'),
 					currentChecked = $(this).prop('checked'),
-					isVegetarian = currentElementId.replace('meal' + mealId, '') !== '_non',
-					anotherElementId = isVegetarian ? ('#meal' + mealId + '_non') : ('#meal' + mealId);
+					checkboxElements = $(this).parent().parent().find('input');
 
-				if (currentChecked) {
-					$(anotherElementId).prop('checked', !currentChecked);
+				for (var i = 0; i < checkboxElements.length; i++) {
+					var element = checkboxElements[i];
+
+					if ($(element).prop('id') !== currentElementId) {
+						$(element).prop('checked', !currentChecked);
+					}
 				}
 			});
 		}
@@ -35,7 +37,7 @@ mealRegistrationModule.directive('getMealRegistration', function () {
 						template = '',
 						mealId = '';
 
-					if (checkedElement != null && checkedElement.length > 0) {
+					if (checkedElement != null && checkedElement.prop('id')) {
 						mealId = checkedElement.val();
 
 						var checkedElementId = checkedElement.prop('id'),
@@ -148,37 +150,40 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 					checkedElements = $(registrationMealTable).find('tbody input:checked'),
 					validChecked = true,
 					isTypeMeal = '',
-					workDate = scope.workDate !== '' ? new Date(scope.workDate) : '',
+					workDate = scope.workDate ? new Date(scope.workDate) : '',
 					validVegetarianCurrentDate = true;
 
 				for (var i = 0; i < checkedElements.length; i++) {
-					var checkedElement = checkedElements[i],
-						mealId = $(checkedElement).val(),
+					var checkedElement = checkedElements[i];
+
+					if ($(checkedElement).prop('id')) {
+						var mealId = $(checkedElement).val(),
 						checkedElementId = $(checkedElement).prop('id'),
 						isVegetarian = checkedElementId.replace('meal' + mealId, '') !== '_non';
 
-					// Check user cannot register non-veggie and veggie.
-					if (isTypeMeal === '') {
-						isTypeMeal = isVegetarian;
-					}
-					else if (isTypeMeal !== isVegetarian) {
-						validChecked = false;
-						i = checkedElements.length;
-					}
+						// Check user cannot register non-veggie and veggie.
+						if (isTypeMeal === '') {
+							isTypeMeal = isVegetarian;
+						}
+						else if (isTypeMeal !== isVegetarian) {
+							validChecked = false;
+							i = checkedElements.length;
+						}
 
-					// In daily registration form of the current date, Vegetarian options are disabled
-					if (workDate && isVegetarian) {
-						var todayNoTime = new Date(),
+						// In daily registration form of the current date, Vegetarian options are disabled
+						if (workDate && isVegetarian) {
+							var todayNoTime = new Date(),
 							workDateNoTime = new Date(scope.workDate),
 							limitDateNoTime = new Date();
 
-						todayNoTime.setHours(0, 0, 0, 0);
-						workDateNoTime.setHours(0, 0, 0, 0);
-						limitDateNoTime.setDate(todayNoTime.getDate() + scope.registerSetting.Order);
-						limitDateNoTime.setHours(0, 0, 0, 0);
+							todayNoTime.setHours(0, 0, 0, 0);
+							workDateNoTime.setHours(0, 0, 0, 0);
+							limitDateNoTime.setDate(todayNoTime.getDate() + scope.registerSetting.Order);
+							limitDateNoTime.setHours(0, 0, 0, 0);
 
-						if (+workDateNoTime >= +todayNoTime && workDateNoTime < limitDateNoTime) {
-							validVegetarianCurrentDate = false;
+							if (+workDateNoTime >= +todayNoTime && workDateNoTime < limitDateNoTime) {
+								validVegetarianCurrentDate = false;
+							}
 						}
 					}
 				}

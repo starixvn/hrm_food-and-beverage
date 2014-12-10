@@ -726,5 +726,18 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		return hasDateEffectedVegetarian;
 	};
 
+	utility.checkIsUpdateVegetarian = function (meals) {
+		var isUpdateVegetarian = false;
+
+		for (var i = 0; i < meals.length; i++) {
+			if (meals[i].IsVegetarian) {
+				isUpdateVegetarian = true;
+				i = meals.length;
+			}
+		}
+
+		return isUpdateVegetarian;
+	};
+
 	return utility;
 } ]);
