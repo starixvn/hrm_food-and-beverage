@@ -1627,7 +1627,6 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Non-Registration.
         /// </summary>
         public static string NonRegistration {
@@ -1637,10 +1636,11 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Warning: Vegetarian meals will not take effect on 7 days from today..
 =======
         ///   Looks up a localized string similar to Vegetarian meals must be registed at least 7 days in advance..
->>>>>>> #27373 - Update message contents when register meal week and month
+>>>>>>> #27373 - Add new column Non-Registration when register meal
         /// </summary>
         public static string NonUpdateVegetarianWarning {
             get {
@@ -2093,8 +2093,8 @@ namespace NexFB.Resources {
 <<<<<<< HEAD
         ///   Looks up a localized string similar to Vegetarian: register 7 days in advance..
 =======
-        ///   Looks up a localized string similar to Vegetarian meals must be registed at least 7 days in advance..
->>>>>>> #27373 - Update message contents when register meal week and month
+        ///   Looks up a localized string similar to Meals must be registered at least 7 days for Vegetarian and 1 day for Non-Vegetarian in advance..
+>>>>>>> #27373 - Add new column Non-Registration when register meal
         /// </summary>
         public static string SevenDayRegisterMealWarning {
             get {
@@ -2391,11 +2391,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Update Successfully!&lt;br/&gt;Warning: Vegetarian meals will not take effect on 7 days from today..
-=======
-        ///   Looks up a localized string similar to Update Successfully!&lt;br/&gt;Warning: Vegetarian meals will not take effect on 6 days from today..
->>>>>>> #27373 - Update message contents when register meal week and month
         /// </summary>
         public static string UpdateVegetarianInfo {
             get {
