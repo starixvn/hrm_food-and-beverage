@@ -1591,7 +1591,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vegetarian meals must be registed at least 7 days in advance..
+        ///   Looks up a localized string similar to Warning: Vegetarian meals will not take effect on 7 days from today..
         /// </summary>
         public static string NonUpdateVegetarianWarning {
             get {

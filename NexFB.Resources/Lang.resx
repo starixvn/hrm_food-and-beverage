@@ -892,7 +892,7 @@
     <value />
   </data>
   <data name="NonUpdateVegetarianWarning" xml:space="preserve">
-    <value>Vegetarian meals must be registed at least 7 days in advance.</value>
+    <value>Warning: Vegetarian meals will not take effect on 7 days from today.</value>
   </data>
   <data name="UpdateVegetarianInfo" xml:space="preserve">
     <value>Update Successfully!&lt;br/&gt;Warning: Vegetarian meals will not take effect on 7 days from today.</value>
