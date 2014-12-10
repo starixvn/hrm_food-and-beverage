@@ -658,5 +658,73 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		return meals;
 	};
 
+	utility.checkNonRegisterVegetarianDate = function (date, registerSetting) {
+		var hasNonRegisterVegetarianDate = false;
+
+		if (!date.IsDisabled) {
+			var toDay = new Date(),
+				sevenDay = new Date().setDate(toDay.getDate() + registerSetting.Order),
+				nextSevenDay = new Date(sevenDay),
+				currentDate = new Date(date.WorkDate);
+
+			toDay.setHours(0, 0, 0, 0);
+			nextSevenDay.setHours(0, 0, 0, 0);
+			currentDate.setHours(0, 0, 0, 0);
+
+			if (+currentDate >= +toDay && currentDate < nextSevenDay) {
+				hasNonRegisterVegetarianDate = true;
+			}
+		}
+
+		return hasNonRegisterVegetarianDate;
+	};
+
+	utility.checkNonRegisterVegetarianDateInWeek = function (week, registerSetting) {
+		var hasNonRegisterVegetarianDate = false;
+
+		for (var i = 0; i < week.WeekMeals.length; i++) {
+			var date = week.WeekMeals[i];
+			hasNonRegisterVegetarianDate = utility.checkNonRegisterVegetarianDate(date, registerSetting);
+
+			if (hasNonRegisterVegetarianDate) {
+				i = week.WeekMeals.length;
+			}
+		}
+
+		return hasNonRegisterVegetarianDate;
+	};
+
+	utility.checkNonRegisterVegetarianDateInMonth = function (weeks, registerSetting) {
+		var hasNonRegisterVegetarianDate = false;
+
+		for (var i = 0; i < weeks.length; i++) {
+			var week = weeks[i];
+			hasNonRegisterVegetarianDate = utility.checkNonRegisterVegetarianDateInWeek(week, registerSetting);
+
+			if (hasNonRegisterVegetarianDate) {
+				i = weeks.length;
+			}
+		}
+
+		return hasNonRegisterVegetarianDate;
+	};
+
+	utility.checkNonRegisterVegetarianSameDateInMonth = function (weeks, weekDayIndex, registerSetting) {
+		var hasDateEffectedVegetarian = false;
+
+		for (var i = 0; i < weeks.length; i++) {
+			var week = weeks[i],
+				date = week.WeekMeals[weekDayIndex];
+
+			hasDateEffectedVegetarian = utility.checkNonRegisterVegetarianDate(date, registerSetting);
+
+			if (hasDateEffectedVegetarian) {
+				i = weeks.length;
+			}
+		}
+
+		return hasDateEffectedVegetarian;
+	};
+
 	return utility;
 } ]);

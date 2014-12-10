@@ -314,9 +314,10 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
 				if (response.IsSuccessful) {
 					var isUpdateVegetarian = registrationInfo.meals[0].IsVegetarian,
-						hasDateEffectedVegetarian = updatedRegistrationMealToWeek(week, registrationInfo.meals);
+						hasDateEffectedVegetarian = updatedRegistrationMealToWeek(week, registrationInfo.meals),
+						hasNonRegisterVegetarianDate = mealRegistrationUtilities.checkNonRegisterVegetarianDateInWeek(week, $scope.registerSetting);
 
-					if (isUpdateVegetarian) {
+					if (isUpdateVegetarian && hasNonRegisterVegetarianDate) {
 						if (hasDateEffectedVegetarian) {
 							notificationFactory.success("UpdateVegetarianInfo");
 						}
@@ -346,9 +347,17 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	** Register meal for a month.
 	*/
 	var updatedRegistrationMealToMonth = function (weeks, meals) {
+		var hasDateEffectedVegetarian = false;
+
 		angular.forEach(weeks, function (week) {
-			updatedRegistrationMealToWeek(week, meals);
+			var effectedDayInWeek = updatedRegistrationMealToWeek(week, meals);
+
+			if (effectedDayInWeek) {
+				hasDateEffectedVegetarian = true;
+			}
 		});
+
+		return hasDateEffectedVegetarian;
 	};
 
 	$scope.registerMealMonth = function (allWeekMeals) {
@@ -400,8 +409,21 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 
 			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
 				if (response.IsSuccessful) {
-					updatedRegistrationMealToMonth(allWeekMeals, registrationInfo.meals);
-					notificationFactory.success("DataChangeSuccessfully");
+					var isUpdateVegetarian = registrationInfo.meals[0].IsVegetarian,
+						hasDateEffectedVegetarian = updatedRegistrationMealToMonth(allWeekMeals, registrationInfo.meals),
+						hasNonRegisterVegetarianDate = mealRegistrationUtilities.checkNonRegisterVegetarianDateInMonth(allWeekMeals, $scope.registerSetting);
+
+					if (isUpdateVegetarian && hasNonRegisterVegetarianDate) {
+						if (hasDateEffectedVegetarian) {
+							notificationFactory.success("UpdateVegetarianInfo");
+						}
+						else {
+							notificationFactory.success("NonUpdateVegetarianWarning");
+						}
+					}
+					else {
+						notificationFactory.success("DataChangeSuccessfully");
+					}
 				}
 				else {
 					notificationFactory.error("", response.Message);
@@ -421,10 +443,18 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	** Register meal for a same date in month.
 	*/
 	var updatedRegistrationMealToSameDateInWeek = function (weeks, meals, weekDayIndex) {
+		var hasDateEffectedVegetarian = false;
+
 		angular.forEach(weeks, function (week) {
 			var date = week.WeekMeals[weekDayIndex];
-			mealRegistrationUtilities.updateMealForDate(date, meals, $scope.mealTimesheet, $scope.registerSetting, true);
+			var isEffectedDate = mealRegistrationUtilities.updateMealForDate(date, meals, $scope.mealTimesheet, $scope.registerSetting, true);
+
+			if (isEffectedDate) {
+				hasDateEffectedVegetarian = isEffectedDate;
+			}
 		});
+
+		return hasDateEffectedVegetarian;
 	};
 
 	$scope.registerMealDate = function (date, allWeekMeals) {
@@ -478,8 +508,22 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 
 			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
 				if (response.IsSuccessful) {
-					updatedRegistrationMealToSameDateInWeek(allWeekMeals, registrationInfo.meals, weekDayIndex);
-					notificationFactory.success("DataChangeSuccessfully");
+					var isUpdateVegetarian = registrationInfo.meals[0].IsVegetarian,
+						hasDateEffectedVegetarian = updatedRegistrationMealToSameDateInWeek(allWeekMeals, registrationInfo.meals, weekDayIndex),
+						hasNonRegisterVegetarianDate = 
+								mealRegistrationUtilities.checkNonRegisterVegetarianSameDateInMonth(allWeekMeals, weekDayIndex, $scope.registerSetting);
+
+					if (isUpdateVegetarian && hasNonRegisterVegetarianDate) {
+						if (hasDateEffectedVegetarian) {
+							notificationFactory.success("UpdateVegetarianInfo");
+						}
+						else {
+							notificationFactory.success("NonUpdateVegetarianWarning");
+						}
+					}
+					else {
+						notificationFactory.success("DataChangeSuccessfully");
+					}
 				}
 				else {
 					notificationFactory.error("", response.Message);

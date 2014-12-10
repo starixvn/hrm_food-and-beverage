@@ -411,6 +411,7 @@
     <Content Include="Src\Content\Common\Images\EPA.png" />
     <Content Include="Src\Content\Common\Images\excel-icon.png" />
     <Content Include="Src\Content\Common\Images\expand-small.png" />
+    <Content Include="Src\Content\Common\Images\go-hover-icon.png" />
     <Content Include="Src\Content\Common\Images\lock.png" />
     <Content Include="Src\Content\Common\Images\seperations.png" />
     <Content Include="Src\Content\Common\Images\sprite_btn.png" />
