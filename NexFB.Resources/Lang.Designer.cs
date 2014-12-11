@@ -1708,6 +1708,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1 day in advance for non-vegetarian meals or non-registration.
+        /// </summary>
+        public static string OtherTypeRegistrationWarning {
+            get {
+                return ResourceManager.GetString("OtherTypeRegistrationWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A shift cannot have more than 4 meals!.
         /// </summary>
         public static string OverdueMealInShift {
@@ -1839,6 +1848,15 @@ namespace NexFB.Resources {
         public static string Registration {
             get {
                 return ResourceManager.GetString("Registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration rule: User must register their meal.
+        /// </summary>
+        public static string RegistrationRuleWarning {
+            get {
+                return ResourceManager.GetString("RegistrationRuleWarning", resourceCulture);
             }
         }
         
@@ -2032,7 +2050,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meals must be registered at least 7 days for Vegetarian and 1 day for other types in advance..
+        ///   Looks up a localized string similar to 7 days in advance for vegetarian meals.
         /// </summary>
         public static string SevenDayRegisterMealWarning {
             get {

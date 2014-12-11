@@ -883,7 +883,7 @@
     <value>Notice</value>
   </data>
   <data name="SevenDayRegisterMealWarning" xml:space="preserve">
-    <value>Meals must be registered at least 7 days for Vegetarian and 1 day for other types in advance.</value>
+    <value>7 days in advance for vegetarian meals</value>
   </data>
   <data name="TodaySetMenu" xml:space="preserve">
     <value>Set menu</value>
@@ -905,6 +905,12 @@
   </data>
   <data name="DeregisterMealWarning" xml:space="preserve">
     <value>You must deregister your meals at least 1 days in advanced.</value>
+  </data>
+  <data name="OtherTypeRegistrationWarning" xml:space="preserve">
+    <value>1 day in advance for non-vegetarian meals or non-registration</value>
+  </data>
+  <data name="RegistrationRuleWarning" xml:space="preserve">
+    <value>Registration rule: User must register their meal</value>
   </data>
   <data name="DailyMainDishReport" xml:space="preserve">
     <value>Daily Main Dish Report - Price Per Meal</value>
