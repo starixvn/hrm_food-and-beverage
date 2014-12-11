@@ -32,5 +32,7 @@ namespace NexFB.Models.MealRegistration
         public bool IsDisableVegetarian { get; set; }
 
         public bool IsDisableNonVegetarian { get; set; }
+
+        public bool IsDisableNonRegistration { get; set; }
     }
 }

@@ -189,8 +189,9 @@ namespace NexFB.Services.Implement
                 {
                     meal.IsDisableVegetarian = true;
 
-                    if (mealDate.WorkDate.Date == today.Date && meal.IsVegetarian == 1)
+                    if (mealDate.WorkDate.Date == today.Date)
                     {
+                        meal.IsDisableNonRegistration = true;
                         meal.IsDisableNonVegetarian = true;
                     }
                 }

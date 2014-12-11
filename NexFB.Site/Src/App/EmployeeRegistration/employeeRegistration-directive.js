@@ -85,13 +85,13 @@ mealRegistrationModule.directive('checkMealTimesheet', function () {
 					toDay.getFullYear() === currentWorkDate.getFullYear()) {
 				var currentHour = toDay.getHours(),
 					currentMinute = toDay.getMinutes(),
-					registerHour = new Date(currentTimesheet.RegisterTime + 'Z').getUTCHours(),
-					registerMinute = new Date(currentTimesheet.RegisterTime + 'Z').getUTCMinutes();
+					startHour = new Date(currentTimesheet.StartTime + 'Z').getUTCHours(),
+					startMinute = new Date(currentTimesheet.StartTime + 'Z').getUTCMinutes();
 
-				if (currentHour > registerHour) {
+				if (currentHour > startHour) {
 					return false;
 				}
-				else if (currentHour === registerHour && currentMinute > registerMinute) {
+				else if (currentHour === startHour && currentMinute > startMinute) {
 					return false;
 				}
 			}
@@ -142,6 +142,24 @@ mealRegistrationModule.directive('getClassByName', function () {
 });
 
 mealRegistrationModule.directive('validateMealRegistration', function () {
+
+	var checkNoCancelRegistration = function (originalMeals) {
+		var validNoCancelRegistration = true;
+
+		for (var i = 0; i < originalMeals.length; i++) {
+			var nonVegId = '#meal1_non' + originalMeals[i].MealId,
+				vegId = '#meal' + originalMeals[i].MealId,
+				checkedNonVegetarian = $(nonVegId).prop('checked'),
+				checkedVegetarian = $(vegId).prop('checked');
+
+			if (!checkedNonVegetarian && !checkedVegetarian && (originalMeals[i].IsVegetarian === 0 || originalMeals[i].IsVegetarian)) {
+				validNoCancelRegistration = false;
+			}
+		}
+
+		return validNoCancelRegistration;
+	};
+
 	return {
 		restrict: 'A',
 		link: function (scope, iElement) {
@@ -151,7 +169,23 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 					validChecked = true,
 					isTypeMeal = '',
 					workDate = scope.workDate ? new Date(scope.workDate) : '',
-					validVegetarianCurrentDate = true;
+					validVegetarianCurrentDate = true,
+					validNonVegetarianCurrentDate = true,
+					validNoCancelRegistration = true,
+					todayNoTime = '',
+					workDateNoTime = '',
+					limitDateNoTime = '';
+
+				if (workDate) {
+					todayNoTime = new Date(),
+					workDateNoTime = new Date(scope.workDate),
+					limitDateNoTime = new Date();
+
+					todayNoTime.setHours(0, 0, 0, 0);
+					workDateNoTime.setHours(0, 0, 0, 0);
+					limitDateNoTime.setDate(todayNoTime.getDate() + scope.registerSetting.Order);
+					limitDateNoTime.setHours(0, 0, 0, 0);
+				}
 
 				for (var i = 0; i < checkedElements.length; i++) {
 					var checkedElement = checkedElements[i];
@@ -170,25 +204,22 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 							i = checkedElements.length;
 						}
 
-						// In daily registration form of the current date, Vegetarian options are disabled
-						if (workDate && isVegetarian) {
-							var todayNoTime = new Date(),
-							workDateNoTime = new Date(scope.workDate),
-							limitDateNoTime = new Date();
-
-							todayNoTime.setHours(0, 0, 0, 0);
-							workDateNoTime.setHours(0, 0, 0, 0);
-							limitDateNoTime.setDate(todayNoTime.getDate() + scope.registerSetting.Order);
-							limitDateNoTime.setHours(0, 0, 0, 0);
-
-							if (+workDateNoTime >= +todayNoTime && workDateNoTime < limitDateNoTime) {
+						if (workDate && +workDateNoTime >= +todayNoTime && workDateNoTime < limitDateNoTime) {
+							// In daily registration form of the current date, Vegetarian options are disabled
+							if (isVegetarian) {
 								validVegetarianCurrentDate = false;
+							}
+							else {
+								validNonVegetarianCurrentDate = false;
 							}
 						}
 					}
+					else if (+workDateNoTime === +todayNoTime && workDate) {
+						validNoCancelRegistration = checkNoCancelRegistration(scope.originalMeals);
+					}
 				}
 
-				scope.validateMealRegistration.call(this, validChecked, validVegetarianCurrentDate);
+				scope.validateMealRegistration.call(this, validChecked, validVegetarianCurrentDate, validNonVegetarianCurrentDate, validNoCancelRegistration);
 			});
 		}
 	};

@@ -750,6 +750,7 @@ isSerialRegistration, $modal, notificationFactory, registerSetting) {
 	$scope.mode = mode;
 	$scope.timePeriod = timePeriod;
 	$scope.registerSetting = registerSetting;
+	$scope.originalMeals = angular.copy(meals);
 
 	$scope.rightMeal = {
 		1: true,
@@ -770,14 +771,24 @@ isSerialRegistration, $modal, notificationFactory, registerSetting) {
 		$scope.isRegisterDate = isSameMeal ? true : false;
 	}
 
-	$scope.validateMealRegistration = function (validChecked, validVegetarianCurrentDate) {
+	if (!$scope.isRegisterDate) {
+		$scope.checkNonRegistration = true;
+	}
+
+	$scope.validateMealRegistration = function (validChecked, validVegetarianCurrentDate, validNonVegetarianCurrentDate, validNoCancelRegistration) {
 		if (!validChecked) {
 			notificationFactory.error("InvalidInputRegisterMeal");
 		}
 		if (!validVegetarianCurrentDate) {
 			notificationFactory.error("RegisterVegetarianWarning");
 		}
-		if (validChecked && validVegetarianCurrentDate) {
+		if (!validNonVegetarianCurrentDate) {
+			notificationFactory.error("RegisterNonVegetarianWarning");
+		}
+		if (!validNoCancelRegistration) {
+			notificationFactory.error("DeregisterMealWarning");
+		}
+		if (validChecked && validVegetarianCurrentDate && validNonVegetarianCurrentDate && validNoCancelRegistration) {
 			$scope.$broadcast('getMealRegistration');
 		}
 	};

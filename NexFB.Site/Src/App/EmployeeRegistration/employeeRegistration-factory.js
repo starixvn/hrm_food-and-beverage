@@ -112,13 +112,13 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		var toDay = new Date(),
 			currentHour = toDay.getHours(),
 			currentMinute = toDay.getMinutes(),
-			registerHour = new Date(currentTimesheet.RegisterTime + 'Z').getUTCHours(),
-			registerMinute = new Date(currentTimesheet.RegisterTime + 'Z').getUTCMinutes();
+			startHour = new Date(currentTimesheet.StartTime + 'Z').getUTCHours(),
+			startMinute = new Date(currentTimesheet.StartTime + 'Z').getUTCMinutes();
 
-		if (currentHour > registerHour) {
+		if (currentHour > startHour) {
 			return false;
 		}
-		else if (currentHour === registerHour && currentMinute > registerMinute) {
+		else if (currentHour === startHour && currentMinute > startMinute) {
 			return false;
 		}
 
