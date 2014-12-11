@@ -32,7 +32,7 @@ namespace NexFB.Core.Enums
         /// SMS company.
         /// </summary>
         [Description("SMS")]
-        SMS = 2,
+        Sms = 2,
 
         /// <summary>
         /// Hong MA Company.
