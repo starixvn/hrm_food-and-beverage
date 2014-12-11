@@ -48,7 +48,7 @@ ErrorFactory) {
 	/*
 	** Get all employee type.
 	*/
-	foodMenuFactory.getAllEmployeeType().success(function (employeeTypes) {
+	foodMenuFactory.getAllEmployeeType(null).success(function (employeeTypes) {
 		$scope.employeeTypesOption = employeeTypes;
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);

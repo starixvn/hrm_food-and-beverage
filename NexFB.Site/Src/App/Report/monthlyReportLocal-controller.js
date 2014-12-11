@@ -124,11 +124,23 @@ reportUtilities) {
 	/*
 	** Get all employee type.
 	*/
-	foodMenuFactory.getAllEmployeeType().success(function (employeeTypes) {
-		$scope.employeeTypesOption = employeeTypes;
-	}).error(function (response, status) {
-		ErrorFactory.errorHandle(status);
-	});
+	var getEmployeeType = function (departmentId) {
+		foodMenuFactory.getAllEmployeeType(departmentId).success(function (employeeTypes) {
+			$scope.employeeTypesOption = employeeTypes;
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
+	};
+
+	getEmployeeType(null);
+
+	/*
+	** 
+	*/
+	$scope.getTeamAndEmployeeTypeOfDepartment = function (departmentId) {
+		$scope.getTeamByCompany(departmentId);
+		getEmployeeType(departmentId);
+	};
 
 	/*
 	** Get monthly main dish report by local.

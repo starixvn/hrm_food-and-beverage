@@ -16,8 +16,8 @@ foodMenuManagementModule.factory('foodMenuFactory', ['$http', function ($http) {
 		getAllMealTimesheet: function () {
 			return $http.get('/api/Common/GetAllMealTimesheet');
 		},
-		getAllEmployeeType: function () {
-			return $http.get('/api/Common/GetAllEmployeeType');
+		getAllEmployeeType: function (departmentId) {
+			return $http.get('/api/Common/GetAllEmployeeType', { params: { departmentId: departmentId } });
 		},
 		deleteFoodMenu: function (menuId) {
 			return $http['delete']('/api/FoodMenuManagement/DeleteFoodMenu', { params: { menuId: menuId} });

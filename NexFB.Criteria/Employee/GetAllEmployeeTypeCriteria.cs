@@ -16,6 +16,8 @@ namespace NexFB.Criteria.Employee
     /// </summary>
     public class GetAllEmployeeTypeCriteria : CriteriaBase
     {
+        public string DepartmentId { get; set; }
+
         public override string GetSettingKey()
         {
             return "Employee_GetEmployeeType";
