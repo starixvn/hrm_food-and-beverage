@@ -50,6 +50,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             CancelCommand = new RelayCommand((y) => ExecuteCancelCommand());
             MainDishesCommand = new RelayCommand((y) => ExecuteMainDishesCommand());
             SideDishesCommand = new RelayCommand((y) => ExecuteSideDishesCommand());
+            CombinedDishesCommand = new RelayCommand((y) => ExecuteCombineDishesCommand());
             ReturnStandByScreenCommand = new RelayCommand((y) => ExecuteReturnToStandByScreen());
             ChangeLanguageCommand = new RelayCommand((x) => CanExecuteChangeLanguageCommand(), (y) => ExecuteChangeLanguageCommand(y));
 
@@ -100,6 +101,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     string cardValue = newCardNumber.Substring(newCardNumber.Length - 5, 5);
                     var getEmployeeByCardNumber = new GetEmployeeByCardNumberCriteria() { CardNumber = cardValue };
                     EmployeeInfo employeeData = this.SmartCardOrderService.GetEmployeeByCardId(getEmployeeByCardNumber);
+                    ChangeLanguageAccordingToEmployeeType(employeeData);
 
                     switch (currentViewModel)
                     {
@@ -111,15 +113,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                             AddDataWhenTimerLive(employeeData, false);
                             break;
-                        case ConstantValue.SideDishesViewModel:
+
+                        default:
                             if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
                             {
                                 ReturnToStandByScreenAndCreateNewSession();
                                 AddDataWhenTimerLive(employeeData, true);
                             }
 
-                            break;
-                        default:
                             break;
                     }
 
@@ -158,14 +159,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ExecuteMainDishesCommand();
             MainScreenVisible = CommonResources.Hidden;
             StandbyScreenVisible = CommonResources.Visible;
-        }
-
-        public void ReleaseData()
-        {
-            this.MainTabReadOnly = false;
-            OrderOwner = null;
-            IsMainDishTab = false;
-            ExecuteMainDishesCommand();
         }
 
         /// <summary>
@@ -226,6 +219,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         #region Commands
 
+        private void ChangeLanguageAccordingToEmployeeType(EmployeeInfo employee)
+        {
+            CurrentCulture = employee.IsLocal ? (int)LanguageLocalization.VietNamCulture : (int)LanguageLocalization.EnglishCulture;
+            ChangeCulture();
+        }
+
         private bool CanExecuteChangeLanguageCommand()
         {
             return IsAllowChangeLanguage;
@@ -268,6 +267,10 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     }
                 }
             }
+            else
+            {
+                SelectMainDishAction();
+            }
         }
 
         /// <summary>
@@ -297,9 +300,20 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         private void ExecuteSideDishesCommand()
         {
-            IsMainDishTab = false;
-            CancelDispatcherTimer();
-            CurrentViewModel = new SideDishesViewModel(OrderOwner, this);
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+            if (currentViewModel == ConstantValue.MainDishesViewModel)
+            {
+                IsMainDishTab = false;
+                CancelDispatcherTimer();
+                CurrentViewModel = new SideDishesViewModel(OrderOwner, this);
+                CheckCurrentViewModel();
+            }
+        }
+
+        private void ExecuteCombineDishesCommand()
+        {
+            var listEmployee = ((MainDishesViewModel)CurrentViewModel).ObservableListEmployee;
+            CurrentViewModel = new CombinedDishesViewModel(OrderOwner, listEmployee, this);
             CheckCurrentViewModel();
         }
 
@@ -318,6 +332,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         break;
                     case ConstantValue.SideDishesViewModel:
                         ((SideDishesViewModel)CurrentViewModel).CancelTimerDispatcher();
+                        break;
+                    case ConstantValue.CombinedDishesViewModel:
+                        ((CombinedDishesViewModel)CurrentViewModel).CancelTimerDispatcher();
                         break;
                 }
             }
@@ -382,12 +399,10 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     MainDishesMenu.ForegroundColor = ConstantValue.MainDishesMenuColor;
                     MainDishesMenu.FontWeight = ConstantValue.FontWeightBold;
                     break;
-                case ConstantValue.SideDishesViewModel:
+                default:
                     SideDishesMenu.BackgroundColor = ConstantValue.DefaultMenuColor;
                     SideDishesMenu.ForegroundColor = ConstantValue.SideDishesMenuColor;
                     SideDishesMenu.FontWeight = ConstantValue.FontWeightBold;
-                    break;
-                default:
                     break;
             }
         }

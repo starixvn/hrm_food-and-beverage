@@ -16,6 +16,10 @@
 		<views:SideDishes />
 	</DataTemplate>
 
+	<DataTemplate DataType="{x:Type vm:CombinedDishesViewModel}">
+		<views:CombineDish />
+	</DataTemplate>
+
 	<!--Selected Item in Listbox-->
 	<Style x:Key="CustomLBStyle" TargetType="{x:Type ListBox}">
 		<Style.Resources>

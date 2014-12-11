@@ -26,6 +26,8 @@ namespace NexFB.Criteria.SmartCardOrder
 
         public string ListDetail { get; set; }
 
+        public string Foods { get; set; }
+
         public DateTime CreatedDate { get; set; }
 
         public int CreatedBy { get; set; }

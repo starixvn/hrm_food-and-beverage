@@ -14,11 +14,13 @@ namespace NexFB.WinAppSmartCard.Core.Constants
     /// </summary>
     public sealed class ConstantValue
     {
+        public const int CountDownTimer = 10;
+
         public const int NoMenuAvailableCode = -1;
 
         public const string MainDishesMenuColor = "#66B5D6";
 
-        public const string SideDishesMenuColor = "#ef4339";
+        public const string SideDishesMenuColor = "#6CB23E";
 
         public const string DefaultMenuColor = "#fff";
 
@@ -40,6 +42,8 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const string SideDishesViewModel = "SideDishesViewModel";
 
+        public const string CombinedDishesViewModel = "CombinedDishesViewModel";
+
         public const string LogoMarginMoreThan900 = "0,0,0,10";
 
         public const string LogoMarginLessThan900 = "0,0,0,-15";
@@ -51,6 +55,8 @@ namespace NexFB.WinAppSmartCard.Core.Constants
         public const string SideDishOrderDetails = "<User FoodId='{0}' Qty='{1}'></User>";
 
         public const string MainDishOrderDetails = "<User SysId='{0}' MenuId='{1}' IsMainMenu='{2}'></User>";
+
+        public const string CombinedSideDishOrderDetails = "<User SysId='{0}' FoodId='{1}' Qty='{2}'></User>";
 
         public const string BeginRootTag = "<ROOT>";
 

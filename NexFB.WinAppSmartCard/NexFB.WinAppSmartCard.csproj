@@ -120,6 +120,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\MoneyConverter.cs" />
+    <Compile Include="Converter\StringConverter.cs" />
+    <Compile Include="Converter\TextBlockCustom.cs" />
     <Compile Include="Enums\ScopeOption.cs" />
     <Compile Include="Enums\SmartCardState.cs" />
     <Compile Include="Events\CardNumberChangedEventArgs.cs" />
@@ -139,18 +141,28 @@
     <Compile Include="SmartCardHelper\SmartcardErrorCode.cs" />
     <Compile Include="SmartCardHelper\SmartcardManager.cs" />
     <Compile Include="SmartCardHelper\UnsafeNativeMethods.cs" />
+    <Compile Include="ViewModels\CombinedDishesViewModel.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="ViewModels\MainDishesViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Properties\CombinedDishesProperty.cs" />
     <Compile Include="ViewModels\Properties\MainDishModelProperty.cs" />
     <Compile Include="ViewModels\Properties\MainModelProperty.cs" />
     <Compile Include="ViewModels\Properties\SideDishModelProperty.cs" />
     <Compile Include="ViewModels\SideDishesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\CombineDish.xaml.cs">
+      <DependentUpon>CombineDish.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainDishes.xaml.cs">
       <DependentUpon>MainDishes.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SideDishes.xaml.cs">
       <DependentUpon>SideDishes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SideFoodPopup.xaml.cs">
+      <DependentUpon>SideFoodPopup.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -168,11 +180,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\CombineDish.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainDishes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SideDishes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SideFoodPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -372,4 +372,7 @@
   <data name="Menu" xml:space="preserve">
     <value>Thực đơn</value>
   </data>
+  <data name="Phone" xml:space="preserve">
+    <value>SĐT : </value>
+  </data>
 </root>

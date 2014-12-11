@@ -11,6 +11,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
 {
     using NexFB.Pos.Core.Enums;
     using NexFB.Pos.Core.NotifyBase;
+    using System.Globalization;
 
     /// <summary>
     /// Food Model.
@@ -29,6 +30,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
         private string _foodVnmName;
         private string _foodEngName;
         private string _foodChineseName;
+        private string _ownerName;
 
         #endregion
 
@@ -146,6 +148,20 @@ namespace NexFB.WinAppSmartCard.Core.Models
             }
         }
 
+        public string OwnerName
+        {
+            get
+            {
+                return _ownerName;
+            }
+
+            set
+            {
+                _ownerName = value;
+                this.OnPropertyChanged("OwnerName");
+            }
+        }
+
         public string DisplayFoodName
         {
             get
@@ -172,6 +188,15 @@ namespace NexFB.WinAppSmartCard.Core.Models
                 }
 
                 return foodName;
+            }
+        }
+
+        public string DisplayPrice
+        {
+            get
+            {
+                CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
+                return Price > 0 ? Price.ToString("#,###", culture.NumberFormat) : "0";
             }
         }
 

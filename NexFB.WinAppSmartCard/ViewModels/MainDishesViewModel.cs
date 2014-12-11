@@ -151,7 +151,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                             OrderOwner.GroupOrderNickName = employeeOrder.OrderNickName;
 
-                            CountDownTimer = 30;
+                            CountDownTimer = ConstantValue.CountDownTimer;
                             TimerDigitalClock();
                         }
                     }
@@ -344,7 +344,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             MainViewModel.SendMessage(result.OrderId);
             MainViewModel.MainTabReadOnly = true;
             MainViewModel.SideButtonEnable = true;
-            CountDownTimer = 30;
+            CountDownTimer = ConstantValue.CountDownTimer;
             ShowNotificationScreen();
             TimerDigitalClock();
         }

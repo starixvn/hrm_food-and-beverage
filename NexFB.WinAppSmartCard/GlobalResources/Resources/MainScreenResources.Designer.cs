@@ -70,6 +70,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add side dish.
+        /// </summary>
+        internal static string AddMoreSideDish {
+            get {
+                return ResourceManager.GetString("AddMoreSideDish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
@@ -250,6 +259,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The order has been sucessfully created..
+        /// </summary>
+        internal static string Message_OrderSuccessful {
+            get {
+                return ResourceManager.GetString("Message_OrderSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please read with care the company policies before choosing alternative menu. Kitchen staff has right to reject your order. Thank you..
         /// </summary>
         internal static string Message_PickAlternativeFood {
@@ -295,6 +313,24 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order side dish.
+        /// </summary>
+        internal static string OrderSideDish {
+            get {
+                return ResourceManager.GetString("OrderSideDish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total .
         /// </summary>
         internal static string Payment {
@@ -313,6 +349,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Return.
+        /// </summary>
+        internal static string Return {
+            get {
+                return ResourceManager.GetString("Return", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please choose.
         /// </summary>
         internal static string SelectDishes {
@@ -327,6 +372,24 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         internal static string SideDishes {
             get {
                 return ResourceManager.GetString("SideDishes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Side dish orderer : .
+        /// </summary>
+        internal static string SidedishOrderer {
+            get {
+                return ResourceManager.GetString("SidedishOrderer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        internal static string Submit {
+            get {
+                return ResourceManager.GetString("Submit", resourceCulture);
             }
         }
         

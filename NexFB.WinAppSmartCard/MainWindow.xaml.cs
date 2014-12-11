@@ -108,7 +108,7 @@ namespace NexFB.WinAppSmartCard
                     WindowCollection windows = Application.Current.Windows;
                     foreach (Window item in windows)
                     {
-                        if (item.GetType().Name == "WPFMessageBox")
+                        if (item.GetType().Name != "MainWindow")
                         {
                             item.Close();
                         }

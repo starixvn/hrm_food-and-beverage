@@ -120,6 +120,9 @@
   <data name="AddFood" xml:space="preserve">
     <value>新增菜式</value>
   </data>
+  <data name="AddMoreSideDish" xml:space="preserve">
+    <value>加入其他食單</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -180,6 +183,9 @@
   <data name="Message_NoMoreDish" xml:space="preserve">
     <value>这里没有中国的消息</value>
   </data>
+  <data name="Message_OrderSuccessful" xml:space="preserve">
+    <value>The order has been sucessfully created.</value>
+  </data>
   <data name="Message_PickAlternativeFood" xml:space="preserve">
     <value>你必須要清楚公司的規定關於轉換其他餐單. 廚房職員有權利取消你的需求.</value>
   </data>
@@ -192,17 +198,32 @@
   <data name="Message_UnhandledError" xml:space="preserve">
     <value>这里没有中国的消息</value>
   </data>
+  <data name="OK" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="OrderSideDish" xml:space="preserve">
+    <value>其他菜單</value>
+  </data>
   <data name="Payment" xml:space="preserve">
     <value>付款</value>
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>数量</value>
   </data>
+  <data name="Return" xml:space="preserve">
+    <value>返回</value>
+  </data>
   <data name="SelectDishes" xml:space="preserve">
     <value>请选择菜</value>
   </data>
   <data name="SideDishes" xml:space="preserve">
     <value>其他菜單</value>
+  </data>
+  <data name="SidedishOrderer" xml:space="preserve">
+    <value>訂單人 : </value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>确认</value>
   </data>
   <data name="SwipeCardLabel" xml:space="preserve">
     <value>請繼續刷卡加入組員</value>

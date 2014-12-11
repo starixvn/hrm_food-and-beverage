@@ -120,6 +120,9 @@
   <data name="AddFood" xml:space="preserve">
     <value>Add more food items</value>
   </data>
+  <data name="AddMoreSideDish" xml:space="preserve">
+    <value>Add side dish</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -180,6 +183,9 @@
   <data name="Message_NoMoreDish" xml:space="preserve">
     <value>There are no more side dishes to select.</value>
   </data>
+  <data name="Message_OrderSuccessful" xml:space="preserve">
+    <value>The order has been sucessfully created.</value>
+  </data>
   <data name="Message_PickAlternativeFood" xml:space="preserve">
     <value>Please read with care the company policies before choosing alternative menu. Kitchen staff has right to reject your order. Thank you.</value>
   </data>
@@ -195,17 +201,32 @@
   <data name="NumberCount" xml:space="preserve">
     <value>#</value>
   </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OrderSideDish" xml:space="preserve">
+    <value>Order side dish</value>
+  </data>
   <data name="Payment" xml:space="preserve">
     <value>Total </value>
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>Quantity</value>
   </data>
+  <data name="Return" xml:space="preserve">
+    <value>Return</value>
+  </data>
   <data name="SelectDishes" xml:space="preserve">
     <value>Please choose</value>
   </data>
   <data name="SideDishes" xml:space="preserve">
     <value>Side Dish</value>
+  </data>
+  <data name="SidedishOrderer" xml:space="preserve">
+    <value>Side dish orderer : </value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
   </data>
   <data name="SwipeCardLabel" xml:space="preserve">
     <value>Swipe your card to join this group</value>

@@ -38,12 +38,23 @@
 					</Border>
 
 					<!--Column 1-->
-					<TextBlock Grid.Column="1" FontSize="18" Height="21" HorizontalAlignment="Left" VerticalAlignment="Top" 
-						Text="{Binding Path=NickName}" Margin="7,7,0,0"/>
+					<TextBlock Grid.Column="1" FontSize="17" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" 
+						Text="{Binding Path=InvoiceNickName}" Margin="7,3,0,0"/>
 
-					<TextBlock Grid.Column="1" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,19,0,5">
+					<TextBlock Grid.Column="1" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,10,0,5">
 						.......................................................................
 					</TextBlock>
+
+					<Grid Visibility="{Binding Path=PhoneHeaderVisible}"
+					 Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="21" Margin="7,0,0,3">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="{x:Static resx:WinFormMainResource.Phone}" FontSize="17"/>
+							<TextBlock Text="{Binding Path=Phone}" FontSize="17" Margin="5,0,0,0"/>
+						</StackPanel>
+					</Grid>
+
+					<!--<TextBlock Grid.Column="1" FontSize="17" Height="21" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+						Text="0967703079" Margin="7,0,0,7"/>-->
 
 				</Grid>
 
@@ -132,18 +143,11 @@
 						</ListBox.ItemTemplate>
 					</ListBox>
 
-					<Border BorderBrush="Black" BorderThickness="0,1,0,1" Height="25"
-					 HorizontalAlignment="Stretch" Margin="0,15,0,0" >
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition />
-								<ColumnDefinition />
-							</Grid.ColumnDefinitions>
-							<TextBlock FontSize="15" Height="28" HorizontalAlignment="Left"
-						 Margin="2,0,0,0" Text="{x:Static resx:WinFormMainResource.Details}" VerticalAlignment="Top" />
-							<TextBlock FontSize="15" Height="28" HorizontalAlignment="Right" Grid.Column="2"
-						 Margin="0,0,3,0" Text="{x:Static resx:WinFormMainResource.Quantity1}" VerticalAlignment="Top" />
-						</Grid>
+					<Border BorderBrush="Black" BorderThickness="0,1,0,1" Height="4"
+					 HorizontalAlignment="Stretch" Margin="0,12,0,0" >
+					</Border>
+					<Border BorderBrush="Black" BorderThickness="0,1,0,1" Height="4"
+					 HorizontalAlignment="Stretch" Margin="0,2,0,0" >
 					</Border>
 
 					<ListBox BorderThickness="0" ItemsSource="{Binding Path=MenuCount}"

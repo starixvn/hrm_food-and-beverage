@@ -64,6 +64,8 @@ namespace NexFB.Models.Kitchen
 
         public int DepartmentId { get; set; }
 
+        public string DepartmentName { get; set; }
+
         public string NickName { get; set; }
 
         public string Code { get; set; }
@@ -79,6 +81,8 @@ namespace NexFB.Models.Kitchen
         public bool IsSelectedMemberInGroup { get; set; }
 
         public bool TakeAway { get; set; }
+
+        public bool IsLocal { get; set; }
 
         public string PhoneAvailable
         {
@@ -279,6 +283,31 @@ namespace NexFB.Models.Kitchen
                 }
 
                 return text;
+            }
+        }
+
+        public string InvoiceNickName
+        {
+            get
+            {
+                if (DepartmentId > 0)
+                {
+                    DepartmentCode departmentCode = (DepartmentCode)DepartmentId;
+                    string displayNickName = NickName + "-" + departmentCode.ToString().ToUpper() + "({0})";
+                    return IsLocal ? string.Format(displayNickName, "L") : string.Format(displayNickName, "E");
+                }
+                else
+                {
+                    return NickName;
+                }
+            }
+        }
+
+        public string PhoneHeaderVisible
+        {
+            get
+            {
+                return string.IsNullOrEmpty(Phone) ? "Hidden" : "Visible";
             }
         }
 

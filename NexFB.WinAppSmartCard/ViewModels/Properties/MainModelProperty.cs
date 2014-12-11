@@ -61,6 +61,8 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
 
         public ICommand SideDishesCommand { get; set; }
 
+        public ICommand CombinedDishesCommand { get; set; }
+
         public ICommand ChangeLanguageCommand { get; set; }
 
         public ICommand CancelCommand { get; set; }

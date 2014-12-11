@@ -138,28 +138,26 @@
 		<!--View Order-->
 		<Grid Margin="24,0,0,0" Visibility="{Binding Path=ScreenOrderVisible}">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="100"/>
+				<RowDefinition Height="65"/>
 				<RowDefinition />
 			</Grid.RowDefinitions>
-			<Grid Width="1220" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="100"/>
-					<RowDefinition />
-				</Grid.RowDefinitions>
-				<DockPanel  VerticalAlignment="Bottom" Height="45" Width="1115" HorizontalAlignment="Left">
+			<Grid Width="1220" Grid.Row="0">
+				<Rectangle Width="550" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="-5,10,0,0" />
+				<DockPanel  VerticalAlignment="Bottom" Height="45" Width="1115" HorizontalAlignment="Left" Margin="0,0,0,5">
 					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}" 
-					FontSize="22" VerticalAlignment="Bottom" Margin="3,0,-5,0" Foreground="#fff"/>
-					<Label Content="{Binding Path=OrderOwner.NickName}" FontSize="22" VerticalAlignment="Bottom" Foreground="#2c98e0" FontWeight="Black" Margin="-5,6,0,0"/>
+					FontSize="22" VerticalAlignment="Bottom" Margin="0" Foreground="#fff"/>
+					<Label Content="{Binding Path=OrderOwner.NickName}" FontSize="22" VerticalAlignment="Bottom" 
+					Foreground="#2c98e0" FontWeight="Black" Margin="0"/>
+
 					<Button Command="{Binding Path=AddFoodCommand}" IsEnabled="{Binding Path=AddFoodEnable}"
-				Background="#6CB23E" Style="{StaticResource TileButton}" MinWidth="120"  Margin="0" HorizontalAlignment="Right">
+						Background="#6CB23E" Style="{StaticResource TileButton}" MinWidth="120"  Margin="0" HorizontalAlignment="Right">
 						<Label Foreground="#fff" FontSize="20" FontWeight="Black" Margin="7,0,7,0"
 					 Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.AddFood]}" />
 					</Button>
 				</DockPanel>
-				<Rectangle Width="400" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="-5,60,0,0" />
 			</Grid>
 
-			<Grid HorizontalAlignment="Left" Margin="12,15,0,0" Grid.Row="1" Name="grid2" VerticalAlignment="Top">
+			<Grid HorizontalAlignment="Left" Margin="12,10,0,0" Grid.Row="1" Name="grid2" VerticalAlignment="Top">
 				<StackPanel Orientation="Vertical">
 					<Grid MaxHeight="350" Background="#fff">
 						<ScrollViewer>
@@ -324,29 +322,31 @@
 			</Grid>
 		</Grid>
 
+
 		<!--View Notification-->
 		<Grid Visibility="{Binding Path=ScreenNotificationVisible}" Margin="24,0,0,0">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="100"/>
+				<RowDefinition Height="110"/>
 				<RowDefinition />
 			</Grid.RowDefinitions>
-			<Grid Width="1220" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" Height="100">
+			<Grid Width="1220" HorizontalAlignment="Center" VerticalAlignment="Stretch" Grid.Row="0">
 				<Grid.RowDefinitions>
 					<RowDefinition />
 					<RowDefinition />
 				</Grid.RowDefinitions>
-				<Rectangle Width="460" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="-5,20,0,0" />
-				<Rectangle Width="460" HorizontalAlignment="Left" Grid.Row="1" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="-5,0,0,0" />
-				<DockPanel  VerticalAlignment="Bottom" Grid.Row="0" Margin="3,0,0,-10">
+				<Rectangle Width="550" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="-5,10,0,0" />
+				<Rectangle Width="550" HorizontalAlignment="Left" Grid.Row="1" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="-5,0,0,0" />
+				<DockPanel  Grid.Row="0" Margin="100,10,0,0">
 					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketLabel]}" 
-					FontSize="22" VerticalAlignment="Bottom" Foreground="#fff" Margin="100,0,0,0"/>
-					<Label Content="{Binding Path=OrderNo}" FontSize="25" VerticalAlignment="Bottom"
-					 Foreground="#fff" FontWeight="Black" Margin="-8,-3,0,0"/>
+					FontSize="22" VerticalAlignment="Center" Foreground="#fff" Margin="0,8,0,0"/>
+					<Label Content="{Binding Path=OrderNo}" FontSize="25" VerticalAlignment="Center"
+					 Foreground="#fff" FontWeight="Black" Margin="-8,6,0,0"/>
 				</DockPanel>
-				<DockPanel  VerticalAlignment="Top" Grid.Row="1" Margin="3,0,0,0">
+				<DockPanel  Grid.Row="1" Margin="100,0,0,0">
 					<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}" 
-					FontSize="22" VerticalAlignment="Bottom" Foreground="#fff" Margin="100,0,0,0"/>
-					<Label Content="{Binding Path=OrderOwner.NickName}" FontSize="22" VerticalAlignment="Bottom" Foreground="#2c98e0" FontWeight="Black" Margin="-8,6,0,0"/>
+					FontSize="22" VerticalAlignment="Center" Foreground="#fff" Margin="0,0,0,6"/>
+					<Label Content="{Binding Path=OrderOwner.NickName}" FontSize="22" VerticalAlignment="Center"
+					 Foreground="#2c98e0" FontWeight="Black" Margin="-8,0,0,6"/>
 				</DockPanel>
 
 				<Grid HorizontalAlignment="Left" VerticalAlignment="Center" Grid.RowSpan="2" Width="100">
@@ -358,7 +358,7 @@
 
 			</Grid>
 
-			<Grid HorizontalAlignment="Left" Margin="12,15,0,0" Grid.Row="1" VerticalAlignment="Top">
+			<Grid HorizontalAlignment="Left" Margin="12,10,0,0" Grid.Row="1" VerticalAlignment="Top">
 				<StackPanel Orientation="Vertical">
 					<Grid MaxHeight="350" Background="#fff">
 						<ScrollViewer>
@@ -416,8 +416,13 @@
 
 					<!--Take away options-->
 					<Grid Background="#fff" Height="50" Margin="1,0,1,0">
-						<ToggleButton Foreground="#014A81" FontSize="20" IsEnabled="False" x:Name="TakeAwayOptionsReadOnly" IsChecked="{Binding Path=TakeAwayChecked}"
-							Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TakeAway]}">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="400"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<ToggleButton Foreground="#014A81" FontSize="20" Grid.Column="0"
+						IsEnabled="False" x:Name="TakeAwayOptionsReadOnly" IsChecked="{Binding Path=TakeAwayChecked}"
+						Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TakeAway]}">
 							<ToggleButton.Template>
 								<ControlTemplate TargetType="{x:Type ToggleButton}">
 									<StackPanel Orientation="Horizontal">
@@ -438,6 +443,12 @@
 								</ControlTemplate>
 							</ToggleButton.Template>
 						</ToggleButton>
+
+						<Grid Grid.Column="1">
+							<TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Foreground="#4DB54B"
+						Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Message_OrderSuccessful]}" />
+						</Grid>
+
 					</Grid>
 
 					<!--Action button-->
@@ -461,6 +472,7 @@
 				</StackPanel>
 			</Grid>
 		</Grid>
+
 	</Grid>
 
 </UserControl>

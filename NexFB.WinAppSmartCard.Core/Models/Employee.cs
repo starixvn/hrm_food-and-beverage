@@ -10,6 +10,8 @@
 namespace NexFB.WinAppSmartCard.Core.Models
 {
     using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
     using NexFB.Pos.Core.Enums;
     using NexFB.Pos.Core.NotifyBase;
     using NexFB.WinAppSmartCard.Core.Resources;
@@ -28,6 +30,8 @@ namespace NexFB.WinAppSmartCard.Core.Models
         private int _currentCulture;
         private int _selectedValueDropDown;
 
+        private string _fullName;
+        private string _code;
         private string _nickName;
         private string _menuEngName;
         private string _menuVnmName;
@@ -36,11 +40,15 @@ namespace NexFB.WinAppSmartCard.Core.Models
         private string _foodListVisibility;
         private string _groupOrderNickName;
         private string _displayNotifyMenuName;
+        private string _displayGeneralOrderInfo;
+        private string _displayTotalPayment;
 
         private bool _isEditMenu;
         private bool _allowOrder;
 
         private List<Food> _listAlternativeFood;
+
+        private List<Food> _listSideFood;
 
         #endregion
 
@@ -127,6 +135,34 @@ namespace NexFB.WinAppSmartCard.Core.Models
             {
                 _menuId = value;
                 this.OnPropertyChanged("MenuId");
+            }
+        }
+
+        public string FullName
+        {
+            get
+            {
+                return _fullName;
+            }
+
+            set
+            {
+                _fullName = value;
+                this.OnPropertyChanged("FullName");
+            }
+        }
+
+        public string Code
+        {
+            get
+            {
+                return _code;
+            }
+
+            set
+            {
+                _code = value;
+                this.OnPropertyChanged("Code");
             }
         }
 
@@ -249,6 +285,20 @@ namespace NexFB.WinAppSmartCard.Core.Models
             }
         }
 
+        public string DisplayGeneralOrderInfo
+        {
+            get
+            {
+                return _displayGeneralOrderInfo;
+            }
+
+            set
+            {
+                _displayGeneralOrderInfo = value;
+                this.OnPropertyChanged("DisplayGeneralOrderInfo");
+            }
+        }
+
         public string GroupOrderNickName
         {
             get
@@ -317,6 +367,39 @@ namespace NexFB.WinAppSmartCard.Core.Models
             {
                 _listAlternativeFood = value;
                 this.OnPropertyChanged("istAlternativeFood");
+            }
+        }
+
+        public List<Food> ListSideFood
+        {
+            get
+            {
+                return _listSideFood;
+            }
+
+            set
+            {
+                _listSideFood = value;
+                this.OnPropertyChanged("ListSideFood");
+            }
+        }
+
+        public string DisplayTotalPayment
+        {
+            get
+            {
+                if (ListSideFood == null)
+                {
+                    _displayTotalPayment = "0";
+                }
+
+                return _displayTotalPayment;
+            }
+
+            set
+            {
+                _displayTotalPayment = value;
+                this.OnPropertyChanged("DisplayTotalPayment");
             }
         }
 

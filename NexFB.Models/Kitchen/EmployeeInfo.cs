@@ -60,7 +60,7 @@ namespace NexFB.Models.Kitchen
 
         public string FloorName { get; set; }
 
-        public int IsLocal { get; set; }
+        public bool IsLocal { get; set; }
 
         public int Quantity { get; set; }
 
