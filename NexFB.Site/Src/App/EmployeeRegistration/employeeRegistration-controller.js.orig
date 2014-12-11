@@ -2,8 +2,13 @@
 /*global mealRegistrationModule*/
 
 mealRegistrationModule.controller('EmployeeRegistrationMealController',
+<<<<<<< HEAD
 ['$scope', 'mealRegistrationFactory', 'mealRegistrationUtilities', 'notificationFactory', '$route', '$window', 'ErrorFactory', 'baseUrl',
 function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificationFactory, $route, $window, ErrorFactory, baseUrl) {
+=======
+['$scope', 'mealRegistrationFactory', 'mealRegistrationUtilities', 'notificationFactory', '$route', '$window', 'ErrorFactory',
+function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificationFactory, $route, $window, ErrorFactory) {
+>>>>>>> #27373 - Move register rule to register pop-up
 	mealRegistrationUtilities.getTabHeading($scope);
 
 	mealRegistrationFactory.getUserPermissionOnRegistration().success(function (permission) {
@@ -15,20 +20,33 @@ function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificati
 	});
 
 	$scope.goHomePage = function () {
+<<<<<<< HEAD
 		$window.location.href = baseUrl + "Ordering/Index";
+=======
+		$window.location.href = "/Ordering/Index";
+>>>>>>> #27373 - Move register rule to register pop-up
 	};
 
 	/*
 	** Open manual file.
 	*/
 	$scope.getManual = function () {
+<<<<<<< HEAD
 		$scope.registrationManualLink = baseUrl + 'file/usermanual/Meal Registration.pdf';
+=======
+		$scope.registrationManualLink = '/file/usermanual/Meal Registration.pdf';
+>>>>>>> #27373 - Move register rule to register pop-up
 	};
 } ]);
 
 mealRegistrationModule.controller('MonthlyRegistrationController',
+<<<<<<< HEAD
 ['$scope', 'mealRegistrationFactory', '$modal', 'notificationFactory', 'ErrorFactory', 'mealRegistrationUtilities', 'baseUrl',
 function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFactory, mealRegistrationUtilities, baseUrl) {
+=======
+['$scope', 'mealRegistrationFactory', '$modal', 'notificationFactory', 'ErrorFactory', 'mealRegistrationUtilities',
+function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFactory, mealRegistrationUtilities) {
+>>>>>>> #27373 - Move register rule to register pop-up
 	/*
 	** Declare variable.
 	*/
@@ -189,7 +207,11 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	*/
 	$scope.registerMeal = function (date) {
 		$scope.modalRegisterInstance = $modal.open({
+<<<<<<< HEAD
 			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/registerMeal.html',
+=======
+			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+>>>>>>> #27373 - Move register rule to register pop-up
 			controller: "RegisterMealController",
 			backdrop: 'static',
 			resolve: {
@@ -265,7 +287,11 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 
 	$scope.registerMealWeek = function (week, index) {
 		$scope.modalRegisterInstance = $modal.open({
+<<<<<<< HEAD
 			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/registerMeal.html',
+=======
+			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+>>>>>>> #27373 - Move register rule to register pop-up
 			controller: "RegisterMealController",
 			backdrop: 'static',
 			resolve: {
@@ -328,7 +354,10 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 					else {
 						notificationFactory.success("DataChangeSuccessfully");
 					}
+<<<<<<< HEAD
 					}
+=======
+>>>>>>> #27373 - Move register rule to register pop-up
 				
 				}
 				else {
@@ -364,7 +393,11 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 
 	$scope.registerMealMonth = function (allWeekMeals) {
 		$scope.modalRegisterInstance = $modal.open({
+<<<<<<< HEAD
 			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/registerMeal.html',
+=======
+			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+>>>>>>> #27373 - Move register rule to register pop-up
 			controller: "RegisterMealController",
 			backdrop: 'static',
 			resolve: {
@@ -463,7 +496,11 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		var weekDayIndex = mealRegistrationUtilities.getWeekDayIndex(date);
 
 		$scope.modalRegisterInstance = $modal.open({
+<<<<<<< HEAD
 			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/registerMeal.html',
+=======
+			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+>>>>>>> #27373 - Move register rule to register pop-up
 			controller: "RegisterMealController",
 			backdrop: 'static',
 			resolve: {
@@ -543,8 +580,13 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 } ]);
 
 mealRegistrationModule.controller('DefaultRegisterMeal',
+<<<<<<< HEAD
 ['$scope', 'mealRegistrationFactory', 'notificationFactory', '$modal', 'ErrorFactory', 'mealRegistrationUtilities', 'baseUrl',
 function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFactory, mealRegistrationUtilities, baseUrl) {
+=======
+['$scope', 'mealRegistrationFactory', 'notificationFactory', '$modal', 'ErrorFactory', 'mealRegistrationUtilities',
+function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFactory, mealRegistrationUtilities) {
+>>>>>>> #27373 - Move register rule to register pop-up
 	/*
 	** Get default register meal.
 	*/
@@ -577,7 +619,11 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 	*/
 	$scope.registerMeal = function (date, index) {
 		$scope.modalRegisterInstance = $modal.open({
+<<<<<<< HEAD
 			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/registerMeal.html',
+=======
+			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+>>>>>>> #27373 - Move register rule to register pop-up
 			controller: "RegisterMealController",
 			backdrop: 'static',
 			resolve: {
@@ -650,7 +696,11 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 
 	$scope.registerMealWeek = function (weekMeals) {
 		$scope.modalRegisterInstance = $modal.open({
+<<<<<<< HEAD
 			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/registerMeal.html',
+=======
+			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+>>>>>>> #27373 - Move register rule to register pop-up
 			controller: "RegisterMealController",
 			backdrop: 'static',
 			resolve: {
@@ -712,7 +762,11 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 	*/
 	$scope.apply = function () {
 		$scope.modalRegisterInstance = $modal.open({
+<<<<<<< HEAD
 			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
+=======
+			templateUrl: '/src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
+>>>>>>> #27373 - Move register rule to register pop-up
 			controller: "ApplyTemplateConfirmController",
 			backdrop: 'static',
 			resolve: {
@@ -745,9 +799,15 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 
 mealRegistrationModule.controller('RegisterMealController',
 ['meals', '$scope', 'workDate', '$modalInstance', 'mealTimesheet', 'mode', 'isSameMeal', 'timePeriod',
+<<<<<<< HEAD
 'isSerialRegistration', '$modal', 'notificationFactory', 'registerSetting', 'baseUrl',
 function (meals, $scope, workDate, $modalInstance, mealTimesheet, mode, isSameMeal, timePeriod,
 isSerialRegistration, $modal, notificationFactory, registerSetting, baseUrl) {
+=======
+'isSerialRegistration', '$modal', 'notificationFactory', 'registerSetting',
+function (meals, $scope, workDate, $modalInstance, mealTimesheet, mode, isSameMeal, timePeriod,
+isSerialRegistration, $modal, notificationFactory, registerSetting) {
+>>>>>>> #27373 - Move register rule to register pop-up
 	$scope.meals = meals;
 	$scope.mode = mode;
 	$scope.timePeriod = timePeriod;
@@ -827,7 +887,11 @@ isSerialRegistration, $modal, notificationFactory, registerSetting, baseUrl) {
 	$scope.save = function (meals, mealsTemplate) {
 		if (isSerialRegistration) {
 			$scope.modalConfirmInstance = $modal.open({
+<<<<<<< HEAD
 				templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
+=======
+				templateUrl: '/src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
+>>>>>>> #27373 - Move register rule to register pop-up
 				controller: "ApplyTemplateConfirmController",
 				backdrop: 'static',
 				resolve: {

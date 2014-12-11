@@ -47,11 +47,24 @@
 		<i class="glyphicon glyphicon-exclamation-sign icon-warning"></i>
 		<label data-translate="DefaultRegistrationWarning" class="warning-registration"></label>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	</div>	
 =======
 	</div>
 >>>>>>> #27373 - Move register rule to register pop-up
 	<div class="note-meal default">
+=======
+	</div>
+<<<<<<< HEAD
+	<div class="note-meal default">
+=======
+	<div class="txt-warning">
+        <i class="glyphicon glyphicon-exclamation-sign icon-warning"></i>
+		<label data-translate="SevenDayRegisterMealWarning" class="warning-registration"></label>
+	</div>
+		<div class="note-meal default">
+>>>>>>> #27373 - Change register time to 0h00
+>>>>>>> #27373 - Move register rule to register pop-up
 		<ul class="list-unstyled list-inline">
 			<li class="lbl-breakfast">B: {{"Breakfast" | translate}}</li>
 			<li class="lbl-lunch">L: {{"Lunch" | translate}}</li>

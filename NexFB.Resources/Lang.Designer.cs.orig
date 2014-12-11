@@ -520,6 +520,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Daily Main Dish Report - Price Per Meal.
         /// </summary>
         public static string DailyMainDishReport {
@@ -529,6 +530,8 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+=======
+>>>>>>> #27373 - Move register rule to register pop-up
         ///   Looks up a localized string similar to Updated unsuccessfully!.
         /// </summary>
         public static string DataChangeFail {
@@ -1150,6 +1153,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Joined Date.
         /// </summary>
         public static string JoinedDate {
@@ -1168,6 +1172,8 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+=======
+>>>>>>> #27373 - Move register rule to register pop-up
         ///   Looks up a localized string similar to Kitchen only.
         /// </summary>
         public static string KitchenOnly {
@@ -1187,10 +1193,14 @@ namespace NexFB.Resources {
         
         /// <summary>
 <<<<<<< HEAD
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Translate remark to Vietnamese (for kitchen staff).
 =======
         ///   Looks up a localized string similar to Translate remark to Vietnamese.
 >>>>>>> #27368 - Add checkbox allow translate remark
+=======
+        ///   Looks up a localized string similar to Translate remark to Vietnamese (for kitchen staff).
+>>>>>>> #27373 - Move register rule to register pop-up
         /// </summary>
         public static string LabelCheckboxTranslateRemark {
             get {
@@ -1307,6 +1317,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Member Name.
         /// </summary>
         public static string MemberName {
@@ -1316,6 +1327,8 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+=======
+>>>>>>> #27373 - Move register rule to register pop-up
         ///   Looks up a localized string similar to Members.
         /// </summary>
         public static string Members {
@@ -1748,7 +1761,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Non-Vegetarian and Non-Registration: register 1 day in advance..
+=======
+<<<<<<< HEAD
+        ///   Looks up a localized string similar to Non-Vegetarian and Non-Registration: register 1 day in advance..
+=======
+        ///   Looks up a localized string similar to 1 day in advance for non-vegetarian meals or non-registration.
+>>>>>>> #27373 - Move register rule to register pop-up
+>>>>>>> #27373 - Move register rule to register pop-up
         /// </summary>
         public static string OtherTypeRegistrationWarning {
             get {
@@ -1892,7 +1913,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Registration rules.
+=======
+<<<<<<< HEAD
+        ///   Looks up a localized string similar to Registration rules.
+=======
+        ///   Looks up a localized string similar to Registration rule: User must register their meal.
+>>>>>>> #27373 - Move register rule to register pop-up
+>>>>>>> #27373 - Move register rule to register pop-up
         /// </summary>
         public static string RegistrationRuleWarning {
             get {
@@ -2090,7 +2119,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Vegetarian: register 7 days in advance..
+=======
+<<<<<<< HEAD
+        ///   Looks up a localized string similar to Vegetarian: register 7 days in advance..
+=======
+        ///   Looks up a localized string similar to 7 days in advance for vegetarian meals.
+>>>>>>> #27373 - Move register rule to register pop-up
+>>>>>>> #27373 - Move register rule to register pop-up
         /// </summary>
         public static string SevenDayRegisterMealWarning {
             get {
