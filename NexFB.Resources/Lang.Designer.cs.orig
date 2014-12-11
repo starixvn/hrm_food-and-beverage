@@ -1636,11 +1636,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Warning: Vegetarian meals will not take effect on 7 days from today..
-=======
-        ///   Looks up a localized string similar to Vegetarian meals must be registed at least 7 days in advance..
->>>>>>> #27373 - Add new column Non-Registration when register meal
         /// </summary>
         public static string NonUpdateVegetarianWarning {
             get {
@@ -2093,8 +2089,8 @@ namespace NexFB.Resources {
 <<<<<<< HEAD
         ///   Looks up a localized string similar to Vegetarian: register 7 days in advance..
 =======
-        ///   Looks up a localized string similar to Meals must be registered at least 7 days for Vegetarian and 1 day for Non-Vegetarian in advance..
->>>>>>> #27373 - Add new column Non-Registration when register meal
+        ///   Looks up a localized string similar to Meals must be registered at least 7 days for Vegetarian and 1 day for other types in advance..
+>>>>>>> #27373 - Change register time to 0h00
         /// </summary>
         public static string SevenDayRegisterMealWarning {
             get {

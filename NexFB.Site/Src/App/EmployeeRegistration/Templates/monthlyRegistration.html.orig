@@ -1,0 +1,117 @@
+﻿<div ng-controller="MonthlyRegistrationController">
+	<div class="title-registration">
+		<span ng-click="changeMonth(-1)" class="btn btn-default btn-prev" title="Prev"><i class="glyphicon glyphicon-chevron-left icon-prev"></i></span>
+		<span class="calendar-box">
+			<p class="input-group">
+				<input readonly type="text" class="form-control" datepicker-popup="{{format}}" datepicker-mode="popUpMode" ng-click="open($event)" 
+					ng-model="currentDate" is-open="opened" datepicker-options="dateOptions" show-button-bar="false"/>
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</p>
+		</span>
+		<span ng-click="changeMonth(1)" class="btn btn-default btn-next" title="Next"><i class="glyphicon glyphicon-chevron-right icon-next"></i></span>
+	</div>
+
+	<table class="table table-bordered table-register" ng-if="policy.permission >= 1">
+		<thead>
+			<tr>
+				<th class="width-percent-9">
+					<a href="" ng-click="registerMealMonth(allWeekMeals)" ng-if="hasDateEnabledInMonth(allWeekMeals) && policy.permission == 2">
+						{{currentDate | date:'MMM y'}}
+					</a>
+					<span class="black" ng-if="!hasDateEnabledInMonth(allWeekMeals) || policy.permission == 1">{{currentDate | date:'MMM y'}}
+					</span>
+				</th>
+				<th class="width-percent-13">
+					<a href="" ng-click="registerMealDate('Sun', allWeekMeals)" ng-if="hasDateEnabled('Sun', allWeekMeals) && policy.permission == 2" data-translate="Sun">
+					</a>
+					<span class="black" ng-if="!hasDateEnabled('Sun', allWeekMeals) || policy.permission == 1" data-translate="Sun">
+					</span>
+				</th>
+				<th class="width-percent-13">
+					<a href="" ng-click="registerMealDate('Mon', allWeekMeals)" ng-if="hasDateEnabled('Mon', allWeekMeals) && policy.permission == 2" data-translate="Mon">
+					</a>
+					<span class="black" ng-if="!hasDateEnabled('Mon', allWeekMeals) || policy.permission == 1" data-translate="Mon">
+					</span>
+				</th>
+				<th class="width-percent-13">
+					<a href="" ng-click="registerMealDate('Tue', allWeekMeals)" ng-if="hasDateEnabled('Tue', allWeekMeals) && policy.permission == 2" data-translate="Tue">
+					</a>
+					<span class="black" ng-if="!hasDateEnabled('Tue', allWeekMeals) || policy.permission == 1" data-translate="Tue">
+					</span>
+				</th>
+				<th class="width-percent-13">
+					<a href="" ng-click="registerMealDate('Wed', allWeekMeals)" ng-if="hasDateEnabled('Wed', allWeekMeals) && policy.permission == 2" data-translate="Wed">
+					</a>
+					<span class="black" ng-if="!hasDateEnabled('Wed', allWeekMeals) || policy.permission == 1" data-translate="Wed">
+					</span>
+				</th>
+				<th class="width-percent-13">
+					<a href="" ng-click="registerMealDate('Thu', allWeekMeals)" ng-if="hasDateEnabled('Thu', allWeekMeals) && policy.permission == 2" data-translate="Thu">
+					</a>
+					<span class="black" ng-if="!hasDateEnabled('Thu', allWeekMeals) || policy.permission == 1" data-translate="Thu">
+					</span>
+				</th>
+				<th class="width-percent-13">
+					<a href="" ng-click="registerMealDate('Fri', allWeekMeals)" ng-if="hasDateEnabled('Fri', allWeekMeals) && policy.permission == 2" data-translate="Fri">
+					</a>
+					<span class="black" ng-if="!hasDateEnabled('Fri', allWeekMeals) || policy.permission == 1" data-translate="Fri">
+					</span>
+				</th>
+				<th class="width-percent-13">
+					<a href="" ng-click="registerMealDate('Sat', allWeekMeals)" ng-if="hasDateEnabled('Sat', allWeekMeals) && policy.permission == 2" data-translate="Sat">
+					</a>
+					<span class="black" ng-if="!hasDateEnabled('Sat', allWeekMeals) || policy.permission == 1" data-translate="Sat">
+					</span>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="week in allWeekMeals">
+				<td class="text-center lbl-week week-middle">
+					<a href="" ng-click="registerMealWeek(week, $index + 1)" ng-if="hasDateEnableInWeek(week) && policy.permission == 2">
+					{{"Week" | translate}} {{$index + 1}}
+					</a>
+					<span class="black" ng-if="!hasDateEnableInWeek(week) || policy.permission == 1">{{"Week" | translate}} {{$index + 1}}</span>
+                </td>
+                <td ng-repeat="date in week.WeekMeals" ng-click="policy.permission != 2 || date.IsDisabled || registerMeal(date)"
+					ng-class="{disabled: date.IsDisabled, current: checkCurrentDate(date), weekend: checkWeekend(date), pointer: !date.IsDisabled }" >
+                    <span class="pull-right" ng-bind="date.WorkDate | date: 'd'">
+					</span>
+                    <div ng-repeat="meal in date.Meals">
+                        <span get-class-by-name ng-class="mealClass" ng-show="meal.IsVegetarian != null" class="txt-name">{{meal.ShortName}}:
+						</span> 
+						<span class="icon-veg" ng-show="meal.IsVegetarian == 1">
+						</span>
+						<span class="icon-none-veg" ng-show="meal.IsVegetarian == 0">
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="txt-warning">
+        <i class="glyphicon glyphicon-exclamation-sign icon-warning"></i>
+        <label data-translate="MonthlyWeeklyDefaultWarning" class="warning-registration"></label>
+    </div>
+<<<<<<< HEAD
+=======
+	<div class="txt-warning">
+        <i class="glyphicon glyphicon-exclamation-sign icon-warning"></i>
+		<label data-translate="SevenDayRegisterMealWarning" class="warning-registration"></label>
+	</div>
+>>>>>>> #27373 - Change register time to 0h00
+    <div class="note-meal">
+        <ul class="list-unstyled list-inline">
+            <li class="lbl-breakfast">B: {{"Breakfast" | translate}}</li>
+            <li class="lbl-lunch">L: {{"Lunch" | translate}}</li>
+            <li class="lbl-dinner">D: {{"Dinner" | translate}}</li>
+            <li class="lbl-supper">S: {{"Supper" | translate}}</li>
+        </ul>
+        <ul class="list-unstyled list-inline">
+            <li><i class="icon-none-veg"></i>{{"Non-Vegetarian" | translate}}</li>
+            <li><i class="icon-veg"></i>{{"Vegetarian" | translate}}</li>
+        </ul>
+    </div>
+</div>

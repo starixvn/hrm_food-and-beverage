@@ -313,18 +313,11 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 
 			mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
 				if (response.IsSuccessful) {
-<<<<<<< HEAD
 					var isUpdateVegetarian = mealRegistrationUtilities.checkIsUpdateVegetarian(registrationInfo.meals),
 						hasDateEffectedVegetarian = updatedRegistrationMealToWeek(week, registrationInfo.meals),
 						hasNonRegisterVegetarianDate = mealRegistrationUtilities.checkNonRegisterVegetarianDateInWeek(week, $scope.registerSetting);
 
 					if (isUpdateVegetarian && hasNonRegisterVegetarianDate) {
-=======
-					var isUpdateVegetarian = registrationInfo.meals[0].IsVegetarian,
-						hasDateEffectedVegetarian = updatedRegistrationMealToWeek(week, registrationInfo.meals);
-
-					if (isUpdateVegetarian) {
->>>>>>> #27373 - Update message contents when register meal week and month
 						if (hasDateEffectedVegetarian) {
 							notificationFactory.success("UpdateVegetarianInfo");
 						}
@@ -335,10 +328,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 					else {
 						notificationFactory.success("DataChangeSuccessfully");
 					}
-<<<<<<< HEAD
+					}
 				
-=======
->>>>>>> #27373 - Update message contents when register meal week and month
 				}
 				else {
 					notificationFactory.error("", response.Message);
@@ -762,7 +753,10 @@ isSerialRegistration, $modal, notificationFactory, registerSetting, baseUrl) {
 	$scope.timePeriod = timePeriod;
 	$scope.registerSetting = registerSetting;
 	$scope.originalMeals = angular.copy(meals);
+<<<<<<< HEAD
 	$scope.isNotToday = true;
+=======
+>>>>>>> #27373 - Change register time to 0h00
 
 	$scope.rightMeal = {
 		1: true,
@@ -809,6 +803,7 @@ isSerialRegistration, $modal, notificationFactory, registerSetting, baseUrl) {
 		else if (!validVegetarianCurrentDate) {
 			notificationFactory.error("RegisterVegetarianWarning");
 		}
+<<<<<<< HEAD
 		else if (!validNonVegetarianCurrentDate) {
 			notificationFactory.error("RegisterNonVegetarianWarning");
 		}
@@ -816,6 +811,15 @@ isSerialRegistration, $modal, notificationFactory, registerSetting, baseUrl) {
 			notificationFactory.error("DeregisterMealWarning");
 		}
 		else {
+=======
+		if (!validNonVegetarianCurrentDate) {
+			notificationFactory.error("RegisterNonVegetarianWarning");
+		}
+		if (!validNoCancelRegistration) {
+			notificationFactory.error("DeregisterMealWarning");
+		}
+		if (validChecked && validVegetarianCurrentDate && validNonVegetarianCurrentDate && validNoCancelRegistration) {
+>>>>>>> #27373 - Change register time to 0h00
 			$scope.$broadcast('getMealRegistration');
 		}
 	};

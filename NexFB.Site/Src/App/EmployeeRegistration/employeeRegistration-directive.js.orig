@@ -169,7 +169,6 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 					validChecked = true,
 					isTypeMeal = '',
 					workDate = scope.workDate ? new Date(scope.workDate) : '',
-<<<<<<< HEAD
 					validVegetarianCurrentDate = true,
 					validNonVegetarianCurrentDate = true,
 					validNoCancelRegistration = true,
@@ -210,44 +209,14 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 							if (isVegetarian) {
 								validVegetarianCurrentDate = false;
 							}
+<<<<<<< HEAD
+							}
 							else if (+workDateNoTime === +todayNoTime) {
+=======
+							else {
+>>>>>>> #27373 - Change register time to 0h00
 								validNonVegetarianCurrentDate = false;
 							}
-=======
-					validVegetarianCurrentDate = true;
-
-				for (var i = 0; i < checkedElements.length; i++) {
-					var checkedElement = checkedElements[i];
-
-					if ($(checkedElement).prop('id')) {
-						var mealId = $(checkedElement).val(),
-						checkedElementId = $(checkedElement).prop('id'),
-						isVegetarian = checkedElementId.replace('meal' + mealId, '') !== '_non';
-
-						// Check user cannot register non-veggie and veggie.
-						if (isTypeMeal === '') {
-							isTypeMeal = isVegetarian;
-						}
-						else if (isTypeMeal !== isVegetarian) {
-							validChecked = false;
-							i = checkedElements.length;
-						}
-
-						// In daily registration form of the current date, Vegetarian options are disabled
-						if (workDate && isVegetarian) {
-							var todayNoTime = new Date(),
-							workDateNoTime = new Date(scope.workDate),
-							limitDateNoTime = new Date();
-
-							todayNoTime.setHours(0, 0, 0, 0);
-							workDateNoTime.setHours(0, 0, 0, 0);
-							limitDateNoTime.setDate(todayNoTime.getDate() + scope.registerSetting.Order);
-							limitDateNoTime.setHours(0, 0, 0, 0);
-
-							if (+workDateNoTime >= +todayNoTime && workDateNoTime < limitDateNoTime) {
-								validVegetarianCurrentDate = false;
-							}
->>>>>>> #27373 - Add new column Non-Registration when register meal
 						}
 					}
 					else if (+workDateNoTime === +todayNoTime && workDate) {

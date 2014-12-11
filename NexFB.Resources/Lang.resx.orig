@@ -886,8 +886,8 @@
 <<<<<<< HEAD
     <value>Vegetarian: register 7 days in advance.</value>
 =======
-    <value>Meals must be registered at least 7 days for Vegetarian and 1 day for Non-Vegetarian in advance.</value>
->>>>>>> #27373 - Add new column Non-Registration when register meal
+    <value>Meals must be registered at least 7 days for Vegetarian and 1 day for other types in advance.</value>
+>>>>>>> #27373 - Change register time to 0h00
   </data>
   <data name="TodaySetMenu" xml:space="preserve">
     <value>Set menu</value>
@@ -903,7 +903,6 @@
   </data>
   <data name="NonRegistration" xml:space="preserve">
     <value>Non-Registration</value>
-<<<<<<< HEAD
   </data>
   <data name="RegisterNonVegetarianWarning" xml:space="preserve">
     <value>Non-vegetarian meals must be registed at least 1 days in advanced.</value>
@@ -911,6 +910,7 @@
   <data name="DeregisterMealWarning" xml:space="preserve">
     <value>You must deregister your meals at least 1 days in advanced.</value>
   </data>
+<<<<<<< HEAD
   <data name="OtherTypeRegistrationWarning" xml:space="preserve">
     <value>Non-Vegetarian and Non-Registration: register 1 day in advance.</value>
   </data>
@@ -931,7 +931,7 @@
   </data>
   <data name="MemberName" xml:space="preserve">
     <value>Member Name</value>
-=======
->>>>>>> #27373 - Add new column Non-Registration when register meal
   </data>
+=======
+>>>>>>> #27373 - Change register time to 0h00
 </root>

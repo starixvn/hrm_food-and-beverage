@@ -209,6 +209,10 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 							if (isVegetarian) {
 								validVegetarianCurrentDate = false;
 							}
+							else {
+								validNonVegetarianCurrentDate = false;
+							}
+						}
 							}
 							else if (+workDateNoTime === +todayNoTime) {
 								validNonVegetarianCurrentDate = false;
