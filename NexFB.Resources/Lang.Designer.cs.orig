@@ -1744,7 +1744,11 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Non-Vegetarian and Non-Registration: register 1 day in advance..
+=======
+        ///   Looks up a localized string similar to 1 day in advance for non-vegetarian meals or non-registration.
+>>>>>>> #27373 - Move register rule to register pop-up
         /// </summary>
         public static string OtherTypeRegistrationWarning {
             get {
@@ -1888,7 +1892,11 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Registration rules.
+=======
+        ///   Looks up a localized string similar to Registration rule: User must register their meal.
+>>>>>>> #27373 - Move register rule to register pop-up
         /// </summary>
         public static string RegistrationRuleWarning {
             get {
@@ -2089,8 +2097,8 @@ namespace NexFB.Resources {
 <<<<<<< HEAD
         ///   Looks up a localized string similar to Vegetarian: register 7 days in advance..
 =======
-        ///   Looks up a localized string similar to Meals must be registered at least 7 days for Vegetarian and 1 day for other types in advance..
->>>>>>> #27373 - Change register time to 0h00
+        ///   Looks up a localized string similar to 7 days in advance for vegetarian meals.
+>>>>>>> #27373 - Move register rule to register pop-up
         /// </summary>
         public static string SevenDayRegisterMealWarning {
             get {

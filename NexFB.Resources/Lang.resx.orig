@@ -886,8 +886,8 @@
 <<<<<<< HEAD
     <value>Vegetarian: register 7 days in advance.</value>
 =======
-    <value>Meals must be registered at least 7 days for Vegetarian and 1 day for other types in advance.</value>
->>>>>>> #27373 - Change register time to 0h00
+    <value>7 days in advance for vegetarian meals</value>
+>>>>>>> #27373 - Move register rule to register pop-up
   </data>
   <data name="TodaySetMenu" xml:space="preserve">
     <value>Set menu</value>
@@ -910,8 +910,8 @@
   <data name="DeregisterMealWarning" xml:space="preserve">
     <value>You must deregister your meals at least 1 days in advanced.</value>
   </data>
-<<<<<<< HEAD
   <data name="OtherTypeRegistrationWarning" xml:space="preserve">
+<<<<<<< HEAD
     <value>Non-Vegetarian and Non-Registration: register 1 day in advance.</value>
   </data>
   <data name="RegistrationRuleWarning" xml:space="preserve">
@@ -931,7 +931,11 @@
   </data>
   <data name="MemberName" xml:space="preserve">
     <value>Member Name</value>
-  </data>
 =======
->>>>>>> #27373 - Change register time to 0h00
+    <value>1 day in advance for non-vegetarian meals or non-registration</value>
+  </data>
+  <data name="RegistrationRuleWarning" xml:space="preserve">
+    <value>Registration rule: User must register their meal</value>
+>>>>>>> #27373 - Move register rule to register pop-up
+  </data>
 </root>
