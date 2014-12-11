@@ -88,6 +88,10 @@ reportUtilities) {
 		$scope.departmentOptions = departments;
 		getDepartmentFilter(departments);
 		$scope.getMonthlyReportLocal($scope.filter);
+
+		if (departments && departments.length === 1) {
+			$scope.getTeamByCompany($scope.filter.departmentId);
+		}
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});

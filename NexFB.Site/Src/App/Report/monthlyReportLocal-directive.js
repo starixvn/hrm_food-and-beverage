@@ -94,7 +94,7 @@ reportModule.directive('renderMonthlyReport', function () {
 						{ HeaderText: "#", Name: "Meal", MergeRowNumber: 2 },
 						{ HeaderText: "Nick", Name: "NickName", MergeRowNumber: 2 },
 						{ HeaderText: "Employee Type", Name: "EmployeeType", MergeRowNumber: 2 },
-						{ HeaderText: "Department/Section", Name: "Department", MergeRowNumber: 2 },
+						{ HeaderText: "Team", Name: "Department", MergeRowNumber: 2 },
 						{ HeaderText: "" + moment(month).format(monthFormat), Name: "1", MergeColNumber: 31 },
 						{ HeaderText: "Total", Name: "Quantity", MergeColNumber: 2 }
 					]
@@ -106,7 +106,7 @@ reportModule.directive('renderMonthlyReport', function () {
 				{
 					Columns: [
 						{ HeaderText: "#", Name: "Meal", MergeRowNumber: 2 },
-						{ HeaderText: "Department/Section", Name: "Department", MergeRowNumber: 2 },
+						{ HeaderText: "Team", Name: "Department", MergeRowNumber: 2 },
 						{ HeaderText: "" + moment(month).format(monthFormat), Name: "1", MergeColNumber: 31 },
 						{ HeaderText: "Total", Name: "Quantity", MergeColNumber: 2 }
 					]
@@ -125,13 +125,13 @@ reportModule.directive('renderMonthlyReport', function () {
 				{ HeaderText: "#", Width: 60, Name: "Meal", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
 				{ HeaderText: "Nick", Width: 90, Name: "NickName", HeaderAlign: "center", CellAlign: "center" },
 				{ HeaderText: "Employee Type", Width: 150, Name: "EmployeeType", HeaderAlign: "center", CellAlign: "left" },
-				{ HeaderText: "Department/Section", Width: 150, Name: "Department", HeaderAlign: "center", CellAlign: "left" }
+				{ HeaderText: "Team", Width: 150, Name: "Department", HeaderAlign: "center", CellAlign: "left" }
 			];
 		}
 		else {
 			columns = [
 				{ HeaderText: "#", Width: 60, Name: "Meal", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
-				{ HeaderText: "Department/Section", Width: 150, Name: "Department", HeaderAlign: "center", CellAlign: "left" }
+				{ HeaderText: "Team", Width: 150, Name: "Department", HeaderAlign: "center", CellAlign: "left" }
 			];
 		}
 
