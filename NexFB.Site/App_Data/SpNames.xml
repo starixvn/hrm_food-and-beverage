@@ -309,6 +309,8 @@
 	<Function Name="Report">
 		<Setting Key="RPT_MonthMainDishByLocal" SpName="RPT_MonthMainDishByLocal" DbName="NexFB" Plain="0" >
 		</Setting>
+		<Setting Key="RPT_DailyMainDishPricePerMeal" SpName="RPT_DailyMainDishPricePerMeal" DbName="NexFB" Plain="0" >
+		</Setting>
 	</Function>
   <Function Name="ManageGroup">
     <Setting Key="GroupOrderAdmin_EditActiveGroup" SpName="GroupOrderAdmin_EditActiveGroup" DbName="NexFB" Plain="0" ></Setting>
