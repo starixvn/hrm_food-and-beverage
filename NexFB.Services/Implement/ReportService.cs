@@ -16,6 +16,7 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Enums;
     using NexFB.Core.Utilities;
     using NexFB.Criteria.Report;
+    using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
@@ -54,6 +55,24 @@ namespace NexFB.Services.Implement
                 report = _reportRepository.GetMonthlyMainDishReportLocal(criteria);
                 report.Month = criteria.ReportDate;
                 report.IsGroupByEmployee = criteria.GroupBy == (int)GroupByReport.Employee;
+            }
+
+            return report;
+        }
+
+        /// <summary>
+        /// Get daily main dish report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The daily main dish report.</returns>
+        public DailyMainDishReportModel GetDailyMainDishReport(GetDailyMainDishPricePerMealReportCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var report = new DailyMainDishReportModel();
+
+            if (criteria.IsValid())
+            {
+                report = _reportRepository.GetDailyMainDishReport(criteria);
             }
 
             return report;

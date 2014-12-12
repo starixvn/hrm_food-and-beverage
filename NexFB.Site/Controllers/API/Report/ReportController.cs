@@ -109,6 +109,24 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
+        ////public DailyMainDishReportModel GetMonthlyMainDishReportLocal(
+        ////    DateTime fromDate,
+        ////    DateTime toDate,
+        ////    int orderCount,
+        ////    string departmentId = "",
+        ////    string teamId = "",
+        ////    string mealId = "",
+        ////    bool isDebug = false,
+        ////    int? isLocal = null,
+        ////    int? userId = null,
+        ////    string query = ""
+        ////    )
+        ////{
+        ////    var criteria = new GetDailyMainDishPricePerMealReportCriteria
+        ////    {
+        ////    };
+        ////}
+
         /// <summary>
         /// Get department by user role.
         /// </summary>

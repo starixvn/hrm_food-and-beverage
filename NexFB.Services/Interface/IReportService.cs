@@ -10,6 +10,7 @@
 namespace NexFB.Services.Interface
 {
     using NexFB.Criteria.Report;
+    using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
 
     /// <summary>
@@ -22,5 +23,7 @@ namespace NexFB.Services.Interface
         void ExportMonthlyMainDishReportLocal(MonthlyLocalReportModel report, string templateLink);
 
         MonthlyLocalReportModel GetPaingReport(MonthlyLocalReportModel report, int startIndex, int itemsPerPage);
+
+        DailyMainDishReportModel GetDailyMainDishReport(GetDailyMainDishPricePerMealReportCriteria criteria);
     }
 }
