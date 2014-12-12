@@ -184,7 +184,7 @@
     <value>这里没有中国的消息</value>
   </data>
   <data name="Message_OrderSuccessful" xml:space="preserve">
-    <value>The order has been sucessfully created.</value>
+    <value>完成訂單 ! 謝謝.</value>
   </data>
   <data name="Message_PickAlternativeFood" xml:space="preserve">
     <value>你必須要清楚公司的規定關於轉換其他餐單. 廚房職員有權利取消你的需求.</value>
