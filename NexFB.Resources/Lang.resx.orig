@@ -913,13 +913,20 @@
     <value>Registration rules</value>
   </data>
   <data name="LabelCheckboxTranslateRemark" xml:space="preserve">
-<<<<<<< HEAD
-    <value>Translate remark to Vietnamese</value>    
+    <value>Translate remark to Vietnamese (for kitchen staff)</value>
   </data>
+<<<<<<< HEAD
    <data name="DailyMainDishReport" xml:space="preserve">
     <value>Daily Main Dish Report - Price Per Meal</value>
 =======
-    <value>Translate remark to Vietnamese (for kitchen staff)</value>
->>>>>>> #27368 - Change label
+  <data name="JoinedDate" xml:space="preserve">
+    <value>Joined Date</value>
+  </data>
+  <data name="JoinedFrom" xml:space="preserve">
+    <value>Joined From</value>
+  </data>
+  <data name="MemberName" xml:space="preserve">
+    <value>Member Name</value>
+>>>>>>> #27490 - Change label and default : Company to Department, Fixed bug don't show + button for unplanned meal
   </data>
 </root>

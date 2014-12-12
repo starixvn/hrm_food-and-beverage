@@ -1150,6 +1150,24 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Joined Date.
+        /// </summary>
+        public static string JoinedDate {
+            get {
+                return ResourceManager.GetString("JoinedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Joined From.
+        /// </summary>
+        public static string JoinedFrom {
+            get {
+                return ResourceManager.GetString("JoinedFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kitchen only.
         /// </summary>
         public static string KitchenOnly {
@@ -1281,6 +1299,15 @@ namespace NexFB.Resources {
         public static string Member {
             get {
                 return ResourceManager.GetString("Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member Name.
+        /// </summary>
+        public static string MemberName {
+            get {
+                return ResourceManager.GetString("MemberName", resourceCulture);
             }
         }
         

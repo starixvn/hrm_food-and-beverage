@@ -918,4 +918,13 @@
    <data name="DailyMainDishReport" xml:space="preserve">
     <value>Daily Main Dish Report - Price Per Meal</value>
   </data>
+    <data name="JoinedDate" xml:space="preserve">
+    <value>Joined Date</value>
+  </data>
+  <data name="JoinedFrom" xml:space="preserve">
+    <value>Joined From</value>
+  </data>
+  <data name="MemberName" xml:space="preserve">
+    <value>Member Name</value>
+  </data>
 </root>

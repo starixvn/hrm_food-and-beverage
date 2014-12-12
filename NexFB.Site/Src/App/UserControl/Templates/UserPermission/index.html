@@ -12,11 +12,11 @@
         <input class="form-control lstBox-limit" type="text" ng-model="filter.keyword" placeholder="full name or nick name" />
     </div>
     <div class="form-group">
-        <label data-translate="Company">
+        <label data-translate="Department">
         </label>
         <select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
             class="form-control lstBox-limit" ng-change="getTeamByCompany(filter.departmentId)">
-            <option value="">-- {{"AllCompanies" | translate}} --</option>
+            <option value="">-- {{"All" | translate}} --</option>
         </select>
     </div>
     <div class="form-group">
@@ -61,7 +61,7 @@
                 </th>
                 <th class="authority-employee-team" data-translate="Team">
                 </th>
-                <th class="authority-employee-company" data-translate="Company">
+                <th class="authority-employee-company" data-translate="Department">
                 </th>
                 <th class="authority-employee-role" data-translate="Roles">
                 </th>
