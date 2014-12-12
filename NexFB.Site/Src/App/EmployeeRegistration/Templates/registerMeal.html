@@ -48,7 +48,7 @@
 	</div>
 
 	<div class="modal-footer">
-		<button class="button" get-meal-registration validate-meal-registration data-translate="Submit">
+		<button class="button" ng-show="isNotToday" get-meal-registration validate-meal-registration data-translate="Submit">
 		</button>
 		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
 		</button>

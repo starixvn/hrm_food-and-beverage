@@ -751,6 +751,7 @@ isSerialRegistration, $modal, notificationFactory, registerSetting) {
 	$scope.timePeriod = timePeriod;
 	$scope.registerSetting = registerSetting;
 	$scope.originalMeals = angular.copy(meals);
+	$scope.isNotToday = true;
 
 	$scope.rightMeal = {
 		1: true,
@@ -762,10 +763,25 @@ isSerialRegistration, $modal, notificationFactory, registerSetting) {
 	$scope.vegetarianDate = {};
 	$scope.nonVegetarianDate = {};
 
+	var checkWorkDateNotToday = function (workDate) {
+		var toDay = new Date(),
+			currentDate = new Date(workDate);
+
+		toDay.setHours(0, 0, 0, 0);
+		currentDate.setHours(0, 0, 0, 0);
+
+		if (+currentDate === +toDay) {
+			return false;
+		}
+
+		return true;
+	};
+
 	if (mode === 'month') {
 		$scope.workDate = workDate;
 		$scope.isRegisterDate = workDate !== '' || isSameMeal ? true : false;
 		$scope.mealTimesheet = mealTimesheet;
+		$scope.isNotToday = workDate !== '' ? checkWorkDateNotToday(workDate) : true;
 	}
 	else if (mode === 'default') {
 		$scope.isRegisterDate = isSameMeal ? true : false;

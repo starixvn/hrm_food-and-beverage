@@ -290,14 +290,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 				if (!date.IsDisabled) {
 					if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate() &&
 							toDay.getFullYear() === currentDate.getFullYear()) {
-						angular.forEach(date.Meals, function (meal) {
-							var currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
-								rightMeal = utility.checkRightMeal(currentTimesheet);
-
-							if (rightMeal) {
-								hasEnableDate = true;
-							}
-						});
+						hasEnableDate = false;
 					}
 					else {
 						hasEnableDate = true;
@@ -321,14 +314,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 			if (!date.IsDisabled) {
 				if (toDay.getMonth() === currentDate.getMonth() && toDay.getDate() === currentDate.getDate() &&
 						toDay.getFullYear() === currentDate.getFullYear()) {
-					angular.forEach(date.Meals, function (meal) {
-						var currentTimesheet = utility.getCurrentTimesheet(mealTimesheet, meal.MealId),
-								rightMeal = utility.checkRightMeal(currentTimesheet);
-
-						if (rightMeal) {
-							hasEnableDate = true;
-						}
-					});
+					hasEnableDate = false;
 				}
 				else {
 					hasEnableDate = true;
