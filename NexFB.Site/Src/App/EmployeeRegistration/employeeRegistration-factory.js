@@ -278,7 +278,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		return onDate;
 	};
 
-	utility.hasDateEnableInWeek = function (week, mealTimesheet) {
+	utility.hasDateEnableInWeek = function (week) {
 		var hasEnableDate = false;
 
 		angular.forEach(week.WeekMeals, function (date) {
@@ -302,7 +302,7 @@ function ($translate, mealRegistrationFactory, mealRegistrationCacheFactory) {
 		return hasEnableDate;
 	};
 
-	utility.hasDateEnabled = function (date, weeks, mealTimesheet) {
+	utility.hasDateEnabled = function (date, weeks) {
 		var hasEnableDate = false,
 			weekDayIndex = utility.getWeekDayIndex(date),
 			toDay = new Date();

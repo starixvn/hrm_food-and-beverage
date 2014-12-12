@@ -145,7 +145,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	** Check if a week has at least one enabled date.
 	*/
 	$scope.hasDateEnableInWeek = function (week) {
-		var hasEnableDate = mealRegistrationUtilities.hasDateEnableInWeek(week, $scope.mealTimesheet);
+		var hasEnableDate = mealRegistrationUtilities.hasDateEnableInWeek(week);
 		return hasEnableDate;
 	};
 
@@ -153,7 +153,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	** Check if all same date in month has at least one enable date.
 	*/
 	$scope.hasDateEnabled = function (date, weeks) {
-		var hasEnableDate = mealRegistrationUtilities.hasDateEnabled(date, weeks, $scope.mealTimesheet);
+		var hasEnableDate = mealRegistrationUtilities.hasDateEnabled(date, weeks);
 		return hasEnableDate;
 	};
 
