@@ -91,6 +91,10 @@ reportUtilities) {
 
 		if (departments && departments.length === 1) {
 			$scope.getTeamByCompany($scope.filter.departmentId);
+			getEmployeeType($scope.filter.departmentId, true);
+		}
+		else {
+			getEmployeeType(null, true);
 		}
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
@@ -131,8 +135,6 @@ reportUtilities) {
 			ErrorFactory.errorHandle(status);
 		});
 	};
-
-	getEmployeeType(null, true);
 
 	/*
 	** 
