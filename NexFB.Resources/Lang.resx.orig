@@ -883,11 +883,7 @@
     <value>Notice</value>
   </data>
   <data name="SevenDayRegisterMealWarning" xml:space="preserve">
-<<<<<<< HEAD
     <value>Vegetarian: register 7 days in advance.</value>
-=======
-    <value>7 days in advance for vegetarian meals</value>
->>>>>>> #27373 - Move register rule to register pop-up
   </data>
   <data name="TodaySetMenu" xml:space="preserve">
     <value>Set menu</value>
@@ -911,11 +907,11 @@
     <value>You must deregister your meals at least 1 days in advanced.</value>
   </data>
   <data name="OtherTypeRegistrationWarning" xml:space="preserve">
-<<<<<<< HEAD
     <value>Non-Vegetarian and Non-Registration: register 1 day in advance.</value>
   </data>
   <data name="RegistrationRuleWarning" xml:space="preserve">
     <value>Registration rules</value>
+<<<<<<< HEAD
   </data>
   <data name="LabelCheckboxTranslateRemark" xml:space="preserve">
     <value>Translate remark to Vietnamese (for kitchen staff)</value>
@@ -932,10 +928,6 @@
   <data name="MemberName" xml:space="preserve">
     <value>Member Name</value>
 =======
-    <value>1 day in advance for non-vegetarian meals or non-registration</value>
-  </data>
-  <data name="RegistrationRuleWarning" xml:space="preserve">
-    <value>Registration rule: User must register their meal</value>
->>>>>>> #27373 - Move register rule to register pop-up
+>>>>>>> #27373 - Change notice in registration form
   </data>
 </root>
