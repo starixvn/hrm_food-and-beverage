@@ -61,8 +61,8 @@ namespace NexFB.Repositories.Implement
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
                     var report = new DailyMainDishReportModel();
-                    IEnumerable<dynamic> rawReport = multi.Read<dynamic>();
-                    report.MainDishes = GroupMainDishByDepartmentTeam(rawReport);
+                    ////IEnumerable<dynamic> rawReport = multi.Read<dynamic>();
+                    ////report.MainDishes = GroupMainDishByDepartmentTeam(rawReport);
 
                     report.SubTotal = multi.Read<TotalPriceModel>().FirstOrDefault();
                     report.GrandTotal = multi.Read<TotalPriceModel>().FirstOrDefault();
@@ -72,10 +72,10 @@ namespace NexFB.Repositories.Implement
             }
         }
 
-        private List<DailyMainDishDepartmentTeamModel> GroupMainDishByDepartmentTeam(IEnumerable<dynamic> rawReport)
-        {
-            throw new System.NotImplementedException();
-        }
+        ////private List<DailyMainDishDepartmentTeamModel> GroupMainDishByDepartmentTeam(IEnumerable<dynamic> rawReport)
+        ////{
+        ////    throw new System.NotImplementedException();
+        ////}
 
         /// <summary>
         /// Get meals in month.
