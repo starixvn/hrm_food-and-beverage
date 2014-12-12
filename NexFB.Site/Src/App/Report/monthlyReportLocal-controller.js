@@ -124,22 +124,22 @@ reportUtilities) {
 	/*
 	** Get all employee type.
 	*/
-	var getEmployeeType = function (departmentId) {
-		foodMenuFactory.getAllEmployeeType(departmentId).success(function (employeeTypes) {
+	var getEmployeeType = function (departmentId, isLocal) {
+		foodMenuFactory.getAllEmployeeType(departmentId, isLocal).success(function (employeeTypes) {
 			$scope.employeeTypesOption = employeeTypes;
 		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
 		});
 	};
 
-	getEmployeeType(null);
+	getEmployeeType(null, true);
 
 	/*
 	** 
 	*/
 	$scope.getTeamAndEmployeeTypeOfDepartment = function (departmentId) {
 		$scope.getTeamByCompany(departmentId);
-		getEmployeeType(departmentId);
+		getEmployeeType(departmentId, true);
 	};
 
 	/*

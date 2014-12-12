@@ -18,6 +18,8 @@ namespace NexFB.Criteria.Employee
     {
         public string DepartmentId { get; set; }
 
+        public bool? IsLocal { get; set; }
+
         public override string GetSettingKey()
         {
             return "Employee_GetEmployeeType";

@@ -64,11 +64,14 @@ namespace NexFB.Site.Controllers.API
             return _commonService.GetAllMealTimesheet(criteria);
         }
 
-        public IEnumerable<EmployeeTypeModel> GetAllEmployeeType(string departmentId = "")
+        public IEnumerable<EmployeeTypeModel> GetAllEmployeeType(
+            string departmentId = "",
+            bool? isLocal = null)
         {
             var criteria = new GetAllEmployeeTypeCriteria
             {
-                DepartmentId = departmentId
+                DepartmentId = departmentId,
+                IsLocal = isLocal
             };
 
             return _commonService.GetAllEmployeeType(criteria);
