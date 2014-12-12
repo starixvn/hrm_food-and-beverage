@@ -10,7 +10,7 @@
 namespace NexFB.Models.Report.DailyMainDishPricePerMealReport
 {
     using System;
-    using NexFB.Models.Employee;
+    using NexFB.Models.Entities;
     using NexFB.Models.ShiftMealMapping;
 
     /// <summary>
@@ -22,7 +22,7 @@ namespace NexFB.Models.Report.DailyMainDishPricePerMealReport
 
         public ShiftMealMappingModel Shift { get; set; }
 
-        public EmployeeModel Employee { get; set; }
+        public Employee Employee { get; set; }
 
         public int Breakfast { get; set; }
 

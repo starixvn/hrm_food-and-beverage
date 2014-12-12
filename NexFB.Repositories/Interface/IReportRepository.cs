@@ -10,6 +10,7 @@
 namespace NexFB.Repositories.Interface
 {
     using Fanex.Data.Repository;
+    using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
 
     /// <summary>
@@ -18,5 +19,7 @@ namespace NexFB.Repositories.Interface
     public interface IReportRepository
     {
         MonthlyLocalReportModel GetMonthlyMainDishReportLocal(ICriteria criteria);
+
+        DailyMainDishReportModel GetDailyMainDishReport(ICriteria criteria);
     }
 }

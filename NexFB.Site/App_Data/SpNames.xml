@@ -310,6 +310,8 @@
 		<Setting Key="RPT_MonthMainDishByLocal" SpName="RPT_MonthMainDishByLocal" DbName="NexFB" Plain="0" >
 		</Setting>
 		<Setting Key="RPT_DailyMainDishPricePerMeal" SpName="RPT_DailyMainDishPricePerMeal" DbName="NexFB" Plain="0" >
+			<Mapping DataField="GroupDesc" ObjectProperty="Total" Class="TotalPriceModel"/>
+			<Mapping DataField="SysID" ObjectProperty="UserId" Class="Employee"/>
 		</Setting>
 	</Function>
   <Function Name="ManageGroup">

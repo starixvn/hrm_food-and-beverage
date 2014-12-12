@@ -16,6 +16,7 @@ namespace NexFB.Repositories.Implement
     using NexFB.Models.Employee;
     using NexFB.Models.Entities;
     using NexFB.Models.MealRegistration;
+    using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Repositories.Interface;
 
@@ -46,6 +47,34 @@ namespace NexFB.Repositories.Implement
 
                 return report;
             }
+        }
+
+        /// <summary>
+        /// Get daily main dish price per meal.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The report.</returns>
+        public DailyMainDishReportModel GetDailyMainDishReport(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    var report = new DailyMainDishReportModel();
+                    IEnumerable<dynamic> rawReport = multi.Read<dynamic>();
+                    report.MainDishes = GroupMainDishByDepartmentTeam(rawReport);
+
+                    report.SubTotal = multi.Read<TotalPriceModel>().FirstOrDefault();
+                    report.GrandTotal = multi.Read<TotalPriceModel>().FirstOrDefault();
+
+                    return report;
+                }
+            }
+        }
+
+        private List<DailyMainDishDepartmentTeamModel> GroupMainDishByDepartmentTeam(IEnumerable<dynamic> rawReport)
+        {
+            throw new System.NotImplementedException();
         }
 
         /// <summary>
