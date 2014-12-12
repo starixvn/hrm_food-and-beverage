@@ -18,6 +18,7 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Criteria.Report;
     using NexFB.Criteria.UserControl;
     using NexFB.Models.Entities;
+    using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
@@ -109,23 +110,48 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
-        ////public DailyMainDishReportModel GetMonthlyMainDishReportLocal(
-        ////    DateTime fromDate,
-        ////    DateTime toDate,
-        ////    int orderCount,
-        ////    string departmentId = "",
-        ////    string teamId = "",
-        ////    string mealId = "",
-        ////    bool isDebug = false,
-        ////    int? isLocal = null,
-        ////    int? userId = null,
-        ////    string query = ""
-        ////    )
-        ////{
-        ////    var criteria = new GetDailyMainDishPricePerMealReportCriteria
-        ////    {
-        ////    };
-        ////}
+        /// <summary>
+        /// Get monthly main dish report local.
+        /// </summary>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="orderCount">The order count.</param>
+        /// <param name="departmentId">The department Id.</param>
+        /// <param name="teamId">The team Id.</param>
+        /// <param name="mealId">The meal Id.</param>
+        /// <param name="isDebug">Is debug or not.</param>
+        /// <param name="isLocal">Is local or not.</param>
+        /// <param name="userId">The user Id.</param>
+        /// <param name="query">The query.</param>
+        /// <returns>The report.</returns>
+        public DailyMainDishReportModel GetMonthlyMainDishReportLocal(
+            DateTime fromDate,
+            DateTime toDate,
+            int orderCount,
+            string departmentId = "",
+            string teamId = "",
+            string mealId = "",
+            bool isDebug = false,
+            int? isLocal = null,
+            int? userId = null,
+            string query = "")
+        {
+            var criteria = new GetDailyMainDishPricePerMealReportCriteria
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                OrderCount = orderCount,
+                DepartmentId = departmentId,
+                TeamId = teamId,
+                MealId = mealId,
+                IsDebug = isDebug,
+                IsLocal = isLocal,
+                UserId = userId,
+                Query = query
+            };
+
+            return _reportService.GetDailyMainDishReport(criteria);
+        }
 
         /// <summary>
         /// Get department by user role.

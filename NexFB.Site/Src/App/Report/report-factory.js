@@ -18,6 +18,18 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 				}
 				});
 		},
+		getDailyMainDishReport: function (filter) {
+			return $http.get('/api/report/Report/GetMonthlyMainDishReportLocal',
+				{ params: { fromDate: filter.fromDate.toDateString(),
+						toDate: filter.toDate.toDateString(),
+						orderCount: filter.orderCount,
+						departmentId: filter.departmentId,
+						teamId: filter.teamId,
+						mealId: filter.mealId,
+						userId: filter.userId,
+						query: filter.query
+				}});
+		},
 		getDepartmentByUserRole: function () {
 			return $http.get('/api/report/GetDepartmentByUserRole');
 		}
