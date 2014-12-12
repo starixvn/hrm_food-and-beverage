@@ -112,6 +112,7 @@ namespace NexFB.PosKitchen
             if (MessageBox.Show(errorMessage, Lang.UnhandledException, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
             {
                 Shutdown();
+                System.Windows.Forms.Application.Restart();
             }
         }
 
@@ -122,6 +123,7 @@ namespace NexFB.PosKitchen
             if (MessageBox.Show(Lang.NetworkConnectionError, Lang.ErrorNetworkConnectionHeader, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
             {
                 Shutdown();
+                System.Windows.Forms.Application.Restart();
             }
         }
 

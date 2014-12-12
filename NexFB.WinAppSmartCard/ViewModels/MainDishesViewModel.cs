@@ -341,6 +341,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private void OrderSuccessAction(OrderResult result)
         {
             OrderNo = result.OrderNo;
+            MainViewModel.UpdateOrderOwnerInfoAfterOrderSuccessful();
             MainViewModel.SendMessage(result.OrderId);
             MainViewModel.MainTabReadOnly = true;
             MainViewModel.SideButtonEnable = true;

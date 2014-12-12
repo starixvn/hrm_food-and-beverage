@@ -82,9 +82,22 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         #region Methods
 
+        /// <summary>
+        /// Show error message dialog.
+        /// </summary>
+        /// <param name="currentCulture">Check current culture.</param>
+        /// <param name="message">Error message.</param>
         public void ShowErrorMessage(int currentCulture, string message)
         {
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { WPFMessageBox.Show(currentCulture, message); }));
+            Application.Current.Dispatcher.BeginInvoke(
+                DispatcherPriority.Background,
+                new Action(() =>
+            {
+                if (Application.Current.Windows.Count == 1)
+                {
+                    WPFMessageBox.Show(currentCulture, message);
+                }
+            }));
         }
 
         public WPFMessageBoxResult ShowWarningCancelOrder(int currentCulture)

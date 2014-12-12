@@ -36,7 +36,7 @@ namespace NexFB.Models.Kitchen
                 }
                 else
                 {
-                    return textLength > 45 ? 52 : 28;
+                    return textLength > 45 ? 65 : 28;
                 }
             }
         }

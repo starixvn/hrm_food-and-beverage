@@ -159,8 +159,9 @@
 						</ListBox.Template>
 						<ListBox.ItemTemplate>
 							<DataTemplate>
-								<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="271" Margin="0,0,0,-7">
+								<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="271" Margin="0,3,0,-10">
 									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="10" />
 										<ColumnDefinition Width="*" />
 										<ColumnDefinition Width="40" />
 									</Grid.ColumnDefinitions>
@@ -168,11 +169,14 @@
 										<RowDefinition Height="{Binding Path=DisplayRowHeight}"/>
 									</Grid.RowDefinitions>
 
-									<Label FontSize="15" Content="{Binding Path=MenuVnmName}" ContentStringFormat="> {0} "
-									HorizontalAlignment="Left" Margin="0,-3,0,0" VerticalAlignment="Stretch" />
+									<TextBlock Grid.Row="0" Text=">" Margin="0,2,0,0"/>
 
-									<TextBlock FontSize="15" TextWrapping="WrapWithOverflow" 
-									Text="{Binding Path=Quantity}" Grid.Column="1"
+									<TextBlock FontSize="15" Text="{Binding Path=MenuVnmName}" Grid.Column="1"
+									TextWrapping="WrapWithOverflow" 
+									HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Stretch" />
+
+									<TextBlock FontSize="15" 
+									Text="{Binding Path=Quantity}" Grid.Column="2"
 									HorizontalAlignment="Right" Margin="0,1,7,0" VerticalAlignment="Stretch" />
 								</Grid>
 							</DataTemplate>

@@ -257,13 +257,13 @@
 													</Button.Template>
 												</Button>
 
-												<Button Style="{StaticResource TileButton}" CommandParameter="{Binding Path=SysId}" Grid.Column="5" 
+												<Button Visibility="{Binding DataContext.DeleteButtonVisible, RelativeSource={RelativeSource AncestorType=ListBox}}"
+												 Style="{StaticResource TileButton}" CommandParameter="{Binding Path=SysId}" Grid.Column="5" 
 												Command="{Binding DataContext.DeleteEmployeeCommand, RelativeSource={RelativeSource AncestorType=ListBox}}">
 													<Button.Template>
 														<ControlTemplate>
 															<Border Background="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" >
-																<Image Width="34" Height="30" Source="pack://application:,,,/Images/remove1.png" 
-																Visibility="{Binding DataContext.DeleteButtonVisible, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
+																<Image Width="34" Height="30" Source="pack://application:,,,/Images/remove1.png" />
 															</Border>
 														</ControlTemplate>
 													</Button.Template>

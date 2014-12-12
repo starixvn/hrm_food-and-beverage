@@ -116,6 +116,7 @@ namespace NexFB.WinAppSmartCard
             if (MessageBox.Show(errorMessage, Lang.UnhandledException, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
             {
                 Shutdown();
+                System.Windows.Forms.Application.Restart();
             }
         }
 

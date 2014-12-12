@@ -13,6 +13,7 @@ namespace NexFB.PosKitchen.ViewModels
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
+    using System.Windows;
     using System.Windows.Documents;
     using System.Windows.Threading;
     using NexFB.Core.Enums;
@@ -189,7 +190,10 @@ namespace NexFB.PosKitchen.ViewModels
 
         public void ShowErrorMessage(int currentCulture, string message)
         {
-            WPFMessageBox.Show(currentCulture, message);
+            if (Application.Current.Windows.Count == 1)
+            {
+                WPFMessageBox.Show(currentCulture, message);
+            }
         }
 
         private void StartCloseTimer(NotificationWindow windows)

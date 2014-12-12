@@ -289,6 +289,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// <param name="result">OrderResult data.</param>
         private void PrepareDataNotificationView(OrderResult result)
         {
+            MainViewModel.UpdateOrderOwnerInfoAfterOrderSuccessful();
             List<Food> selectedFood = new List<Food>();
             foreach (Employee employee in ObservableListEmployee)
             {
