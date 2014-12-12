@@ -43,6 +43,7 @@ reportUtilities) {
 
 	$scope.numberFormat = reportUtilities.getNumberFormat();
 	$scope.monthFormat = reportUtilities.getMonthFormat();
+	$scope.teamOptions = [];
 
 	/*
 	** Reset grid option.
