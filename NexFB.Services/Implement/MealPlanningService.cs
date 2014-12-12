@@ -67,6 +67,7 @@ namespace NexFB.Services.Implement
                     mealPlanning.IsDisable = isDisable;
                     mealPlanning.IsCurrentMeal = isCurrentMeal;
                     isDisable = false;
+                    isCurrentMeal = false;
                 }
             }
 
