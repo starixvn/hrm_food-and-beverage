@@ -779,16 +779,16 @@ isSerialRegistration, $modal, notificationFactory, registerSetting) {
 		if (!validChecked) {
 			notificationFactory.error("InvalidInputRegisterMeal");
 		}
-		if (!validVegetarianCurrentDate) {
+		else if (!validVegetarianCurrentDate) {
 			notificationFactory.error("RegisterVegetarianWarning");
 		}
-		if (!validNonVegetarianCurrentDate) {
+		else if (!validNonVegetarianCurrentDate) {
 			notificationFactory.error("RegisterNonVegetarianWarning");
 		}
-		if (!validNoCancelRegistration) {
+		else if (!validNoCancelRegistration) {
 			notificationFactory.error("DeregisterMealWarning");
 		}
-		if (validChecked && validVegetarianCurrentDate && validNonVegetarianCurrentDate && validNoCancelRegistration) {
+		else {
 			$scope.$broadcast('getMealRegistration');
 		}
 	};

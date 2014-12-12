@@ -192,8 +192,8 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 
 					if ($(checkedElement).prop('id')) {
 						var mealId = $(checkedElement).val(),
-						checkedElementId = $(checkedElement).prop('id'),
-						isVegetarian = checkedElementId.replace('meal' + mealId, '') !== '_non';
+							checkedElementId = $(checkedElement).prop('id'),
+							isVegetarian = checkedElementId.replace('meal' + mealId, '') !== '_non';
 
 						// Check user cannot register non-veggie and veggie.
 						if (isTypeMeal === '') {
@@ -209,7 +209,7 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 							if (isVegetarian) {
 								validVegetarianCurrentDate = false;
 							}
-							else {
+							else if (+workDateNoTime === +todayNoTime) {
 								validNonVegetarianCurrentDate = false;
 							}
 						}
