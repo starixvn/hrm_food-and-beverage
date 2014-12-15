@@ -51,6 +51,7 @@
     <Compile Include="Entities\MealTimesheet.cs" />
     <Compile Include="Entities\Menu.cs" />
     <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Shift.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\Team.cs" />
     <Compile Include="FoodItemManagement\FoodItemModel.cs" />

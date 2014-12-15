@@ -14,7 +14,7 @@ namespace NexFB.Models.Entities
     /// <summary>
     /// Employee Model.
     /// </summary>
-   [Serializable]
+    [Serializable]
     public class Employee
     {
         public int UserId { get; set; }

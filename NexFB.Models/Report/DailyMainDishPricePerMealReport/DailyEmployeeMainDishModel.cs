@@ -11,16 +11,16 @@ namespace NexFB.Models.Report.DailyMainDishPricePerMealReport
 {
     using System;
     using NexFB.Models.Entities;
-    using NexFB.Models.ShiftMealMapping;
 
     /// <summary>
     /// The daily main dish of employee model.
     /// </summary>
+    [Serializable]
     public class DailyEmployeeMainDishModel
     {
         public DateTime WorkDate { get; set; }
 
-        public ShiftMealMappingModel Shift { get; set; }
+        public Shift Shift { get; set; }
 
         public Employee Employee { get; set; }
 

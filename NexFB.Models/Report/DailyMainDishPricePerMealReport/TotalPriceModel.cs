@@ -9,12 +9,15 @@
 
 namespace NexFB.Models.Report.DailyMainDishPricePerMealReport
 {
+    using System;
+
     /// <summary>
     /// The total price model.
     /// </summary>
+    [Serializable]
     public class TotalPriceModel
     {
-        public int Total { get; set; }
+        public string Total { get; set; }
 
         public int Breakfast { get; set; }
 

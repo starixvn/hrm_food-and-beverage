@@ -9,12 +9,14 @@
 
 namespace NexFB.Models.Report.DailyMainDishPricePerMealReport
 {
+    using System;
     using System.Collections.Generic;
     using NexFB.Models.Entities;
 
     /// <summary>
     /// Daily main dish of each team in each department model.
     /// </summary>
+    [Serializable]
     public class DailyMainDishDepartmentTeamModel
     {
         public DailyMainDishDepartmentTeamModel()

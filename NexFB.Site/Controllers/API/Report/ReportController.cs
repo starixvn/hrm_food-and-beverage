@@ -150,8 +150,10 @@ namespace NexFB.Site.Controllers.API.Report
                 UserId = userId,
                 Query = query
             };
+            DailyMainDishReportModel fullReport = _reportService.GetDailyMainDishReport(criteria);
+            SessionManager.Set<DailyMainDishReportModel>(ReportConstant.DailyMainDishReportSessionKey, fullReport);
 
-            return _reportService.GetDailyMainDishReport(criteria);
+            return fullReport;
         }
 
         /// <summary>

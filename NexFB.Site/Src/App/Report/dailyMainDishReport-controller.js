@@ -4,9 +4,12 @@
 reportModule.controller('DailyMainDishReportController',
 ['$scope', 'reportFactory', 'ErrorFactory',
 function ($scope, reportFactory, ErrorFactory) {
+	var filterDate = new Date();
+	filterDate.setDate(filterDate.getDate() - 4);
+
 	$scope.filter = {
-		formDate: new Date(),
-		toDate: new Date(),
+		fromDate: filterDate,
+		toDate: filterDate,
 		orderCount: 0,
 		departmentId: '',
 		teamId: '',

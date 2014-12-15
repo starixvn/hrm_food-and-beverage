@@ -66,18 +66,190 @@ namespace NexFB.Repositories.Implement
 
                     report.SubTotal = multi.Read<TotalPriceModel>().FirstOrDefault();
                     report.GrandTotal = multi.Read<TotalPriceModel>().FirstOrDefault();
+                    report.TotalAmount = CalculateTotalAmount(report.GrandTotal);
 
                     return report;
                 }
             }
         }
 
+        private int CalculateTotalAmount(TotalPriceModel totalPriceModel)
+        {
+            int amount = totalPriceModel.Breakfast + totalPriceModel.Lunch + totalPriceModel.Dinner + 
+                            totalPriceModel.Supper;
+            return amount;
+        }
+
+        /// <summary>
+        /// Group main dish by department and team.
+        /// </summary>
+        /// <param name="rawReport">The report that not group.</param>
+        /// <returns>The list Daily Main Dish Department Team model.</returns>
         private List<DailyMainDishDepartmentTeamModel> GroupMainDishByDepartmentTeam(IEnumerable<dynamic> rawReport)
         {
             var mainDishes = new List<DailyMainDishDepartmentTeamModel>();
-                rawReport.Select(x => x.DepartmentID && x.EmpTeamID).Distinct();
+            IEnumerable<dynamic> rawDepartmentIds = rawReport.Select(x => x.DepartmentID).Distinct();
+
+            foreach (dynamic rawDepartmentId in rawDepartmentIds)
+            {
+                IEnumerable<dynamic> rowDepartments = rawReport.Where(x => x.DepartmentID == rawDepartmentId);
+                IEnumerable<dynamic> rawTeamIds = rowDepartments.Select(x => x.EmpTeamID).Distinct();
+
+                foreach (dynamic rawTeamId in rawTeamIds)
+                {
+                    IEnumerable<dynamic> rowDepartmentTeams = rowDepartments.Where(x => x.EmpTeamID == rawTeamId);
+                    DailyMainDishDepartmentTeamModel mainDish = CreateMainDishDepartmentTeam(rowDepartmentTeams);
+                    mainDishes.Add(mainDish);
+                }
+            }
 
             return mainDishes;
+        }
+
+        /// <summary>
+        /// Create main dish department team.
+        /// </summary>
+        /// <param name="rowDepartmentTeams">The row contains data to group.</param>
+        /// <returns>The Daily Main Dish Department Team model.</returns>
+        private DailyMainDishDepartmentTeamModel CreateMainDishDepartmentTeam(
+            IEnumerable<dynamic> rowDepartmentTeams)
+        {
+            var mainDish = new DailyMainDishDepartmentTeamModel();
+            int index = 0;
+
+            foreach (dynamic rowDepartmentTeam in rowDepartmentTeams)
+            {
+                if (index == 0)
+                {
+                    mainDish.Department = CreateMainDishDepartment(rowDepartmentTeam);
+                    mainDish.Team = CreateMainDishTeam(rowDepartmentTeam);
+                }
+
+                DailyEmployeeMainDishModel employeeDish = CreateEmployeeDish(rowDepartmentTeam);
+                mainDish.EmployeeDishes.Add(employeeDish);
+            }
+
+            return mainDish;
+        }
+
+        /// <summary>
+        /// Create department.
+        /// </summary>
+        /// <param name="rowDepartmentTeam">The row contains department data.</param>
+        /// <returns>The department.</returns>
+        private Department CreateMainDishDepartment(dynamic rowDepartmentTeam)
+        {
+            int? departmentId = rowDepartmentTeam.DepartmentID;
+
+            if (departmentId.HasValue)
+            {
+                var department = new Department
+                {
+                    DepartmentId = (int)departmentId,
+                    Name = rowDepartmentTeam.DepartmentName
+                };
+
+                return department;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Create team.
+        /// </summary>
+        /// <param name="rowDepartmentTeam">The row contains team data.</param>
+        /// <returns>The team model.</returns>
+        private Team CreateMainDishTeam(dynamic rowDepartmentTeam)
+        {
+            int? teamId = rowDepartmentTeam.EmpTeamID;
+
+            if (teamId.HasValue)
+            {
+                var team = new Team
+                {
+                    TeamId = (int)teamId,
+                    Code = rowDepartmentTeam.EmpTeamCode,
+                    Name = rowDepartmentTeam.EmpTeamName
+                };
+
+                return team;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Create employee dished.
+        /// </summary>
+        /// <param name="rowDepartmentTeam">The row contains employee data.</param>
+        /// <returns>The employee main dish model.</returns>
+        private DailyEmployeeMainDishModel CreateEmployeeDish(dynamic rowDepartmentTeam)
+        {
+            Shift shift = CreateEmployeeShift(rowDepartmentTeam);
+            Employee employee = CreateEmployeeInfo(rowDepartmentTeam);
+
+            var employeeDish = new DailyEmployeeMainDishModel
+            {
+                WorkDate = rowDepartmentTeam.WorkDate,
+                Shift = shift,
+                Employee = employee,
+                Breakfast = rowDepartmentTeam.Breakfast,
+                Lunch = rowDepartmentTeam.Lunch,
+                Dinner = rowDepartmentTeam.Dinner,
+                Supper = rowDepartmentTeam.Supper
+            };
+
+            return employeeDish;
+        }
+
+        /// <summary>
+        /// Create employee shift.
+        /// </summary>
+        /// <param name="rowDepartmentTeam">The row contains employee shift data.</param>
+        /// <returns>The shift model.</returns>
+        private Shift CreateEmployeeShift(dynamic rowDepartmentTeam)
+        {
+            int? shiftId = rowDepartmentTeam.ShiftId;
+
+            if (shiftId.HasValue)
+            {
+                var shift = new Shift
+                {
+                    ShiftId = (int)shiftId,
+                    ShiftCode = rowDepartmentTeam.ShiftCode
+                };
+
+                return shift;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Create employee information.
+        /// </summary>
+        /// <param name="rowDepartmentTeam">The row contains employee data.</param>
+        /// <returns>The employee model.</returns>
+        private Employee CreateEmployeeInfo(dynamic rowDepartmentTeam)
+        {
+            int? userId = rowDepartmentTeam.SysID;
+
+            if (userId.HasValue)
+            {
+                var employee = new Employee
+                {
+                    UserId = (int)userId,
+                    DomainUsername = rowDepartmentTeam.DomainUsername,
+                    Code = rowDepartmentTeam.Code,
+                    FullName = rowDepartmentTeam.FullName,
+                    NickName = rowDepartmentTeam.NickName
+                };
+
+                return employee;
+            }
+
+            return null;
         }
 
         /// <summary>
