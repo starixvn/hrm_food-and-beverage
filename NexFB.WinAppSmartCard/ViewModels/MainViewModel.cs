@@ -102,36 +102,44 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     string cardValue = newCardNumber.Substring(newCardNumber.Length - 5, 5);
                     var getEmployeeByCardNumber = new GetEmployeeByCardNumberCriteria() { CardNumber = cardValue };
                     EmployeeInfo employeeData = this.SmartCardOrderService.GetEmployeeByCardId(getEmployeeByCardNumber);
-                    ChangeLanguageAccordingToEmployeeType(employeeData);
-                    switch (currentViewModel)
+
+                    if (employeeData != null)
                     {
-                        case ConstantValue.MainDishesViewModel:
-                            if (((MainDishesViewModel)CurrentViewModel).MainDishTimerLive)
-                            {
-                                ReturnToStandByScreenAndCreateNewSession();
-                            }
+                        ChangeLanguageAccordingToEmployeeType(employeeData);
+                        switch (currentViewModel)
+                        {
+                            case ConstantValue.MainDishesViewModel:
+                                if (((MainDishesViewModel)CurrentViewModel).MainDishTimerLive)
+                                {
+                                    ReturnToStandByScreenAndCreateNewSession();
+                                }
 
-                            AddDataWhenTimerLive(employeeData, false);
-                            break;
-                        case ConstantValue.SideDishesViewModel:
-                            if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
-                            {
-                                ReturnToStandByScreenAndCreateNewSession();
-                                AddDataWhenTimerLive(employeeData, true);
-                            }
+                                AddDataWhenTimerLive(employeeData, false);
+                                break;
+                            case ConstantValue.SideDishesViewModel:
+                                if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
+                                {
+                                    ReturnToStandByScreenAndCreateNewSession();
+                                    AddDataWhenTimerLive(employeeData, true);
+                                }
 
-                            break;
-                        case ConstantValue.CombinedDishesViewModel:
-                            if (((CombinedDishesViewModel)CurrentViewModel).SideDishTimerLive)
-                            {
-                                ReturnToStandByScreenAndCreateNewSession();
-                                AddDataWhenTimerLive(employeeData, true);
-                            }
+                                break;
+                            case ConstantValue.CombinedDishesViewModel:
+                                if (((CombinedDishesViewModel)CurrentViewModel).SideDishTimerLive)
+                                {
+                                    ReturnToStandByScreenAndCreateNewSession();
+                                    AddDataWhenTimerLive(employeeData, true);
+                                }
 
-                            break;
+                                break;
 
-                        default:
-                            break;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_IdentifyCard);
                     }
 
                     AutoLogOff.ResetLogoffTimer();

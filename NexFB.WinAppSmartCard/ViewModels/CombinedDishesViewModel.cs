@@ -146,6 +146,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             employeeOrderInfo.DisplayTotalPayment = DisplayTotalPayment(employeeOrderInfo.ListSideFood);
 
             CheckTakeAwayChecked();
+            CheckAllowChangeLanguage();
             CloseSideFoodDialog(data);
         }
 
@@ -161,6 +162,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             employeeOrderInfo.DisplayTotalPayment = DisplayTotalPayment(employeeOrderInfo.ListSideFood);
 
             CheckTakeAwayChecked();
+            CheckAllowChangeLanguage();
             CloseSideFoodDialog(data);
         }
 
@@ -202,8 +204,15 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     this.MainViewModel.OrderOwner = this.OrderOwner;
                 }
 
+                UpdateOrderNo();
+                CheckAllowChangeLanguage();
                 DeleteButtonVisible = ObservableListEmployee.Count > 1 ? CommonResources.Visible : CommonResources.Hidden;
             }
+        }
+
+        private void CheckAllowChangeLanguage()
+        {
+            MainViewModel.IsAllowChangeLanguage = this.ObservableListEmployee.Count < 2 && !CanTakeAway;
         }
 
         /// <summary>
@@ -437,6 +446,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 }
 
                 digitalClockDispatcher.Stop();
+            }
+        }
+
+        private void UpdateOrderNo()
+        {
+            for (int i = 0; i < ObservableListEmployee.Count; i++)
+            {
+                ObservableListEmployee[i].OrderNo = i + 1;
             }
         }
 
