@@ -103,48 +103,58 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     var getEmployeeByCardNumber = new GetEmployeeByCardNumberCriteria() { CardNumber = cardValue };
                     EmployeeInfo employeeData = this.SmartCardOrderService.GetEmployeeByCardId(getEmployeeByCardNumber);
 
-                    if (employeeData != null)
-                    {
-                        ChangeLanguageAccordingToEmployeeType(employeeData);
-                        switch (currentViewModel)
-                        {
-                            case ConstantValue.MainDishesViewModel:
-                                if (((MainDishesViewModel)CurrentViewModel).MainDishTimerLive)
-                                {
-                                    ReturnToStandByScreenAndCreateNewSession();
-                                }
-
-                                AddDataWhenTimerLive(employeeData, false);
-                                break;
-                            case ConstantValue.SideDishesViewModel:
-                                if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
-                                {
-                                    ReturnToStandByScreenAndCreateNewSession();
-                                    AddDataWhenTimerLive(employeeData, true);
-                                }
-
-                                break;
-                            case ConstantValue.CombinedDishesViewModel:
-                                if (((CombinedDishesViewModel)CurrentViewModel).SideDishTimerLive)
-                                {
-                                    ReturnToStandByScreenAndCreateNewSession();
-                                    AddDataWhenTimerLive(employeeData, true);
-                                }
-
-                                break;
-
-                            default:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_IdentifyCard);
-                    }
+                    CheckForValidCard(employeeData, currentViewModel);
 
                     AutoLogOff.ResetLogoffTimer();
                     mainWindow.InitializeAutoLogoffFeature();
                 }));
+            }
+        }
+
+        /// <summary>
+        /// Check card swipe.
+        /// </summary>
+        /// <param name="employeeData">Employee data.</param>
+        /// <param name="currentViewModel">Current view model.</param>
+        public void CheckForValidCard(EmployeeInfo employeeData, string currentViewModel)
+        {
+            if (employeeData != null)
+            {
+                ChangeLanguageAccordingToEmployeeType(employeeData);
+                switch (currentViewModel)
+                {
+                    case ConstantValue.MainDishesViewModel:
+                        if (((MainDishesViewModel)CurrentViewModel).MainDishTimerLive)
+                        {
+                            ReturnToStandByScreenAndCreateNewSession();
+                        }
+
+                        AddDataWhenTimerLive(employeeData, false);
+                        break;
+                    case ConstantValue.SideDishesViewModel:
+                        if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
+                        {
+                            ReturnToStandByScreenAndCreateNewSession();
+                            AddDataWhenTimerLive(employeeData, true);
+                        }
+
+                        break;
+                    case ConstantValue.CombinedDishesViewModel:
+                        if (((CombinedDishesViewModel)CurrentViewModel).SideDishTimerLive)
+                        {
+                            ReturnToStandByScreenAndCreateNewSession();
+                            AddDataWhenTimerLive(employeeData, true);
+                        }
+
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_IdentifyCard);
             }
         }
 

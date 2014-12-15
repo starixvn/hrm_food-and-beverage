@@ -138,8 +138,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             int totalSideDishOrder = employeeOrderInfo.ListSideFood.Sum(x => x.Quantity);
 
             employeeOrderInfo.DisplayGeneralOrderInfo = totalSideDishOrder > 0 ?
-                string.Format(employeeOrderInfo.DisplayNotifyMenuName + ", " 
-                + MainScreenResources.SideDishes + " x {0}", totalSideDishOrder)
+                string.Format(employeeOrderInfo.DisplayNotifyMenuName + ", " + MainScreenResources.SideDishes + " x {0}", totalSideDishOrder)
                 : employeeOrderInfo.DisplayNotifyMenuName;
 
             ////Update total payment
