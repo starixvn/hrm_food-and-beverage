@@ -164,8 +164,8 @@
 				</Grid>
 
 				<Grid Grid.Row="1" Grid.Column="9">
-					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADH." FontSize="25" FontWeight="Bold"
-				Style="{StaticResource buttonKeypad}"  Content="." Margin="3" />
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPADH/" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="/" Margin="3" />
 				</Grid>
 
 				<!--Row 2-->
@@ -215,7 +215,11 @@
 
 				<Grid Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="4">
 					<Button Command="{Binding Path=AddCommand}" Content="{x:Static resx:WinFormMainResource.Add}"
-				Style="{StaticResource buttonKeypad}" Margin="3"  FontSize="25" FontWeight="Bold"/>
+						Style="{StaticResource buttonKeypad}" Margin="3"  FontSize="25" FontWeight="Bold"/>
+
+					<Button 
+					Command="{Binding Path=SearchLocationCommand}" Content="{x:Static resx:WinFormMainResource.Search}"
+						Style="{StaticResource buttonKeypad}" Margin="3"  FontSize="25" FontWeight="Bold"/>
 				</Grid>
 
 

@@ -219,13 +219,13 @@
 						</Grid.ColumnDefinitions>
 						<Button Background="#66B5D6" Foreground="White" Command="{Binding Path=ConfirmSideFoodPopup}"
 						CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-					Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Submit]}" Height="45" Style="{StaticResource TileButton}"
-					HorizontalAlignment="Right" Margin="0,0,10,0" Name="button1" VerticalAlignment="Top" Width="125" FontSize="20"/>
+					Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Submit]}" Height="65" Style="{StaticResource TileButton}"
+					HorizontalAlignment="Right" Margin="0,0,50,0" Name="button1" VerticalAlignment="Top" Width="150" FontSize="22"/>
 
 						<Button Background="#EF4339" Foreground="White"
-					Grid.Column="1" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Cancel]}" Height="45" Style="{StaticResource TileButton}"
-					HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="10,0,0,0" 
-					Command="{Binding Path=CloseSideFoodPopup}" FontSize="20" 
+					Grid.Column="1" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Cancel]}" Height="65" Style="{StaticResource TileButton}"
+					HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="50,0,0,0" 
+					Command="{Binding Path=CloseSideFoodPopup}" FontSize="22" 
 					CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
 					</Grid>
 				</StackPanel>

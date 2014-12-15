@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="AddFood" xml:space="preserve">
     <value>Add more food items</value>
   </data>
@@ -125,6 +128,9 @@
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change menu</value>
   </data>
   <data name="Chinese" xml:space="preserve">
     <value>Chinese</value>

@@ -432,10 +432,17 @@ namespace NexFB.PosKitchen.ViewModels
                     break;
 
                 default:
-                    Result += keyPadParameter.Substring(keyPadParameter.Length - 1, 1);
-                    if ((CheckMainFoodMenu || CheckAlternativeFoodMenu) && CommonKitchenOrder.Any(x => x.IsFocusedMealMenu))
+                    if (SearchLocationFocused)
                     {
-                        StartTimerAddQuantity();
+                        LocationResult += keyPadParameter.Substring(keyPadParameter.Length - 1, 1);
+                    }
+                    else
+                    {
+                        Result += keyPadParameter.Substring(keyPadParameter.Length - 1, 1);
+                        if ((CheckMainFoodMenu || CheckAlternativeFoodMenu) && CommonKitchenOrder.Any(x => x.IsFocusedMealMenu))
+                        {
+                            StartTimerAddQuantity();
+                        }
                     }
 
                     break;
@@ -1190,6 +1197,7 @@ namespace NexFB.PosKitchen.ViewModels
             CurrentSelectedEmployeeSysId = 0;
             CurrentSelectedMainMenuId = 0;
             CurrentSelectedGroupId = 0;
+            SearchLocationHeight = 0;
             IsMenuFocused = false;
             TextBlockFocused = false;
             IsCanceledOrder = false;

@@ -136,20 +136,16 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ////Update general Order information
             Employee employeeOrderInfo = ObservableListEmployee.Where(x => x.SysId == CurrentEmployeeOrder.SysId).SingleOrDefault();
             int totalSideDishOrder = employeeOrderInfo.ListSideFood.Sum(x => x.Quantity);
-            if (totalSideDishOrder > 0)
-            {
-                CanTakeAway = true;
-                string currentOrderInfo = employeeOrderInfo.DisplayNotifyMenuName;
-                employeeOrderInfo.DisplayGeneralOrderInfo = string.Format(currentOrderInfo + " , " + MainScreenResources.SideDishes + " x {0}", totalSideDishOrder);
-            }
-            else
-            {
-                CanTakeAway = false;
-            }
+
+            employeeOrderInfo.DisplayGeneralOrderInfo = totalSideDishOrder > 0 ?
+                string.Format(employeeOrderInfo.DisplayNotifyMenuName + ", " 
+                + MainScreenResources.SideDishes + " x {0}", totalSideDishOrder)
+                : employeeOrderInfo.DisplayNotifyMenuName;
 
             ////Update total payment
             employeeOrderInfo.DisplayTotalPayment = DisplayTotalPayment(employeeOrderInfo.ListSideFood);
 
+            CheckTakeAwayChecked();
             CloseSideFoodDialog(data);
         }
 
@@ -163,13 +159,18 @@ namespace NexFB.WinAppSmartCard.ViewModels
             employeeOrderInfo.ListSideFood.ForEach(x => x.Quantity = 0);
             employeeOrderInfo.DisplayGeneralOrderInfo = employeeOrderInfo.DisplayNotifyMenuName;
             employeeOrderInfo.DisplayTotalPayment = DisplayTotalPayment(employeeOrderInfo.ListSideFood);
+
+            CheckTakeAwayChecked();
+            CloseSideFoodDialog(data);
+        }
+
+        private void CheckTakeAwayChecked()
+        {
             CanTakeAway = ObservableListEmployee.Any(x => x.ListSideFood != null && x.ListSideFood.Sum(y => y.Quantity) > 0);
             if (!CanTakeAway)
             {
                 TakeAwayChecked = false;
             }
-
-            CloseSideFoodDialog(data);
         }
 
         private void ExecuteDeletedFoodCommand(object data)

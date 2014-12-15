@@ -95,5 +95,13 @@ namespace NexFB.PosKitchen.Views.ManageOrder
             timer.Tick += (sender, e) => TimerTickToGetData(sender, currentViewModel);
             timer.Start();
         }
+
+        private void SearchLocation_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SearchLocation.BorderBrush = Brushes.Red;
+            OrderFoodViewModel currentViewModel = (OrderFoodViewModel)this.DataContext;
+            currentViewModel.SearchLocationFocused = true;
+            currentViewModel.ExecuteChangeKeyPad();
+        }
     }
 }

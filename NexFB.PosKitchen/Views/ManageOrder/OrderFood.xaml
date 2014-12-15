@@ -280,46 +280,60 @@
 			<Grid Background="#fff" Width="{Binding Path=MiddleSide}"
                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Margin="2,0,0,0">
 
-				<ListBox Name="ListMenuItem" BorderBrush="#FFF" BorderThickness="0"  Width="{Binding Path=MiddleSide}"
-                         ItemsSource="{Binding Path=CommonKitchenOrder}" Style="{StaticResource CustomLBStyle}"  Margin="0">
-					<ListBox.ItemContainerStyle>
-						<Style TargetType="ListBoxItem">
-							<Setter Property="Padding" Value="0"/>
-						</Style>
-					</ListBox.ItemContainerStyle>
-					<ListBox.ItemTemplate>
-						<DataTemplate>
-							<Button Style="{StaticResource MenuTile}" Margin="2,0,0,2" MinHeight="60"
+				<StackPanel>
+
+					<Border Height="{Binding Path=SearchLocationHeight}"
+						VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="2" Margin="5,1,4,0"
+						Mouse.PreviewMouseDown="SearchLocation_PreviewMouseDown" x:Name="SearchLocation" BorderBrush="#999999">
+						<Label Content="{Binding LocationResult}" HorizontalContentAlignment="Right" VerticalAlignment="Stretch" 
+                                FontSize="{Binding Path=KeyPadResultFontSize}" Background="#fff"/>
+					</Border>
+
+					<ListBox Name="ListMenuItem" BorderBrush="#FFF" BorderThickness="0" 
+						Width="{Binding Path=MiddleSide}" ItemsSource="{Binding Path=CommonKitchenOrder}" 
+						Style="{StaticResource CustomLBStyle}"  Margin="0">
+						<ListBox.ItemContainerStyle>
+							<Style TargetType="ListBoxItem">
+								<Setter Property="Padding" Value="0"/>
+							</Style>
+						</ListBox.ItemContainerStyle>
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<Button Style="{StaticResource MenuTile}" Margin="2,0,0,2" MinHeight="60"
                                     Width="{Binding DataContext.MiddleSideWrapper, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                     Command="{Binding DataContext.DefaulMenuSelected, RelativeSource={RelativeSource AncestorType=ListBox}}" 
                                     CommandParameter="{Binding Path=ItemId}">
-								<Grid Width="{Binding DataContext.MiddleSide, RelativeSource={RelativeSource AncestorType=ListBox}}">
-									<TextBlock Foreground="#FFF" 
+									<Grid Width="{Binding DataContext.MiddleSide, RelativeSource={RelativeSource AncestorType=ListBox}}">
+										<TextBlock Foreground="#FFF" 
                                                FontSize="{Binding DataContext.GeneralInfoFontSize, RelativeSource={RelativeSource AncestorType=ListBox}}" 
                                                HorizontalAlignment="Left" Margin="10,0,35,0" VerticalAlignment="Center" 
                                                Text="{Binding Path=ItemName}" TextWrapping="WrapWithOverflow"></TextBlock>
-									<Label HorizontalAlignment="Right" Margin="0,0,50,0" VerticalAlignment="Center" Foreground="Yellow"
+										<Label HorizontalAlignment="Right" Margin="0,0,50,0" VerticalAlignment="Center" Foreground="Yellow"
                                            FontSize="{Binding DataContext.GeneralInfoFontSize, RelativeSource={RelativeSource AncestorType=ListBox}}" >
-										<Label.Style>
-											<Style TargetType="Label">
-												<Style.Triggers>
-													<DataTrigger Binding="{Binding Path=Quantity, Converter={StaticResource conv}}" Value="True">
-														<Setter Property="Content" Value=""/>
-													</DataTrigger>
-													<DataTrigger Binding="{Binding Path=Quantity, Converter={StaticResource conv}}" Value="False">
-														<Setter Property="Content" Value="{Binding Path=Quantity}"/>
-														<Setter Property="ContentStringFormat" Value="x {0} "/>
-													</DataTrigger>
-												</Style.Triggers>
-											</Style>
-										</Label.Style>
-									</Label>
-								</Grid>
+											<Label.Style>
+												<Style TargetType="Label">
+													<Style.Triggers>
+														<DataTrigger Binding="{Binding Path=Quantity, Converter={StaticResource conv}}" Value="True">
+															<Setter Property="Content" Value=""/>
+														</DataTrigger>
+														<DataTrigger Binding="{Binding Path=Quantity, Converter={StaticResource conv}}" Value="False">
+															<Setter Property="Content" Value="{Binding Path=Quantity}"/>
+															<Setter Property="ContentStringFormat" Value="x {0} "/>
+														</DataTrigger>
+													</Style.Triggers>
+												</Style>
+											</Label.Style>
+										</Label>
+									</Grid>
 
-							</Button>
-						</DataTemplate>
-					</ListBox.ItemTemplate>
-				</ListBox>
+								</Button>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+				</StackPanel>
+
+
 			</Grid>
 
 			<!--Grid Right-->

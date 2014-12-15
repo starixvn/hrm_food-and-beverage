@@ -32,6 +32,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private MainViewModel _mainViewModel;
 
         private string _result;
+        private string _locationResult;
         private string _borderButtonPickRoom;
         private string _borderButtonMainFood;
         private string _borderButtonAlternativeFood;
@@ -47,6 +48,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private int _currentSelectedMainMenuId;
         private int _currentSelectedAlternativeMenuId;
         private int _currentSelectedGroupId;
+        private int _searchLocationHeight;
         private string _locationName;
         private int _locationId;
         private bool _isVnmCulture;
@@ -55,6 +57,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private string _orderNo;
         private int _referenceCode;
         private bool _textBlockFocused;
+        private bool _searchLocationFocused;
         private string _overlayVisible;
         private bool _isDataEdit;
         private string _saveButtonVisible;
@@ -111,6 +114,20 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             {
                 _isCanceledOrder = value;
                 this.OnPropertyChanged("IsCanceledOrder");
+            }
+        }
+
+        public int SearchLocationHeight
+        {
+            get
+            {
+                return _searchLocationHeight;
+            }
+
+            set
+            {
+                _searchLocationHeight = value;
+                this.OnPropertyChanged("SearchLocationHeight");
             }
         }
 
@@ -366,6 +383,20 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             }
         }
 
+        public string LocationResult
+        {
+            get
+            {
+                return _locationResult;
+            }
+
+            set
+            {
+                _locationResult = value;
+                this.OnPropertyChanged("LocationResult");
+            }
+        }
+
         public string BorderButtonPickRoom
         {
             get
@@ -503,6 +534,20 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             {
                 _currentSelectedGroupId = value;
                 this.OnPropertyChanged("CurrentSelectedGroupId");
+            }
+        }
+
+        public bool SearchLocationFocused
+        {
+            get
+            {
+                return _searchLocationFocused;
+            }
+
+            set
+            {
+                _searchLocationFocused = value;
+                this.OnPropertyChanged("SearchLocationFocused");
             }
         }
 
@@ -740,6 +785,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             string defaultColor = Constant.DefaultMenuColor;
             string defaulBackgroundColor = Constant.DefaultButtonOrderColor;
             string selectedBackgroundColor = Constant.SelectedButtonOrderColor;
+            SearchLocationHeight = 0;
             switch (currentButton)
             {
                 case 1:
@@ -747,6 +793,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
                     BorderButtonPickGroup = BorderButtonMainFood = BorderButtonAlternativeFood = defaultColor;
                     BackgroundButtonPickRoom = selectedBackgroundColor;
                     BackgroundButtonPickGroup = BackgroundButtonMainFood = BackgroundButtonAlternativeFood = defaulBackgroundColor;
+                    SearchLocationHeight = 55;
                     break;
                 case 2:
                     BorderButtonPickRoom = BorderButtonMainFood = BorderButtonAlternativeFood = defaultColor;
