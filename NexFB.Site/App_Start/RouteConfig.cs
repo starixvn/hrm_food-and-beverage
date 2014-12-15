@@ -49,7 +49,8 @@ namespace NexFB.Site
                 "ShiftMealMapping/Index",
                 "MonthlyReportLocal/Index",
                 "ManageGroup/Index",
-                "ManageGroup/User"
+                "ManageGroup/User",
+                "DailyMainDishReport/Index"
             };
             homeRouteUrls.ForEach(url => routes.MapRoute(
                 name: url,

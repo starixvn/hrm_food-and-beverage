@@ -124,6 +124,7 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="userId">The user Id.</param>
         /// <param name="query">The query.</param>
         /// <returns>The report.</returns>
+        [HttpGet]
         public DailyMainDishReportModel GetMonthlyMainDishReportLocal(
             DateTime fromDate,
             DateTime toDate,

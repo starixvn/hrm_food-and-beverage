@@ -141,6 +141,7 @@ namespace NexFB.Site
                 "~/Src/App/ShiftMealMapping/shiftMealMapping-factory.js",
                 "~/Src/App/Report/report-route.js",
                 "~/Src/App/Report/monthlyReportLocal-controller.js",
+                "~/Src/App/Report/dailyMainDishReport-controller.js",
                 "~/Src/App/Report/report-factory.js",
                 "~/Src/App/Report/report-directive.js",
                 "~/Src/App/GroupControl/groupControl-route.js",
