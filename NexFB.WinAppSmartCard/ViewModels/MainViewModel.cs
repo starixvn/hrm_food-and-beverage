@@ -57,6 +57,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ChangeCulture();
             CheckCurrentScreen();
             this.SideButtonEnable = true;
+            this.MainButtonEnable = true;
         }
 
         #region Properties
@@ -152,6 +153,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             CurrentCardNumber = string.Empty;
             this.MainTabReadOnly = false;
+            MainButtonEnable = true;
             OrderOwner = null;
             IsMainDishTab = false;
             ExecuteMainDishesCommand();
@@ -161,6 +163,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         public void ReturnToStandByScreenAndCreateNewSession()
         {
             this.MainTabReadOnly = false;
+            MainButtonEnable = true;
             OrderOwner = null;
             IsMainDishTab = false;
             ExecuteMainDishesCommand();
@@ -333,6 +336,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private void ExecuteCombineDishesCommand()
         {
             IsMainDishTab = false;
+            MainButtonEnable = false;
             var listEmployee = ((MainDishesViewModel)CurrentViewModel).ObservableListEmployee;
             CurrentViewModel = new CombinedDishesViewModel(OrderOwner, listEmployee, this);
             CheckCurrentViewModel();
@@ -388,6 +392,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     break;
                 case ConstantValue.SideDishesViewModel:
                     ((SideDishesViewModel)CurrentViewModel).CheckDataForLanguageChange();
+                    break;
+                case ConstantValue.CombinedDishesViewModel:
+                    ((CombinedDishesViewModel)CurrentViewModel).CheckDataForLanguageChange();
                     break;
             }
         }

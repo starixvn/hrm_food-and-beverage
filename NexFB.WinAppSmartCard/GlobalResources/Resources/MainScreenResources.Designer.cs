@@ -196,7 +196,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are already incuded in this order..
+        ///   Looks up a localized string similar to You are already included in this order..
         /// </summary>
         internal static string Message_AlreadyThisOrder {
             get {

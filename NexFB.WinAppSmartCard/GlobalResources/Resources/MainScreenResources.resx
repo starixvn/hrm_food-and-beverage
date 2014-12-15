@@ -163,7 +163,7 @@
     <value>You are already included in another order.</value>
   </data>
   <data name="Message_AlreadyThisOrder" xml:space="preserve">
-    <value>You are already incuded in this order.</value>
+    <value>You are already included in this order.</value>
   </data>
   <data name="Message_CancelOrder" xml:space="preserve">
     <value>Are you sure you want to cancel the order ?</value>

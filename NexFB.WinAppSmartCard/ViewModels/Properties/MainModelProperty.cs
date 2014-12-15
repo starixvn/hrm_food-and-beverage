@@ -35,6 +35,7 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
         private MenuColor _sideDishesMenu = new MenuColor();
         private bool _mainTabReadOnly;
         private bool _sideButtonEnable;
+        private bool _mainButtonEnable;
         private string _logoMargin;
         private string _sentenceMargin;
         private bool _isMainDishTab;
@@ -262,6 +263,20 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
             {
                 _sideButtonEnable = value;
                 OnPropertyChanged("SideButtonEnable");
+            }
+        }
+
+        public bool MainButtonEnable
+        {
+            get
+            {
+                return _mainButtonEnable;
+            }
+
+            set
+            {
+                _mainButtonEnable = value;
+                OnPropertyChanged("MainButtonEnable");
             }
         }
 

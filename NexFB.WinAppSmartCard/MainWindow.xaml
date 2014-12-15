@@ -60,7 +60,7 @@
 				<RowDefinition />
 			</Grid.RowDefinitions>
 			<DockPanel Grid.Row="0" Background="#464646">
-				<Button
+				<Button IsEnabled="{Binding MainButtonEnable}"
 				 Command="{Binding Path=MainDishesCommand}" Background="{Binding Path=MainDishesMenu.BackgroundColor}"
 			Foreground="{Binding Path=MainDishesMenu.ForegroundColor}" FontWeight="{Binding Path=MainDishesMenu.FontWeight}"
 				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.MainDishes]}" 

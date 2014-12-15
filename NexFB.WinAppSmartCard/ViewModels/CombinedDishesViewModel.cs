@@ -73,6 +73,16 @@ namespace NexFB.WinAppSmartCard.ViewModels
             CountDownTimer = 0;
         }
 
+        public void CheckDataForLanguageChange()
+        {
+            if (ObservableListEmployee.Count == 1)
+            {
+                Employee currentEmployee = ObservableListEmployee.Single();
+                currentEmployee.CurrentCulture = MainViewModel.CurrentCulture;
+                DisplayOrderedMeal(currentEmployee, currentEmployee.CurrentCulture);
+            }
+        }
+
         #endregion
 
         #region private Methods
