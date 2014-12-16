@@ -144,7 +144,7 @@ namespace NexFB.Site
                 "~/Src/App/Report/dailyMainDishReport-controller.js",
                 "~/Src/App/Report/report-factory.js",
                 "~/Src/App/Report/monthlyReportLocal-directive.js",
-                "~/Src/App/Report/dailyReport-directive.js",
+                "~/Src/App/Report/dailyMainDishReport-directive.js",
                 "~/Src/App/GroupControl/groupControl-route.js",
                 "~/Src/App/GroupControl/groupControl-controller.js",
                 "~/Src/App/GroupControl/createGroup-controller.js",

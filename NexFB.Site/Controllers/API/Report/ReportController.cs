@@ -119,10 +119,10 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="departmentId">The department Id.</param>
         /// <param name="teamId">The team Id.</param>
         /// <param name="mealId">The meal Id.</param>
-        /// <param name="isDebug">Is debug or not.</param>
-        /// <param name="isLocal">Is local or not.</param>
         /// <param name="userId">The user Id.</param>
         /// <param name="query">The query.</param>
+        /// <param name="isDebug">Is debug or not.</param>
+        /// <param name="isLocal">Is local or not.</param>
         /// <returns>The report.</returns>
         [HttpGet]
         public DailyMainDishReportModel GetDailyMainDishReport(
@@ -132,10 +132,10 @@ namespace NexFB.Site.Controllers.API.Report
             string departmentId = "",
             string teamId = "",
             string mealId = "",
-            bool isDebug = false,
-            int? isLocal = null,
             int? userId = null,
-            string query = "")
+            string query = "",
+            bool isDebug = false,
+            int? isLocal = null)
         {
             var criteria = new GetDailyMainDishPricePerMealReportCriteria
             {

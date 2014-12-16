@@ -310,7 +310,7 @@
     <Content Include="Src\App\Ordering\Templates\EditOrder.html" />
     <Content Include="Src\App\Ordering\Templates\SelectSideDish.html" />
     <Content Include="Src\App\Report\dailyMainDishReport-controller.js" />
-    <Content Include="Src\App\Report\dailyReport-directive.js" />
+    <Content Include="Src\App\Report\dailyMainDishReport-directive.js" />
     <Content Include="Src\App\Report\monthlyReportLocal-controller.js" />
     <Content Include="Src\App\Report\monthlyReportLocal-directive.js" />
     <Content Include="Src\App\Report\report-factory.js" />

@@ -66,7 +66,11 @@ namespace NexFB.Repositories.Implement
 
                     report.SubTotal = multi.Read<TotalPriceModel>().FirstOrDefault();
                     report.GrandTotal = multi.Read<TotalPriceModel>().FirstOrDefault();
-                    report.TotalAmount = CalculateTotalAmount(report.GrandTotal);
+
+                    if (report.GrandTotal != null)
+                    {
+                        report.TotalAmount = CalculateTotalAmount(report.GrandTotal);
+                    }
 
                     return report;
                 }
