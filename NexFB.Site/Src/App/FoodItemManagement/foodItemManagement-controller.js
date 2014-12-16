@@ -2,9 +2,9 @@
 /*global foodItemManagementModule*/
 
 foodItemManagementModule.controller('FoodItemManagementController',
-['$scope', '$modal', 'foodItemFactory', 'notificationFactory', 'setMenuFactory', 'commonFactory',
+['$scope', '$modal', 'foodItemFactory', 'notificationFactory', 'setMenuFactory', 'commonFactory', 'baseUrl',
 'ErrorFactory',
-function ($scope, $modal, foodItemFactory, notificationFactory, setMenuFactory, commonFactory,
+function ($scope, $modal, foodItemFactory, notificationFactory, setMenuFactory, commonFactory, baseUrl,
 ErrorFactory) {
 	/*
 	** Declare variable.
@@ -96,7 +96,7 @@ ErrorFactory) {
 		$scope.originalPage = $scope.currentPage;
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/FoodItemManagement/Templates/create.html',
+			templateUrl: baseUrl + 'src/app/FoodItemManagement/Templates/create.html',
 			controller: "CreateFoodItemController",
 			backdrop: 'static',
 			resolve: {
@@ -126,7 +126,7 @@ ErrorFactory) {
 
 	$scope.edit = function (food) {
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/FoodItemManagement/Templates/edit.html',
+			templateUrl: baseUrl + 'src/app/FoodItemManagement/Templates/edit.html',
 			controller: "EditFoodItemController",
 			backdrop: 'static',
 			resolve: {
@@ -158,7 +158,7 @@ ErrorFactory) {
 		food.IsActive = newFood.IsActive;
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
 			backdrop: 'static',
 			resolve: {
@@ -222,7 +222,7 @@ ErrorFactory) {
 
 	$scope.deleteFoodItem = function (food) {
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
 			backdrop: 'static',
 			resolve: {

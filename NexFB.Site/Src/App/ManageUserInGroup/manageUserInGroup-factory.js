@@ -1,25 +1,25 @@
 ﻿'use strict';
 /*global manageUserInGroupModule*/
 
-manageUserInGroupModule.factory('manageUserInGroupFactory', ['$http', function ($http) {
+manageUserInGroupModule.factory('manageUserInGroupFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
     return {
         getMembers: function (filter) {
-            return $http.get('/api/GroupControl/GetMember', { params: filter });
+            return $http.get(baseUrl + 'api/GroupControl/GetMember', { params: filter });
         },
         getAllDepartment: function () {
-			return $http.get('/api/Common/GetAllDepartment');
+			return $http.get(baseUrl + 'api/Common/GetAllDepartment');
 		},
         getAllEmployeeType: function () {
-			return $http.get('/api/Common/GetAllEmployeeType');
+			return $http.get(baseUrl + 'api/Common/GetAllEmployeeType');
 		},
         getAllGroup: function () {
-			return $http.get('/api/GroupControl/GetAllGroup');
+			return $http.get(baseUrl + 'api/GroupControl/GetAllGroup');
 		},
         getUserPermissionOnManageUserInGroup: function () {
-            return $http.get('/api/GroupControl/GetUserPermissionOnManageUserInGroup');
+            return $http.get(baseUrl + 'api/GroupControl/GetUserPermissionOnManageUserInGroup');
         },
         assignMemberToGroup: function (filter) {
-			return $http.post('/api/GroupControl/AssignMemberToGroup', filter);
+			return $http.post(baseUrl + 'api/GroupControl/AssignMemberToGroup', filter);
 		}
     };
 } ]);

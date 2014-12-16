@@ -4,9 +4,9 @@
 
 orderingModule.controller("OrderingController",
 ['$translate', '$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService',
-'notificationFactory', 'ErrorFactory', 'orderingUtilities',
+'notificationFactory', 'ErrorFactory', 'orderingUtilities', 'baseUrl', 
 function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderingService,
-	notificationFactory, ErrorFactory, orderingUtilities) {
+	notificationFactory, ErrorFactory, orderingUtilities, baseUrl) {
 	$scope.getMessage = function () {
 		$translate('ConfirmMessageSaveOrder').then(function (message) {
 			$scope.confirmMessageSaveOrder = message;
@@ -459,7 +459,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			if ($scope.ValidateNewOrder(order, typeOrder)) {
 
 				$scope.modalConfirmSaveOrderInstance = $modal.open({
-					templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
+					templateUrl: baseUrl + 'Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
 					controller: "ModalConfirmController2",
 					backdrop: 'static',
 					resolve: {
@@ -515,7 +515,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 
 		$scope.removeMember = function (index, memberId, typeOrder) {
 			$scope.modalRemoveMemberInstance = $modal.open({
-				templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
+				templateUrl: baseUrl + 'Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
 				controller: "ModalConfirmController2",
 				backdrop: 'static',
 				resolve: {
@@ -561,7 +561,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		$scope.editOrder = function (orderId) {
 			if ($scope.locations.length > 0) {
 				$scope.modalEditOrderInstance = $modal.open({
-					templateUrl: '/src/app/Ordering/Templates/EditOrder.html',
+					templateUrl: baseUrl + 'src/app/Ordering/Templates/EditOrder.html',
 					controller: "EditOrderController",
 					backdrop: 'static',
 					resolve: {
@@ -739,7 +739,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	$scope.getAlternativeMenus = function (member, isSavedOrder, index) {
 
 		$scope.modalConfirmAlternativeMenuInstance = $modal.open({
-			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
+			templateUrl: baseUrl + 'Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
 			controller: "ModalConfirmController2",
 			backdrop: 'static',
 			resolve: {
@@ -803,7 +803,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	*/
 	$scope.editSideDish = function (member) {
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/Ordering/Templates/SelectSideDish.html',
+			templateUrl: baseUrl + 'src/app/Ordering/Templates/SelectSideDish.html',
 			controller: "SelectSideDishController",
 			backdrop: 'static',
 			resolve: {
@@ -833,7 +833,7 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	** Open manual file.
 	*/
 	$scope.getManual = function () {
-		$scope.orderingManualLink = '/file/usermanual/Employee Order (WEB).pdf';
+		$scope.orderingManualLink = baseUrl + 'file/usermanual/Employee Order (WEB).pdf';
 	};
 } ]);
 

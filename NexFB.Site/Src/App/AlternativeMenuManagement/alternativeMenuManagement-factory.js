@@ -1,27 +1,27 @@
 ﻿'use strict';
 /*global alternativeMenuModule*/
 
-alternativeMenuModule.factory('alternativeMenuFactory', ['$http', function ($http) {
+alternativeMenuModule.factory('alternativeMenuFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
 	return {
 		getAllAlternativeMenu: function (alternativeMenuId, isActive) {
-			return $http.get('/api/AlternativeMenu/GetAllAlternativeMenu',
+			return $http.get(baseUrl + 'api/AlternativeMenu/GetAllAlternativeMenu',
 				{ params: { alternativeMenu: alternativeMenuId, isActive: isActive} });
 		},
 		insertAlternativeMenu: function (alternativeMenu) {
-			return $http.post('/api/AlternativeMenu/InsertAlternativeMenu', alternativeMenu);
+			return $http.post(baseUrl + 'api/AlternativeMenu/InsertAlternativeMenu', alternativeMenu);
 		},
 		updateAlternativeMenu: function (alternativeMenu) {
-			return $http.put('/api/AlternativeMenu/UpdateAlternativeMenu', alternativeMenu);
+			return $http.put(baseUrl + 'api/AlternativeMenu/UpdateAlternativeMenu', alternativeMenu);
 		},
 		activateAlternativeMenu: function (alternativeMenu) {
-			return $http.put('/api/AlternativeMenu/ActivateAlternativeMenu', alternativeMenu);
+			return $http.put(baseUrl + 'api/AlternativeMenu/ActivateAlternativeMenu', alternativeMenu);
 		},
 		deleteAlternativeMenu: function (alternativeMenuId) {
-			return $http['delete']('/api/AlternativeMenu/DeleteAlternativeMenu',
+			return $http['delete'](baseUrl + 'api/AlternativeMenu/DeleteAlternativeMenu',
 				{ params: { alternativeMenuId: alternativeMenuId} });
 		},
 		getPermissionOnAlternativeMenu: function () {
-			return $http.get('/api/AlternativeMenu/GetUserPermissionOnAlternativeMenu');
+			return $http.get(baseUrl+ 'api/AlternativeMenu/GetUserPermissionOnAlternativeMenu');
 		}
 	};
 } ]);

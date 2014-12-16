@@ -3,9 +3,9 @@
 
 shiftMealMappingModule.controller('ShiftMealMappingController',
 ['$scope', 'shiftMealMappingFactory', 'commonFactory', 'ErrorFactory', '$modal', 'shiftMealMappingUtilities',
-'notificationFactory',
+'notificationFactory', 'baseUrl',
 function ($scope, shiftMealMappingFactory, commonFactory, ErrorFactory, $modal, shiftMealMappingUtilities,
-notificationFactory) {
+notificationFactory, baseUrl) {
 
 	/*
 	** Paging.
@@ -106,7 +106,7 @@ notificationFactory) {
 
 		if (shiftMealMappingUtilities.validateShiftMealMapping(shift)) {
 			$scope.modalInstance = $modal.open({
-				templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+				templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 				controller: "ModalConfirmController",
 				backdrop: 'static',
 				resolve: {

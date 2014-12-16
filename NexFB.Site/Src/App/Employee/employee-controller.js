@@ -2,8 +2,8 @@
 /*global employeeModule*/
 
 employeeModule.controller('employeeController',
-['$scope', '$modal', 'employeeFactory', 'notificationFactory', 'commonFactory','ErrorFactory',
-function ($scope, $modal, employeeFactory, notificationFactory, commonFactory, ErrorFactory) {
+['$scope', '$modal', 'employeeFactory', 'notificationFactory', 'commonFactory','ErrorFactory', 'baseUrl',
+function ($scope, $modal, employeeFactory, notificationFactory, commonFactory, ErrorFactory, baseUrl) {
 	/*
 	** Declare variables.
 	*/
@@ -53,7 +53,7 @@ function ($scope, $modal, employeeFactory, notificationFactory, commonFactory, E
 		$scope.originalPage = $scope.currentPage;
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/Employee/Templates/create.html',
+			templateUrl: baseUrl + 'src/app/Employee/Templates/create.html',
 			controller: "CreateEmployeeController",
 			backdrop: 'static',
 			windowClass: "modal-confirm-center set-menu-modal"
@@ -72,7 +72,7 @@ function ($scope, $modal, employeeFactory, notificationFactory, commonFactory, E
 	$scope.editSpecialUser = function (user) {
 		employeeFactory.getSpecialUserById(user.UserId).success(function (data) {
 			$scope.modalInstance = $modal.open({
-				templateUrl: '/src/app/Employee/Templates/edit.html',
+				templateUrl: baseUrl + 'src/app/Employee/Templates/edit.html',
 				controller: "EditEmployeeController",
 				backdrop: 'static',
 				resolve: {
@@ -113,7 +113,7 @@ function ($scope, $modal, employeeFactory, notificationFactory, commonFactory, E
 
 	$scope.deleteUser = function (user) {
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
 			resolve: {
 				action: function () {

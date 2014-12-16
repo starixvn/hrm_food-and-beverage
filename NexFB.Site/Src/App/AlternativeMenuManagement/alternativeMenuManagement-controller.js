@@ -3,9 +3,9 @@
 
 alternativeMenuModule.controller('AlternativeMenuController',
 ['$scope', 'alternativeMenuFactory', 'ErrorFactory', 'commonFactory', 'foodMenuFactory', '$modal',
-'notificationFactory',
+'notificationFactory', 'baseUrl', 
 function ($scope, alternativeMenuFactory, ErrorFactory, commonFactory, foodMenuFactory, $modal,
-notificationFactory) {
+notificationFactory, baseUrl) {
 
 	/*
 	** Paging.
@@ -71,7 +71,7 @@ notificationFactory) {
 		$scope.originalPage = $scope.currentPage;
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/AlternativeMenuManagement/Templates/create.html',
+			templateUrl: baseUrl + 'src/app/AlternativeMenuManagement/Templates/create.html',
 			controller: "CreateAlternativeMenuController",
 			backdrop: 'static',
 			resolve: {
@@ -101,7 +101,7 @@ notificationFactory) {
 
 	$scope.editAltMenu = function (altMenu) {
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/AlternativeMenuManagement/Templates/edit.html',
+			templateUrl: baseUrl + 'src/app/AlternativeMenuManagement/Templates/edit.html',
 			controller: "EditAlternativeMenuController",
 			backdrop: 'static',
 			resolve: {
@@ -135,7 +135,7 @@ notificationFactory) {
 		altMenu.IsActive = newAltMenu.IsActive;
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
 			backdrop: 'static',
 			resolve: {
@@ -199,7 +199,7 @@ notificationFactory) {
 
 	$scope.deleteAltMenu = function (altMenu) {
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
 			backdrop: 'static',
 			resolve: {

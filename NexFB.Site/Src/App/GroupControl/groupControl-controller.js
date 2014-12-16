@@ -2,8 +2,8 @@
 /*global groupControlModule*/
 
 groupControlModule.controller("ManageGroupController",
-['$scope', '$modal', '$route', 'commonFactory', 'groupControlFactory', 'notificationFactory', 'ErrorFactory',
-function ($scope, $modal, $route, commonFactory, groupControlFactory, notificationFactory, ErrorFactory) {
+['$scope', '$modal', '$route', 'commonFactory', 'groupControlFactory', 'notificationFactory', 'ErrorFactory', 'baseUrl',
+function ($scope, $modal, $route, commonFactory, groupControlFactory, notificationFactory, ErrorFactory, baseUrl) {
     $scope.filter = {
         groupId: '',
         isActive: ''
@@ -79,7 +79,7 @@ function ($scope, $modal, $route, commonFactory, groupControlFactory, notificati
         $scope.originalPage = $scope.currentPage;
 
         $scope.modalInstance = $modal.open({
-            templateUrl: '/src/app/GroupControl/Templates/create.html',
+            templateUrl: baseUrl + 'src/app/GroupControl/Templates/create.html',
             controller: "CreateGroupController",
             windowClass: "modal-confirm-center manage-group-modal"
         });
@@ -104,7 +104,7 @@ function ($scope, $modal, $route, commonFactory, groupControlFactory, notificati
 
     $scope.editGroup = function (group) {
         $scope.modalInstance = $modal.open({
-            templateUrl: '/src/app/GroupControl/Templates/edit.html',
+            templateUrl: baseUrl + 'src/app/GroupControl/Templates/edit.html',
             controller: "EditGroupController",
             resolve: {
                 group: function () {
@@ -141,7 +141,7 @@ function ($scope, $modal, $route, commonFactory, groupControlFactory, notificati
 
     $scope.deleteGroup = function (group) {
         $scope.modalInstance = $modal.open({
-            templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+            templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
             controller: "ModalConfirmController",
             resolve: {
                 action: function () {

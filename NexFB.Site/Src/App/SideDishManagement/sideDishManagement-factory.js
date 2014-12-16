@@ -1,32 +1,32 @@
 ﻿'use strict';
 /*global sideDishManagementModule*/
 
-sideDishManagementModule.factory('sideDishManagementFactory', ['$http', function ($http) {
+sideDishManagementModule.factory('sideDishManagementFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
 	return {
 		getAllSideDish: function (foodId, isActive) {
-			return $http.get('/api/SideDishManagement/GetAllSideDish',
+			return $http.get(baseUrl + 'api/SideDishManagement/GetAllSideDish',
 				{ params: { foodId: foodId, isActive: isActive} });
 		},
 		getAllFoodUnit: function (fooUnitId) {
-			return $http.get('/api/SideDishManagement/GetAllFoodUnit', { params: { foodUnitId: fooUnitId} });
+			return $http.get(baseUrl + 'api/SideDishManagement/GetAllFoodUnit', { params: { foodUnitId: fooUnitId} });
 		},
 		insertSideDish: function (sideDish) {
-			return $http.post('/api/SideDishManagement/InsertSideDish', sideDish);
+			return $http.post(baseUrl + 'api/SideDishManagement/InsertSideDish', sideDish);
 		},
 		updateSideDish: function (sideDish) {
-			return $http.put('/api/SideDishManagement/UpdateSideDish', sideDish);
+			return $http.put(baseUrl + 'api/SideDishManagement/UpdateSideDish', sideDish);
 		},
 		activateSideDish: function (sideDish) {
-			return $http.put('/api/SideDishManagement/ActivateSideDish', sideDish);
+			return $http.put(baseUrl + 'api/SideDishManagement/ActivateSideDish', sideDish);
 		},
 		deleteSideDish: function (foodId) {
-			return $http['delete']('/api/SideDishManagement/DeleteSideDish', { params: { foodId: foodId} });
+			return $http['delete'](baseUrl + 'api/SideDishManagement/DeleteSideDish', { params: { foodId: foodId} });
 		},
 		getPermissionOnSideDish: function () {
-			return $http.get('/api/SideDishManagement/GetUserPermissionOnSideDish');
+			return $http.get(baseUrl + 'api/SideDishManagement/GetUserPermissionOnSideDish');
 		},
 		updateKitchenOnly: function (sideDish) {
-			return $http.put('/api/SideDishManagement/UpdateKitchenOnlyByFoodId', sideDish);
+			return $http.put(baseUrl + 'api/SideDishManagement/UpdateKitchenOnlyByFoodId', sideDish);
 		}
 	};
 } ]);

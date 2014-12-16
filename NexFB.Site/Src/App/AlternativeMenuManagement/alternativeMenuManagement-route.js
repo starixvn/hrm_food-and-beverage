@@ -3,6 +3,7 @@
 
 var alternativeMenuModule = angular.module("alternativeMenuModule", ['ngRoute'])
 .config(['$routeProvider', function ($routeProvider) {
+	var baseUrl = $("base").first().attr("href");
 	$routeProvider.when('/AlternativeMenuManagement/Index',
-		{ templateUrl: '/src/app/AlternativeMenuManagement/templates/index.html', controller: 'AlternativeMenuController' });
+		{ templateUrl: baseUrl + 'src/app/AlternativeMenuManagement/templates/index.html', controller: 'AlternativeMenuController' });
 } ]);

@@ -2,32 +2,32 @@
 /*global mealRegistrationModule*/
 /*jshint maxdepth:6 */
 
-mealRegistrationModule.factory('mealRegistrationFactory', ['$http', function ($http) {
+mealRegistrationModule.factory('mealRegistrationFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
 	return {
 		getRegisterMealByRangeDate: function (fromDate, toDate, mealId) {
-			return $http.get('/api/MealRegistration/GetRegisterMealByRangeDate',
+			return $http.get(baseUrl + 'api/MealRegistration/GetRegisterMealByRangeDate',
 				{ params: { fromDate: fromDate, toDate: toDate, mealId: mealId} });
 		},
 		registerMealByRangeDate: function (mealRegistration) {
-			return $http.post('/api/MealRegistration/RegisterMealByRangeDate', mealRegistration);
+			return $http.post(baseUrl + 'api/MealRegistration/RegisterMealByRangeDate', mealRegistration);
 		},
 		getAllMealTimesheet: function () {
-			return $http.get('/api/Common/GetAllMealTimesheet');
+			return $http.get(baseUrl + 'api/Common/GetAllMealTimesheet');
 		},
 		getDefaultRegisterMeal: function () {
-			return $http.get('/api/MealRegistration/GetDefaultRegisterMeal');
+			return $http.get(baseUrl + 'api/MealRegistration/GetDefaultRegisterMeal');
 		},
 		setDefaultRegisterMeal: function (mealRegistration) {
-			return $http.post('/api/MealRegistration/RegisterMealByDefault', mealRegistration);
+			return $http.post(baseUrl+ 'api/MealRegistration/RegisterMealByDefault', mealRegistration);
 		},
 		applyFromTemplate: function () {
-			return $http.put('/api/MealRegistration/ApplyRegisterMealFromTemplate');
+			return $http.put(baseUrl + 'api/MealRegistration/ApplyRegisterMealFromTemplate');
 		},
 		getUserPermissionOnRegistration: function () {
-			return $http.get('/api/MealRegistration/GetUserPermissionOnRegistration');
+			return $http.get(baseUrl + 'api/MealRegistration/GetUserPermissionOnRegistration');
 		},
 		getRegisterMealSetting: function () {
-			return $http.get('/api/MealRegistration/GetRegisterMealSetting');
+			return $http.get(baseUrl + 'api/MealRegistration/GetRegisterMealSetting');
 		}
 	};
 } ]);

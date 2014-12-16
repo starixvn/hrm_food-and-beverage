@@ -3,9 +3,9 @@
 
 mealPlanningManagementModule.controller('MealPlanningManagementController',
 ['$scope', '$modal', 'mealPlanningFactory', 'ErrorFactory', 'notificationFactory', 'commonFactory',
-'foodMenuFactory', 'foodMenuUtilities', 'mealPlanningUtilities', 'foodItemFactory',
+'foodMenuFactory', 'foodMenuUtilities', 'mealPlanningUtilities', 'foodItemFactory', 'baseUrl',
 function ($scope, $modal, mealPlanningFactory, ErrorFactory, notificationFactory, commonFactory,
-foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
+foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory, baseUrl) {
 	/*
 	** Declare variables.
 	*/
@@ -148,7 +148,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 		$scope.originalPage = $scope.currentPage;
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/MealPlanningManagement/Templates/create.html',
+			templateUrl: baseUrl + 'src/app/MealPlanningManagement/Templates/create.html',
 			controller: "CreateMealPlanningController",
 			backdrop: 'static',
 			resolve: {
@@ -193,7 +193,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 		};
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/MealPlanningManagement/Templates/edit.html',
+			templateUrl: baseUrl + 'src/app/MealPlanningManagement/Templates/edit.html',
 			controller: "EditMealPlanningController",
 			backdrop: 'static',
 			resolve: {
@@ -254,7 +254,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 			}
 			else {
 				$scope.modalInstance = $modal.open({
-					templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+					templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 					controller: "ModalConfirmController",
 					backdrop: 'static',
 					resolve: {
@@ -316,7 +316,7 @@ foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory) {
 
 	$scope.deleteMealPlanning = function (mealPlanning) {
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
 			backdrop: 'static',
 			resolve: {

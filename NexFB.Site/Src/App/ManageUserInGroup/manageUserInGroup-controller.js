@@ -7,7 +7,6 @@ manageUserInGroupModule.controller("ManageUserInGroupController",
 function ($scope, $modal, $route, $log, $routeParams, commonFactory,
     manageUserInGroupFactory, manageUserInGroupUtilities, notificationFactory, ErrorFactory) {
     var groupId = parseInt($routeParams.groupId, 10);
-    console.log(groupId);
 
     var originalFilter = {
         DepartmentId: '',

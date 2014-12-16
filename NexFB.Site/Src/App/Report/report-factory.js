@@ -1,10 +1,10 @@
 ﻿'use strict';
 /*global reportModule*/
 
-reportModule.factory('reportFactory', ['$http', function ($http) {
+reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
 	return {
 		getMonthlyMainDishReportByLocal: function (filter) {
-			return $http.get('/api/report/Report/GetMonthlyMainDishReportLocal',
+			return $http.get(baseUrl + 'api/report/Report/GetMonthlyMainDishReportLocal',
 				{ params: { reportDate: filter.reportDate.toDateString(),
 					departmentId: filter.departmentId,
 					employeeTypeId: filter.employeeTypeId,

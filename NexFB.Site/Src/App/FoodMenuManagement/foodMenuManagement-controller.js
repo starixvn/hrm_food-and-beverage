@@ -2,9 +2,9 @@
 /*global foodMenuManagementModule*/
 
 foodMenuManagementModule.controller('FoodMenuManagementController',
-['$scope', '$modal', 'foodMenuFactory', 'notificationFactory', 'commonFactory', 'setMenuFactory',
+['$scope', '$modal', 'foodMenuFactory', 'notificationFactory', 'commonFactory', 'setMenuFactory', 'baseUrl',
 'ErrorFactory',
-function ($scope, $modal, foodMenuFactory, notificationFactory, commonFactory, setMenuFactory,
+function ($scope, $modal, foodMenuFactory, notificationFactory, commonFactory, setMenuFactory, baseUrl,
 ErrorFactory) {
 	/*
 	** Declare variables.
@@ -105,7 +105,7 @@ ErrorFactory) {
 		$scope.originalPage = $scope.currentPage;
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/FoodMenuManagement/Templates/create.html',
+			templateUrl: baseUrl + 'src/app/FoodMenuManagement/Templates/create.html',
 			controller: "CreateFoodMenuController",
 			backdrop: 'static',
 			resolve: {
@@ -150,7 +150,7 @@ ErrorFactory) {
 
 	$scope.edit = function (foodMenu) {
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/FoodMenuManagement/Templates/edit.html',
+			templateUrl: baseUrl + 'src/app/FoodMenuManagement/Templates/edit.html',
 			controller: "EditFoodMenuController",
 			backdrop: 'static',
 			resolve: {
@@ -190,7 +190,7 @@ ErrorFactory) {
 		foodMenu.IsActive = newFoodMenu.IsActive;
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
 			backdrop: 'static',
 			resolve: {
@@ -260,7 +260,7 @@ ErrorFactory) {
 
 	$scope.deleteFoodMenu = function (foodMenu) {
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
 			backdrop: 'static',
 			resolve: {

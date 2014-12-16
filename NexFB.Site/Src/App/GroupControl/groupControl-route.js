@@ -3,7 +3,8 @@
 
 var groupControlModule = angular.module("groupControlModule", ['ngRoute'])
 .config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/ManageGroup/Index', { 
-        templateUrl: '/src/app/GroupControl/templates/index.html',
+	var baseUrl = $("base").first().attr("href");
+	$routeProvider.when('/ManageGroup/Index', { 
+        templateUrl: baseUrl + 'src/app/GroupControl/templates/index.html',
         controller: 'ManageGroupController' });
 }]);

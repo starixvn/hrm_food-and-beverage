@@ -1,36 +1,36 @@
 ﻿'use strict';
 /*global foodMenuManagementModule*/
 
-foodMenuManagementModule.factory('foodMenuFactory', ['$http', function ($http) {
+foodMenuManagementModule.factory('foodMenuFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
 	return {
 		getAllFoodMenu: function (mealId, employeeTypeId, isActive) {
-			return $http.get('/api/FoodMenuManagement/GetAllFoodMenu',
+			return $http.get(baseUrl + 'api/FoodMenuManagement/GetAllFoodMenu',
 				{ params: { mealId: mealId, employeeTypeId: employeeTypeId, isActive: isActive} });
 		},
 		getAllFoodMenuToFilter: function () {
-			return $http.get('/api/FoodMenuManagement/GetAllFoodMenuToFilter');
+			return $http.get(baseUrl + 'api/FoodMenuManagement/GetAllFoodMenuToFilter');
 		},
 		insertFoodMenu: function (foodMenu) {
-			return $http.post('/api/FoodMenuManagement/InsertFoodMenu', foodMenu);
+			return $http.post(baseUrl + 'api/FoodMenuManagement/InsertFoodMenu', foodMenu);
 		},
 		getAllMealTimesheet: function () {
-			return $http.get('/api/Common/GetAllMealTimesheet');
+			return $http.get(baseUrl + 'api/Common/GetAllMealTimesheet');
 		},
 		getAllEmployeeType: function (departmentId, isLocal) {
-			return $http.get('/api/Common/GetAllEmployeeType', 
+			return $http.get(baseUrl + 'api/Common/GetAllEmployeeType', 
 				{ params: { departmentId: departmentId, isLocal: isLocal } });
 		},
 		deleteFoodMenu: function (menuId) {
-			return $http['delete']('/api/FoodMenuManagement/DeleteFoodMenu', { params: { menuId: menuId} });
+			return $http['delete'](baseUrl + 'api/FoodMenuManagement/DeleteFoodMenu', { params: { menuId: menuId} });
 		},
 		updateFoodMenu: function (foodMenu) {
-			return $http.put('/api/FoodMenuManagement/UpdateFoodMenu', foodMenu);
+			return $http.put(baseUrl + 'api/FoodMenuManagement/UpdateFoodMenu', foodMenu);
 		},
 		activateFoodMenu: function (foodMenu) {
-			return $http.put('/api/FoodMenuManagement/ActivateFoodMenu', foodMenu);
+			return $http.put(baseUrl + 'api/FoodMenuManagement/ActivateFoodMenu', foodMenu);
 		},
 		getUserPermissionOnFoodMenu: function () {
-			return $http.get('/api/FoodMenuManagement/GetUserPermissionOnFoodMenu');
+			return $http.get(baseUrl + 'api/FoodMenuManagement/GetUserPermissionOnFoodMenu');
 		}
 	};
 } ]);

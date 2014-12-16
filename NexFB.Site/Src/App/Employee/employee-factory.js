@@ -1,23 +1,23 @@
 ﻿'use strict';
 /*global employeeModule*/
 
-employeeModule.factory('employeeFactory', ['$http', function ($http) {
+employeeModule.factory('employeeFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
 	return {
 		getSpecialUsers: function () {
-			return $http.get('/api/Employee/GetSpecialUsers');
+			return $http.get(baseUrl + 'api/Employee/GetSpecialUsers');
 		},
 		getSpecialUserById: function (userId) {
-			return $http.get('/api/Employee/GetSpecialUserById',
+			return $http.get(baseUrl + 'api/Employee/GetSpecialUserById',
 				{ params: { userId: userId} });
 		},
 		insertSpecialUser: function (setMenu) {
-			return $http.post('/api/Employee/InsertSpecialUser', setMenu);
+			return $http.post(baseUrl + 'api/Employee/InsertSpecialUser', setMenu);
 		},
 		updateSpecialUser: function (setMenu) {
-			return $http.put('/api/Employee/UpdateSpecialUser', setMenu);
+			return $http.put(baseUrl + 'api/Employee/UpdateSpecialUser', setMenu);
 		},
 		deleteSpecialUser: function (userId) {
-			return $http['delete']('/api/Employee/DeleteSpecialUser', { params: { userId: userId} });
+			return $http['delete'](baseUrl + 'api/Employee/DeleteSpecialUser', { params: { userId: userId} });
 		}
 	};
 } ]);

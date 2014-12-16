@@ -1,18 +1,18 @@
 ﻿'use strict';
 /*global appModule*/
 
-appModule.controller("AuthenticationController", ['$window', '$scope',  '$modal',
-function ($window, $scope, $modal) {
+appModule.controller("AuthenticationController", ['$window', '$scope',  '$modal', 'baseUrl',
+function ($window, $scope, $modal, baseUrl) {
 	$scope.logout = function () {
 		$.connection.hub.stop();
-		$window.location.href = "/Auth/Logout";
+		$window.location.href = baseUrl + "Auth/Logout";
 	};
 
 	$scope.changePassword = function () {
 		$scope.originalPage = $scope.currentPage;
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/ChangePassword/Templates/index.html',
+			templateUrl: baseUrl + 'src/app/ChangePassword/Templates/index.html',
 			controller: "ChangePasswordController",
 			backdrop: 'static',
 			windowClass: "modal-confirm-center modal-change-password"

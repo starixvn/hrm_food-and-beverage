@@ -1,22 +1,22 @@
 ﻿'use strict';
 /*global groupControlModule*/
 
-groupControlModule.factory('groupControlFactory', ['$http', function ($http) {
+groupControlModule.factory('groupControlFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
     return {
         getGroups: function (filter) {
-            return $http.get('/api/GroupControl/GetGroup', { params: filter });
+            return $http.get(baseUrl + 'api/GroupControl/GetGroup', { params: filter });
         },
         getUserPermissionOnManageGroup: function () {
-            return $http.get('/api/GroupControl/GetUserPermissionOnManageGroup');
+            return $http.get(baseUrl + 'api/GroupControl/GetUserPermissionOnManageGroup');
         },
         deleteGroup: function (groupId) {
-			return $http['delete']('/api/GroupControl/DeleteGroup', { params: { groupId: groupId} });
+			return $http['delete'](baseUrl + 'api/GroupControl/DeleteGroup', { params: { groupId: groupId} });
 		},
         insertGroup: function (group) {
-			return $http.post('/api/GroupControl/InsertGroup', group);
+			return $http.post(baseUrl + 'api/GroupControl/InsertGroup', group);
 		},
         updateGroup: function (group) {
-			return $http.put('/api/GroupControl/UpdateGroup', group);
+			return $http.put(baseUrl + 'api/GroupControl/UpdateGroup', group);
 		}
     };
 } ]);

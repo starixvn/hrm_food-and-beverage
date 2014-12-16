@@ -3,9 +3,9 @@
 
 setMenuManagementModule.controller('SetMenuManagementController',
 ['$scope', '$modal', 'setMenuFactory', 'notificationFactory', 'commonFactory', 'foodItemFactory',
- 'foodMenuFactory', 'ErrorFactory',
+ 'foodMenuFactory', 'ErrorFactory', 'baseUrl', 
 function ($scope, $modal, setMenuFactory, notificationFactory, commonFactory, foodItemFactory,
-foodMenuFactory, ErrorFactory) {
+foodMenuFactory, ErrorFactory, baseUrl) {
 	/*
 	** Declare variables.
 	*/
@@ -109,7 +109,7 @@ foodMenuFactory, ErrorFactory) {
 		$scope.originalPage = $scope.currentPage;
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/SetMenuManagement/Templates/create.html',
+			templateUrl: baseUrl + 'src/app/SetMenuManagement/Templates/create.html',
 			controller: "CreateSetMenuController",
 			backdrop: 'static',
 			resolve: {
@@ -136,7 +136,7 @@ foodMenuFactory, ErrorFactory) {
 	$scope.editSetMenu = function (setMenu) {
 		setMenuFactory.getSetMenuById(setMenu.SetMenuId).success(function (data) {
 			$scope.modalInstance = $modal.open({
-				templateUrl: '/src/app/SetMenuManagement/Templates/edit.html',
+				templateUrl: baseUrl + 'src/app/SetMenuManagement/Templates/edit.html',
 				controller: "EditSetMenuController",
 				backdrop: 'static',
 				resolve: {
@@ -171,7 +171,7 @@ foodMenuFactory, ErrorFactory) {
 		var action = setMenu.IsActive ? "activate" : "deactivate";
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
 			resolve: {
 				name: function () {
@@ -233,7 +233,7 @@ foodMenuFactory, ErrorFactory) {
 
 	$scope.deleteSetMenu = function (setMenu) {
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
 			resolve: {
 				action: function () {

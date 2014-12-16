@@ -1,26 +1,26 @@
 ﻿'use strict';
 /*global foodItemManagementModule*/
 
-foodItemManagementModule.factory('foodItemFactory', ['$http', function ($http) {
+foodItemManagementModule.factory('foodItemFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
 	return {
 		getAllFoodItem: function (setMenuId, isActive) {
-			return $http.get('/api/FoodItemManagement/GetAllFoodItem',
+			return $http.get(baseUrl + 'api/FoodItemManagement/GetAllFoodItem',
 				{ params: { setMenuId: setMenuId, isActive: isActive} });
 		},
 		insertFoodItem: function (food) {
-			return $http.post('/api/FoodItemManagement/InsertFoodItem', food);
+			return $http.post(baseUrl + 'api/FoodItemManagement/InsertFoodItem', food);
 		},
 		updateFoodItem: function (food) {
-			return $http.put('/api/FoodItemManagement/UpdateFoodItem', food);
+			return $http.put(baseUrl + 'api/FoodItemManagement/UpdateFoodItem', food);
 		},
 		updateStatusFoodItem: function (food) {
-			return $http.put('/api/FoodItemManagement/UpdateStatusFoodItem', food);
+			return $http.put(baseUrl + 'api/FoodItemManagement/UpdateStatusFoodItem', food);
 		},
 		deleteFoodItem: function (foodId) {
-			return $http['delete']('/api/FoodItemManagement/DeleteFoodItem', { params: { foodId: foodId} });
+			return $http['delete'](baseUrl + 'api/FoodItemManagement/DeleteFoodItem', { params: { foodId: foodId} });
 		},
 		getPermissonFoodItem: function () {
-			return $http.get('/api/FoodItemManagement/GetUserPermissionOnFoodItem');
+			return $http.get(baseUrl + 'api/FoodItemManagement/GetUserPermissionOnFoodItem');
 		}
 	};
 } ]);

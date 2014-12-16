@@ -1,37 +1,37 @@
 ﻿'use strict';
 /*global mealPlanningManagementModule*/
 
-mealPlanningManagementModule.factory('mealPlanningFactory', ['$http', function ($http) {
+mealPlanningManagementModule.factory('mealPlanningFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
 	return {
 		getAllMealPlanning: function (fromDate, toDate, mealId, employeeTypeId) {
-			return $http.get('/api/MealPlanning/GetAllMealPlanning',
+			return $http.get(baseUrl + 'api/MealPlanning/GetAllMealPlanning',
 				{ params: { fromDate: fromDate, toDate: toDate, mealId: mealId, employeeTypeId: employeeTypeId} });
 		},
 		insertMealPlanning: function (mealPlanning) {
-			return $http.post('/api/MealPlanning/InsertMealPlanning', mealPlanning);
+			return $http.post(baseUrl + 'api/MealPlanning/InsertMealPlanning', mealPlanning);
 		},
 		updateMealPlanning: function (mealPlanning) {
-			return $http.put('/api/MealPlanning/UpdateMealPlanning', mealPlanning);
+			return $http.put(baseUrl + 'api/MealPlanning/UpdateMealPlanning', mealPlanning);
 		},
 		deleteMealPlanning: function (menuId, onDate) {
-			return $http['delete']('/api/MealPlanning/DeleteMealPlanning',
+			return $http['delete'](baseUrl + 'api/MealPlanning/DeleteMealPlanning',
 				{ params: { menuId: menuId, date: onDate} });
 		},
 		activateMealPlanning: function (mealPlanning) {
-			return $http.put('/api/MealPlanning/ActivateMealPlanning', mealPlanning);
+			return $http.put(baseUrl + 'api/MealPlanning/ActivateMealPlanning', mealPlanning);
 		},
 		getUserPermissionOnMealPlanning: function () {
-			return $http.get('/api/MealPlanning/GetUserPermissionOnMealPlanning');
+			return $http.get(baseUrl + 'api/MealPlanning/GetUserPermissionOnMealPlanning');
 		},
 		getAllMealTimesheet: function () {
-			return $http.get('/api/Common/GetAllMealTimesheet');
+			return $http.get(baseUrl + 'api/Common/GetAllMealTimesheet');
 		},
 		getFoodByOnDate: function (date, menuGroupId) {
-			return $http.get('/api/MealPlanning/GetFoodByOnDate',
+			return $http.get(baseUrl + 'api/MealPlanning/GetFoodByOnDate',
 				{ params: { date: date, menuGroupId: menuGroupId} });
 		},
 		checkDisableMealPlanning: function (onDate, mealId, employeeTypeId, menuId) {
-			return $http.get('/api/MealPlanning/CheckDisableMealPlanning',
+			return $http.get(baseUrl + 'api/MealPlanning/CheckDisableMealPlanning',
 				{ params: { date: onDate, mealId: mealId, employeeTypeId: employeeTypeId, menuId: menuId }});
 		}
 	};

@@ -3,9 +3,9 @@
 
 sideDishManagementModule.controller('SideDishManagementController',
 ['$scope', 'sideDishManagementFactory', 'commonFactory', 'ErrorFactory', '$modal', 'foodMenuFactory',
-'notificationFactory', '$translate',
+'notificationFactory', '$translate', 'baseUrl', 
 function ($scope, sideDishManagementFactory, commonFactory, ErrorFactory, $modal, foodMenuFactory,
-notificationFactory, $translate) {
+notificationFactory, $translate, baseUrl) {
 
 	var getMessage = function () {
 		$translate('CheckKitchenOnlyMsg').then(function (message) {
@@ -90,7 +90,7 @@ notificationFactory, $translate) {
 		$scope.originalPage = $scope.currentPage;
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/SideDishManagement/Templates/create.html',
+			templateUrl: baseUrl + 'src/app/SideDishManagement/Templates/create.html',
 			controller: "CreateSideDishController",
 			backdrop: 'static',
 			resolve: {
@@ -126,7 +126,7 @@ notificationFactory, $translate) {
 		};
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/app/SideDishManagement/Templates/edit.html',
+			templateUrl: baseUrl + 'src/app/SideDishManagement/Templates/edit.html',
 			controller: "EditSideDishController",
 			backdrop: 'static',
 			resolve: {
@@ -163,7 +163,7 @@ notificationFactory, $translate) {
 		sideDish.IsActive = newSideDish.IsActive;
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
 			backdrop: 'static',
 			resolve: {
@@ -218,7 +218,7 @@ notificationFactory, $translate) {
 		sideDish.KitchenOnly = newSideDish.KitchenOnly;
 
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent2.html',
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent2.html',
 			controller: "ModalConfirmController2",
 			backdrop: 'static',
 			resolve: {
@@ -274,7 +274,7 @@ notificationFactory, $translate) {
 
 	$scope.deleteSideDish = function (sideDish) {
 		$scope.modalInstance = $modal.open({
-			templateUrl: '/src/components/extensions/common/templates/ModalConfirmContent.html',
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
 			controller: "ModalConfirmController",
 			backdrop: 'static',
 			resolve: {

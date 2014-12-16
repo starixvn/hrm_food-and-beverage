@@ -3,8 +3,9 @@
 
 var reportModule = angular.module("reportModule", ['ngRoute'])
 .config(['$routeProvider', function ($routeProvider) {
+	var baseUrl = $("base").first().attr("href");
 	$routeProvider.when('/MonthlyReportLocal/Index',
-		{ templateUrl: '/src/app/report/templates/monthlyReportLocal.html', controller: 'MonthlyMainDishReportLocalController' });
+		{ templateUrl: baseUrl + 'src/app/report/templates/monthlyReportLocal.html', controller: 'MonthlyMainDishReportLocalController' });
 	$routeProvider.when('/DailyMainDishReport/Index',
-		{ templateUrl: '/src/app/report/templates/dailyMainDishReport.html', controller: 'DailyMainDishReportController' });
+		{ templateUrl:  baseUrl + '/src/app/report/templates/dailyMainDishReport.html', controller: 'DailyMainDishReportController' });
 } ]);

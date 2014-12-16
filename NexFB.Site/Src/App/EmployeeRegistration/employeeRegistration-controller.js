@@ -2,8 +2,8 @@
 /*global mealRegistrationModule*/
 
 mealRegistrationModule.controller('EmployeeRegistrationMealController',
-['$scope', 'mealRegistrationFactory', 'mealRegistrationUtilities', 'notificationFactory', '$route', '$window', 'ErrorFactory',
-function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificationFactory, $route, $window, ErrorFactory) {
+['$scope', 'mealRegistrationFactory', 'mealRegistrationUtilities', 'notificationFactory', '$route', '$window', 'ErrorFactory', 'baseUrl',
+function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificationFactory, $route, $window, ErrorFactory, baseUrl) {
 	mealRegistrationUtilities.getTabHeading($scope);
 
 	mealRegistrationFactory.getUserPermissionOnRegistration().success(function (permission) {
@@ -15,20 +15,20 @@ function ($scope, mealRegistrationFactory, mealRegistrationUtilities, notificati
 	});
 
 	$scope.goHomePage = function () {
-		$window.location.href = "/Ordering/Index";
+		$window.location.href = baseUrl + "Ordering/Index";
 	};
 
 	/*
 	** Open manual file.
 	*/
 	$scope.getManual = function () {
-		$scope.registrationManualLink = '/file/usermanual/Meal Registration.pdf';
+		$scope.registrationManualLink = baseUrl + 'file/usermanual/Meal Registration.pdf';
 	};
 } ]);
 
 mealRegistrationModule.controller('MonthlyRegistrationController',
-['$scope', 'mealRegistrationFactory', '$modal', 'notificationFactory', 'ErrorFactory', 'mealRegistrationUtilities',
-function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFactory, mealRegistrationUtilities) {
+['$scope', 'mealRegistrationFactory', '$modal', 'notificationFactory', 'ErrorFactory', 'mealRegistrationUtilities', 'baseUrl',
+function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFactory, mealRegistrationUtilities, baseUrl) {
 	/*
 	** Declare variable.
 	*/
@@ -189,7 +189,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 	*/
 	$scope.registerMeal = function (date) {
 		$scope.modalRegisterInstance = $modal.open({
-			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
 			backdrop: 'static',
 			resolve: {
@@ -265,7 +265,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 
 	$scope.registerMealWeek = function (week, index) {
 		$scope.modalRegisterInstance = $modal.open({
-			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
 			backdrop: 'static',
 			resolve: {
@@ -363,7 +363,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 
 	$scope.registerMealMonth = function (allWeekMeals) {
 		$scope.modalRegisterInstance = $modal.open({
-			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
 			backdrop: 'static',
 			resolve: {
@@ -462,7 +462,7 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 		var weekDayIndex = mealRegistrationUtilities.getWeekDayIndex(date);
 
 		$scope.modalRegisterInstance = $modal.open({
-			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
 			backdrop: 'static',
 			resolve: {
@@ -542,8 +542,8 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 } ]);
 
 mealRegistrationModule.controller('DefaultRegisterMeal',
-['$scope', 'mealRegistrationFactory', 'notificationFactory', '$modal', 'ErrorFactory', 'mealRegistrationUtilities',
-function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFactory, mealRegistrationUtilities) {
+['$scope', 'mealRegistrationFactory', 'notificationFactory', '$modal', 'ErrorFactory', 'mealRegistrationUtilities', 'baseUrl',
+function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFactory, mealRegistrationUtilities, baseUrl) {
 	/*
 	** Get default register meal.
 	*/
@@ -576,7 +576,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 	*/
 	$scope.registerMeal = function (date, index) {
 		$scope.modalRegisterInstance = $modal.open({
-			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
 			backdrop: 'static',
 			resolve: {
@@ -649,7 +649,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 
 	$scope.registerMealWeek = function (weekMeals) {
 		$scope.modalRegisterInstance = $modal.open({
-			templateUrl: '/src/app/EmployeeRegistration/Templates/registerMeal.html',
+			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/registerMeal.html',
 			controller: "RegisterMealController",
 			backdrop: 'static',
 			resolve: {
@@ -711,7 +711,7 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 	*/
 	$scope.apply = function () {
 		$scope.modalRegisterInstance = $modal.open({
-			templateUrl: '/src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
+			templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
 			controller: "ApplyTemplateConfirmController",
 			backdrop: 'static',
 			resolve: {
@@ -744,9 +744,9 @@ function ($scope, mealRegistrationFactory, notificationFactory, $modal, ErrorFac
 
 mealRegistrationModule.controller('RegisterMealController',
 ['meals', '$scope', 'workDate', '$modalInstance', 'mealTimesheet', 'mode', 'isSameMeal', 'timePeriod',
-'isSerialRegistration', '$modal', 'notificationFactory', 'registerSetting',
+'isSerialRegistration', '$modal', 'notificationFactory', 'registerSetting', 'baseUrl',
 function (meals, $scope, workDate, $modalInstance, mealTimesheet, mode, isSameMeal, timePeriod,
-isSerialRegistration, $modal, notificationFactory, registerSetting) {
+isSerialRegistration, $modal, notificationFactory, registerSetting, baseUrl) {
 	$scope.meals = meals;
 	$scope.mode = mode;
 	$scope.timePeriod = timePeriod;
@@ -813,7 +813,7 @@ isSerialRegistration, $modal, notificationFactory, registerSetting) {
 	$scope.save = function (meals, mealsTemplate) {
 		if (isSerialRegistration) {
 			$scope.modalConfirmInstance = $modal.open({
-				templateUrl: '/src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
+				templateUrl: baseUrl + 'src/app/EmployeeRegistration/Templates/modalConfirmApplyTemplate.html',
 				controller: "ApplyTemplateConfirmController",
 				backdrop: 'static',
 				resolve: {

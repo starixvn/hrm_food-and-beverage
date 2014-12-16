@@ -1,38 +1,38 @@
 ﻿'use strict';
 /*global userControlModule*/
 
-userControlModule.factory('userControlFactory', ['$http', function ($http) {
+userControlModule.factory('userControlFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
 	return {
 		getFunctionByRole: function (roleId) {
-			return $http.get('/api/UserControl/GetFunctionByRole', { params: { roleId: roleId} });
+			return $http.get(baseUrl + 'api/UserControl/GetFunctionByRole', { params: { roleId: roleId} });
 		},
 		getAllSystemRole: function (exceptSystemAdmin) {
-			return $http.get('/api/UserControl/GetAllSystemRole', { params: { exceptSystemAdmin: exceptSystemAdmin } });
+			return $http.get(baseUrl + 'api/UserControl/GetAllSystemRole', { params: { exceptSystemAdmin: exceptSystemAdmin } });
 		},
 		assignPermissionToRole: function (roleFunction) {
-			return $http.post('/api/UserControl/AssignPermissionToRole', roleFunction);
+			return $http.post(baseUrl + 'api/UserControl/AssignPermissionToRole', roleFunction);
 		},
 		getAllEmployeeRole: function (keyword, departmentId, teamId, roleId) {
-			return $http.get('/api/UserControl/GetAllEmployeeRole',
+			return $http.get(baseUrl + 'api/UserControl/GetAllEmployeeRole',
 					{ params: { keyword: keyword, departmentId: departmentId, teamId: teamId, roleId: roleId} });
 		},
 		getEmployeeRoleById: function (systemId) {
-			return $http.get('/api/UserControl/GetEmployeeRoleById', { params: { systemId: systemId} });
+			return $http.get(baseUrl + 'api/UserControl/GetEmployeeRoleById', { params: { systemId: systemId} });
 		},
 		getAllDepartment: function () {
-			return $http.get('/api/Common/GetAllDepartment');
+			return $http.get(baseUrl + 'api/Common/GetAllDepartment');
 		},
 		getAllTeamByCompany: function (departmentId) {
-			return $http.get('/api/Common/GetAllTeamByCompany', { params: { departmentId: departmentId} });
+			return $http.get(baseUrl + 'api/Common/GetAllTeamByCompany', { params: { departmentId: departmentId} });
 		},
 		assignRoleToUser: function (userRoles) {
-			return $http.post('/api/UserControl/AssignRoleToUser', userRoles);
+			return $http.post(baseUrl + 'api/UserControl/AssignRoleToUser', userRoles);
 		},
 		getManageRolePermission: function () {
-			return $http.get('/api/UserControl/GetManageRolePermission');
+			return $http.get(baseUrl + 'api/UserControl/GetManageRolePermission');
 		},
 		getManageUserPermission: function () {
-			return $http.get('/api/UserControl/GetManageUserPermission');
+			return $http.get(baseUrl + 'api/UserControl/GetManageUserPermission');
 		}
 	};
 } ]);

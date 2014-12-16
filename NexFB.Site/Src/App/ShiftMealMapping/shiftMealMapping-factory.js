@@ -1,20 +1,20 @@
 ﻿'use strict';
 /*global shiftMealMappingModule*/
 
-shiftMealMappingModule.factory('shiftMealMappingFactory', ['$http', function ($http) {
+shiftMealMappingModule.factory('shiftMealMappingFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
 	return {
 		getAllShiftMeal: function (departmentId) {
-			return $http.get('/api/ShiftMealMapping/GetAllShiftMeal',
+			return $http.get(baseUrl + 'api/ShiftMealMapping/GetAllShiftMeal',
 				{ params: { departmentId: departmentId} });
 		},
 		updateShiftMeal: function (shift) {
-			return $http.post('/api/ShiftMealMapping/UpdateShiftMeal', shift);
+			return $http.post(baseUrl + 'api/ShiftMealMapping/UpdateShiftMeal', shift);
 		},
 		getAllDepartment: function () {
-			return $http.get('/api/Common/GetAllDepartment');
+			return $http.get(baseUrl + 'api/Common/GetAllDepartment');
 		},
 		getPermissionOnShiftMealMapping: function () {
-			return $http.get('/api/ShiftMealMapping/GetUserPermissionOnShiftMealMapping');
+			return $http.get(baseUrl + 'api/ShiftMealMapping/GetUserPermissionOnShiftMealMapping');
 		}
 	};
 } ]);

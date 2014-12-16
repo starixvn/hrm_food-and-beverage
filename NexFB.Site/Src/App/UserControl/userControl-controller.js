@@ -2,8 +2,8 @@
 /*global userControlModule*/
 
 userControlModule.controller("ManageRoleController",
-['$scope', '$route', 'userControlFactory', 'notificationFactory', 'ErrorFactory',
-function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory) {
+['$scope', '$route', 'userControlFactory', 'notificationFactory', 'ErrorFactory', 'baseUrl',
+function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory, baseUrl) {
 	$scope.roleFunction = {
 		functions: '',
 		roleId: ''
@@ -147,7 +147,7 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 	$scope.assignRole = function (employee) {
 
 		var modalAssignInstance = $modal.open({
-			templateUrl: '/src/app/UserControl/Templates/UserPermission/assignRole.html',
+			templateUrl: baseUrl + 'src/app/UserControl/Templates/UserPermission/assignRole.html',
 			controller: "AssignRoleToUserController",
 			backdrop: 'static',
 			resolve: {
