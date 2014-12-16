@@ -19,7 +19,7 @@ reportModule.factory('reportFactory', ['$http', function ($http) {
 				});
 		},
 		getDailyMainDishReport: function (filter) {
-			return $http.get('/api/report/Report/GetMonthlyMainDishReportLocal',
+			return $http.get('/api/report/Report/GetDailyMainDishReport',
 				{ params: { fromDate: filter.fromDate.toDateString(),
 						toDate: filter.toDate.toDateString(),
 						orderCount: filter.orderCount,

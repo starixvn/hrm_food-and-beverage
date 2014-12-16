@@ -20,11 +20,43 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities) {
 
 	$scope.dateFormat = reportUtilities.getDateFormatDailyReport();
 	$scope.numberFormat = reportUtilities.getNumberFormat();
+	$scope.originalDepartmentId = '';
 
-	reportFactory.getDailyMainDishReport($scope.filter).success(function (report) {
-		$scope.report = report;
-		$scope.$broadcast("renderDailyReport");
+	var getDepartmentFilter = function (departments) {
+		var departmentId = '';
+
+		if (departments) {
+			if (departments.length === 1) {
+				departmentId = departments[0].DepartmentId;
+			}
+			else {
+				angular.forEach(departments, function (department) {
+					departmentId = departmentId ? departmentId + ',' + department.DepartmentId : department.DepartmentId;
+				});
+			}
+		}
+
+		$scope.filter.departmentId = departmentId;
+		$scope.originalDepartmentId = departmentId;
+	};
+
+	/*
+	** Get all department.
+	*/
+	reportFactory.getDepartmentByUserRole().success(function (departments) {
+		$scope.departmentOptions = departments;
+		getDepartmentFilter(departments);
+		$scope.getDailyMainDishReport($scope.filter);
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
+
+	$scope.getDailyMainDishReport = function (filter) {
+		reportFactory.getDailyMainDishReport(filter).success(function (report) {
+			$scope.report = report;
+			$scope.$broadcast("renderDailyReport");
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
+	};
 } ]);

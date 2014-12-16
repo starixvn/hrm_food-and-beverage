@@ -70,7 +70,7 @@ reportModule.directive('renderDailyReport', function () {
 		var footerRow = [
 			{
 				Columns: [
-					{ Value: "Sub Total", Name: "Count", MergeColNumber: 5 },
+					{ Value: "Sub Total", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
 					{ Value: report.SubTotal.Breakfast, Name: "Breakfast" },
 					{ Value: report.SubTotal.Lunch, Name: "Lunch" },
 					{ Value: report.SubTotal.Dinner, Name: "Dinner" },
@@ -79,7 +79,7 @@ reportModule.directive('renderDailyReport', function () {
 			},
 			{
 				Columns: [
-					{ Value: "Grand Total", Name: "Count", MergeColNumber: 5 },
+					{ Value: "Grand Total", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
 					{ Value: report.GrandTotal.Breakfast, Name: "Breakfast" },
 					{ Value: report.GrandTotal.Lunch, Name: "Lunch" },
 					{ Value: report.GrandTotal.Dinner, Name: "Dinner" },
@@ -88,7 +88,7 @@ reportModule.directive('renderDailyReport', function () {
 			},
 			{
 				Columns: [
-					{ Value: "Amount", Name: "Count", MergeColNumber: 5 },
+					{ Value: "Amount", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
 					{ Value: report.TotalAmount, Name: "Breakfast", MergeColNumber: 4, CellAlign: 'center' }
 				]
 			}

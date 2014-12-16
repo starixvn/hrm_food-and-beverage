@@ -111,7 +111,7 @@ namespace NexFB.Site.Controllers.API.Report
         }
 
         /// <summary>
-        /// Get monthly main dish report local.
+        /// Get daily main dish report local.
         /// </summary>
         /// <param name="fromDate">The from date.</param>
         /// <param name="toDate">The to date.</param>
@@ -125,7 +125,7 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="query">The query.</param>
         /// <returns>The report.</returns>
         [HttpGet]
-        public DailyMainDishReportModel GetMonthlyMainDishReportLocal(
+        public DailyMainDishReportModel GetDailyMainDishReport(
             DateTime fromDate,
             DateTime toDate,
             int orderCount,
