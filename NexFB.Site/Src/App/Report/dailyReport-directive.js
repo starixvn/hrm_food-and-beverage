@@ -1,55 +1,141 @@
 ﻿'use strict';
-/*global reportModule*/
+/*global reportModule, moment*/
 
 reportModule.directive('renderDailyReport', function () {
-//	var generateDataBody = function (report, scope) {
-//		var rows = [];
+	var generateDataBody = function (report, scope) {
+		var rows = [];
 
-//		if (report && report.Meals) {
-//			var currentSubRow = [],
-//				rowIndex = scope.gridOption.startIndex + 1;
-//		}
+		if (report && report.MainDishes) {
+			var currentSubRow = [],
+				numberMainDishes = report.MainDishes.length;
 
-//		return rows;
-//	};
+			//rowIndex = scope.gridOption.startIndex + 1;
+			for (var i = 0; i < numberMainDishes; i++) {
+				var mainDish = report.MainDishes[i],
+					currentRow = [],
+					employeeDishes = mainDish.EmployeeDishes,
+					numberEmployeeDishes = employeeDishes.length;
 
-//	return {
-//		link: function (scope, iElement) {
-//			var id = iElement.attr('id'),
-//				report = scope.localReport,
-//				bodyData = generateDataBody(report, scope),
-//				headerData = generateDataHeader(report.WeekDays, report.IsGroupByEmployee, scope.numberFormat),
-//				footerData = generateDataFooter(report.Total, report.IsGroupByEmployee);
+				currentRow = {
+					Columns: [
+						{ Name: "Count", Value: mainDish.Department.Name + '-' + mainDish.Team.Name, MergeColNumber: 9, CellAlign: "left" }
+					],
+					SubRows: []
+				};
 
-//			var gridOptions = {
-//				columns: headerData,
-//				bodyRows: bodyData,
-//				showTree: true,
-//				showTitle: true,
-//				titleInfo:
-//						{
-//							text: "Daily Main Dish Report - Price Per Meal",
-//							showExcelButton: true,
-//							exportExcelFunction: function () {
-//								scope.exportExcel.call(this, scope.filter);
-//							}
-//						},
-//				showFooter: true,
-//				footerRows: footerData,
-//				gridExpandHeight: 250,
-//				showPager: true,
-//				customPager: true,
-//				pagerOption: {
-//					startPerPage: 50,
-//					totalItem: report.TotalItem,
-//					itemsPerPageArray: [50, 100, 200, 500],
-//					itemsPerPage: scope.gridOption.itemsPerPage,
-//					currentPage: scope.gridOption.currentPage,
-//					pagerSelectCallBack: ReRenderAfterPaged
-//				}
-//			};
+				for (var j = 0; j < numberEmployeeDishes; j++) {
+					var employeeDish = employeeDishes[j],
+						shiftName = employeeDish.Shift ? employeeDish.Shift.ShiftCode : '';
 
-//			$('#' + id).fanexGrid(gridOptions);
-//		}
-//	};
+					currentSubRow = {
+						Columns: [
+							{ Name: "Count", Value: j + 1, CssClass: "remove-padding-left" },
+							{ Name: "Date", Value: "" + moment(employeeDish.WorkDate).format(scope.dateFormat) },
+							{ Name: "Shift", Value: shiftName },
+							{ Name: "FullName", Value: employeeDish.Employee.FullName },
+							{ Name: "NickName", Value: employeeDish.Employee.NickName },
+							{ Name: "Breakfast", Value: employeeDish.Breakfast },
+							{ Name: "Lunch", Value: employeeDish.Lunch },
+							{ Name: "Dinner", Value: employeeDish.Dinner },
+							{ Name: "Supper", Value: employeeDish.Supper }
+						]
+					};
+					currentRow.SubRows.push(currentSubRow);
+				}
+
+				rows.push(currentRow);
+			}
+		}
+
+		return rows;
+	};
+
+	var generateDataHeader = function (numberFormat) {
+		var columns = [
+			{ HeaderText: "#", Width: 60, Name: "Count", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
+			{ HeaderText: "Date", Width: 100, Name: "Date", HeaderAlign: "center", CellAlign: "center" },
+			{ HeaderText: "Shift", Width: 100, Name: "Shift", HeaderAlign: "center", CellAlign: "center" },
+			{ HeaderText: "Full Name", Width: 150, Name: "FullName", HeaderAlign: "center", CellAlign: "center" },
+			{ HeaderText: "Nick", Width: 100, Name: "NickName", HeaderAlign: "center", CellAlign: "center" },
+			{ HeaderText: "Breakfast", Width: 100, Name: "Breakfast", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+			{ HeaderText: "Lunch", Width: 100, Name: "Lunch", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+			{ HeaderText: "Dinner", Width: 100, Name: "Dinner", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+			{ HeaderText: "Supper", Width: 100, Name: "Supper", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat }
+		];
+
+		return columns;
+	};
+
+	var generateDataFooter = function (report) {
+		var footerRow = [
+			{
+				Columns: [
+					{ Value: "Sub Total", Name: "Count", MergeColNumber: 5 },
+					{ Value: report.SubTotal.Breakfast, Name: "Breakfast" },
+					{ Value: report.SubTotal.Lunch, Name: "Lunch" },
+					{ Value: report.SubTotal.Dinner, Name: "Dinner" },
+					{ Value: report.SubTotal.Supper, Name: "Supper" }
+				]
+			},
+			{
+				Columns: [
+					{ Value: "Grand Total", Name: "Count", MergeColNumber: 5 },
+					{ Value: report.GrandTotal.Breakfast, Name: "Breakfast" },
+					{ Value: report.GrandTotal.Lunch, Name: "Lunch" },
+					{ Value: report.GrandTotal.Dinner, Name: "Dinner" },
+					{ Value: report.GrandTotal.Supper, Name: "Supper" }
+				]
+			},
+			{
+				Columns: [
+					{ Value: "Amount", Name: "Count", MergeColNumber: 5 },
+					{ Value: report.TotalAmount, Name: "Breakfast", MergeColNumber: 4, CellAlign: 'center' }
+				]
+			}
+		];
+
+		return footerRow;
+	};
+
+	return {
+		link: function (scope, iElement) {
+			scope.$on("renderDailyReport", function () {
+				var id = iElement.attr('id'),
+					report = scope.report,
+					bodyData = generateDataBody(report, scope),
+					headerData = generateDataHeader(scope.numberFormat),
+					footerData = generateDataFooter(report);
+
+				var gridOptions = {
+					columns: headerData,
+					bodyRows: bodyData,
+					showTree: true,
+					showTitle: true,
+					titleInfo:
+							{
+								text: "Daily Main Dish Report - Price Per Meal",
+								showExcelButton: true,
+								exportExcelFunction: function () {
+									scope.exportExcel.call(this, scope.filter);
+								}
+							},
+					showFooter: true,
+					footerRows: footerData,
+					gridExpandHeight: 250
+					//					showPager: true,
+					//					customPager: true,
+					//					pagerOption: {
+					//						startPerPage: 50,
+					//						totalItem: report.TotalItem,
+					//						itemsPerPageArray: [50, 100, 200, 500],
+					//						itemsPerPage: scope.gridOption.itemsPerPage,
+					//						currentPage: scope.gridOption.currentPage,
+					//						pagerSelectCallBack: ReRenderAfterPaged
+					//					}
+				};
+
+				$('#' + id).fanexGrid(gridOptions);
+			});
+		}
+	};
 });

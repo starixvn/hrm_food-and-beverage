@@ -520,6 +520,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Daily Main Dish Report - Price Per Meal.
+        /// </summary>
+        public static string DailyMainDishReport {
+            get {
+                return ResourceManager.GetString("DailyMainDishReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Updated unsuccessfully!.
         /// </summary>
         public static string DataChangeFail {

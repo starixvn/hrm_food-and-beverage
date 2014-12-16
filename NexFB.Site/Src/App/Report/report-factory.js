@@ -40,7 +40,8 @@ reportModule.factory('reportUtilities', function () {
 
 	var utilities = {},
 		numberFormat = '0,0',
-		monthFormat = 'MMM-YYYY';
+		monthFormat = 'MMM-YYYY',
+		dateFormatDailyReport = 'd-MMM-YYYY';
 
 	utilities.getTeamId = function (teamOptions) {
 		var teamId = '';
@@ -61,6 +62,10 @@ reportModule.factory('reportUtilities', function () {
 
 	utilities.getMonthFormat = function () {
 		return monthFormat;
+	};
+
+	utilities.getDateFormatDailyReport = function () {
+		return dateFormatDailyReport;
 	};
 
 	return utilities;
