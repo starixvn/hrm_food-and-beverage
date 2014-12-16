@@ -2,8 +2,8 @@
 /*global userControlModule*/
 
 userControlModule.controller("ManageRoleController",
-['$scope', '$route', 'userControlFactory', 'notificationFactory', 'ErrorFactory',
-function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory) {
+['$scope', '$route', 'userControlFactory', 'notificationFactory', 'ErrorFactory', 'baseUrl',
+function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory, baseUrl) {
 	$scope.roleFunction = {
 		functions: '',
 		roleId: ''
