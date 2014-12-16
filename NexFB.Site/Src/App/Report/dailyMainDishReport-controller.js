@@ -2,8 +2,8 @@
 /*global reportModule*/
 
 reportModule.controller('DailyMainDishReportController',
-['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities',
-function ($scope, reportFactory, ErrorFactory, reportUtilities) {
+['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'userControlFactory',
+function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory) {
 	var filterDate = new Date();
 	filterDate.setDate(filterDate.getDate() - 4);
 
@@ -58,5 +58,21 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities) {
 		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
 		});
+	};
+
+	/*
+	** Get all team of department.
+	*/
+	$scope.getTeamByCompany = function (departmentId) {
+		if (departmentId) {
+			userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
+				$scope.teamOptions = teams;
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
+		}
+		else {
+			$scope.teamOptions = '';
+		}
 	};
 } ]);

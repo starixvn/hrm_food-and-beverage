@@ -71,19 +71,19 @@ reportModule.directive('renderDailyReport', function () {
 			{
 				Columns: [
 					{ Value: "Sub Total", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
-					{ Value: report.SubTotal.Breakfast, Name: "Breakfast" },
-					{ Value: report.SubTotal.Lunch, Name: "Lunch" },
-					{ Value: report.SubTotal.Dinner, Name: "Dinner" },
-					{ Value: report.SubTotal.Supper, Name: "Supper" }
+					{ Value: report.SubTotal ? report.SubTotal.Breakfast : 0, Name: "Breakfast" },
+					{ Value: report.SubTotal ? report.SubTotal.LUnch : 0, Name: "Lunch" },
+					{ Value: report.SubTotal ? report.SubTotal.Dinner : 0, Name: "Dinner" },
+					{ Value: report.SubTotal ? report.SubTotal.Supper : 0, Name: "Supper" }
 				]
 			},
 			{
 				Columns: [
 					{ Value: "Grand Total", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
-					{ Value: report.GrandTotal.Breakfast, Name: "Breakfast" },
-					{ Value: report.GrandTotal.Lunch, Name: "Lunch" },
-					{ Value: report.GrandTotal.Dinner, Name: "Dinner" },
-					{ Value: report.GrandTotal.Supper, Name: "Supper" }
+					{ Value: report.GrandTotal ? report.GrandTotal.Breakfast : 0, Name: "Breakfast" },
+					{ Value: report.GrandTotal ? report.GrandTotal.Lunch : 0, Name: "Lunch" },
+					{ Value: report.GrandTotal ? report.GrandTotal.Dinner : 0, Name: "Dinner" },
+					{ Value: report.GrandTotal ? report.GrandTotal.Supper : 0, Name: "Supper" }
 				]
 			},
 			{
