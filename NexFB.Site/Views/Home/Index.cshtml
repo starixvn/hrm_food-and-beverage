@@ -33,7 +33,7 @@
 										<ul class="dropdown-menu" data-role="button" aria-labelledby="@id">
 											@foreach (var childMenu in childMenuItems)
 					{
-												<li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="@childMenu.MenuLink">@childMenu.Name</a>
+												<li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="~/@childMenu.MenuLink">@childMenu.Name</a>
 												</li>
 					}
 										</ul>
