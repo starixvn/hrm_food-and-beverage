@@ -2,88 +2,88 @@
 /*global orderingModule*/
 
 orderingModule.factory("orderingFactory",
-	['$http', function ($http) {
+	['$http', 'baseUrl', function ($http, baseUrl) {
 		return {
 			getCurrentUser: function () {
-				return $http.get('/api/Ordering/GetCurrentUser');
+				return $http.get(baseUrl + 'api/Ordering/GetCurrentUser');
 			},
 			getLocation: function () {
-				return $http.get('/api/Common/GetAllLocation');
+				return $http.get(baseUrl + 'api/Common/GetAllLocation');
 			},
 			getMyOrder: function () {
-				return $http.get('/api/Ordering/GetMyOrder');
+				return $http.get(baseUrl + 'api/Ordering/GetMyOrder');
 			},
 			getAddNewOrder: function () {
-				return $http.get('/api/Ordering/GetAddNew');
+				return $http.get(baseUrl + 'api/Ordering/GetAddNew');
 			},
 			getOrderNewOrder: function (userId) {
-				return $http.get('/api/Ordering/GetOrderNewOrder',
+				return $http.get(baseUrl + 'api/Ordering/GetOrderNewOrder',
 					{
 						params: { userId: userId }
 					}
 				);
 			},
 			getSavedOrder: function () {
-				return $http.get('/api/Ordering/GetSavedOrder');
+				return $http.get(baseUrl + 'api/Ordering/GetSavedOrder');
 			},
 			getMyMenu: function () {
-				return $http.get('/api/Ordering/GetMyMenu');
+				return $http.get(baseUrl + 'api/Ordering/GetMyMenu');
 			},
 			getDepartment: function () {
-				return $http.get('/api/Common/GetAllDepartment');
+				return $http.get(baseUrl + 'api/Common/GetAllDepartment');
 			},
 			getEmployees: function (keyWord) {
-				return $http.get('/api/Employee/GetEmployees',
+				return $http.get(baseUrl + 'api/Employee/GetEmployees',
 					{
 						params: { keyWord: keyWord }
 					}
 				);
 			},
 			getMenuByUserId: function (userId) {
-				return $http.get('/api/Ordering/GetMenuByUserId',
+				return $http.get(baseUrl + 'api/Ordering/GetMenuByUserId',
 					{
 						params: { userId: userId }
 					}
 				);
 			},
 			getOrderById: function (orderId) {
-				return $http.get('/api/Ordering/GetOrderById',
+				return $http.get(baseUrl + 'api/Ordering/GetOrderById',
 					{
 						params: { orderId: orderId }
 					}
 				);
 			},
 			addMember: function (member) {
-				return $http.post('/api/OrderMember', member);
+				return $http.post(baseUrl + 'api/OrderMember', member);
 				//return $http['addMember']('/api/OrderMember', { params: { memberId: memberId} });
 				//AddMember
 			},
 			removeMember: function (memberId) {
-				return $http['delete']('/api/OrderMember', { params: { memberId: memberId} });
+				return $http['delete'](baseUrl + 'api/OrderMember', { params: { memberId: memberId} });
 			},
 			createOrder: function (order) {
-				return $http.post('/api/Ordering/InsertOrder', order);
+				return $http.post(baseUrl + 'api/Ordering/InsertOrder', order);
 			},
 			editOrder: function (order) {
-				return $http.put('/api/Ordering/UpdateOrder', order);
+				return $http.put(baseUrl + 'api/Ordering/UpdateOrder', order);
 			},
 			deleteOrder: function (orderId) {
-				return $http['delete']('/api/Ordering', { params: { orderId: orderId} });
+				return $http['delete'](baseUrl + 'api/Ordering', { params: { orderId: orderId} });
 			},
 			getAlternativeMenuByUserId: function (userId) {
-				return $http.get('/api/Ordering/GetAlternativeMenusByUserId', { params: { userId: userId} });
+				return $http.get(baseUrl + 'api/Ordering/GetAlternativeMenusByUserId', { params: { userId: userId} });
 			},
 			getSideDishByUserId: function (userId) {
-				return $http.get('/api/Ordering/GetSideDishByUserId', { params: { userId: userId} });
+				return $http.get(baseUrl + 'api/Ordering/GetSideDishByUserId', { params: { userId: userId} });
 			},
 			createOrderSideDish: function (order) {
-				return $http.post('/api/Ordering/InsertOrderSideDish', order);
+				return $http.post(baseUrl + 'api/Ordering/InsertOrderSideDish', order);
 			},
 			editOrderSideDish: function (order) {
-				return $http.put('/api/Ordering/UpdateOrderSideDish', order);
+				return $http.put(baseUrl + 'api/Ordering/UpdateOrderSideDish', order);
 			},
 			checkValidModifiedTime: function (startTime, orderId) {
-				return $http.get('/api/Ordering/CheckValidModifiedTime',
+				return $http.get(baseUrl + 'api/Ordering/CheckValidModifiedTime',
 					{ params: { startTime: startTime, orderId: orderId } });
 			}
 		};
