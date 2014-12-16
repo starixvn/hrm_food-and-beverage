@@ -130,7 +130,7 @@
     <value>Cancel</value>
   </data>
   <data name="Change" xml:space="preserve">
-    <value>Change menu</value>
+    <value>Change dish</value>
   </data>
   <data name="Chinese" xml:space="preserve">
     <value>Chinese</value>
@@ -225,6 +225,9 @@
   <data name="SelectDishes" xml:space="preserve">
     <value>Please choose</value>
   </data>
+  <data name="SideDishCharged" xml:space="preserve">
+    <value>Side Dish (Charged)</value>
+  </data>
   <data name="SideDishes" xml:space="preserve">
     <value>Side Dish</value>
   </data>
@@ -238,7 +241,7 @@
     <value>Swipe your card to join this group</value>
   </data>
   <data name="TakeAway" xml:space="preserve">
-    <value>Take Away</value>
+    <value>Take away</value>
   </data>
   <data name="TicketCreator" xml:space="preserve">
     <value>Order Owner: </value>

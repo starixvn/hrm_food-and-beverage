@@ -249,7 +249,8 @@
 												<Button Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Add]}" FontSize="22"
 													Style="{StaticResource TileButton}" CommandParameter="{Binding Path=SysId}" Grid.Column="4"
 													Command="{Binding DataContext.AddSideFoodPopup, RelativeSource={RelativeSource AncestorType=ListBox}}" 
-													Background="#6CB23E" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" Foreground="#fff"/>
+													Background="#99D9EA" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" Foreground="#fff"
+													Height="45" Width="90"/>
 
 												<Button Visibility="{Binding DataContext.DeleteButtonVisible, RelativeSource={RelativeSource AncestorType=ListBox}}"
 												 Style="{StaticResource TileButton}" CommandParameter="{Binding Path=SysId}" Grid.Column="5" 

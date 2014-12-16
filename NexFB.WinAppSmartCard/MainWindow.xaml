@@ -69,8 +69,10 @@
 				<Button  IsEnabled="{Binding SideButtonEnable}"
 				Command="{Binding Path=SideDishesCommand}" Background="{Binding Path=SideDishesMenu.BackgroundColor}"
 				Foreground="{Binding Path=SideDishesMenu.ForegroundColor}" FontWeight="{Binding Path=SideDishesMenu.FontWeight}"
-				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.SideDishes]}" 
-				Height="50" HorizontalAlignment="Left" Name="btnSideDishes" VerticalAlignment="Center" Width="140" Margin="2,0,0,0" />
+				Style="{StaticResource TileButton}" Height="50" HorizontalAlignment="Left" Name="btnSideDishes" VerticalAlignment="Center" 
+				MinWidth="140" Margin="2,0,0,0" Width="auto">
+					<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.SideDishCharged]}" Margin="15,0,15,0"/>
+				</Button>
 
 				<!--<Button
 				Command="{Binding Path=CombinedDishesCommand}" Background="{Binding Path=CombinedDishesMenu.BackgroundColor}"

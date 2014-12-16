@@ -97,7 +97,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change menu.
+        ///   Looks up a localized string similar to Change dish.
         /// </summary>
         internal static string Change {
             get {
@@ -385,6 +385,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Side Dish (Charged).
+        /// </summary>
+        internal static string SideDishCharged {
+            get {
+                return ResourceManager.GetString("SideDishCharged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Side Dish.
         /// </summary>
         internal static string SideDishes {
@@ -421,7 +430,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Take Away.
+        ///   Looks up a localized string similar to Take away.
         /// </summary>
         internal static string TakeAway {
             get {

@@ -222,6 +222,9 @@
   <data name="SelectDishes" xml:space="preserve">
     <value>请选择菜</value>
   </data>
+  <data name="SideDishCharged" xml:space="preserve">
+    <value>其他食單(帶回)</value>
+  </data>
   <data name="SideDishes" xml:space="preserve">
     <value>其他菜單</value>
   </data>

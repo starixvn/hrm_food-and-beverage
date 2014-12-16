@@ -130,7 +130,7 @@
     <value>Hủy</value>
   </data>
   <data name="Change" xml:space="preserve">
-    <value>Thay món</value>
+    <value>Đổi món</value>
   </data>
   <data name="Chinese" xml:space="preserve">
     <value>Tiếng Trung</value>
@@ -224,6 +224,9 @@
   </data>
   <data name="SelectDishes" xml:space="preserve">
     <value>Xin chọn món ăn</value>
+  </data>
+  <data name="SideDishCharged" xml:space="preserve">
+    <value>Món phụ</value>
   </data>
   <data name="SideDishes" xml:space="preserve">
     <value>Món Phụ</value>

@@ -163,7 +163,7 @@
 							 x:Name="ContentListBox">
 									<ListBox.ItemTemplate>
 										<DataTemplate>
-											<Grid Height="50" Margin="0">
+											<Grid MinHeight="50" Height="auto" Margin="0">
 												<Grid.ColumnDefinitions>
 													<ColumnDefinition Width="85"/>
 													<ColumnDefinition Width="425"/>
@@ -178,13 +178,16 @@
 												<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=OrderNo}" FontSize="20" HorizontalAlignment="Center" Grid.Column="0"/>
 												<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=NickName}" FontSize="20" HorizontalAlignment="Left" Grid.Column="1"/>
 												<StackPanel Orientation="Horizontal" Grid.Column="2" Visibility="{Binding Path=FoodInfoVisibility}">
-													<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=DisplayMenuName}"
-												 FontSize="20" Foreground="{Binding Path=Color}" HorizontalAlignment="Left"/>
+													<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=DisplayMenuName}" 
+													MaxWidth="290" Width="auto" FontSize="20" Foreground="{Binding Path=Color}" 
+													HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"/>
 
-													<Button Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Change]}"
-													Style="{StaticResource TileButton}" CommandParameter="{Binding Path=SysId}" FontSize="20"
+													<Button Style="{StaticResource TileButton}" CommandParameter="{Binding Path=SysId}" FontSize="20"
 													Command="{Binding DataContext.EditMenu, RelativeSource={RelativeSource AncestorType=ListBox}}"
-													Background="Silver" Width="120" VerticalAlignment="Stretch" Margin="10,2,2,3" Foreground="#fff"/>
+													Background="#99D9EA" Width="auto" VerticalAlignment="Center" Height="40" Margin="10,2,2,3" Foreground="#fff">
+														<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Change]}" Margin="7,0,7,0"/>
+													</Button>
+
 												</StackPanel>
 
 												<ComboBox x:Name="MenuList"  Grid.Column="2"  ItemsSource="{Binding ListAlternativeFood, Mode=TwoWay}"
