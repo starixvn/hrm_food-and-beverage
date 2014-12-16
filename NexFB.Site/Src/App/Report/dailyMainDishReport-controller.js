@@ -2,8 +2,8 @@
 /*global reportModule*/
 
 reportModule.controller('DailyMainDishReportController',
-['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'userControlFactory',
-function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory) {
+['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'userControlFactory', 'orderingFactory',
+function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory, orderingFactory) {
 	var filterDate = new Date();
 	filterDate.setDate(filterDate.getDate() - 4);
 
@@ -21,6 +21,7 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFacto
 	$scope.dateFormat = reportUtilities.getDateFormatDailyReport();
 	$scope.numberFormat = reportUtilities.getNumberFormat();
 	$scope.originalDepartmentId = '';
+	$scope.teamOptions = [];
 
 	var getDepartmentFilter = function (departments) {
 		var departmentId = '';
@@ -75,4 +76,28 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFacto
 			$scope.teamOptions = '';
 		}
 	};
+
+	/*
+	** Get all employees.
+	*/
+	$scope.getEmployee = function (searchKey) {
+		orderingFactory.getEmployees(searchKey).then(
+		function (employees) {
+			$scope.searchEmployees = employees;
+		},
+		function (response) {
+			ErrorFactory.errorHandle(response.status);
+		});
+	};
+
+	/*
+	** Get all employee type.
+	*/
+//	var getEmployeeType = function (departmentId, isLocal) {
+//		foodMenuFactory.getAllEmployeeType(departmentId, isLocal).success(function (employeeTypes) {
+//			$scope.employeeTypesOption = employeeTypes;
+//		}).error(function (response, status) {
+//			ErrorFactory.errorHandle(status);
+//		});
+//	};
 } ]);

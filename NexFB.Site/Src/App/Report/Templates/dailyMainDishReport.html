@@ -15,12 +15,36 @@
 					    <option value="" ng-if="departmentOptions.length > 1">-- {{"All" | translate}} --</option>
 				    </select>
                 </div>
-<!--                <label class="col-sm-1 text-right long-text-report" data-translate="Team"></label>
+                <label class="col-sm-1 text-right long-text-report" data-translate="Team"></label>
                 <div class="col-sm-2 field teambox">
                     <add-class-to-role-filter multi-select input-model="teamOptions" button-label="Name" helper-elements="all reset"
 					    item-label="Name" tick-property="ticked" max-labels="0" class="multi-select">
 				    </add-class-to-role-filter>
-                </div>-->
+                </div>
+				<label class="col-sm-1 text-right" data-translate="Employee">
+                </label>
+				<div class="col-sm-2 field">
+				    <input class="form-control custom-padding" ng-model="searchEmployee"
+						placeholder="Enter full name or nick name" search-auto-complete search-employees="searchEmployees"
+						ng-change="getEmployee(searchEmployee)" employee="filter.employee" />
+				</div>
+				<label class="col-sm-1 text-right" data-translate="OrderCount" >
+				</label>
+				<div>
+					<select ng-model="filter.orderCount">
+						<option ng-repeat="number in [] | range: 11" value="{{number - 1}}" 
+							ng-selected="{{filter.orderCount == number}}">> {{number - 1}}
+						</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+                <label class="col-sm-1 text-right long-text-report" data-translate="EmployeeType"></label>
+                <div class="col-sm-2 field">
+                    <add-class-to-role-filter multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId" helper-elements="all reset"
+					    item-label="EmployeeTypeName" tick-property="ticked" max-labels="0" class="multi-select employee-type">
+				    </add-class-to-role-filter>
+                </div>
 			</div>
         </form>
     </div>
