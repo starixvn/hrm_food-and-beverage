@@ -13,6 +13,7 @@ namespace NexFB.Services.Implement
     using Fanex.Common.Helper;
     using NexFB.Core.Models;
     using NexFB.Core.Services;
+    using NexFB.Core.Translator;
     using NexFB.Criteria.Ordering;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
@@ -288,6 +289,16 @@ namespace NexFB.Services.Implement
             }
 
             return order;
+        }
+
+        /// <summary>
+        /// Translate remark.
+        /// </summary>
+        /// <param name="remark">The remark will be translated.</param>
+        /// <returns>The translated remark.</returns>
+        public string TranslateRemark(string remark)
+        {
+            return FBTranslator.AutoTranslation(remark);
         }
     }
 }

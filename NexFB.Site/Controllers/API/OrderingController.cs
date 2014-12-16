@@ -32,21 +32,18 @@ namespace NexFB.Site.Controllers.API
     {
         private readonly IOrderingService _orderService;
         private readonly ISideDishService _sideDishService;
-        private TranslatorService.UserServiceClient _translatorService;
 
         public OrderingController()
-            : this(null, null, null)
+            : this(null, null)
         {
         }
 
         public OrderingController(
             IOrderingService orderService,
-            ISideDishService sideDishService,
-            TranslatorService.UserServiceClient translatorService)
+            ISideDishService sideDishService)
         {
             _orderService = orderService ?? new OrderingService();
             _sideDishService = sideDishService ?? new SideDishService();
-            _translatorService = translatorService ?? new TranslatorService.UserServiceClient();
         }
 
         /// <summary>
@@ -382,7 +379,7 @@ namespace NexFB.Site.Controllers.API
 
         private string ThreadTranslator(string remark)
         {
-            return _translatorService.GetTextTranslation(remark);
+            return _orderService.TranslateRemark(remark);
         }
     }
 }

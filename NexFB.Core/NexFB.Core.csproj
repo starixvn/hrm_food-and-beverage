@@ -58,6 +58,12 @@
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLangDetect.Core">
+      <HintPath>..\packages\AutoDetectLanguage\NLangDetect.Core.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI">
       <HintPath>..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
     </Reference>
@@ -94,6 +100,7 @@
     <Compile Include="Security\Encryptor.cs" />
     <Compile Include="Security\Random.cs" />
     <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Translator\FBTranslator.cs" />
     <Compile Include="Utilities\Enumerations.cs" />
     <Compile Include="Utilities\ExcelTemplateWriter.cs" />
     <Compile Include="Utilities\NPOIExtensions\HSSFCellExtensions.cs" />
