@@ -101,10 +101,21 @@ namespace NexFB.PosKitchen.ViewModels
             return EmployeeInfo != null;
         }
 
+        /// <summary>
+        /// Pick Room Command.
+        /// </summary>
         public void ExecutePickRoomCommand()
         {
             ChangeButtonBorder((int)KitchenGroupButton.PickRoomButton);
-            CommonKitchenOrder = AllObservationLocation;
+
+            if (string.IsNullOrEmpty(LocationResult))
+            {
+                CommonKitchenOrder = AllObservationLocation;
+            }
+            else
+            {
+                ExecuteSearchLoction();
+            }
         }
 
         public void ExecutePickGroupCommand()
@@ -171,7 +182,6 @@ namespace NexFB.PosKitchen.ViewModels
                 var itemId = (int)value;
                 bool checkMainFoodMenu = CheckMainFoodMenu;
                 var currentSelectedItem = CommonKitchenOrder.Where(x => x.ItemId == itemId).SingleOrDefault();
-
                 if (checkMainFoodMenu || CheckAlternativeFoodMenu || CheckGroupMenu)
                 {
                     if (CheckGroupMenu)
@@ -211,6 +221,9 @@ namespace NexFB.PosKitchen.ViewModels
                     this.LocationName = currentSelectedItem.ItemName;
                     this.LocationId = itemId;
                 }
+
+                LocationTextBlockHighLight(false);
+                MainTextBlockHighLight(false);
             }
         }
 
@@ -290,6 +303,9 @@ namespace NexFB.PosKitchen.ViewModels
 
                     DisabledMainFoodMenu();
                 }
+
+                LocationTextBlockHighLight(false);
+                MainTextBlockHighLight(false);
             }
         }
 
@@ -373,6 +389,11 @@ namespace NexFB.PosKitchen.ViewModels
                 }
 
                 Result = null;
+
+                if (CommonKitchenOrder.Any(x => x.IsFocusedMealMenu) || UserInGroup.Any(x => x.IsSelectedMemberInGroup))
+                {
+                    MainTextBlockHighLight(false);
+                }
             }
         }
 
@@ -429,12 +450,17 @@ namespace NexFB.PosKitchen.ViewModels
             {
                 case "BACK":
                     Result = Result.Length > 0 ? Result.Remove(Result.Length - 1) : string.Empty;
+                    LocationResult = LocationResult.Length > 0 ? LocationResult.Remove(LocationResult.Length - 1) : string.Empty;
                     break;
 
                 default:
-                    if (SearchLocationFocused)
+                    if (LocationTextboxResultFocused)
                     {
                         LocationResult += keyPadParameter.Substring(keyPadParameter.Length - 1, 1);
+                        if (CheckLocationMenu)
+                        {
+                            ExecuteSearchLoction();
+                        }
                     }
                     else
                     {
@@ -449,6 +475,12 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
+        public void ExecuteSearchLoction()
+        {
+            var filterList = AllObservationLocation.Where(x => x.ItemName.Contains(LocationResult));
+            CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>(filterList);
+        }
+
         /// <summary>
         /// Action for Keypad Released.
         /// </summary>
@@ -457,9 +489,10 @@ namespace NexFB.PosKitchen.ViewModels
         {
             bool hasSelectedMemberInGroup = UserInGroup.Any(x => x.IsSelectedMemberInGroup);
             bool hasMiddleSideDataFocused = CommonKitchenOrder.Any(x => x.IsFocusedMealMenu);
-            bool hasTextBlockFocused = this.TextBlockFocused && !string.IsNullOrEmpty(Result);
+            bool hasTextBlockFocused = this.MaindTextboxResultFocused && !string.IsNullOrEmpty(Result);
+            bool hasSearchLocationFocused = this.LocationTextboxResultFocused && !string.IsNullOrEmpty(LocationResult);
 
-            return hasMiddleSideDataFocused || hasSelectedMemberInGroup || hasTextBlockFocused;
+            return hasMiddleSideDataFocused || hasSelectedMemberInGroup || hasTextBlockFocused || hasSearchLocationFocused;
         }
 
         /// <summary>
@@ -470,20 +503,38 @@ namespace NexFB.PosKitchen.ViewModels
             var currentSelectedEmployee = UserInGroup.Where(x => x.SysId == CurrentSelectedEmployeeSysId).SingleOrDefault();
             CommonKitchenOrder currentSelectedMenu = null;
 
-            if (this.TextBlockFocused)
+            if (this.LocationTextboxResultFocused)
             {
-                Result = Result.Remove(Result.Length - 1);
-            }
-            else
-            {
-                if (!IsMenuFocused)
+                if (!string.IsNullOrEmpty(LocationResult))
                 {
-                    EmployeeInListReleased(currentSelectedEmployee);
+                    LocationResult = LocationResult.Remove(LocationResult.Length - 1);
+                    ExecuteSearchLoction();
                 }
                 else
                 {
-                    MiddSideDataReleased(currentSelectedMenu, currentSelectedEmployee);
-                    IsMenuFocused = false;
+                    CommonKitchenOrder = this.AllObservationLocation;
+                }
+            }
+            else
+            {
+                if (this.MaindTextboxResultFocused)
+                {
+                    if (!string.IsNullOrEmpty(Result))
+                    {
+                        Result = Result.Remove(Result.Length - 1);
+                    }
+                }
+                else
+                {
+                    if (!IsMenuFocused)
+                    {
+                        EmployeeInListReleased(currentSelectedEmployee);
+                    }
+                    else
+                    {
+                        MiddSideDataReleased(currentSelectedMenu, currentSelectedEmployee);
+                        IsMenuFocused = false;
+                    }
                 }
             }
         }
@@ -575,6 +626,8 @@ namespace NexFB.PosKitchen.ViewModels
                 var currentWindow = (VirtualKeyboard)value;
                 currentWindow.Close();
                 FullKeyPadVisible = false;
+                SearchLocationKeyboard = Constant.Hidden;
+                LocationTextBlockHighLight(false);
             }
         }
 
@@ -872,11 +925,18 @@ namespace NexFB.PosKitchen.ViewModels
                 VirtualKeyboard virtalKeyboard = new VirtualKeyboard()
                 {
                     DataContext = this,
-                    Owner = Application.Current.MainWindow
+                    Owner = Application.Current.MainWindow,
+                    Top = VirtualKeyboardAnimation
                 };
                 virtalKeyboard.Show();
                 FullKeyPadVisible = true;
             }
+        }
+
+        public void ShowSearchLocationKeyBoard()
+        {
+            SearchLocationKeyboard = Constant.Visible;
+            ExecuteChangeKeyPad();
         }
 
         /// <summary>
@@ -1197,22 +1257,25 @@ namespace NexFB.PosKitchen.ViewModels
             CurrentSelectedEmployeeSysId = 0;
             CurrentSelectedMainMenuId = 0;
             CurrentSelectedGroupId = 0;
-            SearchLocationHeight = 0;
+            SearchLocationVisible = Constant.Hidden;
+            LocationContentMargin = Constant.OtherContentMargin;
             IsMenuFocused = false;
-            TextBlockFocused = false;
+            MaindTextboxResultFocused = false;
+            LocationTextboxResultFocused = false;
             IsCanceledOrder = false;
             OrderNo = string.Empty;
             ReferenceCode = 0;
             //// Change Text From Nhận to Lưu
             SaveButtonVisible = Constant.Hidden;
             OverlayVisible = Constant.Hidden;
+            SearchLocationKeyboard = Constant.Hidden;
             IsDataEdit = false;
             AllowReduceOrderToZero = false;
             HideGridDisplayUser();
             if (value != null)
             {
                 Border textBlockBorder = (Border)value;
-                textBlockBorder.BorderBrush = Brushes.White;
+                textBlockBorder.BorderBrush = Brushes.Silver;
             }
         }
 
@@ -1282,6 +1345,48 @@ namespace NexFB.PosKitchen.ViewModels
                     ShowGridDisplayUser();
                     OrderNo = order.OrderNo.ToString().PadLeft(3, '0');
                     ReferenceCode = order.OrderId;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Set border to main textbox.
+        /// </summary>
+        /// <param name="isFocused">Set or unset.</param>
+        public void MainTextBlockHighLight(bool isFocused)
+        {
+            if (MainTexboxResultBorder != null)
+            {
+                if (isFocused)
+                {
+                    MainTexboxResultBorder.BorderBrush = Brushes.Red;
+                    MaindTextboxResultFocused = true;
+                }
+                else
+                {
+                    MainTexboxResultBorder.BorderBrush = Brushes.Silver;
+                    MaindTextboxResultFocused = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Set border to search location textbox.
+        /// </summary>
+        /// <param name="isFocused">Set or unset.</param>
+        public void LocationTextBlockHighLight(bool isFocused)
+        {
+            if (LocationTexboxResultBorder != null)
+            {
+                if (isFocused)
+                {
+                    LocationTexboxResultBorder.BorderBrush = Brushes.Red;
+                    LocationTextboxResultFocused = true;
+                }
+                else
+                {
+                    LocationTexboxResultBorder.BorderBrush = Brushes.Silver;
+                    LocationTextboxResultFocused = false;
                 }
             }
         }

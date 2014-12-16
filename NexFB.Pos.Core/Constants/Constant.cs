@@ -66,6 +66,10 @@ namespace NexFB.Pos.Core.Constants
 
         public const string SelectedButtonOrderColor = "#427720";
 
+        public const string LocationContentMargin = "0,57,0,0";
+
+        public const string OtherContentMargin = "0";
+
         public const string Hidden = "Hidden";
 
         public const string Visible = "Visible";

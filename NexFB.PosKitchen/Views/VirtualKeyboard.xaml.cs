@@ -19,7 +19,6 @@ namespace NexFB.PosKitchen.Views
         public VirtualKeyboard()
         {
             InitializeComponent();
-            this.Left = 5;
         }
     }
 }

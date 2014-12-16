@@ -9,13 +9,11 @@
 
 namespace NexFB.PosKitchen.Views.ManageOrder
 {
-    using System;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Controls;
     using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Threading;
+    using NexFB.Pos.Core.Constants;
     using NexFB.Pos.Core.Models;
     using NexFB.PosKitchen.ViewModels;
 
@@ -36,9 +34,34 @@ namespace NexFB.PosKitchen.Views.ManageOrder
         /// <param name="e">Mouse event.</param>
         private void ResultTextBlock_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            ResultTextBlock.BorderBrush = Brushes.Red;
             OrderFoodViewModel currentViewModel = (OrderFoodViewModel)this.DataContext;
-            currentViewModel.TextBlockFocused = true;
+            currentViewModel.MainTexboxResultBorder = (Border)sender;
+            currentViewModel.ExecutePickGroupCommand();
+            SetFocusedOnCurrentTextBlock(currentViewModel, 1);
+
+            currentViewModel.MainTextBlockHighLight(true);
+            currentViewModel.LocationTextBlockHighLight(false);
+            currentViewModel.SearchLocationKeyboard = Constant.Hidden;
+        }
+
+        private void SearchLocation_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            OrderFoodViewModel currentViewModel = (OrderFoodViewModel)this.DataContext;
+            currentViewModel.LocationTexboxResultBorder = (Border)sender;
+
+            SetFocusedOnCurrentTextBlock(currentViewModel, 2);
+            currentViewModel.MainTextBlockHighLight(false);
+            currentViewModel.LocationTextBlockHighLight(true);
+            currentViewModel.ShowSearchLocationKeyBoard();
+        }
+
+        /// <summary>
+        /// Set focus on specific textBlock.
+        /// </summary>
+        /// <param name="currentViewModel">Current ViewModel.</param>
+        /// <param name="currentFocusedTextblock">Current focused textBlock.</param>
+        private void SetFocusedOnCurrentTextBlock(OrderFoodViewModel currentViewModel, int currentFocusedTextblock)
+        {
             ObservableCollection<CommonKitchenOrder> commonKitchenOrder = currentViewModel.CommonKitchenOrder;
             ObservableCollection<KitchenEmployeeInfo> userInGroup = currentViewModel.UserInGroup;
             if ((commonKitchenOrder.Any() && commonKitchenOrder.Count > 0) || (userInGroup.Any() && userInGroup.Count > 0))
@@ -46,7 +69,23 @@ namespace NexFB.PosKitchen.Views.ManageOrder
                 if (commonKitchenOrder.Count > 0)
                 {
                     commonKitchenOrder.ToList().ForEach(x => x.IsFocusedMealMenu = false);
-                    currentViewModel.CommonKitchenOrder = currentViewModel.AllObservationGroup;
+                    switch (currentFocusedTextblock)
+                    {
+                        case 1: //// TextBlock Employee code focused.
+                            currentViewModel.CommonKitchenOrder = currentViewModel.AllObservationGroup;
+                            break;
+                        case 2: //// TextBlock Location focused.
+                            if (string.IsNullOrEmpty(currentViewModel.LocationResult))
+                            {
+                                currentViewModel.CommonKitchenOrder = currentViewModel.AllObservationLocation;
+                            }
+                            else
+                            {
+                                currentViewModel.ExecuteSearchLoction();
+                            }
+
+                            break;
+                    }
                 }
 
                 if (userInGroup.Count > 0)
@@ -54,54 +93,6 @@ namespace NexFB.PosKitchen.Views.ManageOrder
                     userInGroup.ToList().ForEach(x => x.IsSelectedMemberInGroup = false);
                 }
             }
-
-            currentViewModel.ExecutePickGroupCommand();
-        }
-
-        private void Grid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            OrderFoodViewModel currentViewModel = (OrderFoodViewModel)this.DataContext;
-            StartTimerSetData(currentViewModel);
-        }
-
-        /// <summary>
-        /// Timer tick to get data.
-        /// </summary>
-        /// <param name="sender">Object Sender.</param>
-        /// <param name="currentViewModel">Current View Model.</param>
-        private void TimerTickToGetData(object sender, OrderFoodViewModel currentViewModel)
-        {
-            DispatcherTimer timer = (DispatcherTimer)sender;
-            ObservableCollection<CommonKitchenOrder> commonKitchenOrder = currentViewModel.CommonKitchenOrder;
-            ObservableCollection<KitchenEmployeeInfo> userInGroup = currentViewModel.UserInGroup;
-
-            if (commonKitchenOrder.Any(x => x.IsFocusedMealMenu) || userInGroup.Any(x => x.IsSelectedMemberInGroup))
-            {
-                currentViewModel.TextBlockFocused = false;
-                ResultTextBlock.BorderBrush = Brushes.White;
-            }
-
-            timer.Stop();
-        }
-
-        /// <summary>
-        /// Timer get data.
-        /// </summary>
-        /// <param name="currentViewModel">Current view model.</param>
-        private void StartTimerSetData(OrderFoodViewModel currentViewModel)
-        {
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(0.2);
-            timer.Tick += (sender, e) => TimerTickToGetData(sender, currentViewModel);
-            timer.Start();
-        }
-
-        private void SearchLocation_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            SearchLocation.BorderBrush = Brushes.Red;
-            OrderFoodViewModel currentViewModel = (OrderFoodViewModel)this.DataContext;
-            currentViewModel.SearchLocationFocused = true;
-            currentViewModel.ExecuteChangeKeyPad();
         }
     }
 }

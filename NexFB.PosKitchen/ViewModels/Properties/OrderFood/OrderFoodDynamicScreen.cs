@@ -19,7 +19,6 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
     {
         private static int _paddingValue5 = 5;
         private static int _paddingValue6 = 6;
-        private static int _paddingValue8 = 8;
         private static int _paddingValue10 = 10;
         private double _leftSide;
         private double _middleSide;

@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
         Title="VirtualKeyboard" SizeToContent="WidthAndHeight" ShowInTaskbar="False"
-		Topmost="True" ResizeMode="NoResize" WindowStyle="None">
+		Topmost="True" ResizeMode="NoResize" WindowStyle="None" Left="5">
 
 	<Window.Triggers>
 		<EventTrigger RoutedEvent="Window.Loaded">
 			<BeginStoryboard>
 				<Storyboard >
-					<DoubleAnimation Duration="0:0:.1" Storyboard.TargetProperty="Top" From="{Binding Source={x:Static SystemParameters.FullPrimaryScreenHeight}}"
+					<DoubleAnimation Duration="0:0:.1" Storyboard.TargetProperty="Top"
 					To="{Binding Path=VirtualKeyboardAnimation}" AccelerationRatio=".1"/>
 				</Storyboard>
 			</BeginStoryboard>
@@ -217,8 +217,8 @@
 					<Button Command="{Binding Path=AddCommand}" Content="{x:Static resx:WinFormMainResource.Add}"
 						Style="{StaticResource buttonKeypad}" Margin="3"  FontSize="25" FontWeight="Bold"/>
 
-					<Button 
-					Command="{Binding Path=SearchLocationCommand}" Content="{x:Static resx:WinFormMainResource.Search}"
+					<Button Visibility="{Binding SearchLocationKeyboard}"
+					Content="{x:Static resx:WinFormMainResource.Search}"
 						Style="{StaticResource buttonKeypad}" Margin="3"  FontSize="25" FontWeight="Bold"/>
 				</Grid>
 

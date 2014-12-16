@@ -11,6 +11,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
 {
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Windows.Controls;
     using System.Windows.Input;
     using NexFB.Pos.Core.Constants;
     using NexFB.Pos.Core.Models;
@@ -48,7 +49,8 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private int _currentSelectedMainMenuId;
         private int _currentSelectedAlternativeMenuId;
         private int _currentSelectedGroupId;
-        private int _searchLocationHeight;
+        private string _searchLocationVisible;
+        private string _locationContentMargin;
         private string _locationName;
         private int _locationId;
         private bool _isVnmCulture;
@@ -56,8 +58,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private string _totalPrice;
         private string _orderNo;
         private int _referenceCode;
-        private bool _textBlockFocused;
-        private bool _searchLocationFocused;
+
         private string _overlayVisible;
         private bool _isDataEdit;
         private string _saveButtonVisible;
@@ -66,6 +67,12 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private bool _allowReduceOrderToZero;
         private bool _canOrderMainFood;
         private bool _fullKeyPadVisible;
+        private string _searchLocationKeyboard;
+
+        private bool _maindTextboxResultFocused;
+        private bool _locationTextboxResultFocused;
+        private Border _mainTexboxResultBorder;
+        private Border _locationTexboxResultBorder;
 
         public ICommand NumPadPressed { get; set; }
 
@@ -103,6 +110,34 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
 
         public ICommand CloseVirtualKeyboard { get; set; }
 
+        public Border LocationTexboxResultBorder
+        {
+            get
+            {
+                return _locationTexboxResultBorder;
+            }
+
+            set
+            {
+                _locationTexboxResultBorder = value;
+                this.OnPropertyChanged("LocationTexboxResultBorder");
+            }
+        }
+
+        public Border MainTexboxResultBorder
+        {
+            get
+            {
+                return _mainTexboxResultBorder;
+            }
+
+            set
+            {
+                _mainTexboxResultBorder = value;
+                this.OnPropertyChanged("MainTexboxResultBorder");
+            }
+        }
+
         public bool IsCanceledOrder
         {
             get
@@ -117,17 +152,45 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             }
         }
 
-        public int SearchLocationHeight
+        public string SearchLocationKeyboard
         {
             get
             {
-                return _searchLocationHeight;
+                return _searchLocationKeyboard;
             }
 
             set
             {
-                _searchLocationHeight = value;
-                this.OnPropertyChanged("SearchLocationHeight");
+                _searchLocationKeyboard = value;
+                this.OnPropertyChanged("SearchLocationKeyboard");
+            }
+        }
+
+        public string SearchLocationVisible
+        {
+            get
+            {
+                return _searchLocationVisible;
+            }
+
+            set
+            {
+                _searchLocationVisible = value;
+                this.OnPropertyChanged("SearchLocationVisible");
+            }
+        }
+
+        public string LocationContentMargin
+        {
+            get
+            {
+                return _locationContentMargin;
+            }
+
+            set
+            {
+                _locationContentMargin = value;
+                this.OnPropertyChanged("LocationContentMargin");
             }
         }
 
@@ -537,31 +600,31 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             }
         }
 
-        public bool SearchLocationFocused
+        public bool LocationTextboxResultFocused
         {
             get
             {
-                return _searchLocationFocused;
+                return _locationTextboxResultFocused;
             }
 
             set
             {
-                _searchLocationFocused = value;
-                this.OnPropertyChanged("SearchLocationFocused");
+                _locationTextboxResultFocused = value;
+                this.OnPropertyChanged("LocationTextboxResultFocused");
             }
         }
 
-        public bool TextBlockFocused
+        public bool MaindTextboxResultFocused
         {
             get
             {
-                return _textBlockFocused;
+                return _maindTextboxResultFocused;
             }
 
             set
             {
-                _textBlockFocused = value;
-                this.OnPropertyChanged("TextBlockFocused");
+                _maindTextboxResultFocused = value;
+                this.OnPropertyChanged("MaindTextboxResultFocused");
             }
         }
 
@@ -785,7 +848,8 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             string defaultColor = Constant.DefaultMenuColor;
             string defaulBackgroundColor = Constant.DefaultButtonOrderColor;
             string selectedBackgroundColor = Constant.SelectedButtonOrderColor;
-            SearchLocationHeight = 0;
+            SearchLocationVisible = Constant.Hidden;
+            LocationContentMargin = Constant.OtherContentMargin;
             switch (currentButton)
             {
                 case 1:
@@ -793,7 +857,8 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
                     BorderButtonPickGroup = BorderButtonMainFood = BorderButtonAlternativeFood = defaultColor;
                     BackgroundButtonPickRoom = selectedBackgroundColor;
                     BackgroundButtonPickGroup = BackgroundButtonMainFood = BackgroundButtonAlternativeFood = defaulBackgroundColor;
-                    SearchLocationHeight = 55;
+                    SearchLocationVisible = Constant.Visible;
+                    LocationContentMargin = Constant.LocationContentMargin;
                     break;
                 case 2:
                     BorderButtonPickRoom = BorderButtonMainFood = BorderButtonAlternativeFood = defaultColor;
