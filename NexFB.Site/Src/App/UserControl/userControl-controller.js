@@ -67,8 +67,8 @@ function ($scope, $route, userControlFactory, notificationFactory, ErrorFactory,
 } ]);
 
 userControlModule.controller("ManageUserController",
-['$scope', 'userControlFactory', 'notificationFactory', '$route', '$modal', 'ErrorFactory', 'commonFactory',
-function ($scope, userControlFactory, notificationFactory, $route, $modal, ErrorFactory, commonFactory) {
+['$scope', 'userControlFactory', 'notificationFactory', '$route', '$modal', 'ErrorFactory', 'commonFactory', 'baseUrl',
+function ($scope, userControlFactory, notificationFactory, $route, $modal, ErrorFactory, commonFactory, baseUrl) {
 	$scope.filter = {
 		keyword: '',
 		departmentId: '',

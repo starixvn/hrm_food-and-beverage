@@ -31,7 +31,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 				}});
 		},
 		getDepartmentByUserRole: function () {
-			return $http.get('/api/report/GetDepartmentByUserRole');
+			return $http.get(baseUrl + 'api/report/GetDepartmentByUserRole');
 		}
 	};
 } ]);
