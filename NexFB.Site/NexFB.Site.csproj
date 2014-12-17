@@ -259,6 +259,8 @@
     <Content Include="Src\App\DeliveryArea\deliveryArea-controller.js" />
     <Content Include="Src\App\DeliveryArea\deliveryArea-route.js" />
     <Content Include="Src\App\DeliveryArea\deliveryArea-factory.js" />
+    <Content Include="Src\App\DeliveryArea\Templates\create.html" />
+    <Content Include="Src\App\DeliveryArea\Templates\edit.html" />
     <Content Include="Src\App\DeliveryArea\Templates\index.html" />
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration-directive.js" />
     <Content Include="Src\App\EmployeeRegistration\Templates\modalConfirmApplyTemplate.html" />

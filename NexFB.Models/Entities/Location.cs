@@ -9,6 +9,8 @@
 
 namespace NexFB.Models.Entities
 {
+    using System;
+
     /// <summary>
     /// Location Entity.
     /// </summary>
@@ -27,5 +29,15 @@ namespace NexFB.Models.Entities
                 return NameEN;
             }
         }
+
+        public string FloorName { get; set; }
+
+        public bool IsDefault { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public int ModifiedBy { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
     }
 }

@@ -59,10 +59,12 @@
     </Compile>
     <Compile Include="AlternativeMenuManagement\InsertAlternativeMenuCriteria.cs" />
     <Compile Include="AlternativeMenuManagement\UpdateAlternativeMenuCriteria.cs" />
+    <Compile Include="DeliveryArea\ActivateDeliveryAreaCriteria.cs" />
+    <Compile Include="DeliveryArea\DeleteDeliveryAreaCriteria.cs" />
     <Compile Include="DeliveryArea\GetAllDeliveryAreaCriteria.cs" />
     <Compile Include="DeliveryArea\InsertDeliveryAreaCriteria.cs" />
+    <Compile Include="DeliveryArea\UpdateDeliveryAreaCriteria.cs" />
     <Compile Include="Department\GetAllDepartmentCriteria.cs" />
-    <Compile Include="Department\GetAllLocationCriteria.cs" />
     <Compile Include="Employee\ChangePasswordCriteria.cs" />
     <Compile Include="Employee\GetSpecialUserByIdCriteria.cs" />
     <Compile Include="Employee\GetSpecialEmployeeCriteria.cs" />

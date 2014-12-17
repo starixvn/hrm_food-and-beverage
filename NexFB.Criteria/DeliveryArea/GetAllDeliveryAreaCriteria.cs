@@ -19,7 +19,7 @@ namespace NexFB.Criteria.DeliveryArea
         [SpParam(SqlParamName = "LocationID")]
         public int? DeliveryAreaId { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         public string Query { get; set; }
 

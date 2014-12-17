@@ -35,7 +35,7 @@ namespace NexFB.PosKitchen.ViewModels
         #region Fields
 
         private IKitchenService _kitchenService;
-        private ICommonService _commonService;
+        private IDeliveryAreaService _deliveryAreaService;
         private IPrintHelper _printingHelper;
         private double _screenWidth;
         private double _screeHeight;
@@ -44,10 +44,10 @@ namespace NexFB.PosKitchen.ViewModels
 
         #region Constructors
 
-        public ViewModelBase(IKitchenService kitchenService, ICommonService commomService, IPrintHelper printingHelper)
+        public ViewModelBase(IKitchenService kitchenService, IDeliveryAreaService deliveryAreaService, IPrintHelper printingHelper)
         {
             _kitchenService = kitchenService ?? new KitchenService();
-            _commonService = commomService ?? new CommonService();
+            _deliveryAreaService = deliveryAreaService ?? new DeliveryAreaService();
             _printingHelper = printingHelper ?? new PrintHelper();
         }
 
@@ -79,22 +79,22 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        public ICommonService CommonService
+        public IDeliveryAreaService DeliveryAreaService
         {
             get
             {
-                return _commonService;
+                return _deliveryAreaService;
             }
 
             set
             {
-                if (_commonService == value)
+                if (_deliveryAreaService == value)
                 {
                     return;
                 }
 
-                _commonService = value;
-                OnPropertyChanged("CommonService");
+                _deliveryAreaService = value;
+                OnPropertyChanged("DeliveryAreaService");
             }
         }
 

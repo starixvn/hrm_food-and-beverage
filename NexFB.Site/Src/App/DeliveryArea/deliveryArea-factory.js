@@ -8,7 +8,51 @@ deliveryAreaModule.factory('deliveryAreaFactory', ['$http', 'baseUrl', function 
 				{ params: { deliveryArea: deliveryAreaId,
 					isActive: isActive,
 					query: query
-				}});
+				}
+				});
+		},
+		insertDeliveryArea: function (deliveryArea) {
+			return $http.post(baseUrl + 'api/DeliveryArea/InsertDeliveryArea', deliveryArea);
+		},
+		updateDeliveryArea: function (deliveryArea) {
+			return $http.put(baseUrl + 'api/DeliveryArea/UpdateDeliveryArea', deliveryArea);
+		},
+		activateDeliveryArea: function (deliveryArea) {
+			return $http.put(baseUrl + 'api/DeliveryArea/ActivateDeliveryArea', deliveryArea);
+		},
+		deleteDeliveryArea: function (locationId) {
+			return $http["delete"](baseUrl + 'api/DeliveryArea/DeleteDeliveryArea', 
+				{ params: { locationId: locationId } });
 		}
 	};
+} ]);
+
+deliveryAreaModule.factory('deliveryAreaUtilities', ['notificationFactory', function (notificationFactory) {
+	var utilities = {};
+
+	utilities.validateDeliveryArea = function (deliveryArea) {
+		var isValid = true;
+
+		if (!deliveryArea) {
+			isValid = false;
+		}
+		else {
+			if (!deliveryArea.FloorName) {
+				isValid = false;
+				notificationFactory.error("FloorRequire");
+			}
+			if (!deliveryArea.NameEN) {
+				isValid = false;
+				notificationFactory.error("DeliveryAreaEngRequire");
+			}
+			if (!deliveryArea.NameVN) {
+				isValid = false;
+				notificationFactory.error("DeliveryAreaVietRequire");
+			}
+		}
+
+		return isValid;
+	};
+
+	return utilities;
 } ]);

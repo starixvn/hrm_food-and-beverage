@@ -40,7 +40,6 @@
     <Compile Include="Authority\LoginModel.cs" />
     <Compile Include="Authority\MenuGroup.cs" />
     <Compile Include="Authority\MenuItem.cs" />
-    <Compile Include="DeliveryArea\DeliveryAreaModel.cs" />
     <Compile Include="Employee\EmployeeModel.cs" />
     <Compile Include="Employee\EmployeeTypeModel.cs" />
     <Compile Include="Entities\Department.cs" />

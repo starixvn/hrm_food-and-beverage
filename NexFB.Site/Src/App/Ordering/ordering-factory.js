@@ -8,7 +8,7 @@ orderingModule.factory("orderingFactory",
 				return $http.get(baseUrl + 'api/Ordering/GetCurrentUser');
 			},
 			getLocation: function () {
-				return $http.get(baseUrl + 'api/Common/GetAllLocation');
+				return $http.get(baseUrl + 'api/DeliveryArea/GetAllDeliveryArea');
 			},
 			getMyOrder: function () {
 				return $http.get(baseUrl + 'api/Ordering/GetMyOrder');

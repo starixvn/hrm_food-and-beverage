@@ -30,8 +30,6 @@ namespace NexFB.Services.Interface
 
         IEnumerable<Team> GetAllTeamByCompany(GetAllTeamByCompanyCriteria criteria);
 
-        IEnumerable<Location> GetAllLocation(GetAllLocationCriteria criteria);
-
         IEnumerable<MealTimesheet> GetAllMealTimesheet(GetMealTimesheetCriteria criteria);
 
         IEnumerable<EmployeeTypeModel> GetAllEmployeeType(GetAllEmployeeTypeCriteria criteria);

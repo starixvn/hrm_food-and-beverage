@@ -9,10 +9,12 @@
 
 namespace NexFB.Site.Controllers.API
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Http;
+    using NexFB.Core.Models;
     using NexFB.Criteria.DeliveryArea;
-    using NexFB.Models.DeliveryArea;
+    using NexFB.Models.Entities;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
 
@@ -34,8 +36,8 @@ namespace NexFB.Site.Controllers.API
         }
 
         [HttpGet]
-        public IEnumerable<DeliveryAreaModel> GetAllDeliveryArea(
-            bool isActive,
+        public IEnumerable<Location> GetAllDeliveryArea(
+            bool? isActive = null,
             int? deliveryAreaId = null,
             string query = "")
         {
@@ -47,6 +49,70 @@ namespace NexFB.Site.Controllers.API
             };
 
             return _deliveryAreaService.GetAllDeliveryArea(criteria);
+        }
+
+        /// <summary>
+        /// Insert delivery area.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        [HttpPost]
+        public CommandResult InsertDeliveryArea(InsertDeliveryAreaCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.CreatedBy = CurrentUser.UserId;
+                criteria.CreatedDate = DateTime.Now;
+            }
+
+            return _deliveryAreaService.InsertDeliveryArea(criteria);
+        }
+
+        /// <summary>
+        /// Update delivery area.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        [HttpPut]
+        public CommandResult UpdateDeliveryArea(UpdateDeliveryAreaCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _deliveryAreaService.UpdateDeliveryArea(criteria);
+        }
+
+        /// <summary>
+        /// Activate or deactivate delivery area.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Command Result.</returns>
+        [HttpPut]
+        public CommandResult ActivateDeliveryArea(ActivateDeliveryAreaCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _deliveryAreaService.ActivateDeliveryArea(criteria);
+        }
+
+        [HttpDelete]
+        public CommandResult DeleteDeliveryArea(int locationId)
+        {
+            var criteria = new DeleteDeliveryAreaCriteria
+            {
+                LocationId = locationId,
+                ModifiedBy = CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
+            };
+
+            return _deliveryAreaService.DeleteDeliveryArea(criteria);
         }
     }
 }

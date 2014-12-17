@@ -17,9 +17,11 @@ namespace NexFB.Criteria.DeliveryArea
     /// </summary>
     public class InsertDeliveryAreaCriteria : CriteriaBase
     {
-        public string VNMName { get; set; }
+        [SpParam(SqlParamName = "VNMName")]
+        public string NameVN { get; set; }
 
-        public string ENGName { get; set; }
+        [SpParam(SqlParamName = "ENGName")]
+        public string NameEN { get; set; }
 
         public string FloorName { get; set; }
 
@@ -38,7 +40,7 @@ namespace NexFB.Criteria.DeliveryArea
 
         public override bool IsValid()
         {
-            return !string.IsNullOrEmpty(FloorName) && (!string.IsNullOrEmpty(ENGName) || !string.IsNullOrEmpty(VNMName));
+            return !string.IsNullOrEmpty(FloorName) && (!string.IsNullOrEmpty(NameEN) || !string.IsNullOrEmpty(NameVN));
         }
     }
 }

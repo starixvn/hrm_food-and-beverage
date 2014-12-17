@@ -91,24 +91,6 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
-        /// Get all location.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator location model.</returns>
-        public IEnumerable<Location> GetAllLocation(GetAllLocationCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<Location> locations = null;
-
-            if (criteria.IsValid())
-            {
-                locations = GetData<Location>(criteria);
-            }
-
-            return locations;
-        }
-
-        /// <summary>
         /// Get all meal timesheet.
         /// </summary>
         /// <param name="criteria">The criteria.</param>

@@ -52,12 +52,6 @@ namespace NexFB.Site.Controllers.API
             return _commonService.GetAllTeamByCompany(criteria);
         }
 
-        public IEnumerable<Location> GetAllLocation()
-        {
-            var criteria = new GetAllLocationCriteria();
-            return _commonService.GetAllLocation(criteria);
-        }
-
         public IEnumerable<MealTimesheet> GetAllMealTimesheet()
         {
             var criteria = new GetMealTimesheetCriteria();

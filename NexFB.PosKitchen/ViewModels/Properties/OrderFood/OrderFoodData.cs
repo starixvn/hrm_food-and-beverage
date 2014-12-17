@@ -13,7 +13,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
     using System.Collections.ObjectModel;
     using System.Linq;
     using AutoMapper;
-    using NexFB.Criteria.Department;
+    using NexFB.Criteria.DeliveryArea;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Entities;
     using NexFB.Models.Kitchen;
@@ -39,8 +39,11 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         {
             get
             {
-                var getAllLocation = new GetAllLocationCriteria();
-                List<Location> locations = this.CommonService.GetAllLocation(getAllLocation).ToList();
+                var getAllDeliveryArea = new GetAllDeliveryAreaCriteria
+                {
+                    IsActive = true
+                };
+                List<Location> locations = this.DeliveryAreaService.GetAllDeliveryArea(getAllDeliveryArea).ToList();
                 if (locations != null)
                 {
                     List<CommonKitchenOrder> data = Mapper.Map<List<Location>, List<CommonKitchenOrder>>(locations);

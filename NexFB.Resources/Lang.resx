@@ -927,4 +927,28 @@
   <data name="MemberName" xml:space="preserve">
     <value>Member Name</value>
   </data>
+  <data name="CreateDeliveryArea" xml:space="preserve">
+    <value>Create Delivery Area</value>
+  </data>
+  <data name="DeliveryAreaManagement" xml:space="preserve">
+    <value>Delivery Area Management</value>
+  </data>
+  <data name="Floor" xml:space="preserve">
+    <value>Floor</value>
+  </data>
+  <data name="DeliveryAreaEng" xml:space="preserve">
+    <value>Delivery Area (English)</value>
+  </data>
+  <data name="DeliveryAreaViet" xml:space="preserve">
+    <value>Delivery Area (Vietnamese)</value>
+  </data>
+  <data name="DeliveryAreaEngRequire" xml:space="preserve">
+    <value>The Delivery Area (English) field is required!</value>
+  </data>
+  <data name="DeliveryAreaVietRequire" xml:space="preserve">
+    <value>The Delivery Area (Vietnamese) field is required!</value>
+  </data>
+  <data name="FloorRequire" xml:space="preserve">
+    <value>The Floor field is requried!</value>
+  </data>
 </root>

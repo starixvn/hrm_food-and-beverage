@@ -439,6 +439,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Delivery Area.
+        /// </summary>
+        public static string CreateDeliveryArea {
+            get {
+                return ResourceManager.GetString("CreateDeliveryArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Employee.
         /// </summary>
         public static string CreateEmployee {
@@ -628,6 +637,51 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delivery Area (English).
+        /// </summary>
+        public static string DeliveryAreaEng {
+            get {
+                return ResourceManager.GetString("DeliveryAreaEng", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Delivery Area (English) field is required!.
+        /// </summary>
+        public static string DeliveryAreaEngRequire {
+            get {
+                return ResourceManager.GetString("DeliveryAreaEngRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Area Management.
+        /// </summary>
+        public static string DeliveryAreaManagement {
+            get {
+                return ResourceManager.GetString("DeliveryAreaManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Area (Vietnamese).
+        /// </summary>
+        public static string DeliveryAreaViet {
+            get {
+                return ResourceManager.GetString("DeliveryAreaViet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Delivery Area (Vietnamese) field is required!.
+        /// </summary>
+        public static string DeliveryAreaVietRequire {
+            get {
+                return ResourceManager.GetString("DeliveryAreaVietRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Department/Section.
         /// </summary>
         public static string DepartmentSection {
@@ -804,6 +858,24 @@ namespace NexFB.Resources {
         public static string ErrorNetworkConnectionHeader {
             get {
                 return ResourceManager.GetString("ErrorNetworkConnectionHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Floor.
+        /// </summary>
+        public static string Floor {
+            get {
+                return ResourceManager.GetString("Floor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Floor field is requried!.
+        /// </summary>
+        public static string FloorRequire {
+            get {
+                return ResourceManager.GetString("FloorRequire", resourceCulture);
             }
         }
         

@@ -1,1 +1,68 @@
-﻿test
+﻿<div class="col-sm-12">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+			<li class="current" data-translate="DeliveryAreaManagement"></li>
+        </ul>
+    </div>
+    <div class="row table-menu">
+        <table class="table table-bordered table-striped col-sm-12">
+            <thead>
+				<tr class="header-table">
+					<th colspan="6">
+						<a class="pull-left button-icon create-button" ng-click="createDeliveryArea()" >
+							<span class="icon plus"></span>
+							<span class="button-text" data-translate="CreateDeliveryArea"></span>
+						</a>
+						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+					</th>
+<!--					<th colspan="5" ng-show="policy.permission == 1">
+						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+					</th>-->
+				</tr>
+                <tr>
+                    <th class="width-percent-6" data-translate="SymbolCount"></th>
+                    <th data-translate="DeliveryAreaViet"></th>
+					<th data-translate="DeliveryAreaEng"></th>
+                    <th data-translate="Floor"></th>
+                    <th class="width-percent-6" data-translate="Active"></th>
+                    <th class="width-percent-6" data-translate="Action"></th>
+                </tr>
+            </thead>
+            <tbody>
+				<tr ng-repeat="deliveryArea in pagedItems[currentPage]">
+					<td class="text-center" ng-bind="deliveryArea.itemIndex + 1">
+					</td>
+					<td ng-bind="deliveryArea.NameVN">
+					</td>
+					<td ng-bind="deliveryArea.NameEN">
+					</td>
+					<td class="text-center" ng-bind="deliveryArea.FloorName">
+					</td>
+					<td class="text-center">
+						<input type="checkbox" ng-checked="deliveryArea.IsActive" ng-click="confirmActive(deliveryArea)" />
+<!--						<img class="ico-tick" ng-if="policy.permission == 1 && setMenu.IsActive" />-->
+					</td>
+					<td class="text-center">
+						<a class="glyphicon glyphicon-edit" href="" ng-click="editDeliveryArea(deliveryArea)"></a>
+						<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteDeliveryArea(deliveryArea)"></a>
+					</td>
+				</tr>
+				<tr ng-show="deliveryAreaList.length == 0 || pagedItems.length == 0">
+					<td class="empty-result" colspan="6" data-translate="EmptyResult">
+					</td>
+				</tr>
+            </tbody>
+			<tfoot>
+				<tr>
+					<td colspan="6" class="paging" >
+						<span data-translate="Show"></span>
+						<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
+							ng-options="entry for entry in entries">
+						</select>
+						<span data-translate="entries"></span>
+						<pagination-bar></pagination-bar>
+					</td>
+				</tr>
+			</tfoot>
+        </table>
+    </div>
