@@ -810,6 +810,10 @@ namespace NexFB.PosKitchen.ViewModels
             if (!UserInGroup.Any(x => x.SysId == sysId))
             {
                 KitchenEmployeeInfo employee = this.GetEmployeeBySysId(sysId);
+                var getEmployeeOrderStatusCriteria = new GetEmployeeOrderStatusCriteria() { SysId = employee.SysId };
+                EmployeeOrderStatus employeeStatus = this.KitchenService.EmployeeOrderStatus(getEmployeeOrderStatusCriteria);
+                employee.MenuId = employeeStatus.MenuId;
+
                 CheckCanOrderMainFood(employee);
                 if (employee != null)
                 {
