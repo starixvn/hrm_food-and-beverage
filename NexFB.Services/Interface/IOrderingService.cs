@@ -46,6 +46,6 @@ namespace NexFB.Services.Interface
 
         MealOrderingModel GetLastModifiedDateByOrderId(GetLastMofifiedDateByOrderIdCriteria criteria);
 
-        string TranslateRemark(string remark);
+        string TranslateRemark(string remark, string translatorAPIUrl);
     }
 }

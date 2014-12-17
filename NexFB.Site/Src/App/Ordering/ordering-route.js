@@ -2,7 +2,7 @@
 /*exported orderingModule*/
 
 var orderingModule = angular.module("orderingModule", ['ngRoute'])
-.config(['$routeProvider', '$provide', function ($routeProvider, $provide) {
+.config(['$routeProvider', function ($routeProvider) {
 	var baseUrl = $("base").first().attr("href");
 	$routeProvider.when('/Ordering/Index',
 		{ templateUrl: baseUrl + 'src/app/ordering/templates/index.html', controller: 'OrderingController' });

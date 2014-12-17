@@ -26,9 +26,10 @@ namespace NexFB.Core.Translator
         /// Auto Translation text.
         /// </summary>
         /// <param name="sourceText">Source text.</param>
+        /// <param name="translatorAPIUrl">The translator API Url.</param>
         /// <returns>Translated text into vietnamese language.</returns>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
-        public static string AutoTranslation(string sourceText)
+        public static string AutoTranslation(string sourceText, string translatorAPIUrl)
         {
             LanguageDetector.Initialize();
             string translatedText = sourceText;
@@ -42,7 +43,7 @@ namespace NexFB.Core.Translator
                     bool isVietnamese = results.Any(x => x.Name.ToString().ToLower() == "vi");
                     if (!isVietnamese)
                     {
-                        translatedText = TranslateText(sourceText);
+                        translatedText = TranslateText(sourceText, translatorAPIUrl);
                     }
                 }
             }
@@ -58,11 +59,12 @@ namespace NexFB.Core.Translator
         /// Google translate text.
         /// </summary>
         /// <param name="sourceText">Source text.</param>
+        /// <param name="translatorAPIUrl">The translator API Url.</param>
         /// <returns>Vietnamese language.</returns>
-        private static string TranslateText(string sourceText)
+        private static string TranslateText(string sourceText, string translatorAPIUrl)
         {
             string url = string.Format(
-                "http://www.google.com/translate_t?hl=en&ie=UTF8&text={0}&langpair={1}",
+                translatorAPIUrl + "?hl=en&ie=UTF8&text={0}&langpair={1}",
                 HttpUtility.UrlEncode(sourceText),
                 "auto|vi");
             WebClient webClient = new WebClient();

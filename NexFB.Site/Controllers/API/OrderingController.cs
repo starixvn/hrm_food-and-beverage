@@ -11,6 +11,7 @@ namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Threading;
     using System.Web.Http;
     using NexFB.Core.Constants;
@@ -360,10 +361,11 @@ namespace NexFB.Site.Controllers.API
 
             if (!string.IsNullOrEmpty(remark))
             {
+                string translatorAPIUrl = ConfigurationManager.AppSettings["TranslatorAPIUrl"];
                 Thread translatorThread = new Thread(
                     () =>
                     {
-                        translatedText = ThreadTranslator(remark);
+                        translatedText = ThreadTranslator(remark, translatorAPIUrl);
                     });
 
                 translatorThread.Start();
@@ -377,9 +379,9 @@ namespace NexFB.Site.Controllers.API
             return translatedText;
         }
 
-        private string ThreadTranslator(string remark)
+        private string ThreadTranslator(string remark, string translatorAPIUrl)
         {
-            return _orderService.TranslateRemark(remark);
+            return _orderService.TranslateRemark(remark, translatorAPIUrl);
         }
     }
 }

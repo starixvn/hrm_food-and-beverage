@@ -295,10 +295,11 @@ namespace NexFB.Services.Implement
         /// Translate remark.
         /// </summary>
         /// <param name="remark">The remark will be translated.</param>
+        /// <param name="translatorAPIUrl">The translator API Url.</param>
         /// <returns>The translated remark.</returns>
-        public string TranslateRemark(string remark)
+        public string TranslateRemark(string remark, string translatorAPIUrl)
         {
-            return FBTranslator.AutoTranslation(remark);
+            return FBTranslator.AutoTranslation(remark, translatorAPIUrl);
         }
     }
 }
