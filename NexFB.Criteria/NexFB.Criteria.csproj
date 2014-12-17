@@ -59,6 +59,8 @@
     </Compile>
     <Compile Include="AlternativeMenuManagement\InsertAlternativeMenuCriteria.cs" />
     <Compile Include="AlternativeMenuManagement\UpdateAlternativeMenuCriteria.cs" />
+    <Compile Include="DeliveryArea\GetAllDeliveryAreaCriteria.cs" />
+    <Compile Include="DeliveryArea\InsertDeliveryAreaCriteria.cs" />
     <Compile Include="Department\GetAllDepartmentCriteria.cs" />
     <Compile Include="Department\GetAllLocationCriteria.cs" />
     <Compile Include="Employee\ChangePasswordCriteria.cs" />

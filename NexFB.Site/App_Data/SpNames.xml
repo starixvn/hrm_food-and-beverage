@@ -324,4 +324,12 @@
     <Setting Key="GroupOrderAdmin_RemoveMember" SpName="GroupOrderAdmin_RemoveMember" DbName="NexFB" Plain="0" ></Setting>
     <Setting Key="GroupOrderAdmin_DeleteGroup" SpName="GroupOrderAdmin_DeleteGroup" DbName="NexFB" Plain="0" ></Setting>    
   </Function>
+	<Function Name="DeliveryArea">
+		<Setting Key="Location_GetAll" SpName="Location_GetAll" DbName="NexFB" Plain="0" >
+			<Mapping DataField="LocationID" ObjectProperty="DeliveryAreaId" class="DeliveryAreaModel" />
+			<Mapping DataField="LocationVNMName" ObjectProperty="VNMName" class="DeliveryAreaModel" />
+			<Mapping DataField="LocationENGName" ObjectProperty="ENGName" class="DeliveryAreaModel" />
+		</Setting>
+		<Setting Key="Location_Insert" SpName="Location_Insert" DbName="NexFB" Plain="0" ></Setting>
+	</Function>
 </Functions>

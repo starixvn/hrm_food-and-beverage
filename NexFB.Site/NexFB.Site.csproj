@@ -183,6 +183,7 @@
     <Compile Include="Controllers\API\BaseController.cs" />
     <Compile Include="Controllers\API\CommonController.cs" />
     <Compile Include="Controllers\API\ChangePasswordController.cs" />
+    <Compile Include="Controllers\API\DeliveryAreaController.cs" />
     <Compile Include="Controllers\API\Report\ReportController.cs" />
     <Compile Include="Controllers\API\EmployeeController.cs" />
     <Compile Include="Controllers\API\GroupControlController.cs" />
@@ -255,6 +256,10 @@
     <Content Include="Src\App\ChangePassword\changePassword-controller.js" />
     <Content Include="Src\App\ChangePassword\changePassword-factory.js" />
     <Content Include="Src\App\ChangePassword\Templates\index.html" />
+    <Content Include="Src\App\DeliveryArea\deliveryArea-controller.js" />
+    <Content Include="Src\App\DeliveryArea\deliveryArea-route.js" />
+    <Content Include="Src\App\DeliveryArea\deliveryArea-factory.js" />
+    <Content Include="Src\App\DeliveryArea\Templates\index.html" />
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration-directive.js" />
     <Content Include="Src\App\EmployeeRegistration\Templates\modalConfirmApplyTemplate.html" />
     <Content Include="Src\App\EmployeeRegistration\Templates\registerMeal.html" />
@@ -505,6 +510,7 @@
     <Content Include="Src\App\Employee\employee.less" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentReportLocal.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls" />
+    <None Include="Src\App\DeliveryArea\deliveryArea.less" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
     <Content Include="Src\Content\Fonts\big_noodle_titling.ttf" />

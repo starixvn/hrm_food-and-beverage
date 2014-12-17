@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\AlternativeMenuService.cs" />
+    <Compile Include="Implement\DeliveryAreaService.cs" />
     <Compile Include="Implement\ReportService.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
@@ -73,6 +74,7 @@
     <Compile Include="Implement\ShiftMealMappingService.cs" />
     <Compile Include="Implement\SideDishService.cs" />
     <Compile Include="Implement\SmartCardOrderService.cs" />
+    <Compile Include="Interface\IDeliveryAreaService.cs" />
     <Compile Include="Interface\IReportService.cs" />
     <Compile Include="Interface\IGroupControlService.cs" />
     <Compile Include="Interface\ISetMenuService.cs" />
