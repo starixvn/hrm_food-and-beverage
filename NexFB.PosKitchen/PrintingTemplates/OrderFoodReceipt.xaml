@@ -215,7 +215,8 @@
 								<TextBlock FontSize="12" Height="23" HorizontalAlignment="Left" Margin="10,26,0,0" 
 						Text="{x:Static resx:WinFormMainResource.RemarkBilingual}" VerticalAlignment="Top" />
 
-								<TextBlock FontSize="15" HorizontalAlignment="Left" Margin="10,45,0,0" TextWrapping="WrapWithOverflow"
+								<TextBlock FontSize="15" HorizontalAlignment="Left" Margin="10,45,0,0" 
+								TextWrapping="WrapWithOverflow" Width="260"
 						Text="{Binding ElementName=GeneralInfo, Path=DataContext.DisplayRemak}" VerticalAlignment="Top" FontWeight="Black"/>
 
 								<Grid Visibility="{Binding ElementName=GeneralInfo, Path=DataContext.HasEdited}">

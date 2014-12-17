@@ -213,14 +213,19 @@
 
 				<!--Row 3-->
 
-				<Grid Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="4">
-					<Button Command="{Binding Path=AddCommand}" Content="{x:Static resx:WinFormMainResource.Add}"
+
+				<Button Command="{Binding Path=AddCommand}"  Grid.Row="3"  Grid.Column="3" Grid.ColumnSpan="4"
+					Content="{x:Static resx:WinFormMainResource.Add}" Style="{StaticResource buttonKeypad}" Margin="3" 
+					FontSize="25" FontWeight="Bold"/>
+
+				<Button Visibility="{Binding SearchLocationKeyboard}"  Grid.Row="3"  Grid.Column="3" Grid.ColumnSpan="4"
+					Content=" " Command="{Binding NumPadPressed}" CommandParameter="NUMPAD " 
 						Style="{StaticResource buttonKeypad}" Margin="3"  FontSize="25" FontWeight="Bold"/>
 
-					<Button Visibility="{Binding SearchLocationKeyboard}"
-					Content="{x:Static resx:WinFormMainResource.Search}"
+
+				<Button Grid.Row="3"  Grid.Column="7"
+						Command="{Binding NumPadPressed}" CommandParameter="NUMPAD-" Content="-"
 						Style="{StaticResource buttonKeypad}" Margin="3"  FontSize="25" FontWeight="Bold"/>
-				</Grid>
 
 
 			</Grid>
@@ -294,8 +299,8 @@
 				</Grid>
 
 				<Grid Grid.Row="3" Grid.Column="2">
-					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD*" FontSize="25" FontWeight="Bold"
-				Style="{StaticResource buttonKeypad}"  Content="*" Margin="3" />
+					<Button Command="{Binding NumPadPressed}" CommandParameter="NUMPAD#" FontSize="25" FontWeight="Bold"
+				Style="{StaticResource buttonKeypad}"  Content="#" Margin="3" />
 				</Grid>
 
 			</Grid>

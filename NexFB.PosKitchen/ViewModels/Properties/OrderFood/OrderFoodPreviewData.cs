@@ -29,7 +29,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public List<OrderPreview> PrepareDataForKitchenPreview(List<KitchenEmployeeInfo> kitchenEmployeeInfo)
         {
-            kitchenEmployeeInfo = kitchenEmployeeInfo.Where(x => x.ListMainMenuOrderDeatails.Count > 0
+            kitchenEmployeeInfo = kitchenEmployeeInfo.Where(x => (x.ListMainMenuOrderDeatails.Count > 0 && x.MenuId != -1)
                 || x.ListAlternativeMenuOrderDeatails.Count > 0).ToList();
             List<OrderPreview> dataPreviews = new List<OrderPreview>();
             int orderNo = 1;

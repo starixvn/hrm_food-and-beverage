@@ -106,7 +106,7 @@ namespace NexFB.PosKitchen
 
         private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            ////Application_Error(e);
+            Application_Error(e);
             string errorMessage = Lang.ErrorMessage + "\n\nError details:\n" + e.Exception.Message;
             e.Handled = true;
             if (MessageBox.Show(errorMessage, Lang.UnhandledException, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
@@ -118,7 +118,7 @@ namespace NexFB.PosKitchen
 
         private void App_NetworkConnectionException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            ////Application_Error(e);
+            Application_Error(e);
             e.Handled = true;
             if (MessageBox.Show(Lang.NetworkConnectionError, Lang.ErrorNetworkConnectionHeader, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
             {

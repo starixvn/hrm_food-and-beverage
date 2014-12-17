@@ -457,10 +457,7 @@ namespace NexFB.PosKitchen.ViewModels
                     if (LocationTextboxResultFocused)
                     {
                         LocationResult += keyPadParameter.Substring(keyPadParameter.Length - 1, 1);
-                        if (CheckLocationMenu)
-                        {
-                            ExecuteSearchLoction();
-                        }
+                        ExecuteSearchLoction();
                     }
                     else
                     {
@@ -477,7 +474,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         public void ExecuteSearchLoction()
         {
-            var filterList = AllObservationLocation.Where(x => x.ItemName.Contains(LocationResult));
+            var filterList = AllObservationLocation.Where(x => x.ItemName.ToUpper().Contains(LocationResult));
             CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>(filterList);
         }
 
@@ -671,6 +668,7 @@ namespace NexFB.PosKitchen.ViewModels
         /// <param name="currentSelectedEmployee">Menu color of Current Selected employee.</param>
         public void ChangeMenuColor(KitchenEmployeeInfo currentSelectedEmployee)
         {
+            CheckCanOrderMainFood(currentSelectedEmployee);
             bool checkMainFoodMenu = CheckMainFoodMenu;
             bool hasNotOrderMainFood = !currentSelectedEmployee.ListMainMenuOrderDeatails.Any(x => x.SelectedMenuItemId == int.MaxValue);
             bool isAutoAddMainFood = hasNotOrderMainFood && !IsDataEdit && !currentSelectedEmployee.DisabledAutoAddFood && CanOrderMainFood;
@@ -1387,6 +1385,27 @@ namespace NexFB.PosKitchen.ViewModels
                 {
                     LocationTexboxResultBorder.BorderBrush = Brushes.Silver;
                     LocationTextboxResultFocused = false;
+                    CloseFullKeyPadWhenVisible();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Check for Virtual keyboard visible and close it.
+        /// </summary>
+        private void CloseFullKeyPadWhenVisible()
+        {
+            if (Application.Current.Windows.Count > 1)
+            {
+                WindowCollection windows = Application.Current.Windows;
+                foreach (Window item in windows)
+                {
+                    if (item.GetType().Name == "VirtualKeyboard")
+                    {
+                        item.Close();
+                        FullKeyPadVisible = false;
+                        SearchLocationKeyboard = Constant.Hidden;
+                    }
                 }
             }
         }
