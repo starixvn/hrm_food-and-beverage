@@ -1312,6 +1312,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to USER GROUP MANAGEMENT - GROUP.
+        /// </summary>
+        public static string ManageGroupLabel {
+            get {
+                return ResourceManager.GetString("ManageGroupLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage Role.
         /// </summary>
         public static string ManageRole {
