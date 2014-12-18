@@ -27,6 +27,17 @@ function ($scope, deliveryAreaFactory, ErrorFactory, commonFactory, baseUrl, $mo
 	$scope.originalPage = 0;
 
 	/*
+	** Get user permission on Delivery Area Management page.
+	*/
+	deliveryAreaFactory.getUserPermissionOnDeliveryArea().success(function (permission) {
+		$scope.policy = {
+			permission: permission
+		};
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
+	});
+
+	/*
 	** Get all delivery area.
 	*/
 	var getAllDeliveryArea = function (locationId, isActive, query) {
@@ -51,7 +62,7 @@ function ($scope, deliveryAreaFactory, ErrorFactory, commonFactory, baseUrl, $mo
 			templateUrl: baseUrl + 'src/app/DeliveryArea/Templates/create.html',
 			controller: "CreateDeliveryAreaController",
 			backdrop: 'static',
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center delivery-area"
 		});
 
 		$scope.modalInstance.result.then(function () {
@@ -76,7 +87,7 @@ function ($scope, deliveryAreaFactory, ErrorFactory, commonFactory, baseUrl, $mo
 					return deliveryArea;
 				}
 			},
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center delivery-area"
 		});
 
 		$scope.modalInstance.result.then(function () {
@@ -105,7 +116,7 @@ function ($scope, deliveryAreaFactory, ErrorFactory, commonFactory, baseUrl, $mo
 					return action;
 				}
 			},
-			windowClass: "modal-confirm-center food-item-modal"
+			windowClass: "modal-confirm-center food-item-modal delivery-area"
 		});
 
 		var keyMessage = '';
@@ -166,7 +177,7 @@ function ($scope, deliveryAreaFactory, ErrorFactory, commonFactory, baseUrl, $mo
 					return deliveryArea.NameEN;
 				}
 			},
-			windowClass: "modal-confirm-center food-item-modal"
+			windowClass: "modal-confirm-center food-item-modal delivery-area"
 		});
 
 		$scope.modalInstance.result.then(function () {

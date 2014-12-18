@@ -21,8 +21,11 @@ deliveryAreaModule.factory('deliveryAreaFactory', ['$http', 'baseUrl', function 
 			return $http.put(baseUrl + 'api/DeliveryArea/ActivateDeliveryArea', deliveryArea);
 		},
 		deleteDeliveryArea: function (locationId) {
-			return $http["delete"](baseUrl + 'api/DeliveryArea/DeleteDeliveryArea', 
-				{ params: { locationId: locationId } });
+			return $http["delete"](baseUrl + 'api/DeliveryArea/DeleteDeliveryArea',
+				{ params: { locationId: locationId} });
+		},
+		getUserPermissionOnDeliveryArea: function () {
+			return $http.get(baseUrl + 'api/DeliveryArea/GetUserPermissionOnDeliveryArea');
 		}
 	};
 } ]);

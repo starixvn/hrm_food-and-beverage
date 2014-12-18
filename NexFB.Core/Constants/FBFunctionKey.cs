@@ -56,6 +56,8 @@ namespace NexFB.Core.Constants
 
         public const string MealRegistrationByShift = "MealRegistrationByShift";
 
+        public const string DeliveryAreaManagement = "DeliveryAreaManagement";
+
         public const string ManageGroup = "ManageGroup";
 
         public const string ManageUserInGroup = "ManageUserInGroup";

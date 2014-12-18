@@ -73,7 +73,7 @@ appModule.factory('commonFactory',
 				return true;
 			}
 
-			return haystack.toLowerCase().search(needle.toLowerCase()) !== -1;
+			return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
 		};
 
 		var checkAllItemRecursion = function (item) {

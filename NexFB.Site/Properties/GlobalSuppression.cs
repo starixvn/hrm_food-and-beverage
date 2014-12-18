@@ -59,3 +59,5 @@ using System.Diagnostics.CodeAnalysis;
     Target = "NexFB.Site.Controllers.API.EmployeeController.#GetSpecialUsers()", Justification = "Reviewed. Suppression is OK here.")]
 [module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
     Target = "NexFB.Site.Controllers.API.Report.ReportController.#GetDepartmentByUserRole()", Justification = "Reviewed. Suppression is OK here.")]
+[module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
+    Target = "NexFB.Site.Controllers.API.DeliveryAreaController.#GetUserPermissionOnDeliveryArea()", Justification = "Reviewed. Suppression is OK here.")]

@@ -87,7 +87,7 @@ namespace NexFB.Site
                 "~/Src/App/ManageUserInGroup/manageUserInGroup.less",
                 "~/Src/App/ChangePassword/changePassword.less",
                 "~/Src/App/Report/report.less",
-                "~/Src/App/Report/deliveryArea.less");
+                "~/Src/App/DeliveryArea/deliveryArea.less");
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Src/App/app.js",

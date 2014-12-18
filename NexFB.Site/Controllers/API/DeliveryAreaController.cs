@@ -12,11 +12,16 @@ namespace NexFB.Site.Controllers.API
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
+    using NexFB.Core.Constants;
+    using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.DeliveryArea;
     using NexFB.Models.Entities;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
+    using NexFB.Web.Attributes;
+    using NexFB.Web.Services.Implement;
+    using NexFB.Web.Services.Interface;
 
     /// <summary>
     /// The delivery area controller.
@@ -24,18 +29,21 @@ namespace NexFB.Site.Controllers.API
     public class DeliveryAreaController : BaseController
     {
         private readonly IDeliveryAreaService _deliveryAreaService;
+        private readonly IWebCommonService _webCommonService;
 
         public DeliveryAreaController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public DeliveryAreaController(IDeliveryAreaService deliveryAreaService)
+        public DeliveryAreaController(IDeliveryAreaService deliveryAreaService, IWebCommonService webCommonService)
         {
             _deliveryAreaService = deliveryAreaService ?? new DeliveryAreaService();
+            _webCommonService = webCommonService ?? new WebCommonService();
         }
 
         [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.DeliveryAreaManagement, Policy = Policy.Read)]
         public IEnumerable<Location> GetAllDeliveryArea(
             bool? isActive = null,
             int? deliveryAreaId = null,
@@ -57,6 +65,7 @@ namespace NexFB.Site.Controllers.API
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Command Result.</returns>
         [HttpPost]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.DeliveryAreaManagement, Policy = Policy.Host)]
         public CommandResult InsertDeliveryArea(InsertDeliveryAreaCriteria criteria)
         {
             if (criteria != null)
@@ -74,6 +83,7 @@ namespace NexFB.Site.Controllers.API
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Command Result.</returns>
         [HttpPut]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.DeliveryAreaManagement, Policy = Policy.Host)]
         public CommandResult UpdateDeliveryArea(UpdateDeliveryAreaCriteria criteria)
         {
             if (criteria != null)
@@ -91,6 +101,7 @@ namespace NexFB.Site.Controllers.API
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Command Result.</returns>
         [HttpPut]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.DeliveryAreaManagement, Policy = Policy.Host)]
         public CommandResult ActivateDeliveryArea(ActivateDeliveryAreaCriteria criteria)
         {
             if (criteria != null)
@@ -103,6 +114,7 @@ namespace NexFB.Site.Controllers.API
         }
 
         [HttpDelete]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.DeliveryAreaManagement, Policy = Policy.Host)]
         public CommandResult DeleteDeliveryArea(int locationId)
         {
             var criteria = new DeleteDeliveryAreaCriteria
@@ -113,6 +125,12 @@ namespace NexFB.Site.Controllers.API
             };
 
             return _deliveryAreaService.DeleteDeliveryArea(criteria);
+        }
+
+        public int GetUserPermissionOnDeliveryArea()
+        {
+            int policy = _webCommonService.GetPermission(FBFunctionKey.DeliveryAreaManagement);
+            return policy;
         }
     }
 }

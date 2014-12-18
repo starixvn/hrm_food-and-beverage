@@ -8,16 +8,16 @@
         <table class="table table-bordered table-striped col-sm-12">
             <thead>
 				<tr class="header-table">
-					<th colspan="6">
+					<th colspan="6" ng-show="policy.permission == 2">
 						<a class="pull-left button-icon create-button" ng-click="createDeliveryArea()" >
 							<span class="icon plus"></span>
 							<span class="button-text" data-translate="CreateDeliveryArea"></span>
 						</a>
 						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
 					</th>
-<!--					<th colspan="5" ng-show="policy.permission == 1">
+					<th colspan="5" ng-show="policy.permission == 1">
 						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
-					</th>-->
+					</th>
 				</tr>
                 <tr>
                     <th class="width-percent-6" data-translate="SymbolCount"></th>
@@ -25,7 +25,7 @@
 					<th data-translate="DeliveryAreaEng"></th>
                     <th data-translate="Floor"></th>
                     <th class="width-percent-6" data-translate="Active"></th>
-                    <th class="width-percent-6" data-translate="Action"></th>
+                    <th class="width-percent-6" data-translate="Action" ng-show="policy.permission == 2"></th>
                 </tr>
             </thead>
             <tbody>
@@ -39,10 +39,10 @@
 					<td class="text-center" ng-bind="deliveryArea.FloorName">
 					</td>
 					<td class="text-center">
-						<input type="checkbox" ng-checked="deliveryArea.IsActive" ng-click="confirmActive(deliveryArea)" />
-<!--						<img class="ico-tick" ng-if="policy.permission == 1 && setMenu.IsActive" />-->
+						<input type="checkbox" ng-checked="deliveryArea.IsActive" ng-click="confirmActive(deliveryArea)" ng-if="policy.permission == 2"/>
+						<img class="ico-tick" ng-if="policy.permission == 1 && deliveryArea.IsActive" />
 					</td>
-					<td class="text-center">
+					<td class="text-center" ng-show="policy.permission == 2" >
 						<a class="glyphicon glyphicon-edit" href="" ng-click="editDeliveryArea(deliveryArea)"></a>
 						<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteDeliveryArea(deliveryArea)"></a>
 					</td>
