@@ -19,7 +19,7 @@ function ($scope, deliveryAreaFactory, ErrorFactory, commonFactory, baseUrl, $mo
 	** Paging.
 	*/
 	$scope.showEntries = function () {
-		commonFactory.tablePagination($scope, $scope.setMenus, $scope.entrySelected);
+		commonFactory.tablePagination($scope, $scope.deliveryAreaList, $scope.entrySelected);
 	};
 
 	$scope.entrySelected = 20;
