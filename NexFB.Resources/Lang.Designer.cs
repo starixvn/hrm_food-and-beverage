@@ -664,6 +664,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This Delivery Area does not exist. Please reload this page..
+        /// </summary>
+        public static string DeliveryAreaNotExistError {
+            get {
+                return ResourceManager.GetString("DeliveryAreaNotExistError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delivery Area (Vietnamese).
         /// </summary>
         public static string DeliveryAreaViet {

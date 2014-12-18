@@ -11,6 +11,7 @@ namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
@@ -131,6 +132,28 @@ namespace NexFB.Site.Controllers.API
         {
             int policy = _webCommonService.GetPermission(FBFunctionKey.DeliveryAreaManagement);
             return policy;
+        }
+
+        /// <summary>
+        /// Check delivery area is exist or not.
+        /// </summary>
+        /// <param name="locationId">The location Id.</param>
+        /// <returns>The boolean value.</returns>
+        [HttpGet]
+        public bool CheckDeliveryAreaExist(int deliveryAreaId)
+        {
+            var criteria = new GetAllDeliveryAreaCriteria
+            {
+                DeliveryAreaId = deliveryAreaId
+            };
+            IEnumerable<Location> locations = _deliveryAreaService.GetAllDeliveryArea(criteria);
+
+            if (locations != null && locations.Count() > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

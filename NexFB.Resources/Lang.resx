@@ -954,4 +954,7 @@
   <data name="ManageGroupLabel" xml:space="preserve">
     <value>USER GROUP MANAGEMENT - GROUP</value>
   </data>
+  <data name="DeliveryAreaNotExistError" xml:space="preserve">
+    <value>This Delivery Area does not exist. Please reload this page.</value>
+  </data>
 </root>

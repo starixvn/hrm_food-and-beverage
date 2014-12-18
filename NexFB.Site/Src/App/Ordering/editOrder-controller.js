@@ -170,68 +170,77 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			order.Location.LocationId = getOrderLocation();
 		}
 
-		$scope.modalConfirmSaveEditInstance = $modal.open({
-			templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
-			controller: "ModalConfirmController2",
-			backdrop: 'static',
-			resolve: {
-				content: function () {
-					return $scope.confirmMessageUpdateOrder;
-				}
-			},
-			windowClass: "modal-confirm-center1"
-		});
+		orderingFactory.checkDeliveryAreaExist(order.Location.LocationId).success(function (isExisted) {
+			if (isExisted === 'true') {
+				$scope.modalConfirmSaveEditInstance = $modal.open({
+					templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
+					controller: "ModalConfirmController2",
+					backdrop: 'static',
+					resolve: {
+						content: function () {
+							return $scope.confirmMessageUpdateOrder;
+						}
+					},
+					windowClass: "modal-confirm-center1"
+				});
 
-		$scope.modalConfirmSaveEditInstance.result.then(function () {
-			orderingFactory.checkValidModifiedTime(startTime.toJSON(), order.OrderId)
-			.success(function (isTimeValid) {
-				if (isTimeValid === 'true') {
+				$scope.modalConfirmSaveEditInstance.result.then(function () {
+					orderingFactory.checkValidModifiedTime(startTime.toJSON(), order.OrderId)
+				.success(function (isTimeValid) {
+					if (isTimeValid === 'true') {
 
-					if (!order.IsSideDishOrder) {
-						orderingFactory.editOrder(order).success(function (response) {
-							if (response.IsSuccessful) {
-								notificationFactory.success("DataChangeSuccessfully");
-								var returnObject = {
-									order: order,
-									isDeleted: false,
-									orderId: 0
-								};
-								$modalInstance.close(returnObject);
-							}
-							else {
-								notificationFactory.error('', response.Message);
-							}
-						})
-						.error(function (response, status) {
-							ErrorFactory.errorHandle(status);
-						});
+						if (!order.IsSideDishOrder) {
+							orderingFactory.editOrder(order).success(function (response) {
+								if (response.IsSuccessful) {
+									notificationFactory.success("DataChangeSuccessfully");
+									var returnObject = {
+										order: order,
+										isDeleted: false,
+										orderId: 0
+									};
+									$modalInstance.close(returnObject);
+								}
+								else {
+									notificationFactory.error('', response.Message);
+								}
+							})
+							.error(function (response, status) {
+								ErrorFactory.errorHandle(status);
+							});
+						}
+						else {
+							orderingFactory.editOrderSideDish(order).success(function (response) {
+								if (response.IsSuccessful) {
+									notificationFactory.success("DataChangeSuccessfully");
+									var returnObject = {
+										order: order,
+										isDeleted: false,
+										orderId: 0
+									};
+									$modalInstance.close(returnObject);
+								}
+								else {
+									notificationFactory.error('', response.Message);
+								}
+							})
+							.error(function (response, status) {
+								ErrorFactory.errorHandle(status);
+							});
+						}
 					}
-					else {
-						orderingFactory.editOrderSideDish(order).success(function (response) {
-							if (response.IsSuccessful) {
-								notificationFactory.success("DataChangeSuccessfully");
-								var returnObject = {
-									order: order,
-									isDeleted: false,
-									orderId: 0
-								};
-								$modalInstance.close(returnObject);
-							}
-							else {
-								notificationFactory.error('', response.Message);
-							}
-						})
-						.error(function (response, status) {
-							ErrorFactory.errorHandle(status);
-						});
+					else if (isTimeValid === 'false') {
+						notificationFactory.error("OrderChangeWarning");
 					}
+				}).error(function (response, status) {
+					ErrorFactory.errorHandle(status);
+				});
+					});
 				}
-				else if (isTimeValid === 'false') {
-					notificationFactory.error("OrderChangeWarning");
-				}
-			}).error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			});
+			else {
+				notificationFactory.error('DeliveryAreaNotExistError');
+			}
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
 		});
 	};
 

@@ -84,7 +84,11 @@ orderingModule.factory("orderingFactory",
 			},
 			checkValidModifiedTime: function (startTime, orderId) {
 				return $http.get(baseUrl + 'api/Ordering/CheckValidModifiedTime',
-					{ params: { startTime: startTime, orderId: orderId } });
+					{ params: { startTime: startTime, orderId: orderId} });
+			},
+			checkDeliveryAreaExist: function (deliveryAreaId) {
+				return $http.get(baseUrl + 'api/DeliveryArea/CheckDeliveryAreaExist', 
+					{ params: { deliveryAreaId: deliveryAreaId} });
 			}
 		};
 	} ]

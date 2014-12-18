@@ -4,7 +4,7 @@
 
 orderingModule.controller("OrderingController",
 ['$translate', '$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService',
-'notificationFactory', 'ErrorFactory', 'orderingUtilities', 'baseUrl', 
+'notificationFactory', 'ErrorFactory', 'orderingUtilities', 'baseUrl',
 function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderingService,
 	notificationFactory, ErrorFactory, orderingUtilities, baseUrl) {
 	$scope.getMessage = function () {
@@ -457,24 +457,25 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			}
 
 			if ($scope.ValidateNewOrder(order, typeOrder)) {
+				orderingFactory.checkDeliveryAreaExist(order.Location.LocationId).success(function (isExisted) {
+					if (isExisted === 'true') {
+						$scope.modalConfirmSaveOrderInstance = $modal.open({
+							templateUrl: baseUrl + 'Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
+							controller: "ModalConfirmController2",
+							backdrop: 'static',
+							resolve: {
+								content: function () {
+									return $scope.confirmMessageSaveOrder;
+								}
+							},
+							windowClass: "modal-confirm-center1"
+						});
 
-				$scope.modalConfirmSaveOrderInstance = $modal.open({
-					templateUrl: baseUrl + 'Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
-					controller: "ModalConfirmController2",
-					backdrop: 'static',
-					resolve: {
-						content: function () {
-							return $scope.confirmMessageSaveOrder;
-						}
-					},
-					windowClass: "modal-confirm-center1"
-				});
+						$scope.modalConfirmSaveOrderInstance.result.then(function () {
+							closeAlternativeSelect();
 
-				$scope.modalConfirmSaveOrderInstance.result.then(function () {
-					closeAlternativeSelect();
-
-					if (typeOrder !== $scope.typeOrder.sideDishOrder) {
-						orderingFactory.createOrder(order)
+							if (typeOrder !== $scope.typeOrder.sideDishOrder) {
+								orderingFactory.createOrder(order)
 						.success(function (response) {
 							if (response.result.IsSuccessful) {
 								notificationFactory.success("DataChangeSuccessfully");
@@ -487,28 +488,35 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 						})
 						.error(function (response, status) {
 							ErrorFactory.errorHandle(status);
+						});
+							}
+							else {
+								orderingFactory.createOrderSideDish(order)
+						.success(function (response) {
+							if (response.result.IsSuccessful) {
+								notificationFactory.success("DataChangeSuccessfully");
+								$scope.sendNewOrder(response.orderId);
+								$scope.getDefaultForAddOrder();
+							}
+							else {
+								notificationFactory.error('', response.result.Message);
+							}
+						})
+						.error(function (response, status) {
+							ErrorFactory.errorHandle(status);
+						});
+							}
+						}, function () {
+						})['finally'](function () {
+							orderingUtilities.resetSelectOrderLocation($scope);
+							$scope.modalConfirmSaveOrderInstance = undefined;
 						});
 					}
 					else {
-						orderingFactory.createOrderSideDish(order)
-						.success(function (response) {
-							if (response.result.IsSuccessful) {
-								notificationFactory.success("DataChangeSuccessfully");
-								$scope.sendNewOrder(response.orderId);
-								$scope.getDefaultForAddOrder();
-							}
-							else {
-								notificationFactory.error('', response.result.Message);
-							}
-						})
-						.error(function (response, status) {
-							ErrorFactory.errorHandle(status);
-						});
+						notificationFactory.error('DeliveryAreaNotExistError');
 					}
-				}, function () {
-				})['finally'](function () {
-					orderingUtilities.resetSelectOrderLocation($scope);
-					$scope.modalConfirmSaveOrderInstance = undefined;
+				}).error(function (response, status) {
+					ErrorFactory.errorHandle(status);
 				});
 			}
 		};
