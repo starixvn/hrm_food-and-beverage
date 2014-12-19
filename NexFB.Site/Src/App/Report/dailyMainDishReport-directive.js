@@ -55,10 +55,10 @@ reportModule.directive('renderDailyReport', function () {
 	var generateDataHeader = function (numberFormat) {
 		var columns = [
 			{ HeaderText: "#", Width: 60, Name: "Count", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
-			{ HeaderText: "Date", Width: 100, Name: "Date", HeaderAlign: "center", CellAlign: "center" },
+			{ HeaderText: "Date", Width: 120, Name: "Date", HeaderAlign: "center", CellAlign: "center" },
 			{ HeaderText: "Shift", Width: 100, Name: "Shift", HeaderAlign: "center", CellAlign: "center" },
-			{ HeaderText: "Full Name", Width: 150, Name: "FullName", HeaderAlign: "center", CellAlign: "center" },
-			{ HeaderText: "Nick", Width: 100, Name: "NickName", HeaderAlign: "center", CellAlign: "center" },
+			{ HeaderText: "Full Name", Width: 180, Name: "FullName", HeaderAlign: "center", CellAlign: "center" },
+			{ HeaderText: "Nick", Width: 140, Name: "NickName", HeaderAlign: "center", CellAlign: "center" },
 			{ HeaderText: "Breakfast", Width: 100, Name: "Breakfast", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
 			{ HeaderText: "Lunch", Width: 100, Name: "Lunch", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
 			{ HeaderText: "Dinner", Width: 100, Name: "Dinner", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
