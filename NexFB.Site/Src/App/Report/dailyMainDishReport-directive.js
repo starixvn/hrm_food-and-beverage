@@ -57,8 +57,8 @@ reportModule.directive('renderDailyReport', function () {
 			{ HeaderText: "#", Width: 60, Name: "Count", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
 			{ HeaderText: "Date", Width: 120, Name: "Date", HeaderAlign: "center", CellAlign: "center" },
 			{ HeaderText: "Shift", Width: 100, Name: "Shift", HeaderAlign: "center", CellAlign: "center" },
-			{ HeaderText: "Full Name", Width: 180, Name: "FullName", HeaderAlign: "center", CellAlign: "center" },
-			{ HeaderText: "Nick", Width: 140, Name: "NickName", HeaderAlign: "center", CellAlign: "center" },
+			{ HeaderText: "Full Name", Width: 180, Name: "FullName", HeaderAlign: "center", CellAlign: "left" },
+			{ HeaderText: "Nick", Width: 140, Name: "NickName", HeaderAlign: "center", CellAlign: "left" },
 			{ HeaderText: "Breakfast", Width: 100, Name: "Breakfast", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
 			{ HeaderText: "Lunch", Width: 100, Name: "Lunch", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
 			{ HeaderText: "Dinner", Width: 100, Name: "Dinner", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
@@ -74,7 +74,7 @@ reportModule.directive('renderDailyReport', function () {
 				Columns: [
 					{ Value: "Sub Total", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
 					{ Value: report.SubTotal ? report.SubTotal.Breakfast : 0, Name: "Breakfast" },
-					{ Value: report.SubTotal ? report.SubTotal.LUnch : 0, Name: "Lunch" },
+					{ Value: report.SubTotal ? report.SubTotal.Lunch : 0, Name: "Lunch" },
 					{ Value: report.SubTotal ? report.SubTotal.Dinner : 0, Name: "Dinner" },
 					{ Value: report.SubTotal ? report.SubTotal.Supper : 0, Name: "Supper" }
 				]
@@ -155,12 +155,12 @@ reportModule.directive('renderDailyReport', function () {
 	};
 });
 
-reportModule.directive('exportDailyMainDishReport', function () {
+reportModule.directive('exportDailyMainDishReport', ['baseUrl', function (baseUrl) {
 	return {
 		link: function (scope) {
 			scope.$on('exportDailyMainDishReport', function () {
 				var data = $.param(scope.criteria),
-					url = '/ExportReport/ExportDailyMainDishReport',
+					url = baseUrl + 'ExportReport/ExportDailyMainDishReport',
 					downloadUrl = url + "?" + data,
 					iframe = $('body iframe');
 
@@ -173,4 +173,4 @@ reportModule.directive('exportDailyMainDishReport', function () {
 			});
 		}
 	};
-});
+} ]);
