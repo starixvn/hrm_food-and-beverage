@@ -556,7 +556,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Daily Main Dish Report.
+        ///   Looks up a localized string similar to Daily Main Dish Report  - Price Per Meal.
         /// </summary>
         public static string DailyMainDishReportTitle {
             get {
@@ -2555,7 +2555,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SubTotal.
+        ///   Looks up a localized string similar to Sub Total.
         /// </summary>
         public static string SubTotal {
             get {

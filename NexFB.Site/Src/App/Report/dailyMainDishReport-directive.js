@@ -19,7 +19,7 @@ reportModule.directive('renderDailyReport', function () {
 
 				currentRow = {
 					Columns: [
-						{ Name: "Count", Value: mainDish.Department.Name + '-' + mainDish.Team.Name, MergeColNumber: 9, CellAlign: "left" }
+						{ Name: "Count", Value: mainDish.Department.Name + ' - ' + mainDish.Team.Name, MergeColNumber: 9, CellAlign: "left" }
 					],
 					SubRows: []
 				};
@@ -90,7 +90,7 @@ reportModule.directive('renderDailyReport', function () {
 			},
 			{
 				Columns: [
-					{ Value: "Amount", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
+					{ Value: "Total Amount", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
 					{ Value: report.TotalAmount, Name: "Breakfast", MergeColNumber: 4, CellAlign: 'center' }
 				]
 			}

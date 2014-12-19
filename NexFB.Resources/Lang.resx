@@ -958,13 +958,13 @@
     <value>Daily_Main_Dish_Report</value>
   </data>
   <data name="DailyMainDishReportTitle" xml:space="preserve">
-    <value>Daily Main Dish Report</value>
+    <value>Daily Main Dish Report  - Price Per Meal</value>
   </data>
   <data name="GrandTotal" xml:space="preserve">
     <value>Grand Total</value>
   </data>
   <data name="SubTotal" xml:space="preserve">
-    <value>SubTotal</value>
+    <value>Sub Total</value>
   </data>
   <data name="TotalAmount" xml:space="preserve">
     <value>Total Amount</value>

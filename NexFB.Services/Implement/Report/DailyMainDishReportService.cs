@@ -237,7 +237,7 @@ namespace NexFB.Services.Implement.Report
                 {
                     Count = rowIndex,
                     Date = employeeItem.WorkDate,
-                    Shift = employeeItem.Shift != null ? employeeItem.Shift.ShiftName : string.Empty,
+                    Shift = employeeItem.Shift != null ? employeeItem.Shift.ShiftCode : string.Empty,
                     FullName = employeeItem.Employee.FullName,
                     Nick = employeeItem.Employee.NickName,
                     Breakfast = employeeItem.Breakfast,

@@ -159,7 +159,7 @@ namespace NexFB.Site.Controllers
         {
             DailyMainDishReportModel report = SessionManager.Get<DailyMainDishReportModel>(
                 ReportConstant.DailyMainDishReportSessionKey + SessionManager.CurrentUser.UserId);
-            string templatePath = string.Empty;
+            string templatePath = Server.MapPath(DailyMainDishReportTemplatePath);
 
             if (report == null)
             {

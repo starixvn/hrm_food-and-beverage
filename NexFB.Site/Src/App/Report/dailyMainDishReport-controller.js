@@ -193,8 +193,8 @@ foodMenuFactory, commonFactory, foodMenuUtilities) {
 		filter.userId = filter.employee ? filter.employee.UserId : '';
 
 		$scope.criteria = {
-			fromDate: filter.fromDate,
-			toDate: filter.toDate,
+			fromDate: filter.fromDate.toDateString(),
+			toDate: filter.toDate.toDateString(),
 			orderCount: filter.orderCount,
 			departmentId: filter.departmentId,
 			employeeTypeId: filter.employeeTypeId,
