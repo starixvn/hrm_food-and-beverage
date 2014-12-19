@@ -246,12 +246,12 @@ reportModule.directive('renderMonthlyReport', function () {
 	};
 });
 
-reportModule.directive('exportMonthlyMainDishLocalReport', function () {
+reportModule.directive('exportMonthlyMainDishLocalReport', ['baseUrl', function (baseUrl) {
 	return {
 		link: function (scope) {
 			scope.$on('exportMonthlyMainDishLocalReport', function () {
 				var data = $.param(scope.criteria),
-					url = '/ExportReport/ExportMonthlyMainDishReport',
+					url = baseUrl + 'ExportReport/ExportMonthlyMainDishReport',
 					downloadUrl = url + "?" + data,
 					iframe = $('body iframe');
 
@@ -264,4 +264,4 @@ reportModule.directive('exportMonthlyMainDishLocalReport', function () {
 			});
 		}
 	};
-});
+} ]);
