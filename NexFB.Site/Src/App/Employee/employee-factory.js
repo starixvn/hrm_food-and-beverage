@@ -4,7 +4,8 @@
 employeeModule.factory('employeeFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
 	return {
 		getSpecialUsers: function (departmentId, employeeTypeId, isActive) {
-			return $http.get(baseUrl + 'api/Employee/GetSpecialUsers', { params: { departmentId: departmentId, employeeTypeId: employeeTypeId, isActive: isActive} });
+			return $http.get(baseUrl + 'api/Employee/GetSpecialUsers', 
+			{ params: { departmentId: departmentId, employeeTypeId: employeeTypeId, isActive: isActive} });
 		},
 		getSpecialUserById: function (userId) {
 			return $http.get(baseUrl + 'api/Employee/GetSpecialUserById',

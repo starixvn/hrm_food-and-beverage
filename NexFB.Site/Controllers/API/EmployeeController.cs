@@ -13,16 +13,16 @@ namespace NexFB.Site.Controllers.API
     using System.Collections.Generic;
     using System.Web.Http;
     using NexFB.Core.Constants;
+    using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Employee;
     using NexFB.Models.Entities;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
+    using NexFB.Web.Attributes;
     using NexFB.Web.Services.Implement;
     using NexFB.Web.Services.Interface;
-    using NexFB.Web.Attributes;
-    using NexFB.Core.Enums;
 
     /// <summary>
     /// Employee controller.
@@ -79,7 +79,6 @@ namespace NexFB.Site.Controllers.API
                 IsActive = isActive
             };
             IList<SpecialUser> users = _employeeService.GetSpecialUsers(criteria);
-
             return users;
         }
 
