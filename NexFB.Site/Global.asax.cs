@@ -48,7 +48,7 @@ namespace NexFB.Site
         /// <param name="e">The EventArgs.</param>
         protected void Application_Error(object sender, EventArgs e)
         {
-            if (!Request.IsLocal)
+            if (!Request.IsLocal && !Request.FilePath.Contains("signalr/abort"))
             {
                 Exception ex = Server.GetLastError().GetBaseException();
                 string message = ex.Message +
