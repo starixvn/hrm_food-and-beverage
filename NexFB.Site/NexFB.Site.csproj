@@ -522,10 +522,10 @@
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentReportLocal.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\EmployeeOrderHistoryReport.xls" />
+    <Content Include="Src\App\Report\ExcelTemplates\DailyMainDishReport.xls" />
     <Content Include="Src\App\DeliveryArea\deliveryArea.less" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentPerDayReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeePerDayReport.xls" />
-    <Content Include="Src\App\Report\ExcelTemplates\DailyMainDishReport.xls" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
     <Content Include="Src\Content\Fonts\big_noodle_titling.ttf" />
