@@ -12,6 +12,7 @@ namespace NexFB.Site.Controllers
     using System.Web.Mvc;
     using NexFB.Core.Constants;
     using NexFB.Criteria.Report;
+    using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.EmployeeOrderHistory;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
@@ -31,24 +32,26 @@ namespace NexFB.Site.Controllers
         private const string EmployeeOrderHistoryTemplatePath = @"~\Src\App\Report\ExcelTemplates\EmployeeOrderHistoryReport.xls";
         private const string MonthlyMainDishPerDayEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeePerDayReport.xls";
         private const string MonthlyMainDishPerDayDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentPerDayReport.xls";
-
-        private readonly IReportService _reportService;
+        private const string DailyMainDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\DailyMainDishReport.xls";
+        private readonly IMonthlyMainDishReportService _monthlyMainDishReportService;
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
         private readonly IMonthlyMainDishPerDayReportService _monthlyMainDishPerDayService;
+        private readonly IDailyMainDishReportService _dailyMainDishReportService;
 
         public ExportReportController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public ExportReportController(
-        IReportService reportService,
-        IEmployeeOrderHistoryService employeeOrderHistoryService,
-        IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService)
+        	IEmployeeOrderHistoryService employeeOrderHistoryService, 
+        	IMonthlyMainDishReportService monthlyMainDishReportService)
+       		IDailyMainDishReportService dailyMainDishReportService,
+       		IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService)
         {
-            _reportService = reportService ?? new ReportService();
+            _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
-            _monthlyMainDishPerDayService = monthlyMainDishPerDayService ?? new MonthlyMainDishPerDayReportService();
+            _monthlyMainDishPerDayService = monthlyMainDishPerDayService ?? new MonthlyMainDishPerDayReportService();            
         }
 
         public ActionResult Index()
@@ -69,7 +72,7 @@ namespace NexFB.Site.Controllers
 
             if (report == null)
             {
-                report = _reportService.GetMonthlyMainDishReportLocal(criteria);
+                report = _monthlyMainDishReportService.GetMonthlyMainDishReportLocal(criteria);
             }
 
             if (report != null)
@@ -83,7 +86,7 @@ namespace NexFB.Site.Controllers
                     templateUrl = Server.MapPath(MonthlyMainDishReportLocalDepartmentTemplatePath);
                 }
 
-                _reportService.ExportMonthlyMainDishReportLocal(report, templateUrl);
+                _monthlyMainDishReportService.ExportMonthlyMainDishReportLocal(report, templateUrl);
             }
 
             return new EmptyResult();
@@ -144,6 +147,26 @@ namespace NexFB.Site.Controllers
                 _monthlyMainDishPerDayService.ExportMonthlyMainDishPerDayReport(report, templatePath);
             }
 
+            return new EmptyResult();
+        }
+
+        /// <summary>
+        /// Export daily main dish report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The excel file.</returns>
+        public ActionResult ExportDailyMainDishReport(GetDailyMainDishPricePerMealReportCriteria criteria)
+        {
+            DailyMainDishReportModel report = SessionManager.Get<DailyMainDishReportModel>(
+                ReportConstant.DailyMainDishReportSessionKey + SessionManager.CurrentUser.UserId);
+            string templatePath = string.Empty;
+
+            if (report == null)
+            {
+                report = _dailyMainDishReportService.GetDailyMainDishReport(criteria);
+            }
+
+            _dailyMainDishReportService.ExportDailyMainDishReport(report, templatePath);
             return new EmptyResult();
         }
     }

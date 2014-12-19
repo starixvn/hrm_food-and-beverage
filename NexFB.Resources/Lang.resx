@@ -951,6 +951,24 @@
   <data name="DeliveryAreaViet" xml:space="preserve">
     <value>Delivery Area (Vietnamese)</value>
   </data>
+   <data name="DailyMainDishReportName" xml:space="preserve">
+    <value>Daily_Main_Dish_Report</value>
+  </data>
+  <data name="DailyMainDishReportSheet" xml:space="preserve">
+    <value>Daily_Main_Dish_Report</value>
+  </data>
+  <data name="DailyMainDishReportTitle" xml:space="preserve">
+    <value>Daily Main Dish Report</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>SubTotal</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Total Amount</value>
+</data>
   <data name="DeliveryAreaEngRequire" xml:space="preserve">
     <value>The Delivery Area (English) field is required!</value>
   </data>

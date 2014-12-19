@@ -20,5 +20,7 @@ namespace NexFB.Services.Interface.Report
         DailyMainDishReportModel GetDailyMainDishReport(GetDailyMainDishPricePerMealReportCriteria criteria);
 
         DailyMainDishReportModel GetPagingReport(DailyMainDishReportModel report, int startIndex, int itemsPerPage);
+
+        void ExportDailyMainDishReport(DailyMainDishReportModel report, string templatePath);
     }
 }

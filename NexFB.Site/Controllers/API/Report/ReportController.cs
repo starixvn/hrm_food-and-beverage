@@ -1,4 +1,4 @@
-﻿// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // <copyright file="ReportController.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
@@ -36,25 +36,28 @@ namespace NexFB.Site.Controllers.API.Report
     /// </summary>
     public class ReportController : BaseController
     {
-        private readonly IReportService _reportService;
+        private readonly IMonthlyMainDishReportService _monthlyMainDishReportService;
+        private readonly IDailyMainDishReportService _dailyMainDishReportService;
         private readonly ICommonService _commonService;
         private readonly IUserControlService _userControlService;
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
         private readonly IMonthlyMainDishPerDayReportService _monthlyPerDayService;
 
         public ReportController()
-            : this(null, null, null, null, null)
+            : this(null, null, null, null, null, null)
         {
         }
 
         public ReportController(
-            IReportService reportService,
+            IMonthlyMainDishReportService monthlyMainDishReportService,
+            IDailyMainDishReportService dailyMainDishReportService,
             ICommonService commonService,
             IUserControlService userControlService,
             IEmployeeOrderHistoryService employeeOrderHistoryService,
             IMonthlyMainDishPerDayReportService monthlyPerDayService)
         {
-            _reportService = reportService ?? new ReportService();
+            _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
+            _dailyMainDishReportService = dailyMainDishReportService ?? new DailyMainDishReportService();
             _commonService = commonService ?? new CommonService();
             _userControlService = userControlService ?? new UserControlService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
@@ -107,18 +110,18 @@ namespace NexFB.Site.Controllers.API.Report
             };
             MonthlyLocalReportModel fullReport = null;
 
-            if (criteria.IsPagingCallback)
+            if (isPagingCallback)
             {
                  fullReport = SessionManager.Get<MonthlyLocalReportModel>(ReportConstant.MonthlyMainDishReportLocalSessionKey + CurrentUser.UserId);
             }
 
             if (fullReport == null)
             {
-                fullReport = _reportService.GetMonthlyMainDishReportLocal(criteria);
+                fullReport = _monthlyMainDishReportService.GetMonthlyMainDishReportLocal(criteria);
                 SessionManager.Set<MonthlyLocalReportModel>(ReportConstant.MonthlyMainDishReportLocalSessionKey + CurrentUser.UserId, fullReport);
             }
 
-            MonthlyLocalReportModel pagingReport = _reportService.GetPaingReport(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
+            MonthlyLocalReportModel pagingReport = _monthlyMainDishReportService.GetPaingReport(fullReport, startIndex, itemsPerPage);
             return pagingReport;
         }
 
@@ -129,12 +132,16 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="toDate">The to date.</param>
         /// <param name="orderCount">The order count.</param>
         /// <param name="departmentId">The department Id.</param>
+        /// <param name="employeeTypeId">The employee type Id.</param>
         /// <param name="teamId">The team Id.</param>
         /// <param name="mealId">The meal Id.</param>
         /// <param name="userId">The user Id.</param>
         /// <param name="query">The query.</param>
         /// <param name="isDebug">Is debug or not.</param>
         /// <param name="isLocal">Is local or not.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The number items per page.</param>
+        /// <param name="isPagingCallback">The is paging callback.</param>
         /// <returns>The report.</returns>
         [HttpGet]
         public DailyMainDishReportModel GetDailyMainDishReport(
@@ -142,12 +149,16 @@ namespace NexFB.Site.Controllers.API.Report
             DateTime toDate,
             int orderCount,
             string departmentId = "",
+            string employeeTypeId = "",
             string teamId = "",
             string mealId = "",
             int? userId = null,
             string query = "",
             bool isDebug = false,
-            int? isLocal = null)
+            int? isLocal = null,
+            int startIndex = 0,
+            int itemsPerPage = 50,
+            bool isPagingCallback = false)
         {
             var criteria = new GetDailyMainDishPricePerMealReportCriteria
             {
@@ -155,6 +166,7 @@ namespace NexFB.Site.Controllers.API.Report
                 ToDate = toDate,
                 OrderCount = orderCount,
                 DepartmentId = departmentId,
+                EmployeeTypeId = employeeTypeId,
                 TeamId = teamId,
                 MealId = mealId,
                 IsDebug = isDebug,
@@ -162,9 +174,18 @@ namespace NexFB.Site.Controllers.API.Report
                 UserId = userId,
                 Query = query
             };
-            DailyMainDishReportModel fullReport = _reportService.GetDailyMainDishReport(criteria);
+            DailyMainDishReportModel fullReport = null;
             DailyMainDishReportModel pagingReport = null;
-            SessionManager.Set<DailyMainDishReportModel>(ReportConstant.DailyMainDishReportSessionKey, fullReport);
+
+            if (isPagingCallback)
+            {
+                fullReport = SessionManager.Get<DailyMainDishReportModel>(ReportConstant.DailyMainDishReportSessionKey + CurrentUser.UserId);
+            }
+            else
+            {
+                fullReport = _dailyMainDishReportService.GetDailyMainDishReport(criteria);
+                SessionManager.Set<DailyMainDishReportModel>(ReportConstant.DailyMainDishReportSessionKey + CurrentUser.UserId, fullReport);
+            }
 
             pagingReport = _dailyMainDishReportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
             return pagingReport;

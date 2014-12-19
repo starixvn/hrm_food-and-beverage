@@ -33,15 +33,6 @@ namespace NexFB.Criteria.Report
 
         public int IsLocal { get; set; }
 
-        [SpParam(Ignored = true)]
-        public int StartIndex { get; set; }
-
-        [SpParam(Ignored = true)]
-        public int ItemsPerPage { get; set; }
-
-        [SpParam(Ignored = true)]
-        public bool IsPagingCallback { get; set; }
-
         public override string GetSettingKey()
         {
             return "RPT_MonthMainDishByLocal";

@@ -204,6 +204,6 @@ foodMenuFactory, commonFactory, foodMenuUtilities) {
 			query: filter.query
 		};
 
-		$scope.$broadcast('exportDailyMainDishLocalReport');
+		$scope.$broadcast('exportDailyMainDishReport');
 	};
 } ]);

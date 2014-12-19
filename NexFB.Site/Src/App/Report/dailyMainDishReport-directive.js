@@ -155,10 +155,10 @@ reportModule.directive('renderDailyReport', function () {
 	};
 });
 
-reportModule.directive('exportDailyMainDishLocalReport', function () {
+reportModule.directive('exportDailyMainDishReport', function () {
 	return {
 		link: function (scope) {
-			scope.$on('exportDailyMainDishLocalReport', function () {
+			scope.$on('exportDailyMainDishReport', function () {
 				var data = $.param(scope.criteria),
 					url = '/ExportReport/ExportDailyMainDishReport',
 					downloadUrl = url + "?" + data,

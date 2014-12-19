@@ -538,6 +538,33 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Daily_Main_Dish_Report.
+        /// </summary>
+        public static string DailyMainDishReportName {
+            get {
+                return ResourceManager.GetString("DailyMainDishReportName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daily_Main_Dish_Report.
+        /// </summary>
+        public static string DailyMainDishReportSheet {
+            get {
+                return ResourceManager.GetString("DailyMainDishReportSheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daily Main Dish Report.
+        /// </summary>
+        public static string DailyMainDishReportTitle {
+            get {
+                return ResourceManager.GetString("DailyMainDishReportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Updated unsuccessfully!.
         /// </summary>
         public static string DataChangeFail {
@@ -1209,6 +1236,15 @@ namespace NexFB.Resources {
         public static string Function {
             get {
                 return ResourceManager.GetString("Function", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grand Total.
+        /// </summary>
+        public static string GrandTotal {
+            get {
+                return ResourceManager.GetString("GrandTotal", resourceCulture);
             }
         }
         
@@ -2519,6 +2555,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SubTotal.
+        /// </summary>
+        public static string SubTotal {
+            get {
+                return ResourceManager.GetString("SubTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sun.
         /// </summary>
         public static string Sun {
@@ -2632,6 +2677,15 @@ namespace NexFB.Resources {
         public static string Total {
             get {
                 return ResourceManager.GetString("Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Amount.
+        /// </summary>
+        public static string TotalAmount {
+            get {
+                return ResourceManager.GetString("TotalAmount", resourceCulture);
             }
         }
         
