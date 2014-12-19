@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="GetSpecialEmployeeCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="GetSpecialUserCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -14,11 +14,18 @@ namespace NexFB.Criteria.Employee
     /// <summary>
     /// Get Special Employee Criteria.
     /// </summary>
-    public class GetSpecialEmployeeCriteria : CriteriaBase
+    public class GetSpecialUserCriteria : CriteriaBase
     {
+        public string DepartmentId { get; set; }
+
+        public string EmployeeTypeId { get; set; }
+
+        [SpParam(SqlParamName = "Status")]
+        public bool? IsActive { get; set; }
+
         public override string GetSettingKey()
         {
-            return "Employee_GetEmployees";
+            return "Employee_Sel_SpecialEmp";
         }
 
         public override bool IsValid()

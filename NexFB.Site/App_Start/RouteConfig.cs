@@ -52,7 +52,8 @@ namespace NexFB.Site
                 "ManageGroup/User",
                 "DailyMainDishReport/Index",
                 "DeliveryArea/Index",
-                "EmployeeOrderHistory/Index"
+                "EmployeeOrderHistory/Index",
+                "SpecialEmployee/Index"
             };
             homeRouteUrls.ForEach(url => routes.MapRoute(
                 name: url,

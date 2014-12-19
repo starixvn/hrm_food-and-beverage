@@ -266,6 +266,8 @@
     <Content Include="Src\App\EmployeeRegistration\employeeRegistration-directive.js" />
     <Content Include="Src\App\EmployeeRegistration\Templates\modalConfirmApplyTemplate.html" />
     <Content Include="Src\App\EmployeeRegistration\Templates\registerMeal.html" />
+    <Content Include="Src\App\Employee\editSpecialEmployee-controller.js" />
+    <Content Include="Src\App\Employee\createSpecialEmployee-controller.js" />
     <Content Include="Src\App\Employee\employee-controller.js" />
     <Content Include="Src\App\Employee\employee-directive.js" />
     <Content Include="Src\App\Employee\employee-factory.js" />

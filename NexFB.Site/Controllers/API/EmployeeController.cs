@@ -12,11 +12,17 @@ namespace NexFB.Site.Controllers.API
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
+    using NexFB.Core.Constants;
     using NexFB.Core.Models;
     using NexFB.Criteria.Employee;
+    using NexFB.Models.Employee;
     using NexFB.Models.Entities;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
+    using NexFB.Web.Services.Implement;
+    using NexFB.Web.Services.Interface;
+    using NexFB.Web.Attributes;
+    using NexFB.Core.Enums;
 
     /// <summary>
     /// Employee controller.
@@ -24,14 +30,16 @@ namespace NexFB.Site.Controllers.API
     public class EmployeeController : BaseController
     {
         private readonly IEmployeeService _employeeService;
+        private readonly IWebCommonService _webCommonService;
 
-        public EmployeeController() : this(null)
+        public EmployeeController() : this(null, null)
         {
         }
 
-        public EmployeeController(IEmployeeService employeeService)
+        public EmployeeController(IEmployeeService employeeService, IWebCommonService webCommonService)
         {
             _employeeService = employeeService ?? new EmployeeService();
+            _webCommonService = webCommonService ?? new WebCommonService();
         }
 
         [HttpGet]
@@ -47,43 +55,53 @@ namespace NexFB.Site.Controllers.API
             return employees;
         }
 
-       // [ApiAuthorize(FunctionKey = FBFunctionKey.FoodItemManagement, Policy = Policy.Read)]
-        public Employee GetSpecialUserById(int userId)
+        [ApiAuthorize(FunctionKey = FBFunctionKey.SpecialEmployee, Policy = Policy.Read)]
+        [HttpGet]
+        public SpecialUser GetSpecialUserById(int userId)
         {
             var criteria = new GetSpecialUserByIdCriteria() 
             { 
                 UserId = userId
             };
-            Employee employee = _employeeService.GetSpecialUserById(criteria);
+            SpecialUser user = _employeeService.GetSpecialUserById(criteria);
 
-            return employee;
+            return user;
         }
 
-        public IList<Employee> GetSpecialUsers()
+        [ApiAuthorize(FunctionKey = FBFunctionKey.SpecialEmployee, Policy = Policy.Read)]
+        [HttpGet]
+        public IList<SpecialUser> GetSpecialUsers(string departmentId, string employeeTypeId, bool? isActive = null)
         {
-            var criteria = new GetSpecialEmployeeCriteria();
-            IList<Employee> employees = _employeeService.GetSpecialUsers(criteria);
+            var criteria = new GetSpecialUserCriteria() 
+            { 
+                DepartmentId = departmentId,
+                EmployeeTypeId = employeeTypeId,
+                IsActive = isActive
+            };
+            IList<SpecialUser> users = _employeeService.GetSpecialUsers(criteria);
 
-            return employees;
+            return users;
         }
 
         /// <summary>
         /// Function to insert special employee.
         /// </summary>
-        /// <param name="model">The employee model.</param>
+        /// <param name="model">The Special User.</param>
         /// <returns>Command Result.</returns>
+        [ApiAuthorize(FunctionKey = FBFunctionKey.SpecialEmployee, Policy = Policy.Host)]
         [HttpPost]
-        public CommandResult InsertSpecialUser(Employee model)
+        public CommandResult InsertSpecialUser(SpecialUser model)
         {
             var criteria = new InsertSpecialUserCriteria()
             {
                 CreatedBy = this.CurrentUser.UserId,
                 CreatedDate = DateTime.Now,
                 Code = model.Code,
-                Name = model.NickName,
+                NickName = model.NickName,
                 EmployeeCard = model.EmployeeCard,
-                ////DepartmentId = model.DepartmentId,
-                EmployeeTypeId = model.EmployeeType
+                DepartmentId = model.DepartmentId,
+                EmployeeTypeId = model.EmployeeType,
+                IsActive = model.IsActive
             };
 
             return _employeeService.InsertSpecialUser(criteria);
@@ -92,25 +110,49 @@ namespace NexFB.Site.Controllers.API
         /// <summary>
         /// Function to update special employee.
         /// </summary>
-        /// <param name="model">The employee model.</param>
+        /// <param name="model">The Special User.</param>
         /// <returns>Command Result.</returns>
+        [ApiAuthorize(FunctionKey = FBFunctionKey.SpecialEmployee, Policy = Policy.Host)]
         [HttpPut]
-        public CommandResult UpdateSpecialUser(Employee model)
+        public CommandResult UpdateSpecialUser(SpecialUser model)
         {
             var criteria = new UpdateSpecialUserCriteria()
             {
                 ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now,
+                UserId = model.UserId,
                 Code = model.Code,
-                Name = model.NickName,
-                EmployeeCard = model.EmployeeCard,
-                ////DepartmentId = model.DepartmentId,
-                EmployeeTypeId = model.EmployeeType
+                NickName = model.NickName,
+                EmployeeCard = model.EmployeeCard == null ? string.Empty : model.EmployeeCard,
+                DepartmentId = model.DepartmentId,
+                EmployeeTypeId = model.EmployeeType,
+                IsActive = model.IsActive
             };
 
             return _employeeService.UpdateSpecialUser(criteria);
         }
 
+        /// <summary>
+        /// Function to update status of special employee.
+        /// </summary>
+        /// <param name="model">The Special User.</param>
+        /// <returns>Command Result.</returns>
+        [ApiAuthorize(FunctionKey = FBFunctionKey.SpecialEmployee, Policy = Policy.Host)]
+        [HttpPut]
+        public CommandResult UpdateStatusSpecialUser(SpecialUser model)
+        {
+            var criteria = new ActivateSpecialUserCriteria()
+            {
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now,
+                UserId = model.UserId,
+                IsActive = model.IsActive
+            };
+
+            return _employeeService.UpdateStatusSpecialUser(criteria);
+        }
+
+        [ApiAuthorize(FunctionKey = FBFunctionKey.SpecialEmployee, Policy = Policy.Host)]
         [HttpDelete]
         public CommandResult DeleteSpecialUser(int userId)
         {
@@ -122,6 +164,12 @@ namespace NexFB.Site.Controllers.API
             };
 
             return _employeeService.DeleteSpecialUser(criteria);
+        }
+
+        public int GetUserPermissionOnSpecialEmployee()
+        {
+            int policy = _webCommonService.GetPermission(FBFunctionKey.SpecialEmployee);
+            return policy;
         }
     }
 }

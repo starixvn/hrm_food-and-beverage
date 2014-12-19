@@ -16,11 +16,12 @@ namespace NexFB.Criteria.Employee
     /// </summary>
     public class GetSpecialUserByIdCriteria : CriteriaBase
     {
+        [SpParam(SqlParamName = "SysId")]
         public int UserId { get; set; }
 
         public override string GetSettingKey()
         {
-            return "Employee_GetEmployees";
+            return "Employee_Sel_SpecialEmp";
         }
 
         public override bool IsValid()

@@ -52,10 +52,11 @@ namespace NexFB.Site
                 "ManageGroup/User",
                 "DailyMainDishReport/Index",
 <<<<<<< HEAD
-                "DeliveryArea/Index"
-=======
+                "DeliveryArea/Index",
                 "EmployeeOrderHistory/Index"
->>>>>>> #28004 - Get data from DB, begin render data
+=======
+                "SpecialEmployee/Index"
+>>>>>>> #27226 -  Implement Special Employee Management
             };
             homeRouteUrls.ForEach(url => routes.MapRoute(
                 name: url,

@@ -1,1 +1,103 @@
-﻿
+﻿<div class="col-sm-12">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+			<li class="current" data-translate="SpecialEmployeeManagement"></li>
+        </ul>
+    </div>
+    <div class="row filter">
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <label data-translate="Department">
+				</label>
+                <select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
+					class="form-control" ng-change="getEmployeeTypeByDepartment(filter.departmentId)">
+					<option value="">-- {{"All" | translate}} --</option>
+				</select>
+            </div>
+			<div class="form-group">
+				<label data-translate="EmployeeType"></label>
+				<select ng-model="filter.employeeTypeId" ng-options="opt.EmployeeTypeId as opt.EmployeeTypeName for opt in employeeTypesOption" class="form-control">
+					<option value="">-- {{"All" | translate}} --</option>
+				</select>
+			</div>
+            <div class="form-group status-box" >
+                <label data-translate="Status"></label>
+                <select ng-model="filter.isActive">
+                    <option selected value="" data-translate="AllStatuses"></option>
+                    <option value="true" data-translate="Active"></option>
+                    <option value="false" data-translate="InActive"></option>
+                </select>
+            </div>
+            <div class="form-group">
+				<button class="button" ng-click="getSpecialUsers(filter)" data-translate="Submit">
+				</button>
+            </div>
+        </form>
+    </div>
+    <div class="row table-fooditem">
+        <table class="table table-bordered table-striped col-sm-12">
+            <thead>
+				<tr class="header-table">
+					<th colspan="8" ng-show="policy.permission == 2">
+							<a class="pull-left button-icon create-button" ng-click="addSpecialUser()" ng-if="policy.permission == 2">
+								<span class="icon plus"></span>
+								<span class="button-text" data-translate="CreateEmployee"></span>
+							</a>
+						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+					</th>
+					<th colspan="7" ng-show="policy.permission == 1">
+						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+					</th>
+				</tr>
+                <tr>
+                    <th data-translate="SymbolCount"></th>
+					<th data-translate="Code"></th>
+                    <th data-translate="CardNumber"></th>
+					<th data-translate="EmployeeName"></th>
+                    <th data-translate="Department"></th>
+                    <th data-translate="EmployeeType" class="width-percent-12"></th>
+                    <th class="width-percent-6" data-translate="Active"></th>
+                    <th class="width-percent-6" data-translate="Action" ng-if="policy.permission == 2"></th>
+                </tr>
+            </thead>
+			<tbody>
+				<tr ng-repeat="user in pagedItems[currentPage]">
+					<td class="text-center" ng-bind="user.itemIndex + 1"></td>
+					<td class="center" ng-bind="user.Code"></td>
+					<td ng-bind="user.EmployeeCard"></td>
+					<td ng-bind="user.NickName"></td>
+					<td ng-bind="user.DepartmentName"></td>
+					<td ng-bind="user.EmployeeTypeName"></td>
+					<td class="text-center">
+						<input type="checkbox" ng-checked="user.IsActive" ng-click="confirmActive(user)" ng-if="policy.permission == 2"/>
+						<img class="ico-tick" ng-if="policy.permission == 1 && user.IsActive" />
+					</td>
+ 					<td class="text-center" ng-if="policy.permission == 2">
+						<a class="glyphicon glyphicon-edit" href="" ng-click="editSpecialUser(user)" ng-attr-title='{{"Edit" | translate}}'></a>
+						<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteUser(user)" ng-attr-title='{{"Delete" | translate}}'></a>
+					</td>
+				</tr>
+				<tr ng-show="users.length == 0 || pagedItems.length == 0">
+					<td class="empty-result" colspan="8" data-translate="EmptyResult" ng-show="policy.permission == 2">
+					</td>
+					<td class="empty-result" colspan="7" data-translate="EmptyResult" ng-show="policy.permission == 1">
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="8" class="paging" >
+						<div class="pull-left table-entries">
+							<span data-translate="Show"></span>
+							<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
+								ng-options="entry for entry in entries">
+							</select>
+							<span data-translate="entries"></span>
+						</div>
+						<pagination-bar></pagination-bar>
+					</td>
+				</tr>
+			</tfoot>
+        </table>
+    </div>
+</div>

@@ -1,12 +1,17 @@
 ﻿'use strict';
 /*global employeeModule*/
 
-employeeModule.controller('employeeController',
-['$scope', '$modal', 'employeeFactory', 'notificationFactory', 'commonFactory','ErrorFactory', 'baseUrl',
+employeeModule.controller('EmployeeController',
+['$scope', '$modal', 'employeeFactory', 'notificationFactory', 'commonFactory', 'ErrorFactory', 'baseUrl',
 function ($scope, $modal, employeeFactory, notificationFactory, commonFactory, ErrorFactory, baseUrl) {
 	/*
 	** Declare variables.
 	*/
+	$scope.filter = {
+		departmentId: '',
+		employeeTypeId: '',
+		isActive: ''
+	};
 
 	$scope.originalPage = 0;
 
@@ -30,11 +35,32 @@ function ($scope, $modal, employeeFactory, notificationFactory, commonFactory, E
 	$scope.entrySelected = 10;
 	commonFactory.numberEntryList($scope);
 
+	var getDepartments = function () {
+		employeeFactory.getAllDepartment().success(function (data) {
+			$scope.departmentOptions = data;
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
+	};
+
+	/*
+	** Get all employee type.
+	*/
+	var getEmployeeType = function (departmentId) {
+		employeeFactory.getEmployeeType(departmentId).success(function (employeeTypes) {
+			$scope.employeeTypesOption = employeeTypes;
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
+	};
+
 	/*
 	** Get all special users.
 	*/
-	var getSpecialUsers = function () {
-		employeeFactory.getSpecialUsers().success(function (users) {
+	$scope.getSpecialUsers = function (filter) {
+		var departmentId = filter.departmentId == null ? "" : filter.departmentId;
+		var employeeTypeId = filter.employeeTypeId == null ? "" : filter.employeeTypeId;
+		employeeFactory.getSpecialUsers(departmentId, employeeTypeId, filter.isActive).success(function (users) {
 			$scope.users = users;
 			commonFactory.tablePagination($scope, $scope.users, $scope.entrySelected);
 			$scope.currentPage = $scope.originalPage;
@@ -43,8 +69,24 @@ function ($scope, $modal, employeeFactory, notificationFactory, commonFactory, E
 		});
 	};
 
-	getSpecialUsers();
+	getDepartments();
+	getEmployeeType("");
+	$scope.getSpecialUsers($scope.filter);
 
+	$scope.getEmployeeTypeByDepartment = function (departmentId) {
+		getEmployeeType(departmentId);
+	};
+
+	/*
+	** Get user permission on special employee.
+	*/
+	employeeFactory.getPermissonSpecialEmployee().success(function (permission) {
+		$scope.policy = {
+			permission: permission
+		};
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
+	});
 
 	/*
 	** Add special user.
@@ -54,14 +96,19 @@ function ($scope, $modal, employeeFactory, notificationFactory, commonFactory, E
 
 		$scope.modalInstance = $modal.open({
 			templateUrl: baseUrl + 'src/app/Employee/Templates/create.html',
-			controller: "CreateEmployeeController",
+			controller: "CreateSpecialEmployeeController",
 			backdrop: 'static',
-			windowClass: "modal-confirm-center set-menu-modal"
+			resolve: {
+				departmentItems: function () {
+					return $scope.departmentOptions;
+				}
+			},
+			windowClass: "modal-confirm-center special-employee-modal"
 		});
 
 		$scope.modalInstance.result.then(function () {
 		})['finally'](function () {
-			getSpecialUsers();
+			$scope.getSpecialUsers($scope.filter);
 			$scope.modalInstance = '';
 		});
 	};
@@ -73,19 +120,22 @@ function ($scope, $modal, employeeFactory, notificationFactory, commonFactory, E
 		employeeFactory.getSpecialUserById(user.UserId).success(function (data) {
 			$scope.modalInstance = $modal.open({
 				templateUrl: baseUrl + 'src/app/Employee/Templates/edit.html',
-				controller: "EditEmployeeController",
+				controller: "EditSpecialEmployeeController",
 				backdrop: 'static',
 				resolve: {
 					user: function () {
 						return data;
+					},
+					departmentItems: function () {
+						return $scope.departmentOptions;
 					}
 				},
-				windowClass: "modal-confirm-center set-menu-modal"
+				windowClass: "modal-confirm-center special-employee-modal"
 			});
 
 			$scope.modalInstance.result.then(function () {
 			})['finally'](function () {
-				getSpecialUsers();
+				$scope.getSpecialUsers($scope.filter);
 				$scope.modalInstance = '';
 			});
 		}).error(function (response, status) {
@@ -94,10 +144,61 @@ function ($scope, $modal, employeeFactory, notificationFactory, commonFactory, E
 	};
 
 	/*
+	** Activate or deactivate special employee.
+	*/
+	$scope.confirmActive = function (user) {
+		user.IsActive = !user.IsActive;
+		var action = user.IsActive ? "activate" : "deactivate";
+
+		$scope.modalInstance = $modal.open({
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
+			controller: "ModalConfirmController",
+			resolve: {
+				name: function () {
+					return user.NickName;
+				},
+				action: function () {
+					return action;
+				}
+			},
+			windowClass: "modal-confirm-center special-employee-modal"
+		});
+
+		var keyMessage = '';
+
+		$scope.modalInstance.result.then(function () {
+			employeeFactory.updateStatusSpecialUser(user).success(function (response) {
+				if (response.IsSuccessful) {
+					keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
+					notificationFactory.success(keyMessage);
+				}
+				else {
+					keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+					user.IsActive = !user.IsActive;
+
+					if (response.Code === 100) {
+						notificationFactory.error("DuplicateSetMenuMessage");
+					}
+					else {
+						notificationFactory.error(keyMessage);
+					}
+				}
+			}).error(function (response, status) {
+				user.IsActive = !user.IsActive;
+				ErrorFactory.errorHandle(status);
+			});
+		}, function () {
+			user.IsActive = !user.IsActive;
+		})['finally'](function () {
+			$scope.modalInstance = '';
+		});
+	};
+
+	/*
 	** Delete special user.
 	*/
 	var updatePaging = function (user, currentPage) {
-		var index = $scope.setMenus.indexOf(user);
+		var index = $scope.users.indexOf(user);
 		$scope.users.splice(index, 1);
 
 		commonFactory.tablePagination($scope, $scope.users, $scope.entrySelected);
@@ -120,10 +221,10 @@ function ($scope, $modal, employeeFactory, notificationFactory, commonFactory, E
 					return 'delete';
 				},
 				name: function () {
-					return user.Name;
+					return user.NickName;
 				}
 			},
-			windowClass: "modal-confirm-center set-item-modal"
+			windowClass: "modal-confirm-center special-employee-modal"
 		});
 
 		$scope.modalInstance.result.then(function () {

@@ -24,6 +24,20 @@
 	</Setting>
 	<Setting Key="Employee_GetEmployeeType" SpName="Employee_GetEmployeeType" DbName="NexFB" Plain="0" >
 	</Setting>
+  <Setting Key="Employee_Ins_SpecialEmp" SpName="Employee_Ins_SpecialEmp" DbName="NexFB" Plain="0" >
+  </Setting>
+  <Setting Key="Employee_Upd_SpecialEmp" SpName="Employee_Upd_SpecialEmp" DbName="NexFB" Plain="0" >
+  </Setting>
+  <Setting Key="Employee_Sel_SpecialEmp" SpName="Employee_Sel_SpecialEmp" DbName="NexFB" Plain="0" >
+    <Mapping DataField="SysID" ObjectProperty="UserId"/>
+    <Mapping DataField="EmpCategoryID" ObjectProperty="EmployeeType"/>
+    <Mapping DataField="CategoryName" ObjectProperty="EmployeeTypeName"/>
+    <Mapping DataField="CardNumber" ObjectProperty="EmployeeCard"/>
+  </Setting>
+  <Setting Key="Employee_Upd_Actived_SpecialEmp" SpName="Employee_Upd_Actived_SpecialEmp" DbName="NexFB" Plain="0" >
+  </Setting>
+  <Setting Key="Employee_Del_SpecialEmp" SpName="Employee_Del_SpecialEmp" DbName="NexFB" Plain="0" >
+  </Setting>
   </Function>
 	<Function Name="ManageRole">
 		<Setting Key="Function_GetByRole" SpName="Function_GetByRole" DbName="NexFB" Plain="0" ></Setting>

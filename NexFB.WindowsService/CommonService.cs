@@ -419,7 +419,7 @@ namespace NexFB.WindowsService
         /// <returns>Modified date.</returns>
         private DateTime GetLastModifiedDateOfPhoto(string path)
         {
-            var lastModifiedDate = new DateTime(2010, 01, 01);
+            var lastModifiedDate = new DateTime(1990, 01, 01);
             
             DirectoryInfo directory = new DirectoryInfo(path);
             FileInfo lastModifiedFile = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).FirstOrDefault();

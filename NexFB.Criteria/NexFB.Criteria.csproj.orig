@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CF5EBF21-A3AA-4068-8149-CE1B8BD85C7C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NexFB.Criteria</RootNamespace>
+    <AssemblyName>NexFB.Criteria</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fanex.Data">
+      <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
+      <HintPath>..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\packages\EnterpriseLibrary.Data.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlternativeMenuManagement\ActivateAlternativeMenuCriteria.cs" />
+    <Compile Include="AlternativeMenuManagement\DeleteAlternativeMenuCriteria.cs" />
+    <Compile Include="AlternativeMenuManagement\GetAllAlternativeMenuCriteria.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="AlternativeMenuManagement\InsertAlternativeMenuCriteria.cs" />
+    <Compile Include="AlternativeMenuManagement\UpdateAlternativeMenuCriteria.cs" />
+    <Compile Include="DeliveryArea\ActivateDeliveryAreaCriteria.cs" />
+    <Compile Include="DeliveryArea\CheckDeliveryAreaExistOrderMealCriteria.cs" />
+    <Compile Include="DeliveryArea\DeleteDeliveryAreaCriteria.cs" />
+    <Compile Include="DeliveryArea\GetAllDeliveryAreaCriteria.cs" />
+    <Compile Include="DeliveryArea\InsertDeliveryAreaCriteria.cs" />
+    <Compile Include="DeliveryArea\UpdateDeliveryAreaCriteria.cs" />
+    <Compile Include="Department\GetAllDepartmentCriteria.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Department\GetAllLocationCriteria.cs" />
+    <Compile Include="Employee\ActivateSpecialUserCriteria.cs" />
+>>>>>>> #27226 -  Implement Special Employee Management
+    <Compile Include="Employee\ChangePasswordCriteria.cs" />
+    <Compile Include="Employee\GetSpecialUserByIdCriteria.cs" />
+    <Compile Include="Employee\DeleteSpecialUserCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeByIdCriteria.cs" />
+    <Compile Include="Employee\GetAllEmployeeFunctionCriteria.cs" />
+    <Compile Include="Employee\GetAllEmployeeTypeCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeMenuBySystemIdCriteria.cs" />
+    <Compile Include="Employee\GetSpecialUserCriteria.cs" />
+    <Compile Include="Employee\InsertSpecialUserCriteria.cs" />
+    <Compile Include="Employee\UpdateSpecialUserCriteria.cs" />
+    <Compile Include="FoodItemManagement\DeleteFoodItemCriteria.cs" />
+    <Compile Include="FoodItemManagement\GetAllFoodItemCriteria.cs" />
+    <Compile Include="FoodItemManagement\GetBasicFoodItemCriteria.cs" />
+    <Compile Include="FoodItemManagement\InsertFoodItemCriteria.cs" />
+    <Compile Include="FoodItemManagement\UpdateFoodItemCriteria.cs" />
+    <Compile Include="FoodItemManagement\UpdateStatusFoodItemCriteria.cs" />
+    <Compile Include="FoodMealPlanning\ActivateMealPlanningCriteria.cs" />
+    <Compile Include="FoodMealPlanning\DeleteMealPlanningCriteria.cs" />
+    <Compile Include="FoodMealPlanning\GetAllMealPlanningByOnDateCriteria.cs" />
+    <Compile Include="FoodMealPlanning\GetFoodMealPlanningByOnDateCriteria.cs" />
+    <Compile Include="FoodMealPlanning\InsertMealPlanningCriteria.cs" />
+    <Compile Include="FoodMealPlanning\UpdateMealPlanningCriteria.cs" />
+    <Compile Include="FoodMenuManagement\ActivateFoodMenuCriteria.cs" />
+    <Compile Include="FoodMenuManagement\DeleteFoodMenuByMenuIdCriteria.cs" />
+    <Compile Include="FoodMenuManagement\GetAllFoodMenuCriteria.cs" />
+    <Compile Include="FoodMenuManagement\InsertFoodMenuCriteria.cs" />
+    <Compile Include="FoodMenuManagement\UpdateFoodMenuCriteria.cs" />
+    <Compile Include="GroupControl\InsertMemberCriteria.cs" />
+    <Compile Include="GroupControl\GetMemberCriteria.cs" />
+    <Compile Include="GroupControl\DeleteGroupByGroupIdCriteria.cs" />
+    <Compile Include="GroupControl\GetGroupCriteria.cs" />
+    <Compile Include="GroupControl\InsertGroupCriteria.cs" />
+    <Compile Include="GroupControl\UpdateGroupCriteria.cs" />
+    <Compile Include="Kitchen\CancelOrderCriteria.cs" />
+    <Compile Include="Kitchen\EditOrderMealCriteria.cs" />
+    <Compile Include="Kitchen\GetAlternativeFoodCriteria.cs" />
+    <Compile Include="Kitchen\GetAwaitingDeliverMealOrderCriteria.cs" />
+    <Compile Include="Kitchen\GetCanceledMealOrderCriteria.cs" />
+    <Compile Include="Kitchen\GetEmployeeBySysIdCriteria.cs" />
+    <Compile Include="Kitchen\GetEmployeeOrderStatusCriteria.cs" />
+    <Compile Include="Kitchen\GetFoodNameCriteria.cs" />
+    <Compile Include="Kitchen\GetGroupNameCriteria.cs" />
+    <Compile Include="Kitchen\GetMealOrderByIdCriteria.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Kitchen\GetOrderDetailsByOrderNoCriteria.cs" />
+    <Compile Include="Kitchen\GetOrderDetailsCriteria.cs" />
+    <Compile Include="Kitchen\GetUserByGroupIdCriteria.cs" />
+    <Compile Include="Kitchen\GetEmployeeInGroupBySysIdCriteria.cs" />
+    <Compile Include="Kitchen\InsertOrderMealCriteria.cs" />
+    <Compile Include="Kitchen\ProcessDeliverOrderCriteria.cs" />
+    <Compile Include="Kitchen\ProcessReceiveOrderCriteria.cs" />
+    <Compile Include="MealRegistration\ApplyRegisterMealFromTemplateCriteria.cs" />
+    <Compile Include="MealRegistration\GetMealTimesheetCriteria.cs" />
+    <Compile Include="MealRegistration\GetRegisterMealByDefaultCriteria.cs" />
+    <Compile Include="MealRegistration\GetRegisterMealByRangeDateCriteria.cs" />
+    <Compile Include="Kitchen\UndoOrderCriteria.cs" />
+    <Compile Include="MealRegistration\GetRegisterMealSettingCriteria.cs" />
+    <Compile Include="MealRegistration\SetRegisterMealByDefaultCriteria.cs" />
+    <Compile Include="Ordering\AddMemberCriteria.cs" />
+    <Compile Include="Ordering\GetAlternativeMenuByUserIdCriteria.cs" />
+    <Compile Include="Ordering\GetLastMofifiedDateByOrderIdCriteria.cs" />
+    <Compile Include="Ordering\InsertOrderSideDishCriteria.cs" />
+    <Compile Include="Ordering\RemoveMemberCriteria.cs" />
+    <Compile Include="Ordering\DeleteOrderCriteria.cs" />
+    <Compile Include="Ordering\GetOrderByIdCriteria.cs" />
+    <Compile Include="Ordering\UpdateOrderCriteria.cs" />
+    <Compile Include="Ordering\GetMemberSavedOrderCriteria.cs" />
+    <Compile Include="Ordering\GetMemberNewOrderCriteria.cs" />
+    <Compile Include="Ordering\GetMenuByUserIdCriteria.cs" />
+    <Compile Include="MealRegistration\RegisterMealByRangeDateCriteria.cs" />
+    <Compile Include="Ordering\GetMyOrderInCurrentDayCriteria.cs" />
+    <Compile Include="Ordering\InsertOrderCriteria.cs" />
+    <Compile Include="Ordering\UpdateOrderSideDishCriteria.cs" />
+    <Compile Include="Report\GetDailyMainDishPricePerMealReportCriteria.cs" />
+    <Compile Include="Report\GetEmployeeOrderHistoryCriteria.cs" />
+    <Compile Include="Report\GetMonthlyMainDishReportLocalCriteria.cs" />
+    <Compile Include="SetMenuManagement\GetSetMenuByIdCriteria.cs" />
+    <Compile Include="SetMenuManagement\UpdateStatusSetMenuCriteria.cs" />
+    <Compile Include="SetMenuManagement\DeleteSetMenuCriteria.cs" />
+    <Compile Include="SetMenuManagement\GetSetMenuCriteria.cs" />
+    <Compile Include="SetMenuManagement\InsertSetMenuCriteria.cs" />
+    <Compile Include="SetMenuManagement\UpdateSetMenuCriteria.cs" />
+    <Compile Include="ShiftMealMapping\GetAllShiftMealMappingCriteria.cs" />
+    <Compile Include="ShiftMealMapping\UpdateShiftMealByShiftIdCriteria.cs" />
+    <Compile Include="SideDishManagement\ActivateSideDishCriteria.cs" />
+    <Compile Include="SideDishManagement\DeleteSideDishCriteria.cs" />
+    <Compile Include="SideDishManagement\UpdateKitchenOnlyByFoodIdCriteria.cs" />
+    <Compile Include="SideDishManagement\GetAllFoodUnitCriteria.cs" />
+    <Compile Include="SideDishManagement\GetAllSideDishCriteria.cs" />
+    <Compile Include="SideDishManagement\GetSideDishByUserIdCriteria.cs" />
+    <Compile Include="SideDishManagement\InsertSideDishCriteria.cs" />
+    <Compile Include="SideDishManagement\UpdateSideDishCriteria.cs" />
+    <Compile Include="SmartCardOrder\GetAlternativeFoodBySysIdCriteria.cs" />
+    <Compile Include="SmartCardOrder\GetEmployeeByCardNumberCriteria.cs" />
+    <Compile Include="SmartCardOrder\GetMyOrderBySysIdCriteria.cs" />
+    <Compile Include="SmartCardOrder\GetSideFoodBySysIdCriteria.cs" />
+    <Compile Include="SmartCardOrder\InsertOrderMealByUserCriteria.cs" />
+    <Compile Include="SmartCardOrder\InsertOrderSideDishesByUserCriteria.cs" />
+    <Compile Include="Team\GetAllTeamByCompanyCriteria.cs" />
+    <Compile Include="Kitchen\GetDeliveredMealOrderCriteria.cs" />
+    <Compile Include="Kitchen\GetWaitingMealOrderCriteria.cs" />
+    <Compile Include="UserControl\AssignPermissionToRoleCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeByCodeCriteria.cs" />
+    <Compile Include="UserControl\AssignRoleToUserCriteria.cs" />
+    <Compile Include="UserControl\GetAllEmployeeRoleCriteria.cs" />
+    <Compile Include="UserControl\GetAllSystemRoleCriteria.cs" />
+    <Compile Include="UserControl\GetEmployeeRoleByIdCriteria.cs" />
+    <Compile Include="UserControl\GetFunctionByRoleCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeByDomainCriteria.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NexFB.Core\NexFB.Core.csproj">
+      <Project>{5815DC62-15BA-4E92-B0CC-E888BDA04E91}</Project>
+      <Name>NexFB.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexFB.Models\NexFB.Models.csproj">
+      <Project>{487D35C7-B5F4-4CA5-902B-7C300569912F}</Project>
+      <Name>NexFB.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

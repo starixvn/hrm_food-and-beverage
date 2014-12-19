@@ -13,8 +13,8 @@ namespace NexFB.Services.Interface
     using NexFB.Core.Models;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
+    using NexFB.Models.Employee;
     using NexFB.Models.Entities;
-    using NexFB.Models.UserControl;
 
     public interface IEmployeeService
     {
@@ -34,13 +34,15 @@ namespace NexFB.Services.Interface
 
         IList<Employee> GetEmployeeByQuery(GetEmployeeCriteria criteria);
 
-        Employee GetSpecialUserById(GetSpecialUserByIdCriteria criteria);
+        SpecialUser GetSpecialUserById(GetSpecialUserByIdCriteria criteria);
 
-        IList<Employee> GetSpecialUsers(GetSpecialEmployeeCriteria criteria);
+        IList<SpecialUser> GetSpecialUsers(GetSpecialUserCriteria criteria);
 
         CommandResult InsertSpecialUser(InsertSpecialUserCriteria criteria);
 
         CommandResult UpdateSpecialUser(UpdateSpecialUserCriteria criteria);
+
+        CommandResult UpdateStatusSpecialUser(ActivateSpecialUserCriteria criteria);
 
         CommandResult DeleteSpecialUser(DeleteSpecialUserCriteria criteria);
     }

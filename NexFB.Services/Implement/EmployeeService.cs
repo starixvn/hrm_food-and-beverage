@@ -18,8 +18,8 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Services;
     using NexFB.Criteria.Employee;
     using NexFB.Models.Authority;
+    using NexFB.Models.Employee;
     using NexFB.Models.Entities;
-    using NexFB.Models.UserControl;
     using NexFB.Services.Interface;
 
     /// <summary>
@@ -206,6 +206,23 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
+        /// Function to update status a special employee.
+        /// </summary>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Command Result.</returns>
+        public CommandResult UpdateStatusSpecialUser(ActivateSpecialUserCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var result = new CommandResult();
+            if (criteria.IsValid())
+            {
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Function to delete a special employee.
         /// </summary>
         /// <param name="criteria">The Criteria.</param>
@@ -227,14 +244,14 @@ namespace NexFB.Services.Implement
         /// </summary>
         /// <param name="criteria">GetSpecialEmployee Criteria.</param>
         /// <returns>The List of employees.</returns>
-        public IList<Employee> GetSpecialUsers(GetSpecialEmployeeCriteria criteria)
+        public IList<SpecialUser> GetSpecialUsers(GetSpecialUserCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IList<Employee> employees = null;
+            IList<SpecialUser> employees = null;
 
             if (criteria.IsValid())
             {
-                employees = GetData<Employee>(criteria).ToList();
+                employees = GetData<SpecialUser>(criteria).ToList();
             }
 
             return employees;
@@ -245,14 +262,14 @@ namespace NexFB.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Employee.</returns>
-        public Employee GetSpecialUserById(GetSpecialUserByIdCriteria criteria)
+        public SpecialUser GetSpecialUserById(GetSpecialUserByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            Employee employee = null;
+            SpecialUser employee = null;
 
             if (criteria.IsValid())
             {
-                employee = GetDataEntity<Employee>(criteria);
+                employee = GetDataEntity<SpecialUser>(criteria);
             }
 
             return employee;

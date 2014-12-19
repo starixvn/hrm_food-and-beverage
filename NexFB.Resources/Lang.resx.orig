@@ -888,8 +888,8 @@
   <data name="TodaySetMenu" xml:space="preserve">
     <value>Set menu</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="Department" xml:space="preserve">
+    <value>Department</value>
   </data>
   <data name="NonUpdateVegetarianWarning" xml:space="preserve">
     <value>Warning: Vegetarian meals will not take effect on 7 days from today.</value>
@@ -927,10 +927,10 @@
   <data name="MemberName" xml:space="preserve">
     <value>Member Name</value>
   </data>
+<<<<<<< HEAD
   <data name="EmployeeOrderHistoryReport" xml:space="preserve">
     <value>My Order History</value>
   </data>
-<<<<<<< HEAD
   <data name="CreateDeliveryArea" xml:space="preserve">
     <value>Create Delivery Area</value>
   </data>
@@ -963,7 +963,7 @@
   </data>
   <data name="DeliveryAreaExistOrderMealWarning" xml:space="preserve">
     <value>Orders in status New with the same Delivery area exist. Please Accept or Reject all of those orders before deactivate the Delivery Area.</value>
-=======
+  </data>
   <data name="MyMenu" xml:space="preserve">
     <value>My Menu</value>
   </data>
@@ -975,6 +975,45 @@
   </data>
   <data name="OrderStatus" xml:space="preserve">
     <value>Order Status</value>
->>>>>>> #28004 - Render report
+  </data>
+  <data name="EmployeeOrderHistoryReportName" xml:space="preserve">
+    <value>My_Order_History</value>
+  </data>
+  <data name="EmployeeOrderHistoryReportSheetName" xml:space="preserve">
+    <value>My Order History</value>
+  </data>
+  <data name="EmployeeOrderHistoryReportTitle" xml:space="preserve">
+    <value>My Order History</value>
+  </data>
+  <data name="DateRangeInvalid" xml:space="preserve">
+    <value>Invalid date range. From Date must be less than To Date.</value>
+=======
+  <data name="SpecialEmployeeManagement" xml:space="preserve">
+    <value>Special Employee Management</value>
+  </data>
+  <data name="EmployeeCode" xml:space="preserve">
+    <value>Employee code</value>
+  </data>
+  <data name="RequireDepartment" xml:space="preserve">
+    <value>The Department field is required!</value>
+  </data>
+  <data name="RequireEmployeeCode" xml:space="preserve">
+    <value>The Employee code field is required!</value>
+  </data>
+  <data name="RequireEmployeeName" xml:space="preserve">
+    <value>The Employee name field is required!</value>
+  </data>
+  <data name="RequireEmployeeType" xml:space="preserve">
+    <value>The Employee type field is required!</value>
+  </data>
+  <data name="SelectDepartment" xml:space="preserve">
+    <value>Select department</value>
+  </data>
+  <data name="SelectEmployeeType" xml:space="preserve">
+    <value>Select employee type</value>
+  </data>
+  <data name="EditSpecialEmployee" xml:space="preserve">
+    <value>Edit Special Employee</value>
+>>>>>>> #27226 -  Implement Special Employee Management
   </data>
 </root>

@@ -1,1 +1,64 @@
 ﻿
+	<div class="modal-header">
+		<div class="popup-header">
+			{{"EditSpecialEmployee" | translate}}<span class="close-popup" ng-click="cancel()"></span>
+		</div>
+	</div>
+
+	<div class="modal-body special-employee-body-modal">
+		 <form class="form-horizontal col-sm-11" role="form">
+			<div class="form-group required">
+				<label class="col-sm-5 control-label" data-translate="EmployeeCode">
+				</label>
+				<div class="col-sm-7 field">
+					<input type="text" class="form-control" maxlength="20" ng-model="user.Code" required />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-5 control-label" data-translate="CardNumber">
+				</label>
+				<div class="col-sm-7 field">
+					<input type="text" class="form-control" maxlength="5" ng-model="user.EmployeeCard" />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label class="col-sm-5 control-label" data-translate="EmployeeName">
+				</label>
+				<div class="col-sm-7 field">
+					<input type="text" class="form-control" maxlength="50" ng-model="user.NickName" required />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label class="col-sm-5 control-label" data-translate="Department">
+				</label>
+				<div class="col-sm-5 field">
+					<select ng-model="user.DepartmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentItems"
+						ng-change="getEmployeeTypeByDepartment(user.DepartmentId)" required class="form-control">
+						<option value="">-- {{"SelectDepartment" | translate}} --</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group required">
+				<label class="col-sm-5 control-label" data-translate="EmployeeType">
+				</label>
+				<div class="col-sm-5 field">
+					<select ng-model="user.EmployeeType" ng-options="opt.EmployeeTypeId as opt.EmployeeTypeName for opt in employeeTypeItems" required class="form-control">
+						<option value="">-- {{"SelectEmployeeType" | translate}} --</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-5 control-label side-dish-active-label" data-translate="Active">
+				</label>
+				<div class="col-sm-7 field side-dish-active-div">
+					<input type="checkbox" ng-model="user.IsActive" />
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="button" data-translate="Submit" ng-click="saveSpecialUser(user)" ng-disabled="disabledSubmitButton" >
+		</button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+		</button>
+	</div>

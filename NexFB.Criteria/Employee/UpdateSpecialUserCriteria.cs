@@ -17,31 +17,36 @@ namespace NexFB.Criteria.Employee
     /// </summary>
     public class UpdateSpecialUserCriteria : CriteriaBase
     {
+        [SpParam(SqlParamName = "SysId")]
         public int UserId { get; set; }
 
         public string Code { get; set; }
 
-        public string Name { get; set; }
+        public string NickName { get; set; }
 
+        [SpParam(SqlParamName = "CardNumber")]
         public string EmployeeCard { get; set; }
 
         public int DepartmentId { get; set; }
 
         public int EmployeeTypeId { get; set; }
 
+        public bool IsActive { get; set; }
+
+        [SpParam(Ignored = true)]
         public int ModifiedBy { get; set; }
 
+        [SpParam(Ignored = true)]
         public DateTime ModifiedDate { get; set; }
 
         public override string GetSettingKey()
         {
-            return "Food_EditByFoodID";
+            return "Employee_Upd_SpecialEmp";
         }
 
         public override bool IsValid()
         {
-            return !string.IsNullOrEmpty(Code) && !string.IsNullOrEmpty(Name) &&
-                !string.IsNullOrEmpty(EmployeeCard) && DepartmentId > 0 && EmployeeTypeId > 0 && UserId > 0;
+            return !string.IsNullOrEmpty(Code) && !string.IsNullOrEmpty(NickName) && DepartmentId > 0 && EmployeeTypeId > 0 && UserId > 0;
         }
     }
 }
