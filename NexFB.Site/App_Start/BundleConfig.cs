@@ -164,6 +164,7 @@ namespace NexFB.Site
                 "~/Src/App/Employee/createSpecialEmployee-controller.js",
                 "~/Src/App/Employee/editSpecialEmployee-controller.js",
                 "~/Src/App/Employee/employee-factory.js",
+                "~/Src/App/Employee/employee-directive.js",
                 "~/Src/App/ChangePassword/changePassword-controller.js",
                 "~/Src/App/ChangePassword/changePassword-factory.js",
                 "~/Src/App/DeliveryArea/deliveryArea-route.js",

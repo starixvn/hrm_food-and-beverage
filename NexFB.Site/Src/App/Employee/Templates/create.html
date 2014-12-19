@@ -42,7 +42,8 @@
 				<label class="col-sm-5 control-label" data-translate="EmployeeType">
 				</label>
 				<div class="col-sm-5 field">
-					<select ng-model="user.EmployeeType" ng-options="opt.EmployeeTypeId as opt.EmployeeTypeName for opt in employeeTypeItems" required class="form-control">
+					<select ng-model="user.EmployeeType" ng-options="opt.EmployeeTypeId as opt.EmployeeTypeName for opt in employeeTypeItems" 
+						ie-select-fix="employeeTypeItems" required class="form-control">
 						<option value="">-- {{"SelectEmployeeType" | translate}} --</option>
 					</select>
 				</div>
