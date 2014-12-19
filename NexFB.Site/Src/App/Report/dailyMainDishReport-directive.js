@@ -3,13 +3,14 @@
 
 reportModule.directive('renderDailyReport', function () {
 	var generateDataBody = function (report, scope) {
-		var rows = [];
+		var rows = [],
+			rowIndex = 0;
 
 		if (report && report.MainDishes) {
 			var currentSubRow = [],
 				numberMainDishes = report.MainDishes.length;
+			rowIndex = scope.gridOption.startIndex + 1;
 
-			//rowIndex = scope.gridOption.startIndex + 1;
 			for (var i = 0; i < numberMainDishes; i++) {
 				var mainDish = report.MainDishes[i],
 					currentRow = [],
@@ -29,7 +30,7 @@ reportModule.directive('renderDailyReport', function () {
 
 					currentSubRow = {
 						Columns: [
-							{ Name: "Count", Value: j + 1, CssClass: "remove-padding-left" },
+							{ Name: "Count", Value: rowIndex, CssClass: "remove-padding-left" },
 							{ Name: "Date", Value: "" + moment(employeeDish.WorkDate).format(scope.dateFormat) },
 							{ Name: "Shift", Value: shiftName },
 							{ Name: "FullName", Value: employeeDish.Employee.FullName },
@@ -41,6 +42,7 @@ reportModule.directive('renderDailyReport', function () {
 						]
 					};
 					currentRow.SubRows.push(currentSubRow);
+					rowIndex++;
 				}
 
 				rows.push(currentRow);
@@ -100,6 +102,19 @@ reportModule.directive('renderDailyReport', function () {
 	return {
 		link: function (scope, iElement) {
 			scope.$on("renderDailyReport", function () {
+				function ReRenderAfterPaged(pageIndex, itemsPerPage) {
+					scope.filter.isPagingCallback = true;
+					scope.filter.startIndex = pageIndex >= 0 ? (pageIndex * itemsPerPage) : 0;
+					scope.filter.itemsPerPage = itemsPerPage;
+
+					scope.gridOption.itemsPerPage = itemsPerPage;
+					scope.gridOption.currentPage = pageIndex;
+					scope.gridOption.startIndex = scope.filter.startIndex;
+
+					scope.getDailyMainDishReport.call(this, scope.filter);
+					return false;
+				}
+
 				var id = iElement.attr('id'),
 					report = scope.report,
 					bodyData = generateDataBody(report, scope),
@@ -121,20 +136,40 @@ reportModule.directive('renderDailyReport', function () {
 							},
 					showFooter: true,
 					footerRows: footerData,
-					gridExpandHeight: 250
-					//					showPager: true,
-					//					customPager: true,
-					//					pagerOption: {
-					//						startPerPage: 50,
-					//						totalItem: report.TotalItem,
-					//						itemsPerPageArray: [50, 100, 200, 500],
-					//						itemsPerPage: scope.gridOption.itemsPerPage,
-					//						currentPage: scope.gridOption.currentPage,
-					//						pagerSelectCallBack: ReRenderAfterPaged
-					//					}
+					gridExpandHeight: 250,		
+					showPager: true,
+					customPager: true,
+					pagerOption: {
+						startPerPage: 50,
+						totalItem: report.TotalItem,
+						itemsPerPageArray: [50, 100, 200, 500],
+						itemsPerPage: scope.gridOption.itemsPerPage,
+						currentPage: scope.gridOption.currentPage,
+						pagerSelectCallBack: ReRenderAfterPaged
+					}
 				};
 
 				$('#' + id).fanexGrid(gridOptions);
+			});
+		}
+	};
+});
+
+reportModule.directive('exportDailyMainDishLocalReport', function () {
+	return {
+		link: function (scope) {
+			scope.$on('exportDailyMainDishLocalReport', function () {
+				var data = $.param(scope.criteria),
+					url = '/ExportReport/ExportDailyMainDishReport',
+					downloadUrl = url + "?" + data,
+					iframe = $('body iframe');
+
+				if (iframe.length === 0) {
+					iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
+					iframe.appendTo('body');
+				}
+
+				iframe.attr('src', downloadUrl);
 			});
 		}
 	};

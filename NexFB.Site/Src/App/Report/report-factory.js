@@ -27,9 +27,11 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 					teamId: filter.teamId,
 					mealId: filter.mealId,
 					userId: filter.userId,
-					query: filter.query
-				}
-				});
+						query: filter.query,
+						startIndex: filter.startIndex,
+						itemsPerPage: filter.itemsPerPage,
+						isPagingCallback: filter.isPagingCallback
+				}});
 		},
 		getDepartmentByUserRole: function () {
 			return $http.get(baseUrl + 'api/report/GetDepartmentByUserRole');

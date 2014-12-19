@@ -30,5 +30,7 @@ namespace NexFB.Models.Report.DailyMainDishPricePerMealReport
         public TotalPriceModel GrandTotal { get; set; }
 
         public int TotalAmount { get; set; }
+
+        public int TotalItem { get; set; }
     }
 }

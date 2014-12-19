@@ -163,9 +163,11 @@ namespace NexFB.Site.Controllers.API.Report
                 Query = query
             };
             DailyMainDishReportModel fullReport = _reportService.GetDailyMainDishReport(criteria);
+            DailyMainDishReportModel pagingReport = null;
             SessionManager.Set<DailyMainDishReportModel>(ReportConstant.DailyMainDishReportSessionKey, fullReport);
 
-            return fullReport;
+            pagingReport = _dailyMainDishReportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            return pagingReport;
         }
 
         /// <summary>
