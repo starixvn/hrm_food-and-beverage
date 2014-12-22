@@ -41,7 +41,7 @@ namespace NexFB.Criteria.Report
 
         public override bool IsValid()
         {
-            return FromDate >= ToDate;
+            return UserId > 0 && FromDate >= ToDate;
         }
     }
 }

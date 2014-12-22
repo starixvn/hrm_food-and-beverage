@@ -21,17 +21,29 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 		getDailyMainDishReport: function (filter) {
 			return $http.get('/api/report/Report/GetDailyMainDishReport',
 				{ params: { fromDate: filter.fromDate.toDateString(),
-						toDate: filter.toDate.toDateString(),
-						orderCount: filter.orderCount,
-						departmentId: filter.departmentId,
-						teamId: filter.teamId,
-						mealId: filter.mealId,
-						userId: filter.userId,
-						query: filter.query
-				}});
+					toDate: filter.toDate.toDateString(),
+					orderCount: filter.orderCount,
+					departmentId: filter.departmentId,
+					teamId: filter.teamId,
+					mealId: filter.mealId,
+					userId: filter.userId,
+					query: filter.query
+				}
+				});
 		},
 		getDepartmentByUserRole: function () {
 			return $http.get(baseUrl + 'api/report/GetDepartmentByUserRole');
+		},
+		getEmployeeOrderHistoryReport: function (filter) {
+			return $http.get(baseUrl + 'api/report/GetEmployeeOrderHistoryReport',
+				{ params: { fromDate: filter.fromDate.toDateString(),
+							toDate: filter.toDate.toDateString(),
+							orderBy: filter.orderBy,
+							employeeMenu: filter.employeeMenu,
+							orderPlatform: filter.orderPlatform,
+							mealId: filter.mealId,
+							statusId: filter.statusId
+				} });
 		}
 	};
 } ]);

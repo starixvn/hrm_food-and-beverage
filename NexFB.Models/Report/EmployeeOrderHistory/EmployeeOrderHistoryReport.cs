@@ -16,7 +16,12 @@ namespace NexFB.Models.Report.EmployeeOrderHistory
     /// </summary>
     public class EmployeeOrderHistoryReport
     {
-        public int TotalAmount { get; set; }
+        public EmployeeOrderHistoryReport()
+        {
+            EmployeeOrders = new List<EmployeeOrderModel>();
+        }
+
+        public decimal TotalAmount { get; set; }
 
         public int TotalItem { get; set; }
 

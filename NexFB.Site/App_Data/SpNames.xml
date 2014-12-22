@@ -319,9 +319,6 @@
 			<Mapping DataField="OrderNickName" ObjectProperty="NickName" Class="Employee"/>
 			<Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status"/>
 			<Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status"/>
-			<Mapping DataField="MealENGName" ObjectProperty="NameEN" Class="Menu"/>
-			<Mapping DataField="MealVNMName" ObjectProperty="NameVN" Class="Menu"/>
-			<Mapping DataField="QtyOrder" ObjectProperty="QuantityOrder" Class="Menu"/>
 		</Setting>
 	</Function>
   <Function Name="ManageGroup">

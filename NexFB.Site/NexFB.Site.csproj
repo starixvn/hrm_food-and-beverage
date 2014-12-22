@@ -319,11 +319,14 @@
     <Content Include="Src\App\Ordering\Templates\SelectSideDish.html" />
     <Content Include="Src\App\Report\dailyMainDishReport-controller.js" />
     <Content Include="Src\App\Report\dailyMainDishReport-directive.js" />
+    <Content Include="Src\App\Report\employeeOrderHistory-controller.js" />
+    <Content Include="Src\App\Report\employeeOrderHistory-directive.js" />
     <Content Include="Src\App\Report\monthlyReportLocal-controller.js" />
     <Content Include="Src\App\Report\monthlyReportLocal-directive.js" />
     <Content Include="Src\App\Report\report-factory.js" />
     <Content Include="Src\App\Report\report-route.js" />
     <Content Include="Src\App\Report\Templates\dailyMainDishReport.html" />
+    <Content Include="Src\App\Report\Templates\employeeOrderHistory.html" />
     <Content Include="Src\App\Report\Templates\monthlyReportLocal.html" />
     <Content Include="Src\App\SetMenuManagement\createSetMenu-controller.js" />
     <Content Include="Src\App\SetMenuManagement\editSetMenu-controller.js" />

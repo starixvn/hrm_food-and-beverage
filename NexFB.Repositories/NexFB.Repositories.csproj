@@ -60,6 +60,7 @@
     <Compile Include="Implement\ReportRepository.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="Implement\Report\EmployeeOrderHistoryRepository.cs" />
     <Compile Include="Implement\SetMenuRepository.cs" />
     <Compile Include="Implement\FoodItemRepository.cs" />
     <Compile Include="Implement\FoodMenuRepository.cs">
@@ -84,6 +85,7 @@
     <Compile Include="Interface\IOrderingRepository.cs" />
     <Compile Include="Interface\IShiftMealMappingRepository.cs" />
     <Compile Include="Interface\ISideDishRepository.cs" />
+    <Compile Include="Interface\Report\IEmployeeOrderHistoryRepository.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Implement\UserControlRepository.cs" />
     <Compile Include="Interface\IUserControlRepository.cs" />
@@ -102,6 +104,7 @@
       <Name>NexFB.Models</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

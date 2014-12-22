@@ -11,3 +11,5 @@ using System.Diagnostics.CodeAnalysis;
 
 [module: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
     Target = "NexFB.Repositories.Interface", MessageId = "Interface", Justification = "Reviewed. Suppression is OK here.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
+    Target = "NexFB.Repositories.Interface.Report", MessageId = "Interface", Justification = "Reviewed. Suppression is OK here.")]

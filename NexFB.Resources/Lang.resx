@@ -927,6 +927,9 @@
   <data name="MemberName" xml:space="preserve">
     <value>Member Name</value>
   </data>
+  <data name="EmployeeOrderHistoryReport" xml:space="preserve">
+    <value>My Order History</value>
+  </data>
   <data name="CreateDeliveryArea" xml:space="preserve">
     <value>Create Delivery Area</value>
   </data>

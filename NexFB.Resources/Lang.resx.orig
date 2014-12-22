@@ -724,7 +724,7 @@
     <value>Group</value>
   </data>
   <data name="MonthlyMainDishReportLocal" xml:space="preserve">
-    <value>Monthly Main Dish Report - Local</value>
+    <value>Monthly Main Dish Report - Per Meal</value>
   </data>
   <data name="ManageGroup" xml:space="preserve">
     <value>Manage Group</value>
@@ -853,13 +853,13 @@
     <value>Encoding '{0}' is not supported. Only supports gzip or deflate encoding.</value>
   </data>
   <data name="MonthlyMainDishLocalReportName" xml:space="preserve">
-    <value>Monthly_Main_Dish_Report_Local</value>
+    <value>Monthly_Main_Dish_Report_Per_Meal</value>
   </data>
   <data name="MonthlyMainDishLocalReportTitle" xml:space="preserve">
-    <value>Monthly Main Dish Report - Local</value>
+    <value>Monthly Main Dish Report - Per Meal</value>
   </data>
   <data name="MonthlyMainDishLocalSheetName" xml:space="preserve">
-    <value>Monthly Main Dish Report Local</value>
+    <value>Monthly Main Dish Report - Per Meal</value>
   </data>
   <data name="GroupBy" xml:space="preserve">
     <value>Group by</value>
@@ -915,14 +915,10 @@
   <data name="LabelCheckboxTranslateRemark" xml:space="preserve">
     <value>Translate remark to Vietnamese (for kitchen staff)</value>
   </data>
-<<<<<<< HEAD
-   <data name="DailyMainDishReport" xml:space="preserve">
+  <data name="DailyMainDishReport" xml:space="preserve">
     <value>Daily Main Dish Report - Price Per Meal</value>
   </data>
-    <data name="JoinedDate" xml:space="preserve">
-=======
   <data name="JoinedDate" xml:space="preserve">
->>>>>>> #27490 - Change label and default : Company to Department, Fixed bug don't show + button for unplanned meal
     <value>Joined Date</value>
   </data>
   <data name="JoinedFrom" xml:space="preserve">
@@ -930,5 +926,43 @@
   </data>
   <data name="MemberName" xml:space="preserve">
     <value>Member Name</value>
+  </data>
+<<<<<<< HEAD
+  <data name="CreateDeliveryArea" xml:space="preserve">
+    <value>Create Delivery Area</value>
+  </data>
+  <data name="DeliveryAreaManagement" xml:space="preserve">
+    <value>Delivery Area Management</value>
+  </data>
+  <data name="Floor" xml:space="preserve">
+    <value>Floor</value>
+  </data>
+  <data name="DeliveryAreaEng" xml:space="preserve">
+    <value>Delivery Area (English)</value>
+  </data>
+  <data name="DeliveryAreaViet" xml:space="preserve">
+    <value>Delivery Area (Vietnamese)</value>
+  </data>
+  <data name="DeliveryAreaEngRequire" xml:space="preserve">
+    <value>The Delivery Area (English) field is required!</value>
+  </data>
+  <data name="DeliveryAreaVietRequire" xml:space="preserve">
+    <value>The Delivery Area (Vietnamese) field is required!</value>
+  </data>
+  <data name="FloorRequire" xml:space="preserve">
+    <value>The Floor field is requried!</value>
+  </data>
+  <data name="ManageGroupLabel" xml:space="preserve">
+    <value>USER GROUP MANAGEMENT - GROUP</value>
+  </data>
+  <data name="DeliveryAreaNotExistError" xml:space="preserve">
+    <value>This Delivery Area does not exist. Please reload this page.</value>
+  </data>
+  <data name="DeliveryAreaExistOrderMealWarning" xml:space="preserve">
+    <value>Orders in status New with the same Delivery area exist. Please Accept or Reject all of those orders before deactivate the Delivery Area.</value>
+=======
+  <data name="EmployeeOrderHistoryReport" xml:space="preserve">
+    <value>My Order History</value>
+>>>>>>> #28004 - Get data from DB, begin render data
   </data>
 </root>

@@ -20,6 +20,11 @@ namespace NexFB.Models.Report.EmployeeOrderHistory
     /// </summary>
     public class EmployeeOrderModel
     {
+        public EmployeeOrderModel()
+        {
+            Menus = new List<Menu>();
+        }
+
         public DateTime OnDate { get; set; }
 
         public string OrderFrom { get; set; }

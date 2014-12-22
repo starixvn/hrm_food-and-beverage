@@ -19,9 +19,12 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Criteria.UserControl;
     using NexFB.Models.Entities;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
+    using NexFB.Models.Report.EmployeeOrderHistory;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Services.Implement;
+    using NexFB.Services.Implement.Report;
     using NexFB.Services.Interface;
+    using NexFB.Services.Interface.Report;
     using NexFB.Web;
     using NexFB.Web.Attributes;
 
@@ -33,20 +36,23 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly IReportService _reportService;
         private readonly ICommonService _commonService;
         private readonly IUserControlService _userControlService;
+        private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
 
         public ReportController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public ReportController(
             IReportService reportService,
             ICommonService commonService,
-            IUserControlService userControlService)
+            IUserControlService userControlService,
+            IEmployeeOrderHistoryService employeeOrderHistoryService)
         {
             _reportService = reportService ?? new ReportService();
             _commonService = commonService ?? new CommonService();
             _userControlService = userControlService ?? new UserControlService();
+            _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
         }
 
         /// <summary>
@@ -186,6 +192,42 @@ namespace NexFB.Site.Controllers.API.Report
             }
 
             return departments;
+        }
+
+        /// <summary>
+        /// Get employee order history report.
+        /// </summary>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="orderBy">The order by.</param>
+        /// <param name="employeeMenu">The menu of employee.</param>
+        /// <param name="orderPlatform">The order platform.</param>
+        /// <param name="mealId">The meal Id.</param>
+        /// <param name="statusId">The status Id.</param>
+        /// <returns>The report.</returns>
+        [HttpGet]
+        public EmployeeOrderHistoryReport GetEmployeeOrderHistoryReport(
+            DateTime fromDate,
+            DateTime toDate,
+            int orderBy = 0,
+            int employeeMenu = 0,
+            int orderPlatform = 0,
+            string mealId = "",
+            string statusId = "")
+        {
+            var criteria = new GetEmployeeOrderHistoryCriteria
+            {
+                UserId = CurrentUser.UserId,
+                FromDate = fromDate,
+                ToDate = toDate,
+                OrderBy = orderBy,
+                MyMenu = employeeMenu,
+                OrderPlatform = orderPlatform,
+                MealId = mealId,
+                StatusId = statusId
+            };
+
+            return _employeeOrderHistoryService.GetEmployeeOrderHistoryReport(criteria);
         }
     }
 }
