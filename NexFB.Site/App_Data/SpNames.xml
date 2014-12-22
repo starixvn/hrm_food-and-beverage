@@ -313,6 +313,16 @@
 			<Mapping DataField="GroupDesc" ObjectProperty="Total" Class="TotalPriceModel"/>
 			<Mapping DataField="SysID" ObjectProperty="UserId" Class="Employee"/>
 		</Setting>
+		<Setting Key="Rpt_Get_MyOrderHistory" SpName="Rpt_Get_MyOrderHistory" DbName="NexFB" Plain="0" >
+			<Mapping DataField="OrderBy" ObjectProperty="UserId" Class="Employee"/>
+			<Mapping DataField="OrderFullName" ObjectProperty="FullName" Class="Employee"/>
+			<Mapping DataField="OrderNickName" ObjectProperty="NickName" Class="Employee"/>
+			<Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status"/>
+			<Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status"/>
+			<Mapping DataField="MealENGName" ObjectProperty="NameEN" Class="Menu"/>
+			<Mapping DataField="MealVNMName" ObjectProperty="NameVN" Class="Menu"/>
+			<Mapping DataField="QtyOrder" ObjectProperty="QuantityOrder" Class="Menu"/>
+		</Setting>
 	</Function>
   <Function Name="ManageGroup">
     <Setting Key="GroupOrderAdmin_EditActiveGroup" SpName="GroupOrderAdmin_EditActiveGroup" DbName="NexFB" Plain="0" ></Setting>

@@ -142,6 +142,7 @@
     <Compile Include="Ordering\InsertOrderCriteria.cs" />
     <Compile Include="Ordering\UpdateOrderSideDishCriteria.cs" />
     <Compile Include="Report\GetDailyMainDishPricePerMealReportCriteria.cs" />
+    <Compile Include="Report\GetEmployeeOrderHistoryCriteria.cs" />
     <Compile Include="Report\GetMonthlyMainDishReportLocalCriteria.cs" />
     <Compile Include="SetMenuManagement\GetSetMenuByIdCriteria.cs" />
     <Compile Include="SetMenuManagement\UpdateStatusSetMenuCriteria.cs" />

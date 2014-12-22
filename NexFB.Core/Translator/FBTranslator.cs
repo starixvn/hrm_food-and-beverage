@@ -59,12 +59,12 @@ namespace NexFB.Core.Translator
         /// Google translate text.
         /// </summary>
         /// <param name="sourceText">Source text.</param>
-        /// <param name="translatorAPIUrl">The translator API Url.</param>
+        /// <param name="translatorAPIPath">The translator API Path.</param>
         /// <returns>Vietnamese language.</returns>
-        private static string TranslateText(string sourceText, string translatorAPIUrl)
+        private static string TranslateText(string sourceText, string translatorAPIPath)
         {
             string url = string.Format(
-                translatorAPIUrl + "?hl=en&ie=UTF8&text={0}&langpair={1}",
+                translatorAPIPath + "?hl=en&ie=UTF8&text={0}&langpair={1}",
                 HttpUtility.UrlEncode(sourceText),
                 "auto|vi");
             WebClient webClient = new WebClient();
