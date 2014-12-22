@@ -117,7 +117,7 @@
 			</DockPanel >
 			<Grid Grid.Row="1" >
 				<ContentControl Content="{Binding CurrentViewModel}"
-			x:Name="contentControl" Margin="16,0,-8,6" />
+			x:Name="contentControl" Margin="3" />
 			</Grid>
 		</Grid>
 	</Grid>
