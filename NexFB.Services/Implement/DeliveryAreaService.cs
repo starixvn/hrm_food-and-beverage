@@ -111,5 +111,23 @@ namespace NexFB.Services.Implement
 
             return commandResult;
         }
+
+        /// <summary>
+        /// Check delivery area exist in order meal.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The boolean is exist.</returns>
+        public bool CheckDeliveryAreaExistOrderMeal(CheckDeliveryAreaExistOrderMealCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            bool isExist = false;
+
+            if (criteria.IsValid())
+            {
+                isExist = GetDataEntity<bool>(criteria);
+            }
+
+            return isExist;
+        }
     }
 }

@@ -26,6 +26,10 @@ deliveryAreaModule.factory('deliveryAreaFactory', ['$http', 'baseUrl', function 
 		},
 		getUserPermissionOnDeliveryArea: function () {
 			return $http.get(baseUrl + 'api/DeliveryArea/GetUserPermissionOnDeliveryArea');
+		},
+		checkDeliveryAreaExistOrderMeal: function (deliveryAreaId, statusId) {
+			return $http.get(baseUrl + 'api/DeliveryArea/CheckDeliveryAreaExistOrderMeal',
+				{ params: { deliveryAreaId: deliveryAreaId, statusId: statusId} });
 		}
 	};
 } ]);

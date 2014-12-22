@@ -5,6 +5,10 @@ deliveryAreaModule.controller('DeliveryAreaController',
 ['$scope', 'deliveryAreaFactory', 'ErrorFactory', 'commonFactory', 'baseUrl', '$modal', 'notificationFactory',
 function ($scope, deliveryAreaFactory, ErrorFactory, commonFactory, baseUrl, $modal, notificationFactory) {
 
+	$scope.status = {
+		NEW: 1
+	};
+
 	/*
 	** If route change, close dialog.
 	*/
@@ -84,13 +88,17 @@ function ($scope, deliveryAreaFactory, ErrorFactory, commonFactory, baseUrl, $mo
 			backdrop: 'static',
 			resolve: {
 				deliveryArea: function () {
-					return deliveryArea;
+					return angular.copy(deliveryArea);
 				}
 			},
 			windowClass: "modal-confirm-center delivery-area"
 		});
 
-		$scope.modalInstance.result.then(function () {
+		$scope.modalInstance.result.then(function (updatedDeliveryArea) {
+			deliveryArea.NameVN = updatedDeliveryArea.NameVN;
+			deliveryArea.NameEN = updatedDeliveryArea.NameEN;
+			deliveryArea.FloorName = updatedDeliveryArea.FloorName;
+			deliveryArea.IsActive = updatedDeliveryArea.IsActive;
 		})['finally'](function () {
 			getAllDeliveryArea(null, null, null);
 			$scope.modalInstance = '';
@@ -121,7 +129,7 @@ function ($scope, deliveryAreaFactory, ErrorFactory, commonFactory, baseUrl, $mo
 
 		var keyMessage = '';
 
-		$scope.modalInstance.result.then(function () {
+		var activateDeliveryArea = function () {
 			deliveryAreaFactory.activateDeliveryArea(deliveryArea).success(function (response) {
 				if (response.IsSuccessful) {
 					keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
@@ -142,6 +150,26 @@ function ($scope, deliveryAreaFactory, ErrorFactory, commonFactory, baseUrl, $mo
 					notificationFactory.error(keyMessage);
 				}
 			});
+		};
+
+		$scope.modalInstance.result.then(function () {
+			if (action === "deactivate") {
+				deliveryAreaFactory.checkDeliveryAreaExistOrderMeal(deliveryArea.LocationId, $scope.status.NEW)
+				.success(function (isExist) {
+					if (isExist === "true") {
+						deliveryArea.IsActive = !deliveryArea.IsActive;
+						notificationFactory.error("DeliveryAreaExistOrderMealWarning");
+					}
+					else {
+						activateDeliveryArea();
+					}
+				}).error(function (response, status) {
+					ErrorFactory.errorHandle(status);
+				});
+			}
+			else {
+				activateDeliveryArea();
+			}
 		}, function () {
 			deliveryArea.IsActive = !deliveryArea.IsActive;
 		})['finally'](function () {
@@ -259,7 +287,7 @@ function ($scope, deliveryArea, $modalInstance, deliveryAreaFactory, ErrorFactor
 			deliveryAreaFactory.updateDeliveryArea(deliveryArea).success(function (response) {
 				if (response.IsSuccessful) {
 					notificationFactory.success("DataChangeSuccessfully");
-					$modalInstance.close();
+					$modalInstance.close(deliveryArea);
 				}
 				else {
 					notificationFactory.error("", response.Message);

@@ -655,6 +655,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Orders in status New with the same Delivery area exist. Please Accept or Reject all of those orders before deactivate the Delivery Area..
+        /// </summary>
+        public static string DeliveryAreaExistOrderMealWarning {
+            get {
+                return ResourceManager.GetString("DeliveryAreaExistOrderMealWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delivery Area Management.
         /// </summary>
         public static string DeliveryAreaManagement {

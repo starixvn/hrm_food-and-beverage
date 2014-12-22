@@ -329,5 +329,6 @@
 		<Setting Key="Location_EditByLocationID" SpName="Location_EditByLocationID" DbName="NexFB" Plain="0" ></Setting>
 		<Setting Key="Location_EditActiveByLocationID" SpName="Location_EditActiveByLocationID" DbName="NexFB" Plain="0" ></Setting>
 		<Setting Key="Location_DeleteByLocationID" SpName="Location_DeleteByLocationID" DbName="NexFB" Plain="0" ></Setting>
+		<Setting Key="Location_ExistOrderMealByLocationID" SpName="Location_ExistOrderMealByLocationID" DbName="NexFB" Plain="0" ></Setting>
 	</Function>
 </Functions>

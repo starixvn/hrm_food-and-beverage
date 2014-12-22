@@ -28,5 +28,7 @@ namespace NexFB.Services.Interface
         CommandResult ActivateDeliveryArea(ActivateDeliveryAreaCriteria criteria);
 
         CommandResult DeleteDeliveryArea(DeleteDeliveryAreaCriteria criteria);
+
+        bool CheckDeliveryAreaExistOrderMeal(CheckDeliveryAreaExistOrderMealCriteria criteria);
     }
 }

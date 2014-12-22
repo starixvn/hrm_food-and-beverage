@@ -957,4 +957,7 @@
   <data name="DeliveryAreaNotExistError" xml:space="preserve">
     <value>This Delivery Area does not exist. Please reload this page.</value>
   </data>
+  <data name="DeliveryAreaExistOrderMealWarning" xml:space="preserve">
+    <value>Orders in status New with the same Delivery area exist. Please Accept or Reject all of those orders before deactivate the Delivery Area.</value>
+  </data>
 </root>

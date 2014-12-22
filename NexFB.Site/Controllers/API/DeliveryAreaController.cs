@@ -137,7 +137,7 @@ namespace NexFB.Site.Controllers.API
         /// <summary>
         /// Check delivery area is exist or not.
         /// </summary>
-        /// <param name="locationId">The location Id.</param>
+        /// <param name="deliveryAreaId">The delivery Area Id.</param>
         /// <returns>The boolean value.</returns>
         [HttpGet]
         public bool CheckDeliveryAreaExist(int deliveryAreaId)
@@ -154,6 +154,18 @@ namespace NexFB.Site.Controllers.API
             }
 
             return false;
+        }
+
+        [HttpGet]
+        public bool CheckDeliveryAreaExistOrderMeal(int deliveryAreaId, string statusId)
+        {
+            var criteria = new CheckDeliveryAreaExistOrderMealCriteria
+            {
+                DeliveryAreaId = deliveryAreaId,
+                StatusId = statusId
+            };
+
+            return _deliveryAreaService.CheckDeliveryAreaExistOrderMeal(criteria);
         }
     }
 }
