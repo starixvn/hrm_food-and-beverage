@@ -32,7 +32,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinAppSmartCard.GlobalResources.Services;
     using NexFB.WinAppSmartCard.ViewModels.Properties;
     using WPFMessageBoxCustomControl.Enums;
-
+    
     /// <summary>
     /// Main View Model.
     /// </summary>
@@ -40,10 +40,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
     {
         private static string _host = ConfigurationManager.AppSettings[ConstantValue.HubHost];
         private static string _hostLocal = ConfigurationManager.AppSettings[ConstantValue.HubHostLocal];
+        private static string _themes = ConfigurationManager.AppSettings[ConstantValue.Themes];
         private ViewModelBase _currentViewModel;
 
         public MainViewModel()
         {
+            SetApplicationThemes();
             InitializeHubConnection();
             InitializeHubConnectionLocal();
             ExecuteMainDishesCommand();
@@ -550,6 +552,18 @@ namespace NexFB.WinAppSmartCard.ViewModels
             else
             {
                 this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_IdentifyCard);
+            }
+        }
+
+        private void SetApplicationThemes()
+        {
+            if (!string.IsNullOrEmpty(_themes))
+            {
+                IdleScreenThemes = _themes == ConstantValue.ThemeXmas ? ConstantValue.XmasBackground : ConstantValue.NormalBackground;
+            }
+            else
+            {
+                IdleScreenThemes = ConstantValue.NormalBackground;
             }
         }
 

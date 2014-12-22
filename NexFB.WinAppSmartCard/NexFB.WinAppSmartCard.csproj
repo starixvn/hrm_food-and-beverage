@@ -312,6 +312,7 @@
     <Resource Include="Images\checkbox-checked.png" />
     <Resource Include="Images\checkbox-unchecked.png" />
     <Resource Include="employeeIcon.ico" />
+    <Resource Include="Images\POS_IdleScreen_Xmas.jpg" />
     <Content Include="SpNames.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

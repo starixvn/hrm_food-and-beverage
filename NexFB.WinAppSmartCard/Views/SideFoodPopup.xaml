@@ -176,7 +176,7 @@
 												<Button.Template>
 													<ControlTemplate>
 														<Border Background="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" >
-															<Image Width="34" Height="30" Source="pack://application:,,,/Images/remove1.png" />
+															<Image Width="90" Height="30" Source="pack://application:,,,/Images/remove1.png" />
 														</Border>
 													</ControlTemplate>
 												</Button.Template>

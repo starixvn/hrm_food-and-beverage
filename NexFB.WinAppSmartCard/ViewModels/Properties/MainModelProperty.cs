@@ -37,9 +37,9 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
         private bool _sideButtonEnable;
         private bool _mainButtonEnable;
         private string _logoMargin;
-        private string _sentenceMargin;
         private bool _isMainDishTab;
         private bool _isAllowChangeLanguage;
+        private string _idleScreenThemes;
 
         public Thread Thread { get; set; }
 
@@ -280,13 +280,27 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
             }
         }
 
+        public string IdleScreenThemes
+        {
+            get
+            {
+                return _idleScreenThemes;
+            }
+
+            set
+            {
+                _idleScreenThemes = value;
+                OnPropertyChanged("IdleScreenThemes");
+            }
+        }
+
         public string LogoMargin
         {
             get
             {
                 if (_screeHeight > 900)
                 {
-                    _logoMargin = ConstantValue.LogoMarginMoreThan900;
+                    _logoMargin = _screeHeight == 960 ? ConstantValue.LogoMargin960 : ConstantValue.LogoMarginMoreThan960;
                 }
                 else
                 {
@@ -300,29 +314,6 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
             {
                 _logoMargin = value;
                 OnPropertyChanged("LogoMargin");
-            }
-        }
-
-        public string SentenceMargin
-        {
-            get
-            {
-                if (_screeHeight > 900)
-                {
-                    _sentenceMargin = ConstantValue.SentenceMarginMoreThan900;
-                }
-                else
-                {
-                    _sentenceMargin = ConstantValue.SentenceMarginLessThan900;
-                }
-
-                return _sentenceMargin;
-            }
-
-            set
-            {
-                _sentenceMargin = value;
-                OnPropertyChanged("SentenceMargin");
             }
         }
     }

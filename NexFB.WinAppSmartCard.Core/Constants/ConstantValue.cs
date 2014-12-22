@@ -44,13 +44,11 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const string CombinedDishesViewModel = "CombinedDishesViewModel";
 
-        public const string LogoMarginMoreThan900 = "0,0,0,10";
+        public const string LogoMarginMoreThan960 = "0,-25,0,0";
 
-        public const string LogoMarginLessThan900 = "0,0,0,-15";
+        public const string LogoMargin960 = "0,-40,0,0";
 
-        public const string SentenceMarginMoreThan900 = "0,0,0,20";
-
-        public const string SentenceMarginLessThan900 = "0,0,0,0";
+        public const string LogoMarginLessThan900 = "0,-90,0,0";
 
         public const string SideDishOrderDetails = "<User FoodId='{0}' Qty='{1}'></User>";
 
@@ -63,6 +61,16 @@ namespace NexFB.WinAppSmartCard.Core.Constants
         public const string EndRootTag = "</ROOT>";
 
         public const string VietNameseCultureCode = "vi-VN";
+
+        public const string ThemeXmas = "XMAS";
+
+        public const string XmasBackground = "pack://application:,,,/Images/POS_IdleScreen_Xmas.jpg";
+
+        public const string ThemeNornal = "NORMAL";
+
+        public const string NormalBackground = "pack://application:,,,/Images/bg.jpg";
+
+        public const string Themes = "Themes";
 
         private ConstantValue()
         {

@@ -210,7 +210,7 @@
 													<Button.Template>
 														<ControlTemplate>
 															<Border Background="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" >
-																<Image Width="34" Height="30" Source="pack://application:,,,/Images/remove1.png" 
+																<Image Width="150" Height="30" Source="pack://application:,,,/Images/remove1.png" 
 																Visibility="{Binding DataContext.DeleteButtonVisible, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
 															</Border>
 														</ControlTemplate>
