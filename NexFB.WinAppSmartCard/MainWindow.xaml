@@ -24,7 +24,7 @@
 	<Grid>
 		<Grid Visibility="{Binding Path=StandbyScreenVisible}">
 			<Grid.Background>
-				<ImageBrush ImageSource="pack://application:,,,/Images/bg.jpg"/>
+				<ImageBrush ImageSource="{Binding Path=IdleScreenThemes}"/>
 			</Grid.Background>
 			<Grid.RowDefinitions>
 				<RowDefinition />
