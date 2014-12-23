@@ -9,9 +9,12 @@
 
 namespace NexFB.Models.Entities
 {
+    using System;
+
     /// <summary>
     /// Food Item.
     /// </summary>
+    [Serializable]
     public class Food
     {
         public int FoodId { get; set; }

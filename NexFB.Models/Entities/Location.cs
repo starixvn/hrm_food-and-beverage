@@ -14,6 +14,7 @@ namespace NexFB.Models.Entities
     /// <summary>
     /// Location Entity.
     /// </summary>
+    [Serializable]
     public class Location
     {
         public short LocationId { get; set; }

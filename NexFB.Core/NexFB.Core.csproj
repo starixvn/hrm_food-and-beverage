@@ -90,6 +90,9 @@
     <Compile Include="Enums\HashProvider.cs" />
     <Compile Include="Enums\InvoiceNumberStatus.cs" />
     <Compile Include="Enums\Meal.cs" />
+    <Compile Include="Enums\MenuType.cs" />
+    <Compile Include="Enums\OrderedBy.cs" />
+    <Compile Include="Enums\OrderPlatform.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Enums\Policy.cs" />
     <Compile Include="Enums\RolesSystem.cs" />

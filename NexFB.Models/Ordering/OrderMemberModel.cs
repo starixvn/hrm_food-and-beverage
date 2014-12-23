@@ -9,12 +9,14 @@
 
 namespace NexFB.Models.Ordering
 {
+    using System;
     using System.Collections.Generic;
     using NexFB.Models.Entities;
 
     /// <summary>
     /// OrderMember Model.
     /// </summary>
+    [Serializable]
     public class OrderMemberModel
     {
         public OrderMemberModel()

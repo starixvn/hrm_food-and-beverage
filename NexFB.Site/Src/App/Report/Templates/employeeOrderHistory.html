@@ -7,6 +7,54 @@
 	</div>
 		<div class="row filter">
 		<form class="form-horizontal form-multiLine" role="form">
+			<div class="form-group">
+			    <label class="col-sm-1 text-right" data-translate="Meal"></label>
+                <div class="col-sm-2 field">
+                    <add-class-to-role-filter multi-select input-model="mealsOption" button-label="MealEngName" helper-elements="all reset"
+					    item-label="MealEngName" tick-property="ticked" max-labels="0" class="multi-select ">
+				    </add-class-to-role-filter>
+                </div>
+				<label class="col-sm-1 text-right" data-translate="OrderedBy"></label>
+                <div class="col-sm-2 field">
+					<select class="ordered-by-history-report" ng-model="filter.orderBy" ng-options="orderedByItem.Value as orderedByItem.Name for orderedByItem in orderedByOptions" >
+					</select>
+                </div>
+				<label class="col-sm-1 text-right" data-translate="OrderPlatform"></label>
+                <div class="col-sm-2 field">
+					<select ng-model="filter.orderPlatform" ng-options="orderPlatformItem.Value as orderPlatformItem.Name for orderPlatformItem in orderPlatformOptions" >
+					</select>
+                </div>
+				<label class="col-sm-1 text-right" data-translate="OrderStatus"></label>
+                <div class="col-sm-2 field">
+                    <add-class-to-role-filter multi-select input-model="orderStatusesOptions" button-label="Name" helper-elements="all reset"
+					    item-label="Name" tick-property="ticked" max-labels="0" class="multi-select ">
+				    </add-class-to-role-filter>
+                </div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 text-right" data-translate="From">
+				</label>
+				<div class="col-sm-2 field">
+					<input class="calendar-form-control" type="text" ng-model="filter.fromDate" datepicker-popup
+						is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
+					<calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
+				</div>
+				<label class="col-sm-1 text-right" data-translate="To">
+				</label>
+				<div class="col-sm-2 field">
+					<input class="calendar-form-control" type="text" ng-model="filter.toDate" datepicker-popup
+						is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
+					<calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+				</div>
+				<label class="col-sm-1 text-right" data-translate="MyMenu"></label>
+                <div class="col-sm-2 field">
+					<select class="my-menu-history-report" ng-model="filter.employeeMenu" ng-options="menuTypeItem.Value as menuTypeItem.Name for menuTypeItem in menuTypeOptions" >
+					</select>
+                </div>
+				<div class="col-sm-1 btn-box daily-btn-box">
+                     <input type="button" value="Submit" class="button" ng-click="query(filter)"/>
+                </div>
+			</div>
 		</form>
 	</div>
 	<div id="employeeOrderHistoryReport" class="freegrid" render-employee-order-history-report ></div>

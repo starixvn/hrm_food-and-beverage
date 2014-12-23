@@ -18,5 +18,7 @@ namespace NexFB.Services.Interface.Report
     public interface IEmployeeOrderHistoryService
     {
         EmployeeOrderHistoryReport GetEmployeeOrderHistoryReport(GetEmployeeOrderHistoryCriteria criteria);
+
+        EmployeeOrderHistoryReport GetPagingReport(EmployeeOrderHistoryReport fullReport, int startIndex, int itemsPerPage);
     }
 }

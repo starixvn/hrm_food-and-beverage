@@ -17,6 +17,7 @@ namespace NexFB.Models.Ordering
     /// <summary>
     /// MealOrdering Model.
     /// </summary>
+    [Serializable]
     public class MealOrderingModel
     {
         public MealOrderingModel()

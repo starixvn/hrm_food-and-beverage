@@ -14,6 +14,7 @@ namespace NexFB.Site.Controllers.API.Report
     using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
+    using NexFB.Core.Utilities;
     using NexFB.Criteria.Department;
     using NexFB.Criteria.Report;
     using NexFB.Criteria.UserControl;
@@ -204,6 +205,9 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="orderPlatform">The order platform.</param>
         /// <param name="mealId">The meal Id.</param>
         /// <param name="statusId">The status Id.</param>
+        /// <param name="isPagingCallback">The is paging call back.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
         /// <returns>The report.</returns>
         [HttpGet]
         public EmployeeOrderHistoryReport GetEmployeeOrderHistoryReport(
@@ -213,7 +217,10 @@ namespace NexFB.Site.Controllers.API.Report
             int employeeMenu = 0,
             int orderPlatform = 0,
             string mealId = "",
-            string statusId = "")
+            string statusId = "",
+            bool isPagingCallback = false,
+            int startIndex = 0,
+            int itemsPerPage = 50)
         {
             var criteria = new GetEmployeeOrderHistoryCriteria
             {
@@ -226,8 +233,115 @@ namespace NexFB.Site.Controllers.API.Report
                 MealId = mealId,
                 StatusId = statusId
             };
+            EmployeeOrderHistoryReport fullReport = null;
+            GetOrderedByEnum();
+            if (isPagingCallback)
+            {
+                fullReport = SessionManager.Get<EmployeeOrderHistoryReport>(ReportConstant.EmployeeOrderHistoryReportSessionKey + CurrentUser.UserId);
+            }
+            else
+            {
+                fullReport = _employeeOrderHistoryService.GetEmployeeOrderHistoryReport(criteria);
+                SessionManager.Set<EmployeeOrderHistoryReport>(ReportConstant.EmployeeOrderHistoryReportSessionKey + CurrentUser.UserId, fullReport);
+            }
 
-            return _employeeOrderHistoryService.GetEmployeeOrderHistoryReport(criteria);
+            EmployeeOrderHistoryReport pagingReport = _employeeOrderHistoryService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            return pagingReport;
+        }
+
+        /// <summary>
+        /// Get Ordered By ENUM.
+        /// </summary>
+        /// <returns>The list object Ordered By.</returns>
+        [HttpGet]
+        public List<object> GetOrderedByEnum()
+        {
+            var orderedByList = new List<object>();
+
+            foreach (OrderedBy orderedByEnum in (OrderedBy[])Enum.GetValues(typeof(OrderedBy)))
+            {
+                var orderedBy = new 
+                {
+                    Value = (int)orderedByEnum,
+                    Name = Enumerations.GetDescription(orderedByEnum)
+                };
+
+                orderedByList.Add(orderedBy);
+            }
+
+            return orderedByList;
+        }
+
+        /// <summary>
+        /// Get Order Platform ENUM.
+        /// </summary>
+        /// <returns>The list object Order Platform.</returns>
+        [HttpGet]
+        public List<object> GetOrderPlatformEnum()
+        {
+            var orderPlatformList = new List<object>();
+
+            foreach (OrderPlatform orderPlatformEnum in (OrderPlatform[])Enum.GetValues(typeof(OrderPlatform)))
+            {
+                var orderPlatform = new
+                {
+                    Value = (int)orderPlatformEnum,
+                    Name = Enumerations.GetDescription(orderPlatformEnum)
+                };
+
+                orderPlatformList.Add(orderPlatform);
+            }
+
+            return orderPlatformList;
+        }
+
+        /// <summary>
+        /// Get Order Status ENUM.
+        /// </summary>
+        /// <returns>The list object Order Status.</returns>
+        [HttpGet]
+        public List<object> GetOrderStatusEnum()
+        {
+            var orderStatues = new List<object>();
+
+            foreach (OrderStatus orderStatusEnum in (OrderStatus[])Enum.GetValues(typeof(OrderStatus)))
+            {
+                if (orderStatusEnum != OrderStatus.None && orderStatusEnum != OrderStatus.DeletedOrder)
+                {
+                    var orderStatus = new
+                    {
+                        Value = (int)orderStatusEnum,
+                        Name = Enumerations.GetDescription(orderStatusEnum)
+                    };
+
+                    orderStatues.Add(orderStatus);
+                }
+            }
+
+            return orderStatues;
+        }
+
+        /// <summary>
+        /// Get Menu Type ENUM.
+        /// </summary>
+        /// <returns>The list object Menu Type.</returns>
+        [HttpGet]
+        public List<object> GetMenuTypeEnum()
+        {
+            var menuTypes = new List<object>();
+
+            foreach (MenuType menuTypeEnum in (MenuType[])Enum.GetValues(typeof(MenuType)))
+            {
+                var menuType = new
+                {
+                    Value = (int)menuTypeEnum,
+                    Name = Enumerations.GetDescription(menuTypeEnum)
+                };
+
+                menuTypes.Add(menuType);
+            }
+
+            return menuTypes;
         }
     }
 }

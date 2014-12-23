@@ -963,4 +963,16 @@
   <data name="DeliveryAreaExistOrderMealWarning" xml:space="preserve">
     <value>Orders in status New with the same Delivery area exist. Please Accept or Reject all of those orders before deactivate the Delivery Area.</value>
   </data>
+  <data name="MyMenu" xml:space="preserve">
+    <value>My Menu</value>
+  </data>
+  <data name="OrderedBy" xml:space="preserve">
+    <value>Ordered By</value>
+  </data>
+  <data name="OrderPlatform" xml:space="preserve">
+    <value>Order Platform</value>
+  </data>
+  <data name="OrderStatus" xml:space="preserve">
+    <value>Order Status</value>
+  </data>
 </root>

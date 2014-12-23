@@ -37,13 +37,29 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 		getEmployeeOrderHistoryReport: function (filter) {
 			return $http.get(baseUrl + 'api/report/GetEmployeeOrderHistoryReport',
 				{ params: { fromDate: filter.fromDate.toDateString(),
-							toDate: filter.toDate.toDateString(),
-							orderBy: filter.orderBy,
-							employeeMenu: filter.employeeMenu,
-							orderPlatform: filter.orderPlatform,
-							mealId: filter.mealId,
-							statusId: filter.statusId
-				} });
+					toDate: filter.toDate.toDateString(),
+					orderBy: filter.orderBy,
+					employeeMenu: filter.employeeMenu,
+					orderPlatform: filter.orderPlatform,
+					mealId: filter.mealId,
+					statusId: filter.statusId,
+					isPagingCallback: filter.isPagingCallback,
+					startIndex: filter.startIndex,
+					itemsPerPage: filter.itemsPerPage
+				}
+				});
+		},
+		getOrderedByEnum: function () {
+			return $http.get(baseUrl + 'api/report/GetOrderedByEnum');
+		},
+		getOrderPlatformEnum: function () {
+			return $http.get(baseUrl + 'api/report/GetOrderPlatformEnum');
+		},
+		getOrderStatusEnum: function () {
+			return $http.get(baseUrl + 'api/report/GetOrderStatusEnum');
+		},
+		getMenuTypeEnum: function () {
+			return $http.get(baseUrl + 'api/report/GetMenuTypeEnum');
 		}
 	};
 } ]);
@@ -53,7 +69,8 @@ reportModule.factory('reportUtilities', function () {
 	var utilities = {},
 		numberFormat = '0,0',
 		monthFormat = 'MMM-YYYY',
-		dateFormatDailyReport = 'd-MMM-YYYY';
+		dateFormatDailyReport = 'd-MMM-YYYY',
+		dateFormaEmployeeOrderHistoryReport = "DD MMM YYYY";
 
 	utilities.getTeamId = function (teamOptions) {
 		var teamId = '';
@@ -78,6 +95,10 @@ reportModule.factory('reportUtilities', function () {
 
 	utilities.getDateFormatDailyReport = function () {
 		return dateFormatDailyReport;
+	};
+
+	utilities.getDateFormatEmployeeOrderHistoryReport = function () {
+		return dateFormaEmployeeOrderHistoryReport;
 	};
 
 	return utilities;

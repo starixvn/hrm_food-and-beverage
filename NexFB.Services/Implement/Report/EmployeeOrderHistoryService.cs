@@ -10,6 +10,7 @@
 namespace NexFB.Services.Implement.Report
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using NexFB.Criteria.Report;
     using NexFB.Models.Entities;
@@ -49,9 +50,63 @@ namespace NexFB.Services.Implement.Report
             {
                 report = _employeeOrderHistoryRepository.GetEmployeeOrderHistoryReport(criteria);
                 report.TotalAmount = CalculateTotalAmount(report.EmployeeOrders);
+                report.TotalItem = report.EmployeeOrders.Count;
             }
 
             return report;
+        }
+
+        /// <summary>
+        /// Get paging report.
+        /// </summary>
+        /// <param name="fullReport">The full report.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The paging report.</returns>
+        public EmployeeOrderHistoryReport GetPagingReport(
+            EmployeeOrderHistoryReport fullReport,
+            int startIndex,
+            int itemsPerPage)
+        {
+            var pagingReport = new EmployeeOrderHistoryReport
+            {
+                TotalAmount = fullReport.TotalAmount,
+                TotalItem = fullReport.TotalItem
+            };
+
+            if (fullReport.EmployeeOrders.Count > 0)
+            {
+                pagingReport.EmployeeOrders = GetPagingReportDetail(fullReport, startIndex, itemsPerPage);
+            }
+
+            return pagingReport;
+        }
+
+        /// <summary>
+        /// Get employee order of paging report.
+        /// </summary>
+        /// <param name="fullReport">The full report.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The list employee order.</returns>
+        private List<EmployeeOrderModel> GetPagingReportDetail(
+            EmployeeOrderHistoryReport fullReport,
+            int startIndex,
+            int itemsPerPage)
+        {
+            int numberEmployeeOrders = fullReport.EmployeeOrders.Count;
+            int numberTakenItems = 0;
+
+            if (startIndex + itemsPerPage <= numberEmployeeOrders)
+            {
+                numberTakenItems = itemsPerPage;
+            }
+            else
+            {
+                numberTakenItems = numberEmployeeOrders - startIndex;
+            }
+
+            return fullReport.EmployeeOrders.Skip(startIndex).Take(numberTakenItems).ToList();
         }
 
         /// <summary>

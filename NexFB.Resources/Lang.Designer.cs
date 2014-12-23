@@ -1645,6 +1645,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My Menu.
+        /// </summary>
+        public static string MyMenu {
+            get {
+                return ResourceManager.GetString("MyMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Orders.
         /// </summary>
         public static string MyOrder {
@@ -1825,6 +1834,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ordered By.
+        /// </summary>
+        public static string OrderedBy {
+            get {
+                return ResourceManager.GetString("OrderedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order meal.
         /// </summary>
         public static string OrderMeal {
@@ -1839,6 +1857,24 @@ namespace NexFB.Resources {
         public static string OrderPerson {
             get {
                 return ResourceManager.GetString("OrderPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order Platform.
+        /// </summary>
+        public static string OrderPlatform {
+            get {
+                return ResourceManager.GetString("OrderPlatform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order Status.
+        /// </summary>
+        public static string OrderStatus {
+            get {
+                return ResourceManager.GetString("OrderStatus", resourceCulture);
             }
         }
         

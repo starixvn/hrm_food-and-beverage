@@ -18,6 +18,7 @@ namespace NexFB.Models.Report.EmployeeOrderHistory
     /// <summary>
     /// Employee order model.
     /// </summary>
+    [Serializable]
     public class EmployeeOrderModel
     {
         public EmployeeOrderModel()

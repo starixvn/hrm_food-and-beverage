@@ -9,11 +9,13 @@
 
 namespace NexFB.Models.Entities
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
     /// Menu Entity.
     /// </summary>
+    [Serializable]
     public class Menu
     {
         public int MenuId { get; set; }

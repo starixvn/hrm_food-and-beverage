@@ -17,5 +17,7 @@ namespace NexFB.Core.Constants
         public const string MonthlyMainDishReportLocalSessionKey = "NexFB.Report.MonthlyMainDishReportLocal";
 
         public const string DailyMainDishReportSessionKey = "NexFB.Report.DailyMainDishReportPricePerMeal";
+
+        public const string EmployeeOrderHistoryReportSessionKey = "NexFB.Report.EmployeeOrderHistoryReport";
     }
 }

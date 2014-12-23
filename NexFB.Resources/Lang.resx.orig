@@ -927,6 +927,9 @@
   <data name="MemberName" xml:space="preserve">
     <value>Member Name</value>
   </data>
+  <data name="EmployeeOrderHistoryReport" xml:space="preserve">
+    <value>My Order History</value>
+  </data>
 <<<<<<< HEAD
   <data name="CreateDeliveryArea" xml:space="preserve">
     <value>Create Delivery Area</value>
@@ -961,8 +964,17 @@
   <data name="DeliveryAreaExistOrderMealWarning" xml:space="preserve">
     <value>Orders in status New with the same Delivery area exist. Please Accept or Reject all of those orders before deactivate the Delivery Area.</value>
 =======
-  <data name="EmployeeOrderHistoryReport" xml:space="preserve">
-    <value>My Order History</value>
->>>>>>> #28004 - Get data from DB, begin render data
+  <data name="MyMenu" xml:space="preserve">
+    <value>My Menu</value>
+  </data>
+  <data name="OrderedBy" xml:space="preserve">
+    <value>Ordered By</value>
+  </data>
+  <data name="OrderPlatform" xml:space="preserve">
+    <value>Order Platform</value>
+  </data>
+  <data name="OrderStatus" xml:space="preserve">
+    <value>Order Status</value>
+>>>>>>> #28004 - Render report
   </data>
 </root>

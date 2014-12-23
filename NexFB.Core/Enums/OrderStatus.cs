@@ -25,43 +25,43 @@ namespace NexFB.Core.Enums
         /// <summary>
         /// New order.
         /// </summary>
-        [Description("New Order")]
+        [Description("New")]
         NewOrder = 1,
 
         /// <summary>
         /// Received Order.
         /// </summary>
-        [Description("ReceivedOrder")]
+        [Description("Accepted")]
         ReceivedOrder = 2,
 
         /// <summary>
         /// Reduced order.
         /// </summary>
-        [Description("ReducedOrder")]
+        [Description("Reduced")]
         ReducedOrder = 3,
 
         /// <summary>
         /// Delivered order.
         /// </summary>
-        [Description("DeliveredOrder")]
+        [Description("Delivered")]
         DeliveredOrder = 4,
 
         /// <summary>
         /// Edited order.
         /// </summary>
-        [Description("Edited Order")]
+        [Description("Edited")]
         EditedOrder = 5,
 
         /// <summary>
         /// Canceled order.
         /// </summary>
-        [Description("Canceled Order")]
+        [Description("Rejected")]
         CanceledOrder = 6,
 
         /// <summary>
         /// Deleted order.
         /// </summary>
-        [Description("Deleted Order")]
+        [Description("Deleted")]
         DeletedOrder = 99,
     }
 }

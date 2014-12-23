@@ -40,7 +40,7 @@
 						<input type="checkbox" ng-model="sideDish.isOrder" />
 					</td>
 				</tr>
-				<tr ng-show="!sideDishes">
+				<tr ng-show="!sideDishes || sideDishes.length == 0">
 					<td class="empty-result" colspan="7" data-translate="EmptyResult">
 					</td>
 				</tr>
