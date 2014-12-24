@@ -844,6 +844,33 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My_Order_History.
+        /// </summary>
+        public static string EmployeeOrderHistoryReportName {
+            get {
+                return ResourceManager.GetString("EmployeeOrderHistoryReportName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Order History.
+        /// </summary>
+        public static string EmployeeOrderHistoryReportSheetName {
+            get {
+                return ResourceManager.GetString("EmployeeOrderHistoryReportSheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Order History.
+        /// </summary>
+        public static string EmployeeOrderHistoryReportTitle {
+            get {
+                return ResourceManager.GetString("EmployeeOrderHistoryReportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee type.
         /// </summary>
         public static string EmployeeType {

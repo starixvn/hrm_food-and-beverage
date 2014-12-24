@@ -28,6 +28,10 @@ namespace NexFB.Core.Constants
         
         public const int MaximumTimeTranslateRemark = 5;
 
+        public const string NumberFormat = "0,0";
+
+        public const string NonAvailable = "N/A";
+
         private Constants()
         {
         }

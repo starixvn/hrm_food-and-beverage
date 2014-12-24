@@ -516,6 +516,7 @@
     <Content Include="Src\App\Employee\employee.less" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentReportLocal.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls" />
+    <Content Include="Src\App\Report\ExcelTemplates\EmployeeOrderHistoryReport.xls" />
     <Content Include="Src\App\DeliveryArea\deliveryArea.less" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />

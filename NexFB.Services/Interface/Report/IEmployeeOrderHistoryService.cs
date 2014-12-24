@@ -20,5 +20,7 @@ namespace NexFB.Services.Interface.Report
         EmployeeOrderHistoryReport GetEmployeeOrderHistoryReport(GetEmployeeOrderHistoryCriteria criteria);
 
         EmployeeOrderHistoryReport GetPagingReport(EmployeeOrderHistoryReport fullReport, int startIndex, int itemsPerPage);
+
+        void ExportEmployeeOrderHistoryReport(EmployeeOrderHistoryReport report, string templatePath);
     }
 }

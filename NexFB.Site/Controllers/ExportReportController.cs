@@ -12,9 +12,12 @@ namespace NexFB.Site.Controllers
     using System.Web.Mvc;
     using NexFB.Core.Constants;
     using NexFB.Criteria.Report;
+    using NexFB.Models.Report.EmployeeOrderHistory;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Services.Implement;
+    using NexFB.Services.Implement.Report;
     using NexFB.Services.Interface;
+    using NexFB.Services.Interface.Report;
     using NexFB.Web;
 
     /// <summary>
@@ -24,17 +27,20 @@ namespace NexFB.Site.Controllers
     {
         private const string MonthlyMainDishReportLocalEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls";
         private const string MonthlyMainDishReportLocalDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentReportLocal.xls";
+        private const string EmployeeOrderHistoryTemplatePath = @"~\Src\App\Report\ExcelTemplates\EmployeeOrderHistoryReport.xls";
 
         private readonly IReportService _reportService;
+        private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
 
         public ExportReportController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public ExportReportController(IReportService reportService)
+        public ExportReportController(IReportService reportService, IEmployeeOrderHistoryService employeeOrderHistoryService)
         {
             _reportService = reportService ?? new ReportService();
+            _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
         }
 
         public ActionResult Index()
@@ -70,6 +76,31 @@ namespace NexFB.Site.Controllers
                 }
 
                 _reportService.ExportMonthlyMainDishReportLocal(report, templateUrl);
+            }
+
+            return new EmptyResult();
+        }
+
+        /// <summary>
+        /// Export Employee Order History Report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The excel file.</returns>
+        public ActionResult ExportEmployeeOrderHistoryReport(GetEmployeeOrderHistoryCriteria criteria)
+        {
+            EmployeeOrderHistoryReport report = SessionManager.Get<EmployeeOrderHistoryReport>(
+                ReportConstant.EmployeeOrderHistoryReportSessionKey + SessionManager.CurrentUser.UserId);
+            string templatePath = string.Empty;
+
+            if (report == null)
+            {
+                report = _employeeOrderHistoryService.GetEmployeeOrderHistoryReport(criteria);
+            }
+
+            if (report != null)
+            {
+                templatePath = Server.MapPath(EmployeeOrderHistoryTemplatePath);
+                _employeeOrderHistoryService.ExportEmployeeOrderHistoryReport(report, templatePath);
             }
 
             return new EmptyResult();

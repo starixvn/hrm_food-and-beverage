@@ -975,4 +975,13 @@
   <data name="OrderStatus" xml:space="preserve">
     <value>Order Status</value>
   </data>
+  <data name="EmployeeOrderHistoryReportName" xml:space="preserve">
+    <value>My_Order_History</value>
+  </data>
+  <data name="EmployeeOrderHistoryReportSheetName" xml:space="preserve">
+    <value>My Order History</value>
+  </data>
+  <data name="EmployeeOrderHistoryReportTitle" xml:space="preserve">
+    <value>My Order History</value>
+  </data>
 </root>

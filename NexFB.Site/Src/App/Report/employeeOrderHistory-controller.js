@@ -146,4 +146,24 @@ foodMenuUtilities) {
 
 		$scope.getEmployeeOrderHistoryReport(filter);
 	};
+
+	/*
+	** Export excel.
+	*/
+	$scope.exportExcel = function (filter) {
+		filter.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
+		filter.statusId = getOrderStatusId($scope.orderStatusesOptions);
+
+		$scope.criteria = {
+			fromDate: filter.fromDate.toDateString(),
+			toDate: filter.toDate.toDateString(),
+			orderBy: filter.orderBy,
+			employeeMenu: filter.employeeMenu,
+			orderPlatform: filter.orderPlatform,
+			mealId: filter.mealId,
+			statusId: filter.statusId
+		};
+
+		$scope.$broadcast('exportEmployeeOrderHistoryReport');
+	};
 } ]);

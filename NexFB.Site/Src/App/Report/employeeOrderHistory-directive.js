@@ -10,7 +10,7 @@ reportModule.directive('renderEmployeeOrderHistoryReport', function () {
 
 			for (var i = 0; i < menus.length; i++) {
 				var menu = menus[i],
-				menuHtml = '<ul class="list-order list-unstyled"><li>' +
+				menuHtml = '<ul class="list-order list-unstyled list-employee-menu"><li>' +
 					menu.QuantityOrder + ' x "' + menu.NameEN + '"</li></ul>';
 
 				cell += menuHtml;
@@ -21,19 +21,25 @@ reportModule.directive('renderEmployeeOrderHistoryReport', function () {
 
 		var createMyAmount = function (currentCell) {
 			var menus = currentCell.Value,
-				cell = '';
+				amount = 0;
 
 			if (menus && menus.length > 0) {
 				for (var i = 0; i < menus.length; i++) {
 					var menu = menus[i],
-						value = menu.TotalAmount && menu.TotalAmount > 0 ? numeral(menu.TotalAmount).format(scope.numberFormat) : 'N/A',
-						menuHtml = '<ul class="list-order list-unstyled"><li>' + value + '</li></ul>';
+						value = !menu.IsMainMenu ? menu.TotalAmount : 0;
 
-					cell += menuHtml;
+					if (menu.IsMainMenu && menus.length === 1) {
+						return 'N/A';
+					}
+
+					amount += value;
 				}
 			}
+			else {
+				return '';
+			}
 
-			return cell;
+			return numeral(amount).format(scope.numberFormat);
 		};
 
 		var getCssClass = function (statusId, orderStatus) {
@@ -96,12 +102,12 @@ reportModule.directive('renderEmployeeOrderHistoryReport', function () {
 		return rows;
 	};
 
-	var generateDataHeader = function () {
+	var generateDataHeader = function (numberFormat) {
 		var columns = [
 			{ HeaderText: "#", Width: 80, Name: "Count", HeaderAlign: "center", CellAlign: "center" },
 			{ HeaderText: "Date", Width: 100, Name: "Date", HeaderAlign: "center", CellAlign: "center" },
 			{ HeaderText: "Meal", Width: 90, Name: "Meal", HeaderAlign: "center", CellAlign: "center" },
-			{ HeaderText: "Order", Width: 90, Name: "Order", HeaderAlign: "center", CellAlign: "center" },
+			{ HeaderText: "Order", Width: 90, Name: "Order", HeaderAlign: "center", CellAlign: "center", FormatNumber: numberFormat },
 			{ HeaderText: "Status", Width: 100, Name: "Status", HeaderAlign: "center", CellAlign: "left" },
 			{ HeaderText: "Ordered By", Width: 120, Name: "OrderedBy", HeaderAlign: "center", CellAlign: "left" },
 			{ HeaderText: "Order Platform", Width: 150, Name: "OrderPlatform", HeaderAlign: "center", CellAlign: "left" },
@@ -183,3 +189,23 @@ reportModule.directive('renderEmployeeOrderHistoryReport', function () {
 		}
 	};
 });
+
+reportModule.directive('exportEmployeeOrderHistoryReport', ['baseUrl', function (baseUrl) {
+	return {
+		link: function (scope) {
+			scope.$on('exportEmployeeOrderHistoryReport', function () {
+				var data = $.param(scope.criteria),
+					url = baseUrl + 'ExportReport/ExportEmployeeOrderHistoryReport',
+					downloadUrl = url + "?" + data,
+					iframe = $('body iframe');
+
+				if (iframe.length === 0) {
+					iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
+					iframe.appendTo('body');
+				}
+
+				iframe.attr('src', downloadUrl);
+			});
+		}
+	};
+} ]);

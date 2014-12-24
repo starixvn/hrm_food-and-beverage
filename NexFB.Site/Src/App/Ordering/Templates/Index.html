@@ -69,7 +69,7 @@
                 <td>
 					<div ng-show="order.CurrentMenus.length == 1">
 						<span class="lnk-member">
-							<a ng-show="order.CurrentMenus[0].QuantityOrder > 1" ng-mouseover="showNameViet(order.CurrentMenus[0], order)" 
+							<a href="javascript:;" ng-show="order.CurrentMenus[0].QuantityOrder > 1" ng-mouseover="showNameViet(order.CurrentMenus[0], order)" 
 								ng-mouseout="hideNameViet(order.CurrentMenus[0], order)">
 								{{order.CurrentMenus[0].QuantityOrder}} x "{{order.CurrentMenus[0].Name}}"
 							</a>
@@ -79,7 +79,7 @@
 									<span ng-bind="order.CurrentMenus[0].NameVN"></span>
 								</li>
 							</ul>
-							<a ng-show="order.CurrentMenus[0].QuantityOrder == 1" ng-mouseover="showNameViet(order.CurrentMenus[0], order)" 
+							<a href="javascript:;" ng-show="order.CurrentMenus[0].QuantityOrder == 1" ng-mouseover="showNameViet(order.CurrentMenus[0], order)" 
 								ng-mouseout="hideNameViet(order.CurrentMenus[0], order)">
 								{{order.CurrentMenus[0].Name}}
 							</a>
@@ -94,7 +94,7 @@
 					<div ng-show="order.CurrentMenus.length > 1">
 						<ul class="list-order list-unstyled" ng-repeat="menu in order.CurrentMenus">
 							<span class="lnk-member">
-								<a ng-mouseover="showNameViet(menu, order)" 
+								<a href="javascript:;" ng-mouseover="showNameViet(menu, order)" 
 									ng-mouseout="hideNameViet(menu, order)">
 									{{menu.QuantityOrder}} x "{{menu.Name}}"
 								</a>
