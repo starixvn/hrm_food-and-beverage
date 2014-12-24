@@ -1,5 +1,5 @@
 ﻿// ----------------------------------------------------------------------
-// <copyright file="MenuType.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="FoodMenuType.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // ------------------------------------------------------------------------
@@ -12,9 +12,9 @@ namespace NexFB.Core.Enums
     using System.ComponentModel;
 
     /// <summary>
-    /// The Menu Type ENUM.
+    /// The Food Menu Type ENUM.
     /// </summary>
-    public enum MenuType
+    public enum FoodMenuType
     {
         /// <summary>
         /// The all item.

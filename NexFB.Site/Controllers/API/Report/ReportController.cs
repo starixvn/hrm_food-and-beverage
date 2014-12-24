@@ -330,7 +330,7 @@ namespace NexFB.Site.Controllers.API.Report
         {
             var menuTypes = new List<object>();
 
-            foreach (MenuType menuTypeEnum in (MenuType[])Enum.GetValues(typeof(MenuType)))
+            foreach (FoodMenuType menuTypeEnum in (FoodMenuType[])Enum.GetValues(typeof(FoodMenuType)))
             {
                 var menuType = new
                 {
