@@ -12,10 +12,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using System;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Threading;
+    using System.Xml;
     using AutoLogOffHelper;
     using AutoMapper;
     using Microsoft.AspNet.SignalR.Client;
@@ -40,7 +44,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     {
         private static string _host = ConfigurationManager.AppSettings[ConstantValue.HubHost];
         private static string _hostLocal = ConfigurationManager.AppSettings[ConstantValue.HubHostLocal];
-        private static string _themes = ConfigurationManager.AppSettings[ConstantValue.Themes];
+        private static DispatcherTimer dailyClockDispatcher = new DispatcherTimer();
         private ViewModelBase _currentViewModel;
 
         public MainViewModel()
@@ -60,6 +64,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
             CheckCurrentScreen();
             this.SideButtonEnable = true;
             this.MainButtonEnable = true;
+
+            TimerDailyClock();
         }
 
         #region Properties
@@ -555,22 +561,78 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
+        /// <summary>
+        /// Set Application Themes.
+        /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         private void SetApplicationThemes()
         {
-            if (!string.IsNullOrEmpty(_themes))
+            try
             {
-                IdleScreenThemes = _themes == ConstantValue.ThemeXmas ? ConstantValue.XmasBackground : ConstantValue.NormalBackground;
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                XmlDocument xd = new XmlDocument();
+                var currentDate = DateTime.Now.Date;
+                int currentYear = DateTime.Now.Year;
+                CultureInfo currentCulture = CultureInfo.CurrentCulture;
+                string xmlDateFormat = "dd/MM/yyyy";
+
+                xd.Load(Path.Combine(baseDirectory, "Themes.xml"));
+                XmlNodeList nodelist = xd.SelectNodes("/Theme/ImageTheme");
+
+                var themeList = nodelist.Cast<XmlNode>().Select(x => new
+                {
+                    From = string.Format(x.SelectSingleNode("From").InnerText.ToString(), currentYear).ToString(),
+                    To = string.Format(x.SelectSingleNode("To").InnerText, currentYear).ToString(),
+                    ImageSource = Path.Combine(baseDirectory, string.Format("Images\\Themes\\{0}", x.SelectSingleNode("ImageName").InnerText)).ToString()
+                }).ToList();
+
+                IdleScreenThemes = ConstantValue.NormalBackground;
+                foreach (var item in themeList)
+                {
+                    var fromDate = DateTime.ParseExact(item.From, xmlDateFormat, currentCulture);
+                    var toDate = DateTime.ParseExact(item.To, xmlDateFormat, currentCulture);
+
+                    if (fromDate > toDate)
+                    {
+                        toDate = toDate.AddYears(1);
+                    }
+
+                    if (currentDate >= fromDate && currentDate <= toDate)
+                    {
+                        IdleScreenThemes = item.ImageSource;
+                    }
+                }
             }
-            else
+            catch (Exception)
             {
                 IdleScreenThemes = ConstantValue.NormalBackground;
+            }
+        }
+
+        private void TimerDailyClock()
+        {
+            dailyClockDispatcher.Interval = new TimeSpan(0, 45, 0);
+            dailyClockDispatcher.Tick += new EventHandler(TimerTick);
+            dailyClockDispatcher.Start();
+        }
+
+        /// <summary>
+        /// Timer click.
+        /// </summary>
+        /// <param name="sender">Object sender.</param>
+        /// <param name="e">Event Arguments.</param>
+        private void TimerTick(object sender, EventArgs e)
+        {
+            if (DateTime.Now.Hour == 0)
+            {
+                SetApplicationThemes();
             }
         }
 
         /// <summary>
         /// Connect to server hub.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         private void InitializeHubConnection()
         {
             Active = true;
@@ -598,7 +660,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// <summary>
         /// Connect to local hub.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         private void InitializeHubConnectionLocal()
         {
             ActiveLocal = true;

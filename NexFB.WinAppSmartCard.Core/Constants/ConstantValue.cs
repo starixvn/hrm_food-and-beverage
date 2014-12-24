@@ -62,12 +62,6 @@ namespace NexFB.WinAppSmartCard.Core.Constants
 
         public const string VietNameseCultureCode = "vi-VN";
 
-        public const string ThemeXmas = "XMAS";
-
-        public const string XmasBackground = "pack://application:,,,/Images/POS_IdleScreen_Xmas.jpg";
-
-        public const string ThemeNornal = "NORMAL";
-
         public const string NormalBackground = "pack://application:,,,/Images/bg.jpg";
 
         public const string Themes = "Themes";

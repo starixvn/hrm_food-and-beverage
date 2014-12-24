@@ -1,0 +1,18 @@
+﻿<!--Date time must be in format "dd/mm/yyyy" -> Ex: '01/01/2015' not use '1/1/2015'-->
+
+<Theme>
+	<ImageTheme>
+		<From>15/12/{0}</From>
+		<To>31/12/{0}</To>
+		<ImageName>Xmas.jpg</ImageName>
+		<Description>X-Mas</Description>
+	</ImageTheme>
+
+	<ImageTheme>
+		<From>01/01/{0}</From>
+		<To>28/02/{0}</To>
+		<ImageName>NewYear.jpg</ImageName>
+		<Description>New Year</Description>
+	</ImageTheme>
+
+</Theme>

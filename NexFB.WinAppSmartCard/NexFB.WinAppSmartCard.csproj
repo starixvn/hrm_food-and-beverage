@@ -296,6 +296,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Themes.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Images\remove.png" />
     <Resource Include="Images\remove1.png" />
     <Resource Include="Images\edit.png" />
@@ -312,7 +315,12 @@
     <Resource Include="Images\checkbox-checked.png" />
     <Resource Include="Images\checkbox-unchecked.png" />
     <Resource Include="employeeIcon.ico" />
-    <Resource Include="Images\POS_IdleScreen_Xmas.jpg" />
+    <Content Include="Images\Themes\Xmas.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Themes\NewYear.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SpNames.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
