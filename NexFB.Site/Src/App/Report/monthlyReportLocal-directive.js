@@ -269,3 +269,25 @@ reportModule.directive('exportMonthlyMainDishLocalReport', ['baseUrl', function 
 		}
 	};
 } ]);
+
+reportModule.directive('resetScroll', ['$timeout', function (timer) {
+	return {
+		restrict: 'A',
+		link: function (scope, iElement) {
+			iElement.click(function () {
+				var resetScroll = function () {
+					scope.$watch(
+						function () { return $('.x-scrollbar').length; },
+						function (newValue) {
+							if (newValue) {
+								$(".x-scrollbar").scrollLeft(1, 0);
+								$('.y-scrollbar').scrollTop(1, 1)
+							}
+						}
+					);
+				};
+				timer(resetScroll, 500);
+			});
+		}
+	};
+} ]);
