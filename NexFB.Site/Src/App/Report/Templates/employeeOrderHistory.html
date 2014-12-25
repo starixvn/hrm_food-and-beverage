@@ -5,8 +5,8 @@
 			<li class="current" data-translate="EmployeeOrderHistoryReport"></li>
 		</ul>
 	</div>
-		<div class="row filter">
-		<form class="form-horizontal form-multiLine" role="form">
+		<div class="row filter order-history-filter">
+		<form class="order-history-report form-horizontal form-multiLine" role="form">
 			<div class="form-group">
 			    <label class="col-sm-1 text-right" data-translate="Meal"></label>
                 <div class="col-sm-2 field">
@@ -21,7 +21,7 @@
                 </div>
 				<label class="col-sm-1 text-right" data-translate="OrderPlatform"></label>
                 <div class="col-sm-2 field">
-					<select ng-model="filter.orderPlatform" ng-options="orderPlatformItem.Value as orderPlatformItem.Name for orderPlatformItem in orderPlatformOptions" >
+					<select class="order-platform-history-report" ng-model="filter.orderPlatform" ng-options="orderPlatformItem.Value as orderPlatformItem.Name for orderPlatformItem in orderPlatformOptions" >
 					</select>
                 </div>
 				<label class="col-sm-1 text-right" data-translate="OrderStatus"></label>

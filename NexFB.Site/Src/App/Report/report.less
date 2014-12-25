@@ -58,7 +58,17 @@
 	.my-menu-history-report {
 		width: 139px;
 	}
+	.order-platform-history-report {
+		width: 139px;
+	}
 }
+
+.order-history-report {
+	.multiSelect .multiSelectItem {
+		min-width: 160px;
+	}
+}
+
 .tbl-report thead .date th:nth-child(2),
 .tbl-report thead .date th:nth-child(3),
 .tbl-report thead .date th:nth-child(9),
@@ -84,7 +94,10 @@
 	height: 20px;
 }
 .eq-ie9 {
-	#monthlyReport *{
+	#monthlyReport, #employeeOrderHistoryReport *{
 		box-sizing: content-box;
 	}
+}
+.order-history-filter {
+	max-width:1242px;
 }
