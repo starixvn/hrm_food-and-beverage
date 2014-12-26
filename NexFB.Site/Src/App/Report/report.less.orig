@@ -66,7 +66,19 @@
 .order-history-report {
 	.multiSelect .multiSelectItem {
 		min-width: 160px;
+<<<<<<< HEAD
 	}
+=======
+}
+.daily-main-dish {
+	max-width: 1242px;
+}
+
+.checkboxLayer.show {
+	max-height: 250px;
+	overflow-x: hidden;
+	overflow-y: auto;
+>>>>>>> #000 - Edit css of filter
 }
 
 .tbl-report thead .date th:nth-child(2),
@@ -109,8 +121,8 @@
 	}
 }
 .order-history-filter {
-<<<<<<< HEAD
 	max-width:1240px;
+<<<<<<< HEAD
 }
 .monthly-per-meal-filter {
     max-width: 1245px;
@@ -127,7 +139,5 @@
 			overflow-x:hidden
 		}
 	}
-}
 =======
-	max-width:1240px;
->>>>>>> #000 - Fixed wrong merge
+>>>>>>> #000 - Edit css of filter

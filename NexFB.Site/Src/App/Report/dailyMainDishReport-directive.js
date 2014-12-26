@@ -57,12 +57,12 @@ reportModule.directive('renderDailyReport', function () {
 			{ HeaderText: "#", Width: 60, Name: "Count", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
 			{ HeaderText: "Date", Width: 120, Name: "Date", HeaderAlign: "center", CellAlign: "center" },
 			{ HeaderText: "Shift", Width: 100, Name: "Shift", HeaderAlign: "center", CellAlign: "center" },
-			{ HeaderText: "Full Name", Width: 180, Name: "FullName", HeaderAlign: "center", CellAlign: "left" },
+			{ HeaderText: "Full Name", Width: 240, Name: "FullName", HeaderAlign: "center", CellAlign: "left" },
 			{ HeaderText: "Nick", Width: 140, Name: "NickName", HeaderAlign: "center", CellAlign: "left" },
-			{ HeaderText: "Breakfast", Width: 100, Name: "Breakfast", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
-			{ HeaderText: "Lunch", Width: 100, Name: "Lunch", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
-			{ HeaderText: "Dinner", Width: 100, Name: "Dinner", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
-			{ HeaderText: "Supper", Width: 100, Name: "Supper", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat }
+			{ HeaderText: "Breakfast", Width: 130, Name: "Breakfast", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+			{ HeaderText: "Lunch", Width: 130, Name: "Lunch", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+			{ HeaderText: "Dinner", Width: 130, Name: "Dinner", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+			{ HeaderText: "Supper", Width: 130, Name: "Supper", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat }
 		];
 
 		return columns;
