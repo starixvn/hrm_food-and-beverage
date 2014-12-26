@@ -64,7 +64,7 @@ namespace NexFB.Repositories.Implement
                     {
                         if (rolesDepartment != null)
                         {
-                            roles = GetAdminDepartment(roles, rolesDepartment);
+                            roles = GetFinanceDepartment(roles, rolesDepartment);
                         }
 
                         employees = GetRolesOfEmployees(employees, roles);
@@ -115,7 +115,7 @@ namespace NexFB.Repositories.Implement
                     {
                         if (rolesDepartment != null)
                         {
-                            roles = GetAdminDepartment(roles, rolesDepartment);
+                            roles = GetFinanceDepartment(roles, rolesDepartment);
                         }
 
                         employees = GetRolesOfEmployees(employees, roles);
@@ -207,12 +207,12 @@ namespace NexFB.Repositories.Implement
         }
 
         /// <summary>
-        /// Get department of Admin role.
+        /// Get department of Finance role.
         /// </summary>
         /// <param name="roles">The enumerator roles.</param>
         /// <param name="rolesDepartment">The enumerator role and department of role.</param>
         /// <returns>The enumerator roles with department.</returns>
-        private IEnumerable<EmployeeRoleModel> GetAdminDepartment(
+        private IEnumerable<EmployeeRoleModel> GetFinanceDepartment(
             IEnumerable<EmployeeRoleModel> roles,
             IEnumerable<RoleDepartmentModel> rolesDepartment)
         {

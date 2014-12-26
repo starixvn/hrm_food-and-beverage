@@ -281,7 +281,7 @@ reportModule.directive('resetScroll', ['$timeout', function (timer) {
 						function (newValue) {
 							if (newValue) {
 								$(".x-scrollbar").scrollLeft(1, 0);
-								$('.y-scrollbar').scrollTop(1, 1)
+								$('.y-scrollbar').scrollTop(1, 1);
 							}
 						}
 					);
