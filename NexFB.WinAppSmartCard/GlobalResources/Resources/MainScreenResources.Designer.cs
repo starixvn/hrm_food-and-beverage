@@ -178,6 +178,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to pack://application:,,,/Images/Flag_of_England.png.
+        /// </summary>
+        internal static string FlagSource {
+            get {
+                return ResourceManager.GetString("FlagSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main Dish.
         /// </summary>
         internal static string MainDishes {

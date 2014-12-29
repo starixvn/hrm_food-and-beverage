@@ -156,6 +156,9 @@
   <data name="Exit" xml:space="preserve">
     <value>Thoát</value>
   </data>
+  <data name="FlagSource" xml:space="preserve">
+    <value>pack://application:,,,/Images/Flag_of_Vietnam.png</value>
+  </data>
   <data name="MainDishes" xml:space="preserve">
     <value>Món Chính</value>
   </data>

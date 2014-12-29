@@ -156,6 +156,9 @@
   <data name="Exit" xml:space="preserve">
     <value>Exit</value>
   </data>
+  <data name="FlagSource" xml:space="preserve">
+    <value>pack://application:,,,/Images/Flag_of_England.png</value>
+  </data>
   <data name="MainDishes" xml:space="preserve">
     <value>Main Dish</value>
   </data>

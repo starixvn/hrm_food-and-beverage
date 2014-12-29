@@ -3,13 +3,13 @@
 <Theme>
 	<ImageTheme>
 		<From>15/12/{0}</From>
-		<To>31/12/{0}</To>
+		<To>28/12/{0}</To>
 		<ImageName>Xmas.jpg</ImageName>
 		<Description>X-Mas</Description>
 	</ImageTheme>
 
 	<ImageTheme>
-		<From>01/01/{0}</From>
+		<From>29/12/{0}</From>
 		<To>28/02/{0}</To>
 		<ImageName>NewYear.jpg</ImageName>
 		<Description>New Year</Description>

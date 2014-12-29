@@ -156,6 +156,9 @@
   <data name="Exit" xml:space="preserve">
     <value>退出</value>
   </data>
+  <data name="FlagSource" xml:space="preserve">
+    <value>pack://application:,,,/Images/Flag_of_China.png</value>
+  </data>
   <data name="MainDishes" xml:space="preserve">
     <value>正餐</value>
   </data>
