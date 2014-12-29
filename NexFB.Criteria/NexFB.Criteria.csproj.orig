@@ -66,11 +66,7 @@
     <Compile Include="DeliveryArea\InsertDeliveryAreaCriteria.cs" />
     <Compile Include="DeliveryArea\UpdateDeliveryAreaCriteria.cs" />
     <Compile Include="Department\GetAllDepartmentCriteria.cs" />
-<<<<<<< HEAD
-=======
-    <Compile Include="Department\GetAllLocationCriteria.cs" />
     <Compile Include="Employee\ActivateSpecialUserCriteria.cs" />
->>>>>>> #27226 -  Implement Special Employee Management
     <Compile Include="Employee\ChangePasswordCriteria.cs" />
     <Compile Include="Employee\GetSpecialUserByIdCriteria.cs" />
     <Compile Include="Employee\DeleteSpecialUserCriteria.cs" />
@@ -147,7 +143,11 @@
     <Compile Include="Ordering\InsertOrderCriteria.cs" />
     <Compile Include="Ordering\UpdateOrderSideDishCriteria.cs" />
     <Compile Include="Report\GetDailyMainDishPricePerMealReportCriteria.cs" />
+<<<<<<< HEAD
     <Compile Include="Report\GetEmployeeOrderHistoryCriteria.cs" />
+=======
+    <Compile Include="Report\GetMonthlyMainDishPerDayReportCriteria.cs" />
+>>>>>>> #28185 - Define model, criteria, get data from DB
     <Compile Include="Report\GetMonthlyMainDishReportLocalCriteria.cs" />
     <Compile Include="SetMenuManagement\GetSetMenuByIdCriteria.cs" />
     <Compile Include="SetMenuManagement\UpdateStatusSetMenuCriteria.cs" />

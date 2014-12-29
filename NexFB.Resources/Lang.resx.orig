@@ -955,6 +955,33 @@
   <data name="FloorRequire" xml:space="preserve">
     <value>The Floor field is requried!</value>
   </data>
+   <data name="SpecialEmployeeManagement" xml:space="preserve">
+    <value>Special Employee Management</value>
+  </data>
+ <data name="EmployeeCode" xml:space="preserve">
+    <value>Employee code</value>
+  </data>
+   <data name="RequireDepartment" xml:space="preserve">
+    <value>The Department field is required!</value>
+  </data>
+   <data name="RequireEmployeeCode" xml:space="preserve">
+    <value>The Employee code field is required!</value>
+  </data>
+   <data name="RequireEmployeeName" xml:space="preserve">
+    <value>The Employee name field is required!</value>
+  </data>
+ <data name="RequireEmployeeType" xml:space="preserve">
+    <value>The Employee type field is required!</value>
+  </data>
+ <data name="SelectDepartment" xml:space="preserve">
+    <value>Select department</value>
+  </data>
+   <data name="SelectEmployeeType" xml:space="preserve">
+    <value>Select employee type</value>
+  </data>
+ <data name="EditSpecialEmployee" xml:space="preserve">
+    <value>Edit Special Employee</value> 
+ </data>
   <data name="ManageGroupLabel" xml:space="preserve">
     <value>USER GROUP MANAGEMENT - GROUP</value>
   </data>
@@ -988,32 +1015,11 @@
   <data name="DateRangeInvalid" xml:space="preserve">
     <value>Invalid date range. From Date must be less than To Date.</value>
 =======
-  <data name="SpecialEmployeeManagement" xml:space="preserve">
-    <value>Special Employee Management</value>
+  <data name="OffDay" xml:space="preserve">
+    <value>Off day</value>
   </data>
-  <data name="EmployeeCode" xml:space="preserve">
-    <value>Employee code</value>
-  </data>
-  <data name="RequireDepartment" xml:space="preserve">
-    <value>The Department field is required!</value>
-  </data>
-  <data name="RequireEmployeeCode" xml:space="preserve">
-    <value>The Employee code field is required!</value>
-  </data>
-  <data name="RequireEmployeeName" xml:space="preserve">
-    <value>The Employee name field is required!</value>
-  </data>
-  <data name="RequireEmployeeType" xml:space="preserve">
-    <value>The Employee type field is required!</value>
-  </data>
-  <data name="SelectDepartment" xml:space="preserve">
-    <value>Select department</value>
-  </data>
-  <data name="SelectEmployeeType" xml:space="preserve">
-    <value>Select employee type</value>
-  </data>
-  <data name="EditSpecialEmployee" xml:space="preserve">
-    <value>Edit Special Employee</value>
->>>>>>> #27226 -  Implement Special Employee Management
+  <data name="WorkDay" xml:space="preserve">
+    <value>Work day</value>
+>>>>>>> #28185 - Define model, criteria, get data from DB
   </data>
 </root>

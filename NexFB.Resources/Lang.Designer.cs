@@ -1861,6 +1861,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Off day.
+        /// </summary>
+        public static string OffDay {
+            get {
+                return ResourceManager.GetString("OffDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Old Password.
         /// </summary>
         public static string OldPassword {
@@ -2748,6 +2757,15 @@ namespace NexFB.Resources {
         public static string WorkDate {
             get {
                 return ResourceManager.GetString("WorkDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work day.
+        /// </summary>
+        public static string WorkDay {
+            get {
+                return ResourceManager.GetString("WorkDay", resourceCulture);
             }
         }
     }

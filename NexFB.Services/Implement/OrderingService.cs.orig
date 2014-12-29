@@ -299,7 +299,7 @@ namespace NexFB.Services.Implement
         /// <param name="translatorAPIPath">The translator API Url.</param>
 =======
         /// <param name="translatorAPIPath">The translator API path.</param>
->>>>>>> #28004 - Define model and criteria, fixed fx-cop
+>>>>>>> #28185 - Define model, criteria, get data from DB
         /// <returns>The translated remark.</returns>
         public string TranslateRemark(string remark, string translatorAPIPath)
         {

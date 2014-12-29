@@ -930,6 +930,12 @@
   <data name="EmployeeOrderHistoryReport" xml:space="preserve">
     <value>My Order History</value>
   </data>
+    <data name="OffDay" xml:space="preserve">
+    <value>Off day</value>
+  </data>
+  <data name="WorkDay" xml:space="preserve">
+    <value>Work day</value>
+  </data>
   <data name="CreateDeliveryArea" xml:space="preserve">
     <value>Create Delivery Area</value>
   </data>

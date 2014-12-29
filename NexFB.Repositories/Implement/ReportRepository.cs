@@ -17,6 +17,7 @@ namespace NexFB.Repositories.Implement
     using NexFB.Models.Entities;
     using NexFB.Models.MealRegistration;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
+    using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Repositories.Interface;
 
@@ -76,6 +77,138 @@ namespace NexFB.Repositories.Implement
                 }
             }
         }
+
+        /// <summary>
+        /// Get monthly main dish per day report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The monthly main dish per day report.</returns>
+        public MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var report = new MonthlyMainDishPerDayModel();
+
+                IEnumerable<dynamic> rawReport = db.Query<dynamic>(criteria.GetSpParams());
+
+                if (rawReport != null)
+                {
+                    report.TypeDays = GetMealsInMonthPerDay(rawReport);
+                    report.WeekDays = GetWeekDayPerDay(rawReport);
+                    report.Total = CalculateTotalMealsPerDay(report.TypeDays);
+                }
+
+                return report;
+            }
+        }
+
+        #region Monthly Main Dish Per Day Report
+
+        /// <summary>
+        /// Get meals per day in month.
+        /// </summary>
+        /// <param name="rawReport">The raw report.</param>
+        /// <returns>The list meals per day.</returns>
+        private List<MainDishPerDayModel> GetMealsInMonthPerDay(IEnumerable<dynamic> rawReport)
+        {
+            var meals = new List<MainDishPerDayModel>();
+            IEnumerable<dynamic> offDayRows = rawReport.Where(x => x.IsOffDay == 1);
+            IEnumerable<dynamic> wordDayRows = rawReport.Where(x => x.IsOffDay == 0);
+
+            if (offDayRows != null && offDayRows.Count() > 0)
+            {
+                var offDayMeals = new MainDishPerDayModel
+                {
+                    IsOffDay = true,
+                    MealItems = CreateMealItemPerDay(offDayRows)
+                };
+
+                meals.Add(offDayMeals);
+            }
+
+            if (wordDayRows != null && wordDayRows.Count() > 0)
+            {
+                var wordDayMeals = new MainDishPerDayModel 
+                {
+                    IsOffDay = false,
+                    MealItems = CreateMealItemPerDay(wordDayRows)
+                };
+
+                meals.Add(wordDayMeals);
+            }
+
+            return meals;
+        }
+
+        /// <summary>
+        /// Create meal items per day.
+        /// </summary>
+        /// <param name="rawMeals">The raw meals.</param>
+        /// <returns>The list meal items.</returns>
+        private List<MealItemMonthModel> CreateMealItemPerDay(IEnumerable<dynamic> rawMeals)
+        {
+            var mealItems = new List<MealItemMonthModel>();
+
+            foreach (dynamic rawMeal in rawMeals)
+            {
+                MealItemMonthModel mealItem = GetItemOfMeal(rawMeal);
+                mealItems.Add(mealItem);
+            }
+
+            return mealItems;
+        }
+
+         /// <summary>
+        /// Get weekday in month.
+        /// </summary>
+        /// <param name="rawReport">The raw data of report.</param>
+        /// <returns>The model contain weekdays in month.</returns>
+        private MealDayOfMonthModel GetWeekDayPerDay(IEnumerable<dynamic> rawReport)
+        {
+            var weekDays = new MealDayOfMonthModel();
+
+            dynamic rawWeekDay = rawReport.Where(x => x.IsOffDay == null).First();
+            weekDays.NumberMeals = GetNumberMealsInMonth(rawWeekDay);
+
+            return weekDays;
+        }
+
+        /// <summary>
+        /// Calculate total meals in month per day.
+        /// </summary>
+        /// <param name="meals">The list meals per day in month.</param>
+        /// <returns>The model contain total meals per day in month.</returns>
+        private MealDayOfMonthModel CalculateTotalMealsPerDay(List<MainDishPerDayModel> meals)
+        {
+            var total = new MealDayOfMonthModel();
+
+            foreach (MainDishPerDayModel meal in meals)
+            {
+                foreach (MealItemMonthModel mealItem in meal.MealItems)
+                {
+                    List<int> numberMeals = mealItem.NumberMealsMonth.NumberMeals;
+
+                    for (int i = 0; i < numberMeals.Count(); i++)
+                    {
+                        if (total.NumberMeals.Count < numberMeals.Count())
+                        {
+                            total.NumberMeals.Add(numberMeals[i]);
+                        }
+                        else
+                        {
+                            total.NumberMeals[i] += numberMeals[i];
+                        }
+                    }
+
+                    total.TotalQuantity += mealItem.NumberMealsMonth.TotalQuantity;
+                    total.Amount += mealItem.NumberMealsMonth.Amount;
+                }
+            }
+
+            return total;
+        }
+
+        #endregion Monthly Main Dish Per Day Report
 
         private int CalculateTotalAmount(TotalPriceModel totalPriceModel)
         {

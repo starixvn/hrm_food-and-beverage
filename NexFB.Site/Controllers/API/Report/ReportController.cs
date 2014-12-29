@@ -21,6 +21,7 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Models.Entities;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.EmployeeOrderHistory;
+    using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Services.Implement;
     using NexFB.Services.Implement.Report;
@@ -38,6 +39,7 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly ICommonService _commonService;
         private readonly IUserControlService _userControlService;
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
+        private readonly IMonthlyMainDishPerDayReportService _monthlyPerDayService;
 
         public ReportController()
             : this(null, null, null, null)
@@ -48,12 +50,14 @@ namespace NexFB.Site.Controllers.API.Report
             IReportService reportService,
             ICommonService commonService,
             IUserControlService userControlService,
-            IEmployeeOrderHistoryService employeeOrderHistoryService)
+            IEmployeeOrderHistoryService employeeOrderHistoryService,
+            IMonthlyMainDishPerDayReportService monthlyPerDayService)
         {
             _reportService = reportService ?? new ReportService();
             _commonService = commonService ?? new CommonService();
             _userControlService = userControlService ?? new UserControlService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
+            _monthlyPerDayService = monthlyPerDayService ?? new MonthlyMainDishPerDayReportService();
         }
 
         /// <summary>
@@ -250,6 +254,42 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
+         /// <summary>
+        /// Monthly main dish per day report.
+        /// </summary>
+        /// <param name="reportDate">The report date.</param>
+        /// <param name="departmentId">The department Id.</param>
+        /// <param name="employeeTypeId">The employee Type Id.</param>
+        /// <param name="teamId">The team Id.</param>
+        /// <param name="workDay">The work day.</param>
+        /// <param name="groupBy">The is group by : employee or team.</param>
+        /// <param name="isDebug">The is debug.</param>
+        /// <param name="isLocal">The is local.</param>
+        /// <returns>The report.</returns>
+        public MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport(
+            DateTime reportDate,
+            string departmentId = "",
+            string employeeTypeId = "",
+            string teamId = "",
+            bool? workDay = null,
+            int groupBy = 0,
+            bool isDebug = false,
+            int isLocal = 1)
+        {
+            var criteria = new GetMonthlyMainDishPerDayReportCriteria
+            {
+                ReportDate = reportDate,
+                DepartmentId = departmentId,
+                EmployeeTypeId = employeeTypeId,
+                TeamId = teamId,
+                WorkDay = workDay,
+                GroupBy = groupBy,
+                IsDebug = isDebug,
+                IsLocal = isLocal
+            };
+
+            return _monthlyPerDayService.GetMonthlyMainDishPerDayReport(criteria);
+            
         /// <summary>
         /// Get Ordered By ENUM.
         /// </summary>

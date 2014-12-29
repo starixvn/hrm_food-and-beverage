@@ -334,6 +334,8 @@
 			<Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status"/>
 			<Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status"/>
 		</Setting>
+		<Setting Key="RPT_MonthMainDishByExpat" SpName="RPT_MonthMainDishByExpat" DbName="NexFB" Plain="0" >
+		</Setting>
 	</Function>
   <Function Name="ManageGroup">
     <Setting Key="GroupOrderAdmin_EditActiveGroup" SpName="GroupOrderAdmin_EditActiveGroup" DbName="NexFB" Plain="0" ></Setting>

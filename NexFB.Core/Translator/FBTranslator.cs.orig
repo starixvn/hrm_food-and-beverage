@@ -29,8 +29,8 @@ namespace NexFB.Core.Translator
 <<<<<<< HEAD
         /// <param name="translatorAPIPath">The translator API Url.</param>
 =======
-        /// <param name="translatorAPIPath">The translator API Path.</param>
->>>>>>> #28004 - Define model and criteria, fixed fx-cop
+        /// <param name="translatorAPIPath">The translator API path.</param>
+>>>>>>> #28185 - Define model, criteria, get data from DB
         /// <returns>Translated text into vietnamese language.</returns>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         public static string AutoTranslation(string sourceText, string translatorAPIPath)
@@ -63,7 +63,11 @@ namespace NexFB.Core.Translator
         /// Google translate text.
         /// </summary>
         /// <param name="sourceText">Source text.</param>
+<<<<<<< HEAD
         /// <param name="translatorAPIPath">The translator API Path.</param>
+=======
+        /// <param name="translatorAPIPath">The translator API path.</param>
+>>>>>>> #28185 - Define model, criteria, get data from DB
         /// <returns>Vietnamese language.</returns>
         private static string TranslateText(string sourceText, string translatorAPIPath)
         {

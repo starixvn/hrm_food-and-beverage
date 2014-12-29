@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{487D35C7-B5F4-4CA5-902B-7C300569912F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NexFB.Models</RootNamespace>
+    <AssemblyName>NexFB.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlternativeMenuManagement\AlternativeMenuModel.cs" />
+    <Compile Include="Authority\ChangePasswordModel.cs" />
+    <Compile Include="Authority\LoginModel.cs" />
+    <Compile Include="Authority\MenuGroup.cs" />
+    <Compile Include="Authority\MenuItem.cs" />
+    <Compile Include="Employee\EmployeeModel.cs" />
+    <Compile Include="Employee\EmployeeTypeModel.cs" />
+    <Compile Include="Employee\SpecialUser.cs" />
+    <Compile Include="Entities\Department.cs" />
+    <Compile Include="Entities\Employee.cs" />
+    <Compile Include="Authority\SystemRole.cs" />
+    <Compile Include="Authority\UserSession.cs" />
+    <Compile Include="Entities\Food.cs" />
+    <Compile Include="Entities\Location.cs" />
+    <Compile Include="Entities\MealTimesheet.cs" />
+    <Compile Include="Entities\Menu.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Shift.cs" />
+    <Compile Include="Entities\Status.cs" />
+    <Compile Include="Entities\Team.cs" />
+    <Compile Include="FoodItemManagement\FoodItemModel.cs" />
+    <Compile Include="FoodItemManagement\RawFoodSetMenuModel.cs" />
+    <Compile Include="FoodMealPlanning\MealPlanningModel.cs" />
+    <Compile Include="FoodMenuManagement\FoodMenuModel.cs" />
+    <Compile Include="GroupControl\GroupModel.cs" />
+    <Compile Include="GroupControl\MemberModel.cs" />
+    <Compile Include="Kitchen\EmployeeInGroup.cs" />
+    <Compile Include="Kitchen\EmployeeOrderStatus.cs" />
+    <Compile Include="Kitchen\FoodOrder.cs" />
+    <Compile Include="Kitchen\GroupOrder.cs" />
+    <Compile Include="Kitchen\EmployeeInfo.cs" />
+    <Compile Include="Kitchen\HubData.cs" />
+    <Compile Include="Kitchen\MenuCount.cs" />
+    <Compile Include="Kitchen\OrderMenu.cs" />
+    <Compile Include="Kitchen\Order.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Kitchen\OrderResult.cs" />
+    <Compile Include="MealRegistration\DefaultMealModel.cs" />
+    <Compile Include="MealRegistration\MealDateModel.cs" />
+    <Compile Include="MealRegistration\MealModel.cs" />
+    <Compile Include="MealRegistration\MealRegisterModel.cs" />
+    <Compile Include="MealRegistration\RawMealDateModel.cs" />
+    <Compile Include="MealRegistration\RegisterMealSetting.cs" />
+    <Compile Include="Ordering\MealOrderingModel.cs" />
+    <Compile Include="Ordering\MenuQuantityModel.cs" />
+    <Compile Include="Ordering\OrderMemberModel.cs" />
+    <Compile Include="Report\DailyMainDishPricePerMealReport\DailyEmployeeMainDishModel.cs" />
+    <Compile Include="Report\DailyMainDishPricePerMealReport\DailyMainDishDepartmentTeamModel.cs" />
+    <Compile Include="Report\DailyMainDishPricePerMealReport\DailyMainDishReportModel.cs" />
+    <Compile Include="Report\DailyMainDishPricePerMealReport\TotalPriceModel.cs" />
+    <Compile Include="Report\EmployeeOrderHistory\EmployeeOrderHistoryReport.cs" />
+    <Compile Include="Report\EmployeeOrderHistory\EmployeeOrderModel.cs" />
+     <Compile Include="Report\MonthlyMainDishPerDay\MainDishPerDayModel.cs" />
+    <Compile Include="Report\MonthlyMainDishPerDay\MonthlyMainDishPerDayModel.cs" />
+    <Compile Include="Report\MonthlyMainDishReportLocal\MealDayOfMonthModel.cs" />
+    <Compile Include="Report\MonthlyMainDishReportLocal\MealItemMonthModel.cs" />
+    <Compile Include="Report\MonthlyMainDishReportLocal\MealMonthModel.cs" />
+    <Compile Include="Report\MonthlyMainDishReportLocal\MonthlyLocalReportModel.cs" />
+    <Compile Include="Report\MonthlyMainDishReportLocal\RawMonthlyLocalReportModel.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="SetMenuManagement\MenuSetMenuModel.cs" />
+    <Compile Include="SetMenuManagement\FoodSetMenuModel.cs" />
+    <Compile Include="SetMenuManagement\SetMenuModel.cs" />
+    <Compile Include="ShiftMealMapping\ShiftMealMappingModel.cs" />
+    <Compile Include="SideDishManagement\SideDishModel.cs" />
+    <Compile Include="SideDishManagement\UnitModel.cs" />
+    <Compile Include="SmartCardOrder\SCEmployeeOrder.cs" />
+    <Compile Include="UserControl\EmployeeRoleModel.cs" />
+    <Compile Include="UserControl\FunctionModel.cs" />
+    <Compile Include="UserControl\RoleDepartmentModel.cs" />
+    <Compile Include="Authority\UserFunction.cs" />
+    <Compile Include="UserControl\RoleSystemModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NexFB.Resources\NexFB.Resources.csproj">
+      <Project>{79FB6864-4696-4CC2-B94D-842C09CFAC0E}</Project>
+      <Name>NexFB.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NexFB.Core\NexFB.Core.csproj">
+      <Project>{5815DC62-15BA-4E92-B0CC-E888BDA04E91}</Project>
+      <Name>NexFB.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
