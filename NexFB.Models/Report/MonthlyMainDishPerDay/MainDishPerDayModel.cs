@@ -9,6 +9,7 @@
 
 namespace NexFB.Models.Report.MonthlyMainDishPerDay
 {
+    using System;
     using System.Collections.Generic;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Resources;
@@ -16,6 +17,7 @@ namespace NexFB.Models.Report.MonthlyMainDishPerDay
     /// <summary>
     /// The main dish per day model.
     /// </summary>
+    [Serializable]
     public class MainDishPerDayModel
     {
         public MainDishPerDayModel()

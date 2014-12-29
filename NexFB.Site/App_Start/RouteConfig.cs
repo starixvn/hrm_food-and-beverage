@@ -51,6 +51,7 @@ namespace NexFB.Site
                 "ManageGroup/Index",
                 "ManageGroup/User",
                 "DailyMainDishReport/Index",
+                "MonthlyReportPerDay/Index",
                 "DeliveryArea/Index",
                 "EmployeeOrderHistory/Index",
                 "SpecialEmployee/Index"

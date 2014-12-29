@@ -60,6 +60,25 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 		},
 		getMenuTypeEnum: function () {
 			return $http.get(baseUrl + 'api/report/GetMenuTypeEnum');
+		},
+		getMonthlyMainDishReportPerDay: function (filter) {
+			return $http.get(baseUrl + 'api/report/GetMonthlyMainDishPerDayReport',
+				{
+					params: {
+						reportDate: filter.reportDate.toDateString(),
+						departmentId: filter.departmentId,
+						employeeTypeId: filter.employeeTypeId,
+						teamId: filter.teamId,
+						workDay: filter.workDay,
+						groupBy: filter.groupBy,
+						startIndex: filter.startIndex,
+						itemsPerPage: filter.itemsPerPage,
+						isPagingCallback: filter.isPagingCallback
+					}
+				});
+		},
+		getDayTypeEnum: function () {
+			return $http.get(baseUrl + 'api/report/GetDayType');
 		}
 	};
 } ]);

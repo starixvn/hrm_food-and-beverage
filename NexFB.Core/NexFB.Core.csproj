@@ -81,6 +81,7 @@
     <Compile Include="Constants\FBFunctionKey.cs" />
     <Compile Include="Constants\ReportConstant.cs" />
     <Compile Include="Criteria\ResultCriteria.cs" />
+    <Compile Include="Enums\DayType.cs" />
     <Compile Include="Enums\DepartmentCode.cs" />
     <Compile Include="Enums\DepartmentIdentity.cs" />
     <Compile Include="Enums\FoodMenuType.cs" />

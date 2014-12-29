@@ -1020,4 +1020,7 @@
   <data name="DateRangeInvalid" xml:space="preserve">
     <value>Invalid date range. From Date must be less than To Date.</value>
   </data>
+  <data name="MonthlyMainDishPerDayReport" xml:space="preserve">
+    <value>Monthly Main Dish Report - Per Day</value>
+  </data>
 </root>

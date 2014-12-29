@@ -645,8 +645,16 @@ namespace NexFB.Resources {
             }
         }
         
+         /// <summary>
+        ///   Looks up a localized string similar to Department.
+        /// </summary>
+        public static string Department {
+            get {
+                return ResourceManager.GetString("Department", resourceCulture);
+            }
+        }
+        
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Delivery Area (English).
         /// </summary>
         public static string DeliveryAreaEng {
@@ -706,13 +714,6 @@ namespace NexFB.Resources {
         public static string DeliveryAreaVietRequire {
             get {
                 return ResourceManager.GetString("DeliveryAreaVietRequire", resourceCulture);
-=======
-        ///   Looks up a localized string similar to Department.
-        /// </summary>
-        public static string Department {
-            get {
-                return ResourceManager.GetString("Department", resourceCulture);
->>>>>>> #27226 -  Implement Special Employee Management
             }
         }
         
@@ -1677,16 +1678,18 @@ namespace NexFB.Resources {
             get {
                 return ResourceManager.GetString("MonthlyMainDishLocalSheetName", resourceCulture);
             }
-        }
+        }        
+
         
         /// <summary>
-        ///   Looks up a localized string similar to Monthly Main Dish Report - Per Meal.
+        ///   Looks up a localized string similar to Monthly Main Dish Report - Per Day.
         /// </summary>
-        public static string MonthlyMainDishReportLocal {
+        public static string MonthlyMainDishPerDayReport {
             get {
-                return ResourceManager.GetString("MonthlyMainDishReportLocal", resourceCulture);
+                return ResourceManager.GetString("MonthlyMainDishPerDayReport", resourceCulture);
             }
         }
+
         
         /// <summary>
         ///   Looks up a localized string similar to Monthly and weekly registration will not take effect on Saturday and Sunday..
@@ -1856,6 +1859,15 @@ namespace NexFB.Resources {
         public static string Notice {
             get {
                 return ResourceManager.GetString("Notice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off day.
+        /// </summary>
+        public static string OffDay {
+            get {
+                return ResourceManager.GetString("OffDay", resourceCulture);
             }
         }
         
@@ -2747,6 +2759,15 @@ namespace NexFB.Resources {
         public static string WorkDate {
             get {
                 return ResourceManager.GetString("WorkDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work day.
+        /// </summary>
+        public static string WorkDay {
+            get {
+                return ResourceManager.GetString("WorkDay", resourceCulture);
             }
         }
     }

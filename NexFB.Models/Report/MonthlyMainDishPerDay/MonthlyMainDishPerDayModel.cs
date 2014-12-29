@@ -16,6 +16,7 @@ namespace NexFB.Models.Report.MonthlyMainDishPerDay
     /// <summary>
     /// The Monthly Main Dish Per Day model.
     /// </summary>
+    [Serializable]
     public class MonthlyMainDishPerDayModel
     {
         public MonthlyMainDishPerDayModel()

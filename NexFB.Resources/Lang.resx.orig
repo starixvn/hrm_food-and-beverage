@@ -927,10 +927,16 @@
   <data name="MemberName" xml:space="preserve">
     <value>Member Name</value>
   </data>
-<<<<<<< HEAD
   <data name="EmployeeOrderHistoryReport" xml:space="preserve">
     <value>My Order History</value>
   </data>
+    <data name="OffDay" xml:space="preserve">
+    <value>Off day</value>
+  </data>
+  <data name="WorkDay" xml:space="preserve">
+    <value>Work day</value>
+  </data>
+<<<<<<< HEAD
   <data name="CreateDeliveryArea" xml:space="preserve">
     <value>Create Delivery Area</value>
   </data>
@@ -1015,11 +1021,8 @@
   <data name="DateRangeInvalid" xml:space="preserve">
     <value>Invalid date range. From Date must be less than To Date.</value>
 =======
-  <data name="OffDay" xml:space="preserve">
-    <value>Off day</value>
-  </data>
-  <data name="WorkDay" xml:space="preserve">
-    <value>Work day</value>
->>>>>>> #28185 - Define model, criteria, get data from DB
+  <data name="MonthlyMainDishPerDayReport" xml:space="preserve">
+    <value>Monthly Main Dish Report - Per Day</value>
+>>>>>>> #28324 - Render monthly main dish per day report
   </data>
 </root>

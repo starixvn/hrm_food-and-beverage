@@ -1,0 +1,19 @@
+﻿'use strict';
+/*exported reportModule*/
+
+var reportModule = angular.module("reportModule", ['ngRoute'])
+.config(['$routeProvider', function ($routeProvider) {
+	var baseUrl = $("base").first().attr("href");
+	$routeProvider.when('/MonthlyReportLocal/Index',
+		{ templateUrl: baseUrl + 'src/app/report/templates/monthlyReportLocal.html', controller: 'MonthlyMainDishReportLocalController' });
+	$routeProvider.when('/DailyMainDishReport/Index',
+<<<<<<< HEAD
+		{ templateUrl: baseUrl + 'src/app/report/templates/dailyMainDishReport.html', controller: 'DailyMainDishReportController' });
+	$routeProvider.when('/EmployeeOrderHistory/Index',
+		{ templateUrl: baseUrl + 'src/app/report/templates/employeeOrderHistory.html', controller: 'EmployeeOrderHistoryReportController' });
+=======
+		{ templateUrl:  baseUrl + '/src/app/report/templates/dailyMainDishReport.html', controller: 'DailyMainDishReportController' });
+	$routeProvider.when('/MonthlyReportPerDay/Index',
+		{ templateUrl: baseUrl + 'src/app/report/templates/monthlyReportPerDay.html', controller: 'MonthlyMainDishReportPerDayController' });
+>>>>>>> #28324 - Render monthly main dish per day report
+} ]);

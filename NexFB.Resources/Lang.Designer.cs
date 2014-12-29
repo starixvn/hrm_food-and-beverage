@@ -1678,9 +1678,10 @@ namespace NexFB.Resources {
             get {
                 return ResourceManager.GetString("MonthlyMainDishLocalSheetName", resourceCulture);
             }
-        }
+        }       
+
         
-        /// <summary>
+         /// <summary>
         ///   Looks up a localized string similar to Monthly Main Dish Report - Per Meal.
         /// </summary>
         public static string MonthlyMainDishReportLocal {
@@ -1688,6 +1689,16 @@ namespace NexFB.Resources {
                 return ResourceManager.GetString("MonthlyMainDishReportLocal", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly Main Dish Report - Per Day.
+        /// </summary>
+        public static string MonthlyMainDishPerDayReport {
+            get {
+                return ResourceManager.GetString("MonthlyMainDishPerDayReport", resourceCulture);
+            }
+        }
+
         
         /// <summary>
         ///   Looks up a localized string similar to Monthly and weekly registration will not take effect on Saturday and Sunday..

@@ -18,5 +18,7 @@ namespace NexFB.Services.Interface.Report
     public interface IMonthlyMainDishPerDayReportService
     {
         MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport(GetMonthlyMainDishPerDayReportCriteria criteria);
+
+        MonthlyMainDishPerDayModel GetPagingReport(MonthlyMainDishPerDayModel fullReport, int startIndex, int itemsPerPage);
     }
 }

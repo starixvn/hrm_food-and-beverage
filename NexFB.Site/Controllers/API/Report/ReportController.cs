@@ -11,6 +11,7 @@ namespace NexFB.Site.Controllers.API.Report
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
@@ -265,16 +266,23 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="groupBy">The is group by : employee or team.</param>
         /// <param name="isDebug">The is debug.</param>
         /// <param name="isLocal">The is local.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <param name="isPagingCallback">The is paging callback.</param>
         /// <returns>The report.</returns>
+        [HttpGet]
         public MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport(
             DateTime reportDate,
             string departmentId = "",
             string employeeTypeId = "",
             string teamId = "",
-            bool? workDay = null,
+            int? workDay = null,
             int groupBy = 0,
             bool isDebug = false,
-            int isLocal = 1)
+            int isLocal = 0,
+            int startIndex = 0,
+            int itemsPerPage = 50,
+            bool isPagingCallback = false)
         {
             var criteria = new GetMonthlyMainDishPerDayReportCriteria
             {
@@ -287,8 +295,45 @@ namespace NexFB.Site.Controllers.API.Report
                 IsDebug = isDebug,
                 IsLocal = isLocal
             };
+            MonthlyMainDishPerDayModel fullReport = null;
 
-            return _monthlyPerDayService.GetMonthlyMainDishPerDayReport(criteria);
+            if (isPagingCallback)
+            {
+                fullReport = SessionManager.Get<MonthlyMainDishPerDayModel>(
+                        ReportConstant.MonthlyMainDishPerDayReportSessionKey + CurrentUser.UserId);
+            }
+            else
+            {
+                fullReport = _monthlyPerDayService.GetMonthlyMainDishPerDayReport(criteria);
+                SessionManager.Set<MonthlyMainDishPerDayModel>(
+                        ReportConstant.MonthlyMainDishPerDayReportSessionKey + CurrentUser.UserId, fullReport);
+            }
+
+            MonthlyMainDishPerDayModel pagingReport = _monthlyPerDayService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            return pagingReport;
+        }
+
+        /// <summary>
+        /// Get Day Type list.
+        /// </summary>
+        /// <returns>The list object Day Type.</returns>
+        [HttpGet]
+        public List<object> GetDayType()
+        {
+            var dayTypeList = new List<object>();
+            
+       	    foreach (DayType dayType in Enum.GetValues(typeof(DayType)).Cast<DayType>())
+            {
+                var dayTypeItem = new
+                {
+                    Value = (int)dayType,
+                    Name = Enumerations.GetDescription(dayType)
+                };
+                dayTypeList.Add(dayTypeItem);
+            }
+
+            return dayTypeList;
+        }
             
         /// <summary>
         /// Get Ordered By ENUM.
@@ -312,7 +357,7 @@ namespace NexFB.Site.Controllers.API.Report
 
             return orderedByList;
         }
-
+        
         /// <summary>
         /// Get Order Platform ENUM.
         /// </summary>

@@ -112,8 +112,8 @@ namespace NexFB.Repositories.Implement
         private List<MainDishPerDayModel> GetMealsInMonthPerDay(IEnumerable<dynamic> rawReport)
         {
             var meals = new List<MainDishPerDayModel>();
-            IEnumerable<dynamic> offDayRows = rawReport.Where(x => x.IsOffDay == 1);
-            IEnumerable<dynamic> wordDayRows = rawReport.Where(x => x.IsOffDay == 0);
+            IEnumerable<dynamic> offDayRows = rawReport.Where(x => x.IsOffDay == true);
+            IEnumerable<dynamic> wordDayRows = rawReport.Where(x => x.IsOffDay == false);
 
             if (offDayRows != null && offDayRows.Count() > 0)
             {

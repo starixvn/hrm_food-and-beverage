@@ -25,7 +25,7 @@ namespace NexFB.Criteria.Report
 
         public string TeamId { get; set; }
 
-        public bool? WorkDay { get; set; }
+        public int? WorkDay { get; set; }
 
         public int GroupBy { get; set; }
 

@@ -1,0 +1,61 @@
+﻿
+<div class="col-sm-12">
+	<div class="row sub-header">
+		<ul class="breadcrumb list-inline pull-left">
+			<li class="current" data-translate="MonthlyMainDishPerDayReport"></li>
+		</ul>
+	</div>
+	<div class="row filter">
+		<form class="form-horizontal form-multiLine" role="form">
+			<div class="form-group">
+				<label class="col-sm-1 text-right" data-translate="Department">
+				</label>
+				<div class="col-sm-2 field">
+					<select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
+						class="form-control" ng-change="getTeamAndEmployeeTypeOfDepartment(filter.departmentId)">
+						<option value="" ng-if="departmentOptions.length > 1">-- {{"All" | translate}} --</option>
+					</select>
+				</div>
+				<label class="col-sm-1 text-right long-text-report"  data-translate="Team"></label>
+				<div class="col-sm-2 field teambox">
+						<add-class-to-role-filter multi-select input-model="teamOptions" button-label="Name" helper-elements="all reset"
+						item-label="Name" tick-property="ticked" max-labels="0" class="multi-select">
+					</add-class-to-role-filter>
+				</div>
+				<label class="col-sm-1 text-right" data-translate="Day"></label>
+				<div class="col-sm-2 field">
+					<select class="form-control" ng-model="filter.workDay" ng-options="dayType.Value as dayType.Name for dayType in dayTypeOptions">
+						<option data-translate="All"></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 text-right" data-translate="Month"></label>
+				<div class="col-sm-2 field monthbox">
+					<input readonly type="text" class="form-control" datepicker-popup="{{format}}" datepicker-mode="popUpMode" ng-click="open($event)" 
+					ng-model="filter.reportDate" is-open="opened" datepicker-options="dateOptions" show-button-bar="false"/>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</div>
+				<label class="col-sm-1 text-right long-text-report" data-translate="EmployeeType"></label>
+				<div class="col-sm-2 field">
+					<add-class-to-role-filter multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId" helper-elements="all reset"
+						item-label="EmployeeTypeName" tick-property="ticked" max-labels="0" class="multi-select employee-type">
+					</add-class-to-role-filter>
+				</div>
+				<label class="col-sm-1 text-right" data-translate="GroupBy"></label>
+				<div class="col-sm-2 field">
+					<select ng-model="filter.groupBy" class="form-control" >
+						<option data-translate="Employee" value="0"></option>
+						<option data-translate="Department" value="1"></option>
+					</select>
+				</div>
+				<div class="col-sm-1 btn-box">
+						<input type="button" value="Submit" class="button" ng-click="query(filter)"/>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div id="monthlyPerDayReport" class="freegrid" render-monthly-main-dish-per-day export-monthly-per-day-report></div>
+</div>
