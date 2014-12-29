@@ -375,4 +375,7 @@
   <data name="Phone" xml:space="preserve">
     <value>SĐT : </value>
   </data>
+  <data name="Message_DeliveryArea" xml:space="preserve">
+    <value>Nơi phục vụ không khả dụng, xin chọn lại nơi khác.</value>
+  </data>
 </root>

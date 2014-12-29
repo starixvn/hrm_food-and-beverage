@@ -375,4 +375,7 @@
   <data name="Phone" xml:space="preserve">
     <value>Phone : </value>
   </data>
+  <data name="Message_DeliveryArea" xml:space="preserve">
+    <value>This Delivery Area does not exist. Please reload this page.</value>
+  </data>
 </root>

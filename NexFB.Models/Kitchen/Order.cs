@@ -115,7 +115,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                if (ListMenu.Count > 4 || ListMenu.Count == 0)
+                if (ListMenu.Count != null && (ListMenu.Count > 4 || ListMenu.Count == 0))
                 {
                     List<OrderMenu> generalOrderList = new List<OrderMenu>();
                     List<OrderMenu> sideDish = ListMenu.Where(x => x.IsSideDish && !x.IsDeleted).ToList();
@@ -146,10 +146,8 @@ namespace NexFB.Models.Kitchen
 
                     return generalOrderList;
                 }
-                else
-                {
-                    return ListMenu;
-                }
+
+                return ListMenu;
             }
         }
 

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:resx="clr-namespace:NexFB.Resources;assembly=NexFB.Resources"
         WindowStyle="None" SizeToContent="WidthAndHeight"
-		 Topmost="False" ShowInTaskbar="False" ResizeMode="NoResize" BorderBrush="Silver" BorderThickness="1">
+	    ShowInTaskbar="False" ResizeMode="NoResize" BorderBrush="Silver" BorderThickness="1">
 	<Window.Resources>
 		<Color x:Key="customBlue"  A="255"   R="54" G="95" B="177"  />
 		<SolidColorBrush x:Key="customBlueBrush" Color="{StaticResource customBlue}"></SolidColorBrush>

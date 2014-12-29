@@ -342,7 +342,7 @@ namespace NexFB.PosKitchen.ViewModels
 
                 confirmationWindow.DataContext = this;
                 confirmationWindow.Owner = Application.Current.MainWindow;
-                confirmationWindow.ShowDialog();
+                confirmationWindow.Show();
             }
         }
 
@@ -1188,7 +1188,14 @@ namespace NexFB.PosKitchen.ViewModels
             OrderResult result = KitchenService.InsertOrderFood(insertOrderMealCriteria);
             if (result.CommandResult.Code != 0)
             {
-                this.ShowErrorMessage(CurrentCulture(), result.CommandResult.Message);
+                if (result.CommandResult.Code == 106)
+                {
+                    WPFMessageBox.Show(CurrentCulture(), WinFormMainResource.Message_DeliveryArea);
+                }
+                else
+                {
+                    WPFMessageBox.Show(CurrentCulture(), result.CommandResult.Message);
+                }
             }
             else
             {
