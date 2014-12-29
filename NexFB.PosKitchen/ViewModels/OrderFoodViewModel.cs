@@ -77,7 +77,6 @@ namespace NexFB.PosKitchen.ViewModels
             HideGridDisplayUser();
             AllObservationFood = OrderFoodData.GetAllFood;
             AllObservationAlternativeFood = OrderFoodData.GetAllAlternativeFood;
-            AllObservationLocation = OrderFoodData.GetAllLocation;
             AllObservationGroup = OrderFoodData.GetAllGroup;
             MainViewModel = mainViewModel;
 
@@ -88,6 +87,11 @@ namespace NexFB.PosKitchen.ViewModels
                 SaveButtonVisible = Constant.Visible;
                 IsDataEdit = true;
                 PrepareEditData(order);
+                AllObservationLocation = OrderFoodData.GetAllLocation;
+            }
+            else
+            {
+                AllObservationLocation = OrderFoodData.GetAllActiveLocation;
             }
         }
 
