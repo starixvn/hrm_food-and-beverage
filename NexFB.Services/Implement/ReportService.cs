@@ -17,6 +17,7 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Utilities;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
+    using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
@@ -79,34 +80,6 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
-        /// Export monthly main dish report in local.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="templateLink">The url of template.</param>
-        public void ExportMonthlyMainDishReportLocal(MonthlyLocalReportModel report, string templateLink)
-        {
-            string reportName = Lang.MonthlyMainDishLocalReportName;
-            string reportTitle = Lang.MonthlyMainDishLocalReportTitle;
-            var writer = new ExcelTemplateWriter(templateLink, reportName, Lang.MonthlyMainDishLocalSheetName);
-
-            // Fill report title.
-            writer.CopyRows(0, 2);
-            writer.WriteRow(2, new object[] { reportTitle });
-
-            // Fill report header.
-            writer.CopyRows(3, 1);
-            writer.CopyRows(4, 1);
-            writer.WriteCellRange(3, 1, 4, 31, report.Month);
-            WriteDayHeaderInMonth(report.WeekDays.NumberMeals, ref writer);
-
-            FillContentRow(report, ref writer);
-            FillTotalRow(report, ref writer);
-            writer.SyncColumnsWidth(37);
-
-            writer.Render();
-        }
-
-        /// <summary>
         /// Get paging report.
         /// </summary>
         /// <param name="report">The report.</param>
@@ -131,6 +104,94 @@ namespace NexFB.Services.Implement
             pagingReport.Meals = meals;
 
             return pagingReport;
+        }
+
+        /// <summary>
+        /// Export monthly main dish report in local.
+        /// </summary>
+        /// <param name="report">The report.</param>
+        /// <param name="templateLink">The url of template.</param>
+        public void ExportMonthlyMainDishReportLocal(MonthlyLocalReportModel report, string templateLink)
+        {
+            string reportName = Lang.MonthlyMainDishLocalReportName;
+            string reportTitle = Lang.MonthlyMainDishLocalReportTitle;
+            var writer = new ExcelTemplateWriter(templateLink, reportName, Lang.MonthlyMainDishLocalSheetName);
+
+            // Fill report title.
+            writer.CopyRows(0, 2);
+            writer.WriteRow(2, new object[] { reportTitle });
+
+            // Fill report header.
+            writer.CopyRows(3, 1);
+            writer.CopyRows(4, 1);
+            writer.WriteCellRange(3, 1, 4, 31, report.Month);
+            WriteDayHeaderInMonth(report.WeekDays.NumberMeals, ref writer);
+
+            FillContentRow(report, ref writer);
+            writer = FillTotalRow(report.Total, report.IsGroupByEmployee, writer);
+            writer.SyncColumnsWidth(37);
+
+            writer.Render();
+        }
+
+        /// <summary>
+        /// Create meal records.
+        /// </summary>
+        /// <param name="mealItems">The list meal items.</param>
+        /// <param name="isGroupByEmployee">Report group by employee or department.</param>
+        /// <param name="rowIndex">The row index.</param>
+        /// <returns>The Record model.</returns>
+        public RecordModel CreateMealRecord(
+            List<MealItemMonthModel> mealItems,
+            bool isGroupByEmployee,
+            int rowIndex)
+        {
+            IEnumerable<object> records = null;
+
+            if (isGroupByEmployee)
+            {
+                records = CreateMealGroupByEmployee(mealItems, ref rowIndex);
+            }
+            else
+            {
+                records = CreateMealGroupByDepartment(mealItems, ref rowIndex);
+            }
+
+            var mealRecords = new RecordModel
+            {
+                Records = records,
+                RowIndex = rowIndex
+            };
+
+            return mealRecords;
+        }
+
+        /// <summary>
+        /// Fill total row.
+        /// </summary>
+        /// <param name="total">The total meal.</param>
+        /// <param name="isGroupByEmployee">The is group by employee or not.</param>
+        /// <param name="writer">The writer.</param>
+        /// <returns>The writer after fill total row.</returns>
+        public ExcelTemplateWriter FillTotalRow(
+            MealDayOfMonthModel total,
+            bool isGroupByEmployee,
+            ExcelTemplateWriter writer)
+        {
+            object record = null;
+
+            if (isGroupByEmployee)
+            {
+                record = CreateTotalMealEmployeeRecord(total);
+            }
+            else
+            {
+                record = CreateTotalMealDepartmentRecord(total);
+            }
+
+            writer.WriteRow(7, record);
+
+            return writer;
         }
 
         private int CalculateTotalItem(MonthlyLocalReportModel report)
@@ -253,64 +314,17 @@ namespace NexFB.Services.Implement
             }
         }
 
-        /// <summary>
-        /// Fill total row.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="writer">The writer.</param>
-        private void FillTotalRow(MonthlyLocalReportModel report, ref ExcelTemplateWriter writer)
-        {
-            bool isGroupByEmployee = report.IsGroupByEmployee;
-            object record = null;
-
-            if (isGroupByEmployee)
-            {
-                record = CreateTotalMealEmployeeRecord(report.Total);
-            }
-            else
-            {
-                record = CreateTotalMealDepartmentRecord(report.Total);
-            }
-
-            writer.WriteRow(7, record);
-        }
-
         private void FillContentMeal(
             MealMonthModel meal,
             ref ExcelTemplateWriter writer,
             bool isGroupByEmployee,
             ref int rowIndex)
         {
-            IEnumerable<object> records = CreateMealRecord(meal.MealItems, isGroupByEmployee, ref rowIndex);
+            RecordModel mealRecord = CreateMealRecord(meal.MealItems, isGroupByEmployee, rowIndex);
+            rowIndex = mealRecord.RowIndex;
 
             writer.WriteRow(5, new object[] { meal.Meal.MealEngName });
-            writer.WriteRows(6, records);
-        }
-
-        /// <summary>
-        /// Create meal records.
-        /// </summary>
-        /// <param name="mealItems">The list meal items.</param>
-        /// <param name="isGroupByEmployee">Report group by employee or department.</param>
-        /// <param name="rowIndex">The row index.</param>
-        /// <returns>The enumerator object.</returns>
-        private IEnumerable<object> CreateMealRecord(
-            List<MealItemMonthModel> mealItems,
-            bool isGroupByEmployee,
-            ref int rowIndex)
-        {
-            IEnumerable<object> records = null;
-
-            if (isGroupByEmployee)
-            {
-                records = CreateMealGroupByEmployee(mealItems, ref rowIndex);
-            }
-            else
-            {
-                records = CreateMealGroupByDepartment(mealItems, ref rowIndex);
-            }
-
-            return records;
+            writer.WriteRows(6, mealRecord.Records);
         }
 
         /// <summary>

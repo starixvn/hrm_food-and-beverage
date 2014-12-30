@@ -9,8 +9,11 @@
 
 namespace NexFB.Services.Interface
 {
+    using System.Collections.Generic;
+    using NexFB.Core.Utilities;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
+    using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
 
     /// <summary>
@@ -25,5 +28,9 @@ namespace NexFB.Services.Interface
         MonthlyLocalReportModel GetPaingReport(MonthlyLocalReportModel report, int startIndex, int itemsPerPage);
 
         DailyMainDishReportModel GetDailyMainDishReport(GetDailyMainDishPricePerMealReportCriteria criteria);
+
+        RecordModel CreateMealRecord(List<MealItemMonthModel> mealItems, bool isGroupByEmployee, int rowIndex);
+
+        ExcelTemplateWriter FillTotalRow(MealDayOfMonthModel total, bool isGroupByEmployee, ExcelTemplateWriter writer);
     }
 }

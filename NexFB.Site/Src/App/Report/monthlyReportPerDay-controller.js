@@ -151,8 +151,6 @@ foodMenuUtilities) {
 		});
 	};
 
-	$scope.getMonthlyMainDishReportPerDay($scope.filter);
-
 	/*
 	** Query data.
 	*/
@@ -160,11 +158,31 @@ foodMenuUtilities) {
 		resetGridOption();
 		filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
 		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
-		
+		filter.isPagingCallback = false;
+
 		if (!filter.departmentId) {
 			filter.departmentId = $scope.originalDepartmentId;
 		}
 
 		$scope.getMonthlyMainDishReportPerDay(filter);
+	};
+
+	/*
+	** Export excel.
+	*/
+	$scope.exportExcel = function (filter) {
+		filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
+		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
+
+		$scope.criteria = {
+			reportDate: filter.reportDate.toDateString(),
+			departmentId: filter.departmentId,
+			employeeTypeId: filter.employeeTypeId,
+			teamId: filter.teamId,
+			workDay: filter.workDay,
+			groupBy: filter.groupBy
+		};
+
+		$scope.$broadcast('exportMonthlyMainDishPerDayReport');
 	};
 } ]);

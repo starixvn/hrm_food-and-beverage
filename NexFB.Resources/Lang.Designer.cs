@@ -1691,7 +1691,33 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monthly_Main_Dish_Report_Per_Day.
+        /// </summary>
+        public static string MonthlyMainDishPerDayReportName {
+            get {
+                return ResourceManager.GetString("MonthlyMainDishPerDayReportName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monthly Main Dish Report - Per Day.
+        /// </summary>
+        public static string MonthlyMainDishPerDayReportTitle {
+            get {
+                return ResourceManager.GetString("MonthlyMainDishPerDayReportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly Main Dish Per Day.
+        /// </summary>
+        public static string MonthlyMainDishPerDaySheetName {
+            get {
+                return ResourceManager.GetString("MonthlyMainDishPerDaySheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// </summary>
         public static string MonthlyMainDishPerDayReport {
             get {

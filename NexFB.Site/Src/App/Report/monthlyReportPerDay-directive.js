@@ -243,3 +243,23 @@ reportModule.directive('renderMonthlyMainDishPerDay', function () {
 		}
 	};
 });
+
+reportModule.directive('exportMonthlyMainDishPerDayReport', ['baseUrl', function (baseUrl) {
+	return {
+		link: function (scope) {
+			scope.$on('exportMonthlyMainDishPerDayReport', function () {
+				var data = $.param(scope.criteria),
+					url = baseUrl + 'ExportReport/ExportMonthlyMainDishPerDayReport',
+					downloadUrl = url + "?" + data,
+					iframe = $('body iframe');
+
+				if (iframe.length === 0) {
+					iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
+					iframe.appendTo('body');
+				}
+
+				iframe.attr('src', downloadUrl);
+			});
+		}
+	};
+} ]);

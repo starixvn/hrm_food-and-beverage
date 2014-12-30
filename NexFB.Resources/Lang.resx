@@ -1023,4 +1023,13 @@
   <data name="MonthlyMainDishPerDayReport" xml:space="preserve">
     <value>Monthly Main Dish Report - Per Day</value>
   </data>
+  <data name="MonthlyMainDishPerDayReportName" xml:space="preserve">
+    <value>Monthly_Main_Dish_Report_Per_Day</value>
+  </data>
+  <data name="MonthlyMainDishPerDayReportTitle" xml:space="preserve">
+    <value>Monthly Main Dish Report - Per Day</value>
+  </data>
+  <data name="MonthlyMainDishPerDaySheetName" xml:space="preserve">
+    <value>Monthly Main Dish Per Day</value>
+  </data>
 </root>

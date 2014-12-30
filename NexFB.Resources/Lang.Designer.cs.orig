@@ -1678,11 +1678,51 @@ namespace NexFB.Resources {
             get {
                 return ResourceManager.GetString("MonthlyMainDishLocalSheetName", resourceCulture);
             }
-        }        
+        }       
 
+        
+         /// <summary>
+        ///   Looks up a localized string similar to Monthly Main Dish Report - Per Meal.
+        /// </summary>
+        public static string MonthlyMainDishReportLocal {
+            get {
+                return ResourceManager.GetString("MonthlyMainDishReportLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+<<<<<<< HEAD
+        ///   Looks up a localized string similar to Monthly Main Dish Report - Per Day.
+=======
+        ///   Looks up a localized string similar to Monthly_Main_Dish_Report_Per_Day.
+        /// </summary>
+        public static string MonthlyMainDishPerDayReportName {
+            get {
+                return ResourceManager.GetString("MonthlyMainDishPerDayReportName", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Monthly Main Dish Report - Per Day.
+        /// </summary>
+        public static string MonthlyMainDishPerDayReportTitle {
+            get {
+                return ResourceManager.GetString("MonthlyMainDishPerDayReportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly Main Dish Per Day.
+        /// </summary>
+        public static string MonthlyMainDishPerDaySheetName {
+            get {
+                return ResourceManager.GetString("MonthlyMainDishPerDaySheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly Main Dish Report - Local.
+>>>>>>> #28323 - Export Monthly Main Dish Per Day report
         /// </summary>
         public static string MonthlyMainDishPerDayReport {
             get {

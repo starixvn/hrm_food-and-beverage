@@ -14,10 +14,13 @@ namespace NexFB.Services.Implement.Report
     using Fanex.Common.Helper;
     using NexFB.Core.Enums;
     using NexFB.Core.Services;
+    using NexFB.Core.Utilities;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
+    using NexFB.Resources;
+    using NexFB.Services.Interface;
     using NexFB.Services.Interface.Report;
 
     /// <summary>
@@ -26,15 +29,19 @@ namespace NexFB.Services.Implement.Report
     public class MonthlyMainDishPerDayReportService : BaseService, IMonthlyMainDishPerDayReportService
     {
         private readonly IReportRepository _reportRepository;
+        private readonly IReportService _reportService;
 
         public MonthlyMainDishPerDayReportService()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public MonthlyMainDishPerDayReportService(IReportRepository reportRepository)
+        public MonthlyMainDishPerDayReportService(
+            IReportRepository reportRepository,
+            IReportService reportService)
         {
             _reportRepository = reportRepository ?? new ReportRepository();
+            _reportService = reportService ?? new ReportService();
         }
 
         /// <summary>
@@ -81,6 +88,80 @@ namespace NexFB.Services.Implement.Report
 
             pagingReport.TypeDays = LoopAndGetPagingReport(fullReport, startIndex, itemsPerPage);
             return pagingReport;
+        }
+
+        /// <summary>
+        /// Export monthly main dish per day report.
+        /// </summary>
+        /// <param name="report">The report.</param>
+        /// <param name="templatePath">The template path.</param>
+        public void ExportMonthlyMainDishPerDayReport(
+            MonthlyMainDishPerDayModel report,
+            string templatePath)
+        {
+            string reportName = Lang.MonthlyMainDishPerDayReportName;
+            string reportTitle = Lang.MonthlyMainDishPerDayReportTitle;
+            var writer = new ExcelTemplateWriter(templatePath, reportName, Lang.MonthlyMainDishPerDaySheetName);
+
+            // Fill report title.
+            writer.CopyRows(0, 2);
+            writer.WriteRow(2, new object[] { reportTitle });
+
+            // Fill report header.
+            writer.CopyRows(3, 1);
+            writer.CopyRows(4, 1);
+            writer.WriteCellRange(3, 1, 4, 31, report.Month);
+            WriteDayHeaderInMonth(report.WeekDays.NumberMeals, ref writer);
+
+            FillContentRow(report, ref writer);
+            writer = _reportService.FillTotalRow(report.Total, report.IsGroupByEmployee, writer);
+            writer.SyncColumnsWidth(37);
+
+            writer.Render();
+        }
+
+        /// <summary>
+        /// Convert weekend number from positive number to negative number.
+        /// </summary>
+        /// <param name="weekdays">The weekdays in month.</param>
+        /// <param name="writer">The excel writer.</param>
+        private void WriteDayHeaderInMonth(List<int> weekdays, ref ExcelTemplateWriter writer)
+        {
+            int startCol = 4;
+
+            for (int i = 0; i < 31; i++)
+            {
+                int currentDate = weekdays[i];
+
+                if (currentDate == 7 || currentDate == 1)
+                {
+                    writer.WriteCellRange(4, 1, startCol + i, 1, -(i + 1));
+                }
+            }
+        }
+
+        private void FillContentRow(MonthlyMainDishPerDayModel report, ref ExcelTemplateWriter writer)
+        {
+            bool isGroupByEmployee = report.IsGroupByEmployee;
+            int rowIndex = 1;
+
+            foreach (MainDishPerDayModel typeDay in report.TypeDays)
+            {
+                FillContentMeal(typeDay, ref writer, isGroupByEmployee, ref rowIndex);
+            }
+        }
+
+        private void FillContentMeal(
+            MainDishPerDayModel typeDay,
+            ref ExcelTemplateWriter writer,
+            bool isGroupByEmployee,
+            ref int rowIndex)
+        {
+            RecordModel mealRecord = _reportService.CreateMealRecord(typeDay.MealItems, isGroupByEmployee, rowIndex);
+            rowIndex = mealRecord.RowIndex;
+
+            writer.WriteRow(5, new object[] { typeDay.TypeDay });
+            writer.WriteRows(6, mealRecord.Records);
         }
 
         private int CalculateTotelItem(List<MainDishPerDayModel> typeDays)

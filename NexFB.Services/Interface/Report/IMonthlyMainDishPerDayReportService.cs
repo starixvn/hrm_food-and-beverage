@@ -20,5 +20,7 @@ namespace NexFB.Services.Interface.Report
         MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport(GetMonthlyMainDishPerDayReportCriteria criteria);
 
         MonthlyMainDishPerDayModel GetPagingReport(MonthlyMainDishPerDayModel fullReport, int startIndex, int itemsPerPage);
+
+        void ExportMonthlyMainDishPerDayReport(MonthlyMainDishPerDayModel report, string templatePath);
     }
 }
