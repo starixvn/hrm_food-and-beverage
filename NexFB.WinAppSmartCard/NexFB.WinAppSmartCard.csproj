@@ -121,6 +121,8 @@
     <Compile Include="Converter\MoneyConverter.cs" />
     <Compile Include="Converter\StringConverter.cs" />
     <Compile Include="Converter\TextBlockCustom.cs" />
+    <Compile Include="DependencyProperties\Capture.cs" />
+    <Compile Include="DependencyProperties\ListBoxBehavior.cs" />
     <Compile Include="Enums\ScopeOption.cs" />
     <Compile Include="Enums\SmartCardState.cs" />
     <Compile Include="Events\CardNumberChangedEventArgs.cs" />

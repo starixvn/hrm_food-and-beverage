@@ -74,6 +74,8 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         private Border _mainTexboxResultBorder;
         private Border _locationTexboxResultBorder;
 
+        private double _timerAddQuantity;
+
         public ICommand NumPadPressed { get; set; }
 
         public ICommand NumPadReleased { get; set; }
@@ -135,6 +137,20 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
             {
                 _mainTexboxResultBorder = value;
                 this.OnPropertyChanged("MainTexboxResultBorder");
+            }
+        }
+
+        public double TimerAddQuantity
+        {
+            get
+            {
+                return _timerAddQuantity;
+            }
+
+            set
+            {
+                _timerAddQuantity = value;
+                this.OnPropertyChanged("TimerAddQuantity");
             }
         }
 

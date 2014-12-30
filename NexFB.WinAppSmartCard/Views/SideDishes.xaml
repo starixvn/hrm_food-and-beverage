@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:helpers="clr-namespace:NexFB.WinAppSmartCard.GlobalResources.Helpers"
 			 xmlns:converter="clr-namespace:NexFB.WinAppSmartCard.Converter"
+			 xmlns:lb="clr-namespace:NexFB.WinAppSmartCard.DependencyProperties"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
 
 	<UserControl.Resources>
@@ -164,7 +165,7 @@
 						<ScrollViewer>
 							<ListBox BorderThickness="1,0,1,1" Margin="0" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
 							 ItemsSource="{Binding ObservableSideOrder}" Style="{StaticResource OrderListBox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}"
-							 x:Name="ContentListBox">
+							 x:Name="ContentListBox"  lb:ListBoxBehavior.ScrollOnNewItem="true">
 								<ListBox.ItemTemplate>
 									<DataTemplate>
 										<Grid Height="50" Margin="0">

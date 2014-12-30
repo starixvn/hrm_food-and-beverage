@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:helpers="clr-namespace:NexFB.WinAppSmartCard.GlobalResources.Helpers"
+			 xmlns:lb="clr-namespace:NexFB.WinAppSmartCard.DependencyProperties"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
 	<!--{Binding DataContext.ScreenWidth, RelativeSource={RelativeSource AncestorType=Window}}-->
 
@@ -160,7 +161,7 @@
 							<ScrollViewer>
 								<ListBox BorderThickness="1,0,1,1" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
 							 ItemsSource="{Binding ObservableListEmployee}" Style="{StaticResource OrderListBox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}"
-							 x:Name="ContentListBox">
+							 x:Name="ContentListBox" lb:ListBoxBehavior.ScrollOnNewItem="true">
 									<ListBox.ItemTemplate>
 										<DataTemplate>
 											<Grid MinHeight="50" Height="auto" Margin="0">

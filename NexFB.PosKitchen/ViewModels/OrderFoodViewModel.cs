@@ -13,6 +13,7 @@ namespace NexFB.PosKitchen.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
     using System.Linq;
@@ -57,6 +58,7 @@ namespace NexFB.PosKitchen.ViewModels
         {
             InitializeData(mainViewModel, order);
             RegisterRelayCommands();
+            GetTimerAddQuantiy();
         }
 
         #endregion
@@ -1540,7 +1542,7 @@ namespace NexFB.PosKitchen.ViewModels
         private void StartTimerAddQuantity()
         {
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(0.5);
+            timer.Interval = TimeSpan.FromSeconds(TimerAddQuantity);
             timer.Tick += TimerTickToAddQuantity;
             timer.Start();
         }
@@ -1637,6 +1639,26 @@ namespace NexFB.PosKitchen.ViewModels
             PickGroupCommand = new RelayCommand((y) => ExecutePickGroupCommand());
             ChooseMainFoodCommand = new RelayCommand((x) => CanExecuteChooseMainFoodCommand(), (y) => ExecuteChooseMainFoodCommand());
             ChooseAlternativeFoodCommand = new RelayCommand((x) => CanExecuteChooseAlternativeFoodCommand(), (y) => ExecuteChooseAlternativeFoodCommand());
+        }
+
+        /// <summary>
+        /// Get Timer Add Quantity.
+        /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
+        private void GetTimerAddQuantiy()
+        {
+            string timerAddQuantity = ConfigurationManager.AppSettings[Constant.TimerAddQuantity];
+            if (!string.IsNullOrEmpty(timerAddQuantity))
+            {
+                try
+                {
+                    TimerAddQuantity = double.Parse(timerAddQuantity);
+                }
+                catch (Exception)
+                {
+                    TimerAddQuantity = 1;
+                }
+            }
         }
 
         #endregion
