@@ -565,6 +565,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid date range. From Date must be less than To Date..
+        /// </summary>
+        public static string DateRangeInvalid {
+            get {
+                return ResourceManager.GetString("DateRangeInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Date field is required!.
         /// </summary>
         public static string DateRequire {

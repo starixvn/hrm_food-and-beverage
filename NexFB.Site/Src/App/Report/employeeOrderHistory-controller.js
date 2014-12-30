@@ -3,9 +3,9 @@
 
 reportModule.controller('EmployeeOrderHistoryReportController',
 ['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'foodMenuFactory', 'commonFactory',
-'foodMenuUtilities',
+'foodMenuUtilities', 'notificationFactory',
 function ($scope, reportFactory, ErrorFactory, reportUtilities, foodMenuFactory, commonFactory,
-foodMenuUtilities) {
+foodMenuUtilities, notificationFactory) {
 	$scope.toDate = new Date();
 
 	$scope.filter = {
@@ -22,7 +22,7 @@ foodMenuUtilities) {
 	};
 
 	$scope.orderStatus = {
-		New : 1,
+		New: 1,
 		Accepted: 2,
 		Reduced: 3,
 		Delivered: 4,
@@ -62,6 +62,15 @@ foodMenuUtilities) {
 		$scope.gridOption.itemsPerPage = 50;
 		$scope.gridOption.currentPage = 0;
 		$scope.gridOption.startIndex = 0;
+	};
+
+	/*
+	** Reset paging option.
+	*/
+	var resetPagingOption = function (filter) {
+		filter.startIndex = 0;
+		filter.itemsPerPage = 50;
+		filter.isPagingCallback = false;
 	};
 
 	/*
@@ -141,10 +150,20 @@ foodMenuUtilities) {
 	*/
 	$scope.query = function (filter) {
 		resetGridOption();
+		resetPagingOption(filter);
+
 		filter.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
 		filter.statusId = getOrderStatusId($scope.orderStatusesOptions);
 
-		$scope.getEmployeeOrderHistoryReport(filter);
+		var fromDate = new Date(filter.fromDate),
+			toDate = new Date(filter.toDate);
+
+		if (fromDate > toDate) {
+			notificationFactory.error("DateRangeInvalid");
+		}
+		else {
+			$scope.getEmployeeOrderHistoryReport(filter);
+		}
 	};
 
 	/*

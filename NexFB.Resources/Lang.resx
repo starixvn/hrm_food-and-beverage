@@ -984,4 +984,7 @@
   <data name="EmployeeOrderHistoryReportTitle" xml:space="preserve">
     <value>My Order History</value>
   </data>
+  <data name="DateRangeInvalid" xml:space="preserve">
+    <value>Invalid date range. From Date must be less than To Date.</value>
+  </data>
 </root>
