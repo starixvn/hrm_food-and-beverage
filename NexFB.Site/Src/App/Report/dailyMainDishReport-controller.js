@@ -3,12 +3,10 @@
 
 reportModule.controller('DailyMainDishReportController',
 ['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'userControlFactory', 'orderingFactory',
-function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory, orderingFactory) {
-	var filterDate = new Date();
-	filterDate.setDate(filterDate.getDate() - 4);
-'foodMenuFactory', 'commonFactory', 'foodMenuUtilities',
+'foodMenuFactory', 'commonFactory', 'foodMenuUtilities', 'notificationFactory',
+
 function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory, orderingFactory,
-foodMenuFactory, commonFactory, foodMenuUtilities) {
+foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 	var toDay = new Date(),
 		fromDate = new Date(toDay.getFullYear(), toDay.getMonth(), 1),
 		toDate = new Date();
@@ -149,13 +147,6 @@ foodMenuFactory, commonFactory, foodMenuUtilities) {
 	/*
 	** Get all employee type.
 	*/
-//	var getEmployeeType = function (departmentId, isLocal) {
-//		foodMenuFactory.getAllEmployeeType(departmentId, isLocal).success(function (employeeTypes) {
-//			$scope.employeeTypesOption = employeeTypes;
-//		}).error(function (response, status) {
-//			ErrorFactory.errorHandle(status);
-//		});
-//	};
 	var getEmployeeType = function (departmentId, isLocal) {
 		foodMenuFactory.getAllEmployeeType(departmentId, isLocal).success(function (employeeTypes) {
 			$scope.employeeTypesOption = employeeTypes;
@@ -181,7 +172,15 @@ foodMenuFactory, commonFactory, foodMenuUtilities) {
 		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
 		filter.userId = filter.employee ? filter.employee.UserId : '';
 
-		$scope.getDailyMainDishReport(filter);
+		var fromDate = new Date(filter.fromDate),
+			toDate = new Date(filter.toDate);
+
+		if (fromDate > toDate) {
+			notificationFactory.error("DateRangeInvalid");
+		}
+		else {
+			$scope.getDailyMainDishReport(filter);
+		}
 	};
 
 	/*

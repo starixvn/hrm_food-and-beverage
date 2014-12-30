@@ -1050,4 +1050,7 @@
   <data name="MonthlyMainDishPerDaySheetName" xml:space="preserve">
     <value>Monthly Main Dish Per Day</value>
   </data>
+  <data name="DateRangeInvalid" xml:space="preserve">
+    <value>Invalid date range. From Date must be less than To Date.</value>
+  </data>
 </root>
