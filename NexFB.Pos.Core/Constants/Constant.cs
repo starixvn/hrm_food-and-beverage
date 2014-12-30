@@ -26,6 +26,8 @@ namespace NexFB.Pos.Core.Constants
 
         public const double RemainingWidth = 373;
 
+        public const string AllowMultipleInstance = "AllowMultipleInstance";
+
         public const string DefaultLanguage = "DefaultLanguage";
 
         public const string ReleaseMode = "ReleaseMode";

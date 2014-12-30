@@ -11,6 +11,7 @@ namespace NexFB.WinAppSmartCard
 {
     using System;
     using System.Configuration;
+    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Threading;
@@ -45,6 +46,25 @@ namespace NexFB.WinAppSmartCard
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            string procName = Process.GetCurrentProcess().ProcessName;
+            Process[] processes = Process.GetProcessesByName(procName);
+
+            if (processes.Length > 1)
+            {
+                MessageBox.Show("POS Employee Application Already Running");
+                Process.GetCurrentProcess().Kill();
+            }
+            else
+            {
+                Application_Run();
+            }
+        }
+
+        /// <summary>
+        /// Application Run.
+        /// </summary>
+        private void Application_Run()
+        {
             if (DBConnectionAvailability.MainDBConnectionAvailable())
             {
                 InitializeApp();

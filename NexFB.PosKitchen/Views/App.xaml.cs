@@ -11,6 +11,7 @@ namespace NexFB.PosKitchen
 {
     using System;
     using System.Configuration;
+    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows;
@@ -41,6 +42,36 @@ namespace NexFB.PosKitchen
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            string allowMultipleInstance = ConfigurationManager.AppSettings[Constant.AllowMultipleInstance];
+            if (string.IsNullOrEmpty(allowMultipleInstance))
+            {
+                allowMultipleInstance = "FALSE";
+            }
+
+            if (allowMultipleInstance.ToUpper() == "FALSE")
+            {
+                string procName = Process.GetCurrentProcess().ProcessName;
+                Process[] processes = Process.GetProcessesByName(procName);
+
+                if (processes.Length > 1)
+                {
+                    MessageBox.Show("POS Kitchen Application Already Running");
+                    Process.GetCurrentProcess().Kill();
+                }
+                else
+                {
+                    Application_Run();
+                }
+            }
+            else
+            {
+                Application_Run();
+            }
+        }
+
+        private void Application_Run()
+        {
             if (DBConnectionAvailability.MainDBConnectionAvailable())
             {
                 InitializeApp();
