@@ -126,8 +126,8 @@ namespace NexFB.WinAppSmartCard
 
         private void MenuItem_PreviewMouseDown_Restart(object sender, MouseButtonEventArgs e)
         {
-            System.Windows.Forms.Application.Restart();
             System.Windows.Application.Current.Shutdown();
+            System.Windows.Forms.Application.Restart();
         }
     }
 }
