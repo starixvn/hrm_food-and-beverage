@@ -54,6 +54,15 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 	};
 
 	/*
+	** Reset paging option.
+	*/
+	var resetPagingOption = function (filter) {
+		filter.startIndex = 0;
+		filter.itemsPerPage = 50;
+		filter.isPagingCallback = false;
+	};
+
+	/*
 	** Open calendar.
 	*/
 	$scope.openPopupStartDate = function ($event) {
@@ -168,6 +177,8 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 	*/
 	$scope.query = function (filter) {
 		resetGridOption();
+		resetPagingOption(filter);
+
 		filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
 		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
 		filter.userId = filter.employee ? filter.employee.UserId : '';
