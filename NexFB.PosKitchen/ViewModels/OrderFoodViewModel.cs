@@ -1157,7 +1157,14 @@ namespace NexFB.PosKitchen.ViewModels
             CommandResult result = KitchenService.EditOrderFood(editOrderMealCriteria);
             if (result.Code != 0)
             {
-                this.ShowErrorMessage(CurrentCulture(), result.Message);
+                if (result.Code == 106)
+                {
+                    WPFMessageBox.Show(CurrentCulture(), WinFormMainResource.Message_DeliveryArea);
+                }
+                else
+                {
+                    WPFMessageBox.Show(CurrentCulture(), result.Message);
+                }
             }
             else
             {
