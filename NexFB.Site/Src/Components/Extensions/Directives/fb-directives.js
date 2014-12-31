@@ -176,3 +176,50 @@ appModule.directive('calendarImage', function () {
 		template: '<img class="calendar-image" src="/Src/Content/Site/images/calendar.png"></img>'
 	};
 });
+
+appModule.directive('ignoreUnicode', function () {
+	return {
+		require: 'ngModel',
+		link: function (scope, element, attr, ngModelCtrl) {
+			$(element).keydown(function (e) {
+				if (e.keyCode === 8 || e.keyCode === 0) {
+					e.preventDefault();
+				}
+			});
+			function fromUser(text) {
+				if (text) {
+					var transformedInput = text.replace(/[^0-9a-zA-Z]/g, '');
+
+					if (transformedInput !== text) {
+						ngModelCtrl.$setViewValue(transformedInput);
+						ngModelCtrl.$render();
+					}
+					return transformedInput;
+				}
+				return undefined;
+			}
+			ngModelCtrl.$parsers.push(fromUser);
+		}
+	};
+});
+
+
+//appModule.directive('ignoreUnicode', function () {
+//	return {
+//		link: function (scope, elem, attrs) {
+//			$(elem).keypress(function (e) {
+//				console.log(e.keyCode);
+//			});
+//			$(elem).keydown(function (e) {
+//				console.log(e.keyCode);
+//				if (!((e.keyCode >= 65 && e.keyCode <= 90) ||
+//                            e.keyCode == 8 || e.keyCode == 37 || e.keyCode == 39 || e.keyCode == 9)
+//                        ) {
+//					e.preventDefault();
+//				}
+//			});
+//		}
+//	};
+//});
+
+
