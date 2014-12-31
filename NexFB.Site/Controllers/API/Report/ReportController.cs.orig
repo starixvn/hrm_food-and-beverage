@@ -176,12 +176,25 @@ namespace NexFB.Site.Controllers.API.Report
         public IEnumerable<Department> GetDepartmentByUserRole()
         {
             IEnumerable<Department> departments = null;
+<<<<<<< HEAD
+=======
+            int systemAdminRole = (int)RolesSystem.SA;
+>>>>>>> #000 - Refactoring code
             int financeRole = (int)RolesSystem.Finance;
             string roles = CurrentUser.Roles;
 
             if (!string.IsNullOrEmpty(roles))
             {
+<<<<<<< HEAD
                 if (roles.Contains(financeRole.ToString()))
+=======
+                if (roles.Contains(systemAdminRole.ToString()))
+                {
+                    var criteria = new GetAllDepartmentCriteria();
+                    departments = _commonService.GetAllDepartment(criteria);
+                }
+                else if (roles.Contains(financeRole.ToString()))
+>>>>>>> #000 - Refactoring code
                 {
                     var criteria = new GetEmployeeRoleByIdCriteria
                     {
@@ -321,8 +334,8 @@ namespace NexFB.Site.Controllers.API.Report
         public List<object> GetDayType()
         {
             var dayTypeList = new List<object>();
-
-            foreach (DayType dayType in Enum.GetValues(typeof(DayType)).Cast<DayType>())
+            
+       	    foreach (DayType dayType in Enum.GetValues(typeof(DayType)).Cast<DayType>())
             {
                 var dayTypeItem = new
                 {
@@ -332,8 +345,8 @@ namespace NexFB.Site.Controllers.API.Report
                 dayTypeList.Add(dayTypeItem);
             }
 
-<<<<<<< HEAD
-            return _monthlyPerDayService.GetMonthlyMainDishPerDayReport(criteria);
+            return dayTypeList;
+        }
             
         /// <summary>
         /// Get Ordered By ENUM.
@@ -357,7 +370,7 @@ namespace NexFB.Site.Controllers.API.Report
 
             return orderedByList;
         }
-
+        
         /// <summary>
         /// Get Order Platform ENUM.
         /// </summary>
@@ -428,9 +441,6 @@ namespace NexFB.Site.Controllers.API.Report
             }
 
             return menuTypes;
-=======
-            return dayTypeList;
->>>>>>> #28324 - Render monthly main dish per day report
         }
     }
 }
