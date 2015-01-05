@@ -32,7 +32,7 @@ namespace NexFB.Core.Constants
 
         public const string SummaryByCompanyReport = "SummaryByCompany";
 
-        public const string MonthlyMainDishReportLocal = "MonthlyMainDishReportLocal";
+        public const string MonthlyMainDishReportPerMeal = "MonthlyMainDishReportPerMeal";
 
         public const string UserManagement = "UserManagement";
 

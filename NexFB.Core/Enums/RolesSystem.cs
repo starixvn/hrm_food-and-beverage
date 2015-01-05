@@ -26,9 +26,9 @@ namespace NexFB.Core.Enums
         SA = 1,
 
         /// <summary>
-        /// Admin item.
+        /// Finance item.
         /// </summary>
-        Admin = 2,
+        Finance = 2,
 
         /// <summary>
         /// Kitchen item.
@@ -41,5 +41,11 @@ namespace NexFB.Core.Enums
         /// </summary>
         [Description("Employee")]
         Employee = 4,
+
+        /// <summary>
+        /// Admin item.
+        /// </summary>
+        [Description("Admin")]
+        Admin = 5
     }
 }

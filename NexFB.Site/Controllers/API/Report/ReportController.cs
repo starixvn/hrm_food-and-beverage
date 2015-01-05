@@ -65,7 +65,7 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="isLocal">The is local.</param>
         /// <returns>The report.</returns>
         [HttpGet]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.MonthlyMainDishReportLocal, Policy = Policy.Read)]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.MonthlyMainDishReportPerMeal, Policy = Policy.Read)]
         public MonthlyLocalReportModel GetMonthlyMainDishReportLocal(
             DateTime reportDate,
             string departmentId = "",
@@ -164,25 +164,24 @@ namespace NexFB.Site.Controllers.API.Report
         public IEnumerable<Department> GetDepartmentByUserRole()
         {
             IEnumerable<Department> departments = null;
-            int systemAdminRole = (int)RolesSystem.SA;
-            int adminRole = (int)RolesSystem.Admin;
+            int financeRole = (int)RolesSystem.Finance;
             string roles = CurrentUser.Roles;
 
             if (!string.IsNullOrEmpty(roles))
             {
-                if (roles.Contains(systemAdminRole.ToString()))
-                {
-                    var criteria = new GetAllDepartmentCriteria();
-                    departments = _commonService.GetAllDepartment(criteria);
-                }
-                else if (roles.Contains(adminRole.ToString()))
+                if (roles.Contains(financeRole.ToString()))
                 {
                     var criteria = new GetEmployeeRoleByIdCriteria
                     {
                         SystemId = CurrentUser.UserId,
-                        RoleId = adminRole.ToString()
+                        RoleId = financeRole.ToString()
                     };
                     departments = _userControlService.GetDepartmentUserHasPermission(criteria);
+                }
+                else
+                {
+                    var criteria = new GetAllDepartmentCriteria();
+                    departments = _commonService.GetAllDepartment(criteria);
                 }
             }
 

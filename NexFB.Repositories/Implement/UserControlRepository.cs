@@ -218,7 +218,7 @@ namespace NexFB.Repositories.Implement
         {
             foreach (EmployeeRoleModel role in roles)
             {
-                if (role.Role != null && role.Role.RoleId == (int)RolesSystem.Admin)
+                if (role.Role != null && role.Role.RoleId == (int)RolesSystem.Finance)
                 {
                     IEnumerable<RoleDepartmentModel> departments = rolesDepartment.Where(item => item.UserId == role.UserId);
 
