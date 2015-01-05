@@ -1582,7 +1582,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Monthly_Main_Dish_Report_Local.
+        ///   Looks up a localized string similar to Monthly_Main_Dish_Report_Per_Meal.
         /// </summary>
         public static string MonthlyMainDishLocalReportName {
             get {
@@ -1591,7 +1591,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Monthly Main Dish Report - Local.
+        ///   Looks up a localized string similar to Monthly Main Dish Report - Per Meal.
         /// </summary>
         public static string MonthlyMainDishLocalReportTitle {
             get {
@@ -1600,7 +1600,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Monthly Main Dish Report Local.
+        ///   Looks up a localized string similar to Monthly Main Dish Report - Per Meal.
         /// </summary>
         public static string MonthlyMainDishLocalSheetName {
             get {
@@ -1609,7 +1609,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Monthly Main Dish Report - Local.
+        ///   Looks up a localized string similar to Monthly Main Dish Report - Per Meal.
         /// </summary>
         public static string MonthlyMainDishReportLocal {
             get {

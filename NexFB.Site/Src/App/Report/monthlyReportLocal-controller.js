@@ -11,7 +11,6 @@ reportUtilities) {
 	** Declare variable.
 	*/
 	var currentDate = new Date();
-	currentDate.setMonth(currentDate.getMonth() - 1);
 
 	$scope.filter = {
 		reportDate: currentDate,
@@ -93,11 +92,9 @@ reportUtilities) {
 
 		if (departments && departments.length === 1) {
 			$scope.getTeamByCompany($scope.filter.departmentId);
-			getEmployeeType($scope.filter.departmentId, true);
 		}
-		else {
-			getEmployeeType(null, true);
-		}
+
+		getEmployeeType($scope.filter.departmentId, true);
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
@@ -143,6 +140,11 @@ reportUtilities) {
 	*/
 	$scope.getTeamAndEmployeeTypeOfDepartment = function (departmentId) {
 		$scope.getTeamByCompany(departmentId);
+
+		if (!departmentId) {
+			departmentId = $scope.originalDepartmentId;
+		}
+
 		getEmployeeType(departmentId, true);
 	};
 

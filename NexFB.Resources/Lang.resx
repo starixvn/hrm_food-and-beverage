@@ -724,7 +724,7 @@
     <value>Group</value>
   </data>
   <data name="MonthlyMainDishReportLocal" xml:space="preserve">
-    <value>Monthly Main Dish Report - Local</value>
+    <value>Monthly Main Dish Report - Per Meal</value>
   </data>
   <data name="ManageGroup" xml:space="preserve">
     <value>Manage Group</value>
@@ -853,13 +853,13 @@
     <value>Encoding '{0}' is not supported. Only supports gzip or deflate encoding.</value>
   </data>
   <data name="MonthlyMainDishLocalReportName" xml:space="preserve">
-    <value>Monthly_Main_Dish_Report_Local</value>
+    <value>Monthly_Main_Dish_Report_Per_Meal</value>
   </data>
   <data name="MonthlyMainDishLocalReportTitle" xml:space="preserve">
-    <value>Monthly Main Dish Report - Local</value>
+    <value>Monthly Main Dish Report - Per Meal</value>
   </data>
   <data name="MonthlyMainDishLocalSheetName" xml:space="preserve">
-    <value>Monthly Main Dish Report Local</value>
+    <value>Monthly Main Dish Report - Per Meal</value>
   </data>
   <data name="GroupBy" xml:space="preserve">
     <value>Group by</value>
@@ -915,10 +915,10 @@
   <data name="LabelCheckboxTranslateRemark" xml:space="preserve">
     <value>Translate remark to Vietnamese (for kitchen staff)</value>
   </data>
-   <data name="DailyMainDishReport" xml:space="preserve">
+  <data name="DailyMainDishReport" xml:space="preserve">
     <value>Daily Main Dish Report - Price Per Meal</value>
   </data>
-    <data name="JoinedDate" xml:space="preserve">
+  <data name="JoinedDate" xml:space="preserve">
     <value>Joined Date</value>
   </data>
   <data name="JoinedFrom" xml:space="preserve">

@@ -37,15 +37,18 @@ reportModule.directive('renderMonthlyReport', function () {
 							{ Name: "Meal", Value: meal.Meal.MealEngName, MergeColNumber: 4, CellAlign: "left" },
 							{ Name: "1", Value: "", MergeColNumber: 33 }
 						],
-						SubRows: []
+						SubRows: [],
+						CssClass: 'parent-row-background'
 					};
 				}
 				else {
 					currentRow = {
 						Columns: [
 							{ Name: "Meal", Value: meal.Meal.MealEngName, MergeColNumber: 2, CellAlign: "left" },
-							{ Name: "1", Value: "", MergeColNumber: 33 }
-						], SubRows: []
+							{ Name: "1", Value: "", MergeColNumber: 33, TdClass: "meal-background" }
+						],
+						SubRows: [],
+						CssClass: 'parent-row-background'
 					};
 				}
 
@@ -218,7 +221,7 @@ reportModule.directive('renderMonthlyReport', function () {
 					showTitle: true,
 					titleInfo:
 						{
-							text: "Monthly Main Dish Report - Local",
+							text: "Monthly Main Dish Report - Per Meal",
 							showExcelButton: true,
 							exportExcelFunction: function () {
 								scope.exportExcel.call(this, scope.filter);
@@ -237,7 +240,8 @@ reportModule.directive('renderMonthlyReport', function () {
 						itemsPerPage: scope.gridOption.itemsPerPage,
 						currentPage: scope.gridOption.currentPage,
 						pagerSelectCallBack: ReRenderAfterPaged
-					}
+					},
+					showHighlightRow: false
 				};
 
 				$('#' + id).fanexGrid(gridOptions);
