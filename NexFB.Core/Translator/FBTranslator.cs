@@ -26,10 +26,10 @@ namespace NexFB.Core.Translator
         /// Auto Translation text.
         /// </summary>
         /// <param name="sourceText">Source text.</param>
-        /// <param name="translatorAPIUrl">The translator API Url.</param>
+        /// <param name="translatorAPIPath">The translator API Url.</param>
         /// <returns>Translated text into vietnamese language.</returns>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
-        public static string AutoTranslation(string sourceText, string translatorAPIUrl)
+        public static string AutoTranslation(string sourceText, string translatorAPIPath)
         {
             LanguageDetector.Initialize();
             string translatedText = sourceText;
@@ -43,7 +43,7 @@ namespace NexFB.Core.Translator
                     bool isVietnamese = results.Any(x => x.Name.ToString().ToLower() == "vi");
                     if (!isVietnamese)
                     {
-                        translatedText = TranslateText(sourceText, translatorAPIUrl);
+                        translatedText = TranslateText(sourceText, translatorAPIPath);
                     }
                 }
             }
