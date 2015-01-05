@@ -1970,6 +1970,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order Count.
+        /// </summary>
+        public static string OrderCount {
+            get {
+                return ResourceManager.GetString("OrderCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ordered.
         /// </summary>
         public static string Ordered {

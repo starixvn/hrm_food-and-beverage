@@ -101,11 +101,9 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 
 		if (departments && departments.length === 1) {
 			$scope.getTeamByCompany($scope.filter.departmentId);
-			getEmployeeType($scope.filter.departmentId, null);
 		}
-		else {
-			getEmployeeType(null, null);
-		}
+
+		getEmployeeType($scope.filter.departmentId, null);
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
