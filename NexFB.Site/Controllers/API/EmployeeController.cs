@@ -43,12 +43,12 @@ namespace NexFB.Site.Controllers.API
         }
 
         [HttpGet]
-        public IList<Employee> GetEmployees(string keyWord)
+        public IList<Employee> GetEmployees(string keyWord = "", string departmentId = "")
         {
             var criteria = new GetEmployeeCriteria()
             {
-                DepartmentId = this.CurrentUser.DepartmentId.ToString(),
-                Keyword = keyWord
+                DepartmentId = string.IsNullOrEmpty(departmentId) ? this.CurrentUser.DepartmentId.ToString() : departmentId,
+                Keyword = keyWord,
             };
 
             IList<Employee> employees = _employeeService.GetEmployeeByQuery(criteria);

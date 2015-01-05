@@ -104,6 +104,7 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 		}
 
 		getEmployeeType($scope.filter.departmentId, null);
+		getEmployee($scope.searchEmployee, $scope.filter.departmentId);
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
@@ -140,15 +141,24 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 	** Get all employees.
 	*/
 	$scope.getEmployee = function (searchKey) {
+		var departmentId = $scope.filter.departmentId;
+
+		if (!departmentId) {
+			departmentId = $scope.originalDepartmentId;
+		}
+		getEmployee(searchKey, departmentId);
+	};
+
+	var getEmployee = function (searchKey, departmentId) {
 		$scope.filter.employee = '';
 
-		orderingFactory.getEmployees(searchKey).then(
-		function (employees) {
-			$scope.searchEmployees = employees;
-		},
-		function (response) {
-			ErrorFactory.errorHandle(response.status);
-		});
+		orderingFactory.getEmployees(searchKey, departmentId).then(
+			function (employees) {
+				$scope.searchEmployees = employees;
+			},
+			function (response) {
+				ErrorFactory.errorHandle(response.status);
+			});
 	};
 
 	/*
@@ -167,7 +177,13 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 	*/
 	$scope.getTeamAndEmployeeTypeOfDepartment = function (departmentId) {
 		$scope.getTeamByCompany(departmentId);
+
+		if (!departmentId) {
+			departmentId = $scope.originalDepartmentId;
+		}
+
 		getEmployeeType(departmentId, null);
+		getEmployee($scope.searchEmployee, departmentId);
 	};
 
 	/*
@@ -180,6 +196,10 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 		filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
 		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
 		filter.userId = filter.employee ? filter.employee.UserId : '';
+
+		if (!filter.departmentId) {
+			filter.departmentId = $scope.originalDepartmentId;
+		}
 
 		var fromDate = new Date(filter.fromDate),
 			toDate = new Date(filter.toDate);

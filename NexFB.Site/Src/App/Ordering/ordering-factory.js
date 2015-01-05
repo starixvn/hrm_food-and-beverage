@@ -32,10 +32,10 @@ orderingModule.factory("orderingFactory",
 			getDepartment: function () {
 				return $http.get(baseUrl + 'api/Common/GetAllDepartment');
 			},
-			getEmployees: function (keyWord) {
+			getEmployees: function (keyWord, departmentId) {
 				return $http.get(baseUrl + 'api/Employee/GetEmployees',
 					{
-						params: { keyWord: keyWord }
+						params: { keyWord: keyWord , departmentId: departmentId }
 					}
 				);
 			},
