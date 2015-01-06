@@ -2527,11 +2527,29 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Side dish item.
+        /// </summary>
+        public static string SideDishItem {
+            get {
+                return ResourceManager.GetString("SideDishItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Side Dish Management.
         /// </summary>
         public static string SideDishManagement {
             get {
                 return ResourceManager.GetString("SideDishManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Side Dish Report.
+        /// </summary>
+        public static string SideDishReport {
+            get {
+                return ResourceManager.GetString("SideDishReport", resourceCulture);
             }
         }
         

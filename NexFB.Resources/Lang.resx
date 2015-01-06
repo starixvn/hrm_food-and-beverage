@@ -933,6 +933,12 @@
   <data name="OffDay" xml:space="preserve">
     <value>Off day</value>
   </data>
+   <data name="SideDishItem" xml:space="preserve">
+    <value>Side dish item</value>
+  </data>
+  <data name="SideDishReport" xml:space="preserve">
+    <value>Side Dish Report</value>
+  </data>
   <data name="WorkDay" xml:space="preserve">
     <value>Work day</value>
   </data>
