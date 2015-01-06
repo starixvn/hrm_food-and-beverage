@@ -230,6 +230,11 @@ namespace NexFB.Site.Controllers.API.Report
                     };
                     departments = _userControlService.GetDepartmentUserHasPermission(criteria);
                 }
+                else
+                {
+                    var criteria = new GetAllDepartmentCriteria();
+                    departments = _commonService.GetAllDepartment(criteria);
+                }
             }
 
             return departments;
