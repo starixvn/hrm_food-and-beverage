@@ -213,11 +213,6 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 								validNonVegetarianCurrentDate = false;
 							}
 						}
-							}
-							else if (+workDateNoTime === +todayNoTime) {
-								validNonVegetarianCurrentDate = false;
-							}
-						}
 					}
 					else if (+workDateNoTime === +todayNoTime && workDate) {
 						validNoCancelRegistration = checkNoCancelRegistration(scope.originalMeals);

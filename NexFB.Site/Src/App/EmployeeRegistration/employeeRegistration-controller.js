@@ -328,8 +328,6 @@ function ($scope, mealRegistrationFactory, $modal, notificationFactory, ErrorFac
 					else {
 						notificationFactory.success("DataChangeSuccessfully");
 					}
-					}
-				
 				}
 				else {
 					notificationFactory.error("", response.Message);
