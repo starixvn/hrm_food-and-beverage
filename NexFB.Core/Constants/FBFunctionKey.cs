@@ -34,6 +34,8 @@ namespace NexFB.Core.Constants
 
         public const string MonthlyMainDishReportPerMeal = "MonthlyMainDishReportLocal";
 
+        public const string MonthlyMainDishReportPerDay = "MonthlyMainDishReportPerDay";
+
         public const string UserManagement = "UserManagement";
 
         public const string ManageRole = "ManageRole";

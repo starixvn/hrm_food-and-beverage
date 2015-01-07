@@ -86,11 +86,9 @@ foodMenuUtilities) {
 
 		if (departments && departments.length === 1) {
 			$scope.getTeamByCompany($scope.filter.departmentId);
-			getEmployeeType($scope.filter.departmentId, null);
 		}
-		else {
-			getEmployeeType(null, null);
-		}
+
+		getEmployeeType($scope.filter.departmentId, null);
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
@@ -127,6 +125,11 @@ foodMenuUtilities) {
 	*/
 	$scope.getTeamAndEmployeeTypeOfDepartment = function (departmentId) {
 		$scope.getTeamByCompany(departmentId);
+
+		if (!departmentId) {
+			departmentId = $scope.originalDepartmentId;
+		}
+
 		getEmployeeType(departmentId, null);
 	};
 
