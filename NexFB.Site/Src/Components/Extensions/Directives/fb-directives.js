@@ -181,8 +181,11 @@ appModule.directive('ignoreUnicode', function () {
 	return {
 		require: 'ngModel',
 		link: function (scope, element, attr, ngModelCtrl) {
+			$(element).keypress(function (e) {
+				console.log(e.keyCode);
+			});
 			$(element).keydown(function (e) {
-				if (e.keyCode === 8 || e.keyCode === 0) {
+				if (e.keyCode === 0) {
 					e.preventDefault();
 				}
 			});
@@ -203,23 +206,19 @@ appModule.directive('ignoreUnicode', function () {
 	};
 });
 
-
-//appModule.directive('ignoreUnicode', function () {
-//	return {
-//		link: function (scope, elem, attrs) {
-//			$(elem).keypress(function (e) {
-//				console.log(e.keyCode);
-//			});
-//			$(elem).keydown(function (e) {
-//				console.log(e.keyCode);
-//				if (!((e.keyCode >= 65 && e.keyCode <= 90) ||
-//                            e.keyCode == 8 || e.keyCode == 37 || e.keyCode == 39 || e.keyCode == 9)
-//                        ) {
-//					e.preventDefault();
-//				}
-//			});
-//		}
-//	};
-//});
+appModule.directive('numberIntOnly', function () {
+	return {
+		link: function (scope, elem, attrs) {
+			$(elem).keydown(function (e) {
+				console.log(e.keyCode);
+				if (!((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105) ||
+                            e.keyCode == 8 || e.keyCode == 46 || e.keyCode == 35 || e.keyCode == 36 || e.keyCode == 37 || e.keyCode == 39)
+                        ) {
+					e.preventDefault();
+				}
+			});
+		}
+	};
+});
 
 
