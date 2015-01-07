@@ -66,6 +66,8 @@ namespace NexFB.Core.Constants
 
         public const string SpecialEmployee = "SpecialEmployee";
         
+        public const string DailyMainDishReport = "DailyMainDishReport";
+        
         public const string EmployeeOrderHistoricalReport = "EmployeeOrderHistory";
     }
 }

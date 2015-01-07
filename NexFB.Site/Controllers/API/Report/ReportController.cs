@@ -144,6 +144,7 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="isPagingCallback">The is paging callback.</param>
         /// <returns>The report.</returns>
         [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.DailyMainDishReport, Policy = Policy.Read)]
         public DailyMainDishReportModel GetDailyMainDishReport(
             DateTime fromDate,
             DateTime toDate,
