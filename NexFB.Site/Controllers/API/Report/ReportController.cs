@@ -210,6 +210,7 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="itemsPerPage">The items per page.</param>
         /// <returns>The report.</returns>
         [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.EmployeeOrderHistoricalReport, Policy = Policy.Read)]
         public EmployeeOrderHistoryReport GetEmployeeOrderHistoryReport(
             DateTime fromDate,
             DateTime toDate,

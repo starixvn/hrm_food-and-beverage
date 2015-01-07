@@ -63,5 +63,7 @@ namespace NexFB.Core.Constants
         public const string ManageUserInGroup = "ManageUserInGroup";
 
         public const string SpecialEmployee = "SpecialEmployee";
+        
+        public const string EmployeeOrderHistoricalReport = "EmployeeOrderHistory";
     }
 }
