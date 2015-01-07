@@ -2,35 +2,42 @@
 /*global groupControlModule*/
 
 groupControlModule.controller('CreateGroupController',
-    ['$scope', '$modalInstance', 'groupControlFactory', 'notificationFactory', 'ErrorFactory',
-        function ($scope, $modalInstance, groupControlFactory, notificationFactory, ErrorFactory) {
-            $scope.group = {
-                groupName: '',
-                isActive: true
-            };
-            
-            /*
-            ** Set form scope to current scope.
-            */
-            $scope.setFormScope = function (formScope) {
-                $scope.formScope = formScope;
-            };
+['$scope', '$modalInstance', 'groupControlFactory', 'notificationFactory', 'ErrorFactory', 'groupControlUtilities',
+function ($scope, $modalInstance, groupControlFactory, notificationFactory, ErrorFactory, groupControlUtilities) {
+	$scope.group = {
+		groupName: '',
+		isActive: true
+	};
 
-            $scope.addGroup = function (group) {
-                groupControlFactory.insertGroup(group).success(function (response) {
-                    if (response.IsSuccessful) {
-                        $modalInstance.close();
-                        notificationFactory.success("DataChangeSuccessfully");
-                    }
-                    else {
-                        notificationFactory.error("", response.Message);
-                    }
-                }).error(function (response, status) {
-                    ErrorFactory.errorHandle(status);
-                });
-            };
+	/*
+	** Set form scope to current scope.
+	*/
+	$scope.setFormScope = function (formScope) {
+		$scope.formScope = formScope;
+	};
 
-            $scope.cancel = function () {
-                $modalInstance.dismiss("cancel");
-            };
-        } ]);
+	$scope.addGroup = function (group) {
+		$scope.isDisabledSubmitButton = true;
+
+		if (groupControlUtilities.validateGroup(group)) {
+			groupControlFactory.insertGroup(group).success(function (response) {
+				if (response.IsSuccessful) {
+					$modalInstance.close();
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
+		}
+		else {
+			$scope.isDisabledSubmitButton = false;
+		}
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
+	};
+} ]);

@@ -20,3 +20,26 @@ groupControlModule.factory('groupControlFactory', ['$http', 'baseUrl', function 
 		}
     };
 } ]);
+
+groupControlModule.factory('groupControlUtilities',
+['notificationFactory', function (notificationFactory) {
+	var utility = {};
+
+	utility.validateGroup = function (group) {
+		var isValid = true;
+
+		if (!group) {
+			isValid = false;
+		}
+		else {
+			if (!group.groupName) {
+				isValid = false;
+				notificationFactory.error("UserGroupNameRequire");
+			}
+		}
+
+		return isValid;
+	};
+
+	return utility;
+} ]);

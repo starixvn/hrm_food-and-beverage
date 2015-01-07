@@ -1119,4 +1119,7 @@
   <data name="ViewMenuReport" xml:space="preserve">
     <value>View Menu</value>
   </data>
+  <data name="UserGroupNameRequire" xml:space="preserve">
+    <value>The Group field is requried!</value>
+  </data>
 </root>

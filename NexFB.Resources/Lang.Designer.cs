@@ -2959,6 +2959,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Group field is requried!.
+        /// </summary>
+        public static string UserGroupNameRequire {
+            get {
+                return ResourceManager.GetString("UserGroupNameRequire", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Password must be between 6-32 characters..
         /// </summary>
         public static string ValidateLengthPassword {
