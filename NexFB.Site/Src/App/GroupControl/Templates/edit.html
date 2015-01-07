@@ -21,7 +21,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="button" data-translate="Submit" ng-disabled="!editGroupForm.$valid" ng-click="updateGroup(group)" />
+        <button class="button" data-translate="Submit" ng-disabled="isDisabledSubmitButton" ng-click="updateGroup(group)" />
         <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel" />
     </div>
 </div>

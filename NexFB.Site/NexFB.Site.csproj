@@ -302,6 +302,7 @@
     <Content Include="Src\App\GroupControl\Templates\edit.html" />
     <Content Include="Src\App\GroupControl\Templates\create.html" />
     <Content Include="Src\App\GroupControl\Templates\index.html" />
+    <Content Include="Src\App\GroupControl\Templates\manageGroupMember.html" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup-controller.js" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup-directive.js" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup-factory.js" />

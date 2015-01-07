@@ -30,6 +30,8 @@ function ($scope, $modalInstance, groupControlFactory, notificationFactory, Erro
 				}
 			}).error(function (response, status) {
 				ErrorFactory.errorHandle(status);
+			})['finally'](function () {
+				$scope.isDisabledSubmitButton = false;
 			});
 		}
 		else {

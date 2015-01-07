@@ -56,7 +56,7 @@
 	                <td ng-bind="group.GroupName">
 	                </td>
 	                <td class="text-center">
-	                    <a ng-href="/ManageGroup/User?groupId={{group.GroupId}}" ng-bind="group.Members"></a>
+	                    <a href="" ng-bind="group.Members" ng-click="manageGroupMember(group)" ></a>
 	                </td>
 	                <td class="text-center">
 	                    <input type="checkbox" ng-disabled="true" ng-checked="group.IsActive"/>

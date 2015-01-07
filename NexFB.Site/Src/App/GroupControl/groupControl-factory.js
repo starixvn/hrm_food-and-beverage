@@ -32,7 +32,7 @@ groupControlModule.factory('groupControlUtilities',
 			isValid = false;
 		}
 		else {
-			if (!group.groupName) {
+			if (!group.GroupName) {
 				isValid = false;
 				notificationFactory.error("UserGroupNameRequire");
 			}

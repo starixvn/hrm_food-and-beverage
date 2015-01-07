@@ -2,28 +2,36 @@
 /*global groupControlModule*/
 
 groupControlModule.controller('EditGroupController',
-    ['$scope', '$modalInstance', 'group', 'groupControlFactory', 'notificationFactory', 'ErrorFactory',
-    function ($scope, $modalInstance, group, groupControlFactory, notificationFactory, ErrorFactory) {
-        
-    $scope.group = group;
+['$scope', '$modalInstance', 'group', 'groupControlFactory', 'notificationFactory', 'ErrorFactory', 'groupControlUtilities',
+function ($scope, $modalInstance, group, groupControlFactory, notificationFactory, ErrorFactory, groupControlUtilities) {
 
-    $scope.updateGroup = function (grp) {
-        var editedGroup = angular.copy(grp);
+	$scope.group = group;
 
-        groupControlFactory.updateGroup(editedGroup).success(function (response) {
-            if (response.IsSuccessful) {
-                notificationFactory.success("DataChangeSuccessfully");
-                $modalInstance.close(group);
-            }
-            else {
-                notificationFactory.error("", response.Message);
-            }
-        }).error(function (response, status) {
-            ErrorFactory.errorHandle(status);
-        });
-    };
+	$scope.updateGroup = function (grp) {
+		$scope.isDisabledSubmitButton = true;
+		var editedGroup = angular.copy(grp);
 
-    $scope.cancel = function () {
-        $modalInstance.dismiss("cancel");
-    };
+		if (groupControlUtilities.validateGroup(editedGroup)) {
+			groupControlFactory.updateGroup(editedGroup).success(function (response) {
+				if (response.IsSuccessful) {
+					notificationFactory.success("DataChangeSuccessfully");
+					$modalInstance.close(group);
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			})['finally'](function () {
+				$scope.isDisabledSubmitButton = false;
+			});
+		}
+		else {
+			$scope.isDisabledSubmitButton = false;
+		}
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
+	};
 } ]);

@@ -1,0 +1,68 @@
+﻿
+<div id="confirmPopup">
+	<div class="modal-header">
+		<div class="popup-header">
+			<span data-translate="Confirm"></span><span class="close-popup" ng-click="cancel()"></span>
+		</div>
+	</div>
+	<div class="modal-body manage-memger-group-modal">
+		<form class="form-inline" role="form">
+			<div class="form-group">
+				<label class="control-label width-100" data-translate="Member">
+				</label>
+				<input class="form-control custom-padding" ng-model="searchKey"
+					placeholder="Enter full name or nick name" search-auto-complete search-employees="searchEmployees"
+					ng-change="getEmployee(searchKey)" employee="newMember.employee" ng-enter="add()" />
+				<div class="pull-right">
+					<a ng-click="add(false)" class="button">
+						<i class="glyphicon glyphicon-plus icon-plus">
+						</i>
+						<label data-translate="Add">
+						</label>
+					</a>
+				</div>
+			</div>
+		</form>
+
+		<div>
+			<table class="table table-bordered table-striped col-sm-12">
+				<thead>
+					<tr class="header-table">
+						<th colspan="5">
+							<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+						</th>
+					</tr>
+					<tr>
+						<th data-translate="SymbolCount"></th>
+						<th class="width-80" data-translate="MemberName"></th>
+						<th data-translate="Department"></th>
+						<th class="width-100" data-translate="Group"></th>
+						<th data-translate="Action"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="member in members">
+						<td ng-bind="$index + 1" >
+						</td>
+						<td ng-bind="member.Nickname">
+						</td>
+						<td ng-bind="member.DepartmentName">
+						</td>
+						<td>
+							<ul class="group-toggle-item" >
+								<li ng-repeat="group in member.AssignedGroups" ng-bind="group.GroupName"></li>
+							</ul>
+						</td>
+						<td class="text-center">
+							<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteMember(member)"></a>
+						</td>
+					</tr>
+					<tr ng-show="members.length == 0">
+						<td class="empty-result" colspan="5" data-translate="EmptyResult">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
