@@ -44,7 +44,11 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly IMonthlyMainDishPerDayReportService _monthlyPerDayService;
 
         public ReportController()
+<<<<<<< HEAD
             : this(null, null, null, null, null, null)
+=======
+            : this(null, null, null, null, null)
+>>>>>>> 000 - merge code
         {
         }
 
@@ -202,11 +206,7 @@ namespace NexFB.Site.Controllers.API.Report
             IEnumerable<Department> departments = null;
             int financeRole = (int)RolesSystem.Finance;
             int employeeRole = (int)RolesSystem.Employee;
-<<<<<<< HEAD
             int adminRole = (int)RolesSystem.Admin;
-=======
-            int adminRole = (int)RolesSystem.Finance;
->>>>>>> #000 - Fixed bug : load department by role
             int systemAdminRole = (int)RolesSystem.SA;
             int kitchenRole = (int)RolesSystem.Kitchen;
 
@@ -214,21 +214,13 @@ namespace NexFB.Site.Controllers.API.Report
 
             if (!string.IsNullOrEmpty(roles))
             {
-<<<<<<< HEAD
                 bool isContainSystemAdminRole = roles.Contains(systemAdminRole.ToString());
-=======
-                bool isContainSARole = roles.Contains(systemAdminRole.ToString());
->>>>>>> #000 - Fixed bug : load department by role
                 bool isContainAdminRole = roles.Contains(adminRole.ToString());
                 bool isContainEmployeeRole = roles.Contains(employeeRole.ToString());
                 bool isContainFinanceRole = roles.Contains(financeRole.ToString());
                 bool isContainKitchenRole = roles.Contains(kitchenRole.ToString());
 
-<<<<<<< HEAD
                 if (isContainSystemAdminRole || isContainAdminRole || 
-=======
-                if (isContainSARole || isContainAdminRole ||
->>>>>>> #000 - Fixed bug : load department by role
                     (!isContainFinanceRole && (isContainEmployeeRole || isContainKitchenRole)))
                 {
                     var criteria = new GetAllDepartmentCriteria();

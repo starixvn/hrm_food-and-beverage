@@ -90,7 +90,7 @@ reportModule.factory('reportUtilities', function () {
 	var utilities = {},
 		numberFormat = '0,0',
 		monthFormat = 'MMM-YYYY',
-		dateFormatDailyReport = 'DD-MMM-YYYY';
+		dateFormatDailyReport = 'DD-MMM-YYYY',
 		dateFormaEmployeeOrderHistoryReport = "DD MMM YYYY";
 
 	utilities.getTeamId = function (teamOptions) {
