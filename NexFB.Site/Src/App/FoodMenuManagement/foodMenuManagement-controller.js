@@ -137,12 +137,6 @@ ErrorFactory) {
 		foodMenu.MenuEngName = changedFoodMenu.MenuEngName;
 		foodMenu.IsVegetarian = changedFoodMenu.IsVegetarian;
 		foodMenu.IsActive = changedFoodMenu.IsActive;
-		foodMenu.PricePerMeal = isNaN(changedFoodMenu.PricePerMeal) ?
-									parseInt(changedFoodMenu.PricePerMeal.replace(/\,/g, ''))
-									: changedFoodMenu.PricePerMeal;
-		foodMenu.PricePerDay = isNaN(changedFoodMenu.PricePerDay) ?
-									parseInt(changedFoodMenu.PricePerDay.replace(/\,/g, ''))
-									: changedFoodMenu.PricePerDay;
 		foodMenu.SetMenus = changedFoodMenu.SetMenus;
 		foodMenu.EmployeeTypes = changedFoodMenu.EmployeeTypes;
 		foodMenu.Meals = changedFoodMenu.Meals;
