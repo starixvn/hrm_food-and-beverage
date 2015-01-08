@@ -61,7 +61,7 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NLangDetect.Core">
+    <Reference Include="NLangDetect.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoDetectLanguage\NLangDetect.Core.dll</HintPath>
     </Reference>
     <Reference Include="NPOI">
