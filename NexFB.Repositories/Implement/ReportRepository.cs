@@ -115,6 +115,17 @@ namespace NexFB.Repositories.Implement
             IEnumerable<dynamic> offDayRows = rawReport.Where(x => x.IsOffDay == true);
             IEnumerable<dynamic> wordDayRows = rawReport.Where(x => x.IsOffDay == false);
 
+            if (wordDayRows != null && wordDayRows.Count() > 0)
+            {
+                var wordDayMeals = new MainDishPerDayModel
+                {
+                    IsOffDay = false,
+                    MealItems = CreateMealItemPerDay(wordDayRows)
+                };
+
+                meals.Add(wordDayMeals);
+            }
+
             if (offDayRows != null && offDayRows.Count() > 0)
             {
                 var offDayMeals = new MainDishPerDayModel
@@ -124,17 +135,6 @@ namespace NexFB.Repositories.Implement
                 };
 
                 meals.Add(offDayMeals);
-            }
-
-            if (wordDayRows != null && wordDayRows.Count() > 0)
-            {
-                var wordDayMeals = new MainDishPerDayModel 
-                {
-                    IsOffDay = false,
-                    MealItems = CreateMealItemPerDay(wordDayRows)
-                };
-
-                meals.Add(wordDayMeals);
             }
 
             return meals;
