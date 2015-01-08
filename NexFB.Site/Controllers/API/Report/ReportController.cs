@@ -177,11 +177,28 @@ namespace NexFB.Site.Controllers.API.Report
         {
             IEnumerable<Department> departments = null;
             int financeRole = (int)RolesSystem.Finance;
+            int employeeRole = (int)RolesSystem.Employee;
+            int adminRole = (int)RolesSystem.Admin;
+            int systemAdminRole = (int)RolesSystem.SA;
+            int kitchenRole = (int)RolesSystem.Kitchen;
+
             string roles = CurrentUser.Roles;
 
             if (!string.IsNullOrEmpty(roles))
             {
-                if (roles.Contains(financeRole.ToString()))
+                bool isContainSystemAdminRole = roles.Contains(systemAdminRole.ToString());
+                bool isContainAdminRole = roles.Contains(adminRole.ToString());
+                bool isContainEmployeeRole = roles.Contains(employeeRole.ToString());
+                bool isContainFinanceRole = roles.Contains(financeRole.ToString());
+                bool isContainKitchenRole = roles.Contains(kitchenRole.ToString());
+
+                if (isContainSystemAdminRole || isContainAdminRole || 
+                    (!isContainFinanceRole && (isContainEmployeeRole || isContainKitchenRole)))
+                {
+                    var criteria = new GetAllDepartmentCriteria();
+                    departments = _commonService.GetAllDepartment(criteria);
+                }
+                else if (isContainFinanceRole)
                 {
                     var criteria = new GetEmployeeRoleByIdCriteria
                     {
@@ -189,11 +206,6 @@ namespace NexFB.Site.Controllers.API.Report
                         RoleId = financeRole.ToString()
                     };
                     departments = _userControlService.GetDepartmentUserHasPermission(criteria);
-                }
-                else
-                {
-                    var criteria = new GetAllDepartmentCriteria();
-                    departments = _commonService.GetAllDepartment(criteria);
                 }
             }
 
