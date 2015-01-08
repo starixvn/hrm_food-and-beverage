@@ -1006,6 +1006,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member has already been in the group..
+        /// </summary>
+        public static string ExistMemberWarning {
+            get {
+                return ResourceManager.GetString("ExistMemberWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Floor.
         /// </summary>
         public static string Floor {
@@ -1470,6 +1479,15 @@ namespace NexFB.Resources {
         public static string ManageGroupLabel {
             get {
                 return ResourceManager.GetString("ManageGroupLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage group member of.
+        /// </summary>
+        public static string ManageGroupMember {
+            get {
+                return ResourceManager.GetString("ManageGroupMember", resourceCulture);
             }
         }
         

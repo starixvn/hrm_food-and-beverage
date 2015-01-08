@@ -2,7 +2,8 @@
 <div id="confirmPopup">
 	<div class="modal-header">
 		<div class="popup-header">
-			<span data-translate="Confirm"></span><span class="close-popup" ng-click="cancel()"></span>
+			<span>{{"ManageGroupMember" | translate}}{{" " + group.GroupName}}</span>
+			<span class="close-popup" ng-click="cancel()"></span>
 		</div>
 	</div>
 	<div class="modal-body manage-memger-group-modal">
@@ -14,7 +15,7 @@
 					placeholder="Enter full name or nick name" search-auto-complete search-employees="searchEmployees"
 					ng-change="getEmployee(searchKey)" employee="member.employee" ng-enter="add()" />
 				<div class="pull-right">
-					<a ng-click="add(false)" class="button">
+					<a ng-click="add()" class="button">
 						<i class="glyphicon glyphicon-plus icon-plus">
 						</i>
 						<label data-translate="Add">

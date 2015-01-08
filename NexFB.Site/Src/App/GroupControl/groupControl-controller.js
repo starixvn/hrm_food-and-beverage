@@ -200,7 +200,7 @@ ErrorFactory) {
 	$scope.group = group;
 	$scope.member = {};
 
-	$scope.filter = {
+	$scope.query = {
 		groupId: $scope.group.GroupId
 	};
 
@@ -209,31 +209,70 @@ ErrorFactory) {
 		sysIds: ''
 	};
 
+	/*
+	** Get employees.
+	*/
 	$scope.getEmployee = function (searchKey) {
 		orderingFactory.getEmployees(searchKey).then(
 		function (employees) {
 			$scope.searchEmployees = employees;
 		},
 		function (response, status) {
-			ErrorFactory.errorHandle(response.status);
+			ErrorFactory.errorHandle(status);
 		});
 	};
 
-	manageUserInGroupFactory.getMembers($scope.filter).success(function (members) {
-		$scope.members = members;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
-	});
+	/*
+	** Get members of group.
+	*/
+	var getMembersOfGroup = function (filter) {
+		manageUserInGroupFactory.getMembers(filter).success(function (members) {
+			$scope.members = members;
+			//TODO : sorted member has userId in top of list members
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+	};
+
+	getMembersOfGroup($scope.query);
+
+	var checkExistMember = function (members, userId) {
+		var isExisted = false;
+
+		angular.forEach(members, function (member) {
+			if (member.UserId === userId) {
+				isExisted = true;
+			}
+		});
+
+		return isExisted;
+	};
 
 	$scope.add = function () {
-		$scope.criteria.sysIds = $scope.member.employee.id;
+		var employee = $scope.member.employee;
 
-		manageUserInGroupFactory.assignMemberToGroup($scope.criteria)
-		.success(function (commandResult) {
-			var a = 1;
-		}).error(function (response, status) {
-			ErrorFactory.errorHandle(response.status);
-		});
+		if (employee) {
+			$scope.criteria.sysIds = employee.UserId;
+			var isExisted = checkExistMember($scope.members, employee.UserId);
+
+			if (isExisted) {
+				notificationFactory.error("ExistMemberWarning");
+			}
+			else {
+				manageUserInGroupFactory.assignMemberToGroup($scope.criteria)
+				.success(function (response) {
+					if (response.IsSuccessful) {
+						notificationFactory.success("DataChangeSuccessfully");
+						getMembersOfGroup($scope.query);
+					}
+					else {
+						notificationFactory.error("", response.Message);
+					}
+				}).error(function (response, status) {
+					ErrorFactory.errorHandle(status);
+				});
+			}
+		}
 	};
 
 	$scope.cancel = function () {

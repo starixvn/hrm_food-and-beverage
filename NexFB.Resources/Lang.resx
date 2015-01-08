@@ -1122,4 +1122,10 @@
   <data name="UserGroupNameRequire" xml:space="preserve">
     <value>The Group field is requried!</value>
   </data>
+  <data name="ExistMemberWarning" xml:space="preserve">
+    <value>Member has already been in the group.</value>
+  </data>
+  <data name="ManageGroupMember" xml:space="preserve">
+    <value>Manage group member of</value>
+  </data>
 </root>
