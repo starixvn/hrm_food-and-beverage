@@ -206,51 +206,20 @@ appModule.directive('ignoreUnicode', function () {
 	};
 });
 
-//appModule.directive('numberIntOnly', function () {
-//	return {
-//		link: function (scope, elem) {
-//			$(elem).keydown(function (e) {
-//				console.log(e.keyCode);
-//				if (!((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105) ||
-//                            e.keyCode === 8 || e.keyCode === 46 || e.keyCode === 35 || e.keyCode === 36 || e.keyCode === 37 || e.keyCode === 39)
-//                        ) {
-//					e.preventDefault();
-//				}
-//			});
-//		}
-//	};
-//});
-
-appModule.directive('numberIntOnly', ['$filter', function ($filter) {
+appModule.directive('numberIntOnly', function () {
 	return {
-		require: 'ngModel',
-		link: function (scope, element, attr, ctrl) {
-			ctrl.$formatters.unshift(function () {
-				var value = ctrl.$modelValue;
-
-				if (value !== "") {
-					value = $filter(attr.numberOnly)(value);
+		link: function (scope, elem) {
+			$(elem).keydown(function (e) {
+				console.log(e.keyCode);
+				if (!((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105) ||
+                            e.keyCode === 8 || e.keyCode === 46 || e.keyCode === 35 || e.keyCode === 36 || e.keyCode === 37 || e.keyCode === 39)
+                        ) {
+					e.preventDefault();
 				}
-
-				return value;
-			});
-
-			ctrl.$parsers.push(function (inputValue) {
-				if (inputValue) {
-					var digits = inputValue.replace(/[^0-9]/g, '');
-
-					if (digits !== inputValue) {
-						ctrl.$setViewValue(digits);
-						ctrl.$render();
-					}
-
-					return digits;
-				}
-
-				return '';
 			});
 		}
 	};
-} ]);
+});
+
 
 
