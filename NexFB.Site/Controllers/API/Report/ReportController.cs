@@ -30,6 +30,7 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Services.Interface.Report;
     using NexFB.Web;
     using NexFB.Web.Attributes;
+    using NexFB.Models.Report.SideDishReport;
 
     /// <summary>
     /// The report controller.
@@ -109,7 +110,7 @@ namespace NexFB.Site.Controllers.API.Report
 
             if (isPagingCallback)
             {
-                 fullReport = SessionManager.Get<MonthlyLocalReportModel>(ReportConstant.MonthlyMainDishReportLocalSessionKey + CurrentUser.UserId);
+                fullReport = SessionManager.Get<MonthlyLocalReportModel>(ReportConstant.MonthlyMainDishReportLocalSessionKey + CurrentUser.UserId);
             }
 
             if (fullReport == null)
@@ -187,6 +188,30 @@ namespace NexFB.Site.Controllers.API.Report
 
             pagingReport = _dailyMainDishReportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
             return pagingReport;
+        }
+
+        [HttpGet]
+        public SideDishReportModel GetSideDishReport(
+            DateTime fromDate,
+            DateTime toDate,
+            string departmentIds = "",
+            string teamIds = "",
+            string employeeTypeIds = "",
+            string sideDishItemIds = "")
+        {
+            var criteria = new GetSideDishReportCriteria
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                DepartmentId = departmentIds,
+                TeamId = teamIds,
+                EmployeeTypeId = employeeTypeIds,
+                SideDishItemId = sideDishItemIds
+            };
+
+            SideDishReportModel reportData = _reportService.GetSideDishReport(criteria);
+
+            return reportData;
         }
 
         /// <summary>

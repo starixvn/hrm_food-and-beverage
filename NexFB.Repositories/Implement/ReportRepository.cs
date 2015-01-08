@@ -20,6 +20,7 @@ namespace NexFB.Repositories.Implement
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Repositories.Interface;
+    using NexFB.Models.Report.SideDishReport;
 
     /// <summary>
     /// The implement of report repository.
@@ -209,9 +210,69 @@ namespace NexFB.Repositories.Implement
 
         #endregion Monthly Main Dish Per Day Report
 
+        /// <summary>
+        /// Get side dish report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The side dish report.</returns>
+        public SideDishReportModel GetSideDishReport(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var report = new SideDishReportModel();
+
+                IEnumerable<dynamic> rawReport = db.Query<dynamic>(criteria.GetSpParams());
+
+                if (rawReport != null)
+                {
+                    report.DepartmentTeamModels = GetDepartmentTeamItem(rawReport);
+                    report.TotalQuantity = rawReport.Sum(r => r.Qty);
+                    report.TotalAmount = rawReport.Sum(r => r.Amount);
+                }
+
+                return report;
+            }
+        }
+
+        /// <summary>
+        /// Get department team item.
+        /// </summary>
+        /// <param name="rawReport">The report data.</param>
+        /// <returns>The DepartmentTeamModel collection.</returns>
+        private List<DepartmentTeamModel> GetDepartmentTeamItem(IEnumerable<dynamic> rawReport)
+        {
+            var departmentTeamModels = new List<DepartmentTeamModel>();
+
+            foreach (dynamic item in rawReport)
+            {
+                DepartmentTeamModel departmentTeam = departmentTeamModels.FirstOrDefault(d => d.DepartmentTeamName == item.DepartmentTeamName);
+                var order = new OrderModel
+                {
+                    Amount = item.Amount,
+                    FoodEngName = item.FoodEngName,
+                    FoodVNMName = item.FoodVNMName,
+                    FullName = item.FullName,
+                    NickName = item.NickName,
+                    Price = item.Price,
+                    Qty = item.Qty,
+                    Shift = item.Shift,
+                    WorkDate = item.WorkDate
+                };
+
+                if (departmentTeam == null)
+                {
+                    departmentTeam = new DepartmentTeamModel { DepartmentTeamName = item.DepartmentTeamName };
+                }
+
+                departmentTeam.OrderModels.Add(order);
+            }
+
+            return departmentTeamModels;
+        }
+
         private int CalculateTotalAmount(TotalPriceModel totalPriceModel)
         {
-            int amount = totalPriceModel.Breakfast + totalPriceModel.Lunch + totalPriceModel.Dinner + 
+            int amount = totalPriceModel.Breakfast + totalPriceModel.Lunch + totalPriceModel.Dinner +
                             totalPriceModel.Supper;
             return amount;
         }

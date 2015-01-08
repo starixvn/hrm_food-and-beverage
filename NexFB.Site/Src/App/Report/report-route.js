@@ -11,7 +11,7 @@ var reportModule = angular.module("reportModule", ['ngRoute'])
 	$routeProvider.when('/EmployeeOrderHistory/Index',
 		{ templateUrl: baseUrl + 'src/app/report/templates/employeeOrderHistory.html', controller: 'EmployeeOrderHistoryReportController' });
 	$routeProvider.when('/SideDishReport/Index',
-		{ templateUrl: baseUrl + '/src/app/report/templates/sideDishReport.html', controller: 'SideDishReportController' });
+		{ templateUrl: baseUrl + 'src/app/report/templates/sideDishReport.html', controller: 'SideDishReportController' });
 	$routeProvider.when('/MonthlyReportPerDay/Index',
 		{ templateUrl: baseUrl + 'src/app/report/templates/monthlyReportPerDay.html', controller: 'MonthlyMainDishReportPerDayController' });
 } ]);

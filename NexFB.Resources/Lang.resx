@@ -1062,4 +1062,10 @@
   <data name="DateRangeOneYearWarning" xml:space="preserve">
     <value>Date range must be less than 1 year.</value>
   </data>
+  <data name="ValidateFromToDate" xml:space="preserve">
+    <value>From date must be less than or equal To date.</value>
+  </data>
+  <data name="ValidateMaximumOneYear" xml:space="preserve">
+    <value>Maximum report period should be 1 year.</value>
+  </data>
 </root>

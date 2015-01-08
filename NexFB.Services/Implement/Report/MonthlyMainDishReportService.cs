@@ -22,6 +22,7 @@ namespace NexFB.Services.Implement.Report
     using NexFB.Repositories.Interface;
     using NexFB.Resources;
     using NexFB.Services.Interface.Report;
+    using NexFB.Models.Report.SideDishReport;
 
     /// <summary>
     /// The implement of Monthly Main Dish Report Per Meal service.
@@ -85,6 +86,24 @@ namespace NexFB.Services.Implement.Report
             pagingReport.Meals = meals;
 
             return pagingReport;
+        }
+        
+        /// <summary>
+        /// Gets the side dish report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The SideDishReportModel object.</returns>
+        public SideDishReportModel GetSideDishReport(GetSideDishReportCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var report = new SideDishReportModel();
+
+            if (criteria.IsValid())
+            {
+                report = _reportRepository.GetSideDishReport(criteria);
+            }
+
+            return report;
         }
 
         /// <summary>
@@ -325,7 +344,7 @@ namespace NexFB.Services.Implement.Report
                 MealItemMonthModel mealItem = mealItems[i];
                 List<int> numberMeals = mealItem.NumberMealsMonth.NumberMeals;
 
-                var record = new 
+                var record = new
                 {
                     Count = rowIndex,
                     Nick = mealItem.Employee.NickName,

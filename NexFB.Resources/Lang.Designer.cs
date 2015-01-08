@@ -2806,11 +2806,29 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From date must be less than or equal To date..
+        /// </summary>
+        public static string ValidateFromToDate {
+            get {
+                return ResourceManager.GetString("ValidateFromToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password must be between 6-32 characters..
         /// </summary>
         public static string ValidateLengthPassword {
             get {
                 return ResourceManager.GetString("ValidateLengthPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum report period should be 1 year..
+        /// </summary>
+        public static string ValidateMaximumOneYear {
+            get {
+                return ResourceManager.GetString("ValidateMaximumOneYear", resourceCulture);
             }
         }
         
