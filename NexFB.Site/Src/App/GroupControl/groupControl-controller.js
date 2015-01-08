@@ -198,9 +198,15 @@ function ($scope, $modalInstance, group, manageUserInGroupFactory, orderingFacto
 ErrorFactory) {
 
 	$scope.group = group;
+	$scope.member = {};
+
+	$scope.filter = {
+		groupId: $scope.group.GroupId
+	};
 
 	$scope.criteria = {
-		GroupId: $scope.group.GroupId
+		groupIds: $scope.group.GroupId,
+		sysIds: ''
 	};
 
 	$scope.getEmployee = function (searchKey) {
@@ -208,18 +214,26 @@ ErrorFactory) {
 		function (employees) {
 			$scope.searchEmployees = employees;
 		},
-		function (response) {
+		function (response, status) {
 			ErrorFactory.errorHandle(response.status);
 		});
 	};
 
-	manageUserInGroupFactory.getMembers($scope.criteria).success(function (members) {
+	manageUserInGroupFactory.getMembers($scope.filter).success(function (members) {
 		$scope.members = members;
 	}).error(function () {
 		notificationFactory.error("ErrorMessage");
 	});
 
 	$scope.add = function () {
+		$scope.criteria.sysIds = $scope.member.employee.id;
+
+		manageUserInGroupFactory.assignMemberToGroup($scope.criteria)
+		.success(function (commandResult) {
+			var a = 1;
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(response.status);
+		});
 	};
 
 	$scope.cancel = function () {
