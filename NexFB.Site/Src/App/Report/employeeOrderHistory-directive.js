@@ -112,7 +112,7 @@ reportModule.directive('renderEmployeeOrderHistoryReport', function () {
 			{ HeaderText: "Ordered By", Width: 120, Name: "OrderedBy", HeaderAlign: "center", CellAlign: "left" },
 			{ HeaderText: "Order Platform", Width: 150, Name: "OrderPlatform", HeaderAlign: "center", CellAlign: "left" },
 			{ HeaderText: "My Menu", Width: 335, Name: "MyMenu", HeaderAlign: "center", CellAlign: "left" },
-			{ HeaderText: "My Amount", Width: 100, Name: "MyAmount", HeaderAlign: "center", CellAlign: "right" }
+			{ HeaderText: "My Amount", Width: 112, Name: "MyAmount", HeaderAlign: "center", CellAlign: "right" }
 		];
 
 		return columns;
