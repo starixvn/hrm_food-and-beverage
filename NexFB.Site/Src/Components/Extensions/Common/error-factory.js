@@ -6,7 +6,7 @@ function ($location, $window, notificationFactory, baseUrl) {
 	return {
 		errorHandle: function (status) {
 			if (status === 405) {
-				$location.path(baseUrl + 'Home/AccessDenied');
+				$location.path('Home/AccessDenied');
 			}
 			else if (status === 401) {
 				$.connection.hub.stop();
