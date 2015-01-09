@@ -238,7 +238,8 @@ reportModule.directive('renderMonthlyMainDishPerDay', function () {
 						itemsPerPage: scope.gridOption.itemsPerPage,
 						currentPage: scope.gridOption.currentPage,
 						pagerSelectCallBack: ReRenderAfterPaged
-					}
+					},
+					showHighlightRow: false
 				};
 
 				$('#' + id).fanexGrid(gridOptions);
