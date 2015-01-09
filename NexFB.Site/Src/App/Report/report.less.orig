@@ -94,11 +94,7 @@
 	height: 20px;
 }
 .eq-ie9 {
-<<<<<<< HEAD
-	#monthlyReport, #employeeOrderHistoryReport *{
-=======
-	#monthlyReport, #monthlyPerDayReport *{
->>>>>>> #28323 - Export Monthly Main Dish Per Day report
+	#monthlyReport, #employeeOrderHistoryReport, #monthlyPerDayReport *{
 		box-sizing: content-box;
 	}
 	.teambox
@@ -112,6 +108,19 @@
 		}
 	}
 }
+<<<<<<< HEAD
 .order-history-filter {
 	max-width:1240px;
+=======
+
+.teambox {
+	.multiSelect
+	{
+		.checkBoxContainer {
+			max-height: 300px;
+			overflow-y: top;
+			overflow-x:hidden
+		}
+	}
+>>>>>>> #28955 - Team drop down shows unnecessary scrollbar , firefox only
 }
