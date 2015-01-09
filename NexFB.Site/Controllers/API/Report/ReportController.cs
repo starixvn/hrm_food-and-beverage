@@ -43,7 +43,7 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly IMonthlyMainDishPerDayReportService _monthlyPerDayService;
 
         public ReportController()
-            : this(null, null, null, null)
+            : this(null, null, null, null, null)
         {
         }
 
@@ -334,8 +334,8 @@ namespace NexFB.Site.Controllers.API.Report
         public List<object> GetDayType()
         {
             var dayTypeList = new List<object>();
-            
-       	    foreach (DayType dayType in Enum.GetValues(typeof(DayType)).Cast<DayType>())
+
+            foreach (DayType dayType in Enum.GetValues(typeof(DayType)).Cast<DayType>())
             {
                 var dayTypeItem = new
                 {

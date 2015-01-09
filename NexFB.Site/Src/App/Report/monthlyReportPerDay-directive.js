@@ -35,7 +35,8 @@ reportModule.directive('renderMonthlyMainDishPerDay', function () {
 							{ Name: "Meal", Value: typeDay.TypeDay, MergeColNumber: 4, CellAlign: "left" },
 							{ Name: "1", Value: "", MergeColNumber: 33 }
 						],
-						SubRows: []
+						SubRows: [],
+						CssClass: 'parent-row-background'
 					};
 				}
 				else {
@@ -43,7 +44,9 @@ reportModule.directive('renderMonthlyMainDishPerDay', function () {
 						Columns: [
 							{ Name: "Meal", Value: typeDay.TypeDay, MergeColNumber: 2, CellAlign: "left" },
 							{ Name: "1", Value: "", MergeColNumber: 33 }
-						], SubRows: []
+						],
+						SubRows: [],
+						CssClass: 'parent-row-background'
 					};
 				}
 

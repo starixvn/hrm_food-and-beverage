@@ -45,8 +45,6 @@ namespace NexFB.Site.Controllers
         IReportService reportService,
         IEmployeeOrderHistoryService employeeOrderHistoryService,
         IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService)
-            IReportService reportService,
-            IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService)
         {
             _reportService = reportService ?? new ReportService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
@@ -111,14 +109,6 @@ namespace NexFB.Site.Controllers
             {
                 templatePath = Server.MapPath(EmployeeOrderHistoryTemplatePath);
                 _employeeOrderHistoryService.ExportEmployeeOrderHistoryReport(report, templatePath);
-                    templatePath = Server.MapPath(MonthlyMainDishPerDayEmployeeTemplatePath);
-                }
-                else
-                {
-                    templatePath = Server.MapPath(MonthlyMainDishPerDayDepartmentTemplatePath);
-                }
-
-                _monthlyMainDishPerDayService.ExportMonthlyMainDishPerDayReport(report, templatePath);
             }
 
             return new EmptyResult();
