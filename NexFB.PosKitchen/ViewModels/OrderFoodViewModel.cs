@@ -989,6 +989,10 @@ namespace NexFB.PosKitchen.ViewModels
                 UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
                 currentSelectedMenu.Quantity = 0;
                 ChangeMenuColor(currentSelectedEmployee);
+                if (currentSelectedEmployee.ListMainMenuOrderDeatails.Count == 0 && currentSelectedEmployee.ListAlternativeMenuOrderDeatails.Count == 0)
+                {
+                    EmployeeInListReleased(currentSelectedEmployee);
+                }
             }
             else
             {
