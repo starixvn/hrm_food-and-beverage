@@ -39,18 +39,16 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         {
             get
             {
-                var getAllDeliveryArea = new GetAllDeliveryAreaCriteria
-                {
-                    IsActive = true
-                };
-                List<Location> locations = this.DeliveryAreaService.GetAllDeliveryArea(getAllDeliveryArea).ToList();
+                var getLocationCriteria = new GetAllDeliveryAreaCriteria();
+                return this.GetDeliveryArea(getLocationCriteria);
+            }
         }
 
         public ObservableCollection<CommonKitchenOrder> GetAllActiveLocation
         {
             get
             {
-                var getLocationCriteria = new GetAllLocationCriteria() { IsActive = true };
+                var getLocationCriteria = new GetAllDeliveryAreaCriteria() { IsActive = true };
                 return this.GetDeliveryArea(getLocationCriteria);
             }
         }
@@ -189,9 +187,9 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         /// </summary>
         /// <param name="getLocationCriteria">Criteria to query DB.</param>
         /// <returns>List of CommonKitchenOrder.</returns>
-        private ObservableCollection<CommonKitchenOrder> GetDeliveryArea(GetAllLocationCriteria getLocationCriteria)
+        private ObservableCollection<CommonKitchenOrder> GetDeliveryArea(GetAllDeliveryAreaCriteria getAllDeliveryAreaCriteria)
         {
-            List<Location> locations = this.CommonService.GetAllLocation(getLocationCriteria).ToList();
+            List<Location> locations = this.DeliveryAreaService.GetAllDeliveryArea(getAllDeliveryAreaCriteria).ToList();
             if (locations != null)
             {
                 List<CommonKitchenOrder> data = Mapper.Map<List<Location>, List<CommonKitchenOrder>>(locations);

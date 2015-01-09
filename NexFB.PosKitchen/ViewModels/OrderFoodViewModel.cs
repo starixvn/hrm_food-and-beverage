@@ -819,6 +819,8 @@ namespace NexFB.PosKitchen.ViewModels
                 var getEmployeeOrderStatusCriteria = new GetEmployeeOrderStatusCriteria() { SysId = employee.SysId };
                 EmployeeOrderStatus employeeStatus = this.KitchenService.EmployeeOrderStatus(getEmployeeOrderStatusCriteria);
                 employee.MenuId = employeeStatus.MenuId;
+                employee.MenuVnmName = employeeStatus.MenuVnmName;
+                employee.MenuEngName = employeeStatus.MenuEngName;
 
                 CheckCanOrderMainFood(employee);
                 if (employee != null)
@@ -833,7 +835,7 @@ namespace NexFB.PosKitchen.ViewModels
 
                 CurrentSelectedEmployeeSysId = sysId;
                 DisabledMainFoodMenu();
-                ChangeMenuColor(employee);
+                ////ChangeMenuColor(employee);
             }
             else
             {
@@ -1028,12 +1030,12 @@ namespace NexFB.PosKitchen.ViewModels
         {
             if (currentSelectedEmployee.IsPlaceOrder)
             {
-                currentSelectedEmployee.EmployeeOrderMealColor = currentSelectedEmployee.IsVegetarian ? 
+                currentSelectedEmployee.EmployeeOrderMealColor = currentSelectedEmployee.IsVegetarian ?
                     Constant.RegisterVegetarianMealColor : Constant.RegisterNonVegetarianMealColor;
             }
             else
             {
-                currentSelectedEmployee.EmployeeOrderMealColor = currentSelectedEmployee.Quantity > 0 ? 
+                currentSelectedEmployee.EmployeeOrderMealColor = currentSelectedEmployee.Quantity > 0 ?
                     Constant.HasOrderMealBeforeColor : Constant.UNRegisterMealColor;
             }
         }
@@ -1611,7 +1613,7 @@ namespace NexFB.PosKitchen.ViewModels
         private void RegisterRelayCommands()
         {
             RegisterNumPadRelayCommand();
-           
+
             DefaulMenuSelected = new RelayCommand((y) => ExecuteMealMenuSelected(y));
             DefaultEmployeeSelected = new RelayCommand((x) => CanExecuteEmployeeInGroupSelected(), (y) => ExecuteEmployeeInGroupSelected(y));
 

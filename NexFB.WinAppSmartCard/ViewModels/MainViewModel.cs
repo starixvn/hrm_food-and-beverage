@@ -594,7 +594,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                     if (fromDate > toDate)
                     {
-                        toDate = toDate.AddYears(1);
+                        fromDate = fromDate.AddYears(-1);
                     }
 
                     if (currentDate >= fromDate && currentDate <= toDate)
