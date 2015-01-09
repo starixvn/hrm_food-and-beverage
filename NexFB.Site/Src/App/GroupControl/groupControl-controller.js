@@ -2,14 +2,20 @@
 /*global groupControlModule*/
 
 groupControlModule.controller("ManageGroupController",
-['$scope', '$modal', '$route', 'commonFactory', 'groupControlFactory', 'notificationFactory', 'ErrorFactory', 'baseUrl',
-function ($scope, $modal, $route, commonFactory, groupControlFactory, notificationFactory, ErrorFactory, baseUrl) {
+['$scope', '$modal', '$route', 'commonFactory', 'groupControlFactory', 'notificationFactory', 'ErrorFactory',
+'baseUrl', '$translate',
+function ($scope, $modal, $route, commonFactory, groupControlFactory, notificationFactory, ErrorFactory,
+baseUrl, $translate) {
 	$scope.filter = {
 		groupId: '',
 		isActive: ''
 	};
 
 	$scope.originalPage = 0;
+
+	$translate('RemoveMemberGroupConfirm').then(function (message) {
+		$scope.removeMemberGroupConfirmMsg = message;
+	});
 
 	/*
 	** Paging.
@@ -183,6 +189,9 @@ function ($scope, $modal, $route, commonFactory, groupControlFactory, notificati
 			resolve: {
 				group: function () {
 					return group;
+				},
+				removeMessage: function () {
+					return $scope.removeMemberGroupConfirmMsg;
 				}
 			},
 			backdrop: 'static',
@@ -193,11 +202,12 @@ function ($scope, $modal, $route, commonFactory, groupControlFactory, notificati
 
 groupControlModule.controller('ManageGroupMemberController',
 ['$scope', '$modalInstance', 'group', 'manageUserInGroupFactory', 'orderingFactory', 'notificationFactory',
-'ErrorFactory',
+'ErrorFactory', 'removeMessage', 'baseUrl', '$modal',
 function ($scope, $modalInstance, group, manageUserInGroupFactory, orderingFactory, notificationFactory,
-ErrorFactory) {
+ErrorFactory, removeMessage, baseUrl, $modal) {
 
 	$scope.group = group;
+	$scope.removeMessage = removeMessage;
 	$scope.member = {};
 
 	$scope.query = {
@@ -213,7 +223,7 @@ ErrorFactory) {
 	** Get employees.
 	*/
 	$scope.getEmployee = function (searchKey) {
-		orderingFactory.getEmployees(searchKey).then(
+		orderingFactory.getEmployees(searchKey, true).then(
 		function (employees) {
 			$scope.searchEmployees = employees;
 		},
@@ -222,13 +232,30 @@ ErrorFactory) {
 		});
 	};
 
+	var sortMembers = function (members, userId) {
+		var member = '',
+			numberMembers = members.length;
+
+		for (var i = 0; i < numberMembers; i++) {
+			if (userId === members[i].SysId) {
+				member = members[i];
+				members.splice(i, 1);
+				members.splice(0, 0, member);
+				i = numberMembers;
+			}
+		}
+	};
+
 	/*
 	** Get members of group.
 	*/
-	var getMembersOfGroup = function (filter) {
+	var getMembersOfGroup = function (filter, userId) {
 		manageUserInGroupFactory.getMembers(filter).success(function (members) {
 			$scope.members = members;
-			//TODO : sorted member has userId in top of list members
+			//TODO : sort member has userId in top of list members
+			if (userId && $scope.members && $scope.members.length > 0) {
+				sortMembers($scope.members, userId);
+			}
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
 		});
@@ -236,11 +263,14 @@ ErrorFactory) {
 
 	getMembersOfGroup($scope.query);
 
+	/*
+	** Add member into group.
+	*/
 	var checkExistMember = function (members, userId) {
 		var isExisted = false;
 
 		angular.forEach(members, function (member) {
-			if (member.UserId === userId) {
+			if (member.SysId === userId) {
 				isExisted = true;
 			}
 		});
@@ -248,12 +278,14 @@ ErrorFactory) {
 		return isExisted;
 	};
 
+
 	$scope.add = function () {
 		var employee = $scope.member.employee;
 
 		if (employee) {
 			$scope.criteria.sysIds = employee.UserId;
-			var isExisted = checkExistMember($scope.members, employee.UserId);
+			var isExisted = checkExistMember($scope.members, employee.UserId),
+				userId = employee.UserId;
 
 			if (isExisted) {
 				notificationFactory.error("ExistMemberWarning");
@@ -263,7 +295,7 @@ ErrorFactory) {
 				.success(function (response) {
 					if (response.IsSuccessful) {
 						notificationFactory.success("DataChangeSuccessfully");
-						getMembersOfGroup($scope.query);
+						getMembersOfGroup($scope.query, userId);
 					}
 					else {
 						notificationFactory.error("", response.Message);
@@ -272,7 +304,45 @@ ErrorFactory) {
 					ErrorFactory.errorHandle(status);
 				});
 			}
+
+			$scope.member.employee = '';
+			$scope.$broadcast('clearSearchMemberInput');
 		}
+	};
+
+	/*
+	** Delete member of group.
+	*/
+	$scope.deleteMember = function (member) {
+		$scope.modalInstance = $modal.open({
+			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent2.html',
+			controller: "ModalConfirmController2",
+			backdrop: 'static',
+			resolve: {
+				content: function () {
+					return $scope.removeMessage;
+				}
+			},
+			windowClass: "modal-confirm-center"
+		});
+
+		$scope.modalInstance.result.then(function () {
+			manageUserInGroupFactory.deleteMemberGroup(member.SysId, $scope.group.GroupId)
+			.success(function (response) {
+				if (response.IsSuccessful) {
+					var index = $scope.members.indexOf(member);
+					$scope.members.splice(index, 1);
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
+		})['finally'](function () {
+			$scope.modalInstance = '';
+		});
 	};
 
 	$scope.cancel = function () {

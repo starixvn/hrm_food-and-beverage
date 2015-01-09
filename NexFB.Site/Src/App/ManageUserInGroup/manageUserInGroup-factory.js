@@ -2,26 +2,30 @@
 /*global manageUserInGroupModule*/
 
 manageUserInGroupModule.factory('manageUserInGroupFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
-    return {
-        getMembers: function (filter) {
-            return $http.get(baseUrl + 'api/GroupControl/GetMember', { params: filter });
-        },
-        getAllDepartment: function () {
+	return {
+		getMembers: function (filter) {
+			return $http.get(baseUrl + 'api/GroupControl/GetMember', { params: filter });
+		},
+		getAllDepartment: function () {
 			return $http.get(baseUrl + 'api/Common/GetAllDepartment');
 		},
-        getAllEmployeeType: function () {
+		getAllEmployeeType: function () {
 			return $http.get(baseUrl + 'api/Common/GetAllEmployeeType');
 		},
-        getAllGroup: function () {
+		getAllGroup: function () {
 			return $http.get(baseUrl + 'api/GroupControl/GetAllGroup');
 		},
-        getUserPermissionOnManageUserInGroup: function () {
-            return $http.get(baseUrl + 'api/GroupControl/GetUserPermissionOnManageUserInGroup');
-        },
-        assignMemberToGroup: function (filter) {
+		getUserPermissionOnManageUserInGroup: function () {
+			return $http.get(baseUrl + 'api/GroupControl/GetUserPermissionOnManageUserInGroup');
+		},
+		assignMemberToGroup: function (filter) {
 			return $http.post(baseUrl + 'api/GroupControl/AssignMemberToGroup', filter);
+		},
+		deleteMemberGroup: function (memberId, groupId) {
+			return $http['delete'](baseUrl + 'api/GroupControl/DeleteMemberGroup', 
+					{ params: { memberId: memberId, groupId: groupId } });
 		}
-    };
+	};
 } ]);
 
 manageUserInGroupModule.factory('manageUserInGroupUtilities', ['notificationFactory',

@@ -191,6 +191,26 @@ namespace NexFB.Site.Controllers.API
         }
 
         /// <summary>
+        /// Delete member of group.
+        /// </summary>
+        /// <param name="memberId">The member Id.</param>
+        /// <param name="groupId">The group Id.</param>
+        /// <returns>The command result.</returns>
+        [HttpDelete]
+        public CommandResult DeleteMemberGroup(string memberId, int groupId)
+        {
+            var criteria = new DeleteMemberGroupCriteria
+            {
+                MemberId = memberId,
+                GroupId = groupId,
+                ModifiedBy = CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
+            };
+
+            return _groupControlService.DeleteMemberGroup(criteria);
+        }
+
+        /// <summary>
         /// Transform xml para for criteria.
         /// </summary>
         /// <param name="criteria">Input criteria.</param>

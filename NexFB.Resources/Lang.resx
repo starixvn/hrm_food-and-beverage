@@ -1128,4 +1128,7 @@
   <data name="ManageGroupMember" xml:space="preserve">
     <value>Manage group member of</value>
   </data>
+  <data name="RemoveMemberGroupConfirm" xml:space="preserve">
+    <value>Are you sure you want to remove this member from the group?</value>
+  </data>
 </root>

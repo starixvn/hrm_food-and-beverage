@@ -125,5 +125,23 @@ namespace NexFB.Services.Implement
 
             return commandResult;
         }
+
+        /// <summary>
+        /// Delete member of group.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult DeleteMemberGroup(DeleteMemberGroupCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Delete(criteria);
+            }
+
+            return commandResult;
+        }
     }
 }

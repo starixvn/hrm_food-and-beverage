@@ -2329,6 +2329,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this member from the group?.
+        /// </summary>
+        public static string RemoveMemberGroupConfirm {
+            get {
+                return ResourceManager.GetString("RemoveMemberGroupConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Confirm New Password field is required!.
         /// </summary>
         public static string RequireConfirmPassword {
