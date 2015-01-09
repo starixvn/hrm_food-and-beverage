@@ -185,7 +185,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         /// <summary>
         /// Get Delivery Area.
         /// </summary>
-        /// <param name="getLocationCriteria">Criteria to query DB.</param>
+        /// <param name="getAllDeliveryAreaCriteria">Criteria to query DB.</param>
         /// <returns>List of CommonKitchenOrder.</returns>
         private ObservableCollection<CommonKitchenOrder> GetDeliveryArea(GetAllDeliveryAreaCriteria getAllDeliveryAreaCriteria)
         {
