@@ -55,6 +55,15 @@ reportUtilities) {
 	};
 
 	/*
+	** Reset paging option.
+	*/
+	var resetPagingOption = function (filter) {
+		filter.startIndex = 0;
+		filter.itemsPerPage = 50;
+		filter.isPagingCallback = false;
+	};
+
+	/*
 	** Open pop-up calendar.
 	*/
 	$scope.open = function ($event) {
@@ -167,6 +176,7 @@ reportUtilities) {
 	*/
 	$scope.query = function (filter) {
 		resetGridOption();
+		resetPagingOption(filter);
 		filter.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
 		filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
 		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
