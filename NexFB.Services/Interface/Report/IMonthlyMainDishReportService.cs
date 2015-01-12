@@ -15,6 +15,7 @@ namespace NexFB.Services.Interface.Report
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
+    using System.Collections.Generic;
 
     /// <summary>
     /// The interface of Monthly Main Dish Per Meal report.

@@ -31,10 +31,10 @@ namespace NexFB.Models.Report.SideDishReport
 
         public string FoodEngName { get; set; }
 
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
-        public int Qty { get; set; }
+        public decimal Qty { get; set; }
 
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
     }
 }

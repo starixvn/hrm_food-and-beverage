@@ -26,6 +26,6 @@ namespace NexFB.Models.Report.SideDishReport
 
         public string DepartmentTeamName { get; set; }
 
-        public List<OrderModel> OrderModels { get; private set; }
+        public List<OrderModel> OrderModels { get; set; }
     }
 }

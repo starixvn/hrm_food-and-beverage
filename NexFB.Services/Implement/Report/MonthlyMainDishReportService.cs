@@ -96,15 +96,14 @@ namespace NexFB.Services.Implement.Report
         public SideDishReportModel GetSideDishReport(GetSideDishReportCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var report = new SideDishReportModel();
-
+            SideDishReportModel report = null;
             if (criteria.IsValid())
             {
                 report = _reportRepository.GetSideDishReport(criteria);
             }
 
             return report;
-        }
+        }        
 
         /// <summary>
         /// Export monthly main dish report in local.

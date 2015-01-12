@@ -12,18 +12,21 @@ reportUtilities, sideDishManagementFactory) {
         month = date.getMonth(),
         day = date.getDate();
 
+    // $scope region.
     $scope.departments = [];
     $scope.teams = [];
     $scope.employeeTypes = [];
     $scope.sideDishItems = [];
 
     $scope.criteria = {
-        departmentId: 0,
+        departmentId: null,
         teamIds: '',
         employeeTypeIds: '',
         fromDate: new Date(year, month, 1),
         toDate: new Date(year, month, day),
-        sideDishIds: ''
+        sideDishItemIds: '',
+        pageIndex: 0,
+        itemsPerPage: 50
     };
 
     $scope.fromDateOptions = {
@@ -59,20 +62,40 @@ reportUtilities, sideDishManagementFactory) {
         var isValid = self.validateFilterOptions();
 
         if (isValid) {
+            $scope.criteria.pageIndex = 0;
 
+            $scope.getReportData();
         }
     };
 
-    self.getTeams = function (departmentId) {
-        if (departmentId === -1) {
-            departmentId = null;
-        }
+    $scope.exportExcel = function () {
+        self.getCriteria();
 
-        userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
-            $scope.teams = teams;
+
+    };
+
+    $scope.getReportData = function () {
+        self.getCriteria();
+
+        reportFactory.getSideDishReport($scope.criteria).success(function (reportData) {
+            $scope.reportData = reportData;
+            $scope.$broadcast('renderSideDishReport');
         }).error(function (response, status) {
             ErrorFactory.errorHandle(status);
         });
+    };
+
+    // self region.
+    self.getTeams = function (departmentId) {
+        if (departmentId > 0) {
+            userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
+                $scope.teams = teams;
+            }).error(function (response, status) {
+                ErrorFactory.errorHandle(status);
+            });
+        } else {
+            $scope.teams = [];
+        }
     };
 
     self.getEmployeeTypes = function (departmentId) {
@@ -123,10 +146,10 @@ reportUtilities, sideDishManagementFactory) {
 
         self.getAllSideDish();
 
-        //todo: get report data
+        $scope.getReportData();
     };
 
-    self.validateFilterOptions = function () {        
+    self.validateFilterOptions = function () {
         var isValid = true;
         var fromDate = $scope.criteria.fromDate;
         var toDate = $scope.criteria.toDate;
@@ -142,6 +165,12 @@ reportUtilities, sideDishManagementFactory) {
         }
 
         return isValid;
+    };
+
+    self.getCriteria = function () {        
+        $scope.criteria.employeeTypeIds = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypes);
+        $scope.criteria.teamIds = reportUtilities.getTeamId($scope.teams);
+        $scope.criteria.sideDishItemIds = reportUtilities.getSideDishIds($scope.sideDishItems);
     };
 
     self.loadData();

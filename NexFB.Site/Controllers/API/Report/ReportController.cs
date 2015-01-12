@@ -190,23 +190,37 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
+        /// <summary>
+        /// Gets the side dish report.
+        /// </summary>
+        /// <param name="fromDate">From date.</param>
+        /// <param name="toDate">To date.</param>
+        /// <param name="departmentId">The department ids.</param>
+        /// <param name="teamIds">The team ids.</param>
+        /// <param name="employeeTypeIds">The employee type ids.</param>
+        /// <param name="sideDishItemIds">The side dish item ids.</param>
+        /// <returns>The SideDishReportModel data.</returns>
         [HttpGet]
         public SideDishReportModel GetSideDishReport(
             DateTime fromDate,
             DateTime toDate,
-            string departmentIds = "",
+            string departmentId = "",
             string teamIds = "",
             string employeeTypeIds = "",
-            string sideDishItemIds = "")
+            string sideDishItemIds = "",
+            int? pageIndex = null,
+            int? itemsPerPage = null)
         {
             var criteria = new GetSideDishReportCriteria
             {
                 FromDate = fromDate,
                 ToDate = toDate,
-                DepartmentId = departmentIds,
+                DepartmentId = departmentId,
                 TeamId = teamIds,
                 EmployeeTypeId = employeeTypeIds,
-                SideDishItemId = sideDishItemIds
+                SideDishItemId = sideDishItemIds,
+                PageIndex = pageIndex,
+                ItemsPerPage = itemsPerPage
             };
 
             SideDishReportModel reportData = _reportService.GetSideDishReport(criteria);
@@ -224,7 +238,8 @@ namespace NexFB.Site.Controllers.API.Report
             IEnumerable<Department> departments = null;
             int financeRole = (int)RolesSystem.Finance;
             int employeeRole = (int)RolesSystem.Employee;
-            int adminRole = (int)RolesSystem.Admin;
+            int adminRole = (int)RolesSystem.Finance;
+            int kitchenRole = (int)RolesSystem.Kitchen;
             int systemAdminRole = (int)RolesSystem.SA;
             int kitchenRole = (int)RolesSystem.Kitchen;
 

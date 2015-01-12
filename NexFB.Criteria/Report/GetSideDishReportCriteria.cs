@@ -29,12 +29,9 @@ namespace NexFB.Criteria.Report
 
         public string SideDishItemId { get; set; }
 
-        public bool IsDebug { get; set; }
+        public int? PageIndex { get; set; }
 
-        public int IsLocal { get; set; }
-
-        [SpParam(SqlParamName = "Sysid")]
-        public int? UserId { get; set; }
+        public int? ItemsPerPage { get; set; }
 
         public override string GetSettingKey()
         {

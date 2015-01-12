@@ -21,6 +21,8 @@ namespace NexFB.Repositories.Implement
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Repositories.Interface;
     using NexFB.Models.Report.SideDishReport;
+    using System;
+    using System.Data;
 
     /// <summary>
     /// The implement of report repository.
@@ -214,20 +216,27 @@ namespace NexFB.Repositories.Implement
         /// Get side dish report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The side dish report.</returns>
+        /// <returns>The report data.</returns>
         public SideDishReportModel GetSideDishReport(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var report = new SideDishReportModel();
+                SideDishReportModel report = new SideDishReportModel();
 
-                IEnumerable<dynamic> rawReport = db.Query<dynamic>(criteria.GetSpParams());
+                db.AddOutParameter("TotalItem", DbType.Int32, 5);
+                db.AddOutParameter("TotalQuantity", DbType.Decimal, 8);
+                db.AddOutParameter("TotalAmount", DbType.Double, 18);
+                List<dynamic> rawReport = db.Query<dynamic>(criteria.GetSpParams()).ToList();
 
-                if (rawReport != null)
+                var outParams = db.GetOuputParams();
+
+                if (rawReport != null && rawReport.Count > 0)
                 {
-                    report.DepartmentTeamModels = GetDepartmentTeamItem(rawReport);
-                    report.TotalQuantity = rawReport.Sum(r => r.Qty);
-                    report.TotalAmount = rawReport.Sum(r => r.Amount);
+                    report.TotalItem = (int)outParams["totalitem"];
+                    report.TotalQuantity = (decimal)outParams["totalquantity"];
+                    report.TotalAmount = (double)outParams["totalamount"];
+
+                    report.DepartmentTeamModels = GetDepartmentTeamItem(rawReport.AsQueryable());
                 }
 
                 return report;
@@ -245,7 +254,9 @@ namespace NexFB.Repositories.Implement
 
             foreach (dynamic item in rawReport)
             {
-                DepartmentTeamModel departmentTeam = departmentTeamModels.FirstOrDefault(d => d.DepartmentTeamName == item.DepartmentTeamName);
+                string departmentTeamName = item.DepartmentTeamName;
+
+                DepartmentTeamModel departmentTeam = departmentTeamModels.FirstOrDefault(d => d.DepartmentTeamName == departmentTeamName);
                 var order = new OrderModel
                 {
                     Amount = item.Amount,
@@ -261,7 +272,8 @@ namespace NexFB.Repositories.Implement
 
                 if (departmentTeam == null)
                 {
-                    departmentTeam = new DepartmentTeamModel { DepartmentTeamName = item.DepartmentTeamName };
+                    departmentTeam = new DepartmentTeamModel { DepartmentTeamName = departmentTeamName };
+                    departmentTeamModels.Add(departmentTeam);
                 }
 
                 departmentTeam.OrderModels.Add(order);

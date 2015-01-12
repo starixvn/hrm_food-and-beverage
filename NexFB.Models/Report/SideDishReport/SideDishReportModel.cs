@@ -21,8 +21,10 @@ namespace NexFB.Models.Report.SideDishReport
     {
         public List<DepartmentTeamModel> DepartmentTeamModels { get; set; }
 
-        public int TotalQuantity { get; set; }
+        public decimal TotalQuantity { get; set; }
 
         public double TotalAmount { get; set; }
+
+        public int TotalItem { get; set; }
     }
 }

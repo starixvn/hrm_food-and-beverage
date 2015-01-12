@@ -2,29 +2,27 @@
 /*global reportModule*/
 
 reportModule.directive('sideDishReport', function () {
-    var self = this;
-
-    self.columnHeaders = [
+    var columnHeaders = [
 		{ HeaderText: "#", Width: 60, Name: "No", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
-		{ HeaderText: "Date", Width: 90, Name: "WorkDate", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "dd-MMM-yy" },
-		{ HeaderText: "Shift", Width: 150, Name: "Shift", HeaderAlign: "center", CellAlign: "center" },
-		{ HeaderText: "Full Name", Width: 150, Name: "FullName", HeaderAlign: "center", CellAlign: "left" },
-        { HeaderText: "Nick", Width: 150, Name: "NickName", HeaderAlign: "center", CellAlign: "left" },
-        { HeaderText: "Food item (Vie)", Width: 150, Name: "FoodVNMName", HeaderAlign: "center", CellAlign: "left" },
-        { HeaderText: "Food item (Eng)", Width: 150, Name: "FoodEngName", HeaderAlign: "center", CellAlign: "left" },
-        { HeaderText: "Price", Width: 150, Name: "Price", HeaderAlign: "center", CellAlign: "right" },
-        { HeaderText: "Quantity", Width: 150, Name: "Qty", HeaderAlign: "center", CellAlign: "right" },
-        { HeaderText: "Amount", Width: 150, Name: "Amount", HeaderAlign: "center", CellAlign: "right", FormatNumber: "0,0" }
+		{ HeaderText: "Date", Width: 90, Name: "WorkDate", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "DD-MMM-YY" },
+		{ HeaderText: "Shift", Width: 80, Name: "Shift", HeaderAlign: "center", CellAlign: "center" },
+		{ HeaderText: "Full Name", Width: 200, Name: "FullName", HeaderAlign: "center", CellAlign: "left" },
+        { HeaderText: "Nick", Width: 100, Name: "NickName", HeaderAlign: "center", CellAlign: "left" },
+        { HeaderText: "Food item (Vie)", Width: 170, Name: "FoodVNMName", HeaderAlign: "center", CellAlign: "left" },
+        { HeaderText: "Food item (Eng)", Width: 170, Name: "FoodEngName", HeaderAlign: "center", CellAlign: "left" },
+        { HeaderText: "Price", Width: 100, Name: "Price", HeaderAlign: "center", CellAlign: "right", FormatNumber: "0,0" },
+        { HeaderText: "Quantity", Width: 80, Name: "Qty", HeaderAlign: "center", CellAlign: "right", FormatNumber: "0,0" },
+        { HeaderText: "Amount", Width: 100, Name: "Amount", HeaderAlign: "center", CellAlign: "right", FormatNumber: "0,0" }
 	];
 
-    self.generateFooterRows = function (data) {
+    var generateFooterRows = function (data) {
         var footerRows = [
             {
                 Columns: [
                     { Value: "", Name: "No", MergeColNumber: 7, CellAlign: "left" },
                     { Value: "Total", Name: "Price", CellAlign: "center" },
-                    { Value: data.TotalQuantity, Name: "Quantity", CellAlign: "right" },
-                    { Value: data.TotalAmount, Name: "Amount", CellAlign: "right" }
+                    { Value: data.TotalQuantity.toString(), Name: "Qty", CellAlign: "right", FormatNumber: "0,0" },
+                    { Value: data.TotalAmount.toString(), Name: "Amount", CellAlign: "right", FormatNumber: "0,0" }
                 ]
             }
         ];
@@ -32,62 +30,82 @@ reportModule.directive('sideDishReport', function () {
         return footerRows;
     };
 
-    self.generateBodyRows = function () {
-//        var rows = [];
-//        for (var index = 0; index < numberParentRows; index++) {
-//            var currentRow = {
-//                Columns: [
-//                    { Name: "No", Value: 'Group - ' + index, MergeColNumber: 3 },
-//                    { Name: "Number2", Value: 'Group - ' + index, MergeColNumber: 7 }
-//                ],
-//                SubRows: []
-//            }
+    var generateBodyRows = function (data) {
+        var rows = [];
 
-//            for (var j = 0; j < 5; j++) {
-//                var currentSubRow = {
-//                    Columns: [
-//                    { Name: "No", Value: 'Group - ' + index + ' - ' + j, MergeColNumber: 3 },
-//                    { Name: "Number2", Value: 'Group - ' + index + ' - ' + j, MergeColNumber: 7 }
-//                ]
-//                };
-//                currentRow.SubRows.push(currentSubRow);
-//            }
+        if (data) {
+            angular.forEach(data.DepartmentTeamModels, function (item) {
+                var currentRow = {
+                    Columns: [
+                            { Name: "No", Value: item.DepartmentTeamName, MergeColNumber: 10, CellAlign: "left" }
+                        ],
+                    SubRows: []
+                };
 
-//            rows.push(currentRow);
-//        }
+                angular.forEach(item.OrderModels, function (order) {
+                    var currentSubRow = {
+                        Columns: [
+                            { Name: "No", Value: order.No },
+                            { Name: "WorkDate", Value: order.WorkDate },
+                            { Name: "Shift", Value: order.Shift },
+                            { Name: "FullName", Value: order.FullName },
+                            { Name: "NickName", Value: order.NickName },
+                            { Name: "FoodVNMName", Value: order.FoodVNMName },
+                            { Name: "FoodEngName", Value: order.FoodEngName },
+                            { Name: "Price", Value: order.Price },
+                            { Name: "Qty", Value: order.Qty },
+                            { Name: "Amount", Value: order.Amount }
+                        ]
+                    };
 
-//        return rows;
+                    currentRow.SubRows.push(currentSubRow);
+                });
+
+                rows.push(currentRow);
+            });
+        }
+
+        return rows;
     };
 
     return {
         link: function (scope, element) {
             scope.$on('renderSideDishReport', function () {
-                var footerRows = self.generateFooterRows(scope.reportData);
+                var footerRows = generateFooterRows(scope.reportData),
+                    bodyRows = generateBodyRows(scope.reportData);
+
+                var ReRenderAfterPaged = function (pageIndex, itemsPerPage) {
+                    scope.criteria.itemsPerPage = itemsPerPage;
+                    scope.criteria.pageIndex = pageIndex;
+                    scope.getReportData.call(this);
+
+                    return false;
+                };
 
                 var gridOptions = {
-                    columns: self.columnHeaders,
-                    bodyRows: bodyData,
+                    columns: columnHeaders,
+                    bodyRows: bodyRows,
                     showTree: true,
                     showTitle: true,
                     titleInfo: {
                         text: "Side Dish Report",
                         showExcelButton: true,
                         exportExcelFunction: function () {
-                            scope.exportExcel.call(this, scope.filter);
+                            scope.exportExcel.call(this);
                         }
                     },
                     showFooter: true,
                     footerRows: footerRows,
-                    gridExpandHeight: 250,
+                    gridExpandHeight: 150,
                     showPager: true,
+                    customPager: true,
                     pagerOption: {
-                        itemsPerPage: 50,
-                        currentPage: 0,
+                        startPerPage: 50,
+                        totalItem: scope.reportData.TotalItem,
                         itemsPerPageArray: [50, 100, 200, 500],
-                        showDetail: true,
-                        afterPagedFunction: function () {
-
-                        }
+                        itemsPerPage: scope.criteria.itemsPerPage,
+                        currentPage: scope.criteria.pageIndex,
+                        pagerSelectCallBack: ReRenderAfterPaged
                     }
                 };
 
