@@ -9,7 +9,6 @@
 
 namespace NexFB.Criteria.Ordering
 {
-    using System;
     using Fanex.Data.Repository;
 
     /// <summary>

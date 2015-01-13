@@ -17,7 +17,6 @@ namespace NexFB.WinAppSmartCard.SmartCardHelper
     using System.Windows;
     using NexFB.WinAppSmartCard.Enums;
     using NexFB.WinAppSmartCard.Events;
-    using NexFB.WinAppSmartCard.ViewModels;
 
     /// <summary>
     /// Smart Card Manager.

@@ -14,7 +14,6 @@ namespace NexFB.Repositories.Interface
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
-    using System.Collections.Generic;
 
     /// <summary>
     /// The interface of Report repository.
@@ -27,6 +26,6 @@ namespace NexFB.Repositories.Interface
 
         MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport(ICriteria criteria);
         
-        SideDishReportModel GetSideDishReport(ICriteria criteria);
+        SideDishReportModel GetSideDishReport(ICriteria criteria, int? pageIndex = null, int? itemsPerPage = null);        
     }
 }

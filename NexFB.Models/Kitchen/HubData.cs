@@ -10,7 +10,6 @@
 namespace NexFB.Models.Kitchen
 {
     using System;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Class HubData.

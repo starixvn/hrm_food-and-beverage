@@ -11,8 +11,6 @@ namespace NexFB.Models.SetMenuManagement
 {
     using System.Collections.Generic;
     using System.Linq;
-    using NexFB.Models.FoodItemManagement;
-    using NexFB.Models.FoodMenuManagement;
 
     /// <summary>
     /// SetMenu Model.

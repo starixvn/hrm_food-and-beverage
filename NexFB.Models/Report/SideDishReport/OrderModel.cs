@@ -10,15 +10,14 @@
 namespace NexFB.Models.Report.SideDishReport
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// The OrderModel class.
     /// </summary>
     public class OrderModel
     {
+        public int No { get; set; }
+
         public DateTime WorkDate { get; set; }
 
         public string Shift { get; set; }

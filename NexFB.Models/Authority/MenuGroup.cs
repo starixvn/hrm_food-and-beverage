@@ -9,7 +9,6 @@
 
 namespace NexFB.Models.Authority
 {
-    using System;
     using System.Collections.Generic;
 
     /// <summary>

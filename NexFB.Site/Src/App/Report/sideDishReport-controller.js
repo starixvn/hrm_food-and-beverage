@@ -3,9 +3,9 @@
 
 reportModule.controller('SideDishReportController',
 ['$scope', 'reportFactory', 'notificationFactory', 'ErrorFactory', 'userControlFactory', 'foodMenuFactory', 'foodMenuUtilities',
-'reportUtilities', 'sideDishManagementFactory',
+'reportUtilities', 'sideDishManagementFactory', 'baseUrl',
 function ($scope, reportFactory, notificationFactory, ErrorFactory, userControlFactory, foodMenuFactory, foodMenuUtilities,
-reportUtilities, sideDishManagementFactory) {
+reportUtilities, sideDishManagementFactory, baseUrl) {
     var self = this;
     var date = new Date(),
         year = date.getFullYear(),
@@ -68,10 +68,31 @@ reportUtilities, sideDishManagementFactory) {
         }
     };
 
-    $scope.exportExcel = function () {
+    $scope.exportExcel = function () {        
         self.getCriteria();
 
+        var criteria = {
+            departmentId: $scope.criteria.departmentId === -1 ? null : $scope.criteria.departmentId,
+            employeeTypeId: $scope.criteria.employeeTypeIds,
+            teamId: $scope.criteria.teamIds,
+            fromDate: $scope.criteria.fromDate.toString("MM/dd/yyyy"),
+            toDate: $scope.criteria.toDate.toString("MM/dd/yyyy"),
+            sideDishItemId: $scope.criteria.sideDishItemIds,
+            pageIndex: null,
+            itemsPerPage: null
+        };
 
+        var data = $.param(criteria),
+					url = baseUrl + 'ExportReport/ExportSideDishReport',
+					downloadUrl = url + "?" + data,
+					iframe = $('body iframe');
+
+        if (iframe.length === 0) {
+            iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
+            iframe.appendTo('body');
+        }
+
+        iframe.attr('src', downloadUrl);
     };
 
     $scope.getReportData = function () {
@@ -167,7 +188,7 @@ reportUtilities, sideDishManagementFactory) {
         return isValid;
     };
 
-    self.getCriteria = function () {        
+    self.getCriteria = function () {
         $scope.criteria.employeeTypeIds = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypes);
         $scope.criteria.teamIds = reportUtilities.getTeamId($scope.teams);
         $scope.criteria.sideDishItemIds = reportUtilities.getSideDishIds($scope.sideDishItems);

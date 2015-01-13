@@ -17,7 +17,6 @@ namespace NexFB.Services.Implement
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
-    using NexFB.Models.SmartCardOrder;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
     using NexFB.Services.Interface;

@@ -13,7 +13,6 @@ namespace NexFB.Site.Controllers.API
     using System.Globalization;
     using System.Linq;
     using System.Resources;
-    using System.Web.Http;
     using NexFB.Resources;
 
     /// <summary>

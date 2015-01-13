@@ -9,7 +9,6 @@
 
 namespace NexFB.WindowsService
 {
-    using System;
     using System.ServiceProcess;
     using Fanex.Data.Configuration;
 

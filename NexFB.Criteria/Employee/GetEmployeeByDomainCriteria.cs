@@ -9,7 +9,6 @@
 
 namespace NexFB.Criteria.Employee
 {
-    using System;
     using Fanex.Data.Repository;
 
     /// <summary>

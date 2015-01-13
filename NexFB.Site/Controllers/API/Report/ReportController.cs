@@ -24,13 +24,13 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Models.Report.EmployeeOrderHistory;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
+    using NexFB.Models.Report.SideDishReport;
     using NexFB.Services.Implement;
     using NexFB.Services.Implement.Report;
     using NexFB.Services.Interface;
     using NexFB.Services.Interface.Report;
     using NexFB.Web;
     using NexFB.Web.Attributes;
-    using NexFB.Models.Report.SideDishReport;
 
     /// <summary>
     /// The report controller.
@@ -193,12 +193,14 @@ namespace NexFB.Site.Controllers.API.Report
         /// <summary>
         /// Gets the side dish report.
         /// </summary>
-        /// <param name="fromDate">From date.</param>
-        /// <param name="toDate">To date.</param>
-        /// <param name="departmentId">The department ids.</param>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="departmentId">The department identifier.</param>
         /// <param name="teamIds">The team ids.</param>
         /// <param name="employeeTypeIds">The employee type ids.</param>
         /// <param name="sideDishItemIds">The side dish item ids.</param>
+        /// <param name="pageIndex">Index of the page.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
         /// <returns>The SideDishReportModel data.</returns>
         [HttpGet]
         public SideDishReportModel GetSideDishReport(

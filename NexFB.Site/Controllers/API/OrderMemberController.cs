@@ -9,15 +9,11 @@
 
 namespace NexFB.Site.Controllers.API
 {
-    using System;
-    using System.Collections.Generic;
     using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
-    using NexFB.Criteria.Employee;
     using NexFB.Criteria.Ordering;
-    using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;

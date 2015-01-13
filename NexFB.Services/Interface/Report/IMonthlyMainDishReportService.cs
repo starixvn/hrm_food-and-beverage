@@ -15,7 +15,6 @@ namespace NexFB.Services.Interface.Report
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
-    using System.Collections.Generic;
 
     /// <summary>
     /// The interface of Monthly Main Dish Per Meal report.
@@ -33,5 +32,7 @@ namespace NexFB.Services.Interface.Report
         SideDishReportModel GetSideDishReport(GetSideDishReportCriteria criteria);
 
         ExcelTemplateWriter FillTotalRow(MealDayOfMonthModel total, bool isGroupByEmployee, ExcelTemplateWriter writer);
+        
+        void ExportSideDishReport(SideDishReportModel report, string templateUrl);
     }
 }

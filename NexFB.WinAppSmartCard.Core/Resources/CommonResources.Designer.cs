@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NexFB.WinAppSmartCard.Core.Resources {
-    using System;
-    
-    
+namespace NexFB.WinAppSmartCard.Core.Resources
+{
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>

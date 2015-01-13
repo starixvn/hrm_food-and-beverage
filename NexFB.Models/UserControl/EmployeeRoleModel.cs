@@ -9,7 +9,6 @@
 
 namespace NexFB.Models.UserControl
 {
-    using System.Collections.Generic;
     using NexFB.Models.Entities;
 
     /// <summary>

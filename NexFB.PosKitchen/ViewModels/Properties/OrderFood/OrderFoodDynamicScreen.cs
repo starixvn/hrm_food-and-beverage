@@ -9,9 +9,6 @@
 
 namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
 {
-    using System.Windows;
-    using System.Windows.Forms;
-
     /// <summary>
     /// Order Food Dynamic Screen.
     /// </summary>

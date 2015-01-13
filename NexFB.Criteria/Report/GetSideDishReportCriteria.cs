@@ -13,7 +13,7 @@ namespace NexFB.Criteria.Report
     using Fanex.Data.Repository;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// The GetSideDishReportCriteria class.
     /// </summary>
     public class GetSideDishReportCriteria : CriteriaBase
     {

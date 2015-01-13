@@ -10,7 +10,6 @@
 namespace NexFB.Core.Services
 {
     using System.Collections.Generic;
-    using Fanex.Common.Helper;
     using Fanex.Data.Repository;
     using NexFB.Core.Repositories;
 

@@ -6,7 +6,7 @@
 // <history>
 //   <change who="Josh.Phan" date="12/3/2014 2:23:17 PM">Created.</change>
 // </history>
-             
+
 namespace NexFB.Site.Controllers
 {
     using System.Web.Mvc;
@@ -16,6 +16,7 @@ namespace NexFB.Site.Controllers
     using NexFB.Models.Report.EmployeeOrderHistory;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
+    using NexFB.Models.Report.SideDishReport;
     using NexFB.Services.Implement.Report;
     using NexFB.Services.Interface.Report;
     using NexFB.Web;
@@ -28,6 +29,7 @@ namespace NexFB.Site.Controllers
         private const string MonthlyMainDishReportLocalEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls";
         private const string MonthlyMainDishReportLocalDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentReportLocal.xls";
         private const string EmployeeOrderHistoryTemplatePath = @"~\Src\App\Report\ExcelTemplates\EmployeeOrderHistoryReport.xls";
+        private const string SideDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\SideDishReport.xls";
         private const string MonthlyMainDishPerDayEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeePerDayReport.xls";
         private const string MonthlyMainDishPerDayDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentPerDayReport.xls";
         private const string DailyMainDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\DailyMainDishReport.xls";
@@ -111,6 +113,24 @@ namespace NexFB.Site.Controllers
             {
                 templatePath = Server.MapPath(EmployeeOrderHistoryTemplatePath);
                 _employeeOrderHistoryService.ExportEmployeeOrderHistoryReport(report, templatePath);
+            }
+
+            return new EmptyResult();
+        }
+        
+         /// <summary>
+        /// Exports the side dish report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The EmptyResult.</returns>
+        public ActionResult ExportSideDishReport(GetSideDishReportCriteria criteria)
+        {
+            string templateUrl = Server.MapPath(SideDishReportTemplatePath);            
+            SideDishReportModel report = _reportService.GetSideDishReport(criteria);
+
+            if (report != null)
+            {
+                _reportService.ExportSideDishReport(report, templateUrl);
             }
 
             return new EmptyResult();

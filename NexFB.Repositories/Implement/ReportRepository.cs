@@ -10,6 +10,7 @@
 namespace NexFB.Repositories.Implement
 {
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
@@ -19,10 +20,8 @@ namespace NexFB.Repositories.Implement
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
-    using NexFB.Repositories.Interface;
     using NexFB.Models.Report.SideDishReport;
-    using System;
-    using System.Data;
+    using NexFB.Repositories.Interface;
 
     /// <summary>
     /// The implement of report repository.
@@ -213,11 +212,13 @@ namespace NexFB.Repositories.Implement
         #endregion Monthly Main Dish Per Day Report
 
         /// <summary>
-        /// Get side dish report.
+        /// Gets the side dish report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The report data.</returns>
-        public SideDishReportModel GetSideDishReport(ICriteria criteria)
+        /// <param name="pageIndex">Index of the page.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The SideDishReportModel class.</returns>
+        public SideDishReportModel GetSideDishReport(ICriteria criteria, int? pageIndex = null, int? itemsPerPage = null)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -236,7 +237,7 @@ namespace NexFB.Repositories.Implement
                     report.TotalQuantity = (decimal)outParams["totalquantity"];
                     report.TotalAmount = (double)outParams["totalamount"];
 
-                    report.DepartmentTeamModels = GetDepartmentTeamItem(rawReport.AsQueryable());
+                    report.DepartmentTeamModels = GetDepartmentTeamItem(rawReport.AsQueryable(), pageIndex, itemsPerPage);
                 }
 
                 return report;
@@ -244,19 +245,28 @@ namespace NexFB.Repositories.Implement
         }
 
         /// <summary>
-        /// Get department team item.
+        /// Gets the department team item.
         /// </summary>
-        /// <param name="rawReport">The report data.</param>
+        /// <param name="rawReport">The raw report.</param>
+        /// <param name="pageIndex">Index of the page.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
         /// <returns>The DepartmentTeamModel collection.</returns>
-        private List<DepartmentTeamModel> GetDepartmentTeamItem(IEnumerable<dynamic> rawReport)
+        private List<DepartmentTeamModel> GetDepartmentTeamItem(IEnumerable<dynamic> rawReport, int? pageIndex = null, int? itemsPerPage = null)
         {
             var departmentTeamModels = new List<DepartmentTeamModel>();
+
+            int counter = 1;
+            if (pageIndex.HasValue && itemsPerPage.HasValue)
+            {
+                counter = (pageIndex.Value * itemsPerPage.Value) + 1;
+            }
 
             foreach (dynamic item in rawReport)
             {
                 string departmentTeamName = item.DepartmentTeamName;
 
                 DepartmentTeamModel departmentTeam = departmentTeamModels.FirstOrDefault(d => d.DepartmentTeamName == departmentTeamName);
+
                 var order = new OrderModel
                 {
                     Amount = item.Amount,
@@ -267,7 +277,8 @@ namespace NexFB.Repositories.Implement
                     Price = item.Price,
                     Qty = item.Qty,
                     Shift = item.Shift,
-                    WorkDate = item.WorkDate
+                    WorkDate = item.WorkDate,
+                    No = counter
                 };
 
                 if (departmentTeam == null)
@@ -277,6 +288,7 @@ namespace NexFB.Repositories.Implement
                 }
 
                 departmentTeam.OrderModels.Add(order);
+                counter++;
             }
 
             return departmentTeamModels;

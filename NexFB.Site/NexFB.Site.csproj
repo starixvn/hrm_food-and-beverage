@@ -526,6 +526,7 @@
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\EmployeeOrderHistoryReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\DailyMainDishReport.xls" />
+    <None Include="Src\App\Report\ExcelTemplates\SideDishReport.xls" />
     <Content Include="Src\App\DeliveryArea\deliveryArea.less" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentPerDayReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeePerDayReport.xls" />

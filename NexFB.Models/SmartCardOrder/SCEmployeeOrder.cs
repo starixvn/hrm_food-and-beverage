@@ -9,8 +9,6 @@
 
 namespace NexFB.Models.SmartCardOrder
 {
-    using System;
-
     /// <summary>
     /// SC Employee Order.
     /// </summary>
