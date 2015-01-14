@@ -263,35 +263,44 @@ namespace NexFB.Repositories.Implement
 
             foreach (dynamic item in rawReport)
             {
-                string departmentTeamName = item.DepartmentTeamName;
-
-                DepartmentTeamModel departmentTeam = departmentTeamModels.FirstOrDefault(d => d.DepartmentTeamName == departmentTeamName);
-
-                var order = new OrderModel
-                {
-                    Amount = item.Amount,
-                    FoodEngName = item.FoodEngName,
-                    FoodVNMName = item.FoodVNMName,
-                    FullName = item.FullName,
-                    NickName = item.NickName,
-                    Price = item.Price,
-                    Qty = item.Qty,
-                    Shift = item.Shift,
-                    WorkDate = item.WorkDate,
-                    No = counter
-                };
-
-                if (departmentTeam == null)
-                {
-                    departmentTeam = new DepartmentTeamModel { DepartmentTeamName = departmentTeamName };
-                    departmentTeamModels.Add(departmentTeam);
-                }
-
-                departmentTeam.OrderModels.Add(order);
+                AddDepartmentTeamToList(departmentTeamModels, item, counter);
                 counter++;
             }
 
             return departmentTeamModels;
+        }
+
+        /// <summary>
+        /// Adds the department team to list.
+        /// </summary>
+        /// <param name="departmentTeamModels">The department team models.</param>
+        /// <param name="item">The item object.</param>
+        /// <param name="counter">The counter.</param>
+        private void AddDepartmentTeamToList(List<DepartmentTeamModel> departmentTeamModels, dynamic item, int counter)
+        {
+            string departmentTeamName = item.DepartmentTeamName;
+            DepartmentTeamModel departmentTeam = departmentTeamModels.FirstOrDefault(d => d.DepartmentTeamName == departmentTeamName);
+            if (departmentTeam == null)
+            {
+                departmentTeam = new DepartmentTeamModel { DepartmentTeamName = departmentTeamName };
+                departmentTeamModels.Add(departmentTeam);
+            }
+
+            var order = new OrderModel
+            {
+                Amount = item.Amount,
+                FoodEngName = item.FoodEngName,
+                FoodVNMName = item.FoodVNMName,
+                FullName = item.FullName,
+                NickName = item.NickName,
+                Price = item.Price,
+                Qty = item.Qty,
+                Shift = item.Shift,
+                WorkDate = item.WorkDate,
+                No = counter
+            };
+
+            departmentTeam.OrderModels.Add(order);
         }
 
         private int CalculateTotalAmount(TotalPriceModel totalPriceModel)

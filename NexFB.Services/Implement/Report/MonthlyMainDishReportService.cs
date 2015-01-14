@@ -137,11 +137,11 @@ namespace NexFB.Services.Implement.Report
         /// Exports the side dish report.
         /// </summary>
         /// <param name="report">The report.</param>
-        /// <param name="templateUrl">The template URL.</param>
-        public void ExportSideDishReport(SideDishReportModel report, string templateUrl)
+        /// <param name="templatePath">The template URL.</param>
+        public void ExportSideDishReport(SideDishReportModel report, string templatePath)
         {
             string reportTitle = Lang.SideDishReport;
-            var writer = new ExcelTemplateWriter(templateUrl, Lang.SideDishReport, reportTitle);
+            var writer = new ExcelTemplateWriter(templatePath, reportTitle, reportTitle);
 
             // Create report title.
             writer.CopyRows(0, 1);

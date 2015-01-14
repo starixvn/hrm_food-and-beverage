@@ -33,6 +33,6 @@ namespace NexFB.Services.Interface.Report
 
         ExcelTemplateWriter FillTotalRow(MealDayOfMonthModel total, bool isGroupByEmployee, ExcelTemplateWriter writer);
         
-        void ExportSideDishReport(SideDishReportModel report, string templateUrl);
+        void ExportSideDishReport(SideDishReportModel report, string templatePath);      
     }
 }
