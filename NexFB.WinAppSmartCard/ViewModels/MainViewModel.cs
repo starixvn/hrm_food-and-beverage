@@ -97,7 +97,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         /// <param name="newCardNumber">New Card number.</param>
         /// <param name="mainWindow">Current Main Window.</param>
-        public void OnSmartCardNumberchanged(string newCardNumber, MainWindow mainWindow)
+        public void OnSmartCardNumberChanged(string newCardNumber, MainWindow mainWindow)
         {
             if (!string.IsNullOrEmpty(newCardNumber))
             {
@@ -137,13 +137,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
                             ReturnToStandByScreenAndCreateNewSession();
                         }
 
-                        AddDataWhenTimerLive(employeeData, false);
+                        AddDataWhenTimerLive(employeeData);
                         break;
                     case ConstantValue.SideDishesViewModel:
                         if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
                         {
                             ReturnToStandByScreenAndCreateNewSession();
-                            AddDataWhenTimerLive(employeeData, true);
+                            AddDataWhenTimerLive(employeeData);
                         }
 
                         break;
@@ -151,7 +151,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         if (((CombinedDishesViewModel)CurrentViewModel).SideDishTimerLive)
                         {
                             ReturnToStandByScreenAndCreateNewSession();
-                            AddDataWhenTimerLive(employeeData, true);
+                            AddDataWhenTimerLive(employeeData);
                         }
 
                         break;
@@ -284,41 +284,34 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// </summary>
         private void ExecuteMainDishesCommand()
         {
-            if (!IsMainDishTab)
+            if (OrderOwner == null)
             {
-                if (OrderOwner == null)
-                {
-                    SelectMainDishAction();
-                }
-                else
-                {
-                    if (OrderOwner.MenuId == ConstantValue.NoMenuAvailableCode)
-                    {
-                        this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_NoMenu);
-                    }
-                    else
-                    {
-                        IsMainDishTab = true;
-                        CancelDispatcherTimer();
-                        CurrentViewModel = new MainDishesViewModel();
-                        if (OrderOwner.AllowOrder)
-                        {
-                            ((MainDishesViewModel)CurrentViewModel).ShowOrderScreen();
-                        }
-                        else
-                        {
-                            // Show order details
-                            ((MainDishesViewModel)CurrentViewModel).ShowNotificationScreen();
-                        }
-
-                        ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, this);
-                        CheckCurrentViewModel();
-                    }
-                }
+                SelectMainDishAction();
             }
             else
             {
-                SelectMainDishAction();
+                if (OrderOwner.MenuId == ConstantValue.NoMenuAvailableCode)
+                {
+                    this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_NoMenu);
+                }
+                else
+                {
+                    IsMainDishTab = true;
+                    CancelDispatcherTimer();
+                    CurrentViewModel = new MainDishesViewModel();
+                    if (OrderOwner.AllowOrder)
+                    {
+                        ((MainDishesViewModel)CurrentViewModel).ShowOrderScreen();
+                    }
+                    else
+                    {
+                        // Show order details
+                        ((MainDishesViewModel)CurrentViewModel).ShowNotificationScreen();
+                    }
+
+                    ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, this);
+                    CheckCurrentViewModel();
+                }
             }
         }
 
@@ -482,8 +475,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// Check Data before add to Main Screen.
         /// </summary>
         /// <param name="employeeData">Current employee info.</param>
-        /// /// <param name="isSideDishView">Check for main dish tab or side dish tab.</param>
-        private void CheckDataToAddToGrid(EmployeeInfo employeeData, bool isSideDishView)
+        private void CheckDataToAddToGrid(EmployeeInfo employeeData)
         {
             if (employeeData != null)
             {
@@ -505,16 +497,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     {
                         if (MainScreenVisible == CommonResources.Visible)
                         {
-                            if (!isSideDishView)
-                            {
-                                ShowMessageCannotOrder(employeeInfoMapping);
-                            }
+                            ShowMessageCannotOrder(employeeInfoMapping);
                         }
                         else
                         {
-                            ExecuteSideDishesCommand();
-                            ((SideDishesViewModel)CurrentViewModel).ToggleMainMenu();
-                            this.MainTabReadOnly = true;
+                            this.MainTabReadOnly = false;
+                            ExecuteMainDishesCommand();
                         }
                     }
                     else
@@ -548,12 +536,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// Process continue to add data when timer is tick.
         /// </summary>
         /// <param name="employeeData">Employee data.</param>
-        /// <param name="isSideDishView">Check for main dish tab or side dish tab.</param>
-        private void AddDataWhenTimerLive(EmployeeInfo employeeData, bool isSideDishView)
+        private void AddDataWhenTimerLive(EmployeeInfo employeeData)
         {
             if (employeeData != null)
             {
-                CheckDataToAddToGrid(employeeData, isSideDishView);
+                CheckDataToAddToGrid(employeeData);
             }
             else
             {

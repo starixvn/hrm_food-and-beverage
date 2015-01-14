@@ -84,7 +84,7 @@ namespace NexFB.WinAppSmartCard
 
         private void OnCardNumberChange(CardNumberChangedEventArgs e, MainViewModel mainViewModel, MainWindow mainWindow)
         {
-            mainViewModel.OnSmartCardNumberchanged(e.CardNumber, mainWindow);
+            mainViewModel.OnSmartCardNumberChanged(e.CardNumber, mainWindow);
         }
 
         /// <summary>
