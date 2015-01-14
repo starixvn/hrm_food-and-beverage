@@ -37,9 +37,10 @@ namespace NexFB.Site.Controllers
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
         private readonly IMonthlyMainDishPerDayReportService _monthlyMainDishPerDayService;
         private readonly IDailyMainDishReportService _dailyMainDishReportService;
+        private readonly ISideDishReportService _sideDishReportService;
 
         public ExportReportController()
-            : this(null, null, null, null)
+            : this(null, null, null, null, null)
         {
         }
 
@@ -47,12 +48,14 @@ namespace NexFB.Site.Controllers
             IEmployeeOrderHistoryService employeeOrderHistoryService, 
             IMonthlyMainDishReportService monthlyMainDishReportService,
             IDailyMainDishReportService dailyMainDishReportService,
-            IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService)
+            IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService,
+            ISideDishReportService sideDishReportService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
             _monthlyMainDishPerDayService = monthlyMainDishPerDayService ?? new MonthlyMainDishPerDayReportService();
-             _dailyMainDishReportService = dailyMainDishReportService ?? new DailyMainDishReportService();
+            _dailyMainDishReportService = dailyMainDishReportService ?? new DailyMainDishReportService();
+            _sideDishReportService = sideDishReportService ?? new SideDishReportService();
         }
 
         public ActionResult Index()
@@ -117,25 +120,25 @@ namespace NexFB.Site.Controllers
 
             return new EmptyResult();
         }
-        
-         /// <summary>
+
+        /// <summary>
         /// Exports the side dish report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The EmptyResult.</returns>
         public ActionResult ExportSideDishReport(GetSideDishReportCriteria criteria)
         {
-            string templateUrl = Server.MapPath(SideDishReportTemplatePath);            
-            SideDishReportModel report = _reportService.GetSideDishReport(criteria);
+            string templateUrl = Server.MapPath(SideDishReportTemplatePath);
+            SideDishReportModel report = _sideDishReportService.GetSideDishReport(criteria);
 
             if (report != null)
             {
-                _reportService.ExportSideDishReport(report, templateUrl);
+                _sideDishReportService.ExportSideDishReport(report, templateUrl);
             }
 
             return new EmptyResult();
         }
-        
+
         /// <summary>
         /// Export monthly main dish per day report.
         /// </summary>

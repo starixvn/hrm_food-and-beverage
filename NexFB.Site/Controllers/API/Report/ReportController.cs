@@ -43,6 +43,7 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly IUserControlService _userControlService;
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
         private readonly IMonthlyMainDishPerDayReportService _monthlyPerDayService;
+        private readonly ISideDishReportService _sideDishReportService;
 
         public ReportController()
             : this(null, null, null, null, null, null)
@@ -55,7 +56,8 @@ namespace NexFB.Site.Controllers.API.Report
             ICommonService commonService,
             IUserControlService userControlService,
             IEmployeeOrderHistoryService employeeOrderHistoryService,
-            IMonthlyMainDishPerDayReportService monthlyPerDayService)
+            IMonthlyMainDishPerDayReportService monthlyPerDayService,
+            ISideDishReportService sideDishReportService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _dailyMainDishReportService = dailyMainDishReportService ?? new DailyMainDishReportService();
@@ -63,6 +65,7 @@ namespace NexFB.Site.Controllers.API.Report
             _userControlService = userControlService ?? new UserControlService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
             _monthlyPerDayService = monthlyPerDayService ?? new MonthlyMainDishPerDayReportService();
+            _sideDishReportService = sideDishReportService ?? new SideDishReportService();
         }
 
         /// <summary>
@@ -225,7 +228,7 @@ namespace NexFB.Site.Controllers.API.Report
                 ItemsPerPage = itemsPerPage
             };
 
-            SideDishReportModel reportData = _reportService.GetSideDishReport(criteria);
+            SideDishReportModel reportData = _sideDishReportService.GetSideDishReport(criteria);
 
             return reportData;
         }
@@ -243,7 +246,6 @@ namespace NexFB.Site.Controllers.API.Report
             int adminRole = (int)RolesSystem.Finance;
             int kitchenRole = (int)RolesSystem.Kitchen;
             int systemAdminRole = (int)RolesSystem.SA;
-            int kitchenRole = (int)RolesSystem.Kitchen;
 
             string roles = CurrentUser.Roles;
 
@@ -255,7 +257,7 @@ namespace NexFB.Site.Controllers.API.Report
                 bool isContainFinanceRole = roles.Contains(financeRole.ToString());
                 bool isContainKitchenRole = roles.Contains(kitchenRole.ToString());
 
-                if (isContainSystemAdminRole || isContainAdminRole || 
+                if (isContainSystemAdminRole || isContainAdminRole ||
                     (!isContainFinanceRole && (isContainEmployeeRole || isContainKitchenRole)))
                 {
                     var criteria = new GetAllDepartmentCriteria();
@@ -330,7 +332,7 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
-         /// <summary>
+        /// <summary>
         /// Monthly main dish per day report.
         /// </summary>
         /// <param name="reportDate">The report date.</param>
@@ -410,7 +412,7 @@ namespace NexFB.Site.Controllers.API.Report
 
             return dayTypeList;
         }
-            
+
         /// <summary>
         /// Get Ordered By ENUM.
         /// </summary>
@@ -422,7 +424,7 @@ namespace NexFB.Site.Controllers.API.Report
 
             foreach (OrderedBy orderedByEnum in (OrderedBy[])Enum.GetValues(typeof(OrderedBy)))
             {
-                var orderedBy = new 
+                var orderedBy = new
                 {
                     Value = (int)orderedByEnum,
                     Name = Enumerations.GetDescription(orderedByEnum)
@@ -433,7 +435,7 @@ namespace NexFB.Site.Controllers.API.Report
 
             return orderedByList;
         }
-        
+
         /// <summary>
         /// Get Order Platform ENUM.
         /// </summary>

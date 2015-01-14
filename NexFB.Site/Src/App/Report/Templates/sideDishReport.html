@@ -1,78 +1,79 @@
 ﻿<div class="col-sm-12">
-    <div class="row sub-header">
-        <ul class="breadcrumb list-inline pull-left">
-            <li class="current" data-translate="SideDishReport"></li>
-        </ul>
-    </div>
-    <div class="row filter">
-        <form class="form-horizontal form-multiLine" role="form" action="#">
-        <div class="form-group">
-            <label class="col-sm-1 text-right" data-translate="Department">
-            </label>
-            <div class="col-sm-2 field">
-                <select data-ng-model="criteria.departmentId" data-ng-options="opt.DepartmentId as opt.Name for opt in departments"
-                    class="form-control" data-ng-change="getTeamAndEmployeeType(criteria.departmentId)">                   
-                </select>
-            </div>
-            <label class="col-sm-1 text-right long-text-report" data-translate="Team">
-            </label>
-            <div class="col-sm-2 field teambox">
-                <add-class-to-role-filter multi-select input-model="teams" button-label="Name" helper-elements="all reset"
-                    item-label="Name" tick-property="ticked" max-labels="0" class="multi-select" max-height="400px">
-				    </add-class-to-role-filter>
-            </div>
-            <label class="col-sm-1 text-right long-text-report" data-translate="EmployeeType">
-            </label>
-            <div class="col-sm-2 field">
-                <add-class-to-role-filter multi-select input-model="employeeTypes" button-label="EmployeeTypeId"
-                    helper-elements="all reset" item-label="EmployeeTypeName" tick-property="ticked"
-                    max-labels="0" class="multi-select employee-type" max-height="400px">
-				    </add-class-to-role-filter>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-1 text-right" data-translate="From">
-            </label>
-            <div class="col-sm-2 field daybox">
-                <p class="input-group">
-                    <input type="text" class="form-control" data-datepicker-popup="MM/dd/yyyy" data-ng-model="criteria.fromDate"
-                        data-is-open="fromOpened" data-datepicker-options="fromDateOptions" readonly data-ng-click="open($event,'from')"
-                        data-show-button-bar="false" />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" data-ng-click="open($event,'from')">
-                            <i class="glyphicon glyphicon-calendar"></i>
-                        </button>
-                    </span>
-                </p>
-            </div>
-            <label class="col-sm-1 text-right long-text-report" data-translate="To">
-            </label>
-            <div class="col-sm-2 field daybox">
-                <p class="input-group">
-                    <input type="text" class="form-control" data-datepicker-popup="MM/dd/yyyy" data-ng-model="criteria.toDate"
-                        data-is-open="toOpened" data-datepicker-options="toDateOptions" readonly data-ng-click="open($event,'to')"
-                        data-show-button-bar="false" />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" data-ng-click="open($event,'to')">
-                            <i class="glyphicon glyphicon-calendar"></i>
-                        </button>
-                    </span>
-                </p>
-            </div>
-            <label class="col-sm-1 text-right long-text-report" data-translate="SideDishItem">
-            </label>
-            <div class="col-sm-2 field">
-                <add-class-to-role-filter multi-select input-model="sideDishItems" button-label="FoodId"
-                    helper-elements="all reset" item-label="FoodVnmName" tick-property="ticked" max-labels="0"
-                    class="multi-select" max-height="400px">
-				    </add-class-to-role-filter>
-            </div>
-            <div class="col-sm-1 btn-box">
-                <input type="button" value="Submit" class="button" data-ng-click="search()" />
-            </div>
-        </div>
-        </form>
-    </div>
-    <div id="sideDishReport" class="freegrid" data-side-dish-report>
-    </div>
+	<div class="row sub-header">
+		<ul class="breadcrumb list-inline pull-left">
+			<li class="current" data-translate="SideDishReport"></li>
+		</ul>
+	</div>
+	<div class="row filter">
+		<form class="form-horizontal form-multiLine" role="form" action="#">
+		<div class="form-group">
+			<label class="col-sm-1 text-right" data-translate="Department">
+			</label>
+			<div class="col-sm-2 field">
+				<select data-ng-model="criteria.departmentId" data-ng-options="opt.DepartmentId as opt.Name for opt in departments"
+					class="form-control" data-ng-change="getTeamAndEmployeeType(criteria.departmentId)">
+				</select>
+			</div>
+			<label class="col-sm-1 text-right long-text-report" data-translate="Team">
+			</label>
+			<div class="col-sm-2 field teambox">
+				<add-class-to-role-filter multi-select input-model="teams" button-label="Name" helper-elements="all reset"
+					item-label="Name" tick-property="ticked" max-labels="0" class="multi-select"
+					max-height="400px">
+</add-class-to-role-filter>
+			</div>
+			<label class="col-sm-1 text-right long-text-report" data-translate="EmployeeType">
+			</label>
+			<div class="col-sm-2 field">
+				<add-class-to-role-filter multi-select input-model="employeeTypes" button-label="EmployeeTypeId"
+					helper-elements="all reset" item-label="EmployeeTypeName" tick-property="ticked"
+					max-labels="0" class="multi-select employee-type" max-height="400px">
+</add-class-to-role-filter>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-1 text-right" data-translate="From">
+			</label>
+			<div class="col-sm-2 field daybox">
+				<p class="input-group">
+					<input type="text" class="form-control" data-datepicker-popup="MM/dd/yyyy" data-ng-model="criteria.fromDate"
+						data-is-open="fromOpened" data-datepicker-options="fromDateOptions" readonly
+						data-ng-click="open($event,'from')" data-show-button-bar="false" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" data-ng-click="open($event,'from')">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</p>
+			</div>
+			<label class="col-sm-1 text-right long-text-report" data-translate="To">
+			</label>
+			<div class="col-sm-2 field daybox">
+				<p class="input-group">
+					<input type="text" class="form-control" data-datepicker-popup="MM/dd/yyyy" data-ng-model="criteria.toDate"
+						data-is-open="toOpened" data-datepicker-options="toDateOptions" readonly data-ng-click="open($event,'to')"
+						data-show-button-bar="false" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" data-ng-click="open($event,'to')">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</p>
+			</div>
+			<label class="col-sm-1 text-right long-text-report" data-translate="SideDishItem">
+			</label>
+			<div class="col-sm-2 field">
+				<add-class-to-role-filter multi-select input-model="sideDishItems" button-label="FoodId"
+					helper-elements="all reset" item-label="FoodVnmName" tick-property="ticked" max-labels="0"
+					class="multi-select" max-height="400px">
+</add-class-to-role-filter>
+			</div>
+			<div class="col-sm-1 btn-box">
+				<input type="button" value="Submit" class="button" data-ng-click="search()" />
+			</div>
+		</div>
+		</form>
+	</div>
+	<div id="sideDishReport" class="freegrid" data-side-dish-report>
+	</div>
 </div>

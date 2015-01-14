@@ -103,6 +103,39 @@ namespace NexFB.Repositories.Implement
             }
         }
 
+        /// <summary>
+        /// Gets the side dish report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="pageIndex">Index of the page.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The SideDishReportModel class.</returns>
+        public SideDishReportModel GetSideDishReport(ICriteria criteria, int? pageIndex = null, int? itemsPerPage = null)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                SideDishReportModel report = new SideDishReportModel();
+
+                db.AddOutParameter("TotalItem", DbType.Int32, 5);
+                db.AddOutParameter("TotalQuantity", DbType.Decimal, 8);
+                db.AddOutParameter("TotalAmount", DbType.Double, 18);
+                List<dynamic> rawReport = db.Query<dynamic>(criteria.GetSpParams()).ToList();
+
+                var outParams = db.GetOuputParams();
+
+                if (rawReport != null && rawReport.Count > 0)
+                {
+                    report.TotalItem = (int)outParams["totalitem"];
+                    report.TotalQuantity = (decimal)outParams["totalquantity"];
+                    report.TotalAmount = (double)outParams["totalamount"];
+
+                    report.DepartmentTeamModels = GetDepartmentTeamItem(rawReport.AsQueryable(), pageIndex, itemsPerPage);
+                }
+
+                return report;
+            }
+        }
+
         #region Monthly Main Dish Per Day Report
 
         /// <summary>
@@ -159,7 +192,7 @@ namespace NexFB.Repositories.Implement
             return mealItems;
         }
 
-         /// <summary>
+        /// <summary>
         /// Get weekday in month.
         /// </summary>
         /// <param name="rawReport">The raw data of report.</param>
@@ -210,39 +243,6 @@ namespace NexFB.Repositories.Implement
         }
 
         #endregion Monthly Main Dish Per Day Report
-
-        /// <summary>
-        /// Gets the side dish report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The SideDishReportModel class.</returns>
-        public SideDishReportModel GetSideDishReport(ICriteria criteria, int? pageIndex = null, int? itemsPerPage = null)
-        {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                SideDishReportModel report = new SideDishReportModel();
-
-                db.AddOutParameter("TotalItem", DbType.Int32, 5);
-                db.AddOutParameter("TotalQuantity", DbType.Decimal, 8);
-                db.AddOutParameter("TotalAmount", DbType.Double, 18);
-                List<dynamic> rawReport = db.Query<dynamic>(criteria.GetSpParams()).ToList();
-
-                var outParams = db.GetOuputParams();
-
-                if (rawReport != null && rawReport.Count > 0)
-                {
-                    report.TotalItem = (int)outParams["totalitem"];
-                    report.TotalQuantity = (decimal)outParams["totalquantity"];
-                    report.TotalAmount = (double)outParams["totalamount"];
-
-                    report.DepartmentTeamModels = GetDepartmentTeamItem(rawReport.AsQueryable(), pageIndex, itemsPerPage);
-                }
-
-                return report;
-            }
-        }
 
         /// <summary>
         /// Gets the department team item.

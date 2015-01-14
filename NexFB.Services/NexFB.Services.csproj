@@ -66,6 +66,7 @@
     <Compile Include="Implement\Report\EmployeeOrderHistoryService.cs" />
     <Compile Include="Implement\Report\MonthlyMainDishPerDayReportService.cs" />
     <Compile Include="Implement\Report\MonthlyMainDishReportService.cs" />
+    <Compile Include="Implement\Report\SideDishReportService.cs" />
     <Compile Include="Implement\SetMenuService.cs" />
     <Compile Include="Implement\FoodItemService.cs" />
     <Compile Include="Implement\FoodMenuService.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Interface\Report\IEmployeeOrderHistoryService.cs" />
     <Compile Include="Interface\Report\IMonthlyMainDishPerDayReportService.cs" />
     <Compile Include="Interface\Report\IMonthlyMainDishReportService.cs" />
+    <Compile Include="Interface\Report\ISideDishReportService.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Implement\CommonService.cs" />
     <Compile Include="Implement\UserControlService.cs" />

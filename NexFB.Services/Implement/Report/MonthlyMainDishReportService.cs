@@ -87,23 +87,6 @@ namespace NexFB.Services.Implement.Report
 
             return pagingReport;
         }
-        
-        /// <summary>
-        /// Gets the side dish report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The SideDishReportModel object.</returns>
-        public SideDishReportModel GetSideDishReport(GetSideDishReportCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            SideDishReportModel report = null;
-            if (criteria.IsValid())
-            {
-                report = _reportRepository.GetSideDishReport(criteria, criteria.PageIndex, criteria.ItemsPerPage);
-            }
-
-            return report;
-        }
 
         /// <summary>
         /// Export monthly main dish report in local.
@@ -131,31 +114,7 @@ namespace NexFB.Services.Implement.Report
             writer.SyncColumnsWidth(37);
 
             writer.Render();
-        }
-
-        /// <summary>
-        /// Exports the side dish report.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="templatePath">The template URL.</param>
-        public void ExportSideDishReport(SideDishReportModel report, string templatePath)
-        {
-            string reportTitle = Lang.SideDishReport;
-            var writer = new ExcelTemplateWriter(templatePath, reportTitle, reportTitle);
-
-            // Create report title.
-            writer.CopyRows(0, 1);
-
-            // Create report header.
-            writer.CopyRows(1, 1);
-
-            FillContentRow(report, writer);
-
-            FillTotalRow(report, writer);
-
-            writer.SyncColumnsWidth(10);
-            writer.Render();
-        }
+        }       
 
         /// <summary>
         /// Create meal records.
@@ -580,44 +539,6 @@ namespace NexFB.Services.Implement.Report
             };
 
             return record;
-        }
-
-        /// <summary>
-        /// Fills the total row.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="writer">The writer.</param>
-        private void FillTotalRow(SideDishReportModel report, ExcelTemplateWriter writer)
-        {
-            var totalRecord = new
-            {
-                Cell1 = string.Empty,
-                Cell2 = string.Empty,
-                Cell3 = string.Empty,
-                Cell4 = string.Empty,
-                Cell5 = string.Empty,
-                Cell6 = string.Empty,
-                Cell7 = string.Empty,
-                Total = Lang.Total,
-                TotalQuantity = report.TotalQuantity,
-                TotalAmount = report.TotalAmount,
-            };
-
-            writer.WriteRow(4, totalRecord);
-        }
-
-        /// <summary>
-        /// Fills the content row.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="writer">The writer.</param>
-        private void FillContentRow(SideDishReportModel report, ExcelTemplateWriter writer)
-        {
-            foreach (DepartmentTeamModel item in report.DepartmentTeamModels)
-            {
-                writer.WriteRow(2, new object[] { item.DepartmentTeamName });
-                writer.WriteRows(3, item.OrderModels);
-            }
-        }
+        }        
     }
 }
