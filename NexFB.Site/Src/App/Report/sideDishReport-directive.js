@@ -7,7 +7,7 @@ reportModule.directive('sideDishReport', function () {
 			{ HeaderText: "Date", Width: 90, Name: "WorkDate", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "DD-MMM-YY" },
 			{ HeaderText: "Shift", Width: 80, Name: "Shift", HeaderAlign: "center", CellAlign: "center" },
 			{ HeaderText: "Full Name", Width: 200, Name: "FullName", HeaderAlign: "center", CellAlign: "left" },
-			{ HeaderText: "Nick", Width: 100, Name: "NickName", HeaderAlign: "center", CellAlign: "left" },
+			{ HeaderText: "Nick", Width: 123, Name: "NickName", HeaderAlign: "center", CellAlign: "left" },
 			{ HeaderText: "Food item (Vie)", Width: 170, Name: "FoodVNMName", HeaderAlign: "center", CellAlign: "left" },
 			{ HeaderText: "Food item (Eng)", Width: 170, Name: "FoodEngName", HeaderAlign: "center", CellAlign: "left" },
 			{ HeaderText: "Price", Width: 100, Name: "Price", HeaderAlign: "center", CellAlign: "right", FormatNumber: "0,0" },

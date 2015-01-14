@@ -4,7 +4,7 @@
 			<li class="current" data-translate="SideDishReport"></li>
 		</ul>
 	</div>
-	<div class="row filter">
+	<div class="row filter filterMaxWith">
 		<form class="form-horizontal form-multiLine" role="form" action="#">
 		<div class="form-group">
 			<label class="col-sm-1 text-right" data-translate="Department">
@@ -18,17 +18,16 @@
 			</label>
 			<div class="col-sm-2 field teambox">
 				<add-class-to-role-filter multi-select input-model="teams" button-label="Name" helper-elements="all reset"
-					item-label="Name" tick-property="ticked" max-labels="0" class="multi-select"
-					max-height="400px">
-</add-class-to-role-filter>
+					item-label="Name" tick-property="ticked" max-labels="0" class="multi-select">
+				</add-class-to-role-filter>
 			</div>
 			<label class="col-sm-1 text-right long-text-report" data-translate="EmployeeType">
 			</label>
-			<div class="col-sm-2 field">
+			<div class="col-sm-2 field teambox">
 				<add-class-to-role-filter multi-select input-model="employeeTypes" button-label="EmployeeTypeId"
 					helper-elements="all reset" item-label="EmployeeTypeName" tick-property="ticked"
-					max-labels="0" class="multi-select employee-type" max-height="400px">
-</add-class-to-role-filter>
+					max-labels="0" class="multi-select employee-type">
+				</add-class-to-role-filter>
 			</div>
 		</div>
 		<div class="form-group">
@@ -36,7 +35,7 @@
 			</label>
 			<div class="col-sm-2 field daybox">
 				<p class="input-group">
-					<input type="text" class="form-control" data-datepicker-popup="MM/dd/yyyy" data-ng-model="criteria.fromDate"
+					<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="criteria.fromDate"
 						data-is-open="fromOpened" data-datepicker-options="fromDateOptions" readonly
 						data-ng-click="open($event,'from')" data-show-button-bar="false" />
 					<span class="input-group-btn">
@@ -50,7 +49,7 @@
 			</label>
 			<div class="col-sm-2 field daybox">
 				<p class="input-group">
-					<input type="text" class="form-control" data-datepicker-popup="MM/dd/yyyy" data-ng-model="criteria.toDate"
+					<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="criteria.toDate"
 						data-is-open="toOpened" data-datepicker-options="toDateOptions" readonly data-ng-click="open($event,'to')"
 						data-show-button-bar="false" />
 					<span class="input-group-btn">
@@ -62,11 +61,11 @@
 			</div>
 			<label class="col-sm-1 text-right long-text-report" data-translate="SideDishItem">
 			</label>
-			<div class="col-sm-2 field">
+			<div class="col-sm-2 field teambox">
 				<add-class-to-role-filter multi-select input-model="sideDishItems" button-label="FoodId"
 					helper-elements="all reset" item-label="FoodVnmName" tick-property="ticked" max-labels="0"
-					class="multi-select" max-height="400px">
-</add-class-to-role-filter>
+					class="multi-select">
+				</add-class-to-role-filter>
 			</div>
 			<div class="col-sm-1 btn-box">
 				<input type="button" value="Submit" class="button" data-ng-click="search()" />
