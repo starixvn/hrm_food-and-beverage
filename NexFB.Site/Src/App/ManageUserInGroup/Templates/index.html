@@ -58,7 +58,7 @@
 	    <table class="table table-bordered table-striped col-sm-12">
 	        <thead>
 	            <tr class="header-table">
-	                <th colspan="5" ng-show="policy.permission == 2">
+	                <th colspan="6" ng-show="policy.permission == 2">
 		                <input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
 	                </th>
                 </tr>
@@ -68,6 +68,7 @@
 					<th data-translate="EmployeeType"></th>
                     <th class="width-40" data-translate="JoinedDate"></th>
 	                <th class="width-100" data-translate="Group"></th>
+					<th><input type="checkbox" /> </th>
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -87,6 +88,9 @@
 	                        </ul>
 	                    </div>
 	                </td>
+					<td class="text-center">
+						<input type="checkbox" />
+					</td>
 	            </tr>
 	            <tr ng-show="members.length == 0">
 	                <td class="empty-result" colspan="4" data-translate="EmptyResult">
@@ -95,7 +99,7 @@
 	        </tbody>
             <tfoot>
 	            <tr>
-		            <td colspan="5" class="paging" >
+		            <td colspan="6" class="paging" >
 			            <span data-translate="Show"></span>
 			            <select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()" 
 				            ng-options="entry for entry in entries">
@@ -106,8 +110,5 @@
 	            </tr>
             </tfoot>
 	    </table>
-    </div>
-    <div class="pull-right">
-        <input type="button" class="button" ng-class="{hide: !HasEditing}" value="Save All" ng-click="assignMultipleMembers()"/>
     </div>
 </div>
