@@ -601,6 +601,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date range must be less than 1 year..
+        /// </summary>
+        public static string DateRangeOneYearWarning {
+            get {
+                return ResourceManager.GetString("DateRangeOneYearWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Date field is required!.
         /// </summary>
         public static string DateRequire {
@@ -1714,15 +1723,14 @@ namespace NexFB.Resources {
             get {
                 return ResourceManager.GetString("MonthlyMainDishLocalSheetName", resourceCulture);
             }
-        }       
-
+        }
         
-         /// <summary>
-        ///   Looks up a localized string similar to Monthly Main Dish Report - Per Meal.
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly Main Dish Report - Per Day.
         /// </summary>
-        public static string MonthlyMainDishReportLocal {
+        public static string MonthlyMainDishPerDayReport {
             get {
-                return ResourceManager.GetString("MonthlyMainDishReportLocal", resourceCulture);
+                return ResourceManager.GetString("MonthlyMainDishPerDayReport", resourceCulture);
             }
         }
         
@@ -1754,13 +1762,13 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monthly Main Dish Report - Per Meal.
         /// </summary>
-        public static string MonthlyMainDishPerDayReport {
+        public static string MonthlyMainDishReportLocal {
             get {
-                return ResourceManager.GetString("MonthlyMainDishPerDayReport", resourceCulture);
+                return ResourceManager.GetString("MonthlyMainDishReportLocal", resourceCulture);
             }
         }
-
         
         /// <summary>
         ///   Looks up a localized string similar to Monthly and weekly registration will not take effect on Saturday and Sunday..

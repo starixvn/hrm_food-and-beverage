@@ -14,6 +14,7 @@ function ($locationProvider, $translateProvider, $routeProvider, datepickerConfi
 	$translateProvider.preferredLanguage('en');
 	$locationProvider.html5Mode(true);
 	datepickerConfig.showWeeks = false;
+	datepickerPopupConfig.showButtonBar = false;
 	datepickerPopupConfig.datepickerPopup = 'dd MMM, yyyy';
 	var baseUrl = $("base").first().attr("href");
 	$provide.value("baseUrl", baseUrl);

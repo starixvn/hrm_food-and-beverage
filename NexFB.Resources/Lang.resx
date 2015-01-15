@@ -930,7 +930,7 @@
   <data name="EmployeeOrderHistoryReport" xml:space="preserve">
     <value>My Order History</value>
   </data>
-    <data name="OffDay" xml:space="preserve">
+  <data name="OffDay" xml:space="preserve">
     <value>Off day</value>
   </data>
   <data name="WorkDay" xml:space="preserve">
@@ -1052,5 +1052,8 @@
   </data>
   <data name="OrderCount" xml:space="preserve">
     <value>Order Count</value>
+  </data>
+  <data name="DateRangeOneYearWarning" xml:space="preserve">
+    <value>Date range must be less than 1 year.</value>
   </data>
 </root>

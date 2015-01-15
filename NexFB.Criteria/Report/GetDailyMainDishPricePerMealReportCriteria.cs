@@ -47,7 +47,7 @@ namespace NexFB.Criteria.Report
 
         public override bool IsValid()
         {
-            return FromDate <= ToDate;
+            return FromDate <= ToDate && FromDate.AddYears(1) >= ToDate;
         }
     }
 }

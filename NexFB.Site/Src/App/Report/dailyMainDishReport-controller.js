@@ -189,6 +189,18 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 	/*
 	** Query data.
 	*/
+	var checkDateRangeInYear = function (fromDate, toDate) {
+		fromDate.setFullYear(fromDate.getFullYear() + 1);
+		fromDate.setHours(0, 0, 0, 0);
+		toDate.setHours(0, 0, 0, 0);
+
+		if (+fromDate < toDate) {
+			return false;
+		}
+
+		return true;
+	};
+
 	$scope.query = function (filter) {
 		resetGridOption();
 		resetPagingOption(filter);
@@ -206,6 +218,9 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 
 		if (fromDate > toDate) {
 			notificationFactory.error("DateRangeInvalid");
+		}
+		else if (!checkDateRangeInYear(angular.copy(fromDate), angular.copy(toDate))) {
+			notificationFactory.error("DateRangeOneYearWarning");
 		}
 		else {
 			$scope.getDailyMainDishReport(filter);
