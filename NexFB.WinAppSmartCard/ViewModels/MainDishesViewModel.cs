@@ -123,8 +123,10 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 List<SCEmployeeOrder> employeeOrders = this.SmartCardOrderService.GetMyOrderBySysId(getEmployeeOrderBySysId);
                 if (employeeOrders != null && employeeOrders.Count > 0)
                 {
+                    //// Get latest order.
                     int maxValue = employeeOrders.Where(x => !x.IsSideDish).Max(x => x.OrderId);
                     SCEmployeeOrder employeeOrder = employeeOrders.Where(x => x.OrderId == maxValue).FirstOrDefault();
+
                     var getOrderDetailsCriteria = new GetOrderDetailsCriteria() { OrderId = employeeOrder.OrderId };
                     Order order = KitchenService.GetOrderDetails(getOrderDetailsCriteria);
                     if (order != null)
@@ -149,7 +151,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
                                 ObservableListEmployee.Add(employee);
                             }
 
-                            OrderOwner.GroupOrderNickName = employeeOrder.OrderNickName;
+                            OrderOwner.GroupOrderNickName = order.NickName;
+                            OrderOwner = this.OrderOwner;
 
                             CountDownTimer = ConstantValue.CountDownTimer;
                             TimerDigitalClock();
