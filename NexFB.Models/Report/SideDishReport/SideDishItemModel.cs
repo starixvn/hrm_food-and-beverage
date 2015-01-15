@@ -1,22 +1,25 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="OrderModel.cs" company="Nexcel Solutions Viet Nam">
+﻿// --------------------------------------------------------------------------
+// <copyright file="SideDishItemModel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
-// -----------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // <history>
-//   <change who="Larry.Tran" date="1/7/2015 4:16 PM">Created.</change>
+//   <change who="Larry.Tran" date="2015.1.15">Created</change>
 // </history>
 
 namespace NexFB.Models.Report.SideDishReport
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
 
     /// <summary>
-    /// The OrderModel class.
+    /// SideDishItemModel class.
     /// </summary>
-    public class OrderModel
+    public class SideDishItemModel
     {
-        public int No { get; set; }
+        public string DepartmentTeamName { get; set; }        
 
         public DateTime WorkDate { get; set; }
 

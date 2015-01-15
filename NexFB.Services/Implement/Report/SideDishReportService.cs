@@ -9,6 +9,7 @@
 
 namespace NexFB.Services.Implement.Report
 {
+    using System.Collections.Generic;
     using Fanex.Common.Helper;
     using NexFB.Core.Services;
     using NexFB.Core.Utilities;
@@ -108,10 +109,34 @@ namespace NexFB.Services.Implement.Report
         /// <param name="writer">The writer.</param>
         private void FillContentRow(SideDishReportModel report, ExcelTemplateWriter writer)
         {
-            foreach (DepartmentTeamModel item in report.DepartmentTeamModels)
+            int counter = 1;
+            var groupName = new List<string>();
+
+            foreach (SideDishItemModel item in report.SideDishItems)
             {
-                writer.WriteRow(2, new object[] { item.DepartmentTeamName });
-                writer.WriteRows(3, item.OrderModels);
+                var subItem = new
+                {
+                    No = counter,
+                    WorkDate = item.WorkDate,
+                    Shift = item.Shift,
+                    FullName = item.FullName,
+                    NickName = item.NickName,
+                    FoodVNMName = item.FoodVNMName,
+                    FoodEngName = item.FoodEngName,
+                    Price = item.Price,
+                    Qty = item.Qty,
+                    Amount = item.Amount
+                };
+
+                if (!groupName.Contains(item.DepartmentTeamName))
+                {
+                    writer.WriteRow(2, new object[] { item.DepartmentTeamName });
+
+                    groupName.Add(item.DepartmentTeamName);
+                }
+
+                writer.WriteRow(3, subItem);
+                counter++;
             }
         }
     }

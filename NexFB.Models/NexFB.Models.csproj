@@ -88,7 +88,7 @@
     <Compile Include="Report\DailyMainDishPricePerMealReport\TotalPriceModel.cs" />
     <Compile Include="Report\EmployeeOrderHistory\EmployeeOrderHistoryReport.cs" />
     <Compile Include="Report\EmployeeOrderHistory\EmployeeOrderModel.cs" />
-     <Compile Include="Report\MonthlyMainDishPerDay\MainDishPerDayModel.cs" />
+    <Compile Include="Report\MonthlyMainDishPerDay\MainDishPerDayModel.cs" />
     <Compile Include="Report\MonthlyMainDishPerDay\MonthlyMainDishPerDayModel.cs" />
     <Compile Include="Report\MonthlyMainDishPerDay\RecordModel.cs" />
     <Compile Include="Report\MonthlyMainDishReportLocal\MealDayOfMonthModel.cs" />
@@ -98,8 +98,7 @@
     <Compile Include="Report\MonthlyMainDishReportLocal\RawMonthlyLocalReportModel.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Report\SideDishReport\DepartmentTeamModel.cs" />
-    <Compile Include="Report\SideDishReport\OrderModel.cs" />
+    <Compile Include="Report\SideDishReport\SideDishItemModel.cs" />
     <Compile Include="Report\SideDishReport\SideDishReportModel.cs" />
     <Compile Include="SetMenuManagement\MenuSetMenuModel.cs" />
     <Compile Include="SetMenuManagement\FoodSetMenuModel.cs" />

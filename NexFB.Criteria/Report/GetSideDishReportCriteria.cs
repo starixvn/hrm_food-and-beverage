@@ -11,6 +11,7 @@ namespace NexFB.Criteria.Report
 {
     using System;
     using Fanex.Data.Repository;
+    using NexFB.Core.Extensions;
 
     /// <summary>
     /// The GetSideDishReportCriteria class.
@@ -32,6 +33,15 @@ namespace NexFB.Criteria.Report
         public int? PageIndex { get; set; }
 
         public int? ItemsPerPage { get; set; }
+
+        [Output]
+        public int? TotalItem { get; set; }
+
+        [Output]
+        public decimal? TotalQuantity { get; set; }
+
+        [Output]
+        public decimal? TotalAmount { get; set; }
 
         public override string GetSettingKey()
         {

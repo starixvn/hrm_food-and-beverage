@@ -8,9 +8,9 @@ function ($scope, reportFactory, notificationFactory, ErrorFactory, userControlF
 reportUtilities, sideDishManagementFactory, baseUrl) {
 	var self = this;
 	var date = new Date(),
-year = date.getFullYear(),
-month = date.getMonth(),
-day = date.getDate();
+		year = date.getFullYear(),
+		month = date.getMonth(),
+		day = date.getDate();
 
 	// $scope region.
 	$scope.departments = [];

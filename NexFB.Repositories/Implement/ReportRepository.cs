@@ -114,25 +114,22 @@ namespace NexFB.Repositories.Implement
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                SideDishReportModel report = new SideDishReportModel();
+                SideDishReportModel reportData = new SideDishReportModel();
 
-                db.AddOutParameter("TotalItem", DbType.Int32, 5);
-                db.AddOutParameter("TotalQuantity", DbType.Decimal, 8);
-                db.AddOutParameter("TotalAmount", DbType.Double, 18);
-                List<dynamic> rawReport = db.Query<dynamic>(criteria.GetSpParams()).ToList();
+                List<SideDishItemModel> rawReport = db.Query<SideDishItemModel>(criteria.GetSpParams()).ToList();
 
                 var outParams = db.GetOuputParams();
 
                 if (rawReport != null && rawReport.Count > 0)
                 {
-                    report.TotalItem = (int)outParams["totalitem"];
-                    report.TotalQuantity = (decimal)outParams["totalquantity"];
-                    report.TotalAmount = (double)outParams["totalamount"];
+                    reportData.TotalItem = (int)outParams["totalitem"];
+                    reportData.TotalQuantity = (decimal)outParams["totalquantity"];
+                    reportData.TotalAmount = (decimal)outParams["totalamount"];
 
-                    report.DepartmentTeamModels = GetDepartmentTeamItem(rawReport.AsQueryable(), pageIndex, itemsPerPage);
+                    reportData.SideDishItems = rawReport;
                 }
 
-                return report;
+                return reportData;
             }
         }
 
@@ -243,65 +240,6 @@ namespace NexFB.Repositories.Implement
         }
 
         #endregion Monthly Main Dish Per Day Report
-
-        /// <summary>
-        /// Gets the department team item.
-        /// </summary>
-        /// <param name="rawReport">The raw report.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The DepartmentTeamModel collection.</returns>
-        private List<DepartmentTeamModel> GetDepartmentTeamItem(IEnumerable<dynamic> rawReport, int? pageIndex = null, int? itemsPerPage = null)
-        {
-            var departmentTeamModels = new List<DepartmentTeamModel>();
-
-            int counter = 1;
-            if (pageIndex.HasValue && itemsPerPage.HasValue)
-            {
-                counter = (pageIndex.Value * itemsPerPage.Value) + 1;
-            }
-
-            foreach (dynamic item in rawReport)
-            {
-                AddDepartmentTeamToList(departmentTeamModels, item, counter);
-                counter++;
-            }
-
-            return departmentTeamModels;
-        }
-
-        /// <summary>
-        /// Adds the department team to list.
-        /// </summary>
-        /// <param name="departmentTeamModels">The department team models.</param>
-        /// <param name="item">The item object.</param>
-        /// <param name="counter">The counter.</param>
-        private void AddDepartmentTeamToList(List<DepartmentTeamModel> departmentTeamModels, dynamic item, int counter)
-        {
-            string departmentTeamName = item.DepartmentTeamName;
-            DepartmentTeamModel departmentTeam = departmentTeamModels.FirstOrDefault(d => d.DepartmentTeamName == departmentTeamName);
-            if (departmentTeam == null)
-            {
-                departmentTeam = new DepartmentTeamModel { DepartmentTeamName = departmentTeamName };
-                departmentTeamModels.Add(departmentTeam);
-            }
-
-            var order = new OrderModel
-            {
-                Amount = item.Amount,
-                FoodEngName = item.FoodEngName,
-                FoodVNMName = item.FoodVNMName,
-                FullName = item.FullName,
-                NickName = item.NickName,
-                Price = item.Price,
-                Qty = item.Qty,
-                Shift = item.Shift,
-                WorkDate = item.WorkDate,
-                No = counter
-            };
-
-            departmentTeam.OrderModels.Add(order);
-        }
 
         private int CalculateTotalAmount(TotalPriceModel totalPriceModel)
         {

@@ -30,38 +30,47 @@ reportModule.directive('sideDishReport', function () {
 		return footerRows;
 	};
 
-	var generateBodyRows = function (data) {
+	var generateBodyRows = function (data, pageIndex, itemsPerPage) {
 		var rows = [];
 
 		if (data) {
-			angular.forEach(data.DepartmentTeamModels, function (item) {
-				var currentRow = {
-					Columns: [
-						{ Name: "No", Value: item.DepartmentTeamName, MergeColNumber: 10, CellAlign: "left" }
-					],
-					SubRows: []
-				};
+			var counter = (pageIndex * itemsPerPage) + 1;
 
-				angular.forEach(item.OrderModels, function (order) {
-					var currentSubRow = {
+			angular.forEach(data.SideDishItems, function (item) {
+				var currentRow = {};
+
+				var result = $.grep(rows, function (e) { return e.Columns[0].Value === item.DepartmentTeamName; });
+
+				if (result.length > 0) {
+					currentRow = result[0];
+				} else {
+					currentRow = {
 						Columns: [
-							{ Name: "No", Value: order.No },
-							{ Name: "WorkDate", Value: order.WorkDate },
-							{ Name: "Shift", Value: order.Shift },
-							{ Name: "FullName", Value: order.FullName },
-							{ Name: "NickName", Value: order.NickName },
-							{ Name: "FoodVNMName", Value: order.FoodVNMName },
-							{ Name: "FoodEngName", Value: order.FoodEngName },
-							{ Name: "Price", Value: order.Price },
-							{ Name: "Qty", Value: order.Qty },
-							{ Name: "Amount", Value: order.Amount }
-						]
+							{ Name: "No", Value: item.DepartmentTeamName, MergeColNumber: 10, CellAlign: "left" }
+						],
+						SubRows: []
 					};
 
-					currentRow.SubRows.push(currentSubRow);
-				});
+					rows.push(currentRow);
+				}
 
-				rows.push(currentRow);
+				var currentSubRow = {
+					Columns: [
+						{ Name: "No", Value: counter },
+						{ Name: "WorkDate", Value: item.WorkDate },
+						{ Name: "Shift", Value: item.Shift },
+						{ Name: "FullName", Value: item.FullName },
+						{ Name: "NickName", Value: item.NickName },
+						{ Name: "FoodVNMName", Value: item.FoodVNMName },
+						{ Name: "FoodEngName", Value: item.FoodEngName },
+						{ Name: "Price", Value: item.Price },
+						{ Name: "Qty", Value: item.Qty },
+						{ Name: "Amount", Value: item.Amount }
+					]
+				};
+
+				currentRow.SubRows.push(currentSubRow);
+				counter++;
 			});
 		}
 
@@ -72,7 +81,7 @@ reportModule.directive('sideDishReport', function () {
 		link: function (scope, element) {
 			scope.$on('renderSideDishReport', function () {
 				var footerRows = generateFooterRows(scope.reportData),
-					bodyRows = generateBodyRows(scope.reportData);
+					bodyRows = generateBodyRows(scope.reportData, scope.criteria.pageIndex, scope.criteria.itemsPerPage);
 
 				var ReRenderAfterPaged = function (pageIndex, itemsPerPage) {
 					scope.criteria.itemsPerPage = itemsPerPage;
