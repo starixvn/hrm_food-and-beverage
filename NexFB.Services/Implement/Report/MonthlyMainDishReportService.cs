@@ -1,13 +1,13 @@
 ﻿// ----------------------------------------------------------------------
-// <copyright file="ReportService.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="MonthlyMainDishReportService.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // ------------------------------------------------------------------------
 // <history>
-//   <change who="Josh.Phan" date="11/5/2014 8:58:36 AM">Created.</change>
+//   <change who="Josh.Phan" date="1/15/2015 12:42:36 PM">Created.</change>
 // </history>
 
-namespace NexFB.Services.Implement
+namespace NexFB.Services.Implement.Report
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
@@ -16,27 +16,26 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Enums;
     using NexFB.Core.Utilities;
     using NexFB.Criteria.Report;
-    using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
     using NexFB.Resources;
-    using NexFB.Services.Interface;
+    using NexFB.Services.Interface.Report;
 
     /// <summary>
-    /// The implement of report service.
+    /// The implement of Monthly Main Dish Report Per Meal service.
     /// </summary>
-    public class ReportService : IReportService
+    public class MonthlyMainDishReportService : IMonthlyMainDishReportService
     {
         private readonly IReportRepository _reportRepository;
 
-        public ReportService()
+        public MonthlyMainDishReportService()
             : this(null)
         {
         }
 
-        public ReportService(IReportRepository reportRepository)
+        public MonthlyMainDishReportService(IReportRepository reportRepository)
         {
             _reportRepository = reportRepository ?? new ReportRepository();
         }
@@ -56,24 +55,6 @@ namespace NexFB.Services.Implement
                 report = _reportRepository.GetMonthlyMainDishReportLocal(criteria);
                 report.Month = criteria.ReportDate;
                 report.IsGroupByEmployee = criteria.GroupBy == (int)GroupByReport.Employee;
-            }
-
-            return report;
-        }
-
-        /// <summary>
-        /// Get daily main dish report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The daily main dish report.</returns>
-        public DailyMainDishReportModel GetDailyMainDishReport(GetDailyMainDishPricePerMealReportCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            var report = new DailyMainDishReportModel();
-
-            if (criteria.IsValid())
-            {
-                report = _reportRepository.GetDailyMainDishReport(criteria);
             }
 
             return report;

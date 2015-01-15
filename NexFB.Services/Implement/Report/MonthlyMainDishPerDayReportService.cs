@@ -29,7 +29,7 @@ namespace NexFB.Services.Implement.Report
     public class MonthlyMainDishPerDayReportService : BaseService, IMonthlyMainDishPerDayReportService
     {
         private readonly IReportRepository _reportRepository;
-        private readonly IReportService _reportService;
+        private readonly IMonthlyMainDishReportService _monthlyMainDishPerMealReportService;
 
         public MonthlyMainDishPerDayReportService()
             : this(null, null)
@@ -38,10 +38,10 @@ namespace NexFB.Services.Implement.Report
 
         public MonthlyMainDishPerDayReportService(
             IReportRepository reportRepository,
-            IReportService reportService)
+            IMonthlyMainDishReportService reportService)
         {
             _reportRepository = reportRepository ?? new ReportRepository();
-            _reportService = reportService ?? new ReportService();
+            _monthlyMainDishPerMealReportService = reportService ?? new MonthlyMainDishReportService();
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace NexFB.Services.Implement.Report
             WriteDayHeaderInMonth(report.WeekDays.NumberMeals, ref writer);
 
             FillContentRow(report, ref writer);
-            writer = _reportService.FillTotalRow(report.Total, report.IsGroupByEmployee, writer);
+            writer = _monthlyMainDishPerMealReportService.FillTotalRow(report.Total, report.IsGroupByEmployee, writer);
             writer.SyncColumnsWidth(37);
 
             writer.Render();
@@ -157,7 +157,7 @@ namespace NexFB.Services.Implement.Report
             bool isGroupByEmployee,
             ref int rowIndex)
         {
-            RecordModel mealRecord = _reportService.CreateMealRecord(typeDay.MealItems, isGroupByEmployee, rowIndex);
+            RecordModel mealRecord = _monthlyMainDishPerMealReportService.CreateMealRecord(typeDay.MealItems, isGroupByEmployee, rowIndex);
             rowIndex = mealRecord.RowIndex;
 
             writer.WriteRow(5, new object[] { typeDay.TypeDay });

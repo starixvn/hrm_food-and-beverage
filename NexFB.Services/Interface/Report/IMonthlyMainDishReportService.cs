@@ -1,33 +1,30 @@
 ﻿// ----------------------------------------------------------------------
-// <copyright file="IReportService.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="IMonthlyMainDishReportService.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // ------------------------------------------------------------------------
 // <history>
-//   <change who="Josh.Phan" date="11/5/2014 8:56:49 AM">Created.</change>
+//   <change who="Josh.Phan" date="1/15/2015 12:33:27 PM">Created.</change>
 // </history>
 
-namespace NexFB.Services.Interface
+namespace NexFB.Services.Interface.Report
 {
     using System.Collections.Generic;
     using NexFB.Core.Utilities;
     using NexFB.Criteria.Report;
-    using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
 
     /// <summary>
-    /// The interface of report service.
+    /// The interface of Monthly Main Dish Per Meal report.
     /// </summary>
-    public interface IReportService
+    public interface IMonthlyMainDishReportService
     {
         MonthlyLocalReportModel GetMonthlyMainDishReportLocal(GetMonthlyMainDishReportLocalCriteria criteria);
 
-        void ExportMonthlyMainDishReportLocal(MonthlyLocalReportModel report, string templateLink);
-
         MonthlyLocalReportModel GetPaingReport(MonthlyLocalReportModel report, int startIndex, int itemsPerPage);
 
-        DailyMainDishReportModel GetDailyMainDishReport(GetDailyMainDishPricePerMealReportCriteria criteria);
+        void ExportMonthlyMainDishReportLocal(MonthlyLocalReportModel report, string templateLink);
 
         RecordModel CreateMealRecord(List<MealItemMonthModel> mealItems, bool isGroupByEmployee, int rowIndex);
 

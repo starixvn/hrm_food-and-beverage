@@ -16,7 +16,6 @@ namespace NexFB.Site.Controllers
     using NexFB.Models.Report.EmployeeOrderHistory;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
-    using NexFB.Services.Implement;
     using NexFB.Services.Implement.Report;
     using NexFB.Services.Interface.Report;
     using NexFB.Web;
@@ -45,13 +44,13 @@ namespace NexFB.Site.Controllers
         public ExportReportController(
             IEmployeeOrderHistoryService employeeOrderHistoryService, 
             IMonthlyMainDishReportService monthlyMainDishReportService,
-       	    IDailyMainDishReportService dailyMainDishReportService,
-       	    IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService)
+            IDailyMainDishReportService dailyMainDishReportService,
+            IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
-            _monthlyMainDishPerDayService = monthlyMainDishPerDayService ?? new MonthlyMainDishPerDayReportService();    
-             _dailyMainDishReportService = dailyMainDishReportService ?? new DailyMainDishReportService();        
+            _monthlyMainDishPerDayService = monthlyMainDishPerDayService ?? new MonthlyMainDishPerDayReportService();
+             _dailyMainDishReportService = dailyMainDishReportService ?? new DailyMainDishReportService();
         }
 
         public ActionResult Index()

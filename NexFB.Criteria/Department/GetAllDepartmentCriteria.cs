@@ -16,8 +16,6 @@ namespace NexFB.Criteria.Department
     /// </summary>
     public class GetAllDepartmentCriteria : CriteriaBase
     {
-        public bool? IsActive { get; set; }
-
         public override string GetSettingKey()
         {
             return "Department_GetAll";

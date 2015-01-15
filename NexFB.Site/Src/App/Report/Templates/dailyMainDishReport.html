@@ -39,13 +39,28 @@
 				</div>
 			</div>
 			<div class="form-group">
-                <label class="col-sm-1 text-right long-text-report" data-translate="EmployeeType"></label>
+                <label class="col-sm-1 text-right" data-translate="EmployeeType"></label>
                 <div class="col-sm-2 field">
                     <add-class-to-role-filter multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId" helper-elements="all reset"
 					    item-label="EmployeeTypeName" tick-property="ticked" max-labels="0" class="multi-select employee-type">
 				    </add-class-to-role-filter>
                 </div>
-			</div>
+				<label class="col-sm-1 text-right long-text-report" data-translate="From"></label>
+				<div class="col-sm-2 field monthbox">
+					<input class="calendar-form-control" type="text" ng-model="filter.fromDate" datepicker-popup
+						is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
+					<calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
+				</div>
+				<label class="col-sm-1 text-right" data-translate="To"></label>
+				<div class="col-sm-2 field monthbox">
+					<input class="calendar-form-control" type="text" ng-model="filter.toDate" datepicker-popup
+						is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
+					<calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+				</div>
+				<div class="col-sm-1 btn-box daily-btn-box">
+                     <input type="button" value="Submit" class="button" ng-click="query(filter)"/>
+                </div>
+			</div>	
         </form>
     </div>
 	<div id="dailyReport" class="freegrid" render-daily-report export-daily-main-dish-report ></div>

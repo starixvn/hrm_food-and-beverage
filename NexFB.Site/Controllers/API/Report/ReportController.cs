@@ -103,10 +103,7 @@ namespace NexFB.Site.Controllers.API.Report
                 MealId = mealId,
                 GroupBy = groupBy,
                 IsDebug = isDebug,
-                IsLocal = isLocal,
-                StartIndex = startIndex,
-                ItemsPerPage = itemsPerPage,
-                IsPagingCallback = isPagingCallback
+                IsLocal = isLocal
             };
             MonthlyLocalReportModel fullReport = null;
 
@@ -230,11 +227,6 @@ namespace NexFB.Site.Controllers.API.Report
                         RoleId = financeRole.ToString()
                     };
                     departments = _userControlService.GetDepartmentUserHasPermission(criteria);
-                }
-                else
-                {
-                    var criteria = new GetAllDepartmentCriteria();
-                    departments = _commonService.GetAllDepartment(criteria);
                 }
             }
 
