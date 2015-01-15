@@ -60,7 +60,7 @@
 		Height="45" HorizontalAlignment="Right" Name="button1" VerticalAlignment="Center" Width="125" FontSize="20"/>
 					<Button Command="{Binding Path=CancelDialogCommand}" Grid.Column="1"
 		CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"  
-		Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.Back}" Height="45" Background="#ef4339" Margin="10,0,0,0"
+		Style="{StaticResource TileButton}" Content="{x:Static resx:WinFormMainResource.ReturnOrderScreen}" Height="45" Background="#ef4339" Margin="10,0,0,0"
 		HorizontalAlignment="Left" Name="button2" VerticalAlignment="Center" Width="125" Foreground="#fff" FontSize="20"/>
 				</Grid>
 			</StackPanel>

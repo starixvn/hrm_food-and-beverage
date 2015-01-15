@@ -47,8 +47,8 @@ namespace NexFB.WinAppSmartCard.Core.Models
         private bool _allowOrder;
 
         private List<Food> _listAlternativeFood;
-
         private List<Food> _listSideFood;
+        private List<Food> _originalFood;
 
         #endregion
 
@@ -381,6 +381,20 @@ namespace NexFB.WinAppSmartCard.Core.Models
             {
                 _listSideFood = value;
                 this.OnPropertyChanged("ListSideFood");
+            }
+        }
+
+        public List<Food> OriginalFood
+        {
+            get
+            {
+                return _originalFood;
+            }
+
+            set
+            {
+                _originalFood = value;
+                this.OnPropertyChanged("OriginalFood");
             }
         }
 

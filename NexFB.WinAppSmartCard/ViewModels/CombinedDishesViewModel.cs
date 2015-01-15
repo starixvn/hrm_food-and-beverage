@@ -107,6 +107,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     List<Food> sortByQuantitySideFood = selectedEmployee.ListSideFood.OrderByDescending(x => x.Quantity).ToList();
                     CurrentListSideFood = new ObservableCollection<Food>(sortByQuantitySideFood);
                     DisplayOrderInfoOfCurrentListSideDish(sortByQuantitySideFood);
+                    selectedEmployee.OriginalFood = selectedEmployee.ListSideFood.Select(x => new Food() { FoodId = x.FoodId, Quantity = x.Quantity }).ToList();
+
                     ShowSideFoodDialog();
                 }
                 else
@@ -117,6 +119,8 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         CurrentListSideFood = new ObservableCollection<Food>(food);
                         selectedEmployee.ListSideFood = food;
                         DisplayOrderInfoOfCurrentListSideDish(food);
+                        selectedEmployee.OriginalFood = selectedEmployee.ListSideFood.Select(x => new Food() { FoodId = x.FoodId, Quantity = x.Quantity }).ToList();
+
                         ShowSideFoodDialog();
                     }
                     else
@@ -135,18 +139,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             ////Update general Order information
             Employee employeeOrderInfo = ObservableListEmployee.Where(x => x.SysId == CurrentEmployeeOrder.SysId).SingleOrDefault();
-            int totalSideDishOrder = employeeOrderInfo.ListSideFood.Sum(x => x.Quantity);
-
-            employeeOrderInfo.DisplayGeneralOrderInfo = totalSideDishOrder > 0 ?
-                string.Format(employeeOrderInfo.DisplayNotifyMenuName + ", " + MainScreenResources.SideDishes + " x {0}", totalSideDishOrder)
-                : employeeOrderInfo.DisplayNotifyMenuName;
-
-            ////Update total payment
-            employeeOrderInfo.DisplayTotalPayment = DisplayTotalPayment(employeeOrderInfo.ListSideFood);
-
-            CheckTakeAwayChecked();
-            CheckAllowChangeLanguage();
-            CloseSideFoodDialog(data);
+            UpdateEmployeeOrderDetail(employeeOrderInfo, data);
         }
 
         /// <summary>
@@ -156,8 +149,37 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private void ExecuteCloseSideFoodPopup(object data)
         {
             Employee employeeOrderInfo = ObservableListEmployee.Where(x => x.SysId == CurrentEmployeeOrder.SysId).SingleOrDefault();
-            employeeOrderInfo.ListSideFood.ForEach(x => x.Quantity = 0);
-            employeeOrderInfo.DisplayGeneralOrderInfo = employeeOrderInfo.DisplayNotifyMenuName;
+
+            if (employeeOrderInfo.ListSideFood != null && employeeOrderInfo.OriginalFood != null)
+            {
+                foreach (var newItem in employeeOrderInfo.ListSideFood)
+                {
+                    foreach (var originalItem in employeeOrderInfo.OriginalFood)
+                    {
+                        if (newItem.FoodId == originalItem.FoodId)
+                        {
+                            newItem.Quantity = originalItem.Quantity;
+                        }
+                    }
+                }
+            }
+
+            UpdateEmployeeOrderDetail(employeeOrderInfo, data);
+        }
+
+        /// <summary>
+        /// Update employee order details.
+        /// </summary>
+        /// <param name="employeeOrderInfo">Employee order info.</param>
+        /// <param name="data">Form data.</param>
+        private void UpdateEmployeeOrderDetail(Employee employeeOrderInfo, object data)
+        {
+            int totalSideDishOrder = employeeOrderInfo.ListSideFood.Sum(x => x.Quantity);
+
+            employeeOrderInfo.DisplayGeneralOrderInfo = totalSideDishOrder > 0 ?
+                string.Format(employeeOrderInfo.DisplayNotifyMenuName + ", " + MainScreenResources.SideDishes + " x {0}", totalSideDishOrder)
+                : employeeOrderInfo.DisplayNotifyMenuName;
+
             employeeOrderInfo.DisplayTotalPayment = DisplayTotalPayment(employeeOrderInfo.ListSideFood);
 
             CheckTakeAwayChecked();
@@ -319,6 +341,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 }
             }
 
+            DisplayInvoicePayment();
             SelectedSideFood = new ObservableCollection<Food>(selectedFood);
             OrderNo = result.OrderNo;
             MainViewModel.SendMessage(result.OrderId);
@@ -385,8 +408,19 @@ namespace NexFB.WinAppSmartCard.ViewModels
         /// <returns>Data to display.</returns>
         private string DisplayTotalPayment(List<Food> foods)
         {
-            decimal totalPayment = 0;
             CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
+            decimal totalPayment = CalculatePayment(foods);
+            return totalPayment > 0 ? totalPayment.ToString("#,###", culture.NumberFormat) : "0";
+        }
+
+        /// <summary>
+        /// Calculate payment.
+        /// </summary>
+        /// <param name="foods">List employee order foods.</param>
+        /// <returns>Value of payment.</returns>
+        private decimal CalculatePayment(List<Food> foods)
+        {
+            decimal totalPayment = 0;
             if (foods != null && foods.Count > 0)
             {
                 List<Food> listOrdered = foods.Where(x => x.Quantity > 0).ToList();
@@ -399,13 +433,32 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 }
             }
 
-            return totalPayment > 0 ? totalPayment.ToString("#,###", culture.NumberFormat) : "0";
+            return totalPayment;
         }
 
         private void DisplayOrderInfoOfCurrentListSideDish(List<Food> food)
         {
             TotalOrder = food.Sum(x => x.Quantity).ToString();
             TotalPayment = DisplayTotalPayment(food);
+        }
+
+        /// <summary>
+        /// Display Invoice payment.
+        /// </summary>
+        private void DisplayInvoicePayment()
+        {
+            int totalOrder = 0;
+            decimal totalPayment = 0;
+            CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
+
+            foreach (var employee in ObservableListEmployee)
+            {
+                totalOrder += employee.ListSideFood.Sum(x => x.Quantity);
+                totalPayment += CalculatePayment(employee.ListSideFood);
+            }
+
+            TotalOrder = totalOrder.ToString();
+            TotalPayment = totalPayment > 0 ? totalPayment.ToString("#,###", culture.NumberFormat) : "0";
         }
 
         private void ShowOrderView()

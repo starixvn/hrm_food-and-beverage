@@ -200,6 +200,15 @@ namespace NexFB.WinAppSmartCard.Core.Models
             }
         }
 
+        public string PaymentPerDish
+        {
+            get
+            {
+                CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
+                decimal payment = Price * Quantity;
+                return payment > 0 ? payment.ToString("#,###", culture.NumberFormat) : "0";
+            }
+        }
         #endregion
     }
 }

@@ -9,6 +9,7 @@
 
 namespace NexFB.WinAppSmartCard.ViewModels.Properties
 {
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
     using NexFB.WinAppSmartCard.Core.Models;
