@@ -323,6 +323,8 @@
     <Content Include="Src\App\Report\dailyMainDishReport-directive.js" />
     <Content Include="Src\App\Report\employeeOrderHistory-controller.js" />
     <Content Include="Src\App\Report\employeeOrderHistory-directive.js" />
+    <Content Include="Src\App\Report\mealForecastReport-controller.js" />
+    <Content Include="Src\App\Report\mealForecastReport-directive.js" />
     <Content Include="Src\App\Report\monthlyReportLocal-controller.js" />
     <Content Include="Src\App\Report\monthlyReportLocal-directive.js" />
     <Content Include="Src\App\Report\monthlyReportPerDay-controller.js" />
@@ -334,6 +336,7 @@
     <Content Include="Src\App\Report\Templates\sideDishReport.html" />
     <Content Include="Src\App\Report\Templates\dailyMainDishReport.html" />
     <Content Include="Src\App\Report\Templates\employeeOrderHistory.html" />
+    <Content Include="Src\App\Report\Templates\mealForecastReport.html" />
     <Content Include="Src\App\Report\Templates\monthlyReportLocal.html" />
     <Content Include="Src\App\Report\Templates\monthlyReportPerDay.html" />
     <Content Include="Src\App\SetMenuManagement\createSetMenu-controller.js" />
@@ -530,6 +533,8 @@
     <Content Include="Src\App\DeliveryArea\deliveryArea.less" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentPerDayReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeePerDayReport.xls" />
+    <Content Include="Src\App\Report\ExcelTemplates\MealForecastAllTypeReport.xls" />
+    <Content Include="Src\App\Report\ExcelTemplates\MealForecastReport.xls" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
     <Content Include="Src\Content\Fonts\big_noodle_titling.ttf" />

@@ -2,46 +2,45 @@
 /*global reportModule*/
 
 reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
-	return {
-		getMonthlyMainDishReportByLocal: function (filter) {
-			return $http.get(baseUrl + 'api/report/GetMonthlyMainDishReportLocal', {
-				params: {
-					reportDate: filter.reportDate.toDateString(),
-					departmentId: filter.departmentId,
-					employeeTypeId: filter.employeeTypeId,
-					teamId: filter.teamId,
-					mealId: filter.mealId,
-					groupBy: filter.groupBy,
-					startIndex: filter.startIndex,
-					itemsPerPage: filter.itemsPerPage,
-					isExportReport: filter.isExportReport,
-					isPagingCallback: filter.isPagingCallback
+    return {
+        getMonthlyMainDishReportByLocal: function (filter) {
+            return $http.get(baseUrl + 'api/report/GetMonthlyMainDishReportLocal',
+				{ params: { reportDate: filter.reportDate.toDateString(),
+				    departmentId: filter.departmentId,
+				    employeeTypeId: filter.employeeTypeId,
+				    teamId: filter.teamId,
+				    mealId: filter.mealId,
+				    groupBy: filter.groupBy,
+				    startIndex: filter.startIndex,
+				    itemsPerPage: filter.itemsPerPage,
+				    isExportReport: filter.isExportReport,
+				    isPagingCallback: filter.isPagingCallback
 				}
 			});
-		},
-		getDailyMainDishReport: function (filter) {
+        },
+        getDailyMainDishReport: function (filter) {
 			return $http.get(baseUrl + 'api/report/GetDailyMainDishReport', {
 				params: {
 					fromDate: filter.fromDate.toDateString(),
-					toDate: filter.toDate.toDateString(),
-					orderCount: filter.orderCount,
+				    toDate: filter.toDate.toDateString(),
+				    orderCount: filter.orderCount,
 					employeeTypeId: filter.employeeTypeId,
-					departmentId: filter.departmentId,
-					teamId: filter.teamId,
-					mealId: filter.mealId,
-					userId: filter.userId,
+				    departmentId: filter.departmentId,
+				    teamId: filter.teamId,
+				    mealId: filter.mealId,
+				    userId: filter.userId,
 					query: filter.query,
 					startIndex: filter.startIndex,
 					itemsPerPage: filter.itemsPerPage,
 					isPagingCallback: filter.isPagingCallback
 				}
 			});
-		},
-		getDepartmentByUserRole: function () {
-			return $http.get(baseUrl + 'api/report/GetDepartmentByUserRole');
-		},
-		getEmployeeOrderHistoryReport: function (filter) {
-			return $http.get(baseUrl + 'api/report/GetEmployeeOrderHistoryReport',
+        },
+        getDepartmentByUserRole: function () {
+            return $http.get(baseUrl + 'api/report/GetDepartmentByUserRole');
+        },
+        getEmployeeOrderHistoryReport: function (filter) {
+            return $http.get(baseUrl + 'api/report/GetEmployeeOrderHistoryReport',
 			{ params: { fromDate: filter.fromDate.toDateString(),
 				toDate: filter.toDate.toDateString(),
 				orderBy: filter.orderBy,
@@ -54,7 +53,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 				itemsPerPage: filter.itemsPerPage
 			}
 			});
-		},
+        },
 		getSideDishReport: function (filter) {
 			return $http.get(baseUrl + 'api/report/GetSideDishReport', {
 				params: {
@@ -70,17 +69,29 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 				}
 			});
 		},
-		getOrderedByEnum: function () {
-			return $http.get(baseUrl + 'api/report/GetOrderedByEnum');
-		},
-		getOrderPlatformEnum: function () {
-			return $http.get(baseUrl + 'api/report/GetOrderPlatformEnum');
-		},
-		getOrderStatusEnum: function () {
-			return $http.get(baseUrl + 'api/report/GetOrderStatusEnum');
-		},
-		getMenuTypeEnum: function () {
-			return $http.get(baseUrl + 'api/report/GetMenuTypeEnum');
+	getMealForecastReport: function (filter) {
+            return $http.get(baseUrl + 'api/report/GetMealForecastReport',
+				{ params: { fromDate: filter.fromDate.toDateString(),
+				    toDate: filter.toDate.toDateString(),
+				    departmentId: filter.departmentId,
+				    vegetarianType: filter.vegetarianType,
+				    isPagingCallback: filter.isPagingCallback,
+				    startIndex: filter.startIndex,
+				    itemsPerPage: filter.itemsPerPage
+				}
+				});
+        },
+        getOrderedByEnum: function () {
+            return $http.get(baseUrl + 'api/report/GetOrderedByEnum');
+        },
+        getOrderPlatformEnum: function () {
+            return $http.get(baseUrl + 'api/report/GetOrderPlatformEnum');
+        },
+        getOrderStatusEnum: function () {
+            return $http.get(baseUrl + 'api/report/GetOrderStatusEnum');
+        },
+        getMenuTypeEnum: function () {
+            return $http.get(baseUrl + 'api/report/GetMenuTypeEnum');
 		},
 		getMonthlyMainDishReportPerDay: function (filter) {
 			return $http.get(baseUrl + 'api/report/GetMonthlyMainDishPerDayReport',
@@ -112,29 +123,28 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 					employeeTypeId: employeeTypeId
 				}
 			});
-		}
-	};
+        }
+    };
 } ]);
 
 reportModule.factory('reportUtilities', function () {
-
-	var utilities = {},
+    var utilities = {},
 		numberFormat = '0,0',
 		monthFormat = 'MMM-YYYY',
 		dateFormatDailyReport = 'DD-MMM-YYYY',
 		dateFormaEmployeeOrderHistoryReport = "DD MMM YYYY";
 
-	utilities.getTeamId = function (teamOptions) {
-		var teamId = '';
+    utilities.getTeamId = function (teamOptions) {
+        var teamId = '';
 
-		angular.forEach(teamOptions, function (value) {
-			if (value.ticked) {
-				var id = value.TeamId.toString();
-				teamId = teamId !== '' ? teamId + ',' + id : id;
-			}
-		});
+        angular.forEach(teamOptions, function (value) {
+            if (value.ticked) {
+                var id = value.TeamId.toString();
+                teamId = teamId !== '' ? teamId + ',' + id : id;
+            }
+        });
 
-		return teamId;
+        return teamId;
 	};
 
 	utilities.getSideDishIds = function (sideDishItems) {
@@ -150,23 +160,23 @@ reportModule.factory('reportUtilities', function () {
 		sideDishIds = selectedIds.join(",");
 
 		return sideDishIds;
-	};
+    };
 
-	utilities.getNumberFormat = function () {
-		return numberFormat;
-	};
+    utilities.getNumberFormat = function () {
+        return numberFormat;
+    };
 
-	utilities.getMonthFormat = function () {
-		return monthFormat;
-	};
+    utilities.getMonthFormat = function () {
+        return monthFormat;
+    };
 
-	utilities.getDateFormatDailyReport = function () {
-		return dateFormatDailyReport;
-	};
+    utilities.getDateFormatDailyReport = function () {
+        return dateFormatDailyReport;
+    };
 
-	utilities.getDateFormatEmployeeOrderHistoryReport = function () {
-		return dateFormaEmployeeOrderHistoryReport;
-	};
+    utilities.getDateFormatEmployeeOrderHistoryReport = function () {
+        return dateFormaEmployeeOrderHistoryReport;
+    };
 
-	return utilities;
+    return utilities;
 });

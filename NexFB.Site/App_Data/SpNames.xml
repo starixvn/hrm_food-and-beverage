@@ -338,6 +338,8 @@
     		</Setting>
 		<Setting Key="RPT_MonthMainDishByExpat" SpName="RPT_MonthMainDishByExpat" DbName="NexFB" Plain="0" >
 		</Setting>
+    <Setting Key="RPT_MealForecastReport" SpName="RPT_MealForecast" DbName="NexFB" Plain="0">
+    </Setting>
 	</Function>
   <Function Name="ManageGroup">
     <Setting Key="GroupOrderAdmin_EditActiveGroup" SpName="GroupOrderAdmin_EditActiveGroup" DbName="NexFB" Plain="0" ></Setting>

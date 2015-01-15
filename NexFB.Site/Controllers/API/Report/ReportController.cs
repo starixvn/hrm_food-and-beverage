@@ -24,6 +24,7 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.EmployeeOrderHistory;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
+    using NexFB.Models.Report.MealForecastReport;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
     using NexFB.Models.SideDishManagement;
@@ -46,10 +47,11 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
         private readonly IMonthlyMainDishPerDayReportService _monthlyPerDayService;
         private readonly ISideDishReportService _sideDishReportService;
+        private readonly IMealForecastReportService _mealForecastReportService;
         private readonly ISideDishService _sideDishService;
 
         public ReportController()
-            : this(null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -61,6 +63,7 @@ namespace NexFB.Site.Controllers.API.Report
             IEmployeeOrderHistoryService employeeOrderHistoryService,
             IMonthlyMainDishPerDayReportService monthlyPerDayService,
             ISideDishReportService sideDishReportService,
+            IMealForecastReportService mealForecastReportService,
             ISideDishService sideDishService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
@@ -70,6 +73,7 @@ namespace NexFB.Site.Controllers.API.Report
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
             _monthlyPerDayService = monthlyPerDayService ?? new MonthlyMainDishPerDayReportService();
             _sideDishReportService = sideDishReportService ?? new SideDishReportService();
+            _mealForecastReportService = mealForecastReportService ?? new MealForecastReportService();
             _sideDishService = sideDishService ?? new SideDishService();
         }
 
@@ -412,6 +416,56 @@ namespace NexFB.Site.Controllers.API.Report
             }
 
             MonthlyMainDishPerDayModel pagingReport = _monthlyPerDayService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            return pagingReport;
+        }
+        
+        /// <summary>
+        /// Get Meal Forecast Report.
+        /// </summary>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="departmentId">The department Id</param>
+        /// <param name="vegetarianType">The vegetarian type.</param>
+        [HttpGet]
+        public MealForecastReportModel GetMealForecastReport(
+            DateTime fromDate,
+            DateTime toDate,
+            int? departmentId = null,
+            int? vegetarianType = null,
+            bool isPagingCallback = false,
+            int startIndex = 0,
+            int itemsPerPage = 50)
+        {
+            bool? isVegetarian = null;
+            if (vegetarianType.Equals(0))
+            {
+                isVegetarian = false;
+            }
+            else if (vegetarianType.Equals(1))
+            {
+                isVegetarian = true;
+            }
+
+            var criteria = new GetMealForecastReportCriteria
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                DepartmentId = departmentId,
+                IsVegetarian = isVegetarian
+            };
+
+            MealForecastReportModel fullReport = null;
+            if (isPagingCallback)
+            {
+                fullReport = SessionManager.Get<MealForecastReportModel>(ReportConstant.MealForecastReportSessionKey + CurrentUser.UserId);
+            }
+            else
+            {
+                fullReport = _mealForecastReportService.GetMealForecastReport(criteria);
+                SessionManager.Set<MealForecastReportModel>(ReportConstant.MealForecastReportSessionKey + CurrentUser.UserId, fullReport);
+            }
+
+            MealForecastReportModel pagingReport = _mealForecastReportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
             return pagingReport;
         }
 

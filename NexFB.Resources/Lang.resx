@@ -1068,4 +1068,28 @@
   <data name="ValidateMaximumOneYear" xml:space="preserve">
     <value>Maximum report period should be 1 year.</value>
   </data>
+  <data name="MealForecastReport" xml:space="preserve">
+    <value>Meal Forecast Report</value>
+  </data>
+  <data name="MealForecastReportDetail" xml:space="preserve">
+    <value>Meal Forecast Report/Detail</value>
+  </data>
+  <data name="MealForecastReportName" xml:space="preserve">
+    <value>Meal_Forecast_Report</value>
+  </data>
+  <data name="MealForecastReportSheetName" xml:space="preserve">
+    <value>Meal Forecast Report</value>
+  </data>
+  <data name="MealForecastReportTitle" xml:space="preserve">
+    <value>Meal Forecast Report</value>
+  </data>
+  <data name="TotalMeal" xml:space="preserve">
+    <value>Total Meal</value>
+  </data>
+  <data name="TotalNonVegetarian" xml:space="preserve">
+    <value>Total Non-Vegetarian</value>
+  </data>
+  <data name="TotalVegetarian" xml:space="preserve">
+    <value>Total Vegetarian</value>
+  </data>
 </root>

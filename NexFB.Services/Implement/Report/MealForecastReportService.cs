@@ -1,0 +1,393 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="MealForecastReportService.cs" company="Nexcel Solutions Viet Nam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+// <history>
+//   <change who="Tim.Trinh" date="2015/1/7">Created.</change>
+// </history>
+
+namespace NexFB.Services.Implement.Report
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Fanex.Common.Helper;
+    using NexFB.Core.Services;
+    using NexFB.Core.Utilities;
+    using NexFB.Criteria.Report;
+    using NexFB.Models.Report.MealForecastReport;
+    using NexFB.Resources;
+    using NexFB.Services.Interface.Report;
+
+    /// <summary>
+    /// The implement of interface meal forecast report service.
+    /// </summary>
+    public class MealForecastReportService : BaseService, IMealForecastReportService
+    {
+        /// <summary>
+        /// Get meal forecast report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The meal forecast report.</returns>
+        public MealForecastReportModel GetMealForecastReport(GetMealForecastReportCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var report = new MealForecastReportModel();
+
+            if (criteria.IsValid())
+            {
+                var mealForecasts = this.GetData<MealForecastItemModel>(criteria).ToList();
+                report.MealForecasts = mealForecasts;
+
+                if (report.MealForecasts != null)
+                {
+                    int actualOrderNonVegNA = 0, actualOrderVegNA = 0;
+
+                    report.TotalNonVegetarian = new TotalMealForecastModel
+                    {
+                        Registration = 0,
+                        ActualOrder = 0,
+                        Efficiency = 0
+                    };
+
+                    report.TotalVegetarian = new TotalMealForecastModel
+                    {
+                        Registration = 0,
+                        ActualOrder = 0,
+                        Efficiency = 0
+                    };
+
+                    report.TotalMeal = new TotalMealForecastModel
+                    {
+                        Registration = 0,
+                        ActualOrder = 0,
+                        Efficiency = 0
+                    };
+
+                    foreach (var item in report.MealForecasts)
+                    {
+                        //calculate efficient non-vegetarian
+                        report.TotalNonVegetarian.Registration += item.RegistrationNonVegetarian;
+                        if (item.ActualOrderNonVegetarian < 0)
+                        {
+                            item.EfficiencyNonVegetarian = -1;
+                            actualOrderNonVegNA++;
+                        }
+                        else
+                        {
+                            report.TotalNonVegetarian.ActualOrder += item.ActualOrderNonVegetarian;
+                            if (item.RegistrationNonVegetarian.Equals(0))
+                            {
+                                item.EfficiencyNonVegetarian = -1;
+                            }
+                            else
+                            {
+                                item.EfficiencyNonVegetarian = Math.Round((double)item.ActualOrderNonVegetarian / item.RegistrationNonVegetarian * 100, 2);
+                            }
+                        }
+
+                        //calculate efficient vegetarian
+                        report.TotalVegetarian.Registration += item.RegistrationVegetarian;
+                        if (item.ActualOrderVegetarian < 0)
+                        {
+                            item.EfficiencyVegetarian = -1;
+                            actualOrderVegNA++;
+                        }
+                        else
+                        {
+                            report.TotalVegetarian.ActualOrder += item.ActualOrderVegetarian;
+                            if (item.RegistrationVegetarian.Equals(0))
+                            {
+                                item.EfficiencyVegetarian = -1;
+                            }
+                            else
+                            {
+                                item.EfficiencyVegetarian = Math.Round((double)item.ActualOrderVegetarian / item.RegistrationVegetarian * 100, 2);
+                            }
+                        }
+                    }
+
+                    //calculate total non-vegetarian
+                    if (actualOrderNonVegNA.Equals(report.MealForecasts.Count))
+                    {
+                        report.TotalNonVegetarian.Efficiency = -1;
+                    }
+                    else
+                    {
+                        if (report.TotalNonVegetarian.Registration.Equals(0))
+                        {
+                            report.TotalNonVegetarian.Efficiency = -1;
+                        }
+                        else
+                        {
+                            report.TotalNonVegetarian.Efficiency = Math.Round((double)report.TotalNonVegetarian.ActualOrder / report.TotalNonVegetarian.Registration * 100, 2);
+                        }
+
+                        report.TotalMeal.ActualOrder += report.TotalNonVegetarian.ActualOrder;
+                    }
+
+                    //calculate total vegetarian
+                    if (actualOrderVegNA.Equals(report.MealForecasts.Count))
+                    {
+                        report.TotalVegetarian.Efficiency = -1;
+                    }
+                    else
+                    {
+                        if (report.TotalVegetarian.Registration.Equals(0))
+                        {
+                            report.TotalVegetarian.Efficiency = -1;
+                        }
+                        else
+                        {
+                            report.TotalVegetarian.Efficiency = Math.Round((double)report.TotalVegetarian.ActualOrder / report.TotalVegetarian.Registration * 100, 2);
+                        }
+
+                        report.TotalMeal.ActualOrder += report.TotalVegetarian.ActualOrder;
+                    }
+
+                    //calculate total meal
+                    report.TotalMeal.Registration += report.TotalNonVegetarian.Registration;
+                    report.TotalMeal.Registration += report.TotalVegetarian.Registration;
+                    if (actualOrderNonVegNA.Equals(report.MealForecasts.Count) && actualOrderVegNA.Equals(report.MealForecasts.Count))
+                    {
+                        report.TotalMeal.Efficiency = -1;
+                    }
+                    else
+                    {
+                        if (report.TotalMeal.Registration.Equals(0))
+                        {
+                            report.TotalMeal.Efficiency = -1;
+                        }
+                        else
+                        {
+                            report.TotalMeal.Efficiency = Math.Round((double)report.TotalMeal.ActualOrder / report.TotalMeal.Registration * 100, 2);
+                        }
+                    }
+
+                    report.TotalItem = report.MealForecasts.Count;
+                }
+            }
+
+            return report;
+        }
+
+        /// <summary>
+        /// Get paging report.
+        /// </summary>
+        /// <param name="fullReport">The full report.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The paging report.</returns>
+        public MealForecastReportModel GetPagingReport(MealForecastReportModel fullReport, int startIndex, int itemsPerPage)
+        {
+            var pagingReport = new MealForecastReportModel();
+
+            if (fullReport.MealForecasts.Count > 0)
+            {
+                pagingReport.MealForecasts = GetPagingReportDetail(fullReport, startIndex, itemsPerPage);
+                pagingReport.TotalItem = fullReport.TotalItem;
+                pagingReport.TotalNonVegetarian = fullReport.TotalNonVegetarian;
+                pagingReport.TotalVegetarian = fullReport.TotalVegetarian;
+                pagingReport.TotalMeal = fullReport.TotalMeal;
+            }
+
+            return pagingReport;
+        }
+
+        /// <summary>
+        /// Export report.
+        /// </summary>
+        /// <param name="report">The report.</param>
+        /// <param name="templatePath">The template path.</param>
+        /// <param name="isVegetarian">The is vegetarian.</param>
+        public void ExportMealForecastReport(MealForecastReportModel report, string templatePath, bool? isVegetarian)
+        {
+            string reportName = Lang.MealForecastReportName;
+            string reportTitle = Lang.MealForecastReportTitle;
+            string reportSheetName = Lang.MealForecastReportSheetName;
+            var writer = new ExcelTemplateWriter(templatePath, reportName, reportSheetName);
+
+            // Fill report title.
+            writer.CopyRows(0, 2);
+            writer.WriteRow(2, new object[] { reportTitle });
+            // Fill report header.
+            writer.CopyRows(3, 1);
+
+            FillContentRow(report.MealForecasts, ref writer, isVegetarian);
+            if (isVegetarian == null)
+            {
+                FillTotalRow(report.TotalNonVegetarian, Lang.TotalNonVegetarian, 6, ref writer);
+                FillTotalRow(report.TotalVegetarian, Lang.TotalVegetarian, 6, ref writer);
+                FillTotalRow(report.TotalMeal, Lang.TotalMeal, 6, ref writer);
+            }
+            else if (isVegetarian == true)
+            {
+                FillTotalRow(report.TotalVegetarian, Lang.TotalVegetarian, 5, ref writer);
+            }
+            else
+            {
+                FillTotalRow(report.TotalNonVegetarian, Lang.TotalNonVegetarian, 5, ref writer);
+            }
+
+            writer.SyncColumnsWidth(6);
+            writer.Render();
+        }
+
+        /// <summary>
+        /// Fill content report.
+        /// </summary>
+        /// <param name="mealForecasts">The list meal forecast.</param>
+        /// <param name="writer">The writer.</param>
+        /// <param name="isVegetarian">The is vegetarian.</param>
+        private void FillContentRow(List<MealForecastItemModel> mealForecasts, ref ExcelTemplateWriter writer, bool? isVegetarian)
+        {
+            int numberRecords = mealForecasts.Count;
+
+            if (isVegetarian == null)
+            {
+                for (int i = 0; i < numberRecords; i++)
+                {
+                    MealForecastItemModel mealForecast = mealForecasts[i];
+
+                    var recordNonVeg = new
+                    {
+                        Count = i + 1,
+                        Date = mealForecast.OnDate,
+                        DietType = Lang.NonVegetarian,
+                        Registration = mealForecast.RegistrationNonVegetarian,
+                        ActualOrder = FormatValueByActualOrder(mealForecast.ActualOrderNonVegetarian),
+                        Efficiency = FormatValueByOrderRate(mealForecast.EfficiencyNonVegetarian)
+                    };
+
+                    var recordVeg = new
+                    {
+                        Count = i + 1,
+                        Date = mealForecast.OnDate,
+                        DietType = Lang.Vegetarian,
+                        Registration = mealForecast.RegistrationVegetarian,
+                        ActualOrder = FormatValueByActualOrder(mealForecast.ActualOrderVegetarian),
+                        Efficiency = FormatValueByOrderRate(mealForecast.EfficiencyVegetarian)
+                    };
+
+                    writer.WriteRow(4, recordNonVeg);
+                    writer.WriteRow(5, recordVeg);
+                }
+            }
+            else if (isVegetarian == true)
+            {
+                for (int i = 0; i < numberRecords; i++)
+                {
+                    MealForecastItemModel mealForecast = mealForecasts[i];
+
+                    var record = new
+                    {
+                        Count = i + 1,
+                        Date = mealForecast.OnDate,
+                        DietType = Lang.Vegetarian,
+                        Registration = mealForecast.RegistrationVegetarian,
+                        ActualOrder = FormatValueByActualOrder(mealForecast.ActualOrderVegetarian),
+                        Efficiency = FormatValueByOrderRate(mealForecast.EfficiencyVegetarian)
+                    };
+
+                    writer.WriteRow(4, record);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < numberRecords; i++)
+                {
+                    MealForecastItemModel mealForecast = mealForecasts[i];
+
+                    var record = new
+                    {
+                        Count = i + 1,
+                        Date = mealForecast.OnDate,
+                        DietType = Lang.NonVegetarian,
+                        Registration = mealForecast.RegistrationNonVegetarian,
+                        ActualOrder = FormatValueByActualOrder(mealForecast.ActualOrderNonVegetarian),
+                        Efficiency = FormatValueByOrderRate(mealForecast.EfficiencyNonVegetarian)
+                    };
+
+                    writer.WriteRow(4, record);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Fill total row.
+        /// </summary>
+        /// <param name="totalMeal">The total meal forecast.</param>
+        /// <param name="totalName">The total name.</param>
+        /// <param name="rowIndex">The row index.</param>
+        /// <param name="writer">The writer.</param>
+        private void FillTotalRow(TotalMealForecastModel totalMeal, string totalName, int rowIndex, ref ExcelTemplateWriter writer)
+        {
+            var record = new
+            {
+                Count = totalName,
+                Date = string.Empty,
+                DietType = string.Empty,
+                Registration = totalMeal.Registration,
+                ActualOrder = FormatValueByActualOrder(totalMeal.ActualOrder),
+                Efficiency = FormatValueByOrderRate(totalMeal.Efficiency)
+            };
+
+            writer.WriteRow(rowIndex, record);
+        }
+
+        /// <summary>
+        /// Format value by actual order.
+        /// </summary>
+        /// <param name="actualOrder">The actual order.</param>
+        /// <returns>The dynamic value.</returns>
+        private dynamic FormatValueByActualOrder(int actualOrder)
+        {
+            if (actualOrder < 0)
+            {
+                return "-";
+            }
+
+            return actualOrder;
+        }
+
+        /// <summary>
+        /// Format value by order rate.
+        /// </summary>
+        /// <param name="orderRate">The order rate.</param>
+        /// <returns>The dynamic value.</returns>
+        private dynamic FormatValueByOrderRate(double orderRate)
+        {
+            if (orderRate < 0)
+            {
+                return "-";
+            }
+
+            return orderRate.ToString() + "%";
+        }
+
+        /// <summary>
+        /// Get meal forecast of paging report.
+        /// </summary>
+        /// <param name="fullReport">The full report.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The list meal forecast.</returns>
+        public List<MealForecastItemModel> GetPagingReportDetail(MealForecastReportModel fullReport, int startIndex, int itemsPerPage)
+        {
+            int numberMealForecasts = fullReport.MealForecasts.Count;
+            int numberTakenItems = 0;
+
+            if (startIndex + itemsPerPage <= numberMealForecasts)
+            {
+                numberTakenItems = itemsPerPage;
+            }
+            else
+            {
+                numberTakenItems = numberMealForecasts - startIndex;
+            }
+
+            return fullReport.MealForecasts.Skip(startIndex).Take(numberTakenItems).ToList();
+        }
+    }
+}

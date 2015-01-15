@@ -14,4 +14,8 @@ var reportModule = angular.module("reportModule", ['ngRoute'])
 		{ templateUrl: baseUrl + 'src/app/report/templates/sideDishReport.html', controller: 'SideDishReportController' });
 	$routeProvider.when('/MonthlyReportPerDay/Index',
 		{ templateUrl: baseUrl + 'src/app/report/templates/monthlyReportPerDay.html', controller: 'MonthlyMainDishReportPerDayController' });
+	$routeProvider.when('/MealForecastReport/Index',
+		{ templateUrl: baseUrl + 'src/app/report/templates/mealForecastReport.html', controller: 'MealForecastReportController' });
+	$routeProvider.when('/MealForecastReportDetail/Index',
+		{ templateUrl: baseUrl + 'src/app/report/templates/mealForecastReportDetail.html', controller: 'MealForecastReportDetailController' });
 } ]);

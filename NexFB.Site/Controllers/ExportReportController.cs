@@ -15,6 +15,7 @@ namespace NexFB.Site.Controllers
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.EmployeeOrderHistory;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
+    using NexFB.Models.Report.MealForecastReport;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
     using NexFB.Services.Implement.Report;
@@ -32,10 +33,14 @@ namespace NexFB.Site.Controllers
         private const string SideDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\SideDishReport.xls";
         private const string MonthlyMainDishPerDayEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeePerDayReport.xls";
         private const string MonthlyMainDishPerDayDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentPerDayReport.xls";
+        private const string MealForecastAllTypeReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastAllTypeReport.xls";
+        private const string MealForecastReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastReport.xls";
         private const string DailyMainDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\DailyMainDishReport.xls";
+        
         private readonly IMonthlyMainDishReportService _monthlyMainDishReportService;
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
         private readonly IMonthlyMainDishPerDayReportService _monthlyMainDishPerDayService;
+        private readonly IMealForecastReportService _mealForecastReportService;
         private readonly IDailyMainDishReportService _dailyMainDishReportService;
         private readonly ISideDishReportService _sideDishReportService;
 
@@ -49,11 +54,13 @@ namespace NexFB.Site.Controllers
             IMonthlyMainDishReportService monthlyMainDishReportService,
             IDailyMainDishReportService dailyMainDishReportService,
             IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService,
-            ISideDishReportService sideDishReportService)
+            ISideDishReportService sideDishReportService,
+            IMealForecastReportService mealForecastReportService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
             _monthlyMainDishPerDayService = monthlyMainDishPerDayService ?? new MonthlyMainDishPerDayReportService();
+            _mealForecastReportService = mealForecastReportService ?? new MealForecastReportService();
             _dailyMainDishReportService = dailyMainDishReportService ?? new DailyMainDishReportService();
             _sideDishReportService = sideDishReportService ?? new SideDishReportService();
         }
@@ -189,6 +196,38 @@ namespace NexFB.Site.Controllers
             }
 
             _dailyMainDishReportService.ExportDailyMainDishReport(report, templatePath);
+            return new EmptyResult();
+        }
+
+        /// <summary>
+        /// Export Meal Forecast Report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The excel file.</returns>
+        public ActionResult ExportMealForecastReport(GetMealForecastReportCriteria criteria)
+        {
+            MealForecastReportModel report = SessionManager.Get<MealForecastReportModel>(ReportConstant.MealForecastReportSessionKey + SessionManager.CurrentUser.UserId);
+            string templatePath = string.Empty;
+
+            if (report == null)
+            {
+                report = _mealForecastReportService.GetMealForecastReport(criteria);
+            }
+
+            if (report != null)
+            {
+                if (criteria.IsVegetarian == null)
+                {
+                    templatePath = Server.MapPath(MealForecastAllTypeReportTemplatePath);
+                }
+                else
+                {
+                    templatePath = Server.MapPath(MealForecastReportTemplatePath);
+                }
+
+                _mealForecastReportService.ExportMealForecastReport(report, templatePath, criteria.IsVegetarian);
+            }
+
             return new EmptyResult();
         }
     }
