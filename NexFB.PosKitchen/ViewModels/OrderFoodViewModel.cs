@@ -169,17 +169,6 @@ namespace NexFB.PosKitchen.ViewModels
             if (UserInGroup.Any(x => x.IsSelectedMemberInGroup))
             {
                 KitchenEmployeeInfo currentSelectedMember = UserInGroup.Where(x => x.IsSelectedMemberInGroup).SingleOrDefault();
-                if (currentSelectedMember.ListMainMenuOrderDeatails.Count == 1 && currentSelectedMember.ListAlternativeMenuOrderDeatails.Count == 0)
-                {
-                    var selectedMenuItem = currentSelectedMember.ListMainMenuOrderDeatails.SingleOrDefault();
-                    if (selectedMenuItem.SelectedMenuItemId == int.MaxValue)
-                    {
-                        currentSelectedMember.ListMainMenuOrderDeatails.Remove(selectedMenuItem);
-                        currentSelectedMember.OrderSummary = OrderFoodData.DisplayEmployeeOrderSummary(currentSelectedMember);
-                        currentSelectedMember.DisabledAutoAddFood = true;
-                    }
-                }
-
                 ChangeMenuColor(currentSelectedMember);
             }
         }
@@ -215,12 +204,7 @@ namespace NexFB.PosKitchen.ViewModels
                         int additionalQuantity = 0;
                         if (checkMainFoodMenu)
                         {
-                            if (itemId == int.MaxValue)
-                            {
-                                //// Check for user had removed the main food menu.
-                                currentSelectedMember.IsDeleteMainFood = false;
-                            }
-
+                            RemoveMainDish(itemId, currentSelectedMember);
                             CurrentSelectedMainMenuId = itemId;
                             AddSelectedMenuItemToList(itemId, currentSelectedMember, (int)MenuType.MainMenu, additionalQuantity);
                         }
@@ -241,6 +225,36 @@ namespace NexFB.PosKitchen.ViewModels
 
                 LocationTextBlockHighLight(false);
                 MainTextBlockHighLight(false);
+            }
+        }
+
+        /// <summary>
+        /// Remove main dish when selected alternative dish.
+        /// </summary>
+        /// <param name="itemId">Selected item in list food.</param>
+        /// <param name="currentSelectedMember">Current selected employee.</param>
+        public void RemoveMainDish(int itemId, KitchenEmployeeInfo currentSelectedMember)
+        {
+            if (itemId == int.MaxValue)
+            {
+                //// Check for user had removed the main food menu.
+                currentSelectedMember.IsDeleteMainFood = false;
+            }
+            else
+            {
+                if (currentSelectedMember.ListMainMenuOrderDeatails.Count == 1)
+                {
+                    var selectedMenuItem = currentSelectedMember.ListMainMenuOrderDeatails.SingleOrDefault();
+                    if (selectedMenuItem.SelectedMenuItemId == int.MaxValue)
+                    {
+                        currentSelectedMember.ListMainMenuOrderDeatails.Remove(selectedMenuItem);
+
+                        CommonKitchenOrder mainMenu = CommonKitchenOrder.Where(x => x.ItemId == int.MaxValue).SingleOrDefault();
+                        mainMenu.IsSelectedMealMenu = false;
+                        mainMenu.IsFocusedMealMenu = false;
+                        currentSelectedMember.OrderSummary = OrderFoodData.DisplayEmployeeOrderSummary(currentSelectedMember);
+                    }
+                }
             }
         }
 
