@@ -169,6 +169,17 @@ namespace NexFB.PosKitchen.ViewModels
             if (UserInGroup.Any(x => x.IsSelectedMemberInGroup))
             {
                 KitchenEmployeeInfo currentSelectedMember = UserInGroup.Where(x => x.IsSelectedMemberInGroup).SingleOrDefault();
+                if (currentSelectedMember.ListMainMenuOrderDeatails.Count == 1 && currentSelectedMember.ListAlternativeMenuOrderDeatails.Count == 0)
+                {
+                    var selectedMenuItem = currentSelectedMember.ListMainMenuOrderDeatails.SingleOrDefault();
+                    if (selectedMenuItem.SelectedMenuItemId == int.MaxValue)
+                    {
+                        currentSelectedMember.ListMainMenuOrderDeatails.Remove(selectedMenuItem);
+                        currentSelectedMember.OrderSummary = OrderFoodData.DisplayEmployeeOrderSummary(currentSelectedMember);
+                        currentSelectedMember.DisabledAutoAddFood = true;
+                    }
+                }
+
                 ChangeMenuColor(currentSelectedMember);
             }
         }
