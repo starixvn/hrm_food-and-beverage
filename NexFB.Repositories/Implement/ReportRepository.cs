@@ -65,12 +65,11 @@ namespace NexFB.Repositories.Implement
                     IEnumerable<dynamic> rawReport = multi.Read<dynamic>();
                     report.MainDishes = GroupMainDishByDepartmentTeam(rawReport);
 
-                    report.SubTotal = multi.Read<TotalPriceModel>().FirstOrDefault();
-                    report.GrandTotal = multi.Read<TotalPriceModel>().FirstOrDefault();
+                    report.Total = multi.Read<TotalPriceModel>().FirstOrDefault();
 
-                    if (report.GrandTotal != null)
+                    if (report.Total != null)
                     {
-                        report.TotalAmount = CalculateTotalAmount(report.GrandTotal);
+                        report.GrandTotal = CalculateTotalAmount(report.Total);
                     }
 
                     return report;

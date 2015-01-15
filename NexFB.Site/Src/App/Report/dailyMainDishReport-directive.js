@@ -72,26 +72,17 @@ reportModule.directive('renderDailyReport', function () {
 		var footerRow = [
 			{
 				Columns: [
-					{ Value: "Sub Total", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
-					{ Value: report.SubTotal ? report.SubTotal.Breakfast : 0, Name: "Breakfast" },
-					{ Value: report.SubTotal ? report.SubTotal.Lunch : 0, Name: "Lunch" },
-					{ Value: report.SubTotal ? report.SubTotal.Dinner : 0, Name: "Dinner" },
-					{ Value: report.SubTotal ? report.SubTotal.Supper : 0, Name: "Supper" }
+					{ Value: "Total", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
+					{ Value: report.Total ? report.Total.Breakfast : 0, Name: "Breakfast" },
+					{ Value: report.Total ? report.Total.Lunch : 0, Name: "Lunch" },
+					{ Value: report.Total ? report.Total.Dinner : 0, Name: "Dinner" },
+					{ Value: report.Total ? report.Total.Supper : 0, Name: "Supper" }
 				]
 			},
 			{
 				Columns: [
 					{ Value: "Grand Total", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
-					{ Value: report.GrandTotal ? report.GrandTotal.Breakfast : 0, Name: "Breakfast" },
-					{ Value: report.GrandTotal ? report.GrandTotal.Lunch : 0, Name: "Lunch" },
-					{ Value: report.GrandTotal ? report.GrandTotal.Dinner : 0, Name: "Dinner" },
-					{ Value: report.GrandTotal ? report.GrandTotal.Supper : 0, Name: "Supper" }
-				]
-			},
-			{
-				Columns: [
-					{ Value: "Total Amount", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
-					{ Value: report.TotalAmount, Name: "Breakfast", MergeColNumber: 4, CellAlign: 'center' }
+					{ Value: report.GrandTotal, Name: "Breakfast", MergeColNumber: 4, CellAlign: 'center' }
 				]
 			}
 		];
@@ -128,7 +119,7 @@ reportModule.directive('renderDailyReport', function () {
 					showTitle: true,
 					titleInfo:
 							{
-								text: "Daily Main Dish Report - Price Per Meal",
+								text: "Daily Main Dish Report",
 								showExcelButton: true,
 								exportExcelFunction: function () {
 									scope.exportExcel.call(this, scope.filter);

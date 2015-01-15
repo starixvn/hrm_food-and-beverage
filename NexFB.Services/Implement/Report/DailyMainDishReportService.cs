@@ -70,9 +70,8 @@ namespace NexFB.Services.Implement.Report
         {
             var pagingReport = new DailyMainDishReportModel
             {
-                SubTotal = report.SubTotal,
+                Total = report.Total,
                 GrandTotal = report.GrandTotal,
-                TotalAmount = report.TotalAmount,
                 TotalItem = CalculateTotalItems(report)
             };
 
@@ -206,7 +205,7 @@ namespace NexFB.Services.Implement.Report
         private void FillFooterRow(DailyMainDishReportModel report, ref ExcelTemplateWriter writer)
         {
             FillTotalRow(report, ref writer);
-            FillAmountRow(report.TotalAmount, ref writer);
+            FillAmountRow(report.GrandTotal, ref writer);
         }
 
         private void FillContentDepartmentTeam(
@@ -279,11 +278,8 @@ namespace NexFB.Services.Implement.Report
 
         private void FillTotalRow(DailyMainDishReportModel report, ref ExcelTemplateWriter writer)
         {
-            object subTotalRecord = CreateTotalRecord(report.SubTotal, Lang.SubTotal);
-            object grandTotalRecord = CreateTotalRecord(report.GrandTotal, Lang.GrandTotal);
-
+            object subTotalRecord = CreateTotalRecord(report.Total, Lang.Total);
             writer.WriteRow(6, subTotalRecord);
-            writer.WriteRow(7, grandTotalRecord);
         }
 
         /// <summary>
@@ -295,7 +291,7 @@ namespace NexFB.Services.Implement.Report
         {
             var record = new
             {
-                Count = Lang.TotalAmount,
+                Count = Lang.GrandTotal,
                 Date = string.Empty,
                 Shift = string.Empty,
                 FullName = string.Empty,
@@ -306,7 +302,7 @@ namespace NexFB.Services.Implement.Report
                 Supper = string.Empty
             };
 
-            writer.WriteRow(8, record);
+            writer.WriteRow(7, record);
         }
     }
 }

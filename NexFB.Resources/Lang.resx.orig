@@ -916,7 +916,7 @@
     <value>Translate remark to Vietnamese (for kitchen staff)</value>
   </data>
   <data name="DailyMainDishReport" xml:space="preserve">
-    <value>Daily Main Dish Report - Price Per Meal</value>
+    <value>Daily Main Dish Report</value>
   </data>
   <data name="JoinedDate" xml:space="preserve">
     <value>Joined Date</value>
@@ -951,14 +951,14 @@
   <data name="DeliveryAreaViet" xml:space="preserve">
     <value>Delivery Area (Vietnamese)</value>
   </data>
-   <data name="DailyMainDishReportName" xml:space="preserve">
+  <data name="DailyMainDishReportName" xml:space="preserve">
     <value>Daily_Main_Dish_Report</value>
   </data>
   <data name="DailyMainDishReportSheet" xml:space="preserve">
     <value>Daily_Main_Dish_Report</value>
   </data>
   <data name="DailyMainDishReportTitle" xml:space="preserve">
-    <value>Daily Main Dish Report  - Price Per Meal</value>
+    <value>Daily Main Dish Report</value>
   </data>
   <data name="GrandTotal" xml:space="preserve">
     <value>Grand Total</value>
@@ -968,7 +968,7 @@
   </data>
   <data name="TotalAmount" xml:space="preserve">
     <value>Total Amount</value>
-</data>
+  </data>
   <data name="DeliveryAreaEngRequire" xml:space="preserve">
     <value>The Delivery Area (English) field is required!</value>
   </data>
@@ -978,33 +978,33 @@
   <data name="FloorRequire" xml:space="preserve">
     <value>The Floor field is requried!</value>
   </data>
-   <data name="SpecialEmployeeManagement" xml:space="preserve">
+  <data name="SpecialEmployeeManagement" xml:space="preserve">
     <value>Special Employee Management</value>
   </data>
- <data name="EmployeeCode" xml:space="preserve">
+  <data name="EmployeeCode" xml:space="preserve">
     <value>Employee code</value>
   </data>
-   <data name="RequireDepartment" xml:space="preserve">
+  <data name="RequireDepartment" xml:space="preserve">
     <value>The Department field is required!</value>
   </data>
-   <data name="RequireEmployeeCode" xml:space="preserve">
+  <data name="RequireEmployeeCode" xml:space="preserve">
     <value>The Employee code field is required!</value>
   </data>
-   <data name="RequireEmployeeName" xml:space="preserve">
+  <data name="RequireEmployeeName" xml:space="preserve">
     <value>The Employee name field is required!</value>
   </data>
- <data name="RequireEmployeeType" xml:space="preserve">
+  <data name="RequireEmployeeType" xml:space="preserve">
     <value>The Employee type field is required!</value>
   </data>
- <data name="SelectDepartment" xml:space="preserve">
+  <data name="SelectDepartment" xml:space="preserve">
     <value>Select department</value>
   </data>
-   <data name="SelectEmployeeType" xml:space="preserve">
+  <data name="SelectEmployeeType" xml:space="preserve">
     <value>Select employee type</value>
   </data>
- <data name="EditSpecialEmployee" xml:space="preserve">
-    <value>Edit Special Employee</value> 
- </data>
+  <data name="EditSpecialEmployee" xml:space="preserve">
+    <value>Edit Special Employee</value>
+  </data>
   <data name="ManageGroupLabel" xml:space="preserve">
     <value>USER GROUP MANAGEMENT - GROUP</value>
   </data>
@@ -1050,9 +1050,13 @@
   </data>
   <data name="MonthlyMainDishPerDaySheetName" xml:space="preserve">
     <value>Monthly Main Dish Per Day</value>
-=======
+  </data>
   <data name="DateRangeInvalid" xml:space="preserve">
     <value>Invalid date range. From Date must be less than To Date.</value>
->>>>>>> #28307-  Fixed bug: From date must less than To date
+  </data>
+=======
+>>>>>>> #29043 - Change spec in Daily Main Dish report
+  <data name="OrderCount" xml:space="preserve">
+    <value>Order Count</value>
   </data>
 </root>
