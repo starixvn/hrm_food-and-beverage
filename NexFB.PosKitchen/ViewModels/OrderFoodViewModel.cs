@@ -248,8 +248,10 @@ namespace NexFB.PosKitchen.ViewModels
                     if (selectedMenuItem.SelectedMenuItemId == int.MaxValue)
                     {
                         currentSelectedMember.ListMainMenuOrderDeatails.Remove(selectedMenuItem);
+                        currentSelectedMember.DisabledAutoAddFood = true;
 
                         CommonKitchenOrder mainMenu = CommonKitchenOrder.Where(x => x.ItemId == int.MaxValue).SingleOrDefault();
+                        mainMenu.Quantity = 0;
                         mainMenu.IsSelectedMealMenu = false;
                         mainMenu.IsFocusedMealMenu = false;
                         currentSelectedMember.OrderSummary = OrderFoodData.DisplayEmployeeOrderSummary(currentSelectedMember);
@@ -1045,6 +1047,7 @@ namespace NexFB.PosKitchen.ViewModels
                 currentSelectedEmployee.ListMainMenuOrderDeatails = new List<EmployeeOrderDetails>();
                 currentSelectedEmployee.ListAlternativeMenuOrderDeatails = new List<EmployeeOrderDetails>();
                 currentSelectedEmployee.OrderSummary = null;
+                currentSelectedEmployee.DisabledAutoAddFood = false;
                 ChangeButtonBorder((int)KitchenGroupButton.PickGroupButton);
                 ChangeMemberOrderColor(currentSelectedEmployee);
                 CommonKitchenOrder = AllObservationGroup;
