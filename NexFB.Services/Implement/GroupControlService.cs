@@ -143,5 +143,23 @@ namespace NexFB.Services.Implement
 
             return commandResult;
         }
+
+        /// <summary>
+        /// Activate or deactivate group.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult ActivateGroup(ActivateGroupCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
     }
 }

@@ -80,6 +80,7 @@ namespace NexFB.Repositories.Implement
                         DepartmentName = member.DepartmentName,
                         Fullname = member.FullName,
                         Nickname = member.NickName,
+                        EmployeeTypeName = member.CategoryName,
                         AssignedGroups = assignedGroups,
                         JoinedDate = member.JoinedDate
                     });

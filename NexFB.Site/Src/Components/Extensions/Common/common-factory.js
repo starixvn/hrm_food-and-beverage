@@ -39,6 +39,63 @@ appModule.factory('commonFactory',
 		$scope.calendar.startDateOpened = false;
 	};
 
+	/**
+	* Check if item match search text. 
+	*/
+	var searchMatch = function (haystack, needle) {
+		if (!needle) {
+			return true;
+		}
+
+		return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+	};
+
+	/**
+	* Check all item recursion.
+	*/
+	var checkAllItemRecursion = function (item, scope, queryData) {
+		queryData = queryData ? queryData : scope.queryData;
+
+		for (var attr in item) {
+			var childItem = item[attr];
+
+			if (childItem != null && /^[a-zA-Z0-9]*$/.test(attr) &&
+					attr.toLowerCase().search('id') === -1 && attr.toLowerCase().search('length') === -1 &&
+					attr.toLowerCase().search('index') === -1 && attr.toLowerCase().search('hash') === -1 &&
+					attr.toLowerCase().search('time') === -1 && attr.toLowerCase().search('date') === -1 &&
+					attr.toLowerCase().search('modifiedby') === -1 && attr.toLowerCase().search('createdby') === -1) {
+
+				if (typeof (childItem) === 'object') {
+					var exist = checkAllItemRecursion(childItem, scope, queryData);
+
+					if (exist) {
+						return exist;
+					}
+				}
+				else {
+					if (searchMatch(item[attr].toString(), queryData)) {
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	};
+
+	/**
+	* Serach in table manage group member.
+	*/
+	common.searchMemberGroup = function ($scope, members, queryData) {
+		$scope.filterMembers = [];
+
+		if (members && members.length > 0) {
+			$scope.filterMembers = $filter('filter')(members, function (item) {
+				return checkAllItemRecursion(item, $scope, queryData);
+			});
+		}
+	};
+
 	common.tablePagination = function ($scope, dataPagination, itemPerPage, attrSearch) {
 		/**
 		* Scope Variable.
@@ -65,52 +122,13 @@ appModule.factory('commonFactory',
 			reverse: false
 		};
 
-		/**
-		* Search local data when data in table loaded. 
-		*/
-		var searchMatch = function (haystack, needle) {
-			if (!needle) {
-				return true;
-			}
-
-			return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
-		};
-
-		var checkAllItemRecursion = function (item) {
-			for (var attr in item) {
-				var childItem = item[attr];
-
-				if (childItem != null && /^[a-zA-Z0-9]*$/.test(attr) &&
-					attr.toLowerCase().search('id') === -1 && attr.toLowerCase().search('length') === -1 &&
-					attr.toLowerCase().search('index') === -1 && attr.toLowerCase().search('hash') === -1 &&
-					attr.toLowerCase().search('time') === -1 && attr.toLowerCase().search('date') === -1 &&
-					attr.toLowerCase().search('modifiedby') === -1 && attr.toLowerCase().search('createdby') === -1) {
-
-					if (typeof (childItem) === 'object') {
-						var exist = checkAllItemRecursion(childItem);
-
-						if (exist) {
-							return exist;
-						}
-					}
-					else {
-						if (searchMatch(item[attr].toString(), $scope.queryData)) {
-							return true;
-						}
-					}
-				}
-			}
-
-			return false;
-		};
-
 		// init the filtered items
 		$scope.search = function () {
 			$scope.filteredItems = [];
 
 			if (dataPagination && dataPagination !== 'null') {
 				$scope.filteredItems = $filter('filter')(dataPagination, function (item) {
-					return checkAllItemRecursion(item);
+					return checkAllItemRecursion(item, $scope);
 				});
 			}
 

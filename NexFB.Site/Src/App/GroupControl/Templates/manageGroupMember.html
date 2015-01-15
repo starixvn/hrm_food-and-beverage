@@ -9,19 +9,19 @@
 	<div class="modal-body manage-memger-group-modal">
 		<form class="form-inline" role="form">
 			<div class="form-group">
-				<label class="control-label width-100" data-translate="Member">
+				<label class="control-label" data-translate="Member">
 				</label>
-				<input name="txtMemberGroup" class="form-control custom-padding" ng-model="searchKey"
+				<input name="txtMemberGroup" class="form-control custom-padding search-member-group" ng-model="searchKey"
 					placeholder="Enter full name or nick name" search-auto-complete search-employees="searchEmployees"
 					ng-change="getEmployee(searchKey)" employee="member.employee" ng-enter="add()" clear-search-member-input/>
-				<div class="pull-right">
-					<a ng-click="add()" class="button">
-						<i class="glyphicon glyphicon-plus icon-plus">
-						</i>
-						<label data-translate="Add">
-						</label>
-					</a>
-				</div>
+			</div>
+			<div class="form-group add-member-group">
+				<a ng-click="add()" class="button">
+					<i class="glyphicon glyphicon-plus icon-plus">
+					</i>
+					<label data-translate="Add">
+					</label>
+				</a>
 			</div>
 		</form>
 
@@ -30,7 +30,7 @@
 				<thead>
 					<tr class="header-table">
 						<th colspan="5">
-							<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+							<input type="text" ng-model="searchData.queryData" ng-change="searchMemberGroup()" class="search-inline-textbox search pull-right">
 						</th>
 					</tr>
 					<tr>
@@ -42,8 +42,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="member in members">
-						<td ng-bind="$index + 1" >
+					<tr ng-repeat="member in filterMembers">
+						<td class="text-center" ng-bind="$index + 1" >
 						</td>
 						<td ng-bind="member.Nickname">
 						</td>
@@ -58,7 +58,7 @@
 							<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteMember(member)"></a>
 						</td>
 					</tr>
-					<tr ng-show="members.length == 0">
+					<tr ng-show="!filterMembers || filterMembers.length == 0">
 						<td class="empty-result" colspan="5" data-translate="EmptyResult">
 						</td>
 					</tr>

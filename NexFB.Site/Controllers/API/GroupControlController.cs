@@ -211,6 +211,23 @@ namespace NexFB.Site.Controllers.API
         }
 
         /// <summary>
+        /// Activate or deactivate group.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        [HttpPut]
+        public CommandResult ActivateGroup(ActivateGroupCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.ModifiedBy = CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _groupControlService.ActivateGroup(criteria);
+        }
+
+        /// <summary>
         /// Transform xml para for criteria.
         /// </summary>
         /// <param name="criteria">Input criteria.</param>

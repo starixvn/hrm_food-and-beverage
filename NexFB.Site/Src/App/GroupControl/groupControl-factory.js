@@ -2,23 +2,26 @@
 /*global groupControlModule*/
 
 groupControlModule.factory('groupControlFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
-    return {
-        getGroups: function (filter) {
-            return $http.get(baseUrl + 'api/GroupControl/GetGroup', { params: filter });
-        },
-        getUserPermissionOnManageGroup: function () {
-            return $http.get(baseUrl + 'api/GroupControl/GetUserPermissionOnManageGroup');
-        },
-        deleteGroup: function (groupId) {
+	return {
+		getGroups: function (filter) {
+			return $http.get(baseUrl + 'api/GroupControl/GetGroup', { params: filter });
+		},
+		getUserPermissionOnManageGroup: function () {
+			return $http.get(baseUrl + 'api/GroupControl/GetUserPermissionOnManageGroup');
+		},
+		deleteGroup: function (groupId) {
 			return $http['delete'](baseUrl + 'api/GroupControl/DeleteGroup', { params: { groupId: groupId} });
 		},
-        insertGroup: function (group) {
+		insertGroup: function (group) {
 			return $http.post(baseUrl + 'api/GroupControl/InsertGroup', group);
 		},
-        updateGroup: function (group) {
+		updateGroup: function (group) {
 			return $http.put(baseUrl + 'api/GroupControl/UpdateGroup', group);
+		},
+		activateGroup: function (group) {
+			return $http.put(baseUrl + 'api/GroupControl/ActivateGroup', group);
 		}
-    };
+	};
 } ]);
 
 groupControlModule.factory('groupControlUtilities',
