@@ -469,6 +469,36 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
+        [HttpGet]
+        public MealForecastDetailHistoryReport GetMealForecastDetailReport(
+            DateTime date,
+            int? departmentId = null,
+            int? dietType = null,
+            bool isPagingCallback = false,
+            int startIndex = 0,
+            int itemsPerPage = 50)
+        {
+            bool? isVegetarian = null;
+            if (dietType.Equals(0))
+            {
+                isVegetarian = false;
+            }
+            else if (dietType.Equals(1))
+            {
+                isVegetarian = true;
+            }
+
+            var criteria = new GetMealForecastDetailReportCriteria
+            {
+                Date = date,
+                DepartmentId = departmentId,
+                IsVegetarian = isVegetarian
+            };
+
+            MealForecastDetailHistoryReport fullReport = null;
+            return fullReport;
+        }
+
         /// <summary>
         /// Get Day Type list.
         /// </summary>

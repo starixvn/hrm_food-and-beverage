@@ -772,6 +772,15 @@ namespace NexFB.Resources
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Diet Type.
+        /// </summary>
+        public static string DietType {
+            get {
+                return ResourceManager.GetString("DietType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dinner.
         /// </summary>
         public static string Dinner {
@@ -1474,20 +1483,20 @@ namespace NexFB.Resources
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Meal Forecast Report/Detail.
+        /// </summary>
+        public static string MealForecastDetailReport {
+            get {
+                return ResourceManager.GetString("MealForecastDetailReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meal Forecast Report.
         /// </summary>
         public static string MealForecastReport {
             get {
                 return ResourceManager.GetString("MealForecastReport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Meal Forecast Report/Detail.
-        /// </summary>
-        public static string MealForecastReportDetail {
-            get {
-                return ResourceManager.GetString("MealForecastReportDetail", resourceCulture);
             }
         }
         

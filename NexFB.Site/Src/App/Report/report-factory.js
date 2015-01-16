@@ -81,6 +81,17 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 				}
 				});
         },
+        getMealForecastDetailReport: function (filter) {
+            return $http.get(baseUrl + 'api/report/GetMealForecastDetailReport',
+				        { params: { date: filter.date.toDateString(),
+				            departmentId: filter.departmentId,
+				            dietType: filter.dietType,
+				            isPagingCallback: filter.isPagingCallback,
+				            startIndex: filter.startIndex,
+				            itemsPerPage: filter.itemsPerPage
+				        }
+				        });
+        },
         getOrderedByEnum: function () {
             return $http.get(baseUrl + 'api/report/GetOrderedByEnum');
         },

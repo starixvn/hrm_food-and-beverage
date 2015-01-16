@@ -43,7 +43,7 @@ reportModule.directive('renderMealForecastReport', function () {
                     currentRow = {
                         Columns: [
                         { Name: "Count", Value: rowIndex },
-                        { Name: "Date", Value: '<a>' + moment(mealForecast.OnDate).format(scope.dateFormat) + '</a>' },
+                        { Name: "Date", Value: '<a href="/MealForecastDetailReport/Index">' + moment(mealForecast.OnDate).format(scope.dateFormat) + '</a>' },
                         { Name: "Vegetarian", Value: "Non-Vegetarian" },
                         { Name: "Registration", Value: mealForecast.RegistrationNonVegetarian },
                         { Name: "ActualOrder", Value: mealForecast.ActualOrderNonVegetarian < 0 ? '-' : mealForecast.ActualOrderNonVegetarian },
@@ -63,7 +63,7 @@ reportModule.directive('renderMealForecastReport', function () {
                     currentRow = {
                         Columns: [
                         { Name: "Count", Value: rowIndex },
-                        { Name: "Date", Value: '<a>' + moment(mealForecast.OnDate).format(scope.dateFormat) + '</a>' },
+                        { Name: "Date", Value: '<a href="/MealForecastDetailReport/Index">' + moment(mealForecast.OnDate).format(scope.dateFormat) + '</a>' },
                         { Name: "Vegetarian", Value: "Vegetarian" },
                         { Name: "Registration", Value: mealForecast.RegistrationVegetarian },
                         { Name: "ActualOrder", Value: mealForecast.ActualOrderVegetarian < 0 ? '-' : mealForecast.ActualOrderVegetarian },
@@ -86,7 +86,7 @@ reportModule.directive('renderMealForecastReport', function () {
                     currentRowNonVegetarian = {
                         Columns: [
                             { Name: "Count", Value: rowIndex, MergeRowNumber: 2 },
-                            { Name: "Date", Value: '<a>' + moment(mealForecast.OnDate).format(scope.dateFormat) + '</a>', MergeRowNumber: 2 },
+                            { Name: "Date", Value: '<a href="/MealForecastDetailReport/Index">' + moment(mealForecast.OnDate).format(scope.dateFormat) + '</a>', MergeRowNumber: 2 },
                             { Name: "Vegetarian", Value: "Non-Vegetarian" },
                             { Name: "Registration", Value: mealForecast.RegistrationNonVegetarian },
                             { Name: "ActualOrder", Value: mealForecast.ActualOrderNonVegetarian < 0 ? '-' : mealForecast.ActualOrderNonVegetarian },
@@ -228,7 +228,7 @@ reportModule.directive('renderMealForecastReport', function () {
                 };
 
                 $('#' + id).fanexGrid(gridOptions);
-            });
+            });          
         }
     };
 });
@@ -252,3 +252,19 @@ reportModule.directive('exportMealForecastReport', ['baseUrl', function (baseUrl
         }
     };
 } ]);
+
+reportModule.directive('mealForecastDetail', function () {
+    return {
+        restrict: 'A',
+        scope: {
+            date: '=date'
+        },
+        controller: function($scope, $element){
+        },
+        link: function (scope, iElement) {
+            scope.$on('mealForecastDetail', function () {
+                alert('a');
+            });
+        }
+    };
+});

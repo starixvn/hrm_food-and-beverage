@@ -91,6 +91,8 @@
     <Compile Include="Report\EmployeeOrderHistory\EmployeeOrderModel.cs" />
     <Compile Include="Report\MonthlyMainDishPerDay\MainDishPerDayModel.cs" />
     <Compile Include="Report\MonthlyMainDishPerDay\MonthlyMainDishPerDayModel.cs" />
+    <Compile Include="Report\MealForecastReport\MealForecastDetailHistoryReport.cs" />
+    <Compile Include="Report\MealForecastReport\MealForecastDetailModel.cs" />
     <Compile Include="Report\MonthlyMainDishPerDay\RecordModel.cs" />
     <Compile Include="Report\MealForecastReport\MealForecastItemModel.cs" />
     <Compile Include="Report\MealForecastReport\MealForecastReportModel.cs" />

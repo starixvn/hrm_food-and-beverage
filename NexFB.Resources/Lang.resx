@@ -1071,7 +1071,7 @@
   <data name="MealForecastReport" xml:space="preserve">
     <value>Meal Forecast Report</value>
   </data>
-  <data name="MealForecastReportDetail" xml:space="preserve">
+  <data name="MealForecastDetailReport" xml:space="preserve">
     <value>Meal Forecast Report/Detail</value>
   </data>
   <data name="MealForecastReportName" xml:space="preserve">
@@ -1091,5 +1091,8 @@
   </data>
   <data name="TotalVegetarian" xml:space="preserve">
     <value>Total Vegetarian</value>
+  </data>
+  <data name="DietType" xml:space="preserve">
+    <value>Diet Type</value>
   </data>
 </root>

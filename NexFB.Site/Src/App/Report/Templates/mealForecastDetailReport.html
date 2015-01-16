@@ -1,0 +1,37 @@
+﻿<div class="col-sm-12">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li class="current" data-translate="MealForecastDetailReport"></li>
+            <li>
+                <input type="button" value="Go back" class="button" ng-click="goback" /></li>
+        </ul>
+    </div>
+    <div class="row filter">
+        <form class="form-horizontal form-multiLine" role="form">
+        <div class="form-group">
+            <label class="col-sm-1 text-right" data-translate="Department">
+            </label>
+            <div class="col-sm-2 field">
+                <select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
+                    class="form-control">
+                    <option value="" ng-if="departmentOptions.length > 1">-- {{"All" | translate}} --</option>
+                </select>
+            </div>
+            <label class="col-sm-1 text-right" data-translate="DietType">
+            </label>
+            <div class="col-sm-2 field">
+                <select ng-model="filter.dietType" class="form-control">
+                    <option value="">-- {{"All" | translate}} --</option>
+                    <option value="1">{{"Vegetarian" | translate}}</option>
+                    <option value="0">{{"Non-Vegetarian" | translate}}</option>
+                </select>
+            </div>
+            <div class="col-sm-1 btn-box">
+                <input type="button" value="Submit" class="button" ng-click="query(filter)" />
+            </div>
+        </div>
+        </form>
+    </div>
+    <div id="mealForecastDetailReport" class="freegrid" render-meal-forecast-detail-report export-meal-forecast-detail-report>
+    </div>
+</div>

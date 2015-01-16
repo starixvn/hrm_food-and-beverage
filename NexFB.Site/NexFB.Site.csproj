@@ -325,6 +325,8 @@
     <Content Include="Src\App\Report\employeeOrderHistory-directive.js" />
     <Content Include="Src\App\Report\mealForecastReport-controller.js" />
     <Content Include="Src\App\Report\mealForecastReport-directive.js" />
+    <Content Include="Src\App\Report\mealForecastDetailReport-controller.js" />
+    <Content Include="Src\App\Report\mealForecastDetailReport-directive.js" />
     <Content Include="Src\App\Report\monthlyReportLocal-controller.js" />
     <Content Include="Src\App\Report\monthlyReportLocal-directive.js" />
     <Content Include="Src\App\Report\monthlyReportPerDay-controller.js" />
@@ -336,6 +338,7 @@
     <Content Include="Src\App\Report\Templates\sideDishReport.html" />
     <Content Include="Src\App\Report\Templates\dailyMainDishReport.html" />
     <Content Include="Src\App\Report\Templates\employeeOrderHistory.html" />
+    <Content Include="Src\App\Report\Templates\mealForecastDetailReport.html" />
     <Content Include="Src\App\Report\Templates\mealForecastReport.html" />
     <Content Include="Src\App\Report\Templates\monthlyReportLocal.html" />
     <Content Include="Src\App\Report\Templates\monthlyReportPerDay.html" />

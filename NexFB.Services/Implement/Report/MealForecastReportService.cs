@@ -111,6 +111,7 @@ namespace NexFB.Services.Implement.Report
                     //calculate total non-vegetarian
                     if (actualOrderNonVegNA.Equals(report.MealForecasts.Count))
                     {
+                        report.TotalNonVegetarian.ActualOrder = -1;
                         report.TotalNonVegetarian.Efficiency = -1;
                     }
                     else
@@ -130,6 +131,7 @@ namespace NexFB.Services.Implement.Report
                     //calculate total vegetarian
                     if (actualOrderVegNA.Equals(report.MealForecasts.Count))
                     {
+                        report.TotalVegetarian.ActualOrder = -1;
                         report.TotalVegetarian.Efficiency = -1;
                     }
                     else
@@ -151,6 +153,7 @@ namespace NexFB.Services.Implement.Report
                     report.TotalMeal.Registration += report.TotalVegetarian.Registration;
                     if (actualOrderNonVegNA.Equals(report.MealForecasts.Count) && actualOrderVegNA.Equals(report.MealForecasts.Count))
                     {
+                        report.TotalMeal.ActualOrder = -1;
                         report.TotalMeal.Efficiency = -1;
                     }
                     else

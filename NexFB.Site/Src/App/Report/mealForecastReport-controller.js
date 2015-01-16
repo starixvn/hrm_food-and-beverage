@@ -82,7 +82,6 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFacto
     ** Get all department.
     */
     reportFactory.getDepartmentByUserRole().success(function (departments) {
-        debugger;
         $scope.departmentOptions = departments;
         getDepartmentFilter(departments);
         $scope.getMealForecastReport($scope.filter);
@@ -130,7 +129,10 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFacto
             departmentId: filter.departmentId,
             isVegetarian: filter.vegetarianType === "" ? "" : filter.vegetarianType === '0' ? false : true
         };
-        debugger;
         $scope.$broadcast('exportMealForecastReport');
+    };
+
+    $scope.mealForecastDetail = function () {
+        alert('a');
     };
 } ]);
