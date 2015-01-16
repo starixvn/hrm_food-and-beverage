@@ -41,6 +41,8 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
         private bool _isAllowChangeLanguage;
         private string _idleScreenThemes;
 
+        private bool _hasChangeLanguage;
+
         public Thread Thread { get; set; }
 
         public IHubProxy Proxy { get; set; }
@@ -69,6 +71,20 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
         public ICommand CancelCommand { get; set; }
 
         public ICommand ReturnStandByScreenCommand { get; set; }
+
+        public bool HasChangeLanguage
+        {
+            get
+            {
+                return _hasChangeLanguage;
+            }
+
+            set
+            {
+                _hasChangeLanguage = value;
+                this.OnPropertyChanged("HasChangeLanguage");
+            }
+        }
 
         public double ScreenWidth
         {

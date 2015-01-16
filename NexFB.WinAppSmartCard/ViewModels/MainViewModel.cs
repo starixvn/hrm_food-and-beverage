@@ -184,6 +184,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             IsMainDishTab = false;
             ExecuteMainDishesCommand();
             CheckCurrentScreen();
+            HasChangeLanguage = false;
         }
 
         public void ReturnToStandByScreenAndCreateNewSession()
@@ -195,6 +196,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ExecuteMainDishesCommand();
             MainScreenVisible = CommonResources.Hidden;
             StandbyScreenVisible = CommonResources.Visible;
+            HasChangeLanguage = false;
         }
 
         /// <summary>
@@ -263,7 +265,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         public void ChangeLanguageAccordingToEmployeeType(bool employeeInLocal, bool notificationScreen)
         {
-            if (MainScreenVisible == CommonResources.Hidden || notificationScreen)
+            if (!HasChangeLanguage && (MainScreenVisible == CommonResources.Hidden || notificationScreen))
             {
                 CurrentCulture = employeeInLocal ? (int)LanguageLocalization.VietNamCulture : (int)LanguageLocalization.EnglishCulture;
                 ChangeCulture();
@@ -392,6 +394,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 CurrentCulture = int.Parse((string)value);
                 ChangeCulture();
                 CheckDataForLanguageChange();
+                HasChangeLanguage = true;
             }
         }
 
