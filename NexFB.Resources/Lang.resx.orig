@@ -1068,7 +1068,6 @@
   <data name="ValidateMaximumOneYear" xml:space="preserve">
     <value>Maximum report period should be 1 year.</value>
   </data>
-<<<<<<< HEAD
   <data name="MealForecastReport" xml:space="preserve">
     <value>Meal Forecast Report</value>
   </data>
@@ -1119,9 +1118,32 @@
   </data>
   <data name="ViewMenuReport" xml:space="preserve">
     <value>View Menu</value>
-=======
+  </data>
   <data name="UserGroupNameRequire" xml:space="preserve">
     <value>The Group field is requried!</value>
->>>>>>> #28774 - Enhance User Group
   </data>
+  <data name="ExistMemberWarning" xml:space="preserve">
+    <value>Member has already been in the group.</value>
+  </data>
+  <data name="ManageGroupMember" xml:space="preserve">
+    <value>Manage group member of</value>
+  </data>
+  <data name="RemoveMemberGroupConfirm" xml:space="preserve">
+    <value>Are you sure you want to remove this member from the group?</value>
+  </data>
+<<<<<<< HEAD
+=======
+  <data name="AssignSelectedMember" xml:space="preserve">
+    <value>Assign selected member(s)</value>
+  </data>
+  <data name="AssignAllSelectedHeader" xml:space="preserve">
+    <value>Assign All Selected Members</value>
+  </data>
+  <data name="AssignSelectedMemberLabel" xml:space="preserve">
+    <value>Assign all selected members to group</value>
+  </data>
+  <data name="NonMemberSelectedWarning" xml:space="preserve">
+    <value>You must select at least 1 member to assign to group.</value>
+  </data>
+>>>>>>> #28774 - Enhance user group management
 </root>

@@ -2,277 +2,245 @@
 /*global manageUserInGroupModule*/
 
 manageUserInGroupModule.controller("ManageUserInGroupController",
-['$scope', '$modal', '$route', '$log', '$routeParams', 'commonFactory',
-    'manageUserInGroupFactory', 'manageUserInGroupUtilities', 'notificationFactory', 'ErrorFactory',
-function ($scope, $modal, $route, $log, $routeParams, commonFactory,
-    manageUserInGroupFactory, manageUserInGroupUtilities, notificationFactory, ErrorFactory) {
-    var groupId = parseInt($routeParams.groupId, 10);
+['$scope', '$modal', '$route', '$log', '$routeParams', 'commonFactory', 'manageUserInGroupFactory',
+'manageUserInGroupUtilities', 'notificationFactory', 'ErrorFactory', 'baseUrl', 'groupControlFactory',
+'foodMenuFactory',
+function ($scope, $modal, $route, $log, $routeParams, commonFactory, manageUserInGroupFactory,
+manageUserInGroupUtilities, notificationFactory, ErrorFactory, baseUrl, groupControlFactory,
+foodMenuFactory) {
+	var groupId = parseInt($routeParams.groupId, 10);
 
-    var originalFilter = {
-        DepartmentId: '',
-        GroupId: '',
-        EmployeeTypeId: '',
-        JoinedDateFrom: '',
-        JoinedDateTo: '',
-        Query: ''
-    };
+	var originalFilter = {
+		DepartmentId: '',
+		GroupId: '',
+		EmployeeTypeId: '',
+		JoinedDateFrom: '',
+		JoinedDateTo: '',
+		Query: ''
+	};
 
-    var originalGroupOptions = [];
+	$scope.filter = angular.copy(originalFilter);
+	$scope.filter.GroupId = isNaN(groupId) ? '' : groupId;
+	$scope.groupOptions = [];
 
-    var globalMember = {
-        SysId: '',
-        EmpId: '',
-        Fullname: '',
-        Nickname: 'All selected employee',
-        DepartmentId: '',
-        DepartmentName: '',
-        AssignedGroups: [],
-        GroupOptions: [],
-        BackupGroupOptions: [],
-        IsEditing: false,
-        JoinedDate: ''
-    };
+	$scope.calendar = {
+		startDateOpened: false
+	};
 
-    $scope.HasEditing = false;
-    $scope.globalMember = angular.copy(globalMember);
-    $scope.filter = angular.copy(originalFilter);
-    $scope.filter.GroupId = isNaN(groupId) ? '' : groupId;
+	/*
+	** Open calendar.
+	*/
+	$scope.openPopupStartDate = function ($event) {
+		commonFactory.openPopupStartDate($event, $scope);
+	};
 
-    $scope.calendar = {
-        startDateOpened: false
-    };
+	$scope.originalPage = 0;
 
-    /*
-    ** Open calendar.
-    */
-    $scope.openPopupStartDate = function ($event) {
-        commonFactory.openPopupStartDate($event, $scope);
-    };
+	/*
+	** Paging.
+	*/
+	$scope.showEntries = function () {
+		commonFactory.tablePagination($scope, $scope.members, $scope.entrySelected);
+	};
 
-    $scope.originalPage = 0;
+	$scope.entrySelected = 15;
 
-    /*
-    ** Paging.
-    */
-    $scope.showEntries = function () {
-        commonFactory.tablePagination($scope, $scope.members, $scope.entrySelected);
-    };
+	commonFactory.numberEntryList($scope);
 
-    $scope.entrySelected = 10;
+	/*
+	** If route change, close dialog.
+	*/
+	$scope.$on('$routeChangeStart', function () {
+		// if modal instance defined, dismiss dialog
+		if ($scope.modalInstance) {
+			$scope.modalInstance.dismiss('cancel');
+		}
+	});
 
-    commonFactory.numberEntryList($scope);
+	/*
+	** Get user permission on food menu.
+	*/
+	manageUserInGroupFactory.getUserPermissionOnManageUserInGroup().success(function (permission) {
+		$scope.policy = {
+			permission: permission
+		};
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
+	});
 
-    /*
-    ** If route change, close dialog.
-    */
-    $scope.$on('$routeChangeStart', function () {
-        // if modal instance defined, dismiss dialog
-        if ($scope.modalInstance) {
-            $scope.modalInstance.dismiss('cancel');
-        }
-    });
+	/*
+	** Get all company for drop down.
+	*/
+	manageUserInGroupFactory.getAllDepartment().success(function (companies) {
+		if (companies) {
+			$scope.companyOptions = companies;
+		}
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
 
-    /*
-    ** Get user permission on food menu.
-    */
-    manageUserInGroupFactory.getUserPermissionOnManageUserInGroup().success(function (permission) {
-        $scope.policy = {
-            permission: permission
-        };
-    }).error(function (response, status) {
-        ErrorFactory.errorHandle(status);
-    });
+	/*
+	** Get all groups.
+	*/
+	groupControlFactory.getGroups($scope.filter).success(function (groups) {
+		$scope.groupOptions = groups;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
 
-    /*
-    ** Get all company for drop down.
-    */
-    manageUserInGroupFactory.getAllDepartment().success(function (companies) {
-        if (companies) {
-            $scope.companyOptions = companies;
-        }
-    }).error(function () {
-        notificationFactory.error("ErrorMessage");
-    });
+	/*
+	** Get all employee type.
+	*/
+	var getEmployeeType = function (departmentId, isLocal) {
+		foodMenuFactory.getAllEmployeeType(departmentId, isLocal).success(function (employeeTypes) {
+			$scope.employeeTypeOptions = employeeTypes;
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
+	};
 
-    /*
-    ** Get all employee type for drop down.
-    */
-    manageUserInGroupFactory.getAllEmployeeType().success(function (types) {
-        if (types) {
-            $scope.employeeTypeOptions = types;
-        }
-    }).error(function () {
-        notificationFactory.error("ErrorMessage");
-    });
+	/*
+	** Get employee type by department.
+	*/
+	$scope.getEmployeeTypeOfDepartment = function (departmentId) {
+		getEmployeeType(departmentId, null);
+	};
 
-    var customizeMember = function (members) {
-        angular.forEach(members, function (member) {
-            var groupOptions = angular.copy(originalGroupOptions);
-            var groupIds = manageUserInGroupUtilities.getGroupIds(member.AssignedGroups);
+	getEmployeeType(null, null);
 
-            angular.forEach(groupOptions, function (group) {
-                var index = groupIds.indexOf(group.GroupId);
-                group.ticked = index >= 0;
-            });
+	var getMembers = function (filter) {
+		manageUserInGroupFactory.getMembers(filter).success(function (members) {
+			if (members) {
+				$scope.members = members;
+				commonFactory.tablePagination($scope, $scope.members, $scope.entrySelected);
+				$scope.currentPage = $scope.originalPage;
+			}
+		}).error(function () {
+			notificationFactory.error("ErrorMessage");
+		});
+	};
 
-            member.GroupOptions = groupOptions;
-            member.IsEditing = false;
-        });
+	getMembers($scope.filter);
 
-        return members;
-    };
+	/*
+	** Filter data.
+	*/
+	$scope.query = function (filter) {
+		if (filter) {
+			var customizeFilter = angular.copy(filter);
+			var selectedGroups = manageUserInGroupUtilities.getSelectedGroups($scope.groupOptions);
 
-    var getMembers = function (filter) {
-        manageUserInGroupFactory.getMembers(filter).success(function (members) {
-            if (members) {
-                $scope.globalMember = angular.copy(globalMember);
-                $scope.members = customizeMember(members);
-                $scope.HasEditing = false;
+			customizeFilter.GroupId = manageUserInGroupUtilities.getGroupIds(selectedGroups).join(',');
+			customizeFilter.EmployeeTypeId = manageUserInGroupUtilities.getEmployeeTypeId($scope.employeeTypeOptions);
 
-                commonFactory.tablePagination($scope, $scope.members, $scope.entrySelected);
-                $scope.currentPage = $scope.originalPage;
-                $scope.previousPage = $scope.currentPage;
-            }
-        }).error(function () {
-            notificationFactory.error("ErrorMessage");
-        });
-    };
+			if (customizeFilter.JoinedDateFrom !== "" && customizeFilter.JoinedDateTo !== "") {
+				customizeFilter.JoinedDateFrom = customizeFilter.JoinedDateFrom.toDateString();
+				customizeFilter.JoinedDateTo = customizeFilter.JoinedDateTo.toDateString();
+			}
 
-    /*
-    ** Get all groups for drop down.
-    */
-    manageUserInGroupFactory.getAllGroup().success(function (groups) {
-        if (groups) {
-            originalGroupOptions = angular.copy(groups);
-            angular.forEach(groups, function (group) {
-                group.ticked = isNaN(groupId) ? false : group.GroupId === groupId;
-            });
+			getMembers(customizeFilter);
+		}
+	};
 
-            globalMember.GroupOptions = angular.copy(originalGroupOptions);
-            $scope.groupOptions = angular.copy(groups);
+	$scope.$watch(
+		function () {
+			return $scope.currentPage;
+		},
+		function (newValue, oldValue) {
+			if (newValue !== oldValue) {
+				$scope.$broadcast('resetCheckAllMember');
+			}
+		});
 
-            getMembers($scope.filter);
-        }
-    }).error(function () {
-        notificationFactory.error("ErrorMessage");
-    });
+	/*
+	** Assign group to member.
+	*/
+	$scope.assignGroupToMember = function (sysIds) {
+		if (sysIds) {
+			$scope.originalPage = $scope.currentPage;
 
-    $scope.query = function (filter) {
-        if (filter) {
-            var customizeFilter = angular.copy(filter);
-            var selectedGroups = manageUserInGroupUtilities.getSelectedGroups($scope.groupOptions);
+			$scope.modalInstance = $modal.open({
+				templateUrl: baseUrl + 'src/app/ManageUserInGroup/Templates/AssignGroupToMember.html',
+				controller: "AsignGroupToMemberController",
+				resolve: {
+					sysIds: function () {
+						return sysIds;
+					}
+				},
+				backdrop: 'static',
+				windowClass: "modal-confirm-center assign-group-modal"
+			});
 
-            customizeFilter.GroupId = manageUserInGroupUtilities.getGroupIds(selectedGroups).join(',');
-            customizeFilter.EmployeeTypeId = manageUserInGroupUtilities.getEmployeeTypeId($scope.employeeTypeOptions);
+			$scope.modalInstance.result.then(function () {
+				getMembers($scope.originalFilter);
+				$scope.$broadcast('resetCheckAllMember');
+			}
+			)['finally'](function () {
+				$scope.modalInstance = '';
+			});
+		}
+		else {
+			notificationFactory.error("NonMemberSelectedWarning");
+		}
+	};
+} ]);
 
-            if (customizeFilter.JoinedDateFrom !== "" && customizeFilter.JoinedDateTo !== "") {
-                customizeFilter.JoinedDateFrom = customizeFilter.JoinedDateFrom.toDateString();
-                customizeFilter.JoinedDateTo = customizeFilter.JoinedDateTo.toDateString();
-            }
+manageUserInGroupModule.controller('AsignGroupToMemberController',
+['$scope', 'sysIds', '$modalInstance', 'groupControlFactory', 'notificationFactory', 'manageUserInGroupFactory',
+'ErrorFactory',
+function ($scope, sysIds, $modalInstance, groupControlFactory, notificationFactory, manageUserInGroupFactory,
+ErrorFactory) {
 
-            getMembers(customizeFilter);
-        }
-    };
+	$scope.sysIds = sysIds;
 
-    /*####### Start: Assign Single Member ####*/
-    $scope.editMember = function (member) {
-        member.IsEditing = true;
-        member.BackupGroupOptions = angular.copy(member.GroupOptions);
-        $scope.HasEditing = true;
-    };
+	/*
+	** Get all groups.
+	*/
+	groupControlFactory.getGroups($scope.filter).success(function (groups) {
+		$scope.groupOptions = groups;
+	}).error(function () {
+		notificationFactory.error("ErrorMessage");
+	});
 
-    $scope.cancelAssignMember = function (member) {
-        member.IsEditing = false;
-        member.GroupOptions = angular.copy(member.BackupGroupOptions);
-        hasEditedMember();
-    };
+	/*
+	** Assign group to member.
+	*/
+	var getGroupIds = function (groupOptions) {
+		var groupIds = '';
 
-    $scope.assignMember = function (member) {
-        var filter = {
-            SysIds: '',
-            GroupIds: '',
-            MemberId: ''
-        };
+		angular.forEach(groupOptions, function (group) {
+			if (group.ticked) {
+				var id = group.GroupId;
+				groupIds = groupIds ? groupIds + ',' + id : id;
+			}
+		});
 
-        var selectedGroups = manageUserInGroupUtilities.getSelectedGroups(member.GroupOptions);
-        filter.SysIds = member.SysId;
-        filter.GroupIds = manageUserInGroupUtilities.getGroupIds(selectedGroups).join(',');
+		return groupIds;
+	};
 
-        manageUserInGroupFactory.assignMemberToGroup(filter)
-            .success(function () {
-                member.IsEditing = false;
-                member.AssignedGroups = selectedGroups;
-                hasEditedMember();
-            }).error(function () {
-                notificationFactory.error("ErrorMessage");
-            });
-    };
+	$scope.save = function () {
+		var groupIds = getGroupIds($scope.groupOptions),
+			filter = {
+				sysIds: $scope.sysIds,
+				groupIds: groupIds
+			};
 
-    var hasEditedMember = function () {
-        var members = $scope.pagedItems[$scope.currentPage];
-        var hasEditing = false;
+		manageUserInGroupFactory.assignMemberToGroup(filter).success(function (response) {
+			if (response.IsSuccessful) {
+				notificationFactory.success("DataChangeSuccessfully");
+				$modalInstance.close();
+			}
+			else {
+				notificationFactory.error("", response.Message);
+			}
+		}).error(function (response,status) {
+			ErrorFactory.errorHandle(status);
+		});
+	};
 
-        angular.forEach(members, function (member) {
-            if (member.IsEditing) {
-                hasEditing = true;
-                return false;
-            }
-        });
-
-        if (!hasEditing) {
-            $scope.globalMember.IsEditing = false;
-        }
-
-        $scope.HasEditing = hasEditing;
-    };
-
-    /*####### End: Assign Single Member ####*/
-
-
-    /*####### Start: Assign Multiple Member ####*/
-
-    $scope.editMultipleMembers = function () {
-        $scope.HasEditing = true;
-        $scope.globalMember.IsEditing = true;
-        $scope.globalMember.BackupGroupOptions = angular.copy($scope.globalMember.GroupOptions);
-
-        var members = $scope.pagedItems[$scope.currentPage];
-        angular.forEach(members, function (member) {
-            member.IsEditing = true;
-            member.BackupGroupOptions = angular.copy(member.GroupOptions);
-        });
-    };
-
-    $scope.cancelAssignMultipleMembers = function () {
-        $scope.HasEditing = false;
-        $scope.globalMember.IsEditing = false;
-        $scope.globalMember.GroupOptions = angular.copy($scope.globalMember.BackupGroupOptions);
-
-        var members = $scope.pagedItems[$scope.currentPage];
-        angular.forEach(members, function (member) {
-            member.IsEditing = false;
-            member.GroupOptions = angular.copy(member.BackupGroupOptions);
-        });
-    };
-
-    $scope.changeSelectedGroup = function (groupOptions) {
-        var members = $scope.pagedItems[$scope.currentPage];
-        angular.forEach(members, function (member) {
-            member.GroupOptions = angular.copy(groupOptions);
-        });
-    };
-
-    $scope.assignMultipleMembers = function () {
-        var filter = {
-            SysIds: '',
-            GroupIds: '',
-            MemberId: ''
-        };
-
-        var members = $scope.pagedItems[$scope.currentPage];
-        var sysIds = [], groupIds = [], editingMembers = [], editingGroupOptions = [];
-
-        angular.forEach(members, function (member) {
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
             if (member.IsEditing) {
                 var selectedGroups = manageUserInGroupUtilities.getSelectedGroups(member.GroupOptions);
                 editingMembers.push(member);
@@ -330,4 +298,4 @@ function ($scope, $modal, $route, $log, $routeParams, commonFactory,
             $scope.resetMember();
         }
     });
-} ]);
+}]);

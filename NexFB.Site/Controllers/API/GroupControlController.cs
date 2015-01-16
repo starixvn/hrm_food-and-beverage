@@ -233,29 +233,38 @@ namespace NexFB.Site.Controllers.API
         /// <param name="criteria">Input criteria.</param>
         private void TransformXmlPara(InsertMemberCriteria criteria)
         {
-            var sysIds = criteria.SysIds.Split(';').ToList();
-            var rawGroupIds = criteria.GroupIds.Split(';').ToList();
+            List<string> sysIds = criteria.SysIds.Split(',').ToList();
+            List<string> rawGroupIds = criteria.GroupIds.Split(',').ToList();
 
             var document = new StringBuilder();
             document.Append("<ROOT>");
 
-            if (sysIds.Count > 0 && sysIds.Count == rawGroupIds.Count)
+            if (sysIds != null && sysIds.Count > 0)
             {
-                var length = sysIds.Count;
+                int numberUser = sysIds.Count;
 
-                for (int i = 0; i < length; i++)
+                for (int i = 0; i < numberUser; i++)
                 {
-                    var groups = rawGroupIds[i].Split(',').ToList();
+                    string sysId = sysIds[i];
 
-                    foreach (var group in groups)
+                    if (rawGroupIds != null && rawGroupIds.Count > 0)
                     {
-                        document.AppendFormat("<User SysId='{0}' GroupId='{1}'></User>", sysIds[i], group);
+                        int numberGroups = rawGroupIds.Count;
+
+                        for (int j = 0; j < numberGroups; j++)
+                        {
+                            string group = rawGroupIds[j];
+                            document.AppendFormat("<User SysId='{0}' GroupId='{1}'></User>", sysId, group);
+                        }
+                    }
+                    else
+                    {
+                        document.AppendFormat("<User SysId='{0}' GroupId='{1}'></User>", sysId, string.Empty);
                     }
                 }
             }
 
             document.Append("</ROOT>");
-
             criteria.MemberId = document.ToString();
         }
 

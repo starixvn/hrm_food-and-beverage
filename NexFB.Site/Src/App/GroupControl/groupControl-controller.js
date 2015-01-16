@@ -184,6 +184,8 @@ baseUrl, $translate) {
 	** Manage member of group.
 	*/
 	$scope.manageGroupMember = function (group) {
+		$scope.originalPage = $scope.currentPage;
+
 		$scope.modalInstance = $modal.open({
 			templateUrl: baseUrl + 'src/app/groupControl/templates/manageGroupMember.html',
 			controller: "ManageGroupMemberController",
@@ -197,6 +199,12 @@ baseUrl, $translate) {
 			},
 			backdrop: 'static',
 			windowClass: "modal-confirm-center"
+		});
+
+		$scope.modalInstance.result.then()
+		['finally'](function () {
+			getGroups($scope.filter);
+			$scope.modalInstance = '';
 		});
 	};
 

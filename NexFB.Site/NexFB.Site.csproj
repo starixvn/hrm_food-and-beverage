@@ -307,6 +307,7 @@
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup-directive.js" />
     <Content Include="Src\App\ManageUserInGroup\manageUserInGroup-factory.js" />
     <Content Include="Src\App\ManageUserInGroup\mangeUserInGroup-route.js" />
+    <Content Include="Src\App\ManageUserInGroup\Templates\AssignGroupToMember.html" />
     <Content Include="Src\App\ManageUserInGroup\Templates\index.html" />
     <Content Include="Src\App\MealPlanningManagement\editMealPlanning-controller.js" />
     <Content Include="Src\App\MealPlanningManagement\createMealPlanning-controller.js" />

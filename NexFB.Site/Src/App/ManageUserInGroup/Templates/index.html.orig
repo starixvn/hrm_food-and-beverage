@@ -1,0 +1,116 @@
+﻿<div class="col-sm-10">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li class="current" data-translate="UserGroupManagementUser"></li>
+        </ul>
+    </div>
+    
+    <div class="row filter">
+        <form class="form-horizontal form-multiLine" role="form">
+            <div class="form-group">
+                <label class="col-sm-1 text-right" data-translate="Department"></label>
+                <div class="col-sm-2 field">
+                    <select ng-model="filter.DepartmentId" ng-change="getEmployeeTypeOfDepartment(filter.DepartmentId)" 
+						ng-options="opt.DepartmentId as opt.Name for opt in companyOptions" class="form-control">
+                        <option value="">-- {{"All" | translate}} --</option>
+                    </select>
+                </div>
+                <label class="col-sm-1 text-right" data-translate="Group"></label>
+                <div class="col-sm-2 field">
+                     <add-class-to-role-filter class="group-max-height" multi-select input-model="groupOptions" button-label="GroupId"
+                        helper-elements="all reset" item-label="GroupName" tick-property="ticked"
+                        max-labels="0" class="multi-select">
+                    </add-class-to-role-filter>
+                </div>
+                <label class="col-sm-1 text-right long-text" data-translate="EmployeeType"></label>
+                <div class="col-sm-2 field">
+                    <add-class-to-role-filter multi-select input-model="employeeTypeOptions" button-label="EmployeeTypeId"
+                        helper-elements="all reset" item-label="EmployeeTypeName" tick-property="ticked"
+                        max-labels="0" class="multi-select employee-type">
+					</add-class-to-role-filter>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 text-right" data-translate="JoinedFrom"></label>
+                <div class="col-sm-2 field">
+                    <input class="calendar-form-control" type="text" ng-model="filter.JoinedDateFrom" datepicker-popup
+                    is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
+                    <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
+                </div>
+                <label class="col-sm-1 text-right" data-translate="To"></label>
+                <div class="col-sm-2 field">
+                    <input class="calendar-form-control" type="text" ng-model="filter.JoinedDateTo" datepicker-popup
+                    is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
+                    <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+                </div>
+                <label class="col-sm-1 text-right long-text" data-translate="MemberName"></label>
+                <div class="col-sm-2 field">
+                    <input type="text" class="form-control" ng-model="filter.Query"/>
+                </div>
+                <div class="col-sm-2 pull-right">
+                     <input type="button" value="Submit" class="button" ng-click="query(filter)"/>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    
+    <div class="row table-menu">
+	    <table id="groupMember" class="table table-bordered table-striped col-sm-12">
+	        <thead>
+	            <tr class="header-table">
+	                <th colspan="6" ng-show="policy.permission == 2">
+		                <input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+						<a class="pull-left button-icon create-button" get-selected-member data-translate="AssignSelectedMember" ng-if="policy.permission == 2">
+	                </th>
+                </tr>
+	            <tr>
+	                <th class="width-80" data-translate="MemberName"></th>
+                    <th data-translate="Department"></th>
+					<th data-translate="EmployeeType"></th>
+                    <th class="width-40" data-translate="JoinedDate"></th>
+	                <th class="width-100" data-translate="Group"></th>
+					<th><input name="checkAllMember" type="checkbox" check-all-member-in-page reset-check-all-member/></th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr ng-repeat="member in pagedItems[currentPage]" >
+	                <td ng-bind="member.Nickname">
+	                </td>
+	                <td class="text-center" ng-bind="member.DepartmentName">
+	                </td>
+					<td ng-bind="member.EmployeeTypeName">
+					</td>
+	                <td class="text-center" ng-bind="member.JoinedDate | customDate">
+	                </td>
+	                <td class="last-column" ng-class="{'text-center': member.AssignedGroups.length <= 0}">
+	                    <div class="view-mode" ng-show="!member.IsEditing" >
+	                        <ul class="pull-left group-list">
+	                            <li ng-repeat="group in member.AssignedGroups" >{{group.GroupName}}</li>
+	                        </ul>
+	                    </div>
+	                </td>
+					<td class="text-center">
+						<input type="checkbox" value="{{member.SysId}}" />
+					</td>
+	            </tr>
+	            <tr ng-show="members.length == 0">
+	                <td class="empty-result" colspan="4" data-translate="EmptyResult">
+	                </td>
+	            </tr>
+	        </tbody>
+            <tfoot>
+	            <tr>
+		            <td colspan="6" class="paging" >
+			            <span data-translate="Show"></span>
+			            <select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()" 
+				            ng-options="entry for entry in entries">
+			            </select>
+			            <span data-translate="entries"></span>
+			            <pagination-bar></pagination-bar>
+		            </td>
+	            </tr>
+            </tfoot>
+	    </table>
+    </div>
+</div>

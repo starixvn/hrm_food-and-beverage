@@ -1131,4 +1131,13 @@
   <data name="RemoveMemberGroupConfirm" xml:space="preserve">
     <value>Are you sure you want to remove this member from the group?</value>
   </data>
+  <data name="AssignAllSelectedHeader" xml:space="preserve">
+    <value>Assign All Selected Members</value>
+  </data>
+  <data name="AssignSelectedMemberLabel" xml:space="preserve">
+    <value>Assign all selected members to group</value>
+  </data>
+  <data name="NonMemberSelectedWarning" xml:space="preserve">
+    <value>You must select at least 1 member to assign to group.</value>
+  </data>
 </root>

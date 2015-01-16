@@ -259,6 +259,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assign All Selected Members.
+        /// </summary>
+        public static string AssignAllSelectedHeader {
+            get {
+                return ResourceManager.GetString("AssignAllSelectedHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign Member To Group.
         /// </summary>
         public static string AssignMemberToGroup {
@@ -282,6 +291,15 @@ namespace NexFB.Resources {
         public static string AssignRoleToUser {
             get {
                 return ResourceManager.GetString("AssignRoleToUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign all selected members to group.
+        /// </summary>
+        public static string AssignSelectedMemberLabel {
+            get {
+                return ResourceManager.GetString("AssignSelectedMemberLabel", resourceCulture);
             }
         }
         
@@ -1992,6 +2010,15 @@ namespace NexFB.Resources {
         public static string NoneAvailable {
             get {
                 return ResourceManager.GetString("NoneAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must select at least 1 member to assign to group..
+        /// </summary>
+        public static string NonMemberSelectedWarning {
+            get {
+                return ResourceManager.GetString("NonMemberSelectedWarning", resourceCulture);
             }
         }
         
