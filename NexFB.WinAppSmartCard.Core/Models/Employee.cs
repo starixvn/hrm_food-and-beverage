@@ -45,6 +45,7 @@ namespace NexFB.WinAppSmartCard.Core.Models
 
         private bool _isEditMenu;
         private bool _allowOrder;
+        private bool _isLocal;
 
         private List<Food> _listAlternativeFood;
         private List<Food> _listSideFood;
@@ -53,6 +54,20 @@ namespace NexFB.WinAppSmartCard.Core.Models
         #endregion
 
         #region Public Properties
+
+        public bool IsLocal
+        {
+            get
+            {
+                return _isLocal;
+            }
+
+            set
+            {
+                _isLocal = value;
+                this.OnPropertyChanged("IsLocal");
+            }
+        }
 
         public int SelectedValueDropDown
         {

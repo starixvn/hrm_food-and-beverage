@@ -128,7 +128,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             if (employeeData != null)
             {
-                ChangeLanguageAccordingToEmployeeType(employeeData);
+                ChangeLanguageAccordingToEmployeeType(employeeData.IsLocal, false);
                 switch (currentViewModel)
                 {
                     case ConstantValue.MainDishesViewModel:
@@ -261,18 +261,18 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        #endregion
-
-        #region Commands
-
-        private void ChangeLanguageAccordingToEmployeeType(EmployeeInfo employee)
+        public void ChangeLanguageAccordingToEmployeeType(bool employeeInLocal, bool notificationScreen)
         {
-            if (MainScreenVisible == CommonResources.Hidden)
+            if (MainScreenVisible == CommonResources.Hidden || notificationScreen)
             {
-                CurrentCulture = employee.IsLocal ? (int)LanguageLocalization.VietNamCulture : (int)LanguageLocalization.EnglishCulture;
+                CurrentCulture = employeeInLocal ? (int)LanguageLocalization.VietNamCulture : (int)LanguageLocalization.EnglishCulture;
                 ChangeCulture();
             }
         }
+
+        #endregion
+
+        #region Commands
 
         private bool CanExecuteChangeLanguageCommand()
         {
@@ -307,6 +307,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     {
                         // Show order details
                         ((MainDishesViewModel)CurrentViewModel).ShowNotificationScreen();
+                        IsAllowChangeLanguage = false;
                     }
 
                     ((MainDishesViewModel)CurrentViewModel).AddEmployeeOrderToList(OrderOwner, this);

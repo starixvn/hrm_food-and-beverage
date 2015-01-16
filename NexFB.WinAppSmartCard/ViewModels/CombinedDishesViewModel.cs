@@ -453,8 +453,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
             foreach (var employee in ObservableListEmployee)
             {
-                totalOrder += employee.ListSideFood.Sum(x => x.Quantity);
-                totalPayment += CalculatePayment(employee.ListSideFood);
+                if (employee.ListSideFood != null)
+                {
+                    totalOrder += employee.ListSideFood.Sum(x => x.Quantity);
+                    totalPayment += CalculatePayment(employee.ListSideFood);
+                }
             }
 
             TotalOrder = totalOrder.ToString();

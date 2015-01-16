@@ -99,7 +99,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
             else
             {
-                DisplayEmployeeHasAlreadyOrdered();
+                DisplayEmployeeHasAlreadyOrdered(employeeInfo.IsLocal);
             }
         }
 
@@ -113,10 +113,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
         }
 
         /// <summary>
-        /// Display info for employee who has already ordered.
+        ///  Display info for employee who has already ordered.
         /// </summary>
-        public void DisplayEmployeeHasAlreadyOrdered()
+        /// <param name="employeeInLocal">Check employee is expat or local.</param>
+        public void DisplayEmployeeHasAlreadyOrdered(bool employeeInLocal)
         {
+            MainViewModel.ChangeLanguageAccordingToEmployeeType(employeeInLocal, true);
             if (ObservableListEmployee.Count == 0)
             {
                 var getEmployeeOrderBySysId = new GetMyOrderBySysIdCriteria() { SysId = OrderOwner.SysId };
@@ -153,7 +155,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                             OrderOwner.GroupOrderNickName = order.NickName;
                             OrderOwner = this.OrderOwner;
-
                             CountDownTimer = ConstantValue.CountDownTimer;
                             TimerDigitalClock();
                         }
