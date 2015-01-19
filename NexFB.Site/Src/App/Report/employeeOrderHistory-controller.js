@@ -25,8 +25,7 @@ foodMenuUtilities, notificationFactory) {
 
 	$scope.menuType = {
 		All: 0,
-		MainDishOnly: 1,
-		SideDishOnly: 2,
+		SideDish: 2,
 		HasMainDish: 3,
 		HasSideDish: 4
 	};

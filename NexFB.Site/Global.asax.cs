@@ -57,7 +57,7 @@ namespace NexFB.Site
                         "\r\nTargetSite: " + ex.TargetSite +
                         "\r\nStackTrace: " + ex.StackTrace;
 
-                LogService.Error(message);
+                ////LogService.Error(message);
             }
         }
 
