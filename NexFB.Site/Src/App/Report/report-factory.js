@@ -29,11 +29,12 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 					teamId: filter.teamId,
 					mealId: filter.mealId,
 					userId: filter.userId,
-						query: filter.query,
-						startIndex: filter.startIndex,
-						itemsPerPage: filter.itemsPerPage,
-						isPagingCallback: filter.isPagingCallback
-				}});
+					query: filter.query,
+					startIndex: filter.startIndex,
+					itemsPerPage: filter.itemsPerPage,
+					isPagingCallback: filter.isPagingCallback
+				}
+			});
 		},
 		getDepartmentByUserRole: function () {
 			return $http.get(baseUrl + 'api/report/GetDepartmentByUserRole');
@@ -41,16 +42,16 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 		getEmployeeOrderHistoryReport: function (filter) {
 			return $http.get(baseUrl + 'api/report/GetEmployeeOrderHistoryReport',
 			{ params: { fromDate: filter.fromDate.toDateString(),
-					toDate: filter.toDate.toDateString(),
-					orderBy: filter.orderBy,
-					employeeMenu: filter.employeeMenu,
-					orderPlatform: filter.orderPlatform,
-					mealId: filter.mealId,
-					statusId: filter.statusId,
-					isPagingCallback: filter.isPagingCallback,
-					startIndex: filter.startIndex,
-					itemsPerPage: filter.itemsPerPage
-				}
+				toDate: filter.toDate.toDateString(),
+				orderBy: filter.orderBy,
+				employeeMenu: filter.employeeMenu,
+				orderPlatform: filter.orderPlatform,
+				mealId: filter.mealId,
+				statusId: filter.statusId,
+				isPagingCallback: filter.isPagingCallback,
+				startIndex: filter.startIndex,
+				itemsPerPage: filter.itemsPerPage
+			}
 			});
 		},
 		getSideDishReport: function (filter) {

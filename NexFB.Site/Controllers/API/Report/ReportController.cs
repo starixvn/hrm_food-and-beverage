@@ -46,7 +46,7 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly ISideDishReportService _sideDishReportService;
 
         public ReportController()
-            : this(null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null)
         {
         }
 
