@@ -43,11 +43,7 @@
                     is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
                     <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
                 </div>
-                <label class="col-sm-1 text-right long-text" data-translate="MemberName"></label>
-                <div class="col-sm-2 field">
-                    <input type="text" class="form-control" ng-model="filter.Query"/>
-                </div>
-                <div class="col-sm-2 pull-right">
+                <div class="col-sm-1 user-group-btn">
                      <input type="button" value="Submit" class="button" ng-click="query(filter)"/>
                 </div>
             </div>
@@ -64,6 +60,9 @@
 						<a class="pull-left button-icon create-button" get-selected-member data-translate="AssignSelectedMember" ng-if="policy.permission == 2">
 						</a>
 	                </th>
+					<th colspan="5" ng-show="policy.permission == 1">
+		                <input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
+	                </th>
                 </tr>
 	            <tr>
 	                <th class="width-80" data-translate="MemberName"></th>
@@ -71,7 +70,9 @@
 					<th data-translate="EmployeeType"></th>
                     <th class="width-40" data-translate="JoinedDate"></th>
 	                <th class="width-100" data-translate="Group"></th>
-					<th><input name="checkAllMember" type="checkbox" check-all-member-in-page reset-check-all-member/></th>
+					<th ng-if="policy.permission == 2">
+						<input name="checkAllMember" type="checkbox" check-all-member-in-page reset-check-all-member/>
+					</th>
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -91,12 +92,12 @@
 	                        </ul>
 	                    </div>
 	                </td>
-					<td class="text-center">
+					<td class="text-center" ng-if="policy.permission == 2">
 						<input type="checkbox" value="{{member.SysId}}" />
 					</td>
 	            </tr>
-	            <tr ng-show="members.length == 0">
-	                <td class="empty-result" colspan="4" data-translate="EmptyResult">
+	            <tr ng-show="members.length == 0 || pagedItems.length == 0">
+	                <td class="empty-result" colspan="6" data-translate="EmptyResult">
 	                </td>
 	            </tr>
 	        </tbody>

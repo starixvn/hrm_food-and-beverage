@@ -69,5 +69,21 @@ function () {
         return groupIds;
     };
 
-    return utility;
+	/*
+	** Assign group to member.
+	*/
+	utility.getSelectedGroupIds = function (groupOptions) {
+		var groupIds = '';
+
+		angular.forEach(groupOptions, function (group) {
+			if (group.ticked) {
+				var id = group.GroupId;
+				groupIds = groupIds ? groupIds + ',' + id : id;
+			}
+		});
+
+		return groupIds;
+	};
+
+	return utility;
 } ]);

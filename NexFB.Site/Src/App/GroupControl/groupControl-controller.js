@@ -8,7 +8,6 @@ function ($scope, $modal, $route, commonFactory, groupControlFactory, notificati
 baseUrl, $translate) {
 
 	$scope.filter = {
-		groupId: '',
 		isActive: ''
 	};
 

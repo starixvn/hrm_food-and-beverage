@@ -7,12 +7,6 @@
     <div class="row filter">
         <form class="form-inline" role="form">
             <div class="form-group">
-                <label data-translate="Group"></label>
-                <select ng-model="filter.groupId" ng-options="opt.GroupId as opt.GroupName for opt in groupOptions" class="form-control">
-                    <option value="">-- {{"AllGroups" | translate}} --</option>
-                </select>
-            </div>
-            <div class="form-group">
                 <label data-translate="Status"></label>
                 <select ng-model="filter.isActive">
                     <option selected value="" data-translate="AllStatuses"></option>
@@ -46,7 +40,7 @@
 	                <th class="width-60" data-translate="Group"></th>
 	                <th data-translate="Member"></th>
 	                <th data-translate="Active"></th>
-	                <th data-translate="Action"></th>
+	                <th data-translate="Action" ng-show="policy.permission == 2"></th>
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -56,17 +50,19 @@
 	                <td ng-bind="group.GroupName">
 	                </td>
 	                <td class="text-center">
-	                    <a href="" ng-bind="group.Members" ng-click="manageGroupMember(group)" ></a>
+	                    <a href="" ng-bind="group.Members" ng-click="manageGroupMember(group)" ng-if="policy.permission == 2" ></a>
+						<span ng-bind="group.Members" ng-if="policy.permission == 1"></span>
 	                </td>
 	                <td class="text-center">
-	                    <input type="checkbox" ng-checked="group.IsActive" ng-click="confirmActive(group)" />
+	                    <input type="checkbox" ng-checked="group.IsActive" ng-click="confirmActive(group)" ng-if="policy.permission == 2" />
+						<img class="ico-tick" ng-if="policy.permission == 1 && group.IsActive" />
 	                </td>
 	                <td class="text-center" ng-if="policy.permission == 2">
 	                    <a class="glyphicon glyphicon-edit" href="" ng-click="editGroup(group)"></a>
 	                    <a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteGroup(group)"></a>
 	                </td>
 	            </tr>
-	            <tr ng-show="groups.length == 0">
+	            <tr ng-show="groups.length == 0 || pagedItems.length == 0">
 	                <td class="empty-result" colspan="5" data-translate="EmptyResult">
 	                </td>
 	            </tr>

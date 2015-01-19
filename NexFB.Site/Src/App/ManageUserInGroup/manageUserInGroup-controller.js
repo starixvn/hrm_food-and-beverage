@@ -15,8 +15,7 @@ foodMenuFactory) {
 		GroupId: '',
 		EmployeeTypeId: '',
 		JoinedDateFrom: '',
-		JoinedDateTo: '',
-		Query: ''
+		JoinedDateTo: ''
 	};
 
 	$scope.filter = angular.copy(originalFilter);
@@ -34,7 +33,9 @@ foodMenuFactory) {
 		commonFactory.openPopupStartDate($event, $scope);
 	};
 
-	$scope.originalPage = 0;
+	$scope.openPopupEndDate = function ($event) {
+		commonFactory.openPopupEndDate($event, $scope);
+	};
 
 	/*
 	** Paging.
@@ -44,7 +45,7 @@ foodMenuFactory) {
 	};
 
 	$scope.entrySelected = 15;
-
+	$scope.originalPage = 0;
 	commonFactory.numberEntryList($scope);
 
 	/*
@@ -128,9 +129,8 @@ foodMenuFactory) {
 	$scope.query = function (filter) {
 		if (filter) {
 			var customizeFilter = angular.copy(filter);
-			var selectedGroups = manageUserInGroupUtilities.getSelectedGroups($scope.groupOptions);
 
-			customizeFilter.GroupId = manageUserInGroupUtilities.getGroupIds(selectedGroups).join(',');
+			customizeFilter.GroupId = manageUserInGroupUtilities.getSelectedGroupIds($scope.groupOptions);
 			customizeFilter.EmployeeTypeId = manageUserInGroupUtilities.getEmployeeTypeId($scope.employeeTypeOptions);
 
 			if (customizeFilter.JoinedDateFrom !== "" && customizeFilter.JoinedDateTo !== "") {
@@ -187,9 +187,9 @@ foodMenuFactory) {
 
 manageUserInGroupModule.controller('AsignGroupToMemberController',
 ['$scope', 'sysIds', '$modalInstance', 'groupControlFactory', 'notificationFactory', 'manageUserInGroupFactory',
-'ErrorFactory',
+'ErrorFactory', 'manageUserInGroupUtilities',
 function ($scope, sysIds, $modalInstance, groupControlFactory, notificationFactory, manageUserInGroupFactory,
-ErrorFactory) {
+ErrorFactory, manageUserInGroupUtilities) {
 
 	$scope.sysIds = sysIds;
 
@@ -205,21 +205,8 @@ ErrorFactory) {
 	/*
 	** Assign group to member.
 	*/
-	var getGroupIds = function (groupOptions) {
-		var groupIds = '';
-
-		angular.forEach(groupOptions, function (group) {
-			if (group.ticked) {
-				var id = group.GroupId;
-				groupIds = groupIds ? groupIds + ',' + id : id;
-			}
-		});
-
-		return groupIds;
-	};
-
 	$scope.save = function () {
-		var groupIds = getGroupIds($scope.groupOptions),
+		var groupIds = manageUserInGroupUtilities.getSelectedGroupIds($scope.groupOptions),
 			filter = {
 				sysIds: $scope.sysIds,
 				groupIds: groupIds
