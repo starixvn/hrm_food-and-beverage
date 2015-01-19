@@ -98,7 +98,7 @@ foodMenuUtilities) {
 			$scope.getTeamByCompany($scope.filter.departmentId);
 		}
 
-		getEmployeeType($scope.filter.departmentId, null);
+		getEmployeeType($scope.filter.departmentId, false);
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
@@ -140,7 +140,7 @@ foodMenuUtilities) {
 			departmentId = $scope.originalDepartmentId;
 		}
 
-		getEmployeeType(departmentId, null);
+		getEmployeeType(departmentId, false);
 	};
 
 	/*
