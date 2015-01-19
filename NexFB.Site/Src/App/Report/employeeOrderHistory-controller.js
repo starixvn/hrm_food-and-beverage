@@ -8,19 +8,6 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, foodMenuFactory,
 foodMenuUtilities, notificationFactory) {
 	$scope.toDate = new Date();
 
-	$scope.filter = {
-		fromDate: new Date($scope.toDate.getFullYear(), $scope.toDate.getMonth(), 1),
-		toDate: new Date(),
-		orderBy: 0,
-		employeeMenu: 0,
-		orderPlatform: 0,
-		mealId: '',
-		statusId: '',
-		isPagingCallback: false,
-		startIndex: 0,
-		itemsPerPage: 50
-	};
-
 	$scope.orderStatus = {
 		New: 1,
 		Accepted: 2,
@@ -28,6 +15,41 @@ foodMenuUtilities, notificationFactory) {
 		Delivered: 4,
 		Edited: 5,
 		Rejected: 6
+	};
+
+	$scope.department = {
+		Nexcel: '1',
+		SMS: '2',
+		HM: '3'
+	};
+
+	$scope.menuType = {
+		All: 0,
+		MainDishOnly: 1,
+		SideDishOnly: 2,
+		HasMainDish: 3,
+		HasSideDish: 4
+	};
+
+	$scope.filter = {
+		fromDate: new Date($scope.toDate.getFullYear(), $scope.toDate.getMonth(), 1),
+		toDate: new Date(),
+		orderBy: 0,
+		employeeMenu: 0,
+		orderPlatform: 0,
+		mealId: '',
+		statusId: $scope.orderStatus.Delivered + ',' + $scope.orderStatus.Edited,
+		isPagingCallback: false,
+		startIndex: 0,
+		itemsPerPage: 50
+	};
+
+	var setDefaultStatus = function (orderStatuses) {
+		angular.forEach(orderStatuses, function (status) {
+			if (status.Value === $scope.orderStatus.Delivered || status.Value === $scope.orderStatus.Edited) {
+				status.ticked = true;
+			}
+		});
 	};
 
 	$scope.numberFormat = reportUtilities.getNumberFormat();
@@ -105,6 +127,7 @@ foodMenuUtilities, notificationFactory) {
 	*/
 	reportFactory.getOrderStatusEnum().success(function (orderStatuses) {
 		$scope.orderStatusesOptions = orderStatuses;
+		setDefaultStatus($scope.orderStatusesOptions);
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
@@ -130,7 +153,22 @@ foodMenuUtilities, notificationFactory) {
 		});
 	};
 
-	$scope.getEmployeeOrderHistoryReport($scope.filter);
+	/*
+	** If SMS employee, set default of menu is Has Side Dish (Charged).Otherwise, default value is All.
+	*/
+	reportFactory.getDepartmentOfCurrentUser().success(function (departmentId) {
+		switch (departmentId) {
+			case $scope.department.SMS:
+				$scope.filter.employeeMenu = $scope.menuType.HasSideDish;
+				break;
+			default:
+				$scope.filter.employeeMenu = $scope.menuType.All;
+		}
+
+		$scope.getEmployeeOrderHistoryReport($scope.filter);
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
+	});
 
 	var getOrderStatusId = function (orderStatusesOptions) {
 		var statusId = '';

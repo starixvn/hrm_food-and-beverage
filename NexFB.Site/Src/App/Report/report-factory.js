@@ -81,6 +81,9 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 		},
 		getDayTypeEnum: function () {
 			return $http.get(baseUrl + 'api/report/GetDayType');
+		},
+		getDepartmentOfCurrentUser: function () {
+			return $http.get(baseUrl + 'api/common/GetDepartmentOfCurrentUser');
 		}
 	};
 } ]);

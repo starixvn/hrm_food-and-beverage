@@ -89,11 +89,20 @@ reportModule.directive('renderEmployeeOrderHistoryReport', function () {
 						{ Name: "Status", Value: employeeOrder.Status.Name, CssClass: cssClass },
 						{ Name: "OrderedBy", Value: employeeOrder.OrderBy.NickName },
 						{ Name: "OrderPlatform", Value: employeeOrder.OrderFrom },
-						{ Name: "MyMenu", Value: employeeOrder.Menus, CustomCellRender: createMyMenu },
-						{ Name: "MyAmount", Value: employeeOrder.Menus, CustomCellRender: createMyAmount }
+						{ Name: "MyMenu", Value: employeeOrder.Menus, CustomCellRender: createMyMenu }
 					]
 				};
 
+				var totalAmount = '';
+
+				if (employeeOrder.Status.StatusId === scope.orderStatus.Rejected) {
+					totalAmount = { Name: "MyAmount", Value: 'N/A' };
+				}
+				else {
+					totalAmount = { Name: "MyAmount", Value: employeeOrder.Menus, CustomCellRender: createMyAmount };
+				}
+
+				currentRow.Columns.push(totalAmount);
 				rows.push(currentRow);
 				rowIndex++;
 			}

@@ -88,5 +88,10 @@ namespace NexFB.Site.Controllers.API
 
             return _commonService.GetAllEmployeeType(criteria);
         }
+
+        public int GetDepartmentOfCurrentUser()
+        {
+            return CurrentUser.DepartmentId;
+        }
     }
 }

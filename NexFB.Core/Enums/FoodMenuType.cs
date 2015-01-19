@@ -31,7 +31,7 @@ namespace NexFB.Core.Enums
         /// <summary>
         /// The Side Dish Only item.
         /// </summary>
-        [Description("Side Dish Only")]
+        [Description("Side Dish (Charged) Only")]
         SideDishOnly = 2,
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace NexFB.Core.Enums
         /// <summary>
         /// The Has Side Dish item.
         /// </summary>
-        [Description("Has Side Dish")]
+        [Description("Has Side Dish (Charged)")]
         HasSideDish = 4
     }
 }
