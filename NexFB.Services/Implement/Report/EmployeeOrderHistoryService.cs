@@ -284,11 +284,14 @@ namespace NexFB.Services.Implement.Report
         {
             decimal totalAmount = 0;
 
-            foreach (EmployeeOrderModel employeeOrder in employeeOrders) 
+            foreach (EmployeeOrderModel employeeOrder in employeeOrders)
             {
-                foreach (Menu menu in employeeOrder.Menus) 
+                if (employeeOrder.Status.StatusId != (int)OrderStatus.CanceledOrder)
                 {
-                    totalAmount += menu.TotalAmount;
+                    foreach (Menu menu in employeeOrder.Menus)
+                    {
+                        totalAmount += menu.TotalAmount;
+                    }
                 }
             }
 
