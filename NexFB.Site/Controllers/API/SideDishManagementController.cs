@@ -44,7 +44,7 @@ namespace NexFB.Site.Controllers.API
             _webCommonService = webCommonService ?? new WebCommonService();
         }
 
-        [ApiAuthorize(FunctionKey = FBFunctionKey.SideDishManagement, Policy = Policy.Read)]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.SideDishManagement, Policy = Policy.Read)]        
         public IEnumerable<SideDishModel> GetAllSideDish(
             int? foodId = null,
             bool? isActive = null,
@@ -58,7 +58,7 @@ namespace NexFB.Site.Controllers.API
             };
 
             return _sideDishService.GetAllSideDish(criteria);
-        }
+        }        
 
         public IEnumerable<UnitModel> GetAllFoodUnit(int? foodUnitId = null)
         {

@@ -144,7 +144,7 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 	self.getAllSideDish = function () {
 		$scope.criteria.employeeTypeIds = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypes);
 
-		sideDishManagementFactory.getAllSideDish(null, null, $scope.criteria.employeeTypeIds).success(function (sideDishes) {
+		reportFactory.getAllSideDish(null, null, $scope.criteria.employeeTypeIds).success(function (sideDishes) {
 			$scope.sideDishItems = sideDishes;
 		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
@@ -153,7 +153,7 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 
 	self.getDepartment = function (callback) {
 		reportFactory.getDepartmentByUserRole().success(function (departments) {
-			if (departments.length > 1) {
+			if (departments.length > 2) {
 				departments.splice(0, 0, { DepartmentId: -1, Name: '-- All --' });
 			}
 
@@ -175,11 +175,9 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 	self.loadData = function () {
 		self.getDepartment(function () {
 			$scope.getTeamAndEmployeeType($scope.criteria.departmentId);
-		});
-
-		self.getAllSideDish();
-
-		$scope.getReportData();
+			
+			$scope.getReportData();
+		});		
 	};
 
 	self.validateFilterOptions = function () {

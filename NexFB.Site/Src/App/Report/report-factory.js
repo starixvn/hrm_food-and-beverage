@@ -101,6 +101,15 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 		},
 		getDepartmentOfCurrentUser: function () {
 			return $http.get(baseUrl + 'api/common/GetDepartmentOfCurrentUser');
+		},
+		getAllSideDish: function (foodId, isActive, employeeTypeId) {
+			return $http.get('/api/report/Report/GetAllSideDish', {		
+				params: {
+					foodId: foodId,
+					isActive: isActive,
+					employeeTypeId: employeeTypeId
+				}
+			});
 		}
 	};
 } ]);

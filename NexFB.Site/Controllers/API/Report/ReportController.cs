@@ -31,6 +31,8 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Services.Interface.Report;
     using NexFB.Web;
     using NexFB.Web.Attributes;
+    using NexFB.Models.SideDishManagement;
+    using NexFB.Criteria.SideDishManagement;
 
     /// <summary>
     /// The report controller.
@@ -44,9 +46,10 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
         private readonly IMonthlyMainDishPerDayReportService _monthlyPerDayService;
         private readonly ISideDishReportService _sideDishReportService;
+        private readonly ISideDishService _sideDishService;
 
         public ReportController()
-            : this(null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null)
         {
         }
 
@@ -57,7 +60,8 @@ namespace NexFB.Site.Controllers.API.Report
             IUserControlService userControlService,
             IEmployeeOrderHistoryService employeeOrderHistoryService,
             IMonthlyMainDishPerDayReportService monthlyPerDayService,
-            ISideDishReportService sideDishReportService)
+            ISideDishReportService sideDishReportService,
+            ISideDishService sideDishService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _dailyMainDishReportService = dailyMainDishReportService ?? new DailyMainDishReportService();
@@ -66,6 +70,7 @@ namespace NexFB.Site.Controllers.API.Report
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
             _monthlyPerDayService = monthlyPerDayService ?? new MonthlyMainDishPerDayReportService();
             _sideDishReportService = sideDishReportService ?? new SideDishReportService();
+            _sideDishService = sideDishService ?? new SideDishService();
         }
 
         /// <summary>
@@ -206,6 +211,7 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="itemsPerPage">The items per page.</param>
         /// <returns>The SideDishReportModel data.</returns>
         [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.SideDishReport, Policy = Policy.Read)]
         public SideDishReportModel GetSideDishReport(
             DateTime fromDate,
             DateTime toDate,
@@ -233,6 +239,21 @@ namespace NexFB.Site.Controllers.API.Report
             return reportData;
         }
 
+        public IEnumerable<SideDishModel> GetAllSideDish(
+            int? foodId = null,
+            bool? isActive = null,
+            string employeeTypeId = null)
+        {
+            var criteria = new GetAllSideDishCriteria
+            {
+                IsActive = isActive,
+                FoodId = foodId,
+                EmployeeTypeId = employeeTypeId
+            };
+
+            return _sideDishService.GetAllSideDish(criteria);
+        }
+
         /// <summary>
         /// Get department by user role.
         /// </summary>
@@ -243,7 +264,7 @@ namespace NexFB.Site.Controllers.API.Report
             IEnumerable<Department> departments = null;
             int financeRole = (int)RolesSystem.Finance;
             int employeeRole = (int)RolesSystem.Employee;
-            int adminRole = (int)RolesSystem.Finance;
+            int adminRole = (int)RolesSystem.Admin;
             int kitchenRole = (int)RolesSystem.Kitchen;
             int systemAdminRole = (int)RolesSystem.SA;
 
