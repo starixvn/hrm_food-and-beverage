@@ -18,6 +18,7 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Core.Utilities;
     using NexFB.Criteria.Department;
     using NexFB.Criteria.Report;
+    using NexFB.Criteria.SideDishManagement;
     using NexFB.Criteria.UserControl;
     using NexFB.Models.Entities;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
@@ -25,14 +26,13 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
+    using NexFB.Models.SideDishManagement;
     using NexFB.Services.Implement;
     using NexFB.Services.Implement.Report;
     using NexFB.Services.Interface;
     using NexFB.Services.Interface.Report;
     using NexFB.Web;
     using NexFB.Web.Attributes;
-    using NexFB.Models.SideDishManagement;
-    using NexFB.Criteria.SideDishManagement;
 
     /// <summary>
     /// The report controller.
