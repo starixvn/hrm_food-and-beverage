@@ -20,6 +20,8 @@ namespace NexFB.Criteria.SideDishManagement
 
         public bool? IsActive { get; set; }
 
+        public string EmployeeTypeId { get; set; }
+
         public override string GetSettingKey()
         {
             return "FoodAdd_GetItem";

@@ -3,9 +3,9 @@
 
 sideDishManagementModule.factory('sideDishManagementFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
 	return {
-		getAllSideDish: function (foodId, isActive) {
+		getAllSideDish: function (foodId, isActive, employeeTypeId) {
 			return $http.get(baseUrl + 'api/SideDishManagement/GetAllSideDish',
-				{ params: { foodId: foodId, isActive: isActive} });
+				{ params: { foodId: foodId, isActive: isActive, employeeTypeId: employeeTypeId} });
 		},
 		getAllFoodUnit: function (fooUnitId) {
 			return $http.get(baseUrl + 'api/SideDishManagement/GetAllFoodUnit', { params: { foodUnitId: fooUnitId} });

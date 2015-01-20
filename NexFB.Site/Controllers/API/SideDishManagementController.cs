@@ -47,12 +47,14 @@ namespace NexFB.Site.Controllers.API
         [ApiAuthorize(FunctionKey = FBFunctionKey.SideDishManagement, Policy = Policy.Read)]
         public IEnumerable<SideDishModel> GetAllSideDish(
             int? foodId = null,
-            bool? isActive = null)
+            bool? isActive = null,
+            string employeeTypeId = null)
         {
             var criteria = new GetAllSideDishCriteria
             {
                 IsActive = isActive,
-                FoodId = foodId
+                FoodId = foodId,
+                EmployeeTypeId = employeeTypeId
             };
 
             return _sideDishService.GetAllSideDish(criteria);

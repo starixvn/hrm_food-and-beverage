@@ -13,6 +13,10 @@
 	}
 }
 .daybox {
+	.form-control {
+		width: 80%;
+		display: inline-block;
+	}
 	.btn {
 		padding: 3px 8px 2px;
 		position: relative;			
@@ -83,7 +87,7 @@
 }
 
 .checkboxLayer.show {
-	max-height: 250px;
+	max-height: 300px;
 	overflow-x: hidden;
 	overflow-y: auto;
 }
@@ -150,5 +154,12 @@
 			overflow-y: top;
 			overflow-x:hidden
 		}
+	}
+}
+.scrollableFilter{
+	.checkboxLayer.show {
+		max-height: 350px;
+		max-width: 400px;			
+		overflow: auto;		
 	}
 }

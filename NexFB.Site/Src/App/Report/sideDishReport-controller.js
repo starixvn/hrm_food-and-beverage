@@ -104,7 +104,7 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
 		});
-	};
+	};	
 
 	// self region.
 	self.getTeams = function (departmentId) {
@@ -126,13 +126,25 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 
 		foodMenuFactory.getAllEmployeeType(departmentId).success(function (employeeTypes) {
 			$scope.employeeTypes = employeeTypes;
+
+			self.handleEmployeeTypeChange();
 		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
 		});
 	};
 
+	self.handleEmployeeTypeChange = function () {
+		angular.forEach($scope.employeeTypes, function (employeeType) {
+			$scope.$watch(function () { return employeeType.ticked; }, function () {
+				self.getAllSideDish();
+			});
+		});
+	};
+
 	self.getAllSideDish = function () {
-		sideDishManagementFactory.getAllSideDish().success(function (sideDishes) {
+		$scope.criteria.employeeTypeIds = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypes);
+
+		sideDishManagementFactory.getAllSideDish(null, null, $scope.criteria.employeeTypeIds).success(function (sideDishes) {
 			$scope.sideDishItems = sideDishes;
 		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
