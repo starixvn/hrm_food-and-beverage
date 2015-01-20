@@ -126,7 +126,9 @@ namespace NexFB.Services.Implement.Report
             {
                 EmployeeOrderModel employeeOrder = employeeOrders[i];
                 string menuTemplate = CreateMyMenu(employeeOrder.Menus);
-                string amountTemplate = CreateMyAmount(employeeOrder.Menus);
+                string amountTemplate = employeeOrder.Status.StatusId != (int)OrderStatus.CanceledOrder ?
+                                        CreateMyAmount(employeeOrder.Menus) :
+                                        Constants.NonAvailable;
                 int rowIndex = GetRowStyleByStatus(employeeOrder.Status.StatusId);
 
                 var record = new
@@ -230,14 +232,18 @@ namespace NexFB.Services.Implement.Report
 
             if (menus != null && menus.Count > 0)
             {
-                foreach (Menu menu in menus)
-                {
-                    if (menu.IsMainMenu && menus.Count == 1)
-                    {
-                        return Constants.NonAvailable;
-                    }
+                bool hasSideDish = CheckHasSideDish(menus);
 
-                    totalAmount += !menu.IsMainMenu ? menu.TotalAmount : 0;
+                if (hasSideDish)
+                {
+                    foreach (Menu menu in menus)
+                    {
+                        totalAmount += !menu.IsMainMenu ? menu.TotalAmount : 0;
+                    }
+                }
+                else
+                {
+                    return Constants.NonAvailable;
                 }
             }
             else
@@ -246,6 +252,24 @@ namespace NexFB.Services.Implement.Report
             }
 
             return totalAmount.ToString(Constants.NumberFormat);
+        }
+
+        /// <summary>
+        /// Check if menus contain side dish menu.
+        /// </summary>
+        /// <param name="menus">The menus.</param>
+        /// <returns>The has side dish menu or not.</returns>
+        private bool CheckHasSideDish(List<Menu> menus)
+        {
+            foreach (Menu menu in menus)
+            {
+                if (menu.IsSideDish)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>

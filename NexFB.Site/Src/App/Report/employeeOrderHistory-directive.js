@@ -19,20 +19,35 @@ reportModule.directive('renderEmployeeOrderHistoryReport', function () {
 			return cell;
 		};
 
+		var checkHasSideDish = function (menus) {
+			for (var i = 0; i < menus.length; i++) {
+				var menu = menus[i];
+
+				if (menu.IsSideDish) {
+					return true;
+				}
+			}
+
+			return false;
+		};
+
 		var createMyAmount = function (currentCell) {
 			var menus = currentCell.Value,
 				amount = 0;
 
 			if (menus && menus.length > 0) {
-				for (var i = 0; i < menus.length; i++) {
-					var menu = menus[i],
-						value = !menu.IsMainMenu ? menu.TotalAmount : 0;
+				var hasSideDish = checkHasSideDish(menus);
 
-					if (menu.IsMainMenu && menus.length === 1) {
-						return 'N/A';
+				if (hasSideDish) {
+					for (var i = 0; i < menus.length; i++) {
+						var menu = menus[i],
+							value = !menu.IsMainMenu ? menu.TotalAmount : 0;
+
+						amount += value;
 					}
-
-					amount += value;
+				}
+				else {
+					return 'N/A';
 				}
 			}
 			else {

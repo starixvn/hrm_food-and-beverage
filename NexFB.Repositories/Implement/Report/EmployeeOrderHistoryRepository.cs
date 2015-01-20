@@ -76,7 +76,7 @@ namespace NexFB.Repositories.Implement.Report
                     NameVN = rawMenu.MealVNMName,
                     NameEN = rawMenu.MealENGName,
                     IsMainMenu = GetBoolValue(rawMenu.IsMainMenu),
-                    IsSideDish = GetBoolValue(rawMenu.IsSideDish),
+                    IsSideDish = GetBoolValue(rawMenu.isSideDish),
                     QuantityOrder = rawMenu.QtyOrder,
                     Price = rawMenu.Price
                 };
