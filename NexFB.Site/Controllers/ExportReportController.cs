@@ -14,8 +14,8 @@ namespace NexFB.Site.Controllers
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.EmployeeOrderHistory;
-    using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MealForecastReport;
+    using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
     using NexFB.Services.Implement.Report;
@@ -37,7 +37,7 @@ namespace NexFB.Site.Controllers
         private const string MealForecastReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastReport.xls";
         private const string DailyMainDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\DailyMainDishReport.xls";
         private const string MealForecastDetailReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastDetailReport.xls";
-        
+
         private readonly IMonthlyMainDishReportService _monthlyMainDishReportService;
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
         private readonly IMonthlyMainDishPerDayReportService _monthlyMainDishPerDayService;
@@ -52,12 +52,12 @@ namespace NexFB.Site.Controllers
         }
 
         public ExportReportController(
-            IEmployeeOrderHistoryService employeeOrderHistoryService, 
+            IEmployeeOrderHistoryService employeeOrderHistoryService,
             IMonthlyMainDishReportService monthlyMainDishReportService,
             IDailyMainDishReportService dailyMainDishReportService,
             IMealForecastReportService mealForecastReportService,
             IMealForecastDetailReportService mealForecastDetailReportService,
-            IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService,
+            IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService)
             ISideDishReportService sideDishReportService,
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
@@ -242,7 +242,8 @@ namespace NexFB.Site.Controllers
         /// <returns>The excel file.</returns>
         public ActionResult ExportMealForecastDetailReport(GetMealForecastDetailReportCriteria criteria)
         {
-            MealForecastDetailHistoryReport report = SessionManager.Get<MealForecastDetailHistoryReport>(ReportConstant.MealForecastDetailReportSessionKey + SessionManager.CurrentUser.UserId);
+            MealForecastDetailHistoryReport report = SessionManager.Get<MealForecastDetailHistoryReport>(
+                ReportConstant.MealForecastDetailReportSessionKey + SessionManager.CurrentUser.UserId);
             string templatePath = string.Empty;
 
             if (report == null)

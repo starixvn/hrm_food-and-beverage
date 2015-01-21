@@ -23,8 +23,8 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Models.Entities;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.EmployeeOrderHistory;
-    using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MealForecastReport;
+    using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
     using NexFB.Models.SideDishManagement;
@@ -421,13 +421,13 @@ namespace NexFB.Site.Controllers.API.Report
             MonthlyMainDishPerDayModel pagingReport = _monthlyPerDayService.GetPagingReport(fullReport, startIndex, itemsPerPage);
             return pagingReport;
         }
-        
+
         /// <summary>
         /// Get Meal Forecast Report.
         /// </summary>
         /// <param name="fromDate">The from date.</param>
         /// <param name="toDate">The to date.</param>
-        /// <param name="departmentId">The department Id</param>
+        /// <param name="departmentId">The department Id.</param>
         /// <param name="vegetarianType">The vegetarian type.</param>
         /// <param name="isPagingCallback">The is paging call back.</param>
         /// <param name="startIndex">The start index.</param>
@@ -479,10 +479,10 @@ namespace NexFB.Site.Controllers.API.Report
         /// <summary>
         /// Get meal forecast detail report.
         /// </summary>
-        /// <param name="date">The date.</param>
+        /// <param name="date">The date selected.</param>
         /// <param name="departmentId">The department Id.</param>
         /// <param name="dietType">The diet type.</param>
-        /// <param name="isPagingCallback">The is paging call back.</param>
+        /// <param name="isPagingCallback">The is paging callback.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="itemsPerPage">The items per page.</param>
         /// <returns>The report.</returns>
