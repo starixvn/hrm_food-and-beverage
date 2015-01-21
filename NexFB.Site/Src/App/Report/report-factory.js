@@ -19,15 +19,15 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         getMonthlyMainDishReportByLocal: function (filter) {
             return $http.get(baseUrl + 'api/report/GetMonthlyMainDishReportLocal',
 				{ params: { reportDate: filter.reportDate.toDateString(),
-				    departmentId: filter.departmentId,
-				    employeeTypeId: filter.employeeTypeId,
-				    teamId: filter.teamId,
-				    mealId: filter.mealId,
-				    groupBy: filter.groupBy,
-				    startIndex: filter.startIndex,
-				    itemsPerPage: filter.itemsPerPage,
-				    isExportReport: filter.isExportReport,
-				    isPagingCallback: filter.isPagingCallback
+					departmentId: filter.departmentId,
+					employeeTypeId: filter.employeeTypeId,
+					teamId: filter.teamId,
+					mealId: filter.mealId,
+					groupBy: filter.groupBy,
+					startIndex: filter.startIndex,
+					itemsPerPage: filter.itemsPerPage,
+					isExportReport: filter.isExportReport,
+					isPagingCallback: filter.isPagingCallback
 				}
 			});
         },
@@ -35,13 +35,13 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 			return $http.get(baseUrl + 'api/report/GetDailyMainDishReport', {
 				params: {
 					fromDate: filter.fromDate.toDateString(),
-				    toDate: filter.toDate.toDateString(),
-				    orderCount: filter.orderCount,
+					toDate: filter.toDate.toDateString(),
+					orderCount: filter.orderCount,
 					employeeTypeId: filter.employeeTypeId,
-				    departmentId: filter.departmentId,
-				    teamId: filter.teamId,
-				    mealId: filter.mealId,
-				    userId: filter.userId,
+					departmentId: filter.departmentId,
+					teamId: filter.teamId,
+					mealId: filter.mealId,
+					userId: filter.userId,
 					query: filter.query,
 					startIndex: filter.startIndex,
 					itemsPerPage: filter.itemsPerPage,
@@ -85,25 +85,25 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 	getMealForecastReport: function (filter) {
             return $http.get(baseUrl + 'api/report/GetMealForecastReport',
 				{ params: { fromDate: filter.fromDate.toDateString(),
-				    toDate: filter.toDate.toDateString(),
-				    departmentId: filter.departmentId,
-				    vegetarianType: filter.vegetarianType,
-				    isPagingCallback: filter.isPagingCallback,
-				    startIndex: filter.startIndex,
-				    itemsPerPage: filter.itemsPerPage
+					toDate: filter.toDate.toDateString(),
+					departmentId: filter.departmentId,
+					vegetarianType: filter.vegetarianType,
+					isPagingCallback: filter.isPagingCallback,
+					startIndex: filter.startIndex,
+					itemsPerPage: filter.itemsPerPage
 				}
 				});
         },
         getMealForecastDetailReport: function (filter) {
             return $http.get(baseUrl + 'api/report/GetMealForecastDetailReport',
-				        { params: { date: filter.date,
-				            departmentId: filter.departmentId,
-				            dietType: filter.dietType,
-				            isPagingCallback: filter.isPagingCallback,
-				            startIndex: filter.startIndex,
-				            itemsPerPage: filter.itemsPerPage
-				        }
-				        });
+				{ params: { date: filter.date,
+					departmentId: filter.departmentId,
+					dietType: filter.dietType,
+					isPagingCallback: filter.isPagingCallback,
+					startIndex: filter.startIndex,
+					itemsPerPage: filter.itemsPerPage
+					}
+					});
         },
         getOrderedByEnum: function () {
             return $http.get(baseUrl + 'api/report/GetOrderedByEnum');

@@ -40,8 +40,8 @@ reportModule.directive('renderMealForecastDetailReport', function () {
             if (meals.length > 1) {
                 for (var i = 0; i < meals.length; i++) {
                     var meal = meals[i],
-				        mealHtml = '<ul class="list-meal-forecast-detail"><li>' +
-					        meal.MealName + '</li></ul>';
+						mealHtml = '<ul class="list-meal-forecast-detail"><li>' +
+						meal.MealName + '</li></ul>';
 
                     cell += mealHtml;
                 }
