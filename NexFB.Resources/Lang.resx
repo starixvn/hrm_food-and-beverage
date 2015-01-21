@@ -1095,4 +1095,13 @@
   <data name="DietType" xml:space="preserve">
     <value>Diet Type</value>
   </data>
+  <data name="MealForecastDetailReportName" xml:space="preserve">
+    <value>Meal_Forecast_Detail_Report</value>
+  </data>
+  <data name="MealForecastDetailReportSheetName" xml:space="preserve">
+    <value>Meal Forecast Detail Report</value>
+  </data>
+  <data name="MealForecastDetailReportTitle" xml:space="preserve">
+    <value>Meal Forecast Detail Report</value>
+  </data>
 </root>

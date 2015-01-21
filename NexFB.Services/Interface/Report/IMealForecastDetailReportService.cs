@@ -9,6 +9,7 @@
 
 namespace NexFB.Services.Interface.Report
 {
+    using System;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.MealForecastReport;
 
@@ -21,6 +22,6 @@ namespace NexFB.Services.Interface.Report
 
         MealForecastDetailHistoryReport GetPagingReport(MealForecastDetailHistoryReport fullReport, int startIndex, int itemsPerPage);
 
-        void ExportMealForecastDetailReport(MealForecastDetailHistoryReport report, string templatePath, bool? isVegetarian);
+        void ExportMealForecastDetailReport(MealForecastDetailHistoryReport report, string templatePath, bool? isVegetarian, DateTime onDate);
     }
 }

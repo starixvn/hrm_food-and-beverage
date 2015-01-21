@@ -9,16 +9,18 @@
 
 namespace NexFB.Models.Report.MealForecastReport
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
     /// Meal forecast detail history report.
     /// </summary>
+    [Serializable]
     public class MealForecastDetailHistoryReport
     {
         public MealForecastDetailHistoryReport()
         {
-            MealForecastDetails = new List<MealForecastDetailModel>();
+            this.MealForecastDetails = new List<MealForecastDetailModel>();
         }
 
         public List<MealForecastDetailModel> MealForecastDetails { get; set; }

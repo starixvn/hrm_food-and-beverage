@@ -2,12 +2,12 @@
 /*global reportModule*/
 
 reportModule.controller('MealForecastDetailReportController',
-['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'userControlFactory', 'commonFactory', 'notificationFactory',
-function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory, commonFactory, notificationFactory) {
+['$scope', '$location', '$routeParams', 'reportFactory', 'ErrorFactory', 'reportUtilities',
+function ($scope, $location, $routeParams, reportFactory, ErrorFactory, reportUtilities) {
     $scope.filter = {
-        date: '',
-        departmentId: '',
-        dietType: ''
+        date: $routeParams.date,
+        departmentId: $routeParams.departmentId,
+        dietType: $routeParams.dietType
     };
 
     $scope.numberFormat = reportUtilities.getNumberFormat();
@@ -70,11 +70,10 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFacto
     /*
     ** Get report
     */
-    $scope.getMealForecastReport = function (filter) {
+    $scope.getMealForecastDetailReport = function (filter) {
         reportFactory.getMealForecastDetailReport(filter).success(function (report) {
             $scope.report = report;
             $scope.$broadcast("renderMealForecastDetailReport");
-            $scope.$broadcast("mealForecastDetail");
         }).error(function (response, status) {
             ErrorFactory.errorHandle(status);
         });
@@ -87,7 +86,7 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFacto
         resetGridOption();
         resetPagingOption(filter);
 
-        $scope.getMealForecastReport(filter);
+        $scope.getMealForecastDetailReport(filter);
     };
 
     /*
@@ -95,11 +94,18 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFacto
     */
     $scope.exportExcel = function (filter) {
         $scope.criteria = {
-            date: filter.date,
+            onDate: filter.date,
             departmentId: filter.departmentId,
             isVegetarian: filter.dietType === '' ? '' : filter.dietType === '0' ? false : true
         };
-        debugger;
+
         $scope.$broadcast('exportMealForecastDetailReport');
+    };
+
+    /*
+    **  go back
+    */
+    $scope.goback = function () {
+        $location.url('/MealForecastReport/Index');
     };
 } ]);

@@ -536,6 +536,7 @@
     <Content Include="Src\App\DeliveryArea\deliveryArea.less" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentPerDayReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeePerDayReport.xls" />
+    <Content Include="Src\App\Report\ExcelTemplates\MealForecastDetailReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MealForecastAllTypeReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MealForecastReport.xls" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />

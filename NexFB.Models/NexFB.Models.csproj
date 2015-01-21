@@ -96,6 +96,7 @@
     <Compile Include="Report\MonthlyMainDishPerDay\RecordModel.cs" />
     <Compile Include="Report\MealForecastReport\MealForecastItemModel.cs" />
     <Compile Include="Report\MealForecastReport\MealForecastReportModel.cs" />
+    <Compile Include="Report\MealForecastReport\MealModel.cs" />
     <Compile Include="Report\MealForecastReport\TotalMealForecastModel.cs" />
     <Compile Include="Report\MonthlyMainDishReportLocal\MealDayOfMonthModel.cs" />
     <Compile Include="Report\MonthlyMainDishReportLocal\MealItemMonthModel.cs" />

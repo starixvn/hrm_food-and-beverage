@@ -83,7 +83,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         },
         getMealForecastDetailReport: function (filter) {
             return $http.get(baseUrl + 'api/report/GetMealForecastDetailReport',
-				        { params: { date: filter.date.toDateString(),
+				        { params: { date: filter.date,
 				            departmentId: filter.departmentId,
 				            dietType: filter.dietType,
 				            isPagingCallback: filter.isPagingCallback,

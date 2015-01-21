@@ -2,8 +2,8 @@
 /*global reportModule*/
 
 reportModule.controller('MealForecastReportController',
-['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'userControlFactory', 'commonFactory', 'notificationFactory',
-function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory, commonFactory, notificationFactory) {
+['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'commonFactory', 'notificationFactory',
+function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, notificationFactory) {
     $scope.toDate = new Date();
 
     $scope.filter = {
@@ -96,6 +96,7 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFacto
         reportFactory.getMealForecastReport(filter).success(function (report) {
             $scope.report = report;
             $scope.$broadcast("renderMealForecastReport");
+            $scope.$broadcast("mealForecastDetail");
         }).error(function (response, status) {
             ErrorFactory.errorHandle(status);
         });
@@ -130,9 +131,5 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFacto
             isVegetarian: filter.vegetarianType === "" ? "" : filter.vegetarianType === '0' ? false : true
         };
         $scope.$broadcast('exportMealForecastReport');
-    };
-
-    $scope.mealForecastDetail = function () {
-        alert('a');
     };
 } ]);

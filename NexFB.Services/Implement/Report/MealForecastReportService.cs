@@ -67,7 +67,7 @@ namespace NexFB.Services.Implement.Report
 
                     foreach (var item in report.MealForecasts)
                     {
-                        //calculate efficient non-vegetarian
+                        // Calculate efficient non-vegetarian
                         report.TotalNonVegetarian.Registration += item.RegistrationNonVegetarian;
                         if (item.ActualOrderNonVegetarian < 0)
                         {
@@ -87,7 +87,7 @@ namespace NexFB.Services.Implement.Report
                             }
                         }
 
-                        //calculate efficient vegetarian
+                        // Calculate efficient vegetarian
                         report.TotalVegetarian.Registration += item.RegistrationVegetarian;
                         if (item.ActualOrderVegetarian < 0)
                         {
@@ -108,7 +108,7 @@ namespace NexFB.Services.Implement.Report
                         }
                     }
 
-                    //calculate total non-vegetarian
+                    // Calculate total non-vegetarian
                     if (actualOrderNonVegNA.Equals(report.MealForecasts.Count))
                     {
                         report.TotalNonVegetarian.ActualOrder = -1;
@@ -128,7 +128,7 @@ namespace NexFB.Services.Implement.Report
                         report.TotalMeal.ActualOrder += report.TotalNonVegetarian.ActualOrder;
                     }
 
-                    //calculate total vegetarian
+                    // Calculate total vegetarian
                     if (actualOrderVegNA.Equals(report.MealForecasts.Count))
                     {
                         report.TotalVegetarian.ActualOrder = -1;
@@ -148,7 +148,7 @@ namespace NexFB.Services.Implement.Report
                         report.TotalMeal.ActualOrder += report.TotalVegetarian.ActualOrder;
                     }
 
-                    //calculate total meal
+                    // Calculate total meal
                     report.TotalMeal.Registration += report.TotalNonVegetarian.Registration;
                     report.TotalMeal.Registration += report.TotalVegetarian.Registration;
                     if (actualOrderNonVegNA.Equals(report.MealForecasts.Count) && actualOrderVegNA.Equals(report.MealForecasts.Count))
@@ -214,6 +214,7 @@ namespace NexFB.Services.Implement.Report
             // Fill report title.
             writer.CopyRows(0, 2);
             writer.WriteRow(2, new object[] { reportTitle });
+
             // Fill report header.
             writer.CopyRows(3, 1);
 
@@ -235,6 +236,30 @@ namespace NexFB.Services.Implement.Report
 
             writer.SyncColumnsWidth(6);
             writer.Render();
+        }
+
+        /// <summary>
+        /// Get meal forecast of paging report.
+        /// </summary>
+        /// <param name="fullReport">The full report.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The list meal forecast.</returns>
+        public List<MealForecastItemModel> GetPagingReportDetail(MealForecastReportModel fullReport, int startIndex, int itemsPerPage)
+        {
+            int numberMealForecasts = fullReport.MealForecasts.Count;
+            int numberTakenItems = 0;
+
+            if (startIndex + itemsPerPage <= numberMealForecasts)
+            {
+                numberTakenItems = itemsPerPage;
+            }
+            else
+            {
+                numberTakenItems = numberMealForecasts - startIndex;
+            }
+
+            return fullReport.MealForecasts.Skip(startIndex).Take(numberTakenItems).ToList();
         }
 
         /// <summary>
@@ -367,30 +392,6 @@ namespace NexFB.Services.Implement.Report
             }
 
             return orderRate.ToString() + "%";
-        }
-
-        /// <summary>
-        /// Get meal forecast of paging report.
-        /// </summary>
-        /// <param name="fullReport">The full report.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The list meal forecast.</returns>
-        public List<MealForecastItemModel> GetPagingReportDetail(MealForecastReportModel fullReport, int startIndex, int itemsPerPage)
-        {
-            int numberMealForecasts = fullReport.MealForecasts.Count;
-            int numberTakenItems = 0;
-
-            if (startIndex + itemsPerPage <= numberMealForecasts)
-            {
-                numberTakenItems = itemsPerPage;
-            }
-            else
-            {
-                numberTakenItems = numberMealForecasts - startIndex;
-            }
-
-            return fullReport.MealForecasts.Skip(startIndex).Take(numberTakenItems).ToList();
         }
     }
 }

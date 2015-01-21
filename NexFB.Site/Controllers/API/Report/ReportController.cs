@@ -49,9 +49,10 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly ISideDishReportService _sideDishReportService;
         private readonly IMealForecastReportService _mealForecastReportService;
         private readonly ISideDishService _sideDishService;
+        private readonly IMealForecastDetailReportService _mealForecastDetailReportService;
 
         public ReportController()
-            : this(null, null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -64,6 +65,7 @@ namespace NexFB.Site.Controllers.API.Report
             IMonthlyMainDishPerDayReportService monthlyPerDayService,
             ISideDishReportService sideDishReportService,
             IMealForecastReportService mealForecastReportService,
+            IMealForecastDetailReportService mealForecastDetailReportService)
             ISideDishService sideDishService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
@@ -74,6 +76,7 @@ namespace NexFB.Site.Controllers.API.Report
             _monthlyPerDayService = monthlyPerDayService ?? new MonthlyMainDishPerDayReportService();
             _sideDishReportService = sideDishReportService ?? new SideDishReportService();
             _mealForecastReportService = mealForecastReportService ?? new MealForecastReportService();
+            _mealForecastDetailReportService = mealForecastDetailReportService ?? new MealForecastDetailReportService();
             _sideDishService = sideDishService ?? new SideDishService();
         }
 
@@ -426,6 +429,10 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="toDate">The to date.</param>
         /// <param name="departmentId">The department Id</param>
         /// <param name="vegetarianType">The vegetarian type.</param>
+        /// <param name="isPagingCallback">The is paging call back.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The report.</returns>
         [HttpGet]
         public MealForecastReportModel GetMealForecastReport(
             DateTime fromDate,
@@ -469,6 +476,16 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
+        /// <summary>
+        /// Get meal forecast detail report.
+        /// </summary>
+        /// <param name="date">The date.</param>
+        /// <param name="departmentId">The department Id.</param>
+        /// <param name="dietType">The diet type.</param>
+        /// <param name="isPagingCallback">The is paging call back.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The report.</returns>
         [HttpGet]
         public MealForecastDetailHistoryReport GetMealForecastDetailReport(
             DateTime date,
@@ -490,13 +507,24 @@ namespace NexFB.Site.Controllers.API.Report
 
             var criteria = new GetMealForecastDetailReportCriteria
             {
-                Date = date,
+                OnDate = date,
                 DepartmentId = departmentId,
                 IsVegetarian = isVegetarian
             };
 
             MealForecastDetailHistoryReport fullReport = null;
-            return fullReport;
+            if (isPagingCallback)
+            {
+                fullReport = SessionManager.Get<MealForecastDetailHistoryReport>(ReportConstant.MealForecastDetailReportSessionKey + CurrentUser.UserId);
+            }
+            else
+            {
+                fullReport = _mealForecastDetailReportService.GetMealForecastDetailReport(criteria);
+                SessionManager.Set<MealForecastDetailHistoryReport>(ReportConstant.MealForecastDetailReportSessionKey + CurrentUser.UserId, fullReport);
+            }
+
+            MealForecastDetailHistoryReport pagingReport = _mealForecastDetailReportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            return pagingReport;
         }
 
         /// <summary>

@@ -17,7 +17,7 @@ namespace NexFB.Criteria.Report
     /// </summary>
     public class GetMealForecastDetailReportCriteria : CriteriaBase
     {
-        public DateTime Date { get; set; }
+        public DateTime OnDate { get; set; }
 
         public int? DepartmentId { get; set; }
 
@@ -26,6 +26,11 @@ namespace NexFB.Criteria.Report
         public override string GetSettingKey()
         {
             return "RPT_MealForecastDetailReport";
+        }
+
+        public override bool IsValid()
+        {
+            return true;
         }
     }
 }

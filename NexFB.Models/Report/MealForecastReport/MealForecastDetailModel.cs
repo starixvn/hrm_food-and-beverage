@@ -9,23 +9,34 @@
 
 namespace NexFB.Models.Report.MealForecastReport
 {
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
     /// The meal forecast detail report history.
     /// </summary>
+    [Serializable]
     public class MealForecastDetailModel
     {
+        public MealForecastDetailModel()
+        {
+            this.Meals = new List<MealModel>();
+        }
+
+        public int MenuId { get; set; }
+
         public string MenuVie { get; set; }
 
         public string MenuEng { get; set; }
 
-        public string Meal { get; set; }
+        public List<MealModel> Meals { get; set; }
 
-        public bool DietType { get; set; }
+        public bool IsVegetarian { get; set; }
 
         public int Registration { get; set; }
 
         public int ActualOrder { get; set; }
 
-        public int OrderRate { get; set; }
+        public double OrderRate { get; set; }
     }
 }

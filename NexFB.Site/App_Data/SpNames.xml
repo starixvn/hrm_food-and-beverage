@@ -340,6 +340,12 @@
 		</Setting>
     <Setting Key="RPT_MealForecastReport" SpName="RPT_MealForecast" DbName="NexFB" Plain="0">
     </Setting>
+    <Setting Key="RPT_MealForecastDetailReport" SpName="RPT_MealForecastDetail" DbName="NexFB" Plain="0">
+      <Mapping DataField="ENGName" ObjectProperty="MenuEng" Class="MealForecastDetailModel"/>
+      <Mapping DataField="VNMName" ObjectProperty="MenuVie" Class="MealForecastDetailModel"/>
+      <Mapping DataField="MealId" ObjectProperty="MealID" Class="MealModel"/>
+      <Mapping DataField="VNMName" ObjectProperty="MealName" Class="MealModel"/>
+    </Setting>
 	</Function>
   <Function Name="ManageGroup">
     <Setting Key="GroupOrderAdmin_EditActiveGroup" SpName="GroupOrderAdmin_EditActiveGroup" DbName="NexFB" Plain="0" ></Setting>

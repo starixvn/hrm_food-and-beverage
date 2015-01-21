@@ -165,9 +165,17 @@
 	}
 }
 
-#mealForecastReport.freegrid {
+#mealForecastReport.freegrid, #mealForecastDetailReport.freegrid {
 	.highlight-row td{
 		background: #fff;
+		.list-meal-forecast-detail{
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			li:before{
+				content: "- ";
+			}
+		}
 	}
 	.td-efficiency-blue{
 		background: #dce6f1 !important;

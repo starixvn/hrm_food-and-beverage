@@ -1492,6 +1492,33 @@ namespace NexFB.Resources
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Meal_Forecast_Detail_Report.
+        /// </summary>
+        public static string MealForecastDetailReportName {
+            get {
+                return ResourceManager.GetString("MealForecastDetailReportName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meal Forecast Detail Report.
+        /// </summary>
+        public static string MealForecastDetailReportSheetName {
+            get {
+                return ResourceManager.GetString("MealForecastDetailReportSheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meal Forecast Detail Report.
+        /// </summary>
+        public static string MealForecastDetailReportTitle {
+            get {
+                return ResourceManager.GetString("MealForecastDetailReportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meal Forecast Report.
         /// </summary>
         public static string MealForecastReport {
