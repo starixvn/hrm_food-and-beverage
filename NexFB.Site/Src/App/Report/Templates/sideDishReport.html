@@ -11,7 +11,7 @@
 			</label>
 			<div class="col-sm-2 field">
 				<select data-ng-model="criteria.departmentId" data-ng-options="opt.DepartmentId as opt.Name for opt in departments"
-					class="form-control" data-ng-change="getTeamAndEmployeeType(criteria.departmentId)">
+					class="form-control" data-ng-change="getTeamAndEmployeeType()">
 				</select>
 			</div>
 			<label class="col-sm-1 text-right long-text-report" data-translate="Team">
@@ -33,7 +33,7 @@
 		<div class="form-group">
 			<label class="col-sm-1 text-right long-text-report" data-translate="SideDishItem">
 			</label>
-			<div class="col-sm-2 field scrollableFilter">
+			<div class="col-sm-2 field">
 				<add-class-to-role-filter multi-select input-model="sideDishItems" button-label="FoodId"
 					helper-elements="all reset" item-label="FoodVnmName" tick-property="ticked" max-labels="0"
 					class="multi-select">
@@ -62,6 +62,5 @@
 		</form>
 	</div>
 	<div id="sideDishReport" class="freegrid" data-side-dish-report>
-	</div>
-	<br />
+	</div>	
 </div>

@@ -20,6 +20,7 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 
 	$scope.criteria = {
 		departmentId: null,
+		departmentIds: '',
 		teamIds: '',
 		employeeTypeIds: '',
 		fromDate: new Date(year, month, 1),
@@ -53,9 +54,9 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 		}
 	};
 
-	$scope.getTeamAndEmployeeType = function (departmentId) {
-		self.getTeams(departmentId);
-		self.getEmployeeTypes(departmentId);
+	$scope.getTeamAndEmployeeType = function () {
+		self.getTeams();
+		self.getEmployeeTypes();
 	};
 
 	$scope.search = function () {
@@ -72,7 +73,7 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 		self.getCriteria();
 
 		var criteria = {
-			departmentId: $scope.criteria.departmentId === -1 ? null : $scope.criteria.departmentId,
+			departmentId: $scope.criteria.departmentIds,
 			employeeTypeId: $scope.criteria.employeeTypeIds,
 			teamId: $scope.criteria.teamIds,
 			fromDate: $scope.criteria.fromDate.toString("MM/dd/yyyy"),
@@ -104,12 +105,12 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
 		});
-	};	
+	};
 
 	// self region.
-	self.getTeams = function (departmentId) {
-		if (departmentId > 0) {
-			userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
+	self.getTeams = function () {
+		if ($scope.criteria.departmentId > 0) {
+			userControlFactory.getAllTeamByCompany($scope.criteria.departmentId).success(function (teams) {
 				$scope.teams = teams;
 			}).error(function (response, status) {
 				ErrorFactory.errorHandle(status);
@@ -119,12 +120,26 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 		}
 	};
 
-	self.getEmployeeTypes = function (departmentId) {
-		if (departmentId === -1) {
-			departmentId = null;
-		}
+	self.getDepartmentIds = function () {
+		if ($scope.criteria.departmentId === -1) {
+			var ids = [];
 
-		foodMenuFactory.getAllEmployeeType(departmentId).success(function (employeeTypes) {
+			angular.forEach($scope.departments, function (department) {
+				if (department.DepartmentId !== -1) {
+					ids.push(department.DepartmentId);
+				}
+			});
+
+			$scope.criteria.departmentIds = ids.join(',');
+		} else {
+			$scope.criteria.departmentIds = $scope.criteria.departmentId;
+		}
+	};
+
+	self.getEmployeeTypes = function () {
+		self.getDepartmentIds();
+
+		foodMenuFactory.getAllEmployeeType($scope.criteria.departmentIds).success(function (employeeTypes) {
 			$scope.employeeTypes = employeeTypes;
 
 			self.handleEmployeeTypeChange();
@@ -144,6 +159,16 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 	self.getAllSideDish = function () {
 		$scope.criteria.employeeTypeIds = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypes);
 
+		if ($scope.criteria.employeeTypeIds.length === 0) {
+			var ids = [];
+
+			angular.forEach($scope.employeeTypes, function (employeeType) {
+				ids.push(employeeType.EmployeeTypeId);
+			});
+
+			$scope.criteria.employeeTypeIds = ids.join(',');
+		}
+
 		reportFactory.getAllSideDish(null, null, $scope.criteria.employeeTypeIds).success(function (sideDishes) {
 			$scope.sideDishItems = sideDishes;
 		}).error(function (response, status) {
@@ -153,7 +178,7 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 
 	self.getDepartment = function (callback) {
 		reportFactory.getDepartmentByUserRole().success(function (departments) {
-			if (departments.length > 2) {
+			if (departments.length > 1) {
 				departments.splice(0, 0, { DepartmentId: -1, Name: '-- All --' });
 			}
 
@@ -175,9 +200,9 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 	self.loadData = function () {
 		self.getDepartment(function () {
 			$scope.getTeamAndEmployeeType($scope.criteria.departmentId);
-			
+
 			$scope.getReportData();
-		});		
+		});
 	};
 
 	self.validateFilterOptions = function () {
@@ -202,6 +227,7 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 		$scope.criteria.employeeTypeIds = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypes);
 		$scope.criteria.teamIds = reportUtilities.getTeamId($scope.teams);
 		$scope.criteria.sideDishItemIds = reportUtilities.getSideDishIds($scope.sideDishItems);
+		self.getDepartmentIds();
 	};
 
 	self.loadData();

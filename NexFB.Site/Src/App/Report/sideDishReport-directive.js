@@ -105,7 +105,7 @@ reportModule.directive('sideDishReport', function () {
 					},
 					showFooter: true,
 					footerRows: footerRows,
-					gridExpandHeight: 150,
+					gridExpandHeight: 250,
 					showPager: true,
 					customPager: true,
 					pagerOption: {

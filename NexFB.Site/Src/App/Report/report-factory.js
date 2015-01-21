@@ -59,7 +59,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 				params: {
 					fromDate: filter.fromDate.toDateString(),
 					toDate: filter.toDate.toDateString(),
-					departmentId: filter.departmentId === -1 ? null : filter.departmentId,
+					departmentId: filter.departmentIds,
 					teamIds: filter.teamIds,
 					employeeTypeIds: filter.employeeTypeIds,
 					sideDishItemIds: filter.sideDishItemIds,
