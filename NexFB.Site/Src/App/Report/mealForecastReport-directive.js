@@ -32,7 +32,7 @@ reportModule.directive('renderMealForecastReport', function () {
     var generateDataBody = function (report, scope) {
         var linkToDetail = function (currentCell) {
             var departmentId = '';
-            if ($.type(scope.filter.departmentId) !== 'string') {
+            if (scope.filter.departmentId !== '') {
                 departmentId = scope.filter.departmentId;
             }
 
@@ -204,6 +204,7 @@ reportModule.directive('renderMealForecastReport', function () {
                     scope.gridOption.currentPage = pageIndex;
                     scope.gridOption.startIndex = scope.filter.startIndex;
 
+                    scope.history();
                     scope.getMealForecastReport.call(this, scope.filter);
                     return false;
                 }

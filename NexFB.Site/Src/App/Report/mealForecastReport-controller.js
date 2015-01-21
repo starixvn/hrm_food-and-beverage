@@ -5,15 +5,16 @@ reportModule.controller('MealForecastReportController',
 ['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'commonFactory', 'notificationFactory',
 function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, notificationFactory) {
     $scope.toDate = new Date();
+    $scope.mealForecastFilter = reportFactory.getMealForecastFilter();
 
     $scope.filter = {
-        fromDate: new Date($scope.toDate.getFullYear(), $scope.toDate.getMonth(), 1),
-        toDate: new Date(),
-        departmentId: '',
-        vegetarianType: '',
-        isPagingCallback: false,
-        startIndex: 0,
-        itemsPerPage: 50
+        fromDate: $scope.mealForecastFilter.fromDate,
+        toDate: $scope.mealForecastFilter.toDate,
+        departmentId: $scope.mealForecastFilter.departmentId,
+        vegetarianType: $scope.mealForecastFilter.vegetarianType,
+        isPagingCallback: $scope.mealForecastFilter.isPagingCallback,
+        startIndex: $scope.mealForecastFilter.startIndex,
+        itemsPerPage: $scope.mealForecastFilter.itemsPerPage
     };
 
     $scope.numberFormat = reportUtilities.getNumberFormat();
@@ -36,9 +37,9 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, n
     };
 
     $scope.gridOption = {
-        itemsPerPage: 50,
-        currentPage: 0,
-        startIndex: 0
+        itemsPerPage: $scope.mealForecastFilter.itemsPerPage,
+        currentPage: $scope.mealForecastFilter.currentPage,
+        startIndex: $scope.mealForecastFilter.startIndex
     };
 
     /*
@@ -64,15 +65,8 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, n
     var getDepartmentFilter = function (departments) {
         var departmentId = '';
 
-        if (departments) {
-            if (departments.length === 1) {
-                departmentId = departments[0].DepartmentId;
-            }
-            else {
-                angular.forEach(departments, function (department) {
-                    departmentId = departmentId ? departmentId + ',' + department.DepartmentId : department.DepartmentId;
-                });
-            }
+        if (departments.length === 1) {
+            departmentId = departments[0].DepartmentId;
         }
 
         $scope.filter.departmentId = departmentId;
@@ -84,6 +78,7 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, n
     reportFactory.getDepartmentByUserRole().success(function (departments) {
         $scope.departmentOptions = departments;
         getDepartmentFilter(departments);
+        $scope.filter.departmentId = parseInt($scope.mealForecastFilter.departmentId);
         $scope.getMealForecastReport($scope.filter);
     }).error(function (response, status) {
         ErrorFactory.errorHandle(status);
@@ -96,10 +91,13 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, n
         reportFactory.getMealForecastReport(filter).success(function (report) {
             $scope.report = report;
             $scope.$broadcast("renderMealForecastReport");
-            $scope.$broadcast("mealForecastDetail");
         }).error(function (response, status) {
             ErrorFactory.errorHandle(status);
         });
+    };
+
+    $scope.history = function () {
+        reportFactory.setMealForecastFilter($scope);
     };
 
     /*
@@ -108,6 +106,7 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, n
     $scope.query = function (filter) {
         resetGridOption();
         resetPagingOption(filter);
+        $scope.history();
 
         var fromDate = new Date(filter.fromDate),
 			toDate = new Date(filter.toDate);

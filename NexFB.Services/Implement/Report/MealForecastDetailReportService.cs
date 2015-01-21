@@ -221,7 +221,7 @@ namespace NexFB.Services.Implement.Report
         /// <param name="report">The report.</param>
         /// <param name="templatePath">The template path.</param>
         /// <param name="isVegetarian">The is vegetarian.</param>
-        /// <param name="date">The date.</param>
+        /// <param name="onDate">The date.</param>
         public void ExportMealForecastDetailReport(MealForecastDetailHistoryReport report, string templatePath, bool? isVegetarian, DateTime onDate)
         {
             string reportName = Lang.MealForecastDetailReportName;
@@ -285,7 +285,6 @@ namespace NexFB.Services.Implement.Report
         /// </summary>
         /// <param name="mealForecastDetails">The list meal forecast detail.</param>
         /// <param name="writer">The writer.</param>
-        /// <param name="isVegetarian">The is vegetarian.</param>
         private void FillContentRow(List<MealForecastDetailModel> mealForecastDetails, ref ExcelTemplateWriter writer)
         {
             int numberRecords = mealForecastDetails.Count;

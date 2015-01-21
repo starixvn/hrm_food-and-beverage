@@ -7,10 +7,10 @@
 //   <change who="Tim.Trinh" date="2015/1/9">Created.</change>
 // </history>
 
-using System;
-
 namespace NexFB.Models.Report.MealForecastReport
 {
+    using System;
+
     /// <summary>
     /// The total meal forecast model.
     /// </summary>

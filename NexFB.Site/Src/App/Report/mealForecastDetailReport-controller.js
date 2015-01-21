@@ -42,15 +42,8 @@ function ($scope, $location, $routeParams, reportFactory, ErrorFactory, reportUt
     var getDepartmentFilter = function (departments) {
         var departmentId = '';
 
-        if (departments) {
-            if (departments.length === 1) {
-                departmentId = departments[0].DepartmentId;
-            }
-            else {
-                angular.forEach(departments, function (department) {
-                    departmentId = departmentId ? departmentId + ',' + department.DepartmentId : department.DepartmentId;
-                });
-            }
+        if (departments.length === 1) {
+            departmentId = departments[0].DepartmentId;
         }
 
         $scope.filter.departmentId = departmentId;
@@ -62,6 +55,7 @@ function ($scope, $location, $routeParams, reportFactory, ErrorFactory, reportUt
     reportFactory.getDepartmentByUserRole().success(function (departments) {
         $scope.departmentOptions = departments;
         getDepartmentFilter(departments);
+        $scope.filter.departmentId = parseInt($routeParams.departmentId);
         $scope.getMealForecastDetailReport($scope.filter);
     }).error(function (response, status) {
         ErrorFactory.errorHandle(status);

@@ -2,6 +2,19 @@
 /*global reportModule*/
 
 reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
+
+    var date = new Date(),
+        mealForecastFilter = {
+            fromDate: new Date(date.getFullYear(), date.getMonth(), 1),
+            toDate: new Date(),
+            departmentId: '',
+            vegetarianType: '',
+            isPagingCallback: false,
+            startIndex: 0,
+            itemsPerPage: 50,
+            currentPage: 0
+        };
+
     return {
         getMonthlyMainDishReportByLocal: function (filter) {
             return $http.get(baseUrl + 'api/report/GetMonthlyMainDishReportLocal',
@@ -101,6 +114,18 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         getOrderStatusEnum: function () {
             return $http.get(baseUrl + 'api/report/GetOrderStatusEnum');
         },
+        setMealForecastFilter: function (scope) {
+            mealForecastFilter.fromDate = scope.filter.fromDate;
+            mealForecastFilter.toDate = scope.filter.toDate;
+            mealForecastFilter.departmentId = scope.filter.departmentId;
+            mealForecastFilter.vegetarianType = scope.filter.vegetarianType;
+            mealForecastFilter.startIndex = scope.filter.startIndex;
+            mealForecastFilter.itemsPerPage = scope.filter.itemsPerPage;
+            mealForecastFilter.currentPage = scope.gridOption.currentPage;
+        },
+        getMealForecastFilter: function () {
+            return mealForecastFilter;
+	},
         getMenuTypeEnum: function () {
             return $http.get(baseUrl + 'api/report/GetMenuTypeEnum');
 		},

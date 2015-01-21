@@ -84,13 +84,13 @@ reportModule.directive('renderMealForecastDetailReport', function () {
     var generateDataHeader = function (numberFormat) {
         var columns = [
             { HeaderText: "#", Width: 60, Name: "Count", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Menu (Vie)", Width: 150, Name: "MenuVie", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Menu (Eng)", Width: 150, Name: "MenuEng", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Meal", Width: 150, Name: "Meal", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: "Diet Type", Width: 150, Name: "Vegetarian", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Registration (1)", Width: 150, Name: "Registration", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
-            { HeaderText: "Actual orders (2)", Width: 150, Name: "ActualOrder", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
-            { HeaderText: "Order rate (2)/(1)", Width: 150, Name: "Efficiency", HeaderAlign: "center", CellAlign: "right" }
+            { HeaderText: "Menu (Vie)", Width: 160, Name: "MenuVie", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Menu (Eng)", Width: 160, Name: "MenuEng", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Meal", Width: 160, Name: "Meal", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: "Diet Type", Width: 160, Name: "Vegetarian", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Registration (1)", Width: 160, Name: "Registration", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+            { HeaderText: "Actual orders (2)", Width: 160, Name: "ActualOrder", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+            { HeaderText: "Order rate (2)/(1)", Width: 160, Name: "Efficiency", HeaderAlign: "center", CellAlign: "right" }
         ];
 
         return columns;
