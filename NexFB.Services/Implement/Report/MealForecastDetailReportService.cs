@@ -126,15 +126,15 @@ namespace NexFB.Services.Implement.Report
         /// <param name="report">The report.</param>
         /// <param name="templatePath">The template path.</param>
         /// <param name="isVegetarian">The is vegetarian.</param>
-        /// <param name="date">The date selected.</param>
+        /// <param name="dateSelected">The date selected.</param>
         public void ExportMealForecastDetailReport(
             MealForecastDetailHistoryReport report,
             string templatePath,
             bool? isVegetarian,
-            DateTime date)
+            DateTime dateSelected)
         {
             string reportName = Lang.MealForecastDetailReportName;
-            string reportTitle = Lang.MealForecastDetailReportTitle + " For " + date.ToString("dd MMM, yyyy");
+            string reportTitle = Lang.MealForecastDetailReportTitle + " For " + dateSelected.ToString("dd MMM, yyyy");
             string reportSheetName = Lang.MealForecastDetailReportSheetName;
             var writer = new ExcelTemplateWriter(templatePath, reportName, reportSheetName);
 

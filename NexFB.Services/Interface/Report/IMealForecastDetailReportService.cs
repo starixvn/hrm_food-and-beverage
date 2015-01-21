@@ -22,6 +22,6 @@ namespace NexFB.Services.Interface.Report
 
         MealForecastDetailHistoryReport GetPagingReport(MealForecastDetailHistoryReport fullReport, int startIndex, int itemsPerPage);
 
-        void ExportMealForecastDetailReport(MealForecastDetailHistoryReport report, string templatePath, bool? isVegetarian, DateTime date);
+        void ExportMealForecastDetailReport(MealForecastDetailHistoryReport report, string templatePath, bool? isVegetarian, DateTime dateSelected);
     }
 }
