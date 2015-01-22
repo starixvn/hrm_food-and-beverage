@@ -17,7 +17,6 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 	$scope.teams = [];
 	$scope.employeeTypes = [];
 	$scope.sideDishItems = [];
-	$scope.isHandling = false;
 
 	$scope.criteria = {
 		departmentId: null,
