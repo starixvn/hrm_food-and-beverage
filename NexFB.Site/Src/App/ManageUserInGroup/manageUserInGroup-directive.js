@@ -50,6 +50,11 @@ manageUserInGroupModule.directive('resetCheckAllMember', function () {
 			scope.$on('resetCheckAllMember', function () {
 				var checkAllCheckbox = $('#groupMember').find('[name="checkAllMember"]');
 				checkAllCheckbox.prop('checked', false);
+
+				var checkMembers = $('#groupMember').find('td input:checked');
+				angular.forEach(checkMembers, function (member) {
+					$(member).prop('checked', false);
+				});
 			});
 		}
 	};

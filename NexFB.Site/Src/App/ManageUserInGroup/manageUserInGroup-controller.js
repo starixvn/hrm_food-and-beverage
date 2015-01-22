@@ -155,9 +155,22 @@ foodMenuFactory) {
 		}
 	};
 
+	/*
+	** Reset all checkbox member when user paging.
+	*/
 	$scope.$watch(
 		function () {
 			return $scope.currentPage;
+		},
+		function (newValue, oldValue) {
+			if (newValue !== oldValue) {
+				$scope.$broadcast('resetCheckAllMember');
+			}
+	});
+
+	$scope.$watch(
+		function () {
+			return $scope.entrySelected;
 		},
 		function (newValue, oldValue) {
 			if (newValue !== oldValue) {
