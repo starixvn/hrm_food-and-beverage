@@ -44,7 +44,7 @@ foodMenuFactory) {
 		commonFactory.tablePagination($scope, $scope.members, $scope.entrySelected);
 	};
 
-	$scope.entrySelected = 15;
+	$scope.entrySelected = 50;
 	$scope.originalPage = 0;
 	commonFactory.numberEntryList($scope);
 
@@ -128,17 +128,30 @@ foodMenuFactory) {
 	*/
 	$scope.query = function (filter) {
 		if (filter) {
-			var customizeFilter = angular.copy(filter);
+			var customizeFilter = angular.copy(filter),
+				isValid = true;
 
 			customizeFilter.GroupId = manageUserInGroupUtilities.getSelectedGroupIds($scope.groupOptions);
 			customizeFilter.EmployeeTypeId = manageUserInGroupUtilities.getEmployeeTypeId($scope.employeeTypeOptions);
 
-			if (customizeFilter.JoinedDateFrom !== "" && customizeFilter.JoinedDateTo !== "") {
-				customizeFilter.JoinedDateFrom = customizeFilter.JoinedDateFrom.toDateString();
-				customizeFilter.JoinedDateTo = customizeFilter.JoinedDateTo.toDateString();
+			if (customizeFilter.JoinedDateFrom && customizeFilter.JoinedDateTo) {
+				var fromDate = new Date(customizeFilter.JoinedDateFrom),
+					toDate = new Date(customizeFilter.JoinedDateTo);
+
+				if (fromDate > toDate) {
+					notificationFactory.error("DateRangeInvalid");
+					isValid = false;
+				}
+				else {
+					customizeFilter.JoinedDateFrom = customizeFilter.JoinedDateFrom.toDateString();
+					customizeFilter.JoinedDateTo = customizeFilter.JoinedDateTo.toDateString();
+				}
 			}
 
-			getMembers(customizeFilter);
+			if (isValid) {
+				$scope.customizeFilter = customizeFilter;
+				getMembers(customizeFilter);
+			}
 		}
 	};
 
@@ -196,7 +209,7 @@ foodMenuFactory) {
 			});
 
 			$scope.modalInstance.result.then(function () {
-				getMembers($scope.originalFilter);
+				getMembers($scope.customizeFilter);
 				$scope.$broadcast('resetCheckAllMember');
 			}
 			)['finally'](function () {
