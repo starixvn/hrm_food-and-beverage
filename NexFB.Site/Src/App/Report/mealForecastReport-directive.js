@@ -133,7 +133,7 @@ reportModule.directive('renderMealForecastReport', function () {
 
     var generateDataHeader = function (numberFormat) {
         var columns = [
-            { HeaderText: "#", Width: 60, Name: "Count", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "#", Width: 65, Name: "Count", HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Date", Width: 210, Name: "Date", HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Diet Type", Width: 230, Name: "Vegetarian", HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Registration (1)", Width: 230, Name: "Registration", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
