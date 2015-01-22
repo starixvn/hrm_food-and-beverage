@@ -127,6 +127,25 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
+        /// Assign group to member.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult AssignGroupToMember(AssignGroupToMemberCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            var commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Insert(criteria);
+            }
+
+            return commandResult;
+        }
+
+        /// <summary>
         /// Delete member of group.
         /// </summary>
         /// <param name="criteria">The criteria.</param>

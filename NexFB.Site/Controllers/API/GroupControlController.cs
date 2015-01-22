@@ -182,12 +182,26 @@ namespace NexFB.Site.Controllers.API
         {
             if (criteria != null)
             {
-                TransformXmlPara(criteria);
+                criteria.MemberId = TransformXmlPara(criteria.SysIds, criteria.GroupIds);
                 criteria.ModifiedBy = CurrentUser.UserId;
                 criteria.ModifiedDate = DateTime.Now;
             }
 
             return _groupControlService.AssignMemberToGroup(criteria);
+        }
+
+        [ApiAuthorize(FunctionKey = FBFunctionKey.ManageGroup, Policy = Policy.Host)]
+        [HttpPost]
+        public CommandResult AssignGroupToMember(AssignGroupToMemberCriteria criteria)
+        {
+            if (criteria != null)
+            {
+                criteria.MemberId = TransformXmlPara(criteria.SysIds, criteria.GroupIds);
+                criteria.ModifiedBy = CurrentUser.UserId;
+                criteria.ModifiedDate = DateTime.Now;
+            }
+
+            return _groupControlService.AssignGroupToMember(criteria);
         }
 
         /// <summary>
@@ -230,11 +244,13 @@ namespace NexFB.Site.Controllers.API
         /// <summary>
         /// Transform xml para for criteria.
         /// </summary>
-        /// <param name="criteria">Input criteria.</param>
-        private void TransformXmlPara(InsertMemberCriteria criteria)
+        /// <param name="rawSysIds">The sysIDs.</param>
+        /// <param name="rawGroupIds">The groupIDs.</param>
+        /// <returns>The document.</returns>
+        private string TransformXmlPara(string rawSysIds, string rawGroupIds)
         {
-            List<string> sysIds = criteria.SysIds.Split(',').ToList();
-            List<string> rawGroupIds = criteria.GroupIds.Split(',').ToList();
+            List<string> sysIds = rawSysIds.Split(',').ToList();
+            List<string> groupIds = rawGroupIds.Split(',').ToList();
 
             var document = new StringBuilder();
             document.Append("<ROOT>");
@@ -247,13 +263,13 @@ namespace NexFB.Site.Controllers.API
                 {
                     string sysId = sysIds[i];
 
-                    if (rawGroupIds != null && rawGroupIds.Count > 0)
+                    if (groupIds != null && groupIds.Count > 0)
                     {
-                        int numberGroups = rawGroupIds.Count;
+                        int numberGroups = groupIds.Count;
 
                         for (int j = 0; j < numberGroups; j++)
                         {
-                            string group = rawGroupIds[j];
+                            string group = groupIds[j];
                             document.AppendFormat("<User SysId='{0}' GroupId='{1}'></User>", sysId, group);
                         }
                     }
@@ -265,7 +281,8 @@ namespace NexFB.Site.Controllers.API
             }
 
             document.Append("</ROOT>");
-            criteria.MemberId = document.ToString();
+
+            return document.ToString();
         }
 
         #endregion

@@ -1,0 +1,34 @@
+.manage-group-modal{
+	.modal-dialog {
+		width: 500px;
+		.manage-group-body-modal {
+			height: 150px;
+		}
+	}
+}
+
+.manage-memger-group-modal {
+	max-height: 600px;
+	overflow-y: auto;
+}
+
+.add-member-group {
+	padding-left: 20px;
+}
+
+.search-member-group {
+	width: 323px !important;
+	height: 28px;
+<<<<<<< HEAD
+=======
+	padding: 2px 12px;
+}
+
+.assign-member-button {
+	display: inline-block;
+}
+
+.manage-group-member .modal-dialog {
+	width: 750px;
+>>>>>>> #29608 - Fixed some bugs in Manage group and Manage user in group
+}

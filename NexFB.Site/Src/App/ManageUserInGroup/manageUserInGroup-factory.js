@@ -18,8 +18,8 @@ manageUserInGroupModule.factory('manageUserInGroupFactory', ['$http', 'baseUrl',
 		getUserPermissionOnManageUserInGroup: function () {
 			return $http.get(baseUrl + 'api/GroupControl/GetUserPermissionOnManageUserInGroup');
 		},
-		assignMemberToGroup: function (filter) {
-			return $http.post(baseUrl + 'api/GroupControl/AssignMemberToGroup', filter);
+		assignGroupToMember: function (filter) {
+			return $http.post(baseUrl + 'api/GroupControl/AssignGroupToMember', filter);
 		},
 		deleteMemberGroup: function (memberId, groupId) {
 			return $http['delete'](baseUrl + 'api/GroupControl/DeleteMemberGroup', 

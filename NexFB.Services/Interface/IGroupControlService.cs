@@ -34,5 +34,7 @@ namespace NexFB.Services.Interface
         CommandResult DeleteMemberGroup(DeleteMemberGroupCriteria criteria);
 
         CommandResult ActivateGroup(ActivateGroupCriteria criteria);
+
+        CommandResult AssignGroupToMember(AssignGroupToMemberCriteria criteria);
     }
 }

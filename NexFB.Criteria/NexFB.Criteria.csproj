@@ -96,6 +96,7 @@
     <Compile Include="FoodMenuManagement\InsertFoodMenuCriteria.cs" />
     <Compile Include="FoodMenuManagement\UpdateFoodMenuCriteria.cs" />
     <Compile Include="GroupControl\ActivateGroupCriteria.cs" />
+    <Compile Include="GroupControl\AssignGroupToMemberCriteria.cs" />
     <Compile Include="GroupControl\DeleteMemberGroupCriteria.cs" />
     <Compile Include="GroupControl\InsertMemberCriteria.cs" />
     <Compile Include="GroupControl\GetMemberCriteria.cs" />

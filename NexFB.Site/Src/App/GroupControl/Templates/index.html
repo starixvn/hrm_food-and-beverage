@@ -50,8 +50,7 @@
 	                <td ng-bind="group.GroupName">
 	                </td>
 	                <td class="text-center">
-	                    <a href="" ng-bind="group.Members" ng-click="manageGroupMember(group)" ng-if="policy.permission == 2" ></a>
-						<span ng-bind="group.Members" ng-if="policy.permission == 1"></span>
+	                    <a href="" ng-bind="group.Members" ng-click="manageGroupMember(group)" ></a>
 	                </td>
 	                <td class="text-center">
 	                    <input type="checkbox" ng-checked="group.IsActive" ng-click="confirmActive(group)" ng-if="policy.permission == 2" />

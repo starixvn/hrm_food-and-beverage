@@ -20,7 +20,10 @@ groupControlModule.factory('groupControlFactory', ['$http', 'baseUrl', function 
 		},
 		activateGroup: function (group) {
 			return $http.put(baseUrl + 'api/GroupControl/ActivateGroup', group);
-		}
+		},
+		assignMemberToGroup: function (filter) {
+			return $http.post(baseUrl + 'api/GroupControl/AssignMemberToGroup', filter);
+		},
 	};
 } ]);
 

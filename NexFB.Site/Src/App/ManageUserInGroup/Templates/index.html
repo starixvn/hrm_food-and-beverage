@@ -55,16 +55,17 @@
 	    <table id="groupMember" class="table table-bordered table-striped col-sm-12">
 	        <thead>
 	            <tr class="header-table">
-	                <th colspan="6" ng-show="policy.permission == 2">
+	                <th colspan="7" ng-show="policy.permission == 2">
 		                <input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
 						<a class="pull-left button-icon create-button" get-selected-member data-translate="AssignSelectedMember" ng-if="policy.permission == 2">
 						</a>
 	                </th>
-					<th colspan="5" ng-show="policy.permission == 1">
+					<th colspan="6" ng-show="policy.permission == 1">
 		                <input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
 	                </th>
                 </tr>
 	            <tr>
+					<th data-translate="SymbolCount"></th>
 	                <th class="width-80" data-translate="MemberName"></th>
                     <th data-translate="Department"></th>
 					<th data-translate="EmployeeType"></th>
@@ -77,6 +78,8 @@
 	        </thead>
 	        <tbody>
 	            <tr ng-repeat="member in pagedItems[currentPage]" >
+					<td class="text-center" ng-bind="member.itemIndex + 1" >
+					</td>
 	                <td ng-bind="member.Nickname">
 	                </td>
 	                <td class="text-center" ng-bind="member.DepartmentName">
@@ -103,7 +106,7 @@
 	        </tbody>
             <tfoot>
 	            <tr>
-		            <td colspan="6" class="paging" >
+		            <td colspan="7" class="paging" >
 			            <span data-translate="Show"></span>
 			            <select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()" 
 				            ng-options="entry for entry in entries">

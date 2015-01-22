@@ -155,9 +155,30 @@ foodMenuFactory) {
 	/*
 	** Assign group to member.
 	*/
+	var getAssignedGroup = function (sysId, members) {
+		var assignedGroup = '';
+
+		if (members) {
+			for (var i = 0; i < members.length; i++) {
+				var member = members[i];
+
+				if (member.SysId.toString() === sysId) {
+					return member.AssignedGroups;
+				}
+			}
+
+		}
+		return assignedGroup;
+	};
+
 	$scope.assignGroupToMember = function (sysIds) {
 		if (sysIds) {
 			$scope.originalPage = $scope.currentPage;
+			var assignedGroups = '';
+
+			if (sysIds.search(',') === -1) {
+				assignedGroups = getAssignedGroup(sysIds, $scope.members);
+			}
 
 			$scope.modalInstance = $modal.open({
 				templateUrl: baseUrl + 'src/app/ManageUserInGroup/Templates/AssignGroupToMember.html',
@@ -165,6 +186,9 @@ foodMenuFactory) {
 				resolve: {
 					sysIds: function () {
 						return sysIds;
+					},
+					assignedGroups: function () {
+						return assignedGroups;
 					}
 				},
 				backdrop: 'static',
@@ -187,17 +211,32 @@ foodMenuFactory) {
 
 manageUserInGroupModule.controller('AsignGroupToMemberController',
 ['$scope', 'sysIds', '$modalInstance', 'groupControlFactory', 'notificationFactory', 'manageUserInGroupFactory',
-'ErrorFactory', 'manageUserInGroupUtilities',
+'ErrorFactory', 'manageUserInGroupUtilities', 'assignedGroups',
 function ($scope, sysIds, $modalInstance, groupControlFactory, notificationFactory, manageUserInGroupFactory,
-ErrorFactory, manageUserInGroupUtilities) {
+ErrorFactory, manageUserInGroupUtilities, assignedGroups) {
 
 	$scope.sysIds = sysIds;
+	$scope.assignedGroups = assignedGroups;
+
+	var checkAssignedGroup = function () {
+		angular.forEach($scope.groupOptions, function (groupOption) {
+			angular.forEach($scope.assignedGroups, function (assignedGroup) {
+				if (groupOption.GroupId === assignedGroup.GroupId) {
+					groupOption.ticked = true;
+				}
+			});
+		});
+	};
 
 	/*
 	** Get all groups.
 	*/
 	groupControlFactory.getGroups($scope.filter).success(function (groups) {
 		$scope.groupOptions = groups;
+
+		if ($scope.assignedGroups) {
+			checkAssignedGroup();
+		}
 	}).error(function () {
 		notificationFactory.error("ErrorMessage");
 	});
@@ -212,7 +251,7 @@ ErrorFactory, manageUserInGroupUtilities) {
 				groupIds: groupIds
 			};
 
-		manageUserInGroupFactory.assignMemberToGroup(filter).success(function (response) {
+		manageUserInGroupFactory.assignGroupToMember(filter).success(function (response) {
 			if (response.IsSuccessful) {
 				notificationFactory.success("DataChangeSuccessfully");
 				$modalInstance.close();
@@ -220,7 +259,7 @@ ErrorFactory, manageUserInGroupUtilities) {
 			else {
 				notificationFactory.error("", response.Message);
 			}
-		}).error(function (response,status) {
+		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
 		});
 	};
@@ -285,4 +324,4 @@ ErrorFactory, manageUserInGroupUtilities) {
             $scope.resetMember();
         }
     });
-}]);
+} ]);

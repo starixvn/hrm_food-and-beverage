@@ -357,7 +357,8 @@
     <Setting Key="GroupOrderAdmin_InsertGroup" SpName="GroupOrderAdmin_InsertGroup" DbName="NexFB" Plain="0" ></Setting>
     <Setting Key="GroupOrderAdmin_InsertMember" SpName="GroupOrderAdmin_InsertMember" DbName="NexFB" Plain="0" ></Setting>
     <Setting Key="GroupOrderAdmin_RemoveMember" SpName="GroupOrderAdmin_RemoveMember" DbName="NexFB" Plain="0" ></Setting>
-    <Setting Key="GroupOrderAdmin_DeleteGroup" SpName="GroupOrderAdmin_DeleteGroup" DbName="NexFB" Plain="0" ></Setting>    
+	  <Setting Key="GroupOrderAdmin_DeleteGroup" SpName="GroupOrderAdmin_DeleteGroup" DbName="NexFB" Plain="0" ></Setting>
+	  <Setting Key="GroupOrderAdmin_AssignGroupToMember" SpName="GroupOrderAdmin_AssignGroupToMember" DbName="NexFB" Plain="0" ></Setting>
   </Function>
 	<Function Name="DeliveryArea">
 		<Setting Key="Location_Insert" SpName="Location_Insert" DbName="NexFB" Plain="0" ></Setting>

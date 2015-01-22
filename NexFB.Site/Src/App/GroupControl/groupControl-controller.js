@@ -62,7 +62,7 @@ baseUrl, $translate) {
 	});
 
 	/*
-	** Get user permission on food menu.
+	** Get user permission on manage group.
 	*/
 	groupControlFactory.getUserPermissionOnManageGroup().success(function (permission) {
 		$scope.policy = {
@@ -194,10 +194,13 @@ baseUrl, $translate) {
 				},
 				removeMessage: function () {
 					return $scope.removeMemberGroupConfirmMsg;
+				},
+				permission: function () {
+					return $scope.policy.permission;
 				}
 			},
 			backdrop: 'static',
-			windowClass: "modal-confirm-center"
+			windowClass: "modal-confirm-center manage-group-member"
 		});
 
 		$scope.modalInstance.result.then()
@@ -263,12 +266,13 @@ baseUrl, $translate) {
 
 groupControlModule.controller('ManageGroupMemberController',
 ['$scope', '$modalInstance', 'group', 'manageUserInGroupFactory', 'orderingFactory', 'notificationFactory',
-'ErrorFactory', 'removeMessage', 'baseUrl', '$modal', 'commonFactory',
+'ErrorFactory', 'removeMessage', 'baseUrl', '$modal', 'commonFactory', 'groupControlFactory', 'permission',
 function ($scope, $modalInstance, group, manageUserInGroupFactory, orderingFactory, notificationFactory,
-ErrorFactory, removeMessage, baseUrl, $modal, commonFactory) {
+ErrorFactory, removeMessage, baseUrl, $modal, commonFactory, groupControlFactory, permission) {
 
 	$scope.group = group;
 	$scope.removeMessage = removeMessage;
+	$scope.permission = permission;
 	$scope.member = {};
 	$scope.searchData = {};
 
@@ -314,9 +318,11 @@ ErrorFactory, removeMessage, baseUrl, $modal, commonFactory) {
 	var getMembersOfGroup = function (filter, userId) {
 		manageUserInGroupFactory.getMembers(filter).success(function (members) {
 			$scope.members = members;
+
 			if (userId && $scope.members && $scope.members.length > 0) {
 				sortMembers($scope.members, userId);
 			}
+
 			$scope.searchMemberGroup($scope.members);
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
@@ -356,7 +362,7 @@ ErrorFactory, removeMessage, baseUrl, $modal, commonFactory) {
 				notificationFactory.error("ExistMemberWarning");
 			}
 			else {
-				manageUserInGroupFactory.assignMemberToGroup($scope.criteria)
+				groupControlFactory.assignMemberToGroup($scope.criteria)
 				.success(function (response) {
 					if (response.IsSuccessful) {
 						notificationFactory.success("DataChangeSuccessfully");
@@ -396,7 +402,8 @@ ErrorFactory, removeMessage, baseUrl, $modal, commonFactory) {
 			.success(function (response) {
 				if (response.IsSuccessful) {
 					var index = $scope.members.indexOf(member);
-					$scope.filterMembers.splice(index, 1);
+					$scope.members.splice(index, 1);
+					$scope.searchMemberGroup($scope.members);
 					notificationFactory.success("DataChangeSuccessfully");
 				}
 				else {

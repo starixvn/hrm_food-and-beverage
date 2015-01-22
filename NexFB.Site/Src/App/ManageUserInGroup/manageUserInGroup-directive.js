@@ -6,7 +6,7 @@ manageUserInGroupModule.directive('getSelectedMember', function () {
 		link: function (scope, iElement) {
 			iElement.on('click', function () {
 				var selectedMembers = $('#groupMember').find('td input:checked'),
-				sysIds = '';
+					sysIds = '';
 
 				angular.forEach(selectedMembers, function (member) {
 					var id = $(member).val();
