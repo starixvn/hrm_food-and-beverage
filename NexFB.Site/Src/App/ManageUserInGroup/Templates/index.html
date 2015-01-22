@@ -57,7 +57,9 @@
 	            <tr class="header-table">
 	                <th colspan="7" ng-show="policy.permission == 2">
 		                <input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
-						<a class="pull-left button-icon create-button" get-selected-member data-translate="AssignSelectedMember" ng-if="policy.permission == 2">
+						<a class="pull-left button-icon assign-button" get-selected-member  ng-if="policy.permission == 2">
+                            <span class="icon assign"></span>
+                            <span class="button-text" data-translate="AssignSelectedMember" ></span>
 						</a>
 	                </th>
 					<th colspan="6" ng-show="policy.permission == 1">
