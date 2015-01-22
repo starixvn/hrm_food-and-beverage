@@ -20,7 +20,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 			});
 		},
 		getDailyMainDishReport: function (filter) {
-			return $http.get('api/report/GetDailyMainDishReport', {
+			return $http.get(baseUrl + 'api/report/GetDailyMainDishReport', {
 				params: {
 					fromDate: filter.fromDate.toDateString(),
 					toDate: filter.toDate.toDateString(),
@@ -55,7 +55,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 			});
 		},
 		getSideDishReport: function (filter) {
-			return $http.get('/api/report/Report/GetSideDishReport', {
+			return $http.get(baseUrl + 'api/report/GetSideDishReport', {
 				params: {
 					fromDate: filter.fromDate.toDateString(),
 					toDate: filter.toDate.toDateString(),
@@ -103,7 +103,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 			return $http.get(baseUrl + 'api/common/GetDepartmentOfCurrentUser');
 		},
 		getAllSideDish: function (foodId, isActive, employeeTypeId) {
-			return $http.get('/api/report/Report/GetAllSideDish', {		
+			return $http.get(baseUrl + 'api/report/GetAllSideDish', {		
 				params: {
 					foodId: foodId,
 					isActive: isActive,
