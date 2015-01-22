@@ -23,12 +23,60 @@ namespace NexFB.Models.Report.MealForecastReport
 
         public int ActualOrderNonVegetarian { get; set; }
 
-        public double EfficiencyNonVegetarian { get; set; }
+        public double EfficiencyNonVegetarian
+        {
+            get
+            {
+                double efficiency = 0;
+
+                if (ActualOrderNonVegetarian < 0)
+                {
+                    efficiency = -1;
+                }
+                else
+                {
+                    if (RegistrationNonVegetarian.Equals(0))
+                    {
+                        efficiency = -1;
+                    }
+                    else
+                    {
+                        efficiency = Math.Round((double)ActualOrderNonVegetarian / RegistrationNonVegetarian * 100, 2);
+                    }
+                }
+
+                return efficiency;
+            }
+        }
 
         public int RegistrationVegetarian { get; set; }
 
         public int ActualOrderVegetarian { get; set; }
 
-        public double EfficiencyVegetarian { get; set; }
+        public double EfficiencyVegetarian
+        {
+            get
+            {
+                double efficiency = 0;
+
+                if (ActualOrderVegetarian < 0)
+                {
+                    efficiency = -1;
+                }
+                else
+                {
+                    if (RegistrationVegetarian.Equals(0))
+                    {
+                        efficiency = -1;
+                    }
+                    else
+                    {
+                        efficiency = Math.Round((double)ActualOrderVegetarian / RegistrationVegetarian * 100, 2);
+                    }
+                }
+
+                return efficiency;
+            }
+        }
     }
 }

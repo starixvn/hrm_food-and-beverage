@@ -54,37 +54,30 @@ namespace NexFB.Services.Implement.Report
                 {
                     report.TotalNonVegetarian = new TotalMealForecastModel
                     {
-                        Registration = 0, ActualOrder = 0, Efficiency = 0
+                        Registration = 0,
+                        ActualOrder = 0
                     };
 
                     report.TotalVegetarian = new TotalMealForecastModel
                     {
-                        Registration = 0, ActualOrder = 0, Efficiency = 0
+                        Registration = 0,
+                        ActualOrder = 0
                     };
 
                     report.TotalMeal = new TotalMealForecastModel
                     {
-                        Registration = 0, ActualOrder = 0, Efficiency = 0
+                        Registration = 0,
+                        ActualOrder = 0
                     };
 
-                    report.MealForecastDetails = CalculateMealForecastDetail(report);
                     report = CalculateTotalMeal(report);
+
+                    report.TotalMeal.Registration += report.TotalNonVegetarian.Registration;
+                    report.TotalMeal.Registration += report.TotalVegetarian.Registration;
 
                     if (report.TotalNonVegetarian.ActualOrder < 0 && report.TotalVegetarian.ActualOrder < 0)
                     {
                         report.TotalMeal.ActualOrder = -1;
-                        report.TotalMeal.Efficiency = -1;
-                    }
-                    else
-                    {
-                        if (report.TotalMeal.Registration.Equals(0))
-                        {
-                            report.TotalMeal.Efficiency = -1;
-                        }
-                        else
-                        {
-                            report.TotalMeal.Efficiency = Math.Round((double)report.TotalMeal.ActualOrder / report.TotalMeal.Registration * 100, 2);
-                        }
                     }
 
                     report.TotalItem = report.MealForecastDetails.Count;
@@ -194,109 +187,52 @@ namespace NexFB.Services.Implement.Report
         }
 
         /// <summary>
-        /// Calculate meal forecast detail.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <returns>The list meal forecast detail.</returns>
-        private List<MealForecastDetailModel> CalculateMealForecastDetail(MealForecastDetailHistoryReport report)
-        {
-            foreach (var item in report.MealForecastDetails)
-            {
-                if (item.IsVegetarian == false)
-                {
-                    report.TotalNonVegetarian.Registration += item.Registration;
-                    if (item.ActualOrder < 0)
-                    {
-                        item.OrderRate = -1;
-                    }
-                    else
-                    {
-                        report.TotalNonVegetarian.ActualOrder += item.ActualOrder;
-                        if (item.Registration.Equals(0))
-                        {
-                            item.OrderRate = -1;
-                        }
-                        else
-                        {
-                            item.OrderRate = Math.Round((double)item.ActualOrder / item.Registration * 100, 2);
-                        }
-                    }
-                }
-                else
-                {
-                    report.TotalVegetarian.Registration += item.Registration;
-                    if (item.ActualOrder < 0)
-                    {
-                        item.OrderRate = -1;
-                    }
-                    else
-                    {
-                        report.TotalVegetarian.ActualOrder += item.ActualOrder;
-                        if (item.Registration.Equals(0))
-                        {
-                            item.OrderRate = -1;
-                        }
-                        else
-                        {
-                            item.OrderRate = Math.Round((double)item.ActualOrder / item.Registration * 100, 2);
-                        }
-                    }
-                }
-            }
-
-            report.TotalMeal.Registration += report.TotalNonVegetarian.Registration;
-            report.TotalMeal.Registration += report.TotalVegetarian.Registration;
-
-            return report.MealForecastDetails;
-        }
-
-        /// <summary>
         /// Calculate total meal.
         /// </summary>
         /// <param name="report">The report.</param>
         /// <returns>The meal forecast detail history report.</returns>
         private MealForecastDetailHistoryReport CalculateTotalMeal(MealForecastDetailHistoryReport report)
         {
+            foreach (var item in report.MealForecastDetails)
+            {
+                if (item.IsVegetarian == false)
+                {
+                    report.TotalNonVegetarian.Registration += item.Registration;
+                    if (item.ActualOrder >= 0)
+                    {
+                        report.TotalNonVegetarian.ActualOrder += item.ActualOrder;
+                    }
+                }
+                else
+                {
+                    report.TotalVegetarian.Registration += item.Registration;
+                    if (item.ActualOrder >= 0)
+                    {
+                        report.TotalVegetarian.ActualOrder += item.ActualOrder;
+                    }
+                }
+            }
+
             int numberActualOrderVeg = report.MealForecastDetails.Where(x => x.IsVegetarian == true).ToList().Count,
                 numberActualOrderNonVeg = report.MealForecastDetails.Where(x => x.IsVegetarian == false).ToList().Count,
-                numberActualOrderVegNA = report.MealForecastDetails.Where(x => x.ActualOrder < 0).ToList().Count,
-                numberActualOrderNonVegNA = report.MealForecastDetails.Where(x => x.ActualOrder < 0).ToList().Count;
+                numberActualOrderVegNA = report.MealForecastDetails.Where(x => x.IsVegetarian == true && x.ActualOrder < 0).ToList().Count,
+                numberActualOrderNonVegNA = report.MealForecastDetails.Where(x => x.IsVegetarian == false && x.ActualOrder < 0).ToList().Count;
 
             if (numberActualOrderNonVegNA.Equals(numberActualOrderNonVeg))
             {
                 report.TotalNonVegetarian.ActualOrder = -1;
-                report.TotalNonVegetarian.Efficiency = -1;
             }
             else
             {
-                if (report.TotalNonVegetarian.Registration.Equals(0))
-                {
-                    report.TotalNonVegetarian.Efficiency = -1;
-                }
-                else
-                {
-                    report.TotalNonVegetarian.Efficiency = Math.Round((double)report.TotalNonVegetarian.ActualOrder / report.TotalNonVegetarian.Registration * 100, 2);
-                }
-
                 report.TotalMeal.ActualOrder += report.TotalNonVegetarian.ActualOrder;
             }
 
             if (numberActualOrderVegNA.Equals(numberActualOrderVeg))
             {
                 report.TotalVegetarian.ActualOrder = -1;
-                report.TotalVegetarian.Efficiency = -1;
             }
             else
             {
-                if (report.TotalVegetarian.Registration.Equals(0))
-                {
-                    report.TotalVegetarian.Efficiency = -1;
-                }
-                else
-                {
-                    report.TotalVegetarian.Efficiency = Math.Round((double)report.TotalVegetarian.ActualOrder / report.TotalVegetarian.Registration * 100, 2);
-                }
-
                 report.TotalMeal.ActualOrder += report.TotalVegetarian.ActualOrder;
             }
 

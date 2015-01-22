@@ -21,6 +21,29 @@ namespace NexFB.Models.Report.MealForecastReport
 
         public int ActualOrder { get; set; }
 
-        public double Efficiency { get; set; }
+        public double Efficiency
+        {
+            get
+            {
+                double efficiency = 0;
+                if (ActualOrder < 0)
+                {
+                    efficiency = -1;
+                }
+                else
+                {
+                    if (Registration.Equals(0))
+                    {
+                        efficiency = -1;
+                    }
+                    else
+                    {
+                        efficiency = Math.Round((double)ActualOrder / Registration * 100, 2);
+                    }
+                }
+
+                return efficiency;
+            }
+        }
     }
 }

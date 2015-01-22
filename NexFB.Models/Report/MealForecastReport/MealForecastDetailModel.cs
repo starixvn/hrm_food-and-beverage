@@ -37,6 +37,29 @@ namespace NexFB.Models.Report.MealForecastReport
 
         public int ActualOrder { get; set; }
 
-        public double OrderRate { get; set; }
+        public double OrderRate
+        {
+            get
+            {
+                double orderRate = 0;
+                if (ActualOrder < 0)
+                {
+                    orderRate = -1;
+                }
+                else
+                {
+                    if (Registration.Equals(0))
+                    {
+                        orderRate = -1;
+                    }
+                    else
+                    {
+                        orderRate = Math.Round((double)ActualOrder / Registration * 100, 2);
+                    }
+                }
+
+                return orderRate;
+            }
+        }
     }
 }
