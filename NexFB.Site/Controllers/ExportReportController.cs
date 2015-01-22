@@ -242,7 +242,7 @@ namespace NexFB.Site.Controllers
         /// <returns>The excel file.</returns>
         public ActionResult ExportMealForecastDetailReport(GetMealForecastDetailReportCriteria criteria)
         {
-            MealForecastDetailHistoryReport report = SessionManager.Get<MealForecastDetailHistoryReport>(
+            MealForecastDetailReport report = SessionManager.Get<MealForecastDetailReport>(
                 ReportConstant.MealForecastDetailReportSessionKey + SessionManager.CurrentUser.UserId);
             string templatePath = string.Empty;
 

@@ -18,10 +18,10 @@ namespace NexFB.Services.Interface.Report
     /// </summary>
     public interface IMealForecastDetailReportService
     {
-        MealForecastDetailHistoryReport GetMealForecastDetailReport(GetMealForecastDetailReportCriteria criteria);
+        MealForecastDetailReport GetMealForecastDetailReport(GetMealForecastDetailReportCriteria criteria);
 
-        MealForecastDetailHistoryReport GetPagingReport(MealForecastDetailHistoryReport fullReport, int startIndex, int itemsPerPage);
+        MealForecastDetailReport GetPagingReport(MealForecastDetailReport fullReport, int startIndex, int itemsPerPage);
 
-        void ExportMealForecastDetailReport(MealForecastDetailHistoryReport report, string templatePath, bool? isVegetarian, DateTime dateSelected);
+        void ExportMealForecastDetailReport(MealForecastDetailReport report, string templatePath, bool? isVegetarian, DateTime dateSelected);
     }
 }

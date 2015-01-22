@@ -43,45 +43,25 @@ namespace NexFB.Services.Implement.Report
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The meal forecast detail history report.</returns>
-        public MealForecastDetailHistoryReport GetMealForecastDetailReport(GetMealForecastDetailReportCriteria criteria)
+        public MealForecastDetailReport GetMealForecastDetailReport(GetMealForecastDetailReportCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            var report = new MealForecastDetailHistoryReport();
+            var report = new MealForecastDetailReport();
             if (criteria.IsValid())
             {
                 report = _mealForecastDetailReportRepository.GetMealForecastDetailReport(criteria);
-                if (report.MealForecastDetails != null)
+
+                report = CalculateTotalMeal(report);
+
+                report.TotalMeal.Registration += report.TotalNonVegetarian.Registration;
+                report.TotalMeal.Registration += report.TotalVegetarian.Registration;
+
+                if (report.TotalNonVegetarian.ActualOrder < 0 && report.TotalVegetarian.ActualOrder < 0)
                 {
-                    report.TotalNonVegetarian = new TotalMealForecastModel
-                    {
-                        Registration = 0,
-                        ActualOrder = 0
-                    };
-
-                    report.TotalVegetarian = new TotalMealForecastModel
-                    {
-                        Registration = 0,
-                        ActualOrder = 0
-                    };
-
-                    report.TotalMeal = new TotalMealForecastModel
-                    {
-                        Registration = 0,
-                        ActualOrder = 0
-                    };
-
-                    report = CalculateTotalMeal(report);
-
-                    report.TotalMeal.Registration += report.TotalNonVegetarian.Registration;
-                    report.TotalMeal.Registration += report.TotalVegetarian.Registration;
-
-                    if (report.TotalNonVegetarian.ActualOrder < 0 && report.TotalVegetarian.ActualOrder < 0)
-                    {
-                        report.TotalMeal.ActualOrder = -1;
-                    }
-
-                    report.TotalItem = report.MealForecastDetails.Count;
+                    report.TotalMeal.ActualOrder = -1;
                 }
+
+                report.TotalItem = report.MealForecastDetails.Count;
             }
 
             return report;
@@ -94,12 +74,12 @@ namespace NexFB.Services.Implement.Report
         /// <param name="startIndex">The start index.</param>
         /// <param name="itemsPerPage">The items per page.</param>
         /// <returns>The paging report.</returns>
-        public MealForecastDetailHistoryReport GetPagingReport(
-            MealForecastDetailHistoryReport fullReport,
+        public MealForecastDetailReport GetPagingReport(
+            MealForecastDetailReport fullReport,
             int startIndex,
             int itemsPerPage)
         {
-            var pagingReport = new MealForecastDetailHistoryReport();
+            var pagingReport = new MealForecastDetailReport();
 
             if (fullReport.MealForecastDetails.Count > 0)
             {
@@ -121,13 +101,13 @@ namespace NexFB.Services.Implement.Report
         /// <param name="isVegetarian">The is vegetarian.</param>
         /// <param name="dateSelected">The date selected.</param>
         public void ExportMealForecastDetailReport(
-            MealForecastDetailHistoryReport report,
+            MealForecastDetailReport report,
             string templatePath,
             bool? isVegetarian,
             DateTime dateSelected)
         {
             string reportName = Lang.MealForecastDetailReportName;
-            string reportTitle = Lang.MealForecastDetailReportTitle + " For " + dateSelected.ToString("dd MMM, yyyy");
+            string reportTitle = Lang.MealForecastDetailReportTitle + dateSelected.ToString("dd MMM, yyyy");
             string reportSheetName = Lang.MealForecastDetailReportSheetName;
             var writer = new ExcelTemplateWriter(templatePath, reportName, reportSheetName);
 
@@ -167,7 +147,7 @@ namespace NexFB.Services.Implement.Report
         /// <param name="itemsPerPage">The items per page.</param>
         /// <returns>The list meal forecast detail.</returns>
         public List<MealForecastDetailModel> GetPagingReportDetail(
-            MealForecastDetailHistoryReport fullReport,
+            MealForecastDetailReport fullReport,
             int startIndex,
             int itemsPerPage)
         {
@@ -191,7 +171,7 @@ namespace NexFB.Services.Implement.Report
         /// </summary>
         /// <param name="report">The report.</param>
         /// <returns>The meal forecast detail history report.</returns>
-        private MealForecastDetailHistoryReport CalculateTotalMeal(MealForecastDetailHistoryReport report)
+        private MealForecastDetailReport CalculateTotalMeal(MealForecastDetailReport report)
         {
             foreach (var item in report.MealForecastDetails)
             {
@@ -260,8 +240,8 @@ namespace NexFB.Services.Implement.Report
                     Meal = CreateMeal(mealForecastDetail.Meals),
                     DietType = mealForecastDetail.IsVegetarian == true ? Lang.Vegetarian : Lang.NonVegetarian,
                     Registration = mealForecastDetail.Registration,
-                    ActualOrder = FormatValueByActualOrder(mealForecastDetail.ActualOrder),
-                    OrderRate = FormatValueByOrderRate(mealForecastDetail.OrderRate)
+                    ActualOrder = mealForecastDetail.ActualOrder < 0 ? "-" : mealForecastDetail.ActualOrder.ToString(),
+                    OrderRate = mealForecastDetail.OrderRate < 0 ? "-" : mealForecastDetail.OrderRate + "%"
                 };
 
                 writer.WriteRow(4, record);
@@ -285,8 +265,8 @@ namespace NexFB.Services.Implement.Report
                 Meal = string.Empty,
                 DietType = string.Empty,
                 Registration = totalMeal.Registration,
-                ActualOrder = FormatValueByActualOrder(totalMeal.ActualOrder),
-                OrderRate = FormatValueByOrderRate(totalMeal.Efficiency)
+                ActualOrder = totalMeal.ActualOrder < 0 ? "-" : totalMeal.ActualOrder.ToString(),
+                OrderRate = totalMeal.Efficiency < 0 ? "-" : totalMeal.Efficiency + "%"
             };
 
             writer.WriteRow(rowIndex, record);
@@ -308,36 +288,6 @@ namespace NexFB.Services.Implement.Report
             }
 
             return mealTemplate;
-        }
-
-        /// <summary>
-        /// Format value by actual order.
-        /// </summary>
-        /// <param name="actualOrder">The actual order.</param>
-        /// <returns>The dynamic value.</returns>
-        private dynamic FormatValueByActualOrder(int actualOrder)
-        {
-            if (actualOrder < 0)
-            {
-                return "-";
-            }
-
-            return actualOrder;
-        }
-
-        /// <summary>
-        /// Format value by order rate.
-        /// </summary>
-        /// <param name="orderRate">The order rate.</param>
-        /// <returns>The dynamic value.</returns>
-        private dynamic FormatValueByOrderRate(double orderRate)
-        {
-            if (orderRate < 0)
-            {
-                return "-";
-            }
-
-            return orderRate.ToString() + "%";
         }
     }
 }

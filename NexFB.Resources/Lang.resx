@@ -1102,6 +1102,6 @@
     <value>Meal Forecast Detail Report</value>
   </data>
   <data name="MealForecastDetailReportTitle" xml:space="preserve">
-    <value>Meal Forecast Detail Report</value>
+    <value>Meal Forecast Detail Report For </value>
   </data>
 </root>

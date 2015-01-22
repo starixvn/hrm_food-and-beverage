@@ -13,7 +13,7 @@ namespace NexFB.Models.Report.MealForecastReport
     using System.Collections.Generic;
 
     /// <summary>
-    /// The meal forecast detail report history.
+    /// The meal forecast detail report.
     /// </summary>
     [Serializable]
     public class MealForecastDetailModel

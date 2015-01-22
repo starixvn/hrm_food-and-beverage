@@ -21,6 +21,9 @@ namespace NexFB.Models.Report.MealForecastReport
         public MealForecastReportModel()
         {
             MealForecasts = new List<MealForecastItemModel>();
+            TotalNonVegetarian = new TotalMealForecastModel();
+            TotalVegetarian = new TotalMealForecastModel();
+            TotalMeal = new TotalMealForecastModel();
         }
 
         public List<MealForecastItemModel> MealForecasts { get; set; }

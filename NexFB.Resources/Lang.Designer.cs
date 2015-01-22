@@ -1510,7 +1510,7 @@ namespace NexFB.Resources
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meal Forecast Detail Report.
+        ///   Looks up a localized string similar to Meal Forecast Detail Report For .
         /// </summary>
         public static string MealForecastDetailReportTitle {
             get {
@@ -2797,6 +2797,15 @@ namespace NexFB.Resources
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total Amount.
+        /// </summary>
+        public static string TotalAmount {
+            get {
+                return ResourceManager.GetString("TotalAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total Meal.
         /// </summary>
         public static string TotalMeal {
@@ -2820,15 +2829,6 @@ namespace NexFB.Resources
         public static string TotalVegetarian {
             get {
                 return ResourceManager.GetString("TotalVegetarian", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total Amount.
-        /// </summary>
-        public static string TotalAmount {
-            get {
-                return ResourceManager.GetString("TotalAmount", resourceCulture);
             }
         }
         

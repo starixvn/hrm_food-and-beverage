@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MealForecastDetailHistoryReport.cs" company="Nexcel Solutions Viet Nam">
+// <copyright file="MealForecastDetailReport.cs" company="Nexcel Solutions Viet Nam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -16,11 +16,14 @@ namespace NexFB.Models.Report.MealForecastReport
     /// Meal forecast detail history report.
     /// </summary>
     [Serializable]
-    public class MealForecastDetailHistoryReport
+    public class MealForecastDetailReport
     {
-        public MealForecastDetailHistoryReport()
+        public MealForecastDetailReport()
         {
             this.MealForecastDetails = new List<MealForecastDetailModel>();
+            TotalNonVegetarian = new TotalMealForecastModel();
+            TotalVegetarian = new TotalMealForecastModel();
+            TotalMeal = new TotalMealForecastModel();
         }
 
         public List<MealForecastDetailModel> MealForecastDetails { get; set; }

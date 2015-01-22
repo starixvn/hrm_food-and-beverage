@@ -87,7 +87,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 				{ params: { fromDate: filter.fromDate.toDateString(),
 					toDate: filter.toDate.toDateString(),
 					departmentId: filter.departmentId,
-					vegetarianType: filter.vegetarianType,
+					isVegetarian: filter.vegetarianType.length === 0 ? '' : filter.vegetarianType === '0' ? false : true,
 					isPagingCallback: filter.isPagingCallback,
 					startIndex: filter.startIndex,
 					itemsPerPage: filter.itemsPerPage
@@ -98,7 +98,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
             return $http.get(baseUrl + 'api/report/GetMealForecastDetailReport',
 				{ params: { date: filter.date,
 					departmentId: filter.departmentId,
-					dietType: filter.dietType,
+					isVegetarian: filter.dietType.length === 0 ? '' : filter.dietType === '0' ? false : true,
 					isPagingCallback: filter.isPagingCallback,
 					startIndex: filter.startIndex,
 					itemsPerPage: filter.itemsPerPage

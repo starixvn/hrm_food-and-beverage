@@ -17,6 +17,6 @@ namespace NexFB.Repositories.Interface.Report
     /// </summary>
     public interface IMealForecastDetailReportRepository
     {
-        MealForecastDetailHistoryReport GetMealForecastDetailReport(ICriteria criteria);
+        MealForecastDetailReport GetMealForecastDetailReport(ICriteria criteria);
     }
 }

@@ -127,7 +127,7 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, n
             fromDate: filter.fromDate.toDateString(),
             toDate: filter.toDate.toDateString(),
             departmentId: filter.departmentId,
-            isVegetarian: filter.vegetarianType === "" ? "" : filter.vegetarianType === '0' ? false : true
+            isVegetarian: filter.vegetarianType.length === 0 ? '' : filter.vegetarianType === '0' ? false : true
         };
         $scope.$broadcast('exportMealForecastReport');
     };

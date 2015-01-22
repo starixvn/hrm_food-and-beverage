@@ -428,7 +428,7 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="fromDate">The from date.</param>
         /// <param name="toDate">The to date.</param>
         /// <param name="departmentId">The department Id.</param>
-        /// <param name="vegetarianType">The vegetarian type.</param>
+        /// <param name="isVegetarian">The vegetarian type.</param>
         /// <param name="isPagingCallback">The is paging call back.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="itemsPerPage">The items per page.</param>
@@ -439,21 +439,11 @@ namespace NexFB.Site.Controllers.API.Report
             DateTime fromDate,
             DateTime toDate,
             int? departmentId = null,
-            int? vegetarianType = null,
+            bool? isVegetarian = null,
             bool isPagingCallback = false,
             int startIndex = 0,
             int itemsPerPage = 50)
         {
-            bool? isVegetarian = null;
-            if (vegetarianType.Equals(0))
-            {
-                isVegetarian = false;
-            }
-            else if (vegetarianType.Equals(1))
-            {
-                isVegetarian = true;
-            }
-
             MealForecastReportModel fullReport = null;
             if (isPagingCallback)
             {
@@ -482,35 +472,25 @@ namespace NexFB.Site.Controllers.API.Report
         /// </summary>
         /// <param name="date">The date selected.</param>
         /// <param name="departmentId">The department Id.</param>
-        /// <param name="dietType">The diet type.</param>
+        /// <param name="isVegetarian">The diet type.</param>
         /// <param name="isPagingCallback">The is paging callback.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="itemsPerPage">The items per page.</param>
         /// <returns>The report.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealForecastReport, Policy = Policy.Read)]
-        public MealForecastDetailHistoryReport GetMealForecastDetailReport(
+        public MealForecastDetailReport GetMealForecastDetailReport(
             DateTime date,
             int? departmentId = null,
-            int? dietType = null,
+            bool? isVegetarian = null,
             bool isPagingCallback = false,
             int startIndex = 0,
             int itemsPerPage = 50)
         {
-            bool? isVegetarian = null;
-            if (dietType.Equals(0))
-            {
-                isVegetarian = false;
-            }
-            else if (dietType.Equals(1))
-            {
-                isVegetarian = true;
-            }
-
-            MealForecastDetailHistoryReport fullReport = null;
+            MealForecastDetailReport fullReport = null;
             if (isPagingCallback)
             {
-                fullReport = SessionManager.Get<MealForecastDetailHistoryReport>(ReportConstant.MealForecastDetailReportSessionKey + CurrentUser.UserId);
+                fullReport = SessionManager.Get<MealForecastDetailReport>(ReportConstant.MealForecastDetailReportSessionKey + CurrentUser.UserId);
             }
             else
             {
@@ -522,10 +502,10 @@ namespace NexFB.Site.Controllers.API.Report
                 };
 
                 fullReport = _mealForecastDetailReportService.GetMealForecastDetailReport(criteria);
-                SessionManager.Set<MealForecastDetailHistoryReport>(ReportConstant.MealForecastDetailReportSessionKey + CurrentUser.UserId, fullReport);
+                SessionManager.Set<MealForecastDetailReport>(ReportConstant.MealForecastDetailReportSessionKey + CurrentUser.UserId, fullReport);
             }
 
-            MealForecastDetailHistoryReport pagingReport = _mealForecastDetailReportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            MealForecastDetailReport pagingReport = _mealForecastDetailReportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
             return pagingReport;
         }
 

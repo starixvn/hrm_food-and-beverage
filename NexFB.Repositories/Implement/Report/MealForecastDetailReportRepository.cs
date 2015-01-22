@@ -26,13 +26,13 @@ namespace NexFB.Repositories.Implement.Report
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The meal forecast detail history.</returns>
-        public MealForecastDetailHistoryReport GetMealForecastDetailReport(ICriteria criteria)
+        public MealForecastDetailReport GetMealForecastDetailReport(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    var report = new MealForecastDetailHistoryReport();
+                    var report = new MealForecastDetailReport();
 
                     report.MealForecastDetails = multi.Read<MealForecastDetailModel>().ToList();
                     List<MealModel> allMeals = multi.Read<MealModel>().ToList();

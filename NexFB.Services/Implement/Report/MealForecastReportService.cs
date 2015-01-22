@@ -36,36 +36,16 @@ namespace NexFB.Services.Implement.Report
 
             if (criteria.IsValid())
             {
-                var mealForecasts = this.GetData<MealForecastItemModel>(criteria).ToList();
-                report.MealForecasts = mealForecasts;
+                report.MealForecasts = this.GetData<MealForecastItemModel>(criteria).ToList();
 
-                if (report.MealForecasts != null)
+                report = CalculateTotalMeal(report);
+
+                if (report.TotalNonVegetarian.ActualOrder < 0 && report.TotalVegetarian.ActualOrder < 0)
                 {
-                    report.TotalNonVegetarian = new TotalMealForecastModel
-                    {
-                        Registration = 0,
-                        ActualOrder = 0
-                    };
-                    report.TotalVegetarian = new TotalMealForecastModel
-                    {
-                        Registration = 0,
-                        ActualOrder = 0
-                    };
-                    report.TotalMeal = new TotalMealForecastModel
-                    {
-                        Registration = 0,
-                        ActualOrder = 0
-                    };
-
-                    report = CalculateTotalMeal(report);
-
-                    if (report.TotalNonVegetarian.ActualOrder < 0 && report.TotalVegetarian.ActualOrder < 0)
-                    {
-                        report.TotalMeal.ActualOrder = -1;
-                    }
-
-                    report.TotalItem = report.MealForecasts.Count;
+                    report.TotalMeal.ActualOrder = -1;
                 }
+
+                report.TotalItem = report.MealForecasts.Count;
             }
 
             return report;
@@ -235,8 +215,8 @@ namespace NexFB.Services.Implement.Report
                         Date = mealForecast.OnDate,
                         DietType = Lang.NonVegetarian,
                         Registration = mealForecast.RegistrationNonVegetarian,
-                        ActualOrder = FormatValueByActualOrder(mealForecast.ActualOrderNonVegetarian),
-                        Efficiency = FormatValueByOrderRate(mealForecast.EfficiencyNonVegetarian)
+                        ActualOrder = mealForecast.ActualOrderNonVegetarian < 0 ? "-" : mealForecast.ActualOrderNonVegetarian.ToString(),
+                        Efficiency = mealForecast.EfficiencyNonVegetarian < 0 ? "-" : mealForecast.EfficiencyNonVegetarian + "%"
                     };
                     var recordVeg = new
                     {
@@ -244,8 +224,8 @@ namespace NexFB.Services.Implement.Report
                         Date = mealForecast.OnDate,
                         DietType = Lang.Vegetarian,
                         Registration = mealForecast.RegistrationVegetarian,
-                        ActualOrder = FormatValueByActualOrder(mealForecast.ActualOrderVegetarian),
-                        Efficiency = FormatValueByOrderRate(mealForecast.EfficiencyVegetarian)
+                        ActualOrder = mealForecast.ActualOrderVegetarian < 0 ? "-" : mealForecast.ActualOrderNonVegetarian.ToString(),
+                        Efficiency = mealForecast.EfficiencyVegetarian < 0 ? "-" : mealForecast.EfficiencyVegetarian + "%"
                     };
                     writer.WriteRow(4, recordNonVeg);
                     writer.WriteRow(5, recordVeg);
@@ -262,10 +242,10 @@ namespace NexFB.Services.Implement.Report
                         Date = mealForecast.OnDate,
                         DietType = isVegetarian == true ? Lang.Vegetarian : Lang.NonVegetarian,
                         Registration = isVegetarian == true ? mealForecast.RegistrationVegetarian : mealForecast.RegistrationNonVegetarian,
-                        ActualOrder = isVegetarian == true ? FormatValueByActualOrder(mealForecast.ActualOrderVegetarian) :
-                            FormatValueByActualOrder(mealForecast.ActualOrderNonVegetarian),
-                        Efficiency = isVegetarian == true ? FormatValueByOrderRate(mealForecast.EfficiencyVegetarian) :
-                            FormatValueByOrderRate(mealForecast.EfficiencyNonVegetarian)
+                        ActualOrder = isVegetarian == true ? (mealForecast.ActualOrderVegetarian < 0 ? "-" : mealForecast.ActualOrderVegetarian.ToString()) :
+                            (mealForecast.ActualOrderNonVegetarian < 0 ? "-" : mealForecast.ActualOrderNonVegetarian.ToString()),
+                        Efficiency = isVegetarian == true ? (mealForecast.EfficiencyVegetarian < 0 ? "-" : mealForecast.EfficiencyVegetarian + "%") :
+                            (mealForecast.EfficiencyNonVegetarian < 0 ? "-" : mealForecast.EfficiencyNonVegetarian + "%")
                     };
                     writer.WriteRow(4, record);
                 }
@@ -287,41 +267,11 @@ namespace NexFB.Services.Implement.Report
                 Date = string.Empty,
                 DietType = string.Empty,
                 Registration = totalMeal.Registration,
-                ActualOrder = FormatValueByActualOrder(totalMeal.ActualOrder),
-                Efficiency = FormatValueByOrderRate(totalMeal.Efficiency)
+                ActualOrder = totalMeal.ActualOrder < 0 ? "-" : totalMeal.ActualOrder.ToString(),
+                Efficiency = totalMeal.Efficiency < 0 ? "-" : totalMeal.Efficiency + "%"
             };
 
             writer.WriteRow(rowIndex, record);
-        }
-
-        /// <summary>
-        /// Format value by actual order.
-        /// </summary>
-        /// <param name="actualOrder">The actual order.</param>
-        /// <returns>The dynamic value.</returns>
-        private dynamic FormatValueByActualOrder(int actualOrder)
-        {
-            if (actualOrder < 0)
-            {
-                return "-";
-            }
-
-            return actualOrder;
-        }
-
-        /// <summary>
-        /// Format value by order rate.
-        /// </summary>
-        /// <param name="orderRate">The order rate.</param>
-        /// <returns>The dynamic value.</returns>
-        private dynamic FormatValueByOrderRate(double orderRate)
-        {
-            if (orderRate < 0)
-            {
-                return "-";
-            }
-
-            return orderRate.ToString() + "%";
         }
     }
 }
