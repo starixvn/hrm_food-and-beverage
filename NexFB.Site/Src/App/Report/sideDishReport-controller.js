@@ -17,6 +17,7 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 	$scope.teams = [];
 	$scope.employeeTypes = [];
 	$scope.sideDishItems = [];
+	$scope.isHandling = false;
 
 	$scope.criteria = {
 		departmentId: null,
@@ -49,8 +50,10 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 
 		if (dateType === "from") {
 			$scope.fromOpened = true;
+			$scope.toOpened = false;
 		} else if (dateType === "to") {
 			$scope.toOpened = true;
+			$scope.fromOpened = false;
 		}
 	};
 
@@ -107,6 +110,26 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 		});
 	};
 
+	$scope.getAllSideDish = function () {
+		$scope.criteria.employeeTypeIds = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypes);
+
+		if ($scope.criteria.employeeTypeIds.length === 0) {
+			var ids = [];
+
+			angular.forEach($scope.employeeTypes, function (employeeType) {
+				ids.push(employeeType.EmployeeTypeId);
+			});
+
+			$scope.criteria.employeeTypeIds = ids.join(',');
+		}
+
+		reportFactory.getAllSideDish(null, null, $scope.criteria.employeeTypeIds).success(function (sideDishes) {
+			$scope.sideDishItems = sideDishes;
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
+	};
+
 	// self region.
 	self.getTeams = function () {
 		if ($scope.criteria.departmentId > 0) {
@@ -141,36 +164,7 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 
 		foodMenuFactory.getAllEmployeeType($scope.criteria.departmentIds).success(function (employeeTypes) {
 			$scope.employeeTypes = employeeTypes;
-
-			self.handleEmployeeTypeChange();
-		}).error(function (response, status) {
-			ErrorFactory.errorHandle(status);
-		});
-	};
-
-	self.handleEmployeeTypeChange = function () {
-		angular.forEach($scope.employeeTypes, function (employeeType) {
-			$scope.$watch(function () { return employeeType.ticked; }, function () {
-				self.getAllSideDish();
-			});
-		});
-	};
-
-	self.getAllSideDish = function () {
-		$scope.criteria.employeeTypeIds = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypes);
-
-		if ($scope.criteria.employeeTypeIds.length === 0) {
-			var ids = [];
-
-			angular.forEach($scope.employeeTypes, function (employeeType) {
-				ids.push(employeeType.EmployeeTypeId);
-			});
-
-			$scope.criteria.employeeTypeIds = ids.join(',');
-		}
-
-		reportFactory.getAllSideDish(null, null, $scope.criteria.employeeTypeIds).success(function (sideDishes) {
-			$scope.sideDishItems = sideDishes;
+			$scope.getAllSideDish();
 		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
 		});

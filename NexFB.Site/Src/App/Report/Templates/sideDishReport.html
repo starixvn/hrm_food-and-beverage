@@ -26,7 +26,8 @@
 			<div class="col-sm-2 field">
 				<add-class-to-role-filter multi-select input-model="employeeTypes" button-label="EmployeeTypeId"
 					helper-elements="all reset" item-label="EmployeeTypeName" tick-property="ticked"
-					max-labels="0" class="multi-select employee-type">
+					max-labels="0" class="multi-select employee-type" on-item-click="getAllSideDish()"
+					on-reset="getAllSideDish()" on-select-all="getAllSideDish()">
 				</add-class-to-role-filter>
 			</div>
 		</div>
@@ -62,5 +63,5 @@
 		</form>
 	</div>
 	<div id="sideDishReport" class="freegrid" data-side-dish-report>
-	</div>	
+	</div>
 </div>
