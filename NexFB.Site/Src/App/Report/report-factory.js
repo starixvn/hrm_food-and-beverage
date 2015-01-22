@@ -25,6 +25,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 					fromDate: filter.fromDate.toDateString(),
 					toDate: filter.toDate.toDateString(),
 					orderCount: filter.orderCount,
+					employeeTypeId: filter.employeeTypeId,
 					departmentId: filter.departmentId,
 					teamId: filter.teamId,
 					mealId: filter.mealId,
