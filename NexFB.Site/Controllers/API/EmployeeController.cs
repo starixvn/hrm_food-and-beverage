@@ -43,6 +43,13 @@ namespace NexFB.Site.Controllers.API
             _webCommonService = webCommonService ?? new WebCommonService();
         }
 
+        /// <summary>
+        /// Gets the employees.
+        /// </summary>
+        /// <param name="keyWord">The key word.</param>
+        /// <param name="departmentId">The department identifier.</param>
+        /// <param name="teamId">The team identifier.</param>
+        /// <returns>Employee list.</returns>
         [HttpGet]
         public IList<Employee> GetEmployees(string keyWord = "", string departmentId = "", string teamId = null)
         {

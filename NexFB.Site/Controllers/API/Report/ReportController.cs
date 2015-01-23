@@ -201,15 +201,16 @@ namespace NexFB.Site.Controllers.API.Report
         /// <summary>
         /// Gets the side dish report.
         /// </summary>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
+        /// <param name="fromDate">The From date.</param>
+        /// <param name="toDate">The To date.</param>
         /// <param name="departmentId">The department identifier.</param>
         /// <param name="teamIds">The team ids.</param>
         /// <param name="employeeTypeIds">The employee type ids.</param>
+        /// <param name="userId">The user identifier.</param>
         /// <param name="sideDishItemIds">The side dish item ids.</param>
         /// <param name="pageIndex">Index of the page.</param>
         /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The SideDishReportModel data.</returns>
+        /// <returns>SideDishReportModel data.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.SideDishReport, Policy = Policy.Read)]
         public SideDishReportModel GetSideDishReport(
