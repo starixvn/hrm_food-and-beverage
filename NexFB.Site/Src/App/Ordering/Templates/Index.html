@@ -194,8 +194,8 @@
                         <label class="control-label width-100" data-translate="Member">
                         </label>
                         <input class="form-control txtMember custom-padding" ng-model="searchNewMember"
-                            placeholder="Enter full name or nick name" search-auto-complete search-employees="searchEmployees"
-                            ng-change="getEmployee(searchNewMember)" employee="newMember.employee" name="txtEmployeeForNewOrder"
+                            placeholder="Enter full name or nick name" search-auto-complete search-employees="getNewEmployee()"
+                            ng-change="unSelectNewEmployee()" employee="newMember.employee" name="txtEmployeeForNewOrder"
                             ng-enter="add(false)" />
                         <div class="pull-right">
                             <a ng-click="add(false)" class="button"><i class="glyphicon glyphicon-plus icon-plus">
@@ -303,8 +303,8 @@
                         <label class="control-label width-100" data-translate="Member">
                         </label>
                         <input class="form-control txtMember custom-padding" ng-model="searchSavedMember"
-                            placeholder="Enter full name or nick name" search-auto-complete search-employees="searchEmployees"
-                            ng-change="getEmployee(searchSavedMember)" employee="savedMember.employee" name="txtEmployeeForSavedOrder"
+                            placeholder="Enter full name or nick name" search-auto-complete search-employees="getSavedEmployee()"
+                            ng-change="unSelectSavedEmployee()" employee="savedMember.employee" name="txtEmployeeForSavedOrder"
                             ng-enter="add(true)" />
                         <div class="pull-right btn-add">
                             <a ng-click="add(true)" class="button pull-right"><i class="glyphicon glyphicon-plus icon-plus">
@@ -411,7 +411,7 @@
 						<div class="form-group">
 							<label class="control-label width-100" data-translate="Member"></label>
 							<input class="form-control txtMember custom-padding" ng-model="searchSideDishMember" placeholder="Enter full name or nick name"
-									search-auto-complete search-employees="searchEmployees" ng-change="getEmployee(searchSideDishMember)"
+									search-auto-complete search-employees="getSideDishEmployee()" ng-change="unSelectSideDishEmployee()"
 									employee="sideDishMember.employee" name="txtMemberSideDish" ng-enter="add(false, true)"/>
 							<div class="pull-right btn-add">
 								<a ng-click="add(false, true)" class="button pull-right">

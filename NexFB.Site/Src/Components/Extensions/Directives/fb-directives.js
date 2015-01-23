@@ -28,7 +28,11 @@ appModule.directive('paginationBar', function () {
 
 appModule.directive('searchAutoComplete', ['$timeout', 'ErrorFactory', function ($timeout, ErrorFactory) {
 	return {
-		scope: { employee: "=employee", searchEmployees: "&" },
+		scope: {
+			employee: "=employee",
+			searchEmployees: "&",
+			style: '@'
+		},
 		link: function (scope, iElement) {
 			iElement.autocomplete({
 				source: function (request, response) {
@@ -43,6 +47,14 @@ appModule.directive('searchAutoComplete', ['$timeout', 'ErrorFactory', function 
 						});
 
 						response(data);
+
+						if (scope.style) {
+							if (data.length > 0) {
+								angular.element(".ui-autocomplete").attr("style", scope.style);
+							} else {
+								angular.element(".ui-autocomplete").attr("style", "display: none;");
+							}
+						}
 					}).error(function (response, status) {
 						ErrorFactory.errorHandle(status);
 					});
@@ -55,7 +67,7 @@ appModule.directive('searchAutoComplete', ['$timeout', 'ErrorFactory', function 
 				},
 				appendTo: iElement.parent(),
 				delay: 500,
-				minLength: 3
+				minLength: 2
 			});
 		}
 	};

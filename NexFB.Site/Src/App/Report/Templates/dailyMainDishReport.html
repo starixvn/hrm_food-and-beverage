@@ -24,9 +24,9 @@
 				<label class="col-sm-1 text-right" data-translate="Employee">
                 </label>
 				<div class="col-sm-2 field">
-				    <input class="form-control custom-padding" ng-model="searchEmployee"
-						placeholder="Enter full name or nick name" search-auto-complete search-employees="searchEmployees"
-						ng-change="getEmployee(searchEmployee)" employee="filter.employee" />
+				    <input class="form-control custom-padding" data-ng-model="searchEmployee"
+						placeholder="Enter full name or nick name" data-search-auto-complete data-search-employees="getEmployee()"
+						data-ng-change="unSelectEmployee()" data-employee="filter.employee" data-style="width: 250px;top: 27px;left: 0.28125px;" />
 				</div>
 				<label class="col-sm-1 text-right" data-translate="OrderCount" >
 				</label>

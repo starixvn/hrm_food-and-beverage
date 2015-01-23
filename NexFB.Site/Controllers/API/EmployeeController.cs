@@ -49,15 +49,17 @@ namespace NexFB.Site.Controllers.API
         /// <param name="keyWord">The key word.</param>
         /// <param name="departmentId">The department identifier.</param>
         /// <param name="teamId">The team identifier.</param>
-        /// <returns>Employee list.</returns>
+        /// <param name="isShowDisable">If set to <c>true</c> [is show disable].</param>
+        /// <returns>The employee data.</returns>
         [HttpGet]
-        public IList<Employee> GetEmployees(string keyWord = "", string departmentId = "", string teamId = null)
+        public IList<Employee> GetEmployees(string keyWord = "", string departmentId = "", string teamId = null, bool isShowDisable = false)
         {
             var criteria = new GetEmployeeCriteria()
             {
                 DepartmentId = string.IsNullOrEmpty(departmentId) ? this.CurrentUser.DepartmentId.ToString() : departmentId,
                 Keyword = keyWord,
-                TeamId = teamId
+                TeamId = teamId,
+                IsShowDisable = isShowDisable
             };
 
             IList<Employee> employees = _employeeService.GetEmployeeByQuery(criteria);

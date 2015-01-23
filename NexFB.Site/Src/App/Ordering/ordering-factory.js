@@ -32,10 +32,15 @@ orderingModule.factory("orderingFactory",
 			getDepartment: function () {
 				return $http.get(baseUrl + 'api/Common/GetAllDepartment');
 			},
-			getEmployees: function (keyWord, departmentId, teamId) {
+			getEmployees: function (keyWord, departmentId, teamId, isShowDisable) {
 				return $http.get(baseUrl + 'api/Employee/GetEmployees',
 					{
-						params: { keyWord: keyWord, departmentId: departmentId, teamId: teamId }
+						params: {
+							keyWord: keyWord,
+							departmentId: departmentId,
+							teamId: teamId,
+							isShowDisable: isShowDisable
+						}
 					}
 				);
 			},

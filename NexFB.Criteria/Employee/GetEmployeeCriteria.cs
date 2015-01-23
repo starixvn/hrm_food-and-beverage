@@ -28,6 +28,8 @@ namespace NexFB.Criteria.Employee
 
         public string RoleId { get; set; }
 
+        public bool IsShowDisable { get; set; }
+
         public override string GetSettingKey()
         {
             return "Employee_GetEmployees";

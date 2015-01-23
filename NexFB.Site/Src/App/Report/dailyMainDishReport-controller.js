@@ -103,8 +103,7 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 			$scope.getTeamByCompany($scope.filter.departmentId);
 		}
 
-		getEmployeeType($scope.filter.departmentId, null);
-		getEmployee($scope.searchEmployee, $scope.filter.departmentId);
+		getEmployeeType($scope.filter.departmentId, null);		
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
@@ -140,26 +139,23 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 	/*
 	** Get all employees.
 	*/
-	$scope.getEmployee = function (searchKey) {
+	$scope.getEmployee = function () {
 		var departmentId = $scope.filter.departmentId;
 
 		if (!departmentId) {
 			departmentId = $scope.originalDepartmentId;
 		}
-		getEmployee(searchKey, departmentId);
+
+		return orderingFactory.getEmployees($scope.searchEmployee, departmentId);
 	};
 
-	var getEmployee = function (searchKey, departmentId) {
-		$scope.filter.employee = '';
-
-		orderingFactory.getEmployees(searchKey, departmentId).then(
-			function (employees) {
-				$scope.searchEmployees = employees;
-			},
-			function (response) {
-				ErrorFactory.errorHandle(response.status);
-			});
-	};
+	$scope.unSelectEmployee = function () {
+		if ($scope.searchEmployee.trim() === '') {
+			if ($scope.filter && $scope.filter.employee) {
+				$scope.filter.employee = null;
+			}
+		}
+	};	
 
 	/*
 	** Get all employee type.
@@ -182,8 +178,7 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 			departmentId = $scope.originalDepartmentId;
 		}
 
-		getEmployeeType(departmentId, null);
-		getEmployee($scope.searchEmployee, departmentId);
+		getEmployeeType(departmentId, null);		
 	};
 
 	/*

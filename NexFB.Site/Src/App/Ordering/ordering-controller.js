@@ -59,6 +59,9 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 	$scope.newOrder = [];
 	$scope.savedOrder = [];
 	$scope.myOrder = [];
+	$scope.searchNewMember = '';
+	$scope.searchSavedMember = '';
+	$scope.searchSideDishMember = '';
 
 	var orderSignalR = $.connection.order;
 	$scope.sendNewOrder = function (orderId) {
@@ -603,20 +606,50 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 		};
 	};
 
-	$scope.getEmployee = function (searchKey) {
-		orderingFactory.getEmployees(searchKey).then(
-		function (employees) {
-			$scope.searchEmployees = employees;
-		},
-		function (response) {
-			ErrorFactory.errorHandle(response.status);
-		});
+	var getEmployee = function (keyword) {
+		return orderingFactory.getEmployees(keyword);
+	};
+
+	$scope.getNewEmployee = function () {
+		return getEmployee($scope.searchNewMember);
+	};
+
+	$scope.unSelectNewEmployee = function () {
+		if ($scope.searchNewMember.trim() === '') {
+			if ($scope.newMember && $scope.newMember.employee) {
+				$scope.newMember.employee = null;
+			}
+		}
+	};
+
+	$scope.getSavedEmployee = function () {
+		return getEmployee($scope.searchSavedMember);
+	};
+
+	$scope.unSelectSavedEmployee = function () {
+		if ($scope.searchSavedMember.trim() === '') {
+			if ($scope.savedMember && $scope.savedMember.employee) {
+				$scope.savedMember.employee = null;
+			}
+		}
+	};
+
+	$scope.getSideDishEmployee = function () {
+		return getEmployee($scope.searchSideDishMember);
+	};
+
+	$scope.unSelectSideDishEmployee = function () {
+		if ($scope.searchSideDishMember.trim() === '') {
+			if ($scope.sideDishMember && $scope.sideDishMember.employee) {
+				$scope.sideDishMember.employee = null;
+			}
+		}
 	};
 
 	$scope.add = function (isSavedOrder, isSideDishOrder) {
 		var newMember = isSideDishOrder ? $scope.sideDishMember :
 				(isSavedOrder ? $scope.savedMember : $scope.newMember);
-		if (newMember !== undefined && newMember.employee !== undefined) {
+		if (newMember && newMember.employee) {
 			var member = {
 				Member: '',
 				Menus: '',

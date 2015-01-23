@@ -34,8 +34,8 @@
 			</label>
 			<div class="col-sm-2 field">
 				<input class="form-control custom-padding" data-ng-model="searchEmployee" placeholder="Enter full name or nick name"
-					data-search-auto-complete data-search-employees="getEmployee()"
-					data-employee="criteria.employee" />
+					data-search-auto-complete data-search-employees="getEmployee()" data-ng-change="unSelectEmployee()"
+					data-employee="criteria.employee" data-style="width: 250px;top: 27px;left: -0.1875px;" />
 			</div>
 		</div>
 		<div class="form-group">

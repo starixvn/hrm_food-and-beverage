@@ -9,7 +9,7 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 
 	$scope.newMember = {};
 	$scope.alterEdit = {};
-	$scope.startTime = startTime;
+	$scope.startTime = startTime;	
 
 	$scope.getMessage = function () {
 		$translate('ConfirmMessageUpdateOrder').then(function (message) {
@@ -234,8 +234,8 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 				}).error(function (response, status) {
 					ErrorFactory.errorHandle(status);
 				});
-					});
-				}
+				});
+			}
 			else {
 				notificationFactory.error('DeliveryAreaNotExistError');
 			}
@@ -336,18 +336,20 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 	});
 
 	$scope.getEmployee = function (searchKey) {
-		orderingFactory.getEmployees(searchKey).then(
-		function (employees) {
-			$scope.searchEmployees = employees;
-		},
-		function (response) {
-			ErrorFactory.errorHandle(response.status);
-		});
+		return orderingFactory.getEmployees(searchKey);
+	};
+
+	$scope.unSelectEmployee = function (searchKey) {
+		if (searchKey.trim() === '') {
+			if ($scope.newMember && $scope.newMember.employee) {
+				$scope.newMember.employee = null;
+			}
+		}
 	};
 
 	$scope.add = function () {
 		var newMember = $scope.newMember;
-		if (newMember !== undefined && newMember.employee !== undefined) {
+		if (newMember && newMember.employee) {
 			var member = {
 				Member: '',
 				Menus: '',

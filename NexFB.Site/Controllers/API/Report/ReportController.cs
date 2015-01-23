@@ -231,7 +231,7 @@ namespace NexFB.Site.Controllers.API.Report
                 DepartmentId = departmentId,
                 TeamId = teamIds,
                 EmployeeTypeId = employeeTypeIds,
-                SysId = userId,
+                UserId = userId,
                 SideDishItemId = sideDishItemIds,
                 PageIndex = pageIndex,
                 ItemsPerPage = itemsPerPage

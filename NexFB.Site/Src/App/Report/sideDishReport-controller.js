@@ -16,7 +16,7 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 	$scope.departments = [];
 	$scope.teams = [];
 	$scope.employeeTypes = [];
-	$scope.sideDishItems = [];	
+	$scope.sideDishItems = [];
 	$scope.searchEmployee = '';
 
 	$scope.criteria = {
@@ -135,9 +135,15 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 	$scope.getEmployee = function () {
 		self.getTeamIdsAndDepartmentIds();
 
-		var result = orderingFactory.getEmployees($scope.searchEmployee, $scope.criteria.departmentIds, $scope.criteria.teamIds);
-		
+		var result = orderingFactory.getEmployees($scope.searchEmployee, $scope.criteria.departmentIds, $scope.criteria.teamIds, true);
+
 		return result;
+	};
+
+	$scope.unSelectEmployee = function () {
+		if ($scope.searchEmployee.trim() === '') {
+			$scope.criteria.employee = null;
+		}
 	};
 
 	// self region.
@@ -203,7 +209,7 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 
 	self.loadData = function () {
 		self.getDepartment(function () {
-			$scope.getTeamAndEmployeeType($scope.criteria.departmentId);
+			$scope.getTeamAndEmployeeType();
 
 			$scope.getReportData();
 		});
@@ -239,4 +245,5 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 	};
 
 	self.loadData();
+
 } ]);
