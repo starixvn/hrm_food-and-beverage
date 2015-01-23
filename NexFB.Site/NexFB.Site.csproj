@@ -362,6 +362,7 @@
     <Content Include="Src\App\SideDishManagement\Templates\create.html" />
     <Content Include="Src\App\SideDishManagement\Templates\edit.html" />
     <Content Include="Src\App\SideDishManagement\Templates\index.html" />
+    <Content Include="Src\App\UserControl\Templates\UserPermission\resetPassword.html" />
     <Content Include="Src\App\UserControl\userControl-directive.js" />
     <Content Include="Src\Components\Extensions\Common\modalconfirm-controller.js" />
     <Content Include="Src\Components\Extensions\Common\Templates\AccessDenied.html" />

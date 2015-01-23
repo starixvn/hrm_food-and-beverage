@@ -7,7 +7,7 @@ userControlModule.factory('userControlFactory', ['$http', 'baseUrl', function ($
 			return $http.get(baseUrl + 'api/UserControl/GetFunctionByRole', { params: { roleId: roleId} });
 		},
 		getAllSystemRole: function (exceptSystemAdmin) {
-			return $http.get(baseUrl + 'api/UserControl/GetAllSystemRole', { params: { exceptSystemAdmin: exceptSystemAdmin } });
+			return $http.get(baseUrl + 'api/UserControl/GetAllSystemRole', { params: { exceptSystemAdmin: exceptSystemAdmin} });
 		},
 		assignPermissionToRole: function (roleFunction) {
 			return $http.post(baseUrl + 'api/UserControl/AssignPermissionToRole', roleFunction);
@@ -33,6 +33,9 @@ userControlModule.factory('userControlFactory', ['$http', 'baseUrl', function ($
 		},
 		getManageUserPermission: function () {
 			return $http.get(baseUrl + 'api/UserControl/GetManageUserPermission');
+		},
+		resetPassword: function (userId) {
+			return $http.get(baseUrl + 'api/UserControl/ResetPassword', { params: { userId: userId} });
 		}
 	};
 } ]);

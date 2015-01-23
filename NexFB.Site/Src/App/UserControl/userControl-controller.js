@@ -178,6 +178,38 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 		});
 	};
 
+	$scope.resetPassword = function (employee) {
+		var modalResetPassword = $modal.open({
+			templateUrl: baseUrl + 'src/app/UserControl/Templates/UserPermission/resetPassword.html',
+			controller: "ResetPasswordController",
+			backdrop: 'static',
+			resolve: {
+				userId: function () {
+					return employee.UserId;
+				}
+			},
+			windowClass: "modal-reset-password"
+		});
+
+		modalResetPassword.result.then(function (userId) {
+			userControlFactory.resetPassword(userId).success(function (response) {
+				if (response.IsSuccessful) {
+					notificationFactory.success("DataChangeSuccessfully");
+				}
+				else {
+					notificationFactory.error("", response.Message);
+				}
+			}).error(function (response, status) {
+				if (status === 405) {
+					ErrorFactory.errorHandle(status);
+				}
+				else {
+					notificationFactory.error("DataChangeFail");
+				}
+			});
+		});
+	};
+
 	$scope.reload = function () {
 		$route.reload();
 	};
@@ -246,3 +278,15 @@ function ($scope, $modalInstance, userId, userControlFactory, ErrorFactory) {
 		$modalInstance.dismiss("cancel");
 	};
 } ]);
+
+userControlModule.controller('ResetPasswordController',
+['$scope', '$modalInstance', 'userId',
+function ($scope, $modalInstance, userId){
+	$scope.save = function () {
+		$modalInstance.close(userId);
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
+	};
+}]);

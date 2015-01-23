@@ -421,6 +421,15 @@ namespace NexFB.Resources
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to reset password?.
+        /// </summary>
+        public static string ConfirmResetPassword {
+            get {
+                return ResourceManager.GetString("ConfirmResetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Alternative Menu.
         /// </summary>
         public static string CreateAlternativeMenu {
@@ -2361,6 +2370,15 @@ namespace NexFB.Resources
         public static string RequireOldPassword {
             get {
                 return ResourceManager.GetString("RequireOldPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset Password.
+        /// </summary>
+        public static string ResetPassword {
+            get {
+                return ResourceManager.GetString("ResetPassword", resourceCulture);
             }
         }
         

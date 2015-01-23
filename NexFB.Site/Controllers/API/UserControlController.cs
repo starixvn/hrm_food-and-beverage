@@ -15,6 +15,7 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
+    using NexFB.Criteria.Employee;
     using NexFB.Criteria.UserControl;
     using NexFB.Models.Employee;
     using NexFB.Models.UserControl;
@@ -35,19 +36,23 @@ namespace NexFB.Site.Controllers.API
 
         private IWebCommonService _webCommonService;
 
+        private IEmployeeService _employeeService;
+
         public UserControlController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public UserControlController(
-            IUserControlService userControlService, 
+            IUserControlService userControlService,
             ICommonService commonService,
-            IWebCommonService webCommonService)
+            IWebCommonService webCommonService,
+            IEmployeeService employeeService)
         {
             _userControlService = userControlService ?? new UserControlService();
             _commonService = commonService ?? new CommonService();
             _webCommonService = webCommonService ?? new WebCommonService();
+            _employeeService = employeeService ?? new EmployeeService();
         }
 
         [HttpGet]
@@ -151,6 +156,25 @@ namespace NexFB.Site.Controllers.API
         {
             int policy = _webCommonService.GetPermission(FBFunctionKey.ManageUser);
             return policy;
+        }
+
+        /// <summary>
+        /// Reset Password.
+        /// </summary>
+        /// <param name="userId">The user Id.</param>
+        /// <returns>Command Result.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.ManageUser, Policy = Policy.Host)]
+        public CommandResult ResetPassword(int userId)
+        {
+            var criteria = new ChangePasswordCriteria()
+            {
+                UserId = userId,
+                Password = Constants.DefaultPassword,
+                ModifiedBy = this.CurrentUser.UserId
+            };
+
+            return _employeeService.UpdatePassword(criteria);
         }
     }
 }

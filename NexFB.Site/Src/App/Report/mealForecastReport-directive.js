@@ -32,8 +32,8 @@ reportModule.directive('renderMealForecastReport', function () {
     var generateDataBody = function (report, scope) {
         var linkToDetail = function (currentCell) {
             var departmentId = '';
-            if (scope.filter.departmentId !== '') {
-                departmentId = scope.filter.departmentId;
+            if (scope.filter.departmentId.length > 0) {
+				departmentId = scope.filter.departmentId;
             }
 
             var date = currentCell.Value,

@@ -32,6 +32,8 @@ namespace NexFB.Core.Constants
 
         public const string NonAvailable = "N/A";
 
+        public const string DefaultPassword = "123456";
+
         private Constants()
         {
         }

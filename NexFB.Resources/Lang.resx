@@ -1104,4 +1104,10 @@
   <data name="MealForecastDetailReportTitle" xml:space="preserve">
     <value>Meal Forecast Detail Report For </value>
   </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="ConfirmResetPassword" xml:space="preserve">
+    <value>Are you sure you want to reset password?</value>
+  </data>
 </root>
