@@ -32,7 +32,8 @@ namespace NexFB.Site.Controllers.API
         private readonly IEmployeeService _employeeService;
         private readonly IWebCommonService _webCommonService;
 
-        public EmployeeController() : this(null, null)
+        public EmployeeController()
+            : this(null, null)
         {
         }
 
@@ -43,12 +44,13 @@ namespace NexFB.Site.Controllers.API
         }
 
         [HttpGet]
-        public IList<Employee> GetEmployees(string keyWord = "", string departmentId = "")
+        public IList<Employee> GetEmployees(string keyWord = "", string departmentId = "", string teamId = null)
         {
             var criteria = new GetEmployeeCriteria()
             {
                 DepartmentId = string.IsNullOrEmpty(departmentId) ? this.CurrentUser.DepartmentId.ToString() : departmentId,
                 Keyword = keyWord,
+                TeamId = teamId
             };
 
             IList<Employee> employees = _employeeService.GetEmployeeByQuery(criteria);
@@ -59,8 +61,8 @@ namespace NexFB.Site.Controllers.API
         [HttpGet]
         public SpecialUser GetSpecialUserById(int userId)
         {
-            var criteria = new GetSpecialUserByIdCriteria() 
-            { 
+            var criteria = new GetSpecialUserByIdCriteria()
+            {
                 UserId = userId
             };
             SpecialUser user = _employeeService.GetSpecialUserById(criteria);
@@ -72,8 +74,8 @@ namespace NexFB.Site.Controllers.API
         [HttpGet]
         public IList<SpecialUser> GetSpecialUsers(string departmentId, string employeeTypeId, bool? isActive = null)
         {
-            var criteria = new GetSpecialUserCriteria() 
-            { 
+            var criteria = new GetSpecialUserCriteria()
+            {
                 DepartmentId = departmentId,
                 EmployeeTypeId = employeeTypeId,
                 IsActive = isActive

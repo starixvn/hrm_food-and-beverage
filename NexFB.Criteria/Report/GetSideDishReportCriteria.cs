@@ -24,6 +24,8 @@ namespace NexFB.Criteria.Report
 
         public string TeamId { get; set; }
 
+        public int? SysId { get; set; }
+
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }

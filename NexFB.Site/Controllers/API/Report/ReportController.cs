@@ -218,6 +218,7 @@ namespace NexFB.Site.Controllers.API.Report
             string departmentId = "",
             string teamIds = "",
             string employeeTypeIds = "",
+            int? userId = null,
             string sideDishItemIds = "",
             int? pageIndex = null,
             int? itemsPerPage = null)
@@ -229,6 +230,7 @@ namespace NexFB.Site.Controllers.API.Report
                 DepartmentId = departmentId,
                 TeamId = teamIds,
                 EmployeeTypeId = employeeTypeIds,
+                SysId = userId,
                 SideDishItemId = sideDishItemIds,
                 PageIndex = pageIndex,
                 ItemsPerPage = itemsPerPage

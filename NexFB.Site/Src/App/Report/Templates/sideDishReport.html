@@ -7,14 +7,14 @@
 	<div class="row filter filterMaxWith">
 		<form class="form-horizontal form-multiLine" role="form" action="#">
 		<div class="form-group">
-			<label class="col-sm-1 text-right long-text-report" data-translate="Department">
+			<label class="col-sm-1 text-right" data-translate="Department">
 			</label>
 			<div class="col-sm-2 field">
 				<select data-ng-model="criteria.departmentId" data-ng-options="opt.DepartmentId as opt.Name for opt in departments"
 					class="form-control" data-ng-change="getTeamAndEmployeeType()">
 				</select>
 			</div>
-			<label class="col-sm-1 text-right long-text-report" data-translate="Team">
+			<label class="col-sm-1 text-right" data-translate="Team">
 			</label>
 			<div class="col-sm-2 field">
 				<add-class-to-role-filter multi-select input-model="teams" button-label="Name" helper-elements="all reset"
@@ -30,9 +30,16 @@
 					on-reset="getAllSideDish()" on-select-all="getAllSideDish()">
 				</add-class-to-role-filter>
 			</div>
+			<label class="col-sm-1 text-right" data-translate="Employee">
+			</label>
+			<div class="col-sm-2 field">
+				<input class="form-control custom-padding" data-ng-model="searchEmployee" placeholder="Enter full name or nick name"
+					data-search-auto-complete data-search-employees="getEmployee()"
+					data-employee="criteria.employee" />
+			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-1 text-right long-text-report" data-translate="SideDishItem">
+			<label class="col-sm-1 text-right" data-translate="SideDishItem">
 			</label>
 			<div class="col-sm-2 field">
 				<add-class-to-role-filter multi-select input-model="sideDishItems" button-label="FoodId"
@@ -40,7 +47,7 @@
 					class="multi-select">
 				</add-class-to-role-filter>
 			</div>
-			<label class="col-sm-1 text-right long-text-report" data-translate="From">
+			<label class="col-sm-1 text-right" data-translate="From">
 			</label>
 			<div class="col-sm-2 field daybox">
 				<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="criteria.fromDate"

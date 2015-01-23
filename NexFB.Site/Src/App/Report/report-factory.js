@@ -63,6 +63,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 					departmentId: filter.departmentIds,
 					teamIds: filter.teamIds,
 					employeeTypeIds: filter.employeeTypeIds,
+					userId: filter.employee ? filter.employee.UserId : '',
 					sideDishItemIds: filter.sideDishItemIds,
 					pageIndex: filter.pageIndex,
 					itemsPerPage: filter.itemsPerPage
@@ -104,7 +105,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 			return $http.get(baseUrl + 'api/common/GetDepartmentOfCurrentUser');
 		},
 		getAllSideDish: function (foodId, isActive, employeeTypeId) {
-			return $http.get(baseUrl + 'api/report/GetAllSideDish', {		
+			return $http.get(baseUrl + 'api/report/GetAllSideDish', {
 				params: {
 					foodId: foodId,
 					isActive: isActive,

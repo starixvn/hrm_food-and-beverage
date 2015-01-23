@@ -26,23 +26,26 @@ appModule.directive('paginationBar', function () {
 	};
 });
 
-appModule.directive('searchAutoComplete', ['$timeout', function ($timeout) {
+appModule.directive('searchAutoComplete', ['$timeout', 'ErrorFactory', function ($timeout, ErrorFactory) {
 	return {
-		scope: { employee: "=employee", searchEmployees: "&searchEmployees" },
+		scope: { employee: "=employee", searchEmployees: "&" },
 		link: function (scope, iElement) {
 			iElement.autocomplete({
 				source: function (request, response) {
-					var employees = scope.searchEmployees();
-					var data = [];
-					angular.forEach(employees.data, function (employee) {
-						data.push(
+					scope.searchEmployees().success(function (employees) {
+						var data = [];
+						angular.forEach(employees, function (employee) {
+							data.push(
 								{ value: employee.NickName + ' (' + employee.FullName + ')',
 									id: employee.UserId,
 									employee: employee
 								});
-					});
+						});
 
-					response(data);
+						response(data);
+					}).error(function (response, status) {
+						ErrorFactory.errorHandle(status);
+					});
 				},
 				select: function (event, ui) {
 					scope.employee = ui.item.employee;
@@ -51,7 +54,8 @@ appModule.directive('searchAutoComplete', ['$timeout', function ($timeout) {
 					}, 0);
 				},
 				appendTo: iElement.parent(),
-				delay: 500
+				delay: 500,
+				minLength: 3
 			});
 		}
 	};

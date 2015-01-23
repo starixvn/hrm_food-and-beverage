@@ -3,9 +3,9 @@
 
 reportModule.controller('SideDishReportController',
 ['$scope', 'reportFactory', 'notificationFactory', 'ErrorFactory', 'userControlFactory', 'foodMenuFactory', 'foodMenuUtilities',
-'reportUtilities', 'sideDishManagementFactory', 'baseUrl',
+'reportUtilities', 'sideDishManagementFactory', 'baseUrl', 'orderingFactory',
 function ($scope, reportFactory, notificationFactory, ErrorFactory, userControlFactory, foodMenuFactory, foodMenuUtilities,
-reportUtilities, sideDishManagementFactory, baseUrl) {
+reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 	var self = this;
 	var date = new Date(),
 		year = date.getFullYear(),
@@ -16,13 +16,15 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 	$scope.departments = [];
 	$scope.teams = [];
 	$scope.employeeTypes = [];
-	$scope.sideDishItems = [];
+	$scope.sideDishItems = [];	
+	$scope.searchEmployee = '';
 
 	$scope.criteria = {
 		departmentId: null,
 		departmentIds: '',
 		teamIds: '',
 		employeeTypeIds: '',
+		employee: {},
 		fromDate: new Date(year, month, 1),
 		toDate: new Date(year, month, day),
 		sideDishItemIds: '',
@@ -78,6 +80,7 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 			departmentId: $scope.criteria.departmentIds,
 			employeeTypeId: $scope.criteria.employeeTypeIds,
 			teamId: $scope.criteria.teamIds,
+			userId: $scope.criteria.employee ? $scope.criteria.employee.UserId : '',
 			fromDate: $scope.criteria.fromDate.toString("MM/dd/yyyy"),
 			toDate: $scope.criteria.toDate.toString("MM/dd/yyyy"),
 			sideDishItemId: $scope.criteria.sideDishItemIds,
@@ -127,6 +130,14 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
 		});
+	};
+
+	$scope.getEmployee = function () {
+		self.getTeamIdsAndDepartmentIds();
+
+		var result = orderingFactory.getEmployees($scope.searchEmployee, $scope.criteria.departmentIds, $scope.criteria.teamIds);
+		
+		return result;
 	};
 
 	// self region.
@@ -218,9 +229,13 @@ reportUtilities, sideDishManagementFactory, baseUrl) {
 
 	self.getCriteria = function () {
 		$scope.criteria.employeeTypeIds = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypes);
-		$scope.criteria.teamIds = reportUtilities.getTeamId($scope.teams);
 		$scope.criteria.sideDishItemIds = reportUtilities.getSideDishIds($scope.sideDishItems);
+		self.getTeamIdsAndDepartmentIds();
+	};
+
+	self.getTeamIdsAndDepartmentIds = function () {
 		self.getDepartmentIds();
+		$scope.criteria.teamIds = reportUtilities.getTeamId($scope.teams);
 	};
 
 	self.loadData();

@@ -32,10 +32,10 @@ orderingModule.factory("orderingFactory",
 			getDepartment: function () {
 				return $http.get(baseUrl + 'api/Common/GetAllDepartment');
 			},
-			getEmployees: function (keyWord, departmentId) {
+			getEmployees: function (keyWord, departmentId, teamId) {
 				return $http.get(baseUrl + 'api/Employee/GetEmployees',
 					{
-						params: { keyWord: keyWord , departmentId: departmentId }
+						params: { keyWord: keyWord, departmentId: departmentId, teamId: teamId }
 					}
 				);
 			},
@@ -87,116 +87,116 @@ orderingModule.factory("orderingFactory",
 					{ params: { startTime: startTime, orderId: orderId} });
 			},
 			checkDeliveryAreaExist: function (deliveryAreaId) {
-				return $http.get(baseUrl + 'api/DeliveryArea/CheckDeliveryAreaExist', 
+				return $http.get(baseUrl + 'api/DeliveryArea/CheckDeliveryAreaExist',
 					{ params: { deliveryAreaId: deliveryAreaId} });
 			}
 		};
 	} ]
 );
 
-	orderingModule.factory('orderingUtilities', function () {
-		var utilities = {};
+orderingModule.factory('orderingUtilities', function () {
+	var utilities = {};
 
-		/*
-		** Calculate total price of all member in order
-		*/
-		utilities.calculateTotalAmount = function (members) {
-			var total = 0;
+	/*
+	** Calculate total price of all member in order
+	*/
+	utilities.calculateTotalAmount = function (members) {
+		var total = 0;
 
-			angular.forEach(members, function (member) {
-				angular.forEach(member.Menus, function (menu) {
-					total += menu.TotalAmount;
-				});
+		angular.forEach(members, function (member) {
+			angular.forEach(member.Menus, function (menu) {
+				total += menu.TotalAmount;
 			});
+		});
 
-			return total;
-		};
+		return total;
+	};
 
-		utilities.getSelectedMenu = function (currentMenus, allMenus) {
-			var resultMenu = '';
+	utilities.getSelectedMenu = function (currentMenus, allMenus) {
+		var resultMenu = '';
 
-			angular.forEach(allMenus, function (menu) {
-				if (menu.MenuId === currentMenus.MenuId && menu.IsMainMenu === currentMenus.IsMainMenu) {
-					resultMenu = menu;
+		angular.forEach(allMenus, function (menu) {
+			if (menu.MenuId === currentMenus.MenuId && menu.IsMainMenu === currentMenus.IsMainMenu) {
+				resultMenu = menu;
+			}
+		});
+
+		return resultMenu;
+	};
+
+	utilities.sortOrderIdByDesc = function (order, orders) {
+		if (orders.length === 0) {
+			orders.push(order);
+		}
+		else {
+			var smallest = true;
+
+			for (var i = 0; i < orders.length; i++) {
+				if (order.OrderId > orders[i].OrderId) {
+					orders.splice(i, 0, order);
+					i = orders.length;
+					smallest = false;
 				}
-			});
+			}
 
-			return resultMenu;
-		};
-
-		utilities.sortOrderIdByDesc = function (order, orders) {
-			if (orders.length === 0) {
+			if (smallest) {
 				orders.push(order);
 			}
-			else {
-				var smallest = true;
+		}
 
-				for (var i = 0; i < orders.length; i++) {
-					if (order.OrderId > orders[i].OrderId) {
-						orders.splice(i, 0, order);
-						i = orders.length;
-						smallest = false;
-					}
-				}
+		return orders;
+	};
 
-				if (smallest) {
-					orders.push(order);
-				}
+	utilities.setDefaultLocation = function (locations, locationId) {
+		angular.forEach(locations, function (value) {
+			value.ticked = false;
+
+			if (value.LocationId === locationId) {
+				value.ticked = true;
 			}
+		});
+	};
 
-			return orders;
-		};
+	utilities.getOrderLocation = function (typeOrder, scope) {
+		var locationId = '';
 
-		utilities.setDefaultLocation = function (locations, locationId) {
-			angular.forEach(locations, function (value) {
-				value.ticked = false;
-
-				if (value.LocationId === locationId) {
-					value.ticked = true;
-				}
-			});
-		};
-
-		utilities.getOrderLocation = function (typeOrder, scope) {
-			var locationId = '';
-
-			// New Order
-			if (typeOrder === 0) {
-				angular.forEach(scope.newOrderLocations, function (value) {
-					if (value.ticked) {
-						locationId = value.LocationId;
-					}
-				});
-			}
-			// Saved Order
-			else if (typeOrder === 1) {
-				angular.forEach(scope.savedOrderLocations, function (value) {
-					if (value.ticked) {
-						locationId = value.LocationId;
-					}
-				});
-			}
-			// Side Dish Order
-			else if (typeOrder === 2) {
-				angular.forEach(scope.sideDishOrderLocations, function (value) {
-					if (value.ticked) {
-						locationId = value.LocationId;
-					}
-				});
-			}
-
-			return locationId;
-		};
-
-		utilities.resetSelectOrderLocation = function (scope) {
+		// New Order
+		if (typeOrder === 0) {
 			angular.forEach(scope.newOrderLocations, function (value) {
-				value.ticked = false;
+				if (value.ticked) {
+					locationId = value.LocationId;
+				}
 			});
-
+		}
+		// Saved Order
+		else if (typeOrder === 1) {
+			angular.forEach(scope.savedOrderLocations, function (value) {
+				if (value.ticked) {
+					locationId = value.LocationId;
+				}
+			});
+		}
+		// Side Dish Order
+		else if (typeOrder === 2) {
 			angular.forEach(scope.sideDishOrderLocations, function (value) {
-				value.ticked = false;
+				if (value.ticked) {
+					locationId = value.LocationId;
+				}
 			});
-		};
+		}
 
-		return utilities;
-	});
+		return locationId;
+	};
+
+	utilities.resetSelectOrderLocation = function (scope) {
+		angular.forEach(scope.newOrderLocations, function (value) {
+			value.ticked = false;
+		});
+
+		angular.forEach(scope.sideDishOrderLocations, function (value) {
+			value.ticked = false;
+		});
+	};
+
+	return utilities;
+});
