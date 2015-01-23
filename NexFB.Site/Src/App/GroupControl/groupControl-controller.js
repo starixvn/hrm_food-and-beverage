@@ -276,6 +276,12 @@ ErrorFactory, removeMessage, baseUrl, $modal, commonFactory, groupControlFactory
 	$scope.member = {};
 	$scope.searchData = {};
 
+	$scope.department = {
+		Nexcel: '1',
+		SMS: '2',
+		HM: '3'
+	};
+
 	$scope.query = {
 		groupId: $scope.group.GroupId
 	};
@@ -289,7 +295,8 @@ ErrorFactory, removeMessage, baseUrl, $modal, commonFactory, groupControlFactory
 	** Get employees.
 	*/
 	$scope.getEmployee = function (searchKey) {
-		groupControlFactory.getEmployees(searchKey, true, true).then(
+		var departmentId = $scope.department.Nexcel + ',' + $scope.department.SMS + ',' + $scope.department.HM;
+		groupControlFactory.getEmployees(searchKey, departmentId, true).then(
 		function (employees) {
 			$scope.searchEmployees = employees;
 		},

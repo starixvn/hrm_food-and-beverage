@@ -44,9 +44,9 @@ namespace NexFB.Site.Controllers.API
         }
 
         /// <summary>
-<<<<<<< HEAD
         /// Gets the employees.
         /// </summary>
+<<<<<<< HEAD
         /// <param name="keyWord">The key word.</param>
         /// <param name="departmentId">The department identifier.</param>
         /// <param name="teamId">The team identifier.</param>
@@ -55,24 +55,19 @@ namespace NexFB.Site.Controllers.API
         [HttpGet]
         public IList<Employee> GetEmployees(string keyWord = "", string departmentId = "", string teamId = null, bool isShowDisable = false)
 =======
-        /// Get employees.
-        /// </summary>
         /// <param name="keyWord">The keyword.</param>
-        /// <param name="isGetAll">The is get all or not.</param>
+        /// <param name="departmentId">The department Id.</param>
         /// <param name="isShowDisable">Is show disable employee or not.</param>
         /// <returns>The list employee.</returns>
         [HttpGet]
-        public IList<Employee> GetEmployees(string keyWord, bool isGetAll = false, bool isShowDisable = false)
->>>>>>> #000 - Get disable employee to insert into group
+        public IList<Employee> GetEmployees(string keyWord, string departmentId = "", bool isShowDisable = false)
+>>>>>>> #000 - Rebase branch on master
         {
             var criteria = new GetEmployeeCriteria()
             {
                 DepartmentId = string.IsNullOrEmpty(departmentId) ? this.CurrentUser.DepartmentId.ToString() : departmentId,
                 Keyword = keyWord,
-<<<<<<< HEAD
                 TeamId = teamId,
-=======
->>>>>>> #000 - Get disable employee to insert into group
                 IsShowDisable = isShowDisable
             };
 
