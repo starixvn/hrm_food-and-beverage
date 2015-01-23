@@ -125,7 +125,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         },
         getMealForecastFilter: function () {
             return mealForecastFilter;
-	},
+		},
         getMenuTypeEnum: function () {
             return $http.get(baseUrl + 'api/report/GetMenuTypeEnum');
 		},

@@ -78,7 +78,7 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, n
     reportFactory.getDepartmentByUserRole().success(function (departments) {
         $scope.departmentOptions = departments;
         getDepartmentFilter(departments);
-        $scope.filter.departmentId = parseInt($scope.mealForecastFilter.departmentId);
+        $scope.filter.departmentId = $scope.mealForecastFilter.departmentId === '' ? '' : parseInt($scope.mealForecastFilter.departmentId);
         $scope.getMealForecastReport($scope.filter);
     }).error(function (response, status) {
         ErrorFactory.errorHandle(status);
@@ -89,7 +89,7 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, n
     */
     $scope.getMealForecastReport = function (filter) {
         reportFactory.getMealForecastReport(filter).success(function (report) {
-            $scope.report = report;
+        	$scope.report = report;
             $scope.$broadcast("renderMealForecastReport");
         }).error(function (response, status) {
             ErrorFactory.errorHandle(status);

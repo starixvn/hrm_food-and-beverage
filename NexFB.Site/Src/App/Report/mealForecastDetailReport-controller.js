@@ -55,7 +55,7 @@ function ($scope, $location, $routeParams, reportFactory, ErrorFactory, reportUt
     reportFactory.getDepartmentByUserRole().success(function (departments) {
         $scope.departmentOptions = departments;
         getDepartmentFilter(departments);
-        $scope.filter.departmentId = parseInt($routeParams.departmentId);
+        $scope.filter.departmentId = $routeParams.departmentId === '' ? '' : parseInt($routeParams.departmentId);
         $scope.getMealForecastDetailReport($scope.filter);
     }).error(function (response, status) {
         ErrorFactory.errorHandle(status);
