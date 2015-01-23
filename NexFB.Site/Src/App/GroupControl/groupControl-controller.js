@@ -265,9 +265,9 @@ baseUrl, $translate) {
 } ]);
 
 groupControlModule.controller('ManageGroupMemberController',
-['$scope', '$modalInstance', 'group', 'manageUserInGroupFactory', 'orderingFactory', 'notificationFactory',
+['$scope', '$modalInstance', 'group', 'manageUserInGroupFactory', 'notificationFactory',
 'ErrorFactory', 'removeMessage', 'baseUrl', '$modal', 'commonFactory', 'groupControlFactory', 'permission',
-function ($scope, $modalInstance, group, manageUserInGroupFactory, orderingFactory, notificationFactory,
+function ($scope, $modalInstance, group, manageUserInGroupFactory, notificationFactory,
 ErrorFactory, removeMessage, baseUrl, $modal, commonFactory, groupControlFactory, permission) {
 
 	$scope.group = group;
@@ -289,7 +289,7 @@ ErrorFactory, removeMessage, baseUrl, $modal, commonFactory, groupControlFactory
 	** Get employees.
 	*/
 	$scope.getEmployee = function (searchKey) {
-		orderingFactory.getEmployees(searchKey, true).then(
+		groupControlFactory.getEmployees(searchKey, true, true).then(
 		function (employees) {
 			$scope.searchEmployees = employees;
 		},

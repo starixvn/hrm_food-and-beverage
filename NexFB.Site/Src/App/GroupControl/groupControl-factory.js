@@ -24,6 +24,13 @@ groupControlModule.factory('groupControlFactory', ['$http', 'baseUrl', function 
 		assignMemberToGroup: function (filter) {
 			return $http.post(baseUrl + 'api/GroupControl/AssignMemberToGroup', filter);
 		},
+		getEmployees: function (keyWord, isGetAll, isShowDisable) {
+		return $http.get(baseUrl + 'api/Employee/GetEmployees',
+			{
+				params: { keyWord: keyWord, isGetAll: isGetAll, isShowDisable: isShowDisable }
+			}
+		);
+	},
 	};
 } ]);
 
