@@ -129,7 +129,7 @@ namespace NexFB.PosKitchen.ViewModels
         // Can Execute Command
         private bool CanExecuteNumPadPressed()
         {
-            return string.IsNullOrEmpty(SearchResult) || SearchResult.Length < 3;
+            return string.IsNullOrEmpty(SearchResult) || SearchResult.Length < 7;
         }
 
         private void ExecuteViewPendingFood()

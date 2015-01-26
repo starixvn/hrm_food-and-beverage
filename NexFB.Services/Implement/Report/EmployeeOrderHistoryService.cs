@@ -107,8 +107,7 @@ namespace NexFB.Services.Implement.Report
 
             FillContentRow(report.EmployeeOrders, ref writer);
             FillTotalRow(report.TotalAmount, ref writer);
-            writer.SyncColumnsWidth(9);
-            writer.AutosizeColumns(9);
+            writer.SyncColumnsWidth(10);
 
             writer.Render();
         }
@@ -137,6 +136,7 @@ namespace NexFB.Services.Implement.Report
                     Date = employeeOrder.OnDate,
                     Meal = employeeOrder.Meal.MealEngName,
                     Order = employeeOrder.Order.OrderNo,
+                    Ref = employeeOrder.Order.OrderId,
                     Status = employeeOrder.Status.Name,
                     OrderedBy = employeeOrder.OrderBy.NickName,
                     OrderPlatform = employeeOrder.OrderFrom,
@@ -160,6 +160,7 @@ namespace NexFB.Services.Implement.Report
                 Date = string.Empty,
                 Meal = string.Empty,
                 Order = string.Empty,
+                Ref = string.Empty,
                 Status = string.Empty,
                 OrderedBy = string.Empty,
                 OrderPlatform = string.Empty,

@@ -101,6 +101,7 @@ reportModule.directive('renderEmployeeOrderHistoryReport', function () {
 						{ Name: "Date", Value: moment(employeeOrder.OnDate).format(scope.dateFormat) },
 						{ Name: "Meal", Value: employeeOrder.Meal.MealEngName },
 						{ Name: "Order", Value: employeeOrder.Order.OrderNo },
+						{ Name: "Ref", Value: employeeOrder.Order.OrderId },
 						{ Name: "Status", Value: employeeOrder.Status.Name, CssClass: cssClass },
 						{ Name: "OrderedBy", Value: employeeOrder.OrderBy.NickName },
 						{ Name: "OrderPlatform", Value: employeeOrder.OrderFrom },
@@ -132,10 +133,11 @@ reportModule.directive('renderEmployeeOrderHistoryReport', function () {
 			{ HeaderText: "Date", Width: 100, Name: "Date", HeaderAlign: "center", CellAlign: "center" },
 			{ HeaderText: "Meal", Width: 90, Name: "Meal", HeaderAlign: "center", CellAlign: "center" },
 			{ HeaderText: "Order", Width: 90, Name: "Order", HeaderAlign: "center", CellAlign: "center", FormatNumber: numberFormat },
+			{ HeaderText: "Ref", Width: 90, Name: "Ref", HeaderAlign: "center", CellAlign: "center" },
 			{ HeaderText: "Status", Width: 100, Name: "Status", HeaderAlign: "center", CellAlign: "left" },
 			{ HeaderText: "Ordered By", Width: 120, Name: "OrderedBy", HeaderAlign: "center", CellAlign: "left" },
 			{ HeaderText: "Order Platform", Width: 150, Name: "OrderPlatform", HeaderAlign: "center", CellAlign: "left" },
-			{ HeaderText: "My Menu", Width: 335, Name: "MyMenu", HeaderAlign: "center", CellAlign: "left" },
+			{ HeaderText: "My Menu", Width: 235, Name: "MyMenu", HeaderAlign: "center", CellAlign: "left" },
 			{ HeaderText: "My Amount", Width: 112, Name: "MyAmount", HeaderAlign: "center", CellAlign: "right" }
 		];
 
@@ -148,7 +150,7 @@ reportModule.directive('renderEmployeeOrderHistoryReport', function () {
 		footerRow = [
 				{
 					Columns: [
-						{ Value: "Total", Name: "Date", MergeColNumber: 8, CellAlign: "right" },
+						{ Value: "Total", Name: "Date", MergeColNumber: 9, CellAlign: "right" },
 						{ Value: numeral(totalAmount).format(numberFormat), Name: "MyAmount" }
 					]
 				}

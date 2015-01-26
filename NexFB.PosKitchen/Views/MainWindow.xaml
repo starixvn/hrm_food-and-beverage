@@ -165,8 +165,8 @@
 			<Label Content="{Binding Path=TodayDate}" Foreground="#fff" FontSize="14" Height="26" HorizontalAlignment="Right" Margin="0,0,0,-3" Name="label2" VerticalAlignment="Bottom" Width="81" />
 
 			<Border Visibility="{Binding Path=SearchTextBoxVisibility}"
-			Background="#fff" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Left" Margin="85,3,0,0" VerticalAlignment="Top" Width="120" Height="39">
-				<TextBox MinWidth="130" MinHeight="39" Background="#fff" BorderThickness="0" x:Name="SortResult"  Margin="0,0,0,0" FontSize="30"  
+			Background="#fff" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Left" Margin="65,3,0,0" VerticalAlignment="Top" Width="140" Height="39">
+				<TextBox MinWidth="150" MinHeight="39" Background="#fff" BorderThickness="0" x:Name="SortResult"  Margin="0,0,0,0" FontSize="30"  
 				Text="{Binding Path=SearchResult}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
 				Mouse.PreviewMouseDown="SortResult_PreviewMouseDown" TextChanged="SortResult_TextChanged"
 				MaxLength="2" IsReadOnly="True">

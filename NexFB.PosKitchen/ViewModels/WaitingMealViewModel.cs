@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 // <history>
 //   <change who="Bradley.Mac" date="2014.9.1">Created</change>
+//   <change who="Tim.Trinh" date="2015.1.6">Changed</change>
 // </history>
 
 namespace NexFB.PosKitchen.ViewModels
@@ -89,8 +90,18 @@ namespace NexFB.PosKitchen.ViewModels
                 List<Order> waitingMeals = new List<Order>();
                 if (!string.IsNullOrEmpty(SearchValue))
                 {
-                    var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() { OrderNo = int.Parse(SearchValue) };
-                    Order order = KitchenService.GetOrderDetailsByOrderNo(getOrderDetailsCriteria);
+                    Order order = null;
+                    if (SearchValue.Length <= 3)
+                    {
+                        var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() { OrderNo = int.Parse(SearchValue) };
+                        order = KitchenService.GetOrderDetailsByOrderNo(getOrderDetailsCriteria);
+                    }
+                    else
+                    {
+                        var getOrderDetailsCriteria = new GetMealOrderByIdCriteria() { OrderId = int.Parse(SearchValue) };
+                        order = KitchenService.GetMealOrderById(getOrderDetailsCriteria);
+                    }
+
                     if (order != null &&
                         (order.CurrentStatusId == (int)OrderStatus.NewOrder
                         || order.CurrentStatusId == (int)OrderStatus.ReceivedOrder
