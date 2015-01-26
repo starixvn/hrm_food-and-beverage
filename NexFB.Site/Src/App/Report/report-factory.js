@@ -161,6 +161,15 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 					employeeTypeId: employeeTypeId
 				}
 			});
+		},
+		getViewMenuReport: function (filter) {			
+			var data = {
+				date: filter.onDate,
+				mealId: filter.mealId,
+				isVegetarian: filter.isVegetarian
+			};
+
+			return $http.get(baseUrl + 'api/report/GetViewMenuReport', { params: data });
         }
     };
 } ]);

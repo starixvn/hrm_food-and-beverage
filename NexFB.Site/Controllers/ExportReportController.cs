@@ -13,11 +13,13 @@ namespace NexFB.Site.Controllers
     using NexFB.Core.Constants;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
+    using NexFB.Models.Authority;
     using NexFB.Models.Report.EmployeeOrderHistory;
     using NexFB.Models.Report.MealForecastReport;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
+    using NexFB.Models.Report.ViewMenuReport;
     using NexFB.Services.Implement.Report;
     using NexFB.Services.Interface.Report;
     using NexFB.Web;
@@ -35,6 +37,7 @@ namespace NexFB.Site.Controllers
         private const string _MonthlyMainDishPerDayDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentPerDayReport.xls";
         private const string _MealForecastAllTypeReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastAllTypeReport.xls";
         private const string _MealForecastReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastReport.xls";
+        private const string ViewMenuReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\ViewMenuReport.xls";
         private const string _DailyMainDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\DailyMainDishReport.xls";
         private const string _MealForecastDetailReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastDetailReport.xls";
 
@@ -43,6 +46,7 @@ namespace NexFB.Site.Controllers
         private readonly IMonthlyMainDishPerDayReportService _monthlyMainDishPerDayService;
         private readonly IMealForecastReportService _mealForecastReportService;
         private readonly IDailyMainDishReportService _dailyMainDishReportService;
+        private readonly IViewMenuReportService _viewMenuReportService;
         private readonly ISideDishReportService _sideDishReportService;
         private readonly IMealForecastDetailReportService _mealForecastDetailReportService;
 
@@ -56,6 +60,7 @@ namespace NexFB.Site.Controllers
             IMonthlyMainDishReportService monthlyMainDishReportService,
             IDailyMainDishReportService dailyMainDishReportService,
             IMealForecastReportService mealForecastReportService,
+            IViewMenuReportService viewMenuReportService,
             IMealForecastDetailReportService mealForecastDetailReportService,
             IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService,
             ISideDishReportService sideDishReportService)
@@ -65,6 +70,7 @@ namespace NexFB.Site.Controllers
             _monthlyMainDishPerDayService = monthlyMainDishPerDayService ?? new MonthlyMainDishPerDayReportService();
             _mealForecastReportService = mealForecastReportService ?? new MealForecastReportService();
             _dailyMainDishReportService = dailyMainDishReportService ?? new DailyMainDishReportService();
+            _viewMenuReportService = viewMenuReportService ?? new ViewMenuReportService();
             _sideDishReportService = sideDishReportService ?? new SideDishReportService();
             _mealForecastDetailReportService = mealForecastDetailReportService ?? new MealForecastDetailReportService();
         }
@@ -178,6 +184,29 @@ namespace NexFB.Site.Controllers
                 }
 
                 _monthlyMainDishPerDayService.ExportMonthlyMainDishPerDayReport(report, templatePath);
+            }
+
+            return new EmptyResult();
+        }
+
+        /// <summary>
+        /// Exports the view menu report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The excel file.</returns>
+        public ActionResult ExportViewMenuReport(GetViewMenuReportCriteria criteria)
+        {
+            UserSession user = SessionManager.CurrentUser;
+            if (user != null)
+            {
+                criteria.SysId = user.UserId;
+            }
+
+            string templatePath = Server.MapPath(ViewMenuReportTemplatePath);
+            ViewMenuReportModel reportData = _viewMenuReportService.GetViewMenuReport(criteria);
+            if (reportData != null)
+            {
+                _viewMenuReportService.ExportViewMenuReport(reportData, templatePath, criteria.OnDate);
             }
 
             return new EmptyResult();

@@ -27,6 +27,7 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
+    using NexFB.Models.Report.ViewMenuReport;
     using NexFB.Models.SideDishManagement;
     using NexFB.Services.Implement;
     using NexFB.Services.Implement.Report;
@@ -48,6 +49,7 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly IMonthlyMainDishPerDayReportService _monthlyPerDayService;
         private readonly ISideDishReportService _sideDishReportService;
         private readonly IMealForecastReportService _mealForecastReportService;
+        private readonly IViewMenuReportService _viewMenuReportService;
         private readonly ISideDishService _sideDishService;
         private readonly IMealForecastDetailReportService _mealForecastDetailReportService;
 
@@ -65,6 +67,7 @@ namespace NexFB.Site.Controllers.API.Report
             IMonthlyMainDishPerDayReportService monthlyPerDayService,
             ISideDishReportService sideDishReportService,
             IMealForecastReportService mealForecastReportService,
+            IViewMenuReportService viewMenuReportService,
             IMealForecastDetailReportService mealForecastDetailReportService,
             ISideDishService sideDishService)
         {
@@ -76,6 +79,7 @@ namespace NexFB.Site.Controllers.API.Report
             _monthlyPerDayService = monthlyPerDayService ?? new MonthlyMainDishPerDayReportService();
             _sideDishReportService = sideDishReportService ?? new SideDishReportService();
             _mealForecastReportService = mealForecastReportService ?? new MealForecastReportService();
+            _viewMenuReportService = viewMenuReportService ?? new ViewMenuReportService();
             _mealForecastDetailReportService = mealForecastDetailReportService ?? new MealForecastDetailReportService();
             _sideDishService = sideDishService ?? new SideDishService();
         }
@@ -262,6 +266,33 @@ namespace NexFB.Site.Controllers.API.Report
             };
 
             return _sideDishService.GetAllSideDish(criteria);
+        }
+
+        /// <summary>
+        /// Gets the view menu report.
+        /// </summary>
+        /// <param name="date">The on date.</param>
+        /// <param name="mealId">The meal identifier.</param>
+        /// <param name="isVegetarian">The is vegetarian.</param>
+        /// <returns>ViewMenuReportModel data.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.ViewMenu, Policy = Policy.Read)]
+        public ViewMenuReportModel GetViewMenuReport(
+            DateTime date,
+            string mealId,
+            bool? isVegetarian)
+        {
+            var criteria = new GetViewMenuReportCriteria
+            {
+                MealId = mealId,
+                OnDate = date,
+                IsVegetarian = isVegetarian,
+                SysId = CurrentUser.UserId
+            };
+
+            ViewMenuReportModel reportData = _viewMenuReportService.GetViewMenuReport(criteria);
+
+            return reportData;
         }
 
         /// <summary>

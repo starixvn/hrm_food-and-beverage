@@ -21,6 +21,7 @@ namespace NexFB.Repositories.Implement
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
+    using NexFB.Models.Report.ViewMenuReport;
     using NexFB.Repositories.Interface;
 
     /// <summary>
@@ -130,6 +131,28 @@ namespace NexFB.Repositories.Implement
                 }
 
                 return reportData;
+            }
+        }
+        
+         /// <summary>
+        /// Gets the view menu report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>ViewMenuReportModel data.</returns>
+        public ViewMenuReportModel GetViewMenuReport(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var report = new ViewMenuReportModel();
+
+                IEnumerable<ViewMenuItemModel> rawReport = db.Query<ViewMenuItemModel>(criteria.GetSpParams());
+
+                if (rawReport != null)
+                {
+                    report.ViewMenuItems = rawReport.ToList();
+                }
+
+                return report;
             }
         }
 

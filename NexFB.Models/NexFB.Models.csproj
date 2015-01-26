@@ -107,6 +107,8 @@
     </Compile>
     <Compile Include="Report\SideDishReport\SideDishItemModel.cs" />
     <Compile Include="Report\SideDishReport\SideDishReportModel.cs" />
+    <Compile Include="Report\ViewMenuReport\ViewMenuItemModel.cs" />
+    <Compile Include="Report\ViewMenuReport\ViewMenuReportModel.cs" />
     <Compile Include="SetMenuManagement\MenuSetMenuModel.cs" />
     <Compile Include="SetMenuManagement\FoodSetMenuModel.cs" />
     <Compile Include="SetMenuManagement\SetMenuModel.cs" />

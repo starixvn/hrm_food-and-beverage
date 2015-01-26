@@ -1113,4 +1113,13 @@
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
   </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="ViewMenuReport" xml:space="preserve">
+    <value>View Menu</value>
+  </data>
+  <data name="DietType" xml:space="preserve">
+    <value>Diet type</value>
+  </data>
 </root>

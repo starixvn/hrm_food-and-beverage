@@ -781,7 +781,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Diet Type.
+        ///   Looks up a localized string similar to Diet type.
         /// </summary>
         public static string DietType {
             get {
@@ -2869,6 +2869,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want this food item to be viewed by all users?.
         /// </summary>
         public static string UncheckKitchenOnlyMsg {
@@ -2991,6 +3000,15 @@ namespace NexFB.Resources {
         public static string Vegetarian {
             get {
                 return ResourceManager.GetString("Vegetarian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Menu.
+        /// </summary>
+        public static string ViewMenuReport {
+            get {
+                return ResourceManager.GetString("ViewMenuReport", resourceCulture);
             }
         }
         
