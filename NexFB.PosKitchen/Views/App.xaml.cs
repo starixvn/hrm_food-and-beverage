@@ -42,7 +42,6 @@ namespace NexFB.PosKitchen
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
             string allowMultipleInstance = ConfigurationManager.AppSettings[Constant.AllowMultipleInstance];
             if (string.IsNullOrEmpty(allowMultipleInstance))
             {
