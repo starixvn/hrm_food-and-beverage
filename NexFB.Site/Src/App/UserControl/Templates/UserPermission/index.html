@@ -67,7 +67,7 @@
                 </th>
                 <th class="authority-employee-action" data-translate="Action" ng-show="policy.permission == 2">
                 </th>
-                <th class="authority-employee-reset-password" data-translate="ResetPassword" ng-if="policy.permission == 2">
+                <th class="authority-employee-reset-password" data-translate="ResetPassword" ng-show="policy.permission == 2">
                 </th>
             </tr>
         </thead>
@@ -105,7 +105,7 @@
                 </td>
             </tr>
             <tr ng-show="employees == '' || employees == 'null' || pagedItems.length == 0">
-                <td class="empty-result" colspan="8" data-translate="EmptyResult">
+                <td class="empty-result" colspan="9" data-translate="EmptyResult">
                 </td>
             </tr>
         </tbody>
