@@ -12,8 +12,8 @@ namespace NexFB.Site.Controllers
     using System.Web.Mvc;
     using NexFB.Core.Constants;
     using NexFB.Criteria.Report;
-    using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Authority;
+    using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.EmployeeOrderHistory;
     using NexFB.Models.Report.MealForecastReport;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
