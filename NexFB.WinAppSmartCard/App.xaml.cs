@@ -131,7 +131,7 @@ namespace NexFB.WinAppSmartCard
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             Application_Error(e);
-            string errorMessage = Lang.ErrorMessage + "\n\nError details:\n" + e.Exception.Message;
+            string errorMessage = Lang.ErrorMessage + "\n\nError details:\n" + e.Exception.InnerException.Message;
             e.Handled = true;
             if (MessageBox.Show(errorMessage, Lang.UnhandledException, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
             {

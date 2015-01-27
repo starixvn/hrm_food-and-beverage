@@ -25,6 +25,7 @@ namespace NexFB.Pos.Core.Models
         #region Private Fields
 
         private static string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
+        private static string _imageFolderPath = ConfigurationManager.AppSettings[Constant.ImageFolder];
         private int _sysId;
         private int _empId;
         private int _mealId;
@@ -192,15 +193,15 @@ namespace NexFB.Pos.Core.Models
                 {
                     case (int)DepartmentIdentity.Nexcel:
                         var imageNexcelTemplate = string.Format(Constant.NexcelAvatar, Code.Trim());
-                        _imageSource = Path.Combine(baseDirectory, imageNexcelTemplate);
+                        _imageSource = _imageFolderPath + imageNexcelTemplate;
                         break;
                     case (int)DepartmentIdentity.Sms:
                         var imageSmsTemplate = string.Format(Constant.SmsAvatar, Code.Trim());
-                        _imageSource = Path.Combine(baseDirectory, imageSmsTemplate);
+                        _imageSource = _imageFolderPath + imageSmsTemplate;
                         break;
                     case (int)DepartmentIdentity.HongMA:
                         var imageHongMaTemplate = string.Format(Constant.HongMAAvatar, Code.Trim());
-                        _imageSource = Path.Combine(baseDirectory, imageHongMaTemplate);
+                        _imageSource = _imageFolderPath + imageHongMaTemplate;
                         break;
                     default:
                         _imageSource = defaultImageSource;

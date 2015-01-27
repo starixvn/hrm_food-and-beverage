@@ -32,6 +32,8 @@ namespace NexFB.Pos.Core.Constants
 
         public const string DefaultLanguage = "DefaultLanguage";
 
+        public const string ImageFolder = "ImageFolder";
+
         public const string ReleaseMode = "ReleaseMode";
 
         public const string LocalDB = "LocalDB";

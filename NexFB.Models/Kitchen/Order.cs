@@ -11,6 +11,7 @@ namespace NexFB.Models.Kitchen
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Globalization;
     using System.IO;
     using System.Linq;
@@ -24,7 +25,9 @@ namespace NexFB.Models.Kitchen
     [Serializable]
     public class Order
     {
-        private const string PosDateFormat = "{0:dd/MM/yyyy HH:mm}";
+        private const string _PosDateFormat = "{0:dd/MM/yyyy HH:mm}";
+
+        private string _imageFolderPath = ConfigurationManager.AppSettings["ImageFolder"];
 
         public DateTime OnDate { get; set; }
 
@@ -161,7 +164,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                return string.Format(PosDateFormat, RegisterDate);
+                return string.Format(_PosDateFormat, RegisterDate);
             }
         }
 
@@ -169,7 +172,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                return string.Format(PosDateFormat, ReceiveDate);
+                return string.Format(_PosDateFormat, ReceiveDate);
             }
         }
 
@@ -177,7 +180,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                return string.Format(PosDateFormat, DeliverDate);
+                return string.Format(_PosDateFormat, DeliverDate);
             }
         }
 
@@ -185,7 +188,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                return string.Format(PosDateFormat, RejectedDate);
+                return string.Format(_PosDateFormat, RejectedDate);
             }
         }
 
@@ -193,7 +196,7 @@ namespace NexFB.Models.Kitchen
         {
             get
             {
-                return string.Format(PosDateFormat, DateTime.Now);
+                return string.Format(_PosDateFormat, DateTime.Now);
             }
         }
 
@@ -326,15 +329,15 @@ namespace NexFB.Models.Kitchen
                 {
                     case (int)DepartmentIdentity.Nexcel:
                         var imageNexcelTemplate = string.Format("Images\\Nexcel\\{0}.jpg", Code.Trim());
-                        imageSource = Path.Combine(baseDirectory, imageNexcelTemplate);
+                        imageSource = _imageFolderPath + imageNexcelTemplate;
                         break;
                     case (int)DepartmentIdentity.Sms:
                         var imageSmsTemplate = string.Format("Images\\SMS\\{0}.jpg", Code.Trim());
-                        imageSource = Path.Combine(baseDirectory, imageSmsTemplate);
+                        imageSource = _imageFolderPath + imageSmsTemplate;
                         break;
                     case (int)DepartmentIdentity.HongMA:
                         var imageHongMaTemplate = string.Format("Images\\HongMa\\{0}.jpg", Code.Trim());
-                        imageSource = Path.Combine(baseDirectory, imageHongMaTemplate);
+                        imageSource = _imageFolderPath + imageHongMaTemplate;
                         break;
                     default:
                         imageSource = defaultImageSource;
