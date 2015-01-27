@@ -51,7 +51,7 @@ namespace NexFB.Site.Controllers
         private readonly IMealForecastDetailReportService _mealForecastDetailReportService;
 
         public ExportReportController()
-            : this(null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null)
         {
         }
 
