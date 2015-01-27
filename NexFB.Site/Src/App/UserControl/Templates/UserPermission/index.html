@@ -67,7 +67,7 @@
                 </th>
                 <th class="authority-employee-action" data-translate="Action" ng-show="policy.permission == 2">
                 </th>
-                <th class="authority-employee-reset-password" data-translate="ResetPassword">
+                <th class="authority-employee-reset-password" data-translate="ResetPassword" ng-if="policy.permission == 2">
                 </th>
             </tr>
         </thead>
@@ -97,7 +97,7 @@
                 <td class="text-center authority-employee-action" ng-if="policy.permission == 2">
                     <a class="glyphicon glyphicon-edit icon-edit" href="" title="Edit" ng-click="assignRole(employee)" />
                 </td>
-                <td class="text-center authority-employee-reset-password">
+                <td class="text-center authority-employee-reset-password" ng-if="policy.permission == 2">
                     <a class="glyphicon glyphicon-refresh icon-refresh" href="" title="Reset Password" 
                         ng-show="employee.Department.DepartmentId == 1" ng-click="resetPassword(employee)" />
                     <a class="glyphicon glyphicon-ban-circle icon-ban-circle disabled" href=""
