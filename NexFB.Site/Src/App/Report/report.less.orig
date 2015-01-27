@@ -1,0 +1,246 @@
+﻿.monthbox {
+	 .form-control {
+		width: 76%;
+		display: inline-block;
+	}
+	.input-group-btn {
+		display: inline-block;
+		> .btn {
+			padding: 3px 8px 2px;
+			position: relative;
+			top: -2px;
+		}
+	}
+}
+.daybox {
+	.form-control {
+		width: 80%;
+		display: inline-block;
+	}
+	.btn {
+		padding: 3px 8px 2px;
+		position: relative;			
+	}
+}
+.grid-title {
+	background: #818181 !important;
+	margin-bottom: 0;
+	border: none;
+	.grid-title-label {
+		color: #fff;
+	}
+} 
+.freegrid {
+	border-top: 1px solid #373737;
+}
+.freegrid .freegrid thead th, .freegrid .grid-fixed-table thead th {
+	border-color: #373737;
+}
+#monthlyReport.freegrid .row-footer-background{
+	border-top: none;
+}
+.freegrid .col_footer_content.grid-fixed-table thead th,  .freegrid .row_footer_content.grid-fixed-table thead th, .freegrid .grid-fixed-table thead th.free-cell-bottom-left {
+	border-color: #c5c5c5;
+}
+.freegrid .free-top-left table thead th, .freegrid .col_header table thead th {
+	background: #606060;
+}
+.freegrid tr.parent-row-background td {
+	background: #a0bbd2;
+}
+.list-employee-menu {
+	padding: 3px 0;
+}
+
+.form-multiLine {
+	.long-text-report {
+		width: 10%;
+	}
+	.btn-box {
+		margin-left: 50px;
+		&.daily-btn-box {
+			margin-left: 90px;
+		}
+		&.history-order-btn-box {
+			margin-left: 103px;
+		}
+	}
+	.ordered-by-history-report {
+		width: 130px;
+	}
+	.my-menu-history-report {
+		width: 180px;
+	}
+	.order-platform-history-report {
+		width: 180px;
+	}
+}
+
+.order-history-report {
+	.multiSelect .multiSelectItem {
+		min-width: 160px;
+	}
+}
+.daily-main-dish {
+	max-width: 1242px;
+
+	.multiSelect .multiSelectItem {
+		min-width: 160px;
+	}
+}
+
+.checkboxLayer.show {
+	max-height: 300px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.tbl-report thead .date th:nth-child(2),
+.tbl-report thead .date th:nth-child(3),
+.tbl-report thead .date th:nth-child(9),
+.tbl-report thead .date th:nth-child(10),
+.tbl-report thead .date th:nth-child(16), 
+.tbl-report thead .date th:nth-child(17),
+.tbl-report thead .date th:nth-child(23),
+.tbl-report thead .date th:nth-child(24), 
+.tbl-report thead .date th:nth-child(30),
+.tbl-report thead .date th:nth-child(31) {
+	color: red;
+}
+
+.red {
+	color: red;
+}
+
+.remove-padding-left { 
+	padding-left: 0px !important;
+	width: 60px !important;
+}
+.container-fluid.page select#itemperpage {
+	height: 20px;
+}
+.eq-ie9 {
+	#monthlyReport, #employeeOrderHistoryReport, #monthlyPerDayReport, #dailyReport *{
+		box-sizing: content-box;
+	}
+	.teambox
+		{
+		.multiSelect
+			{ 
+			.checkBoxContainer {
+				height: 300px;
+				overflow: auto;
+			}
+		}
+	}
+}
+.filterMaxWith{
+	max-width:1228px;
+}
+.order-history-filter {
+	max-width:1240px;
+}
+.monthly-per-meal-filter {
+	max-width: 1245px;
+}
+.monthly-per-day-filter {
+	max-width: 1245px;
+}
+.order-ststus-history-report {
+	margin-left: 15px !important;
+}
+.teambox {
+	.multiSelect
+	{
+		.checkBoxContainer {
+			max-height: 300px;
+			overflow-y: top;
+			overflow-x:hidden
+		}
+	}
+}
+.sideDishReport{
+	.btn-box{
+		margin-left: 85px;
+	}
+}
+
+<<<<<<< HEAD
+.meal-forecast{
+	max-width: 1240px;
+}
+
+#mealForecastReport.freegrid, #mealForecastDetailReport.freegrid {
+	.highlight-row td{
+		background: #fff;
+		.list-meal-forecast-detail{
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			li:before{
+				content: "- ";
+			}
+		}
+	}
+	.td-efficiency-blue{
+		background: #dce6f1 !important;
+	}
+	.td-efficiency-grey{
+		background: #d9d9d9 !important;
+	}
+	.td-efficiency-red{
+		background: #f2dcdb !important;
+	}
+	.td-efficiency-white{
+		background: #fff !important;
+	}
+}
+.sub-header{
+	.breadcrumb
+	{
+		label.current{
+			color: #5e5e5e;
+			padding: 0;
+			margin-bottom: 0;
+		}
+		.button{
+			font-family: Tahoma, Verdana, Helvetical, sans-serif;
+			margin-left: 10px;
+		}
+	}
+}
+=======
+.view-menu-report{
+	.btn-toolbar .btn-group{
+		float: none;
+	}	
+	.bottomButton{
+		margin-top:10px;
+	}
+	.icon-none-veg {
+		background: url(../../content/site/images/sprites.png) -3px -22px no-repeat;
+		width: 22px;
+		height: 15px;
+		display: inline-block;
+		position: relative;
+		top:0;
+		left:1px;	
+	}
+	.icon-veg {
+		.icon-none-veg;
+		background-position: -36px -24px;
+		top:2px;
+		left:0;
+	}
+	.menu-vegetarian{
+		td{
+			background-color:#95ffca;
+		}
+	}
+	.menu-non-vegetarian{
+		td{
+			background-color:#6bb8fc;
+		}
+	}	
+}
+>>>>>>> #21325 - Add the View Menu report
