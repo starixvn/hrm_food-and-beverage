@@ -158,6 +158,13 @@ namespace NexFB.Site.Controllers.API
             return policy;
         }
 
+        [HttpGet]
+        public string GetDefaultPassword()
+        {
+            string defaultPassword = Constants.DefaultPassword;
+            return defaultPassword;
+        }
+
         /// <summary>
         /// Reset Password.
         /// </summary>

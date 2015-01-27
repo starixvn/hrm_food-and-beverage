@@ -1108,6 +1108,9 @@
     <value>Reset Password</value>
   </data>
   <data name="ConfirmResetPassword" xml:space="preserve">
-    <value>Are you sure you want to reset password?</value>
+    <value>Are you sure you want to reset password of {0} to {1}?</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
   </data>
 </root>

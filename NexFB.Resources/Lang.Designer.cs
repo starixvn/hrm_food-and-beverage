@@ -421,7 +421,7 @@ namespace NexFB.Resources
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to reset password?.
+        ///   Looks up a localized string similar to Are you sure you want to reset password of {0} to {1}?.
         /// </summary>
         public static string ConfirmResetPassword {
             get {
@@ -2370,6 +2370,15 @@ namespace NexFB.Resources
         public static string RequireOldPassword {
             get {
                 return ResourceManager.GetString("RequireOldPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
             }
         }
         

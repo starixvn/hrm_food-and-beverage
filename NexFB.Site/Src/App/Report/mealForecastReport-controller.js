@@ -89,7 +89,7 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, n
     */
     $scope.getMealForecastReport = function (filter) {
         reportFactory.getMealForecastReport(filter).success(function (report) {
-        	$scope.report = report;
+			$scope.report = report;
             $scope.$broadcast("renderMealForecastReport");
         }).error(function (response, status) {
             ErrorFactory.errorHandle(status);

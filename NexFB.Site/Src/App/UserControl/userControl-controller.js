@@ -108,6 +108,12 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 		ErrorFactory.errorHandle(status);
 	});
 
+	userControlFactory.getDefaultPassword().success(function (password) {
+		$scope.defaultPassword = password.split('"')[1];
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
+	});
+
 	$scope.showEntries = function () {
 		commonFactory.tablePagination($scope, $scope.employees, $scope.entrySelected);
 	};
@@ -184,8 +190,11 @@ function ($scope, userControlFactory, notificationFactory, $route, $modal, Error
 			controller: "ResetPasswordController",
 			backdrop: 'static',
 			resolve: {
-				userId: function () {
-					return employee.UserId;
+				employee: function () {
+					return employee;
+				},
+				defaultPassword: function () {
+					return $scope.defaultPassword;
 				}
 			},
 			windowClass: "modal-reset-password"
@@ -280,13 +289,16 @@ function ($scope, $modalInstance, userId, userControlFactory, ErrorFactory) {
 } ]);
 
 userControlModule.controller('ResetPasswordController',
-['$scope', '$modalInstance', 'userId',
-function ($scope, $modalInstance, userId){
+['$scope', '$modalInstance', 'commonFactory', 'employee', 'defaultPassword',
+function ($scope, $modalInstance, commonFactory, employee, defaultPassword) {
+	$scope.nickName = employee.NickName;
+	$scope.defaultPassword = defaultPassword;
+
 	$scope.save = function () {
-		$modalInstance.close(userId);
+		$modalInstance.close(employee.UserId);
 	};
 
 	$scope.cancel = function () {
 		$modalInstance.dismiss("cancel");
 	};
-}]);
+} ]);

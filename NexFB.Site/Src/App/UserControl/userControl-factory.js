@@ -36,6 +36,9 @@ userControlModule.factory('userControlFactory', ['$http', 'baseUrl', function ($
 		},
 		resetPassword: function (userId) {
 			return $http.get(baseUrl + 'api/UserControl/ResetPassword', { params: { userId: userId} });
+		},
+		getDefaultPassword: function () {
+			return $http.get(baseUrl + 'api/UserControl/GetDefaultPassword');
 		}
 	};
 } ]);
