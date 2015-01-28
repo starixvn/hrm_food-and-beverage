@@ -11,8 +11,11 @@
             </label>
             <div class="col-sm-2 field">
                 <select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
-                    class="form-control">
-                    <option value="" ng-show="departmentOptions.length > 1">-- {{"All" | translate}} --</option>
+                    ng-show="departmentOptions.length > 1" class="form-control">
+                    <option value="">-- {{"All" | translate}} --</option>
+                </select>
+                <select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
+                    ng-show="departmentOptions.length == 1" class="form-control">
                 </select>
             </div>
             <label class="col-sm-1 text-right" data-translate="DietType">

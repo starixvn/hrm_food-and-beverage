@@ -47,6 +47,7 @@ function ($scope, $location, $routeParams, reportFactory, ErrorFactory, reportUt
         }
 
         $scope.filter.departmentId = departmentId;
+        $routeParams.departmentId = departmentId;
     };
 
     /*

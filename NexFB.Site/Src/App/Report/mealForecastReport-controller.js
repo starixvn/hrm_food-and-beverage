@@ -70,6 +70,7 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, n
         }
 
         $scope.filter.departmentId = departmentId;
+        $scope.mealForecastFilter.departmentId = departmentId;
     };
 
     /*
