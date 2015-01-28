@@ -47,7 +47,7 @@ namespace NexFB.Site.Controllers
         private readonly IMealForecastDetailReportService _mealForecastDetailReportService;
 
         public ExportReportController()
-            : this(null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null)
         {
         }
 
@@ -57,8 +57,8 @@ namespace NexFB.Site.Controllers
             IDailyMainDishReportService dailyMainDishReportService,
             IMealForecastReportService mealForecastReportService,
             IMealForecastDetailReportService mealForecastDetailReportService,
-            IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService)
-            ISideDishReportService sideDishReportService,
+            IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService,
+            ISideDishReportService sideDishReportService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();

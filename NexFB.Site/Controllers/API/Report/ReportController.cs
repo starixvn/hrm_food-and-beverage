@@ -65,7 +65,7 @@ namespace NexFB.Site.Controllers.API.Report
             IMonthlyMainDishPerDayReportService monthlyPerDayService,
             ISideDishReportService sideDishReportService,
             IMealForecastReportService mealForecastReportService,
-            IMealForecastDetailReportService mealForecastDetailReportService)
+            IMealForecastDetailReportService mealForecastDetailReportService,
             ISideDishService sideDishService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();

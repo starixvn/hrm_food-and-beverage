@@ -109,11 +109,15 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, n
         $scope.history();
 
         var fromDate = new Date(filter.fromDate),
-			toDate = new Date(filter.toDate);
+			toDate = new Date(filter.toDate),
+			maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate());
 
-        if (fromDate > toDate) {
-            notificationFactory.error("DateRangeInvalid");
-        }
+		if (fromDate > toDate) {
+			notificationFactory.error("DateRangeInvalid");
+		}
+		else if (toDate > maxDate) {
+			notificationFactory.error("DateRangeOneYearWarning");
+		}
         else {
             $scope.getMealForecastReport(filter);
         }
