@@ -54,7 +54,7 @@ namespace NexFB.Models.Report.MealForecastReport
                     }
                     else
                     {
-                        orderRate = Math.Round((double)ActualOrder / Registration * 100, 2);
+                        orderRate = Math.Round((double)ActualOrder / Registration * 100);
                     }
                 }
 

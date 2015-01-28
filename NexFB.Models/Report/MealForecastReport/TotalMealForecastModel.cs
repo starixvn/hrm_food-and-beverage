@@ -38,7 +38,7 @@ namespace NexFB.Models.Report.MealForecastReport
                     }
                     else
                     {
-                        efficiency = Math.Round((double)ActualOrder / Registration * 100, 2);
+                        efficiency = Math.Round((double)ActualOrder / Registration * 100);
                     }
                 }
 

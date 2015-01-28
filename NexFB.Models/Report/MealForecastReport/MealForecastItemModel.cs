@@ -41,7 +41,7 @@ namespace NexFB.Models.Report.MealForecastReport
                     }
                     else
                     {
-                        efficiency = Math.Round((double)ActualOrderNonVegetarian / RegistrationNonVegetarian * 100, 2);
+                        efficiency = Math.Round((double)ActualOrderNonVegetarian / RegistrationNonVegetarian * 100);
                     }
                 }
 
@@ -71,7 +71,7 @@ namespace NexFB.Models.Report.MealForecastReport
                     }
                     else
                     {
-                        efficiency = Math.Round((double)ActualOrderVegetarian / RegistrationVegetarian * 100, 2);
+                        efficiency = Math.Round((double)ActualOrderVegetarian / RegistrationVegetarian * 100);
                     }
                 }
 
