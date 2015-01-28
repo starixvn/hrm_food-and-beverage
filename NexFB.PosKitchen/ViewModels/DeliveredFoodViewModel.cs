@@ -96,20 +96,33 @@ namespace NexFB.PosKitchen.ViewModels
                     Order order = null;
                     if (SearchValue.Length <= 3)
                     {
-                        var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() { OrderNo = int.Parse(SearchValue) };
-                        order = KitchenService.GetOrderDetailsByOrderNo(getOrderDetailsCriteria);
+                        var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() 
+                        { 
+                            OrderNo = int.Parse(SearchValue) 
+                        };
+                        IList<Order> orders = KitchenService.GetOrdersByOrderNo(getOrderDetailsCriteria);
+                        foreach (Order item in orders)
+                        {
+                            if (item.CurrentStatusId == (int)OrderStatus.DeliveredOrder
+                                || item.CurrentStatusId == (int)OrderStatus.EditedOrder)
+                            {
+                                deliveredMeals.Add(item);
+                            }
+                        }
                     }
                     else
                     {
-                        var getOrderDetailsCriteria = new GetMealOrderByIdCriteria() { OrderId = int.Parse(SearchValue) };
+                        var getOrderDetailsCriteria = new GetMealOrderByIdCriteria() 
+                        { 
+                            OrderId = int.Parse(SearchValue) 
+                        };
                         order = KitchenService.GetMealOrderById(getOrderDetailsCriteria);
-                    }
-
-                    if (order != null &&
+                        if (order != null &&
                         (order.CurrentStatusId == (int)OrderStatus.DeliveredOrder
                         || order.CurrentStatusId == (int)OrderStatus.EditedOrder))
-                    {
-                        deliveredMeals.Add(order);
+                        {
+                            deliveredMeals.Add(order);
+                        }
                     }
                 }
                 else

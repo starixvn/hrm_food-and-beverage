@@ -22,6 +22,8 @@ namespace NexFB.Repositories.Interface
 
         Order GetOrderDetails(ICriteria criteria);
 
+        IList<Order> GetOrderByQuery(ICriteria criteria);
+
         Order GetMealOrderById(ICriteria criteria);
 
         EmployeeInGroup GetEmployeeInGroup(ICriteria criteria);

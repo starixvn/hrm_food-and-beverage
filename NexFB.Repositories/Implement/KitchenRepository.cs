@@ -88,6 +88,40 @@ namespace NexFB.Repositories.Implement
         }
 
         /// <summary>
+        /// Get Orders by query.
+        /// </summary>
+        /// <param name="criteria">Criteria to query DB.</param>
+        /// <returns>Order Entity.</returns>
+        public IList<Order> GetOrderByQuery(ICriteria criteria)
+        {
+            IList<Order> orders = new List<Order>();
+            var menus = new List<OrderMenu>();
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    orders = multi.Read<Order>().ToList();
+                    menus = multi.Read<OrderMenu>().ToList();
+
+                    foreach (Order item in orders)
+                    {
+                        var selectedMenus = menus.Where(x => x.OrderId == item.OrderId).ToList();
+
+                        item.ListMenu = selectedMenus;
+                        if (item.CurrentStatusId == (int)OrderStatus.ReceivedOrder
+                            || item.CurrentStatusId == (int)OrderStatus.ReducedOrder)
+                        {
+                            bool isEdited = menus.Any(x => x.IsDeleted);
+                            item.IsEdited = isEdited;
+                        }
+                    }
+                }
+            }
+
+            return orders;
+        }
+
+        /// <summary>
         /// Get Meal Order By Id.
         /// </summary>
         /// <param name="criteria">Criteria to query DB.</param>

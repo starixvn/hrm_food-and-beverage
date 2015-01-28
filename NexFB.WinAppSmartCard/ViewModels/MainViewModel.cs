@@ -44,7 +44,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     {
         private static string _host = ConfigurationManager.AppSettings[ConstantValue.HubHost];
         private static string _hostLocal = ConfigurationManager.AppSettings[ConstantValue.HubHostLocal];
-        private static DispatcherTimer dailyClockDispatcher = new DispatcherTimer();
+        private static DispatcherTimer _dailyClockDispatcher = new DispatcherTimer();
         private ViewModelBase _currentViewModel;
 
         public MainViewModel()
@@ -602,9 +602,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         private void TimerDailyClock()
         {
-            dailyClockDispatcher.Interval = new TimeSpan(0, 45, 0);
-            dailyClockDispatcher.Tick += new EventHandler(TimerTick);
-            dailyClockDispatcher.Start();
+            _dailyClockDispatcher.Interval = new TimeSpan(0, 45, 0);
+            _dailyClockDispatcher.Tick += new EventHandler(TimerTick);
+            _dailyClockDispatcher.Start();
         }
 
         /// <summary>

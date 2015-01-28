@@ -86,17 +86,23 @@ namespace NexFB.PosKitchen.ViewModels
                     if (SearchValue.Length <= 3)
                     {
                         var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() { OrderNo = int.Parse(SearchValue) };
-                        order = KitchenService.GetOrderDetailsByOrderNo(getOrderDetailsCriteria);
+                        IList<Order> orders = KitchenService.GetOrdersByOrderNo(getOrderDetailsCriteria);
+                        foreach (Order item in orders)
+                        {
+                            if (order.CurrentStatusId == (int)OrderStatus.CanceledOrder)
+                            {
+                                canceledMeals.Add(item);
+                            }
+                        }
                     }
                     else
                     {
                         var getOrderDetailsCriteria = new GetMealOrderByIdCriteria() { OrderId = int.Parse(SearchValue) };
                         order = KitchenService.GetMealOrderById(getOrderDetailsCriteria);
-                    }
-
-                    if (order != null && order.CurrentStatusId == (int)OrderStatus.CanceledOrder)
-                    {
-                        canceledMeals.Add(order);
+                        if (order != null && order.CurrentStatusId == (int)OrderStatus.CanceledOrder)
+                        {
+                            canceledMeals.Add(order);
+                        }
                     }
                 }
                 else

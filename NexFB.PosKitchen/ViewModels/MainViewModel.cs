@@ -40,9 +40,9 @@ namespace NexFB.PosKitchen.ViewModels
     {
         private static string _host = ConfigurationManager.AppSettings[Constant.HubHost];
         private static string _hostLocal = ConfigurationManager.AppSettings[Constant.HubHostLocal];
-        private static DispatcherTimer digitalClockDispatcher = new DispatcherTimer();
-        private static DispatcherTimer refeshAppDataDispatcher = new DispatcherTimer();
-        private static DispatcherTimer newOrderNotify = new DispatcherTimer();
+        private static DispatcherTimer _digitalClockDispatcher = new DispatcherTimer();
+        private static DispatcherTimer _refeshAppDataDispatcher = new DispatcherTimer();
+        private static DispatcherTimer _newOrderNotify = new DispatcherTimer();
 
         public MainViewModel()
         {
@@ -134,7 +134,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         private void ExecuteViewPendingFood()
         {
-            newOrderNotify.Stop();
+            _newOrderNotify.Stop();
             CurrentViewModel = new WaitingMealViewModel(WaitingSearchResult);
             CheckCurrentViewModel();
         }
@@ -748,9 +748,9 @@ namespace NexFB.PosKitchen.ViewModels
 
         private void TimerDigitalClock()
         {
-            digitalClockDispatcher.Interval = new TimeSpan(0, 0, 1);
-            digitalClockDispatcher.Tick += new EventHandler(Timer_Click);
-            digitalClockDispatcher.Start();
+            _digitalClockDispatcher.Interval = new TimeSpan(0, 0, 1);
+            _digitalClockDispatcher.Tick += new EventHandler(Timer_Click);
+            _digitalClockDispatcher.Start();
         }
 
         private void Timer_Click(object sender, EventArgs e)
@@ -775,7 +775,7 @@ namespace NexFB.PosKitchen.ViewModels
             }
             else
             {
-                timer = refeshAppDataDispatcher;
+                timer = _refeshAppDataDispatcher;
                 timer.Interval = TimeSpan.FromSeconds(AutoRefeshTime);
             }
 
@@ -843,11 +843,11 @@ namespace NexFB.PosKitchen.ViewModels
 
         private void StartNewOrderSoundTimer()
         {
-            if (!newOrderNotify.IsEnabled)
+            if (!_newOrderNotify.IsEnabled)
             {
-                newOrderNotify.Interval = TimeSpan.FromSeconds(2);
-                newOrderNotify.Tick += (sender, e) => TimerTick(sender, e);
-                newOrderNotify.Start();
+                _newOrderNotify.Interval = TimeSpan.FromSeconds(2);
+                _newOrderNotify.Tick += (sender, e) => TimerTick(sender, e);
+                _newOrderNotify.Start();
             }
         }
 

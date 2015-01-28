@@ -133,15 +133,15 @@ namespace NexFB.Services.Implement
             return orderDetails;
         }
 
-        public Order GetOrderDetailsByOrderNo(GetOrderDetailsByOrderNoCriteria criteria)
+        public IList<Order> GetOrdersByOrderNo(GetOrderDetailsByOrderNoCriteria criteria)
         {
-            Order orderDetails = null;
+            IList<Order> orders = null;
             if (criteria.IsValid())
             {
-                orderDetails = this._kitchenRepository.GetOrderDetails(criteria);
+                orders = this._kitchenRepository.GetOrderByQuery(criteria);
             }
 
-            return orderDetails;
+            return orders;
         }
 
         public Order GetMealOrderById(GetMealOrderByIdCriteria criteria)

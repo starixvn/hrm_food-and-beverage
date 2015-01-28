@@ -35,7 +35,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     /// </summary>
     public class MainDishesViewModel : MainDishModelProperty
     {
-        private static DispatcherTimer digitalClockDispatcher = new DispatcherTimer();
+        private static DispatcherTimer _digitalClockDispatcher = new DispatcherTimer();
         private MainViewModel _mainViewModel;
 
         public MainDishesViewModel()
@@ -220,7 +220,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         public void CancelTimerDispatcher()
         {
             MainDishTimerLive = false;
-            digitalClockDispatcher.Stop();
+            _digitalClockDispatcher.Stop();
             CountDownTimer = 0;
         }
 
@@ -391,9 +391,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         private void TimerDigitalClock()
         {
-            digitalClockDispatcher.Interval = new TimeSpan(0, 0, 1);
-            digitalClockDispatcher.Tick += new EventHandler(TimerTick);
-            digitalClockDispatcher.Start();
+            _digitalClockDispatcher.Interval = new TimeSpan(0, 0, 1);
+            _digitalClockDispatcher.Tick += new EventHandler(TimerTick);
+            _digitalClockDispatcher.Start();
         }
 
         /// <summary>
@@ -413,7 +413,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     MainViewModel.ExecuteReturnToStandByScreen();
                 }
 
-                digitalClockDispatcher.Stop();
+                _digitalClockDispatcher.Stop();
             }
         }
 

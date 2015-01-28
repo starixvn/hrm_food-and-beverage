@@ -26,7 +26,7 @@ namespace NexFB.WinAppSmartCard.DependencyProperties
                 typeof(ListBoxBehavior),
                 new UIPropertyMetadata(false, OnScrollOnNewItemChanged));
 
-        private static Dictionary<ListBox, Capture> associations = new Dictionary<ListBox, Capture>();
+        private static Dictionary<ListBox, Capture> _associations = new Dictionary<ListBox, Capture>();
 
         public static bool GetScrollOnNewItem(DependencyObject obj)
         {
@@ -68,9 +68,9 @@ namespace NexFB.WinAppSmartCard.DependencyProperties
             {
                 listBox.Loaded -= ListBox_Loaded;
                 listBox.Unloaded -= ListBox_Unloaded;
-                if (associations.ContainsKey(listBox))
+                if (_associations.ContainsKey(listBox))
                 {
-                    associations[listBox].Dispose();
+                    _associations[listBox].Dispose();
                 }
             }
         }
@@ -78,9 +78,9 @@ namespace NexFB.WinAppSmartCard.DependencyProperties
         public static void ListBox_Unloaded(object sender, RoutedEventArgs e)
         {
             var listBox = (ListBox)sender;
-            if (associations.ContainsKey(listBox))
+            if (_associations.ContainsKey(listBox))
             {
-                associations[listBox].Dispose();
+                _associations[listBox].Dispose();
             }
 
             listBox.Unloaded -= ListBox_Unloaded;
@@ -101,7 +101,7 @@ namespace NexFB.WinAppSmartCard.DependencyProperties
             }
 
             listBox.Loaded -= ListBox_Loaded;
-            associations[listBox] = new Capture(listBox);
+            _associations[listBox] = new Capture(listBox);
         }
     }
 }

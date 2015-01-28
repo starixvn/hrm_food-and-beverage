@@ -86,26 +86,32 @@ namespace NexFB.PosKitchen.ViewModels
         {
             get
             {
-                List<Order> awaitingDeliverMeals = new List<Order>();
+                IList<Order> awaitingDeliverMeals = new List<Order>();
                 if (!string.IsNullOrEmpty(SearchValue))
                 {
-                    Order order = null;
                     if (SearchValue.Length <= 3)
                     {
                         var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() { OrderNo = int.Parse(SearchValue) };
-                        order = KitchenService.GetOrderDetailsByOrderNo(getOrderDetailsCriteria);
+                        IList<Order> orders = KitchenService.GetOrdersByOrderNo(getOrderDetailsCriteria);
+                        foreach (Order item in orders)
+                        {
+                            if (item.CurrentStatusId == (int)OrderStatus.ReceivedOrder
+                                || item.CurrentStatusId == (int)OrderStatus.ReducedOrder)
+                            {
+                                awaitingDeliverMeals.Add(item);
+                            }
+                        }
                     }
                     else
                     {
                         var getOrderDetailsCriteria = new GetMealOrderByIdCriteria() { OrderId = int.Parse(SearchValue) };
-                        order = KitchenService.GetMealOrderById(getOrderDetailsCriteria);
-                    }
-
-                    if (order != null &&
+                        Order order = KitchenService.GetMealOrderById(getOrderDetailsCriteria);
+                        if (order != null &&
                         (order.CurrentStatusId == (int)OrderStatus.ReceivedOrder
                         || order.CurrentStatusId == (int)OrderStatus.ReducedOrder))
-                    {
-                        awaitingDeliverMeals.Add(order);
+                        {
+                            awaitingDeliverMeals.Add(order);
+                        }
                     }
                 }
                 else

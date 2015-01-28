@@ -27,16 +27,16 @@ namespace NexFB.Site.Controllers
     /// </summary>
     public class ExportReportController : Controller
     {
-        private const string MonthlyMainDishReportLocalEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls";
-        private const string MonthlyMainDishReportLocalDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentReportLocal.xls";
-        private const string EmployeeOrderHistoryTemplatePath = @"~\Src\App\Report\ExcelTemplates\EmployeeOrderHistoryReport.xls";
-        private const string SideDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\SideDishReport.xls";
-        private const string MonthlyMainDishPerDayEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeePerDayReport.xls";
-        private const string MonthlyMainDishPerDayDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentPerDayReport.xls";
-        private const string MealForecastAllTypeReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastAllTypeReport.xls";
-        private const string MealForecastReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastReport.xls";
-        private const string DailyMainDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\DailyMainDishReport.xls";
-        private const string MealForecastDetailReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastDetailReport.xls";
+        private const string _MonthlyMainDishReportLocalEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls";
+        private const string _MonthlyMainDishReportLocalDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentReportLocal.xls";
+        private const string _EmployeeOrderHistoryTemplatePath = @"~\Src\App\Report\ExcelTemplates\EmployeeOrderHistoryReport.xls";
+        private const string _SideDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\SideDishReport.xls";
+        private const string _MonthlyMainDishPerDayEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeePerDayReport.xls";
+        private const string _MonthlyMainDishPerDayDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentPerDayReport.xls";
+        private const string _MealForecastAllTypeReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastAllTypeReport.xls";
+        private const string _MealForecastReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastReport.xls";
+        private const string _DailyMainDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\DailyMainDishReport.xls";
+        private const string _MealForecastDetailReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastDetailReport.xls";
 
         private readonly IMonthlyMainDishReportService _monthlyMainDishReportService;
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
@@ -94,11 +94,11 @@ namespace NexFB.Site.Controllers
             {
                 if (report.IsGroupByEmployee)
                 {
-                    templateUrl = Server.MapPath(MonthlyMainDishReportLocalEmployeeTemplatePath);
+                    templateUrl = Server.MapPath(_MonthlyMainDishReportLocalEmployeeTemplatePath);
                 }
                 else
                 {
-                    templateUrl = Server.MapPath(MonthlyMainDishReportLocalDepartmentTemplatePath);
+                    templateUrl = Server.MapPath(_MonthlyMainDishReportLocalDepartmentTemplatePath);
                 }
 
                 _monthlyMainDishReportService.ExportMonthlyMainDishReportLocal(report, templateUrl);
@@ -125,7 +125,7 @@ namespace NexFB.Site.Controllers
 
             if (report != null)
             {
-                templatePath = Server.MapPath(EmployeeOrderHistoryTemplatePath);
+                templatePath = Server.MapPath(_EmployeeOrderHistoryTemplatePath);
                 _employeeOrderHistoryService.ExportEmployeeOrderHistoryReport(report, templatePath);
             }
 
@@ -139,7 +139,7 @@ namespace NexFB.Site.Controllers
         /// <returns>The EmptyResult.</returns>
         public ActionResult ExportSideDishReport(GetSideDishReportCriteria criteria)
         {
-            string templateUrl = Server.MapPath(SideDishReportTemplatePath);
+            string templateUrl = Server.MapPath(_SideDishReportTemplatePath);
             SideDishReportModel report = _sideDishReportService.GetSideDishReport(criteria);
 
             if (report != null)
@@ -170,11 +170,11 @@ namespace NexFB.Site.Controllers
             {
                 if (report.IsGroupByEmployee)
                 {
-                    templatePath = Server.MapPath(MonthlyMainDishPerDayEmployeeTemplatePath);
+                    templatePath = Server.MapPath(_MonthlyMainDishPerDayEmployeeTemplatePath);
                 }
                 else
                 {
-                    templatePath = Server.MapPath(MonthlyMainDishPerDayDepartmentTemplatePath);
+                    templatePath = Server.MapPath(_MonthlyMainDishPerDayDepartmentTemplatePath);
                 }
 
                 _monthlyMainDishPerDayService.ExportMonthlyMainDishPerDayReport(report, templatePath);
@@ -192,7 +192,7 @@ namespace NexFB.Site.Controllers
         {
             DailyMainDishReportModel report = SessionManager.Get<DailyMainDishReportModel>(
                 ReportConstant.DailyMainDishReportSessionKey + SessionManager.CurrentUser.UserId);
-            string templatePath = Server.MapPath(DailyMainDishReportTemplatePath);
+            string templatePath = Server.MapPath(_DailyMainDishReportTemplatePath);
 
             if (report == null)
             {
@@ -222,11 +222,11 @@ namespace NexFB.Site.Controllers
             {
                 if (criteria.IsVegetarian == null)
                 {
-                    templatePath = Server.MapPath(MealForecastAllTypeReportTemplatePath);
+                    templatePath = Server.MapPath(_MealForecastAllTypeReportTemplatePath);
                 }
                 else
                 {
-                    templatePath = Server.MapPath(MealForecastReportTemplatePath);
+                    templatePath = Server.MapPath(_MealForecastReportTemplatePath);
                 }
 
                 _mealForecastReportService.ExportMealForecastReport(report, templatePath, criteria.IsVegetarian);
@@ -253,7 +253,7 @@ namespace NexFB.Site.Controllers
 
             if (report != null)
             {
-                templatePath = Server.MapPath(MealForecastDetailReportTemplatePath);
+                templatePath = Server.MapPath(_MealForecastDetailReportTemplatePath);
                 _mealForecastDetailReportService.ExportMealForecastDetailReport(report, templatePath, criteria.IsVegetarian, criteria.OnDate);
             }
 

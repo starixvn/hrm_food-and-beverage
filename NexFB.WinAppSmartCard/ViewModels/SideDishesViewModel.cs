@@ -30,7 +30,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
     /// </summary>
     public class SideDishesViewModel : SideDishModelProperty
     {
-        private static DispatcherTimer digitalClockDispatcher = new DispatcherTimer();
+        private static DispatcherTimer _digitalClockDispatcher = new DispatcherTimer();
         private MainViewModel _mainViewModel;
 
         public SideDishesViewModel(Employee orderOwner, MainViewModel mainViewModel)
@@ -64,7 +64,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
         public void CancelTimerDispatcher()
         {
             SideDishTimerLive = false;
-            digitalClockDispatcher.Stop();
+            _digitalClockDispatcher.Stop();
             CountDownTimer = 0;
         }
 

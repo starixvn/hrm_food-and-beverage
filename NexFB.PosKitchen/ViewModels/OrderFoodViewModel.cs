@@ -46,8 +46,8 @@ namespace NexFB.PosKitchen.ViewModels
     {
         #region Fields
 
-        private static readonly OrderFoodData OrderFoodData = new OrderFoodData();
-        private static readonly OrderFoodPreviewData OrderFoodPreviewData = new OrderFoodPreviewData();
+        private static readonly OrderFoodData _OrderFoodData = new OrderFoodData();
+        private static readonly OrderFoodPreviewData _OrderFoodPreviewData = new OrderFoodPreviewData();
         private static string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
 
         #endregion
@@ -77,9 +77,9 @@ namespace NexFB.PosKitchen.ViewModels
             CurrentCulture();
             ChangeButtonBorder((int)KitchenGroupButton.ReleaseAllButton);
             HideGridDisplayUser();
-            AllObservationFood = OrderFoodData.GetAllFood;
-            AllObservationAlternativeFood = OrderFoodData.GetAllAlternativeFood;
-            AllObservationGroup = OrderFoodData.GetAllGroup;
+            AllObservationFood = _OrderFoodData.GetAllFood;
+            AllObservationAlternativeFood = _OrderFoodData.GetAllAlternativeFood;
+            AllObservationGroup = _OrderFoodData.GetAllGroup;
             MainViewModel = mainViewModel;
 
             if (order != null)
@@ -89,11 +89,11 @@ namespace NexFB.PosKitchen.ViewModels
                 SaveButtonVisible = Constant.Visible;
                 IsDataEdit = true;
                 PrepareEditData(order);
-                AllObservationLocation = OrderFoodData.GetAllLocation;
+                AllObservationLocation = _OrderFoodData.GetAllLocation;
             }
             else
             {
-                AllObservationLocation = OrderFoodData.GetAllActiveLocation;
+                AllObservationLocation = _OrderFoodData.GetAllActiveLocation;
             }
         }
 
@@ -254,7 +254,7 @@ namespace NexFB.PosKitchen.ViewModels
                         mainMenu.Quantity = 0;
                         mainMenu.IsSelectedMealMenu = false;
                         mainMenu.IsFocusedMealMenu = false;
-                        currentSelectedMember.OrderSummary = OrderFoodData.DisplayEmployeeOrderSummary(currentSelectedMember);
+                        currentSelectedMember.OrderSummary = _OrderFoodData.DisplayEmployeeOrderSummary(currentSelectedMember);
                     }
                 }
             }
@@ -366,7 +366,7 @@ namespace NexFB.PosKitchen.ViewModels
             {
                 ShowOverlay();
                 OrderConfirmationWindow confirmationWindow = new OrderConfirmationWindow();
-                List<OrderPreview> orderPreview = OrderFoodPreviewData.PrepareDataForKitchenPreview(UserInGroup.ToList());
+                List<OrderPreview> orderPreview = _OrderFoodPreviewData.PrepareDataForKitchenPreview(UserInGroup.ToList());
                 OrderPreviewData = new ObservableCollection<OrderPreview>(orderPreview);
                 TotalOrder = orderPreview.Sum(x => x.Quantity);
                 decimal totalPrice = orderPreview.Sum(x => x.UnitPrice);
@@ -809,7 +809,7 @@ namespace NexFB.PosKitchen.ViewModels
                     }
                 }
 
-                currentSelectedMember.OrderSummary = OrderFoodData.DisplayEmployeeOrderSummary(currentSelectedMember);
+                currentSelectedMember.OrderSummary = _OrderFoodData.DisplayEmployeeOrderSummary(currentSelectedMember);
                 UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
             }
         }
@@ -1012,7 +1012,7 @@ namespace NexFB.PosKitchen.ViewModels
                     }
                 }
 
-                currentSelectedEmployee.OrderSummary = OrderFoodData.DisplayEmployeeOrderSummary(currentSelectedEmployee);
+                currentSelectedEmployee.OrderSummary = _OrderFoodData.DisplayEmployeeOrderSummary(currentSelectedEmployee);
                 UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
                 currentSelectedMenu.Quantity = 0;
                 ChangeMenuColor(currentSelectedEmployee);
@@ -1295,10 +1295,10 @@ namespace NexFB.PosKitchen.ViewModels
             CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>();
             UserInGroup = new ObservableCollection<KitchenEmployeeInfo>();
             DuplicateUser = new ObservableCollection<KitchenEmployeeInfo>();
-            AllObservationFood = OrderFoodData.GetAllFood;
-            AllObservationAlternativeFood = OrderFoodData.GetAllAlternativeFood;
-            AllObservationGroup = OrderFoodData.GetAllGroup;
-            AllObservationLocation = OrderFoodData.GetAllLocation;
+            AllObservationFood = _OrderFoodData.GetAllFood;
+            AllObservationAlternativeFood = _OrderFoodData.GetAllAlternativeFood;
+            AllObservationGroup = _OrderFoodData.GetAllGroup;
+            AllObservationLocation = _OrderFoodData.GetAllLocation;
             EmployeeInfo = null;
             Result = null;
             LocationName = null;
@@ -1389,13 +1389,13 @@ namespace NexFB.PosKitchen.ViewModels
 
                             data.Add(kitchenEmployeeInfo);
                             ChangeMenuColor(kitchenEmployeeInfo);
-                            kitchenEmployeeInfo.OrderSummary = OrderFoodData.DisplayEmployeeOrderSummary(kitchenEmployeeInfo);
+                            kitchenEmployeeInfo.OrderSummary = _OrderFoodData.DisplayEmployeeOrderSummary(kitchenEmployeeInfo);
                         }
                     }
 
                     IsDataEdit = false;
                     UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(data);
-                    CommonKitchenOrder = OrderFoodData.GetAllGroup;
+                    CommonKitchenOrder = _OrderFoodData.GetAllGroup;
                     LocationId = order.LocationId;
                     ExecutePickGroupCommand();
                     ShowGridDisplayUser();
@@ -1633,7 +1633,7 @@ namespace NexFB.PosKitchen.ViewModels
                 };
 
                 currentSelectedEmployee.ListMainMenuOrderDeatails.Add(employeeMainMeal);
-                currentSelectedEmployee.OrderSummary = OrderFoodData.DisplayEmployeeOrderSummary(currentSelectedEmployee);
+                currentSelectedEmployee.OrderSummary = _OrderFoodData.DisplayEmployeeOrderSummary(currentSelectedEmployee);
             }
 
             return currentSelectedEmployee;

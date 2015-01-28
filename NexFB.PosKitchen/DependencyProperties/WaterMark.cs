@@ -37,7 +37,7 @@ namespace NexFB.PosKitchen.DependencyProperties
         /// <summary>
         /// Dictionary of ItemsControls.
         /// </summary>
-        private static readonly Dictionary<object, ItemsControl> ItemsControls = new Dictionary<object, ItemsControl>();
+        private static readonly Dictionary<object, ItemsControl> _ItemsControls = new Dictionary<object, ItemsControl>();
 
         #endregion
 
@@ -86,7 +86,7 @@ namespace NexFB.PosKitchen.DependencyProperties
 
                 // for Items property  
                 i.ItemContainerGenerator.ItemsChanged += ItemsChanged;
-                ItemsControls.Add(i.ItemContainerGenerator, i);
+                _ItemsControls.Add(i.ItemContainerGenerator, i);
 
                 // for ItemsSource property  
                 DependencyPropertyDescriptor prop = DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, i.GetType());
@@ -157,7 +157,7 @@ namespace NexFB.PosKitchen.DependencyProperties
         public static void ItemsChanged(object sender, ItemsChangedEventArgs e)
         {
             ItemsControl control;
-            if (ItemsControls.TryGetValue(sender, out control))
+            if (_ItemsControls.TryGetValue(sender, out control))
             {
                 if (ShouldShowWatermark(control))
                 {

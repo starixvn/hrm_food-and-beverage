@@ -38,12 +38,12 @@ namespace NexFB.PosKitchen.DependencyProperties
             typeof(ControlBox),
             new UIPropertyMetadata(true, OnControlBoxChanged));
 
-        private const int Style = -16;
-        private const int ExtStyle = -20;
+        private const int _Style = -16;
+        private const int _ExtStyle = -20;
 
-        private const int MaximizeBox = 0x10000;
-        private const int MinimizeBox = 0x20000;
-        private const int ContextHelp = 0x400;
+        private const int _MaximizeBox = 0x10000;
+        private const int _MinimizeBox = 0x20000;
+        private const int _ContextHelp = 0x400;
 
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         [AttachedPropertyBrowsableForType(typeof(Window))]
@@ -126,24 +126,24 @@ namespace NexFB.PosKitchen.DependencyProperties
         /// <param name="windowHandler">Data type represent to a pointer or handle.</param>
         private static void UpdateStyle(Window window, IntPtr windowHandler)
         {
-            var style = NativeMethods.GetWindowLong(windowHandler, Style);
+            var style = NativeMethods.GetWindowLong(windowHandler, _Style);
 
             if (GetHasMaximizeButton(window))
             {
-                style |= MaximizeBox;
+                style |= _MaximizeBox;
             }
             else
             {
-                style &= ~MaximizeBox;
+                style &= ~_MaximizeBox;
             }
 
             if (GetHasMinimizeButton(window))
             {
-                style |= MinimizeBox;
+                style |= _MinimizeBox;
             }
             else
             {
-                style &= ~MinimizeBox;
+                style &= ~_MinimizeBox;
             }
         }
 
