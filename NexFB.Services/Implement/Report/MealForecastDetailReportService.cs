@@ -240,8 +240,8 @@ namespace NexFB.Services.Implement.Report
                     Meal = CreateMeal(mealForecastDetail.Meals),
                     DietType = mealForecastDetail.IsVegetarian == true ? Lang.Vegetarian : Lang.NonVegetarian,
                     Registration = mealForecastDetail.Registration,
-                    ActualOrder = mealForecastDetail.ActualOrder < 0 ? "-" : mealForecastDetail.ActualOrder.ToString(),
-                    OrderRate = mealForecastDetail.OrderRate < 0 ? "-" : mealForecastDetail.OrderRate + "%"
+                    ActualOrder = FormatNumber(mealForecastDetail.ActualOrder, false),
+                    OrderRate = FormatNumber(mealForecastDetail.OrderRate, true)
                 };
 
                 writer.WriteRow(4, record);
@@ -265,8 +265,8 @@ namespace NexFB.Services.Implement.Report
                 Meal = string.Empty,
                 DietType = string.Empty,
                 Registration = totalMeal.Registration,
-                ActualOrder = totalMeal.ActualOrder < 0 ? "-" : totalMeal.ActualOrder.ToString(),
-                OrderRate = totalMeal.Efficiency < 0 ? "-" : totalMeal.Efficiency + "%"
+                ActualOrder = FormatNumber(totalMeal.ActualOrder, false),
+                OrderRate = FormatNumber(totalMeal.Efficiency, true)
             };
 
             writer.WriteRow(rowIndex, record);
@@ -288,6 +288,26 @@ namespace NexFB.Services.Implement.Report
             }
 
             return mealTemplate;
+        }
+
+        /// <summary>
+        /// Format number.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <param name="isPercent">Is percent.</param>
+        /// <returns>The dynamic type.</returns>
+        private dynamic FormatNumber(dynamic number, bool isPercent)
+        {
+            if (number < 0)
+            {
+                return "-";
+            }
+            else if (isPercent)
+            {
+                return number + "%";
+            }
+
+            return number;
         }
     }
 }

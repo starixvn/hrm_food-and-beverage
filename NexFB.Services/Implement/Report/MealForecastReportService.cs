@@ -215,8 +215,8 @@ namespace NexFB.Services.Implement.Report
                         Date = mealForecast.OnDate,
                         DietType = Lang.NonVegetarian,
                         Registration = mealForecast.RegistrationNonVegetarian,
-                        ActualOrder = mealForecast.ActualOrderNonVegetarian < 0 ? "-" : mealForecast.ActualOrderNonVegetarian.ToString(),
-                        Efficiency = mealForecast.EfficiencyNonVegetarian < 0 ? "-" : mealForecast.EfficiencyNonVegetarian + "%"
+                        ActualOrder = FormatNumber(mealForecast.ActualOrderNonVegetarian, false),
+                        Efficiency = FormatNumber(mealForecast.EfficiencyNonVegetarian, true)
                     };
                     var recordVeg = new
                     {
@@ -224,8 +224,8 @@ namespace NexFB.Services.Implement.Report
                         Date = mealForecast.OnDate,
                         DietType = Lang.Vegetarian,
                         Registration = mealForecast.RegistrationVegetarian,
-                        ActualOrder = mealForecast.ActualOrderVegetarian < 0 ? "-" : mealForecast.ActualOrderNonVegetarian.ToString(),
-                        Efficiency = mealForecast.EfficiencyVegetarian < 0 ? "-" : mealForecast.EfficiencyVegetarian + "%"
+                        ActualOrder = FormatNumber(mealForecast.ActualOrderVegetarian, false),
+                        Efficiency = FormatNumber(mealForecast.EfficiencyVegetarian, true)
                     };
                     writer.WriteRow(4, recordNonVeg);
                     writer.WriteRow(5, recordVeg);
@@ -242,10 +242,10 @@ namespace NexFB.Services.Implement.Report
                         Date = mealForecast.OnDate,
                         DietType = isVegetarian == true ? Lang.Vegetarian : Lang.NonVegetarian,
                         Registration = isVegetarian == true ? mealForecast.RegistrationVegetarian : mealForecast.RegistrationNonVegetarian,
-                        ActualOrder = isVegetarian == true ? (mealForecast.ActualOrderVegetarian < 0 ? "-" : mealForecast.ActualOrderVegetarian.ToString()) :
-                            (mealForecast.ActualOrderNonVegetarian < 0 ? "-" : mealForecast.ActualOrderNonVegetarian.ToString()),
-                        Efficiency = isVegetarian == true ? (mealForecast.EfficiencyVegetarian < 0 ? "-" : mealForecast.EfficiencyVegetarian + "%") :
-                            (mealForecast.EfficiencyNonVegetarian < 0 ? "-" : mealForecast.EfficiencyNonVegetarian + "%")
+                        ActualOrder = isVegetarian == true ? FormatNumber(mealForecast.ActualOrderVegetarian, false) :
+                            FormatNumber(mealForecast.ActualOrderNonVegetarian, false),
+                        Efficiency = isVegetarian == true ? FormatNumber(mealForecast.EfficiencyVegetarian, true) :
+                            FormatNumber(mealForecast.EfficiencyNonVegetarian, true)
                     };
                     writer.WriteRow(4, record);
                 }
@@ -267,11 +267,31 @@ namespace NexFB.Services.Implement.Report
                 Date = string.Empty,
                 DietType = string.Empty,
                 Registration = totalMeal.Registration,
-                ActualOrder = totalMeal.ActualOrder < 0 ? "-" : totalMeal.ActualOrder.ToString(),
-                Efficiency = totalMeal.Efficiency < 0 ? "-" : totalMeal.Efficiency + "%"
+                ActualOrder = FormatNumber(totalMeal.ActualOrder, false),
+                Efficiency = FormatNumber(totalMeal.Efficiency, true)
             };
 
             writer.WriteRow(rowIndex, record);
+        }
+
+        /// <summary>
+        /// Format number.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <param name="isPercent">Is percent.</param>
+        /// <returns>The dynamic type.</returns>
+        private dynamic FormatNumber(dynamic number, bool isPercent)
+        {
+            if (number < 0)
+            {
+                return "-";
+            }
+            else if (isPercent)
+            {
+                return number + "%";
+            }
+
+            return number;
         }
     }
 }
