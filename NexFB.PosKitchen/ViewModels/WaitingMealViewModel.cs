@@ -90,16 +90,15 @@ namespace NexFB.PosKitchen.ViewModels
                 List<Order> waitingMeals = new List<Order>();
                 if (!string.IsNullOrEmpty(SearchValue))
                 {
-                    Order order = null;
                     if (SearchValue.Length <= 3)
                     {
                         var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() { OrderNo = int.Parse(SearchValue) };
                         IList<Order> orders = KitchenService.GetOrdersByOrderNo(getOrderDetailsCriteria);
                         foreach (Order item in orders)
                         {
-                            if (order.CurrentStatusId == (int)OrderStatus.NewOrder
-                                || order.CurrentStatusId == (int)OrderStatus.ReceivedOrder
-                                || order.CurrentStatusId == (int)OrderStatus.ReducedOrder)
+                            if (item.CurrentStatusId == (int)OrderStatus.NewOrder
+                                || item.CurrentStatusId == (int)OrderStatus.ReceivedOrder
+                                || item.CurrentStatusId == (int)OrderStatus.ReducedOrder)
                             {
                                 waitingMeals.Add(item);
                             }
@@ -108,7 +107,7 @@ namespace NexFB.PosKitchen.ViewModels
                     else
                     {
                         var getOrderDetailsCriteria = new GetMealOrderByIdCriteria() { OrderId = int.Parse(SearchValue) };
-                        order = KitchenService.GetMealOrderById(getOrderDetailsCriteria);
+                        Order order = KitchenService.GetMealOrderById(getOrderDetailsCriteria);
                         if (order != null &&
                         (order.CurrentStatusId == (int)OrderStatus.NewOrder
                         || order.CurrentStatusId == (int)OrderStatus.ReceivedOrder

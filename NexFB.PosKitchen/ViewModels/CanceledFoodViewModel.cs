@@ -82,14 +82,13 @@ namespace NexFB.PosKitchen.ViewModels
                 List<Order> canceledMeals = new List<Order>();
                 if (!string.IsNullOrEmpty(SearchValue))
                 {
-                    Order order = null;
                     if (SearchValue.Length <= 3)
                     {
                         var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() { OrderNo = int.Parse(SearchValue) };
                         IList<Order> orders = KitchenService.GetOrdersByOrderNo(getOrderDetailsCriteria);
                         foreach (Order item in orders)
                         {
-                            if (order.CurrentStatusId == (int)OrderStatus.CanceledOrder)
+                            if (item.CurrentStatusId == (int)OrderStatus.CanceledOrder)
                             {
                                 canceledMeals.Add(item);
                             }
@@ -98,7 +97,7 @@ namespace NexFB.PosKitchen.ViewModels
                     else
                     {
                         var getOrderDetailsCriteria = new GetMealOrderByIdCriteria() { OrderId = int.Parse(SearchValue) };
-                        order = KitchenService.GetMealOrderById(getOrderDetailsCriteria);
+                        Order order = KitchenService.GetMealOrderById(getOrderDetailsCriteria);
                         if (order != null && order.CurrentStatusId == (int)OrderStatus.CanceledOrder)
                         {
                             canceledMeals.Add(order);

@@ -93,7 +93,6 @@ namespace NexFB.PosKitchen.ViewModels
                 List<Order> deliveredMeals = new List<Order>();
                 if (!string.IsNullOrEmpty(SearchValue))
                 {
-                    Order order = null;
                     if (SearchValue.Length <= 3)
                     {
                         var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() 
@@ -116,7 +115,7 @@ namespace NexFB.PosKitchen.ViewModels
                         { 
                             OrderId = int.Parse(SearchValue) 
                         };
-                        order = KitchenService.GetMealOrderById(getOrderDetailsCriteria);
+                        Order order = KitchenService.GetMealOrderById(getOrderDetailsCriteria);
                         if (order != null &&
                         (order.CurrentStatusId == (int)OrderStatus.DeliveredOrder
                         || order.CurrentStatusId == (int)OrderStatus.EditedOrder))
