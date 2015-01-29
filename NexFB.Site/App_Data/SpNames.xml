@@ -344,7 +344,7 @@
       <Mapping DataField="ENGName" ObjectProperty="MenuEng" Class="MealForecastDetailModel"/>
       <Mapping DataField="VNMName" ObjectProperty="MenuVie" Class="MealForecastDetailModel"/>
       <Mapping DataField="MealId" ObjectProperty="MealID" Class="MealModel"/>
-      <Mapping DataField="VNMName" ObjectProperty="MealName" Class="MealModel"/>
+      <Mapping DataField="ENGName" ObjectProperty="MealName" Class="MealModel"/>
     </Setting>
 	</Function>
   <Function Name="ManageGroup">
