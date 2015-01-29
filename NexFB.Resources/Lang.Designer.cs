@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NexFB.Resources
-{
-
-
+namespace NexFB.Resources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -1501,7 +1501,7 @@ namespace NexFB.Resources
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meal_Forecast_Detail_Report.
+        ///   Looks up a localized string similar to Meal_Forecast_Report_For_.
         /// </summary>
         public static string MealForecastDetailReportName {
             get {
@@ -1510,7 +1510,7 @@ namespace NexFB.Resources
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meal Forecast Detail Report.
+        ///   Looks up a localized string similar to Meal Forecast Report For .
         /// </summary>
         public static string MealForecastDetailReportSheetName {
             get {
@@ -1519,7 +1519,7 @@ namespace NexFB.Resources
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meal Forecast Detail Report For .
+        ///   Looks up a localized string similar to Meal Forecast Report For .
         /// </summary>
         public static string MealForecastDetailReportTitle {
             get {

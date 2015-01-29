@@ -106,9 +106,9 @@ namespace NexFB.Services.Implement.Report
             bool? isVegetarian,
             DateTime dateSelected)
         {
-            string reportName = Lang.MealForecastDetailReportName;
+            string reportName = Lang.MealForecastDetailReportName + dateSelected.ToString("dd_MMM_yyyy");
             string reportTitle = Lang.MealForecastDetailReportTitle + dateSelected.ToString("dd MMM, yyyy");
-            string reportSheetName = Lang.MealForecastDetailReportSheetName;
+            string reportSheetName = Lang.MealForecastDetailReportSheetName + dateSelected.ToString("dd MMM, yyyy");
             var writer = new ExcelTemplateWriter(templatePath, reportName, reportSheetName);
 
             // Fill report title.
@@ -122,17 +122,17 @@ namespace NexFB.Services.Implement.Report
 
             if (isVegetarian == null)
             {
-                FillTotalRow(report.TotalNonVegetarian, Lang.TotalNonVegetarian, 5, ref writer);
-                FillTotalRow(report.TotalVegetarian, Lang.TotalVegetarian, 5, ref writer);
-                FillTotalRow(report.TotalMeal, Lang.TotalMeal, 5, ref writer);
+                FillTotalRow(report.TotalNonVegetarian, Lang.TotalNonVegetarian, ref writer);
+                FillTotalRow(report.TotalVegetarian, Lang.TotalVegetarian, ref writer);
+                FillTotalRow(report.TotalMeal, Lang.TotalMeal, ref writer);
             }
             else if (isVegetarian == true)
             {
-                FillTotalRow(report.TotalVegetarian, Lang.TotalVegetarian, 5, ref writer);
+                FillTotalRow(report.TotalVegetarian, Lang.TotalVegetarian, ref writer);
             }
             else
             {
-                FillTotalRow(report.TotalNonVegetarian, Lang.TotalNonVegetarian, 5, ref writer);
+                FillTotalRow(report.TotalNonVegetarian, Lang.TotalNonVegetarian, ref writer);
             }
 
             writer.SyncColumnsWidth(8);
@@ -226,11 +226,28 @@ namespace NexFB.Services.Implement.Report
         /// <param name="writer">The writer.</param>
         private void FillContentRow(List<MealForecastDetailModel> mealForecastDetails, ref ExcelTemplateWriter writer)
         {
-            int numberRecords = mealForecastDetails.Count;
-
+            int numberRecords = mealForecastDetails.Count, rowIndex = 4;
+            
             for (int i = 0; i < numberRecords; i++)
             {
                 MealForecastDetailModel mealForecastDetail = mealForecastDetails[i];
+
+                if (mealForecastDetail.OrderRate < 0)
+                {
+                    rowIndex = 7;
+                }
+                else if (mealForecastDetail.OrderRate < 100)
+                {
+                    rowIndex = 5;
+                }
+                else if (mealForecastDetail.OrderRate == 100)
+                {
+                    rowIndex = 4;
+                }
+                else
+                {
+                    rowIndex = 6;
+                }
 
                 var record = new
                 {
@@ -244,7 +261,7 @@ namespace NexFB.Services.Implement.Report
                     OrderRate = FormatNumber(mealForecastDetail.OrderRate, true)
                 };
 
-                writer.WriteRow(4, record);
+                writer.WriteRow(rowIndex, record);
             }
         }
 
@@ -253,10 +270,27 @@ namespace NexFB.Services.Implement.Report
         /// </summary>
         /// <param name="totalMeal">The total meal forecast.</param>
         /// <param name="totalName">The total name.</param>
-        /// <param name="rowIndex">The row index.</param>
         /// <param name="writer">The writer.</param>
-        private void FillTotalRow(TotalMealForecastModel totalMeal, string totalName, int rowIndex, ref ExcelTemplateWriter writer)
+        private void FillTotalRow(TotalMealForecastModel totalMeal, string totalName, ref ExcelTemplateWriter writer)
         {
+            int rowIndex = 8;
+            if (totalMeal.Efficiency < 0)
+            {
+                rowIndex = 11;
+            }
+            else if (totalMeal.Efficiency < 100)
+            {
+                rowIndex = 9;
+            }
+            else if (totalMeal.Efficiency == 100)
+            {
+                rowIndex = 8;
+            }
+            else
+            {
+                rowIndex = 10;
+            }
+
             var record = new
             {
                 Count = totalName,

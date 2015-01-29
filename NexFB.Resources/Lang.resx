@@ -933,7 +933,7 @@
   <data name="OffDay" xml:space="preserve">
     <value>Off day</value>
   </data>
-   <data name="SideDishItem" xml:space="preserve">
+  <data name="SideDishItem" xml:space="preserve">
     <value>Side dish item</value>
   </data>
   <data name="SideDishReport" xml:space="preserve">
@@ -1096,13 +1096,13 @@
     <value>Diet Type</value>
   </data>
   <data name="MealForecastDetailReportName" xml:space="preserve">
-    <value>Meal_Forecast_Detail_Report</value>
+    <value>Meal_Forecast_Report_For_</value>
   </data>
   <data name="MealForecastDetailReportSheetName" xml:space="preserve">
-    <value>Meal Forecast Detail Report</value>
+    <value>Meal Forecast Report For </value>
   </data>
   <data name="MealForecastDetailReportTitle" xml:space="preserve">
-    <value>Meal Forecast Detail Report For </value>
+    <value>Meal Forecast Report For </value>
   </data>
   <data name="ResetPassword" xml:space="preserve">
     <value>Reset Password</value>

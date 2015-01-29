@@ -94,20 +94,25 @@ namespace NexFB.Services.Implement.Report
             // Fill report header.
             writer.CopyRows(3, 1);
 
-            FillContentRow(report.MealForecasts, ref writer, isVegetarian);
+            for (int i = 0; i < report.MealForecasts.Count; i++)
+            {
+                MealForecastItemModel mealForecast = report.MealForecasts[i];
+                FillContentRow(mealForecast, i + 1, ref writer, isVegetarian);
+            }
+
             if (isVegetarian == null)
             {
-                FillTotalRow(report.TotalNonVegetarian, Lang.TotalNonVegetarian, 6, ref writer);
-                FillTotalRow(report.TotalVegetarian, Lang.TotalVegetarian, 6, ref writer);
-                FillTotalRow(report.TotalMeal, Lang.TotalMeal, 6, ref writer);
+                FillTotalRow(report.TotalNonVegetarian, Lang.TotalNonVegetarian, ref writer, isVegetarian);
+                FillTotalRow(report.TotalVegetarian, Lang.TotalVegetarian, ref writer, isVegetarian);
+                FillTotalRow(report.TotalMeal, Lang.TotalMeal, ref writer, isVegetarian);
             }
             else if (isVegetarian == true)
             {
-                FillTotalRow(report.TotalVegetarian, Lang.TotalVegetarian, 5, ref writer);
+                FillTotalRow(report.TotalVegetarian, Lang.TotalVegetarian, ref writer, isVegetarian);
             }
             else
             {
-                FillTotalRow(report.TotalNonVegetarian, Lang.TotalNonVegetarian, 5, ref writer);
+                FillTotalRow(report.TotalNonVegetarian, Lang.TotalNonVegetarian, ref writer, isVegetarian);
             }
 
             writer.SyncColumnsWidth(6);
@@ -198,57 +203,56 @@ namespace NexFB.Services.Implement.Report
         /// <summary>
         /// Fill content report.
         /// </summary>
-        /// <param name="mealForecasts">The list meal forecast.</param>
+        /// <param name="mealForecast">The meal forecast.</param>
+        /// <param name="index">The index.</param>
         /// <param name="writer">The writer.</param>
-        /// <param name="isVegetarian">The is vegetarian.</param>
-        private void FillContentRow(List<MealForecastItemModel> mealForecasts, ref ExcelTemplateWriter writer, bool? isVegetarian)
+        /// <param name="isVegetarian">Is vegetarian.</param>
+        private void FillContentRow(MealForecastItemModel mealForecast, int index, ref ExcelTemplateWriter writer, bool? isVegetarian)
         {
-            int numberRecords = mealForecasts.Count;
             if (isVegetarian == null)
             {
-                for (int i = 0; i < numberRecords; i++)
+                int rowIndexNonVeg = GetRowStyleByOrderRate(mealForecast.EfficiencyNonVegetarian, true, false),
+                    rowIndexVeg = GetRowStyleByOrderRate(mealForecast.EfficiencyVegetarian, true, true);
+
+                var recordNonVeg = new
                 {
-                    MealForecastItemModel mealForecast = mealForecasts[i];
-                    var recordNonVeg = new
-                    {
-                        Count = i + 1,
-                        Date = mealForecast.OnDate,
-                        DietType = Lang.NonVegetarian,
-                        Registration = mealForecast.RegistrationNonVegetarian,
-                        ActualOrder = FormatNumber(mealForecast.ActualOrderNonVegetarian, false),
-                        Efficiency = FormatNumber(mealForecast.EfficiencyNonVegetarian, true)
-                    };
-                    var recordVeg = new
-                    {
-                        Count = i + 1,
-                        Date = mealForecast.OnDate,
-                        DietType = Lang.Vegetarian,
-                        Registration = mealForecast.RegistrationVegetarian,
-                        ActualOrder = FormatNumber(mealForecast.ActualOrderVegetarian, false),
-                        Efficiency = FormatNumber(mealForecast.EfficiencyVegetarian, true)
-                    };
-                    writer.WriteRow(4, recordNonVeg);
-                    writer.WriteRow(5, recordVeg);
-                }
+                    Count = index,
+                    Date = mealForecast.OnDate,
+                    DietType = Lang.NonVegetarian,
+                    Registration = mealForecast.RegistrationNonVegetarian,
+                    ActualOrder = FormatNumber(mealForecast.ActualOrderNonVegetarian, false),
+                    Efficiency = FormatNumber(mealForecast.EfficiencyNonVegetarian, true)
+                };
+                var recordVeg = new
+                {
+                    Count = index,
+                    Date = mealForecast.OnDate,
+                    DietType = Lang.Vegetarian,
+                    Registration = mealForecast.RegistrationVegetarian,
+                    ActualOrder = FormatNumber(mealForecast.ActualOrderVegetarian, false),
+                    Efficiency = FormatNumber(mealForecast.EfficiencyVegetarian, true)
+                };
+
+                writer.WriteRow(rowIndexNonVeg, recordNonVeg);
+                writer.WriteRow(rowIndexVeg, recordVeg);
             }
             else
             {
-                for (int i = 0; i < numberRecords; i++)
+                int rowIndex = isVegetarian == true ? GetRowStyleByOrderRate(mealForecast.EfficiencyVegetarian, false, true) :
+                    GetRowStyleByOrderRate(mealForecast.EfficiencyNonVegetarian, false, false);
+
+                var record = new
                 {
-                    MealForecastItemModel mealForecast = mealForecasts[i];
-                    var record = new
-                    {
-                        Count = i + 1,
-                        Date = mealForecast.OnDate,
-                        DietType = isVegetarian == true ? Lang.Vegetarian : Lang.NonVegetarian,
-                        Registration = isVegetarian == true ? mealForecast.RegistrationVegetarian : mealForecast.RegistrationNonVegetarian,
-                        ActualOrder = isVegetarian == true ? FormatNumber(mealForecast.ActualOrderVegetarian, false) :
-                            FormatNumber(mealForecast.ActualOrderNonVegetarian, false),
-                        Efficiency = isVegetarian == true ? FormatNumber(mealForecast.EfficiencyVegetarian, true) :
-                            FormatNumber(mealForecast.EfficiencyNonVegetarian, true)
-                    };
-                    writer.WriteRow(4, record);
-                }
+                    Count = index,
+                    Date = mealForecast.OnDate,
+                    DietType = isVegetarian == true ? Lang.Vegetarian : Lang.NonVegetarian,
+                    Registration = isVegetarian == true ? mealForecast.RegistrationVegetarian : mealForecast.RegistrationNonVegetarian,
+                    ActualOrder = isVegetarian == true ? FormatNumber(mealForecast.ActualOrderVegetarian, false) :
+                        FormatNumber(mealForecast.ActualOrderNonVegetarian, false),
+                    Efficiency = isVegetarian == true ? FormatNumber(mealForecast.EfficiencyVegetarian, true) :
+                        FormatNumber(mealForecast.EfficiencyNonVegetarian, true)
+                };
+                writer.WriteRow(rowIndex, record);
             }
         }
 
@@ -257,10 +261,29 @@ namespace NexFB.Services.Implement.Report
         /// </summary>
         /// <param name="totalMeal">The total meal forecast.</param>
         /// <param name="totalName">The total name.</param>
-        /// <param name="rowIndex">The row index.</param>
         /// <param name="writer">The writer.</param>
-        private void FillTotalRow(TotalMealForecastModel totalMeal, string totalName, int rowIndex, ref ExcelTemplateWriter writer)
+        /// <param name="isVegetarian">Is vegetarian.</param>
+        private void FillTotalRow(TotalMealForecastModel totalMeal, string totalName, ref ExcelTemplateWriter writer, bool? isVegetarian)
         {
+            int rowIndex = 8;
+
+            if (totalMeal.Efficiency < 0)
+            {
+                rowIndex = isVegetarian == null ? 15 : 11;
+            }
+            else if (totalMeal.Efficiency < 100)
+            {
+                rowIndex = isVegetarian == null ? 13 : 9;
+            }
+            else if (totalMeal.Efficiency == 100)
+            {
+                rowIndex = isVegetarian == null ? 12 : 8;
+            }
+            else
+            {
+                rowIndex = isVegetarian == null ? 14 : 10;
+            }
+
             var record = new
             {
                 Count = totalName,
@@ -272,6 +295,58 @@ namespace NexFB.Services.Implement.Report
             };
 
             writer.WriteRow(rowIndex, record);
+        }
+
+        /// <summary>
+        /// Get row index by status Id.
+        /// </summary>
+        /// <param name="orderRate">The order rate.</param>
+        /// <param name="isAllType">Is all type.</param>
+        /// <param name="isVegetarian">Is vegetarian.</param>
+        /// <returns>The row index.</returns>
+        private int GetRowStyleByOrderRate(double orderRate, bool isAllType, bool isVegetarian)
+        {
+            int rowIndex = 4;
+            if (isAllType)
+            {
+                if (orderRate < 0)
+                {
+                    rowIndex = isVegetarian == false ? 10 : 11;
+                }
+                else if (orderRate < 100)
+                {
+                    rowIndex = isVegetarian == false ? 6 : 7;
+                }
+                else if (orderRate == 100)
+                {
+                    rowIndex = isVegetarian == false ? 4 : 5;
+                }
+                else
+                {
+                    rowIndex = isVegetarian == false ? 8 : 9;
+                }
+            }
+            else
+            {
+                if (orderRate < 0)
+                {
+                    rowIndex = 7;
+                }
+                else if (orderRate < 100)
+                {
+                    rowIndex = 5;
+                }
+                else if (orderRate == 100)
+                {
+                    rowIndex = 4;
+                }
+                else
+                {
+                    rowIndex = 6;
+                }
+            }
+
+            return rowIndex;
         }
 
         /// <summary>
