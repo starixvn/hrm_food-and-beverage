@@ -39,24 +39,12 @@ function ($scope, $location, $routeParams, reportFactory, ErrorFactory, reportUt
         filter.isPagingCallback = false;
     };
 
-    var getDepartmentFilter = function (departments) {
-        var departmentId = '';
-
-        if (departments.length === 1) {
-            departmentId = departments[0].DepartmentId;
-        }
-
-        $scope.filter.departmentId = departmentId;
-        $routeParams.departmentId = departmentId;
-    };
-
     /*
     ** Get all department.
     */
     reportFactory.getDepartmentByUserRole().success(function (departments) {
         $scope.departmentOptions = departments;
-        getDepartmentFilter(departments);
-        $scope.filter.departmentId = $routeParams.departmentId === '' ? '' : parseInt($routeParams.departmentId);
+        $scope.filter.departmentId = $routeParams.departmentId.split(',').length > 1 ? $routeParams.departmentId : parseInt($routeParams.departmentId);
         $scope.getMealForecastDetailReport($scope.filter);
     }).error(function (response, status) {
         ErrorFactory.errorHandle(status);

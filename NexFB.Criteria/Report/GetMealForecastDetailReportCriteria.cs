@@ -19,7 +19,7 @@ namespace NexFB.Criteria.Report
     {
         public DateTime OnDate { get; set; }
 
-        public int? DepartmentId { get; set; }
+        public string DepartmentId { get; set; }
 
         public bool? IsVegetarian { get; set; }
 

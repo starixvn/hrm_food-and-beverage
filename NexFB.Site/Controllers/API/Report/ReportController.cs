@@ -438,7 +438,7 @@ namespace NexFB.Site.Controllers.API.Report
         public MealForecastReportModel GetMealForecastReport(
             DateTime fromDate,
             DateTime toDate,
-            int? departmentId = null,
+            string departmentId = "",
             bool? isVegetarian = null,
             bool isPagingCallback = false,
             int startIndex = 0,
@@ -481,7 +481,7 @@ namespace NexFB.Site.Controllers.API.Report
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealForecastReport, Policy = Policy.Read)]
         public MealForecastDetailReport GetMealForecastDetailReport(
             DateTime date,
-            int? departmentId = null,
+            string departmentId = "",
             bool? isVegetarian = null,
             bool isPagingCallback = false,
             int startIndex = 0,
