@@ -32,7 +32,7 @@ reportModule.directive('renderMealForecastReport', function () {
 	var generateDataBody = function (report, scope) {
 		var linkToDetail = function (currentCell) {
 			var date = currentCell.Value,
-			cell = '<a class="meal-forecast-detail" href="/MealForecastReport/Detail?date=' + date +
+			cell = '<a class="meal-forecast-detail" href="' + scope.baseUrl + 'MealForecastReport/Detail?date=' + date +
 				'&departmentId=' + scope.filter.departmentId + 
 				'&dietType=' + scope.filter.vegetarianType + '">' + date + '</a>';
 			return cell;

@@ -2,8 +2,8 @@
 /*global reportModule*/
 
 reportModule.controller('MealForecastReportController',
-['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'commonFactory', 'notificationFactory',
-function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, notificationFactory) {
+['$scope', 'baseUrl', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'commonFactory', 'notificationFactory',
+function ($scope, baseUrl, reportFactory, ErrorFactory, reportUtilities, commonFactory, notificationFactory) {
     $scope.toDate = new Date();
     $scope.mealForecastFilter = reportFactory.getMealForecastFilter();
 
@@ -17,6 +17,7 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, n
         itemsPerPage: $scope.mealForecastFilter.itemsPerPage
     };
 
+    $scope.baseUrl = baseUrl;
     $scope.numberFormat = reportUtilities.getNumberFormat();
     $scope.dateFormat = reportUtilities.getDateFormatEmployeeOrderHistoryReport();
 
