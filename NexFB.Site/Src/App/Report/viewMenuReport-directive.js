@@ -25,7 +25,7 @@ reportModule.directive('viewMenuReport', function () {
 					var iconClass = "pull-left ";
 					iconClass += item.IsVegetarian === true ? "icon-veg" : "icon-none-veg";
 					var menuClass = item.IsVegetarian === true ? "menu-vegetarian" : "menu-non-vegetarian";
-
+					
 					currentRow = {
 						Columns: [
 							{
@@ -41,6 +41,7 @@ reportModule.directive('viewMenuReport', function () {
 					};
 
 					rows.push(currentRow);
+					counter = 1;
 				}
 
 				var currentSubRow = {

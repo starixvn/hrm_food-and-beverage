@@ -92,13 +92,6 @@ namespace NexFB.Services.Implement.Report
 
             foreach (ViewMenuItemModel item in report.ViewMenuItems)
             {
-                var subItem = new
-                {
-                    No = counter,
-                    FoodEngName = item.FoodEngName,
-                    FoodVNMName = item.FoodVNMName
-                };
-
                 if (!groupName.Contains(item.MenuName))
                 {
                     if (item.IsVegetarian)
@@ -111,7 +104,15 @@ namespace NexFB.Services.Implement.Report
                     }
 
                     groupName.Add(item.MenuName);
+                    counter = 1;
                 }
+
+                var subItem = new
+                {
+                    No = counter,
+                    FoodEngName = item.FoodEngName,
+                    FoodVNMName = item.FoodVNMName
+                };
 
                 writer.WriteRow(4, subItem);
                 counter++;

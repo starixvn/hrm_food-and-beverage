@@ -335,6 +335,7 @@
     <Content Include="Src\App\Report\report-route.js" />
     <Content Include="Src\App\Report\sideDishReport-controller.js" />
     <Content Include="Src\App\Report\sideDishReport-directive.js" />
+    <Content Include="Src\App\Report\Templates\previousNextButtons.html" />
     <Content Include="Src\App\Report\viewMenuReport-controller.js" />
     <Content Include="Src\App\Report\viewMenuReport-directive.js" />
     <Content Include="Src\App\Report\Templates\sideDishReport.html" />

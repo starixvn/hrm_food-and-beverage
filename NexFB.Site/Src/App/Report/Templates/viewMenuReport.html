@@ -7,12 +7,13 @@
 	<div class="row filter filterMaxWith">
 		<form class="form-horizontal form-multiLine" role="form" action="#">
 		<div class="form-group">
-			<label class="col-sm-1 text-right" data-translate="Date">
+			<label class="pull-left text-right date-label" data-translate="Date">
 			</label>
 			<div class="col-sm-2 field daybox">
 				<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="criteria.date"
-					data-is-open="dateOpened" data-ng-click="open($event)" data-show-button-bar="false" />
-				<calendar-image class="calendar-image" data-ng-click="open($event,'from')"></calendar-image>
+					data-is-open="dateOpened" data-ng-click="open($event)" data-show-button-bar="false"
+					readonly data-ng-click="open($event)" />
+				<calendar-image class="calendar-image" data-ng-click="open($event)"></calendar-image>
 			</div>
 			<label class="col-sm-1 text-right" data-translate="Meal">
 			</label>
@@ -37,16 +38,10 @@
 		</div>
 		</form>
 	</div>
+	<ng-include src="'Src/App/Report/Templates/previousNextButtons.html'">
+	</ng-include>
 	<div class="freegrid" data-view-menu-report>
 	</div>
-	<div class="btn-toolbar filterMaxWith text-right bottomButton" role="toolbar" aria-label="...">
-		<div class="btn-group" role="group" aria-label="...">
-			<button type="button" class="btn btn-default btn-sm" data-ng-click="previous()">
-				Previous day</button>
-		</div>
-		<div class="btn-group" role="group" aria-label="...">
-			<button type="button" class="btn btn-default btn-sm" data-ng-click="next()">
-				Next day</button>
-		</div>
-	</div>
+	<ng-include src="'Src/App/Report/Templates/previousNextButtons.html'">
+	</ng-include>
 </div>
