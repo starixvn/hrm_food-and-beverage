@@ -1140,4 +1140,7 @@
   <data name="NonMemberSelectedWarning" xml:space="preserve">
     <value>You must select at least 1 member to assign to group.</value>
   </data>
+  <data name="AssignSelectedMember" xml:space="preserve">
+    <value>Assign Selected Member</value>
+  </data>
 </root>
