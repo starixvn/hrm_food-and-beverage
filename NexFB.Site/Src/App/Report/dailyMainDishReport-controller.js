@@ -2,11 +2,10 @@
 /*global reportModule*/
 
 reportModule.controller('DailyMainDishReportController',
-['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'userControlFactory', 'orderingFactory',
-'foodMenuFactory', 'commonFactory', 'foodMenuUtilities', 'notificationFactory',
-
-function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory, orderingFactory,
-foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
+['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'userControlFactory',
+'foodMenuFactory', 'commonFactory', 'foodMenuUtilities', 'notificationFactory', 'groupControlFactory',
+function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory,
+foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory, groupControlFactory) {
 	var toDay = new Date(),
 		fromDate = new Date(toDay.getFullYear(), toDay.getMonth(), 1),
 		toDate = new Date();
@@ -145,8 +144,18 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 		if (!departmentId) {
 			departmentId = $scope.originalDepartmentId;
 		}
-
-		return orderingFactory.getEmployees($scope.searchEmployee, departmentId);
+		
+		getEmployee(searchKey, departmentId);
+	};
+	var getEmployee = function (searchKey, departmentId) {
+		$scope.filter.employee = '';
+		groupControlFactory.getEmployees(searchKey, departmentId, true).then(
+			function (employees) {
+				$scope.searchEmployees = employees;
+			},
+			function (response) {
+				ErrorFactory.errorHandle(response.status);
+			});
 	};
 
 	$scope.unSelectEmployee = function () {
@@ -156,7 +165,7 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 			}
 		}
 	};	
-
+	
 	/*
 	** Get all employee type.
 	*/

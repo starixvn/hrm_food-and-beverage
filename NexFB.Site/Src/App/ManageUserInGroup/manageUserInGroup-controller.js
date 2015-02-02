@@ -4,10 +4,10 @@
 manageUserInGroupModule.controller("ManageUserInGroupController",
 ['$scope', '$modal', '$route', '$log', '$routeParams', 'commonFactory', 'manageUserInGroupFactory',
 'manageUserInGroupUtilities', 'notificationFactory', 'ErrorFactory', 'baseUrl', 'groupControlFactory',
-'foodMenuFactory',
+'foodMenuFactory', 'userControlFactory',
 function ($scope, $modal, $route, $log, $routeParams, commonFactory, manageUserInGroupFactory,
 manageUserInGroupUtilities, notificationFactory, ErrorFactory, baseUrl, groupControlFactory,
-foodMenuFactory) {
+foodMenuFactory, userControlFactory) {
 	var groupId = parseInt($routeParams.groupId, 10);
 
 	var originalFilter = {
@@ -21,6 +21,7 @@ foodMenuFactory) {
 	$scope.filter = angular.copy(originalFilter);
 	$scope.filter.GroupId = isNaN(groupId) ? '' : groupId;
 	$scope.groupOptions = [];
+	$scope.teamOptions = [];
 
 	$scope.calendar = {
 		startDateOpened: false
@@ -44,7 +45,7 @@ foodMenuFactory) {
 		commonFactory.tablePagination($scope, $scope.members, $scope.entrySelected);
 	};
 
-	$scope.entrySelected = 50;
+	$scope.entrySelected = 15;
 	$scope.originalPage = 0;
 	commonFactory.numberEntryList($scope);
 
@@ -81,6 +82,22 @@ foodMenuFactory) {
 	});
 
 	/*
+	** Get all team of department.
+	*/
+	$scope.getTeamByCompany = function (departmentId) {
+		if (departmentId) {
+			userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
+				$scope.teamOptions = teams;
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
+		}
+		else {
+			$scope.teamOptions = '';
+		}
+	};
+
+	/*
 	** Get all groups.
 	*/
 	groupControlFactory.getGroups($scope.filter).success(function (groups) {
@@ -103,8 +120,9 @@ foodMenuFactory) {
 	/*
 	** Get employee type by department.
 	*/
-	$scope.getEmployeeTypeOfDepartment = function (departmentId) {
+	$scope.getTeamAndEmployeeTypeOfDepartment = function (departmentId) {
 		getEmployeeType(departmentId, null);
+		$scope.getTeamByCompany(departmentId);
 	};
 
 	getEmployeeType(null, null);
@@ -166,7 +184,7 @@ foodMenuFactory) {
 			if (newValue !== oldValue) {
 				$scope.$broadcast('resetCheckAllMember');
 			}
-	});
+		});
 
 	$scope.$watch(
 		function () {
@@ -177,6 +195,25 @@ foodMenuFactory) {
 				$scope.$broadcast('resetCheckAllMember');
 			}
 		});
+
+	/*
+	** Get selected member.
+	*/
+	var getSelectedMember = function (sysIds, members) {
+		var selectedMembers = [],
+			numberMembers = members.length;
+
+		for (var i = 0; i < numberMembers; i++) {
+			var member = members[i],
+				memberId = member.SysId;
+
+			if (sysIds.search(memberId) !== -1) {
+				selectedMembers.push(member);
+			}
+		}
+
+		return selectedMembers;
+	};
 
 	/*
 	** Assign group to member.
@@ -200,7 +237,8 @@ foodMenuFactory) {
 	$scope.assignGroupToMember = function (sysIds) {
 		if (sysIds) {
 			$scope.originalPage = $scope.currentPage;
-			var assignedGroups = '';
+			var assignedGroups = '',
+				selectedMembers = getSelectedMember(sysIds, $scope.members);
 
 			if (sysIds.search(',') === -1) {
 				assignedGroups = getAssignedGroup(sysIds, $scope.members);
@@ -210,6 +248,9 @@ foodMenuFactory) {
 				templateUrl: baseUrl + 'src/app/ManageUserInGroup/Templates/AssignGroupToMember.html',
 				controller: "AsignGroupToMemberController",
 				resolve: {
+					members: function () {
+						return selectedMembers;
+					},
 					sysIds: function () {
 						return sysIds;
 					},
@@ -237,12 +278,14 @@ foodMenuFactory) {
 
 manageUserInGroupModule.controller('AsignGroupToMemberController',
 ['$scope', 'sysIds', '$modalInstance', 'groupControlFactory', 'notificationFactory', 'manageUserInGroupFactory',
-'ErrorFactory', 'manageUserInGroupUtilities', 'assignedGroups',
+'ErrorFactory', 'manageUserInGroupUtilities', 'assignedGroups', 'members', 'commonFactory',
 function ($scope, sysIds, $modalInstance, groupControlFactory, notificationFactory, manageUserInGroupFactory,
-ErrorFactory, manageUserInGroupUtilities, assignedGroups) {
+ErrorFactory, manageUserInGroupUtilities, assignedGroups, members, commonFactory) {
 
+	$scope.members = members;
 	$scope.sysIds = sysIds;
 	$scope.assignedGroups = assignedGroups;
+	$scope.searchData = {};
 
 	var checkAssignedGroup = function () {
 		angular.forEach($scope.groupOptions, function (groupOption) {
@@ -253,6 +296,12 @@ ErrorFactory, manageUserInGroupUtilities, assignedGroups) {
 			});
 		});
 	};
+
+	$scope.searchMemberGroup = function () {
+		commonFactory.searchMemberGroup($scope, $scope.members, $scope.searchData.queryData);
+	};
+
+	$scope.searchMemberGroup();
 
 	/*
 	** Get all groups.

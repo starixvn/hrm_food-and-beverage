@@ -330,7 +330,7 @@ ErrorFactory, removeMessage, baseUrl, $modal, commonFactory, groupControlFactory
 				sortMembers($scope.members, userId);
 			}
 
-			$scope.searchMemberGroup($scope.members);
+			$scope.searchMemberGroup();
 		}).error(function () {
 			notificationFactory.error("ErrorMessage");
 		});

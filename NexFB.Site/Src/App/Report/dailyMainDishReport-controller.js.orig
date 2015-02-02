@@ -2,11 +2,10 @@
 /*global reportModule*/
 
 reportModule.controller('DailyMainDishReportController',
-['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'userControlFactory', 'orderingFactory',
-'foodMenuFactory', 'commonFactory', 'foodMenuUtilities', 'notificationFactory',
-
-function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory, orderingFactory,
-foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
+['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'userControlFactory',
+'foodMenuFactory', 'commonFactory', 'foodMenuUtilities', 'notificationFactory', 'groupControlFactory',
+function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory,
+foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory, groupControlFactory) {
 	var toDay = new Date(),
 		fromDate = new Date(toDay.getFullYear(), toDay.getMonth(), 1),
 		toDate = new Date();
@@ -103,11 +102,7 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 			$scope.getTeamByCompany($scope.filter.departmentId);
 		}
 
-<<<<<<< HEAD
 		getEmployeeType($scope.filter.departmentId, null);		
-=======
-		getEmployeeType($scope.filter.departmentId, null);
->>>>>>> #000 - Rebase branch on master
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
@@ -150,7 +145,17 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 			departmentId = $scope.originalDepartmentId;
 		}
 
+<<<<<<< HEAD
 		return orderingFactory.getEmployees($scope.searchEmployee, departmentId);
+=======
+		groupControlFactory.getEmployees(searchKey, departmentId, true).then(
+			function (employees) {
+				$scope.searchEmployees = employees;
+			},
+			function (response) {
+				ErrorFactory.errorHandle(response.status);
+			});
+>>>>>>> #29848 - Add empTeam filter to the page and put the selected list as confirmation
 	};
 
 	$scope.unSelectEmployee = function () {
@@ -182,11 +187,7 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory) {
 			departmentId = $scope.originalDepartmentId;
 		}
 
-<<<<<<< HEAD
 		getEmployeeType(departmentId, null);		
-=======
-		getEmployeeType(departmentId, null);
->>>>>>> #000 - Rebase branch on master
 	};
 
 	/*
