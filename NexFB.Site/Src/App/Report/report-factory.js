@@ -15,6 +15,16 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 			currentPage: 0,
 			isCallBack: false
         };
+    var historySideDishSummary = {
+		fromDate: new Date(date.getFullYear(), date.getMonth(), 1),
+		toDate: new Date(),
+		departmentId: '',
+		teamId: '',
+		employeeTypeId: '',
+		employee: {},
+		pageIndex: 0,
+		itemsPerPage: 50
+	};
 
     return {
         getMonthlyMainDishReportByLocal: function (filter) {
@@ -76,7 +86,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 					departmentId: filter.departmentIds,
 					teamIds: filter.teamIds,
 					employeeTypeIds: filter.employeeTypeIds,
-					userId: filter.employee ? filter.employee.UserId : '',
+					userId: filter.userId > 0 ? filter.userId : filter.employee ? filter.employee.UserId : '',
 					sideDishItemIds: filter.sideDishItemIds,
 					pageIndex: filter.pageIndex,
 					itemsPerPage: filter.itemsPerPage
@@ -106,6 +116,20 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 					}
 					});
         },
+        getSideDishSummaryReport: function (filter) {
+			return $http.get(baseUrl + 'api/report/GetSideDishSummaryReport', {
+				params: {
+					fromDate: filter.fromDate.toDateString(),
+					toDate: filter.toDate.toDateString(),
+					departmentId: filter.departmentId,
+					teamId: filter.teamId,
+					employeeTypeId: filter.employeeTypeId,
+					userId: filter.employee ? filter.employee.UserId : '',
+					pageIndex: filter.pageIndex,
+					itemsPerPage: filter.itemsPerPage
+				}
+			});
+	},
         getOrderedByEnum: function () {
             return $http.get(baseUrl + 'api/report/GetOrderedByEnum');
         },
@@ -170,7 +194,26 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 			};
 
 			return $http.get(baseUrl + 'api/report/GetViewMenuReport', { params: data });
-        }
+        	},
+		getSpecialUserById: function (userId) {
+			return $http.get(baseUrl + 'api/report/GetSpecialUserById',
+				{ params: { userId: userId} });
+		},
+		setHistorySideDishSummary: function (scope) {
+			historySideDishSummary = {
+				fromDate: scope.filter.fromDate,
+				toDate: scope.filter.toDate,
+				departmentId: scope.filter.departmentId,
+				teamId: scope.filter.teamId,
+				employeeTypeId: scope.filter.employeeTypeId,
+				employee: scope.filter.employee,
+				pageIndex: scope.filter.pageIndex,
+				itemsPerPage: scope.filter.itemsPerPage
+			};
+		},
+		getHistorySideDishSummary: function () {
+			return historySideDishSummary;
+        	}
     };
 } ]);
 

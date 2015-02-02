@@ -153,6 +153,7 @@
     <Compile Include="Report\GetMonthlyMainDishReportLocalCriteria.cs" />
     <Compile Include="Report\GetSideDishReportCriteria.cs" />
     <Compile Include="Report\GetViewMenuReportCriteria.cs" />
+    <Compile Include="Report\GetSideDishSummaryReportCriteria.cs" />
     <Compile Include="SetMenuManagement\GetSetMenuByIdCriteria.cs" />
     <Compile Include="SetMenuManagement\UpdateStatusSetMenuCriteria.cs" />
     <Compile Include="SetMenuManagement\DeleteSetMenuCriteria.cs" />

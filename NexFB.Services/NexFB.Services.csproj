@@ -70,6 +70,7 @@
     <Compile Include="Implement\Report\MonthlyMainDishReportService.cs" />
     <Compile Include="Implement\Report\ViewMenuReportService.cs" />
     <Compile Include="Implement\Report\SideDishReportService.cs" />
+    <Compile Include="Implement\Report\SideDishSummaryReportService.cs" />
     <Compile Include="Implement\SetMenuService.cs" />
     <Compile Include="Implement\FoodItemService.cs" />
     <Compile Include="Implement\FoodMenuService.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Interface\Report\IMonthlyMainDishReportService.cs" />
     <Compile Include="Interface\Report\IViewMenuReportService.cs" />
     <Compile Include="Interface\Report\ISideDishReportService.cs" />
+    <Compile Include="Interface\Report\ISideDishSummaryReportService.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Implement\CommonService.cs" />
     <Compile Include="Implement\UserControlService.cs" />

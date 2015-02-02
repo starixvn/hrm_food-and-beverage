@@ -34,6 +34,8 @@ namespace NexFB.Services.Interface
 
         IList<Employee> GetEmployeeByQuery(GetEmployeeCriteria criteria);
 
+        Employee GetEmployeeById(GetEmployeeCriteria criteria);
+
         SpecialUser GetSpecialUserById(GetSpecialUserByIdCriteria criteria);
 
         IList<SpecialUser> GetSpecialUsers(GetSpecialUserCriteria criteria);

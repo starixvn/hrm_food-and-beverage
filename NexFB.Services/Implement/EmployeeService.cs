@@ -276,6 +276,24 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
+        /// Function to get special employee by id.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Employee.</returns>
+        public Employee GetEmployeeById(GetEmployeeCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            Employee employee = null;
+
+            if (criteria.IsValid())
+            {
+                employee = GetDataEntity<Employee>(criteria);
+            }
+
+            return employee;
+        }
+
+        /// <summary>
         /// Group menu item.
         /// </summary>
         /// <param name="menuItems">The enumerator menu item.</param>

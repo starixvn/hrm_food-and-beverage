@@ -22,6 +22,7 @@ namespace NexFB.Repositories.Implement
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
     using NexFB.Models.Report.ViewMenuReport;
+    using NexFB.Models.Report.SideDishSummaryReport;
     using NexFB.Repositories.Interface;
 
     /// <summary>
@@ -156,6 +157,37 @@ namespace NexFB.Repositories.Implement
             }
         }
 
+        /// <summary>
+        /// Get side dish summary report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="pageIndex">Index of the page.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The side dish summary report.</returns>
+        public SideDishSummaryReportModel GetSideDishSummaryReport(ICriteria criteria, int? pageIndex = null, int? itemsPerPage = null)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                SideDishSummaryReportModel report = new SideDishSummaryReportModel();
+
+                List<SideDishSummaryItemModel> rawReport = db.Query<SideDishSummaryItemModel>(criteria.GetSpParams()).ToList();
+
+                var outParams = db.GetOuputParams();
+
+                if (report != null && rawReport.Count > 0)
+                {
+                    report.SideDishSummarys = rawReport;
+
+                    report.TotalItem = (int)outParams["totalitem"];
+                    report.TotalQuantity = (decimal)outParams["totalquantity"];
+                    report.TotalAmount = (decimal)outParams["totalamount"];
+                }
+
+                return report;
+            }
+        }
+
+        
         #region Monthly Main Dish Per Day Report
 
         /// <summary>

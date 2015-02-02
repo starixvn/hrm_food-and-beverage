@@ -2,9 +2,9 @@
 /*global reportModule*/
 
 reportModule.controller('SideDishReportController',
-['$scope', 'reportFactory', 'notificationFactory', 'ErrorFactory', 'userControlFactory', 'foodMenuFactory', 'foodMenuUtilities',
+['$scope', '$routeParams', 'reportFactory', 'notificationFactory', 'ErrorFactory', 'userControlFactory', 'foodMenuFactory', 'foodMenuUtilities',
 'reportUtilities', 'sideDishManagementFactory', 'baseUrl', 'orderingFactory',
-function ($scope, reportFactory, notificationFactory, ErrorFactory, userControlFactory, foodMenuFactory, foodMenuUtilities,
+function ($scope, $routeParams, reportFactory, notificationFactory, ErrorFactory, userControlFactory, foodMenuFactory, foodMenuUtilities,
 reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 	var self = this;
 	var date = new Date(),
@@ -25,6 +25,7 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 		teamIds: '',
 		employeeTypeIds: '',
 		employee: {},
+		userId: null,
 		fromDate: new Date(year, month, 1),
 		toDate: new Date(year, month, day),
 		sideDishItemIds: '',
@@ -102,7 +103,43 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 	};
 
 	$scope.getReportData = function () {
-		self.getCriteria();
+		if ($routeParams.departmentId) {
+			$scope.sideDishSummary();
+		}
+		else {
+			self.getCriteria();
+
+			reportFactory.getSideDishReport($scope.criteria).success(function (reportData) {
+				$scope.reportData = reportData;
+				$scope.$broadcast('renderSideDishReport');
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
+		}
+	};
+
+	$scope.sideDishSummary = function () {
+		if ($routeParams.departmentId.split(',').length > 1) {
+			$scope.criteria.departmentId = -1;
+		}
+		else {
+			$scope.criteria.departmentId = parseInt($routeParams.departmentId);
+		}
+
+		self.getDepartmentIds();
+
+		$scope.criteria.teamIds = $routeParams.teamId;
+		$scope.criteria.employeeTypeIds = $routeParams.employeeTypeId;
+
+		if ($routeParams.userId.length > 0) {
+			$scope.criteria.userId = parseInt($routeParams.userId);
+		}
+		else {
+			$scope.criteria.employee = '';
+		}
+
+		$scope.criteria.fromDate = Date.parse($routeParams.fromDate);
+		$scope.criteria.toDate = Date.parse($routeParams.toDate);
 
 		reportFactory.getSideDishReport($scope.criteria).success(function (reportData) {
 			$scope.reportData = reportData;
@@ -110,6 +147,62 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
 		});
+
+		if ($scope.criteria.departmentId > 0) {
+			userControlFactory.getAllTeamByCompany($scope.criteria.departmentId).success(function (teams) {
+				$scope.teams = teams;
+				if ($routeParams.teamId.length > 0) {
+					$scope.criteria.teamIds = $routeParams.teamId;
+					var ids = $routeParams.teamId.split(',');
+					angular.forEach($scope.teams, function (team) {
+						angular.forEach(ids, function (id) {
+							if (team.TeamId === parseInt(id)) {
+								team.ticked = true;
+							}
+						});
+					});
+				}
+				else {
+					$scope.criteria.teamIds = reportUtilities.getTeamId($scope.teams);
+				}
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
+		} else {
+			$scope.teams = [];
+		}
+
+		foodMenuFactory.getAllEmployeeType($scope.criteria.departmentIds).success(function (employeeTypes) {
+			$scope.employeeTypes = employeeTypes;
+			if ($routeParams.employeeTypeId.length > 0) {
+				$scope.criteria.employeeTypeIds = $routeParams.employeeTypeId;
+				var ids = $routeParams.employeeTypeId.split(',');
+				angular.forEach($scope.employeeTypes, function (employeeType) {
+					angular.forEach(ids, function (id) {
+						if (employeeType.EmployeeTypeId === parseInt(id)) {
+							employeeType.ticked = true;
+						}
+					});
+				});
+			}
+			else {
+				$scope.criteria.employeeTypeIds = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypes);
+			}
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
+
+		if (angular.isNumber($scope.criteria.userId)) {
+			reportFactory.getSpecialUserById($scope.criteria.userId).success(function (employee) {
+				$scope.criteria.employee = employee;
+				$scope.searchEmployee = employee.NickName + ' (' + employee.FullName + ')';
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
+		}
+		else {
+			$scope.criteria.employee = '';
+		}
 	};
 
 	$scope.getAllSideDish = function () {

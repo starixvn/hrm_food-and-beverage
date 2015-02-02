@@ -17,6 +17,7 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Core.Enums;
     using NexFB.Core.Utilities;
     using NexFB.Criteria.Department;
+    using NexFB.Criteria.Employee;
     using NexFB.Criteria.Report;
     using NexFB.Criteria.SideDishManagement;
     using NexFB.Criteria.UserControl;
@@ -28,6 +29,7 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
     using NexFB.Models.Report.ViewMenuReport;
+    using NexFB.Models.Report.SideDishSummaryReport;
     using NexFB.Models.SideDishManagement;
     using NexFB.Services.Implement;
     using NexFB.Services.Implement.Report;
@@ -52,9 +54,11 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly IViewMenuReportService _viewMenuReportService;
         private readonly ISideDishService _sideDishService;
         private readonly IMealForecastDetailReportService _mealForecastDetailReportService;
+        private readonly ISideDishSummaryReportService _sideDishSummaryReportService;
+        private readonly IEmployeeService _employeeService;
 
         public ReportController()
-            : this(null, null, null, null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -69,7 +73,9 @@ namespace NexFB.Site.Controllers.API.Report
             IMealForecastReportService mealForecastReportService,
             IViewMenuReportService viewMenuReportService,
             IMealForecastDetailReportService mealForecastDetailReportService,
-            ISideDishService sideDishService)
+            ISideDishService sideDishService,
+            ISideDishSummaryReportService sideDishSummaryReportService,
+            IEmployeeService employeeService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _dailyMainDishReportService = dailyMainDishReportService ?? new DailyMainDishReportService();
@@ -82,6 +88,8 @@ namespace NexFB.Site.Controllers.API.Report
             _viewMenuReportService = viewMenuReportService ?? new ViewMenuReportService();
             _mealForecastDetailReportService = mealForecastDetailReportService ?? new MealForecastDetailReportService();
             _sideDishService = sideDishService ?? new SideDishService();
+            _sideDishSummaryReportService = sideDishSummaryReportService ?? new SideDishSummaryReportService();
+            _employeeService = employeeService ?? new EmployeeService();
         }
 
         /// <summary>
@@ -251,6 +259,60 @@ namespace NexFB.Site.Controllers.API.Report
             SideDishReportModel reportData = _sideDishReportService.GetSideDishReport(criteria);
 
             return reportData;
+        }
+
+        /// <summary>
+        /// Get side dish summary report.
+        /// </summary>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="departmentId">The department Id.</param>
+        /// <param name="teamId">The team Id.</param>
+        /// <param name="employeeTypeId">The employee type Id.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="pageIndex">Index of the page.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The report.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.SideDishSummaryReport, Policy = Policy.Read)]
+        public SideDishSummaryReportModel GetSideDishSummaryReport(
+            DateTime fromDate,
+            DateTime toDate,
+            string departmentId = "",
+            string teamId = "",
+            string employeeTypeId = "",
+            int? userId = null,
+            int? pageIndex = null,
+            int? itemsPerPage = null)
+        {
+            var criteria = new GetSideDishSummaryReportCriteria
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                DepartmentId = departmentId,
+                EmployeeTypeId = employeeTypeId,
+                TeamId = teamId,
+                UserId = userId,
+                PageIndex = pageIndex,
+                ItemsPerPage = itemsPerPage
+            };
+
+            SideDishSummaryReportModel report = _sideDishSummaryReportService.GetSideDishSummaryReport(criteria);
+
+            return report;
+        }
+
+        [ApiAuthorize(FunctionKey = FBFunctionKey.SpecialEmployee, Policy = Policy.Read)]
+        [HttpGet]
+        public Employee GetSpecialUserById(int userId)
+        {
+            var criteria = new GetEmployeeCriteria()
+            {
+                UserId = userId
+            };
+            Employee user = _employeeService.GetEmployeeById(criteria);
+
+            return user;
         }
 
         public IEnumerable<SideDishModel> GetAllSideDish(

@@ -19,6 +19,7 @@ namespace NexFB.Site.Controllers
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
+    using NexFB.Models.Report.SideDishSummaryReport;
     using NexFB.Models.Report.ViewMenuReport;
     using NexFB.Services.Implement.Report;
     using NexFB.Services.Interface.Report;
@@ -38,6 +39,7 @@ namespace NexFB.Site.Controllers
         private const string _MealForecastAllTypeReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastAllTypeReport.xls";
         private const string _MealForecastReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastReport.xls";
         private const string _ViewMenuReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\ViewMenuReport.xls";
+        private const string SideDishSummaryReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\SideDishSummaryReport.xls";
         private const string _DailyMainDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\DailyMainDishReport.xls";
         private const string _MealForecastDetailReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastDetailReport.xls";
 
@@ -49,9 +51,10 @@ namespace NexFB.Site.Controllers
         private readonly IViewMenuReportService _viewMenuReportService;
         private readonly ISideDishReportService _sideDishReportService;
         private readonly IMealForecastDetailReportService _mealForecastDetailReportService;
+        private readonly ISideDishSummaryReportService _sideDishSummaryReportService;
 
         public ExportReportController()
-            : this(null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -63,7 +66,8 @@ namespace NexFB.Site.Controllers
             IViewMenuReportService viewMenuReportService,
             IMealForecastDetailReportService mealForecastDetailReportService,
             IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService,
-            ISideDishReportService sideDishReportService)
+            ISideDishReportService sideDishReportService,
+            ISideDishSummaryReportService sideDishSummaryReportService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
@@ -73,6 +77,7 @@ namespace NexFB.Site.Controllers
             _viewMenuReportService = viewMenuReportService ?? new ViewMenuReportService();
             _sideDishReportService = sideDishReportService ?? new SideDishReportService();
             _mealForecastDetailReportService = mealForecastDetailReportService ?? new MealForecastDetailReportService();
+            _sideDishSummaryReportService = sideDishSummaryReportService ?? new SideDishSummaryReportService();
         }
 
         public ActionResult Index()
@@ -284,6 +289,24 @@ namespace NexFB.Site.Controllers
             {
                 templatePath = Server.MapPath(_MealForecastDetailReportTemplatePath);
                 _mealForecastDetailReportService.ExportMealForecastDetailReport(report, templatePath, criteria.IsVegetarian, criteria.OnDate);
+            }
+
+            return new EmptyResult();
+        }
+
+        /// <summary>
+        /// Export side dish summary report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The excel file.</returns>
+        public ActionResult ExportSideDishSummaryReport(GetSideDishSummaryReportCriteria criteria)
+        {
+            string templatePath = Server.MapPath(SideDishSummaryReportTemplatePath);
+            SideDishSummaryReportModel report = _sideDishSummaryReportService.GetSideDishSummaryReport(criteria);
+
+            if (report != null)
+            {
+                _sideDishSummaryReportService.ExportSideDishSummaryReport(report, templatePath);
             }
 
             return new EmptyResult();

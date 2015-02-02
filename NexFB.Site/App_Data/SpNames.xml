@@ -346,6 +346,8 @@
       <Mapping DataField="MealId" ObjectProperty="MealID" Class="MealModel"/>
       <Mapping DataField="ENGName" ObjectProperty="MealName" Class="MealModel"/>
     </Setting>
+    <Setting Key="RPT_SideDishSummary" SpName="RPT_SideDishSummary" DbName="NexFB" Plain="0" >
+    </Setting>
     <Setting Key="RPT_ViewMenuReport" SpName="RPT_ViewMenuReport" DbName="NexFB" Plain="0" >
     </Setting>
 	</Function>
