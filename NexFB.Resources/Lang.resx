@@ -640,13 +640,13 @@
     <value>Work date +1</value>
   </data>
   <data name="OverdueMealInShift" xml:space="preserve">
-    <value>A shift cannot have more than 4 meals!</value>
+    <value>A shift has maximum 4 meals only.</value>
   </data>
   <data name="Shift" xml:space="preserve">
     <value>Shift</value>
   </data>
   <data name="UnderMealInShift" xml:space="preserve">
-    <value>A shift must has at least 1 meal!</value>
+    <value>A shift must have at least 1 meal.</value>
   </data>
   <data name="WorkDate" xml:space="preserve">
     <value>Work date</value>
@@ -655,7 +655,7 @@
     <value>Shift-Meal Mapping</value>
   </data>
   <data name="NotContinuousMealInShift" xml:space="preserve">
-    <value>All meals in a shift must be consecutive!</value>
+    <value>These meals are nonconsecutive.</value>
   </data>
   <data name="Amount" xml:space="preserve">
     <value>Amount</value>
@@ -1093,7 +1093,7 @@
     <value>Total Vegetarian</value>
   </data>
   <data name="DietType" xml:space="preserve">
-    <value>Diet Type</value>
+    <value>Diet type</value>
   </data>
   <data name="MealForecastDetailReportName" xml:space="preserve">
     <value>Meal_Forecast_Report_For_</value>
@@ -1118,8 +1118,5 @@
   </data>
   <data name="ViewMenuReport" xml:space="preserve">
     <value>View Menu</value>
-  </data>
-  <data name="DietType" xml:space="preserve">
-    <value>Diet type</value>
   </data>
 </root>
