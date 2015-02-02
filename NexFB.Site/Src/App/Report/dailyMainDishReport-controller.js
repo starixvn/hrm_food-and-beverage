@@ -144,18 +144,8 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory, groupCon
 		if (!departmentId) {
 			departmentId = $scope.originalDepartmentId;
 		}
-		
-		getEmployee(searchKey, departmentId);
-	};
-	var getEmployee = function (searchKey, departmentId) {
-		$scope.filter.employee = '';
-		groupControlFactory.getEmployees(searchKey, departmentId, true).then(
-			function (employees) {
-				$scope.searchEmployees = employees;
-			},
-			function (response) {
-				ErrorFactory.errorHandle(response.status);
-			});
+
+		return groupControlFactory.getEmployees($scope.searchEmployee, departmentId, null, true);
 	};
 
 	$scope.unSelectEmployee = function () {
@@ -164,7 +154,7 @@ foodMenuFactory, commonFactory, foodMenuUtilities, notificationFactory, groupCon
 				$scope.filter.employee = null;
 			}
 		}
-	};	
+	};
 	
 	/*
 	** Get all employee type.

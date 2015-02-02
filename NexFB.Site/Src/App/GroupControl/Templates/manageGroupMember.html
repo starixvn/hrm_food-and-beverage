@@ -12,8 +12,8 @@
 				<label class="control-label" data-translate="Member">
 				</label>
 				<input name="txtMemberGroup" class="form-control custom-padding search-member-group" ng-model="searchKey"
-					placeholder="Enter full name or nick name" search-auto-complete search-employees="searchEmployees"
-					ng-change="getEmployee(searchKey)" employee="member.employee" ng-enter="add()" clear-search-member-input/>
+					placeholder="Enter full name or nick name" search-auto-complete search-employees="getEmployee(searchKey)"
+					ng-change="unSelectEmployee(searchKey)" employee="member.employee" ng-enter="add()" clear-search-member-input/>
 			</div>
 			<div class="form-group add-member-group">
 				<a ng-click="add()" class="button">

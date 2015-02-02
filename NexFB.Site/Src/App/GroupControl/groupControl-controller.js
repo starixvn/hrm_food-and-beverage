@@ -296,13 +296,15 @@ ErrorFactory, removeMessage, baseUrl, $modal, commonFactory, groupControlFactory
 	*/
 	$scope.getEmployee = function (searchKey) {
 		var departmentId = $scope.department.Nexcel + ',' + $scope.department.SMS + ',' + $scope.department.HM;
-		groupControlFactory.getEmployees(searchKey, departmentId, true).then(
-		function (employees) {
-			$scope.searchEmployees = employees;
-		},
-		function (response, status) {
-			ErrorFactory.errorHandle(status);
-		});
+		return groupControlFactory.getEmployees(searchKey, departmentId, null, true);
+	};
+
+	$scope.unSelectEmployee = function (searchKey) {
+		if (searchKey.trim() === '') {
+			if ($scope.filter && $scope.filter.employee) {
+				$scope.filter.employee = null;
+			}
+		}
 	};
 
 	var sortMembers = function (members, userId) {

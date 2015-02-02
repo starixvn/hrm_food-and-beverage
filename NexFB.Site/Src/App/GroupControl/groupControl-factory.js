@@ -24,10 +24,15 @@ groupControlModule.factory('groupControlFactory', ['$http', 'baseUrl', function 
 		assignMemberToGroup: function (filter) {
 			return $http.post(baseUrl + 'api/GroupControl/AssignMemberToGroup', filter);
 		},
-		getEmployees: function (keyWord, departmentId, isShowDisable) {
+		getEmployees: function (keyWord, departmentId, teamId, isShowDisable) {
 			return $http.get(baseUrl + 'api/Employee/GetEmployees',
 				{
-					params: { keyWord: keyWord, departmentId: departmentId, isShowDisable: isShowDisable }
+					params: { 
+						keyWord: keyWord,
+						departmentId: departmentId,
+						teamId: teamId,
+						isShowDisable: isShowDisable
+					}
 				}
 			);
 		},
