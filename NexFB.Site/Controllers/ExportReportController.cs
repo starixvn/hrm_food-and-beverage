@@ -37,7 +37,7 @@ namespace NexFB.Site.Controllers
         private const string _MonthlyMainDishPerDayDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentPerDayReport.xls";
         private const string _MealForecastAllTypeReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastAllTypeReport.xls";
         private const string _MealForecastReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastReport.xls";
-        private const string ViewMenuReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\ViewMenuReport.xls";
+        private const string _ViewMenuReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\ViewMenuReport.xls";
         private const string _DailyMainDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\DailyMainDishReport.xls";
         private const string _MealForecastDetailReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastDetailReport.xls";
 
@@ -51,7 +51,7 @@ namespace NexFB.Site.Controllers
         private readonly IMealForecastDetailReportService _mealForecastDetailReportService;
 
         public ExportReportController()
-            : this(null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null)
         {
         }
 
@@ -202,7 +202,7 @@ namespace NexFB.Site.Controllers
                 criteria.SysId = user.UserId;
             }
 
-            string templatePath = Server.MapPath(ViewMenuReportTemplatePath);
+            string templatePath = Server.MapPath(_ViewMenuReportTemplatePath);
             ViewMenuReportModel reportData = _viewMenuReportService.GetViewMenuReport(criteria);
             if (reportData != null)
             {

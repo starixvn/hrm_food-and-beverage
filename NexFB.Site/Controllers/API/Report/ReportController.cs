@@ -54,7 +54,7 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly IMealForecastDetailReportService _mealForecastDetailReportService;
 
         public ReportController()
-            : this(null, null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -67,7 +67,6 @@ namespace NexFB.Site.Controllers.API.Report
             IMonthlyMainDishPerDayReportService monthlyPerDayService,
             ISideDishReportService sideDishReportService,
             IMealForecastReportService mealForecastReportService,
-            IViewMenuReportService viewMenuReportService,
             IViewMenuReportService viewMenuReportService,
             IMealForecastDetailReportService mealForecastDetailReportService,
             ISideDishService sideDishService)
