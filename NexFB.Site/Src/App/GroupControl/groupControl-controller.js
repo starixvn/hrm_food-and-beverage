@@ -35,8 +35,8 @@ baseUrl, $translate) {
 		if (groups) {
 			$scope.groupOptions = groups;
 		}
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	var getGroups = function (filter) {
@@ -46,8 +46,8 @@ baseUrl, $translate) {
 				commonFactory.tablePagination($scope, $scope.groups, $scope.entrySelected);
 				$scope.currentPage = $scope.originalPage;
 			}
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
 		});
 	};
 

@@ -102,8 +102,8 @@ foodMenuFactory, userControlFactory) {
 	*/
 	groupControlFactory.getGroups($scope.filter).success(function (groups) {
 		$scope.groupOptions = groups;
-	}).error(function () {
-		notificationFactory.error("ErrorMessage");
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
 	});
 
 	/*
@@ -134,8 +134,8 @@ foodMenuFactory, userControlFactory) {
 				commonFactory.tablePagination($scope, $scope.members, $scope.entrySelected);
 				$scope.currentPage = $scope.originalPage;
 			}
-		}).error(function () {
-			notificationFactory.error("ErrorMessage");
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
 		});
 	};
 
