@@ -302,9 +302,9 @@ namespace NexFB.Site.Controllers.API.Report
             return report;
         }
 
-        [ApiAuthorize(FunctionKey = FBFunctionKey.SpecialEmployee, Policy = Policy.Read)]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.SideDishSummaryReport, Policy = Policy.Read)]
         [HttpGet]
-        public Employee GetSpecialUserById(int userId)
+        public Employee GetEmployeeById(int userId)
         {
             var criteria = new GetEmployeeCriteria()
             {

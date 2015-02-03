@@ -196,7 +196,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 			return $http.get(baseUrl + 'api/report/GetViewMenuReport', { params: data });
 		},
 		getSpecialUserById: function (userId) {
-			return $http.get(baseUrl + 'api/report/GetSpecialUserById',
+			return $http.get(baseUrl + 'api/report/GetEmployeeById',
 				{ params: { userId: userId} });
 		},
 		setHistorySideDishSummary: function (scope) {
