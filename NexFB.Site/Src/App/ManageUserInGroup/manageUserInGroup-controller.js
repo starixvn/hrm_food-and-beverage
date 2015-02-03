@@ -201,6 +201,18 @@ foodMenuFactory, userControlFactory) {
 	/*
 	** Get selected member.
 	*/
+	var checkSysIdContainMemberId = function (sysIds, memberId) {
+			var sysIdList = sysIds.split(',');
+
+			for (var i = 0; i < sysIdList.length; i++) {
+				if (sysIdList[i] === memberId.toString()) {
+					return true;
+				}
+			}
+
+			return false;
+		};
+
 	var getSelectedMember = function (sysIds, members) {
 		var selectedMembers = [],
 			numberMembers = members.length;
@@ -209,7 +221,7 @@ foodMenuFactory, userControlFactory) {
 			var member = members[i],
 				memberId = member.SysId;
 
-			if (sysIds.search(memberId) !== -1) {
+			if (checkSysIdContainMemberId(sysIds, memberId)) {
 				selectedMembers.push(member);
 			}
 		}
