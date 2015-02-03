@@ -80,15 +80,17 @@
 	.checkBoxContainer {
 		max-height: 300px;
 		overflow-y: scroll;
+		overflow-x: hidden;
 	}
 }
 
 .ie {
 	.group-list .multiSelect
 		{
-		.checkBoxContainer {
+		.checkboxLayer.show {
 			height: 300px;
-			overflow: auto;
+			overflow-x: hidden;
+			overflow-y: auto;
 		}
 	}
 }

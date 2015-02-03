@@ -145,6 +145,8 @@ foodMenuFactory, userControlFactory) {
 	** Filter data.
 	*/
 	$scope.query = function (filter) {
+		$scope.$broadcast('resetCheckAllMember');
+
 		if (filter) {
 			var customizeFilter = angular.copy(filter),
 				isValid = true;
