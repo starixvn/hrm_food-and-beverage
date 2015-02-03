@@ -6,17 +6,17 @@ reportModule.controller('SideDishSummaryReportController',
 'commonFactory', 'foodMenuFactory', 'foodMenuUtilities', 'notificationFactory',
 function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory, orderingFactory,
 commonFactory, foodMenuFactory, foodMenuUtilities, notificationFactory) {
-	$scope.toDate = new Date();
+	$scope.history = reportFactory.getHistorySideDishSummary();
 
 	$scope.filter = {
-		fromDate: new Date($scope.toDate.getFullYear(), $scope.toDate.getMonth(), 1),
-		toDate: new Date(),
+		fromDate: $scope.history.fromDate,
+		toDate: $scope.history.toDate,
 		departmentId: '',
-		teamId: '',
-		employeeTypeId: '',
+		teamId: $scope.history.teamId,
+		employeeTypeId: $scope.history.employeeTypeId,
 		employee: {},
-		pageIndex: 0,
-		itemsPerPage: 50
+		pageIndex: $scope.history.pageIndex,
+		itemsPerPage: $scope.history.itemsPerPage
 	};
 
 	$scope.numberFormat = reportUtilities.getNumberFormat();
@@ -64,13 +64,21 @@ commonFactory, foodMenuFactory, foodMenuUtilities, notificationFactory) {
 	reportFactory.getDepartmentByUserRole().success(function (departments) {
 		$scope.departmentOptions = departments;
 		getDepartmentFilter(departments);
-		$scope.getSideDishSummaryReport($scope.filter);
-
-		if (departments && departments.length === 1) {
+		if ($scope.history.departmentId > 0) {
+			$scope.filter.departmentId = $scope.history.departmentId;
+			$scope.getSideDishSummaryReport($scope.filter);
 			$scope.getTeamByCompany($scope.filter.departmentId);
-		}
+			getEmployeeType($scope.filter.departmentId, null);
+		} else {
 
-		getEmployeeType($scope.filter.departmentId, null);
+			$scope.getSideDishSummaryReport($scope.filter);
+
+			if (departments && departments.length === 1) {
+				$scope.getTeamByCompany($scope.filter.departmentId);
+			}
+
+			getEmployeeType($scope.filter.departmentId, null);
+		}
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
@@ -94,6 +102,16 @@ commonFactory, foodMenuFactory, foodMenuUtilities, notificationFactory) {
 		if (departmentId) {
 			userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
 				$scope.teamOptions = teams;
+				if ($scope.history.teamId.length > 0) {
+					var ids = $scope.history.teamId.split(',');
+					angular.forEach($scope.teamOptions, function (team) {
+						angular.forEach(ids, function (id) {
+							if (team.TeamId === parseInt(id)) {
+								team.ticked = true;
+							}
+						});
+					});
+				}
 			}).error(function (response, status) {
 				ErrorFactory.errorHandle(status);
 			});
@@ -130,6 +148,16 @@ commonFactory, foodMenuFactory, foodMenuUtilities, notificationFactory) {
 	var getEmployeeType = function (departmentId, isLocal) {
 		foodMenuFactory.getAllEmployeeType(departmentId, isLocal).success(function (employeeTypes) {
 			$scope.employeeTypesOption = employeeTypes;
+			if ($scope.history.employeeTypeId.length > 0) {
+				var ids = $scope.history.employeeTypeId.split(',');
+				angular.forEach($scope.employeeTypesOption, function (employeeType) {
+					angular.forEach(ids, function (id) {
+						if (employeeType.EmployeeTypeId === parseInt(id)) {
+							employeeType.ticked = true;
+						}
+					});
+				});
+			}
 		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
 		});
