@@ -28,8 +28,8 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
-    using NexFB.Models.Report.ViewMenuReport;
     using NexFB.Models.Report.SideDishSummaryReport;
+    using NexFB.Models.Report.ViewMenuReport;
     using NexFB.Models.SideDishManagement;
     using NexFB.Services.Implement;
     using NexFB.Services.Implement.Report;

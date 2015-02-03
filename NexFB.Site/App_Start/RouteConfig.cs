@@ -57,7 +57,7 @@ namespace NexFB.Site
                 "EmployeeOrderHistory/Index",
                 "MealForecastReport/Index",
                 "SpecialEmployee/Index",
-                "SideDishSummaryReport/Index"
+                "SideDishSummaryReport/Index",
                 "ViewMenuReport/Index",
                 "MealForecastReport/Detail"
             };

@@ -10,7 +10,6 @@
 namespace NexFB.Repositories.Implement
 {
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
@@ -21,8 +20,8 @@ namespace NexFB.Repositories.Implement
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
     using NexFB.Models.Report.SideDishReport;
-    using NexFB.Models.Report.ViewMenuReport;
     using NexFB.Models.Report.SideDishSummaryReport;
+    using NexFB.Models.Report.ViewMenuReport;
     using NexFB.Repositories.Interface;
 
     /// <summary>
@@ -134,8 +133,8 @@ namespace NexFB.Repositories.Implement
                 return reportData;
             }
         }
-        
-         /// <summary>
+
+        /// <summary>
         /// Gets the view menu report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
@@ -187,7 +186,6 @@ namespace NexFB.Repositories.Implement
             }
         }
 
-        
         #region Monthly Main Dish Per Day Report
 
         /// <summary>

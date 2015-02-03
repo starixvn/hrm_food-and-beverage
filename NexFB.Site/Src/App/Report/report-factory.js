@@ -194,7 +194,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 			};
 
 			return $http.get(baseUrl + 'api/report/GetViewMenuReport', { params: data });
-        	},
+		},
 		getSpecialUserById: function (userId) {
 			return $http.get(baseUrl + 'api/report/GetSpecialUserById',
 				{ params: { userId: userId} });
@@ -213,8 +213,8 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
 		},
 		getHistorySideDishSummary: function () {
 			return historySideDishSummary;
-        	}
-    };
+		}
+	};
 } ]);
 
 reportModule.factory('reportUtilities', function () {
