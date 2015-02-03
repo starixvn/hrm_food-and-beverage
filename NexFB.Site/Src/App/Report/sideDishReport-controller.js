@@ -33,6 +33,25 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 		itemsPerPage: 50
 	};
 
+	if ($routeParams.departmentId) {
+		var departmentId = -1;
+		if ($routeParams.departmentId.length === 0 || $routeParams.departmentId.split(',').length > 1) {
+			departmentId = -1;
+		}
+		else {
+			departmentId = parseInt($routeParams.departmentId);
+		}
+
+		$scope.history = {
+			departmentId: departmentId,
+			teamId: $routeParams.teamId,
+			employeeTypeId: $routeParams.employeeTypeId,
+			userId: $routeParams.userId,
+			fromDate: Date.parse($routeParams.fromDate),
+			toDate: Date.parse($routeParams.toDate)
+		};
+	}
+
 	$scope.fromDateOptions = {
 		minDate: null,
 		maxDate: null
@@ -103,7 +122,7 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 	};
 
 	$scope.getReportData = function () {
-		if ($routeParams.departmentId) {
+		if ($routeParams.departmentId && $scope.criteria.departmentId === $scope.history.departmentId) {
 			$scope.sideDishSummary();
 		}
 		else {
@@ -119,27 +138,22 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 	};
 
 	$scope.sideDishSummary = function () {
-		if ($routeParams.departmentId.split(',').length > 1) {
-			$scope.criteria.departmentId = -1;
-		}
-		else {
-			$scope.criteria.departmentId = parseInt($routeParams.departmentId);
-		}
+		$scope.criteria.departmentId = $scope.history.departmentId;
 
 		self.getDepartmentIds();
 
-		$scope.criteria.teamIds = $routeParams.teamId;
-		$scope.criteria.employeeTypeIds = $routeParams.employeeTypeId;
+		$scope.criteria.teamIds = $scope.history.teamId;
+		$scope.criteria.employeeTypeIds = $scope.history.employeeTypeId;
 
-		if ($routeParams.userId.length > 0) {
-			$scope.criteria.userId = parseInt($routeParams.userId);
+		if ($scope.history.userId.length > 0) {
+			$scope.criteria.userId = parseInt($scope.history.userId);
 		}
 		else {
 			$scope.criteria.employee = '';
 		}
 
-		$scope.criteria.fromDate = Date.parse($routeParams.fromDate);
-		$scope.criteria.toDate = Date.parse($routeParams.toDate);
+		$scope.criteria.fromDate = $scope.history.fromDate;
+		$scope.criteria.toDate = $scope.history.toDate;
 
 		reportFactory.getSideDishReport($scope.criteria).success(function (reportData) {
 			$scope.reportData = reportData;
@@ -151,9 +165,8 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 		if ($scope.criteria.departmentId > 0) {
 			userControlFactory.getAllTeamByCompany($scope.criteria.departmentId).success(function (teams) {
 				$scope.teams = teams;
-				if ($routeParams.teamId.length > 0) {
-					$scope.criteria.teamIds = $routeParams.teamId;
-					var ids = $routeParams.teamId.split(',');
+				if ($scope.history.teamId.length > 0) {
+					var ids = $scope.history.teamId.split(',');
 					angular.forEach($scope.teams, function (team) {
 						angular.forEach(ids, function (id) {
 							if (team.TeamId === parseInt(id)) {
@@ -174,9 +187,8 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 
 		foodMenuFactory.getAllEmployeeType($scope.criteria.departmentIds).success(function (employeeTypes) {
 			$scope.employeeTypes = employeeTypes;
-			if ($routeParams.employeeTypeId.length > 0) {
-				$scope.criteria.employeeTypeIds = $routeParams.employeeTypeId;
-				var ids = $routeParams.employeeTypeId.split(',');
+			if ($scope.history.employeeTypeId.length > 0) {
+				var ids = $scope.history.employeeTypeId.split(',');
 				angular.forEach($scope.employeeTypes, function (employeeType) {
 					angular.forEach(ids, function (id) {
 						if (employeeType.EmployeeTypeId === parseInt(id)) {
@@ -236,6 +248,7 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 	$scope.unSelectEmployee = function () {
 		if ($scope.searchEmployee.trim() === '') {
 			$scope.criteria.employee = null;
+			$scope.criteria.userId = '';
 		}
 	};
 
@@ -244,6 +257,10 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 		if ($scope.criteria.departmentId > 0) {
 			userControlFactory.getAllTeamByCompany($scope.criteria.departmentId).success(function (teams) {
 				$scope.teams = teams;
+				if ($routeParams.departmentId && $scope.criteria.departmentId !== $scope.history.departmentId) {
+					$scope.history.departmentId = $scope.criteria.departmentId;
+					$scope.history.teamId = reportUtilities.getTeamId($scope.teams);
+				}
 			}).error(function (response, status) {
 				ErrorFactory.errorHandle(status);
 			});
@@ -273,6 +290,9 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 
 		foodMenuFactory.getAllEmployeeType($scope.criteria.departmentIds).success(function (employeeTypes) {
 			$scope.employeeTypes = employeeTypes;
+			if ($routeParams.departmentId && $scope.criteria.departmentId !== $scope.history.departmentId) {
+				$scope.history.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypes);
+			}
 			$scope.getAllSideDish();
 		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
@@ -289,6 +309,10 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 
 			if (departments.length > 0) {
 				$scope.criteria.departmentId = departments[0].DepartmentId;
+			}
+
+			if ($routeParams.departmentId) {
+				$scope.criteria.departmentId = $scope.history.departmentId;
 			}
 
 			if (angular.isFunction(callback)) {

@@ -14,7 +14,7 @@ commonFactory, foodMenuFactory, foodMenuUtilities, notificationFactory) {
 		departmentId: '',
 		teamId: $scope.history.teamId,
 		employeeTypeId: $scope.history.employeeTypeId,
-		employee: {},
+		employee: $scope.history.employee,
 		pageIndex: $scope.history.pageIndex,
 		itemsPerPage: $scope.history.itemsPerPage
 	};
@@ -64,13 +64,16 @@ commonFactory, foodMenuFactory, foodMenuUtilities, notificationFactory) {
 	reportFactory.getDepartmentByUserRole().success(function (departments) {
 		$scope.departmentOptions = departments;
 		getDepartmentFilter(departments);
-		if ($scope.history.departmentId > 0) {
+		if ($scope.history.departmentId > 0 || $scope.history.employee.UserId) {
 			$scope.filter.departmentId = $scope.history.departmentId;
+			if ($scope.history.employee.UserId) {
+				$scope.filter.employee = $scope.history.employee;
+				$scope.searchEmployee = $scope.history.employee.NickName + ' (' + $scope.history.employee.FullName + ')';
+			}
 			$scope.getSideDishSummaryReport($scope.filter);
 			$scope.getTeamByCompany($scope.filter.departmentId);
 			getEmployeeType($scope.filter.departmentId, null);
 		} else {
-
 			$scope.getSideDishSummaryReport($scope.filter);
 
 			if (departments && departments.length === 1) {
@@ -99,7 +102,7 @@ commonFactory, foodMenuFactory, foodMenuUtilities, notificationFactory) {
 	** Get all team of department.
 	*/
 	$scope.getTeamByCompany = function (departmentId) {
-		if (departmentId) {
+		if (departmentId > 0) {
 			userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
 				$scope.teamOptions = teams;
 				if ($scope.history.teamId.length > 0) {
@@ -117,7 +120,7 @@ commonFactory, foodMenuFactory, foodMenuUtilities, notificationFactory) {
 			});
 		}
 		else {
-			$scope.teamOptions = '';
+			$scope.teamOptions = [];
 		}
 	};
 
@@ -138,6 +141,7 @@ commonFactory, foodMenuFactory, foodMenuUtilities, notificationFactory) {
 		if ($scope.searchEmployee.trim() === '') {
 			if ($scope.filter && $scope.filter.employee) {
 				$scope.filter.employee = null;
+				$scope.history.employee = {};
 			}
 		}
 	};
@@ -167,6 +171,10 @@ commonFactory, foodMenuFactory, foodMenuUtilities, notificationFactory) {
 	** Get team and employee type when department change.
 	*/
 	$scope.getTeamAndEmployeeTypeOfDepartment = function (departmentId) {
+		$scope.history.departmentId = departmentId;
+		$scope.history.teamId = '';
+		$scope.history.employeeTypeId = '';
+
 		$scope.getTeamByCompany(departmentId);
 
 		if (!departmentId) {
