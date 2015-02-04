@@ -151,6 +151,7 @@ namespace NexFB.Site.Controllers.API
         public IEnumerable<MemberModel> GetMember(
             string departmentId = null,
             string employeeTypeId = null,
+            string teamId = null,
             string query = null,
             string groupId = null,
             DateTime? joinedDateFrom = null,
@@ -160,6 +161,7 @@ namespace NexFB.Site.Controllers.API
                 {
                     DepartmentId = departmentId,
                     EmployeeTypeId = employeeTypeId,
+                    TeamId = teamId,
                     Query = query,
                     GroupId = groupId,
                     JoinedDateFrom = joinedDateFrom,

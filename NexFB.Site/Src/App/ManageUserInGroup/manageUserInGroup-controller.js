@@ -45,7 +45,7 @@ foodMenuFactory, userControlFactory) {
 		commonFactory.tablePagination($scope, $scope.members, $scope.entrySelected);
 	};
 
-	$scope.entrySelected = 15;
+	$scope.entrySelected = 50;
 	$scope.originalPage = 0;
 	commonFactory.numberEntryList($scope);
 
@@ -153,6 +153,7 @@ foodMenuFactory, userControlFactory) {
 
 			customizeFilter.GroupId = manageUserInGroupUtilities.getSelectedGroupIds($scope.groupOptions);
 			customizeFilter.EmployeeTypeId = manageUserInGroupUtilities.getEmployeeTypeId($scope.employeeTypeOptions);
+			customizeFilter.TeamId = manageUserInGroupUtilities.getTeamIds($scope.teamOptions);
 
 			if (customizeFilter.JoinedDateFrom && customizeFilter.JoinedDateTo) {
 				var fromDate = new Date(customizeFilter.JoinedDateFrom),
@@ -202,16 +203,16 @@ foodMenuFactory, userControlFactory) {
 	** Get selected member.
 	*/
 	var checkSysIdContainMemberId = function (sysIds, memberId) {
-			var sysIdList = sysIds.split(',');
+		var sysIdList = sysIds.split(',');
 
-			for (var i = 0; i < sysIdList.length; i++) {
-				if (sysIdList[i] === memberId.toString()) {
-					return true;
-				}
+		for (var i = 0; i < sysIdList.length; i++) {
+			if (sysIdList[i] === memberId.toString()) {
+				return true;
 			}
+		}
 
-			return false;
-		};
+		return false;
+	};
 
 	var getSelectedMember = function (sysIds, members) {
 		var selectedMembers = [],

@@ -69,6 +69,18 @@ function () {
         return groupIds;
     };
 
+	utility.getTeamIds = function (teamOptions) {
+		var teamIds = [];
+
+		angular.forEach(teamOptions, function (value) {
+			if (value.ticked) {
+				teamIds.push(value.TeamId);
+			}
+		});
+
+		return teamIds.join(',');
+	};
+
 	/*
 	** Assign group to member.
 	*/
