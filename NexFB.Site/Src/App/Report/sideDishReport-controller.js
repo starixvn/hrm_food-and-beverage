@@ -2,9 +2,9 @@
 /*global reportModule*/
 
 reportModule.controller('SideDishReportController',
-['$scope', '$routeParams', 'reportFactory', 'notificationFactory', 'ErrorFactory', 'userControlFactory', 'foodMenuFactory', 'foodMenuUtilities',
+['$scope', '$location', '$routeParams', 'reportFactory', 'notificationFactory', 'ErrorFactory', 'userControlFactory', 'foodMenuFactory', 'foodMenuUtilities',
 'reportUtilities', 'sideDishManagementFactory', 'baseUrl', 'orderingFactory',
-function ($scope, $routeParams, reportFactory, notificationFactory, ErrorFactory, userControlFactory, foodMenuFactory, foodMenuUtilities,
+function ($scope, $location, $routeParams, reportFactory, notificationFactory, ErrorFactory, userControlFactory, foodMenuFactory, foodMenuUtilities,
 reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 	var self = this;
 	var date = new Date(),
@@ -250,6 +250,13 @@ reportUtilities, sideDishManagementFactory, baseUrl, orderingFactory) {
 			$scope.criteria.employee = null;
 			$scope.criteria.userId = '';
 		}
+	};
+
+	/*
+	**  go back
+	*/
+	$scope.goback = function () {
+		$location.url('/SideDishSummaryReport/Index');
 	};
 
 	// self region.

@@ -1,8 +1,9 @@
 ﻿<div class="col-sm-12 side-dish-report">
 	<div class="row sub-header">
-		<ul class="breadcrumb list-inline pull-left">
-			<li class="current" data-translate="SideDishReport"></li>
-		</ul>
+		<div class="breadcrumb list-inline pull-left">
+			<label class="current" data-translate="SideDishReport" />
+			<input ng-if="history" type="button" value="Go back" class="button" ng-click="goback()" />
+		</div>
 	</div>
 	<div class="row filter filterMaxWith">
 		<form class="form-horizontal form-multiLine" role="form" action="#">
