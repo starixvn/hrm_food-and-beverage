@@ -142,6 +142,7 @@ namespace NexFB.Site.Controllers.API
         /// </summary>
         /// <param name="departmentId">DepartmentId input.</param>
         /// <param name="employeeTypeId">EmployeeTypeId input.</param>
+        /// <param name="teamId">The team Id.</param>
         /// <param name="query">Query input.</param>
         /// <param name="groupId">GroupId input.</param>
         /// <param name="joinedDateFrom">Joined date from.</param>
