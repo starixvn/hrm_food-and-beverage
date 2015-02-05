@@ -63,6 +63,7 @@
     <Compile Include="Implement\DeliveryAreaService.cs" />
     <Compile Include="Implement\GroupControlService.cs" />
     <Compile Include="Implement\Report\AdminOrderHistoryService.cs" />
+    <Compile Include="Implement\MealTimeService.cs" />
     <Compile Include="Implement\Report\DailyMainDishReportService.cs" />
     <Compile Include="Implement\Report\EmployeeOrderHistoryService.cs" />
     <Compile Include="Implement\Report\MonthlyMainDishPerDayReportService.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Implement\SmartCardOrderService.cs" />
     <Compile Include="Interface\IDeliveryAreaService.cs" />
     <Compile Include="Interface\IGroupControlService.cs" />
+    <Compile Include="Interface\IMealTimeService.cs" />
     <Compile Include="Interface\ISetMenuService.cs" />
     <Compile Include="Interface\IAlternativeMenuService.cs" />
     <Compile Include="Interface\IFoodItemService.cs" />

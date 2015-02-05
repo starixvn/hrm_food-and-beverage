@@ -1042,6 +1042,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End.
+        /// </summary>
+        public static string End {
+            get {
+                return ResourceManager.GetString("End", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry, an unexpected error occurred while processing your request, please notify the administrator!.
         /// </summary>
         public static string ErrorMessage {
@@ -1672,6 +1681,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Meal Time Management.
+        /// </summary>
+        public static string MealTimeManagement {
+            get {
+                return ResourceManager.GetString("MealTimeManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Member.
         /// </summary>
         public static string Member {
@@ -1974,6 +1992,15 @@ namespace NexFB.Resources {
         public static string MyOrder {
             get {
                 return ResourceManager.GetString("MyOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -2343,6 +2370,15 @@ namespace NexFB.Resources {
         public static string Read {
             get {
                 return ResourceManager.GetString("Read", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string Register {
+            get {
+                return ResourceManager.GetString("Register", resourceCulture);
             }
         }
         
@@ -2793,6 +2829,15 @@ namespace NexFB.Resources {
         public static string SpecialEmployeeManagement {
             get {
                 return ResourceManager.GetString("SpecialEmployeeManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
             }
         }
         

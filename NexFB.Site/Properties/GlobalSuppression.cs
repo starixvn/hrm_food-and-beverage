@@ -77,3 +77,5 @@ using System.Diagnostics.CodeAnalysis;
     Target = "NexFB.Site.Controllers.API.CommonController.#GetDepartmentOfCurrentUser()", Justification = "Reviewed. Suppression is OK here.")]
 [module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
     Target = "NexFB.Site.Controllers.API.UserControlController.#GetDefaultPassword()", Justification = "Reviewed. Suppression is OK here.")]
+[module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
+    Target = "NexFB.Site.Controllers.API.MealTimeManagementController.#GetUserPermissionOnMealTimeManagement()", Justification = "Reviewed. Suppression is OK here.")]

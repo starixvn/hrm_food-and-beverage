@@ -24,9 +24,93 @@ namespace NexFB.Models.Entities
 
         public DateTime StartTime { get; set; }
 
+        public string HHStartTime
+        {
+            get
+            {
+                string hour = StartTime.Hour.ToString();
+                if (hour.Length.Equals(1))
+                {
+                    hour = hour.Insert(0, "0");
+                }
+
+                return hour;
+            }
+        }
+
+        public string MMStartTime
+        {
+            get
+            {
+                string minute = StartTime.Minute.ToString();
+                if (minute.Length.Equals(1))
+                {
+                    minute = minute.Insert(0, "0");
+                }
+
+                return minute;
+            }
+        }
+
         public DateTime EndTime { get; set; }
 
+        public string HHEndTime
+        {
+            get
+            {
+                string hour = EndTime.Hour.ToString();
+                if (hour.Length.Equals(1))
+                {
+                    hour = hour.Insert(0, "0");
+                }
+
+                return hour;
+            }
+        }
+
+        public string MMEndTime
+        {
+            get
+            {
+                string minute = EndTime.Minute.ToString();
+                if (minute.Length.Equals(1))
+                {
+                    minute = minute.Insert(0, "0");
+                }
+
+                return minute;
+            }
+        }
+
         public DateTime RegisterTime { get; set; }
+
+        public string HHRegisterTime
+        {
+            get
+            {
+                string hour = RegisterTime.Hour.ToString();
+                if (hour.Length.Equals(1))
+                {
+                    hour = hour.Insert(0, "0");
+                }
+
+                return hour;
+            }
+        }
+
+        public string MMRegisterTime
+        {
+            get
+            {
+                string minute = RegisterTime.Minute.ToString();
+                if (minute.Length.Equals(1))
+                {
+                    minute = minute.Insert(0, "0");
+                }
+
+                return minute;
+            }
+        }
 
         public int ModifiedBy { get; set; }
 

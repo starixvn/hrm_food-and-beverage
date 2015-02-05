@@ -88,7 +88,8 @@ namespace NexFB.Site
                 "~/Src/App/ChangePassword/changePassword.less",
                 "~/Src/App/Report/report.less",
                 "~/Src/App/DeliveryArea/deliveryArea.less",
-                "~/Src/App/Employee/employee.less");
+                "~/Src/App/Employee/employee.less",
+                "~/Src/App/MealTimeManagement/mealTimeManagement.less");
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Src/App/app.js",
@@ -183,7 +184,10 @@ namespace NexFB.Site
                 "~/Src/App/ChangePassword/changePassword-factory.js",
                 "~/Src/App/DeliveryArea/deliveryArea-route.js",
                 "~/Src/App/DeliveryArea/deliveryArea-controller.js",
-                "~/Src/App/DeliveryArea/deliveryArea-factory.js"));
+                "~/Src/App/DeliveryArea/deliveryArea-factory.js",
+                "~/Src/App/MealTimeManagement/mealTimeManagement-route.js",
+                "~/Src/App/MealTimeManagement/mealTimeManagement-controller.js",
+                "~/Src/App/MealTimeManagement/mealTimeManagement-factory.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/extensions").Include(
                 "~/Src/Components/Extensions/Common/error-factory.js",

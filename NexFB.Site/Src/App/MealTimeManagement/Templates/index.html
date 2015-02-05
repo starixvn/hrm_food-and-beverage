@@ -1,0 +1,77 @@
+﻿<div class="col-sm-12">
+	<div class="row sub-header">
+		<ul class="breadcrumb list-inline pull-left">
+			<li class="current" data-translate="MealTimeManagement"></li>
+		</ul>
+	</div>
+	<div class="row table-mealTimeManagement">
+		<table class="table table-bordered table-striped col-sm-12">
+			<thead>
+				<tr>
+					<th class="width-250" data-translate="Name">
+					</th>
+					<th class="width-250" data-translate="Register">
+					</th>
+					<th class="width-250" data-translate="Start">
+					</th>
+					<th class="width-250" data-translate="End">
+					</th>
+					<th class="width-150" data-translate="Action">
+					</th>
+				</tr>
+			</thead>
+			<tbody ng-if="mealTimesheets.length > 0">
+				<tr ng-repeat="mealTimesheet in mealTimesheets" ng-class-odd="'oddRow'" ng-class-even="'evenRow'">
+					<td class="text-left">
+						{{mealTimesheet.MealEngName}}
+					</td>
+					<td class="text-center">
+						<label ng-if="mealTimesheet.isEdit == false">{{mealTimesheet.HHRegisterTime}}:{{mealTimesheet.MMRegisterTime}}</label>
+						<div ng-if="mealTimesheet.isEdit == true">
+							<input type="text" class="text-center"
+								ng-model="mealTimesheet.HHRegisterTime"
+								ng-minlength="1" ng-maxlength="2"
+								value="{{mealTimesheet.HHRegisterTime}}" />
+							:
+							<input type="text" class="text-center"
+								ng-model="mealTimesheet.MMRegisterTime"
+								ng-minlength="1" ng-maxlength="2"
+								value="{{mealTimesheet.MMRegisterTime}}" />
+						</div>
+					</td>
+					<td class="text-center">
+						<label ng-if="mealTimesheet.isEdit == false">{{mealTimesheet.HHStartTime}}:{{mealTimesheet.MMStartTime}}</label>
+						<div ng-if="mealTimesheet.isEdit == true">
+							<input type="text" class="text-center" value="{{mealTimesheet.HHStartTime}}" />
+							:
+							<input type="text" class="text-center" value="{{mealTimesheet.MMStartTime}}" />
+						</div>
+					</td>
+					<td class="text-center">
+						<label ng-if="mealTimesheet.isEdit == false">{{mealTimesheet.HHEndTime}}:{{mealTimesheet.MMEndTime}}</label>
+						<div ng-if="mealTimesheet.isEdit == true">
+							<input type="text" class="text-center"
+								value="{{mealTimesheet.HHEndTime}}" />
+							:
+							<input type="text" class="text-center"
+								value="{{mealTimesheet.MMEndTime}}" />
+						</div>
+					</td>
+					<td class="text-center">
+						<a ng-if="mealTimesheet.isEdit == false" class="glyphicon glyphicon-edit" href="" ng-click="edit(mealTimesheet)"></a>
+						<div ng-if="mealTimesheet.isEdit == true">
+							<a class="glyphicon glyphicon-saved" href="" ng-click="save(mealTimesheet)"></a>
+							<a class="glyphicon glyphicon-minus-sign icon-remove" href="" ng-click="cancel(mealTimesheet)"></a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tbody ng-if="mealTimesheets.length == 0">
+				<tr>
+					<td class="empty-result" colspan="5" data-translate="EmptyResult">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

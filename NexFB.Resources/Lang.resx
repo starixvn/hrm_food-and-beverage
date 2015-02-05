@@ -1146,6 +1146,9 @@
   <data name="AssignSelectedMember" xml:space="preserve">
     <value>Assign Selected Member</value>
   </data>
+  <data name="End" xml:space="preserve">
+    <value>End</value>
+  </data>
   <data name="SideDishSummaryReport" xml:space="preserve">
     <value>Side Dish Summary Report</value>
   </data>
@@ -1160,6 +1163,15 @@
   </data>
   <data name="MenuType" xml:space="preserve">
     <value>Menu Type</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
   </data>
   <data name="OrderDetail" xml:space="preserve">
     <value>Order Detail</value>
