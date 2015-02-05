@@ -57,7 +57,6 @@ function ($scope, mealTimeManagementFactory, ErrorFactory, notificationFactory) 
 		.success(function (response) {
 			if (response.IsSuccessful) {
 				notificationFactory.success("DataChangeSuccessfully");
-				$modalInstance.close(informationMealPlanning);
 			}
 			else {
 				notificationFactory.error("", response.Message);
