@@ -19,7 +19,8 @@ reportModule.directive('renderSideDishSummaryReport', ['baseUrl', function (base
 		var userId = scope.filter.employee.UserId ? scope.filter.employee.UserId : '';
 		var linkToDetail = '<a class="side-dish-detail" href="' + baseUrl + 'SideDishReport/Index?'
 			+ '&departmentId=' + scope.filter.departmentId
-			+ '&teamId=&employeeTypeId='
+			+ '&teamId=' + scope.filter.teamId
+			+ '&employeeTypeId=' + scope.filter.employeeTypeId
 			+ '&userId=' + userId
 			+ '&fromDate=' + scope.filter.fromDate.toString("MM dd yyyy")
 			+ '&toDate=' + scope.filter.toDate.toString("MM dd yyyy")
