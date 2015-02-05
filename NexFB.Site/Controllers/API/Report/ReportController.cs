@@ -306,7 +306,7 @@ namespace NexFB.Site.Controllers.API.Report
         [HttpGet]
         public Employee GetEmployeeById(int userId)
         {
-            var criteria = new GetEmployeeCriteria()
+            var criteria = new GetEmployeeByIdCriteria()
             {
                 UserId = userId
             };

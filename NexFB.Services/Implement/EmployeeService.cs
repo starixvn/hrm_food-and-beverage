@@ -280,7 +280,7 @@ namespace NexFB.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Employee.</returns>
-        public Employee GetEmployeeById(GetEmployeeCriteria criteria)
+        public Employee GetEmployeeById(GetEmployeeByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             Employee employee = null;
