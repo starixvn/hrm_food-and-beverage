@@ -16,7 +16,10 @@ reportModule.directive('renderSideDishSummaryReport', ['baseUrl', function (base
 	};
 
 	var generateDataFooter = function (report, scope) {
-		var userId = scope.filter.employee ? scope.filter.employee.UserId : '';
+		var userId = '';
+		if (scope.filter.employee && scope.filter.employee.UserId) {
+			userId = scope.filter.employee.UserId;
+		}
 		var linkToDetail = '<a class="side-dish-detail" href="' + baseUrl + 'SideDishReport/Index?'
 			+ '&departmentId=' + scope.filter.departmentId
 			+ '&teamId=' + scope.filter.teamId

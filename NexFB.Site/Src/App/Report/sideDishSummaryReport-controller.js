@@ -66,7 +66,7 @@ commonFactory, foodMenuFactory, foodMenuUtilities, notificationFactory) {
 		getDepartmentFilter(departments);
 		if ($scope.history.departmentId > 0 || $scope.history.employee.UserId) {
 			$scope.filter.departmentId = $scope.history.departmentId;
-			if ($scope.history.employee) {
+			if ($scope.history.employee && $scope.history.employee.UserId) {
 				$scope.filter.employee = $scope.history.employee;
 				$scope.searchEmployee = $scope.history.employee.NickName + ' (' + $scope.history.employee.FullName + ')';
 			}
