@@ -9,7 +9,7 @@
 
 namespace NexFB.Site.Controllers.API
 {
-    using System.Web.Mvc;
+    using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
@@ -23,7 +23,7 @@ namespace NexFB.Site.Controllers.API
     /// <summary>
     /// Meal time management controller.
     /// </summary>
-    public class MealTimeManagementController : Controller
+    public class MealTimeManagementController : ApiController
     {
         private readonly IMealTimeService _mealTimeService;
         private readonly IWebCommonService _webCommonService;
@@ -48,14 +48,14 @@ namespace NexFB.Site.Controllers.API
         /// <returns>The command result.</returns>
         [HttpPut]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealTimeManagement, Policy = Policy.Host)]
-        public CommandResult UpdateMealPlanning(UpdateMealTimeCriteria criteria)
+        public CommandResult UpdateMealTime(UpdateMealTimeCriteria criteria)
         {
             return _mealTimeService.UpdateMealPlanning(criteria);
         }
 
         public int GetUserPermissionOnMealTimeManagement()
         {
-            int policy = _webCommonService.GetPermission(FBFunctionKey.MealPlanningManagement);
+            int policy = _webCommonService.GetPermission(FBFunctionKey.MealTimeManagement);
             return policy;
         }
     }

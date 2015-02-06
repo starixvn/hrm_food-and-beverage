@@ -16,7 +16,7 @@
 					</th>
 					<th class="width-250" data-translate="End">
 					</th>
-					<th class="width-150" data-translate="Action">
+					<th class="width-150" data-translate="Action" ng-show="policy.permission == 2">
 					</th>
 				</tr>
 			</thead>
@@ -30,34 +30,44 @@
 						<div ng-if="mealTimesheet.isEdit == true">
 							<input type="text" class="text-center"
 								ng-model="mealTimesheet.HHRegisterTime"
-								ng-minlength="1" ng-maxlength="2"
-								value="{{mealTimesheet.HHRegisterTime}}" />
+								ng-change="onChange(mealTimesheet)"
+								maxlength="2" number-only="number" />
 							:
 							<input type="text" class="text-center"
 								ng-model="mealTimesheet.MMRegisterTime"
-								ng-minlength="1" ng-maxlength="2"
-								value="{{mealTimesheet.MMRegisterTime}}" />
+								ng-change="onChange(mealTimesheet)"
+								maxlength="2" number-only="number" />
 						</div>
 					</td>
 					<td class="text-center">
 						<label ng-if="mealTimesheet.isEdit == false">{{mealTimesheet.HHStartTime}}:{{mealTimesheet.MMStartTime}}</label>
 						<div ng-if="mealTimesheet.isEdit == true">
-							<input type="text" class="text-center" value="{{mealTimesheet.HHStartTime}}" />
+							<input type="text" class="text-center"
+								ng-model="mealTimesheet.HHStartTime"
+								ng-change="onChange(mealTimesheet)"
+								maxlength="2" number-only="number" />
 							:
-							<input type="text" class="text-center" value="{{mealTimesheet.MMStartTime}}" />
+							<input type="text" class="text-center"
+								ng-model="mealTimesheet.MMStartTime"
+								ng-change="onChange(mealTimesheet)"
+								maxlength="2" number-only="number" />
 						</div>
 					</td>
 					<td class="text-center">
 						<label ng-if="mealTimesheet.isEdit == false">{{mealTimesheet.HHEndTime}}:{{mealTimesheet.MMEndTime}}</label>
 						<div ng-if="mealTimesheet.isEdit == true">
 							<input type="text" class="text-center"
-								value="{{mealTimesheet.HHEndTime}}" />
+								ng-model="mealTimesheet.HHEndTime"
+								ng-change="onChange(mealTimesheet)"
+								maxlength="2" number-only="number" />
 							:
 							<input type="text" class="text-center"
-								value="{{mealTimesheet.MMEndTime}}" />
+								ng-model="mealTimesheet.MMEndTime"
+								ng-change="onChange(mealTimesheet)"
+								maxlength="2" number-only="number" />
 						</div>
 					</td>
-					<td class="text-center">
+					<td class="text-center" ng-show="policy.permission == 2">
 						<a ng-if="mealTimesheet.isEdit == false" class="glyphicon glyphicon-edit" href="" ng-click="edit(mealTimesheet)"></a>
 						<div ng-if="mealTimesheet.isEdit == true">
 							<a class="glyphicon glyphicon-saved" href="" ng-click="save(mealTimesheet)"></a>

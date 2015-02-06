@@ -98,6 +98,8 @@
 		</Setting>
 		<Setting Key="Meal_GetAll" SpName="Meal_GetAll" DbName="NexFB" Plain="0" >
 		</Setting>
+    <Setting Key="Meal_EditTime" SpName="Meal_EditTime" DbName="NexFB" Plain="0" >
+    </Setting>
 		<Setting Key="RegisterMeal_Setting" SpName="RegisterMeal_Setting" DbName="NexFB" Plain="0" >
 		</Setting>
 	</Function>
