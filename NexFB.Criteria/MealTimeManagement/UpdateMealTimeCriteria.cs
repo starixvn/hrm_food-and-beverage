@@ -16,7 +16,7 @@ namespace NexFB.Criteria.MealTimeManagement
     /// </summary>
     public class UpdateMealTimeCriteria : CriteriaBase
     {
-        public int MealID { get; set; }
+        public int MealId { get; set; }
 
         public string RegisterTime { get; set; }
 
