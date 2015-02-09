@@ -4,8 +4,6 @@
 mealTimeManagementModule.controller('MealTimeManagementController',
 ['$scope', '$modal', 'baseUrl', 'mealTimeManagementFactory', 'ErrorFactory', 'notificationFactory',
 function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, notificationFactory) {
-	$scope.isValid = true;
-	$scope.errMessage = '';
 	$scope.isEdit = false;
 	/*
 	** Get all meal timesheet.
@@ -32,59 +30,28 @@ function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, noti
 	});
 
 	$scope.onChange = function (mealTimesheet) {
-		$scope.isValid = true;
-
-		if (parseInt(mealTimesheet.HHRegisterTime) < 24 && parseInt(mealTimesheet.MMRegisterTime) < 60) {
-			if (mealTimesheet.HHRegisterTime.length === 1) {
-				mealTimesheet.HHRegisterTime = '0' + mealTimesheet.HHRegisterTime;
-			}
-
-			if (mealTimesheet.MMRegisterTime.length === 1) {
-				mealTimesheet.MMRegisterTime = '0' + mealTimesheet.MMRegisterTime;
-			}
-		}
-		else {
-			$scope.isValid = false;
-			$scope.errMessage = 'The Register time must be between 00:00 and 23:59.';
-			return;
+		if (mealTimesheet.HHRegisterTime.length === 1) {
+			mealTimesheet.HHRegisterTime = '0' + mealTimesheet.HHRegisterTime;
 		}
 
-		if (parseInt(mealTimesheet.HHStartTime) < 24 && parseInt(mealTimesheet.MMStartTime) < 60) {
-			if (mealTimesheet.HHStartTime.length === 1) {
-				mealTimesheet.HHStartTime = '0' + mealTimesheet.HHStartTime;
-			}
-
-			if (mealTimesheet.MMStartTime.length === 1) {
-				mealTimesheet.MMStartTime = '0' + mealTimesheet.MMStartTime;
-			}
-		}
-		else {
-			$scope.isValid = false;
-			$scope.errMessage = 'The Start time must be between 00:00 and 23:59.';
-			return;
+		if (mealTimesheet.MMRegisterTime.length === 1) {
+			mealTimesheet.MMRegisterTime = '0' + mealTimesheet.MMRegisterTime;
 		}
 
-		if (parseInt(mealTimesheet.HHEndTime) < 24 && parseInt(mealTimesheet.MMStartTime) < 60) {
-			if (mealTimesheet.HHEndTime.length === 1) {
-				mealTimesheet.HHEndTime = '0' + mealTimesheet.HHEndTime;
-			}
-
-			if (mealTimesheet.MMEndTime.length === 1) {
-				mealTimesheet.MMEndTime = '0' + mealTimesheet.MMEndTime;
-			}
-		}
-		else {
-			$scope.isValid = false;
-			$scope.errMessage = 'The End time must be between 00:00 and 23:59.';
-			return;
+		if (mealTimesheet.HHStartTime.length === 1) {
+			mealTimesheet.HHStartTime = '0' + mealTimesheet.HHStartTime;
 		}
 
-		if (parseInt(mealTimesheet.HHRegisterTime) > parseInt(mealTimesheet.HHStartTime)
-			|| (parseInt(mealTimesheet.HHRegisterTime) === parseInt(mealTimesheet.HHStartTime)
-				&& parseInt(mealTimesheet.MMRegisterTime) > parseInt(mealTimesheet.MMStartTime))) {
-			$scope.isValid = false;
-			$scope.errMessage = 'Register time must be before or equal the meal start time.';
-			return;
+		if (mealTimesheet.MMStartTime.length === 1) {
+			mealTimesheet.MMStartTime = '0' + mealTimesheet.MMStartTime;
+		}
+
+		if (mealTimesheet.HHEndTime.length === 1) {
+			mealTimesheet.HHEndTime = '0' + mealTimesheet.HHEndTime;
+		}
+
+		if (mealTimesheet.MMEndTime.length === 1) {
+			mealTimesheet.MMEndTime = '0' + mealTimesheet.MMEndTime;
 		}
 	};
 
@@ -137,6 +104,7 @@ function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, noti
 			}
 		});
 
+		$scope.isEdit = false;
 		mealTimesheet.isEdit = false;
 	};
 
@@ -152,14 +120,13 @@ function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, noti
 		.success(function (response) {
 			if (response.IsSuccessful) {
 				notificationFactory.success("DataChangeSuccessfully");
+				mealTimesheet.isEdit = false;
 			}
 			else {
 				notificationFactory.error("", response.Message);
 			}
 		}).error(function (response, status) {
 			ErrorFactory.errorHandle(status);
-		})['finally'](function () {
-			mealTimesheet.isEdit = false;
 		});
 	};
 
@@ -167,11 +134,7 @@ function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, noti
 	** Save.
 	*/
 	$scope.save = function (mealTimesheet) {
-		if ($scope.isValid) {
-			saveMealTime(mealTimesheet);
-		} else {
-			notificationFactory.error('', $scope.errMessage);
-		}
+		saveMealTime(mealTimesheet);
 	};
 } ]);
 
