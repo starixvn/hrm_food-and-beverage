@@ -1176,16 +1176,7 @@
   <data name="OrderDetail" xml:space="preserve">
     <value>Order Detail</value>
   </data>
-  <data name="ValidateNoconsecutiveMeal" xml:space="preserve">
+  <data name="ValidateNonconsecutiveMeal" xml:space="preserve">
     <value>These meals are nonconsecutive.</value>
-  </data>
-  <data name="ValidateMoreThan4MealsPerShift" xml:space="preserve">
-    <value>A shift has maximum 4 meals only.</value>
-  </data>
-  <data name="ValidateNoMealForAShift" xml:space="preserve">
-    <value>A shift must have at least 1 meal!</value>
-  </data>
-  <data name="ValidateTimeOut" xml:space="preserve">
-    <value>The {0} time must be between 00:00 and 23:59.</value>
   </data>
 </root>

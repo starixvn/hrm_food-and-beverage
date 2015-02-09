@@ -48,6 +48,8 @@ function ($scope, mealTimeManagementFactory, ErrorFactory, notificationFactory) 
 	};
 
 	$scope.onChange = function (mealTimesheet) {
+		$scope.isValid = true;
+
 		if (parseInt(mealTimesheet.HHRegisterTime) < 24 && parseInt(mealTimesheet.MMRegisterTime) < 60) {
 			if (mealTimesheet.HHRegisterTime.length === 1) {
 				mealTimesheet.HHRegisterTime = '0' + mealTimesheet.HHRegisterTime;
@@ -153,7 +155,7 @@ function ($scope, mealTimeManagementFactory, ErrorFactory, notificationFactory) 
 				notificationFactory.error('', $scope.errMessage);
 			}
 		} else {
-			notificationFactory.error('ValidateNoconsecutiveMeal');
+			notificationFactory.error('ValidateNonconsecutiveMeal');
 		}
 	};
 } ]);

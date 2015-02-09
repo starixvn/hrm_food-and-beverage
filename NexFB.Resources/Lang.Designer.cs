@@ -3157,38 +3157,11 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A shift has maximum 4 meals only..
-        /// </summary>
-        public static string ValidateMoreThan4MealsPerShift {
-            get {
-                return ResourceManager.GetString("ValidateMoreThan4MealsPerShift", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to These meals are nonconsecutive..
         /// </summary>
-        public static string ValidateNoconsecutiveMeal {
+        public static string ValidateNonconsecutiveMeal {
             get {
-                return ResourceManager.GetString("ValidateNoconsecutiveMeal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A shift must have at least 1 meal!.
-        /// </summary>
-        public static string ValidateNoMealForAShift {
-            get {
-                return ResourceManager.GetString("ValidateNoMealForAShift", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The {0} time must be between 00:00 and 23:59..
-        /// </summary>
-        public static string ValidateTimeOut {
-            get {
-                return ResourceManager.GetString("ValidateTimeOut", resourceCulture);
+                return ResourceManager.GetString("ValidateNonconsecutiveMeal", resourceCulture);
             }
         }
         
