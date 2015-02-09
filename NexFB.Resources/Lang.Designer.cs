@@ -2284,6 +2284,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Two or more meal times are in overlap. Please edit the meal time..
+        /// </summary>
+        public static string OverlapMealTime {
+            get {
+                return ResourceManager.GetString("OverlapMealTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The selected member have already ordered in over limit order a day or included in another order..
         /// </summary>
         public static string OverOrderWarning {
@@ -3153,15 +3162,6 @@ namespace NexFB.Resources {
         public static string ValidateMaximumOneYear {
             get {
                 return ResourceManager.GetString("ValidateMaximumOneYear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to These meals are nonconsecutive..
-        /// </summary>
-        public static string ValidateNonconsecutiveMeal {
-            get {
-                return ResourceManager.GetString("ValidateNonconsecutiveMeal", resourceCulture);
             }
         }
         

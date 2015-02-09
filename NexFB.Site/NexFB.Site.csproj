@@ -322,6 +322,7 @@
     <Content Include="Src\App\MealTimeManagement\mealTimeManagement-factory.js" />
     <Content Include="Src\App\MealTimeManagement\mealTimeManagement-route.js" />
     <Content Include="Src\App\MealTimeManagement\Templates\index.html" />
+    <Content Include="Src\App\MealTimeManagement\Templates\modelConfirm.html" />
     <Content Include="Src\App\Ordering\editOrder-controller.js" />
     <Content Include="Src\App\Ordering\ordering-directive.js" />
     <Content Include="Src\App\Ordering\Templates\EditOrder.html" />

@@ -1177,10 +1177,11 @@
   <data name="OrderDetail" xml:space="preserve">
     <value>Order Detail</value>
   </data>
-  <data name="ValidateNoconsecutiveMeal" xml:space="preserve">
-=======
   <data name="ValidateNonconsecutiveMeal" xml:space="preserve">
->>>>>>> #30585 - Fix some bug
     <value>These meals are nonconsecutive.</value>
+=======
+  <data name="OverlapMealTime" xml:space="preserve">
+    <value>Two or more meal times are in overlap. Please edit the meal time.</value>
+>>>>>>> #30585 - Add model confirm
   </data>
 </root>

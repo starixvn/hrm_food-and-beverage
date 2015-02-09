@@ -2,10 +2,11 @@
 /*global mealTimeManagementModule*/
 
 mealTimeManagementModule.controller('MealTimeManagementController',
-['$scope', 'mealTimeManagementFactory', 'ErrorFactory', 'notificationFactory',
-function ($scope, mealTimeManagementFactory, ErrorFactory, notificationFactory) {
+['$scope', '$modal', 'baseUrl', 'mealTimeManagementFactory', 'ErrorFactory', 'notificationFactory',
+function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, notificationFactory) {
 	$scope.isValid = true;
 	$scope.errMessage = '';
+	$scope.isEdit = false;
 	/*
 	** Get all meal timesheet.
 	*/
@@ -29,23 +30,6 @@ function ($scope, mealTimeManagementFactory, ErrorFactory, notificationFactory) 
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
-
-
-
-	var checkConsecuteMeals = function () {
-		var numberEdit = 0;
-		angular.forEach($scope.mealTimesheets, function (timesheet) {
-			if (timesheet.isEdit === true) {
-				numberEdit++;
-			}
-		});
-
-		if (numberEdit > 1) {
-			return false;
-		}
-
-		return true;
-	};
 
 	$scope.onChange = function (mealTimesheet) {
 		$scope.isValid = true;
@@ -94,13 +78,48 @@ function ($scope, mealTimeManagementFactory, ErrorFactory, notificationFactory) 
 			$scope.errMessage = 'The End time must be between 00:00 and 23:59.';
 			return;
 		}
+
+		if (parseInt(mealTimesheet.HHRegisterTime) > parseInt(mealTimesheet.HHStartTime)
+			|| (parseInt(mealTimesheet.HHRegisterTime) === parseInt(mealTimesheet.HHStartTime)
+				&& parseInt(mealTimesheet.MMRegisterTime) > parseInt(mealTimesheet.MMStartTime))) {
+			$scope.isValid = false;
+			$scope.errMessage = 'Register time must be before or equal the meal start time.';
+			return;
+		}
 	};
 
 	/*
 	** Edit.
 	*/
 	$scope.edit = function (mealTimesheet) {
-		mealTimesheet.isEdit = true;
+		if ($scope.isEdit) {
+			var modalConfirm = $modal.open({
+				templateUrl: baseUrl + 'src/app/MealTimeManagement/Templates/modelConfirm.html',
+				controller: "ModelConfirmController",
+				backdrop: 'static',
+				resolve: {
+					meal: function () {
+						var meal = {};
+						angular.forEach($scope.mealTimesheets, function (timesheet) {
+							if (timesheet.isEdit === true) {
+								meal = timesheet;
+							}
+						});
+						return meal;
+					}
+				},
+				windowClass: "modal-confirm-edit"
+			});
+
+			modalConfirm.result.then(function (meal) {
+				saveMealTime(meal);
+				mealTimesheet.isEdit = true;
+			});
+		}
+		else {
+			$scope.isEdit = true;
+			mealTimesheet.isEdit = true;
+		}
 	};
 
 	/*
@@ -148,14 +167,22 @@ function ($scope, mealTimeManagementFactory, ErrorFactory, notificationFactory) 
 	** Save.
 	*/
 	$scope.save = function (mealTimesheet) {
-		if (checkConsecuteMeals()) {
-			if ($scope.isValid) {
-				saveMealTime(mealTimesheet);
-			} else {
-				notificationFactory.error('', $scope.errMessage);
-			}
+		if ($scope.isValid) {
+			saveMealTime(mealTimesheet);
 		} else {
-			notificationFactory.error('ValidateNonconsecutiveMeal');
+			notificationFactory.error('', $scope.errMessage);
 		}
+	};
+} ]);
+
+mealTimeManagementModule.controller('ModelConfirmController',
+['$scope', '$modalInstance', 'meal',
+function ($scope, $modalInstance, meal) {
+	$scope.save = function () {
+		$modalInstance.close(meal);
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss("cancel");
 	};
 } ]);
