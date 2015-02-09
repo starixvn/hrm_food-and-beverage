@@ -1,0 +1,1186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddContinue" xml:space="preserve">
+    <value>Add and continue</value>
+  </data>
+  <data name="AddMember" xml:space="preserve">
+    <value>Add member</value>
+  </data>
+  <data name="AllCompanies" xml:space="preserve">
+    <value>All Companies</value>
+  </data>
+  <data name="AllTeam" xml:space="preserve">
+    <value>All Team</value>
+  </data>
+  <data name="AssignPermissionToRole" xml:space="preserve">
+    <value>Assign Permission To Role</value>
+  </data>
+  <data name="AssignRoleToUser" xml:space="preserve">
+    <value>Assign Role To User</value>
+  </data>
+  <data name="Breakfast" xml:space="preserve">
+    <value>Breakfast</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="CreateAnOrder" xml:space="preserve">
+    <value>CREATE AN ORDER</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Create new</value>
+  </data>
+  <data name="DataChangeFail" xml:space="preserve">
+    <value>Updated unsuccessfully!</value>
+  </data>
+  <data name="DataChangeSuccessfully" xml:space="preserve">
+    <value>Updated successfully!</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="Dinner" xml:space="preserve">
+    <value>Dinner</value>
+  </data>
+  <data name="EmptyResult" xml:space="preserve">
+    <value>No information available!</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Sorry, an unexpected error occurred while processing your request, please notify the administrator!</value>
+  </data>
+  <data name="ErrorNetworkConnectionHeader" xml:space="preserve">
+    <value>Network Connection Errors</value>
+  </data>
+  <data name="Fri" xml:space="preserve">
+    <value>Fri</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="Function" xml:space="preserve">
+    <value>Function</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Invalid user name or password. Please try again.</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Lunch" xml:space="preserve">
+    <value>Lunch</value>
+  </data>
+  <data name="ManageRole" xml:space="preserve">
+    <value>Manage Role</value>
+  </data>
+  <data name="ManageUser" xml:space="preserve">
+    <value>Manage User</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Mon" xml:space="preserve">
+    <value>Mon</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="MyMeal" xml:space="preserve">
+    <value>My Menu</value>
+  </data>
+  <data name="MyOrder" xml:space="preserve">
+    <value>My Orders</value>
+  </data>
+  <data name="NetworkConnectionError" xml:space="preserve">
+    <value>There are problem with network connection. Please notify to administrators!</value>
+  </data>
+  <data name="NewOrder" xml:space="preserve">
+    <value>New Group</value>
+  </data>
+  <data name="NickName" xml:space="preserve">
+    <value>Nick Name</value>
+  </data>
+  <data name="NonVegetarian" xml:space="preserve">
+    <value>Non-Vegetarian</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="OrderMeal" xml:space="preserve">
+    <value>Order meal</value>
+  </data>
+  <data name="OrderPerson" xml:space="preserve">
+    <value>Ordered By</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Tel</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>Read</value>
+  </data>
+  <data name="RegisterMeal" xml:space="preserve">
+    <value>Register Meal</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Registration</value>
+  </data>
+  <data name="MealRegistration" xml:space="preserve">
+    <value>Meal Registration</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="RolePermission" xml:space="preserve">
+    <value>Role Permission</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Role(s)</value>
+  </data>
+  <data name="Sat" xml:space="preserve">
+    <value>Sat</value>
+  </data>
+  <data name="SavedOrder" xml:space="preserve">
+    <value>Favorite Group</value>
+  </data>
+  <data name="ShortNonVegetarian" xml:space="preserve">
+    <value>Non-Veg</value>
+  </data>
+  <data name="ShortVegetarian" xml:space="preserve">
+    <value>Veg</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Sun" xml:space="preserve">
+    <value>Sun</value>
+  </data>
+  <data name="Supper" xml:space="preserve">
+    <value>Supper</value>
+  </data>
+  <data name="SymbolCount" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="Thu" xml:space="preserve">
+    <value>Thu</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Since</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Food &amp; Beverage Management System</value>
+  </data>
+  <data name="ToDayMenu" xml:space="preserve">
+    <value>Current menu</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Tue" xml:space="preserve">
+    <value>Tue</value>
+  </data>
+  <data name="Vegetarian" xml:space="preserve">
+    <value>Vegetarian</value>
+  </data>
+  <data name="WarningGroupNotSave" xml:space="preserve">
+    <value>Group member will not be saved for next orders.</value>
+  </data>
+  <data name="Wed" xml:space="preserve">
+    <value>Wed</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="AllWeekdays" xml:space="preserve">
+    <value>All weekdays</value>
+  </data>
+  <data name="InvalidInputData" xml:space="preserve">
+    <value>Invalid input.</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="EditOrder" xml:space="preserve">
+    <value>Edit order</value>
+  </data>
+  <data name="ApplyMealTemplateWarning" xml:space="preserve">
+    <value>Are you sure you want to submit this registration?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="CreateFoodItem" xml:space="preserve">
+    <value>Create Food Item</value>
+  </data>
+  <data name="SubmitContinue" xml:space="preserve">
+    <value>Submit and continue</value>
+  </data>
+  <data name="EditFoodItem" xml:space="preserve">
+    <value>Edit Food Item</value>
+  </data>
+  <data name="CreateFoodMenu" xml:space="preserve">
+    <value>Create Menu</value>
+  </data>
+  <data name="EditFoodMenu" xml:space="preserve">
+    <value>Edit Menu</value>
+  </data>
+  <data name="MonthlyWeeklyDefaultWarning" xml:space="preserve">
+    <value>Monthly and weekly registration will not take effect on Saturday and Sunday.</value>
+  </data>
+  <data name="SerialRegisterWarning" xml:space="preserve">
+    <value>Are you sure you want to submit this registration?</value>
+  </data>
+  <data name="CreateMealPlanning" xml:space="preserve">
+    <value>Create Meal Planning</value>
+  </data>
+  <data name="EditMealPlanning" xml:space="preserve">
+    <value>Edit Meal Planning</value>
+  </data>
+  <data name="NoMealOrder" xml:space="preserve">
+    <value>No order available!</value>
+  </data>
+  <data name="NoMenu" xml:space="preserve">
+    <value>No menu available!</value>
+  </data>
+  <data name="InvalidLocation" xml:space="preserve">
+    <value>The delivery area is required!</value>
+  </data>
+  <data name="DefaultRegistrationWarning" xml:space="preserve">
+    <value>Notice: press Apply button to use the default week above for all weeks.</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="FoodItemEng" xml:space="preserve">
+    <value>Food item (English)</value>
+  </data>
+  <data name="FoodItemManagement" xml:space="preserve">
+    <value>Food Item Management</value>
+  </data>
+  <data name="FoodItemVnm" xml:space="preserve">
+    <value>Food item (Vietnamese)</value>
+  </data>
+  <data name="ManageFoodItem" xml:space="preserve">
+    <value>Manage Food Item</value>
+  </data>
+  <data name="AllStatuses" xml:space="preserve">
+    <value>All Statuses</value>
+  </data>
+  <data name="InActive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="FoodEngNameRequire" xml:space="preserve">
+    <value>The Food item (English) field is required!</value>
+  </data>
+  <data name="FoodEngName" xml:space="preserve">
+    <value>(English)</value>
+  </data>
+  <data name="FoodItemVnmName" xml:space="preserve">
+    <value>Food item (Vie)</value>
+  </data>
+  <data name="FoodVnmNameRequire" xml:space="preserve">
+    <value>The Food item (Vietnamese) field is required!</value>
+  </data>
+  <data name="ConfirmMessageDeleteOrder" xml:space="preserve">
+    <value>Are you sure you want to delete this order?</value>
+  </data>
+  <data name="ConfirmMessageRemoveMember" xml:space="preserve">
+    <value>Are you sure you want to remove this member?</value>
+  </data>
+  <data name="ConfirmMessageSaveOrder" xml:space="preserve">
+    <value>Are you sure you want to place this order?</value>
+  </data>
+  <data name="ConfirmMessageUpdateOrder" xml:space="preserve">
+    <value>Are you sure you want to update this order? Once received, no more members accepted.</value>
+  </data>
+  <data name="MessageNewStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} was placed at {2}. The order contains {3}.</value>
+  </data>
+  <data name="WarningMessageExistMember" xml:space="preserve">
+    <value>The selected member is already included in another order.</value>
+  </data>
+  <data name="MessageDeliveredStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} has been ready since {2}. The order contains {3}.</value>
+  </data>
+  <data name="MessageEditedStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} has been edited at {2}. The order contains {3}.</value>
+  </data>
+  <data name="MessageReceivedStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} has been prepared since {2}. The order contains {3}.</value>
+  </data>
+  <data name="MessageReducedStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} was reduced quantity at {2}. The order contains {3}.</value>
+  </data>
+  <data name="SelectLocation" xml:space="preserve">
+    <value>-- Please select delivery area --</value>
+  </data>
+  <data name="ActivationFail" xml:space="preserve">
+    <value>Activated unsuccessfully!</value>
+  </data>
+  <data name="ActivationSuccess" xml:space="preserve">
+    <value>Activated successfully!</value>
+  </data>
+  <data name="DeactivationFail" xml:space="preserve">
+    <value>Deactivated unsuccessfully!</value>
+  </data>
+  <data name="DeactivationSuccess" xml:space="preserve">
+    <value>Deactivated successfully!</value>
+  </data>
+  <data name="EmployeeType" xml:space="preserve">
+    <value>Employee type</value>
+  </data>
+  <data name="FoodItems" xml:space="preserve">
+    <value>Food items</value>
+  </data>
+  <data name="FoodMenuEng" xml:space="preserve">
+    <value>Menu (Eng)</value>
+  </data>
+  <data name="FoodMenuManagement" xml:space="preserve">
+    <value>Menu Management</value>
+  </data>
+  <data name="FoodMenuVnm" xml:space="preserve">
+    <value>Menu (Viet)</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>selected</value>
+  </data>
+  <data name="ShortPricePerDay" xml:space="preserve">
+    <value>Day Price</value>
+  </data>
+  <data name="ShortPricePerMeal" xml:space="preserve">
+    <value>Meal Price</value>
+  </data>
+  <data name="AllMeals" xml:space="preserve">
+    <value>All meals</value>
+  </data>
+  <data name="AllTypes" xml:space="preserve">
+    <value>All types</value>
+  </data>
+  <data name="FoodMenuNameVnm" xml:space="preserve">
+    <value>Menu name (Viet)</value>
+  </data>
+  <data name="PricePerDay" xml:space="preserve">
+    <value>Price per day</value>
+  </data>
+  <data name="PricePerMeal" xml:space="preserve">
+    <value>Price per meal</value>
+  </data>
+  <data name="PricePerDayNote" xml:space="preserve">
+    <value>P.P.Day: Price Per Day</value>
+  </data>
+  <data name="PricePerMealNote" xml:space="preserve">
+    <value>P.P.Meal: Price Per Meal</value>
+  </data>
+  <data name="FoodMenuEmployeeTypeRequire" xml:space="preserve">
+    <value>The Employee Type field is required!</value>
+  </data>
+  <data name="FoodMenuEngNameRequire" xml:space="preserve">
+    <value>The Menu (Eng) field is required!</value>
+  </data>
+  <data name="FoodMenuMealRequire" xml:space="preserve">
+    <value>The Meal field is required!</value>
+  </data>
+  <data name="FoodMenuPriceRequire" xml:space="preserve">
+    <value>The Meal Price or Day Price field is required!</value>
+  </data>
+  <data name="FoodMenuVnmNameRequire" xml:space="preserve">
+    <value>The Menu (Viet) field is required!</value>
+  </data>
+  <data name="DuplicateFoodMenuMessage" xml:space="preserve">
+    <value>System could not create or update the menu because there is another menu which has the same meal, meal type (Veg. or Non-Veg.) and employee type.</value>
+  </data>
+  <data name="ShortEng" xml:space="preserve">
+    <value>(Eng)</value>
+  </data>
+  <data name="FoodItem" xml:space="preserve">
+    <value>Food item</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="MealPlanningManagement" xml:space="preserve">
+    <value>Meal Planning Management</value>
+  </data>
+  <data name="AllMenus" xml:space="preserve">
+    <value>All menus</value>
+  </data>
+  <data name="DateRequire" xml:space="preserve">
+    <value>The Date field is required!</value>
+  </data>
+  <data name="MenuRequire" xml:space="preserve">
+    <value>The Menu field is required!</value>
+  </data>
+  <data name="SelectMenu" xml:space="preserve">
+    <value>Select the menu</value>
+  </data>
+  <data name="MealPlanningActivateWarning" xml:space="preserve">
+    <value>Cannot activate a serving meal</value>
+  </data>
+  <data name="MealPlanningDeactivateWarning" xml:space="preserve">
+    <value>Cannot deactivate a serving meal</value>
+  </data>
+  <data name="CreateSideDish" xml:space="preserve">
+    <value>Create Side Dish</value>
+  </data>
+  <data name="SideDishManagement" xml:space="preserve">
+    <value>Side Dish Management</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="CodeRequire" xml:space="preserve">
+    <value>The Code field is required!</value>
+  </data>
+  <data name="ItemRequire" xml:space="preserve">
+    <value>The Food item field is required!</value>
+  </data>
+  <data name="PriceRequire" xml:space="preserve">
+    <value>The Price field is required!</value>
+  </data>
+  <data name="SelectUnit" xml:space="preserve">
+    <value>Select unit</value>
+  </data>
+  <data name="UnitRequire" xml:space="preserve">
+    <value>The Unit field is required!</value>
+  </data>
+  <data name="EditSideDish" xml:space="preserve">
+    <value>Edit Side Dish</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="MenuCode" xml:space="preserve">
+    <value>Menu code</value>
+  </data>
+  <data name="MenuNameEng" xml:space="preserve">
+    <value>Menu name (Eng)</value>
+  </data>
+  <data name="AlternativeMenuManagement" xml:space="preserve">
+    <value>Alternative Menu Management</value>
+  </data>
+  <data name="CreateAlternativeMenu" xml:space="preserve">
+    <value>Create Alternative Menu</value>
+  </data>
+  <data name="MenuCodeRequire" xml:space="preserve">
+    <value>The Menu code field is required!</value>
+  </data>
+  <data name="MenuNameEngRequire" xml:space="preserve">
+    <value>The Menu (Eng) field is required!</value>
+  </data>
+  <data name="MenuNameVietRequire" xml:space="preserve">
+    <value>The Menu (Viet) field is required!</value>
+  </data>
+  <data name="EditAlternativeMenu" xml:space="preserve">
+    <value>Edit Alternative Menu</value>
+  </data>
+  <data name="CheckIn" xml:space="preserve">
+    <value>Check-in</value>
+  </data>
+  <data name="CheckOut" xml:space="preserve">
+    <value>Check-out</value>
+  </data>
+  <data name="NextWorkDate" xml:space="preserve">
+    <value>Work date +1</value>
+  </data>
+  <data name="OverdueMealInShift" xml:space="preserve">
+    <value>A shift has maximum 4 meals only.</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="UnderMealInShift" xml:space="preserve">
+    <value>A shift must have at least 1 meal.</value>
+  </data>
+  <data name="WorkDate" xml:space="preserve">
+    <value>Work date</value>
+  </data>
+  <data name="ShiftMealMapping" xml:space="preserve">
+    <value>Shift-Meal Mapping</value>
+  </data>
+  <data name="NotContinuousMealInShift" xml:space="preserve">
+    <value>These meals are nonconsecutive.</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="SideDish" xml:space="preserve">
+    <value>Side Dish</value>
+  </data>
+  <data name="SelectFoodItem" xml:space="preserve">
+    <value>Select Food Item</value>
+  </data>
+  <data name="SelectSideDish" xml:space="preserve">
+    <value>Select Side Dish</value>
+  </data>
+  <data name="InvalidFoodItem" xml:space="preserve">
+    <value>Please select food item before placing order.</value>
+  </data>
+  <data name="FoodItemCamalcase" xml:space="preserve">
+    <value>Food Item</value>
+  </data>
+  <data name="MessageReducedNoMemberStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} was reduced quantity at {2}.</value>
+  </data>
+  <data name="NoneAvailable" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="DuplicateSetMenuMessage" xml:space="preserve">
+    <value>This set menu already exists.</value>
+  </data>
+  <data name="CreateSetMenu" xml:space="preserve">
+    <value>Create Set Menu</value>
+  </data>
+  <data name="SetMenu" xml:space="preserve">
+    <value>Set Menu</value>
+  </data>
+  <data name="SetMenuManagement" xml:space="preserve">
+    <value>Set Menu Management</value>
+  </data>
+  <data name="FoodItemRequire" xml:space="preserve">
+    <value>The Food Item field is required!</value>
+  </data>
+  <data name="SetMenuNameRequire" xml:space="preserve">
+    <value>The Set Menu field is required!</value>
+  </data>
+  <data name="EditSetMenu" xml:space="preserve">
+    <value>Edit Set Menu</value>
+  </data>
+  <data name="UnhandledException" xml:space="preserve">
+    <value>Unhandled Exception</value>
+  </data>
+  <data name="DeliveryArea" xml:space="preserve">
+    <value>Delivery Area</value>
+  </data>
+  <data name="InvalidInputRegisterMeal" xml:space="preserve">
+    <value>You can only register either Vegetarian or Non-vegetarian.</value>
+  </data>
+  <data name="SelectSetMenu" xml:space="preserve">
+    <value>Select the set menu</value>
+  </data>
+  <data name="ConfirmMessageAlternativeMenu" xml:space="preserve">
+    <value>Please read with care the company policies before choosing alternative menu. Kitchen staff has right to reject your order. Thank you.</value>
+  </data>
+  <data name="MessageDeliveredNoMemberStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} has been ready since {2}.</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="MonthlyMainDishReportLocal" xml:space="preserve">
+    <value>Monthly Main Dish Report - Per Meal</value>
+  </data>
+  <data name="ManageGroup" xml:space="preserve">
+    <value>Manage Group</value>
+  </data>
+  <data name="DepartmentSection" xml:space="preserve">
+    <value>Department/Section</value>
+  </data>
+  <data name="AllGroups" xml:space="preserve">
+    <value>All Groups</value>
+  </data>
+  <data name="Qty" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="CreateGroup" xml:space="preserve">
+    <value>Create Group</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="AllEmployeeTypes" xml:space="preserve">
+    <value>All Employee Types</value>
+  </data>
+  <data name="AssignMemberToGroup" xml:space="preserve">
+    <value>Assign Member To Group</value>
+  </data>
+  <data name="UserGroupManagementUser" xml:space="preserve">
+    <value>User Group Management  - User</value>
+  </data>
+  <data name="OrderChangeWarning" xml:space="preserve">
+    <value>Order changed! Please refresh the page before submitting your action.</value>
+  </data>
+  <data name="OrderTime" xml:space="preserve">
+    <value>Order Time</value>
+  </data>
+  <data name="TakeAway" xml:space="preserve">
+    <value>Take Away</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Accepted" xml:space="preserve">
+    <value>Accepted</value>
+  </data>
+  <data name="Delivered" xml:space="preserve">
+    <value>Delivered</value>
+  </data>
+  <data name="MessageRejectedStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} has been Rejected at {2}. Status history: \nCreated: {3}\nAccepted: {4}\nDelivered: {5}</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm New Password</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Old Password</value>
+  </data>
+  <data name="RequireConfirmPassword" xml:space="preserve">
+    <value>The Confirm New Password field is required!</value>
+  </data>
+  <data name="RequireNewPassword" xml:space="preserve">
+    <value>The New Password field is required!</value>
+  </data>
+  <data name="RequireOldPassword" xml:space="preserve">
+    <value>The Old Password field is required!</value>
+  </data>
+  <data name="ValidateLengthPassword" xml:space="preserve">
+    <value>Password must be between 6-32 characters.</value>
+  </data>
+  <data name="ValidateWrongConfirmPassword" xml:space="preserve">
+    <value>Password does not match the confirm password.</value>
+  </data>
+  <data name="ValidateWrongPassword" xml:space="preserve">
+    <value>The old password is incorrect.</value>
+  </data>
+  <data name="NoPermissionChangePassword" xml:space="preserve">
+    <value>You do not have permission to change your password.</value>
+  </data>
+  <data name="NoMenuAvailableWarning" xml:space="preserve">
+    <value>There is no menu available for</value>
+  </data>
+  <data name="OverOrderWarning" xml:space="preserve">
+    <value>The selected member have already ordered in over limit order a day or included in another order.</value>
+  </data>
+  <data name="Ordered" xml:space="preserve">
+    <value>Ordered</value>
+  </data>
+  <data name="TakeAwayRemark" xml:space="preserve">
+    <value>Take away</value>
+  </data>
+  <data name="FoodCode" xml:space="preserve">
+    <value>Food Code</value>
+  </data>
+  <data name="FoodCodeRequire" xml:space="preserve">
+    <value>The Food Code field is required!</value>
+  </data>
+  <data name="RegisterVegetarianWarning" xml:space="preserve">
+    <value>You must register a vegetarian meal at least 7 days in advance.</value>
+  </data>
+  <data name="FnBWelcome" xml:space="preserve">
+    <value>Welcome to F&amp;B</value>
+  </data>
+  <data name="AddOverOrderMemberWarning" xml:space="preserve">
+    <value>This member has reached his meal limit or included in another order.</value>
+  </data>
+  <data name="MessageEditedNoMemberStatusOrder" xml:space="preserve">
+    <value>Order #{0} by {1} has been edited at {2}.</value>
+  </data>
+  <data name="KitchenOnly" xml:space="preserve">
+    <value>Kitchen only</value>
+  </data>
+  <data name="KitchenOnlyLabel" xml:space="preserve">
+    <value>Ordered by kitchen staff only</value>
+  </data>
+  <data name="CheckKitchenOnlyMsg" xml:space="preserve">
+    <value>Do you want this food item to be viewed by kitchen staff only?</value>
+  </data>
+  <data name="UncheckKitchenOnlyMsg" xml:space="preserve">
+    <value>Do you want this food item to be viewed by all users?</value>
+  </data>
+  <data name="EncodingNotSupported" xml:space="preserve">
+    <value>Encoding '{0}' is not supported. Only supports gzip or deflate encoding.</value>
+  </data>
+  <data name="MonthlyMainDishLocalReportName" xml:space="preserve">
+    <value>Monthly_Main_Dish_Report_Per_Meal</value>
+  </data>
+  <data name="MonthlyMainDishLocalReportTitle" xml:space="preserve">
+    <value>Monthly Main Dish Report - Per Meal</value>
+  </data>
+  <data name="MonthlyMainDishLocalSheetName" xml:space="preserve">
+    <value>Monthly Main Dish Report - Per Meal</value>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>Group by</value>
+  </data>
+  <data name="CardNumber" xml:space="preserve">
+    <value>Card Number</value>
+  </data>
+  <data name="CreateEmployee" xml:space="preserve">
+    <value>Create Employee</value>
+  </data>
+  <data name="CreateSpecialEmployee" xml:space="preserve">
+    <value>Create Special Employee</value>
+  </data>
+  <data name="EmployeeName" xml:space="preserve">
+    <value>Employee Name</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="Notice" xml:space="preserve">
+    <value>Notice</value>
+  </data>
+  <data name="SevenDayRegisterMealWarning" xml:space="preserve">
+    <value>Vegetarian: register 7 days in advance.</value>
+  </data>
+  <data name="TodaySetMenu" xml:space="preserve">
+    <value>Set menu</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="NonUpdateVegetarianWarning" xml:space="preserve">
+    <value>Warning: Vegetarian meals will not take effect on 7 days from today.</value>
+  </data>
+  <data name="UpdateVegetarianInfo" xml:space="preserve">
+    <value>Update Successfully!&lt;br/&gt;Warning: Vegetarian meals will not take effect on 7 days from today.</value>
+  </data>
+  <data name="NonRegistration" xml:space="preserve">
+    <value>Non-Registration</value>
+  </data>
+  <data name="RegisterNonVegetarianWarning" xml:space="preserve">
+    <value>Non-vegetarian meals must be registed at least 1 days in advanced.</value>
+  </data>
+  <data name="DeregisterMealWarning" xml:space="preserve">
+    <value>You must deregister your meals at least 1 days in advanced.</value>
+  </data>
+  <data name="OtherTypeRegistrationWarning" xml:space="preserve">
+    <value>Non-Vegetarian and Non-Registration: register 1 day in advance.</value>
+  </data>
+  <data name="RegistrationRuleWarning" xml:space="preserve">
+    <value>Registration rules</value>
+  </data>
+  <data name="LabelCheckboxTranslateRemark" xml:space="preserve">
+    <value>Translate remark to Vietnamese (for kitchen staff)</value>
+  </data>
+  <data name="DailyMainDishReport" xml:space="preserve">
+    <value>Daily Main Dish Report</value>
+  </data>
+  <data name="JoinedDate" xml:space="preserve">
+    <value>Joined Date</value>
+  </data>
+  <data name="JoinedFrom" xml:space="preserve">
+    <value>Joined From</value>
+  </data>
+  <data name="MemberName" xml:space="preserve">
+    <value>Member Name</value>
+  </data>
+  <data name="EmployeeOrderHistoryReport" xml:space="preserve">
+    <value>My Order History</value>
+  </data>
+  <data name="AdminOrderHistoryReport" xml:space="preserve">
+    <value>Order History Report</value>
+  </data>
+  <data name="OffDay" xml:space="preserve">
+    <value>Off day</value>
+  </data>
+  <data name="SideDishItem" xml:space="preserve">
+    <value>Side dish item</value>
+  </data>
+  <data name="SideDishReport" xml:space="preserve">
+    <value>Side Dish Report</value>
+  </data>
+  <data name="WorkDay" xml:space="preserve">
+    <value>Work day</value>
+  </data>
+  <data name="CreateDeliveryArea" xml:space="preserve">
+    <value>Create Delivery Area</value>
+  </data>
+  <data name="DeliveryAreaManagement" xml:space="preserve">
+    <value>Delivery Area Management</value>
+  </data>
+  <data name="Floor" xml:space="preserve">
+    <value>Floor</value>
+  </data>
+  <data name="DeliveryAreaEng" xml:space="preserve">
+    <value>Delivery Area (English)</value>
+  </data>
+  <data name="DeliveryAreaViet" xml:space="preserve">
+    <value>Delivery Area (Vietnamese)</value>
+  </data>
+  <data name="DailyMainDishReportName" xml:space="preserve">
+    <value>Daily_Main_Dish_Report</value>
+  </data>
+  <data name="DailyMainDishReportSheet" xml:space="preserve">
+    <value>Daily_Main_Dish_Report</value>
+  </data>
+  <data name="DailyMainDishReportTitle" xml:space="preserve">
+    <value>Daily Main Dish Report</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Sub Total</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Total Amount</value>
+  </data>
+  <data name="DeliveryAreaEngRequire" xml:space="preserve">
+    <value>The Delivery Area (English) field is required!</value>
+  </data>
+  <data name="DeliveryAreaVietRequire" xml:space="preserve">
+    <value>The Delivery Area (Vietnamese) field is required!</value>
+  </data>
+  <data name="FloorRequire" xml:space="preserve">
+    <value>The Floor field is requried!</value>
+  </data>
+  <data name="SpecialEmployeeManagement" xml:space="preserve">
+    <value>Special Employee Management</value>
+  </data>
+  <data name="EmployeeCode" xml:space="preserve">
+    <value>Employee code</value>
+  </data>
+  <data name="RequireDepartment" xml:space="preserve">
+    <value>The Department field is required!</value>
+  </data>
+  <data name="RequireEmployeeCode" xml:space="preserve">
+    <value>The Employee code field is required!</value>
+  </data>
+  <data name="RequireEmployeeName" xml:space="preserve">
+    <value>The Employee name field is required!</value>
+  </data>
+  <data name="RequireEmployeeType" xml:space="preserve">
+    <value>The Employee type field is required!</value>
+  </data>
+  <data name="SelectDepartment" xml:space="preserve">
+    <value>Select department</value>
+  </data>
+  <data name="SelectEmployeeType" xml:space="preserve">
+    <value>Select employee type</value>
+  </data>
+  <data name="EditSpecialEmployee" xml:space="preserve">
+    <value>Edit Special Employee</value>
+  </data>
+  <data name="ManageGroupLabel" xml:space="preserve">
+    <value>USER GROUP MANAGEMENT - GROUP</value>
+  </data>
+  <data name="DeliveryAreaNotExistError" xml:space="preserve">
+    <value>This Delivery Area does not exist. Please reload this page.</value>
+  </data>
+  <data name="DeliveryAreaExistOrderMealWarning" xml:space="preserve">
+    <value>Orders in status New with the same Delivery area exist. Please Accept or Reject all of those orders before deactivate the Delivery Area.</value>
+  </data>
+  <data name="MyMenu" xml:space="preserve">
+    <value>My Menu</value>
+  </data>
+  <data name="OrderedBy" xml:space="preserve">
+    <value>Ordered By</value>
+  </data>
+  <data name="OrderPlatform" xml:space="preserve">
+    <value>Order Platform</value>
+  </data>
+  <data name="OrderStatus" xml:space="preserve">
+    <value>Order Status</value>
+  </data>
+  <data name="EmployeeOrderHistoryReportName" xml:space="preserve">
+    <value>My_Order_History</value>
+  </data>
+  <data name="EmployeeOrderHistoryReportSheetName" xml:space="preserve">
+    <value>My Order History</value>
+  </data>
+  <data name="EmployeeOrderHistoryReportTitle" xml:space="preserve">
+    <value>My Order History</value>
+  </data>
+  <data name="DateRangeInvalid" xml:space="preserve">
+    <value>Invalid date range. From Date must be less than To Date.</value>
+  </data>
+  <data name="MonthlyMainDishPerDayReport" xml:space="preserve">
+    <value>Monthly Main Dish Report - Per Day</value>
+  </data>
+  <data name="MonthlyMainDishPerDayReportName" xml:space="preserve">
+    <value>Monthly_Main_Dish_Report_Per_Day</value>
+  </data>
+  <data name="MonthlyMainDishPerDayReportTitle" xml:space="preserve">
+    <value>Monthly Main Dish Report - Per Day</value>
+  </data>
+  <data name="MonthlyMainDishPerDaySheetName" xml:space="preserve">
+    <value>Monthly Main Dish Per Day</value>
+  </data>
+  <data name="OrderCount" xml:space="preserve">
+    <value>Order Count</value>
+  </data>
+  <data name="DateRangeOneYearWarning" xml:space="preserve">
+    <value>Date range must be less than 1 year.</value>
+  </data>
+  <data name="ValidateFromToDate" xml:space="preserve">
+    <value>From date must be less than or equal To date.</value>
+  </data>
+  <data name="ValidateMaximumOneYear" xml:space="preserve">
+    <value>Maximum report period should be 1 year.</value>
+  </data>
+  <data name="MealForecastReport" xml:space="preserve">
+    <value>Meal Forecast Report</value>
+  </data>
+  <data name="MealForecastDetailReport" xml:space="preserve">
+    <value>Meal Forecast Report/Detail</value>
+  </data>
+  <data name="MealForecastReportName" xml:space="preserve">
+    <value>Meal_Forecast_Report</value>
+  </data>
+  <data name="MealForecastReportSheetName" xml:space="preserve">
+    <value>Meal Forecast Report</value>
+  </data>
+  <data name="MealForecastReportTitle" xml:space="preserve">
+    <value>Meal Forecast Report</value>
+  </data>
+  <data name="TotalMeal" xml:space="preserve">
+    <value>Total Meal</value>
+  </data>
+  <data name="TotalNonVegetarian" xml:space="preserve">
+    <value>Total Non-Vegetarian</value>
+  </data>
+  <data name="TotalVegetarian" xml:space="preserve">
+    <value>Total Vegetarian</value>
+  </data>
+  <data name="DietType" xml:space="preserve">
+    <value>Diet type</value>
+  </data>
+  <data name="MealForecastDetailReportName" xml:space="preserve">
+    <value>Meal_Forecast_Report_For_</value>
+  </data>
+  <data name="MealForecastDetailReportSheetName" xml:space="preserve">
+    <value>Meal Forecast Report For </value>
+  </data>
+  <data name="MealForecastDetailReportTitle" xml:space="preserve">
+    <value>Meal Forecast Report For </value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="ConfirmResetPassword" xml:space="preserve">
+    <value>Are you sure you want to reset password of {0} to {1}?</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="ViewMenuReport" xml:space="preserve">
+    <value>View Menu</value>
+  </data>
+  <data name="UserGroupNameRequire" xml:space="preserve">
+    <value>The Group field is requried!</value>
+  </data>
+  <data name="ExistMemberWarning" xml:space="preserve">
+    <value>Member has already been in the group.</value>
+  </data>
+  <data name="ManageGroupMember" xml:space="preserve">
+    <value>Manage group member of</value>
+  </data>
+  <data name="RemoveMemberGroupConfirm" xml:space="preserve">
+    <value>Are you sure you want to remove this member from the group?</value>
+  </data>
+  <data name="AssignAllSelectedHeader" xml:space="preserve">
+    <value>Assign All Selected Members</value>
+  </data>
+  <data name="AssignSelectedMemberLabel" xml:space="preserve">
+    <value>Assign all selected members to group</value>
+  </data>
+  <data name="NonMemberSelectedWarning" xml:space="preserve">
+    <value>You must select at least 1 member to assign to group.</value>
+  </data>
+  <data name="AssignSelectedMember" xml:space="preserve">
+    <value>Assign Selected Member</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="SideDishSummaryReport" xml:space="preserve">
+    <value>Side Dish Summary Report</value>
+  </data>
+  <data name="SideDishSummaryReportName" xml:space="preserve">
+    <value>Side_Dish_Summary_Report</value>
+  </data>
+  <data name="AdminOrderHistoryReportName" xml:space="preserve">
+    <value>Order_History_Report</value>
+  </data>
+  <data name="AdminOrderHistoryReportTitle" xml:space="preserve">
+    <value>Admin Order History Report</value>
+  </data>
+  <data name="MenuType" xml:space="preserve">
+    <value>Menu Type</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+<<<<<<< HEAD
+  <data name="OrderDetail" xml:space="preserve">
+    <value>Order Detail</value>
+  </data>
+  <data name="ValidateNoconsecutiveMeal" xml:space="preserve">
+=======
+  <data name="ValidateNonconsecutiveMeal" xml:space="preserve">
+>>>>>>> #30585 - Fix some bug
+    <value>These meals are nonconsecutive.</value>
+  </data>
+</root>
