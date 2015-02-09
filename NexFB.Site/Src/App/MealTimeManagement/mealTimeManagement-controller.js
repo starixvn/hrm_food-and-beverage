@@ -120,6 +120,7 @@ function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, noti
 		.success(function (response) {
 			if (response.IsSuccessful) {
 				notificationFactory.success("DataChangeSuccessfully");
+				$scope.isEdit = false;
 				mealTimesheet.isEdit = false;
 			}
 			else {
