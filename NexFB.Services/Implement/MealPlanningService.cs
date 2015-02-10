@@ -179,11 +179,12 @@ namespace NexFB.Services.Implement
             else if (mealPlanning.Date.Date == DateTime.Now.Date)
             {
                 int numberMeals = mealPlanning.Menu.Meals.Count;
+                MealModel firstMeal = numberMeals > 0 ? mealPlanning.Menu.Meals[0] : null;
                 MealModel lastMeal = numberMeals > 0 ? mealPlanning.Menu.Meals[numberMeals - 1] : null;
 
-                if (lastMeal != null)
+                if (firstMeal != null)
                 {
-                    CheckMealTimesheet(lastMeal, ref isDisable, ref isCurrentMeal);
+                    CheckMealTimesheet(firstMeal, lastMeal, ref isDisable, ref isCurrentMeal);
                 }
             }
         }
@@ -191,33 +192,35 @@ namespace NexFB.Services.Implement
         /// <summary>
         /// Check meal timesheet.
         /// </summary>
+        /// <param name="firstMeal">The first meal of current meal planning.</param>
         /// <param name="lastMeal">The last meal of current meal planning.</param>
         /// <param name="isDisable">The meal planning is disabled or not.</param>
         /// <param name="isCurrentMeal">The meal planning is current meal.</param>
-        private void CheckMealTimesheet(MealModel lastMeal, ref bool isDisable, ref bool isCurrentMeal)
+        private void CheckMealTimesheet(MealModel firstMeal, MealModel lastMeal, ref bool isDisable, ref bool isCurrentMeal)
         {
             var criteria = new GetMealTimesheetCriteria();
             IEnumerable<MealTimesheet> mealTimesheets = _commonService.GetAllMealTimesheet(criteria);
-            MealTimesheet lastTimesheet = GetLastTimesheet(mealTimesheets, lastMeal);
+            MealTimesheet firstTimesheet = GetTimesheet(mealTimesheets, firstMeal);
+            MealTimesheet lastTimesheet = GetTimesheet(mealTimesheets, lastMeal);
 
-            if (lastTimesheet != null)
+            if (firstTimesheet != null)
             {
-                isDisable = CheckRightMeal(lastTimesheet);
+                isDisable = CheckRightMeal(firstTimesheet);
                 isCurrentMeal = CheckCurrentMeal(lastTimesheet);
             }
         }
 
         /// <summary>
-        /// Get last timesheet.
+        /// Get timesheet.
         /// </summary>
         /// <param name="mealTimesheets">All meal timesheets.</param>
-        /// <param name="lastMeal">The last meal of current meal planning.</param>
-        /// <returns>The last meal timesheet.</returns>
-        private MealTimesheet GetLastTimesheet(IEnumerable<MealTimesheet> mealTimesheets, MealModel lastMeal)
+        /// <param name="meal">The meal of current meal planning.</param>
+        /// <returns>The meal timesheet.</returns>
+        private MealTimesheet GetTimesheet(IEnumerable<MealTimesheet> mealTimesheets, MealModel meal)
         {
             foreach (MealTimesheet mealTimesheet in mealTimesheets)
             {
-                if (mealTimesheet.MealId == lastMeal.MealId)
+                if (mealTimesheet.MealId == meal.MealId)
                 {
                     return mealTimesheet;
                 }
@@ -226,9 +229,9 @@ namespace NexFB.Services.Implement
             return null;
         }
 
-        private bool CheckRightMeal(MealTimesheet lastTimesheet)
+        private bool CheckRightMeal(MealTimesheet firstTimesheet)
         {
-            if (DateTime.Now.TimeOfDay < lastTimesheet.StartTime.TimeOfDay)
+            if (DateTime.Now.TimeOfDay < firstTimesheet.StartTime.TimeOfDay)
             {
                 return false;
             }
@@ -238,8 +241,7 @@ namespace NexFB.Services.Implement
 
         private bool CheckCurrentMeal(MealTimesheet lastTimesheet)
         {
-            if (DateTime.Now.TimeOfDay >= lastTimesheet.StartTime.TimeOfDay &&
-                    DateTime.Now.TimeOfDay <= lastTimesheet.EndTime.TimeOfDay)
+            if (DateTime.Now.TimeOfDay < lastTimesheet.StartTime.TimeOfDay)
             {
                 return true;
             }
