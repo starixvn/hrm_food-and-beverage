@@ -16,6 +16,7 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.MealRegistration;
+    using NexFB.Models.Authority;
     using NexFB.Models.MealRegistration;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
@@ -138,6 +139,11 @@ namespace NexFB.Site.Controllers.API
             RegisterMealSetting setting = _mealRegistrationService.GetRegisterMealSetting(criteria);
 
             return setting;
+        }
+
+        public UserSession GetCurrentUser()
+        {
+            return this.CurrentUser;
         }
     }
 }

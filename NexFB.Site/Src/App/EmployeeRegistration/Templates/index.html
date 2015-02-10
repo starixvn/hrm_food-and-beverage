@@ -16,7 +16,7 @@
            </div>
         </tab>
 
-        <tab active="tabDefault" heading="{{defaultHeading}}">
+        <tab active="tabDefault" heading="{{defaultHeading}}" ng-if="currentUser.DepartmentId == 1">
            <div ng-include src="'/Src/App/EmployeeRegistration/Templates/defaultRegistration.html'">
            </div>
         </tab>

@@ -80,3 +80,5 @@ using System.Diagnostics.CodeAnalysis;
 [module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
     Target = "NexFB.Site.Controllers.API.MealTimeManagementController.#GetUserPermissionOnMealTimeManagement()", 
     Justification = "Reviewed. Suppression is OK here.")]
+[module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
+    Target = "NexFB.Site.Controllers.API.MealRegistrationController.#GetCurrentUser()", Justification = "Reviewed. Suppression is OK here.")]

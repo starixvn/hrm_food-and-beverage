@@ -18,7 +18,7 @@ mealRegistrationModule.factory('mealRegistrationFactory', ['$http', 'baseUrl', f
 			return $http.get(baseUrl + 'api/MealRegistration/GetDefaultRegisterMeal');
 		},
 		setDefaultRegisterMeal: function (mealRegistration) {
-			return $http.post(baseUrl+ 'api/MealRegistration/RegisterMealByDefault', mealRegistration);
+			return $http.post(baseUrl + 'api/MealRegistration/RegisterMealByDefault', mealRegistration);
 		},
 		applyFromTemplate: function () {
 			return $http.put(baseUrl + 'api/MealRegistration/ApplyRegisterMealFromTemplate');
@@ -28,6 +28,9 @@ mealRegistrationModule.factory('mealRegistrationFactory', ['$http', 'baseUrl', f
 		},
 		getRegisterMealSetting: function () {
 			return $http.get(baseUrl + 'api/MealRegistration/GetRegisterMealSetting');
+		},
+		getCurrentUser: function () {
+			return $http.get(baseUrl + 'api/MealRegistration/GetCurrentUser');
 		}
 	};
 } ]);
