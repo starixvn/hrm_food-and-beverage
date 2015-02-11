@@ -2,11 +2,13 @@
 /*global reportModule*/
 
 reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
+
     var date = new Date(),
         history = {
             fromDate: new Date(date.getFullYear(), date.getMonth(), 1),
             toDate: new Date(),
             departmentId: '',
+			employeeTypeId: '',
             vegetarianType: '',
             isPagingCallback: false,
             startIndex: 0,
@@ -114,6 +116,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                 { params: { fromDate: filter.fromDate.toDateString(),
                     toDate: filter.toDate.toDateString(),
                     departmentId: filter.departmentId,
+					employeeTypeId: filter.employeeTypeId,
                     isVegetarian: filter.vegetarianType.length === 0 ? '' : filter.vegetarianType === '0' ? false : true,
                     isPagingCallback: filter.isPagingCallback,
                     startIndex: filter.startIndex,
@@ -125,6 +128,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
             return $http.get(baseUrl + 'api/report/GetMealForecastDetailReport',
                 { params: { date: filter.date,
                     departmentId: filter.departmentId,
+					employeeTypeId: filter.employeeTypeId,
                     isVegetarian: filter.dietType.length === 0 ? '' : filter.dietType === '0' ? false : true,
                     isPagingCallback: filter.isPagingCallback,
                     startIndex: filter.startIndex,
@@ -159,6 +163,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
             history.fromDate = scope.filter.fromDate;
             history.toDate = scope.filter.toDate;
             history.departmentId = scope.filter.departmentId;
+			history.employeeTypeId = scope.filter.employeeTypeId;
             history.vegetarianType = scope.filter.vegetarianType;
             history.startIndex = scope.filter.startIndex;
             history.itemsPerPage = scope.filter.itemsPerPage;

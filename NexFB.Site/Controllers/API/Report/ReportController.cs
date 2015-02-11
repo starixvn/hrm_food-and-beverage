@@ -580,6 +580,7 @@ namespace NexFB.Site.Controllers.API.Report
         /// <param name="fromDate">The from date.</param>
         /// <param name="toDate">The to date.</param>
         /// <param name="departmentId">The department Id.</param>
+        /// <param name="employeeTypeId">The employee Type Id.</param>
         /// <param name="isVegetarian">The vegetarian type.</param>
         /// <param name="isPagingCallback">The is paging call back.</param>
         /// <param name="startIndex">The start index.</param>
@@ -591,6 +592,7 @@ namespace NexFB.Site.Controllers.API.Report
             DateTime fromDate,
             DateTime toDate,
             string departmentId = "",
+            string employeeTypeId = "",
             bool? isVegetarian = null,
             bool isPagingCallback = false,
             int startIndex = 0,
@@ -608,6 +610,7 @@ namespace NexFB.Site.Controllers.API.Report
                     FromDate = fromDate,
                     ToDate = toDate,
                     DepartmentId = departmentId,
+                    EmployeeTypeId = employeeTypeId,
                     IsVegetarian = isVegetarian
                 };
 
@@ -624,6 +627,7 @@ namespace NexFB.Site.Controllers.API.Report
         /// </summary>
         /// <param name="date">The date selected.</param>
         /// <param name="departmentId">The department Id.</param>
+        /// <param name="employeeTypeId">The employee Type Id.</param>
         /// <param name="isVegetarian">The diet type.</param>
         /// <param name="isPagingCallback">The is paging callback.</param>
         /// <param name="startIndex">The start index.</param>
@@ -634,6 +638,7 @@ namespace NexFB.Site.Controllers.API.Report
         public MealForecastDetailReport GetMealForecastDetailReport(
             DateTime date,
             string departmentId = "",
+            string employeeTypeId = "",
             bool? isVegetarian = null,
             bool isPagingCallback = false,
             int startIndex = 0,
@@ -650,6 +655,7 @@ namespace NexFB.Site.Controllers.API.Report
                 {
                     OnDate = date,
                     DepartmentId = departmentId,
+                    EmployeeTypeId = employeeTypeId,
                     IsVegetarian = isVegetarian
                 };
 

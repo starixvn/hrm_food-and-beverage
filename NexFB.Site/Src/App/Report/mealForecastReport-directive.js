@@ -38,7 +38,8 @@ reportModule.directive('renderMealForecastReport', function () {
 
 			var date = currentCell.Value,
 			cell = '<a class="meal-forecast-detail" href="' + scope.baseUrl + 'MealForecastReport/Detail?date=' + date +
-				'&departmentId=' + scope.filter.departmentId + 
+				'&departmentId=' + scope.filter.departmentId +
+				'&employeeTypeId=' + scope.filter.employeeTypeId +
 				'&dietType=' + scope.filter.vegetarianType + '">' + date + '</a>';
 			return cell;
 		};

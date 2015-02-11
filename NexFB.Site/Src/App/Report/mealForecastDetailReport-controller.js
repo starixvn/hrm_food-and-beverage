@@ -2,16 +2,18 @@
 /*global reportModule*/
 
 reportModule.controller('MealForecastDetailReportController',
-['$scope', '$location', '$routeParams', 'reportFactory', 'ErrorFactory', 'reportUtilities',
-function ($scope, $location, $routeParams, reportFactory, ErrorFactory, reportUtilities) {
+['$scope', '$location', '$routeParams', 'reportFactory', 'foodMenuFactory', 'foodMenuUtilities', 'ErrorFactory', 'reportUtilities',
+function ($scope, $location, $routeParams, reportFactory, foodMenuFactory, foodMenuUtilities, ErrorFactory, reportUtilities) {
     $scope.filter = {
         date: $routeParams.date,
         departmentId: $routeParams.departmentId,
+		employeeTypeId: $routeParams.employeeTypeId,
         dietType: $routeParams.dietType
     };
 
     $scope.numberFormat = reportUtilities.getNumberFormat();
     $scope.dateFormat = reportUtilities.getDateFormatEmployeeOrderHistoryReport();
+    $scope.originalDepartmentId = '';
 
     $scope.gridOption = {
         itemsPerPage: 50,
@@ -46,9 +48,44 @@ function ($scope, $location, $routeParams, reportFactory, ErrorFactory, reportUt
         $scope.departmentOptions = departments;
         $scope.filter.departmentId = $routeParams.departmentId.split(',').length > 1 ? $routeParams.departmentId : parseInt($routeParams.departmentId);
         $scope.getMealForecastDetailReport($scope.filter);
+        getEmployeeType($scope.filter.departmentId, null);
     }).error(function (response, status) {
         ErrorFactory.errorHandle(status);
     });
+
+    /*
+    ** Get all employee type.
+    */
+    var getEmployeeType = function (departmentId, isLocal) {
+		foodMenuFactory.getAllEmployeeType(departmentId, isLocal).success(function (employeeTypes) {
+			$scope.employeeTypesOption = employeeTypes;
+			if ($scope.filter.employeeTypeId.length > 0) {
+				var ids = $scope.filter.employeeTypeId.split(',');
+				angular.forEach($scope.employeeTypesOption, function (employeeType) {
+					angular.forEach(ids, function (id) {
+						if (employeeType.EmployeeTypeId === parseInt(id)) {
+							employeeType.ticked = true;
+						}
+					});
+				});
+			}
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
+    };
+
+    /*
+    ** Get employee type when department change.
+    */
+	$scope.getEmployeeTypeOfDepartment = function (departmentId) {
+		$scope.filter.employeeTypeId = '';
+
+		if (!departmentId) {
+			departmentId = $scope.originalDepartmentId;
+		}
+
+		getEmployeeType(departmentId, null);
+    };
 
     /*
     ** Get report
@@ -68,6 +105,8 @@ function ($scope, $location, $routeParams, reportFactory, ErrorFactory, reportUt
     $scope.query = function (filter) {
         resetGridOption();
         resetPagingOption(filter);
+
+        filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
 
         $scope.getMealForecastDetailReport(filter);
     };

@@ -23,6 +23,8 @@ namespace NexFB.Criteria.Report
 
         public string DepartmentId { get; set; }
 
+        public string EmployeeTypeId { get; set; }
+
         public bool? IsVegetarian { get; set; }
 
         public override string GetSettingKey()
