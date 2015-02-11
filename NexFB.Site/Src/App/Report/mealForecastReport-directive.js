@@ -205,7 +205,7 @@ reportModule.directive('renderMealForecastReport', function () {
 					scope.gridOption.currentPage = pageIndex;
 					scope.gridOption.startIndex = scope.filter.startIndex;
 
-					scope.history();
+					scope.setHistory();
 					scope.getMealForecastReport.call(this, scope.filter);
 					return false;
 				}
