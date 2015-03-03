@@ -204,7 +204,7 @@ mealRegistrationModule.directive('validateMealRegistration', function () {
 							i = checkedElements.length;
 						}
 
-						if (workDate && +workDateNoTime >= +todayNoTime && workDateNoTime < limitDateNoTime) {
+						if (workDate && +workDateNoTime >= +todayNoTime && workDateNoTime < limitDateNoTime && isVegetarian) {
 							// In daily registration form of the current date, Vegetarian options are disabled
 							if (isVegetarian) {
 								validVegetarianCurrentDate = false;
