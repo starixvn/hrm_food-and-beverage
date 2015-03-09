@@ -51,7 +51,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
         {
             SetApplicationThemes();
             InitializeHubConnection();
-            InitializeHubConnectionLocal();
             ExecuteMainDishesCommand();
             CancelCommand = new RelayCommand((y) => ExecuteCancelCommand());
             MainDishesCommand = new RelayCommand((y) => ExecuteMainDishesCommand());
@@ -207,27 +206,18 @@ namespace NexFB.WinAppSmartCard.ViewModels
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         public Task SendMessage(int orderId)
         {
-            if (Connection.State == ConnectionState.Connected)
+            if (Connection.State != ConnectionState.Connected)
             {
-                try
-                {
-                    return Proxy.Invoke("SendNewOrder", orderId);
-                }
-                catch
-                {
-                    return Task.Factory.StartNew(new Action(() => { }));
-                }
+                InitializeHubConnection();
             }
-            else
+            
+            try
             {
-                try
-                {
-                    return ProxyLocal.Invoke("SendNewOrder", orderId);
-                }
-                catch
-                {
-                    return Task.Factory.StartNew(new Action(() => { }));
-                }
+                return Proxy.Invoke("SendNewOrder", orderId);
+            }
+            catch
+            {
+                return Task.Factory.StartNew(new Action(() => { }));
             }
         }
 
@@ -646,34 +636,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 }
             }) { IsBackground = true };
             Thread.Start();
-        }
-
-        /// <summary>
-        /// Connect to local hub.
-        /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
-        private void InitializeHubConnectionLocal()
-        {
-            ActiveLocal = true;
-            ThreadLocal = new Thread(() =>
-            {
-                ConnectionLocal = new HubConnection(_hostLocal);
-                ProxyLocal = ConnectionLocal.CreateHubProxy("order");
-                try
-                {
-                    ConnectionLocal.Start().Wait();
-                }
-                catch (Exception)
-                {
-                    return;
-                }
-
-                while (ActiveLocal)
-                {
-                    Thread.Sleep(10);
-                }
-            }) { IsBackground = true };
-            ThreadLocal.Start();
         }
 
         #endregion
