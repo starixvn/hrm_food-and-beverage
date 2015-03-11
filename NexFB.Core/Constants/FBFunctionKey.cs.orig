@@ -75,12 +75,9 @@ namespace NexFB.Core.Constants
         public const string MealForecastReport = "MealForecastReport";
 
         public const string SideDishSummaryReport = "SideDishSummaryReport";
-<<<<<<< HEAD
 
         public const string AdminOrderHistoryReport = "AdminOrderHistoryReport";
-=======
         
         public const string MealTimeManagement = "MealTimeManagement";
->>>>>>> #30585 - Add service, controller, render layout
     }
 }

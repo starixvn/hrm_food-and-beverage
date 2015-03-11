@@ -93,7 +93,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     }
                     else
                     {
-                        this.ShowErrorMessage(MainViewModel.CurrentCulture, MainScreenResources.Message_AlreadyThisOrder);
+                        // this.ShowErrorMessage(MainViewModel.CurrentCulture, MainScreenResources.Message_AlreadyThisOrder);
                     }
                 }
             }
@@ -236,6 +236,55 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ScreenNotificationVisible = CommonResources.Visible;
         }
 
+        /// <summary>
+        /// Confirm Command.
+        /// </summary>
+        public void ExecuteConfirmCommand()
+        {
+            if (ObservableListEmployee.Count == 0)
+            {
+                this.ShowErrorMessage(MainViewModel.CurrentCulture, MainScreenResources.Message_ContainEmployee);
+            }
+            else
+            {
+                var orderDetails = new StringBuilder(ConstantValue.BeginRootTag);
+
+                if (ObservableListEmployee.Any() && ObservableListEmployee.Count > 0)
+                {
+                    foreach (var employee in ObservableListEmployee)
+                    {
+                        DisplayOrderedMeal(employee);
+                        if (employee.SelectedValueDropDown == 0 || employee.SelectedValueDropDown == int.MaxValue)
+                        {
+                            orderDetails.AppendFormat(ConstantValue.MainDishOrderDetails, employee.SysId, 1, 1);
+                        }
+                        else
+                        {
+                            orderDetails.AppendFormat(ConstantValue.MainDishOrderDetails, employee.SysId, employee.SelectedValueDropDown, 0);
+                        }
+                    }
+                }
+
+                var insertOrderCriteria = new InsertOrderMealByUserCriteria()
+                {
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = OrderOwner.SysId,
+                    TakeAway = false,
+                    ListDetail = orderDetails.Append(ConstantValue.EndRootTag).ToString()
+                };
+
+                OrderResult result = this.SmartCardOrderService.InsertOrderFood(insertOrderCriteria);
+                if (result.CommandResult.Code == 0)
+                {
+                    OrderSuccessAction(result);
+                }
+                else
+                {
+                    this.ShowErrorMessage(MainViewModel.CurrentCulture, result.CommandResult.Message);
+                }
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -289,55 +338,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
                     int employeeSysId = (int)value;
                     Employee selectedEmployee = ObservableListEmployee.Where(x => x.SysId == employeeSysId).SingleOrDefault();
                     ShowMenuList(selectedEmployee);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Confirm Command.
-        /// </summary>
-        private void ExecuteConfirmCommand()
-        {
-            if (ObservableListEmployee.Count == 0)
-            {
-                this.ShowErrorMessage(MainViewModel.CurrentCulture, MainScreenResources.Message_ContainEmployee);
-            }
-            else
-            {
-                var orderDetails = new StringBuilder(ConstantValue.BeginRootTag);
-
-                if (ObservableListEmployee.Any() && ObservableListEmployee.Count > 0)
-                {
-                    foreach (var employee in ObservableListEmployee)
-                    {
-                        DisplayOrderedMeal(employee);
-                        if (employee.SelectedValueDropDown == 0 || employee.SelectedValueDropDown == int.MaxValue)
-                        {
-                            orderDetails.AppendFormat(ConstantValue.MainDishOrderDetails, employee.SysId, 1, 1);
-                        }
-                        else
-                        {
-                            orderDetails.AppendFormat(ConstantValue.MainDishOrderDetails, employee.SysId, employee.SelectedValueDropDown, 0);
-                        }
-                    }
-                }
-
-                var insertOrderCriteria = new InsertOrderMealByUserCriteria()
-                {
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = OrderOwner.SysId,
-                    TakeAway = false,
-                    ListDetail = orderDetails.Append(ConstantValue.EndRootTag).ToString()
-                };
-
-                OrderResult result = this.SmartCardOrderService.InsertOrderFood(insertOrderCriteria);
-                if (result.CommandResult.Code == 0)
-                {
-                    OrderSuccessAction(result);
-                }
-                else
-                {
-                    this.ShowErrorMessage(MainViewModel.CurrentCulture, result.CommandResult.Message);
                 }
             }
         }

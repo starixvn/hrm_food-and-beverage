@@ -61,6 +61,8 @@ namespace NexFB.WinAppSmartCard
                 }
             }
 
+            this.KeyDown += new KeyEventHandler(KeyboardEventHandler);
+
             ////InitializeAutoLogoffFeature();
         }
 
@@ -128,6 +130,26 @@ namespace NexFB.WinAppSmartCard
         {
             System.Windows.Application.Current.Shutdown();
             System.Windows.Forms.Application.Restart();
+        }
+
+        /// <summary>
+        /// Keyboard event.
+        /// </summary>
+        /// <param name="sender">The object sender.</param>
+        /// <param name="e">The key event.</param>
+        private void KeyboardEventHandler(object sender, KeyEventArgs e)
+        {
+            var currentViewModel = (MainViewModel)this.DataContext;
+
+            if (e.Key == Key.Enter 
+                && ((MainDishesViewModel)currentViewModel.CurrentViewModel).ObservableListEmployee.Count > 0)
+            {
+                ((MainDishesViewModel)currentViewModel.CurrentViewModel).ExecuteConfirmCommand();
+            }
+            else if (e.Key == Key.NumLock)
+            {
+                currentViewModel.ExecuteReturnToStandByScreen();
+            }
         }
     }
 }
