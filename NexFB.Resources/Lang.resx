@@ -930,6 +930,9 @@
   <data name="EmployeeOrderHistoryReport" xml:space="preserve">
     <value>My Order History</value>
   </data>
+  <data name="AdminOrderHistoryReport" xml:space="preserve">
+    <value>Order History Report</value>
+  </data>
   <data name="OffDay" xml:space="preserve">
     <value>Off day</value>
   </data>
@@ -1148,5 +1151,17 @@
   </data>
   <data name="SideDishSummaryReportName" xml:space="preserve">
     <value>Side_Dish_Summary_Report</value>
+  </data>
+  <data name="AdminOrderHistoryReportName" xml:space="preserve">
+    <value>Order_History_Report</value>
+  </data>
+  <data name="AdminOrderHistoryReportTitle" xml:space="preserve">
+    <value>Admin Order History Report</value>
+  </data>
+  <data name="MenuType" xml:space="preserve">
+    <value>Menu Type</value>
+  </data>
+  <data name="OrderDetail" xml:space="preserve">
+    <value>Order Detail</value>
   </data>
 </root>

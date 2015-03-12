@@ -75,5 +75,7 @@ namespace NexFB.Core.Constants
         public const string MealForecastReport = "MealForecastReport";
 
         public const string SideDishSummaryReport = "SideDishSummaryReport";
+
+        public const string AdminOrderHistoryReport = "AdminOrderHistoryReport";
     }
 }

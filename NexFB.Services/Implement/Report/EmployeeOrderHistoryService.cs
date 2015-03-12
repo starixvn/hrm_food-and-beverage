@@ -96,7 +96,7 @@ namespace NexFB.Services.Implement.Report
         {
             string reportName = Lang.EmployeeOrderHistoryReportName;
             string reportTitle = Lang.EmployeeOrderHistoryReportTitle;
-            var writer = new ExcelTemplateWriter(templatePath, reportName, Lang.MonthlyMainDishLocalSheetName);
+            var writer = new ExcelTemplateWriter(templatePath, reportName, Lang.EmployeeOrderHistoryReport);
 
             // Fill report title.
             writer.CopyRows(0, 2);

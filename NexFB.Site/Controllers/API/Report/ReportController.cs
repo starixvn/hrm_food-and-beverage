@@ -22,6 +22,7 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Criteria.SideDishManagement;
     using NexFB.Criteria.UserControl;
     using NexFB.Models.Entities;
+    using NexFB.Models.Report.AdminOrderHistoryReport;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.EmployeeOrderHistory;
     using NexFB.Models.Report.MealForecastReport;
@@ -48,6 +49,7 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly ICommonService _commonService;
         private readonly IUserControlService _userControlService;
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
+        private readonly IAdminOrderHistoryService _adminOrderHistoryService;
         private readonly IMonthlyMainDishPerDayReportService _monthlyPerDayService;
         private readonly ISideDishReportService _sideDishReportService;
         private readonly IMealForecastReportService _mealForecastReportService;
@@ -58,7 +60,7 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly IEmployeeService _employeeService;
 
         public ReportController()
-            : this(null, null, null, null, null, null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -68,6 +70,7 @@ namespace NexFB.Site.Controllers.API.Report
             ICommonService commonService,
             IUserControlService userControlService,
             IEmployeeOrderHistoryService employeeOrderHistoryService,
+            IAdminOrderHistoryService adminOrderHistoryService,
             IMonthlyMainDishPerDayReportService monthlyPerDayService,
             ISideDishReportService sideDishReportService,
             IMealForecastReportService mealForecastReportService,
@@ -82,6 +85,7 @@ namespace NexFB.Site.Controllers.API.Report
             _commonService = commonService ?? new CommonService();
             _userControlService = userControlService ?? new UserControlService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
+            _adminOrderHistoryService = adminOrderHistoryService ?? new AdminOrderHistoryService();
             _monthlyPerDayService = monthlyPerDayService ?? new MonthlyMainDishPerDayReportService();
             _sideDishReportService = sideDishReportService ?? new SideDishReportService();
             _mealForecastReportService = mealForecastReportService ?? new MealForecastReportService();
@@ -440,6 +444,7 @@ namespace NexFB.Site.Controllers.API.Report
                 MealId = mealId,
                 StatusId = statusId
             };
+
             EmployeeOrderHistoryReport fullReport = null;
             GetOrderedByEnum();
             if (isPagingCallback)
@@ -453,6 +458,60 @@ namespace NexFB.Site.Controllers.API.Report
             }
 
             EmployeeOrderHistoryReport pagingReport = _employeeOrderHistoryService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            return pagingReport;
+        }
+
+        /// <summary>
+        /// Get admin order history report.
+        /// </summary>
+        /// <param name="date">The report date.</param>
+        /// <param name="userId">The ID of users.</param>
+        /// <param name="employeeMenu">The menu of employee.</param>
+        /// <param name="orderPlatform">The order platform.</param>
+        /// <param name="mealId">The meal Id.</param>
+        /// <param name="statusId">The status Id.</param>
+        /// <param name="isPagingCallback">The is paging call back.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="itemsPerPage">The items per page.</param>
+        /// <returns>The report.</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.AdminOrderHistoryReport, Policy = Policy.Read)]
+        public AdminOrderHistoryReport GetAdminOrderHistoryReport(
+            DateTime date,
+            int? userId = null,
+            int employeeMenu = 0,
+            int orderPlatform = 0,
+            string mealId = "",
+            string statusId = "",
+            bool isPagingCallback = false,
+            int startIndex = 0,
+            int itemsPerPage = 50)
+        {
+            var criteria = new GetAdminOrderHistoryCriteria
+            {
+                UserId = userId,
+                FromDate = date,
+                ToDate = date,
+                OrderBy = 0,
+                MyMenu = employeeMenu,
+                OrderPlatform = orderPlatform,
+                MealId = mealId,
+                StatusId = statusId
+            };
+
+            var fullReport = new AdminOrderHistoryReport();
+            if (isPagingCallback)
+            {
+                fullReport = SessionManager.Get<AdminOrderHistoryReport>(ReportConstant.AdminOrderHistoryReportSessionKey + criteria.UserId);
+            }
+            else
+            {
+                fullReport = _adminOrderHistoryService.GetAdminOrderHistoryReport(criteria);
+                SessionManager.Set<AdminOrderHistoryReport>(ReportConstant.AdminOrderHistoryReportSessionKey + criteria.UserId, fullReport);
+            }
+
+            var pagingReport = _adminOrderHistoryService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+
             return pagingReport;
         }
 

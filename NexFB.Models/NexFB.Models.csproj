@@ -83,6 +83,8 @@
     <Compile Include="Ordering\MealOrderingModel.cs" />
     <Compile Include="Ordering\MenuQuantityModel.cs" />
     <Compile Include="Ordering\OrderMemberModel.cs" />
+    <Compile Include="Report\AdminOrderHistoryReport\AdminOrderHistoryReport.cs" />
+    <Compile Include="Report\AdminOrderHistoryReport\AdminOrderModel.cs" />
     <Compile Include="Report\DailyMainDishPricePerMealReport\DailyEmployeeMainDishModel.cs" />
     <Compile Include="Report\DailyMainDishPricePerMealReport\DailyMainDishDepartmentTeamModel.cs" />
     <Compile Include="Report\DailyMainDishPricePerMealReport\DailyMainDishReportModel.cs" />

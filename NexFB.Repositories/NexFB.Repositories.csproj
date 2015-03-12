@@ -60,6 +60,7 @@
     <Compile Include="Implement\ReportRepository.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="Implement\Report\AdminOrderHistoryRepository.cs" />
     <Compile Include="Implement\Report\EmployeeOrderHistoryRepository.cs" />
     <Compile Include="Implement\Report\MealForecastDetailReportRepository.cs" />
     <Compile Include="Implement\SetMenuRepository.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Interface\IOrderingRepository.cs" />
     <Compile Include="Interface\IShiftMealMappingRepository.cs" />
     <Compile Include="Interface\ISideDishRepository.cs" />
+    <Compile Include="Interface\Report\IAdminOrderHistoryRepository.cs" />
     <Compile Include="Interface\Report\IEmployeeOrderHistoryRepository.cs" />
     <Compile Include="Interface\Report\IMealForecastDetailReportRepository.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />

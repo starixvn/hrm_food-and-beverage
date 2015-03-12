@@ -321,6 +321,8 @@
     <Content Include="Src\App\Ordering\ordering-directive.js" />
     <Content Include="Src\App\Ordering\Templates\EditOrder.html" />
     <Content Include="Src\App\Ordering\Templates\SelectSideDish.html" />
+    <Content Include="Src\App\Report\adminOrderHistoryReport-controller.js" />
+    <Content Include="Src\App\Report\adminOrderHistoryReport-directive.js" />
     <Content Include="Src\App\Report\dailyMainDishReport-controller.js" />
     <Content Include="Src\App\Report\dailyMainDishReport-directive.js" />
     <Content Include="Src\App\Report\employeeOrderHistory-controller.js" />
@@ -337,6 +339,8 @@
     <Content Include="Src\App\Report\report-route.js" />
     <Content Include="Src\App\Report\sideDishReport-controller.js" />
     <Content Include="Src\App\Report\sideDishReport-directive.js" />
+    <Content Include="Src\App\Report\Templates\adminOrderHistoryReport.html" />
+    <Content Include="Src\App\Report\Templates\adminOrderDetail.html" />
     <Content Include="Src\App\Report\Templates\previousNextButtons.html" />
     <Content Include="Src\App\Report\viewMenuReport-controller.js" />
     <Content Include="Src\App\Report\sideDishSummaryReport-controller.js" />
@@ -551,6 +555,7 @@
     <Content Include="Src\App\Report\ExcelTemplates\ViewMenuReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MealForecastAllTypeReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MealForecastReport.xls" />
+    <None Include="Src\App\Report\ExcelTemplates\AdminOrderHistoryReport.xls" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
     <Content Include="Src\Content\Fonts\big_noodle_titling.ttf" />

@@ -13,6 +13,7 @@ namespace NexFB.Site.Controllers
     using NexFB.Core.Constants;
     using NexFB.Criteria.Report;
     using NexFB.Models.Authority;
+    using NexFB.Models.Report.AdminOrderHistoryReport;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.EmployeeOrderHistory;
     using NexFB.Models.Report.MealForecastReport;
@@ -33,6 +34,7 @@ namespace NexFB.Site.Controllers
         private const string _MonthlyMainDishReportLocalEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls";
         private const string _MonthlyMainDishReportLocalDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentReportLocal.xls";
         private const string _EmployeeOrderHistoryTemplatePath = @"~\Src\App\Report\ExcelTemplates\EmployeeOrderHistoryReport.xls";
+        private const string _AdminOrderHistoryTemplatePath = @"~\Src\App\Report\ExcelTemplates\AdminOrderHistoryReport.xls";
         private const string _SideDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\SideDishReport.xls";
         private const string _MonthlyMainDishPerDayEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeePerDayReport.xls";
         private const string _MonthlyMainDishPerDayDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentPerDayReport.xls";
@@ -45,6 +47,7 @@ namespace NexFB.Site.Controllers
 
         private readonly IMonthlyMainDishReportService _monthlyMainDishReportService;
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
+        private readonly IAdminOrderHistoryService _adminOrderHistoryService;
         private readonly IMonthlyMainDishPerDayReportService _monthlyMainDishPerDayService;
         private readonly IMealForecastReportService _mealForecastReportService;
         private readonly IDailyMainDishReportService _dailyMainDishReportService;
@@ -54,12 +57,13 @@ namespace NexFB.Site.Controllers
         private readonly ISideDishSummaryReportService _sideDishSummaryReportService;
 
         public ExportReportController()
-            : this(null, null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null, null)
         {
         }
 
         public ExportReportController(
             IEmployeeOrderHistoryService employeeOrderHistoryService,
+            IAdminOrderHistoryService adminOrderHistoryService,
             IMonthlyMainDishReportService monthlyMainDishReportService,
             IDailyMainDishReportService dailyMainDishReportService,
             IMealForecastReportService mealForecastReportService,
@@ -78,6 +82,7 @@ namespace NexFB.Site.Controllers
             _sideDishReportService = sideDishReportService ?? new SideDishReportService();
             _mealForecastDetailReportService = mealForecastDetailReportService ?? new MealForecastDetailReportService();
             _sideDishSummaryReportService = sideDishSummaryReportService ?? new SideDishSummaryReportService();
+            _adminOrderHistoryService = adminOrderHistoryService ?? new AdminOrderHistoryService();
         }
 
         public ActionResult Index()
@@ -138,6 +143,31 @@ namespace NexFB.Site.Controllers
             {
                 templatePath = Server.MapPath(_EmployeeOrderHistoryTemplatePath);
                 _employeeOrderHistoryService.ExportEmployeeOrderHistoryReport(report, templatePath);
+            }
+
+            return new EmptyResult();
+        }
+
+        /// <summary>
+        /// Export Admin Order History Report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The excel file.</returns>
+        public ActionResult ExportAdminOrderHistoryReport(GetAdminOrderHistoryCriteria criteria)
+        {
+            var report = SessionManager.Get<AdminOrderHistoryReport>(
+                ReportConstant.AdminOrderHistoryReportSessionKey + criteria.UserId);
+            string templatePath = string.Empty;
+
+            if (report == null)
+            {
+                report = _adminOrderHistoryService.GetAdminOrderHistoryReport(criteria);
+            }
+
+            if (report != null)
+            {
+                templatePath = Server.MapPath(_AdminOrderHistoryTemplatePath);
+                _adminOrderHistoryService.ExportAdminOrderHistoryReport(report, templatePath);
             }
 
             return new EmptyResult();

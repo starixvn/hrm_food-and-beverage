@@ -59,7 +59,8 @@ namespace NexFB.Site
                 "SpecialEmployee/Index",
                 "SideDishSummaryReport/Index",
                 "ViewMenuReport/Index",
-                "MealForecastReport/Detail"
+                "MealForecastReport/Detail",
+                "AdminOrderHistoryReport/Index"
             };
             homeRouteUrls.ForEach(url => routes.MapRoute(
                 name: url,

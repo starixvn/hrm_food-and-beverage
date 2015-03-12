@@ -1,0 +1,63 @@
+﻿<div class="col-sm-12">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li class="current" data-translate="AdminOrderHistoryReport"></li>
+        </ul>
+    </div>
+    <div class="row filter order-history-filter">
+        <form class="order-history-report form-horizontal form-multiLine" role="form">
+        <div class="form-group">
+            <label class="col-sm-1 text-right" data-translate="Meal">
+            </label>
+            <div class="col-sm-2 field">
+                <add-class-to-role-filter multi-select input-model="mealsOption" button-label="MealEngName"
+                    helper-elements="all reset" item-label="MealEngName" tick-property="ticked" max-labels="0"
+                    class="multi-select ">
+                    </add-class-to-role-filter>
+            </div>
+            <label class="order-platform-admin-history-report-label col-sm-1 text-right" data-translate="OrderPlatform">
+            </label>
+            <div class="col-sm-2 field">
+                <select class="order-platform-admin-history-report" ng-model="filter.orderPlatform" ng-options="orderPlatformItem.Value as orderPlatformItem.Name for orderPlatformItem in orderPlatformOptions">
+                </select>
+            </div>
+            <label class="col-sm-1 text-right order-status-history-report" data-translate="OrderStatus">
+            </label>
+            <div class="col-sm-2 field">
+                <add-class-to-role-filter multi-select input-model="orderStatusesOptions" button-label="Name"
+                    helper-elements="all reset" item-label="Name" tick-property="ticked" max-labels="0"
+                    class="multi-select ">
+                    </add-class-to-role-filter>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 text-right" data-translate="Date">
+            </label>
+            <div class="col-sm-2 field">
+                <input class="calendar-form-control" type="text" ng-model="filter.date" datepicker-popup
+                    is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
+                <calendar-image class="calendar-image" ng-click="openPopupDate($event)"></calendar-image>
+            </div>
+            <label class="col-sm-1 text-right admin-history-report" data-translate="Employee">
+            </label>
+            <div class="col-sm-2 field">
+                <input class="form-control custom-padding" data-ng-model="searchEmployee" placeholder="Enter full name or nick name"
+                    data-search-auto-complete data-search-employees="getEmployee()" data-ng-change="unSelectEmployee()"
+                    data-employee="filter.employee" data-style="width: 250px;top: 27px;left: 0.28125px;" />
+            </div>
+            <label class="menu-type-history-report-label col-sm-1 text-right" data-translate="MenuType">
+            </label>
+            <div class="col-sm-2 field">
+                <select class="menu-type-history-report" ng-model="filter.employeeMenu" ng-options="menuTypeItem.Value as menuTypeItem.Name for menuTypeItem in menuTypeOptions">
+                </select>
+            </div>
+            <div class="col-sm-1 btn-box admin-history-order-btn-box">
+                <input type="button" value="Submit" class="button" ng-click="query(filter)" />
+            </div>
+        </div>
+        </form>
+    </div>
+    <div id="adminOrderHistoryReport" class="freegrid" render-admin-order-history-report
+        export-admin-order-history-report>
+    </div>
+</div>

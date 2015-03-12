@@ -18,7 +18,7 @@ namespace NexFB.Criteria.Report
     public class GetEmployeeOrderHistoryCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "SysID")]
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         public int OrderBy { get; set; }
 
@@ -41,7 +41,7 @@ namespace NexFB.Criteria.Report
 
         public override bool IsValid()
         {
-            return UserId > 0 && FromDate <= ToDate;
+            return FromDate <= ToDate;
         }
     }
 }
