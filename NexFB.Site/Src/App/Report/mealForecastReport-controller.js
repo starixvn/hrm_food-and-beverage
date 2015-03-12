@@ -127,6 +127,7 @@ function ($scope, baseUrl, reportFactory, foodMenuFactory, foodMenuUtilities, Er
 		$scope.history.employeeTypeId = '';
 
 		if (!departmentId) {
+			$scope.filter.departmentId = $scope.originalDepartmentId;
 			departmentId = $scope.originalDepartmentId;
 		}
 

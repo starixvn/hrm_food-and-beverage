@@ -47,6 +47,7 @@ function ($scope, $location, $routeParams, reportFactory, foodMenuFactory, foodM
     reportFactory.getDepartmentByUserRole().success(function (departments) {
         $scope.departmentOptions = departments;
         $scope.filter.departmentId = $routeParams.departmentId.split(',').length > 1 ? $routeParams.departmentId : parseInt($routeParams.departmentId);
+        $scope.originalDepartmentId = $scope.filter.departmentId;
         $scope.getMealForecastDetailReport($scope.filter);
         getEmployeeType($scope.filter.departmentId, null);
     }).error(function (response, status) {
@@ -81,6 +82,7 @@ function ($scope, $location, $routeParams, reportFactory, foodMenuFactory, foodM
 		$scope.filter.employeeTypeId = '';
 
 		if (!departmentId) {
+			$scope.filter.departmentId = $scope.originalDepartmentId;
 			departmentId = $scope.originalDepartmentId;
 		}
 
