@@ -44,7 +44,7 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                 }
             }
             else {
-                return '';
+                return 'N/A';
             }
 
             return numeral(amount).format(scope.numberFormat);
