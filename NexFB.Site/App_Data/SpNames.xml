@@ -334,6 +334,13 @@
 			<Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status"/>
 			<Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status"/>
 		</Setting>
+    <Setting Key="Rpt_Get_OrderHistory" SpName="Rpt_Get_OrderHistory" DbName="NexFB" Plain="0" >
+      <Mapping DataField="OrderBy" ObjectProperty="UserId" Class="Employee"/>
+      <Mapping DataField="OrderFullName" ObjectProperty="FullName" Class="Employee"/>
+      <Mapping DataField="OrderNickName" ObjectProperty="NickName" Class="Employee"/>
+      <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status"/>
+      <Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status"/>
+    </Setting>
 		<Setting Key="RPT_DailySideDish" SpName="RPT_DailySideDish" DbName="NexFB" Plain="0" >      		
     		</Setting>
 		<Setting Key="RPT_MonthMainDishByExpat" SpName="RPT_MonthMainDishByExpat" DbName="NexFB" Plain="0" >

@@ -46,7 +46,7 @@ namespace NexFB.Repositories.Implement.Report
                             empOrder.OrderBy = orderBy;
                             return empOrder;
                         },
-                        "MealID,OrderID,CurrentStatusID,OrderBy").OrderBy(p => p.OrderTime).ToList();
+                        "MealID,OrderID,CurrentStatusID,OrderBy").ToList();
                     
                     var allMenus = multi.Read<dynamic>();
                     foreach (var employeeOrder in report.EmployeeOrders)

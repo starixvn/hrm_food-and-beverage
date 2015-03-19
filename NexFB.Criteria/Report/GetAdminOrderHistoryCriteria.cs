@@ -36,7 +36,7 @@ namespace NexFB.Criteria.Report
 
         public override string GetSettingKey()
         {
-            return "Rpt_Get_MyOrderHistory";
+            return "Rpt_Get_OrderHistory";
         }
 
         public override bool IsValid()
