@@ -89,9 +89,27 @@ function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, noti
 			});
 
 			modalConfirm.result.then(function (meal) {
-				if (meal.isEdit === true) {
-					saveMealTime(meal);
-					mealTimesheet.isEdit = true;
+				if (meal.isEdit) {
+					var criteria = {
+						mealId: meal.MealId,
+						registerTime: meal.HHRegisterTime + ':' + meal.MMRegisterTime,
+						startTime: meal.HHStartTime + ':' + meal.MMStartTime,
+						endTime: meal.HHEndTime + ':' + meal.MMEndTime
+					};
+
+					mealTimeManagementFactory.updateMealTimesheet(criteria)
+					.success(function (response) {
+						if (response.IsSuccessful) {
+							notificationFactory.success("DataChangeSuccessfully");
+							meal.isEdit = false;
+							mealTimesheet.isEdit = true;
+						}
+						else {
+							notificationFactory.error("", response.Message);
+						}
+					}).error(function (response, status) {
+						ErrorFactory.errorHandle(status);
+					});
 				}
 				else {
 					$scope.cancel(meal);
@@ -119,7 +137,6 @@ function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, noti
 			}
 		});
 
-		$scope.isEdit = false;
 		mealTimesheet.isEdit = false;
 	};
 
