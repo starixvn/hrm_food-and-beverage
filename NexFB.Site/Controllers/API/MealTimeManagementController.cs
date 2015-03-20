@@ -9,11 +9,13 @@
 
 namespace NexFB.Site.Controllers.API
 {
+    using System;
     using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Criteria.MealTimeManagement;
+    using NexFB.Models.MealTimeManagement;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.Web.Attributes;
@@ -23,7 +25,7 @@ namespace NexFB.Site.Controllers.API
     /// <summary>
     /// Meal time management controller.
     /// </summary>
-    public class MealTimeManagementController : ApiController
+    public class MealTimeManagementController : BaseController
     {
         private readonly IMealTimeService _mealTimeService;
         private readonly IWebCommonService _webCommonService;
@@ -44,12 +46,22 @@ namespace NexFB.Site.Controllers.API
         /// <summary>
         /// Update meal time.
         /// </summary>
-        /// <param name="criteria">The criteria.</param>
+        /// <param name="model">The meal time model.</param>
         /// <returns>The command result.</returns>
         [HttpPut]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealTimeManagement, Policy = Policy.Host)]
-        public CommandResult UpdateMealTime(UpdateMealTimeCriteria criteria)
+        public CommandResult UpdateMealTime(MealTimeModel model)
         {
+            var criteria = new UpdateMealTimeCriteria
+            {
+                MealId = model.MealId,
+                RegisterTime = model.RegisterTime,
+                StartTime = model.StartTime,
+                EndTime = model.EndTime,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now
+            };
+
             return _mealTimeService.UpdateMealPlanning(criteria);
         }
 

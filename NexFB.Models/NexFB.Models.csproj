@@ -80,6 +80,7 @@
     <Compile Include="MealRegistration\MealRegisterModel.cs" />
     <Compile Include="MealRegistration\RawMealDateModel.cs" />
     <Compile Include="MealRegistration\RegisterMealSetting.cs" />
+    <Compile Include="MealTimeManagement\MealTimeModel.cs" />
     <Compile Include="Ordering\MealOrderingModel.cs" />
     <Compile Include="Ordering\MenuQuantityModel.cs" />
     <Compile Include="Ordering\OrderMemberModel.cs" />

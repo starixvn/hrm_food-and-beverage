@@ -9,6 +9,7 @@
 
 namespace NexFB.Criteria.MealTimeManagement
 {
+    using System;
     using Fanex.Data.Repository;
 
     /// <summary>
@@ -24,6 +25,10 @@ namespace NexFB.Criteria.MealTimeManagement
 
         public string EndTime { get; set; }
 
+        public int ModifiedBy { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
+
         public override string GetSettingKey()
         {
             return "Meal_EditTime";
@@ -31,7 +36,7 @@ namespace NexFB.Criteria.MealTimeManagement
 
         public override bool IsValid()
         {
-            return true;
+            return MealId > 0;
         }
     }
 }
