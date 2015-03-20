@@ -4,7 +4,6 @@
 mealTimeManagementModule.controller('MealTimeManagementController',
 ['$scope', '$modal', 'baseUrl', 'mealTimeManagementFactory', 'ErrorFactory', 'notificationFactory',
 function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, notificationFactory) {
-	$scope.isEdit = false;
 	/*
 	** Get all meal timesheet.
 	*/
@@ -28,6 +27,17 @@ function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, noti
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
+
+	var checkEdit = function () {
+		var isEdit = false;
+		angular.forEach($scope.mealTimesheets, function (timesheet) {
+			if (timesheet.isEdit === true) {
+				isEdit = true;
+			}
+		});
+
+		return isEdit;
+	};
 
 	$scope.onChange = function (mealTimesheet) {
 		if (mealTimesheet.HHRegisterTime.length === 1) {
@@ -59,7 +69,7 @@ function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, noti
 	** Edit.
 	*/
 	$scope.edit = function (mealTimesheet) {
-		if ($scope.isEdit) {
+		if (checkEdit()) {
 			var modalConfirm = $modal.open({
 				templateUrl: baseUrl + 'src/app/MealTimeManagement/Templates/modelConfirm.html',
 				controller: "ModelConfirmController",
@@ -79,12 +89,17 @@ function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, noti
 			});
 
 			modalConfirm.result.then(function (meal) {
-				saveMealTime(meal);
-				mealTimesheet.isEdit = true;
+				if (meal.isEdit === true) {
+					saveMealTime(meal);
+					mealTimesheet.isEdit = true;
+				}
+				else {
+					$scope.cancel(meal);
+					mealTimesheet.isEdit = true;
+				}
 			});
 		}
 		else {
-			$scope.isEdit = true;
 			mealTimesheet.isEdit = true;
 		}
 	};
@@ -120,7 +135,6 @@ function ($scope, $modal, baseUrl, mealTimeManagementFactory, ErrorFactory, noti
 		.success(function (response) {
 			if (response.IsSuccessful) {
 				notificationFactory.success("DataChangeSuccessfully");
-				$scope.isEdit = false;
 				mealTimesheet.isEdit = false;
 			}
 			else {
@@ -147,6 +161,7 @@ function ($scope, $modalInstance, meal) {
 	};
 
 	$scope.cancel = function () {
-		$modalInstance.dismiss("cancel");
+		meal.isEdit = false;
+		$modalInstance.close(meal);
 	};
 } ]);
