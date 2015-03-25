@@ -41,7 +41,7 @@ namespace NexFB.Site.Controllers
         private const string _MealForecastAllTypeReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastAllTypeReport.xls";
         private const string _MealForecastReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastReport.xls";
         private const string _ViewMenuReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\ViewMenuReport.xls";
-        private const string SideDishSummaryReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\SideDishSummaryReport.xls";
+        private const string _SideDishSummaryReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\SideDishSummaryReport.xls";
         private const string _DailyMainDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\DailyMainDishReport.xls";
         private const string _MealForecastDetailReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastDetailReport.xls";
 
@@ -331,7 +331,7 @@ namespace NexFB.Site.Controllers
         /// <returns>The excel file.</returns>
         public ActionResult ExportSideDishSummaryReport(GetSideDishSummaryReportCriteria criteria)
         {
-            string templatePath = Server.MapPath(SideDishSummaryReportTemplatePath);
+            string templatePath = Server.MapPath(_SideDishSummaryReportTemplatePath);
             SideDishSummaryReportModel report = _sideDishSummaryReportService.GetSideDishSummaryReport(criteria);
 
             if (report != null)

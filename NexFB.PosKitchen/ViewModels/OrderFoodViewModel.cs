@@ -77,9 +77,6 @@ namespace NexFB.PosKitchen.ViewModels
             CurrentCulture();
             ChangeButtonBorder((int)KitchenGroupButton.ReleaseAllButton);
             HideGridDisplayUser();
-            AllObservationFood = _OrderFoodData.GetAllFood;
-            AllObservationAlternativeFood = _OrderFoodData.GetAllAlternativeFood;
-            AllObservationGroup = _OrderFoodData.GetAllGroup;
             MainViewModel = mainViewModel;
 
             if (order != null)
