@@ -26,12 +26,12 @@ namespace NexFB.Repositories.Implement
         /// </summary>
         /// <param name="menuId">The menu ID.</param>
         /// <param name="rawMeals">The meals from database.</param>
-        /// <param name="date">The On Date.</param>
+        /// <param name="mealDate">The On Date.</param>
         /// <returns>The list Meal Model belong to current menu.</returns>
-        public IList<MealModel> GetMealsOfMenu(int menuId, IList<dynamic> rawMeals, DateTime? date = null)
+        public IList<MealModel> GetMealsOfMenu(int menuId, IList<dynamic> rawMeals, DateTime? mealDate = null)
         {
             IList<MealModel> meals = new List<MealModel>();
-            IEnumerable<dynamic> rawMealsOfMenu = date.HasValue ? rawMeals.Where(x => x.MenuID == menuId && x.OnDate.Date == date.Value.Date)
+            IEnumerable<dynamic> rawMealsOfMenu = mealDate.HasValue ? rawMeals.Where(x => x.MenuID == menuId && x.OnDate.Date == mealDate.Value.Date)
                 : rawMeals.Where(x => x.MenuID == menuId);
 
             foreach (dynamic rawMeal in rawMealsOfMenu)
@@ -54,12 +54,12 @@ namespace NexFB.Repositories.Implement
         /// </summary>
         /// <param name="menuId">The menu ID.</param>
         /// <param name="rawEmployeeTypes">The list employee types from database.</param>
-        /// <param name="date">The On Date.</param>
+        /// <param name="mealDate">The On Date.</param>
         /// <returns>The list Employee Type belong to current menu.</returns>
-        public IList<EmployeeTypeModel> GetEmployeeTypeOfMenu(int menuId, IList<dynamic> rawEmployeeTypes, DateTime? date = null)
+        public IList<EmployeeTypeModel> GetEmployeeTypeOfMenu(int menuId, IList<dynamic> rawEmployeeTypes, DateTime? mealDate = null)
         {
             IList<EmployeeTypeModel> employeeTypes = new List<EmployeeTypeModel>();
-            IEnumerable<dynamic> rawEmployeeTypesOfMenu = date.HasValue ? rawEmployeeTypes.Where(x => x.MenuID == menuId && x.OnDate.Date == date.Value.Date)
+            IEnumerable<dynamic> rawEmployeeTypesOfMenu = mealDate.HasValue ? rawEmployeeTypes.Where(x => x.MenuID == menuId && x.OnDate.Date == mealDate.Value.Date)
                 : rawEmployeeTypes.Where(x => x.MenuID == menuId);
 
             foreach (dynamic rawEmployeeType in rawEmployeeTypesOfMenu)

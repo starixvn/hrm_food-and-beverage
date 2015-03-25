@@ -19,8 +19,8 @@ namespace NexFB.Repositories.Interface
     /// </summary>
     public interface ICommonRepository
     {
-        IList<MealModel> GetMealsOfMenu(int menuId, IList<dynamic> rawMeals, DateTime? date = null);
+        IList<MealModel> GetMealsOfMenu(int menuId, IList<dynamic> rawMeals, DateTime? mealDate = null);
 
-        IList<EmployeeTypeModel> GetEmployeeTypeOfMenu(int menuId, IList<dynamic> rawEmployeeTypes, DateTime? date = null);
+        IList<EmployeeTypeModel> GetEmployeeTypeOfMenu(int menuId, IList<dynamic> rawEmployeeTypes, DateTime? mealDate = null);
     }
 }
