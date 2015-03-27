@@ -1180,9 +1180,9 @@
     <value>Two or more meal times are in overlap. Please edit the meal time.</value>
   </data>
   <data name="OtherTypeRegistrationWarningVN" xml:space="preserve">
-    <value>Xin vui lòng đặt Món Chay trước 1 ngày.</value>
+    <value>Lưu ý : Quy định đặt Chay chỉ dành cho nhân viên ăn chay cả ngày.</value>
   </data>
   <data name="SevenDayRegisterMealWarningVN" xml:space="preserve">
-    <value>Lưu ý : Quy định đặt Chay chỉ dành cho nhân viên ăn chay cả ngày.</value>
+    <value>Xin vui lòng đặt Món Chay trước 1 ngày.</value>
   </data>
 </root>
