@@ -562,7 +562,7 @@
     <Content Include="Src\App\Report\ExcelTemplates\MealForecastAllTypeReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MealForecastReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\AdminOrderHistoryReport.xls" />
-    <None Include="Src\App\MealTimeManagement\mealTimeManagement.less" />
+    <Content Include="Src\App\MealTimeManagement\mealTimeManagement.less" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
     <Content Include="Src\Content\Fonts\big_noodle_titling.ttf" />
