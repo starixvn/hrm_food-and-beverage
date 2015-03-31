@@ -10,11 +10,14 @@
 namespace NexFB.Site.Controllers.API
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
+    using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.MealTimeManagement;
+    using NexFB.Models.Entities;
     using NexFB.Models.MealTimeManagement;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
@@ -29,18 +32,28 @@ namespace NexFB.Site.Controllers.API
     {
         private readonly IMealTimeService _mealTimeService;
         private readonly IWebCommonService _webCommonService;
+        private readonly ICommonService _commonService;
 
         public MealTimeManagementController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
         public MealTimeManagementController(
             IWebCommonService webCommonService,
-            IMealTimeService mealTimeService)
+            IMealTimeService mealTimeService,
+            ICommonService commonService)
         {
             _webCommonService = webCommonService ?? new WebCommonService();
             _mealTimeService = mealTimeService ?? new MealTimeService();
+            _commonService = commonService ?? new CommonService();
+        }
+
+        [ApiAuthorize(FunctionKey = FBFunctionKey.MealTimeManagement, Policy = Policy.Read)]
+        public IEnumerable<MealTimesheet> GetMealTime()
+        {
+            var criteria = new GetMealTimesheetCriteria();
+            return _commonService.GetAllMealTimesheet(criteria);
         }
 
         /// <summary>

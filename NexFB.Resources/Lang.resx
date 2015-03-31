@@ -1185,4 +1185,7 @@
   <data name="SevenDayRegisterMealWarningVN" xml:space="preserve">
     <value>Xin vui lòng đặt Món Chay trước 1 ngày.</value>
   </data>
+  <data name="MealTimeManagement" xml:space="preserve">
+    <value>Meal Time Management</value>
+  </data>
 </root>

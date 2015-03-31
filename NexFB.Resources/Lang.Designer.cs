@@ -1681,6 +1681,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Meal Time Management.
+        /// </summary>
+        public static string MealTimeManagement {
+            get {
+                return ResourceManager.GetString("MealTimeManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Member.
         /// </summary>
         public static string Member {

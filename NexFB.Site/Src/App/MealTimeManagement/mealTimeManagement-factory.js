@@ -4,7 +4,7 @@
 mealTimeManagementModule.factory('mealTimeManagementFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
 	return {
 		getAllMealTimesheet: function () {
-			return $http.get(baseUrl + 'api/Common/GetAllMealTimesheet');
+			return $http.get(baseUrl + 'api/MealTimeManagement/GetMealTime');
 		},
 		getUserPermissionOnMealTimeManagement: function () {
 			return $http.get(baseUrl + 'api/MealTimeManagement/GetUserPermissionOnMealTimeManagement');
