@@ -160,10 +160,32 @@ function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderin
 			.error(function (response, status) {
 				ErrorFactory.errorHandle(status);
 			});
+
+			orderingFactory.getMyOrder()
+			.success(function (data) {
+				angular.forEach(data, function (order) {
+					order.Remarks = order.Remark ? order.Remark.split(",") : [];
+
+					if (order.TakeAway) {
+						if (order.Remarks.length !== 0) {
+							order.Remarks.splice(0, 0, $scope.takeAway);
+						}
+						else {
+							order.Remarks.push($scope.takeAway);
+						}
+					}
+				});
+
+				orderingService.setMyOrder(data);
+				$scope.myOrder = data;
+			})
+			.error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
 		}
 
-		orderingService.setMyOrder(data);
-		$scope.$apply();
+//		orderingService.setMyOrder(data);
+//		$scope.$apply();
 	};
 
 	$scope.sendDeleteOrder = function (orderId) {
