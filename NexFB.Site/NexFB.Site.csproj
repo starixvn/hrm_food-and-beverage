@@ -227,6 +227,9 @@
     <Content Include="Global.asax" />
     <Content Include="File\UserManual\Employee Order %28WEB%29.pdf" />
     <Content Include="File\UserManual\Meal Registration.pdf" />
+    <Content Include="Src\App\Report\employeeRegistrationDetailReport-directive.js" />
+    <Content Include="Src\App\Report\employeeRegistrationDetailReport-controller.js" />
+    <Content Include="Src\App\Report\Templates\employeeRegistrationDetailReport.html" />
     <Content Include="Web.local.config">
       <SubType>Designer</SubType>
     </Content>
@@ -582,6 +585,7 @@
     <Content Include="Src\App\Report\ExcelTemplates\MealForecastReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\AdminOrderHistoryReport.xls" />
     <Content Include="Src\App\MealTimeManagement\mealTimeManagement.less" />
+    <None Include="Src\App\Report\ExcelTemplates\EmployeeRegistrationDetailReport.xls" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
     <Content Include="Src\Content\Fonts\big_noodle_titling.ttf" />

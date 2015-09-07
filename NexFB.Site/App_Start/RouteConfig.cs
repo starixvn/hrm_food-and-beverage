@@ -60,6 +60,7 @@ namespace NexFB.Site
                 "SideDishSummaryReport/Index",
                 "ViewMenuReport/Index",
                 "MealForecastReport/Detail",
+                "EmployeeRegistration/Detail",
                 "AdminOrderHistoryReport/Index",
                 "MealTimeManagement/Index"
             };

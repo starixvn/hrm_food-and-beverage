@@ -2,8 +2,8 @@
 /*global reportModule*/
 
 reportModule.controller('MealForecastDetailReportController',
-['$scope', '$location', '$routeParams', 'reportFactory', 'foodMenuFactory', 'foodMenuUtilities', 'ErrorFactory', 'reportUtilities',
-function ($scope, $location, $routeParams, reportFactory, foodMenuFactory, foodMenuUtilities, ErrorFactory, reportUtilities) {
+['$scope', '$location', '$routeParams', 'baseUrl', 'reportFactory', 'foodMenuFactory', 'foodMenuUtilities', 'ErrorFactory', 'reportUtilities',
+function ($scope, $location, $routeParams, baseUrl, reportFactory, foodMenuFactory, foodMenuUtilities, ErrorFactory, reportUtilities) {
     $scope.filter = {
         date: $routeParams.date,
         departmentId: $routeParams.departmentId,
@@ -14,6 +14,7 @@ function ($scope, $location, $routeParams, reportFactory, foodMenuFactory, foodM
     $scope.numberFormat = reportUtilities.getNumberFormat();
     $scope.dateFormat = reportUtilities.getDateFormatEmployeeOrderHistoryReport();
     $scope.originalDepartmentId = '';
+    $scope.baseUrl = baseUrl;
 
     $scope.gridOption = {
         itemsPerPage: 50,

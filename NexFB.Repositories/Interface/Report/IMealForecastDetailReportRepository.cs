@@ -9,6 +9,7 @@
 
 namespace NexFB.Repositories.Interface.Report
 {
+    using System.Collections.Generic;
     using Fanex.Data.Repository;
     using NexFB.Models.Report.MealForecastReport;
 
@@ -18,5 +19,7 @@ namespace NexFB.Repositories.Interface.Report
     public interface IMealForecastDetailReportRepository
     {
         MealForecastDetailReport GetMealForecastDetailReport(ICriteria criteria);
+
+        IList<EmployeeRegistrationModel> GetEmployeeRegistration(ICriteria criteria);
     }
 }

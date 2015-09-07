@@ -59,6 +59,14 @@ reportModule.directive('renderMealForecastDetailReport', function () {
 
             for (i = 0; i < numberMealForecastDetails; i++) {
                 mealForecastDetail = report.MealForecastDetails[i];
+
+                var linkToRegistrationDetail = '<a class="meal-forecast-detail" href="' + scope.baseUrl + 
+                'EmployeeRegistration/Detail?date=' + scope.filter.date +
+				'&departmentId=' + scope.filter.departmentId +
+				'&employeeTypeId=' + scope.filter.employeeTypeId +
+                '&menuId=' + mealForecastDetail.MenuId +
+				'&dietType=' + scope.filter.dietType + '">' + mealForecastDetail.Registration + '</a>';
+
                 currentRow = {
                     Columns: [
                         { Name: "Count", Value: rowIndex },
@@ -66,7 +74,7 @@ reportModule.directive('renderMealForecastDetailReport', function () {
                         { Name: "MenuEng", Value: mealForecastDetail.MenuEng },
                         { Name: "Meal", Value: mealForecastDetail.Meals, CustomCellRender: createMeal },
                         { Name: "Vegetarian", Value: mealForecastDetail.IsVegetarian === false ? 'Non-Vegetarian' : 'Vegetarian' },
-                        { Name: "Registration", Value: mealForecastDetail.Registration },
+                        { Name: "Registration", Value: linkToRegistrationDetail },
                         { Name: "ActualOrder", Value: mealForecastDetail.ActualOrder < 0 ? '-' : mealForecastDetail.ActualOrder },
                         { Name: "Efficiency", Value: formatEfficiency(mealForecastDetail.OrderRate),
                             TdClass: getCssClass(mealForecastDetail.OrderRate)

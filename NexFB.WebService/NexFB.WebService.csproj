@@ -65,20 +65,31 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Criteria\GetDepartmentCriteria.cs" />
+    <Compile Include="Criteria\GetEmployeeAttendanceCriteria.cs" />
+    <Compile Include="Criteria\GetEmployeeRequestCriteria.cs" />
+    <Compile Include="Criteria\GetJobTitleCriteria.cs" />
+    <Compile Include="Criteria\GetLeaveTypeCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeCalendarCriteria.cs" />
     <Compile Include="Criteria\GetShiftCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeCriteria.cs" />
     <Compile Include="Criteria\GetTeamCriteria.cs" />
+    <Compile Include="Models\DepartmentModel.cs" />
+    <Compile Include="Models\EmployeeAttendanceModel.cs" />
+    <Compile Include="Models\EmployeeRequestModel.cs" />
+    <Compile Include="Models\JobTitleModel.cs" />
+    <Compile Include="Models\LeaveTypeModel.cs" />
     <Compile Include="Models\EmployeeCalendarModel.cs" />
     <Compile Include="Models\PhotoModel.cs" />
     <Compile Include="Models\ShiftModel.cs" />
     <Compile Include="Models\TeamModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IUserService.cs" />
-    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\ISynchronizeDataService.cs" />
+    <Compile Include="Services\SynchronizeDataService.cs" />
     <Compile Include="Translator\FBTranslator.cs" />
   </ItemGroup>
   <ItemGroup>

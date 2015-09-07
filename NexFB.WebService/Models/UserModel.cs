@@ -40,6 +40,12 @@ namespace NexFB.WebService.Models
         public string DomainName { get; set; }
 
         [DataMember]
+        public string Email { get; set; }
+
+        [DataMember]
+        public string Phone { get; set; }
+
+        [DataMember]
         public bool IsEnabled { get; set; }
 
         [DataMember]
@@ -56,5 +62,8 @@ namespace NexFB.WebService.Models
 
         [DataMember]
         public int TeamId { get; set; }
+
+        [DataMember]
+        public int JobTitleId { get; set; }
     }
 }

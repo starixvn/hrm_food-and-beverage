@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="NexFB.WebService.Services.UserService"%>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="NexFB.WebService.Services.SynchronizeDataService"%>

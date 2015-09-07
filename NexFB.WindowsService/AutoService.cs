@@ -29,18 +29,22 @@ namespace NexFB.WindowsService
         private static readonly ILog _LOG = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private bool _isBusy = false;
         private Timer _updateCounterTimer = null;
-        private CommonService _service = null;
+        private CommonService _commonService = null;
+        private SynchronizeEmployeeService _epaService = null;
 
         public AutoService()
         {
             InitializeComponent();
-            _service = new CommonService();
+            _commonService = new CommonService();
+            _epaService = new SynchronizeEmployeeService();
 
             TimerInterval = int.Parse(ConfigurationManager.AppSettings["TimerInterval"]);
             EnableNexcel = bool.Parse(ConfigurationManager.AppSettings["EnableNexcel"]);
             EnableHongMA = bool.Parse(ConfigurationManager.AppSettings["EnableHongMa"]);
             EnableSms = bool.Parse(ConfigurationManager.AppSettings["EnableSMS"]);
-            IsOnlyTransferPhoto = bool.Parse(ConfigurationManager.AppSettings["IsOnlyTransferPhoto"]); 
+            EnableSyncDataForEpa = bool.Parse(ConfigurationManager.AppSettings["EnableSyncDataForEPA"]);
+            IsOnlyTransferPhoto = bool.Parse(ConfigurationManager.AppSettings["IsOnlyTransferPhoto"]);
+            IsOnlyTransferPhotoForEpa = bool.Parse(ConfigurationManager.AppSettings["IsOnlyTransferPhotoForEPA"]); 
             _updateCounterTimer = new Timer(TimerInterval * 1000);
             _updateCounterTimer.Elapsed += new ElapsedEventHandler(ExecuteJob);
             _updateCounterTimer.Enabled = false;
@@ -54,7 +58,11 @@ namespace NexFB.WindowsService
 
         public bool EnableSms { get; private set; }
 
+        public bool EnableSyncDataForEpa { get; private set; }
+
         public bool IsOnlyTransferPhoto { get; private set; }
+
+        public bool IsOnlyTransferPhotoForEpa { get; private set; }
 
         protected override void OnStart(string[] args)
         {
@@ -96,6 +104,11 @@ namespace NexFB.WindowsService
                         UpdateInfoForSMS();
                     }
 
+                    if (EnableSyncDataForEpa)
+                    {
+                        UpdateInfoForEPA();
+                    }
+
                     _isBusy = false;
                 }
             }
@@ -106,36 +119,130 @@ namespace NexFB.WindowsService
             }
         }
 
-        /// <summary>
-        /// Function to update info for NEXCEL.
-        /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateInfoForNexcel()
+        {
+            if (!IsOnlyTransferPhoto)
+            {
+                UpdateTeamNexcel();
+                UpdateUserNexcel();
+                UpdateShiftNexcel();
+                UpdateCalendarNexcel();
+            }
+
+            UpdatePhotoNexcel();
+        }
+
+        private void UpdateInfoForHM()
+        {
+            if (!IsOnlyTransferPhoto)
+            {
+                UpdateTeamHM();
+                UpdateUserHM();
+                UpdateShiftHM();
+                UpdateCalendarHM();
+            }
+
+            UpdatePhotoHM();
+        }
+
+        private void UpdateInfoForSMS()
+        {
+            if (!IsOnlyTransferPhoto)
+            {
+                UpdateTeamSMS();
+                UpdateUserSMS();
+                UpdateShiftSMS();
+                UpdateCalendarSMS();
+            }
+
+            UpdatePhotoSMS();
+        }
+
+        private void UpdateInfoForEPA()
+        {
+            if (!IsOnlyTransferPhotoForEpa)
+            {
+                UpdateDepartmentForEPA();
+                UpdateTeamForEPA();
+                UpdateUserForEPA();
+                UpdateShiftForEPA();
+                UpdateCalendarForEPA();
+                UpdateJobTitleForEPA();
+                UpdateLeaveTypeForEPA();
+                UpdateRequestForEPA();
+                UpdateAttendanceForEPA();
+            }
+
+            UpdatePhotoForEPA();
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateTeamNexcel()
         {
             try
             {
-                if (!IsOnlyTransferPhoto)
-                {
-                    CommandResult result = null;
-                    _LOG.Info("Update Teams Nexcel started at " + DateTime.Now.ToString());
-                    result = _service.UpdateTeamForNexcel();
-                    _LOG.Info("Result of update team Nexcel: " + (result == null ? "0" : result.Message));
+                _LOG.Info("Update Teams Nexcel started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateTeamForNexcel();
+                _LOG.Info("Result of update team Nexcel: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
 
-                    _LOG.Info("Update user Nexcel started at " + DateTime.Now.ToString());
-                    result = _service.UpdateUserForNexcel();
-                    _LOG.Info("Result of update user Nexcel: " + (result == null ? "0" : result.Message));
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateUserNexcel()
+        {
+            try
+            {
+                _LOG.Info("Update user Nexcel started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateUserForNexcel();
+                _LOG.Info("Result of update user Nexcel: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
 
-                    _LOG.Info("Update Shifts Nexcel started at " + DateTime.Now.ToString());
-                    result = _service.UpdateShiftForNexcel();
-                    _LOG.Info("Result of update shift Nexcel: " + (result == null ? "0" : result.Message));
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateShiftNexcel()
+        {
+            try
+            {
+                _LOG.Info("Update Shifts Nexcel started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateShiftForNexcel();
+                _LOG.Info("Result of update shift Nexcel: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
 
-                    _LOG.Info("Update Calendars Nexcel started at " + DateTime.Now.ToString());
-                    result = _service.UpdateEmployeeCalendarForNexcel();
-                    _LOG.Info("Result of update calendar Nexcel: " + (result == null ? "0" : result.Message));
-                }
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateCalendarNexcel()
+        {
+            try
+            {
+                _LOG.Info("Update Calendars Nexcel started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateEmployeeCalendarForNexcel();
+                _LOG.Info("Result of update calendar Nexcel: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
 
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdatePhotoNexcel()
+        {
+            try
+            {
                 _LOG.Info("Update Photos Nexcel started at " + DateTime.Now.ToString());
-                _service.UpdatePhotoForNexcel();
+                _commonService.UpdatePhotoForNexcel();
                 _LOG.Info("Update photos Nexcel done.");
             }
             catch (Exception ex)
@@ -144,36 +251,73 @@ namespace NexFB.WindowsService
             }
         }
 
-        /// <summary>
-        /// Function to update info for Hong Ma.
-        /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
-        private void UpdateInfoForHM()
+        private void UpdateTeamHM()
         {
             try
             {
-                if (!IsOnlyTransferPhoto)
-                {
-                    CommandResult result = null;
-                    _LOG.Info("Update Teams Hong Ma started at " + DateTime.Now.ToString());
-                    result = _service.UpdateTeamForHM();
-                    _LOG.Info("Result of update team Hong Ma: " + (result == null ? "0" : result.Message));
+                _LOG.Info("Update Teams Hong Ma started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateTeamForHM();
+                _LOG.Info("Result of update team Hong Ma: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
 
-                    _LOG.Info("SUpdate user Hong Ma started at " + DateTime.Now.ToString());
-                    result = _service.UpdateUserForHM();
-                    _LOG.Info("Result of update user Hong Ma: " + (result == null ? "0" : result.Message));
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateUserHM()
+        {
+            try
+            {
+                _LOG.Info("SUpdate user Hong Ma started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateUserForHM();
+                _LOG.Info("Result of update user Hong Ma: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
 
-                    _LOG.Info("Update Shifts Hong Ma started at " + DateTime.Now.ToString());
-                    result = _service.UpdateShiftForHM();
-                    _LOG.Info("Result of update shift Hong Ma: " + (result == null ? "0" : result.Message));
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateShiftHM()
+        {
+            try
+            {
+                _LOG.Info("Update Shifts Hong Ma started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateShiftForHM();
+                _LOG.Info("Result of update shift Hong Ma: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
 
-                    _LOG.Info("Update Calendars Hong Ma started at " + DateTime.Now.ToString());
-                    result = _service.UpdateEmployeeCalendarForHM();
-                    _LOG.Info("Result of update calendar Hong Ma: " + (result == null ? "0" : result.Message));
-                }
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateCalendarHM()
+        {
+            try
+            {
+                _LOG.Info("Update Calendars Hong Ma started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateEmployeeCalendarForHM();
+                _LOG.Info("Result of update calendar Hong Ma: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
 
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdatePhotoHM()
+        {
+            try
+            {
                 _LOG.Info("Update Photos Hong Ma started at " + DateTime.Now.ToString());
-                _service.UpdatePhotoForHM();
+                _commonService.UpdatePhotoForHM();
                 _LOG.Info("Update photos Hong Ma done.");
             }
             catch (Exception ex)
@@ -182,37 +326,224 @@ namespace NexFB.WindowsService
             }
         }
 
-        /// <summary>
-        /// Function to update info for SMS.
-        /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
-        private void UpdateInfoForSMS()
+        private void UpdateTeamSMS()
         {
             try
             {
-                if (!IsOnlyTransferPhoto)
-                {
-                    CommandResult result = null;
-                    _LOG.Info("Update Teams SMS started at " + DateTime.Now.ToString());
-                    result = _service.UpdateTeamForSms();
-                    _LOG.Info("Result of update team SMS: " + (result == null ? "0" : result.Message));
+                _LOG.Info("Update Teams SMS started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateTeamForSms();
+                _LOG.Info("Result of update team SMS: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
 
-                    _LOG.Info("SUpdate user SMS started at " + DateTime.Now.ToString());
-                    result = _service.UpdateUserForSms();
-                    _LOG.Info("Result of update user SMS: " + (result == null ? "0" : result.Message));
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateUserSMS()
+        {
+            try
+            {
+                _LOG.Info("SUpdate user SMS started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateUserForSms();
+                _LOG.Info("Result of update user SMS: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
 
-                    _LOG.Info("Update Shifts SMS started at " + DateTime.Now.ToString());
-                    result = _service.UpdateShiftForSms();
-                    _LOG.Info("Result of update shift SMS: " + (result == null ? "0" : result.Message));
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateShiftSMS()
+        {
+            try
+            {
+                _LOG.Info("Update Shifts SMS started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateShiftForSms();
+                _LOG.Info("Result of update shift SMS: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
 
-                    _LOG.Info("Update Calendars SMS started at " + DateTime.Now.ToString());
-                    result = _service.UpdateEmployeeCalendarForSms();
-                    _LOG.Info("Result of update calendar SMS: " + (result == null ? "0" : result.Message));
-                }
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateCalendarSMS()
+        {
+            try
+            {
+                _LOG.Info("Update Calendars SMS started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateEmployeeCalendarForSms();
+                _LOG.Info("Result of update calendar SMS: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
 
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdatePhotoSMS()
+        {
+            try
+            {
                 _LOG.Info("Update Photos SMS started at " + DateTime.Now.ToString());
-                _service.UpdatePhotoForSms();
+                _commonService.UpdatePhotoForSms();
                 _LOG.Info("Update photos SMS done.");
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateDepartmentForEPA()
+        {
+            try
+            {
+                _LOG.Info("Update Departments (EPA) started at " + DateTime.Now.ToString());
+                CommandResult result = _epaService.UpdateDepartment();
+                _LOG.Info("Result of update Department (EPA): " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateTeamForEPA()
+        {
+            try
+            {
+                _LOG.Info("Update Teams (EPA) started at " + DateTime.Now.ToString());
+                CommandResult result = _epaService.UpdateTeam();
+                _LOG.Info("Result of update team (EPA): " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateUserForEPA()
+        {
+            try
+            {
+                _LOG.Info("SUpdate User (EPA) started at " + DateTime.Now.ToString());
+                CommandResult result = _epaService.UpdateUser();
+                _LOG.Info("Result of update user (EPA): " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateShiftForEPA()
+        {
+            try
+            {
+                _LOG.Info("Update Shifts (EPA) started at " + DateTime.Now.ToString());
+                CommandResult result = _epaService.UpdateShift();
+                _LOG.Info("Result of update shift (EPA): " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateCalendarForEPA()
+        {
+            try
+            {
+                _LOG.Info("Update Calendars (EPA) started at " + DateTime.Now.ToString());
+                CommandResult result = _epaService.UpdateEmployeeCalendar();
+                _LOG.Info("Result of update calendar (EPA): " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdatePhotoForEPA()
+        {
+            try
+            {
+                _LOG.Info("Update Photos (EPA) started at " + DateTime.Now.ToString());
+                _epaService.UpdatePhoto();
+                _LOG.Info("Update photos (EPA) done.");
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateJobTitleForEPA()
+        {
+            try
+            {
+                _LOG.Info("Update JobTitles (EPA) started at " + DateTime.Now.ToString());
+                CommandResult result = _epaService.UpdateJobTitle();
+                _LOG.Info("Result of update JobTitle (EPA): " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateLeaveTypeForEPA()
+        {
+            try
+            {
+                _LOG.Info("Update LeaveType (EPA) started at " + DateTime.Now.ToString());
+                CommandResult result = _epaService.UpdateLeaveType();
+                _LOG.Info("Result of update LeaveType (EPA): " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateRequestForEPA()
+        {
+            try
+            {
+                _LOG.Info("Update Request (EPA) started at " + DateTime.Now.ToString());
+                CommandResult result = _epaService.UpdateEmployeeRequest();
+                _LOG.Info("Result of update Request (EPA): " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateAttendanceForEPA()
+        {
+            try
+            {
+                _LOG.Info("Update Attendance (EPA) started at " + DateTime.Now.ToString());
+                CommandResult result = _epaService.UpdateEmployeeAttendance();
+                _LOG.Info("Result of update Attendance (EPA): " + (result == null ? "0" : result.Message));
             }
             catch (Exception ex)
             {

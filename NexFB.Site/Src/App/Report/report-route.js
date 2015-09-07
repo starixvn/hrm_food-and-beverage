@@ -22,6 +22,8 @@ var reportModule = angular.module("reportModule", ['ngRoute'])
 		{ templateUrl: baseUrl + 'src/app/report/templates/viewMenuReport.html', controller: 'ViewMenuReportController' });
     $routeProvider.when('/MealForecastReport/Detail',
 		{ templateUrl: baseUrl + 'src/app/report/templates/mealForecastDetailReport.html', controller: 'MealForecastDetailReportController' });
+    $routeProvider.when('/EmployeeRegistration/Detail',
+		{ templateUrl: baseUrl + 'src/app/report/templates/employeeRegistrationDetailReport.html', controller: 'EmployeeRegistrationDetailReport' });
     $routeProvider.when('/AdminOrderHistoryReport/Index',
 		{ templateUrl: baseUrl + 'src/app/report/templates/adminOrderHistoryReport.html', controller: 'AdminOrderHistoryReportController' });
 } ]);

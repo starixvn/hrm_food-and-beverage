@@ -13,6 +13,7 @@ namespace NexFB.Repositories.Implement.Report
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using NexFB.Models.Entities;
     using NexFB.Models.Report.MealForecastReport;
     using NexFB.Repositories.Interface.Report;
 
@@ -45,6 +46,24 @@ namespace NexFB.Repositories.Implement.Report
 
                     return report;
                 }
+            }
+        }
+
+        public IList<EmployeeRegistrationModel> GetEmployeeRegistration(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var employeeMeals = db.Query<EmployeeRegistrationModel, MealModel, Employee, EmployeeRegistrationModel>(
+                    (reg, ml, e) =>
+                    {
+                        reg.Meal = ml;
+                        reg.Employee = e;
+                        return reg;
+                    },
+                    splitOn: "MealID, UserId",
+                    parameterValues: criteria.GetSpParams()).ToList();
+
+                return employeeMeals;
             }
         }
     }

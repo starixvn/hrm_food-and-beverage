@@ -9,6 +9,7 @@
 
 namespace NexFB.WindowsService
 {
+    using System;
     using System.ServiceProcess;
     using Fanex.Data.Configuration;
 
@@ -20,43 +21,36 @@ namespace NexFB.WindowsService
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        public static void Main()
-        {
-            DbSettingProviderManager.Current.Start();
-            log4net.Config.XmlConfigurator.Configure();
-            ServiceBase[] servicesToRun;
-            servicesToRun = new ServiceBase[] 
-            { 
-                new AutoService() 
-            };
-            ServiceBase.Run(servicesToRun);
-        }
-
         ////public static void Main()
         ////{
         ////    DbSettingProviderManager.Current.Start();
-        ////    var service = new CommonService();
-
-        ////    service.UpdateTeamForNexcel();
-        ////    service.UpdateUserForNexcel();
-        ////    service.UpdateShiftForNexcel();
-        ////    service.UpdateEmployeeCalendarForNexcel();
-        ////    service.UpdatePhotoForNexcel();
-
-        ////    service.UpdateTeamForHM();
-        ////    service.UpdateUserForHM();
-        ////    service.UpdateShiftForHM();
-        ////    service.UpdateEmployeeCalendarForHM();
-        ////    service.UpdatePhotoForHM();
-
-        ////    service.UpdateTeamForSms();
-        ////    service.UpdateUserForSms();
-        ////    service.UpdateShiftForSms();
-        ////    service.UpdateEmployeeCalendarForSms();
-        ////    service.UpdatePhotoForSms();
-
-        ////    Console.WriteLine("OK");
-        ////    Console.ReadLine();
+        ////    log4net.Config.XmlConfigurator.Configure();
+        ////    ServiceBase[] servicesToRun;
+        ////    servicesToRun = new ServiceBase[] 
+        ////    { 
+        ////        new AutoService() 
+        ////    };
+        ////    ServiceBase.Run(servicesToRun);
         ////}
+
+        public static void Main()
+        {
+            DbSettingProviderManager.Current.Start();
+            var service = new SynchronizeEmployeeService();
+
+            ////service.UpdateDepartment();
+            ////service.UpdateTeam();
+            ////service.UpdateUser();
+            ////service.UpdateShift();
+            ////  service.UpdateEmployeeCalendar();
+            ////service.UpdateJobTitle();
+            service.UpdateLeaveType();
+           ////service.UpdateEmployeeRequest();
+           //// service.UpdateEmployeeAttendance();
+            service.UpdatePhoto();
+
+            Console.WriteLine("OK");
+            Console.ReadLine();
+        }
     }
 }

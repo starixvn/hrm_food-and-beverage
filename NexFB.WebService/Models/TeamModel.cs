@@ -28,6 +28,18 @@ namespace NexFB.WebService.Models
         public string Name { get; set; }
 
         [DataMember]
+        public int DepartmentId { get; set; }
+
+        [DataMember]
+        public int LeaderId { get; set; }
+
+        [DataMember]
+        public int AssistantLeaderId { get; set; }
+
+        [DataMember]
+        public int Rank { get; set; }
+
+        [DataMember]
         public bool IsDeleted { get; set; }
 
         [DataMember]

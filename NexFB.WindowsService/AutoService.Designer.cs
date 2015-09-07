@@ -19,6 +19,8 @@ namespace NexFB.WindowsService
         /// </summary>
         private System.ComponentModel.IContainer _components = null;
 
+        private ProjectInstaller _projectInstaller;
+
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -41,6 +43,7 @@ namespace NexFB.WindowsService
         /// </summary>
         private void InitializeComponent()
         {
+            this._projectInstaller = new NexFB.WindowsService.ProjectInstaller();
             // 
             // AutoService
             // 

@@ -11,6 +11,7 @@ namespace NexFB.Site.Controllers
 {
     using System.Web.Mvc;
     using NexFB.Core.Constants;
+    using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Report;
     using NexFB.Models.Authority;
     using NexFB.Models.Report.AdminOrderHistoryReport;
@@ -44,6 +45,7 @@ namespace NexFB.Site.Controllers
         private const string _SideDishSummaryReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\SideDishSummaryReport.xls";
         private const string _DailyMainDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\DailyMainDishReport.xls";
         private const string _MealForecastDetailReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastDetailReport.xls";
+        private const string _EmployeeRegistrationReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\EmployeeRegistrationDetailReport.xls";
 
         private readonly IMonthlyMainDishReportService _monthlyMainDishReportService;
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
@@ -319,6 +321,26 @@ namespace NexFB.Site.Controllers
             {
                 templatePath = Server.MapPath(_MealForecastDetailReportTemplatePath);
                 _mealForecastDetailReportService.ExportMealForecastDetailReport(report, templatePath, criteria.IsVegetarian, criteria.OnDate);
+            }
+
+            return new EmptyResult();
+        }
+
+        public ActionResult ExportEmployeeRegistrationDetailReport(GetEmployeeRegistrationCriteria criteria)
+        {
+            EmployeeRegistrationReportModel report = SessionManager.Get<EmployeeRegistrationReportModel>(
+                ReportConstant.EmployeeRegistrationReportSessionKey + SessionManager.CurrentUser.UserId);
+            string templatePath = string.Empty;
+
+            if (report == null)
+            {
+                report = _mealForecastDetailReportService.GetEmployeeRegistration(criteria);
+            }
+
+            if (report != null)
+            {
+                templatePath = Server.MapPath(_EmployeeRegistrationReportTemplatePath);
+                _mealForecastDetailReportService.ExportEmployeeRegistrationReport(report, templatePath, criteria.IsVegetarian, criteria.WorkDate);
             }
 
             return new EmptyResult();

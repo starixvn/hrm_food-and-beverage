@@ -20,14 +20,14 @@ reportModule.directive('renderSideDishSummaryReport', ['baseUrl', function (base
 		if (scope.filter.employee && scope.filter.employee.UserId) {
 			userId = scope.filter.employee.UserId;
 		}
-		var linkToDetail = '<a class="side-dish-detail" href="' + baseUrl + 'SideDishReport/Index?'
-			+ '&departmentId=' + scope.filter.departmentId
-			+ '&teamId=' + scope.filter.teamId
-			+ '&employeeTypeId=' + scope.filter.employeeTypeId
-			+ '&userId=' + userId
-			+ '&fromDate=' + scope.filter.fromDate.toString("MM dd yyyy")
-			+ '&toDate=' + scope.filter.toDate.toString("MM dd yyyy")
-			+ '">' + report.TotalQuantity + '</a>';
+var linkToDetail = '<a class="side-dish-detail" href="' + baseUrl + 'SideDishReport/Index?' +
+            '&departmentId=' + scope.filter.departmentId +
+            '&teamId=' + scope.filter.teamId +
+            '&employeeTypeId=' + scope.filter.employeeTypeId +
+            '&userId=' + userId +
+            '&fromDate=' + scope.filter.fromDate.toString("MM dd yyyy") +
+            '&toDate=' + scope.filter.toDate.toString("MM dd yyyy") + 
+            '">' + report.TotalQuantity + '</a>';
 
 		var footerRows = [
 			{
@@ -67,14 +67,14 @@ reportModule.directive('renderSideDishSummaryReport', ['baseUrl', function (base
 					rowIndex = 1;
 				}
 
-				var linkToDetail = '<a class="side-dish-detail" href="' + baseUrl + 'SideDishReport/Index?'
-					+ '&departmentId=' + scope.filter.departmentId
-					+ '&teamId=' + scope.filter.teamId
-					+ '&employeeTypeId=' + scope.filter.employeeTypeId
-					+ '&userId=' + item.SysId
-					+ '&fromDate=' + scope.filter.fromDate.toString("MM dd yyyy")
-					+ '&toDate=' + scope.filter.toDate.toString("MM dd yyyy")
-					+ '">' + item.Qty + '</a>';
+                var linkToDetail = '<a class="side-dish-detail" href="' + baseUrl + 'SideDishReport/Index?' +
+                    '&departmentId=' + scope.filter.departmentId +
+                    '&teamId=' + scope.filter.teamId +
+                    '&employeeTypeId=' + scope.filter.employeeTypeId +
+                    '&userId=' + item.SysId +
+                    '&fromDate=' + scope.filter.fromDate.toString("MM dd yyyy") +
+                    '&toDate=' + scope.filter.toDate.toString("MM dd yyyy") + 
+                    '">' + item.Qty + '</a>';
 
 				var currentSubRow = {
 					Columns: [

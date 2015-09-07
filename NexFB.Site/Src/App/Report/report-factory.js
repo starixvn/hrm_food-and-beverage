@@ -136,6 +136,20 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                 }
             });
         },
+        getEmployeeRegistrationDetailReport: function (filter) {
+            return $http.get(baseUrl + 'api/report/GetEmployeeRegistration',
+                { params: { date: filter.date,
+                    departmentId: filter.departmentId,
+                    employeeTypeId: filter.employeeTypeId,
+                    mealId: filter.mealId,
+                    menuId: filter.menuId,
+                    isVegetarian: filter.dietType.length === 0 ? '' : filter.dietType === '0' ? false : true,
+                    isPagingCallback: filter.isPagingCallback,
+                    startIndex: filter.startIndex,
+                    itemsPerPage: filter.itemsPerPage
+                }
+                });
+        },
         getSideDishSummaryReport: function (filter) {
             return $http.get(baseUrl + 'api/report/GetSideDishSummaryReport', {
                 params: {

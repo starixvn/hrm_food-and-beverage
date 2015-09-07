@@ -18,6 +18,7 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Core.Utilities;
     using NexFB.Criteria.Department;
     using NexFB.Criteria.Employee;
+    using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Report;
     using NexFB.Criteria.SideDishManagement;
     using NexFB.Criteria.UserControl;
@@ -664,6 +665,44 @@ namespace NexFB.Site.Controllers.API.Report
             }
 
             MealForecastDetailReport pagingReport = _mealForecastDetailReportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            return pagingReport;
+        }
+
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.MealForecastReport, Policy = Policy.Read)]
+        public EmployeeRegistrationReportModel GetEmployeeRegistration(
+            DateTime date,
+            string departmentId = "",
+            string employeeTypeId = "",
+            int? mealId = null,
+            int? menuId = null,
+            bool? isVegetarian = null,
+            bool isPagingCallback = false,
+            int startIndex = 0,
+            int itemsPerPage = 50)
+        {
+            EmployeeRegistrationReportModel fullReport = null;
+            if (isPagingCallback)
+            {
+                fullReport = SessionManager.Get<EmployeeRegistrationReportModel>(ReportConstant.EmployeeRegistrationReportSessionKey + CurrentUser.UserId);
+            }
+            else
+            {
+                var criteria = new GetEmployeeRegistrationCriteria
+                {
+                    WorkDate = date,
+                    MealId = mealId,
+                    MenuId = menuId,
+                    DepartmentId = departmentId,
+                    EmployeeTypeId = employeeTypeId,
+                    IsVegetarian = isVegetarian
+                };
+
+                fullReport = _mealForecastDetailReportService.GetEmployeeRegistration(criteria);
+                SessionManager.Set<EmployeeRegistrationReportModel>(ReportConstant.EmployeeRegistrationReportSessionKey + CurrentUser.UserId, fullReport);
+            }
+
+            EmployeeRegistrationReportModel pagingReport = _mealForecastDetailReportService.GetPagingEmployeeRegistration(fullReport, startIndex, itemsPerPage);
             return pagingReport;
         }
 

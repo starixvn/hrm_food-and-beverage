@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="UserService.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="SynchronizeDataService.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Quinn.Vo" date="2014.9.4">Created</change>
+//   <change who="Quinn.Vo" date="2015.8.28">Created</change>
 // </history>
 
 namespace NexFB.WebService.Services
@@ -21,25 +21,17 @@ namespace NexFB.WebService.Services
     using NexFB.WebService.Models;
     using NexFB.WebService.Translator;
 
-    /// <summary>
-    /// User Service.
-    /// </summary>
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
-    public class UserService : BaseService, IUserService
+    public class SynchronizeDataService : BaseService, ISynchronizeDataService
     {
         private string _imagePath;
 
-        public UserService()
+        public SynchronizeDataService()
         {
             DbSettingProviderManager.Current.Start();
             _imagePath = ConfigurationManager.AppSettings["ImagePath"];
         }
 
-        /// <summary>
-        /// Function to get users by last modified date.
-        /// </summary>
-        /// <param name="fromDate">The From date.</param>
-        /// <returns>List of user model.</returns>
         public IEnumerable<UserModel> GetUser(DateTime? fromDate)
         {
             var criteria = new GetEmployeeCriteria() 
@@ -56,11 +48,6 @@ namespace NexFB.WebService.Services
             return users;
         }
 
-        /// <summary>
-        /// Function to get teams by last modified date.
-        /// </summary>
-        /// <param name="fromDate">The From date.</param>
-        /// <returns>List of teams model.</returns>
         public IEnumerable<TeamModel> GetTeam(DateTime? fromDate)
         {
             IEnumerable<TeamModel> teams = null;
@@ -77,12 +64,23 @@ namespace NexFB.WebService.Services
             return teams;
         }
 
-        /// <summary>
-        /// Function to get all shifts.
-        /// </summary>
-        /// <param name="fromDate">The From date.</param>
-        /// <returns>List of shifts model.</returns>
-        public IEnumerable<ShiftModel> GetShift(DateTime? fromDate)
+        public IEnumerable<DepartmentModel> GetDepartment(DateTime? fromDate)
+        {
+            IEnumerable<DepartmentModel> departments = null;
+            var criteria = new GetTeamCriteria()
+            {
+                FromDate = fromDate
+            };
+
+            if (criteria.IsValid())
+            {
+                departments = GetData<DepartmentModel>(criteria);
+            }
+
+            return departments;
+        }
+
+        public IEnumerable<ShiftModel> GetShift()
         {
             IEnumerable<ShiftModel> shifts = null;
             var criteria = new GetShiftCriteria();
@@ -95,11 +93,32 @@ namespace NexFB.WebService.Services
             return shifts;
         }
 
-        /// <summary>
-        /// Function to get teams by last modified date.
-        /// </summary>
-        /// <param name="fromDate">The From date.</param>
-        /// <returns>List of teams model.</returns>
+        public IEnumerable<LeaveTypeModel> GetLeaveType()
+        {
+            IEnumerable<LeaveTypeModel> leaveTypes = null;
+            var criteria = new GetLeaveTypeCriteria();
+
+            if (criteria.IsValid())
+            {
+                leaveTypes = GetData<LeaveTypeModel>(criteria);
+            }
+
+            return leaveTypes;
+        }
+
+        public IEnumerable<JobTitleModel> GetJobTitle()
+        {
+            IEnumerable<JobTitleModel> jobTitles = null;
+            var criteria = new GetJobTitleCriteria();
+
+            if (criteria.IsValid())
+            {
+                jobTitles = GetData<JobTitleModel>(criteria);
+            }
+
+            return jobTitles;
+        }
+
         public IEnumerable<EmployeeCalendarModel> GetEmployeeCalendar(DateTime? fromDate)
         {
             IEnumerable<EmployeeCalendarModel> calendars = null;
@@ -116,11 +135,38 @@ namespace NexFB.WebService.Services
             return calendars;
         }
 
-        /// <summary>
-        /// Function to get photo by modified date.
-        /// </summary>
-        /// <param name="fromDate">Modified date.</param>
-        /// <returns>List of Photo Model.</returns>
+        public IEnumerable<EmployeeRequestModel> GetEmployeeRequest(DateTime? fromDate)
+        {
+            IEnumerable<EmployeeRequestModel> requests = null;
+            var criteria = new GetEmployeeRequestCriteria()
+            {
+                FromDate = fromDate
+            };
+
+            if (criteria.IsValid())
+            {
+                requests = GetData<EmployeeRequestModel>(criteria);
+            }
+
+            return requests;
+        }
+
+        public IEnumerable<EmployeeAttendanceModel> GetEmployeeAttendance(DateTime? fromDate)
+        {
+            IEnumerable<EmployeeAttendanceModel> attendances = null;
+            var criteria = new GetEmployeeAttendanceCriteria()
+            {
+                FromDate = fromDate
+            };
+
+            if (criteria.IsValid())
+            {
+                attendances = GetData<EmployeeAttendanceModel>(criteria);
+            }
+
+            return attendances;
+        }
+
         public IList<PhotoModel> GetPhoto(DateTime? fromDate)
         {
             var photos = new List<PhotoModel>();

@@ -1188,4 +1188,7 @@
   <data name="MealTimeManagement" xml:space="preserve">
     <value>Meal Time Management</value>
   </data>
+  <data name="EmployeeRegistrationDetail" xml:space="preserve">
+    <value>Meal Registration Detail</value>
+  </data>
 </root>

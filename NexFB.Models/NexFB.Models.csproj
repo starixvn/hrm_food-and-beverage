@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="Kitchen\OrderResult.cs" />
     <Compile Include="MealRegistration\DefaultMealModel.cs" />
+    <Compile Include="Report\MealForecastReport\EmployeeRegistrationModel.cs" />
     <Compile Include="MealRegistration\MealDateModel.cs" />
     <Compile Include="MealRegistration\MealModel.cs" />
     <Compile Include="MealRegistration\MealRegisterModel.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Report\DailyMainDishPricePerMealReport\TotalPriceModel.cs" />
     <Compile Include="Report\EmployeeOrderHistory\EmployeeOrderHistoryReport.cs" />
     <Compile Include="Report\EmployeeOrderHistory\EmployeeOrderModel.cs" />
+    <Compile Include="Report\MealForecastReport\EmployeeRegistrationReportModel.cs" />
     <Compile Include="Report\MonthlyMainDishPerDay\MainDishPerDayModel.cs" />
     <Compile Include="Report\MonthlyMainDishPerDay\MonthlyMainDishPerDayModel.cs" />
     <Compile Include="Report\MealForecastReport\MealForecastDetailReport.cs" />

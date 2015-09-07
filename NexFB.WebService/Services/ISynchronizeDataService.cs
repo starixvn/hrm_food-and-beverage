@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="IUserService.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ISynchronizeDataService.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -15,7 +15,7 @@ namespace NexFB.WebService.Services
     using NexFB.WebService.Models;
 
     [ServiceContract]
-    public interface IUserService
+    public interface ISynchronizeDataService
     {
         [OperationContract]
         IEnumerable<UserModel> GetUser(DateTime? fromDate);
@@ -24,10 +24,25 @@ namespace NexFB.WebService.Services
         IEnumerable<TeamModel> GetTeam(DateTime? fromDate);
 
         [OperationContract]
-        IEnumerable<ShiftModel> GetShift(DateTime? fromDate);
+        IEnumerable<DepartmentModel> GetDepartment(DateTime? fromDate);
+
+        [OperationContract]
+        IEnumerable<ShiftModel> GetShift();
+
+        [OperationContract]
+        IEnumerable<LeaveTypeModel> GetLeaveType();
+
+        [OperationContract]
+        IEnumerable<JobTitleModel> GetJobTitle();
 
         [OperationContract]
         IEnumerable<EmployeeCalendarModel> GetEmployeeCalendar(DateTime? fromDate);
+
+        [OperationContract]
+        IEnumerable<EmployeeRequestModel> GetEmployeeRequest(DateTime? fromDate);
+
+        [OperationContract]
+        IEnumerable<EmployeeAttendanceModel> GetEmployeeAttendance(DateTime? fromDate);
 
         [OperationContract]
         IList<PhotoModel> GetPhoto(DateTime? fromDate);

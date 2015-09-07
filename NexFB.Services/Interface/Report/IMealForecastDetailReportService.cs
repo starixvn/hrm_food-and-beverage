@@ -10,6 +10,8 @@
 namespace NexFB.Services.Interface.Report
 {
     using System;
+    using System.Collections.Generic;
+    using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.MealForecastReport;
 
@@ -20,8 +22,21 @@ namespace NexFB.Services.Interface.Report
     {
         MealForecastDetailReport GetMealForecastDetailReport(GetMealForecastDetailReportCriteria criteria);
 
+        EmployeeRegistrationReportModel GetEmployeeRegistration(GetEmployeeRegistrationCriteria criteria);
+
         MealForecastDetailReport GetPagingReport(MealForecastDetailReport fullReport, int startIndex, int itemsPerPage);
 
+        EmployeeRegistrationReportModel GetPagingEmployeeRegistration(
+           EmployeeRegistrationReportModel fullReport,
+           int startIndex,
+           int itemsPerPage);
+
         void ExportMealForecastDetailReport(MealForecastDetailReport report, string templatePath, bool? isVegetarian, DateTime dateSelected);
+
+        void ExportEmployeeRegistrationReport(
+            EmployeeRegistrationReportModel report,
+            string templatePath,
+            bool? isVegetarian,
+            DateTime dateSelected);
     }
 }
