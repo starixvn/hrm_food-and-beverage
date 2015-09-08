@@ -12,6 +12,7 @@ namespace NexFB.WindowsService.Criteria
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Web;
     using Fanex.Data.Repository;
     using NexFB.WindowsService.SynchronizeDataService;
 
@@ -37,7 +38,7 @@ namespace NexFB.WindowsService.Criteria
                             _LeaveTypeTpl,
                             leaveType.LeaveTypeId,
                             leaveType.Code,
-                            leaveType.Name,
+                            HttpUtility.HtmlEncode(leaveType.Name),
                             leaveType.IsDisabled ? "1" : "0");
                     }
                 }

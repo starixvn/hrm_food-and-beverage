@@ -67,7 +67,7 @@ namespace NexFB.WebService.Services
         public IEnumerable<DepartmentModel> GetDepartment(DateTime? fromDate)
         {
             IEnumerable<DepartmentModel> departments = null;
-            var criteria = new GetTeamCriteria()
+            var criteria = new GetDepartmentCriteria()
             {
                 FromDate = fromDate
             };

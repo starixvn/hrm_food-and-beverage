@@ -23,6 +23,7 @@
     <Setting Key="Sync_LeaveType" SpName="Sync_LeaveType" DbName="SMSEPA" Plain="0"></Setting>
     <Setting Key="Sync_JobTitle" SpName="Sync_JobTitle" DbName="SMSEPA" Plain="0"></Setting>
     <Setting Key="Sync_Request" SpName="Sync_Request" DbName="SMSEPA" Plain="0"></Setting>
+    <Setting Key="Sync_Department" SpName="Sync_Department" DbName="SMSEPA" Plain="0"></Setting>
     <Setting Key="Sync_Attendance" SpName="Sync_Attendance" DbName="SMSEPA" Plain="0"></Setting>
   </Function>
 </Functions>

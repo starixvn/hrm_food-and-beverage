@@ -13,6 +13,7 @@ namespace NexFB.WindowsService.Criteria
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Web;
     using Fanex.Data.Repository;
     using NexFB.WindowsService.SynchronizeDataService;
 
@@ -40,7 +41,7 @@ namespace NexFB.WindowsService.Criteria
                             _ShiftTpl,
                             shift.ShiftId,
                             shift.Code,
-                            shift.Name,
+                            HttpUtility.HtmlEncode(shift.Name),
                             shift.BeginCheckInTime,
                             shift.EndCheckInTime,
                             shift.BeginCheckOutTime,

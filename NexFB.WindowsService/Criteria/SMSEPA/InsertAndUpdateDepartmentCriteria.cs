@@ -12,6 +12,7 @@ namespace NexFB.WindowsService.Criteria
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Web;
     using Fanex.Data.Repository;
     using NexFB.WindowsService.SynchronizeDataService;
 
@@ -37,7 +38,7 @@ namespace NexFB.WindowsService.Criteria
                             _DepartmentTpl,
                             department.DepartmentId,
                             department.Code,
-                            department.Name,
+                            HttpUtility.HtmlEncode(department.Name),
                             department.ParentId,
                             department.ManagerId,
                             department.DepartmentLevel,

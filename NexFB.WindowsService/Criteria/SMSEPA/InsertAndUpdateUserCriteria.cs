@@ -12,6 +12,7 @@ namespace NexFB.WindowsService.Criteria
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Web;
     using Fanex.Data.Repository;
     using NexFB.WindowsService.SynchronizeDataService;
 
@@ -41,12 +42,12 @@ namespace NexFB.WindowsService.Criteria
                             user.UserId,
                             user.DomainName,
                             user.Code,
-                            user.NickName,
-                            user.FullName,
+                            HttpUtility.HtmlEncode(user.NickName),
+                            HttpUtility.HtmlEncode(user.FullName),
                             user.TeamId,
                             user.JobTitleId,
-                            user.Phone,
-                            user.Email,
+                            HttpUtility.HtmlEncode(user.Phone),
+                            HttpUtility.HtmlEncode(user.Email),
                             user.EmployeeCard,
                             user.IsEnabled,
                             user.IsDeleted,

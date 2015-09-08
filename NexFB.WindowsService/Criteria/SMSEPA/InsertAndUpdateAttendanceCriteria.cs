@@ -43,11 +43,11 @@ namespace NexFB.WindowsService.Criteria
                             attendance.OutFixed,
                             attendance.LateIn,
                             attendance.EarlyOut,
-                            attendance.LeaveTypeId,
-                            attendance.LeaveTypeId2,
+                            attendance.LeaveTypeId == null ? -1 :  attendance.LeaveTypeId,
+                            attendance.LeaveTypeId2 == null ? -1 : attendance.LeaveTypeId2,
                             attendance.Absence,
-                            attendance.TotalWorkHours,
-                            attendance.LeaveDay,
+                            attendance.TotalWorkHours == null ? 0 : attendance.TotalWorkHours,
+                            attendance.LeaveDay == null ? 0 : attendance.LeaveDay,
                             attendance.ModifiedDate);
                     }
                 }

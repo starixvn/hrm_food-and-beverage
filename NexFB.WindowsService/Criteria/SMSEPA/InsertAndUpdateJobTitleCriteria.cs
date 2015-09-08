@@ -12,6 +12,7 @@ namespace NexFB.WindowsService.Criteria
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Web;
     using Fanex.Data.Repository;
     using NexFB.WindowsService.SynchronizeDataService;
 
@@ -38,7 +39,7 @@ namespace NexFB.WindowsService.Criteria
                             jobTitle.Id,
                             jobTitle.LookupId,
                             jobTitle.Code,
-                            jobTitle.Name,
+                            HttpUtility.HtmlEncode(jobTitle.Name),
                             jobTitle.Value);
                     }
                 }
