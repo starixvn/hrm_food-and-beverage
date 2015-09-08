@@ -120,6 +120,7 @@
     <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForDepartmentCriteria.cs" />
     <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForRequestCriteria.cs" />
     <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForShiftCriteria.cs" />
+    <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Service References\SynchronizeDataService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
