@@ -179,9 +179,9 @@ namespace NexFB.Services.Implement.Report
             bool? isVegetarian,
             DateTime dateSelected)
         {
-            string reportName = Lang.MealForecastDetailReportName + dateSelected.ToString("dd_MMM_yyyy");
+            string reportName = Lang.MealRegistrationDetailReportFileName + dateSelected.ToString("dd_MMM_yyyy");
             string reportTitle = Lang.EmployeeRegistrationDetail + " " + dateSelected.ToString("dd MMM, yyyy");
-            string reportSheetName = Lang.EmployeeRegistrationDetail + dateSelected.ToString("dd MMM, yyyy");
+            string reportSheetName = Lang.EmployeeRegistrationDetail + " " + dateSelected.ToString("dd MMM, yyyy");
             var writer = new ExcelTemplateWriter(templatePath, reportName, reportSheetName);
 
             // Fill report title.
