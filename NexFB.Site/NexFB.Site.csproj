@@ -248,7 +248,7 @@
     <Content Include="Web.pro.Release.config">
       <DependentUpon>Web.pro.config</DependentUpon>
     </Content>
-    <None Include="Deployment.ignore" />
+    <Content Include="Deployment.ignore" />
     <None Include="Service References\TranslatorService\NexFB.Site.TranslatorService.EmployeeCalendarModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

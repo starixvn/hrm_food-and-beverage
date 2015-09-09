@@ -37,7 +37,7 @@ namespace NexFB.WindowsService.Criteria
                         value.AppendFormat(
                             _UserTpl,
                             team.TeamId,
-                            team.Code,
+                            HttpUtility.HtmlEncode(team.Code),
                             HttpUtility.HtmlEncode(team.Name),
                             team.LeaderId,
                             team.AssistantLeaderId,
