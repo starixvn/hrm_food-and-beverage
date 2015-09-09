@@ -15,6 +15,7 @@
     <Setting Key="Sync_Shift_GetMaxModifiedDate" SpName="Sync_Shift_GetMaxModifiedDate" DbName="SMSEPA" Plain="0"></Setting>
     <Setting Key="Sync_EmployeeCalendar_GetMaxModifiedDate" SpName="Sync_EmployeeCalendar_GetMaxModifiedDate" DbName="SMSEPA" Plain="0"></Setting>
     <Setting Key="Sync_EmployeeRequest_GetMaxModifiedDate" SpName="Sync_EmployeeRequest_GetMaxModifiedDate" DbName="SMSEPA" Plain="0"></Setting>
+    <Setting Key="Sync_EmployeeRequestHistory_GetMaxModifiedDate" SpName="Sync_EmployeeRequestHistory_GetMaxModifiedDate" DbName="SMSEPA" Plain="0"></Setting>
     <Setting Key="Sync_EmployeeAttendance_GetMaxModifiedDate" SpName="Sync_EmployeeAttendance_GetMaxModifiedDate" DbName="SMSEPA" Plain="0"></Setting>
     <Setting Key="Sync_Shift" SpName="Sync_Shift" DbName="SMSEPA" Plain="0"></Setting>
     <Setting Key="Sync_Group" SpName="Sync_Group" DbName="SMSEPA" Plain="0"></Setting>
@@ -23,6 +24,7 @@
     <Setting Key="Sync_LeaveType" SpName="Sync_LeaveType" DbName="SMSEPA" Plain="0"></Setting>
     <Setting Key="Sync_JobTitle" SpName="Sync_JobTitle" DbName="SMSEPA" Plain="0"></Setting>
     <Setting Key="Sync_Request" SpName="Sync_Request" DbName="SMSEPA" Plain="0"></Setting>
+    <Setting Key="Sync_RequestHistory" SpName="Sync_RequestHistory" DbName="SMSEPA" Plain="0"></Setting>
     <Setting Key="Sync_Department" SpName="Sync_Department" DbName="SMSEPA" Plain="0"></Setting>
     <Setting Key="Sync_Attendance" SpName="Sync_Attendance" DbName="SMSEPA" Plain="0"></Setting>
   </Function>

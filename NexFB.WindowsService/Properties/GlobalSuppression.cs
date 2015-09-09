@@ -21,3 +21,5 @@ using System.Diagnostics.CodeAnalysis;
     Target = "NexFB.WindowsService.SynchronizeEmployeeService.#GetMaxModifiedDateRequest()", Justification = "Reviewed. Suppression is OK here.")]
 [module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
     Target = "NexFB.WindowsService.SynchronizeEmployeeService.#GetMaxModifiedDateAttendance()", Justification = "Reviewed. Suppression is OK here.")]
+[module: SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Scope = "member",
+    Target = "NexFB.WindowsService.SynchronizeEmployeeService.#GetMaxModifiedDateRequestHistory()", Justification = "Reviewed. Suppression is OK here.")]

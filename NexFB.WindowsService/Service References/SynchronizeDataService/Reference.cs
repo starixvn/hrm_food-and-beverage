@@ -1655,6 +1655,131 @@ namespace NexFB.WindowsService.SynchronizeDataService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EmployeeRequestHistoryModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.SerializableAttribute()]
+    public partial class EmployeeRequestHistoryModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<byte> CurrentStatusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> InsertedDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long RequestIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RequestTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int UserIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<byte> CurrentStatus {
+            get {
+                return this.CurrentStatusField;
+            }
+            set {
+                if ((this.CurrentStatusField.Equals(value) != true)) {
+                    this.CurrentStatusField = value;
+                    this.RaisePropertyChanged("CurrentStatus");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> InsertedDate {
+            get {
+                return this.InsertedDateField;
+            }
+            set {
+                if ((this.InsertedDateField.Equals(value) != true)) {
+                    this.InsertedDateField = value;
+                    this.RaisePropertyChanged("InsertedDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Remark {
+            get {
+                return this.RemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RemarkField, value) != true)) {
+                    this.RemarkField = value;
+                    this.RaisePropertyChanged("Remark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long RequestId {
+            get {
+                return this.RequestIdField;
+            }
+            set {
+                if ((this.RequestIdField.Equals(value) != true)) {
+                    this.RequestIdField = value;
+                    this.RaisePropertyChanged("RequestId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RequestType {
+            get {
+                return this.RequestTypeField;
+            }
+            set {
+                if ((this.RequestTypeField.Equals(value) != true)) {
+                    this.RequestTypeField = value;
+                    this.RaisePropertyChanged("RequestType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserId {
+            get {
+                return this.UserIdField;
+            }
+            set {
+                if ((this.UserIdField.Equals(value) != true)) {
+                    this.UserIdField = value;
+                    this.RaisePropertyChanged("UserId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="EmployeeAttendanceModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
     [System.SerializableAttribute()]
     public partial class EmployeeAttendanceModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -1979,6 +2104,9 @@ namespace NexFB.WindowsService.SynchronizeDataService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequest", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequestResponse")]
         NexFB.WindowsService.SynchronizeDataService.EmployeeRequestModel[] GetEmployeeRequest(System.Nullable<System.DateTime> fromDate);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequestHistory", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequestHistoryResponse")]
+        NexFB.WindowsService.SynchronizeDataService.EmployeeRequestHistoryModel[] GetEmployeeRequestHistory(System.Nullable<System.DateTime> fromDate);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendance", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendanceResponse")]
         NexFB.WindowsService.SynchronizeDataService.EmployeeAttendanceModel[] GetEmployeeAttendance(System.Nullable<System.DateTime> fromDate);
         
@@ -2046,6 +2174,10 @@ namespace NexFB.WindowsService.SynchronizeDataService {
         
         public NexFB.WindowsService.SynchronizeDataService.EmployeeRequestModel[] GetEmployeeRequest(System.Nullable<System.DateTime> fromDate) {
             return base.Channel.GetEmployeeRequest(fromDate);
+        }
+        
+        public NexFB.WindowsService.SynchronizeDataService.EmployeeRequestHistoryModel[] GetEmployeeRequestHistory(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetEmployeeRequestHistory(fromDate);
         }
         
         public NexFB.WindowsService.SynchronizeDataService.EmployeeAttendanceModel[] GetEmployeeAttendance(System.Nullable<System.DateTime> fromDate) {

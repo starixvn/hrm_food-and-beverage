@@ -42,6 +42,9 @@ namespace NexFB.WebService.Services
         IEnumerable<EmployeeRequestModel> GetEmployeeRequest(DateTime? fromDate);
 
         [OperationContract]
+        IEnumerable<EmployeeRequestHistoryModel> GetEmployeeRequestHistory(DateTime? fromDate);
+
+        [OperationContract]
         IEnumerable<EmployeeAttendanceModel> GetEmployeeAttendance(DateTime? fromDate);
 
         [OperationContract]

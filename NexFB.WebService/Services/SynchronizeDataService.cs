@@ -151,6 +151,22 @@ namespace NexFB.WebService.Services
             return requests;
         }
 
+        public IEnumerable<EmployeeRequestHistoryModel> GetEmployeeRequestHistory(DateTime? fromDate)
+        {
+            IEnumerable<EmployeeRequestHistoryModel> requests = null;
+            var criteria = new GetEmployeeRequestHistoryCriteria()
+            {
+                FromDate = fromDate
+            };
+
+            if (criteria.IsValid())
+            {
+                requests = GetData<EmployeeRequestHistoryModel>(criteria);
+            }
+
+            return requests;
+        }
+
         public IEnumerable<EmployeeAttendanceModel> GetEmployeeAttendance(DateTime? fromDate)
         {
             IEnumerable<EmployeeAttendanceModel> attendances = null;

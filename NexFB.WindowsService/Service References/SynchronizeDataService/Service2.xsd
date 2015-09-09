@@ -176,6 +176,23 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="EmployeeRequestModel" nillable="true" type="tns:EmployeeRequestModel" />
+  <xs:complexType name="ArrayOfEmployeeRequestHistoryModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EmployeeRequestHistoryModel" nillable="true" type="tns:EmployeeRequestHistoryModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEmployeeRequestHistoryModel" nillable="true" type="tns:ArrayOfEmployeeRequestHistoryModel" />
+  <xs:complexType name="EmployeeRequestHistoryModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CurrentStatus" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="InsertedDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequestId" type="xs:long" />
+      <xs:element minOccurs="0" name="RequestType" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EmployeeRequestHistoryModel" nillable="true" type="tns:EmployeeRequestHistoryModel" />
   <xs:complexType name="ArrayOfEmployeeAttendanceModel">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="EmployeeAttendanceModel" nillable="true" type="tns:EmployeeAttendanceModel" />

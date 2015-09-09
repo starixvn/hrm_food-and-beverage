@@ -55,6 +55,12 @@
   <wsdl:message name="ISynchronizeDataService_GetEmployeeRequest_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEmployeeRequestResponse" />
   </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeRequestHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeRequestHistory" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeRequestHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeRequestHistoryResponse" />
+  </wsdl:message>
   <wsdl:message name="ISynchronizeDataService_GetEmployeeAttendance_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEmployeeAttendance" />
   </wsdl:message>
@@ -105,6 +111,10 @@
     <wsdl:operation name="GetEmployeeRequest">
       <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequest" message="tns:ISynchronizeDataService_GetEmployeeRequest_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequestResponse" message="tns:ISynchronizeDataService_GetEmployeeRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeRequestHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequestHistory" message="tns:ISynchronizeDataService_GetEmployeeRequestHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequestHistoryResponse" message="tns:ISynchronizeDataService_GetEmployeeRequestHistory_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetEmployeeAttendance">
       <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendance" message="tns:ISynchronizeDataService_GetEmployeeAttendance_InputMessage" />
@@ -186,6 +196,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEmployeeRequest">
       <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeRequestHistory">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequestHistory" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

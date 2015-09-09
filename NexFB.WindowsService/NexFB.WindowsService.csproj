@@ -112,6 +112,8 @@
       <DependentUpon>AutoService.cs</DependentUpon>
     </Compile>
     <Compile Include="CommonService.cs" />
+    <Compile Include="Criteria\SMSEPA\InsertAndUpdateRequestHistoryCriteria.cs" />
+    <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForRequestHistoryCriteria.cs" />
     <Compile Include="Criteria\SMSEPA\InsertAndUpdateAttendanceCriteria.cs" />
     <Compile Include="Criteria\SMSEPA\InsertAndUpdateRequestCriteria.cs" />
     <Compile Include="Criteria\SMSEPA\InsertAndUpdateLeaveTypeCriteria.cs" />
@@ -263,6 +265,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.EmployeeCalendarModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.EmployeeRequestHistoryModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.EmployeeRequestModel.datasource">

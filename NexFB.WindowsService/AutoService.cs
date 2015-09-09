@@ -170,6 +170,7 @@ namespace NexFB.WindowsService
                 UpdateJobTitleForEPA();
                 UpdateLeaveTypeForEPA();
                 UpdateRequestForEPA();
+                UpdateRequestHistoryForEPA();
                 UpdateAttendanceForEPA();
             }
 
@@ -529,6 +530,21 @@ namespace NexFB.WindowsService
                 _LOG.Info("Update Request (EPA) started at " + DateTime.Now.ToString());
                 CommandResult result = _epaService.UpdateEmployeeRequest();
                 _LOG.Info("Result of update Request (EPA): " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateRequestHistoryForEPA()
+        {
+            try
+            {
+                _LOG.Info("Update Request history (EPA) started at " + DateTime.Now.ToString());
+                CommandResult result = _epaService.UpdateEmployeeRequestHistory();
+                _LOG.Info("Result of update Request history (EPA): " + (result == null ? "0" : result.Message));
             }
             catch (Exception ex)
             {

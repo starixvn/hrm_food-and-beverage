@@ -177,6 +177,24 @@ namespace NexFB.WindowsService
             return result;
         }
 
+        public CommandResult UpdateEmployeeRequestHistory()
+        {
+            CommandResult result = null;
+            DateTime fromDate = GetMaxModifiedDateRequestHistory();
+            IList<EmployeeRequestHistoryModel> requests = SynchronizeDataService.GetEmployeeRequestHistory(fromDate);
+            if (requests != null && requests.Any())
+            {
+                var criteria = new InsertAndUpdateRequestHistoryCriteria()
+                {
+                    RequestHistories = requests
+                };
+
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
         public CommandResult UpdateEmployeeAttendance()
         {
             CommandResult result = null;
@@ -244,6 +262,14 @@ namespace NexFB.WindowsService
         public DateTime GetMaxModifiedDateRequest()
         {
             var criteria = new GetMaxModifiedDateForRequestCriteria();
+
+            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
+            return fromDate;
+        }
+
+        public DateTime GetMaxModifiedDateRequestHistory()
+        {
+            var criteria = new GetMaxModifiedDateForRequestHistoryCriteria();
 
             DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
             return fromDate;

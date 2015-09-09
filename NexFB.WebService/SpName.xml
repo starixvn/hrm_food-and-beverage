@@ -19,5 +19,7 @@
     </Setting>
     <Setting Key="WorkingTimeRequest_Get" SpName="WorkingTimeRequest_Get" DbName="nexhr" Plain="0" >
     </Setting>
+    <Setting Key="WorkingTimeRequestHistory_Get" SpName="WorkingTimeRequestHistory_Get" DbName="nexhr" Plain="0" >
+    </Setting>
   </Function>
 </Functions>

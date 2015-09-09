@@ -45,7 +45,8 @@ namespace NexFB.WindowsService
 
         ////    //service.UpdateJobTitle();
         ////    //service.UpdateLeaveType();
-        ////    service.UpdateEmployeeCalendar();
+        ////    //service.UpdateEmployeeCalendar();
+        ////    service.UpdateEmployeeRequestHistory();
         ////    //service.UpdateEmployeeRequest();
         ////    //service.UpdateEmployeeAttendance();
         ////    //service.UpdatePhoto();
