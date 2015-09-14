@@ -67,6 +67,12 @@
   <wsdl:message name="ISynchronizeDataService_GetEmployeeAttendance_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEmployeeAttendanceResponse" />
   </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeAttendanceViolation_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeAttendanceViolation" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeAttendanceViolation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeAttendanceViolationResponse" />
+  </wsdl:message>
   <wsdl:message name="ISynchronizeDataService_GetPhoto_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPhoto" />
   </wsdl:message>
@@ -119,6 +125,10 @@
     <wsdl:operation name="GetEmployeeAttendance">
       <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendance" message="tns:ISynchronizeDataService_GetEmployeeAttendance_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendanceResponse" message="tns:ISynchronizeDataService_GetEmployeeAttendance_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeAttendanceViolation">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendanceViolation" message="tns:ISynchronizeDataService_GetEmployeeAttendanceViolation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendanceViolationResponse" message="tns:ISynchronizeDataService_GetEmployeeAttendanceViolation_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPhoto">
       <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetPhoto" message="tns:ISynchronizeDataService_GetPhoto_InputMessage" />
@@ -214,6 +224,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEmployeeAttendance">
       <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeAttendanceViolation">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendanceViolation" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

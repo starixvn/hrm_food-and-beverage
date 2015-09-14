@@ -68,6 +68,7 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Criteria\GetEmployeeAttendanceViolationCriteria.cs" />
     <Compile Include="Criteria\GetDepartmentCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeAttendanceCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeRequestCriteria.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Criteria\GetShiftCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeCriteria.cs" />
     <Compile Include="Criteria\GetTeamCriteria.cs" />
+    <Compile Include="Models\EmployeeAttendanceViolationModel.cs" />
     <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\EmployeeAttendanceModel.cs" />
     <Compile Include="Models\EmployeeRequestHistoryModel.cs" />

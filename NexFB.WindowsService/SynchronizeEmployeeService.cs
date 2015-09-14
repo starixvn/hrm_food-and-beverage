@@ -213,6 +213,24 @@ namespace NexFB.WindowsService
             return result;
         }
 
+        public CommandResult UpdateEmployeeAttendanceViolation()
+        {
+            CommandResult result = null;
+            DateTime fromDate = GetMaxModifiedDateAttendanceViolation();
+            IList<EmployeeAttendanceViolationModel> violations = SynchronizeDataService.GetEmployeeAttendanceViolation(fromDate);
+            if (violations != null && violations.Any())
+            {
+                var criteria = new InsertAndUpdateAttendanceViolationCriteria()
+                {
+                    AttendanceViolations = violations
+                };
+
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
         public void UpdatePhoto()
         {
             string photoPath = ConfigurationManager.AppSettings["PhotoPathSMS"];
@@ -278,6 +296,14 @@ namespace NexFB.WindowsService
         public DateTime GetMaxModifiedDateAttendance()
         {
             var criteria = new GetMaxModifiedDateForAttendanceCriteria();
+
+            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
+            return fromDate;
+        }
+
+        public DateTime GetMaxModifiedDateAttendanceViolation()
+        {
+            var criteria = new GetMaxModifiedDateForAttendanceViolationCriteria();
 
             DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
             return fromDate;

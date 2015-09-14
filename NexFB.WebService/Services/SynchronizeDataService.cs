@@ -183,6 +183,22 @@ namespace NexFB.WebService.Services
             return attendances;
         }
 
+        public IEnumerable<EmployeeAttendanceViolationModel> GetEmployeeAttendanceViolation(DateTime? fromDate)
+        {
+            IEnumerable<EmployeeAttendanceViolationModel> attendances = null;
+            var criteria = new GetEmployeeAttendanceViolationCriteria()
+            {
+                FromDate = fromDate
+            };
+
+            if (criteria.IsValid())
+            {
+                attendances = GetData<EmployeeAttendanceViolationModel>(criteria);
+            }
+
+            return attendances;
+        }
+
         public IList<PhotoModel> GetPhoto(DateTime? fromDate)
         {
             var photos = new List<PhotoModel>();

@@ -17,6 +17,8 @@
     </Setting>
     <Setting Key="EmployeeAttendance_Get" SpName="EmployeeAttendance_Get" DbName="nexhr" Plain="0" >
     </Setting>
+    <Setting Key="EmployeeAttendanceViolation_Get" SpName="EmployeeAttendanceViolation_Get" DbName="nexhr" Plain="0" >
+    </Setting>
     <Setting Key="WorkingTimeRequest_Get" SpName="WorkingTimeRequest_Get" DbName="nexhr" Plain="0" >
     </Setting>
     <Setting Key="WorkingTimeRequestHistory_Get" SpName="WorkingTimeRequestHistory_Get" DbName="nexhr" Plain="0" >

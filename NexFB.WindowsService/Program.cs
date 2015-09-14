@@ -21,40 +21,40 @@ namespace NexFB.WindowsService
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        ////public static void Main()
-        ////{
-        ////    DbSettingProviderManager.Current.Start();
-        ////    log4net.Config.XmlConfigurator.Configure();
-        ////    ServiceBase[] servicesToRun;
-        ////    servicesToRun = new ServiceBase[] 
-        ////    { 
-        ////        new AutoService() 
-        ////    };
-        ////    ServiceBase.Run(servicesToRun);
-        ////}
-
         public static void Main()
         {
             DbSettingProviderManager.Current.Start();
-            var service = new SynchronizeEmployeeService();
-
-            //service.UpdateDepartment();
-            service.UpdateTeam();
-            //service.UpdateUser();
-            //service.UpdateShift();
-
-            //service.UpdateJobTitle();
-            //service.UpdateLeaveType();
-            //service.UpdateEmployeeCalendar();
-            //service.UpdateEmployeeRequestHistory();
-            //service.UpdateEmployeeRequest();
-            //service.UpdateEmployeeAttendance();
-            //service.UpdatePhoto();
-
-            //var x = Fanex.Common.Cryptography.CfsEnCrypt("hrmlogin");
-
-            Console.WriteLine("OK");
-            Console.ReadLine();
+            log4net.Config.XmlConfigurator.Configure();
+            ServiceBase[] servicesToRun;
+            servicesToRun = new ServiceBase[] 
+            { 
+                new AutoService() 
+            };
+            ServiceBase.Run(servicesToRun);
         }
+
+        ////public static void Main()
+        ////{
+        ////    DbSettingProviderManager.Current.Start();
+        ////    var service = new SynchronizeEmployeeService();
+
+        ////    //service.UpdateDepartment();
+        ////    service.UpdateEmployeeAttendanceViolation();
+        ////    //service.UpdateUser();
+        ////    //service.UpdateShift();
+
+        ////    //service.UpdateJobTitle();
+        ////    //service.UpdateLeaveType();
+        ////    //service.UpdateEmployeeCalendar();
+        ////    //service.UpdateEmployeeRequestHistory();
+        ////    //service.UpdateEmployeeRequest();
+        ////    //service.UpdateEmployeeAttendance();
+        ////    //service.UpdatePhoto();
+
+        ////    //var x = Fanex.Common.Cryptography.CfsEnCrypt("hrmlogin");
+
+        ////    Console.WriteLine("OK");
+        ////    Console.ReadLine();
+        ////}
     }
 }

@@ -217,6 +217,28 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="EmployeeAttendanceModel" nillable="true" type="tns:EmployeeAttendanceModel" />
+  <xs:complexType name="ArrayOfEmployeeAttendanceViolationModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EmployeeAttendanceViolationModel" nillable="true" type="tns:EmployeeAttendanceViolationModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEmployeeAttendanceViolationModel" nillable="true" type="tns:ArrayOfEmployeeAttendanceViolationModel" />
+  <xs:complexType name="EmployeeAttendanceViolationModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Absent" type="xs:int" />
+      <xs:element minOccurs="0" name="ChangeShift" type="xs:int" />
+      <xs:element minOccurs="0" name="EarlyOut" type="xs:int" />
+      <xs:element minOccurs="0" name="LateIn" type="xs:int" />
+      <xs:element minOccurs="0" name="MissingCheckInOut" type="xs:int" />
+      <xs:element minOccurs="0" name="ModifiedDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UnpaidLeave" type="xs:double" />
+      <xs:element minOccurs="0" name="UnpaidLeaveAbsent" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+      <xs:element minOccurs="0" name="WorkDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="WorkingBelowTime" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EmployeeAttendanceViolationModel" nillable="true" type="tns:EmployeeAttendanceViolationModel" />
   <xs:complexType name="ArrayOfPhotoModel">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="PhotoModel" nillable="true" type="tns:PhotoModel" />
