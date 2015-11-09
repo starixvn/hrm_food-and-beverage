@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://cp0081-quinn.spvn.local:8687/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" />
+  <xs:import schemaLocation="http://internal.spvn.local:8686/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" />
   <xs:element name="GetUser">
     <xs:complexType>
       <xs:sequence>
@@ -138,7 +138,8 @@
   <xs:element name="GetEmployeeAttendanceViolation">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="fromDate" nillable="true" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="fromDate" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="lastModifiedDate" type="xs:dateTime" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -146,6 +147,34 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" minOccurs="0" name="GetEmployeeAttendanceViolationResult" nillable="true" type="q11:ArrayOfEmployeeAttendanceViolationModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeSupervisor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fromDate" nillable="true" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeSupervisorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" minOccurs="0" name="GetEmployeeSupervisorResult" nillable="true" type="q12:ArrayOfEmployeeSupervisorModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGroupSupervisor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fromDate" nillable="true" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGroupSupervisorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" minOccurs="0" name="GetGroupSupervisorResult" nillable="true" type="q13:ArrayOfGroupSupervisorModel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -159,7 +188,7 @@
   <xs:element name="GetPhotoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" minOccurs="0" name="GetPhotoResult" nillable="true" type="q12:ArrayOfPhotoModel" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" minOccurs="0" name="GetPhotoResult" nillable="true" type="q14:ArrayOfPhotoModel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

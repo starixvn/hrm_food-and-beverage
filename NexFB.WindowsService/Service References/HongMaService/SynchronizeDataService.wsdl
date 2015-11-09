@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SynchronizeDataService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://internal.spvn.local:8685/Service.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://internal.spvn.local:8685/Service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://internal.spvn.local:8685/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ISynchronizeDataService_GetUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUser" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetTeam_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeam" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetTeam_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeamResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetDepartment_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDepartment" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetDepartment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDepartmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetShift_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetShift" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetShift_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetShiftResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetLeaveType_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLeaveType" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetLeaveType_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLeaveTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetJobTitle_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobTitle" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetJobTitle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobTitleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeCalendar_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeCalendar" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeCalendar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeCalendarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeRequest" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeRequestHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeRequestHistory" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeRequestHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeRequestHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeAttendance_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeAttendance" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeAttendance_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeAttendanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeAttendanceViolation_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeAttendanceViolation" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeAttendanceViolation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeAttendanceViolationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeSupervisor_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeSupervisor" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeSupervisor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeSupervisorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetGroupSupervisor_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupSupervisor" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetGroupSupervisor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupSupervisorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetPhoto_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhoto" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetPhoto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhotoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetTextTranslation_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTextTranslation" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetTextTranslation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTextTranslationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ISynchronizeDataService">
+    <wsdl:operation name="GetUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetUser" message="tns:ISynchronizeDataService_GetUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetUserResponse" message="tns:ISynchronizeDataService_GetUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTeam">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetTeam" message="tns:ISynchronizeDataService_GetTeam_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetTeamResponse" message="tns:ISynchronizeDataService_GetTeam_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetDepartment" message="tns:ISynchronizeDataService_GetDepartment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetDepartmentResponse" message="tns:ISynchronizeDataService_GetDepartment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShift">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetShift" message="tns:ISynchronizeDataService_GetShift_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetShiftResponse" message="tns:ISynchronizeDataService_GetShift_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLeaveType">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetLeaveType" message="tns:ISynchronizeDataService_GetLeaveType_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetLeaveTypeResponse" message="tns:ISynchronizeDataService_GetLeaveType_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobTitle">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetJobTitle" message="tns:ISynchronizeDataService_GetJobTitle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetJobTitleResponse" message="tns:ISynchronizeDataService_GetJobTitle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeCalendar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendar" message="tns:ISynchronizeDataService_GetEmployeeCalendar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendarResponse" message="tns:ISynchronizeDataService_GetEmployeeCalendar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequest" message="tns:ISynchronizeDataService_GetEmployeeRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequestResponse" message="tns:ISynchronizeDataService_GetEmployeeRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeRequestHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequestHistory" message="tns:ISynchronizeDataService_GetEmployeeRequestHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequestHistoryResponse" message="tns:ISynchronizeDataService_GetEmployeeRequestHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeAttendance">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendance" message="tns:ISynchronizeDataService_GetEmployeeAttendance_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendanceResponse" message="tns:ISynchronizeDataService_GetEmployeeAttendance_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeAttendanceViolation">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendanceViolation" message="tns:ISynchronizeDataService_GetEmployeeAttendanceViolation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendanceViolationResponse" message="tns:ISynchronizeDataService_GetEmployeeAttendanceViolation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeSupervisor">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeSupervisor" message="tns:ISynchronizeDataService_GetEmployeeSupervisor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeSupervisorResponse" message="tns:ISynchronizeDataService_GetEmployeeSupervisor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupSupervisor">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetGroupSupervisor" message="tns:ISynchronizeDataService_GetGroupSupervisor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetGroupSupervisorResponse" message="tns:ISynchronizeDataService_GetGroupSupervisor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPhoto">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetPhoto" message="tns:ISynchronizeDataService_GetPhoto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetPhotoResponse" message="tns:ISynchronizeDataService_GetPhoto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTextTranslation">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetTextTranslation" message="tns:ISynchronizeDataService_GetTextTranslation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetTextTranslationResponse" message="tns:ISynchronizeDataService_GetTextTranslation_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ISynchronizeDataService" type="tns:ISynchronizeDataService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetUser">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTeam">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetTeam" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartment">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetDepartment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShift">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetShift" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLeaveType">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetLeaveType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobTitle">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetJobTitle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeCalendar">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeRequest">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeRequestHistory">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeRequestHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeAttendance">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeAttendanceViolation">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendanceViolation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeSupervisor">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeSupervisor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupSupervisor">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetGroupSupervisor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhoto">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetPhoto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTextTranslation">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetTextTranslation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SynchronizeDataService">
+    <wsdl:port name="BasicHttpBinding_ISynchronizeDataService" binding="tns:BasicHttpBinding_ISynchronizeDataService">
+      <soap:address location="http://internal.spvn.local:8685/Service.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

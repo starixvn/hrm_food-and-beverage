@@ -14,7 +14,9 @@ namespace NexFB.WebService.Criteria
 
     public class GetEmployeeAttendanceViolationCriteria : CriteriaBase
     {
-        public DateTime? FromDate { get; set; }
+        public DateTime FromDate { get; set; }
+
+        public DateTime LastModifiedDate { get; set; }
 
         public override string GetSettingKey()
         {

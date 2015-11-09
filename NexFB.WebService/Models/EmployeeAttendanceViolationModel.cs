@@ -47,5 +47,47 @@ namespace NexFB.WebService.Models
 
         [DataMember]
         public DateTime? ModifiedDate { get; set; }
+
+        [DataMember]
+        public string ShiftName { get; set; }
+
+        [DataMember]
+        public DateTime? InFixed { get; set; }
+
+        [DataMember]
+        public DateTime? OutFixed { get; set; }
+
+        [DataMember]
+        public int? LateInValue { get; set; }
+
+        [DataMember]
+        public int? EarlyOutValue { get; set; }
+
+        [DataMember]
+        public decimal? TotalWorkHours { get; set; }
+
+        [DataMember]
+        public string LateInApproverComment { get; set; }
+
+        [DataMember]
+        public string LateInEmployeeComment { get; set; }
+
+        [DataMember]
+        public string EarlyOutApproverComment { get; set; }
+
+        [DataMember]
+        public string EarlyOutEmployeeComment { get; set; }
+
+        [DataMember]
+        public string ChangeShiftApproverComment { get; set; }
+
+        [DataMember]
+        public string ChangeShiftEmployeeComment { get; set; }
+
+        [DataMember]
+        public string LeaveApproverComment { get; set; }
+
+        [DataMember]
+        public string LeaveEmployeeComment { get; set; }
     }
 }

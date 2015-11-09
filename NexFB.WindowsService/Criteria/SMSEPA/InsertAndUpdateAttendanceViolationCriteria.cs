@@ -12,14 +12,18 @@ namespace NexFB.WindowsService.Criteria
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Web;
     using Fanex.Data.Repository;
     using NexFB.WindowsService.SynchronizeDataService;
 
     public class InsertAndUpdateAttendanceViolationCriteria : CriteriaBase
     {
-        private const string _AttendanceTpl =
+        private const string _VialationTpl =
             "<Violation EmpId='{0}' WorkDate='{1}' MissingCheckInOut='{2}' LateIn='{3}' EarlyOut='{4}' ChangeShift='{5}' WorkingBelowTime='{6}'"
-            + " Absent='{7}' UnpaidLeaveAbsent='{8}' UnpaidLeave='{9}' ModifiedDate='{10}'></Violation>";
+            + " Absent='{7}' UnpaidLeaveAbsent='{8}' UnpaidLeave='{9}' ShiftName='{10}' InFixed='{11}' OutFixed='{12}'"
+            + " LateInValue='{13}' EarlyOutValue='{14}' TotalWorkHours='{15}' LateInApproverComment='{16}' LateInEmployeeComment='{17}'"
+            + " EarlyOutApproverComment='{18}' EarlyOutEmployeeComment='{19}' ChangeShiftApproverComment='{20}' ChangeShiftEmployeeComment='{21}'"
+            + " LeaveApproverComment='{22}' LeaveEmployeeComment='{23}' ModifiedDate='{24}'></Violation>";
 
         [SpParam(Ignored = true)]
         public IList<EmployeeAttendanceViolationModel> AttendanceViolations { get; set; }
@@ -32,21 +36,35 @@ namespace NexFB.WindowsService.Criteria
 
                 if (AttendanceViolations != null)
                 {
-                    foreach (EmployeeAttendanceViolationModel attendance in AttendanceViolations)
+                    foreach (EmployeeAttendanceViolationModel violation in AttendanceViolations)
                     {
                         value.AppendFormat(
-                            _AttendanceTpl,
-                            attendance.UserId,
-                            attendance.WorkDate,
-                            attendance.MissingCheckInOut,
-                            attendance.LateIn,
-                            attendance.EarlyOut,
-                            attendance.ChangeShift,
-                            attendance.WorkingBelowTime,
-                            attendance.Absent,
-                            attendance.UnpaidLeaveAbsent,
-                            attendance.UnpaidLeave,
-                            attendance.ModifiedDate);
+                            _VialationTpl,
+                            violation.UserId,
+                            violation.WorkDate,
+                            violation.MissingCheckInOut,
+                            violation.LateIn,
+                            violation.EarlyOut,
+                            violation.ChangeShift,
+                            violation.WorkingBelowTime,
+                            violation.Absent,
+                            violation.UnpaidLeaveAbsent,
+                            violation.UnpaidLeave,
+                            HttpUtility.HtmlEncode(violation.ShiftName),
+                            violation.InFixed,
+                            violation.OutFixed,
+                            violation.LateInValue,
+                            violation.EarlyOutValue,
+                            violation.TotalWorkHours == null ? "0" : violation.TotalWorkHours.ToString(),
+                            HttpUtility.HtmlEncode(violation.LateInApproverComment),
+                            HttpUtility.HtmlEncode(violation.LateInEmployeeComment),
+                            HttpUtility.HtmlEncode(violation.EarlyOutApproverComment),
+                            HttpUtility.HtmlEncode(violation.EarlyOutEmployeeComment),
+                            HttpUtility.HtmlEncode(violation.ChangeShiftApproverComment),
+                            HttpUtility.HtmlEncode(violation.ChangeShiftEmployeeComment),
+                            HttpUtility.HtmlEncode(violation.LeaveApproverComment),
+                            HttpUtility.HtmlEncode(violation.LeaveEmployeeComment),
+                            violation.ModifiedDate);
                     }
                 }
 

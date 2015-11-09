@@ -183,12 +183,13 @@ namespace NexFB.WebService.Services
             return attendances;
         }
 
-        public IEnumerable<EmployeeAttendanceViolationModel> GetEmployeeAttendanceViolation(DateTime? fromDate)
+        public IEnumerable<EmployeeAttendanceViolationModel> GetEmployeeAttendanceViolation(DateTime fromDate, DateTime lastModifiedDate)
         {
             IEnumerable<EmployeeAttendanceViolationModel> attendances = null;
             var criteria = new GetEmployeeAttendanceViolationCriteria()
             {
-                FromDate = fromDate
+                FromDate = fromDate,
+                LastModifiedDate = lastModifiedDate
             };
 
             if (criteria.IsValid())
@@ -197,6 +198,38 @@ namespace NexFB.WebService.Services
             }
 
             return attendances;
+        }
+
+        public IEnumerable<EmployeeSupervisorModel> GetEmployeeSupervisor(DateTime? fromDate)
+        {
+            IEnumerable<EmployeeSupervisorModel> supervisors = null;
+            var criteria = new GetEmployeeSupervisorCriteria()
+            {
+                FromDate = fromDate
+            };
+
+            if (criteria.IsValid())
+            {
+                supervisors = GetData<EmployeeSupervisorModel>(criteria);
+            }
+
+            return supervisors;
+        }
+
+        public IEnumerable<GroupSupervisorModel> GetGroupSupervisor(DateTime? fromDate)
+        {
+            IEnumerable<GroupSupervisorModel> supervisors = null;
+            var criteria = new GetGroupSupervisorCriteria()
+            {
+                FromDate = fromDate
+            };
+
+            if (criteria.IsValid())
+            {
+                supervisors = GetData<GroupSupervisorModel>(criteria);
+            }
+
+            return supervisors;
         }
 
         public IList<PhotoModel> GetPhoto(DateTime? fromDate)

@@ -38,20 +38,22 @@ namespace NexFB.WindowsService
         ////    DbSettingProviderManager.Current.Start();
         ////    var service = new SynchronizeEmployeeService();
 
-        ////    //service.UpdateDepartment();
+        ////    service.UpdateDepartment();
         ////    service.UpdateEmployeeAttendanceViolation();
-        ////    //service.UpdateUser();
-        ////    //service.UpdateShift();
+        ////    service.UpdateEmployeeSupervisor();
+        ////    service.UpdateGroupSupervisor();
+        ////    service.UpdateUser();
+        ////    service.UpdateShift();
 
-        ////    //service.UpdateJobTitle();
-        ////    //service.UpdateLeaveType();
-        ////    //service.UpdateEmployeeCalendar();
-        ////    //service.UpdateEmployeeRequestHistory();
-        ////    //service.UpdateEmployeeRequest();
-        ////    //service.UpdateEmployeeAttendance();
-        ////    //service.UpdatePhoto();
+        ////    service.UpdateJobTitle();
+        ////    service.UpdateLeaveType();
+        ////    service.UpdateEmployeeCalendar();
+        ////    service.UpdateEmployeeRequestHistory();
+        ////    service.UpdateEmployeeRequest();
+        ////    service.UpdateEmployeeAttendance();
+        ////    service.UpdatePhoto();
 
-        ////    //var x = Fanex.Common.Cryptography.CfsEnCrypt("hrmlogin");
+        ////    var x = Fanex.Common.Cryptography.CfsEnCrypt("hrmlogin");
 
         ////    Console.WriteLine("OK");
         ////    Console.ReadLine();

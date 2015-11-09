@@ -26,30 +26,30 @@ namespace NexFB.WindowsService
     /// </summary>
     public class CommonService : BaseService
     {
-        private NexcelService.UserServiceClient _nexcelService = null;
-        private HongMaService.UserServiceClient _hongmaService = null;
-        private SMSService.UserServiceClient _smsService = null;
+        private NexcelService.SynchronizeDataServiceClient _nexcelService = null;
+        private HongMaService.SynchronizeDataServiceClient _hongmaService = null;
+        private SMSService.SynchronizeDataServiceClient _smsService = null;
 
         public CommonService()
         {
-            NexcelService = new NexcelService.UserServiceClient();
-            HongmaService = new HongMaService.UserServiceClient();
-            SmsService = new SMSService.UserServiceClient();
+            NexcelService = new NexcelService.SynchronizeDataServiceClient();
+            HongmaService = new HongMaService.SynchronizeDataServiceClient();
+            SmsService = new SMSService.SynchronizeDataServiceClient();
         }
 
-        protected NexcelService.UserServiceClient NexcelService
+        protected NexcelService.SynchronizeDataServiceClient NexcelService
         {
             get { return _nexcelService; }
             set { _nexcelService = value; }
         }
 
-        protected HongMaService.UserServiceClient HongmaService
+        protected HongMaService.SynchronizeDataServiceClient HongmaService
         {
             get { return _hongmaService; }
             set { _hongmaService = value; }
         }
 
-        protected SMSService.UserServiceClient SmsService
+        protected SMSService.SynchronizeDataServiceClient SmsService
         {
             get { return _smsService; }
             set { _smsService = value; }
@@ -108,7 +108,7 @@ namespace NexFB.WindowsService
         public CommandResult UpdateShiftForNexcel()
         {
             CommandResult result = null;
-            IList<NexcelService.ShiftModel> shifts = NexcelService.GetShift(null);
+            IList<NexcelService.ShiftModel> shifts = NexcelService.GetShift();
             if (shifts != null && shifts.Any())
             {
                 var criteria = new InsertAndUpdateShiftNexcelCriteria()
@@ -217,7 +217,7 @@ namespace NexFB.WindowsService
         public CommandResult UpdateShiftForHM()
         {
             CommandResult result = null;
-            IList<HongMaService.ShiftModel> shifts = HongmaService.GetShift(null);
+            IList<HongMaService.ShiftModel> shifts = HongmaService.GetShift();
             if (shifts != null && shifts.Any())
             {
                 var criteria = new InsertAndUpdateShiftHMCriteria()
@@ -325,7 +325,7 @@ namespace NexFB.WindowsService
         public CommandResult UpdateShiftForSms()
         {
             CommandResult result = null;
-            IList<SMSService.ShiftModel> shifts = SmsService.GetShift(null);
+            IList<SMSService.ShiftModel> shifts = SmsService.GetShift();
             if (shifts != null && shifts.Any())
             {
                 var criteria = new InsertAndUpdateShiftSmsCriteria()

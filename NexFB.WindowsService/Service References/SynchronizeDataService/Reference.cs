@@ -2031,16 +2031,58 @@ namespace NexFB.WindowsService.SynchronizeDataService {
         private int ChangeShiftField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ChangeShiftApproverCommentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ChangeShiftEmployeeCommentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EarlyOutField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EarlyOutApproverCommentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EarlyOutEmployeeCommentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> EarlyOutValueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> InFixedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int LateInField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LateInApproverCommentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LateInEmployeeCommentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> LateInValueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LeaveApproverCommentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LeaveEmployeeCommentField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MissingCheckInOutField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<System.DateTime> ModifiedDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> OutFixedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShiftNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> TotalWorkHoursField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private double UnpaidLeaveField;
@@ -2094,6 +2136,32 @@ namespace NexFB.WindowsService.SynchronizeDataService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ChangeShiftApproverComment {
+            get {
+                return this.ChangeShiftApproverCommentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ChangeShiftApproverCommentField, value) != true)) {
+                    this.ChangeShiftApproverCommentField = value;
+                    this.RaisePropertyChanged("ChangeShiftApproverComment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ChangeShiftEmployeeComment {
+            get {
+                return this.ChangeShiftEmployeeCommentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ChangeShiftEmployeeCommentField, value) != true)) {
+                    this.ChangeShiftEmployeeCommentField = value;
+                    this.RaisePropertyChanged("ChangeShiftEmployeeComment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int EarlyOut {
             get {
                 return this.EarlyOutField;
@@ -2107,6 +2175,58 @@ namespace NexFB.WindowsService.SynchronizeDataService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EarlyOutApproverComment {
+            get {
+                return this.EarlyOutApproverCommentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EarlyOutApproverCommentField, value) != true)) {
+                    this.EarlyOutApproverCommentField = value;
+                    this.RaisePropertyChanged("EarlyOutApproverComment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EarlyOutEmployeeComment {
+            get {
+                return this.EarlyOutEmployeeCommentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EarlyOutEmployeeCommentField, value) != true)) {
+                    this.EarlyOutEmployeeCommentField = value;
+                    this.RaisePropertyChanged("EarlyOutEmployeeComment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> EarlyOutValue {
+            get {
+                return this.EarlyOutValueField;
+            }
+            set {
+                if ((this.EarlyOutValueField.Equals(value) != true)) {
+                    this.EarlyOutValueField = value;
+                    this.RaisePropertyChanged("EarlyOutValue");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> InFixed {
+            get {
+                return this.InFixedField;
+            }
+            set {
+                if ((this.InFixedField.Equals(value) != true)) {
+                    this.InFixedField = value;
+                    this.RaisePropertyChanged("InFixed");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int LateIn {
             get {
                 return this.LateInField;
@@ -2115,6 +2235,71 @@ namespace NexFB.WindowsService.SynchronizeDataService {
                 if ((this.LateInField.Equals(value) != true)) {
                     this.LateInField = value;
                     this.RaisePropertyChanged("LateIn");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LateInApproverComment {
+            get {
+                return this.LateInApproverCommentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LateInApproverCommentField, value) != true)) {
+                    this.LateInApproverCommentField = value;
+                    this.RaisePropertyChanged("LateInApproverComment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LateInEmployeeComment {
+            get {
+                return this.LateInEmployeeCommentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LateInEmployeeCommentField, value) != true)) {
+                    this.LateInEmployeeCommentField = value;
+                    this.RaisePropertyChanged("LateInEmployeeComment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> LateInValue {
+            get {
+                return this.LateInValueField;
+            }
+            set {
+                if ((this.LateInValueField.Equals(value) != true)) {
+                    this.LateInValueField = value;
+                    this.RaisePropertyChanged("LateInValue");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LeaveApproverComment {
+            get {
+                return this.LeaveApproverCommentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LeaveApproverCommentField, value) != true)) {
+                    this.LeaveApproverCommentField = value;
+                    this.RaisePropertyChanged("LeaveApproverComment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LeaveEmployeeComment {
+            get {
+                return this.LeaveEmployeeCommentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LeaveEmployeeCommentField, value) != true)) {
+                    this.LeaveEmployeeCommentField = value;
+                    this.RaisePropertyChanged("LeaveEmployeeComment");
                 }
             }
         }
@@ -2141,6 +2326,45 @@ namespace NexFB.WindowsService.SynchronizeDataService {
                 if ((this.ModifiedDateField.Equals(value) != true)) {
                     this.ModifiedDateField = value;
                     this.RaisePropertyChanged("ModifiedDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> OutFixed {
+            get {
+                return this.OutFixedField;
+            }
+            set {
+                if ((this.OutFixedField.Equals(value) != true)) {
+                    this.OutFixedField = value;
+                    this.RaisePropertyChanged("OutFixed");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShiftName {
+            get {
+                return this.ShiftNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShiftNameField, value) != true)) {
+                    this.ShiftNameField = value;
+                    this.RaisePropertyChanged("ShiftName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> TotalWorkHours {
+            get {
+                return this.TotalWorkHoursField;
+            }
+            set {
+                if ((this.TotalWorkHoursField.Equals(value) != true)) {
+                    this.TotalWorkHoursField = value;
+                    this.RaisePropertyChanged("TotalWorkHours");
                 }
             }
         }
@@ -2206,6 +2430,256 @@ namespace NexFB.WindowsService.SynchronizeDataService {
                 if ((this.WorkingBelowTimeField.Equals(value) != true)) {
                     this.WorkingBelowTimeField = value;
                     this.RaisePropertyChanged("WorkingBelowTime");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EmployeeSupervisorModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.SerializableAttribute()]
+    public partial class EmployeeSupervisorModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte ActionTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EmpIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ModifiedDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrderCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<short> OrderNoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OwnerIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte RequestTypeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte ActionType {
+            get {
+                return this.ActionTypeField;
+            }
+            set {
+                if ((this.ActionTypeField.Equals(value) != true)) {
+                    this.ActionTypeField = value;
+                    this.RaisePropertyChanged("ActionType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EmpId {
+            get {
+                return this.EmpIdField;
+            }
+            set {
+                if ((this.EmpIdField.Equals(value) != true)) {
+                    this.EmpIdField = value;
+                    this.RaisePropertyChanged("EmpId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ModifiedDate {
+            get {
+                return this.ModifiedDateField;
+            }
+            set {
+                if ((this.ModifiedDateField.Equals(value) != true)) {
+                    this.ModifiedDateField = value;
+                    this.RaisePropertyChanged("ModifiedDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrderCode {
+            get {
+                return this.OrderCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrderCodeField, value) != true)) {
+                    this.OrderCodeField = value;
+                    this.RaisePropertyChanged("OrderCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<short> OrderNo {
+            get {
+                return this.OrderNoField;
+            }
+            set {
+                if ((this.OrderNoField.Equals(value) != true)) {
+                    this.OrderNoField = value;
+                    this.RaisePropertyChanged("OrderNo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OwnerId {
+            get {
+                return this.OwnerIdField;
+            }
+            set {
+                if ((this.OwnerIdField.Equals(value) != true)) {
+                    this.OwnerIdField = value;
+                    this.RaisePropertyChanged("OwnerId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte RequestType {
+            get {
+                return this.RequestTypeField;
+            }
+            set {
+                if ((this.RequestTypeField.Equals(value) != true)) {
+                    this.RequestTypeField = value;
+                    this.RaisePropertyChanged("RequestType");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GroupSupervisorModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.SerializableAttribute()]
+    public partial class GroupSupervisorModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte ActionTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int GroupIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ModifiedDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OwnerIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte RequestTypeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte ActionType {
+            get {
+                return this.ActionTypeField;
+            }
+            set {
+                if ((this.ActionTypeField.Equals(value) != true)) {
+                    this.ActionTypeField = value;
+                    this.RaisePropertyChanged("ActionType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int GroupId {
+            get {
+                return this.GroupIdField;
+            }
+            set {
+                if ((this.GroupIdField.Equals(value) != true)) {
+                    this.GroupIdField = value;
+                    this.RaisePropertyChanged("GroupId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ModifiedDate {
+            get {
+                return this.ModifiedDateField;
+            }
+            set {
+                if ((this.ModifiedDateField.Equals(value) != true)) {
+                    this.ModifiedDateField = value;
+                    this.RaisePropertyChanged("ModifiedDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OwnerId {
+            get {
+                return this.OwnerIdField;
+            }
+            set {
+                if ((this.OwnerIdField.Equals(value) != true)) {
+                    this.OwnerIdField = value;
+                    this.RaisePropertyChanged("OwnerId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte RequestType {
+            get {
+                return this.RequestTypeField;
+            }
+            set {
+                if ((this.RequestTypeField.Equals(value) != true)) {
+                    this.RequestTypeField = value;
+                    this.RaisePropertyChanged("RequestType");
                 }
             }
         }
@@ -2317,7 +2791,13 @@ namespace NexFB.WindowsService.SynchronizeDataService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendanceViolation", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeAttendanceViolationResponse" +
             "")]
-        NexFB.WindowsService.SynchronizeDataService.EmployeeAttendanceViolationModel[] GetEmployeeAttendanceViolation(System.Nullable<System.DateTime> fromDate);
+        NexFB.WindowsService.SynchronizeDataService.EmployeeAttendanceViolationModel[] GetEmployeeAttendanceViolation(System.DateTime fromDate, System.DateTime lastModifiedDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeSupervisor", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeSupervisorResponse")]
+        NexFB.WindowsService.SynchronizeDataService.EmployeeSupervisorModel[] GetEmployeeSupervisor(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetGroupSupervisor", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetGroupSupervisorResponse")]
+        NexFB.WindowsService.SynchronizeDataService.GroupSupervisorModel[] GetGroupSupervisor(System.Nullable<System.DateTime> fromDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetPhoto", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetPhotoResponse")]
         NexFB.WindowsService.SynchronizeDataService.PhotoModel[] GetPhoto(System.Nullable<System.DateTime> fromDate);
@@ -2393,8 +2873,16 @@ namespace NexFB.WindowsService.SynchronizeDataService {
             return base.Channel.GetEmployeeAttendance(fromDate);
         }
         
-        public NexFB.WindowsService.SynchronizeDataService.EmployeeAttendanceViolationModel[] GetEmployeeAttendanceViolation(System.Nullable<System.DateTime> fromDate) {
-            return base.Channel.GetEmployeeAttendanceViolation(fromDate);
+        public NexFB.WindowsService.SynchronizeDataService.EmployeeAttendanceViolationModel[] GetEmployeeAttendanceViolation(System.DateTime fromDate, System.DateTime lastModifiedDate) {
+            return base.Channel.GetEmployeeAttendanceViolation(fromDate, lastModifiedDate);
+        }
+        
+        public NexFB.WindowsService.SynchronizeDataService.EmployeeSupervisorModel[] GetEmployeeSupervisor(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetEmployeeSupervisor(fromDate);
+        }
+        
+        public NexFB.WindowsService.SynchronizeDataService.GroupSupervisorModel[] GetGroupSupervisor(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetGroupSupervisor(fromDate);
         }
         
         public NexFB.WindowsService.SynchronizeDataService.PhotoModel[] GetPhoto(System.Nullable<System.DateTime> fromDate) {

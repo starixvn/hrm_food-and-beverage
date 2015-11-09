@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="IHWOgr9QxnoHhZPY9IHTTFGJ+Hc=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="/mYQTjPA3/5N81TAvQ+gtfW44EA=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_ISynchronizeDataService">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_ISynchronizeDataService" contract="SynchronizeDataService.ISynchronizeDataService" bindingType="basicHttpBinding" address="http://cp0081-quinn.spvn.local:8687/Service.svc" bindingConfiguration="BasicHttpBinding_ISynchronizeDataService">
+    <endpoint name="BasicHttpBinding_ISynchronizeDataService" contract="SynchronizeDataService.ISynchronizeDataService" bindingType="basicHttpBinding" address="http://internal.spvn.local:8686/Service.svc" bindingConfiguration="BasicHttpBinding_ISynchronizeDataService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://cp0081-quinn.spvn.local:8687/Service.svc</serializedValue>
+          <serializedValue>http://internal.spvn.local:8686/Service.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

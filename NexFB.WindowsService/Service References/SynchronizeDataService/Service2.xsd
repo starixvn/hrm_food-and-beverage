@@ -227,10 +227,24 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Absent" type="xs:int" />
       <xs:element minOccurs="0" name="ChangeShift" type="xs:int" />
+      <xs:element minOccurs="0" name="ChangeShiftApproverComment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ChangeShiftEmployeeComment" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EarlyOut" type="xs:int" />
+      <xs:element minOccurs="0" name="EarlyOutApproverComment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EarlyOutEmployeeComment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EarlyOutValue" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="InFixed" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="LateIn" type="xs:int" />
+      <xs:element minOccurs="0" name="LateInApproverComment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LateInEmployeeComment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LateInValue" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="LeaveApproverComment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LeaveEmployeeComment" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MissingCheckInOut" type="xs:int" />
       <xs:element minOccurs="0" name="ModifiedDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OutFixed" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ShiftName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalWorkHours" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="UnpaidLeave" type="xs:double" />
       <xs:element minOccurs="0" name="UnpaidLeaveAbsent" type="xs:int" />
       <xs:element minOccurs="0" name="UserId" type="xs:int" />
@@ -239,6 +253,40 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="EmployeeAttendanceViolationModel" nillable="true" type="tns:EmployeeAttendanceViolationModel" />
+  <xs:complexType name="ArrayOfEmployeeSupervisorModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EmployeeSupervisorModel" nillable="true" type="tns:EmployeeSupervisorModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEmployeeSupervisorModel" nillable="true" type="tns:ArrayOfEmployeeSupervisorModel" />
+  <xs:complexType name="EmployeeSupervisorModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="EmpId" type="xs:int" />
+      <xs:element minOccurs="0" name="ModifiedDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OrderCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderNo" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="OwnerId" type="xs:int" />
+      <xs:element minOccurs="0" name="RequestType" type="xs:unsignedByte" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EmployeeSupervisorModel" nillable="true" type="tns:EmployeeSupervisorModel" />
+  <xs:complexType name="ArrayOfGroupSupervisorModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GroupSupervisorModel" nillable="true" type="tns:GroupSupervisorModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGroupSupervisorModel" nillable="true" type="tns:ArrayOfGroupSupervisorModel" />
+  <xs:complexType name="GroupSupervisorModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="GroupId" type="xs:int" />
+      <xs:element minOccurs="0" name="ModifiedDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OwnerId" type="xs:int" />
+      <xs:element minOccurs="0" name="RequestType" type="xs:unsignedByte" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GroupSupervisorModel" nillable="true" type="tns:GroupSupervisorModel" />
   <xs:complexType name="ArrayOfPhotoModel">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="PhotoModel" nillable="true" type="tns:PhotoModel" />

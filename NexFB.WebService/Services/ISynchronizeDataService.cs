@@ -48,7 +48,13 @@ namespace NexFB.WebService.Services
         IEnumerable<EmployeeAttendanceModel> GetEmployeeAttendance(DateTime? fromDate);
 
         [OperationContract]
-        IEnumerable<EmployeeAttendanceViolationModel> GetEmployeeAttendanceViolation(DateTime? fromDate);
+        IEnumerable<EmployeeAttendanceViolationModel> GetEmployeeAttendanceViolation(DateTime fromDate, DateTime lastModifiedDate);
+
+        [OperationContract]
+        IEnumerable<EmployeeSupervisorModel> GetEmployeeSupervisor(DateTime? fromDate);
+
+        [OperationContract]
+        IEnumerable<GroupSupervisorModel> GetGroupSupervisor(DateTime? fromDate);
 
         [OperationContract]
         IList<PhotoModel> GetPhoto(DateTime? fromDate);

@@ -216,8 +216,9 @@ namespace NexFB.WindowsService
         public CommandResult UpdateEmployeeAttendanceViolation()
         {
             CommandResult result = null;
-            DateTime fromDate = GetMaxModifiedDateAttendanceViolation();
-            IList<EmployeeAttendanceViolationModel> violations = SynchronizeDataService.GetEmployeeAttendanceViolation(fromDate);
+            DateTime lastModifiedDate = GetMaxModifiedDateAttendanceViolation();
+            DateTime fromDate = GetFromDateAttendanceViolation();
+            IList<EmployeeAttendanceViolationModel> violations = SynchronizeDataService.GetEmployeeAttendanceViolation(fromDate, lastModifiedDate);
             if (violations != null && violations.Any())
             {
                 var criteria = new InsertAndUpdateAttendanceViolationCriteria()
@@ -231,9 +232,45 @@ namespace NexFB.WindowsService
             return result;
         }
 
+        public CommandResult UpdateEmployeeSupervisor()
+        {
+            CommandResult result = null;
+            DateTime fromDate = GetMaxModifiedDateEmployeeSupervisor();
+            IList<EmployeeSupervisorModel> supervisors = SynchronizeDataService.GetEmployeeSupervisor(fromDate);
+            if (supervisors != null && supervisors.Any())
+            {
+                var criteria = new InsertAndUpdateEmployeeSupervisorCriteria()
+                {
+                    Supervisors = supervisors
+                };
+
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
+        public CommandResult UpdateGroupSupervisor()
+        {
+            CommandResult result = null;
+            DateTime fromDate = GetMaxModifiedDateGroupSupervisor();
+            IList<GroupSupervisorModel> supervisors = SynchronizeDataService.GetGroupSupervisor(fromDate);
+            if (supervisors != null && supervisors.Any())
+            {
+                var criteria = new InsertAndUpdateGroupSupervisorCriteria()
+                {
+                    Supervisors = supervisors
+                };
+
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
         public void UpdatePhoto()
         {
-            string photoPath = ConfigurationManager.AppSettings["PhotoPathSMS"];
+            string photoPath = ConfigurationManager.AppSettings["PhotoPathSMSEPA"];
             DateTime lastModifiedDate = GetMaxModifiedDatePhoto(photoPath);
             IList<PhotoModel> photos = SynchronizeDataService.GetPhoto(lastModifiedDate);
 
@@ -304,6 +341,30 @@ namespace NexFB.WindowsService
         public DateTime GetMaxModifiedDateAttendanceViolation()
         {
             var criteria = new GetMaxModifiedDateForAttendanceViolationCriteria();
+
+            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
+            return fromDate;
+        }
+
+        public DateTime GetFromDateAttendanceViolation()
+        {
+            var criteria = new GetFromDateForAttendanceViolationCriteria();
+
+            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
+            return fromDate;
+        }
+
+        public DateTime GetMaxModifiedDateEmployeeSupervisor()
+        {
+            var criteria = new GetMaxModifiedDateForEmployeeSupervisorCriteria();
+
+            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
+            return fromDate;
+        }
+
+        public DateTime GetMaxModifiedDateGroupSupervisor()
+        {
+            var criteria = new GetMaxModifiedDateForGroupSupervisorCriteria();
 
             DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
             return fromDate;
