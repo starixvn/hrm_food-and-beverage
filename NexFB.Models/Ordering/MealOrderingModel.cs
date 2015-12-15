@@ -51,6 +51,8 @@ namespace NexFB.Models.Ordering
 
         public bool RawIsAllowOrder { get; set; }
 
+        public bool IsOrder { get; set; }
+
         public string Remark { get; set; }
 
         public string OrderFrom { get; set; }

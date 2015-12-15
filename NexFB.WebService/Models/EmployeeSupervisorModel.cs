@@ -35,5 +35,8 @@ namespace NexFB.WebService.Models
 
         [DataMember]
         public string OrderCode { get; set; }
+
+        [DataMember]
+        public bool IsDeleted { get; set; }
     }
 }

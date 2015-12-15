@@ -221,7 +221,7 @@ namespace NexFB.Repositories.Implement
                         order.CurrentMenus.Add(m);
                         var memberOrder = new OrderMemberModel()
                         {
-                            IsOrder = od.RawIsAllowOrder,
+                            IsOrder = od.RawIsAllowOrder ? od.IsOrder : false,
                             Member = e,
                             CurrentStatus = s,
                             IsAllowOrder = od.RawIsAllowOrder

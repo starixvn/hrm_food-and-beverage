@@ -19,7 +19,7 @@ namespace NexFB.WindowsService.Criteria
     public class InsertAndUpdateEmployeeSupervisorCriteria : CriteriaBase
     {
         private const string _SupervisorTpl =
-            "<Supervisor OwnerId='{0}' EmpId='{1}' ActionType='{2}' RequestType='{3}' ModifiedDate='{4}' OrderNo='{5}' OrderCode='{6}'></Supervisor>";
+            "<Supervisor OwnerId='{0}' EmpId='{1}' ActionType='{2}' RequestType='{3}' ModifiedDate='{4}' OrderNo='{5}' OrderCode='{6}' IsDeleted='{7}'></Supervisor>";
 
         [SpParam(Ignored = true)]
         public IList<EmployeeSupervisorModel> Supervisors { get; set; }
@@ -42,7 +42,8 @@ namespace NexFB.WindowsService.Criteria
                             supervisor.RequestType,
                             supervisor.ModifiedDate,
                             supervisor.OrderNo,
-                            HttpUtility.HtmlEncode(supervisor.OrderCode));
+                            HttpUtility.HtmlEncode(supervisor.OrderCode),
+                            supervisor.IsDeleted);
                     }
                 }
 

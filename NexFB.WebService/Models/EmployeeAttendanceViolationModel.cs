@@ -89,5 +89,14 @@ namespace NexFB.WebService.Models
 
         [DataMember]
         public string LeaveEmployeeComment { get; set; }
+
+        [DataMember]
+        public string InOutMissApproverComment { get; set; }
+
+        [DataMember]
+        public string InOutMissEmployeeComment { get; set; }
+
+        [DataMember]
+        public bool IsDeleted { get; set; }
     }
 }

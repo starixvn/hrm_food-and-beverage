@@ -33,30 +33,30 @@ namespace NexFB.WindowsService
             ServiceBase.Run(servicesToRun);
         }
 
-        ////public static void Main()
-        ////{
-        ////    DbSettingProviderManager.Current.Start();
-        ////    var service = new SynchronizeEmployeeService();
+        //public static void Main()
+        //{
+        //    DbSettingProviderManager.Current.Start();
+        //    var service = new CommonService();
 
-        ////    service.UpdateDepartment();
-        ////    service.UpdateEmployeeAttendanceViolation();
-        ////    service.UpdateEmployeeSupervisor();
-        ////    service.UpdateGroupSupervisor();
-        ////    service.UpdateUser();
-        ////    service.UpdateShift();
+        //    //service.UpdateDepartment();
+        //    //service.UpdateEmployeeAttendanceViolation();
+        //    //service.UpdateEmployeeSupervisor();
+        //    //service.UpdateGroupSupervisor();
+        //    //service.UpdateUser();
+        //    //service.UpdateShift();
 
-        ////    service.UpdateJobTitle();
-        ////    service.UpdateLeaveType();
-        ////    service.UpdateEmployeeCalendar();
-        ////    service.UpdateEmployeeRequestHistory();
-        ////    service.UpdateEmployeeRequest();
-        ////    service.UpdateEmployeeAttendance();
-        ////    service.UpdatePhoto();
+        //    //service.UpdateJobTitle();
+        //    //service.UpdateLeaveType();
+        //    //service.UpdateEmployeeCalendar();
+        //    //service.UpdateEmployeeRequestHistory();
+        //    //service.UpdateEmployeeRequest();
+        //    //service.UpdateEmployeeAttendance();
+        //    //service.UpdatePhoto();
 
-        ////    var x = Fanex.Common.Cryptography.CfsEnCrypt("hrmlogin");
+        //    service.UpdateEmployeeCalendarForNexcel();
 
-        ////    Console.WriteLine("OK");
-        ////    Console.ReadLine();
-        ////}
+        //    Console.WriteLine("OK");
+        //    Console.ReadLine();
+        //}
     }
 }

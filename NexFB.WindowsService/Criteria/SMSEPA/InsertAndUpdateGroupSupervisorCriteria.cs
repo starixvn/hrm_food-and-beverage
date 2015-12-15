@@ -19,7 +19,7 @@ namespace NexFB.WindowsService.Criteria
     public class InsertAndUpdateGroupSupervisorCriteria : CriteriaBase
     {
         private const string _SupervisorTpl =
-            "<Supervisor OwnerId='{0}' GroupId='{1}' ActionType='{2}' RequestType='{3}' ModifiedDate='{4}'></Supervisor>";
+            "<Supervisor OwnerId='{0}' GroupId='{1}' ActionType='{2}' RequestType='{3}' ModifiedDate='{4}' IsDeleted='{5}'></Supervisor>";
 
         [SpParam(Ignored = true)]
         public IList<GroupSupervisorModel> Supervisors { get; set; }
@@ -40,7 +40,8 @@ namespace NexFB.WindowsService.Criteria
                             supervisor.GroupId,
                             supervisor.ActionType,
                             supervisor.RequestType,
-                            supervisor.ModifiedDate);
+                            supervisor.ModifiedDate,
+                            supervisor.IsDeleted);
                     }
                 }
 

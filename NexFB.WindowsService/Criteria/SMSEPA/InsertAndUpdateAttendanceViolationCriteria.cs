@@ -23,7 +23,7 @@ namespace NexFB.WindowsService.Criteria
             + " Absent='{7}' UnpaidLeaveAbsent='{8}' UnpaidLeave='{9}' ShiftName='{10}' InFixed='{11}' OutFixed='{12}'"
             + " LateInValue='{13}' EarlyOutValue='{14}' TotalWorkHours='{15}' LateInApproverComment='{16}' LateInEmployeeComment='{17}'"
             + " EarlyOutApproverComment='{18}' EarlyOutEmployeeComment='{19}' ChangeShiftApproverComment='{20}' ChangeShiftEmployeeComment='{21}'"
-            + " LeaveApproverComment='{22}' LeaveEmployeeComment='{23}' ModifiedDate='{24}'></Violation>";
+            + " LeaveApproverComment='{22}' LeaveEmployeeComment='{23}' InOutMissApproverComment='{24}' InOutMissEmployeeComment='{25}' ModifiedDate='{26}' IsDeleted='{27}'></Violation>";
 
         [SpParam(Ignored = true)]
         public IList<EmployeeAttendanceViolationModel> AttendanceViolations { get; set; }
@@ -64,7 +64,10 @@ namespace NexFB.WindowsService.Criteria
                             HttpUtility.HtmlEncode(violation.ChangeShiftEmployeeComment),
                             HttpUtility.HtmlEncode(violation.LeaveApproverComment),
                             HttpUtility.HtmlEncode(violation.LeaveEmployeeComment),
-                            violation.ModifiedDate);
+                            HttpUtility.HtmlEncode(violation.InOutMissApproverComment),
+                            HttpUtility.HtmlEncode(violation.InOutMissEmployeeComment),
+                            violation.ModifiedDate,
+                            violation.IsDeleted);
                     }
                 }
 

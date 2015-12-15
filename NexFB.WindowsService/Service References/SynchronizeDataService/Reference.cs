@@ -2052,6 +2052,15 @@ namespace NexFB.WindowsService.SynchronizeDataService {
         private System.Nullable<System.DateTime> InFixedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string InOutMissApproverCommentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string InOutMissEmployeeCommentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsDeletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int LateInField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2222,6 +2231,45 @@ namespace NexFB.WindowsService.SynchronizeDataService {
                 if ((this.InFixedField.Equals(value) != true)) {
                     this.InFixedField = value;
                     this.RaisePropertyChanged("InFixed");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string InOutMissApproverComment {
+            get {
+                return this.InOutMissApproverCommentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.InOutMissApproverCommentField, value) != true)) {
+                    this.InOutMissApproverCommentField = value;
+                    this.RaisePropertyChanged("InOutMissApproverComment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string InOutMissEmployeeComment {
+            get {
+                return this.InOutMissEmployeeCommentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.InOutMissEmployeeCommentField, value) != true)) {
+                    this.InOutMissEmployeeCommentField = value;
+                    this.RaisePropertyChanged("InOutMissEmployeeComment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsDeleted {
+            get {
+                return this.IsDeletedField;
+            }
+            set {
+                if ((this.IsDeletedField.Equals(value) != true)) {
+                    this.IsDeletedField = value;
+                    this.RaisePropertyChanged("IsDeleted");
                 }
             }
         }
@@ -2460,6 +2508,9 @@ namespace NexFB.WindowsService.SynchronizeDataService {
         private int EmpIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsDeletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<System.DateTime> ModifiedDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2506,6 +2557,19 @@ namespace NexFB.WindowsService.SynchronizeDataService {
                 if ((this.EmpIdField.Equals(value) != true)) {
                     this.EmpIdField = value;
                     this.RaisePropertyChanged("EmpId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsDeleted {
+            get {
+                return this.IsDeletedField;
+            }
+            set {
+                if ((this.IsDeletedField.Equals(value) != true)) {
+                    this.IsDeletedField = value;
+                    this.RaisePropertyChanged("IsDeleted");
                 }
             }
         }
@@ -2601,6 +2665,9 @@ namespace NexFB.WindowsService.SynchronizeDataService {
         private int GroupIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsDeletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<System.DateTime> ModifiedDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2641,6 +2708,19 @@ namespace NexFB.WindowsService.SynchronizeDataService {
                 if ((this.GroupIdField.Equals(value) != true)) {
                     this.GroupIdField = value;
                     this.RaisePropertyChanged("GroupId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsDeleted {
+            get {
+                return this.IsDeletedField;
+            }
+            set {
+                if ((this.IsDeletedField.Equals(value) != true)) {
+                    this.IsDeletedField = value;
+                    this.RaisePropertyChanged("IsDeleted");
                 }
             }
         }

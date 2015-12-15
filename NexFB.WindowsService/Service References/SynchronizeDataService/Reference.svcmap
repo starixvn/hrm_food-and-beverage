@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4343ca44-3780-47f7-aaf3-601b79dbee27" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8bc53d47-3b9e-469b-b81d-9adfdf243f60" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -21,11 +21,11 @@
     <MetadataSource Address="http://internal.spvn.local:8686/Service.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Service.disco" MetadataType="Disco" ID="fb4a64ca-60dc-4b1d-a9ba-21fe44f9212f" SourceId="1" SourceUrl="http://internal.spvn.local:8686/Service.svc?disco" />
-    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="62b95385-32a4-4d9c-8e3c-f5d4efd4f6fe" SourceId="1" SourceUrl="http://internal.spvn.local:8686/Service.svc?xsd=xsd0" />
-    <MetadataFile FileName="SynchronizeDataService.wsdl" MetadataType="Wsdl" ID="4b7b62b8-13c0-4f17-b1f0-c6769d487001" SourceId="1" SourceUrl="http://internal.spvn.local:8686/Service.svc?wsdl" />
-    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="b17e0774-d832-465b-95df-ff4a4174f171" SourceId="1" SourceUrl="http://internal.spvn.local:8686/Service.svc?xsd=xsd1" />
-    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="d95e04e5-5f32-44ac-889c-8afa46f8583b" SourceId="1" SourceUrl="http://internal.spvn.local:8686/Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="Service.disco" MetadataType="Disco" ID="22ef8717-fb9b-4c27-b69c-0ab6c3b91b39" SourceId="1" SourceUrl="http://internal.spvn.local:8686/Service.svc?disco" />
+    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="1ac45b95-5cc3-43ed-8a73-666b85bff5f2" SourceId="1" SourceUrl="http://internal.spvn.local:8686/Service.svc?xsd=xsd0" />
+    <MetadataFile FileName="SynchronizeDataService.wsdl" MetadataType="Wsdl" ID="0053df1e-b8f3-418f-b7a7-a4be280750b9" SourceId="1" SourceUrl="http://internal.spvn.local:8686/Service.svc?wsdl" />
+    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="aeb12e91-95fe-469d-b9dd-73bb6f7b67ea" SourceId="1" SourceUrl="http://internal.spvn.local:8686/Service.svc?xsd=xsd1" />
+    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="53e98599-e33c-45c1-8321-19ad218afcfb" SourceId="1" SourceUrl="http://internal.spvn.local:8686/Service.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -43,14 +43,14 @@ namespace NexFB.WindowsService.Criteria
                         value.AppendFormat(
                             _EmployeeCalendarTpl,
                             calendar.UserId,
-                            calendar.WorkDate,
+                            calendar.WorkDate.ToShortDateString(),
                             this.DepartmentId,
                             calendar.ShiftId,
                             calendar.IsHoliday,
                             calendar.IsOffDay,
                             calendar.IsLeaveDay,
                             calendar.LeaveTypeId,
-                            calendar.LeaveDay,
+                            calendar.LeaveDay.HasValue ? calendar.LeaveDay.Value : 0,
                             calendar.ModifiedDate);
                     }
                 }

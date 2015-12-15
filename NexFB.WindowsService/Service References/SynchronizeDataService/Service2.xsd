@@ -234,6 +234,9 @@
       <xs:element minOccurs="0" name="EarlyOutEmployeeComment" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EarlyOutValue" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="InFixed" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="InOutMissApproverComment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InOutMissEmployeeComment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
       <xs:element minOccurs="0" name="LateIn" type="xs:int" />
       <xs:element minOccurs="0" name="LateInApproverComment" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="LateInEmployeeComment" nillable="true" type="xs:string" />
@@ -263,6 +266,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="ActionType" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="EmpId" type="xs:int" />
+      <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
       <xs:element minOccurs="0" name="ModifiedDate" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="OrderCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OrderNo" nillable="true" type="xs:short" />
@@ -281,6 +285,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="ActionType" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="GroupId" type="xs:int" />
+      <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
       <xs:element minOccurs="0" name="ModifiedDate" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="OwnerId" type="xs:int" />
       <xs:element minOccurs="0" name="RequestType" type="xs:unsignedByte" />

@@ -29,5 +29,8 @@ namespace NexFB.WebService.Models
 
         [DataMember]
         public DateTime? ModifiedDate { get; set; }
+
+        [DataMember]
+        public bool IsDeleted { get; set; }
     }
 }
