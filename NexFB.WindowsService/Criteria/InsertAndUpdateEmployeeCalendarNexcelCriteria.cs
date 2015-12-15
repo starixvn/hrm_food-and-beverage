@@ -50,7 +50,7 @@ namespace NexFB.WindowsService.Criteria
                             calendar.IsOffDay,
                             calendar.IsLeaveDay,
                             calendar.LeaveTypeId,
-                            calendar.LeaveDay.HasValue ? calendar.LeaveDay.Value: 0,
+                            calendar.LeaveDay.HasValue ? calendar.LeaveDay.Value : 0,
                             calendar.ModifiedDate);
                     }
                 }
