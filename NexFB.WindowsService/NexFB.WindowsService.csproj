@@ -112,24 +112,6 @@
       <DependentUpon>AutoService.cs</DependentUpon>
     </Compile>
     <Compile Include="CommonService.cs" />
-    <Compile Include="Criteria\SMSEPA\GetFromDateForAttendanceViolationCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\InsertAndUpdateGroupSupervisorCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\InsertAndUpdateEmployeeSupervisorCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForGroupSupervisorCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForEmployeeSupervisorCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\InsertAndUpdateAttendanceViolationCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForAttendanceViolationCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\InsertAndUpdateRequestHistoryCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForRequestHistoryCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\InsertAndUpdateAttendanceCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\InsertAndUpdateRequestCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\InsertAndUpdateLeaveTypeCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\InsertAndUpdateJobTitleCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\InsertAndUpdateDepartmentCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForAttendanceCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForDepartmentCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForRequestCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForShiftCriteria.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Service References\HongMaService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -146,12 +128,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\SynchronizeDataService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="SynchronizeEmployeeService.cs" />
     <Compile Include="Criteria\InsertAndUpdateEmployeeCalendarSMSCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateEmployeeCalendarHMCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateShiftSMSCriteria.cs" />
@@ -167,13 +143,6 @@
     <Compile Include="Criteria\InsertAndUpdateTeamNexcelCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateUserHMCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateUserNexcelCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForCalendarCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForTeamCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\GetMaxModifiedDateForUserCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\InsertAndUpdateEmployeeCalendarCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\InsertAndUpdateShiftCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\InsertAndUpdateTeamCriteria.cs" />
-    <Compile Include="Criteria\SMSEPA\InsertAndUpdateUserCriteria.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
@@ -346,58 +315,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\SMSService\SynchronizeDataService.wsdl" />
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.DepartmentModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.EmployeeAttendanceModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.EmployeeAttendanceViolationModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.EmployeeCalendarModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.EmployeeRequestHistoryModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.EmployeeRequestModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.EmployeeSupervisorModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.GroupSupervisorModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.JobTitleModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.LeaveTypeModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.PhotoModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.ShiftModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.TeamModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\NexFB.WindowsService.SynchronizeDataService.UserModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SynchronizeDataService\Service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SynchronizeDataService\Service1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SynchronizeDataService\Service2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SynchronizeDataService\SynchronizeDataService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -457,13 +374,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\SynchronizeDataService\Service.disco" />
-    <None Include="Service References\SynchronizeDataService\configuration91.svcinfo" />
-    <None Include="Service References\SynchronizeDataService\configuration.svcinfo" />
-    <None Include="Service References\SynchronizeDataService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="SpName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -476,7 +386,6 @@
     <WCFMetadataStorage Include="Service References\HongMaService\" />
     <WCFMetadataStorage Include="Service References\NexcelService\" />
     <WCFMetadataStorage Include="Service References\SMSService\" />
-    <WCFMetadataStorage Include="Service References\SynchronizeDataService\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,25 +1,16 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SynchronizeDataService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2015.8.28">Created</change>
-// </history>
-
-namespace NexFB.WebService.Services
+﻿namespace NexFB.WebService.Services
 {
+    using Fanex.Data.Configuration;
+    using NexFB.Core.Services;
+    using NexFB.WebService.Criteria;
+    using NexFB.WebService.Models;
+    using NexFB.WebService.Translator;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.IO;
     using System.Linq;
     using System.ServiceModel;
-    using Fanex.Data.Configuration;
-    using NexFB.Core.Services;
-    using NexFB.WebService.Criteria;
-    using NexFB.WebService.Models;
-    using NexFB.WebService.Translator;
 
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class SynchronizeDataService : BaseService, ISynchronizeDataService
@@ -64,22 +55,6 @@ namespace NexFB.WebService.Services
             return teams;
         }
 
-        public IEnumerable<DepartmentModel> GetDepartment(DateTime? fromDate)
-        {
-            IEnumerable<DepartmentModel> departments = null;
-            var criteria = new GetDepartmentCriteria()
-            {
-                FromDate = fromDate
-            };
-
-            if (criteria.IsValid())
-            {
-                departments = GetData<DepartmentModel>(criteria);
-            }
-
-            return departments;
-        }
-
         public IEnumerable<ShiftModel> GetShift()
         {
             IEnumerable<ShiftModel> shifts = null;
@@ -91,32 +66,6 @@ namespace NexFB.WebService.Services
             }
 
             return shifts;
-        }
-
-        public IEnumerable<LeaveTypeModel> GetLeaveType()
-        {
-            IEnumerable<LeaveTypeModel> leaveTypes = null;
-            var criteria = new GetLeaveTypeCriteria();
-
-            if (criteria.IsValid())
-            {
-                leaveTypes = GetData<LeaveTypeModel>(criteria);
-            }
-
-            return leaveTypes;
-        }
-
-        public IEnumerable<JobTitleModel> GetJobTitle()
-        {
-            IEnumerable<JobTitleModel> jobTitles = null;
-            var criteria = new GetJobTitleCriteria();
-
-            if (criteria.IsValid())
-            {
-                jobTitles = GetData<JobTitleModel>(criteria);
-            }
-
-            return jobTitles;
         }
 
         public IEnumerable<EmployeeCalendarModel> GetEmployeeCalendar(DateTime? fromDate)
@@ -133,103 +82,6 @@ namespace NexFB.WebService.Services
             }
 
             return calendars;
-        }
-
-        public IEnumerable<EmployeeRequestModel> GetEmployeeRequest(DateTime? fromDate)
-        {
-            IEnumerable<EmployeeRequestModel> requests = null;
-            var criteria = new GetEmployeeRequestCriteria()
-            {
-                FromDate = fromDate
-            };
-
-            if (criteria.IsValid())
-            {
-                requests = GetData<EmployeeRequestModel>(criteria);
-            }
-
-            return requests;
-        }
-
-        public IEnumerable<EmployeeRequestHistoryModel> GetEmployeeRequestHistory(DateTime? fromDate)
-        {
-            IEnumerable<EmployeeRequestHistoryModel> requests = null;
-            var criteria = new GetEmployeeRequestHistoryCriteria()
-            {
-                FromDate = fromDate
-            };
-
-            if (criteria.IsValid())
-            {
-                requests = GetData<EmployeeRequestHistoryModel>(criteria);
-            }
-
-            return requests;
-        }
-
-        public IEnumerable<EmployeeAttendanceModel> GetEmployeeAttendance(DateTime? fromDate)
-        {
-            IEnumerable<EmployeeAttendanceModel> attendances = null;
-            var criteria = new GetEmployeeAttendanceCriteria()
-            {
-                FromDate = fromDate
-            };
-
-            if (criteria.IsValid())
-            {
-                attendances = GetData<EmployeeAttendanceModel>(criteria);
-            }
-
-            return attendances;
-        }
-
-        public IEnumerable<EmployeeAttendanceViolationModel> GetEmployeeAttendanceViolation(DateTime fromDate, DateTime lastModifiedDate)
-        {
-            IEnumerable<EmployeeAttendanceViolationModel> attendances = null;
-            var criteria = new GetEmployeeAttendanceViolationCriteria()
-            {
-                FromDate = fromDate,
-                LastModifiedDate = lastModifiedDate
-            };
-
-            if (criteria.IsValid())
-            {
-                attendances = GetData<EmployeeAttendanceViolationModel>(criteria);
-            }
-
-            return attendances;
-        }
-
-        public IEnumerable<EmployeeSupervisorModel> GetEmployeeSupervisor(DateTime? fromDate)
-        {
-            IEnumerable<EmployeeSupervisorModel> supervisors = null;
-            var criteria = new GetEmployeeSupervisorCriteria()
-            {
-                FromDate = fromDate
-            };
-
-            if (criteria.IsValid())
-            {
-                supervisors = GetData<EmployeeSupervisorModel>(criteria);
-            }
-
-            return supervisors;
-        }
-
-        public IEnumerable<GroupSupervisorModel> GetGroupSupervisor(DateTime? fromDate)
-        {
-            IEnumerable<GroupSupervisorModel> supervisors = null;
-            var criteria = new GetGroupSupervisorCriteria()
-            {
-                FromDate = fromDate
-            };
-
-            if (criteria.IsValid())
-            {
-                supervisors = GetData<GroupSupervisorModel>(criteria);
-            }
-
-            return supervisors;
         }
 
         public IList<PhotoModel> GetPhoto(DateTime? fromDate)

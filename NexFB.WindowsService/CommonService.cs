@@ -19,7 +19,6 @@ namespace NexFB.WindowsService
     using NexFB.Core.Models;
     using NexFB.Core.Services;
     using NexFB.WindowsService.Criteria;
-    using NexFB.WindowsService.SynchronizeDataService;
 
     /// <summary>
     /// Common Service.
