@@ -68,7 +68,6 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Criteria\GetJobTitleCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeCalendarCriteria.cs" />
     <Compile Include="Criteria\GetShiftCriteria.cs" />
     <Compile Include="Criteria\GetEmployeeCriteria.cs" />
@@ -100,6 +99,7 @@
     <Content Include="Service.svc" />
     <Content Include="SpName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

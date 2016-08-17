@@ -9,5 +9,8 @@
     </Setting>
     <Setting Key="EmployeeCalendar_Get" SpName="EmployeeCalendar_Get" DbName="nexhr" Plain="0" >
     </Setting>
+    <Setting Key="Employee_GetLastModifiedDate" SpName="Employee_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
+    <Setting Key="EmpTeam_GetLastModifiedDate" SpName="EmpTeam_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
+    <Setting Key="EmpCalendar_GetLastModifiedDate" SpName="EmpCalendar_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
   </Function>
 </Functions>

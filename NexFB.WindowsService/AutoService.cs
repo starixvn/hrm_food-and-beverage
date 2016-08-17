@@ -62,71 +62,87 @@
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void ExecuteJob(object sender, ElapsedEventArgs e)
         {
-            try
+            if (!_isBusy)
             {
-                if (!_isBusy)
-                {
-                    _isBusy = true;
+                _isBusy = true;
 
-                    UpdateInfoForNexcel();
-                    UpdateInfoForHM();
-                    UpdateInfoForSMS();
+                UpdateInfoForNexcel();
+                UpdateInfoForHM();
+                UpdateInfoForSMS();
 
-                    _isBusy = false;
-                }
-            }
-            catch (Exception ex)
-            {
                 _isBusy = false;
-                _LOG.Error("Error: " + ex.InnerException.Message);
             }
         }
 
         private void UpdateInfoForNexcel()
         {
-            if (EnableNexcel)
+            try
             {
-                UpdateTeamNexcel();
-                UpdateUserNexcel();
-                UpdateShiftNexcel();
-                UpdateCalendarNexcel();
-            }
+                if (EnableNexcel)
+                {
+                    UpdateTeamNexcel();
+                    UpdateUserNexcel();
+                    UpdateShiftNexcel();
+                    UpdateCalendarNexcel();
+                }
 
-            if (IsTransferPhotoNexcel)
+                if (IsTransferPhotoNexcel)
+                {
+                    UpdatePhotoNexcel();
+                }
+            }
+            catch (Exception ex)
             {
-                UpdatePhotoNexcel();
+                _isBusy = false;
+                _LOG.Error("Error Nexcel: " + ex.InnerException.Message);
             }
         }
 
         private void UpdateInfoForHM()
         {
-            if (EnableHongMA)
+            try
             {
-                UpdateTeamHM();
-                UpdateUserHM();
-                UpdateShiftHM();
-                UpdateCalendarHM();
-            }
+                if (EnableHongMA)
+                {
+                    UpdateTeamHM();
+                    UpdateUserHM();
+                    UpdateShiftHM();
+                    UpdateCalendarHM();
+                }
 
-            if (IsTransferPhotoHongMA)
+                if (IsTransferPhotoHongMA)
+                {
+                    UpdatePhotoHM();
+                }
+            }
+            catch (Exception ex)
             {
-                UpdatePhotoHM();
+                _isBusy = false;
+                _LOG.Error("Error Nexcel: " + ex.InnerException.Message);
             }
         }
 
         private void UpdateInfoForSMS()
         {
-            if (EnableSms)
+            try
             {
-                UpdateTeamSMS();
-                UpdateUserSMS();
-                UpdateShiftSMS();
-                UpdateCalendarSMS();
-            }
+                if (EnableSms)
+                {
+                    UpdateTeamSMS();
+                    UpdateUserSMS();
+                    UpdateShiftSMS();
+                    UpdateCalendarSMS();
+                }
 
-            if (IsTransferPhotoSms)
+                if (IsTransferPhotoSms)
+                {
+                    UpdatePhotoSMS();
+                }
+            }
+            catch (Exception ex)
             {
-                UpdatePhotoSMS();
+                _isBusy = false;
+                _LOG.Error("Error Nexcel: " + ex.InnerException.Message);
             }
         }
 
