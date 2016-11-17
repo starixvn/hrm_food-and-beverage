@@ -185,7 +185,7 @@ namespace NexFB.WinAppSmartCard.SmartCardHelper
         /// </summary>
         /// <param name="sender">Object sender.</param>
         /// <param name="e">Do work event.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private void WaitChangeStatus(object sender, DoWorkEventArgs e)
         {
             while (!e.Cancel)

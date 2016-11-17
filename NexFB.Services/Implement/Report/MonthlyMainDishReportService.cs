@@ -315,8 +315,7 @@ namespace NexFB.Services.Implement.Report
         /// <param name="mealItems">The list meal items.</param>
         /// <param name="rowIndex">The row index.</param>
         /// <returns>The enumerator object.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private IEnumerable<object> CreateMealGroupByEmployee(List<MealItemMonthModel> mealItems, ref int rowIndex)
         {
             IList<object> records = new List<object>();
@@ -380,8 +379,7 @@ namespace NexFB.Services.Implement.Report
         /// <param name="mealItems">The list meal items.</param>
         /// <param name="rowIndex">The row index.</param>
         /// <returns>The enumerator object.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private IEnumerable<object> CreateMealGroupByDepartment(List<MealItemMonthModel> mealItems, ref int rowIndex)
         {
             IList<object> records = new List<object>();

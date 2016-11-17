@@ -90,7 +90,7 @@ namespace NexFB.Repositories.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>MealOrdering Model.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public MealOrderingModel GetOrderById(ICriteria criteria)
         {
             MealOrderingModel order = null;
@@ -288,7 +288,7 @@ namespace NexFB.Repositories.Implement
         /// <param name="data">The data from database.</param>
         /// <param name="userId">The user Id.</param>
         /// <returns>The list Meal Ordering model.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private IList<MealOrderingModel> CreateMealOrdering(
             IList<MealOrderingModel> orders,
             GridReader multipleData,

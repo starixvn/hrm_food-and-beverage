@@ -45,7 +45,7 @@ namespace NexFB.Core.Utilities.NPOIExtensions
         /// <param name="rowIndex">The index of the row where data will be copied to.</param>
         /// <param name="firstColumnIndex">First column index of copying area.</param>
         /// <param name="lastColumnIndex">Last column index of copying area.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Need to review here.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static void CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowIndex, int rowIndex, int firstColumnIndex, int lastColumnIndex)
         {
             // Expand the sheet to satisfy the number of needed rows.
@@ -149,7 +149,7 @@ namespace NexFB.Core.Utilities.NPOIExtensions
         /// </summary>
         /// <param name="sheet">Current sheet.</param>
         /// <param name="columnIndex">Index of column that needs to be removed.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Need to review here.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static void RemoveColumn(this ISheet sheet, int columnIndex)
         {
             bool adjustColumn = true;
@@ -347,7 +347,7 @@ namespace NexFB.Core.Utilities.NPOIExtensions
         /// </summary>
         /// <param name="newCell">New cell instance.</param>
         /// <param name="sourceCell">Source cell instance.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Need to review here.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private static void CloneCell(ICell newCell, ICell sourceCell)
         {
             if (sourceCell != null)
