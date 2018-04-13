@@ -2,6 +2,11 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -586,6 +591,7 @@
     <Content Include="Src\App\Report\ExcelTemplates\AdminOrderHistoryReport.xls" />
     <Content Include="Src\App\MealTimeManagement\mealTimeManagement.less" />
     <Content Include="Src\App\Report\ExcelTemplates\EmployeeRegistrationDetailReport.xls" />
+    <Content Include="Src\App\Report\ExcelTemplates\FoodItemReport.xls" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
     <Content Include="Src\Content\Fonts\big_noodle_titling.ttf" />

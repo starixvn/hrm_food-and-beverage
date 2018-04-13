@@ -10,6 +10,7 @@
 namespace NexFB.Site.Controllers
 {
     using System.Web.Mvc;
+    using Criteria.FoodItemManagement;
     using NexFB.Core.Constants;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Report;
@@ -26,6 +27,8 @@ namespace NexFB.Site.Controllers
     using NexFB.Services.Implement.Report;
     using NexFB.Services.Interface.Report;
     using NexFB.Web;
+    using Services.Implement;
+    using Services.Interface;
 
     /// <summary>
     /// Export report controller.
@@ -46,6 +49,7 @@ namespace NexFB.Site.Controllers
         private const string _DailyMainDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\DailyMainDishReport.xls";
         private const string _MealForecastDetailReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastDetailReport.xls";
         private const string _EmployeeRegistrationReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\EmployeeRegistrationDetailReport.xls";
+        private const string _FoodItemReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\FoodItemReport.xls";
 
         private readonly IMonthlyMainDishReportService _monthlyMainDishReportService;
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
@@ -57,9 +61,11 @@ namespace NexFB.Site.Controllers
         private readonly ISideDishReportService _sideDishReportService;
         private readonly IMealForecastDetailReportService _mealForecastDetailReportService;
         private readonly ISideDishSummaryReportService _sideDishSummaryReportService;
+        private readonly IFoodItemService _foodItemService;
+        private readonly IFoodItemReportService _foodItemReportService;
 
         public ExportReportController()
-            : this(null, null, null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -73,7 +79,9 @@ namespace NexFB.Site.Controllers
             IMealForecastDetailReportService mealForecastDetailReportService,
             IMonthlyMainDishPerDayReportService monthlyMainDishPerDayService,
             ISideDishReportService sideDishReportService,
-            ISideDishSummaryReportService sideDishSummaryReportService)
+            ISideDishSummaryReportService sideDishSummaryReportService,
+            IFoodItemService foodItemService,
+            IFoodItemReportService foodItemReportService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
@@ -85,6 +93,8 @@ namespace NexFB.Site.Controllers
             _mealForecastDetailReportService = mealForecastDetailReportService ?? new MealForecastDetailReportService();
             _sideDishSummaryReportService = sideDishSummaryReportService ?? new SideDishSummaryReportService();
             _adminOrderHistoryService = adminOrderHistoryService ?? new AdminOrderHistoryService();
+            _foodItemService = foodItemService ?? new FoodItemService();
+            _foodItemReportService = foodItemReportService ?? new FoodItemReportService();
         }
 
         public ActionResult Index()
@@ -361,6 +371,24 @@ namespace NexFB.Site.Controllers
                 _sideDishSummaryReportService.ExportSideDishSummaryReport(report, templatePath);
             }
 
+            return new EmptyResult();
+        }
+
+        public ActionResult ExportFoodItemReport(string setMenuId = "", bool? isActive = null)
+        {
+            string templatePath = Server.MapPath(_FoodItemReportTemplatePath);
+            var criteria = new GetAllFoodItemCriteria
+            {
+                SetMenuId = setMenuId,
+                IsActive = isActive
+            };
+
+            var report = _foodItemService.GetAllFoodItem(criteria);
+
+            if (report != null)
+            {
+                _foodItemReportService.ExportFoodItemReport(report, templatePath);
+            }
             return new EmptyResult();
         }
     }

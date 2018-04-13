@@ -1,34 +1,37 @@
 ﻿<div class="col-sm-12">
-    <div class="row sub-header">
-        <ul class="breadcrumb list-inline pull-left">
+	<div class="row sub-header">
+		<ul class="breadcrumb list-inline pull-left">
 			<li class="current" data-translate="FoodItemManagement"></li>
-        </ul>
-    </div>
-    <div class="row filter">
-        <form class="form-inline" role="form">
-            <div class="form-group" name="multiSelectOption">
-                <label data-translate="SetMenu"></label>
+		</ul>
+	</div>
+	<div class="row filter">
+		<form class="form-inline" role="form">
+			<div class="form-group" name="multiSelectOption">
+				<label data-translate="SetMenu"></label>
 				<add-class-to-role-filter multi-select input-model="setMenuItems" button-label="SetMenuVnmName" helper-elements="all reset"
 					item-label="SetMenuVnmName" tick-property="ticked" max-labels="0" class="multi-select food-item-select">
 				</add-class-to-role-filter>
-            </div>
-            <div class="form-group status-box" >
-                <label data-translate="Status"></label>
-                <select ng-model="filter.isActive">
-                    <option selected value="" data-translate="AllStatuses"></option>
-                    <option value="true" data-translate="Active"></option>
-                    <option value="false" data-translate="InActive"></option>
-                </select>
-            </div>
-            <div class="form-group">
+			</div>
+			<div class="form-group status-box" >
+				<label data-translate="Status"></label>
+				<select ng-model="filter.isActive">
+					<option selected value="" data-translate="AllStatuses"></option>
+					<option value="true" data-translate="Active"></option>
+					<option value="false" data-translate="InActive"></option>
+				</select>
+			</div>
+			<div class="form-group">
 				<button class="button" ng-click="query(filter)" data-translate="Submit">
 				</button>
-            </div>
-        </form>
-    </div>
-    <div class="row table-fooditem">
-        <table class="table table-bordered table-striped col-sm-12">
-            <thead>
+			</div>
+			<div class="form-group">
+				<button class="btn btnExcel" ng-click="exportExcel(filter)" >Export Excel</button>
+			</div>
+		</form>
+	</div>
+	<div class="row table-fooditem">
+		<table class="table table-bordered table-striped col-sm-12">
+			<thead>
 				<tr class="header-table">
 					<th colspan="7" ng-show="policy.permission == 2">
 							<a class="pull-left button-icon create-button" ng-click="addFoodItem()" ng-if="policy.permission == 2">
@@ -47,16 +50,16 @@
 						<input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
 					</th>
 				</tr>
-                <tr>
-                    <th data-translate="SymbolCount"></th>
+				<tr>
+					<th data-translate="SymbolCount"></th>
 					<th data-translate="FoodCode" class="width-percent-8"></th>
-                    <th data-translate="FoodItemVnm"></th>
-                    <th data-translate="FoodItemEng"></th>
-                    <th data-translate="SetMenu" class="width-percent-12"></th>
-                    <th class="width-percent-6" data-translate="Active"></th>
-                    <th class="width-percent-6" data-translate="Action" ng-if="policy.permission == 2"></th>
-                </tr>
-            </thead>
+					<th data-translate="FoodItemVnm"></th>
+					<th data-translate="FoodItemEng"></th>
+					<th data-translate="SetMenu" class="width-percent-12"></th>
+					<th class="width-percent-6" data-translate="Active"></th>
+					<th class="width-percent-6" data-translate="Action" ng-if="policy.permission == 2"></th>
+				</tr>
+			</thead>
 			<tbody>
 				<tr ng-repeat="food in pagedItems[currentPage] track by food.FoodId">
 					<td class="text-center" ng-bind="food.itemIndex + 1"></td>
@@ -80,7 +83,7 @@
 						<input type="checkbox" ng-checked="food.IsActive" ng-click="confirmActive(food)" ng-if="policy.permission == 2"/>
 						<img class="ico-tick" ng-if="policy.permission == 1 && food.IsActive" />
 					</td>
- 					<td class="text-center" ng-if="policy.permission == 2">
+					<td class="text-center" ng-if="policy.permission == 2">
 						<a class="glyphicon glyphicon-edit" href="" ng-click="edit(food)" ng-attr-title='{{"Edit" | translate}}'></a>
 						<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteFoodItem(food)" ng-attr-title='{{"Delete" | translate}}'></a>
 					</td>
@@ -106,6 +109,6 @@
 					</td>
 				</tr>
 			</tfoot>
-        </table>
-    </div>
+		</table>
+	</div>
 </div>

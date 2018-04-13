@@ -20,7 +20,6 @@ namespace NexFB.Services.Implement.Report
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
     using NexFB.Resources;
-    using NexFB.Services.Interface;
     using NexFB.Services.Interface.Report;
 
     /// <summary>

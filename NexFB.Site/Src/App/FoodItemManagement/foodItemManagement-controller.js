@@ -68,6 +68,21 @@ ErrorFactory) {
 		getAllFoodItem(filter.setMenuId, filter.isActive);
 	};
 
+	$scope.exportExcel = function (filter) {
+		getSelectedSetMenu(filter);
+		
+	    var data = $.param(filter),
+					url = baseUrl + 'ExportReport/ExportFoodItemReport',
+					downloadUrl = url + "?" + data,
+					iframe = $('body iframe');
+
+		if (iframe.length === 0) {
+		    iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
+		    iframe.appendTo('body');
+		}
+
+		iframe.attr('src', downloadUrl);
+	};
 	/*
 	** Get user permission on Food Item Management.
 	*/

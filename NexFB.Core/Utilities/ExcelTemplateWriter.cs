@@ -53,7 +53,7 @@ namespace NexFB.Core.Utilities
             this._sheet = template.CreateSheet(this._sheetName);
         }
 
-        #endregion  Constructors
+        #endregion Constructors
 
         #region Properties
 
@@ -154,7 +154,7 @@ namespace NexFB.Core.Utilities
         /// <param name="values">Value that will be filled into the row.</param>
         public void WriteRow(int rowIndex, object[] values)
         {
-            IRow row = this.CreateRow(rowIndex);
+            IRow row = CreateRow(rowIndex);
             row.WriteCells(0, values);
         }
 
@@ -166,11 +166,11 @@ namespace NexFB.Core.Utilities
         public void WriteRows(int rowIndex, List<object[]> arrayList)
         {
             int total = arrayList.Count;
-            IRow row = this.CreateRows(rowIndex, total);
+            IRow row = CreateRows(rowIndex, total);
             for (int i = 0; i < total; i++)
             {
                 row.WriteCells(0, arrayList[i]);
-                row = this._sheet.GetRow(row.RowNum + 1);
+                row = _sheet.GetRow(row.RowNum + 1);
             }
         }
 
@@ -200,7 +200,7 @@ namespace NexFB.Core.Utilities
         {
             foreach (var record in recordList)
             {
-                this.WriteRow(rowId, record);
+                WriteRow(rowId, record);
             }
         }
 
@@ -233,9 +233,9 @@ namespace NexFB.Core.Utilities
         /// <returns>First instance in the list of created rows.</returns>
         private IRow CreateRows(int rowIndex, int total)
         {
-            this._sheet.CopyRows(this._templateSheet, rowIndex, this._rowId, total);
-            this._rowId += total;
-            return this._sheet.GetRow(this._rowId - total);
+            _sheet.CopyRows(_templateSheet, rowIndex, _rowId, total);
+            _rowId += total;
+            return _sheet.GetRow(_rowId - total);
         }
 
         #endregion Row related methods
