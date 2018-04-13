@@ -1194,4 +1194,7 @@
   <data name="MealRegistrationDetailReportFileName" xml:space="preserve">
     <value>Meal_Registration_Detail_</value>
   </data>
+  <data name="FoodItemReport" xml:space="preserve">
+    <value>Masterlist_fooditem</value>
+  </data>
 </root>

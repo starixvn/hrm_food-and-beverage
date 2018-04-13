@@ -4,12 +4,13 @@
     using Core.Utilities;
     using Interface.Report;
     using Models.FoodItemManagement;
+    using Resources;
 
     public class FoodItemReportService : IFoodItemReportService
     {
         public void ExportFoodItemReport(IList<FoodItemModel> report, string templatePath)
         {
-            string reportTitle = "Masterlist_fooditem";
+            string reportTitle = Lang.FoodItemReport;
             var writer = new ExcelTemplateWriter(templatePath, reportTitle, reportTitle);
 
             // Create report title.
