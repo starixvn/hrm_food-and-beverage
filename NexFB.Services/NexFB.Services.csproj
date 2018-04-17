@@ -71,6 +71,7 @@
     <Compile Include="Implement\Report\MealForecastDetailReportService.cs" />
     <Compile Include="Implement\Report\MealForecastReportService.cs" />
     <Compile Include="Implement\Report\MonthlyMainDishReportService.cs" />
+    <Compile Include="Implement\Report\MonthlyMealTotalAmountService.cs" />
     <Compile Include="Implement\Report\ViewMenuReportService.cs" />
     <Compile Include="Implement\Report\SideDishReportService.cs" />
     <Compile Include="Implement\Report\SideDishSummaryReportService.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Interface\Report\IMealForecastDetailReportService.cs" />
     <Compile Include="Interface\Report\IMealForecastReportService.cs" />
     <Compile Include="Interface\Report\IMonthlyMainDishReportService.cs" />
+    <Compile Include="Interface\Report\IMonthlyMealTotalAmountService.cs" />
     <Compile Include="Interface\Report\IViewMenuReportService.cs" />
     <Compile Include="Interface\Report\ISideDishReportService.cs" />
     <Compile Include="Interface\Report\ISideDishSummaryReportService.cs" />

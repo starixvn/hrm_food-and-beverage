@@ -150,6 +150,7 @@
     <Compile Include="Report\GetAdminOrderHistoryCriteria.cs" />
     <Compile Include="Report\GetDailyMainDishPricePerMealReportCriteria.cs" />
     <Compile Include="Report\GetEmployeeOrderHistoryCriteria.cs" />
+    <Compile Include="Report\GetMonthlyLunchAndDinnerReportCriteria.cs" />
     <Compile Include="Report\GetMonthlyMainDishPerDayReportCriteria.cs" />
     <Compile Include="Report\GetMealForecastDetailReportCriteria.cs" />
     <Compile Include="Report\GetMealForecastReportCriteria.cs" />

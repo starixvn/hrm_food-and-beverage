@@ -2,13 +2,12 @@
 /*global reportModule*/
 
 reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
-
     var date = new Date(),
         history = {
             fromDate: new Date(date.getFullYear(), date.getMonth(), 1),
             toDate: new Date(),
             departmentId: '',
-			employeeTypeId: '',
+            employeeTypeId: '',
             vegetarianType: '',
             isPagingCallback: false,
             startIndex: 0,
@@ -30,18 +29,19 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
     return {
         getMonthlyMainDishReportByLocal: function (filter) {
             return $http.get(baseUrl + 'api/report/GetMonthlyMainDishReportLocal',
-                { params: {
-                    reportDate: filter.reportDate.toDateString(),
-                    departmentId: filter.departmentId,
-                    employeeTypeId: filter.employeeTypeId,
-                    teamId: filter.teamId,
-                    mealId: filter.mealId,
-                    groupBy: filter.groupBy,
-                    startIndex: filter.startIndex,
-                    itemsPerPage: filter.itemsPerPage,
-                    isExportReport: filter.isExportReport,
-                    isPagingCallback: filter.isPagingCallback
-                }
+                {
+                    params: {
+                        reportDate: filter.reportDate.toDateString(),
+                        departmentId: filter.departmentId,
+                        employeeTypeId: filter.employeeTypeId,
+                        teamId: filter.teamId,
+                        mealId: filter.mealId,
+                        groupBy: filter.groupBy,
+                        startIndex: filter.startIndex,
+                        itemsPerPage: filter.itemsPerPage,
+                        isExportReport: filter.isExportReport,
+                        isPagingCallback: filter.isPagingCallback
+                    }
                 });
         },
         getDailyMainDishReport: function (filter) {
@@ -67,34 +67,36 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         },
         getEmployeeOrderHistoryReport: function (filter) {
             return $http.get(baseUrl + 'api/report/GetEmployeeOrderHistoryReport',
-                { params: {
-                    fromDate: filter.fromDate.toDateString(),
-                    toDate: filter.toDate.toDateString(),
-                    orderBy: filter.orderBy,
-                    employeeMenu: filter.employeeMenu,
-                    orderPlatform: filter.orderPlatform,
-                    mealId: filter.mealId,
-                    statusId: filter.statusId,
-                    isPagingCallback: filter.isPagingCallback,
-                    startIndex: filter.startIndex,
-                    itemsPerPage: filter.itemsPerPage
-                }
+                {
+                    params: {
+                        fromDate: filter.fromDate.toDateString(),
+                        toDate: filter.toDate.toDateString(),
+                        orderBy: filter.orderBy,
+                        employeeMenu: filter.employeeMenu,
+                        orderPlatform: filter.orderPlatform,
+                        mealId: filter.mealId,
+                        statusId: filter.statusId,
+                        isPagingCallback: filter.isPagingCallback,
+                        startIndex: filter.startIndex,
+                        itemsPerPage: filter.itemsPerPage
+                    }
                 });
         },
         getAdminOrderHistoryReport: function (filter) {
             return $http.get(baseUrl + 'api/report/GetAdminOrderHistoryReport',
-                { params: {
-                    date: filter.date.toDateString(),
-                    userId: filter.userId > 0 ? filter.userId : filter.employee ? filter.employee.UserId : '',
-                    employeeMenu: filter.employeeMenu,
-                    orderPlatform: filter.orderPlatform,
-                    mealId: filter.mealId,
-                    statusId: filter.statusId,
-                    isPagingCallback: filter.isPagingCallback,
-                    startIndex: filter.startIndex,
-                    itemsPerPage: filter.itemsPerPage
-                }
-            });
+                {
+                    params: {
+                        date: filter.date.toDateString(),
+                        userId: filter.userId > 0 ? filter.userId : filter.employee ? filter.employee.UserId : '',
+                        employeeMenu: filter.employeeMenu,
+                        orderPlatform: filter.orderPlatform,
+                        mealId: filter.mealId,
+                        statusId: filter.statusId,
+                        isPagingCallback: filter.isPagingCallback,
+                        startIndex: filter.startIndex,
+                        itemsPerPage: filter.itemsPerPage
+                    }
+                });
         },
         getSideDishReport: function (filter) {
             return $http.get(baseUrl + 'api/report/GetSideDishReport', {
@@ -113,41 +115,47 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         },
         getMealForecastReport: function (filter) {
             return $http.get(baseUrl + 'api/report/GetMealForecastReport',
-                { params: { fromDate: filter.fromDate.toDateString(),
-                    toDate: filter.toDate.toDateString(),
-                    departmentId: filter.departmentId,
-					employeeTypeId: filter.employeeTypeId,
-                    isVegetarian: filter.vegetarianType.length === 0 ? '' : filter.vegetarianType === '0' ? false : true,
-                    isPagingCallback: filter.isPagingCallback,
-                    startIndex: filter.startIndex,
-                    itemsPerPage: filter.itemsPerPage
-                }
-            });
+                {
+                    params: {
+                        fromDate: filter.fromDate.toDateString(),
+                        toDate: filter.toDate.toDateString(),
+                        departmentId: filter.departmentId,
+                        employeeTypeId: filter.employeeTypeId,
+                        isVegetarian: filter.vegetarianType.length === 0 ? '' : filter.vegetarianType === '0' ? false : true,
+                        isPagingCallback: filter.isPagingCallback,
+                        startIndex: filter.startIndex,
+                        itemsPerPage: filter.itemsPerPage
+                    }
+                });
         },
         getMealForecastDetailReport: function (filter) {
             return $http.get(baseUrl + 'api/report/GetMealForecastDetailReport',
-                { params: { date: filter.date,
-                    departmentId: filter.departmentId,
-					employeeTypeId: filter.employeeTypeId,
-                    isVegetarian: filter.dietType.length === 0 ? '' : filter.dietType === '0' ? false : true,
-                    isPagingCallback: filter.isPagingCallback,
-                    startIndex: filter.startIndex,
-                    itemsPerPage: filter.itemsPerPage
-                }
-            });
+                {
+                    params: {
+                        date: filter.date,
+                        departmentId: filter.departmentId,
+                        employeeTypeId: filter.employeeTypeId,
+                        isVegetarian: filter.dietType.length === 0 ? '' : filter.dietType === '0' ? false : true,
+                        isPagingCallback: filter.isPagingCallback,
+                        startIndex: filter.startIndex,
+                        itemsPerPage: filter.itemsPerPage
+                    }
+                });
         },
         getEmployeeRegistrationDetailReport: function (filter) {
             return $http.get(baseUrl + 'api/report/GetEmployeeRegistration',
-                { params: { date: filter.date,
-                    departmentId: filter.departmentId,
-                    employeeTypeId: filter.employeeTypeId,
-                    mealId: filter.mealId,
-                    menuId: filter.menuId,
-                    isVegetarian: filter.dietType.length === 0 ? '' : filter.dietType === '0' ? false : true,
-                    isPagingCallback: filter.isPagingCallback,
-                    startIndex: filter.startIndex,
-                    itemsPerPage: filter.itemsPerPage
-                }
+                {
+                    params: {
+                        date: filter.date,
+                        departmentId: filter.departmentId,
+                        employeeTypeId: filter.employeeTypeId,
+                        mealId: filter.mealId,
+                        menuId: filter.menuId,
+                        isVegetarian: filter.dietType.length === 0 ? '' : filter.dietType === '0' ? false : true,
+                        isPagingCallback: filter.isPagingCallback,
+                        startIndex: filter.startIndex,
+                        itemsPerPage: filter.itemsPerPage
+                    }
                 });
         },
         getSideDishSummaryReport: function (filter) {
@@ -177,7 +185,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
             history.fromDate = scope.filter.fromDate;
             history.toDate = scope.filter.toDate;
             history.departmentId = scope.filter.departmentId;
-			history.employeeTypeId = scope.filter.employeeTypeId;
+            history.employeeTypeId = scope.filter.employeeTypeId;
             history.vegetarianType = scope.filter.vegetarianType;
             history.startIndex = scope.filter.startIndex;
             history.itemsPerPage = scope.filter.itemsPerPage;
@@ -235,7 +243,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         },
         getSpecialUserById: function (userId) {
             return $http.get(baseUrl + 'api/report/GetEmployeeById',
-                { params: { userId: userId} });
+                { params: { userId: userId } });
         },
         setHistorySideDishSummary: function (scope) {
             historySideDishSummary = {
@@ -251,9 +259,16 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         },
         getHistorySideDishSummary: function () {
             return historySideDishSummary;
+        },
+        getMonthlyLunchAndDinnerReport: function (filter) {
+            var data = {
+                departmentId: filter.departmentId,
+                reportDate: filter.reportDate.toDateString()
+            }
+            return $http.get(baseUrl + 'api/report/GetLunchAndDinnerReport', { params: data })
         }
     };
-} ]);
+}]);
 
 reportModule.factory('reportUtilities', function () {
     var utilities = {},

@@ -1,0 +1,77 @@
+﻿<div class="col-sm-12">
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li class="current" data-translate="LunchAndDinnerReport"></li>
+        </ul>
+    </div>
+    <div class="row filter monthly-per-day-filter">
+        <form class="form-horizontal form-multiLine" role="form">
+            <div class="form-group">
+                <label class="col-sm-1 text-right" data-translate="Department"></label>
+                <div class="col-sm-2 field">
+                    <select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
+                            class="form-control" ng-change="getTeamAndEmployeeTypeOfDepartment(filter.departmentId)">
+                        <option value="" ng-if="departmentOptions.length > 1">-- {{"All" | translate}} --</option>
+                    </select>
+                </div>
+                <label class="col-sm-1 text-right" data-translate="Month"></label>
+                <div class="col-sm-2 field monthbox">
+                    <input readonly type="text" class="form-control" datepicker-popup="{{format}}" datepicker-mode="popUpMode" ng-click="open($event)"
+                           ng-model="filter.reportDate" is-open="opened" datepicker-options="dateOptions" show-button-bar="false" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+                <div class="col-sm-1 btn btn-box field">
+                    <input type="button" value="Submit" class="button" ng-click="query(filter)" />
+                </div>
+                <div class="col-sm-1 btn btn-box field">
+                    <input type="button" class="button" ng-click="exportExcel(filter)" value="Export Excel" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row table-fooditem">
+        <table class="table table-bordered table-striped col-sm-12">
+            <thead>
+                <tr>
+                    <th data-translate="SymbolCount"></th>
+                    <th data-translate="Date" class="width-percent-20"></th>
+                    <th data-translate="MealsQuantity" class="width-percent-12"></th>
+                    <th data-translate="Amount" class="width-percent-16" ></th>
+                    <th data-translate="MealsQuantity" class="width-percent-12">
+                        <span data-translate="DinnerInParentheses"></span>
+                    </th>
+                    <th data-translate="Amount" class="width-percent-16"></th>
+                    <th data-translate="Total"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center" ng-repeat="item in report.MealPriceList">
+                    <td ng-bind="$index + 1"></td>
+                    <td ng-bind="item.OnDate | date: 'dd-MMM-yyyy'"></td>
+                    <td ng-bind="item.LunchMealQuantity | number"></td>
+                    <td ng-bind="item.LunchAmount | number"></td>
+                    <td ng-bind="item.DinnerMealQuantity | number"></td>
+                    <td ng-bind="item.DinnerAmount | number"></td>
+                    <td class="bold" ng-bind="item.TotalAmount | number"></td>
+                </tr>
+            </tbody>
+            <tfoot class="text-center bold" ng-if="report.MealPriceList.length > 0">
+                <tr>
+                    <td colspan="2" data-translate="Total"></td>
+                    <td ng-bind="report.TotalLunchMeals | number"></td>
+                    <td ng-bind="report.MonthlyTotalLunchAmount | number"></td>
+                    <td ng-bind="report.TotalDinnerMeals | number"></td>
+                    <td ng-bind="report.MonthlyTotalDinnerAmount | number"></td>
+                    <td ng-bind="report.TotalAmount | number"></td>
+                </tr>
+            </tfoot>
+            <tfoot class="text-center" ng-if="report.MealPriceList.length === 0">
+                <tr>
+                    <td colspan="7">There is no data</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

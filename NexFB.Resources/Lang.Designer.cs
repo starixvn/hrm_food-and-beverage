@@ -853,6 +853,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Dinner).
+        /// </summary>
+        public static string DinnerInParentheses {
+            get {
+                return ResourceManager.GetString("DinnerInParentheses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to System could not create or update the menu because there is another menu which has the same meal, meal type (Veg. or Non-Veg.) and employee type..
         /// </summary>
         public static string DuplicateFoodMenuMessage {
@@ -1537,6 +1546,24 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monthly Lunch and Dinner Total Amount Report - Per day.
+        /// </summary>
+        public static string LunchAndDinnerReport {
+            get {
+                return ResourceManager.GetString("LunchAndDinnerReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Lunch).
+        /// </summary>
+        public static string LunchInParentheses {
+            get {
+                return ResourceManager.GetString("LunchInParentheses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage Food Item.
         /// </summary>
         public static string ManageFoodItem {
@@ -1704,6 +1731,24 @@ namespace NexFB.Resources {
         public static string MealRegistrationDetailReportFileName {
             get {
                 return ResourceManager.GetString("MealRegistrationDetailReportFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meals.
+        /// </summary>
+        public static string Meals {
+            get {
+                return ResourceManager.GetString("Meals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meals Quantity.
+        /// </summary>
+        public static string MealsQuantity {
+            get {
+                return ResourceManager.GetString("MealsQuantity", resourceCulture);
             }
         }
         
@@ -1911,6 +1956,15 @@ namespace NexFB.Resources {
         public static string Monthly {
             get {
                 return ResourceManager.GetString("Monthly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MonthlyLunchAndDinnerTotalAmountReport.
+        /// </summary>
+        public static string MonthlyLunchAndDinnerTotalAmountReport {
+            get {
+                return ResourceManager.GetString("MonthlyLunchAndDinnerTotalAmountReport", resourceCulture);
             }
         }
         

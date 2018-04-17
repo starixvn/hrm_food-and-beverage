@@ -1197,4 +1197,22 @@
   <data name="FoodItemReport" xml:space="preserve">
     <value>Masterlist_fooditem</value>
   </data>
+  <data name="LunchAndDinnerReport" xml:space="preserve">
+    <value>Monthly Lunch and Dinner Total Amount Report - Per day</value>
+  </data>
+  <data name="Meals" xml:space="preserve">
+    <value>Meals</value>
+  </data>
+  <data name="MealsQuantity" xml:space="preserve">
+    <value>Meals Quantity</value>
+  </data>
+  <data name="LunchInParentheses" xml:space="preserve">
+    <value>(Lunch)</value>
+  </data>
+  <data name="DinnerInParentheses" xml:space="preserve">
+    <value>(Dinner)</value>
+  </data>
+  <data name="MonthlyLunchAndDinnerTotalAmountReport" xml:space="preserve">
+    <value>MonthlyLunchAndDinnerTotalAmountReport</value>
+  </data>
 </root>

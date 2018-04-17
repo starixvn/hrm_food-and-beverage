@@ -9,6 +9,7 @@
 
 namespace NexFB.Site.Controllers
 {
+    using System;
     using System.Web.Mvc;
     using Criteria.FoodItemManagement;
     using NexFB.Core.Constants;
@@ -50,6 +51,7 @@ namespace NexFB.Site.Controllers
         private const string _MealForecastDetailReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastDetailReport.xls";
         private const string _EmployeeRegistrationReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\EmployeeRegistrationDetailReport.xls";
         private const string _FoodItemReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\FoodItemReport.xls";
+        private const string _MonthlyLunchAndDinnerAmountReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyLunchAndDinnerAmoutReport.xls";
 
         private readonly IMonthlyMainDishReportService _monthlyMainDishReportService;
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
@@ -63,9 +65,10 @@ namespace NexFB.Site.Controllers
         private readonly ISideDishSummaryReportService _sideDishSummaryReportService;
         private readonly IFoodItemService _foodItemService;
         private readonly IFoodItemReportService _foodItemReportService;
+        private readonly IMonthlyMealTotalAmountService _monthlyMealTotalAmountService;
 
         public ExportReportController()
-            : this(null, null, null, null, null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -81,7 +84,8 @@ namespace NexFB.Site.Controllers
             ISideDishReportService sideDishReportService,
             ISideDishSummaryReportService sideDishSummaryReportService,
             IFoodItemService foodItemService,
-            IFoodItemReportService foodItemReportService)
+            IFoodItemReportService foodItemReportService,
+            IMonthlyMealTotalAmountService monthlyMealTotalAmountService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
@@ -95,6 +99,7 @@ namespace NexFB.Site.Controllers
             _adminOrderHistoryService = adminOrderHistoryService ?? new AdminOrderHistoryService();
             _foodItemService = foodItemService ?? new FoodItemService();
             _foodItemReportService = foodItemReportService ?? new FoodItemReportService();
+            _monthlyMealTotalAmountService = monthlyMealTotalAmountService ?? new MonthlyMealTotalAmountService();
         }
 
         public ActionResult Index()
@@ -389,6 +394,15 @@ namespace NexFB.Site.Controllers
             {
                 _foodItemReportService.ExportFoodItemReport(report, templatePath);
             }
+            return new EmptyResult();
+        }
+
+        public ActionResult ExportMonthlyLunchAndDinnerAmountReport(string departmentId, DateTime reportDate)
+        {
+            string templatePath = Server.MapPath(_MonthlyLunchAndDinnerAmountReportTemplatePath);
+
+            _monthlyMealTotalAmountService.ExportMonthlyLunchAndDinnerReport(templatePath, reportDate, departmentId);
+
             return new EmptyResult();
         }
     }

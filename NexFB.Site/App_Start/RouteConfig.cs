@@ -33,7 +33,7 @@ namespace NexFB.Site
                url: "Auth/Login",
                defaults: new { controller = "Auth", action = "Login" });
 
-            var homeRouteUrls = new List<string> 
+            var homeRouteUrls = new List<string>
             {
                 "ManageRole/Index",
                 "ManageUser/Index",
@@ -62,7 +62,8 @@ namespace NexFB.Site
                 "MealForecastReport/Detail",
                 "EmployeeRegistration/Detail",
                 "AdminOrderHistoryReport/Index",
-                "MealTimeManagement/Index"
+                "MealTimeManagement/Index",
+                "MonthlyLunchAndDinnerReport/Index"
             };
             homeRouteUrls.ForEach(url => routes.MapRoute(
                 name: url,

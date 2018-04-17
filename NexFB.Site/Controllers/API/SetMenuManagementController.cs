@@ -31,7 +31,7 @@ namespace NexFB.Site.Controllers.API
         private readonly ISetMenuService _setMenuService;
         private readonly IWebCommonService _webCommonService;
 
-        public SetMenuManagementController() 
+        public SetMenuManagementController()
             : this(null, null)
         {
         }
