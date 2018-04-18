@@ -11,7 +11,7 @@
 
         public override string GetSettingKey()
         {
-            return "Rpt_Get_MonthlyLunchAndDinnerMeals";
+            return "Rpt_Get_MonthlyLunchAndDinnerMealsAmount";
         }
 
         public override bool IsValid()

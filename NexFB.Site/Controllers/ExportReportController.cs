@@ -52,6 +52,7 @@ namespace NexFB.Site.Controllers
         private const string _EmployeeRegistrationReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\EmployeeRegistrationDetailReport.xls";
         private const string _FoodItemReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\FoodItemReport.xls";
         private const string _MonthlyLunchAndDinnerAmountReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyLunchAndDinnerAmoutReport.xls";
+        private const string _MonthlyBreakfastAndSupperAmountReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyBreakfastAndSupperAmoutReport.xls";
 
         private readonly IMonthlyMainDishReportService _monthlyMainDishReportService;
         private readonly IEmployeeOrderHistoryService _employeeOrderHistoryService;
@@ -402,6 +403,15 @@ namespace NexFB.Site.Controllers
             string templatePath = Server.MapPath(_MonthlyLunchAndDinnerAmountReportTemplatePath);
 
             _monthlyMealTotalAmountService.ExportMonthlyLunchAndDinnerReport(templatePath, reportDate, departmentId);
+
+            return new EmptyResult();
+        }
+
+        public ActionResult ExportMonthlyBreakfastAndSupperAmountReport(string departmentId, DateTime reportDate)
+        {
+            string templatePath = Server.MapPath(_MonthlyBreakfastAndSupperAmountReportTemplatePath);
+
+            _monthlyMealTotalAmountService.ExportMonthlyBreakfastAndSupperReport(templatePath, reportDate, departmentId);
 
             return new EmptyResult();
         }

@@ -831,5 +831,10 @@ namespace NexFB.Site.Controllers.API.Report
         {
             return _monthlyMealsTotalAmountService.GetMonthlyLunchAndDinnerReport(reportDate, departmentId);
         }
+
+        public BreakfastAndSupperTotalAmountReportModel GetBreakfastAndSupperReport(string departmentId, DateTime reportDate)
+        {
+            return _monthlyMealsTotalAmountService.GetMonthlyBreakfastAndSupperReport(reportDate, departmentId);
+        }
     }
 }

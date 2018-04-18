@@ -66,6 +66,7 @@
     <Compile Include="DeliveryArea\InsertDeliveryAreaCriteria.cs" />
     <Compile Include="DeliveryArea\UpdateDeliveryAreaCriteria.cs" />
     <Compile Include="Department\GetAllDepartmentCriteria.cs" />
+    <Compile Include="Department\GetDepartmentByIdCriteria.cs" />
     <Compile Include="Employee\ActivateSpecialUserCriteria.cs" />
     <Compile Include="Employee\ChangePasswordCriteria.cs" />
     <Compile Include="Employee\GetSpecialUserByIdCriteria.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Report\GetAdminOrderHistoryCriteria.cs" />
     <Compile Include="Report\GetDailyMainDishPricePerMealReportCriteria.cs" />
     <Compile Include="Report\GetEmployeeOrderHistoryCriteria.cs" />
+    <Compile Include="Report\GetMonthlyBreakfastAndSupperReportCriteria.cs" />
     <Compile Include="Report\GetMonthlyLunchAndDinnerReportCriteria.cs" />
     <Compile Include="Report\GetMonthlyMainDishPerDayReportCriteria.cs" />
     <Compile Include="Report\GetMealForecastDetailReportCriteria.cs" />

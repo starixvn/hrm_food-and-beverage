@@ -4,8 +4,6 @@ namespace NexFB.Models.Report.MonthlyMealPriceReport
 {
     public class LunchAndDinnerTotalAmountReportModel
     {
-        public string ReportTitle { get; set; }
-
         public IEnumerable<LunchAndDinnerModel> MealPriceList { get; set; }
 
         public int TotalLunchMeals { get; set; }

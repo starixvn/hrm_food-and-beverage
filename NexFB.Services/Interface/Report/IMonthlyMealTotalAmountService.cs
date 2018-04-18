@@ -8,5 +8,9 @@
         LunchAndDinnerTotalAmountReportModel GetMonthlyLunchAndDinnerReport(DateTime reportDate, string departmentId);
 
         void ExportMonthlyLunchAndDinnerReport(string templateLink, DateTime reportDate, string departmentId);
+
+        BreakfastAndSupperTotalAmountReportModel GetMonthlyBreakfastAndSupperReport(DateTime reportDate, string departmentId);
+
+        void ExportMonthlyBreakfastAndSupperReport(string templateLink, DateTime reportDate, string departmentId);
     }
 }

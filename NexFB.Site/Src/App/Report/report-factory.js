@@ -266,6 +266,13 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                 reportDate: filter.reportDate.toDateString()
             }
             return $http.get(baseUrl + 'api/report/GetLunchAndDinnerReport', { params: data })
+        },
+        getMonthlyBreakfastAndSupperReport: function (filter) {
+            var data = {
+                departmentId: filter.departmentId,
+                reportDate: filter.reportDate.toDateString()
+            }
+            return $http.get(baseUrl + 'api/report/GetBreakfastAndSupperReport', { params: data })
         }
     };
 }]);

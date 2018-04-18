@@ -1215,4 +1215,31 @@
   <data name="MonthlyLunchAndDinnerTotalAmountReport" xml:space="preserve">
     <value>MonthlyLunchAndDinnerTotalAmountReport</value>
   </data>
+  <data name="BreakfastInParentheses" xml:space="preserve">
+    <value>(Breakfast)</value>
+  </data>
+  <data name="SupperInParentheses" xml:space="preserve">
+    <value>(Supper)</value>
+  </data>
+  <data name="MonthlyBreakfastAndSupperTotalAmountReport" xml:space="preserve">
+    <value>Monthly_BreakfastAndSupper_TotalAmount_Report</value>
+  </data>
+  <data name="MonthlyBreakfastAndSupperReport" xml:space="preserve">
+    <value>Monthly breakfast and supper total amount report - per day</value>
+  </data>
+  <data name="AllDepartment" xml:space="preserve">
+    <value>All Department</value>
+  </data>
+  <data name="BreakfastAndSupper" xml:space="preserve">
+    <value>Breakfast &amp; Supper</value>
+  </data>
+  <data name="LunchAndDinner" xml:space="preserve">
+    <value>Lunch &amp; Dinner</value>
+  </data>
+  <data name="MealRecord" xml:space="preserve">
+    <value>MONTHLY MEAL RECORD OF </value>
+  </data>
+  <data name="TableNoData" xml:space="preserve">
+    <value>There is no data</value>
+  </data>
 </root>

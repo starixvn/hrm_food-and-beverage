@@ -178,6 +178,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Department.
+        /// </summary>
+        public static string AllDepartment {
+            get {
+                return ResourceManager.GetString("AllDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Employee Types.
         /// </summary>
         public static string AllEmployeeTypes {
@@ -345,6 +354,24 @@ namespace NexFB.Resources {
         public static string Breakfast {
             get {
                 return ResourceManager.GetString("Breakfast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breakfast &amp; Supper.
+        /// </summary>
+        public static string BreakfastAndSupper {
+            get {
+                return ResourceManager.GetString("BreakfastAndSupper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Breakfast).
+        /// </summary>
+        public static string BreakfastInParentheses {
+            get {
+                return ResourceManager.GetString("BreakfastInParentheses", resourceCulture);
             }
         }
         
@@ -1546,6 +1573,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lunch &amp; Dinner.
+        /// </summary>
+        public static string LunchAndDinner {
+            get {
+                return ResourceManager.GetString("LunchAndDinner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monthly Lunch and Dinner Total Amount Report - Per day.
         /// </summary>
         public static string LunchAndDinnerReport {
@@ -1713,6 +1749,15 @@ namespace NexFB.Resources {
         public static string MealPlanningManagement {
             get {
                 return ResourceManager.GetString("MealPlanningManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MONTHLY MEAL RECORD OF .
+        /// </summary>
+        public static string MealRecord {
+            get {
+                return ResourceManager.GetString("MealRecord", resourceCulture);
             }
         }
         
@@ -1956,6 +2001,24 @@ namespace NexFB.Resources {
         public static string Monthly {
             get {
                 return ResourceManager.GetString("Monthly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly breakfast and supper total amount report - per day.
+        /// </summary>
+        public static string MonthlyBreakfastAndSupperReport {
+            get {
+                return ResourceManager.GetString("MonthlyBreakfastAndSupperReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly_BreakfastAndSupper_TotalAmount_Report.
+        /// </summary>
+        public static string MonthlyBreakfastAndSupperTotalAmountReport {
+            get {
+                return ResourceManager.GetString("MonthlyBreakfastAndSupperTotalAmountReport", resourceCulture);
             }
         }
         
@@ -3004,11 +3067,29 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Supper).
+        /// </summary>
+        public static string SupperInParentheses {
+            get {
+                return ResourceManager.GetString("SupperInParentheses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to #.
         /// </summary>
         public static string SymbolCount {
             get {
                 return ResourceManager.GetString("SymbolCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no data.
+        /// </summary>
+        public static string TableNoData {
+            get {
+                return ResourceManager.GetString("TableNoData", resourceCulture);
             }
         }
         

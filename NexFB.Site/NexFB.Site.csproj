@@ -234,9 +234,10 @@
     <Content Include="File\UserManual\Meal Registration.pdf" />
     <Content Include="Src\App\Report\employeeRegistrationDetailReport-directive.js" />
     <Content Include="Src\App\Report\employeeRegistrationDetailReport-controller.js" />
-    <Content Include="Src\App\Report\monthlyLunchAndDinnerReport-controller.js" />
-    <Content Include="Src\App\Report\monthlyLunchAndDinnerReport-directive.js" />
+    <Content Include="Src\App\Report\monthlyLunchAndDinnerAmountReport-controller.js" />
+    <Content Include="Src\App\Report\monthlyBreakfastAndSupperAmountReport-controller.js" />
     <Content Include="Src\App\Report\Templates\employeeRegistrationDetailReport.html" />
+    <Content Include="Src\App\Report\Templates\monthlyBreakfastAndSupperReport.html" />
     <Content Include="Src\App\Report\Templates\monthlyLunchAndDinnerReport.html" />
     <Content Include="Web.local.config">
       <SubType>Designer</SubType>

@@ -110,6 +110,8 @@
     <Compile Include="Report\MonthlyMainDishReportLocal\RawMonthlyLocalReportModel.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="Report\MonthlyMealPriceReport\BreakfastAndSupperModel.cs" />
+    <Compile Include="Report\MonthlyMealPriceReport\BreakfastAndSupperTotalAmountReportModel.cs" />
     <Compile Include="Report\MonthlyMealPriceReport\LunchAndDinnerModel.cs" />
     <Compile Include="Report\MonthlyMealPriceReport\LunchAndDinnerTotalPriceReportModel.cs" />
     <Compile Include="Report\SideDishReport\SideDishItemModel.cs" />

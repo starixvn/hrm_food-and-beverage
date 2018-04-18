@@ -37,10 +37,12 @@
                 <tr>
                     <th data-translate="SymbolCount"></th>
                     <th data-translate="Date" class="width-percent-20"></th>
-                    <th data-translate="MealsQuantity" class="width-percent-12"></th>
-                    <th data-translate="Amount" class="width-percent-16" ></th>
-                    <th data-translate="MealsQuantity" class="width-percent-12">
-                        <span data-translate="DinnerInParentheses"></span>
+                    <th class="width-percent-12">
+                        {{"MealsQuantity"| translate}} {{ "LunchInParentheses" | translate}}
+                    </th>
+                    <th data-translate="Amount" class="width-percent-16"></th>
+                    <th class="width-percent-12">
+                        {{"MealsQuantity"| translate}} {{ "DinnerInParentheses" | translate}}
                     </th>
                     <th data-translate="Amount" class="width-percent-16"></th>
                     <th data-translate="Total"></th>
@@ -69,7 +71,7 @@
             </tfoot>
             <tfoot class="text-center" ng-if="report.MealPriceList.length === 0">
                 <tr>
-                    <td colspan="7">There is no data</td>
+                    <td colspan="7" data-translate="TableNoData"></td>
                 </tr>
             </tfoot>
         </table>

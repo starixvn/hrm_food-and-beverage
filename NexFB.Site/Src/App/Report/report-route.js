@@ -28,4 +28,6 @@ var reportModule = angular.module("reportModule", ['ngRoute'])
 		{ templateUrl: baseUrl + 'src/app/report/templates/adminOrderHistoryReport.html', controller: 'AdminOrderHistoryReportController' });
     $routeProvider.when('/MonthlyLunchAndDinnerReport/Index',
 		{ templateUrl: baseUrl + 'src/app/report/templates/monthlyLunchAndDinnerReport.html', controller: 'MonthlyLunchAndDinnerReportController' });
+    $routeProvider.when('/MonthlyBreakfastAndSupperReport/Index',
+		{ templateUrl: baseUrl + 'src/app/report/templates/monthlyBreakfastAndSupperReport.html', controller: 'MonthlyBreakfastAndSuperController' });
 }]);

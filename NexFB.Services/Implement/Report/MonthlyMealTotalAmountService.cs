@@ -5,8 +5,10 @@
     using System.Linq;
     using Core.Services;
     using Core.Utilities;
+    using Criteria.Department;
     using Criteria.Report;
     using Interface.Report;
+    using Models.Entities;
     using Models.Report.MonthlyMealPriceReport;
     using Resources;
 
@@ -15,7 +17,7 @@
         public LunchAndDinnerTotalAmountReportModel GetMonthlyLunchAndDinnerReport(DateTime reportDate, string departmentId)
         {
             var report = new LunchAndDinnerTotalAmountReportModel();
-            var mealsPrice = GetListMealPriceOnMonth(reportDate, departmentId);
+            var mealsPrice = GetListLunchAndDinnerAmountOnMonth(reportDate, departmentId);
 
             if (mealsPrice != null)
             {
@@ -29,7 +31,7 @@
             return report;
         }
 
-        private IEnumerable<LunchAndDinnerModel> GetListMealPriceOnMonth(DateTime reportDate, string departmentId)
+        private IEnumerable<LunchAndDinnerModel> GetListLunchAndDinnerAmountOnMonth(DateTime reportDate, string departmentId)
         {
             var criteria = new GetMonthlyLunchAndDinnerReportCriteria
             {
@@ -44,7 +46,7 @@
             var reportName = Lang.MonthlyLunchAndDinnerTotalAmountReport;
             var writer = new ExcelTemplateWriter(templateLink, reportName);
             var report = GetMonthlyLunchAndDinnerReport(reportDate, departmentId);
-            string reportTitle = string.Format("{0}{1}{2}", "MONTHLY MEAL RECORD OF ", reportDate.ToString("MMM yyyy"), " LUNCH & DINNER");
+            string reportTitle = GetReportTitle(reportDate, departmentId, Lang.LunchAndDinner);
             // Fill report title.
             writer.WriteRow(0, new { reportTitle });
             writer.CopyRows(1, 2);
@@ -80,7 +82,7 @@
             {
                 var record = new
                 {
-                    Date = item.OnDate.ToString("d-MMM-yyyy"),
+                    Date = item.OnDate.ToString("dd-MMM-yyyy"),
                     LunchMeals = ConvertToMoneyFormat(item.LunchMealQuantity),
                     LunchAmount = ConvertToMoneyFormat(item.LunchAmount),
                     DinnerMeals = ConvertToMoneyFormat(item.DinnerMealQuantity),
@@ -90,6 +92,100 @@
 
                 writer.WriteRow(1, record);
             }
+        }
+
+        public BreakfastAndSupperTotalAmountReportModel GetMonthlyBreakfastAndSupperReport(DateTime reportDate, string departmentId)
+        {
+            var report = new BreakfastAndSupperTotalAmountReportModel();
+            var mealsPrice = GetListBreakfastAndSupperAmountOnMonth(reportDate, departmentId);
+
+            if (mealsPrice != null)
+            {
+                report.MealAmountList = mealsPrice;
+                report.TotalBreakfastMeals = mealsPrice.Sum(m => m.BreakfastMealQuantity);
+                report.MonthlyTotalBreakfastAmount = mealsPrice.Sum(m => m.BreakfastAmount);
+                report.TotalSupperMeals = mealsPrice.Sum(m => m.SupperMealQuantity);
+                report.MonthlyTotalSupperAmount = mealsPrice.Sum(m => m.SupperAmount);
+            }
+
+            return report;
+        }
+
+        private IEnumerable<BreakfastAndSupperModel> GetListBreakfastAndSupperAmountOnMonth(DateTime reportDate, string departmentId)
+        {
+            var criteria = new GetMonthlyBreakfastAndSupperReportCriteria
+            {
+                ReportDate = reportDate,
+                DepartmentId = departmentId
+            };
+            return GetData<BreakfastAndSupperModel>(criteria);
+        }
+
+        public void ExportMonthlyBreakfastAndSupperReport(string templateLink, DateTime reportDate, string departmentId)
+        {
+            var reportName = Lang.MonthlyBreakfastAndSupperTotalAmountReport;
+            var writer = new ExcelTemplateWriter(templateLink, reportName);
+            var report = GetMonthlyBreakfastAndSupperReport(reportDate, departmentId);
+            string reportTitle = GetReportTitle(reportDate, departmentId, Lang.BreakfastAndSupper);
+            // Fill report title.
+            writer.WriteRow(0, new { reportTitle });
+            writer.CopyRows(1, 2);
+
+            FillBreakfastAndSupperReportContentRow(report.MealAmountList, ref writer);
+            FillTotalBreakfastAndSupperReportRow(report, writer);
+            writer.SyncColumnsWidth(6);
+
+            writer.Render();
+        }
+
+        private void FillTotalBreakfastAndSupperReportRow(BreakfastAndSupperTotalAmountReportModel report, ExcelTemplateWriter writer)
+        {
+            writer.WriteRow(2, new object[]
+            {
+                Lang.Total,
+                ConvertToMoneyFormat(report.TotalBreakfastMeals),
+                ConvertToMoneyFormat(report.MonthlyTotalBreakfastAmount),
+                ConvertToMoneyFormat(report.TotalSupperMeals),
+                ConvertToMoneyFormat(report.MonthlyTotalSupperAmount),
+                ConvertToMoneyFormat(report.TotalAmount)
+            });
+        }
+
+        private void FillBreakfastAndSupperReportContentRow(IEnumerable<BreakfastAndSupperModel> mealAmountList, ref ExcelTemplateWriter writer)
+        {
+            foreach (BreakfastAndSupperModel item in mealAmountList)
+            {
+                var record = new
+                {
+                    Date = item.OnDate.ToString("dd-MMM-yyyy"),
+                    BreakfastMeals = ConvertToMoneyFormat(item.BreakfastMealQuantity),
+                    BreakfastAmount = ConvertToMoneyFormat(item.BreakfastAmount),
+                    SupperMeals = ConvertToMoneyFormat(item.SupperMealQuantity),
+                    SupperAmount = ConvertToMoneyFormat(item.SupperAmount),
+                    TotalPrice = ConvertToMoneyFormat(item.TotalAmount)
+                };
+
+                writer.WriteRow(1, record);
+            }
+        }
+
+        private string GetReportTitle(DateTime reportDate, string departmentId, string suffixReportType)
+        {
+            var departmentName = Lang.AllDepartment;
+            var departments = departmentId.Split(',');
+            if (departments.Length == 1)
+            {
+                var criteria = new GetDepartmentByIdCriteria { DepartmentId = int.Parse(departments[0]) };
+                var department = GetDataEntity<Department>(criteria);
+                departmentName = department.Name;
+            }
+            return string.Format("{0}{1}{2}{3}{4}{5}",
+                Lang.MealRecord,
+                reportDate.ToString("MMM yyyy"),
+                " - ",
+                departmentName,
+                Environment.NewLine,
+                suffixReportType).ToUpperInvariant();
         }
     }
 }

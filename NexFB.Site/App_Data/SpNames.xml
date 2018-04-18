@@ -68,6 +68,8 @@
     <Setting Key="Department_GetAll" SpName="Department_GetAll" DbName="NexFB" Plain="0">
       <Mapping DataField="DepartmentName" ObjectProperty="Name" />
     </Setting>
+    <Setting Key="Department_GetByID" SpName="Department_GetByID" DbName="NexFB" Plain="0">
+    </Setting>
     <Setting Key="Location_GetAll" SpName="Location_GetAll" DbName="NexFB" Plain="0">
       <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" />
       <Mapping DataField="LocationENGName" ObjectProperty="NameEN" />
@@ -362,7 +364,9 @@
     </Setting>
     <Setting Key="RPT_ViewMenuReport" SpName="RPT_ViewMenuReport" DbName="NexFB" Plain="0">
     </Setting>
-    <Setting Key="Rpt_Get_MonthlyLunchAndDinnerMeals" SpName="Rpt_Get_MonthlyLunchAndDinnerMeals" DbName="NexFB" Plain="0">
+    <Setting Key="Rpt_Get_MonthlyLunchAndDinnerMealsAmount" SpName="Rpt_Get_MonthlyLunchAndDinnerMealsAmount" DbName="NexFB" Plain="0">
+    </Setting>
+    <Setting Key="Rpt_Get_MonthlyBreakfastAndSupperMealsAmount" SpName="Rpt_Get_MonthlyBreakfastAndSupperMealsAmount" DbName="NexFB" Plain="0">
     </Setting>
   </Function>
   <Function Name="ManageGroup">
