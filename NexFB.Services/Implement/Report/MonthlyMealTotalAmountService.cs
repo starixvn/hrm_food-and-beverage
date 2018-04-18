@@ -58,9 +58,9 @@
             writer.Render();
         }
 
-        private string ConvertToMoneyFormat(double number)
+        private string ConvertToNumberFormat(double number)
         {
-            return string.Format("{0:#,###}", number);
+            return string.Format("{0:#,##0}", number);
         }
 
         private void FillTotalLunchAndDinerReportRow(LunchAndDinnerTotalAmountReportModel report, ExcelTemplateWriter writer)
@@ -68,11 +68,11 @@
             writer.WriteRow(2, new object[]
             {
                 Lang.Total,
-                ConvertToMoneyFormat(report.TotalLunchMeals),
-                ConvertToMoneyFormat(report.MonthlyTotalLunchAmount),
-                ConvertToMoneyFormat(report.TotalDinnerMeals),
-                ConvertToMoneyFormat(report.MonthlyTotalDinnerAmount),
-                ConvertToMoneyFormat(report.TotalAmount)
+                report.TotalLunchMeals,
+                report.MonthlyTotalLunchAmount,
+                report.TotalDinnerMeals,
+                report.MonthlyTotalDinnerAmount,
+                report.TotalAmount
             });
         }
 
@@ -83,11 +83,11 @@
                 var record = new
                 {
                     Date = item.OnDate.ToString("dd-MMM-yyyy"),
-                    LunchMeals = ConvertToMoneyFormat(item.LunchMealQuantity),
-                    LunchAmount = ConvertToMoneyFormat(item.LunchAmount),
-                    DinnerMeals = ConvertToMoneyFormat(item.DinnerMealQuantity),
-                    DinnerAmount = ConvertToMoneyFormat(item.DinnerAmount),
-                    TotalPrice = ConvertToMoneyFormat(item.TotalAmount)
+                    LunchMeals = item.LunchMealQuantity,
+                    LunchAmount = item.LunchAmount,
+                    DinnerMeals = item.DinnerMealQuantity,
+                    DinnerAmount = item.DinnerAmount,
+                    TotalPrice = item.TotalAmount
                 };
 
                 writer.WriteRow(1, record);
@@ -143,11 +143,11 @@
             writer.WriteRow(2, new object[]
             {
                 Lang.Total,
-                ConvertToMoneyFormat(report.TotalBreakfastMeals),
-                ConvertToMoneyFormat(report.MonthlyTotalBreakfastAmount),
-                ConvertToMoneyFormat(report.TotalSupperMeals),
-                ConvertToMoneyFormat(report.MonthlyTotalSupperAmount),
-                ConvertToMoneyFormat(report.TotalAmount)
+                report.TotalBreakfastMeals,
+                report.MonthlyTotalBreakfastAmount,
+                report.TotalSupperMeals,
+                report.MonthlyTotalSupperAmount,
+                report.TotalAmount
             });
         }
 
@@ -158,11 +158,11 @@
                 var record = new
                 {
                     Date = item.OnDate.ToString("dd-MMM-yyyy"),
-                    BreakfastMeals = ConvertToMoneyFormat(item.BreakfastMealQuantity),
-                    BreakfastAmount = ConvertToMoneyFormat(item.BreakfastAmount),
-                    SupperMeals = ConvertToMoneyFormat(item.SupperMealQuantity),
-                    SupperAmount = ConvertToMoneyFormat(item.SupperAmount),
-                    TotalPrice = ConvertToMoneyFormat(item.TotalAmount)
+                    BreakfastMeals = item.BreakfastMealQuantity,
+                    BreakfastAmount = item.BreakfastAmount,
+                    SupperMeals = item.SupperMealQuantity,
+                    SupperAmount = item.SupperAmount,
+                    TotalPrice = item.TotalAmount
                 };
 
                 writer.WriteRow(1, record);
