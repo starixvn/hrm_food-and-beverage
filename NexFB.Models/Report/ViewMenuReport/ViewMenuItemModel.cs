@@ -16,6 +16,8 @@ namespace NexFB.Models.Report.ViewMenuReport
     /// </summary>
     public class ViewMenuItemModel
     {
+        public DateTime OnDate { get; set; }
+
         public bool IsVegetarian { get; set; }
 
         public string MealId { get; set; }

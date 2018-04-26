@@ -17,7 +17,9 @@ namespace NexFB.Criteria.Report
     /// </summary>
     public class GetViewMenuReportCriteria : CriteriaBase
     {
-        public DateTime OnDate { get; set; }
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
 
         public int? SysId { get; set; }
 

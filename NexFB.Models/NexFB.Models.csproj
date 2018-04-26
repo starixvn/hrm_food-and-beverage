@@ -116,6 +116,8 @@
     <Compile Include="Report\MonthlyMealPriceReport\LunchAndDinnerTotalPriceReportModel.cs" />
     <Compile Include="Report\SideDishReport\SideDishItemModel.cs" />
     <Compile Include="Report\SideDishReport\SideDishReportModel.cs" />
+    <Compile Include="Report\ViewMenuReport\MenuTypeModel.cs" />
+    <Compile Include="Report\ViewMenuReport\MenuItemPerDateModel.cs" />
     <Compile Include="Report\ViewMenuReport\ViewMenuItemModel.cs" />
     <Compile Include="Report\ViewMenuReport\ViewMenuReportModel.cs" />
     <Compile Include="Report\SideDishSummaryReport\SideDishSummaryItemModel.cs" />

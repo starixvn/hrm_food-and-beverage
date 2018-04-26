@@ -144,15 +144,49 @@ namespace NexFB.Repositories.Implement
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 var report = new ViewMenuReportModel();
-
                 IEnumerable<ViewMenuItemModel> rawReport = db.Query<ViewMenuItemModel>(criteria.GetSpParams());
-
                 if (rawReport != null)
                 {
-                    report.ViewMenuItems = rawReport.ToList();
+                    report.Dates = rawReport.OrderBy(m => m.OnDate).GroupBy(m => m.OnDate).Select(g => g.Key);
+
+                    report.Menus = rawReport.OrderBy(m => m.OnDate).GroupBy(x => x.MenuName)
+                                    .Select(group => new MenuTypeModel
+                                    {
+                                        MenuName = group.Key,
+                                        MaxMenuItemPerMeal = 0,
+                                        MenuForEachDay = group.GroupBy(g => g.OnDate).Select(m => new MenuItemPerDateModel
+                                        {
+                                            OnDate = m.Key,
+                                            Menus = m.OrderBy(s => s.OnDate).ToList()
+                                        }).ToList()
+                                    })
+                                    .ToList();
+                }
+
+                foreach (var item in report.Menus)
+                {
+                    item.MaxMenuItemPerMeal = item.MenuForEachDay.Max(x => x.Menus.Count());
+                    AddNullListWhenNoMealMenuItem(item, report);
                 }
 
                 return report;
+            }
+        }
+
+        private void AddNullListWhenNoMealMenuItem(MenuTypeModel menu, ViewMenuReportModel report)
+        {
+            foreach (var date in report.Dates)
+            {
+                if (!menu.MenuForEachDay.Any(x => x.OnDate == date))
+                {
+                    var obj = new MenuItemPerDateModel
+                    {
+                        OnDate = date,
+                        Menus = new List<ViewMenuItemModel>()
+                    };
+                    menu.MenuForEachDay.Add(obj);
+                    menu.MenuForEachDay = menu.MenuForEachDay.OrderBy(x => x.OnDate).ToList();
+                }
             }
         }
 
@@ -199,7 +233,7 @@ namespace NexFB.Repositories.Implement
             IEnumerable<dynamic> offDayRows = rawReport.Where(x => x.IsOffDay == true);
             IEnumerable<dynamic> wordDayRows = rawReport.Where(x => x.IsOffDay == false);
 
-            if (wordDayRows != null && wordDayRows.Count() > 0)
+            if (wordDayRows != null && wordDayRows.Any())
             {
                 var wordDayMeals = new MainDishPerDayModel
                 {
@@ -210,7 +244,7 @@ namespace NexFB.Repositories.Implement
                 meals.Add(wordDayMeals);
             }
 
-            if (offDayRows != null && offDayRows.Count() > 0)
+            if (offDayRows != null && offDayRows.Any())
             {
                 var offDayMeals = new MainDishPerDayModel
                 {

@@ -349,14 +349,16 @@ namespace NexFB.Site.Controllers.API.Report
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.ViewMenu, Policy = Policy.Read)]
         public ViewMenuReportModel GetViewMenuReport(
-            DateTime date,
+            DateTime startDate,
+            DateTime endDate,
             string mealId,
             bool? isVegetarian)
         {
             var criteria = new GetViewMenuReportCriteria
             {
                 MealId = mealId,
-                OnDate = date,
+                StartDate = startDate,
+                EndDate = endDate,
                 IsVegetarian = isVegetarian,
                 SysId = CurrentUser.UserId
             };

@@ -10,9 +10,6 @@
 namespace NexFB.Services.Interface.Report
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.ViewMenuReport;
 
@@ -23,6 +20,6 @@ namespace NexFB.Services.Interface.Report
     {
         ViewMenuReportModel GetViewMenuReport(GetViewMenuReportCriteria criteria);
 
-        void ExportViewMenuReport(ViewMenuReportModel report, string templatePath, DateTime menuDate);
+        void ExportViewMenuReport(ViewMenuReportModel report, string templatePath, DateTime startDate, DateTime endDate);
     }
 }

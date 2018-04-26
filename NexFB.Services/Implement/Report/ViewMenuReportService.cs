@@ -11,6 +11,7 @@ namespace NexFB.Services.Implement.Report
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Common.Helper;
     using NexFB.Core.Services;
     using NexFB.Core.Utilities;
@@ -47,7 +48,6 @@ namespace NexFB.Services.Implement.Report
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             var report = new ViewMenuReportModel();
-
             if (criteria.IsValid())
             {
                 report = _reportRepository.GetViewMenuReport(criteria);
@@ -62,22 +62,34 @@ namespace NexFB.Services.Implement.Report
         /// <param name="report">The report.</param>
         /// <param name="templatePath">The template path.</param>
         /// <param name="menuDate">The menu date.</param>
-        public void ExportViewMenuReport(ViewMenuReportModel report, string templatePath, DateTime menuDate)
+        public void ExportViewMenuReport(ViewMenuReportModel report, string templatePath, DateTime startDate, DateTime endDate)
         {
             string reportTitle = Lang.ViewMenuReport;
-            string menuTitle = string.Format("Menu for {0:dd MMM, yyyy}", menuDate);
+            string menuTitle = string.Format("Menu from {0:dd} to {1: dd MMM, yyyy}", startDate, endDate);
             var writer = new ExcelTemplateWriter(templatePath, reportTitle, reportTitle);
 
-            // Create report title.            
+            // Create report title.
             writer.WriteRow(0, new { menuTitle });
 
-            // Create report header
             writer.CopyRows(1, 1);
+            //Write header row
+            FillHeaderRow(report.Dates, writer);
 
-            FillContentRow(report, writer);
+            // Create report header
+            FillContentRow(report.Menus, writer);
 
-            writer.SyncColumnsWidth(3);
+            writer.SyncColumnsWidth(report.Dates.Count() + 1);
             writer.Render();
+        }
+
+        private void FillHeaderRow(IEnumerable<DateTime> dates, ExcelTemplateWriter writer)
+        {
+            var colIndex = 1;
+            foreach (var date in dates)
+            {
+                writer.WriteCellRange(1, 1, colIndex, 1, date.ToString("dd/MM/yyyy"));
+                colIndex++;
+            }
         }
 
         /// <summary>
@@ -85,38 +97,47 @@ namespace NexFB.Services.Implement.Report
         /// </summary>
         /// <param name="report">The report.</param>
         /// <param name="writer">The writer.</param>
-        private void FillContentRow(ViewMenuReportModel report, ExcelTemplateWriter writer)
+        private void FillContentRow(IList<MenuTypeModel> menus, ExcelTemplateWriter writer)
         {
-            int counter = 1;
-            var groupName = new List<string>();
-
-            foreach (ViewMenuItemModel item in report.ViewMenuItems)
+            var rowIndex = 3;
+            foreach (var item in menus)
             {
-                if (!groupName.Contains(item.MenuName))
-                {
-                    if (item.IsVegetarian)
-                    {
-                        writer.WriteRow(3, new object[] { item.MenuName });
-                    }
-                    else
-                    {
-                        writer.WriteRow(2, new object[] { item.MenuName });
-                    }
-
-                    groupName.Add(item.MenuName);
-                    counter = 1;
-                }
-
-                var subItem = new
-                {
-                    No = counter,
-                    FoodEngName = item.FoodEngName,
-                    FoodVNMName = item.FoodVNMName
-                };
-
-                writer.WriteRow(4, subItem);
-                counter++;
+                writer.WriteRow(2, new { MealName = item.MenuName });
+                FillSubRows(item.MenuForEachDay, item.MaxMenuItemPerMeal, writer, ref rowIndex);
+                rowIndex++;
             }
+        }
+
+        private void FillSubRows(IList<MenuItemPerDateModel> menuForEachDay, int maxMenuItemPerMeal, ExcelTemplateWriter writer, ref int rowIndex)
+        {
+            for (int i = 0; i < maxMenuItemPerMeal; i++)
+            {
+                writer.CopyRows(3, 1);
+                writer.WriteCellRange(rowIndex, 1, 0, 1, i + 1);
+                var colIndex = 1;
+                foreach (var menu in menuForEachDay)
+                {
+                    var menuFoodName = GetMenuFoodName(menu.Menus, i);
+                    writer.WriteCellRange(rowIndex, 1, colIndex, 1, menuFoodName);
+                    colIndex++;
+                }
+                rowIndex++;
+            }
+        }
+
+        private string GetMenuFoodName(IList<ViewMenuItemModel> menus, int index)
+        {
+            string menuFoodName = string.Empty;
+            try
+            {
+                menuFoodName = menus[index] != null ? string.Format("{0}{1}{2}", menus[index].FoodVNMName, "\n", menus[index].FoodEngName) : string.Empty;
+            }
+            catch
+            {
+                return menuFoodName;
+            }
+
+            return menuFoodName;
         }
     }
 }

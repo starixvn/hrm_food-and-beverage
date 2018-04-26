@@ -2,87 +2,141 @@
 /*global reportModule*/
 
 reportModule.directive('viewMenuReport', function () {
-	var columnHeaders = [
-			{ HeaderText: "#", Width: 60, Name: "No", HeaderAlign: "center", CellAlign: "center" },
-			{ HeaderText: "Food Item (Eng)", Width: 570, Name: "FoodEngName", HeaderAlign: "center", CellAlign: "left" },
-			{ HeaderText: "Food Item (Vie)", Width: 563, Name: "FoodVNMName", HeaderAlign: "center", CellAlign: "left" }
-	];
+    var generateHeaderRow = function (dates, criteria) {
+        var columnHeader = [];
+        var menusLength = dates.length
+        if (dates && menusLength > 0) {
+            columnHeader.push({ HeaderText: "#", Width: 40, Name: "No", HeaderAlign: "center", CellAlign: "center" });
 
-	var generateBodyRows = function (data) {
-		var rows = [];
+            angular.forEach(dates, function (item, index) {
+                var dateString = new Date(item);
+                var date = {
+                    HeaderText: dateString.toString("dd/MM/yyyy"),
+                    Width: menusLength > 4 ? 230 : 500,
+                    Name: "Date" + index,
+                    HeaderAlign: "center",
+                    CellAlign: "center"
+                };
+                columnHeader.push(date);
+            });
+        } else {
+            columnHeader.push({
+                HeaderText: "No information",
+                Width: 1160,
+                Name: "Date",
+                HeaderAlign: "center",
+                CellAlign: "center"
+            });
+        }
+        return columnHeader;
+    }
 
-		if (data) {
-			var counter = 1;
+    var generateMenuTypeRows = function (data) {
+        var rows = [];
+        angular.forEach(data.Menus, function (item) {
+            var currentRow = {};
 
-			angular.forEach(data.ViewMenuItems, function (item) {
-				var currentRow = {};
+            if (data.Menus.length > 0) {
+                var iconClass = "pull-left ";
+                iconClass += item.IsVegetarian === true ? "icon-veg" : "icon-none-veg";
+                var menuClass = item.IsVegetarian === true ? "menu-vegetarian" : "menu-non-vegetarian";
 
-				var result = $.grep(rows, function (e) { return e.Columns[0].Key === item.MenuName; });
+                currentRow = {
+                    Columns: [
+                        {
+                            Name: "No",
+                            Value: '<div class="' + iconClass + '"></div>' + item.MenuName,
+                            MergeColNumber: data.Dates.length + 1,
+                            CellAlign: "left",
+                            Key: item.MenuName
+                        }
+                    ],
+                    SubRows: [],
+                    CssClass: menuClass
+                };
+                rows.push(currentRow);
+            }
+        });
+        return rows;
+    };
 
-				if (result.length > 0) {
-					currentRow = result[0];
-				} else {
-					var iconClass = "pull-left ";
-					iconClass += item.IsVegetarian === true ? "icon-veg" : "icon-none-veg";
-					var menuClass = item.IsVegetarian === true ? "menu-vegetarian" : "menu-non-vegetarian";
-					
-					currentRow = {
-						Columns: [
-							{
-								Name: "No",
-								Value: '<div class="' + iconClass + '"></div>' + item.MenuName,
-								MergeColNumber: 3,
-								CellAlign: "left",
-								Key: item.MenuName
-							}
-						],
-						SubRows: [],
-						CssClass: menuClass
-					};
+    var getMenuItems = function (rowKey, menu) {
+        var rows = [];
+        for (var i = 0; i < menu.MaxMenuItemPerMeal; i++) {
+            var columns = [{ Name: "No", Value: i + 1 }];
+            angular.forEach(menu.MenuForEachDay, function (item, index) {
+                var menuClass = "";
+                if (item.Menus[i] && item.Menus[i].IsVegetarian) {
+                    menuClass = "menu-vegetarian";
+                }
+                var menuItem = {
+                    Name: "Date" + index,
+                    Value: item.Menus[i] ? item.Menus[i].FoodVNMName + "</br>" + "<i>" + item.Menus[0].FoodEngName + "</i>" : "",
+                    CellAlign: "left",
+                    CssClass: menuClass
+                }
+                columns.push(menuItem);
+            });
+            rows.push(columns);
+        }
+        console.log(rows);
+        return rows;
+    }
 
-					rows.push(currentRow);
-					counter = 1;
-				}
+    var getMenuItemByMenuName = function (menuName, menus) {
+        var menuItems = [];
+        angular.forEach(menus, function (menu) {
+            if (menu.MenuName === menuName) {
+                menuItems.push(menu);
+            }
+        });
+        return menuItems;
+    };
 
-				var currentSubRow = {
-					Columns: [
-						{ Name: "No", Value: counter },
-						{ Name: "FoodEngName", Value: item.FoodEngName },
-						{ Name: "FoodVNMName", Value: item.FoodVNMName }
-					]
-				};
+    var generateBodyRows = function (data) {
+        var rows = [];
 
-				currentRow.SubRows.push(currentSubRow);
-				counter++;
-			});
-		}
+        if (data.Menus) {
+            rows = generateMenuTypeRows(data);
+            var menuItems = [];
+            angular.forEach(rows, function (rowTitle) {
+                menuItems = getMenuItemByMenuName(rowTitle.Columns[0].Key, data.Menus);
+                var items = getMenuItems(rowTitle.Columns[0].Key, menuItems[0]);
+                angular.forEach(items, function (row) {
+                    var subRow = {
+                        Columns: row
+                    }
+                    rowTitle.SubRows.push(subRow);
+                });
+            });
+        }
+        return rows;
+    };
 
-		return rows;
-	};
+    return {
+        link: function (scope, element) {
+            scope.$on('renderViewMenuReport', function () {
+                var bodyRows = generateBodyRows(scope.reportData);
+                var columnHeaders = generateHeaderRow(scope.reportData.Dates, scope.criteria);
+                var title = "Menu from " + scope.criteria.startDate.toString("dd") + " to " + scope.criteria.endDate.toString("dd MMM, yyyy");
 
-	return {
-		link: function (scope, element) {
-			scope.$on('renderViewMenuReport', function () {
-				var bodyRows = generateBodyRows(scope.reportData);
-				var title = "Menu for " + scope.criteria.date.toString("dd MMM, yyyy");
+                var gridOptions = {
+                    columns: columnHeaders,
+                    bodyRows: bodyRows,
+                    showTree: true,
+                    showTitle: true,
+                    titleInfo: {
+                        text: title,
+                        showExcelButton: true,
+                        exportExcelFunction: function () {
+                            scope.exportExcel.call(this);
+                        }
+                    },
+                    gridExpandHeight: 250
+                };
 
-				var gridOptions = {
-					columns: columnHeaders,
-					bodyRows: bodyRows,
-					showTree: true,
-					showTitle: true,
-					titleInfo: {
-						text: title,
-						showExcelButton: true,
-						exportExcelFunction: function () {
-							scope.exportExcel.call(this);
-						}
-					},
-					gridExpandHeight: 250
-				};
-
-				$(element).fanexGrid(gridOptions);
-			});
-		}
-	};
+                $(element).fanexGrid(gridOptions);
+            });
+        }
+    };
 });
