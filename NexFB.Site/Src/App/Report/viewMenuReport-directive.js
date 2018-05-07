@@ -2,7 +2,7 @@
 /*global reportModule*/
 
 reportModule.directive('viewMenuReport', function () {
-    var generateHeaderRow = function (dates, criteria) {
+    var generateHeaderRow = function (dates) {
         var columnHeader = [];
         var menusLength = dates.length
         if (dates && menusLength > 0) {
@@ -71,7 +71,7 @@ reportModule.directive('viewMenuReport', function () {
                 }
                 var menuItem = {
                     Name: "Date" + index,
-                    Value: item.Menus[i] ? item.Menus[i].FoodVNMName + "</br>" + "<i>" + item.Menus[0].FoodEngName + "</i>" : "",
+                    Value: item.Menus[i] ? item.Menus[i].FoodVNMName + "</br>" + "<i>" + item.Menus[i].FoodEngName + "</i>" : "",
                     CellAlign: "left",
                     CssClass: menuClass
                 }
@@ -79,7 +79,6 @@ reportModule.directive('viewMenuReport', function () {
             });
             rows.push(columns);
         }
-        console.log(rows);
         return rows;
     }
 
@@ -117,8 +116,8 @@ reportModule.directive('viewMenuReport', function () {
         link: function (scope, element) {
             scope.$on('renderViewMenuReport', function () {
                 var bodyRows = generateBodyRows(scope.reportData);
-                var columnHeaders = generateHeaderRow(scope.reportData.Dates, scope.criteria);
-                var title = "Menu from " + scope.criteria.startDate.toString("dd") + " to " + scope.criteria.endDate.toString("dd MMM, yyyy");
+                var columnHeaders = generateHeaderRow(scope.reportData.Dates);
+                var title = "Menu from " + scope.criteria.fromDate.toString("dd/MM/yyyy") + " to " + scope.criteria.toDate.toString("dd/MM/yyyy");
 
                 var gridOptions = {
                     columns: columnHeaders,

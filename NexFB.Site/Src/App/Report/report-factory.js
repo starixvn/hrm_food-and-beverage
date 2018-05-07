@@ -234,8 +234,8 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         },
         getViewMenuReport: function (filter) {
             var data = {
-                startDate: filter.startDate,
-                endDate: filter.endDate,
+                fromDate: filter.fromDate,
+                toDate: filter.toDate,
                 mealId: filter.mealId,
                 isVegetarian: filter.isVegetarian
             };

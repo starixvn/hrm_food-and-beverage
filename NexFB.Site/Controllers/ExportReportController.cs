@@ -259,7 +259,7 @@ namespace NexFB.Site.Controllers
             ViewMenuReportModel reportData = _viewMenuReportService.GetViewMenuReport(criteria);
             if (reportData != null)
             {
-                _viewMenuReportService.ExportViewMenuReport(reportData, templatePath, criteria.StartDate, criteria.EndDate);
+                _viewMenuReportService.ExportViewMenuReport(reportData, templatePath, criteria.FromDate, criteria.ToDate);
             }
 
             return new EmptyResult();

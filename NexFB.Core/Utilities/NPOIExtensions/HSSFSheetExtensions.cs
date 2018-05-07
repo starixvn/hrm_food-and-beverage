@@ -245,6 +245,7 @@ namespace NexFB.Core.Utilities.NPOIExtensions
         /// <returns>Cell instance at the passed position.</returns>
         public static ICell GetCell(this ISheet sheet, int rowIndex, int colIndex)
         {
+            sheet.CreateCell(rowIndex, colIndex);
             return sheet.GetRow(rowIndex).GetCell(colIndex);
         }
 

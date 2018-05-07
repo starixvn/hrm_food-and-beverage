@@ -62,10 +62,10 @@ namespace NexFB.Services.Implement.Report
         /// <param name="report">The report.</param>
         /// <param name="templatePath">The template path.</param>
         /// <param name="menuDate">The menu date.</param>
-        public void ExportViewMenuReport(ViewMenuReportModel report, string templatePath, DateTime startDate, DateTime endDate)
+        public void ExportViewMenuReport(ViewMenuReportModel report, string templatePath, DateTime fromDate, DateTime toDate)
         {
             string reportTitle = Lang.ViewMenuReport;
-            string menuTitle = string.Format("Menu from {0:dd} to {1: dd MMM, yyyy}", startDate, endDate);
+            string menuTitle = string.Format("Menu from {0:dd/MM/yyyy} to {1: dd/MM/yyyy}", fromDate, toDate);
             var writer = new ExcelTemplateWriter(templatePath, reportTitle, reportTitle);
 
             // Create report title.

@@ -2,37 +2,26 @@
 /*global reportModule*/
 
 reportModule.controller('ViewMenuReportController',
-['$scope', 'reportFactory', 'ErrorFactory', 'foodMenuFactory', 'foodMenuUtilities', 'baseUrl', 'datepickerConfig',
-function ($scope, reportFactory, ErrorFactory, foodMenuFactory, foodMenuUtilities, baseUrl, datepickerConfig) {
+['$scope', 'reportFactory', 'commonFactory', 'ErrorFactory', 'foodMenuFactory', 'foodMenuUtilities', 'baseUrl', 'notificationFactory',
+function ($scope, reportFactory, commonFactory, ErrorFactory, foodMenuFactory, foodMenuUtilities, baseUrl, notificationFactory) {
     var self = this,
-		date = new Date(),
-		year = date.getFullYear(),
-		month = date.getMonth(),
-		day = date.getDate();
+		toDay = new Date(),
+        fromDate = new Date(toDay.getFullYear(), toDay.getMonth(), toDay.getDate() - 6),
+        toDate = new Date();
 
     // $scope region.
     $scope.meals = [];
 
-    $scope.getStartDateOfWeek = function (date) {
-        var day = date.getDay();
-        var startDateOfWeek = new Date(date);
-        startDateOfWeek.setDate(startDateOfWeek.getDate() - day);
-        return startDateOfWeek;
-    };
-
-    $scope.getEndDateOfWeek = function (date) {
-        var day = date.getDay();
-        var endDateOfWeek = new Date(date);
-        endDateOfWeek.setDate(endDateOfWeek.getDate() - day + 6);
-        return endDateOfWeek;
-    };
-
     $scope.criteria = {
         mealIds: '',
-        date: new Date(year, month, day),
-        startDate: $scope.getStartDateOfWeek(date),
-        endDate: $scope.getEndDateOfWeek(date),
+        fromDate: fromDate,
+        toDate: toDate,
         isVegetarian: '-1'
+    };
+
+    $scope.calendar = {
+        startDateOpened: false,
+        endDateOpened: false
     };
 
     $scope.dateOpened = false;
@@ -44,41 +33,24 @@ function ($scope, reportFactory, ErrorFactory, foodMenuFactory, foodMenuUtilitie
         $scope.dateOpened = true;
     };
 
+    /*
+	** Open calendar.
+	*/
+    $scope.openPopupStartDate = function ($event) {
+        commonFactory.openPopupStartDate($event, $scope);
+    };
+
+    $scope.openPopupEndDate = function ($event) {
+        commonFactory.openPopupEndDate($event, $scope);
+    };
+
     $scope.search = function () {
         self.getReportData();
     };
 
-    $scope.next = function () {
-        var date = $scope.criteria.date;
-        var startDate = $scope.criteria.startDate;
-        var endDate = $scope.criteria.endDate;
-
-        date.setDate(date.getDate() + 6);
-        startDate.setDate(startDate.getDate() + 6);
-        endDate.setDate(endDate.getDate() + 6);
-
-        $scope.criteria.date = new Date(date);
-        $scope.criteria.startDate = new Date(startDate);
-        $scope.criteria.endDate = new Date(endDate);
-
-        self.getReportData();
-    };
-
-    $scope.previous = function () {
-        var date = $scope.criteria.date;
-        var startDate = $scope.criteria.startDate;
-        var endDate = $scope.criteria.endDate;
-
-        date.setDate(date.getDate() - 6);
-        startDate.setDate(startDate.getDate() - 6);
-        endDate.setDate(endDate.getDate() - 6);
-
-        $scope.criteria.date = new Date(date);
-        $scope.criteria.startDate = new Date(startDate);
-        $scope.criteria.endDate = new Date(endDate);
-
-        self.getReportData();
-    };
+    /*
+	** Query data.
+	*/
 
     $scope.exportExcel = function () {
         var criteria = self.getCriteria();
@@ -99,12 +71,16 @@ function ($scope, reportFactory, ErrorFactory, foodMenuFactory, foodMenuUtilitie
     // self region.
     self.getReportData = function () {
         var criteria = self.getCriteria();
-        reportFactory.getViewMenuReport(criteria).success(function (reportData) {
-            $scope.reportData = reportData;
-            $scope.$broadcast('renderViewMenuReport');
-        }).error(function (response, status) {
-            ErrorFactory.errorHandle(status);
-        });
+        if (criteria.fromDate < criteria.toDate) {
+            reportFactory.getViewMenuReport(criteria).success(function (reportData) {
+                $scope.reportData = reportData;
+                $scope.$broadcast('renderViewMenuReport');
+            }).error(function (response, status) {
+                ErrorFactory.errorHandle(status);
+            });
+        } else {
+            notificationFactory.error("DateRangeInvalid");
+        }
     };
 
     self.getMeals = function () {
@@ -125,8 +101,8 @@ function ($scope, reportFactory, ErrorFactory, foodMenuFactory, foodMenuUtilitie
         $scope.criteria.mealIds = foodMenuUtilities.getMealId($scope.meals);
 
         return {
-            startDate: $scope.getStartDateOfWeek($scope.criteria.date).toString("MM/dd/yyyy"),
-            endDate: $scope.getEndDateOfWeek($scope.criteria.date).toString("MM/dd/yyyy"),
+            fromDate: $scope.criteria.fromDate.toString("MM/dd/yyyy"),
+            toDate: $scope.criteria.toDate.toString("MM/dd/yyyy"),
             mealId: $scope.criteria.mealIds,
             isVegetarian: $scope.criteria.isVegetarian === '-1' ? '' : ($scope.criteria.isVegetarian === '1' ? true : false)
         };

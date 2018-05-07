@@ -1,45 +1,49 @@
 ﻿<div class="col-sm-12 view-menu-report">
-	<div class="row sub-header">
-		<ul class="breadcrumb list-inline pull-left">
-			<li class="current" data-translate="ViewMenuReport"></li>
-		</ul>
-	</div>
-	<div class="row filter filterMaxWith">
-		<form class="form-horizontal form-multiLine" role="form" action="#">
-		<div class="form-group">
-			<label class="pull-left text-right date-label" data-translate="Date">
-			</label>
-			<div class="col-sm-2 field daybox week-picker">
-				<input type="text" class="form-control" data-datepicker-popup="dd MMM, yyyy" data-ng-model="criteria.date"
-					data-is-open="dateOpened" data-ng-click="open($event)" data-show-button-bar="false"
-					readonly />
-				<calendar-image class="calendar-image" data-ng-click="open($event)"></calendar-image>
-			</div>
-			<label class="col-sm-1 text-right" data-translate="Meal">
-			</label>
-			<div class="col-sm-2 field">
-				<add-class-to-role-filter multi-select input-model="meals" button-label="MealId"
-					helper-elements="all reset" item-label="MealEngName" tick-property="ticked" max-labels="0"
-					class="multi-select">
-				</add-class-to-role-filter>
-			</div>
-			<!--<label class="col-sm-1 text-right" data-translate="DietType">
-			</label>
-			<div class="col-sm-2 field">
-				<select data-ng-model="criteria.isVegetarian" class="form-control">
-					<option value="-1">-- All --</option>
-					<option value="1">Vegetarian</option>
-					<option value="0">Non-vegetarian</option>
-				</select>
-			</div>-->
-			<div class="col-sm-1">
-				<input type="button" value="Submit" class="button" data-ng-click="search()" />
-			</div>
-		</div>
-		</form>
-	</div>
-	<ng-include src="'Src/App/Report/Templates/previousNextButtons.html'">
-	</ng-include>
-	<div class="freegrid" data-view-menu-report>
-	</div>
+    <div class="row sub-header">
+        <ul class="breadcrumb list-inline pull-left">
+            <li class="current" data-translate="ViewMenuReport"></li>
+        </ul>
+    </div>
+    <div class="row filter filterMaxWith">
+        <form class="form-horizontal form-multiLine" role="form" action="#">
+            <div class="form-group">
+                <label class="col-sm-1 text-right long-text-report" data-translate="From"></label>
+                <div class="col-sm-2 field monthbox">
+                    <input class="calendar-form-control" type="text" ng-model="criteria.fromDate" datepicker-popup
+                           is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
+                    <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
+                </div>
+                <label class="col-sm-1 text-right" data-translate="To"></label>
+                <div class="col-sm-2 field monthbox">
+                    <input class="calendar-form-control" type="text" ng-model="criteria.toDate" datepicker-popup
+                           is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
+                    <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+                </div>
+                <label class="col-sm-1 text-right" data-translate="Meal">
+                </label>
+                <div class="col-sm-2 field">
+                    <add-class-to-role-filter multi-select input-model="meals" button-label="MealId"
+                                              helper-elements="all reset" item-label="MealEngName" tick-property="ticked" max-labels="0"
+                                              class="multi-select">
+                    </add-class-to-role-filter>
+                </div>
+                <!--<label class="col-sm-1 text-right" data-translate="DietType">
+                </label>
+                <div class="col-sm-2 field">
+                    <select data-ng-model="criteria.isVegetarian" class="form-control">
+                        <option value="-1">-- All --</option>
+                        <option value="1">Vegetarian</option>
+                        <option value="0">Non-vegetarian</option>
+                    </select>
+                </div>-->
+                <div class="col-sm-1">
+                    <input type="button" value="Submit" class="button" data-ng-click="search()" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--<ng-include src="'Src/App/Report/Templates/previousNextButtons.html'">
+    </ng-include>-->
+    <div class="freegrid" data-view-menu-report>
+    </div>
 </div>
