@@ -113,21 +113,6 @@
     </Compile>
     <Compile Include="CommonService.cs" />
     <Compile Include="Properties\GlobalSuppression.cs" />
-    <Compile Include="Service References\HongMaService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\NexcelService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\SMSService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Criteria\InsertAndUpdateEmployeeCalendarSMSCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateEmployeeCalendarHMCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateShiftSMSCriteria.cs" />
@@ -151,6 +136,21 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\HongMaService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\NexcelService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\SMSService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -159,34 +159,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.DepartmentModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.EmployeeAttendanceModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.EmployeeAttendanceViolationModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.EmployeeCalendarModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.EmployeeRequestHistoryModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.EmployeeRequestModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.EmployeeSupervisorModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.GroupSupervisorModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.JobTitleModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.LeaveTypeModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.PhotoModel.datasource">
@@ -211,34 +184,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\HongMaService\SynchronizeDataService.wsdl" />
-    <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.DepartmentModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.EmployeeAttendanceModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.EmployeeAttendanceViolationModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.EmployeeCalendarModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.EmployeeRequestHistoryModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.EmployeeRequestModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.EmployeeSupervisorModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.GroupSupervisorModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.JobTitleModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.LeaveTypeModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.PhotoModel.datasource">
@@ -263,34 +209,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\NexcelService\SynchronizeDataService.wsdl" />
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.DepartmentModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.EmployeeAttendanceModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.EmployeeAttendanceViolationModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.EmployeeCalendarModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.EmployeeRequestHistoryModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.EmployeeRequestModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.EmployeeSupervisorModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.GroupSupervisorModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.JobTitleModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.LeaveTypeModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.PhotoModel.datasource">
@@ -353,13 +272,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\HongMaService\Service.disco" />
-    <None Include="Service References\HongMaService\configuration91.svcinfo" />
-    <None Include="Service References\HongMaService\configuration.svcinfo" />
-    <None Include="Service References\HongMaService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Service References\NexcelService\Service.disco" />
     <None Include="Service References\NexcelService\configuration91.svcinfo" />
     <None Include="Service References\NexcelService\configuration.svcinfo" />
@@ -371,6 +283,13 @@
     <None Include="Service References\SMSService\configuration91.svcinfo" />
     <None Include="Service References\SMSService\configuration.svcinfo" />
     <None Include="Service References\SMSService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\HongMaService\Service.disco" />
+    <None Include="Service References\HongMaService\configuration91.svcinfo" />
+    <None Include="Service References\HongMaService\configuration.svcinfo" />
+    <None Include="Service References\HongMaService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -387,7 +306,6 @@
     <WCFMetadataStorage Include="Service References\NexcelService\" />
     <WCFMetadataStorage Include="Service References\SMSService\" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

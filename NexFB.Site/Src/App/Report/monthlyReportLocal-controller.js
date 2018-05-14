@@ -103,7 +103,7 @@ reportUtilities) {
 			$scope.getTeamByCompany($scope.filter.departmentId);
 		}
 
-		getEmployeeType($scope.filter.departmentId, true);
+		getEmployeeType($scope.filter.departmentId, null);
 	}).error(function (response, status) {
 		ErrorFactory.errorHandle(status);
 	});
@@ -154,7 +154,7 @@ reportUtilities) {
 			departmentId = $scope.originalDepartmentId;
 		}
 
-		getEmployeeType(departmentId, true);
+		getEmployeeType(departmentId, null);
 	};
 
 	/*

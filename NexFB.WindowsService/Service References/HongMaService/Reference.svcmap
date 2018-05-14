@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="23214464-5afa-409c-9a9b-e2a623ed6554" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="14aa62c3-bcd9-4687-9dbd-ff6d0f7fe6c8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -18,14 +18,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://10.18.200.114:8685/service.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8685/service.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SynchronizeDataService.wsdl" MetadataType="Wsdl" ID="fe114684-8a51-4f59-93a2-cbcf7540250d" SourceId="1" SourceUrl="http://internal.spvn.local:8685/Service.svc?wsdl" />
-    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="fb7d3b96-38db-4dd0-83d8-e9acc1f8f9ea" SourceId="1" SourceUrl="http://internal.spvn.local:8685/Service.svc?xsd=xsd1" />
-    <MetadataFile FileName="Service.disco" MetadataType="Disco" ID="11a65184-6d7c-482d-b2e6-30bc454ef30c" SourceId="1" SourceUrl="http://internal.spvn.local:8685/Service.svc?disco" />
-    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="95257c36-ad23-4f04-9f13-5403a7423445" SourceId="1" SourceUrl="http://internal.spvn.local:8685/Service.svc?xsd=xsd2" />
-    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="e7683dde-72d5-4c6f-82b7-ddf09a0ffcf1" SourceId="1" SourceUrl="http://internal.spvn.local:8685/Service.svc?xsd=xsd0" />
+    <MetadataFile FileName="SynchronizeDataService.wsdl" MetadataType="Wsdl" ID="0a57eb85-9631-4ba6-a3c9-934be869dd9a" SourceId="1" SourceUrl="http://nb003-quinn.spvn.local:8685/Service.svc?wsdl" />
+    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="af941897-0817-49d3-8e20-34380ec57b1d" SourceId="1" SourceUrl="http://nb003-quinn.spvn.local:8685/Service.svc?xsd=xsd0" />
+    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="4c4eefda-ce24-4e8a-bb2e-46a2668c62e1" SourceId="1" SourceUrl="http://nb003-quinn.spvn.local:8685/Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="77e30766-25e6-41a5-8eff-343c93fabbec" SourceId="1" SourceUrl="http://nb003-quinn.spvn.local:8685/Service.svc?xsd=xsd1" />
+    <MetadataFile FileName="Service.disco" MetadataType="Disco" ID="675de18a-1241-48e2-861e-0721c280cdff" SourceId="1" SourceUrl="http://nb003-quinn.spvn.local:8685/Service.svc?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

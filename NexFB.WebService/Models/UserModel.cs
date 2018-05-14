@@ -53,5 +53,8 @@
 
         [DataMember]
         public int JobTitleId { get; set; }
+
+        [DataMember]
+        public string CostCenter { get; set; }
     }
 }

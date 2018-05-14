@@ -15,6 +15,9 @@
         IEnumerable<TeamModel> GetTeam(DateTime? fromDate);
 
         [OperationContract]
+        IEnumerable<ShiftModel> GetShift();
+
+        [OperationContract]
         IEnumerable<EmployeeCalendarModel> GetEmployeeCalendar(DateTime? fromDate);
 
         [OperationContract]

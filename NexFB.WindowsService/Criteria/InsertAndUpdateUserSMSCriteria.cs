@@ -23,7 +23,7 @@ namespace NexFB.WindowsService.Criteria
             "<User EmpId='{0}' Password='{1}' Code='{2}' "
             + "NickName='{3}' FullName='{4}' DomainName='{5}' DepartmentId='{6}' IsEnabled='{7}' "
             + " IsDeleted='{8}' JoinedDate='{9}' ModifiedDate='{10}' TeamId='{11}' IsLocal='{12}' "
-            + " CardNumber='{13}'></User>";
+            + " CardNumber='{13}' CostCenter='{14}'></User>";
 
         [SpParam(Ignored = true)]
         public int DepartmentId { get; set; }
@@ -56,7 +56,8 @@ namespace NexFB.WindowsService.Criteria
                             user.ModifiedDate,
                             user.TeamId,
                             user.IsLocal,
-                            user.EmployeeCard);
+                            user.EmployeeCard,
+                            user.CostCenter);
                     }
                 }
 
