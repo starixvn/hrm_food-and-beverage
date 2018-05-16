@@ -257,12 +257,18 @@ namespace NexFB.Services.Implement.Report
         {
             var colIndex = 1;
             var rowIndex = rowIndexConst;
+            writer.CopyRows(1, 1);
+            writer.CopyRows(10, 1);
             writer.WriteCellRange(rowIndex, 1, colIndex, 1, string.Empty);
+
             foreach (var costCenter in listCostCenter)
             {
                 rowIndex++;
+                writer.CopyRows(11, 1);
                 writer.WriteCellRange(rowIndex, 1, colIndex, 1, costCenter);
             }
+
+            writer.CopyRows(11, 1);
         }
 
         private List<string> GetListCostCenter(MonthlyLocalReportModel report)
