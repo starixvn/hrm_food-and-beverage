@@ -163,7 +163,7 @@ reportUtilities) {
 	$scope.getMonthlyReportLocal = function (filter) {
 		reportFactory.getMonthlyMainDishReportByLocal(filter)
 			.success(function (report) {
-				$scope.localReport = report;
+			    $scope.localReport = report;
 				$scope.$broadcast('renderMonthlyReport');
 			})
 			.error(function (response, status) {

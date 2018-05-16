@@ -113,7 +113,7 @@ namespace NexFB.Services.Implement.Report
             WriteDayHeaderInMonth(report.WeekDays.NumberMeals, ref writer);
 
             FillContentRow(report, ref writer);
-            writer = _monthlyMainDishPerMealReportService.FillTotalRow(report.Total, report.IsGroupByEmployee, writer);
+            writer = _monthlyMainDishPerMealReportService.FillTotalRow(report.Total, report.GroupBy, writer);
             writer.SyncColumnsWidth(37);
 
             writer.Render();
@@ -141,22 +141,21 @@ namespace NexFB.Services.Implement.Report
 
         private void FillContentRow(MonthlyMainDishPerDayModel report, ref ExcelTemplateWriter writer)
         {
-            bool isGroupByEmployee = report.IsGroupByEmployee;
             int rowIndex = 1;
 
             foreach (MainDishPerDayModel typeDay in report.TypeDays)
             {
-                FillContentMeal(typeDay, ref writer, isGroupByEmployee, ref rowIndex);
+                FillContentMeal(typeDay, ref writer, report.GroupBy, ref rowIndex);
             }
         }
 
         private void FillContentMeal(
             MainDishPerDayModel typeDay,
             ref ExcelTemplateWriter writer,
-            bool isGroupByEmployee,
+            GroupByReport groupBy,
             ref int rowIndex)
         {
-            RecordModel mealRecord = _monthlyMainDishPerMealReportService.CreateMealRecord(typeDay.MealItems, isGroupByEmployee, rowIndex);
+            RecordModel mealRecord = _monthlyMainDishPerMealReportService.CreateMealRecord(typeDay.MealItems, groupBy, rowIndex);
             rowIndex = mealRecord.RowIndex;
 
             writer.WriteRow(5, new object[] { typeDay.TypeDay });

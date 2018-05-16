@@ -26,6 +26,12 @@ namespace NexFB.Models.Report.MonthlyMainDishReportLocal
 
         public MealModel Meal { get; set; }
 
+        public List<int> TotalQuantityPerDays { get; set; }
+
+        public int TotalQuantityOfMeal { get; set; }
+
+        public decimal TotalAmountOfMeal { get; set; }
+
         public List<MealItemMonthModel> MealItems { get; set; }
     }
 }

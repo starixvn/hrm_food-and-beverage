@@ -1242,4 +1242,7 @@
   <data name="TableNoData" xml:space="preserve">
     <value>There is no data</value>
   </data>
+  <data name="CostCenter" xml:space="preserve">
+    <value>Cost Center</value>
+  </data>
 </root>

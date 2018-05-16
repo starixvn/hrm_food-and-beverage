@@ -10,11 +10,11 @@
 namespace NexFB.Services.Interface.Report
 {
     using System.Collections.Generic;
+    using Core.Enums;
     using NexFB.Core.Utilities;
     using NexFB.Criteria.Report;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Models.Report.MonthlyMainDishReportLocal;
-    using NexFB.Models.Report.SideDishReport;
 
     /// <summary>
     /// The interface of Monthly Main Dish Per Meal report.
@@ -27,8 +27,8 @@ namespace NexFB.Services.Interface.Report
 
         void ExportMonthlyMainDishReportLocal(MonthlyLocalReportModel report, string templateLink);
 
-        RecordModel CreateMealRecord(List<MealItemMonthModel> mealItems, bool isGroupByEmployee, int rowIndex);
+        RecordModel CreateMealRecord(List<MealItemMonthModel> mealItems, GroupByReport groupBy, int rowIndex);
 
-        ExcelTemplateWriter FillTotalRow(MealDayOfMonthModel total, bool isGroupByEmployee, ExcelTemplateWriter writer);
+        ExcelTemplateWriter FillTotalRow(MealDayOfMonthModel total, GroupByReport groupBy, ExcelTemplateWriter writer);
     }
 }

@@ -27,5 +27,11 @@ namespace NexFB.Core.Enums
         /// </summary>
         [Description("Department")]
         Department = 1,
+
+        /// <summary>
+        /// Group by cost center item.
+        /// </summary>
+        [Description("CostCenter")]
+        CostCenter = 2,
     }
 }

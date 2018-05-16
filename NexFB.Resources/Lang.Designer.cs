@@ -511,6 +511,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cost Center.
+        /// </summary>
+        public static string CostCenter {
+            get {
+                return ResourceManager.GetString("CostCenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Alternative Menu.
         /// </summary>
         public static string CreateAlternativeMenu {

@@ -41,7 +41,6 @@ namespace NexFB.Repositories.Implement
                 var report = new MonthlyLocalReportModel();
 
                 IEnumerable<dynamic> rawReport = db.Query<dynamic>(criteria.GetSpParams());
-
                 if (rawReport != null)
                 {
                     report.Meals = GetMealsInMonth(rawReport);
@@ -548,7 +547,48 @@ namespace NexFB.Repositories.Implement
                 mealReport.MealItems.Add(mealItem);
             }
 
+            mealReport.TotalQuantityPerDays = CalculateTotalQuantityPerDay(rawMeals);
+            mealReport.TotalQuantityOfMeal = mealReport.MealItems.Sum(x => x.NumberMealsMonth.TotalQuantity);
+            mealReport.TotalAmountOfMeal = mealReport.MealItems.Sum(x => x.NumberMealsMonth.Amount);
+
             return mealReport;
+        }
+
+        private List<int> CalculateTotalQuantityPerDay(IEnumerable<dynamic> rawMeals)
+        {
+            var listTotalQty = new List<int>();
+            listTotalQty.Add(rawMeals.Sum(m => m.D1));
+            listTotalQty.Add(rawMeals.Sum(m => m.D2));
+            listTotalQty.Add(rawMeals.Sum(m => m.D3));
+            listTotalQty.Add(rawMeals.Sum(m => m.D4));
+            listTotalQty.Add(rawMeals.Sum(m => m.D5));
+            listTotalQty.Add(rawMeals.Sum(m => m.D6));
+            listTotalQty.Add(rawMeals.Sum(m => m.D7));
+            listTotalQty.Add(rawMeals.Sum(m => m.D8));
+            listTotalQty.Add(rawMeals.Sum(m => m.D9));
+            listTotalQty.Add(rawMeals.Sum(m => m.D10));
+            listTotalQty.Add(rawMeals.Sum(m => m.D11));
+            listTotalQty.Add(rawMeals.Sum(m => m.D12));
+            listTotalQty.Add(rawMeals.Sum(m => m.D13));
+            listTotalQty.Add(rawMeals.Sum(m => m.D14));
+            listTotalQty.Add(rawMeals.Sum(m => m.D15));
+            listTotalQty.Add(rawMeals.Sum(m => m.D16));
+            listTotalQty.Add(rawMeals.Sum(m => m.D17));
+            listTotalQty.Add(rawMeals.Sum(m => m.D18));
+            listTotalQty.Add(rawMeals.Sum(m => m.D19));
+            listTotalQty.Add(rawMeals.Sum(m => m.D20));
+            listTotalQty.Add(rawMeals.Sum(m => m.D21));
+            listTotalQty.Add(rawMeals.Sum(m => m.D22));
+            listTotalQty.Add(rawMeals.Sum(m => m.D23));
+            listTotalQty.Add(rawMeals.Sum(m => m.D24));
+            listTotalQty.Add(rawMeals.Sum(m => m.D25));
+            listTotalQty.Add(rawMeals.Sum(m => m.D26));
+            listTotalQty.Add(rawMeals.Sum(m => m.D27));
+            listTotalQty.Add(rawMeals.Sum(m => m.D28));
+            listTotalQty.Add(rawMeals.Sum(m => m.D29));
+            listTotalQty.Add(rawMeals.Sum(m => m.D30));
+            listTotalQty.Add(rawMeals.Sum(m => m.D31));
+            return listTotalQty;
         }
 
         private MealModel GetMeal(dynamic rawMeal)
@@ -576,6 +616,7 @@ namespace NexFB.Repositories.Implement
                 EmployeeType = GetEmloyeeTypeOfMealItem(rawMeal),
                 Department = GetDepartmentOfMealItem(rawMeal),
                 Team = GetTeamOfMealItem(rawMeal),
+                CostCenter = rawMeal.CostCenter ?? string.Empty,
                 NumberMealsMonth = GetNumberMealsOfItem(rawMeal)
             };
 

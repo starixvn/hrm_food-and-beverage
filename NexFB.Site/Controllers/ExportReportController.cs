@@ -11,6 +11,7 @@ namespace NexFB.Site.Controllers
 {
     using System;
     using System.Web.Mvc;
+    using Core.Enums;
     using Criteria.FoodItemManagement;
     using NexFB.Core.Constants;
     using NexFB.Criteria.MealRegistration;
@@ -38,6 +39,7 @@ namespace NexFB.Site.Controllers
     {
         private const string _MonthlyMainDishReportLocalEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls";
         private const string _MonthlyMainDishReportLocalDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentReportLocal.xls";
+        private const string _MonthlyMainDishReportLocalCostCenterTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishCostCenterReportLocal.xls";
         private const string _EmployeeOrderHistoryTemplatePath = @"~\Src\App\Report\ExcelTemplates\EmployeeOrderHistoryReport.xls";
         private const string _AdminOrderHistoryTemplatePath = @"~\Src\App\Report\ExcelTemplates\AdminOrderHistoryReport.xls";
         private const string _SideDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\SideDishReport.xls";
@@ -126,13 +128,19 @@ namespace NexFB.Site.Controllers
 
             if (report != null)
             {
-                if (report.IsGroupByEmployee)
+                if (report.GroupBy == GroupByReport.Employee)
                 {
                     templateUrl = Server.MapPath(_MonthlyMainDishReportLocalEmployeeTemplatePath);
                 }
-                else
+
+                if (report.GroupBy == GroupByReport.Department)
                 {
                     templateUrl = Server.MapPath(_MonthlyMainDishReportLocalDepartmentTemplatePath);
+                }
+
+                if (report.GroupBy == GroupByReport.CostCenter)
+                {
+                    templateUrl = Server.MapPath(_MonthlyMainDishReportLocalCostCenterTemplatePath);
                 }
 
                 _monthlyMainDishReportService.ExportMonthlyMainDishReportLocal(report, templateUrl);
