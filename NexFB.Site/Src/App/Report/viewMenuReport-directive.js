@@ -11,7 +11,7 @@ reportModule.directive('viewMenuReport', function () {
             angular.forEach(dates, function (item, index) {
                 var dateString = new Date(item);
                 var date = {
-                    HeaderText: dateString.toString("dd/MM/yyyy"),
+                    HeaderText: dateString.toString("dd MMM, yyyy"),
                     Width: menusLength > 4 ? 230 : 500,
                     Name: "Date" + index,
                     HeaderAlign: "center",
@@ -71,7 +71,7 @@ reportModule.directive('viewMenuReport', function () {
                 }
                 var menuItem = {
                     Name: "Date" + index,
-                    Value: item.Menus[i] ? item.Menus[i].FoodVNMName + "</br>" + "<i>" + item.Menus[i].FoodEngName + "</i>" : "",
+                    Value: item.Menus[i] ? item.Menus[i].FoodVNMName + "</br>" + "<i class='english-text'>" + item.Menus[i].FoodEngName + "</i>" : "",
                     CellAlign: "left",
                     CssClass: menuClass
                 }
@@ -117,7 +117,7 @@ reportModule.directive('viewMenuReport', function () {
             scope.$on('renderViewMenuReport', function () {
                 var bodyRows = generateBodyRows(scope.reportData);
                 var columnHeaders = generateHeaderRow(scope.reportData.Dates);
-                var title = "Menu from " + scope.criteria.fromDate.toString("dd/MM/yyyy") + " to " + scope.criteria.toDate.toString("dd/MM/yyyy");
+                var title = "Menu from " + scope.criteria.fromDate.toString("dd MMM, yyyy") + " to " + scope.criteria.toDate.toString("dd MMM, yyyy");
 
                 var gridOptions = {
                     columns: columnHeaders,

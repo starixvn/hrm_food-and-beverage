@@ -65,29 +65,34 @@ namespace NexFB.Services.Implement.Report
         public void ExportViewMenuReport(ViewMenuReportModel report, string templatePath, DateTime fromDate, DateTime toDate)
         {
             string reportTitle = Lang.ViewMenuReport;
-            string menuTitle = string.Format("Menu from {0:dd/MM/yyyy} to {1: dd/MM/yyyy}", fromDate, toDate);
+            string menuTitle = string.Format("Menu from {0:dd MMM, yyyy} to {1: dd MMM, yyyy}", fromDate, toDate);
             var writer = new ExcelTemplateWriter(templatePath, reportTitle, reportTitle);
 
+            writer.CopyRows(0, 1);
             // Create report title.
-            writer.WriteRow(0, new { menuTitle });
+            writer.WriteCellRange(0, 1, 0, report.Dates.Count() + 1, menuTitle);
 
             writer.CopyRows(1, 1);
             //Write header row
-            FillHeaderRow(report.Dates, writer);
+            FillHeaderRow(report.Dates, ref writer);
 
-            // Create report header
-            FillContentRow(report.Menus, writer);
+            // Create report content
+            FillContentRow(report.Menus, report.Dates.Count() + 1, ref writer);
 
-            writer.SyncColumnsWidth(report.Dates.Count() + 1);
+            writer.SyncColumnsWidth(0, report.Dates.Count() + 1);
             writer.Render();
         }
 
-        private void FillHeaderRow(IEnumerable<DateTime> dates, ExcelTemplateWriter writer)
+        private void FillHeaderRow(IEnumerable<DateTime> dates, ref ExcelTemplateWriter writer)
         {
             var colIndex = 1;
             foreach (var date in dates)
             {
-                writer.WriteCellRange(1, 1, colIndex, 1, date.ToString("dd/MM/yyyy"));
+                if (colIndex > 2)
+                {
+                    writer.CloneCellStyleOnLeftColumn(1, 2, 1, colIndex);
+                }
+                writer.WriteCellRange(1, 1, colIndex, 1, date.ToString("dd MMM, yyyy"));
                 colIndex++;
             }
         }
@@ -97,18 +102,20 @@ namespace NexFB.Services.Implement.Report
         /// </summary>
         /// <param name="report">The report.</param>
         /// <param name="writer">The writer.</param>
-        private void FillContentRow(IList<MenuTypeModel> menus, ExcelTemplateWriter writer)
+        private void FillContentRow(IList<MenuTypeModel> menus, int totalColumn, ref ExcelTemplateWriter writer)
         {
             var rowIndex = 3;
             foreach (var item in menus)
             {
-                writer.WriteRow(2, new { MealName = item.MenuName });
-                FillSubRows(item.MenuForEachDay, item.MaxMenuItemPerMeal, writer, ref rowIndex);
+                writer.CopyRows(2, 1);
+                writer.WriteCellRange(rowIndex - 1, 1, 0, totalColumn, item.MenuName);
+
+                FillSubRows(item.MenuForEachDay, item.MaxMenuItemPerMeal, ref writer, ref rowIndex);
                 rowIndex++;
             }
         }
 
-        private void FillSubRows(IList<MenuItemPerDateModel> menuForEachDay, int maxMenuItemPerMeal, ExcelTemplateWriter writer, ref int rowIndex)
+        private void FillSubRows(IList<MenuItemPerDateModel> menuForEachDay, int maxMenuItemPerMeal, ref ExcelTemplateWriter writer, ref int rowIndex)
         {
             for (int i = 0; i < maxMenuItemPerMeal; i++)
             {
@@ -118,6 +125,7 @@ namespace NexFB.Services.Implement.Report
                 foreach (var menu in menuForEachDay)
                 {
                     var menuFoodName = GetMenuFoodName(menu.Menus, i);
+                    writer.CloneCellStyleOnLeftColumn(rowIndex, 1, rowIndex, colIndex);
                     writer.WriteCellRange(rowIndex, 1, colIndex, 1, menuFoodName);
                     colIndex++;
                 }

@@ -231,9 +231,9 @@ namespace NexFB.Core.Utilities.NPOIExtensions
         /// <param name="sheet">Current sheet.</param>
         /// <param name="newCell">New cell instance.</param>
         /// <param name="sourceCell">Source cell instance.</param>
-        public static void CloneCell(this ISheet sheet, ICell newCell, ICell sourceCell)
+        public static ICellStyle GetCellFormat(ICell sourceCell)
         {
-            sheet.CloneCell(newCell, sourceCell);
+            return sourceCell.CellStyle;
         }
 
         /// <summary>

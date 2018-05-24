@@ -57,7 +57,7 @@
                     <td class="bold" ng-bind="item.TotalAmount | number"></td>
                 </tr>
             </tbody>
-            <tfoot class="text-center bold" ng-if="report.MealPriceList.length > 0">
+            <tfoot class="text-center total-row" ng-if="report.MealPriceList.length > 0">
                 <tr>
                     <td colspan="2" data-translate="Total"></td>
                     <td ng-bind="report.TotalLunchMeals | number"></td>
@@ -69,7 +69,7 @@
             </tfoot>
             <tfoot class="text-center" ng-if="report.MealPriceList.length === 0">
                 <tr>
-                    <td colspan="7" data-translate="TableNoData"></td>
+                    <td colspan="7" class="bold red" data-translate="TableNoData"></td>
                 </tr>
             </tfoot>
         </table>

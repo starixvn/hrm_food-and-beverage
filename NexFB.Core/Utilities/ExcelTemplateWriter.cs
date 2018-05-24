@@ -215,6 +215,12 @@ namespace NexFB.Core.Utilities
             return CreateRows(rowIndex, total);
         }
 
+        public ICell CloneCellStyleOnLeftColumn(int sourceRow, int sourceCol, int newRow, int newCol)
+        {
+            ICell sourceCell = _sheet.GetCell(sourceRow, sourceCol);
+            return _sheet.CreateCell(newRow, newCol, 0, 0, sourceCell.CellStyle);
+        }
+
         /// <summary>
         /// Creates a row.
         /// </summary>
