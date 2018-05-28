@@ -134,6 +134,14 @@ namespace NexFB.Core.Utilities
             }
         }
 
+        public void CloneColumnWidth(int sourceCol, int from, int to)
+        {
+            for (int i = from; i < to; i++)
+            {
+                _sheet.SetColumnWidth(i, _templateSheet.GetColumnWidth(sourceCol));
+            }
+        }
+
         /// <summary>
         /// Synchronizes columns' width of the templates with the current sheet.
         /// </summary>

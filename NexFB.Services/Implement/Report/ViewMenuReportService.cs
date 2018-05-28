@@ -79,7 +79,7 @@ namespace NexFB.Services.Implement.Report
             // Create report content
             FillContentRow(report.Menus, report.Dates.Count() + 1, ref writer);
 
-            writer.AutosizeColumns(report.Dates.Count() + 1);
+            writer.CloneColumnWidth(1, 1, report.Dates.Count() + 1);
             writer.Render();
         }
 
@@ -125,7 +125,7 @@ namespace NexFB.Services.Implement.Report
                 foreach (var menu in menuForEachDay)
                 {
                     var menuFoodName = GetMenuFoodName(menu.Menus, i);
-                    writer.CloneCellStyleOnLeftColumn(rowIndex, 1, rowIndex, colIndex);
+                    writer.CloneCellStyleOnLeftColumn(rowIndex, 2, rowIndex, colIndex);
                     writer.WriteCellRange(rowIndex, 1, colIndex, 1, menuFoodName);
                     colIndex++;
                 }
