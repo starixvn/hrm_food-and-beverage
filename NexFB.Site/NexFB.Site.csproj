@@ -607,6 +607,8 @@
     <Content Include="Src\App\Report\ExcelTemplates\EmployeeRegistrationDetailReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\FoodItemReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyLunchAndDinnerAmoutReport.xls" />
+    <Content Include="Src\App\Report\ExcelTemplates\MonthlyBreakfastAndSupperAmoutReport.xls" />
+    <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishCostCenterReportLocal.xls" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
     <Content Include="Src\Content\Fonts\big_noodle_titling.ttf" />
