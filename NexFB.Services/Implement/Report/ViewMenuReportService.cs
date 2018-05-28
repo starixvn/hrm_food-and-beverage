@@ -79,7 +79,7 @@ namespace NexFB.Services.Implement.Report
             // Create report content
             FillContentRow(report.Menus, report.Dates.Count() + 1, ref writer);
 
-            writer.SyncColumnsWidth(0, report.Dates.Count() + 1);
+            writer.AutosizeColumns(report.Dates.Count() + 1);
             writer.Render();
         }
 
@@ -138,7 +138,7 @@ namespace NexFB.Services.Implement.Report
             string menuFoodName = string.Empty;
             try
             {
-                menuFoodName = menus[index] != null ? string.Format("{0}{1}{2}", menus[index].FoodVNMName, "\n", menus[index].FoodEngName) : string.Empty;
+                menuFoodName = menus[index] != null ? string.Format("{0}{1}{2}", menus[index].FoodVNMName, Environment.NewLine, menus[index].FoodEngName) : string.Empty;
             }
             catch
             {
