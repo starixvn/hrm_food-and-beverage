@@ -5,9 +5,8 @@ reportModule.controller('ViewMenuReportController',
 ['$scope', 'reportFactory', 'commonFactory', 'ErrorFactory', 'foodMenuFactory', 'foodMenuUtilities', 'baseUrl', 'notificationFactory',
 function ($scope, reportFactory, commonFactory, ErrorFactory, foodMenuFactory, foodMenuUtilities, baseUrl, notificationFactory) {
     var self = this,
-		toDay = new Date(),
-        fromDate = new Date(toDay.getFullYear(), toDay.getMonth(), toDay.getDate() - 6),
-        toDate = new Date();
+        fromDate = moment().startOf("isoWeek").toDate(),
+        toDate = moment().endOf("isoWeek").toDate();
 
     // $scope region.
     $scope.meals = [];
