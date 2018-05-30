@@ -91,6 +91,7 @@ namespace NexFB.Core.Utilities
 
             var cell = this._sheet.GetCell(rowIndex, colIndex);
             cell.SetCellValue(value);
+            cell.CellStyle.WrapText = true;
         }
 
         #region Auto resize columns' width
