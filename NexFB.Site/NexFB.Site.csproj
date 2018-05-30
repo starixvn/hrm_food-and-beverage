@@ -239,12 +239,6 @@
     <Content Include="Src\App\Report\Templates\employeeRegistrationDetailReport.html" />
     <Content Include="Src\App\Report\Templates\monthlyBreakfastAndSupperReport.html" />
     <Content Include="Src\App\Report\Templates\monthlyLunchAndDinnerReport.html" />
-    <Content Include="Src\Components\Libs\datepicker.es5.js">
-      <DependentUpon>datepicker.js</DependentUpon>
-    </Content>
-    <Content Include="Src\Components\Libs\datepicker.es5.min.js">
-      <DependentUpon>datepicker.es5.js</DependentUpon>
-    </Content>
     <Content Include="Web.local.config">
       <SubType>Designer</SubType>
     </Content>
@@ -268,6 +262,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Service References\TranslatorService\NexFB.Site.TranslatorService.EmployeeCalendarModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
