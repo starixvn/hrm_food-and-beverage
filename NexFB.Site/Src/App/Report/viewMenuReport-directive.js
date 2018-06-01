@@ -11,7 +11,7 @@ reportModule.directive('viewMenuReport', function () {
             angular.forEach(dates, function (item, index) {
                 var dateString = new Date(item);
                 var date = {
-                    HeaderText: dateString.toString("dd MMM, yyyy"),
+                    HeaderText: dateString.toString("ddd dd MMM, yyyy"),
                     Width: menusLength > 4 ? 230 : 500,
                     Name: "Date" + index,
                     HeaderAlign: "center",
