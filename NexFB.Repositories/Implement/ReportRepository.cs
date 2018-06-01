@@ -585,9 +585,9 @@ namespace NexFB.Repositories.Implement
             listTotalQty.Add(rawMeals.Sum(m => m.D26));
             listTotalQty.Add(rawMeals.Sum(m => m.D27));
             listTotalQty.Add(rawMeals.Sum(m => m.D28));
-            listTotalQty.Add(rawMeals.Sum(m => m.D29));
-            listTotalQty.Add(rawMeals.Sum(m => m.D30));
-            listTotalQty.Add(rawMeals.Sum(m => m.D31));
+            listTotalQty.Add(rawMeals.Sum(m => m.D29 ?? 0));
+            listTotalQty.Add(rawMeals.Sum(m => m.D30 ?? 0));
+            listTotalQty.Add(rawMeals.Sum(m => m.D31 ?? 0));
             return listTotalQty;
         }
 

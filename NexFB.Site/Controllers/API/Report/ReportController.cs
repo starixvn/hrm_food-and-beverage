@@ -342,7 +342,6 @@ namespace NexFB.Site.Controllers.API.Report
         /// <summary>
         /// Gets the view menu report.
         /// </summary>
-        /// <param name="date">The on date.</param>
         /// <param name="mealId">The meal identifier.</param>
         /// <param name="isVegetarian">The is vegetarian.</param>
         /// <returns>ViewMenuReportModel data.</returns>

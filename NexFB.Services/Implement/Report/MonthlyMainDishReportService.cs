@@ -125,7 +125,6 @@ namespace NexFB.Services.Implement.Report
         /// Create meal records.
         /// </summary>
         /// <param name="mealItems">The list meal items.</param>
-        /// <param name="isGroupByEmployee">Report group by employee or department.</param>
         /// <param name="rowIndex">The row index.</param>
         /// <returns>The Record model.</returns>
         public RecordModel CreateMealRecord(
@@ -158,7 +157,6 @@ namespace NexFB.Services.Implement.Report
         /// Fill total row.
         /// </summary>
         /// <param name="total">The total meal.</param>
-        /// <param name="isGroupByEmployee">The is group by employee or not.</param>
         /// <param name="writer">The writer.</param>
         /// <returns>The writer after fill total row.</returns>
         public ExcelTemplateWriter FillTotalRow(
@@ -193,7 +191,7 @@ namespace NexFB.Services.Implement.Report
 
         private int GetTotalRow(MonthlyLocalReportModel report)
         {
-            return report.Meals.Sum(x => x.MealItems.Count) + 15;
+            return report.Meals.Sum(x => x.MealItems.Count) + report.Meals.Count * 2 + 7;
         }
 
         private void WriteCostCenterContent(MonthlyLocalReportModel report, ref ExcelTemplateWriter writer)
@@ -362,9 +360,16 @@ namespace NexFB.Services.Implement.Report
         /// <returns>The new meal.</returns>
         private MealMonthModel AddMealItemIntoPagingReport(int startIndex, MealMonthModel meal, int items)
         {
-            meal.MealItems = meal.MealItems.Skip(startIndex).Take(items).ToList();
+            var newMeal = new MealMonthModel
+            {
+                Meal = meal.Meal,
+                MealItems = meal.MealItems.Skip(startIndex).Take(items).ToList(),
+                TotalAmountOfMeal = meal.TotalAmountOfMeal,
+                TotalQuantityOfMeal = meal.TotalQuantityOfMeal,
+                TotalQuantityPerDays = meal.TotalQuantityPerDays
+            };
 
-            return meal;
+            return newMeal;
         }
 
         /// <summary>

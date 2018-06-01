@@ -96,14 +96,16 @@ reportModule.directive('renderMonthlyReport', function () {
 
         var columns = [{ Name: "Meal", Value: "Total", MergeColNumber: mergeColumn, CellAlign: "center" }];
 
-        for (var i = 0; i < meal.TotalQuantityPerDays.length; i++) {
-            var value = {
-                Name: "" + (i + 1),
-                Value: meal.TotalQuantityPerDays[i],
-                MergeColNumber: 1,
-                CellAlign: "right"
-            };
-            columns.push(value)
+        if (meal.TotalQuantityPerDays) {
+            for (var i = 0; i < meal.TotalQuantityPerDays.length; i++) {
+                var value = {
+                    Name: "" + (i + 1),
+                    Value: meal.TotalQuantityPerDays[i],
+                    MergeColNumber: 1,
+                    CellAlign: "right"
+                };
+                columns.push(value)
+            }
         }
         columns.push({ Name: "Quantity", Value: meal.TotalQuantityOfMeal, MergeColNumber: 1, CellAlign: "right" })
         columns.push({ Name: "Amount", Value: meal.TotalAmountOfMeal, MergeColNumber: 1, CellAlign: "right" })
