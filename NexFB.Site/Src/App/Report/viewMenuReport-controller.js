@@ -70,7 +70,7 @@ function ($scope, reportFactory, commonFactory, ErrorFactory, foodMenuFactory, f
     // self region.
     self.getReportData = function () {
         var criteria = self.getCriteria();
-        if (criteria.fromDate < criteria.toDate) {
+        if (criteria.fromDate <= criteria.toDate) {
             reportFactory.getViewMenuReport(criteria).success(function (reportData) {
                 $scope.reportData = reportData;
                 $scope.$broadcast('renderViewMenuReport');
@@ -100,8 +100,8 @@ function ($scope, reportFactory, commonFactory, ErrorFactory, foodMenuFactory, f
         $scope.criteria.mealIds = foodMenuUtilities.getMealId($scope.meals);
 
         return {
-            fromDate: $scope.criteria.fromDate.toString("MM/dd/yyyy"),
-            toDate: $scope.criteria.toDate.toString("MM/dd/yyyy"),
+            fromDate: $scope.criteria.fromDate.toString("yyyy/MM/dd"),
+            toDate: $scope.criteria.toDate.toString("yyyy/MM/dd"),
             mealId: $scope.criteria.mealIds,
             isVegetarian: $scope.criteria.isVegetarian === '-1' ? '' : ($scope.criteria.isVegetarian === '1' ? true : false)
         };
