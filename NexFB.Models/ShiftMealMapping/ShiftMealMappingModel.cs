@@ -35,6 +35,8 @@ namespace NexFB.Models.ShiftMealMapping
 
         public string EndCheckOutTime { get; set; }
 
+        public bool MealPreviousSupper { get; set; }
+
         public bool MealBreakfast { get; set; }
 
         public bool MealLunch { get; set; }
@@ -46,6 +48,8 @@ namespace NexFB.Models.ShiftMealMapping
         public bool MealNextBreakfast { get; set; }
 
         public bool MealNextLunch { get; set; }
+
+        public bool MealNextDinner { get; set; }
 
         public Department Department { get; set; }
     }

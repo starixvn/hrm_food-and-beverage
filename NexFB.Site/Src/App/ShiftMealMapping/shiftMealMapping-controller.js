@@ -90,14 +90,16 @@ notificationFactory, baseUrl) {
 	};
 
 	var revertCheckMealOfShift = function (originalShift, updateShift) {
-		if (originalShift && updateShift) {
+        if (originalShift && updateShift) {
+            updateShift.MealPreviousSupper = originalShift.MealPreviousSupper;
 			updateShift.MealBreakfast = originalShift.MealBreakfast;
 			updateShift.MealLunch = originalShift.MealLunch;
 			updateShift.MealDinner = originalShift.MealDinner;
 			updateShift.MealSupper = originalShift.MealSupper;
 			updateShift.MealNextBreakfast = originalShift.MealNextBreakfast;
-			updateShift.MealNextLunch = originalShift.MealNextLunch;
-		}
+            updateShift.MealNextLunch = originalShift.MealNextLunch;
+            updateShift.MealNextDinner = originalShift.MealNextDinner;
+        } 
 	};
 
 	$scope.submit = function (shift) {
@@ -124,13 +126,15 @@ notificationFactory, baseUrl) {
 
 				var updateShift = {
 					shiftId: shift.ShiftId,
-					departmentId: shift.Department.DepartmentId,
+                    departmentId: shift.Department.DepartmentId,
+                    mealPreviousSupper: shift.MealPreviousSupper,
 					mealBreakfast: shift.MealBreakfast,
 					mealLunch: shift.MealLunch,
 					mealDinner: shift.MealDinner,
 					mealSupper: shift.MealSupper,
 					mealNextBreakfast: shift.MealNextBreakfast,
-					mealNextLunch: shift.MealNextLunch
+                    mealNextLunch: shift.MealNextLunch,
+                    mealNextDinner: shift.MealNextDinner
 				};
 
 				shiftMealMappingFactory.updateShiftMeal(updateShift).success(function (response) {

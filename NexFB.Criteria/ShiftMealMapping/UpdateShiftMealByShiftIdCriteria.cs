@@ -21,6 +21,9 @@ namespace NexFB.Criteria.ShiftMealMapping
 
         public int DepartmentId { get; set; }
 
+        [SpParam(SqlParamName = "Meal_S_0")]
+        public bool MealPreviousSupper { get; set; }
+
         [SpParam(SqlParamName = "Meal_B")]
         public bool MealBreakfast { get; set; }
 
@@ -38,6 +41,9 @@ namespace NexFB.Criteria.ShiftMealMapping
 
         [SpParam(SqlParamName = "Meal_L_1")]
         public bool MealNextLunch { get; set; }
+
+        [SpParam(SqlParamName = "Meal_D_1")]
+        public bool MealNextDinner { get; set; }
 
         public int ModifiedBy { get; set; }
 

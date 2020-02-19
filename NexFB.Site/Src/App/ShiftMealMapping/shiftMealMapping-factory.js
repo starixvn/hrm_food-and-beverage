@@ -26,6 +26,9 @@ shiftMealMappingModule.factory('shiftMealMappingUtilities',
 	var getNumberRegisterMeal = function (shift) {
 		var count = 0;
 
+        if (shift.MealPreviousSupper) {
+            count++;
+        }
 		if (shift.MealBreakfast) {
 			count++;
 		}
@@ -43,7 +46,10 @@ shiftMealMappingModule.factory('shiftMealMappingUtilities',
 		}
 		if (shift.MealNextLunch) {
 			count++;
-		}
+        }
+        if (shift.MealNextDinner) {
+            count++;
+        }
 
 		return count;
 	};
@@ -54,6 +60,15 @@ shiftMealMappingModule.factory('shiftMealMappingUtilities',
 			numberMeals = 0,
 			continuous = true;
 
+        if (shift.MealPreviousSupper) {
+            numberMealContinuous++;
+            numberMeals++;
+        }
+        else {
+            maxNumberMealContinuous = maxNumberMealContinuous > numberMealContinuous ? maxNumberMealContinuous : numberMealContinuous;
+            numberMealContinuous = 0;
+        }
+
 		if (shift.MealBreakfast) {
 			numberMealContinuous++;
 			numberMeals++;
@@ -106,7 +121,16 @@ shiftMealMappingModule.factory('shiftMealMappingUtilities',
 		else {
 			maxNumberMealContinuous = maxNumberMealContinuous > numberMealContinuous ? maxNumberMealContinuous : numberMealContinuous;
 			numberMealContinuous = 0;
-		}
+        }
+
+        if (shift.MealNextDinner) {
+            numberMealContinuous++;
+            numberMeals++;
+        }
+        else {
+            maxNumberMealContinuous = maxNumberMealContinuous > numberMealContinuous ? maxNumberMealContinuous : numberMealContinuous;
+            numberMealContinuous = 0;
+        }
 
 		maxNumberMealContinuous = maxNumberMealContinuous > numberMealContinuous ? maxNumberMealContinuous : numberMealContinuous;
 

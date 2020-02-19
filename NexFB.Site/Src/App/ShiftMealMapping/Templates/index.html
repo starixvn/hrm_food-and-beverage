@@ -23,77 +23,83 @@
 		<table class="table table-bordered table-striped col-sm-12">
 			<thead>
 				<tr class="header-table">
-					<th colspan="12" >
+					<th colspan="14" >
 						<input type="text" ng-model="queryData" ng-change="searchInShift()" class="search-inline-textbox search pull-right">
 					</th>
 				</tr>
-				<tr>
-					<th data-translate="SymbolCount" rowspan="2"></th>
-					<th data-translate="Department" rowspan="2"></th>
-					<th data-translate="Shift" rowspan="2"></th>
-					<th data-translate="CheckIn" rowspan="2"></th>
-					<th data-translate="CheckOut" rowspan="2"></th>
-					<th data-translate="WorkDate" colspan="4"></th>
-					<th data-translate="NextWorkDate" colspan="2"></th>
-					<th class="width-80" data-translate="Action" rowspan="2" ng-if="policy.permission == 2"></th>
-				</tr>
-				<tr>
-					<th data-translate="Breakfast"></th>
-					<th data-translate="Lunch"></th>
-					<th data-translate="Dinner"></th>
-					<th data-translate="Supper"></th>
-					<th data-translate="Breakfast"></th>
-					<th data-translate="Lunch"></th>
-				</tr>
+                <tr>
+                    <th data-translate="SymbolCount" rowspan="2"></th>
+                    <th data-translate="Department" rowspan="2"></th>
+                    <th data-translate="Shift" rowspan="2"></th>
+                    <th data-translate="CheckIn" rowspan="2"></th>
+                    <th data-translate="CheckOut" rowspan="2"></th>
+                    <th data-translate="PreviousWorkDate"></th>
+                    <th data-translate="WorkDate" colspan="4"></th>
+                    <th data-translate="NextWorkDate" colspan="3"></th>
+                    <th class="width-80" data-translate="Action" rowspan="2" ng-if="policy.permission == 2"></th>
+                </tr>
+                <tr>
+                    <th data-translate="Supper"></th>
+                    <th data-translate="Breakfast"></th>
+                    <th data-translate="Lunch"></th>
+                    <th data-translate="Dinner"></th>
+                    <th data-translate="Supper"></th>
+                    <th data-translate="Breakfast"></th>
+                    <th data-translate="Lunch"></th>
+                    <th data-translate="Dinner"></th>
+                </tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="shift in pagedItems[currentPage]">
-					<td class="text-center" ng-bind="shift.itemIndex + 1">
-					</td>
-					<td class="text-center" class="text-center" ng-bind="shift.Department.Name">
-					</td>
-					<td class="text-center" ng-bind="shift.ShiftName">
-					</td>
-					<td class="text-center" ng-bind="shift.BeginCheckInTime">
-					</td>
-					<td class="text-center" ng-bind="shift.BeginCheckOutTime">
-					</td>
-					<td class="text-center">
-						<input type="checkbox" ng-model="shift.MealBreakfast" ng-if="policy.permission == 2"/>
-						<img class="ico-tick" ng-if="policy.permission == 1 && shift.MealBreakfast" />
-					</td>
-					<td class="text-center">
-						<input type="checkbox" ng-model="shift.MealLunch" ng-if="policy.permission == 2" />
-						<img class="ico-tick" ng-if="policy.permission == 1 && shift.MealLunch" />
-					</td>
-					<td class="text-center">
-						<input type="checkbox" ng-model="shift.MealDinner" ng-if="policy.permission == 2" />
-						<img class="ico-tick" ng-if="policy.permission == 1 && shift.MealDinner" />
-					</td>
-					<td class="text-center">
-						<input type="checkbox" ng-model="shift.MealSupper"  ng-if="policy.permission == 2" />
-						<img class="ico-tick" ng-if="policy.permission == 1 && shift.MealSupper" />
-					</td>
-					<td class="text-center">
-						<input type="checkbox" ng-model="shift.MealNextBreakfast" ng-if="policy.permission == 2" />
-						<img class="ico-tick" ng-if="policy.permission == 1 && shift.MealNextBreakfast" />
-					</td>
-					<td class="text-center">
-						<input type="checkbox" ng-model="shift.MealNextLunch" ng-if="policy.permission == 2" />
-						<img class="ico-tick" ng-if="policy.permission == 1 && shift.MealNextLunch" />
-					</td>
-					<td class="text-center" ng-if="policy.permission == 2">
-						<a class="btn-save" href="" ng-click="submit(shift)" title="Save"></a>
-					</td>
-				</tr>
+                <tr ng-repeat="shift in pagedItems[currentPage]">
+                    <td class="text-center" ng-bind="shift.itemIndex + 1"></td>
+                    <td class="text-center" class="text-center" ng-bind="shift.Department.Name"></td>
+                    <td class="text-center" ng-bind="shift.ShiftName"></td>
+                    <td class="text-center" ng-bind="shift.BeginCheckInTime"></td>
+                    <td class="text-center" ng-bind="shift.BeginCheckOutTime"></td>
+                    <td class="text-center">
+                        <input type="checkbox" ng-model="shift.MealPreviousSupper" ng-if="policy.permission == 2" />
+                        <img class="ico-tick" ng-if="policy.permission == 1 && shift.MealPreviousSupper" />
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" ng-model="shift.MealBreakfast" ng-if="policy.permission == 2" />
+                        <img class="ico-tick" ng-if="policy.permission == 1 && shift.MealBreakfast" />
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" ng-model="shift.MealLunch" ng-if="policy.permission == 2" />
+                        <img class="ico-tick" ng-if="policy.permission == 1 && shift.MealLunch" />
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" ng-model="shift.MealDinner" ng-if="policy.permission == 2" />
+                        <img class="ico-tick" ng-if="policy.permission == 1 && shift.MealDinner" />
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" ng-model="shift.MealSupper" ng-if="policy.permission == 2" />
+                        <img class="ico-tick" ng-if="policy.permission == 1 && shift.MealSupper" />
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" ng-model="shift.MealNextBreakfast" ng-if="policy.permission == 2" />
+                        <img class="ico-tick" ng-if="policy.permission == 1 && shift.MealNextBreakfast" />
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" ng-model="shift.MealNextLunch" ng-if="policy.permission == 2" />
+                        <img class="ico-tick" ng-if="policy.permission == 1 && shift.MealNextLunch" />
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" ng-model="shift.MealNextDinner" ng-if="policy.permission == 2" />
+                        <img class="ico-tick" ng-if="policy.permission == 1 && shift.MealNextDinner" />
+                    </td>
+                    <td class="text-center" ng-if="policy.permission == 2">
+                        <a class="btn-save" href="" ng-click="submit(shift)" title="Save"></a>
+                    </td>
+                </tr>
 				<tr ng-show="shiftMeals.length == 0 || pagedItems.length == 0">
-					<td class="empty-result" colspan="12" data-translate="EmptyResult">
+					<td class="empty-result" colspan="14" data-translate="EmptyResult">
 					</td>
 				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="12" class="paging" >
+					<td colspan="14" class="paging" >
 						<span data-translate="Show"></span>
 						<select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
 							ng-options="entry for entry in entries">

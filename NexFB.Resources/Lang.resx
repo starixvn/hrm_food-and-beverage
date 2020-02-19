@@ -1245,4 +1245,7 @@
   <data name="CostCenter" xml:space="preserve">
     <value>Cost Center</value>
   </data>
+  <data name="PreviousWorkDate" xml:space="preserve">
+    <value>Work date -1</value>
+  </data>
 </root>
