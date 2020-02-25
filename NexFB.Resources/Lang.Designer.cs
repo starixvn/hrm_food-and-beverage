@@ -628,6 +628,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to * Current Food Menu.
+        /// </summary>
+        public static string CurrentFoodMenu {
+            get {
+                return ResourceManager.GetString("CurrentFoodMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Daily Main Dish Report.
         /// </summary>
         public static string DailyMainDishReport {
@@ -997,6 +1006,60 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Effected Begin Date.
+        /// </summary>
+        public static string EffectedBeginDate {
+            get {
+                return ResourceManager.GetString("EffectedBeginDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effected End Date.
+        /// </summary>
+        public static string EffectedEndDate {
+            get {
+                return ResourceManager.GetString("EffectedEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effected End Date invalid..
+        /// </summary>
+        public static string EffectedEndDateInvalid {
+            get {
+                return ResourceManager.GetString("EffectedEndDateInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effected End Date is required..
+        /// </summary>
+        public static string EffectedEndDateRequired {
+            get {
+                return ResourceManager.GetString("EffectedEndDateRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effected from.
+        /// </summary>
+        public static string EffectedFrom {
+            get {
+                return ResourceManager.GetString("EffectedFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effected to.
+        /// </summary>
+        public static string EffectedTo {
+            get {
+                return ResourceManager.GetString("EffectedTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee.
         /// </summary>
         public static string Employee {
@@ -1299,6 +1362,15 @@ namespace NexFB.Resources {
         public static string FoodMenuEngNameRequire {
             get {
                 return ResourceManager.GetString("FoodMenuEngNameRequire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Food Menu History.
+        /// </summary>
+        public static string FoodMenuHistory {
+            get {
+                return ResourceManager.GetString("FoodMenuHistory", resourceCulture);
             }
         }
         
@@ -2163,6 +2235,15 @@ namespace NexFB.Resources {
         public static string NetworkConnectionError {
             get {
                 return ResourceManager.GetString("NetworkConnectionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to * New Food Menu.
+        /// </summary>
+        public static string NewFoodMenu {
+            get {
+                return ResourceManager.GetString("NewFoodMenu", resourceCulture);
             }
         }
         

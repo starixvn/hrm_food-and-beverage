@@ -31,7 +31,7 @@ namespace NexFB.Site.Controllers.API
         private readonly IFoodMenuService _foodMenuService;
         private readonly IWebCommonService _webCommonService;
 
-        public FoodMenuManagementController() 
+        public FoodMenuManagementController()
             : this(null, null)
         {
         }
@@ -120,6 +120,30 @@ namespace NexFB.Site.Controllers.API
             }
 
             return _foodMenuService.ActivateFoodMenu(criteria);
+        }
+
+        [ApiAuthorize(FunctionKey = FBFunctionKey.FoodMenuManagement, Policy = Policy.Host)]
+        public IEnumerable<FoodMenuHistoryModel> GetFoodMenuHistory(int menuId)
+        {
+            return _foodMenuService.GetFoodMenuHistory(menuId);
+        }
+
+        [ApiAuthorize(FunctionKey = FBFunctionKey.FoodMenuManagement, Policy = Policy.Host)]
+        [HttpPost]
+        public CommandResult InsertFoodMenuHistory(InsertFoodMenuHistoryModel foodMenuHistory)
+        {
+            var criteria = new InsertFoodMenuHistoryCriteria
+            {
+                MenuId = foodMenuHistory.MenuId,
+                EffectedDateEnd = foodMenuHistory.CurrentEndDate,
+                CurrentPricePerDay = foodMenuHistory.CurrentPricePerDay,
+                CurrentPricePerMeal = foodMenuHistory.CurrentPricePerMeal,
+                NewPricePerDay = foodMenuHistory.NewPricePerDay,
+                NewPricePerMeal = foodMenuHistory.NewPricePerMeal,
+                ModifiedBy = CurrentUser.UserId
+            };
+
+            return _foodMenuService.InsertFoodMenuHistory(criteria);
         }
 
         public int GetUserPermissionOnFoodMenu()

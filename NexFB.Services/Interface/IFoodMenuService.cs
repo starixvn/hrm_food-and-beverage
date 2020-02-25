@@ -23,6 +23,8 @@ namespace NexFB.Services.Interface
 
         IEnumerable<FoodMenuModel> GetAllFoodMenuToFilter(GetAllFoodMenuCriteria criteria);
 
+        IEnumerable<FoodMenuHistoryModel> GetFoodMenuHistory(int menuId);
+
         CommandResult InsertFoodMenu(InsertFoodMenuCriteria criteria);
 
         CommandResult DeleteFoodMenu(DeleteFoodMenuByMenuIdCriteria criteria);
@@ -30,5 +32,7 @@ namespace NexFB.Services.Interface
         CommandResult UpdateFoodMenu(UpdateFoodMenuCriteria criteria);
 
         CommandResult ActivateFoodMenu(ActivateFoodMenuCriteria criteria);
+
+        CommandResult InsertFoodMenuHistory(InsertFoodMenuHistoryCriteria criteria);
     }
 }

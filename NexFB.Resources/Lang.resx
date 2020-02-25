@@ -1248,4 +1248,31 @@
   <data name="PreviousWorkDate" xml:space="preserve">
     <value>Work date -1</value>
   </data>
+  <data name="EffectedBeginDate" xml:space="preserve">
+    <value>Effected Begin Date</value>
+  </data>
+  <data name="EffectedEndDate" xml:space="preserve">
+    <value>Effected End Date</value>
+  </data>
+  <data name="EffectedEndDateInvalid" xml:space="preserve">
+    <value>Effected End Date invalid.</value>
+  </data>
+  <data name="EffectedEndDateRequired" xml:space="preserve">
+    <value>Effected End Date is required.</value>
+  </data>
+  <data name="CurrentFoodMenu" xml:space="preserve">
+    <value>* Current Food Menu</value>
+  </data>
+  <data name="EffectedFrom" xml:space="preserve">
+    <value>Effected from</value>
+  </data>
+  <data name="EffectedTo" xml:space="preserve">
+    <value>Effected to</value>
+  </data>
+  <data name="FoodMenuHistory" xml:space="preserve">
+    <value>Food Menu History</value>
+  </data>
+  <data name="NewFoodMenu" xml:space="preserve">
+    <value>* New Food Menu</value>
+  </data>
 </root>

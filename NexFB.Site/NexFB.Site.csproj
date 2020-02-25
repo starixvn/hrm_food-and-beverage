@@ -7,6 +7,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -232,6 +233,8 @@
     <Content Include="Global.asax" />
     <Content Include="File\UserManual\Employee Order %28WEB%29.pdf" />
     <Content Include="File\UserManual\Meal Registration.pdf" />
+    <Content Include="Src\App\FoodMenuManagement\Templates\menuHistory.html" />
+    <Content Include="Src\App\FoodMenuManagement\viewHistoryFoodMenu-controller.js" />
     <Content Include="Src\App\Report\employeeRegistrationDetailReport-directive.js" />
     <Content Include="Src\App\Report\employeeRegistrationDetailReport-controller.js" />
     <Content Include="Src\App\Report\monthlyLunchAndDinnerAmountReport-controller.js" />

@@ -59,7 +59,9 @@
     <Compile Include="FoodItemManagement\FoodItemModel.cs" />
     <Compile Include="FoodItemManagement\RawFoodSetMenuModel.cs" />
     <Compile Include="FoodMealPlanning\MealPlanningModel.cs" />
+    <Compile Include="FoodMenuManagement\FoodMenuHistoryModel.cs" />
     <Compile Include="FoodMenuManagement\FoodMenuModel.cs" />
+    <Compile Include="FoodMenuManagement\InsertFoodMenuHistoryModel.cs" />
     <Compile Include="GroupControl\GroupModel.cs" />
     <Compile Include="GroupControl\MemberModel.cs" />
     <Compile Include="Kitchen\EmployeeInGroup.cs" />

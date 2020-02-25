@@ -21,5 +21,7 @@ namespace NexFB.Repositories.Interface
         IList<FoodMenuModel> GetAllFoodMenu(ICriteria criteria);
 
         IEnumerable<FoodMenuModel> GetAllFoodMenuToFilter(ICriteria criteria);
+
+        IEnumerable<FoodMenuHistoryModel> GetFoodMenuHistory(ICriteria criteria);
     }
 }

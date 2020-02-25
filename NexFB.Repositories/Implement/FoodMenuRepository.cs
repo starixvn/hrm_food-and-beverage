@@ -76,6 +76,17 @@ namespace NexFB.Repositories.Implement
             }
         }
 
+        public IEnumerable<FoodMenuHistoryModel> GetFoodMenuHistory(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
+                {
+                    return multi.Read<FoodMenuHistoryModel>();
+                }
+            }
+        }
+
         /// <summary>
         /// Get set menu of menu.
         /// </summary>

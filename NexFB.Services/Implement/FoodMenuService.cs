@@ -41,7 +41,7 @@ namespace NexFB.Services.Implement
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list Food Menu model.</returns>
-        public IList<FoodMenuModel> GetAllFoodMenu(GetAllFoodMenuCriteria criteria) 
+        public IList<FoodMenuModel> GetAllFoodMenu(GetAllFoodMenuCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             IList<FoodMenuModel> foodMenus = null;
@@ -153,6 +153,28 @@ namespace NexFB.Services.Implement
             }
 
             return foodMenus;
+        }
+
+        public IEnumerable<FoodMenuHistoryModel> GetFoodMenuHistory(int menuId)
+        {
+            var criteria = new GetFoodMenuHistoryCriteria
+            {
+                MenuId = menuId
+            };
+
+            return _foodMenuRepository.GetFoodMenuHistory(criteria);
+        }
+
+        public CommandResult InsertFoodMenuHistory(InsertFoodMenuHistoryCriteria criteria)
+        {
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Insert(criteria);
+            }
+
+            return commandResult;
         }
     }
 }

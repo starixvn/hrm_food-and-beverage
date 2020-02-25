@@ -230,14 +230,12 @@
     <Setting Key="FoodMenu_GetAll" SpName="FoodMenu_GetAll" DbName="FBM" Plain="0">
       <Mapping DataField="FoodItems" ObjectProperty="NumberFoodItems" />
     </Setting>
-    <Setting Key="FoodMenu_Insert" SpName="FoodMenu_Insert" DbName="FBM" Plain="0">
-    </Setting>
-    <Setting Key="FoodMenu_DeleteByMenuID" SpName="FoodMenu_DeleteByMenuID" DbName="FBM" Plain="0">
-    </Setting>
-    <Setting Key="FoodMenu_EditByMenuID" SpName="FoodMenu_EditByMenuID" DbName="FBM" Plain="0">
-    </Setting>
-    <Setting Key="FoodMenu_EditActiveByMenuID" SpName="FoodMenu_EditActiveByMenuID" DbName="FBM" Plain="0">
-    </Setting>
+    <Setting Key="FoodMenu_Insert" SpName="FoodMenu_Insert" DbName="FBM" Plain="0"></Setting>
+    <Setting Key="FoodMenu_GetHistoryByMenuID" SpName="FoodMenu_GetHistoryByMenuID" DbName="FBM" Plain="0"></Setting>
+    <Setting Key="FoodMenu_DeleteByMenuID" SpName="FoodMenu_DeleteByMenuID" DbName="FBM" Plain="0"></Setting>
+    <Setting Key="FoodMenu_EditByMenuID" SpName="FoodMenu_EditByMenuID" DbName="FBM" Plain="0"></Setting>
+    <Setting Key="FoodMenu_EditActiveByMenuID" SpName="FoodMenu_EditActiveByMenuID" DbName="FBM" Plain="0"></Setting>
+    <Setting Key="FoodMenu_InsertFoodMenuHistory" SpName="FoodMenu_InsertFoodMenuHistory" DbName="FBM" Plain="0"></Setting>
   </Function>
   <Function Name="SetMenuManagement">
     <Setting Key="FoodSet_Insert" SpName="FoodSet_Insert" DbName="FBM" Plain="0">

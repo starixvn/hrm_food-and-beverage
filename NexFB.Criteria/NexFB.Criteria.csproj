@@ -94,7 +94,9 @@
     <Compile Include="FoodMenuManagement\ActivateFoodMenuCriteria.cs" />
     <Compile Include="FoodMenuManagement\DeleteFoodMenuByMenuIdCriteria.cs" />
     <Compile Include="FoodMenuManagement\GetAllFoodMenuCriteria.cs" />
+    <Compile Include="FoodMenuManagement\GetFoodMenuHistoryCriteria.cs" />
     <Compile Include="FoodMenuManagement\InsertFoodMenuCriteria.cs" />
+    <Compile Include="FoodMenuManagement\InsertFoodMenuHistoryCriteria.cs" />
     <Compile Include="FoodMenuManagement\UpdateFoodMenuCriteria.cs" />
     <Compile Include="GroupControl\ActivateGroupCriteria.cs" />
     <Compile Include="GroupControl\AssignGroupToMemberCriteria.cs" />
