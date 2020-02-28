@@ -103,7 +103,8 @@
                     <td class="text-center" ng-if="policy.permission == 2">
                         <a class="glyphicon glyphicon-edit" href="" title="Edit" ng-click="edit(foodMenu)"></a>
                         <a class="glyphicon glyphicon-remove icon-remove" title="Delete" href="" ng-click="deleteFoodMenu(foodMenu)"></a>
-                        <a class="glyphicon glyphicon-eye-open" href="" title="View History" ng-click="viewHistory(foodMenu.MenuId)"></a>
+                        <a class="glyphicon glyphicon-eye-open" href="" title="View History"
+                           ng-click="viewHistory(foodMenu.MenuId, foodMenu.MenuVnmName, foodMenu.MenuEngName)"></a>
                     </td>
                 </tr>
 

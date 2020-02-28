@@ -2,8 +2,8 @@
 /*global foodMenuManagementModule*/
 
 foodMenuManagementModule.controller('ViewHistoryFoodMenuController',
-    ['$scope', '$modalInstance', 'menuId', 'foodMenuUtilities', 'foodMenuFactory', 'notificationFactory', 'ErrorFactory', 'commonFactory',
-        function ($scope, $modalInstance, menuId, foodMenuUtilities, foodMenuFactory, notificationFactory, ErrorFactory, commonFactory) {
+    ['$scope', '$modalInstance', 'menuId', 'menuNameVN', 'menuNameEN', 'foodMenuUtilities', 'foodMenuFactory', 'notificationFactory', 'ErrorFactory', 'commonFactory',
+        function ($scope, $modalInstance, menuId, menuNameVN, menuNameEN, foodMenuUtilities, foodMenuFactory, notificationFactory, ErrorFactory, commonFactory) {
             var getFoodMenuHistories = function (menuId) {
                 foodMenuFactory.getFoodMenuHistory(menuId).success(function (histories) {
                     $scope.histories = histories;
@@ -19,6 +19,8 @@ foodMenuManagementModule.controller('ViewHistoryFoodMenuController',
                     ErrorFactory.errorHandle(status);
                 });
             };
+            $scope.menuNameVN = menuNameVN;
+            $scope.menuNameEN = menuNameEN;
 
             getFoodMenuHistories(menuId);
 

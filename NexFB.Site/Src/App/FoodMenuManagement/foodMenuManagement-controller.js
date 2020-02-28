@@ -171,7 +171,7 @@ foodMenuManagementModule.controller('FoodMenuManagementController',
                 });
             };
 
-            $scope.viewHistory = function (menuId) {
+            $scope.viewHistory = function (menuId, menuNameVN, menuNameEN) {
                 $scope.modalInstance = $modal.open({
                     templateUrl: baseUrl + 'src/app/FoodMenuManagement/Templates/menuHistory.html',
                     controller: "ViewHistoryFoodMenuController",
@@ -179,131 +179,137 @@ foodMenuManagementModule.controller('FoodMenuManagementController',
                     resolve: {
                         menuId: function () {
                             return menuId;
-                        }
+                        },                        
+                        menuNameVN: function () {
+                            return menuNameVN;
+                        },
+                        menuNameEN: function () {
+                            return menuNameEN;
+                        },
                     },
                     windowClass: "modal-confirm-center food-menu-modal"
                 });
 
-                $scope.modalInstance.result.then(function (changedFoodMenu) {
-                    updateChangedFoodMenu(foodMenu, changedFoodMenu);
-                })['finally'](function () {
-                    $scope.modalInstance = '';
-                });
+$scope.modalInstance.result.then(function (changedFoodMenu) {
+    updateChangedFoodMenu(foodMenu, changedFoodMenu);
+})['finally'](function () {
+    $scope.modalInstance = '';
+});
             };
 
-            /*
-            ** Activate or deactivate food menu.
-            */
-            $scope.confirmActive = function (foodMenu) {
-                var action = !foodMenu.IsActive ? "activate" : "deactivate",
-                    newFoodMenu = {
-                        menuId: foodMenu.MenuId,
-                        IsActive: !foodMenu.IsActive
-                    };
+/*
+** Activate or deactivate food menu.
+*/
+$scope.confirmActive = function (foodMenu) {
+    var action = !foodMenu.IsActive ? "activate" : "deactivate",
+        newFoodMenu = {
+            menuId: foodMenu.MenuId,
+            IsActive: !foodMenu.IsActive
+        };
 
-                foodMenu.IsActive = newFoodMenu.IsActive;
+    foodMenu.IsActive = newFoodMenu.IsActive;
 
-                $scope.modalInstance = $modal.open({
-                    templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
-                    controller: "ModalConfirmController",
-                    backdrop: 'static',
-                    resolve: {
-                        name: function () {
-                            return foodMenu.MenuVnmName + ' (' + foodMenu.MenuEngName + ')';
-                        },
-                        action: function () {
-                            return action;
-                        }
-                    },
-                    windowClass: "modal-confirm-center food-item-modal"
-                });
+    $scope.modalInstance = $modal.open({
+        templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
+        controller: "ModalConfirmController",
+        backdrop: 'static',
+        resolve: {
+            name: function () {
+                return foodMenu.MenuVnmName + ' (' + foodMenu.MenuEngName + ')';
+            },
+            action: function () {
+                return action;
+            }
+        },
+        windowClass: "modal-confirm-center food-item-modal"
+    });
 
-                var keyMessage = '';
+    var keyMessage = '';
 
-                $scope.modalInstance.result.then(function () {
-                    foodMenuFactory.activateFoodMenu(newFoodMenu).success(function (response) {
-                        if (response.IsSuccessful) {
-                            keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
-                            notificationFactory.success(keyMessage);
-                        }
-                        else {
-                            keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-                            foodMenu.IsActive = !newFoodMenu.IsActive;
+    $scope.modalInstance.result.then(function () {
+        foodMenuFactory.activateFoodMenu(newFoodMenu).success(function (response) {
+            if (response.IsSuccessful) {
+                keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
+                notificationFactory.success(keyMessage);
+            }
+            else {
+                keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+                foodMenu.IsActive = !newFoodMenu.IsActive;
 
-                            if (response.Code === 101) {
-                                notificationFactory.error("DuplicateFoodMenuMessage");
-                            }
-                            else {
-                                notificationFactory.error(keyMessage);
-                            }
-                        }
-                    }).error(function (response, status) {
-                        if (status === 405) {
-                            ErrorFactory.errorHandle(status);
-                        }
-                        else {
-                            keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-                            foodMenu.IsActive = !newFoodMenu.IsActive;
-                            notificationFactory.error(keyMessage);
-                        }
-                    });
-                }, function () {
-                    foodMenu.IsActive = !newFoodMenu.IsActive;
-                })['finally'](function () {
-                    $scope.modalInstance = '';
-                });
-            };
-
-            /*
-            ** Delete food menu.
-            */
-            var updatePaging = function (foodMenu, currentPage) {
-                var index = $scope.foodMenus.indexOf(foodMenu);
-                $scope.foodMenus.splice(index, 1);
-
-                commonFactory.tablePagination($scope, $scope.foodMenus, $scope.entrySelected);
-                var numberPage = $scope.pagedItems.length;
-
-                if (currentPage <= numberPage - 1) {
-                    $scope.currentPage = currentPage;
+                if (response.Code === 101) {
+                    notificationFactory.error("DuplicateFoodMenuMessage");
                 }
                 else {
-                    $scope.currentPage = currentPage - 1;
+                    notificationFactory.error(keyMessage);
                 }
-            };
+            }
+        }).error(function (response, status) {
+            if (status === 405) {
+                ErrorFactory.errorHandle(status);
+            }
+            else {
+                keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+                foodMenu.IsActive = !newFoodMenu.IsActive;
+                notificationFactory.error(keyMessage);
+            }
+        });
+    }, function () {
+        foodMenu.IsActive = !newFoodMenu.IsActive;
+    })['finally'](function () {
+        $scope.modalInstance = '';
+    });
+};
 
-            $scope.deleteFoodMenu = function (foodMenu) {
-                $scope.modalInstance = $modal.open({
-                    templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
-                    controller: "ModalConfirmController",
-                    backdrop: 'static',
-                    resolve: {
-                        action: function () {
-                            return 'delete';
-                        },
-                        name: function () {
-                            return foodMenu.MenuVnmName + ' (' + foodMenu.MenuEngName + ')';
-                        }
-                    },
-                    windowClass: "modal-confirm-center food-item-modal"
-                });
+/*
+** Delete food menu.
+*/
+var updatePaging = function (foodMenu, currentPage) {
+    var index = $scope.foodMenus.indexOf(foodMenu);
+    $scope.foodMenus.splice(index, 1);
 
-                $scope.modalInstance.result.then(function () {
-                    var currentPage = $scope.currentPage;
+    commonFactory.tablePagination($scope, $scope.foodMenus, $scope.entrySelected);
+    var numberPage = $scope.pagedItems.length;
 
-                    foodMenuFactory.deleteFoodMenu(foodMenu.MenuId).success(function (response) {
-                        if (response.IsSuccessful) {
-                            updatePaging(foodMenu, currentPage);
-                            notificationFactory.success("DataChangeSuccessfully");
-                        }
-                        else {
-                            notificationFactory.error("", response.Message);
-                        }
-                    }).error(function (response, status) {
-                        ErrorFactory.errorHandle(status);
-                    });
-                })['finally'](function () {
-                    $scope.modalInstance = '';
-                });
-            };
+    if (currentPage <= numberPage - 1) {
+        $scope.currentPage = currentPage;
+    }
+    else {
+        $scope.currentPage = currentPage - 1;
+    }
+};
+
+$scope.deleteFoodMenu = function (foodMenu) {
+    $scope.modalInstance = $modal.open({
+        templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
+        controller: "ModalConfirmController",
+        backdrop: 'static',
+        resolve: {
+            action: function () {
+                return 'delete';
+            },
+            name: function () {
+                return foodMenu.MenuVnmName + ' (' + foodMenu.MenuEngName + ')';
+            }
+        },
+        windowClass: "modal-confirm-center food-item-modal"
+    });
+
+    $scope.modalInstance.result.then(function () {
+        var currentPage = $scope.currentPage;
+
+        foodMenuFactory.deleteFoodMenu(foodMenu.MenuId).success(function (response) {
+            if (response.IsSuccessful) {
+                updatePaging(foodMenu, currentPage);
+                notificationFactory.success("DataChangeSuccessfully");
+            }
+            else {
+                notificationFactory.error("", response.Message);
+            }
+        }).error(function (response, status) {
+            ErrorFactory.errorHandle(status);
+        });
+    })['finally'](function () {
+        $scope.modalInstance = '';
+    });
+};
         }]);
