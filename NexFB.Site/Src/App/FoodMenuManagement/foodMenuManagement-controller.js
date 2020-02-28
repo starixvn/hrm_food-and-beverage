@@ -11,7 +11,8 @@ foodMenuManagementModule.controller('FoodMenuManagementController',
             */
             $scope.filter = {
                 mealId: '',
-                employeeTypeId: ''
+                employeeTypeId: '',
+                isActive: 'true'
             };
 
             $scope.originalPage = 0;
@@ -78,6 +79,7 @@ foodMenuManagementModule.controller('FoodMenuManagementController',
             ** Get all food menu.
             */
             var getAllFoodMenu = function (mealId, employeeTypeId, isActive) {
+                console.log(isActive)
                 foodMenuFactory.getAllFoodMenu(mealId, employeeTypeId, isActive).success(function (foodMenus) {
                     $scope.foodMenus = foodMenus;
                     commonFactory.tablePagination($scope, $scope.foodMenus, $scope.entrySelected);
@@ -87,7 +89,7 @@ foodMenuManagementModule.controller('FoodMenuManagementController',
                 });
             };
 
-            getAllFoodMenu(null, null, null);
+            getAllFoodMenu(null, null, true);
 
             /*
             ** Query to filter data.
