@@ -14,10 +14,6 @@ foodMenuManagementModule.controller('ViewHistoryFoodMenuController',
                         $scope.foodMenu.currentEndDate = currentFoodMenu.EffectedDateEnd;
                         $scope.foodMenu.currentPricePerMeal = currentFoodMenu.PricePerMeal;
                         $scope.foodMenu.currentPricePerDay = currentFoodMenu.PricePerDay;
-
-                        var endDate = new Date(currentFoodMenu.EffectedDateEnd);
-                        endDate.setDate(endDate.getDate() + 1);
-                        $scope.foodMenu.newBeginDate = endDate;
                     }
                 }).error(function (response, status) {
                     ErrorFactory.errorHandle(status);
