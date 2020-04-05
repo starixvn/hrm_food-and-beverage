@@ -8,6 +8,8 @@ function ($scope, reportFactory, ErrorFactory, reportUtilities, foodMenuFactory,
 foodMenuUtilities, notificationFactory, groupControlFactory, $modal, baseUrl) {
     $scope.searchEmployee = '';
 
+    $scope.openMealList = false;
+
     $scope.orderStatus = {
         New: 1,
         Accepted: 2,
@@ -41,6 +43,8 @@ foodMenuUtilities, notificationFactory, groupControlFactory, $modal, baseUrl) {
         startIndex: 0,
         itemsPerPage: 50
     };
+
+    $scope.selectedOrderId = 0;
 
     var setDefaultStatus = function (orderStatuses) {
         angular.forEach(orderStatuses, function (status) {
@@ -250,5 +254,37 @@ foodMenuUtilities, notificationFactory, groupControlFactory, $modal, baseUrl) {
         };
 
         $scope.$broadcast('exportAdminOrderHistoryReport');
+    };
+
+    $scope.showMealList = function (isShow) {
+        $scope.openMealList = isShow;
+    }
+
+    $scope.changeMeal = function (event) {
+        var params = {
+            OrderId : $scope.selectedOrderId,
+            MealId : event.currentTarget.id
+        }
+
+        reportFactory.updateMealOrder(params).success(function (response) {
+            if (response.IsSuccessful) {
+                notificationFactory.success("DataChangeSuccessfully");
+                $scope.query($scope.filter);
+            }
+            else {
+                notificationFactory.error("", response.Message);
+            }
+        }).error(function (response, status) {
+            ErrorFactory.errorHandle(status);
+        });
+
+        $scope.showMealList(false);
+    }
+
+    $scope.globalClickFunc = function () {
+        var currentElement = $(document.activeElement)[0];
+        if ($scope.openMealList == true && !currentElement.matches('.meal-select') && !currentElement.matches('.btn-expand-meal-list')) {
+            $scope.showMealList(false);
+        }
     };
 } ]);

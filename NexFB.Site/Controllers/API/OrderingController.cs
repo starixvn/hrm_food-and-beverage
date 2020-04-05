@@ -350,6 +350,17 @@ namespace NexFB.Site.Controllers.API
             return false;
         }
 
+        [HttpPut]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
+        public CommandResult ChangeMealOrder(UpdateMealOrderCriteria criteria)
+        {
+            criteria.ModifiedBy = this.CurrentUser.UserId;
+            criteria.ModifiedDate = DateTime.Now;
+
+            CommandResult result = _orderService.UpdateMealOrder(criteria);
+            return result;
+        }
+
         /// <summary>
         /// Translate remark into vietnamese.
         /// </summary>

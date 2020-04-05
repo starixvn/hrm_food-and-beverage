@@ -301,5 +301,18 @@ namespace NexFB.Services.Implement
         {
             return FBTranslator.AutoTranslation(remark, translatorAPIPath);
         }
+
+        public CommandResult UpdateMealOrder(UpdateMealOrderCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var result = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
     }
 }

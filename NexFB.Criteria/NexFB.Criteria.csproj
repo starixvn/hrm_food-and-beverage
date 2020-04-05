@@ -142,6 +142,7 @@
     <Compile Include="Ordering\RemoveMemberCriteria.cs" />
     <Compile Include="Ordering\DeleteOrderCriteria.cs" />
     <Compile Include="Ordering\GetOrderByIdCriteria.cs" />
+    <Compile Include="Ordering\UpdateMealOrderCriteria.cs" />
     <Compile Include="Ordering\UpdateOrderCriteria.cs" />
     <Compile Include="Ordering\GetMemberSavedOrderCriteria.cs" />
     <Compile Include="Ordering\GetMemberNewOrderCriteria.cs" />

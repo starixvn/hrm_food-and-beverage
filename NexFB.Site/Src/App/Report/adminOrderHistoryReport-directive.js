@@ -4,7 +4,6 @@
 reportModule.directive('renderAdminOrderHistoryReport', function () {
 
     var generateDataBody = function (report, scope) {
-
         var createOrderDetail = function (currentCell) {
             var orderId = currentCell.Value;
             var details = "<a class='order-detail glyphicon glyphicon-list-alt' href='javascript:;' order-detail-number ='" + orderId + "'></a>";
@@ -107,6 +106,21 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
             return cssClass;
         };
 
+        var selectMeal = function (currentCell) {
+            var result = '';
+
+            if (currentCell.Value.Status.StatusId > 1) {
+                result = currentCell.Value.Meal.MealEngName;
+            }
+            else {
+                var result = "<div class='meal-list'>";
+                result += "<a href='javascript:;' class='btn-expand-meal-list' order-id='" + currentCell.Value.Order.OrderId + "'>" + currentCell.Value.Meal.MealEngName + "</a>";
+                result += "</div>"
+            }
+
+            return result;
+        }
+
         var rows = [];
 
         if (report && report.EmployeeOrders) {
@@ -117,12 +131,12 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                 var employeeOrder = report.EmployeeOrders[i],
                     currentRow = [],
                     cssClass = getCssClass(employeeOrder.Status.StatusId, scope.orderStatus);
-
+              
                 currentRow = {
                     Columns: [
                         { Name: "Count", Value: rowIndex },
                         { Name: "Time", Value: moment(employeeOrder.OrderTime).format(scope.timeFormat) },
-                        { Name: "Meal", Value: employeeOrder.Meal.MealEngName },
+                        { Name: "Meal", Value: employeeOrder, CustomCellRender: selectMeal},
                         { Name: "Order", Value: employeeOrder.Order.OrderNo },
                         { Name: "Ref", Value: employeeOrder.Order.OrderId },
                         { Name: "OrderPlatform", Value: employeeOrder.OrderFrom },
@@ -249,6 +263,17 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                     var orderId = $(this).attr('order-detail-number');
                     scope.showOrderDetail(orderId);
                 });
+
+                iElement.find('a.btn-expand-meal-list').on('click', function () {
+                    var mealSelection = $(".meal-list-item")[0];
+                    var position = $(this).position();
+
+                    mealSelection.style.left = (position.left - 16) + "px";
+                    mealSelection.style.top = (position.top + 250) + "px";
+
+                    scope.selectedOrderId = $(this).attr('order-id');;
+                    scope.showMealList(true);
+                });
             });
         }
     };
@@ -272,4 +297,26 @@ reportModule.directive('exportAdminOrderHistoryReport', ['baseUrl', function (ba
             });
         }
     };
-} ]);
+}]);
+
+reportModule.directive('onDocumentClick', ['$document',
+    function ($document) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+
+                var onClick = function () {
+                    scope.$apply(function () {
+                        scope.$eval(attrs.onDocumentClick);
+                    });
+                };
+
+                $document.on('click', onClick);
+
+                scope.$on('$destroy', function () {
+                    $document.off('click', onClick);
+                });
+            }
+        };
+    }
+]);

@@ -274,6 +274,9 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                 reportDate: filter.reportDate.toDateString()
             }
             return $http.get(baseUrl + 'api/report/GetBreakfastAndSupperReport', { params: data })
+        },
+        updateMealOrder: function (params) {
+            return $http.put(baseUrl + 'api/Ordering/ChangeMealOrder', params);
         }
     };
 }]);
