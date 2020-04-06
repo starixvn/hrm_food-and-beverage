@@ -261,24 +261,43 @@ foodMenuUtilities, notificationFactory, groupControlFactory, $modal, baseUrl) {
     }
 
     $scope.changeMeal = function (event) {
-        var params = {
-            OrderId : $scope.selectedOrderId,
-            MealId : event.currentTarget.id
-        }
-
-        reportFactory.updateMealOrder(params).success(function (response) {
-            if (response.IsSuccessful) {
-                notificationFactory.success("DataChangeSuccessfully");
-                $scope.query($scope.filter);
-            }
-            else {
-                notificationFactory.error("", response.Message);
-            }
-        }).error(function (response, status) {
-            ErrorFactory.errorHandle(status);
+        $scope.modalInstance = $modal.open({
+            templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
+            controller: "ModalConfirmController",
+            backdrop: 'static',
+            resolve: {
+                action: function () {
+                    return 'update meal for';
+                },
+                name: function () {
+                    return 'Order (Ref : ' + $scope.selectedOrderId + ')';
+                }
+            },
+            windowClass: "modal-confirm-center"
         });
 
-        $scope.showMealList(false);
+        $scope.modalInstance.result.then(function () {
+            var params = {
+                OrderId: $scope.selectedOrderId,
+                MealId: event.currentTarget.id
+            }
+
+            reportFactory.updateMealOrder(params).success(function (response) {
+                if (response.IsSuccessful) {
+                    notificationFactory.success("DataChangeSuccessfully");
+                    $scope.query($scope.filter);
+                }
+                else {
+                    notificationFactory.error("", response.Message);
+                }
+            }).error(function (response, status) {
+                ErrorFactory.errorHandle(status);
+            });
+
+            $scope.showMealList(false);
+        })['finally'](function () {
+            $scope.modalInstance = '';
+        });
     }
 
     $scope.globalClickFunc = function () {

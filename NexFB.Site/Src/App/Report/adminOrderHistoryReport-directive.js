@@ -107,17 +107,10 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
         };
 
         var selectMeal = function (currentCell) {
-            var result = '';
-
-            if (currentCell.Value.Status.StatusId > 1) {
-                result = currentCell.Value.Meal.MealEngName;
-            }
-            else {
-                var result = "<div class='meal-list'>";
-                result += "<a href='javascript:;' class='btn-expand-meal-list' order-id='" + currentCell.Value.Order.OrderId + "'>" + currentCell.Value.Meal.MealEngName + "</a>";
-                result += "</div>"
-            }
-
+            var result = "<div class='meal-list'>";
+            result += "<a href='javascript:;' class='btn-expand-meal-list' order-id='" + currentCell.Value.Order.OrderId + "'>" + currentCell.Value.Meal.MealEngName + "</a>";
+            result += "</div>"
+            
             return result;
         }
 
