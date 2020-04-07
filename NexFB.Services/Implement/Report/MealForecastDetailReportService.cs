@@ -195,7 +195,7 @@ namespace NexFB.Services.Implement.Report
 
             FillTotalRowForEmployeeRegistration(report.TotalMeal, Lang.TotalMeal, ref writer);
 
-            writer.SyncColumnsWidth(7);
+            writer.SyncColumnsWidth(8);
             writer.Render();
         }
 
@@ -356,6 +356,7 @@ namespace NexFB.Services.Implement.Report
                 {
                     Count = i,
                     Code = registration.Employee.Code,
+                    Deparment = registration.DepartmentName,
                     NickName = registration.Employee.NickName,
                     FullName = registration.Employee.FullName,
                     Meal = registration.Meal.MealName,
@@ -415,6 +416,7 @@ namespace NexFB.Services.Implement.Report
             {
                 Count = totalName,
                 Code = string.Empty,
+                Department = string.Empty,
                 NickName = string.Empty,
                 FullName = string.Empty,
                 Meal = string.Empty,

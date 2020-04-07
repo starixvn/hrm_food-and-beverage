@@ -16,6 +16,7 @@ reportModule.directive('renderEmployeeRegistrationDetailReport', function () {
                     Columns: [
                         { Name: "Count", Value: rowIndex },
                         { Name: "Code", Value: employeeRegistration.Employee.Code },
+                        { Name: "Department", Value: employeeRegistration.DepartmentName },
                         { Name: "NickName", Value: employeeRegistration.Employee.NickName },
                         { Name: "FullName", Value: employeeRegistration.Employee.FullName },
                         { Name: "Meal", Value: employeeRegistration.Meal.MealName },
@@ -36,6 +37,7 @@ reportModule.directive('renderEmployeeRegistrationDetailReport', function () {
         var columns = [
             { HeaderText: "#", Width: 65, Name: "Count", HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Code", Width: 160, Name: "Code", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Department", Width: 160, Name: "Department", HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Nick Name", Width: 160, Name: "NickName", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Full Name", Width: 160, Name: "FullName", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Meal", Width: 160, Name: "Meal", HeaderAlign: "center", CellAlign: "left" },
@@ -51,7 +53,7 @@ reportModule.directive('renderEmployeeRegistrationDetailReport', function () {
             var footerRows = [],
             totalMeal = {
                 Columns: [
-                    { Value: "Total Meal", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
+                    { Value: "Total Meal", Name: "Count", MergeColNumber: 6, CellAlign: "right" },
                     { Value: numeral(report.TotalMeal.Registration).format(scope.numberFormat), Name: "Vegetarian" },
                     { Value: report.TotalMeal.ActualOrder < 0 ? '-' : numeral(report.TotalMeal.ActualOrder).format(scope.numberFormat), Name: "ActualOrder" }
                 ]
