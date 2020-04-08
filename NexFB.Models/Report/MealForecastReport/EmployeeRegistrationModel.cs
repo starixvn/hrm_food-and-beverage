@@ -23,6 +23,8 @@ namespace NexFB.Models.Report.MealForecastReport
 
         public string DepartmentName { get; set; }
 
+        public string ShiftName { get; set; }
+
         public MealModel Meal { get; set; }
 
         public Employee Employee { get; set; }
