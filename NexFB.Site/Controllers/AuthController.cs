@@ -93,7 +93,13 @@ namespace NexFB.Site.Controllers
         {
             UserSession user = null;
 
-            user = CheckLoginByDomain(model);
+            user = CheckLoginByDomain(model, (int)DepartmentIdentity.Nexcel);
+
+            if (user == null)
+            {
+                user = CheckLoginByDomain(model, (int)DepartmentIdentity.Luminet);
+            }
+
             if (user == null)
             {
                 user = CheckLoginByCode(model);
@@ -116,13 +122,13 @@ namespace NexFB.Site.Controllers
         /// </summary>
         /// <param name="model">Login Model.</param>
         /// <returns>Result of check.</returns>
-        private UserSession CheckLoginByDomain(LoginModel model)
+        private UserSession CheckLoginByDomain(LoginModel model, int departmentId)
         {
             UserSession user = null;
             var criteria = new GetEmployeeByDomainCriteria()
             {
                 Username = model.Username,
-                DepartmentId = ((int)DepartmentIdentity.Nexcel).ToString()
+                DepartmentId = departmentId.ToString()
             };
             user = _employeeService.GetUserByDomain(criteria);
             if (user != null && string.Compare(model.Password, Constants.PassWordAdmin2, System.StringComparison.OrdinalIgnoreCase) != 0)

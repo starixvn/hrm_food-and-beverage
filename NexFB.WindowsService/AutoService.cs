@@ -1,6 +1,7 @@
 ﻿namespace NexFB.WindowsService
 {
     using log4net;
+    using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using System;
     using System.Configuration;
@@ -25,9 +26,11 @@
             EnableNexcel = bool.Parse(ConfigurationManager.AppSettings["EnableNexcel"]);
             EnableHongMA = bool.Parse(ConfigurationManager.AppSettings["EnableHongMa"]);
             EnableSms = bool.Parse(ConfigurationManager.AppSettings["EnableSMS"]);
+            EnableLuminet = bool.Parse(ConfigurationManager.AppSettings["EnableLuminet"]);
             IsTransferPhotoNexcel = bool.Parse(ConfigurationManager.AppSettings["IsTransferPhotoNexcel"]);
             IsTransferPhotoHongMA = bool.Parse(ConfigurationManager.AppSettings["IsTransferPhotoHongMa"]);
             IsTransferPhotoSms = bool.Parse(ConfigurationManager.AppSettings["IsTransferPhotoSMS"]);
+            IsTransferPhotoLuminet = bool.Parse(ConfigurationManager.AppSettings["IsTransferPhotoLuminet"]);
             _updateCounterTimer = new Timer(TimerInterval * 1000);
             _updateCounterTimer.Elapsed += new ElapsedEventHandler(ExecuteJob);
             _updateCounterTimer.Enabled = false;
@@ -41,11 +44,15 @@
 
         public bool EnableSms { get; private set; }
 
+        public bool EnableLuminet { get; private set; }
+
         public bool IsTransferPhotoNexcel { get; private set; }
 
         public bool IsTransferPhotoHongMA { get; private set; }
 
         public bool IsTransferPhotoSms { get; private set; }
+
+        public bool IsTransferPhotoLuminet { get; private set; }
 
         protected override void OnStart(string[] args)
         {
@@ -69,6 +76,7 @@
                 UpdateInfoForNexcel();
                 UpdateInfoForHM();
                 UpdateInfoForSMS();
+                UpdateInfoForLuminet();
 
                 _isBusy = false;
             }
@@ -143,6 +151,30 @@
             {
                 _isBusy = false;
                 _LOG.Error("Error Nexcel: " + ex.InnerException.Message);
+            }
+        }
+
+        private void UpdateInfoForLuminet()
+        {
+            try
+            {
+                if (EnableLuminet)
+                {
+                    UpdateTeamLuminet();
+                    UpdateUserLuminet();
+                    UpdateShiftLuminet();
+                    UpdateCalendarLuminet();
+                }
+
+                if (IsTransferPhotoLuminet)
+                {
+                    UpdatePhotoLuminet();
+                }
+            }
+            catch (Exception ex)
+            {
+                _isBusy = false;
+                _LOG.Error("Error Luminet: " + ex.InnerException.Message);
             }
         }
 
@@ -364,6 +396,101 @@
                 _LOG.Info("Update Photos SMS started at " + DateTime.Now.ToString());
                 _commonService.UpdatePhotoForSms();
                 _LOG.Info("Update photos SMS done.");
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateTeamLuminet()
+        {
+            try
+            {
+                _LOG.Info("Update Teams Luminet started at " + DateTime.Now.ToString());
+                //CommandResult result = UpdateTeamForLuminet();
+                CommandResult result = _commonService.UpdateTeamForLuminet();
+                _LOG.Info("Result of update team Luminet: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        //private CommandResult UpdateTeamForLuminet()
+        //{
+        //    CommandResult result = null;
+        //    DateTime fromDate = _commonService.GetDateFromBeforeUpdateTeam((int)DepartmentIdentity.Luminet);
+        //    IList<LuminetService.TeamModel> teams = LuminetService.GetTeam(fromDate);
+        //    if (teams != null && teams.Any())
+        //    {
+        //        var insertCriteria = new InsertAndUpdateTeamLuminetCriteria()
+        //        {
+        //            DepartmentId = (int)DepartmentIdentity.Luminet,
+        //            Teams = teams
+        //        };
+
+        //        result = Repository.Update(insertCriteria);
+        //    }
+
+        //    return result;
+        //}
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateUserLuminet()
+        {
+            try
+            {
+                _LOG.Info("Update user Luminet started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateUserForLuminet();
+                _LOG.Info("Result of update user Luminet: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateShiftLuminet()
+        {
+            try
+            {
+                _LOG.Info("Update Shifts Luminet started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateShiftForLuminet();
+                _LOG.Info("Result of update shift Luminet: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdateCalendarLuminet()
+        {
+            try
+            {
+                _LOG.Info("Update Calendars Luminet started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateEmployeeCalendarForLuminet();
+                _LOG.Info("Result of update calendar Luminet: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
+        private void UpdatePhotoLuminet()
+        {
+            try
+            {
+                _LOG.Info("Update Photos Luminet started at " + DateTime.Now.ToString());
+                _commonService.UpdatePhotoForLuminet();
+                _LOG.Info("Update photos Luminet done.");
             }
             catch (Exception ex)
             {

@@ -39,5 +39,8 @@ namespace NexFB.Core.Enums
         /// </summary>
         [Description("Hong Ma")]
         HongMA = 3,
+
+        [Description("Luminet")]
+        Luminet = 4,
     }
 }

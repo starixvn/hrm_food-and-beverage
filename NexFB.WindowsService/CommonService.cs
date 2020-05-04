@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CommonService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.9.4">Created</change>
-// </history>
-
-namespace NexFB.WindowsService
+﻿namespace NexFB.WindowsService
 {
     using System;
     using System.Collections;
@@ -20,20 +11,19 @@ namespace NexFB.WindowsService
     using NexFB.Core.Services;
     using NexFB.WindowsService.Criteria;
 
-    /// <summary>
-    /// Common Service.
-    /// </summary>
     public class CommonService : BaseService
     {
         private NexcelService.SynchronizeDataServiceClient _nexcelService = null;
         private HongMaService.SynchronizeDataServiceClient _hongmaService = null;
         private SMSService.SynchronizeDataServiceClient _smsService = null;
+        private LuminetService.SynchronizeDataServiceClient _luminetService = null;
 
         public CommonService()
         {
             NexcelService = new NexcelService.SynchronizeDataServiceClient();
             HongmaService = new HongMaService.SynchronizeDataServiceClient();
             SmsService = new SMSService.SynchronizeDataServiceClient();
+            LuminetService = new LuminetService.SynchronizeDataServiceClient();
         }
 
         protected NexcelService.SynchronizeDataServiceClient NexcelService
@@ -54,10 +44,12 @@ namespace NexFB.WindowsService
             set { _smsService = value; }
         }
 
-        /// <summary>
-        /// Function to update users of NEXCEL.
-        /// </summary>
-        /// <returns>Command Result.</returns>
+        protected LuminetService.SynchronizeDataServiceClient LuminetService
+        {
+            get { return _luminetService; }
+            set { _luminetService = value; }
+        }
+
         public CommandResult UpdateUserForNexcel()
         {
             CommandResult result = null;
@@ -77,10 +69,6 @@ namespace NexFB.WindowsService
             return result;
         }
 
-        /// <summary>
-        /// Function to update teams of NEXCEL.
-        /// </summary>
-        /// <returns>Command Result.</returns>
         public CommandResult UpdateTeamForNexcel()
         {
             CommandResult result = null;
@@ -100,10 +88,6 @@ namespace NexFB.WindowsService
             return result;
         }
 
-        /// <summary>
-        /// Function to update shift of NEXCEL.
-        /// </summary>
-        /// <returns>Command Result.</returns>
         public CommandResult UpdateShiftForNexcel()
         {
             CommandResult result = null;
@@ -122,10 +106,6 @@ namespace NexFB.WindowsService
             return result;
         }
 
-        /// <summary>
-        /// Function to update employee calendar of NEXCEL.
-        /// </summary>
-        /// <returns>Command Result.</returns>
         public CommandResult UpdateEmployeeCalendarForNexcel()
         {
             CommandResult result = null;
@@ -145,9 +125,6 @@ namespace NexFB.WindowsService
             return result;
         }
 
-        /// <summary>
-        /// Function to update photo of employee for NEXCEL.
-        /// </summary>
         public void UpdatePhotoForNexcel()
         {
             string photoPath = ConfigurationManager.AppSettings["PhotoPathNexcel"];
@@ -412,11 +389,95 @@ namespace NexFB.WindowsService
             return fromDate;
         }
 
-        /// <summary>
-        /// Function to get last modified date of folder contain photos.
-        /// </summary>
-        /// <param name="path">Folder path.</param>
-        /// <returns>Modified date.</returns>
+        public CommandResult UpdateUserForLuminet()
+        {
+            CommandResult result = null;
+            DateTime fromDate = GetDateFromBeforeUpdateUser((int)DepartmentIdentity.Luminet);
+            IList<LuminetService.UserModel> users = LuminetService.GetUser(fromDate);
+            if (users != null && users.Any())
+            {
+                var insertCriteria = new InsertAndUpdateUserLuminetCriteria()
+                {
+                    DepartmentId = (int)DepartmentIdentity.Luminet,
+                    Users = users
+                };
+
+                result = Repository.Update(insertCriteria);
+            }
+
+            return result;
+        }
+
+        public CommandResult UpdateTeamForLuminet()
+        {
+            CommandResult result = null;
+            DateTime fromDate = GetDateFromBeforeUpdateTeam((int)DepartmentIdentity.Luminet);
+            IList<LuminetService.TeamModel> teams = LuminetService.GetTeam(fromDate);
+            if (teams != null && teams.Any())
+            {
+                var insertCriteria = new InsertAndUpdateTeamLuminetCriteria()
+                {
+                    DepartmentId = (int)DepartmentIdentity.Luminet,
+                    Teams = teams
+                };
+
+                result = Repository.Update(insertCriteria);
+            }
+
+            return result;
+        }
+
+        public CommandResult UpdateShiftForLuminet()
+        {
+            CommandResult result = null;
+            IList<LuminetService.ShiftModel> shifts = LuminetService.GetShift();
+            if (shifts != null && shifts.Any())
+            {
+                var criteria = new InsertAndUpdateShiftLuminetCriteria()
+                {
+                    DepartmentId = (int)DepartmentIdentity.Luminet,
+                    Shifts = shifts
+                };
+
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
+        public CommandResult UpdateEmployeeCalendarForLuminet()
+        {
+            CommandResult result = null;
+            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar((int)DepartmentIdentity.Luminet);
+            IList<LuminetService.EmployeeCalendarModel> calendars = LuminetService.GetEmployeeCalendar(fromDate);
+            if (calendars != null && calendars.Any())
+            {
+                var criteria = new InsertAndUpdateEmployeeCalendarLuminetCriteria()
+                {
+                    DepartmentId = (int)DepartmentIdentity.Luminet,
+                    EmployeeCalendars = calendars
+                };
+
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
+        public void UpdatePhotoForLuminet()
+        {
+            string photoPath = ConfigurationManager.AppSettings["PhotoPathLuminet"];
+            DateTime lastModifiedDate = GetLastModifiedDateOfPhoto(photoPath);
+            IList<LuminetService.PhotoModel> photos = LuminetService.GetPhoto(lastModifiedDate);
+
+            string fullPath = string.Empty;
+            foreach (LuminetService.PhotoModel photo in photos)
+            {
+                fullPath = photoPath + "\\" + photo.Code;
+                File.WriteAllBytes(@fullPath, photo.Photo);
+            }
+        }
+
         private DateTime GetLastModifiedDateOfPhoto(string path)
         {
             var lastModifiedDate = new DateTime(1990, 01, 01);
