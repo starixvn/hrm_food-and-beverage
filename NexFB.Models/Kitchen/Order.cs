@@ -331,6 +331,10 @@ namespace NexFB.Models.Kitchen
                         var imageNexcelTemplate = string.Format("Images\\Nexcel\\{0}.jpg", Code.Trim());
                         imageSource = _imageFolderPath + imageNexcelTemplate;
                         break;
+                    case (int)DepartmentIdentity.Luminet:
+                        var imageLuminetTemplate = string.Format("Images\\Luminet\\{0}.jpg", Code.Trim());
+                        imageSource = _imageFolderPath + imageLuminetTemplate;
+                        break;
                     case (int)DepartmentIdentity.Sms:
                         var imageSmsTemplate = string.Format("Images\\SMS\\{0}.jpg", Code.Trim());
                         imageSource = _imageFolderPath + imageSmsTemplate;

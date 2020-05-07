@@ -195,6 +195,10 @@ namespace NexFB.Pos.Core.Models
                         var imageNexcelTemplate = string.Format(Constant.NexcelAvatar, Code.Trim());
                         _imageSource = _imageFolderPath + imageNexcelTemplate;
                         break;
+                    case (int)DepartmentIdentity.Luminet:
+                        var imageLuminetTemplate = string.Format(Constant.LuminetAvatar, Code.Trim());
+                        _imageSource = _imageFolderPath + imageLuminetTemplate;
+                        break;
                     case (int)DepartmentIdentity.Sms:
                         var imageSmsTemplate = string.Format(Constant.SmsAvatar, Code.Trim());
                         _imageSource = _imageFolderPath + imageSmsTemplate;

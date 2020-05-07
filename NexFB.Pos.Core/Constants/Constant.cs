@@ -108,6 +108,8 @@ namespace NexFB.Pos.Core.Constants
 
         public const string NexcelAvatar = "Images\\Nexcel\\{0}.jpg";
 
+        public const string LuminetAvatar = "Images\\Luminet\\{0}.jpg";
+
         public const string SmsAvatar = "Images\\SMS\\{0}.jpg";
 
         public const string HongMAAvatar = "Images\\HongMa\\{0}.jpg";
