@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5D31F6CD-D95C-4AC3-A0EE-D5064DE14EEF}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NexFB.WindowsService</RootNamespace>
     <AssemblyName>NexFB.WindowsService</AssemblyName>
