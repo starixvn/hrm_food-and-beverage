@@ -1087,6 +1087,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Meal NonRegistration Detail.
+        /// </summary>
+        public static string EmployeeNonRegistrationDetail {
+            get {
+                return ResourceManager.GetString("EmployeeNonRegistrationDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Order History.
         /// </summary>
         public static string EmployeeOrderHistoryReport {

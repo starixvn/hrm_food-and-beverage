@@ -115,7 +115,7 @@ namespace NexFB.Services.Implement.Report
                 FillTotalRow(report.TotalNonVegetarian, Lang.TotalNonVegetarian, ref writer, isVegetarian);
             }
 
-            writer.SyncColumnsWidth(6);
+            writer.SyncColumnsWidth(7);
             writer.Render();
         }
 
@@ -153,10 +153,15 @@ namespace NexFB.Services.Implement.Report
             int numberActualOrderVegNA = 0,
                 numberActualOrderNonVegNA = 0;
 
+
             foreach (var item in report.MealForecasts)
             {
                 report.TotalNonVegetarian.Registration += item.RegistrationNonVegetarian;
                 report.TotalVegetarian.Registration += item.RegistrationVegetarian;
+
+                report.TotalNonVegetarian.NonRegistration += item.NonRegistrationNonVegetarian;
+                report.TotalVegetarian.NonRegistration += item.NonRegistrationVegetarian;
+
                 if (item.ActualOrderNonVegetarian < 0)
                 {
                     numberActualOrderNonVegNA++;
@@ -178,6 +183,8 @@ namespace NexFB.Services.Implement.Report
 
             report.TotalMeal.Registration += report.TotalNonVegetarian.Registration;
             report.TotalMeal.Registration += report.TotalVegetarian.Registration;
+            report.TotalMeal.NonRegistration += report.TotalNonVegetarian.NonRegistration;
+            report.TotalMeal.NonRegistration += report.TotalVegetarian.NonRegistration;
 
             if (numberActualOrderNonVegNA.Equals(report.MealForecasts.Count))
             {
@@ -219,6 +226,7 @@ namespace NexFB.Services.Implement.Report
                     Count = index,
                     Date = mealForecast.OnDate,
                     DietType = Lang.NonVegetarian,
+                    NonRegistration = mealForecast.NonRegistrationNonVegetarian,
                     Registration = mealForecast.RegistrationNonVegetarian,
                     ActualOrder = FormatNumber(mealForecast.ActualOrderNonVegetarian, false),
                     Efficiency = FormatNumber(mealForecast.EfficiencyNonVegetarian, true)
@@ -228,6 +236,7 @@ namespace NexFB.Services.Implement.Report
                     Count = index,
                     Date = mealForecast.OnDate,
                     DietType = Lang.Vegetarian,
+                    NonRegistration = mealForecast.NonRegistrationVegetarian,
                     Registration = mealForecast.RegistrationVegetarian,
                     ActualOrder = FormatNumber(mealForecast.ActualOrderVegetarian, false),
                     Efficiency = FormatNumber(mealForecast.EfficiencyVegetarian, true)
@@ -246,6 +255,7 @@ namespace NexFB.Services.Implement.Report
                     Count = index,
                     Date = mealForecast.OnDate,
                     DietType = isVegetarian == true ? Lang.Vegetarian : Lang.NonVegetarian,
+                    NonRegistration = isVegetarian == true ? mealForecast.NonRegistrationVegetarian : mealForecast.RegistrationNonVegetarian,
                     Registration = isVegetarian == true ? mealForecast.RegistrationVegetarian : mealForecast.RegistrationNonVegetarian,
                     ActualOrder = isVegetarian == true ? FormatNumber(mealForecast.ActualOrderVegetarian, false) :
                         FormatNumber(mealForecast.ActualOrderNonVegetarian, false),
@@ -289,6 +299,7 @@ namespace NexFB.Services.Implement.Report
                 Count = totalName,
                 Date = string.Empty,
                 DietType = string.Empty,
+                NonRegistration = totalMeal.NonRegistration,
                 Registration = totalMeal.Registration,
                 ActualOrder = FormatNumber(totalMeal.ActualOrder, false),
                 Efficiency = FormatNumber(totalMeal.Efficiency, true)

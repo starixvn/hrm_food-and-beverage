@@ -18,6 +18,7 @@ namespace NexFB.Models.Report.MealForecastReport
     public class TotalMealForecastModel
     {
         public int Registration { get; set; }
+        public int NonRegistration { get; set; }
 
         public int ActualOrder { get; set; }
 

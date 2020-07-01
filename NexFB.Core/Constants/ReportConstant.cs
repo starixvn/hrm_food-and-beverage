@@ -29,5 +29,6 @@ namespace NexFB.Core.Constants
         public const string MealForecastDetailReportSessionKey = "NexFB.Report.MealForecastDetailReport";
 
         public const string EmployeeRegistrationReportSessionKey = "NexFB.Report.EmployeeRegistrationReport";
+        public const string EmployeeNonRegistrationReportSessionKey = "NexFB.Report.EmployeeNonRegistrationReport";
     }
 }

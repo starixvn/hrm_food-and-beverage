@@ -137,8 +137,8 @@ function ($scope, baseUrl, reportFactory, foodMenuFactory, foodMenuUtilities, Er
 	/*
 	** Get report
 	*/
-	$scope.getMealForecastReport = function (filter) {
-		reportFactory.getMealForecastReport(filter).success(function (report) {
+    $scope.getMealForecastReport = function (filter) {
+        reportFactory.getMealForecastReport(filter).success(function (report) {
 			$scope.report = report;
 			$scope.$broadcast("renderMealForecastReport");
 			$scope.setHistory();

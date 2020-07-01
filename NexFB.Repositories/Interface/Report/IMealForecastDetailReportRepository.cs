@@ -21,5 +21,6 @@ namespace NexFB.Repositories.Interface.Report
         MealForecastDetailReport GetMealForecastDetailReport(ICriteria criteria);
 
         IList<EmployeeRegistrationModel> GetEmployeeRegistration(ICriteria criteria);
+        IList<EmployeeRegistrationModel> GetEmployeeNonRegistration(ICriteria criteria);
     }
 }

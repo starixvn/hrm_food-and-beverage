@@ -180,6 +180,7 @@ foodMenuUtilities, notificationFactory, groupControlFactory, $modal, baseUrl) {
         return statusId;
     };
 
+
     /*
     ** Filter report.
     */

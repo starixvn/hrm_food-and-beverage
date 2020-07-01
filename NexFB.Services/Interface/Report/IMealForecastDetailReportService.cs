@@ -23,6 +23,7 @@ namespace NexFB.Services.Interface.Report
         MealForecastDetailReport GetMealForecastDetailReport(GetMealForecastDetailReportCriteria criteria);
 
         EmployeeRegistrationReportModel GetEmployeeRegistration(GetEmployeeRegistrationCriteria criteria);
+        EmployeeRegistrationReportModel GetEmployeeNonRegistration(GetEmployeeNonRegistrationCriteria criteria);
 
         MealForecastDetailReport GetPagingReport(MealForecastDetailReport fullReport, int startIndex, int itemsPerPage);
 
@@ -30,10 +31,19 @@ namespace NexFB.Services.Interface.Report
            EmployeeRegistrationReportModel fullReport,
            int startIndex,
            int itemsPerPage);
+        EmployeeRegistrationReportModel GetPagingEmployeeNonRegistration(
+          EmployeeRegistrationReportModel fullReport,
+          int startIndex,
+          int itemsPerPage);
 
         void ExportMealForecastDetailReport(MealForecastDetailReport report, string templatePath, bool? isVegetarian, DateTime dateSelected);
 
         void ExportEmployeeRegistrationReport(
+            EmployeeRegistrationReportModel report,
+            string templatePath,
+            bool? isVegetarian,
+            DateTime dateSelected);
+        void ExportEmployeeNonRegistrationReport(
             EmployeeRegistrationReportModel report,
             string templatePath,
             bool? isVegetarian,

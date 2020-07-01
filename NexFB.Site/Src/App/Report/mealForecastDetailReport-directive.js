@@ -60,12 +60,17 @@ reportModule.directive('renderMealForecastDetailReport', function () {
             for (i = 0; i < numberMealForecastDetails; i++) {
                 mealForecastDetail = report.MealForecastDetails[i];
 
-                var linkToRegistrationDetail = '<a class="meal-forecast-detail" href="' + scope.baseUrl + 
-                'EmployeeRegistration/Detail?date=' + scope.filter.date +
+                var linkToRegistrationDetail = '<a class="meal-forecast-detail" href="' + scope.baseUrl + 'EmployeeRegistration/Detail?date=' + scope.filter.date +
 				'&departmentId=' + scope.filter.departmentId +
 				'&employeeTypeId=' + scope.filter.employeeTypeId +
                 '&menuId=' + mealForecastDetail.MenuId +
 				'&dietType=' + scope.filter.dietType + '">' + mealForecastDetail.Registration + '</a>';
+
+                var linkToNonRegistrationDetail = '<a class="meal-forecast-detail" href="' + scope.baseUrl +'EmployeeNonRegistration/Detail?date=' + scope.filter.date +
+                    '&departmentId=' + scope.filter.departmentId +
+                    '&employeeTypeId=' + scope.filter.employeeTypeId +
+                    '&menuId=' + mealForecastDetail.MenuId +
+                    '&dietType=' + scope.filter.dietType + '">' + mealForecastDetail.NonRegistration + '</a>';
 
                 currentRow = {
                     Columns: [
@@ -74,6 +79,7 @@ reportModule.directive('renderMealForecastDetailReport', function () {
                         { Name: "MenuEng", Value: mealForecastDetail.MenuEng },
                         { Name: "Meal", Value: mealForecastDetail.Meals, CustomCellRender: createMeal },
                         { Name: "Vegetarian", Value: mealForecastDetail.IsVegetarian === false ? 'Non-Vegetarian' : 'Vegetarian' },
+                        { Name: "NonRegistration", Value: linkToNonRegistrationDetail },
                         { Name: "Registration", Value: linkToRegistrationDetail },
                         { Name: "ActualOrder", Value: mealForecastDetail.ActualOrder < 0 ? '-' : mealForecastDetail.ActualOrder },
                         { Name: "Efficiency", Value: formatEfficiency(mealForecastDetail.OrderRate),
@@ -93,12 +99,13 @@ reportModule.directive('renderMealForecastDetailReport', function () {
         var columns = [
             { HeaderText: "#", Width: 65, Name: "Count", HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Menu (Vie)", Width: 160, Name: "MenuVie", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Menu (Eng)", Width: 160, Name: "MenuEng", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Meal", Width: 160, Name: "Meal", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: "Diet Type", Width: 160, Name: "Vegetarian", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Registration (1)", Width: 160, Name: "Registration", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
-            { HeaderText: "Actual orders (2)", Width: 160, Name: "ActualOrder", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
-            { HeaderText: "Order rate (2)/(1)", Width: 160, Name: "Efficiency", HeaderAlign: "center", CellAlign: "right" }
+            { HeaderText: "Menu (Eng)", Width: 180, Name: "MenuEng", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Meal", Width: 100, Name: "Meal", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: "Diet Type", Width: 140, Name: "Vegetarian", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "NonRegistration", Width: 140, Name: "NonRegistration", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+            { HeaderText: "Registration (1)", Width: 140, Name: "Registration", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+            { HeaderText: "Actual orders (2)", Width: 140, Name: "ActualOrder", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+            { HeaderText: "Order rate (2)/(1)", Width: 120, Name: "Efficiency", HeaderAlign: "center", CellAlign: "right" }
         ];
 
         return columns;
@@ -110,6 +117,7 @@ reportModule.directive('renderMealForecastDetailReport', function () {
             totalNonVegetarian = {
                 Columns: [
                     { Value: "Total Non-Vegetarian", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
+                    { Value: numeral(report.TotalNonVegetarian.NonRegistration).format(scope.numberFormat), Name: "NonRegistration" },
                     { Value: numeral(report.TotalNonVegetarian.Registration).format(scope.numberFormat), Name: "Registration" },
                     { Value: report.TotalNonVegetarian.ActualOrder < 0 ? '-' : numeral(report.TotalNonVegetarian.ActualOrder).format(scope.numberFormat),
                         Name: "ActualOrder"
@@ -122,6 +130,7 @@ reportModule.directive('renderMealForecastDetailReport', function () {
             totalVegetarian = {
                 Columns: [
                     { Value: "Total Vegetarian", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
+                    { Value: numeral(report.TotalVegetarian.NonRegistration).format(scope.numberFormat), Name: "NonRegistration" },
                     { Value: numeral(report.TotalVegetarian.Registration).format(scope.numberFormat), Name: "Registration" },
                     { Value: report.TotalVegetarian.ActualOrder < 0 ? '-' : numeral(report.TotalVegetarian.ActualOrder).format(scope.numberFormat),
                         Name: "ActualOrder"
@@ -134,6 +143,7 @@ reportModule.directive('renderMealForecastDetailReport', function () {
             totalMeal = {
                 Columns: [
                     { Value: "Total Meal", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
+                    { Value: numeral(report.TotalMeal.NonRegistration).format(scope.numberFormat), Name: "NonRegistration" },
                     { Value: numeral(report.TotalMeal.Registration).format(scope.numberFormat), Name: "Registration" },
                     { Value: report.TotalMeal.ActualOrder < 0 ? '-' : numeral(report.TotalMeal.ActualOrder).format(scope.numberFormat), Name: "ActualOrder" },
                     { Value: formatEfficiency(report.TotalMeal.Efficiency), Name: "Efficiency", TdClass: getCssClass(report.TotalMeal.Efficiency) }

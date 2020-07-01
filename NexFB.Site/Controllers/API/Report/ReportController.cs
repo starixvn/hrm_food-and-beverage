@@ -711,6 +711,44 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.MealForecastReport, Policy = Policy.Read)]
+        public EmployeeRegistrationReportModel GetEmployeeNonRegistration(
+            DateTime date,
+            string departmentId = "",
+            string employeeTypeId = "",
+            int? mealId = null,
+            int? menuId = null,
+            bool? isVegetarian = null,
+            bool isPagingCallback = false,
+            int startIndex = 0,
+            int itemsPerPage = 50)
+        {
+            EmployeeRegistrationReportModel fullReport = null;
+            if (isPagingCallback)
+            {
+                fullReport = SessionManager.Get<EmployeeRegistrationReportModel>(ReportConstant.EmployeeNonRegistrationReportSessionKey + CurrentUser.UserId);
+            }
+            else
+            {
+                var criteria = new GetEmployeeNonRegistrationCriteria
+                {
+                    WorkDate = date,
+                    MealId = mealId,
+                    MenuId = menuId,
+                    DepartmentId = departmentId,
+                    EmployeeTypeId = employeeTypeId,
+                    IsVegetarian = isVegetarian
+                };
+
+                fullReport = _mealForecastDetailReportService.GetEmployeeNonRegistration(criteria);
+                SessionManager.Set<EmployeeRegistrationReportModel>(ReportConstant.EmployeeNonRegistrationReportSessionKey + CurrentUser.UserId, fullReport);
+            }
+
+            EmployeeRegistrationReportModel pagingReport = _mealForecastDetailReportService.GetPagingEmployeeNonRegistration(fullReport, startIndex, itemsPerPage);
+            return pagingReport;
+        }
+
         /// <summary>
         /// Get Day Type list.
         /// </summary>

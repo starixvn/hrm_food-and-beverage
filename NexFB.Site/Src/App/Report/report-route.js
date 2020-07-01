@@ -23,7 +23,9 @@ var reportModule = angular.module("reportModule", ['ngRoute'])
     $routeProvider.when('/MealForecastReport/Detail',
 		{ templateUrl: baseUrl + 'src/app/report/templates/mealForecastDetailReport.html', controller: 'MealForecastDetailReportController' });
     $routeProvider.when('/EmployeeRegistration/Detail',
-		{ templateUrl: baseUrl + 'src/app/report/templates/employeeRegistrationDetailReport.html', controller: 'EmployeeRegistrationDetailReport' });
+        { templateUrl: baseUrl + 'src/app/report/templates/employeeRegistrationDetailReport.html', controller: 'EmployeeRegistrationDetailReport' });
+    $routeProvider.when('/EmployeeNonRegistration/Detail',
+        { templateUrl: baseUrl + 'src/app/report/templates/employeeNonRegistrationDetailReport.html', controller: 'EmployeeNonRegistrationDetailReport' });
     $routeProvider.when('/AdminOrderHistoryReport/Index',
 		{ templateUrl: baseUrl + 'src/app/report/templates/adminOrderHistoryReport.html', controller: 'AdminOrderHistoryReportController' });
     $routeProvider.when('/MonthlyLunchAndDinnerReport/Index',

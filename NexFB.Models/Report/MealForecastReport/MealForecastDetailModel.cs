@@ -34,6 +34,7 @@ namespace NexFB.Models.Report.MealForecastReport
         public bool IsVegetarian { get; set; }
 
         public int Registration { get; set; }
+        public int NonRegistration { get; set; }
 
         public int ActualOrder { get; set; }
 

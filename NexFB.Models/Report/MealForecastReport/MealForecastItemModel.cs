@@ -18,6 +18,8 @@ namespace NexFB.Models.Report.MealForecastReport
     public class MealForecastItemModel
     {
         public DateTime OnDate { get; set; }
+        public int NonRegistrationVegetarian { get; set; }
+        public int NonRegistrationNonVegetarian { get; set; }
 
         public int RegistrationNonVegetarian { get; set; }
 

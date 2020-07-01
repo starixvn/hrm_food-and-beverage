@@ -47,18 +47,13 @@ namespace NexFB.Site
         /// <param name="e">The EventArgs.</param>
         protected void Application_Error(object sender, EventArgs e)
         {
-            ////if (!Request.IsLocal && !Request.FilePath.Contains("signalr/abort"))
-            ////{
-            ////    Exception ex = Server.GetLastError().GetBaseException();
-            ////    string message = ex.Message +
-            ////            "\r\nSource: " + ex.Source +
-            ////            "\r\nDomain: " + HttpContext.Current.Request.Headers["Host"] +
-            ////            "\r\nTargetSite: " + ex.TargetSite +
-            ////            "\r\nStackTrace: " + ex.StackTrace;
-
-            ////    LogService.Error(message);
-            ////}
-            throw new NotImplementedException();
+            
+                Exception ex = Server.GetLastError().GetBaseException();
+                string message = ex.Message +
+                        "\r\nSource: " + ex.Source +
+                        "\r\nDomain: " + HttpContext.Current.Request.Headers["Host"] +
+                        "\r\nTargetSite: " + ex.TargetSite +
+                        "\r\nStackTrace: " + ex.StackTrace;
         }
 
         /// <summary>

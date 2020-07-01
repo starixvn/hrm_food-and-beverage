@@ -56,6 +56,8 @@ namespace NexFB.Services.Implement.Report
 
                 report.TotalMeal.Registration += report.TotalNonVegetarian.Registration;
                 report.TotalMeal.Registration += report.TotalVegetarian.Registration;
+                report.TotalMeal.NonRegistration += report.TotalNonVegetarian.NonRegistration;
+                report.TotalMeal.NonRegistration += report.TotalVegetarian.NonRegistration;
 
                 if (report.TotalNonVegetarian.ActualOrder < 0 && report.TotalVegetarian.ActualOrder < 0)
                 {
@@ -83,7 +85,35 @@ namespace NexFB.Services.Implement.Report
 
             return report;
         }
+        public EmployeeRegistrationReportModel GetEmployeeNonRegistration(GetEmployeeNonRegistrationCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var report = new EmployeeRegistrationReportModel();
 
+            if (criteria.IsValid())
+            {
+                var employeeMeals = _mealForecastDetailReportRepository.GetEmployeeNonRegistration(criteria);
+                report.EmployeeNonRegistrations = employeeMeals;
+                report.TotalItem = employeeMeals.Count;
+                report.TotalMeal = GetTotalNonRegMeal(report);
+            }
+
+            return report;
+        }
+
+        public EmployeeRegistrationReportModel GetPagingEmployeeNonRegistration(EmployeeRegistrationReportModel fullReport, int startIndex, int itemsPerPage)
+        {
+                var pagingReport = new EmployeeRegistrationReportModel();
+
+                if (fullReport.EmployeeNonRegistrations.Count > 0)
+                {
+                    pagingReport.EmployeeNonRegistrations = GetPagingEmployeeNonRegistrationDetail(fullReport, startIndex, itemsPerPage);
+                    pagingReport.TotalItem = fullReport.TotalItem;
+                    pagingReport.TotalMeal = fullReport.TotalMeal;
+                }
+
+                return pagingReport;
+        }
         /// <summary>
         /// Get paging report.
         /// </summary>
@@ -169,7 +199,7 @@ namespace NexFB.Services.Implement.Report
                 FillTotalRow(report.TotalNonVegetarian, Lang.TotalNonVegetarian, ref writer);
             }
 
-            writer.SyncColumnsWidth(8);
+            writer.SyncColumnsWidth(9);
             writer.Render();
         }
 
@@ -196,6 +226,31 @@ namespace NexFB.Services.Implement.Report
             FillTotalRowForEmployeeRegistration(report.TotalMeal, Lang.TotalMeal, ref writer);
 
             writer.SyncColumnsWidth(9);
+            writer.Render();
+        }
+        public void ExportEmployeeNonRegistrationReport(
+            EmployeeRegistrationReportModel report,
+            string templatePath,
+            bool? isVegetarian,
+            DateTime dateSelected)
+        {
+            string reportName = Lang.MealRegistrationDetailReportFileName + dateSelected.ToString("dd_MMM_yyyy");
+            string reportTitle = Lang.EmployeeRegistrationDetail + " " + dateSelected.ToString("dd MMM, yyyy");
+            string reportSheetName = Lang.EmployeeRegistrationDetail + " " + dateSelected.ToString("dd MMM, yyyy");
+            var writer = new ExcelTemplateWriter(templatePath, reportName, reportSheetName);
+
+            // Fill report title.
+            writer.CopyRows(0, 2);
+            writer.WriteRow(2, new object[] { reportTitle });
+
+            // Fill report header.
+            writer.CopyRows(3, 1);
+
+            FillContentRowForEmployeeNonRegistration(report.EmployeeNonRegistrations, ref writer);
+
+            FillTotalRowForEmployeeNonRegistration(report.TotalMeal, Lang.TotalMeal, ref writer);
+
+            writer.SyncColumnsWidth(8);
             writer.Render();
         }
 
@@ -245,6 +300,25 @@ namespace NexFB.Services.Implement.Report
 
             return fullReport.EmployeeRegistrations.Skip(startIndex).Take(numberTakenItems).ToList();
         }
+        public IList<EmployeeRegistrationModel> GetPagingEmployeeNonRegistrationDetail(
+            EmployeeRegistrationReportModel fullReport,
+            int startIndex,
+            int itemsPerPage)
+        {
+            int numberNonRegistrations = fullReport.EmployeeNonRegistrations.Count;
+            int numberTakenItems = 0;
+
+            if (startIndex + itemsPerPage <= numberNonRegistrations)
+            {
+                numberTakenItems = itemsPerPage;
+            }
+            else
+            {
+                numberTakenItems = numberNonRegistrations - startIndex;
+            }
+
+            return fullReport.EmployeeNonRegistrations.Skip(startIndex).Take(numberTakenItems).ToList();
+        }
 
         /// <summary>
         /// Calculate total meal.
@@ -258,6 +332,7 @@ namespace NexFB.Services.Implement.Report
                 if (item.IsVegetarian == false)
                 {
                     report.TotalNonVegetarian.Registration += item.Registration;
+                    report.TotalNonVegetarian.NonRegistration += item.NonRegistration;
                     if (item.ActualOrder >= 0)
                     {
                         report.TotalNonVegetarian.ActualOrder += item.ActualOrder;
@@ -266,6 +341,7 @@ namespace NexFB.Services.Implement.Report
                 else
                 {
                     report.TotalVegetarian.Registration += item.Registration;
+                    report.TotalVegetarian.NonRegistration += item.NonRegistration;
                     if (item.ActualOrder >= 0)
                     {
                         report.TotalVegetarian.ActualOrder += item.ActualOrder;
@@ -336,6 +412,7 @@ namespace NexFB.Services.Implement.Report
                     MenuEng = mealForecastDetail.MenuEng,
                     Meal = CreateMeal(mealForecastDetail.Meals),
                     DietType = mealForecastDetail.IsVegetarian == true ? Lang.Vegetarian : Lang.NonVegetarian,
+                    NonRegistration = mealForecastDetail.NonRegistration,
                     Registration = mealForecastDetail.Registration,
                     ActualOrder = FormatNumber(mealForecastDetail.ActualOrder, false),
                     OrderRate = FormatNumber(mealForecastDetail.OrderRate, true)
@@ -363,6 +440,28 @@ namespace NexFB.Services.Implement.Report
                     Meal = registration.Meal.MealName,
                     DietType = registration.IsVegetarian == true ? Lang.Vegetarian : (registration.IsVegetarian == false ? Lang.NonVegetarian : "-"),
                     ActualOrder = registration.ActualOrder
+                };
+
+                writer.WriteRow(rowIndex, record);
+            }
+        }
+        private void FillContentRowForEmployeeNonRegistration(IList<EmployeeRegistrationModel> nonregistrations, ref ExcelTemplateWriter writer)
+        {
+            int rowIndex = 4;
+            int i = 0;
+            foreach (EmployeeRegistrationModel nonregistration in nonregistrations)
+            {
+                i++;
+                var record = new
+                {
+                    Count = i,
+                    Code = nonregistration.Employee.Code,
+                    Deparment = nonregistration.DepartmentName,
+                    Shift = nonregistration.ShiftName,
+                    NickName = nonregistration.Employee.NickName,
+                    FullName = nonregistration.Employee.FullName,
+                    Meal = nonregistration.Meal.MealName,
+                    DietType = nonregistration.IsVegetarian == true ? Lang.Vegetarian : (nonregistration.IsVegetarian == false ? Lang.NonVegetarian : "-")
                 };
 
                 writer.WriteRow(rowIndex, record);
@@ -402,6 +501,7 @@ namespace NexFB.Services.Implement.Report
                 MenuEng = string.Empty,
                 Meal = string.Empty,
                 DietType = string.Empty,
+                NonRegistration = totalMeal.NonRegistration,
                 Registration = totalMeal.Registration,
                 ActualOrder = FormatNumber(totalMeal.ActualOrder, false),
                 OrderRate = FormatNumber(totalMeal.Efficiency, true)
@@ -424,6 +524,23 @@ namespace NexFB.Services.Implement.Report
                 Meal = string.Empty,
                 DietType = FormatNumber(totalMeal.Registration, false),
                 ActualOrder = FormatNumber(totalMeal.ActualOrder, false)
+            };
+
+            writer.WriteRow(rowIndex, record);
+        }
+        private void FillTotalRowForEmployeeNonRegistration(TotalMealForecastModel totalMeal, string totalName, ref ExcelTemplateWriter writer)
+        {
+            int rowIndex = 6;
+            var record = new
+            {
+                Count = totalName,
+                Code = string.Empty,
+                Department = string.Empty,
+                Shift = string.Empty,
+                NickName = string.Empty,
+                FullName = string.Empty,
+                Meal = string.Empty,
+                DietType = FormatNumber(totalMeal.NonRegistration, false),
             };
 
             writer.WriteRow(rowIndex, record);
@@ -476,5 +593,13 @@ namespace NexFB.Services.Implement.Report
 
             return total;
         }
+        private TotalMealForecastModel GetTotalNonRegMeal(EmployeeRegistrationReportModel Nonregistrations)
+        {
+            TotalMealForecastModel total = new TotalMealForecastModel();
+
+            total.NonRegistration = Nonregistrations.EmployeeNonRegistrations.Where(t => t.IsVegetarian != null).Count();
+            return total;
+        }
+
     }
 }

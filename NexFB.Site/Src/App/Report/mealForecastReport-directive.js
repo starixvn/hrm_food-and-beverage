@@ -58,6 +58,7 @@ reportModule.directive('renderMealForecastReport', function () {
                         { Name: "Count", Value: rowIndex },
                         { Name: "Date", Value: moment(mealForecast.OnDate).format(scope.dateFormat), CustomCellRender: linkToDetail },
                         { Name: "Vegetarian", Value: "Non-Vegetarian" },
+                        { Name: "NonRegistration", Value: mealForecast.NonRegistrationNonVegetarian },
                         { Name: "Registration", Value: mealForecast.RegistrationNonVegetarian },
                         { Name: "ActualOrder", Value: mealForecast.ActualOrderNonVegetarian < 0 ? '-' : mealForecast.ActualOrderNonVegetarian },
                         { Name: "Efficiency", Value: formatEfficiency(mealForecast.EfficiencyNonVegetarian),
@@ -78,6 +79,7 @@ reportModule.directive('renderMealForecastReport', function () {
                         { Name: "Count", Value: rowIndex },
                         { Name: "Date", Value: moment(mealForecast.OnDate).format(scope.dateFormat), CustomCellRender: linkToDetail },
                         { Name: "Vegetarian", Value: "Vegetarian" },
+                        { Name: "NonRegistration", Value: mealForecast.NonRegistrationVegetarian },
                         { Name: "Registration", Value: mealForecast.RegistrationVegetarian },
                         { Name: "ActualOrder", Value: mealForecast.ActualOrderVegetarian < 0 ? '-' : mealForecast.ActualOrderVegetarian },
                         { Name: "Efficiency", Value: formatEfficiency(mealForecast.EfficiencyVegetarian),
@@ -103,6 +105,7 @@ reportModule.directive('renderMealForecastReport', function () {
 								MergeRowNumber: 2
                             },
                             { Name: "Vegetarian", Value: "Non-Vegetarian" },
+                            { Name: "NonRegistration", Value: mealForecast.NonRegistrationNonVegetarian },
                             { Name: "Registration", Value: mealForecast.RegistrationNonVegetarian },
                             { Name: "ActualOrder", Value: mealForecast.ActualOrderNonVegetarian < 0 ? '-' : mealForecast.ActualOrderNonVegetarian },
                             { Name: "Efficiency", Value: formatEfficiency(mealForecast.EfficiencyNonVegetarian),
@@ -114,6 +117,7 @@ reportModule.directive('renderMealForecastReport', function () {
 					currentRowVegetarian = {
 						Columns: [
                             { Name: "Vegetarian", Value: "Vegetarian" },
+                            { Name: "NonRegistration", Value: mealForecast.NonRegistrationVegetarian },
                             { Name: "Registration", Value: mealForecast.RegistrationVegetarian },
                             { Name: "ActualOrder", Value: mealForecast.ActualOrderVegetarian < 0 ? '-' : mealForecast.ActualOrderVegetarian },
                             { Name: "Efficiency", Value: formatEfficiency(mealForecast.EfficiencyVegetarian),
@@ -136,25 +140,28 @@ reportModule.directive('renderMealForecastReport', function () {
 		var columns = [
             { HeaderText: "#", Width: 65, Name: "Count", HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Date", Width: 210, Name: "Date", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Diet Type", Width: 230, Name: "Vegetarian", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Registration (1)", Width: 230, Name: "Registration", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
-            { HeaderText: "Actual orders (2)", Width: 230, Name: "ActualOrder", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
-            { HeaderText: "Order rate (2)/(1)", Width: 230, Name: "Efficiency", HeaderAlign: "center", CellAlign: "right" }
+            { HeaderText: "Diet Type", Width: 200, Name: "Vegetarian", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "NonRegistration", Width: 180, Name: "NonRegistration", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+            { HeaderText: "Registration (1)", Width: 180, Name: "Registration", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+            { HeaderText: "Actual orders (2)", Width: 180, Name: "ActualOrder", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+            { HeaderText: "Order rate (2)/(1)", Width: 180, Name: "Efficiency", HeaderAlign: "center", CellAlign: "right" }
         ];
 
 		return columns;
 	};
 
 	var generateDataFooter = function (report, scope) {
-		var footerRows = [],
+        var footerRows = [],
             totalNonVegetarian = {
 				Columns: [
                     { Value: "Total Non-Vegetarian", Name: "Count", MergeColNumber: 3, CellAlign: "right" },
+                    { Value: numeral(report.TotalNonVegetarian.NonRegistration).format(scope.numberFormat), Name: "NonRegistration"  },
                     { Value: numeral(report.TotalNonVegetarian.Registration).format(scope.numberFormat), Name: "Registration" },
                     { Value: report.TotalNonVegetarian.ActualOrder < 0 ? '-' : numeral(report.TotalNonVegetarian.ActualOrder).format(scope.numberFormat),
 						Name: "ActualOrder"
                     },
-                    { Value: formatEfficiency(report.TotalNonVegetarian.Efficiency), Name: "Efficiency",
+                    {
+                        Value: formatEfficiency(report.TotalNonVegetarian.Efficiency), Name: "Efficiency",
 						TdClass: getCssClass(report.TotalNonVegetarian.Efficiency)
                     }
                 ]
@@ -162,21 +169,27 @@ reportModule.directive('renderMealForecastReport', function () {
             totalVegetarian = {
 				Columns: [
                     { Value: "Total Vegetarian", Name: "Count", MergeColNumber: 3, CellAlign: "right" },
-                    { Value: numeral(report.TotalVegetarian.Registration).format(scope.numberFormat), Name: "Registration" },
+                    { Value: numeral(report.TotalVegetarian.NonRegistration).format(scope.numberFormat), Name: "NonRegistration" },
+                    { Value: numeral(report.TotalVegetarian.Registration).format(scope.numberFormat), Name: "Registration" }, 
                     { Value: report.TotalVegetarian.ActualOrder < 0 ? '-' : numeral(report.TotalVegetarian.ActualOrder).format(scope.numberFormat),
 						Name: "ActualOrder"
                     },
-                    { Value: formatEfficiency(report.TotalVegetarian.Efficiency), Name: "Efficiency",
-						TdClass: getCssClass(report.TotalVegetarian.Efficiency)
+                    {
+                        Value: formatEfficiency(report.TotalVegetarian.Efficiency), Name: "Efficiency",
+                        TdClass: getCssClass(report.TotalVegetarian.Efficiency)
                     }
                 ]
             },
             totalMeal = {
 				Columns: [
                     { Value: "Total Meal", Name: "Count", MergeColNumber: 3, CellAlign: "right" },
+                    { Value: numeral(report.TotalMeal.NonRegistration).format(scope.numberFormat), Name: "NonRegistration" },
                     { Value: numeral(report.TotalMeal.Registration).format(scope.numberFormat), Name: "Registration" },
                     { Value: report.TotalMeal.ActualOrder < 0 ? '-' : numeral(report.TotalMeal.ActualOrder).format(scope.numberFormat), Name: "ActualOrder" },
-                    { Value: formatEfficiency(report.TotalMeal.Efficiency), Name: "Efficiency", TdClass: getCssClass(report.TotalMeal.Efficiency) }
+                    {
+                        Value: formatEfficiency(report.TotalMeal.Efficiency), Name: "Efficiency", 
+                        TdClass: getCssClass(report.TotalMeal.Efficiency)
+                    }
                 ]
             };
 
@@ -187,7 +200,7 @@ reportModule.directive('renderMealForecastReport', function () {
 			footerRows.push(totalVegetarian);
 		}
 		else {
-			footerRows.push(totalNonVegetarian, totalVegetarian, totalMeal);
+            footerRows.push(totalNonVegetarian, totalVegetarian, totalMeal);
 		}
 
 		return footerRows;

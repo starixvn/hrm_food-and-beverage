@@ -1275,4 +1275,7 @@
   <data name="NewFoodMenu" xml:space="preserve">
     <value>* New Food Menu</value>
   </data>
+  <data name="EmployeeNonRegistrationDetail" xml:space="preserve">
+    <value>Meal NonRegistration Detail</value>
+  </data>
 </root>

@@ -66,5 +66,23 @@ namespace NexFB.Repositories.Implement.Report
                 return employeeMeals;
             }
         }
+
+        public IList<EmployeeRegistrationModel> GetEmployeeNonRegistration(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var employeeMeals = db.Query<EmployeeRegistrationModel, MealModel, Employee, EmployeeRegistrationModel>(
+                    (reg, ml, e) =>
+                    {
+                        reg.Meal = ml;
+                        reg.Employee = e;
+                        return reg;
+                    },
+                    splitOn: "MealID, UserId",
+                    parameterValues: criteria.GetSpParams()).ToList();
+
+                return employeeMeals;
+            }
+        }
     }
 }
