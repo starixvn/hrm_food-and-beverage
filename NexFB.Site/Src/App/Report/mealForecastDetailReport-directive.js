@@ -102,7 +102,7 @@ reportModule.directive('renderMealForecastDetailReport', function () {
             { HeaderText: "Menu (Eng)", Width: 180, Name: "MenuEng", HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Meal", Width: 100, Name: "Meal", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Diet Type", Width: 140, Name: "Vegetarian", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "NonRegistration", Width: 140, Name: "NonRegistration", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
+            { HeaderText: "Non-Registration", Width: 140, Name: "NonRegistration", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
             { HeaderText: "Registration (1)", Width: 140, Name: "Registration", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
             { HeaderText: "Actual orders (2)", Width: 140, Name: "ActualOrder", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
             { HeaderText: "Order rate (2)/(1)", Width: 120, Name: "Efficiency", HeaderAlign: "center", CellAlign: "right" }

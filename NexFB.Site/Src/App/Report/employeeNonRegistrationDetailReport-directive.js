@@ -92,7 +92,7 @@ reportModule.directive('renderEmployeeNonRegistrationDetailReport', function () 
                     showTitle: true,
                     titleInfo:
                             {
-                                text: "Meal NonRegistration detail report for " + moment(scope.filter.date).format(scope.dateFormat),
+                                text: "Meal Non-Registration detail report for " + moment(scope.filter.date).format(scope.dateFormat),
                                 showExcelButton: true,
                                 exportExcelFunction: function () {
                                     scope.exportExcel.call(this, scope.filter);

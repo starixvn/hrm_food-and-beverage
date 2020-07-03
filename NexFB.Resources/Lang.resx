@@ -1276,6 +1276,9 @@
     <value>* New Food Menu</value>
   </data>
   <data name="EmployeeNonRegistrationDetail" xml:space="preserve">
-    <value>Meal NonRegistration Detail</value>
+    <value>Meal Non-Registration Detail</value>
+  </data>
+  <data name="MealNonRegistrationDetailReportFileName" xml:space="preserve">
+    <value>Meal_Non_Registration_Detail_</value>
   </data>
 </root>
