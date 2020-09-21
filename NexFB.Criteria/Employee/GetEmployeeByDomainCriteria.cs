@@ -1,19 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetEmployeeByDomainCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.8.26">Created</change>
-// </history>
-
-namespace NexFB.Criteria.Employee
+﻿namespace NexFB.Criteria.Employee
 {
     using Fanex.Data.Repository;
+    using NexFB.Core.Enums;
 
-    /// <summary>
-    /// GetEmployeeByDomain Criteria.
-    /// </summary>
     public class GetEmployeeByDomainCriteria : CriteriaBase
     {
         [SpParam(Ignored = true)]
@@ -23,7 +12,9 @@ namespace NexFB.Criteria.Employee
         { 
             get 
             {
-                return Username.Contains("spvn") ? Username : string.Format("spvn\\{0}", Username);
+                return DepartmentId == ((int)DepartmentIdentity.Nexcel).ToString()
+                    ? string.Format("spvn\\{0}", Username)
+                    : string.Format("luminet\\{0}", Username);
             } 
         }
 
