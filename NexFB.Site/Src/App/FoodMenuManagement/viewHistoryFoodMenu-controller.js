@@ -55,6 +55,7 @@ foodMenuManagementModule.controller('ViewHistoryFoodMenuController',
 
             $scope.onUpdateFoodMenu = function (foodMenu) {
                 if (foodMenuUtilities.validateFoodMenuHistory(foodMenu)) {
+                    foodMenu.currentEndDate = foodMenu.currentEndDate.toDateString();
                     foodMenuFactory.insertFoodMenuHistory(foodMenu).success(function (result) {
                         if (result.IsSuccessful) {
                             notificationFactory.success('', "Update food menu successfully!");
