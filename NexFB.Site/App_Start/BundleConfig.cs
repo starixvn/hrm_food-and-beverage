@@ -76,6 +76,7 @@ namespace NexFB.Site
                 "~/Src/App/UserControl/userControl.less",
                 "~/Src/App/GroupControl/groupControl.less",
                 "~/Src/App/Ordering/ordering.less",
+                "~/Src/App/KitchenStaff/kitchenstaff.less",
                 "~/Src/App/FoodItemManagement/foodItemManagement.less",
                 "~/Src/App/FoodMenuManagement/foodMenuManagement.less",
                 "~/Src/App/SetMenuManagement/setMenuManagement.less",
@@ -109,6 +110,13 @@ namespace NexFB.Site
                 "~/Src/App/Ordering/editOrder-controller.js",
                 "~/Src/App/Ordering/ordering-factory.js",
                 "~/Src/App/Ordering/ordering-directive.js",
+
+                 "~/Src/App/KitchenStaff/kitchenstaff-route.js",
+                "~/Src/App/KitchenStaff/kitchenstaff-controller.js",
+               // "~/Src/App/KitchenStaff/editOrder-controller.js",
+                "~/Src/App/KitchenStaff/kitchenstaff-factory.js",
+                "~/Src/App/KitchenStaff/kitchenstaf-directive.js",
+
                 "~/Src/App/FoodItemManagement/foodItemManagement-route.js",
                 "~/Src/App/FoodItemManagement/foodItemManagement-controller.js",
                 "~/Src/App/FoodItemManagement/createFoodItem-controller.js",

@@ -2,7 +2,7 @@
 /*exported appModule*/
 
 var appModule = angular.module("appModule",
-['mealRegistrationModule', 'userControlModule', 'orderingModule', 'foodItemManagementModule',
+    ['mealRegistrationModule', 'userControlModule', 'orderingModule','kitchenStaffModule', 'foodItemManagementModule',
 'foodMenuManagementModule', 'mealPlanningManagementModule', 'sideDishManagementModule', 'alternativeMenuModule',
 'shiftMealMappingModule', 'setMenuManagementModule', 'reportModule', 'groupControlModule', 'manageUserInGroupModule',
 'deliveryAreaModule', 'employeeModule', 'mealTimeManagementModule',

@@ -194,6 +194,7 @@
     <Compile Include="Controllers\API\CommonController.cs" />
     <Compile Include="Controllers\API\ChangePasswordController.cs" />
     <Compile Include="Controllers\API\DeliveryAreaController.cs" />
+    <Compile Include="Controllers\API\KitchenStaffController.cs" />
     <Compile Include="Controllers\API\MealTimeManagementController.cs" />
     <Compile Include="Controllers\API\Report\ReportController.cs" />
     <Compile Include="Controllers\API\EmployeeController.cs" />
@@ -241,6 +242,11 @@
     <Content Include="File\UserManual\Meal Registration.pdf" />
     <Content Include="Src\App\FoodMenuManagement\Templates\menuHistory.html" />
     <Content Include="Src\App\FoodMenuManagement\viewHistoryFoodMenu-controller.js" />
+    <Content Include="Src\App\KitchenStaff\kitchenstaff-route.js" />
+    <Content Include="Src\App\KitchenStaff\kitchenstaff-factory.js" />
+    <Content Include="Src\App\KitchenStaff\kitchenstaf-directive.js" />
+    <Content Include="Src\App\KitchenStaff\kitchenstaff-controller.js" />
+    <Content Include="Src\App\KitchenStaff\Templates\Index.html" />
     <Content Include="Src\App\Report\employeeNonRegistrationDetailReport-controller.js" />
     <Content Include="Src\App\Report\employeeNonRegistrationDetailReport-directive.js" />
     <Content Include="Src\App\Report\employeeRegistrationDetailReport-directive.js" />
@@ -619,6 +625,7 @@
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyBreakfastAndSupperAmoutReport.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishCostCenterReportLocal.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\EmployeeNonRegistrationDetailReport.xls" />
+    <Content Include="Src\App\KitchenStaff\kitchenstaff.less" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
     <Content Include="Src\Content\Fonts\big_noodle_titling.ttf" />

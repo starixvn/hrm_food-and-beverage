@@ -3121,6 +3121,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Staff Orders.
+        /// </summary>
+        public static string StaffOrders {
+            get {
+                return ResourceManager.GetString("StaffOrders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
         public static string Start {

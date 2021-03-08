@@ -1281,4 +1281,7 @@
   <data name="MealNonRegistrationDetailReportFileName" xml:space="preserve">
     <value>Meal_Non_Registration_Detail_</value>
   </data>
+  <data name="StaffOrders" xml:space="preserve">
+    <value>Staff Orders</value>
+  </data>
 </root>
