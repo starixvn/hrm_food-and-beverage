@@ -23,7 +23,7 @@
 }
 .list-group-item {
     padding: 0;
-	margin: 0;
+	margin: 0 0 20px 0;
 
 	.boxtitle {
 		border-top: 1px solid #D2D2D2;
@@ -59,6 +59,7 @@
 
 	.boxcontent {
 		padding: 15px;
+
 		background-color: #f4f4f4;
 
 		.form-order {
@@ -68,7 +69,7 @@
 				margin-bottom: 10px;
 				.txtMember {
 					height: 28px;
-					width: 323px;
+					width: 293px;
 					padding: 2px 12px;
 					font-size: 13px;
 				}
@@ -77,7 +78,11 @@
 				}
 				.col-sm-3.btn-add {
 					padding-right: 15px;
-				}				
+				}	
+				
+				.col-sm-2 {
+					margin-right: 5px;
+				}	
 			}
 
 			label {
@@ -104,6 +109,12 @@
 					float: left;
 					padding: 0;
 					line-height: 28px;
+				}
+
+				.required-meal:after {
+					color: #FF0000;
+					content: "*";
+					padding-left: 5px;
 				}
 
 				input, select {
@@ -299,13 +310,13 @@
     overflow-y: auto; 
     overflow-x: hidden;
 }
-.sel-ordering  {
+.staff-ordering  {
 	position: relative;
 	display: inline-block;
 	width: 323px;
 		.multiSelectButton {
 		height: 28px;
-		padding: 2px 12px;
+		padding: 2px 7px;
 		font-size: 13px;
 		.buttonLabel {
 			padding: 0;
@@ -321,6 +332,12 @@
 	.multiSelectItem:hover {
 		color: #444 !important;
 	}
+	.calendar-form-control {
+		color: #555555;
+		padding: 0 0 0 11px !important;
+		margin-right: 5px;
+	}
+	
 }
 .modal-body-edit-ordering {
 	min-height: 280px;
@@ -333,7 +350,7 @@
 
 .ie
 {
-    .sel-ordering
+    .staff-ordering
     {
         .multiSelect
         { 
@@ -345,7 +362,7 @@
     }
 	.modal-body 
 	{
-		.sel-ordering
+		.staff-ordering
 		{
 			.multiSelect
 			{ 

@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*global kitchenStaffModule*/
 
-orderingModule.factory("kitchenStaffFactory",
+kitchenStaffModule.factory("kitchenStaffFactory",
 	['$http', 'baseUrl', function ($http, baseUrl) {
 		return {
 			getCurrentUser: function () {
@@ -10,16 +10,23 @@ orderingModule.factory("kitchenStaffFactory",
 			getLocation: function () {
 				return $http.get(baseUrl + 'api/Common/GetAllDeliveryArea');
 			},
+			getOrderStatusEnum: function () {
+				return $http.get(baseUrl + 'api/report/GetOrderStatusEnum');
+			},
 			getMyOrder: function () {
 				return $http.get(baseUrl + 'api/Ordering/GetMyOrder');
 			},
 			getAddNewOrder: function () {
 				return $http.get(baseUrl + 'api/Ordering/GetAddNew');
 			},
-			getOrderNewOrder: function (userId) {
-				return $http.get(baseUrl + 'api/Ordering/GetOrderNewOrder',
+            getOrderNewOrderByStaff: function (userId, mealId, onDate ) {
+                return $http.get(baseUrl + 'api/KitchenStaff/GetOrderNewOrderByStaff',
 					{
-						params: { userId: userId }
+                        params: {
+                            userId: userId,
+                            mealId: mealId,
+                            onDate: onDate
+                        }
 					}
 				);
 			},
@@ -44,9 +51,9 @@ orderingModule.factory("kitchenStaffFactory",
 					}
 				);
             },
-            getAllFoodMenuToFilter: function () {
-                return $http.get(baseUrl + 'api/FoodMenuManagement/GetAllFoodMenuToFilter');
-            },
+            getAllMealTimesheet: function () {
+				return $http.get(baseUrl + 'api/Common/GetAllMealTimesheet');
+			},
 			getMenuByUserId: function (userId) {
 				return $http.get(baseUrl + 'api/Ordering/GetMenuByUserId',
 					{
@@ -70,7 +77,7 @@ orderingModule.factory("kitchenStaffFactory",
 				return $http['delete'](baseUrl + 'api/OrderMember', { params: { memberId: memberId} });
 			},
 			createOrder: function (order) {
-				return $http.post(baseUrl + 'api/Ordering/InsertOrder', order);
+				return $http.post(baseUrl + 'api/KitchenStaff/InsertStaffOrder', order);
 			},
 			editOrder: function (order) {
 				return $http.put(baseUrl + 'api/Ordering/UpdateOrder', order);
@@ -102,7 +109,7 @@ orderingModule.factory("kitchenStaffFactory",
 	} ]
 );
 
-orderingModule.factory('orderingUtilities', function () {
+kitchenStaffModule.factory('staffOrderingUtilities', function () {
 	var utilities = {};
 
 	/*
@@ -118,6 +125,18 @@ orderingModule.factory('orderingUtilities', function () {
 		});
 
 		return total;
+	};
+
+	utilities.getStatusValue = function (orderStatusesOptions) {
+		var statusValue = '';
+
+		angular.forEach(orderStatusesOptions, function (status) {
+			if (status.ticked) {
+				statusValue = status.Value;
+			}
+		});
+
+		return statusValue;
 	};
 
 	utilities.getSelectedMenu = function (currentMenus, allMenus) {
@@ -171,22 +190,6 @@ orderingModule.factory('orderingUtilities', function () {
 		// New Order
 		if (typeOrder === 0) {
 			angular.forEach(scope.newOrderLocations, function (value) {
-				if (value.ticked) {
-					locationId = value.LocationId;
-				}
-			});
-		}
-		// Saved Order
-		else if (typeOrder === 1) {
-			angular.forEach(scope.savedOrderLocations, function (value) {
-				if (value.ticked) {
-					locationId = value.LocationId;
-				}
-			});
-		}
-		// Side Dish Order
-		else if (typeOrder === 2) {
-			angular.forEach(scope.sideDishOrderLocations, function (value) {
 				if (value.ticked) {
 					locationId = value.LocationId;
 				}

@@ -204,6 +204,10 @@
     <Setting Key="MealOrder_EditMeal" SpName="MealOrder_EditMeal" DbName="FBM" Plain="0">
     </Setting>
   </Function>
+  <Function Name="StaffOrdering">
+      <Setting Key="MealOrder_InsertBystaff_RequestByWeb" SpName="MealOrder_InsertBystaff_RequestByWeb" DbName="FBM" Plain="0">
+      </Setting>
+  </Function>  
   <Function Name="POS">
     <Setting Key="POS_Get_OrderRequestByOrderID" SpName="POS_Get_OrderRequestByOrderID" DbName="FBM" Plain="0">
       <Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder" />
@@ -391,4 +395,17 @@
     <Setting Key="Location_DeleteByLocationID" SpName="Location_DeleteByLocationID" DbName="FBM" Plain="0" ></Setting>
     <Setting Key="Location_ExistOrderMealByLocationID" SpName="Location_ExistOrderMealByLocationID" DbName="FBM" Plain="0" ></Setting>
   </Function>
+  <Function Name="StaffOrdering">
+      <Setting Key="Staff_Get_MealOrder" SpName="Staff_Get_MealOrder" DbName="FBM" Plain="0">
+          <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status" />
+          <Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status" />
+          <Mapping DataField="SysId" ObjectProperty="UserId" Class="Employee" />
+          <Mapping DataField="MenuEngName" ObjectProperty="NameEN" Class="Menu" />
+          <Mapping DataField="MenuVNMName" ObjectProperty="NameVN" Class="Menu" />
+          <Mapping DataField="IsHaveAltMenu" ObjectProperty="IsHaveAlternativeMenu" Class="Menu" />
+          <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location" />
+          <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" Class="Location" />
+          <Mapping DataField="IsAllowOrder" ObjectProperty="RawIsAllowOrder" Class="MealOrderingModel" />
+      </Setting>
+  </Function>   
 </Functions>

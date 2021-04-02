@@ -1996,6 +1996,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Menu&apos;s Not The Same, Please Select Same Menu..
+        /// </summary>
+        public static string MenusNotTheSame {
+            get {
+                return ResourceManager.GetString("MenusNotTheSame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Menu Type.
         /// </summary>
         public static string MenuType {

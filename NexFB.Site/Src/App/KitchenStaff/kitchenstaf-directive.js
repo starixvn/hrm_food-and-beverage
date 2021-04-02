@@ -12,6 +12,7 @@ kitchenStaffModule.directive('getSelectedMenu', function () {
 	};
 });
 
+
 kitchenStaffModule.directive('getSelectedSavedMenu', function () {
 	return {
 		link: function (scope, iElement) {
@@ -89,6 +90,22 @@ kitchenStaffModule.directive('changePlaceholder', ['$timeout', function (timer) 
 		}
 	};
 } ]);
+
+kitchenStaffModule.directive('changePlaceholderMeal', ['$timeout', function (timer) {
+	return {
+		restrict: 'A',
+		link: function (scope, iElement) {
+			var changePlaceHolder = function () {
+				var searchInput = iElement.find('.inputFilter');
+				$(searchInput).attr('placeholder', 'Enter Meal');
+			};
+
+			timer(changePlaceHolder, 0);
+		}
+	};
+} ]);
+
+
 
 kitchenStaffModule.filter('range', function () {
 	return function (input, total) {

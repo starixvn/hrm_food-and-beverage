@@ -1284,4 +1284,7 @@
   <data name="StaffOrders" xml:space="preserve">
     <value>Staff Orders</value>
   </data>
+  <data name="MenusNotTheSame" xml:space="preserve">
+    <value>Menu's Not The Same, Please Select Same Menu.</value>
+  </data>
 </root>

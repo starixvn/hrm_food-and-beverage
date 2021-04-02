@@ -2,9 +2,9 @@
 /*global kitchenStaffModule*/
 kitchenStaffModule.controller("KitchenStaffController",
     ['$translate', '$scope', '$route', '$timeout', '$modal', 'kitchenStaffFactory', 'orderingService',
-        'notificationFactory', 'ErrorFactory', 'orderingUtilities', 'baseUrl', 'commonFactory','setMenuFactory',
+        'notificationFactory', 'ErrorFactory', 'staffOrderingUtilities', 'baseUrl', 'commonFactory', 'setMenuFactory','foodMenuUtilities',
         function ($translate, $scope, $route, $timeout, $modal, kitchenStaffFactory, orderingService,
-            notificationFactory, ErrorFactory, orderingUtilities, baseUrl, commonFactory, setMenuFactory) {
+            notificationFactory, ErrorFactory, staffOrderingUtilities, baseUrl, commonFactory, setMenuFactory, foodMenuUtilities) {
 	$scope.getMessage = function () {
 		$translate('ConfirmMessageSaveOrder').then(function (message) {
 			$scope.confirmMessageSaveOrder = message;
@@ -18,20 +18,19 @@ kitchenStaffModule.controller("KitchenStaffController",
 			$scope.warningMessageExistMember = message;
 		});
 
-		$translate('ConfirmMessageAlternativeMenu').then(function (message) {
-			$scope.confirmMessageAlternativeMenu = message;
-		});
 
 		$translate('NoMenuAvailableWarning').then(function (message) {
 			$scope.noMenuAvailableWarning = message;
 		});
 
-		$translate('TakeAwayRemark').then(function (message) {
-			$scope.takeAway = message;
-		});
-
 		$translate('OverOrderWarning').then(function (message) {
 			$scope.overOrderWarning = message;
+		});
+		$translate('FoodMenuMealRequire').then(function (message) {
+			$scope.foodMenuMealRequire = message;
+		});
+		$translate('MenusNotTheSame').then(function (message) {
+			$scope.menusNotTheSame = message;
 		});
 	};
 
@@ -60,6 +59,109 @@ kitchenStaffModule.controller("KitchenStaffController",
 	$scope.searchNewMember = '';
 	$scope.searchSavedMember = '';
 	$scope.searchSideDishMember = '';
+
+	var getEmployee = function (keyword) {
+		return kitchenStaffFactory.getEmployees(keyword);
+            };
+    var startDate = new Date();
+    $scope.filter = {
+        startDate: new Date(startDate),
+    };        
+
+    $scope.calendar = {
+        startDateOpened: false
+        };
+
+    /*
+    ** Open calendar.
+    */
+    $scope.openPopupStartDate = function ($event) {
+        commonFactory.openPopupStartDate($event, $scope);
+    };
+
+
+	kitchenStaffFactory.getAllMealTimesheet().success(function (meals) {
+		$scope.meals = meals;
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
+	});
+
+	/*
+	** Get Order Status.
+	*/
+	kitchenStaffFactory.getOrderStatusEnum().success(function (orderStatuses) {
+		$scope.orderStatusesOptions = orderStatuses;
+		setDefaultStatus($scope.orderStatusesOptions);
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
+	});
+
+	var setDefaultStatus = function (orderStatuses) {
+		angular.forEach(orderStatuses, function (status) {
+			if (status.Value === $scope.orderStatus.Delivered ) {
+				status.ticked = true;
+			}
+		});
+	};
+
+    /*
+    ** Get Set Menu bu Menu Id.
+    */
+	$scope.getSetMenu = function (menuId) {
+		if (menuId) {
+		angular.forEach($scope.menuOptions, function (value) {
+			if (value.MenuId === menuId) {
+				$scope.MenuEngName = value.MenuEngName;
+			}
+		});
+		$scope.menuId = menuId;
+		setMenuFactory.getSetMenu(menuId, true).success(function (setMenus) {
+			$scope.setMenuItems = setMenus;
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
+		}
+		else {
+			$scope.setMenuItems = [];
+			$scope.mealPlanning.setMenuId = '';
+		}
+	};
+
+	$scope.getNewEmployee = function () {
+		return getEmployee($scope.searchNewMember);
+	};
+
+	$scope.unSelectNewEmployee = function () {
+		if ($scope.searchNewMember.trim() === '') {
+			if ($scope.newMember && $scope.newMember.employee) {
+				$scope.newMember.employee = null;
+			}
+		}
+	};
+
+	$scope.getSavedEmployee = function () {
+		return getEmployee($scope.searchSavedMember);
+	};
+
+	$scope.unSelectSavedEmployee = function () {
+		if ($scope.searchSavedMember.trim() === '') {
+			if ($scope.savedMember && $scope.savedMember.employee) {
+				$scope.savedMember.employee = null;
+			}
+		}
+	};
+
+	$scope.getSideDishEmployee = function () {
+		return getEmployee($scope.searchSideDishMember);
+	};
+
+	$scope.unSelectSideDishEmployee = function () {
+		if ($scope.searchSideDishMember.trim() === '') {
+			if ($scope.sideDishMember && $scope.sideDishMember.employee) {
+				$scope.sideDishMember.employee = null;
+			}
+		}
+	};
 
 	var orderSignalR = $.connection.order;
 	$scope.sendNewOrder = function (orderId) {
@@ -93,7 +195,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 				}
 			}
 
-			data = orderingUtilities.sortOrderIdByDesc(order, data);
+			data = kitchenStaffFactory.sortOrderIdByDesc(order, data);
 			orderingService.setMyOrder(data);
 			$scope.$apply();
 		}
@@ -146,7 +248,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 				}
 			}
 
-			data = orderingUtilities.sortOrderIdByDesc(order, data);
+			data = kitchenStaffFactory.sortOrderIdByDesc(order, data);
 
 			// Check user can continue order or not
 			kitchenStaffFactory.getAddNewOrder()
@@ -214,12 +316,6 @@ kitchenStaffModule.controller("KitchenStaffController",
 	}, function (value) {
 		$scope.myOrder = value;
 	});
-
-	//$scope.$watch(function () {
-	//	return orderingService.getMemberNewOrder();
-	//}, function (value) {
-	//	$scope.newOrder.Members = value;
-	//});
 
 
 	// close Saved Order and Side Dish Order when don't have New Order
@@ -329,9 +425,13 @@ kitchenStaffModule.controller("KitchenStaffController",
 
 		kitchenStaffFactory.getLocation()
 			.success(function (data) {
+				angular.forEach(data, function (value) {
+					if (value.LocationId === 31) {
+						value.ticked = true
+					}
+				});
 				$scope.locations = data;
 				$scope.newOrderLocations = angular.copy(data);
-				$scope.sideDishOrderLocations = angular.copy(data);
 				$scope.getDefaultForAddOrder();
 			})
 			.error(function (response, status) {
@@ -368,7 +468,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 			}
 		});
 
-		$scope.ValidateNewOrder = function (order, typeOrder) {
+		$scope.ValidateNewOrder = function (order) {
 			var isValid = true;
 
 			if (order.Members.length < 1) {
@@ -382,7 +482,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 				for (var i = 0; i < order.Members.length; i++) {
 					var value = order.Members[i];
 
-					if (typeOrder !== $scope.typeOrder.sideDishOrder && value.IsOrder) {
+					if (value.IsOrder) {
 						if (value.IsAllowOrder) {
 							numberMembersOrder += 1;
 							isValid = true;
@@ -393,7 +493,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 					}
 				}
 
-				if (numberMembersOrder === 0 && typeOrder !== $scope.typeOrder.sideDishOrder) {
+				if (numberMembersOrder === 0) {
 					isValid = false;
 					notificationFactory.error("InvalidInputData");
 				}
@@ -401,19 +501,6 @@ kitchenStaffModule.controller("KitchenStaffController",
 					isValid = false;
 					overOrderMessage = $scope.overOrderWarning + overOrderMessage;
 					notificationFactory.error("", overOrderMessage);
-				}
-			}
-
-			if (typeOrder === $scope.typeOrder.sideDishOrder) {
-				isValid = true;
-				angular.forEach(order.Members, function (member) {
-					if (member.Menus !== undefined && member.Menus.length === 0) {
-						isValid = false;
-					}
-				});
-
-				if (!isValid) {
-					notificationFactory.error("InvalidFoodItem");
 				}
 			}
 
@@ -444,10 +531,13 @@ kitchenStaffModule.controller("KitchenStaffController",
 
 		$scope.saveAddOrder = function (order, typeOrder) {
 			if (order.Location !== null) {
-				order.Location.LocationId = orderingUtilities.getOrderLocation(typeOrder, $scope);
+				order.Location.LocationId = staffOrderingUtilities.getOrderLocation(typeOrder, $scope);
 			}
 
-			if ($scope.ValidateNewOrder(order, typeOrder)) {
+			var selectedStatusId = staffOrderingUtilities.getStatusValue($scope.orderStatusesOptions);
+			order.StatusId = selectedStatusId;
+
+			if ($scope.ValidateNewOrder(order)) {
 				kitchenStaffFactory.checkDeliveryAreaExist(order.Location.LocationId).success(function (isExisted) {
 					if (isExisted === 'true') {
 						$scope.modalConfirmSaveOrderInstance = $modal.open({
@@ -463,10 +553,8 @@ kitchenStaffModule.controller("KitchenStaffController",
 						});
 
 						$scope.modalConfirmSaveOrderInstance.result.then(function () {
-
-							if (typeOrder !== $scope.typeOrder.sideDishOrder) {
-								kitchenStaffFactory.createOrder(order)
-						.success(function (response) {
+							kitchenStaffFactory.createOrder(order)
+								.success(function (response) {
 							if (response.result.IsSuccessful) {
 								notificationFactory.success("DataChangeSuccessfully");
 								$scope.sendNewOrder(response.orderId);
@@ -475,30 +563,13 @@ kitchenStaffModule.controller("KitchenStaffController",
 							else {
 								notificationFactory.error('', response.result.Message);
 							}
-						})
-						.error(function (response, status) {
-							ErrorFactory.errorHandle(status);
-						});
-							}
-							else {
-								kitchenStaffFactory.createOrderSideDish(order)
-						.success(function (response) {
-							if (response.result.IsSuccessful) {
-								notificationFactory.success("DataChangeSuccessfully");
-								$scope.sendNewOrder(response.orderId);
-								$scope.getDefaultForAddOrder();
-							}
-							else {
-								notificationFactory.error('', response.result.Message);
-							}
-						})
-						.error(function (response, status) {
-							ErrorFactory.errorHandle(status);
-						});
-							}
+							})
+							.error(function (response, status) {
+								ErrorFactory.errorHandle(status);
+							});
 						}, function () {
 						})['finally'](function () {
-							orderingUtilities.resetSelectOrderLocation($scope);
+							kitchenStaffFactory.resetSelectOrderLocation($scope);
 							$scope.modalConfirmSaveOrderInstance = undefined;
 						});
 					}
@@ -570,144 +641,93 @@ kitchenStaffModule.controller("KitchenStaffController",
 		};
 	};
 
-	var getEmployee = function (keyword) {
-		return kitchenStaffFactory.getEmployees(keyword);
-            };
-    var startDate = new Date();
-    $scope.filter = {
-        startDate: new Date(startDate),
-    };        
 
-    $scope.calendar = {
-        startDateOpened: false
-        };
+    $scope.add = function (filter) {
+        if (filter) {
+            var mealId = foodMenuUtilities.getMealId($scope.meals);
+            var onDate = filter.startDate.toDateString();
+            var newMember = $scope.newMember;
+            if (newMember && newMember.employee) {
+                var member = {
+                    Member: '',
+                    Menus: '',
+                    AllMenus: '',
+                    IsOrder: true,
+                    IsAllowOrder: false
+                };
+                member.Member = newMember.employee;
+                var userId = member.Member.UserId;
 
-    /*
-    ** Open calendar.
-    */
-    $scope.openPopupStartDate = function ($event) {
-        commonFactory.openPopupStartDate($event, $scope);
-    };
-
-    kitchenStaffFactory.getAllFoodMenuToFilter().success(function (foodMenus) {
-        $scope.menuOptions = foodMenus;
-
-    }).error(function (response, status) {
-        ErrorFactory.errorHandle(status);
-    });
-
-    /*
-    ** Get Set Menu bu Menu Id.
-    */
-        $scope.getSetMenu = function (menuId) {
-            if (menuId) {
-            angular.forEach($scope.menuOptions, function (value) {
-                if (value.MenuId === menuId) {
-                    $scope.MenuEngName = value.MenuEngName;
-                }
-            });
-            $scope.menuId = menuId;
-            setMenuFactory.getSetMenu(menuId, true).success(function (setMenus) {
-                $scope.setMenuItems = setMenus;
-            }).error(function (response, status) {
-                ErrorFactory.errorHandle(status);
-            });
-        }
-        else {
-            $scope.setMenuItems = [];
-            $scope.mealPlanning.setMenuId = '';
-        }
-    };
-
-	$scope.getNewEmployee = function () {
-		return getEmployee($scope.searchNewMember);
-	};
-
-	$scope.unSelectNewEmployee = function () {
-		if ($scope.searchNewMember.trim() === '') {
-			if ($scope.newMember && $scope.newMember.employee) {
-				$scope.newMember.employee = null;
-			}
-		}
-	};
-
-	$scope.getSavedEmployee = function () {
-		return getEmployee($scope.searchSavedMember);
-	};
-
-	$scope.unSelectSavedEmployee = function () {
-		if ($scope.searchSavedMember.trim() === '') {
-			if ($scope.savedMember && $scope.savedMember.employee) {
-				$scope.savedMember.employee = null;
-			}
-		}
-	};
-
-	$scope.getSideDishEmployee = function () {
-		return getEmployee($scope.searchSideDishMember);
-	};
-
-	$scope.unSelectSideDishEmployee = function () {
-		if ($scope.searchSideDishMember.trim() === '') {
-			if ($scope.sideDishMember && $scope.sideDishMember.employee) {
-				$scope.sideDishMember.employee = null;
-			}
-		}
-	};
-
-	$scope.add = function () {
-        var newMember = $scope.newMember;
-		if (newMember && newMember.employee) {
-			var member = {
-				Member: '',
-                MenuEngName: '',
-				IsOrder: true
-			};
-			member.Member = newMember.employee;
-            var userId = member.Member.UserId;
-            var menuId = $scope.menuId;
-            var MenuEngName = $scope.MenuEngName;
-
-			kitchenStaffFactory.getOrderNewOrder(userId)
-				.success(function (order) {
-					member.CurrentStatus = order.Status;
-
-                    if (order.Members && order.Members.length > 0) {
-                        member.MenuEngName = MenuEngName;
-					}
-
-			var isExisted = false;
-
-				// User has order or user has order but change menu
-			if (order.Members.length === 0) {
-				notificationFactory.error('', $scope.warningMessageExistMember);
-			}
-			else {
-				var members = orderingService.getMemberNewOrder();
-
-				angular.forEach(members, function (value) {
-					if (value.Member.UserId === member.Member.UserId) {
-						isExisted = true;
-					}
-				});
-
-				if (!isExisted) {
-					members.push(member);
-					orderingService.setMemberNewOrder(members);
-					notificationFactory.success("DataChangeSuccessfully");
+				if(mealId === "" || mealId === null)
+				{
+					notificationFactory.error('', $scope.foodMenuMealRequire);
 				}
-				else {
-					notificationFactory.error('', $scope.warningMessageExistMember);
-				}
-			}
+				else
+				{
+					kitchenStaffFactory.getOrderNewOrderByStaff(userId, mealId, onDate)
+                    .success(function (order) {
+                        member.CurrentStatus = order.Status;
 
-			$scope.$broadcast('clearSearchMemberInput');
-			$scope.newMember = {};
-		    })
-			.error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			});
-		}
+                        if (order.Members && order.Members.length > 0) {
+                            member.Menus = order.Members[0].Menus;
+                            member.IsAllowOrder = order.Members[0].IsAllowOrder;
+                        }
+
+                        var isExisted = false;
+						var isNotSameMenu = false;
+
+						if (!member.IsAllowOrder) {
+							if (member.Menus && member.Menus[0].MenuId === -1) {
+								var memberNonMenuMessage = '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + member.Member.NickName,
+									message = $scope.noMenuAvailableWarning + memberNonMenuMessage;
+								notificationFactory.error("", message);
+							}
+							else {
+								notificationFactory.error("AddOverOrderMemberWarning");
+							}
+						}
+						else {
+							// User has order or user has order but change menu
+							if (order.Members.length === 0) {
+								notificationFactory.error('', $scope.warningMessageExistMember);
+							}
+							else {
+								var members = orderingService.getMemberNewOrder();
+
+								angular.forEach(members, function (value) {
+									if (value.Member.UserId === member.Member.UserId) {
+										isExisted = true;
+									}
+									if(value.Menus[0].Name !== member.Menus[0].Name)
+									{
+										isNotSameMenu = true;
+									}
+								});
+
+								if(isNotSameMenu)
+								{
+									notificationFactory.error('', $scope.menusNotTheSame);
+								}
+								else if (!isExisted) {
+									members.push(member);
+									orderingService.setMemberNewOrder(members);
+									notificationFactory.success("DataChangeSuccessfully");
+								}
+								else {
+									notificationFactory.error('', $scope.warningMessageExistMember);
+								}
+							}
+						}
+
+						$scope.$broadcast('clearSearchMemberInput');
+						$scope.newMember = {};
+                    })
+                    .error(function (response, status) {
+                        ErrorFactory.errorHandle(status);
+                    });
+					}
+				}
+        }
 	};
 	
 
@@ -732,7 +752,6 @@ kitchenStaffModule.controller("KitchenStaffController",
 	$scope.loadData(function () {
 		$scope.bindAction();
 	});
-
 
 } ]);
 

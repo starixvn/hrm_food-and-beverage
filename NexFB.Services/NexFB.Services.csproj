@@ -88,6 +88,7 @@
     <Compile Include="Implement\ShiftMealMappingService.cs" />
     <Compile Include="Implement\SideDishService.cs" />
     <Compile Include="Implement\SmartCardOrderService.cs" />
+    <Compile Include="Implement\StaffOrderingService.cs" />
     <Compile Include="Interface\IDeliveryAreaService.cs" />
     <Compile Include="Interface\IGroupControlService.cs" />
     <Compile Include="Interface\IMealTimeService.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Interface\IShiftMealMappingService.cs" />
     <Compile Include="Interface\ISideDishService.cs" />
     <Compile Include="Interface\ISmartCardOrderService.cs" />
+    <Compile Include="Interface\IStaffOrderingService.cs" />
     <Compile Include="Interface\Report\IAdminOrderHistoryService.cs" />
     <Compile Include="Interface\Report\IEmployeeOrderHistoryService.cs" />
     <Compile Include="Interface\Report\IDailyMainDishReportService.cs" />

@@ -8,6 +8,7 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Core.Models;
     using NexFB.Criteria.Ordering;
     using NexFB.Criteria.SideDishManagement;
+    using NexFB.Criteria.StaffOrdering;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
     using NexFB.Models.SideDishManagement;
@@ -27,100 +28,22 @@ namespace NexFB.Site.Controllers.API
     public class KitchenStaffController : BaseController
     {
         private readonly IOrderingService _orderService;
+        private readonly IStaffOrderingService _staffOrderService;
         private readonly ISideDishService _sideDishService;
 
         public KitchenStaffController()
-           : this(null, null)
+           : this(null, null, null)
         {
         }
 
         public KitchenStaffController(
             IOrderingService orderService,
+            IStaffOrderingService staffOrderService,
             ISideDishService sideDishService)
         {
             _orderService = orderService ?? new OrderingService();
+            _staffOrderService = staffOrderService ?? new StaffOrderingService();
             _sideDishService = sideDishService ?? new SideDishService();
-        }
-
-        /// <summary>
-        /// Function to get my orders.
-        /// </summary>
-        /// <returns>MealOrdering Model.</returns>
-        [HttpGet]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
-        public IList<MealOrderingModel> GetMyOrder()
-        {
-            var criteria = new GetMyOrderInCurrentDayCriteria()
-            {
-                UserId = this.CurrentUser.UserId
-            };
-
-            IList<MealOrderingModel> orders = _orderService.GetMyOrderByCurrentDay(criteria);
-            return orders;
-        }
-
-        /// <summary>
-        /// Function to get menu.
-        /// </summary>
-        /// <returns>MealOrdering Model.</returns>
-        [HttpGet]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
-        public Menu GetMyMenu()
-        {
-            var criteria = new GetMenuByUserIdCriteria()
-            {
-                UserId = this.CurrentUser.UserId
-            };
-
-            Menu menu = _orderService.GetMenuByUserId(criteria);
-            return menu;
-        }
-
-        [HttpGet]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
-        public Menu GetMenuByUserId(int userId)
-        {
-            var criteria = new GetMenuByUserIdCriteria()
-            {
-                UserId = userId
-            };
-
-            Menu menu = _orderService.GetMenuByUserId(criteria);
-            return menu;
-        }
-
-        /// <summary>
-        /// Add new order.
-        /// </summary>
-        /// <returns>The model meal ordering.</returns>
-        [HttpGet]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
-        public MealOrderingModel GetAddNew()
-        {
-            var criteria = new GetMemberNewOrderCriteria()
-            {
-                UserId = this.CurrentUser.UserId
-            };
-
-            MealOrderingModel order = _orderService.GetMemberNewOrder(criteria);
-            return order;
-        }
-
-        /// <summary>
-        /// Function to get saved order.
-        /// </summary>
-        /// <returns>MealOrdering Model.</returns>
-        [HttpGet]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
-        public MealOrderingModel GetSavedOrder()
-        {
-            var criteria = new GetMemberSavedOrderCriteria()
-            {
-                UserId = this.CurrentUser.UserId
-            };
-
-            MealOrderingModel order = _orderService.GetMemberSavedOrder(criteria);
-            return order;
         }
 
         /// <summary>
@@ -129,53 +52,26 @@ namespace NexFB.Site.Controllers.API
         /// <param name="userId">The User Id.</param>
         /// <returns>The model meal ordering.</returns>
         [HttpGet]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
-        public MealOrderingModel GetOrderNewOrder(int userId)
+        [ApiAuthorize(FunctionKey = FBFunctionKey.KitchenStaffOrder, Policy = Policy.Read)]
+        public MealOrderingModel GetOrderNewOrderByStaff(int userId, int mealId, DateTime onDate)
         {
-            var criteria = new GetMemberNewOrderCriteria()
+            var criteria = new GetMemberNewOrderByStaffCriteria()
             {
-                UserId = userId
+                UserId = userId,
+                MealId = mealId,
+                OnDate = onDate
             };
 
-            MealOrderingModel order = _orderService.GetMemberNewOrder(criteria);
+            MealOrderingModel order = _staffOrderService.GetMemberNewOrderByStaff(criteria);
             return order;
         }
 
-        /// <summary>
-        /// Function to get saved order.
-        /// </summary>
-        /// <param name="orderId">The Order Id.</param>
-        /// <returns>MealOrdering Model.</returns>
-        [HttpGet]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
-        public MealOrderingModel GetOrderById(int orderId)
-        {
-            var criteria = new GetOrderByIdCriteria()
-            {
-                OrderId = orderId
-            };
 
-            MealOrderingModel order = _orderService.GetOrderById(criteria);
-            order.CurrentUser = new Employee()
-            {
-                UserId = this.CurrentUser.UserId,
-                NickName = this.CurrentUser.NickName,
-                FullName = this.CurrentUser.FullName
-            };
-
-            return order;
-        }
-
-        /// <summary>
-        /// Function to insert a order.
-        /// </summary>
-        /// <param name="model">MealOrdering Model.</param>
-        /// <returns>Command Result.</returns>
         [HttpPost]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
-        public object InsertOrder(MealOrderingModel model)
+        public object InsertStaffOrder(MealOrderingModel model)
         {
-            var criteria = new InsertOrderCriteria()
+            var criteria = new InsertOrderByStaffCriteria()
             {
                 CreatedBy = this.CurrentUser.UserId,
                 CreatedDate = DateTime.Now,
@@ -185,166 +81,12 @@ namespace NexFB.Site.Controllers.API
                 RemarkVNM = model.IsTranslateRemark ? TranslateRemark(model.Remark) : model.Remark,
                 Remark = model.Remark,
                 Members = model.Members,
-                TakeAway = model.TakeAway
+                TakeAway = model.TakeAway,
+                StatusID = model.StatusId
             };
 
-            CommandResult result = _orderService.InsertOrder(criteria);
+            CommandResult result = _staffOrderService.InsertOrder(criteria);
             return new { result = result, orderId = criteria.OrderId };
-        }
-
-        /// <summary>
-        /// Function to update a order.
-        /// </summary>
-        /// <param name="model">MealOrdering Model.</param>
-        /// <returns>Command Result.</returns>
-        [HttpPut]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
-        public CommandResult UpdateOrder(MealOrderingModel model)
-        {
-            var criteria = new UpdateOrderCriteria()
-            {
-                OrderId = model.OrderId,
-                ModifiedBy = this.CurrentUser.UserId,
-                ModifiedDate = DateTime.Now,
-                IsSavedOrder = false,
-                LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
-                Phone = model.Phone,
-                RemarkVNM = model.IsTranslateRemark ? TranslateRemark(model.Remark) : model.Remark,
-                Remark = model.Remark,
-                Members = model.Members,
-                TakeAway = model.TakeAway
-            };
-
-            CommandResult result = _orderService.UpdateOrder(criteria);
-            return result;
-        }
-
-        /// <summary>
-        /// Function to delete a order.
-        /// </summary>
-        /// <param name="orderId">The order id.</param>
-        /// <returns>Command Result.</returns>
-        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
-        public CommandResult Delete(int orderId)
-        {
-            var criteria = new DeleteOrderCriteria()
-            {
-                OrderId = orderId,
-                ModifiedBy = this.CurrentUser.UserId,
-                ModifiedDate = DateTime.Now
-            };
-
-            CommandResult result = _orderService.DeleteOrder(criteria);
-            return result;
-        }
-
-        public Employee GetCurrentUser()
-        {
-            var user = new Employee()
-            {
-                UserId = this.CurrentUser.UserId,
-                NickName = this.CurrentUser.NickName,
-                FullName = this.CurrentUser.FullName
-            };
-
-            return user;
-        }
-
-
-        public IEnumerable<SideDishModel> GetSideDishByUserId(int userId)
-        {
-            var criteria = new GetSideDishByUserIdCriteria
-            {
-                UserId = userId
-            };
-
-            return _sideDishService.GetSideDishByUserId(criteria);
-        }
-
-        /// <summary>
-        /// Function to insert a order side dish.
-        /// </summary>
-        /// <param name="model">MealOrdering Model.</param>
-        /// <returns>Command Result.</returns>
-        [HttpPost]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
-        public object InsertOrderSideDish(MealOrderingModel model)
-        {
-            var criteria = new InsertOrderSideDishCriteria()
-            {
-                CreatedBy = this.CurrentUser.UserId,
-                CreatedDate = DateTime.Now,
-                LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
-                Phone = model.Phone,
-                RemarkVNM = model.IsTranslateRemark ? TranslateRemark(model.Remark) : model.Remark,
-                Remark = model.Remark,
-                Members = model.Members,
-                TakeAway = model.TakeAway
-            };
-
-            CommandResult result = _orderService.InsertOrderSideDish(criteria);
-            return new { result = result, orderId = criteria.OrderId };
-        }
-
-        /// <summary>
-        /// Update order side dish.
-        /// </summary>
-        /// <param name="model">The order.</param>
-        /// <returns>The command result.</returns>
-        [HttpPut]
-        public CommandResult UpdateOrderSideDish(MealOrderingModel model)
-        {
-            var criteria = new UpdateOrderSideDishCriteria()
-            {
-                OrderId = model.OrderId,
-                ModifiedBy = this.CurrentUser.UserId,
-                ModifiedDate = DateTime.Now,
-                LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
-                Phone = model.Phone,
-                RemarkVNM = model.IsTranslateRemark ? TranslateRemark(model.Remark) : model.Remark,
-                Remark = model.Remark,
-                Members = model.Members,
-                TakeAway = model.TakeAway
-            };
-
-            CommandResult result = _orderService.UpdateOrderSideDish(criteria);
-            return result;
-        }
-
-        /// <summary>
-        /// Check start time (the time when user open popup edit) must be greater than the last modified time of this order.
-        /// </summary>
-        /// <param name="startTime">The start time.</param>
-        /// <param name="orderId">The order Id.</param>
-        /// <returns>The boolean to know that user can update order or not.</returns>
-        [HttpGet]
-        public bool CheckValidModifiedTime(string startTime, int orderId)
-        {
-            var criteria = new GetLastMofifiedDateByOrderIdCriteria
-            {
-                OrderId = orderId
-            };
-
-            MealOrderingModel order = _orderService.GetLastModifiedDateByOrderId(criteria);
-            DateTime startDateTime = DateTime.Parse(startTime);
-
-            if (startDateTime > order.ModifiedDate)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        [HttpPut]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
-        public CommandResult ChangeMealOrder(UpdateMealOrderCriteria criteria)
-        {
-            criteria.ModifiedBy = this.CurrentUser.UserId;
-            criteria.ModifiedDate = DateTime.Now;
-
-            CommandResult result = _orderService.UpdateMealOrder(criteria);
-            return result;
         }
 
         /// <summary>
