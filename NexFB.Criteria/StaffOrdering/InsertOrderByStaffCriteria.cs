@@ -24,6 +24,10 @@ namespace NexFB.Criteria.StaffOrdering
 
         public string Phone { get; set; }
 
+        public int MealID { get; set; }
+
+        public DateTime OnDate { get; set; }
+
         public string Remark { get; set; }
 
         public string RemarkVNM { get; set; }

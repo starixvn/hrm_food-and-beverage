@@ -1,0 +1,125 @@
+﻿<div>
+	<div class="modal-header">
+		<div class="popup-header">
+			{{"EditOrder" | translate}} #{{order.OrderNo}}<span class="close-popup" ng-click="cancel()"></span>
+		</div>
+	</div>
+	<div class="modal-body assign-role-modal modal-body-edit-ordering">
+		<div class="col-sm-12 edit-order">
+			<div class="row form-order">
+				<div class="form-group">
+					<span>{{"OrderPerson" | translate}}: </span><span class="bold">{{order.CreatorOrder.NickName}}</span>
+				</div>
+			</div>
+			<div class="row form-inline form-order">
+				<div class="form-group">
+					<label data-translate="DeliveryArea">
+					</label>
+					<div class="sel-ordering">
+						<add-class-to-role-filter multi-select input-model="locations" button-label="Name"
+							helper-elements="filter" item-label="Name" tick-property="ticked" max-labels="1"
+							max-height="155px" selection-mode="single" class="multi-select" change-placeholder
+							class="form-control">
+					    </add-class-to-role-filter>
+					</div>
+				</div>
+				<div class="form-group">
+					<label data-translate="Member">
+					</label>
+					<input class="form-control txtMember custom-padding" data-ng-model="searchKey" placeholder="full name or nick name"
+						data-search-auto-complete data-search-employees="getEmployee(searchKey)" data-ng-change="unSelectEmployee(searchKey)"
+						data-employee="newMember.employee" id="txtEmployee" data-ng-enter="add(true)" />
+				</div>
+				<div class="form-group btn-add">
+					<a href="javascript:;"
+						ng-click="add()" class="button"><i class="glyphicon glyphicon-plus icon-plus"></i>
+						<label data-translate="Add">
+						</label>
+					</a>
+				</div>
+			</div>
+			<div class="row">
+				<table class="table table-bordered table-striped table-member">
+					<thead>
+						<tr>
+							<th class="width-40" data-translate="SymbolCount">
+							</th>
+							<th data-translate="Member">
+							</th>
+							<th data-translate="Menu" ng-show="!order.IsSideDishOrder">
+							</th>
+							<th data-translate="Amount" ng-show="order.IsSideDishOrder">
+							</th>
+							<th class="col-action" data-translate="Action">
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="member in order.Members">
+							<td class="text-center" ng-bind="$index + 1">
+							</td>
+							<td ng-bind="member.Member.NickName">
+							</td>
+							<td>
+								<div ng-show="member.Menus.length > 1 || member.Menus[0].QuantityOrder > 1">
+									<ul class="list-order list-unstyled" ng-repeat="menu in member.Menus">
+										<li>{{menu.QuantityOrder}} x "{{menu.Name}}"</li>
+									</ul>
+								</div>
+								<span ng-show="member.Menus.length == 1 && member.Menus[0].QuantityOrder <= 1">{{member.Menus[0].Name}}</span>
+							</td>
+							<td class="text-center">
+								<a href="javascript:;" ng-click="removeMember($index)" class="glyphicon glyphicon-remove margin-icon icon-remove">
+								</a>
+							</td>
+						</tr>
+						<tr class="total-price" ng-show="order.IsSideDishOrder">
+							<td class="total-sidedish" colspan="3" data-translate="Total">
+							</td>
+							<td class="text-right" ng-bind="calculateTotalAmount(order.Members) | number">
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr ng-show="order == '' || order.Members == ''">
+							<td class="empty-result" colspan="5" data-translate="EmptyResult">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="row form-inline form-order">
+				<div class="form-group">
+					<label data-translate="Remark">
+					</label>
+					<input ng-model="order.Remark" type="text" class="txt-remark" maxlength="500" />
+				</div>
+				<div class="form-group phone">
+					<label data-translate="Phone">
+					</label>
+					<input ng-model="order.Phone" type="text" class="txt-phone" maxlength="50" />
+				</div>
+				<div class="form-group takeAway" ng-show="order.IsSideDishOrder">
+					<input type="checkbox" ng-model="order.TakeAway" />
+					<label data-translate="TakeAway">
+					</label>
+				</div>
+				<div class="form-group takeAway">
+					<input type="checkbox" ng-model="order.IsTranslateRemark" />
+					<label data-translate="LabelCheckboxTranslateRemark">
+					</label>
+				</div>
+			</div>
+			<div class="row form-inline form-order">
+				<label ng-show="order.Status.StatusId == 4 && order.Members.length > 0" class="order-status-delivered">
+					<span ng-bind="getStatusOrderMessage(order)"></span>
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="button" ng-click="saveEditOrder(order)" data-translate="Save" ></button>
+		<button class="button btn-delete" ng-click="deleteOrder(order.OrderId)" data-translate="Delete"></button>
+		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel"></button>
+	</div>
+</div>

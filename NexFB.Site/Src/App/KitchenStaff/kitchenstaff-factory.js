@@ -4,21 +4,6 @@
 kitchenStaffModule.factory("kitchenStaffFactory",
 	['$http', 'baseUrl', function ($http, baseUrl) {
 		return {
-			getCurrentUser: function () {
-				return $http.get(baseUrl + 'api/Ordering/GetCurrentUser');
-			},
-			getLocation: function () {
-				return $http.get(baseUrl + 'api/Common/GetAllDeliveryArea');
-			},
-			getOrderStatusEnum: function () {
-				return $http.get(baseUrl + 'api/report/GetOrderStatusEnum');
-			},
-			getMyOrder: function () {
-				return $http.get(baseUrl + 'api/Ordering/GetMyOrder');
-			},
-			getAddNewOrder: function () {
-				return $http.get(baseUrl + 'api/Ordering/GetAddNew');
-			},
             getOrderNewOrderByStaff: function (userId, mealId, onDate ) {
                 return $http.get(baseUrl + 'api/KitchenStaff/GetOrderNewOrderByStaff',
 					{
@@ -30,80 +15,28 @@ kitchenStaffModule.factory("kitchenStaffFactory",
 					}
 				);
 			},
-			getSavedOrder: function () {
-				return $http.get(baseUrl + 'api/Ordering/GetSavedOrder');
-			},
-			getMyMenu: function () {
-				return $http.get(baseUrl + 'api/Ordering/GetMyMenu');
-			},
-			getDepartment: function () {
-				return $http.get(baseUrl + 'api/Common/GetAllDepartment');
-			},
-			getEmployees: function (keyWord, departmentId, teamId, isShowDisable) {
-				return $http.get(baseUrl + 'api/Employee/GetEmployees',
-					{
-						params: {
-							keyWord: keyWord,
-							departmentId: departmentId,
-							teamId: teamId,
-							isShowDisable: isShowDisable
-						}
+			getStaffOrder: function (onDate) {
+				return $http.get(baseUrl + 'api/KitchenStaff/GetStaffOrder', 
+				{
+					params: {
+						onDate: onDate
 					}
-				);
-            },
-            getAllMealTimesheet: function () {
-				return $http.get(baseUrl + 'api/Common/GetAllMealTimesheet');
-			},
-			getMenuByUserId: function (userId) {
-				return $http.get(baseUrl + 'api/Ordering/GetMenuByUserId',
-					{
-						params: { userId: userId }
-					}
-				);
-			},
-			getOrderById: function (orderId) {
-				return $http.get(baseUrl + 'api/Ordering/GetOrderById',
-					{
-						params: { orderId: orderId }
-					}
-				);
-			},
-			addMember: function (member) {
-				return $http.post(baseUrl + 'api/OrderMember', member);
-				//return $http['addMember']('/api/OrderMember', { params: { memberId: memberId} });
-				//AddMember
-			},
-			removeMember: function (memberId) {
-				return $http['delete'](baseUrl + 'api/OrderMember', { params: { memberId: memberId} });
+				});
 			},
 			createOrder: function (order) {
 				return $http.post(baseUrl + 'api/KitchenStaff/InsertStaffOrder', order);
-			},
+			}, 
 			editOrder: function (order) {
-				return $http.put(baseUrl + 'api/Ordering/UpdateOrder', order);
+				return $http.post(baseUrl + 'api/KitchenStaff/UpdateStaffOrder', order);
 			},
 			deleteOrder: function (orderId) {
-				return $http['delete'](baseUrl + 'api/Ordering', { params: { orderId: orderId} });
+				return $http['delete'](baseUrl + 'api/KitchenStaff', { params: { orderId: orderId} });
 			},
-			getAlternativeMenuByUserId: function (userId) {
-				return $http.get(baseUrl + 'api/Ordering/GetAlternativeMenusByUserId', { params: { userId: userId} });
+			getAllMealTimesheet: function () {
+				return $http.get(baseUrl + 'api/Common/GetAllMealTimesheet');
 			},
-			getSideDishByUserId: function (userId) {
-				return $http.get(baseUrl + 'api/Ordering/GetSideDishByUserId', { params: { userId: userId} });
-			},
-			createOrderSideDish: function (order) {
-				return $http.post(baseUrl + 'api/Ordering/InsertOrderSideDish', order);
-			},
-			editOrderSideDish: function (order) {
-				return $http.put(baseUrl + 'api/Ordering/UpdateOrderSideDish', order);
-			},
-			checkValidModifiedTime: function (startTime, orderId) {
-				return $http.get(baseUrl + 'api/Ordering/CheckValidModifiedTime',
-					{ params: { startTime: startTime, orderId: orderId} });
-			},
-			checkDeliveryAreaExist: function (deliveryAreaId) {
-				return $http.get(baseUrl + 'api/DeliveryArea/CheckDeliveryAreaExist',
-					{ params: { deliveryAreaId: deliveryAreaId} });
+			getOrderStatusEnum: function () {
+				return $http.get(baseUrl + 'api/report/GetOrderStatusEnum');
 			}
 		};
 	} ]
@@ -111,21 +44,6 @@ kitchenStaffModule.factory("kitchenStaffFactory",
 
 kitchenStaffModule.factory('staffOrderingUtilities', function () {
 	var utilities = {};
-
-	/*
-	** Calculate total price of all member in order
-	*/
-	utilities.calculateTotalAmount = function (members) {
-		var total = 0;
-
-		angular.forEach(members, function (member) {
-			angular.forEach(member.Menus, function (menu) {
-				total += menu.TotalAmount;
-			});
-		});
-
-		return total;
-	};
 
 	utilities.getStatusValue = function (orderStatusesOptions) {
 		var statusValue = '';
@@ -139,16 +57,18 @@ kitchenStaffModule.factory('staffOrderingUtilities', function () {
 		return statusValue;
 	};
 
-	utilities.getSelectedMenu = function (currentMenus, allMenus) {
-		var resultMenu = '';
+	utilities.getOrderLocation = function (typeOrder, scope) {
+		var locationId = '';
 
-		angular.forEach(allMenus, function (menu) {
-			if (menu.MenuId === currentMenus.MenuId && menu.IsMainMenu === currentMenus.IsMainMenu) {
-				resultMenu = menu;
-			}
-		});
+		if (typeOrder === 0) {
+			angular.forEach(scope.newOrderLocations, function (value) {
+				if (value.ticked) {
+					locationId = value.LocationId;
+				}
+			});
+		}
 
-		return resultMenu;
+		return locationId;
 	};
 
 	utilities.sortOrderIdByDesc = function (order, orders) {
@@ -172,41 +92,6 @@ kitchenStaffModule.factory('staffOrderingUtilities', function () {
 		}
 
 		return orders;
-	};
-
-	utilities.setDefaultLocation = function (locations, locationId) {
-		angular.forEach(locations, function (value) {
-			value.ticked = false;
-
-			if (value.LocationId === locationId) {
-				value.ticked = true;
-			}
-		});
-	};
-
-	utilities.getOrderLocation = function (typeOrder, scope) {
-		var locationId = '';
-
-		// New Order
-		if (typeOrder === 0) {
-			angular.forEach(scope.newOrderLocations, function (value) {
-				if (value.ticked) {
-					locationId = value.LocationId;
-				}
-			});
-		}
-
-		return locationId;
-	};
-
-	utilities.resetSelectOrderLocation = function (scope) {
-		angular.forEach(scope.newOrderLocations, function (value) {
-			value.ticked = false;
-		});
-
-		angular.forEach(scope.sideDishOrderLocations, function (value) {
-			value.ticked = false;
-		});
 	};
 
 	return utilities;

@@ -6,10 +6,7 @@ using NexFB.Models.Ordering;
 using NexFB.Repositories.Implement;
 using NexFB.Repositories.Interface;
 using NexFB.Services.Interface;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace NexFB.Services.Implement
 {
@@ -45,6 +42,18 @@ namespace NexFB.Services.Implement
             return order;
         }
 
+        public IList<MealOrderingModel> GetStaffOrder(GetStaffOrdersCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<MealOrderingModel> orders = null;
+            if (criteria.IsValid())
+            {
+                orders = _orderRepository.GetMyOrderByCurrentDay(criteria, criteria.UserId);
+            }
+
+            return orders;
+        }
+
         public CommandResult InsertOrder(InsertOrderByStaffCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -52,6 +61,30 @@ namespace NexFB.Services.Implement
             if (criteria.IsValid())
             {
                 result = Repository.Insert(criteria, hasGetOutputParams: true);
+            }
+
+            return result;
+        }
+
+        public CommandResult UpdateOrderByStaff(UpdateOrderByStaffCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var result = new CommandResult();
+            if (criteria.IsValid())
+            {
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
+        public CommandResult DeleteOrderByStaff(DeleteOrderByStaffCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var result = new CommandResult();
+            if (criteria.IsValid())
+            {
+                result = Repository.Delete(criteria);
             }
 
             return result;

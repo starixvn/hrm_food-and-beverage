@@ -35,9 +35,12 @@ namespace NexFB.Models.Ordering
 
         public DateTime OrderTime { get; set; }
 
+
         public DateTime? AcceptanceDate { get; set; }
 
         public DateTime? DeliveryDate { get; set; }
+
+        public DateTime DeliverDate { get; set; }
 
         public IList<OrderMemberModel> Members { get; set; }
 
@@ -48,6 +51,10 @@ namespace NexFB.Models.Ordering
         public bool TakeAway { get; set; }
 
         public string Phone { get; set; }
+
+        public int MealID { get; set; }
+
+        public DateTime OnDate { get; set; }
 
         public bool RawIsAllowOrder { get; set; }
 
@@ -85,6 +92,22 @@ namespace NexFB.Models.Ordering
             get
             {
                 return OrderTime.ToString(Constants.TimeFormat);
+            }
+        }
+
+        public string OnDateDeliver
+        {
+            get
+            {
+                return OnDate.ToString(Constants.DateFormat);
+            }
+        }
+
+        public string DeliverDateFormat
+        {
+            get
+            {
+                return DeliverDate.ToString(Constants.TimeFormat);
             }
         }
 

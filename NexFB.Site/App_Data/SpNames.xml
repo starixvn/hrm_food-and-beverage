@@ -204,10 +204,6 @@
     <Setting Key="MealOrder_EditMeal" SpName="MealOrder_EditMeal" DbName="FBM" Plain="0">
     </Setting>
   </Function>
-  <Function Name="StaffOrdering">
-      <Setting Key="MealOrder_InsertBystaff_RequestByWeb" SpName="MealOrder_InsertBystaff_RequestByWeb" DbName="FBM" Plain="0">
-      </Setting>
-  </Function>  
   <Function Name="POS">
     <Setting Key="POS_Get_OrderRequestByOrderID" SpName="POS_Get_OrderRequestByOrderID" DbName="FBM" Plain="0">
       <Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder" />
@@ -406,6 +402,27 @@
           <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location" />
           <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" Class="Location" />
           <Mapping DataField="IsAllowOrder" ObjectProperty="RawIsAllowOrder" Class="MealOrderingModel" />
+      </Setting>
+      <Setting Key="MealOrder_Get_StaffOrderSysID" SpName="MealOrder_Get_StaffOrderSysID" DbName="FBM" Plain="0">
+          <Mapping DataField="Members" ObjectProperty="MemberCount" Class="MealOrderingModel" />
+          <Mapping DataField="Since" ObjectProperty="ModifiedDate" Class="MealOrderingModel" />
+          <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status" />
+          <Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status" />
+          <Mapping DataField="OrderBy" ObjectProperty="UserId" Class="Employee" />
+          <Mapping DataField="OrderNickName" ObjectProperty="NickName" Class="Employee" />
+          <Mapping DataField="OrderFullName" ObjectProperty="FullName" Class="Employee" />
+          <Mapping DataField="MealENGName" ObjectProperty="NameEN" Class="Menu" />
+          <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location" />
+          <Mapping DataField="MealENGName" ObjectProperty="NameEN" Class="MenuQuantityModel" />
+          <Mapping DataField="MealVNMName" ObjectProperty="NameVN" Class="MenuQuantityModel" />
+          <Mapping DataField="QtyOrder" ObjectProperty="Quantity" Class="MenuQuantityModel" />
+          <Mapping DataField="QtyOrder" ObjectProperty="QuantityOrder" Class="Menu" />
+      </Setting>
+      <Setting Key="MealOrder_InsertBystaff_RequestByWeb" SpName="MealOrder_InsertBystaff_RequestByWeb" DbName="FBM" Plain="0">
+      </Setting>
+      <Setting Key="MealOrder_EditByStaff_RequestByWeb" SpName="MealOrder_EditByStaff_RequestByWeb" DbName="FBM" Plain="0">
+      </Setting>
+      <Setting Key="MealOrder_CancelByStaff_RequestByWeb" SpName="MealOrder_CancelByStaff_RequestByWeb" DbName="FBM" Plain="0">
       </Setting>
   </Function>   
 </Functions>

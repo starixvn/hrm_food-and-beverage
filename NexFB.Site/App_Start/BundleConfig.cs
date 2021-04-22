@@ -113,9 +113,9 @@ namespace NexFB.Site
 
                  "~/Src/App/KitchenStaff/kitchenstaff-route.js",
                 "~/Src/App/KitchenStaff/kitchenstaff-controller.js",
-               // "~/Src/App/KitchenStaff/editOrder-controller.js",
+                "~/Src/App/KitchenStaff/editstafforder-controller.js",
                 "~/Src/App/KitchenStaff/kitchenstaff-factory.js",
-                "~/Src/App/KitchenStaff/kitchenstaf-directive.js",
+                "~/Src/App/KitchenStaff/kitchenstaff-directive.js",
 
                 "~/Src/App/FoodItemManagement/foodItemManagement-route.js",
                 "~/Src/App/FoodItemManagement/foodItemManagement-controller.js",

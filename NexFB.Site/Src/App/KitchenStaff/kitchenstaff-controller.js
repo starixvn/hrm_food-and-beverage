@@ -1,9 +1,9 @@
 ﻿'use strict';
 /*global kitchenStaffModule*/
 kitchenStaffModule.controller("KitchenStaffController",
-    ['$translate', '$scope', '$route', '$timeout', '$modal', 'kitchenStaffFactory', 'orderingService',
+    ['$translate', '$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'kitchenStaffFactory', 'orderingService',
         'notificationFactory', 'ErrorFactory', 'staffOrderingUtilities', 'baseUrl', 'commonFactory', 'setMenuFactory','foodMenuUtilities',
-        function ($translate, $scope, $route, $timeout, $modal, kitchenStaffFactory, orderingService,
+        function ($translate, $scope, $route, $timeout, $modal,orderingFactory, kitchenStaffFactory, orderingService,
             notificationFactory, ErrorFactory, staffOrderingUtilities, baseUrl, commonFactory, setMenuFactory, foodMenuUtilities) {
 	$scope.getMessage = function () {
 		$translate('ConfirmMessageSaveOrder').then(function (message) {
@@ -38,9 +38,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 	** Declare variables.
 	*/
 	$scope.typeOrder = {
-		newOrder: 0,
-		savedOrder: 1,
-		sideDishOrder: 2
+		newOrder: 0
 	};
 
 	$scope.orderStatus = {
@@ -54,22 +52,24 @@ kitchenStaffModule.controller("KitchenStaffController",
 
 	$scope.getMessage();
 	$scope.newOrder = [];
-	$scope.savedOrder = [];
 	$scope.myOrder = [];
 	$scope.searchNewMember = '';
 	$scope.searchSavedMember = '';
 	$scope.searchSideDishMember = '';
 
 	var getEmployee = function (keyword) {
-		return kitchenStaffFactory.getEmployees(keyword);
+		return orderingFactory.getEmployees(keyword);
             };
     var startDate = new Date();
+	var onDate = new Date();
     $scope.filter = {
         startDate: new Date(startDate),
+		onDate: new Date(onDate)
     };        
 
     $scope.calendar = {
-        startDateOpened: false
+        startDateOpened: false,
+		endDateOpened: false
         };
 
     /*
@@ -77,6 +77,10 @@ kitchenStaffModule.controller("KitchenStaffController",
     */
     $scope.openPopupStartDate = function ($event) {
         commonFactory.openPopupStartDate($event, $scope);
+    };
+
+	$scope.openPopupEndDate = function ($event) {
+        commonFactory.openPopupEndDate($event, $scope);
     };
 
 
@@ -90,19 +94,18 @@ kitchenStaffModule.controller("KitchenStaffController",
 	** Get Order Status.
 	*/
 	kitchenStaffFactory.getOrderStatusEnum().success(function (orderStatuses) {
-		$scope.orderStatusesOptions = orderStatuses;
-		setDefaultStatus($scope.orderStatusesOptions);
-	}).error(function (response, status) {
-		ErrorFactory.errorHandle(status);
-	});
-
-	var setDefaultStatus = function (orderStatuses) {
+		var deliveredOption =[];
 		angular.forEach(orderStatuses, function (status) {
 			if (status.Value === $scope.orderStatus.Delivered ) {
 				status.ticked = true;
+				deliveredOption.push(status);
 			}
 		});
-	};
+		$scope.orderStatusesOptions = deliveredOption;
+
+	}).error(function (response, status) {
+		ErrorFactory.errorHandle(status);
+	});
 
     /*
     ** Get Set Menu bu Menu Id.
@@ -139,30 +142,6 @@ kitchenStaffModule.controller("KitchenStaffController",
 		}
 	};
 
-	$scope.getSavedEmployee = function () {
-		return getEmployee($scope.searchSavedMember);
-	};
-
-	$scope.unSelectSavedEmployee = function () {
-		if ($scope.searchSavedMember.trim() === '') {
-			if ($scope.savedMember && $scope.savedMember.employee) {
-				$scope.savedMember.employee = null;
-			}
-		}
-	};
-
-	$scope.getSideDishEmployee = function () {
-		return getEmployee($scope.searchSideDishMember);
-	};
-
-	$scope.unSelectSideDishEmployee = function () {
-		if ($scope.searchSideDishMember.trim() === '') {
-			if ($scope.sideDishMember && $scope.sideDishMember.employee) {
-				$scope.sideDishMember.employee = null;
-			}
-		}
-	};
-
 	var orderSignalR = $.connection.order;
 	$scope.sendNewOrder = function (orderId) {
 		orderSignalR.server.sendNewOrder(orderId);
@@ -195,7 +174,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 				}
 			}
 
-			data = kitchenStaffFactory.sortOrderIdByDesc(order, data);
+			data = staffOrderingUtilities.sortOrderIdByDesc(order, data);
 			orderingService.setMyOrder(data);
 			$scope.$apply();
 		}
@@ -248,10 +227,10 @@ kitchenStaffModule.controller("KitchenStaffController",
 				}
 			}
 
-			data = kitchenStaffFactory.sortOrderIdByDesc(order, data);
+			data = staffOrderingUtilities.sortOrderIdByDesc(order, data);
 
 			// Check user can continue order or not
-			kitchenStaffFactory.getAddNewOrder()
+			orderingFactory.getAddNewOrder()
 			.success(function (data) {
                 if (data.RawIsAllowOrder) {
                     data.Members = [];
@@ -262,7 +241,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 				ErrorFactory.errorHandle(status);
 			});
 
-			kitchenStaffFactory.getMyOrder()
+			kitchenStaffFactory.getStaffOrder($scope.filter.onDate.toDateString())
 			.success(function (data) {
 				angular.forEach(data, function (order) {
 					order.Remarks = order.Remark ? order.Remark.split(",") : [];
@@ -326,7 +305,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 	});
 
 	$scope.loadData = function (callback) {
-		kitchenStaffFactory.getCurrentUser()
+		orderingFactory.getCurrentUser()
 		.success(function (data) {
 			$scope.currentUser = data;
 			orderingService.setCurrentUser(data);
@@ -335,7 +314,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 			ErrorFactory.errorHandle(status);
 		});
 
-		kitchenStaffFactory.getMyMenu()
+		orderingFactory.getMyMenu()
 		.success(function (data) {
 			$scope.menu = data;
 		})
@@ -361,33 +340,16 @@ kitchenStaffModule.controller("KitchenStaffController",
 			orderingService.setMemberNewOrder(data.Members);
 		};
 
-		var getSideDishOrder = function (data) {
-			var newMembers = [];
-
-			if (data.Members != null && data.Members.length > 0) {
-				var member = data.Members[0];
-				member.IsOrder = true;
-				member.Menus = [];
-				newMembers.push(member);
-			}
-
-			data.TakeAway = false;
-			data.Members = newMembers;
-			$scope.sideDishOrder = data;
-			orderingService.setMemberSideDishOrder(data.Members);
-		};
 
 		var getOrder = function (data) {
-			var newOrder = angular.copy(data),
-				sideDishOrder = angular.copy(data);
+			var newOrder = angular.copy(data);
 
 			getNewOrder(newOrder);
-			getSideDishOrder(sideDishOrder);
 		};
 
 		$scope.getDefaultForAddOrder = function (newOrderData) {
 			if (!newOrderData) {
-				kitchenStaffFactory.getAddNewOrder()
+				orderingFactory.getAddNewOrder()
 				.success(function (data) {
                     data.Members = [];
 					getOrder(data);
@@ -401,7 +363,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 			}
 		};
 
-		kitchenStaffFactory.getMyOrder()
+		kitchenStaffFactory.getStaffOrder($scope.filter.onDate.toDateString())
 			.success(function (data) {
 				angular.forEach(data, function (order) {
 					order.Remarks = order.Remark ? order.Remark.split(",") : [];
@@ -423,7 +385,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 				ErrorFactory.errorHandle(status);
 			});
 
-		kitchenStaffFactory.getLocation()
+		orderingFactory.getLocation()
 			.success(function (data) {
 				angular.forEach(data, function (value) {
 					if (value.LocationId === 31) {
@@ -459,9 +421,6 @@ kitchenStaffModule.controller("KitchenStaffController",
 				$scope.modalAddMemberInstance.dismiss('cancel');
 			}
 
-			if ($scope.modalConfirmAlternativeMenuInstance) {
-				$scope.modalConfirmAlternativeMenuInstance.dismiss('cancel');
-			}
 
 			if ($scope.modalInstance) {
 				$scope.modalInstance.dismiss('cancel');
@@ -529,16 +488,19 @@ kitchenStaffModule.controller("KitchenStaffController",
 		};
 
 
-		$scope.saveAddOrder = function (order, typeOrder) {
+		$scope.saveAddOrder = function (order, typeOrder, date) {
 			if (order.Location !== null) {
 				order.Location.LocationId = staffOrderingUtilities.getOrderLocation(typeOrder, $scope);
 			}
 
 			var selectedStatusId = staffOrderingUtilities.getStatusValue($scope.orderStatusesOptions);
 			order.StatusId = selectedStatusId;
+			order.OnDate = date.toDateString();
+			order.MealID = foodMenuUtilities.getMealId($scope.meals);
+
 
 			if ($scope.ValidateNewOrder(order)) {
-				kitchenStaffFactory.checkDeliveryAreaExist(order.Location.LocationId).success(function (isExisted) {
+				orderingFactory.checkDeliveryAreaExist(order.Location.LocationId).success(function (isExisted) {
 					if (isExisted === 'true') {
 						$scope.modalConfirmSaveOrderInstance = $modal.open({
 							templateUrl: baseUrl + 'Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
@@ -559,6 +521,11 @@ kitchenStaffModule.controller("KitchenStaffController",
 								notificationFactory.success("DataChangeSuccessfully");
 								$scope.sendNewOrder(response.orderId);
 								$scope.getDefaultForAddOrder();
+								kitchenStaffFactory.getStaffOrder(onDate.toDateString())
+									.success(function (data) {
+										$scope.myOrder = data;
+									});
+
 							}
 							else {
 								notificationFactory.error('', response.result.Message);
@@ -569,7 +536,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 							});
 						}, function () {
 						})['finally'](function () {
-							kitchenStaffFactory.resetSelectOrderLocation($scope);
+							orderingFactory.resetSelectOrderLocation($scope);
 							$scope.modalConfirmSaveOrderInstance = undefined;
 						});
 					}
@@ -580,6 +547,30 @@ kitchenStaffModule.controller("KitchenStaffController",
 					ErrorFactory.errorHandle(status);
 				});
 			}
+		};
+
+		$scope.queryOrder = function (onDate) {
+			kitchenStaffFactory.getStaffOrder(onDate.toDateString())
+			.success(function (data) {
+				angular.forEach(data, function (order) {
+					order.Remarks = order.Remark ? order.Remark.split(",") : [];
+
+					if (order.TakeAway) {
+						if (order.Remarks.length !== 0) {
+							order.Remarks.splice(0, 0, $scope.takeAway);
+						}
+						else {
+							order.Remarks.push($scope.takeAway);
+						}
+					}
+				});
+
+				orderingService.setMyOrder(data);
+				$scope.myOrder = data;
+			})
+			.error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
 		};
 
 		$scope.removeMember = function (index, memberId, typeOrder) {
@@ -609,8 +600,8 @@ kitchenStaffModule.controller("KitchenStaffController",
 		$scope.editOrder = function (orderId) {
 			if ($scope.locations.length > 0) {
 				$scope.modalEditOrderInstance = $modal.open({
-					templateUrl: baseUrl + 'src/app/Ordering/Templates/EditOrder.html',
-					controller: "EditOrderController",
+					templateUrl: baseUrl + 'src/app/KitchenStaff/Templates/EditOrder.html',
+					controller: "EditStaffOrderController",
 					backdrop: 'static',
 					resolve: {
 						orderId: function () {
@@ -753,76 +744,4 @@ kitchenStaffModule.controller("KitchenStaffController",
 		$scope.bindAction();
 	});
 
-} ]);
-
-kitchenStaffModule.controller('SelectSideDishController',
-['$scope', 'member', 'kitchenStaffFactory', '$modalInstance', 'ErrorFactory', 'notificationFactory',
-function ($scope, member, kitchenStaffFactory, $modalInstance, ErrorFactory, notificationFactory) {
-
-	$scope.member = member;
-	$scope.menus = $scope.member.Menus;
-
-	var updateSideDish = function (menus, sideDishes) {
-		angular.forEach(sideDishes, function (sideDish) {
-			var sideDishId = sideDish.FoodId;
-			sideDish.quantity = 1;
-
-			angular.forEach(menus, function (menu) {
-				if (menu.MenuId === sideDishId) {
-					sideDish.quantity = parseInt(menu.QuantityOrder);
-					sideDish.isOrder = true;
-				}
-			});
-		});
-	};
-
-	/*
-	** Get side dish by user Id.
-	*/
-	kitchenStaffFactory.getSideDishByUserId($scope.member.Member.UserId).success(function (sideDishes) {
-		$scope.sideDishes = sideDishes;
-		updateSideDish($scope.menus, $scope.sideDishes);
-	}).error(function (response, status) {
-		ErrorFactory.errorHandle(status);
-	});
-
-	/*
-	** Create menus from side dishes.
-	*/
-	var createMenusFromSideDishes = function (sideDishes) {
-		var menus = [];
-
-		angular.forEach(sideDishes, function (sideDish) {
-			if (sideDish.isOrder) {
-				var menu = {
-					MenuId: sideDish.FoodId,
-					MenuCode: sideDish.MenuCode,
-					NameVn: sideDish.FoodVnmName,
-					NameEN: sideDish.FoodEngName,
-					Name: sideDish.FoodEngName,
-					QuantityOrder: sideDish.quantity,
-					TotalAmount: sideDish.quantity * sideDish.Price
-				};
-
-				menus.push(menu);
-			}
-		});
-
-		return menus;
-	};
-
-	$scope.save = function () {
-		var menus = createMenusFromSideDishes($scope.sideDishes);
-
-		if (typeof menus !== undefined && menus.length > 0) {
-			$modalInstance.close(menus);
-		}
-		else {
-			notificationFactory.error("InvalidFoodItem");
-		}
-	};
-
-	$scope.cancel = function () {
-		$modalInstance.dismiss("cancel");
-	};
 } ]);
