@@ -1287,4 +1287,7 @@
   <data name="MenusNotTheSame" xml:space="preserve">
     <value>Menu's Not The Same, Please Select Same Menu.</value>
   </data>
+  <data name="DeliveredDate" xml:space="preserve">
+    <value>Delivered Date</value>
+  </data>
 </root>
