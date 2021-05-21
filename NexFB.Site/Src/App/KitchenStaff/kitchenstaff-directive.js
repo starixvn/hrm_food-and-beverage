@@ -72,7 +72,7 @@ kitchenStaffModule.directive('onChangeSelect', function () {
 			iElement.change(function () {
 				$(this).blur();
 			});
-			
+
 		}
 	};
 });
@@ -89,7 +89,7 @@ kitchenStaffModule.directive('changePlaceholder', ['$timeout', function (timer) 
 			timer(changePlaceHolder, 0);
 		}
 	};
-} ]);
+}]);
 
 kitchenStaffModule.directive('changePlaceholderMeal', ['$timeout', function (timer) {
 	return {
@@ -103,7 +103,7 @@ kitchenStaffModule.directive('changePlaceholderMeal', ['$timeout', function (tim
 			timer(changePlaceHolder, 0);
 		}
 	};
-} ]);
+}]);
 
 
 
