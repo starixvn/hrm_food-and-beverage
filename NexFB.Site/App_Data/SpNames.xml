@@ -350,9 +350,9 @@
     </Setting>
     <Setting Key="RPT_MonthMainDishByExpat" SpName="RPT_MonthMainDishByExpat" DbName="FBM" Plain="0">
     </Setting>
-    <Setting Key="RPT_MealForecastReport" SpName="RPT_MealForecast_Modify" DbName="FBM" Plain="0">
+    <Setting Key="RPT_MealForecastReport" SpName="RPT_MealForecast" DbName="FBM" Plain="0">
     </Setting>
-    <Setting Key="RPT_MealForecastDetailReport" SpName="RPT_MealForecastDetail_Modify" DbName="FBM" Plain="0">
+    <Setting Key="RPT_MealForecastDetailReport" SpName="RPT_MealForecastDetail" DbName="FBM" Plain="0">
       <Mapping DataField="ENGName" ObjectProperty="MenuEng" Class="MealForecastDetailModel" />
       <Mapping DataField="VNMName" ObjectProperty="MenuVie" Class="MealForecastDetailModel" />
       <Mapping DataField="MealId" ObjectProperty="MealID" Class="MealModel" />
