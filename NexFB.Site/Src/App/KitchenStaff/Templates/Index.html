@@ -1,10 +1,10 @@
 ﻿<div class="col-sm-12 content">
-    <div class="row sub-header col-sm-8">
+    <div class="row sub-header col-sm-12 col-lg-9">
         <ul class="breadcrumb list-inline pull-left">
 			<li class="current" data-translate="StaffOrders"></li>
         </ul>
     </div>
-        <div class="row list-group-item col-sm-8" clear-search-member-input>
+        <div class="row list-group-item col-sm-12 col-lg-9" clear-search-member-input>
             <div class="boxtitle" ng-box>
                 <span class="icon-newgroup"></span>
                 <label data-translate="CreateAnOrder">
@@ -13,50 +13,55 @@
             <div class="boxcontent" close-order-content>
                 <form class="row form-horizontal form-order order-group" role="form">
                     <div class="form-group">
-                        <label  class="control-label width-80 col-sm-1" data-translate="DeliveryArea">
+                        <label  class="control-label width-80 col-sm-2 col-lg-4" data-translate="DeliveryArea">
                         </label>
-                        <div class="staff-ordering col-sm-2">
+                        <div class="staff-ordering col-sm-2 col-lg-4">
                             <add-class-to-role-filter multi-select input-model="newOrderLocations" button-label="Name" helper-elements="all filter" change-placeholder
                                                     item-label="Name" tick-property="ticked" max-labels="1" selection-mode="single" class="multi-select delivery-area-ddl">
                             </add-class-to-role-filter>
                         </div>
-                        <label class="control-label width-80 col-sm-1" data-translate="Status" />
-                        <div class="staff-ordering col-sm-2">
+                        <label class="control-label width-80 col-sm-2 col-lg-4" data-translate="Status" />
+                        <div class="staff-ordering col-sm-2 col-lg-4">
                             <add-class-to-role-filter multi-select input-model="orderStatusesOptions" button-label="Name" helper-elements="all filter"
                                 is-disabled="true" item-label="Name" tick-property="ticked" max-labels="1" selection-mode="single" class="multi-select delivery-area-ddl">
                             </add-class-to-role-filter>
-                        </div>
-                        <label class="control-label width-80 col-sm-1" data-translate="Date" />
-                        <div class="staff-ordering col-sm-2">
-                            <input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup
-                                is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
-                            <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)" ></calendar-image>
                         </div>
                     </div>
                 </form>
                 <form class="row form-horizontal form-order order-group" role="form">
                     <div class="form-group">
-                        <label class="control-label required-meal width-80 col-sm-1" data-translate="Meal" />
-                        <div class="staff-ordering col-sm-2">
+                        <label class="control-label width-80 col-sm-2 col-lg-4" data-translate="Date" />
+                        <div class="staff-ordering col-sm-2 col-lg-4">
+                            <input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup
+                                is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
+                            <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)" ></calendar-image>
+                        </div>
+                        <label class="control-label required-meal width-80 col-sm-2 col-lg-4" data-translate="Meal" />
+                        <div class="staff-ordering col-sm-2 col-lg-4">
                             <add-class-to-role-filter multi-select input-model="meals" button-label="MealEngName" helper-elements="all filter" change-placeholder-meal
                                 item-label="MealEngName" tick-property="ticked" max-labels="1" selection-mode="single" >
                             </add-class-to-role-filter>
                         </div>
-                        <label class="control-label width-80 col-sm-1" data-translate="Member" />
-                        <div class="staff-ordering col-sm-2">
+                    </div>
+                </form>
+                <form class="row form-horizontal form-order order-group" role="form">
+                    <div class="form-group">
+                        <label class="control-label width-80 col-sm-2 col-lg-4" data-translate="Member" />
+                        <div class="staff-ordering col-sm-2 col-lg-4">
                             <input class="form-control txtMember" ng-model="searchNewMember"
                             placeholder="Enter full name or nick name" search-auto-complete search-employees="getNewEmployee()"
                             ng-change="unSelectNewEmployee()" employee="newMember.employee" name="txtEmployeeForNewOrder"
                             ng-enter="add(false)" />
                         </div>
-                        <a ng-click="add(filter)" class="button">
-                            <i class="glyphicon glyphicon-plus icon-plus">
+                        <div class="pull-right btn-add">
+                            <a ng-click="add(filter)" class="button pull-right"><i class="glyphicon glyphicon-plus icon-plus">
                             </i>
-                            <label data-translate="Add">
-                            </label>
-                        </a>
-                    </div>
-                </form>
+                                <label data-translate="Add">
+                                </label>
+                            </a>
+                        </div>
+                    </div> 
+                </form>      
                 <form class="row form-horizontal form-order order-group" role="form">
                     <div class="form-group">
                         

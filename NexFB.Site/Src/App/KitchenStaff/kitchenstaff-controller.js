@@ -669,15 +669,10 @@ kitchenStaffModule.controller("KitchenStaffController",
 									var isExisted = false;
 									var isNotSameMenu = false;
 
-									if (!member.IsAllowOrder) {
-										if (member.Menus && member.Menus[0].MenuId === -1) {
-											var memberNonMenuMessage = '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + member.Member.NickName,
-												message = $scope.noMenuAvailableWarning + memberNonMenuMessage;
-											notificationFactory.error("", message);
-										}
-										else {
-											notificationFactory.error("AddOverOrderMemberWarning");
-										}
+									if (member.Menus && member.Menus[0].MenuId === -1) {
+										var memberNonMenuMessage = '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + member.Member.NickName,
+											message = $scope.noMenuAvailableWarning + memberNonMenuMessage;
+										notificationFactory.error("", message);
 									}
 									else {
 										// User has order or user has order but change menu
