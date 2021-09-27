@@ -94,6 +94,23 @@ orderingModule.factory("orderingFactory",
 			checkDeliveryAreaExist: function (deliveryAreaId) {
 				return $http.get(baseUrl + 'api/DeliveryArea/CheckDeliveryAreaExist',
 					{ params: { deliveryAreaId: deliveryAreaId} });
+			},
+			getMemberNewOrderByAdmin: function (userId, mealId, onDate ) {
+                return $http.get(baseUrl + 'api/Ordering/GetMemberNewOrderByAdmin',
+					{
+                        params: {
+                            userId: userId,
+                            mealId: mealId,
+                            onDate: onDate
+                        }
+					}
+				);
+			},
+			adminEditOrder: function (order) {
+				return $http.put(baseUrl + 'api/Ordering/AdminUpdateOrder', order);
+			},
+			adminEditOrderSideDish: function (order) {
+				return $http.put(baseUrl + 'api/Ordering/AdminUpdateOrderSideDish', order);
 			}
 		};
 	} ]
@@ -129,6 +146,40 @@ orderingModule.factory('orderingUtilities', function () {
 		return resultMenu;
 	};
 
+	utilities.getSelectedStatus = function (orderStatusesOptions) {
+		var statusValue = '';
+
+		angular.forEach(orderStatusesOptions, function (status) {
+			if (status.ticked) {
+				statusValue = status.Value;
+			}
+		});
+
+		return statusValue;
+	};
+
+	utilities.getSelectedPlatform = function (orderPlatformOptions) {
+		var platformValue = 0;
+
+		angular.forEach(orderPlatformOptions, function (platform) {
+			if (platform.ticked) {
+				if(platform.Value === 1)
+				{
+					platformValue = 'W';
+				}
+				else if(platform.Value === 2){
+					platformValue = 'P';
+				}
+				else if(platform.Value === 3){
+					platformValue = 'P-U';
+				}
+			}
+		});
+
+		return platformValue;
+	};
+
+
 	utilities.sortOrderIdByDesc = function (order, orders) {
 		if (orders.length === 0) {
 			orders.push(order);
@@ -157,6 +208,46 @@ orderingModule.factory('orderingUtilities', function () {
 			value.ticked = false;
 
 			if (value.LocationId === locationId) {
+				value.ticked = true;
+			}
+		});
+	};
+
+	utilities.setEditStatus = function (orderStatuses, StatusId) {
+		angular.forEach(orderStatuses, function (value) {
+			value.ticked = false;
+
+			if (value.Value === StatusId) {
+				value.ticked = true;
+			}
+		});
+	};
+
+	utilities.setEditMeal = function (meals, MealID) {
+		angular.forEach(meals, function (value) {
+			value.ticked = false;
+
+			if (value.MealId === MealID) {
+				value.ticked = true;
+			}
+		});
+	};
+
+	utilities.setOrderPlatform = function (orderPlatformOptions, orderFrom) {
+		var orderFromNumber = 0;
+		if(orderFrom === 'W')
+		{
+			orderFromNumber = 1;
+		}
+		else if(orderFrom === 'P'){
+			orderFromNumber = 2;
+		}
+		else if(orderFrom === 'P-U'){
+			orderFromNumber = 3;
+		}
+		angular.forEach(orderPlatformOptions, function (value) {
+			value.ticked = false;
+			if (value.Value === orderFromNumber) {
 				value.ticked = true;
 			}
 		});

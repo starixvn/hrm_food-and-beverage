@@ -42,7 +42,7 @@ namespace NexFB.Site.Controllers.API
         /// <returns>The model meal ordering.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.KitchenStaffOrder, Policy = Policy.Read)]
-        public MealOrderingModel GetOrderNewOrderByStaff(int userId, int mealId, DateTime onDate)
+        public MealOrderingModel GetNewOrderByStaff(int userId, int mealId, DateTime onDate)
         {
             var criteria = new GetMemberNewOrderByStaffCriteria()
             {

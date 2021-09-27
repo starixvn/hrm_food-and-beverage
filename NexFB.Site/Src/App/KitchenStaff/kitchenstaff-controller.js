@@ -657,7 +657,7 @@ kitchenStaffModule.controller("KitchenStaffController",
 							notificationFactory.error('', $scope.foodMenuMealRequire);
 						}
 						else {
-							kitchenStaffFactory.getOrderNewOrderByStaff(userId, mealId, onDate)
+							kitchenStaffFactory.getNewOrderByStaff(userId, mealId, onDate)
 								.success(function (order) {
 									member.CurrentStatus = order.Status;
 

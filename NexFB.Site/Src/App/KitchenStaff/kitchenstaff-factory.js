@@ -4,8 +4,8 @@
 kitchenStaffModule.factory("kitchenStaffFactory",
 	['$http', 'baseUrl', function ($http, baseUrl) {
 		return {
-            getOrderNewOrderByStaff: function (userId, mealId, onDate ) {
-                return $http.get(baseUrl + 'api/KitchenStaff/GetOrderNewOrderByStaff',
+            getNewOrderByStaff: function (userId, mealId, onDate ) {
+                return $http.get(baseUrl + 'api/KitchenStaff/GetNewOrderByStaff',
 					{
                         params: {
                             userId: userId,

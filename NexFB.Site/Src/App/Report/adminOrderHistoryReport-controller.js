@@ -225,6 +225,33 @@ foodMenuUtilities, notificationFactory, groupControlFactory, $modal, baseUrl) {
         }
     };
 
+    $scope.showEditOrderDetail = function (orderId) {
+        if ($scope.locations.length > 0) {
+            $scope.modalOrderDetailInstance = $modal.open({
+                templateUrl: baseUrl + 'src/app/Report/Templates/adminOrderDetailEdit.html',
+                controller: "EditOrderController",
+                backdrop: 'static',
+                resolve: {
+                    orderId: function () {
+                        return orderId;
+                    },
+                    locations: function () {
+                        return angular.copy($scope.locations);
+                    },
+                    startTime: function () {
+                        return new Date();
+                    }
+                }
+            });
+
+            $scope.modalOrderDetailInstance.result.then(function () {
+            }, function () {
+            })['finally'](function () {
+                $scope.modalOrderDetailInstance = undefined;
+            });
+        }
+    };
+
     /*
     ** Get all locations.
     */

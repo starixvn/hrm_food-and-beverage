@@ -6,8 +6,10 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
     var generateDataBody = function (report, scope) {
         var createOrderDetail = function (currentCell) {
             var orderId = currentCell.Value;
-            var details = "<a class='order-detail glyphicon glyphicon-list-alt' href='javascript:;' order-detail-number ='" + orderId + "'></a>";
-
+            var details = "<div class='text-center admin-order-action'>"
+            details += "<a class='order-detail-edit glyphicon glyphicon-edit' href='javascript:;' order-detail-number ='" + orderId + "'></a>";
+            details += "<a class='order-detail glyphicon glyphicon-list-alt' href='javascript:;' order-detail-number ='" + orderId + "'></a>"
+            details += "</div>";
             return details;
         };
 
@@ -255,6 +257,11 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                 iElement.find('a.order-detail').on('click', function () {
                     var orderId = $(this).attr('order-detail-number');
                     scope.showOrderDetail(orderId);
+                });
+
+                iElement.find('a.order-detail-edit').on('click', function () {
+                    var orderId = $(this).attr('order-detail-number');
+                    scope.showEditOrderDetail(orderId);
                 });
 
                 iElement.find('a.btn-expand-meal-list').on('click', function () {

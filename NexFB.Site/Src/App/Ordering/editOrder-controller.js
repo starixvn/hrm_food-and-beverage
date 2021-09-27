@@ -2,10 +2,10 @@
 /*global orderingModule*/
 
 orderingModule.controller('EditOrderController',
-['$scope', '$modalInstance', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory',
-'orderId', 'locations', '$translate', 'commonFactory', 'ErrorFactory', 'orderingUtilities', 'startTime',
-function ($scope, $modalInstance, $modal, orderingFactory, orderingService, notificationFactory,
-	orderId, locations, $translate, commonFactory, ErrorFactory, orderingUtilities, startTime) {
+['$scope', '$modalInstance', '$modal', 'orderingFactory', 'orderingService', 'notificationFactory', 'foodMenuUtilities',
+'orderId', 'locations', '$translate', 'commonFactory', 'ErrorFactory', 'orderingUtilities', 'startTime', 'foodMenuFactory', 'reportFactory',
+function ($scope, $modalInstance, $modal, orderingFactory, orderingService, notificationFactory, foodMenuUtilities,
+	orderId, locations, $translate, commonFactory, ErrorFactory, orderingUtilities, startTime, foodMenuFactory, reportFactory) {
 
 	$scope.newMember = {};
 	$scope.alterEdit = {};
@@ -63,17 +63,57 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		$translate('NoMenuAvailableWarning').then(function (message) {
 			$scope.noMenuAvailableWarning = message;
 		});
+		$translate('MenusNotTheSame').then(function (message) {
+			$scope.menusNotTheSame = message;
+		});
 	};
 	$scope.getMessage();
 
 	$scope.locations = locations;
 	$(".ddlLocation").width($(".ddlLocationNew").width());
 
+	$scope.orderStatus = {
+        New: 1,
+        Accepted: 2,
+        Reduced: 3,
+        Delivered: 4,
+        Edited: 5,
+        Rejected: 6
+    };
+	
+
 	orderingFactory.getOrderById(orderId)
 		.success(function (data) {
 			$scope.order = data;
 			orderingService.setMemberEditOrder(data.Members);
 			orderingUtilities.setDefaultLocation($scope.locations, data.Location.LocationId);
+
+			reportFactory.getOrderStatusEnum().success(function (orderStatuses) {
+				$scope.orderStatusesOptions = orderStatuses;
+				orderingUtilities.setEditStatus(orderStatuses, data.Status.StatusId);
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
+	
+			foodMenuFactory.getAllMealTimesheet().success(function (meals) {
+				$scope.mealsOption = meals;
+				orderingUtilities.setEditMeal(meals, data.MealID);
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
+
+			reportFactory.getOrderPlatformEnum().success(function (orderPlatformOptions) {
+				var platforms = [];
+				angular.forEach(orderPlatformOptions, function (value) {
+					if(value.Value !== 0){
+						platforms.push(value);
+					}
+				});
+				$scope.orderPlatformOptions = platforms;
+				orderingUtilities.setOrderPlatform(platforms, data.OrderFrom);
+			}).error(function (response, status) {
+				ErrorFactory.errorHandle(status);
+			});
 
 			$scope.getStatusOrderMessage = function (order) {
 				var message = '';
@@ -244,6 +284,89 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		});
 	};
 
+	var adminSaveOrder = function (order) {
+		if (order.Location !== null) {
+			order.Location.LocationId = getOrderLocation();
+		}
+
+		order.StatusId = orderingUtilities.getSelectedStatus($scope.orderStatusesOptions);
+		order.MealID = foodMenuUtilities.getMealId($scope.mealsOption);
+		order.OrderFrom = orderingUtilities.getSelectedPlatform($scope.orderPlatformOptions);
+
+		orderingFactory.checkDeliveryAreaExist(order.Location.LocationId).success(function (isExisted) {
+			if (isExisted === 'true') {
+				$scope.modalConfirmSaveEditInstance = $modal.open({
+					templateUrl: '/Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
+					controller: "ModalConfirmController2",
+					backdrop: 'static',
+					resolve: {
+						content: function () {
+							return $scope.confirmMessageUpdateOrder;
+						}
+					},
+					windowClass: "modal-confirm-center1"
+				});
+
+				$scope.modalConfirmSaveEditInstance.result.then(function () {
+					orderingFactory.checkValidModifiedTime(startTime.toJSON(), order.OrderId)
+				.success(function (isTimeValid) {
+					if (isTimeValid === 'true') {
+
+						if (!order.IsSideDishOrder) {
+							orderingFactory.adminEditOrder(order).success(function (response) {
+								if (response.IsSuccessful) {
+									notificationFactory.success("DataChangeSuccessfully");
+									var returnObject = {
+										order: order,
+										isDeleted: false,
+										orderId: 0
+									};
+									$modalInstance.close(returnObject);
+								}
+								else {
+									notificationFactory.error('', response.Message);
+								}
+							})
+							.error(function (response, status) {
+								ErrorFactory.errorHandle(status);
+							});
+						}
+						else {
+							orderingFactory.adminEditOrderSideDish(order).success(function (response) {
+								if (response.IsSuccessful) {
+									notificationFactory.success("DataChangeSuccessfully");
+									var returnObject = {
+										order: order,
+										isDeleted: false,
+										orderId: 0
+									};
+									$modalInstance.close(returnObject);
+								}
+								else {
+									notificationFactory.error('', response.Message);
+								}
+							})
+							.error(function (response, status) {
+								ErrorFactory.errorHandle(status);
+							});
+						}
+					}
+					else if (isTimeValid === 'false') {
+						notificationFactory.error("OrderChangeWarning");
+					}
+				}).error(function (response, status) {
+					ErrorFactory.errorHandle(status);
+				});
+				});
+			}
+			else {
+				notificationFactory.error('DeliveryAreaNotExistError');
+			}
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
+	};
+
 	var validateNewOrder = function (order) {
 		var isValid = true;
 
@@ -273,6 +396,17 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 		}
 		else {
 			saveOrder(order);
+		}
+	};
+
+	$scope.adminSaveEditOrder = function (order) {
+		if (order.IsSideDishOrder) {
+			if (validateNewOrder(order)) {
+				adminSaveOrder(order);
+			}
+		}
+		else {
+			adminSaveOrder(order);
 		}
 	};
 
@@ -359,83 +493,165 @@ function ($scope, $modalInstance, $modal, orderingFactory, orderingService, noti
 			member.Member = newMember.employee;
 
 			if (!$scope.order.IsSideDishOrder) {
-				orderingFactory.getOrderNewOrder(member.Member.UserId)
-				.success(function (order) {
-					member.CurrentStatus = order.Status;
-
-					if (order.Members && order.Members.length > 0) {
-						member.Menus = order.Members[0].Menus;
-						member.IsAllowOrder = order.Members[0].IsAllowOrder;
-					}
-
-					var isExisted = false;
-
-					var editMembers = orderingService.getMemberEditOrder();
-					angular.forEach(editMembers, function (value) {
-						if (value.Member.UserId === member.Member.UserId) {
-							isExisted = true;
-						}
-					});
-
-					if (!isExisted) {
-						if (member.IsAllowOrder || (!member.IsAllowOrder && $scope.order.OrderId === order.OrderId)) {
-							editMembers.push(member);
-							orderingService.setMemberEditOrder(editMembers);
-						}
-						else if (!member.IsAllowOrder) {
-							if (member.Menus && member.Menus[0].MenuId === -1) {
-								var memberNonMenuMessage = '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + member.Member.NickName,
-									message = $scope.noMenuAvailableWarning + memberNonMenuMessage;
-								notificationFactory.error("", message);
-							}
-							else {
-								notificationFactory.error("AddOverOrderMemberWarning");
-							}
-						}
-					}
-					else {
-						notificationFactory.error('', $scope.warningMessageExistMember);
-					}
-				})
-				.error(function (response, status) {
-					ErrorFactory.errorHandle(status);
-				});
+				$scope.getNewOrder(member);
 			}
 			else {
-				orderingFactory.getOrderById($scope.order.OrderId).success(function (currentOrder) {
-					var isExistedInOrder = false;
-
-					angular.forEach(currentOrder.Members, function (rawMember) {
-						if (rawMember.Member.UserId === member.Member.UserId) {
-							isExistedInOrder = true;
-							member.Menus = rawMember.Menus;
-						}
-					});
-
-					var isExisted = false;
-					var editMembers = orderingService.getMemberEditOrder();
-
-					angular.forEach(editMembers, function (value) {
-						if (value.Member.UserId === member.Member.UserId) {
-							isExisted = true;
-						}
-					});
-					if (!isExisted) {
-						member.Menus = '';
-						editMembers.push(member);
-						orderingService.setMemberEditOrder(editMembers);
-					}
-					else {
-						notificationFactory.error('', $scope.warningMessageExistMember);
-					}
-				}).error(function (response, status) {
-					ErrorFactory.errorHandle(status);
-				});
+				$scope.getOrderById(member);
 			}
 
 			$('#txtEmployee').val('');
 			$scope.newMember = {};
 		}
+	};
+
+	$scope.addMemberByAdmin = function () {
+		var newMember = $scope.newMember;
+		var orderTimeFormat = moment($scope.order.OrderTime).format("DD MMM YYYY");
+		if (newMember && newMember.employee) {
+			var member = {
+				Member: '',
+				Menus: '',
+				IsOrder: true,
+				IsAllowOrder: false
+			};
+			member.Member = newMember.employee;
+
+			if (!$scope.order.IsSideDishOrder) {
+				$scope.getNewOrderByAdmin(member, orderTimeFormat);
+			}
+			else {
+				$scope.getOrderById(member);
+			}
+
+			$('#txtEmployee').val('');
+			$scope.newMember = {};
+		}
+	};
+
+	$scope.getNewOrderByAdmin = function (member, orderTimeFormat) {
+		var mealID = foodMenuUtilities.getMealId($scope.mealsOption);
+		orderingFactory.getMemberNewOrderByAdmin(member.Member.UserId, mealID, orderTimeFormat)
+		.success(function (order) {
+			member.CurrentStatus = order.Status;
+
+			if (order.Members && order.Members.length > 0) {
+				member.Menus = order.Members[0].Menus;
+				member.IsAllowOrder = order.Members[0].IsAllowOrder;
+			}
+
+			var isExisted = false;
+			var isNotSameMenu = false;
+
+			var editMembers = orderingService.getMemberEditOrder();
+			angular.forEach(editMembers, function (value) {
+				if (value.Member.UserId === member.Member.UserId) {
+					isExisted = true;
+				}
+				if (value.Menus[0].Name !== member.Menus[0].Name) {
+					isNotSameMenu = true;
+				}
+			});
+
+			if (isNotSameMenu) {
+				notificationFactory.error('', $scope.menusNotTheSame);
+			}
+			else if (!isExisted) {
+				if (member.IsAllowOrder || (!member.IsAllowOrder && $scope.order.OrderId === order.OrderId)) {
+					editMembers.push(member);
+					orderingService.setMemberEditOrder(editMembers);
+				}
+				else if (!member.IsAllowOrder) {
+					if (member.Menus && member.Menus[0].MenuId === -1) {
+						var memberNonMenuMessage = '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + member.Member.NickName,
+							message = $scope.noMenuAvailableWarning + memberNonMenuMessage;
+						notificationFactory.error("", message);
+					}
+					else {
+						notificationFactory.error("AddOverOrderMemberWarning");
+					}
+				}
+			}
+			else {
+				notificationFactory.error('', $scope.warningMessageExistMember);
+			}
+		})
+		.error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
+	};
+
+	$scope.getOrderById = function (member) {
+		orderingFactory.getOrderById($scope.order.OrderId).success(function (currentOrder) {
+			angular.forEach(currentOrder.Members, function (rawMember) {
+				if (rawMember.Member.UserId === member.Member.UserId) {
+					member.Menus = rawMember.Menus;
+				}
+			});
+
+			var isExisted = false;
+			var editMembers = orderingService.getMemberEditOrder();
+
+			angular.forEach(editMembers, function (value) {
+				if (value.Member.UserId === member.Member.UserId) {
+					isExisted = true;
+				}
+			});
+			if (!isExisted) {
+				member.Menus = '';
+				editMembers.push(member);
+				orderingService.setMemberEditOrder(editMembers);
+			}
+			else {
+				notificationFactory.error('', $scope.warningMessageExistMember);
+			}
+		}).error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
+	};
+
+
+	$scope.getNewOrder = function (member) {
+		orderingFactory.getOrderNewOrder(member.Member.UserId)
+		.success(function (order) {
+			member.CurrentStatus = order.Status;
+
+			if (order.Members && order.Members.length > 0) {
+				member.Menus = order.Members[0].Menus;
+				member.IsAllowOrder = order.Members[0].IsAllowOrder;
+			}
+
+			var isExisted = false;
+
+			var editMembers = orderingService.getMemberEditOrder();
+			angular.forEach(editMembers, function (value) {
+				if (value.Member.UserId === member.Member.UserId) {
+					isExisted = true;
+				}
+			});
+
+			if (!isExisted) {
+				if (member.IsAllowOrder || (!member.IsAllowOrder && $scope.order.OrderId === order.OrderId)) {
+					editMembers.push(member);
+					orderingService.setMemberEditOrder(editMembers);
+				}
+				else if (!member.IsAllowOrder) {
+					if (member.Menus && member.Menus[0].MenuId === -1) {
+						var memberNonMenuMessage = '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + member.Member.NickName,
+							message = $scope.noMenuAvailableWarning + memberNonMenuMessage;
+						notificationFactory.error("", message);
+					}
+					else {
+						notificationFactory.error("AddOverOrderMemberWarning");
+					}
+				}
+			}
+			else {
+				notificationFactory.error('', $scope.warningMessageExistMember);
+			}
+		})
+		.error(function (response, status) {
+			ErrorFactory.errorHandle(status);
+		});
 	};
 
 	/*

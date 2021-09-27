@@ -15,6 +15,7 @@ namespace NexFB.Services.Implement
     using NexFB.Core.Services;
     using NexFB.Core.Translator;
     using NexFB.Criteria.Ordering;
+    using NexFB.Criteria.StaffOrdering;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
     using NexFB.Repositories.Implement;
@@ -152,12 +153,41 @@ namespace NexFB.Services.Implement
             return result;
         }
 
+        public MealOrderingModel GetMemberNewOrderByAdmin(GetMemberNewOrderByStaffCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var order = new MealOrderingModel();
+            if (criteria.IsValid())
+            {
+                order = _orderRepository.GetMemberNewOrder(criteria);
+            }
+
+            if (order == null)
+            {
+                order = new MealOrderingModel();
+            }
+
+            return order;
+        }
+
         /// <summary>
         /// Function to update a order.
         /// </summary>
         /// <param name="criteria">Update Order Criteria.</param>
         /// <returns>Command Result.</returns>
         public CommandResult UpdateOrder(UpdateOrderCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var result = new CommandResult();
+            if (criteria.IsValid())
+            {
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
+        public CommandResult AdminUpdateOrder(AdminUpdateOrderCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             var result = new CommandResult();

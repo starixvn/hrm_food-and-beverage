@@ -12,6 +12,7 @@ namespace NexFB.Services.Interface
     using System.Collections.Generic;
     using NexFB.Core.Models;
     using NexFB.Criteria.Ordering;
+    using NexFB.Criteria.StaffOrdering;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
 
@@ -29,7 +30,11 @@ namespace NexFB.Services.Interface
 
         CommandResult InsertOrder(InsertOrderCriteria criteria);
 
+        MealOrderingModel GetMemberNewOrderByAdmin(GetMemberNewOrderByStaffCriteria criteria);
+
         CommandResult UpdateOrder(UpdateOrderCriteria criteria);
+
+        CommandResult AdminUpdateOrder(AdminUpdateOrderCriteria criteria);
 
         CommandResult DeleteOrder(DeleteOrderCriteria criteria);
 

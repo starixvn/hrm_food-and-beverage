@@ -19,6 +19,7 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Core.Models;
     using NexFB.Criteria.Ordering;
     using NexFB.Criteria.SideDishManagement;
+    using NexFB.Criteria.StaffOrdering;
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
     using NexFB.Models.SideDishManagement;
@@ -195,6 +196,42 @@ namespace NexFB.Site.Controllers.API
 
             CommandResult result = _orderService.InsertOrder(criteria);
             return new { result = result, orderId = criteria.OrderId };
+        }
+
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.AdminOrderHistoryReport, Policy = Policy.Read)]
+        public MealOrderingModel GetMemberNewOrderByAdmin(int userId, int mealId, DateTime onDate)
+        {
+            var criteria = new GetMemberNewOrderByStaffCriteria()
+            {
+                UserId = userId,
+                MealId = mealId,
+                OnDate = onDate
+            };
+
+            MealOrderingModel order = _orderService.GetMemberNewOrderByAdmin(criteria);
+            return order;
+        }
+
+        [HttpPut]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.AdminOrderHistoryReport, Policy = Policy.Read)]
+        public CommandResult AdminUpdateOrder(MealOrderingModel model)
+        {
+            var criteria = new AdminUpdateOrderCriteria()
+            {
+                OrderId = model.OrderId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now,
+                OrderTime = DateTime.Now,
+                LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
+                OrderFrom = model.OrderFrom,
+                MealID = model.MealID,
+                StatusID = model.StatusId,
+                Members = model.Members,
+            };
+
+            CommandResult result = _orderService.AdminUpdateOrder(criteria);
+            return result;
         }
 
         /// <summary>

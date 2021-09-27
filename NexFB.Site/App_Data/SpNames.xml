@@ -180,6 +180,8 @@
     </Setting>
     <Setting Key="MealOrder_Edit_RequestByWeb" SpName="MealOrder_Edit_RequestByWeb" DbName="FBM" Plain="0">
     </Setting>
+    <Setting Key="MealOrder_AdminEdit_RequestByWeb" SpName="MealOrder_AdminEdit_RequestByWeb" DbName="FBM" Plain="0">
+    </Setting>
     <Setting Key="MealOrder_Cancel_RequestByWeb" SpName="MealOrder_Cancel_RequestByWeb" DbName="FBM" Plain="0">
     </Setting>
     <Setting Key="GroupOrderUser_InsertMember" SpName="GroupOrderUser_InsertMember" DbName="FBM" Plain="0">
