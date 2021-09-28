@@ -244,6 +244,7 @@ foodMenuUtilities, notificationFactory, groupControlFactory, $modal, baseUrl) {
             });
 
             $scope.modalOrderDetailInstance.result.then(function () {
+                $scope.query($scope.filter);
             }, function () {
             })['finally'](function () {
                 $scope.modalOrderDetailInstance = undefined;
