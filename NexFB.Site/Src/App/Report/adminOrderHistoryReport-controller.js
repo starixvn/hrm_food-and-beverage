@@ -32,13 +32,14 @@ foodMenuUtilities, notificationFactory, groupControlFactory, $modal, baseUrl) {
         HasSideDish: 4
     };
 
+    $scope.joinStatus = $scope.orderStatus.New + ',' + $scope.orderStatus.Accepted + ',' + $scope.orderStatus.Reduced + ',';
     $scope.filter = {
         date: new Date(),
         userId: null,
         employeeMenu: 0,
         orderPlatform: 0,
         mealId: '',
-        statusId: $scope.orderStatus.Delivered + ',' + $scope.orderStatus.Edited,
+        statusId: $scope.joinStatus + $scope.orderStatus.Delivered + ',' + $scope.orderStatus.Edited + ',' + $scope.orderStatus.Rejected,
         isPagingCallback: false,
         startIndex: 0,
         itemsPerPage: 50
