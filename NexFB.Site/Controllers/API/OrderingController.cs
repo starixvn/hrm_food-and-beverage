@@ -362,6 +362,26 @@ namespace NexFB.Site.Controllers.API
             return result;
         }
 
+        [HttpPut]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.AdminOrderHistoryReport, Policy = Policy.Read)]
+        public CommandResult AdminUpdateOrderSideDish(MealOrderingModel model)
+        {
+            var criteria = new AdminUpdateOrderSideDishCriteria()
+            {
+                OrderId = model.OrderId,
+                ModifiedBy = this.CurrentUser.UserId,
+                ModifiedDate = DateTime.Now,
+                LocationId = (model.Location != null && model.Location.LocationId != 0) ? (int?)model.Location.LocationId : null,
+                OrderTime = DateTime.Now,
+                OrderFrom = model.OrderFrom,
+                Members = model.Members,
+                StatusID = model.StatusId,
+            };
+
+            CommandResult result = _orderService.AdminUpdateOrderSideDish(criteria);
+            return result;
+        }
+
         /// <summary>
         /// Check start time (the time when user open popup edit) must be greater than the last modified time of this order.
         /// </summary>

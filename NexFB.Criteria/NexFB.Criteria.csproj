@@ -141,6 +141,7 @@
     <Compile Include="MealTimeManagement\UpdateMealTimeCriteria.cs" />
     <Compile Include="Ordering\AddMemberCriteria.cs" />
     <Compile Include="Ordering\AdminUpdateOrderCriteria.cs" />
+    <Compile Include="Ordering\AdminUpdateOrderSideDishCriteria.cs" />
     <Compile Include="Ordering\GetAlternativeMenuByUserIdCriteria.cs" />
     <Compile Include="Ordering\GetLastMofifiedDateByOrderIdCriteria.cs" />
     <Compile Include="Ordering\InsertOrderSideDishCriteria.cs" />

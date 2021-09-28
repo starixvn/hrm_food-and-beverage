@@ -48,6 +48,8 @@ namespace NexFB.Services.Interface
 
         CommandResult UpdateOrderSideDish(UpdateOrderSideDishCriteria criteria);
 
+        CommandResult AdminUpdateOrderSideDish(AdminUpdateOrderSideDishCriteria criteria);
+
         MealOrderingModel GetLastModifiedDateByOrderId(GetLastMofifiedDateByOrderIdCriteria criteria);
 
         string TranslateRemark(string remark, string translatorAPIPath);

@@ -304,6 +304,19 @@ namespace NexFB.Services.Implement
             return result;
         }
 
+        public CommandResult AdminUpdateOrderSideDish(AdminUpdateOrderSideDishCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var result = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                result = Repository.Update(criteria);
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Get last modified date order Id.
         /// </summary>

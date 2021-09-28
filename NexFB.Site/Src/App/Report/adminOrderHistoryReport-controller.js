@@ -48,9 +48,7 @@ foodMenuUtilities, notificationFactory, groupControlFactory, $modal, baseUrl) {
 
     var setDefaultStatus = function (orderStatuses) {
         angular.forEach(orderStatuses, function (status) {
-            if (status.Value === $scope.orderStatus.Delivered || status.Value === $scope.orderStatus.Edited) {
-                status.ticked = true;
-            }
+            status.ticked = true;
         });
     };
 
