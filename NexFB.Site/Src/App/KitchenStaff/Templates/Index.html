@@ -1,240 +1,238 @@
 ﻿<div class="col-sm-12 content">
-    <div class="row sub-header col-sm-12 col-lg-9">
-        <ul class="breadcrumb list-inline pull-left">
-			<li class="current" data-translate="StaffOrders"></li>
-        </ul>
+    <div class="row table-title">
+		<label data-translate="StaffOrders"></label>
     </div>
-        <div class="row list-group-item col-sm-12 col-lg-9" clear-search-member-input>
-            <div class="boxtitle" ng-box>
-                <span class="icon-newgroup"></span>
-                <label data-translate="CreateAnOrder">
-                </label>
-            </div>
-            <div class="boxcontent" close-order-content>
-                <form class="row form-horizontal form-order order-group" role="form">
-                    <div class="form-group">
-                        <label  class="control-label width-80 col-sm-2 col-lg-4" data-translate="DeliveryArea">
-                        </label>
-                        <div class="staff-ordering col-sm-2 col-lg-4">
-                            <add-class-to-role-filter multi-select input-model="newOrderLocations" button-label="Name" helper-elements="all filter" change-placeholder
-                                                    item-label="Name" tick-property="ticked" max-labels="1" selection-mode="single" class="multi-select delivery-area-ddl">
-                            </add-class-to-role-filter>
-                        </div>
-                        <label class="control-label width-80 col-sm-2 col-lg-4" data-translate="Status" />
-                        <div class="staff-ordering col-sm-2 col-lg-4">
-                            <add-class-to-role-filter multi-select input-model="orderStatusesOptions" button-label="Name" helper-elements="all filter"
-                                is-disabled="true" item-label="Name" tick-property="ticked" max-labels="1" selection-mode="single" class="multi-select delivery-area-ddl">
-                            </add-class-to-role-filter>
-                        </div>
+    <div class="row list-group-item col-sm-12 col-lg-9" clear-search-member-input>
+        <div class="stafforder-box-title" ng-box>
+            <span class="icon-newgroup"></span>
+            <label data-translate="CreateAnOrder">
+            </label>
+        </div>
+        <div class="boxcontent" close-order-content>
+            <form class="row form-horizontal form-order order-group" role="form">
+                <div class="form-group">
+                    <label  class="control-label width-80 col-sm-2 col-lg-4" data-translate="DeliveryArea">
+                    </label>
+                    <div class="staff-ordering col-sm-2 col-lg-4">
+                        <add-class-to-role-filter multi-select input-model="newOrderLocations" button-label="Name" helper-elements="all filter" change-placeholder
+                                                item-label="Name" tick-property="ticked" max-labels="1" selection-mode="single" class="multi-select delivery-area-ddl">
+                        </add-class-to-role-filter>
                     </div>
-                </form>
-                <form class="row form-horizontal form-order order-group" role="form">
-                    <div class="form-group">
-                        <label class="control-label width-80 col-sm-2 col-lg-4" data-translate="Date" />
-                        <div class="staff-ordering col-sm-2 col-lg-4">
-                            <input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup
-                                is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
-                            <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)" ></calendar-image>
-                        </div>
-                        <label class="control-label required-meal width-80 col-sm-2 col-lg-4" data-translate="Meal" />
-                        <div class="staff-ordering col-sm-2 col-lg-4">
-                            <add-class-to-role-filter multi-select input-model="meals" button-label="MealEngName" helper-elements="all filter" change-placeholder-meal
-                                item-label="MealEngName" tick-property="ticked" max-labels="1" selection-mode="single" >
-                            </add-class-to-role-filter>
-                        </div>
+                    <label class="control-label width-80 col-sm-2 col-lg-4" data-translate="Status" />
+                    <div class="staff-ordering col-sm-2 col-lg-4">
+                        <add-class-to-role-filter multi-select input-model="orderStatusesOptions" button-label="Name" helper-elements="all filter"
+                            is-disabled="true" item-label="Name" tick-property="ticked" max-labels="1" selection-mode="single" class="multi-select delivery-area-ddl">
+                        </add-class-to-role-filter>
                     </div>
-                </form>
-                <form class="row form-horizontal form-order order-group" role="form">
-                    <div class="form-group">
-                        <label class="control-label width-80 col-sm-2 col-lg-4" data-translate="Member" />
-                        <div class="staff-ordering col-sm-2 col-lg-4">
-                            <input class="form-control txtMember" ng-model="searchNewMember"
-                            placeholder="Enter full name or nick name" search-auto-complete search-employees="getNewEmployee()"
-                            ng-change="unSelectNewEmployee()" employee="newMember.employee" name="txtEmployeeForNewOrder"
-                            ng-enter="add(false)" />
-                        </div>
-                        <div class="pull-right btn-add">
-                            <a ng-click="add(filter)" class="button pull-right"><i class="glyphicon glyphicon-plus icon-plus">
-                            </i>
-                                <label data-translate="Add">
-                                </label>
-                            </a>
-                        </div>
-                    </div> 
-                </form>      
-                <form class="row form-horizontal form-order order-group" role="form">
-                    <div class="form-group">
+                </div>
+            </form>
+            <form class="row form-horizontal form-order order-group" role="form">
+                <div class="form-group">
+                    <label class="control-label width-80 col-sm-2 col-lg-4" data-translate="Date" />
+                    <div class="staff-ordering col-sm-2 col-lg-4">
+                        <input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup
+                            is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
+                        <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)" ></calendar-image>
+                    </div>
+                    <label class="control-label required-meal width-80 col-sm-2 col-lg-4" data-translate="Meal" />
+                    <div class="staff-ordering col-sm-2 col-lg-4">
+                        <add-class-to-role-filter multi-select input-model="meals" button-label="MealEngName" helper-elements="all filter" change-placeholder-meal
+                            item-label="MealEngName" tick-property="ticked" max-labels="1" selection-mode="single" >
+                        </add-class-to-role-filter>
+                    </div>
+                </div>
+            </form>
+            <form class="row form-horizontal form-order order-group" role="form">
+                <div class="form-group">
+                    <label class="control-label width-80 col-sm-2 col-lg-4" data-translate="Member" />
+                    <div class="staff-ordering col-sm-2 col-lg-4">
+                        <input class="form-control txtMember" ng-model="searchNewMember"
+                        placeholder="Enter full name or nick name" search-auto-complete search-employees="getNewEmployee()"
+                        ng-change="unSelectNewEmployee()" employee="newMember.employee" name="txtEmployeeForNewOrder"
+                        ng-enter="add(false)" />
+                    </div>
+                    <div class="pull-right btn-add">
+                        <a ng-click="add(filter)" class="button pull-right"><i class="glyphicon glyphicon-plus icon-plus">
+                        </i>
+                            <label data-translate="Add">
+                            </label>
+                        </a>
+                    </div>
+                </div> 
+            </form>      
+            <form class="row form-horizontal form-order order-group" role="form">
+                <div class="form-group">
                         
-                    </div> 
-                </form>
-                    <table class="table table-bordered table-striped table-member">
-                        <thead>
-                            <tr>
-                                <th class="width-40" data-translate="SymbolCount">
-                                </th>
-                                <th data-translate="Member">
-                                </th>
-                                <th data-translate="Menu">
-                                </th>
-                                <th class="col-action" data-translate="Remove">
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="member in newOrder.Members">
-                                <td class="text-center">
-                                    {{$index + 1}}
-                                </td>
-                                <td>
-                                    <span>{{member.Member.NickName}}</span>
-                                </td>
-                                <td>
-									<div>
-										<span ng-show="member.IsAllowOrder || member.Menus[0].MenuId == -1">{{member.Menus[0].Name}}</span>
-									</div>
-                                </td>
-                                <td class="text-center">
-                                    <a href="javascript:;" ng-click="removeMember($index, member.Member.UserId, typeOrder.newOrder)"
-                                    class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
-                                </td>
-                            </tr>
-                            <tr ng-show="newOrder == '' || newOrder.Members == ''">
-                                <td class="empty-result" colspan="4" data-translate="EmptyResult"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="row form-inline form-order">
-                        <div class="form-group">
-                            <label data-translate="Remark">
-                            </label>
-                            <input ng-model="newOrder.Remark" type="text" class="txt-remark" maxlength="500" />
-                        </div>
-                        <div class="form-group">
-                            <label data-translate="Phone">
-                            </label>
-                            <input ng-model="newOrder.Phone" type="text" maxlength="50" class="txtPhone" />
-                        </div> 
-                    </div>
-                    <div class="row row-cust">
-                        <button ng-click="saveAddOrder(newOrder, typeOrder.newOrder, filter.startDate)" class="button btn-order" data-translate="Order">
-                        </button>
-                    </div>
-            </div>
-        </div>
-        <div class="col-sm-12 row list-group-item">
-            <div class="boxcontent">
-                <form class="form-inline" role="form">
-                    <div class="form-group on-date-filter">
-                        <label data-translate="DeliveredDate"></label>
-                        <input class="calendar-form-control" type="text" ng-model="filter.onDate" datepicker-popup
-                           is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
-                    <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+                </div> 
+            </form>
+                <table class="table table-bordered table-striped table-member">
+                    <thead>
+                        <tr>
+                            <th class="width-40" data-translate="SymbolCount">
+                            </th>
+                            <th data-translate="Member">
+                            </th>
+                            <th data-translate="Menu">
+                            </th>
+                            <th class="col-action" data-translate="Remove">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="member in newOrder.Members">
+                            <td class="text-center">
+                                {{$index + 1}}
+                            </td>
+                            <td>
+                                <span>{{member.Member.NickName}}</span>
+                            </td>
+                            <td>
+								<div>
+									<span ng-show="member.IsAllowOrder || member.Menus[0].MenuId == -1">{{member.Menus[0].Name}}</span>
+								</div>
+                            </td>
+                            <td class="text-center">
+                                <a href="javascript:;" ng-click="removeMember($index, member.Member.UserId, typeOrder.newOrder)"
+                                class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
+                            </td>
+                        </tr>
+                        <tr ng-show="newOrder == '' || newOrder.Members == ''">
+                            <td class="empty-result" colspan="4" data-translate="EmptyResult"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row form-inline form-order">
+                    <div class="form-group">
+                        <label data-translate="Remark">
+                        </label>
+                        <input ng-model="newOrder.Remark" type="text" class="txt-remark" maxlength="500" />
                     </div>
                     <div class="form-group">
-                        <input type="button" value="Submit" class="button" ng-click="queryOrder(filter.onDate)"/>
-                    </div>
-                </form>
-            </div>
+                        <label data-translate="Phone">
+                        </label>
+                        <input ng-model="newOrder.Phone" type="text" maxlength="50" class="txtPhone" />
+                    </div> 
+                </div>
+                <div class="row row-cust">
+                    <button ng-click="saveAddOrder(newOrder, typeOrder.newOrder, filter.startDate)" class="button btn-order" data-translate="Order">
+                    </button>
+                </div>
         </div>
-        <table class="row table table-bordered table-odering table-striped table-myorder">
-            <thead>
-                <tr>
-                    <th class="width-40" data-translate="SymbolCount">
-                    </th>
-                    <th class="width-120" data-translate="Status">
-                    </th>
-                    <th class="width-120" data-translate="OnDate">
-                    </th>
-                    <th class="width-150" data-translate="OrderPerson">
-                    </th>
-                    <th class="width-150" data-translate="Quantity">
-                    </th>
-                    <th class="width-120" data-translate="Member">
-                    </th>
-                    <th class="width-150" data-translate="MyMeal">
-                    </th>
-                    <th class="width-220" data-translate="DeliveryArea">
-                    </th>
-                    <th class="width-170" data-translate="Remark">
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="order in myOrder">
-                    <td class="text-center order-number">
-                        <b>{{order.OrderNo}}</b>
-                    </td>
-                    <td class="text-center">
-                        <br >
-                            <a class="lbl-delivered" href="javascript:;" ng-click="editOrder(order.OrderId)">
-                                {{order.Status.Name}} 
-                            </a>
-                        <br />
-                        <span>{{order.DeliverDateFormat}} </span>
-                    </td>
-                    <td class="text-center">
-                        <span>{{order.OnDateDeliver}} </span>
-                    </td>
-                    <td>
-                        <span tooltip="{{order.CreatorOrder.FullName}}">{{order.CreatorOrder.NickName}}
-                        </span>
-                    </td>
-                    <td>
-                    <span ng-show="order.MenuQuantity.length == 1">{{order.MenuQuantity[0].Quantity}} x "{{order.MenuQuantity[0].Menu.Name}}"</span>
-                    <div ng-show="order.MenuQuantity.length > 1">
-                        <ul class="list-order list-unstyled" ng-repeat="menu in order.MenuQuantity">
-                            <li>{{menu.Quantity}} x "{{menu.Menu.Name}}"</li>
+    </div>
+    <div class="col-sm-12 row list-group-item">
+        <div class="boxcontent">
+            <form class="form-inline" role="form">
+                <div class="form-group on-date-filter">
+                    <label data-translate="DeliveredDate"></label>
+                    <input class="calendar-form-control" type="text" ng-model="filter.onDate" datepicker-popup
+                        is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
+                <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+                </div>
+                <div class="form-group">
+                    <input type="button" value="Submit" class="button" ng-click="queryOrder(filter.onDate)"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="row table table-bordered table-odering table-striped table-myorder">
+        <thead>
+            <tr>
+                <th class="width-40" data-translate="SymbolCount">
+                </th>
+                <th class="width-120" data-translate="Status">
+                </th>
+                <th class="width-120" data-translate="OnDate">
+                </th>
+                <th class="width-150" data-translate="OrderPerson">
+                </th>
+                <th class="width-150" data-translate="Quantity">
+                </th>
+                <th class="width-120" data-translate="Member">
+                </th>
+                <th class="width-150" data-translate="MyMeal">
+                </th>
+                <th class="width-220" data-translate="DeliveryArea">
+                </th>
+                <th class="width-170" data-translate="Remark">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="order in myOrder">
+                <td class="text-center order-number">
+                    <b>{{order.OrderNo}}</b>
+                </td>
+                <td class="text-center">
+                    <br >
+                        <a class="lbl-delivered" href="javascript:;" ng-click="editOrder(order.OrderId)">
+                            {{order.Status.Name}} 
+                        </a>
+                    <br />
+                    <span>{{order.DeliverDateFormat}} </span>
+                </td>
+                <td class="text-center">
+                    <span>{{order.OnDateDeliver}} </span>
+                </td>
+                <td>
+                    <span tooltip="{{order.CreatorOrder.FullName}}">{{order.CreatorOrder.NickName}}
+                    </span>
+                </td>
+                <td>
+                <span ng-show="order.MenuQuantity.length == 1">{{order.MenuQuantity[0].Quantity}} x "{{order.MenuQuantity[0].Menu.Name}}"</span>
+                <div ng-show="order.MenuQuantity.length > 1">
+                    <ul class="list-order list-unstyled" ng-repeat="menu in order.MenuQuantity">
+                        <li>{{menu.Quantity}} x "{{menu.Menu.Name}}"</li>
+                    </ul>
+                </div>
+                </td>
+                <td class="text-center">
+                    <span class="lnk-member"><a href="javascript:;" ng-bind="order.MemberCount" ng-mouseover="showMember(order)"
+                        ng-mouseout="hideMember(order)" />
+                        <ul ng-show="order.IsShowMember" class="list-unstyled drop-menu">
+                            <li ng-repeat="member in order.Members"><span class="chevron-right "></span><span
+                                ng-bind="member.Member.NickName"></span></li>
                         </ul>
-                    </div>
-                    </td>
-                    <td class="text-center">
-                        <span class="lnk-member"><a href="javascript:;" ng-bind="order.MemberCount" ng-mouseover="showMember(order)"
-                            ng-mouseout="hideMember(order)" />
-                            <ul ng-show="order.IsShowMember" class="list-unstyled drop-menu">
-                                <li ng-repeat="member in order.Members"><span class="chevron-right "></span><span
-                                    ng-bind="member.Member.NickName"></span></li>
-                            </ul>
-                        </span>
-                    </td>
-                    <td>
-                        <span class="lnk-member">
-                            <a href="javascript:;" ng-show="order.MenuQuantity[0].Quantity > 1" ng-mouseover="showNameViet(order.Members[0].Menus[0], order)" 
-                                ng-mouseout="hideNameViet(order.Members[0].Menus[0], order)">
-                                {{order.MenuQuantity[0].Quantity}} x "{{order.Members[0].Menus[0].Name}}"
-                            </a>
-                            <ul ng-show="order.IsShowNameViet{{order.Members[0].Menus[0].MenuId}}" class="list-unstyled drop-menu">
-                                <li>
-                                    <span class="chevron-right"></span>
-                                    <span ng-bind="order.Members[0].Menus[0].NameVN"></span>
-                                </li>
-                            </ul>
-                            <a href="javascript:;" ng-show="order.MenuQuantity[0].Quantity == 1" ng-mouseover="showNameViet(order.Members[0].Menus[0], order)" 
-                                ng-mouseout="hideNameViet(order.Members[0].Menus[0], order)">
-                                {{order.Members[0].Menus[0].Name}}
-                            </a>
-                            <ul ng-show="order.IsShowNameViet{{order.Members[0].Menus[0].MenuId}}" class="list-unstyled drop-menu">
-                                <li>
-                                    <span class="chevron-right"></span>
-                                    <span ng-bind="order.Members[0].Menus[0].NameVN"></span>
-                                </li>
-                            </ul>
-                        </span>
-                    </td>
-                    <td>
-                        {{order.Location.Name}}
-                    </td>
-                    <td>
-                        <span ng-show="order.Remarks.length == 1" ng-bind="order.Remarks[0]">
-                        </span>
-                        <ul class="group-toggle-item" ng-show="order.Remarks.length > 1">
-                            <li ng-repeat="remark in order.Remarks" ng-bind="remark"></li>
+                    </span>
+                </td>
+                <td>
+                    <span class="lnk-member">
+                        <a href="javascript:;" ng-show="order.MenuQuantity[0].Quantity > 1" ng-mouseover="showNameViet(order.Members[0].Menus[0], order)" 
+                            ng-mouseout="hideNameViet(order.Members[0].Menus[0], order)">
+                            {{order.MenuQuantity[0].Quantity}} x "{{order.Members[0].Menus[0].Name}}"
+                        </a>
+                        <ul ng-show="order.IsShowNameViet{{order.Members[0].Menus[0].MenuId}}" class="list-unstyled drop-menu">
+                            <li>
+                                <span class="chevron-right"></span>
+                                <span ng-bind="order.Members[0].Menus[0].NameVN"></span>
+                            </li>
                         </ul>
-                    </td>
-                </tr>
-                <tr ng-show="myOrder == ''">
-                    <td class="empty-result" colspan="10" data-translate="NoMealOrder">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                        <a href="javascript:;" ng-show="order.MenuQuantity[0].Quantity == 1" ng-mouseover="showNameViet(order.Members[0].Menus[0], order)" 
+                            ng-mouseout="hideNameViet(order.Members[0].Menus[0], order)">
+                            {{order.Members[0].Menus[0].Name}}
+                        </a>
+                        <ul ng-show="order.IsShowNameViet{{order.Members[0].Menus[0].MenuId}}" class="list-unstyled drop-menu">
+                            <li>
+                                <span class="chevron-right"></span>
+                                <span ng-bind="order.Members[0].Menus[0].NameVN"></span>
+                            </li>
+                        </ul>
+                    </span>
+                </td>
+                <td>
+                    {{order.Location.Name}}
+                </td>
+                <td>
+                    <span ng-show="order.Remarks.length == 1" ng-bind="order.Remarks[0]">
+                    </span>
+                    <ul class="group-toggle-item" ng-show="order.Remarks.length > 1">
+                        <li ng-repeat="remark in order.Remarks" ng-bind="remark"></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr ng-show="myOrder == ''">
+                <td class="empty-result" colspan="10" data-translate="NoMealOrder">
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

@@ -23,6 +23,18 @@ kitchenStaffModule.factory("kitchenStaffFactory",
 					}
 				});
 			},
+			getEmployees: function (keyWord, departmentId, teamId, isShowDisable) {
+				return $http.get(baseUrl + 'api/Employee/GetEmployees',
+					{
+						params: {
+							keyWord: keyWord,
+							departmentId: departmentId,
+							teamId: teamId,
+							isShowDisable: isShowDisable
+						}
+					}
+				);
+			},
 			createOrder: function (order) {
 				return $http.post(baseUrl + 'api/KitchenStaff/InsertStaffOrder', order);
 			}, 

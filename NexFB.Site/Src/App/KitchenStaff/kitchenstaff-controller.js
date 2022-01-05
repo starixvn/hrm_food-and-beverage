@@ -58,7 +58,8 @@ kitchenStaffModule.controller("KitchenStaffController",
 			$scope.searchSideDishMember = '';
 
 			var getEmployee = function (keyword) {
-				return orderingFactory.getEmployees(keyword);
+				var allDeparmentIds = "1,2,3,4";
+				return kitchenStaffFactory.getEmployees(keyword, allDeparmentIds, null, true);
 			};
 			var startDate = new Date();
 			var onDate = new Date();
