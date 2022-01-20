@@ -1,26 +1,14 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Random.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.11.13">Created</change>
-// </history>
-
-namespace NexFB.Core.Security
+﻿namespace NexFB.Core.Security
 {
     using System.Security.Cryptography;
 
-    /// <summary>
-    /// Class Random.
-    /// </summary>
     public static class Random
     {
         #region Numeric
 
         public static string Numberic(int size)
         {
-            string numeric = "0123456789";
+            const string numeric = "0123456789";
             return RandomString(numeric, size);
         }
 
@@ -30,13 +18,13 @@ namespace NexFB.Core.Security
 
         public static string Alphabet(int size)
         {
-            string alphabet = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+            const string alphabet = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
             return RandomString(alphabet, size);
         }
 
         public static string AnyAlphabet(int size)
         {
-            string alphabet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~!@#$%&()<>?-+=\|/";
+            const string alphabet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~!@#$%&()<>?-+=\|/";
             return RandomString(alphabet, size);
         }
 
@@ -54,12 +42,6 @@ namespace NexFB.Core.Security
 
         #endregion
 
-        /// <summary>
-        /// Function to random string.
-        /// </summary>
-        /// <param name="allowChars">Allow Chars.</param>
-        /// <param name="size">Size of object.</param>
-        /// <returns>String value.</returns>
         private static string RandomString(string allowChars, int size)
         {
             int length = allowChars.Length;

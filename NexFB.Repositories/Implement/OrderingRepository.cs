@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="OrderingRepository.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.9.10">Created</change>
-// </history>
-
-namespace NexFB.Repositories.Implement
+﻿namespace NexFB.Repositories.Implement
 {
     using System.Collections;
     using System.Collections.Generic;
@@ -19,16 +10,8 @@ namespace NexFB.Repositories.Implement
     using NexFB.Models.Ordering;
     using NexFB.Repositories.Interface;
 
-    /// <summary>
-    /// Order Repository.
-    /// </summary>
     public class OrderingRepository : IOrderingRepository
     {
-        /// <summary>
-        /// Function to get menu in current meal by user id.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Current Menu.</returns>
         public Menu GetMenuByUserId(ICriteria criteria)
         {
             Menu menu = null;
@@ -51,13 +34,6 @@ namespace NexFB.Repositories.Implement
             return menu;
         }
 
-        /// <summary>
-        /// Function to get my orders in current day.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="userId">The user Id.</param>
-        /// <returns>List of MealOrderingModel.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public IList<MealOrderingModel> GetMyOrderByCurrentDay(ICriteria criteria, int userId)
         {
             IList<MealOrderingModel> orders = null;
@@ -77,7 +53,7 @@ namespace NexFB.Repositories.Implement
 
                     if (data != null)
                     {
-                        orders = CreateMealOrdering(orders, multi, data, userId);
+                        orders = CreateMealOrdering(multi, data, userId);
                     }
                 }
             }
@@ -85,12 +61,6 @@ namespace NexFB.Repositories.Implement
             return orders;
         }
 
-        /// <summary>
-        /// Function order by order id.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>MealOrdering Model.</returns>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public MealOrderingModel GetOrderById(ICriteria criteria)
         {
             MealOrderingModel order = null;
@@ -98,7 +68,7 @@ namespace NexFB.Repositories.Implement
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    List<MealOrderingModel> orders = multi.Read<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
+                    var orders = multi.Read<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
                         (od, e, s, m, l) =>
                         {
                             od.CreatorOrder = e;
@@ -115,7 +85,7 @@ namespace NexFB.Repositories.Implement
                         var ordersQuatity = multi.Read<MenuQuantityModel, dynamic, MenuQuantityModel>(
                         (q, m) =>
                         {
-                            q.Menu = new Menu()
+                            q.Menu = new Menu
                             {
                                 NameEN = m.MealENGName,
                                 NameVN = m.MealVNMName
@@ -156,22 +126,16 @@ namespace NexFB.Repositories.Implement
             return order;
         }
 
-        /// <summary>
-        /// Function to get member for new order.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>MealOrdering Model.</returns>
         public MealOrderingModel GetMemberNewOrder(ICriteria criteria)
         {
-            var order = new MealOrderingModel();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    order = multi.Read<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
+                    return multi.Read<MealOrderingModel, Employee, Status, Menu, Location, MealOrderingModel>(
                         (od, e, s, m, l) =>
                         {
-                            OrderMemberModel memberOrder = new OrderMemberModel()
+                            OrderMemberModel memberOrder = new OrderMemberModel
                             {
                                 IsOrder = s == null,
                                 Member = e,
@@ -192,15 +156,8 @@ namespace NexFB.Repositories.Implement
                         "SysId, CurrentStatusID, MenuID, LocationID").FirstOrDefault();
                 }
             }
-
-            return order;
         }
 
-        /// <summary>
-        /// Function to get member for new order.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>MealOrdering Model.</returns>
         public MealOrderingModel GetMemberSavedOrder(ICriteria criteria)
         {
             MealOrderingModel order = null;
@@ -219,7 +176,7 @@ namespace NexFB.Repositories.Implement
                         }
 
                         order.CurrentMenus.Add(m);
-                        var memberOrder = new OrderMemberModel()
+                        var memberOrder = new OrderMemberModel
                         {
                             IsOrder = od.RawIsAllowOrder ? od.IsOrder : false,
                             Member = e,
@@ -243,15 +200,9 @@ namespace NexFB.Repositories.Implement
             return order;
         }
 
-        /// <summary>
-        /// Function to get member from dynamic object.
-        /// </summary>
-        /// <param name="orderMember">Order Member Model.</param>
-        /// <param name="dynamicObject">Dynamic Object.</param>
-        /// <returns>OrderMember Model.</returns>
         private OrderMemberModel GetMember(OrderMemberModel orderMember, dynamic dynamicObject)
         {
-            var member = new Employee()
+            var member = new Employee
             {
                 UserId = dynamicObject.SysID,
                 NickName = dynamicObject.NickName,
@@ -280,26 +231,16 @@ namespace NexFB.Repositories.Implement
             return status;
         }
 
-        /// <summary>
-        /// Create meal ordering.
-        /// </summary>
-        /// <param name="orders">The list order.</param>
-        /// <param name="multipleData">The grid data.</param>
-        /// <param name="data">The data from database.</param>
-        /// <param name="userId">The user Id.</param>
-        /// <returns>The list Meal Ordering model.</returns>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private IList<MealOrderingModel> CreateMealOrdering(
-            IList<MealOrderingModel> orders,
             GridReader multipleData,
             IEnumerable<MealOrderingModel> data,
             int userId)
         {
-            orders = new List<MealOrderingModel>();
+            var orders = new List<MealOrderingModel>();
             var ordersQuantity = multipleData.Read<MenuQuantityModel, dynamic, MenuQuantityModel>(
             (q, m) =>
             {
-                q.Menu = new Menu()
+                q.Menu = new Menu
                 {
                     NameEN = m.MealENGName,
                     NameVN = m.MealVNMName
@@ -325,10 +266,7 @@ namespace NexFB.Repositories.Implement
                     {
                         if (order.OrderId == menu.OrderId)
                         {
-                            if (order.MenuQuantity == null)
-                            {
-                                order.MenuQuantity = new List<MenuQuantityModel>();
-                            }
+                            order.MenuQuantity = order.MenuQuantity ?? new List<MenuQuantityModel>();
 
                             order.MenuQuantity.Add(menu);
                         }
@@ -338,10 +276,7 @@ namespace NexFB.Repositories.Implement
 
                     foreach (OrderMemberModel member in membersOfCurrentOrder)
                     {
-                        if (order.Members == null)
-                        {
-                            order.Members = new List<OrderMemberModel>();
-                        }
+                        order.Members = order.Members ?? new List<OrderMemberModel>();
 
                         order.Members.Add(member);
 
@@ -358,12 +293,6 @@ namespace NexFB.Repositories.Implement
             return orders;
         }
 
-        /// <summary>
-        /// Group menus of same member.
-        /// </summary>
-        /// <param name="members">The enumerator members in order.</param>
-        /// <param name="orders">The list orders.</param>
-        /// <returns>The list member has group menu.</returns>
         private IList<OrderMemberModel> GroupMenusOfMember(
             IEnumerable<OrderMemberModel> members,
             IList<MealOrderingModel> orders)
@@ -401,11 +330,6 @@ namespace NexFB.Repositories.Implement
             return newMembers;
         }
 
-        /// <summary>
-        /// Get menu of member.
-        /// </summary>
-        /// <param name="dynamicObject">The dynamic object that get from database.</param>
-        /// <returns>The Menu model.</returns>
         private Menu GetMenuOfMember(dynamic dynamicObject)
         {
             var menu = new Menu()
@@ -423,11 +347,6 @@ namespace NexFB.Repositories.Implement
             return menu;
         }
 
-        /// <summary>
-        /// Check that order has side dish food item or not.
-        /// </summary>
-        /// <param name="members">The enumerator members.</param>
-        /// <returns>The boolean has side dish or not.</returns>
         private bool CheckOrderHasSideDish(IEnumerable<OrderMemberModel> members)
         {
             bool hasSideDish = false;

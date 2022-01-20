@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="BaseRepository.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/25/2014 9:36:43 AM">Created.</change>
-// </history>
-
-namespace NexFB.Core.Repositories
+﻿namespace NexFB.Core.Repositories
 {
     using System;
     using System.Collections;
@@ -20,9 +11,6 @@ namespace NexFB.Core.Repositories
     using NexFB.Core.Extensions;
     using NexFB.Core.Models;
 
-    /// <summary>
-    /// The base repository.
-    /// </summary>
     public class BaseRepository : IBaseRepository
     {
         public CommandResult Insert(ICriteria criteria, bool hasGetOutputParams = false)
@@ -40,12 +28,6 @@ namespace NexFB.Core.Repositories
             return ExecuteNonQuery(criteria, hasGetOutputParams);
         }
 
-        /// <summary>
-        /// Function to insert, update or delete.
-        /// </summary>
-        /// <param name="criteria">Criteria contains parameter throw stored procedure.</param>
-        /// <param name="hasGetOutputParams">Has get output parameters or no.</param>
-        /// <returns>Command Result.</returns>
         private CommandResult ExecuteNonQuery(ICriteria criteria, bool hasGetOutputParams = false)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -76,12 +58,7 @@ namespace NexFB.Core.Repositories
             };
         }
 
-        /// <summary>
-        /// Function to set new value from Hash table to Criteria.
-        /// </summary>
-        /// <param name="criteria">The Criteria.</param>
-        /// <param name="hash">The Hash table.</param>
-        private void SetValueForOutputProperty(ICriteria criteria, Hashtable hash)
+        private static void SetValueForOutputProperty(ICriteria criteria, Hashtable hash)
         {
             IEnumerable<PropertyInfo> properties = criteria.GetType().GetProperties().Where(
                 prop => Attribute.IsDefined(prop, typeof(OutputAttribute)));
@@ -90,7 +67,7 @@ namespace NexFB.Core.Repositories
             {
                 if (property.CanWrite)
                 {
-                    var value = hash[property.Name.ToLower()];
+                    var value = hash[property.Name.ToLowerInvariant()];
                     property.SetValue(criteria, value, null);
                 }
             }

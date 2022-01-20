@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Order.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.9.1">Created</change>
-// </history>
-
-namespace NexFB.Models.Kitchen
+﻿namespace NexFB.Models.Kitchen
 {
     using System;
     using System.Collections.Generic;
@@ -19,9 +10,6 @@ namespace NexFB.Models.Kitchen
     using NexFB.Core.Enums;
     using NexFB.Resources;
 
-    /// <summary>
-    /// Order Meal.
-    /// </summary>
     [Serializable]
     public class Order
     {
@@ -138,7 +126,7 @@ namespace NexFB.Models.Kitchen
                         display += sideDish.Sum(x => x.QuantityOrder).ToString() + WinFormMainResource.Snack;
                     }
 
-                    OrderMenu generalInfo = new OrderMenu()
+                    var generalInfo = new OrderMenu
                     {
                         MenuVnmName = WinFormMainResource.Total,
                         GeneralInfo = display

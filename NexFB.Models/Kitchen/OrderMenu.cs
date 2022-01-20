@@ -1,21 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="OrderMenu.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.9.3">Created</change>
-// </history>
-
-namespace NexFB.Models.Kitchen
+﻿namespace NexFB.Models.Kitchen
 {
     using System;
     using System.Globalization;
     using NexFB.Resources;
 
-    /// <summary>
-    /// Class Menu.
-    /// </summary>
     [Serializable]
     public class OrderMenu
     {
@@ -84,6 +72,7 @@ namespace NexFB.Models.Kitchen
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>")]
         public int DisplayRowHeight
         {
             get

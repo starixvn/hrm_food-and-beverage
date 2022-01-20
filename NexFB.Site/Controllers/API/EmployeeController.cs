@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="EmployeeController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.12.5">Created</change>
-// </history>
-
-namespace NexFB.Site.Controllers.API
+﻿namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
@@ -24,9 +15,6 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Web.Services.Implement;
     using NexFB.Web.Services.Interface;
 
-    /// <summary>
-    /// Employee controller.
-    /// </summary>
     public class EmployeeController : BaseController
     {
         private readonly IEmployeeService _employeeService;
@@ -43,14 +31,6 @@ namespace NexFB.Site.Controllers.API
             _webCommonService = webCommonService ?? new WebCommonService();
         }
 
-        /// <summary>
-        /// Gets the employees.
-        /// </summary>
-        /// <param name="keyWord">The key word.</param>
-        /// <param name="departmentId">The department identifier.</param>
-        /// <param name="teamId">The team identifier.</param>
-        /// <param name="isShowDisable">If set to <c>true</c> [is show disable].</param>
-        /// <returns>The employee data.</returns>
         [HttpGet]
         public IList<Employee> GetEmployees(string keyWord = "", string departmentId = "", string teamId = null, bool isShowDisable = false)
         {
@@ -93,11 +73,6 @@ namespace NexFB.Site.Controllers.API
             return users;
         }
 
-        /// <summary>
-        /// Function to insert special employee.
-        /// </summary>
-        /// <param name="model">The Special User.</param>
-        /// <returns>Command Result.</returns>
         [ApiAuthorize(FunctionKey = FBFunctionKey.SpecialEmployee, Policy = Policy.Host)]
         [HttpPost]
         public CommandResult InsertSpecialUser(SpecialUser model)
@@ -117,23 +92,18 @@ namespace NexFB.Site.Controllers.API
             return _employeeService.InsertSpecialUser(criteria);
         }
 
-        /// <summary>
-        /// Function to update special employee.
-        /// </summary>
-        /// <param name="model">The Special User.</param>
-        /// <returns>Command Result.</returns>
         [ApiAuthorize(FunctionKey = FBFunctionKey.SpecialEmployee, Policy = Policy.Host)]
         [HttpPut]
         public CommandResult UpdateSpecialUser(SpecialUser model)
         {
-            var criteria = new UpdateSpecialUserCriteria()
+            var criteria = new UpdateSpecialUserCriteria
             {
                 ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now,
                 UserId = model.UserId,
                 Code = model.Code,
                 NickName = model.NickName,
-                EmployeeCard = model.EmployeeCard == null ? string.Empty : model.EmployeeCard,
+                EmployeeCard = model.EmployeeCard ?? string.Empty,
                 DepartmentId = model.DepartmentId,
                 EmployeeTypeId = model.EmployeeType,
                 IsActive = model.IsActive
@@ -142,11 +112,6 @@ namespace NexFB.Site.Controllers.API
             return _employeeService.UpdateSpecialUser(criteria);
         }
 
-        /// <summary>
-        /// Function to update status of special employee.
-        /// </summary>
-        /// <param name="model">The Special User.</param>
-        /// <returns>Command Result.</returns>
         [ApiAuthorize(FunctionKey = FBFunctionKey.SpecialEmployee, Policy = Policy.Host)]
         [HttpPut]
         public CommandResult UpdateStatusSpecialUser(SpecialUser model)

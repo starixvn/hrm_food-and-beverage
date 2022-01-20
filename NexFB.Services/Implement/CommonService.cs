@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="CommonService.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/27/2014 10:13:58 AM">Created.</change>
-// </history>
-
-namespace NexFB.Services.Implement
+﻿namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -24,17 +15,8 @@ namespace NexFB.Services.Implement
     using NexFB.Models.UserControl;
     using NexFB.Services.Interface;
 
-    /// <summary>
-    /// The common service.
-    /// </summary>
     public class CommonService : BaseService, ICommonService
     {
-        /// <summary>
-        /// Get all role system.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="exceptSystemAdmin">Except system admin role.</param>
-        /// <returns>The enumerator Role System Model.</returns>
         public IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria, bool exceptSystemAdmin = false)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -46,7 +28,7 @@ namespace NexFB.Services.Implement
 
                 if (exceptSystemAdmin)
                 {
-                    RoleSystemModel systemAdminRole = roles.Where(x => x.RoleId == (int)RolesSystem.SA).First();
+                    RoleSystemModel systemAdminRole = roles.First(x => x.RoleId == (int)RolesSystem.SA);
                     roles.Remove(systemAdminRole);
                 }
             }
@@ -54,11 +36,6 @@ namespace NexFB.Services.Implement
             return roles;
         }
 
-        /// <summary>
-        /// Get all department.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator Department.</returns>
         public IEnumerable<Department> GetAllDepartment(GetAllDepartmentCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -72,11 +49,6 @@ namespace NexFB.Services.Implement
             return departments;
         }
 
-        /// <summary>
-        /// Get all team by company.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator Team model.</returns>
         public IEnumerable<Team> GetAllTeamByCompany(GetAllTeamByCompanyCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -90,11 +62,6 @@ namespace NexFB.Services.Implement
             return teams;
         }
 
-        /// <summary>
-        /// Get all meal timesheet.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator meal timesheet.</returns>
         public IEnumerable<MealTimesheet> GetAllMealTimesheet(GetMealTimesheetCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -108,11 +75,6 @@ namespace NexFB.Services.Implement
             return mealTimesheet;
         }
 
-        /// <summary>
-        /// Get all employee type.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator Employee Type model.</returns>
         public IEnumerable<EmployeeTypeModel> GetAllEmployeeType(GetAllEmployeeTypeCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");

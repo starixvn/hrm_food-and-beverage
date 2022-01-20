@@ -1,17 +1,7 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ApiAuthorizeAttribute.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/26/2014 10:09:46 AM">Created.</change>
-// </history>
-
-namespace NexFB.Web.Attributes
+﻿namespace NexFB.Web.Attributes
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Diagnostics.CodeAnalysis;
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
@@ -21,15 +11,11 @@ namespace NexFB.Web.Attributes
     using NexFB.Web.Services.Implement;
     using NexFB.Web.Services.Interface;
 
-    /// <summary>
-    /// API authorize attribute.
-    /// </summary>
     [AttributeUsage(AttributeTargets.All)]
-    [SuppressMessage("Microsoft.Design", "CA1019:DefineAccessorsForAttributeArguments", Justification = "Reviewed. Suppression is OK here.")]
     public sealed class ApiAuthorizeAttribute : AuthorizeAttribute
     {
         private string _functionKey;
-        private IWebCommonService _webCommonService;
+        private readonly IWebCommonService _webCommonService;
 
         public ApiAuthorizeAttribute()
             : this(null)
@@ -45,7 +31,7 @@ namespace NexFB.Web.Attributes
         {
             get
             {
-                return _functionKey != null ? _functionKey : string.Empty;
+                return _functionKey ?? string.Empty;
             }
 
             set
@@ -56,10 +42,6 @@ namespace NexFB.Web.Attributes
 
         public Policy Policy { get; set; }
 
-        /// <summary>
-        /// Authorization event handler.
-        /// </summary>
-        /// <param name="actionContext">HttpAction Context.</param>
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             UserSession currentUser = SessionManager.CurrentUser;
@@ -67,7 +49,6 @@ namespace NexFB.Web.Attributes
             if (currentUser != null)
             {
                 CheckUserPermission(actionContext);
-                return;
             }
             else
             {
@@ -87,10 +68,6 @@ namespace NexFB.Web.Attributes
             actionContext.Response = responseMessage;
         }
 
-        /// <summary>
-        /// Check user permission.
-        /// </summary>
-        /// <param name="actionContext">The action context.</param>
         private void CheckUserPermission(HttpActionContext actionContext)
         {
             Collection<ApiAuthorizeAttribute> attributes = actionContext.ActionDescriptor.GetCustomAttributes<ApiAuthorizeAttribute>();

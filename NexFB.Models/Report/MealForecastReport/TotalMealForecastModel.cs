@@ -1,19 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="TotalMealForecastModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2015/1/9">Created.</change>
-// </history>
-
-namespace NexFB.Models.Report.MealForecastReport
+﻿namespace NexFB.Models.Report.MealForecastReport
 {
     using System;
 
-    /// <summary>
-    /// The total meal forecast model.
-    /// </summary>
     [Serializable]
     public class TotalMealForecastModel
     {
@@ -26,7 +14,7 @@ namespace NexFB.Models.Report.MealForecastReport
         {
             get
             {
-                double efficiency = 0;
+                double efficiency;
                 if (ActualOrder < 0)
                 {
                     efficiency = -1;
@@ -39,7 +27,8 @@ namespace NexFB.Models.Report.MealForecastReport
                     }
                     else
                     {
-                        efficiency = Math.Round((double)ActualOrder / Registration * 100);
+                        const int Hundred = 100;
+                        efficiency = Math.Round((double)ActualOrder / Registration * Hundred);
                     }
                 }
 

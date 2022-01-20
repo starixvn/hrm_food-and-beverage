@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="MainDishesViewModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.10.16">Created</change>
-// </history>
-
-namespace NexFB.WinAppSmartCard.ViewModels
+﻿namespace NexFB.WinAppSmartCard.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -30,9 +21,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinAppSmartCard.ViewModels.Properties;
     using WPFMessageBoxCustomControl.Enums;
 
-    /// <summary>
-    /// Main Dishes ViewModel.
-    /// </summary>
     public class MainDishesViewModel : MainDishModelProperty
     {
         private static DispatcherTimer _digitalClockDispatcher = new DispatcherTimer();
@@ -66,11 +54,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         #region Public Methods
 
-        /// <summary>
-        /// Add Employee To Order List.
-        /// </summary>
-        /// <param name="employeeInfo">Employee Info.</param>
-        /// <param name="mainViewModel">Main ViewModel.</param>
         public void AddEmployeeOrderToList(Employee employeeInfo, MainViewModel mainViewModel)
         {
             MainViewModel = mainViewModel;
@@ -112,10 +95,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        ///  Display info for employee who has already ordered.
-        /// </summary>
-        /// <param name="employeeInLocal">Check employee is expat or local.</param>
         public void DisplayEmployeeHasAlreadyOrdered(bool employeeInLocal)
         {
             MainViewModel.ChangeLanguageAccordingToEmployeeType(employeeInLocal, true);
@@ -127,9 +106,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 {
                     //// Get latest order.
                     int maxValue = employeeOrders.Where(x => !x.IsSideDish).Max(x => x.OrderId);
-                    SCEmployeeOrder employeeOrder = employeeOrders.Where(x => x.OrderId == maxValue).FirstOrDefault();
+                    SCEmployeeOrder employeeOrder = employeeOrders.FirstOrDefault(x => x.OrderId == maxValue);
 
-                    var getOrderDetailsCriteria = new GetOrderDetailsCriteria() { OrderId = employeeOrder.OrderId };
+                    var getOrderDetailsCriteria = new GetOrderDetailsCriteria { OrderId = employeeOrder.OrderId };
                     Order order = KitchenService.GetOrderDetails(getOrderDetailsCriteria);
                     if (order != null)
                     {
@@ -168,10 +147,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Get alternative Food.
-        /// </summary>
-        /// <param name="employeeInfo">Employee Info.</param>
         public void GetAlternativeFood(Employee employeeInfo)
         {
             var getAlternativeFoodCriteria = new GetAlternativeFoodBySysIdCriteria() { SysId = employeeInfo.SysId };
@@ -179,7 +154,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
             if (alternativeFood != null)
             {
                 List<Food> foodMapping = Mapper.Map<List<FoodOrder>, List<Food>>(alternativeFood);
-                Food currentMainFood = new Food()
+                var currentMainFood = new Food
                 {
                     FoodId = int.MaxValue,
                     FoodVnmName = employeeInfo.MenuVnmName,
@@ -195,10 +170,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Process add data.
-        /// </summary>
-        /// <param name="employeeInfo">Employee Info.</param>
         public void ProcessAddDataInCurrentThread(Employee employeeInfo)
         {
             Application.Current.Dispatcher.BeginInvoke(
@@ -236,9 +207,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ScreenNotificationVisible = CommonResources.Visible;
         }
 
-        /// <summary>
-        /// Confirm Command.
-        /// </summary>
         public void ExecuteConfirmCommand()
         {
             if (ObservableListEmployee.Count == 0)
@@ -289,10 +257,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         #region Private Methods
 
-        /// <summary>
-        /// Remove employee from list.
-        /// </summary>
-        /// <param name="value">Employee sysId.</param>
         private void ExecuteRemoveEmployeeOrder(object value)
         {
             if (value != null)
@@ -300,7 +264,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 if (ObservableListEmployee.Count > 1)
                 {
                     int employeeSysId = (int)value;
-                    Employee employeeRemoved = ObservableListEmployee.Where(x => x.SysId == employeeSysId).SingleOrDefault();
+                    Employee employeeRemoved = ObservableListEmployee.SingleOrDefault(x => x.SysId == employeeSysId);
                     ObservableListEmployee.Remove(employeeRemoved);
                     if (employeeRemoved.SysId == OrderOwner.SysId)
                     {
@@ -324,10 +288,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Execute Edit Menu.
-        /// </summary>
-        /// <param name="value">The menu id.</param>
         private void ExecuteEditMenu(object value)
         {
             if (value != null)
@@ -336,7 +296,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 if (editOrderConfirm == WPFMessageBoxResult.Yes)
                 {
                     int employeeSysId = (int)value;
-                    Employee selectedEmployee = ObservableListEmployee.Where(x => x.SysId == employeeSysId).SingleOrDefault();
+                    Employee selectedEmployee = ObservableListEmployee.SingleOrDefault(x => x.SysId == employeeSysId);
                     ShowMenuList(selectedEmployee);
                 }
             }
@@ -354,22 +314,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
             TimerDigitalClock();
         }
 
-        /// <summary>
-        /// Display order info after ordered.
-        /// </summary>
-        /// <param name="employee">Selected Employee.</param>
         private void DisplayOrderedMeal(Employee employee)
         {
             if (employee.SelectedValueDropDown > 0 && employee.SelectedValueDropDown != int.MaxValue)
             {
-                if (MainViewModel.CurrentCulture == (int)LanguageLocalization.VietNamCulture)
-                {
-                    employee.DisplayNotifyMenuName = employee.ListAlternativeFood.Where(x => x.FoodId == employee.SelectedValueDropDown).SingleOrDefault().FoodVnmName;
-                }
-                else
-                {
-                    employee.DisplayNotifyMenuName = employee.ListAlternativeFood.Where(x => x.FoodId == employee.SelectedValueDropDown).SingleOrDefault().FoodEngName;
-                }
+                employee.DisplayNotifyMenuName = MainViewModel.CurrentCulture == (int)LanguageLocalization.VietNamCulture
+                    ? employee.ListAlternativeFood.SingleOrDefault(x => x.FoodId == employee.SelectedValueDropDown).FoodVnmName
+                    : employee.ListAlternativeFood.SingleOrDefault(x => x.FoodId == employee.SelectedValueDropDown).FoodEngName;
             }
             else
             {
@@ -396,11 +347,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             _digitalClockDispatcher.Start();
         }
 
-        /// <summary>
-        /// Timer click.
-        /// </summary>
-        /// <param name="sender">Object sender.</param>
-        /// <param name="e">Event Arguments.</param>
         private void TimerTick(object sender, EventArgs e)
         {
             CountDownTimer -= 1;
@@ -419,14 +365,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         private void ToggleSideMenu()
         {
-            if (this.ObservableListEmployee.Count > 1)
-            {
-                MainViewModel.SideButtonEnable = false;
-            }
-            else
-            {
-                MainViewModel.SideButtonEnable = true;
-            }
+            MainViewModel.SideButtonEnable = this.ObservableListEmployee.Count > 1 ? false : true;
         }
 
         private string AllowDeleteMemberInOrder()

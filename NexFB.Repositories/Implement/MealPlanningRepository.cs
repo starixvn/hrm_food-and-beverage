@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="MealPlanningRepository.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/2/2014 2:30:49 PM">Created.</change>
-// </history>
-
-namespace NexFB.Repositories.Implement
+﻿namespace NexFB.Repositories.Implement
 {
     using System;
     using System.Collections.Generic;
@@ -19,9 +10,6 @@ namespace NexFB.Repositories.Implement
     using NexFB.Models.SetMenuManagement;
     using NexFB.Repositories.Interface;
 
-    /// <summary>
-    /// The Meal Planning repository.
-    /// </summary>
     public class MealPlanningRepository : IMealPlanningRepository
     {
         private readonly ICommonRepository _commonRepository;
@@ -36,11 +24,6 @@ namespace NexFB.Repositories.Implement
             _commonRepository = commonRepository ?? new CommonRepository();
         }
 
-        /// <summary>
-        /// Get meal planning bu on date.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator Meal Planning model.</returns>
         public IEnumerable<MealPlanningModel> GetMealPlanningByOnDate(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -67,10 +50,7 @@ namespace NexFB.Repositories.Implement
                         mealPlanning.Menu.Meals = _commonRepository.GetMealsOfMenu(menuId, rawMeals, mealPlanning.Date);
                         mealPlanning.Menu.EmployeeTypes = _commonRepository.GetEmployeeTypeOfMenu(menuId, rawEmployeeTypes, mealPlanning.Date);
 
-                        if (mealPlanning.SetMenu == null)
-                        {
-                            mealPlanning.SetMenu = new SetMenuModel();
-                        }
+                        mealPlanning.SetMenu = mealPlanning.SetMenu ?? new SetMenuModel();
 
                         mealPlanning.SetMenu.FoodItems = GetFoodItemsOfSetMenu(menuId, mealPlanning.Date, rawFoodItems);
                     }
@@ -80,13 +60,6 @@ namespace NexFB.Repositories.Implement
             }
         }
 
-        /// <summary>
-        /// Get food items of menu.
-        /// </summary>
-        /// <param name="menuId">The menu ID.</param>
-        /// <param name="date"> The date to plan.</param>
-        /// <param name="rawFoodItems">The list food items from database.</param>
-        /// <returns>The list Food Item belong to current menu.</returns>
         private IList<FoodSetMenuModel> GetFoodItemsOfSetMenu(
             int menuId,
             DateTime date,

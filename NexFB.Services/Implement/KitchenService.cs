@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="KitchenService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.9.1">Created</change>
-// </history>
-
-namespace NexFB.Services.Implement
+﻿namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -21,12 +12,9 @@ namespace NexFB.Services.Implement
     using NexFB.Repositories.Interface;
     using NexFB.Services.Interface;
 
-    /// <summary>
-    /// Kitchen Service.
-    /// </summary>
     public class KitchenService : BaseService, IKitchenService
     {
-        private IKitchenRepository _kitchenRepository;
+        private readonly IKitchenRepository _kitchenRepository;
 
         public KitchenService()
             : this(null)
@@ -239,11 +227,6 @@ namespace NexFB.Services.Implement
             return alternativeFoods;
         }
 
-        /// <summary>
-        /// Insert order food.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>Order Result Model.</returns>
         public OrderResult InsertOrderFood(InsertOrderMealCriteria criteria)
         {
             OrderResult orderResult = new OrderResult();

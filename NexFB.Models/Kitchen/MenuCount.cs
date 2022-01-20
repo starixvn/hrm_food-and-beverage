@@ -1,17 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="MenuCount.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.12.2">Created</change>
-// </history>
-
-namespace NexFB.Models.Kitchen
+﻿namespace NexFB.Models.Kitchen
 {
-    /// <summary>
-    /// Menu Count.
-    /// </summary>
     public class MenuCount
     {
         public int MenuId { get; set; }
@@ -22,6 +10,7 @@ namespace NexFB.Models.Kitchen
 
         public string MenuEngName { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>")]
         public int DisplayRowHeight
         {
             get

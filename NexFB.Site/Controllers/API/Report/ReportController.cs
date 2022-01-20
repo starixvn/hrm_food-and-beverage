@@ -1,12 +1,3 @@
-// ----------------------------------------------------------------------
-// <copyright file="ReportController.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="11/5/2014 9:03:28 AM">Created.</change>
-// </history>
-
 namespace NexFB.Site.Controllers.API.Report
 {
     using System;
@@ -41,9 +32,6 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Web;
     using NexFB.Web.Attributes;
 
-    /// <summary>
-    /// The report controller.
-    /// </summary>
     public class ReportController : BaseController
     {
         private readonly IMonthlyMainDishReportService _monthlyMainDishReportService;
@@ -101,21 +89,6 @@ namespace NexFB.Site.Controllers.API.Report
             _monthlyMealsTotalAmountService = monthlyMealsTotalAmountService ?? new MonthlyMealTotalAmountService();
         }
 
-        /// <summary>
-        /// Get monthly main dish report local.
-        /// </summary>
-        /// <param name="reportDate">The report date.</param>
-        /// <param name="departmentId">The department Id.</param>
-        /// <param name="employeeTypeId">The employee type Id.</param>
-        /// <param name="teamId">The team Id.</param>
-        /// <param name="mealId">The meal Id.</param>
-        /// <param name="groupBy">The group by.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <param name="isPagingCallback">The is paging callback.</param>
-        /// <param name="isDebug">The is debug.</param>
-        /// <param name="isLocal">The is local.</param>
-        /// <returns>The report.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MonthlyMainDishReportPerMeal, Policy = Policy.Read)]
         public MonthlyLocalReportModel GetMonthlyMainDishReportLocal(
@@ -159,24 +132,6 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
-        /// <summary>
-        /// Get daily main dish report local.
-        /// </summary>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="orderCount">The order count.</param>
-        /// <param name="departmentId">The department Id.</param>
-        /// <param name="employeeTypeId">The employee type Id.</param>
-        /// <param name="teamId">The team Id.</param>
-        /// <param name="mealId">The meal Id.</param>
-        /// <param name="userId">The user Id.</param>
-        /// <param name="query">The query.</param>
-        /// <param name="isDebug">Is debug or not.</param>
-        /// <param name="isLocal">Is local or not.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The number items per page.</param>
-        /// <param name="isPagingCallback">The is paging callback.</param>
-        /// <returns>The report.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.DailyMainDishReport, Policy = Policy.Read)]
         public DailyMainDishReportModel GetDailyMainDishReport(
@@ -226,19 +181,6 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
-        /// <summary>
-        /// Gets the side dish report.
-        /// </summary>
-        /// <param name="fromDate">The From date.</param>
-        /// <param name="toDate">The To date.</param>
-        /// <param name="departmentId">The department identifier.</param>
-        /// <param name="teamIds">The team ids.</param>
-        /// <param name="employeeTypeIds">The employee type ids.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="sideDishItemIds">The side dish item ids.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>SideDishReportModel data.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.SideDishReport, Policy = Policy.Read)]
         public SideDishReportModel GetSideDishReport(
@@ -270,18 +212,6 @@ namespace NexFB.Site.Controllers.API.Report
             return reportData;
         }
 
-        /// <summary>
-        /// Get side dish summary report.
-        /// </summary>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="departmentId">The department Id.</param>
-        /// <param name="teamId">The team Id.</param>
-        /// <param name="employeeTypeId">The employee type Id.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The report.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.SideDishSummaryReport, Policy = Policy.Read)]
         public SideDishSummaryReportModel GetSideDishSummaryReport(
@@ -339,12 +269,6 @@ namespace NexFB.Site.Controllers.API.Report
             return _sideDishService.GetAllSideDish(criteria);
         }
 
-        /// <summary>
-        /// Gets the view menu report.
-        /// </summary>
-        /// <param name="mealId">The meal identifier.</param>
-        /// <param name="isVegetarian">The is vegetarian.</param>
-        /// <returns>ViewMenuReportModel data.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.ViewMenu, Policy = Policy.Read)]
         public ViewMenuReportModel GetViewMenuReport(
@@ -367,10 +291,6 @@ namespace NexFB.Site.Controllers.API.Report
             return reportData;
         }
 
-        /// <summary>
-        /// Get department by user role.
-        /// </summary>
-        /// <returns>The department Id.</returns>
         [HttpGet]
         public IEnumerable<Department> GetDepartmentByUserRole()
         {
@@ -411,20 +331,6 @@ namespace NexFB.Site.Controllers.API.Report
             return departments;
         }
 
-        /// <summary>
-        /// Get employee order history report.
-        /// </summary>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="orderBy">The order by.</param>
-        /// <param name="employeeMenu">The menu of employee.</param>
-        /// <param name="orderPlatform">The order platform.</param>
-        /// <param name="mealId">The meal Id.</param>
-        /// <param name="statusId">The status Id.</param>
-        /// <param name="isPagingCallback">The is paging call back.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The report.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.EmployeeOrderHistoricalReport, Policy = Policy.Read)]
         public EmployeeOrderHistoryReport GetEmployeeOrderHistoryReport(
@@ -451,7 +357,7 @@ namespace NexFB.Site.Controllers.API.Report
                 StatusId = statusId
             };
 
-            EmployeeOrderHistoryReport fullReport = null;
+            EmployeeOrderHistoryReport fullReport;
             GetOrderedByEnum();
             if (isPagingCallback)
             {
@@ -467,19 +373,6 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
-        /// <summary>
-        /// Get admin order history report.
-        /// </summary>
-        /// <param name="date">The report date.</param>
-        /// <param name="userId">The ID of users.</param>
-        /// <param name="employeeMenu">The menu of employee.</param>
-        /// <param name="orderPlatform">The order platform.</param>
-        /// <param name="mealId">The meal Id.</param>
-        /// <param name="statusId">The status Id.</param>
-        /// <param name="isPagingCallback">The is paging call back.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The report.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.AdminOrderHistoryReport, Policy = Policy.Read)]
         public AdminOrderHistoryReport GetAdminOrderHistoryReport(
@@ -505,7 +398,7 @@ namespace NexFB.Site.Controllers.API.Report
                 StatusId = statusId
             };
 
-            var fullReport = new AdminOrderHistoryReport();
+            AdminOrderHistoryReport fullReport;
             if (isPagingCallback)
             {
                 fullReport = SessionManager.Get<AdminOrderHistoryReport>(ReportConstant.AdminOrderHistoryReportSessionKey + criteria.UserId);
@@ -521,21 +414,6 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
-        /// <summary>
-        /// Monthly main dish per day report.
-        /// </summary>
-        /// <param name="reportDate">The report date.</param>
-        /// <param name="departmentId">The department Id.</param>
-        /// <param name="employeeTypeId">The employee Type Id.</param>
-        /// <param name="teamId">The team Id.</param>
-        /// <param name="workDay">The work day.</param>
-        /// <param name="groupBy">The is group by : employee or team.</param>
-        /// <param name="isDebug">The is debug.</param>
-        /// <param name="isLocal">The is local.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <param name="isPagingCallback">The is paging callback.</param>
-        /// <returns>The report.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MonthlyMainDishReportPerDay, Policy = Policy.Read)]
         public MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport(
@@ -562,8 +440,7 @@ namespace NexFB.Site.Controllers.API.Report
                 IsDebug = isDebug,
                 IsLocal = isLocal
             };
-            MonthlyMainDishPerDayModel fullReport = null;
-
+            MonthlyMainDishPerDayModel fullReport;
             if (isPagingCallback)
             {
                 fullReport = SessionManager.Get<MonthlyMainDishPerDayModel>(
@@ -580,18 +457,6 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
-        /// <summary>
-        /// Get Meal Forecast Report.
-        /// </summary>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="departmentId">The department Id.</param>
-        /// <param name="employeeTypeId">The employee Type Id.</param>
-        /// <param name="isVegetarian">The vegetarian type.</param>
-        /// <param name="isPagingCallback">The is paging call back.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The report.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealForecastReport, Policy = Policy.Read)]
         public MealForecastReportModel GetMealForecastReport(
@@ -604,7 +469,7 @@ namespace NexFB.Site.Controllers.API.Report
             int startIndex = 0,
             int itemsPerPage = 50)
         {
-            MealForecastReportModel fullReport = null;
+            MealForecastReportModel fullReport;
             if (isPagingCallback)
             {
                 fullReport = SessionManager.Get<MealForecastReportModel>(ReportConstant.MealForecastReportSessionKey + CurrentUser.UserId);
@@ -628,17 +493,6 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
-        /// <summary>
-        /// Get meal forecast detail report.
-        /// </summary>
-        /// <param name="date">The date selected.</param>
-        /// <param name="departmentId">The department Id.</param>
-        /// <param name="employeeTypeId">The employee Type Id.</param>
-        /// <param name="isVegetarian">The diet type.</param>
-        /// <param name="isPagingCallback">The is paging callback.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The report.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealForecastReport, Policy = Policy.Read)]
         public MealForecastDetailReport GetMealForecastDetailReport(
@@ -650,7 +504,7 @@ namespace NexFB.Site.Controllers.API.Report
             int startIndex = 0,
             int itemsPerPage = 50)
         {
-            MealForecastDetailReport fullReport = null;
+            MealForecastDetailReport fullReport;
             if (isPagingCallback)
             {
                 fullReport = SessionManager.Get<MealForecastDetailReport>(ReportConstant.MealForecastDetailReportSessionKey + CurrentUser.UserId);
@@ -686,7 +540,7 @@ namespace NexFB.Site.Controllers.API.Report
             int startIndex = 0,
             int itemsPerPage = 50)
         {
-            EmployeeRegistrationReportModel fullReport = null;
+            EmployeeRegistrationReportModel fullReport;
             if (isPagingCallback)
             {
                 fullReport = SessionManager.Get<EmployeeRegistrationReportModel>(ReportConstant.EmployeeRegistrationReportSessionKey + CurrentUser.UserId);
@@ -724,7 +578,7 @@ namespace NexFB.Site.Controllers.API.Report
             int startIndex = 0,
             int itemsPerPage = 50)
         {
-            EmployeeRegistrationReportModel fullReport = null;
+            EmployeeRegistrationReportModel fullReport;
             if (isPagingCallback)
             {
                 fullReport = SessionManager.Get<EmployeeRegistrationReportModel>(ReportConstant.EmployeeNonRegistrationReportSessionKey + CurrentUser.UserId);
@@ -749,10 +603,6 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
-        /// <summary>
-        /// Get Day Type list.
-        /// </summary>
-        /// <returns>The list object Day Type.</returns>
         [HttpGet]
         public List<object> GetDayType()
         {
@@ -771,10 +621,6 @@ namespace NexFB.Site.Controllers.API.Report
             return dayTypeList;
         }
 
-        /// <summary>
-        /// Get Ordered By ENUM.
-        /// </summary>
-        /// <returns>The list object Ordered By.</returns>
         [HttpGet]
         public List<object> GetOrderedByEnum()
         {
@@ -794,10 +640,6 @@ namespace NexFB.Site.Controllers.API.Report
             return orderedByList;
         }
 
-        /// <summary>
-        /// Get Order Platform ENUM.
-        /// </summary>
-        /// <returns>The list object Order Platform.</returns>
         [HttpGet]
         public List<object> GetOrderPlatformEnum()
         {
@@ -817,10 +659,6 @@ namespace NexFB.Site.Controllers.API.Report
             return orderPlatformList;
         }
 
-        /// <summary>
-        /// Get Order Status ENUM.
-        /// </summary>
-        /// <returns>The list object Order Status.</returns>
         [HttpGet]
         public List<object> GetOrderStatusEnum()
         {
@@ -843,10 +681,6 @@ namespace NexFB.Site.Controllers.API.Report
             return orderStatues;
         }
 
-        /// <summary>
-        /// Get Menu Type ENUM.
-        /// </summary>
-        /// <returns>The list object Menu Type.</returns>
         [HttpGet]
         public List<object> GetMenuTypeEnum()
         {

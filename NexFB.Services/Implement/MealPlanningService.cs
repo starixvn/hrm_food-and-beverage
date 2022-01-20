@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="MealPlanningService.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/2/2014 4:01:27 PM">Created.</change>
-// </history>
-
-namespace NexFB.Services.Implement
+﻿namespace NexFB.Services.Implement
 {
     using System;
     using System.Collections.Generic;
@@ -24,9 +15,6 @@ namespace NexFB.Services.Implement
     using NexFB.Repositories.Interface;
     using NexFB.Services.Interface;
 
-    /// <summary>
-    /// The Meal Planning service.
-    /// </summary>
     public class MealPlanningService : BaseService, IMealPlanningService
     {
         private readonly IMealPlanningRepository _mealPlanningRepository;
@@ -45,11 +33,6 @@ namespace NexFB.Services.Implement
             _commonService = commonService ?? new CommonService();
         }
 
-        /// <summary>
-        /// Get meal planning by on date.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator Meal Planning model.</returns>
         public IEnumerable<MealPlanningModel> GetMealPlanningByOnDate(GetAllMealPlanningByOnDateCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -74,11 +57,6 @@ namespace NexFB.Services.Implement
             return mealPlannings;
         }
 
-        /// <summary>
-        /// Insert meal planning.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The command result.</returns>
         public CommandResult InsertMealPlanning(InsertMealPlanningCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -92,11 +70,6 @@ namespace NexFB.Services.Implement
             return commandResult;
         }
 
-        /// <summary>
-        /// Update meal planning.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The command result.</returns>
         public CommandResult UpdateMealPlanning(UpdateMealPlanningCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -110,11 +83,6 @@ namespace NexFB.Services.Implement
             return commandResult;
         }
 
-        /// <summary>
-        /// Delete meal planning.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The command result.</returns>
         public CommandResult DeleteMealPlanning(DeleteMealPlanningCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -128,11 +96,6 @@ namespace NexFB.Services.Implement
             return commandResult;
         }
 
-        /// <summary>
-        /// Update meal planning.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The command result.</returns>
         public CommandResult ActivateMealPlanning(ActivateMealPlanningCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -146,11 +109,6 @@ namespace NexFB.Services.Implement
             return commandResult;
         }
 
-        /// <summary>
-        /// Get food items by on date.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator Food Item model.</returns>
         public IEnumerable<FoodItemModel> GetFoodByOnDate(GetFoodMealPlanningByOnDateCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -164,38 +122,28 @@ namespace NexFB.Services.Implement
             return foodItems;
         }
 
-        /// <summary>
-        /// Check meal planning is disabled or not.
-        /// </summary>
-        /// <param name="mealPlanning">The meal planning.</param>
-        /// <param name="isDisable">The meal planning is disabled or not.</param>
-        /// <param name="isCurrentMeal">The meal planning is current meal.</param>
         private void CheckDisableMealPlanning(MealPlanningModel mealPlanning, ref bool isDisable, ref bool isCurrentMeal)
         {
             if (mealPlanning.Date.Date < DateTime.Now.Date)
             {
                 isDisable = true;
             }
-            else if (mealPlanning.Date.Date == DateTime.Now.Date)
+            else
             {
-                int numberMeals = mealPlanning.Menu.Meals.Count;
-                MealModel firstMeal = numberMeals > 0 ? mealPlanning.Menu.Meals[0] : null;
-                MealModel lastMeal = numberMeals > 0 ? mealPlanning.Menu.Meals[numberMeals - 1] : null;
-
-                if (firstMeal != null)
+                if (mealPlanning.Date.Date == DateTime.Now.Date)
                 {
-                    CheckMealTimesheet(firstMeal, lastMeal, ref isDisable, ref isCurrentMeal);
+                    int numberMeals = mealPlanning.Menu.Meals.Count;
+                    MealModel firstMeal = numberMeals > 0 ? mealPlanning.Menu.Meals[0] : null;
+                    MealModel lastMeal = numberMeals > 0 ? mealPlanning.Menu.Meals[numberMeals - 1] : null;
+
+                    if (firstMeal != null)
+                    {
+                        CheckMealTimesheet(firstMeal, lastMeal, ref isDisable, ref isCurrentMeal);
+                    }
                 }
             }
         }
 
-        /// <summary>
-        /// Check meal timesheet.
-        /// </summary>
-        /// <param name="firstMeal">The first meal of current meal planning.</param>
-        /// <param name="lastMeal">The last meal of current meal planning.</param>
-        /// <param name="isDisable">The meal planning is disabled or not.</param>
-        /// <param name="isCurrentMeal">The meal planning is current meal.</param>
         private void CheckMealTimesheet(MealModel firstMeal, MealModel lastMeal, ref bool isDisable, ref bool isCurrentMeal)
         {
             var criteria = new GetMealTimesheetCriteria();
@@ -210,12 +158,6 @@ namespace NexFB.Services.Implement
             }
         }
 
-        /// <summary>
-        /// Get timesheet.
-        /// </summary>
-        /// <param name="mealTimesheets">All meal timesheets.</param>
-        /// <param name="meal">The meal of current meal planning.</param>
-        /// <returns>The meal timesheet.</returns>
         private MealTimesheet GetTimesheet(IEnumerable<MealTimesheet> mealTimesheets, MealModel meal)
         {
             foreach (MealTimesheet mealTimesheet in mealTimesheets)

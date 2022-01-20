@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CombinedDishesViewModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.12.11">Created</change>
-// </history>
-
-namespace NexFB.WinAppSmartCard.ViewModels
+﻿namespace NexFB.WinAppSmartCard.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -29,9 +20,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinAppSmartCard.ViewModels.Properties;
     using NexFB.WinAppSmartCard.Views;
 
-    /// <summary>
-    /// Combined Dishes ViewModel.
-    /// </summary>
     public class CombinedDishesViewModel : CombinedDishesProperty
     {
         private static DispatcherTimer _digitalClockDispatcher = new DispatcherTimer();
@@ -87,10 +75,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         #region private Methods
 
-        /// <summary>
-        /// Execute add side food popup.
-        /// </summary>
-        /// <param name="data">Current user id.</param>
         private void ExecuteAddSideFoodPopup(object data)
         {
             if (data != null)
@@ -98,7 +82,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 int itemNo = 1;
                 int sysId = (int)data;
                 int currentCulture = MainViewModel.CurrentCulture;
-                Employee selectedEmployee = ObservableListEmployee.Where(x => x.SysId == sysId).SingleOrDefault();
+                Employee selectedEmployee = ObservableListEmployee.SingleOrDefault(x => x.SysId == sysId);
                 CurrentEmployeeOrder = selectedEmployee;
                 List<Food> food = GetSideFoodBySysId(sysId);
 
@@ -115,11 +99,17 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 {
                     if (food != null && food.Count > 0)
                     {
-                        food.ForEach(x => { x.CurrentCulture = currentCulture; x.CurrentItemNo = itemNo; itemNo++; x.OwnerName = selectedEmployee.NickName; });
+                        food.ForEach(x =>
+                        {
+                            x.CurrentCulture = currentCulture;
+                            x.CurrentItemNo = itemNo;
+                            itemNo++;
+                            x.OwnerName = selectedEmployee.NickName;
+                        });
                         CurrentListSideFood = new ObservableCollection<Food>(food);
                         selectedEmployee.ListSideFood = food;
                         DisplayOrderInfoOfCurrentListSideDish(food);
-                        selectedEmployee.OriginalFood = selectedEmployee.ListSideFood.Select(x => new Food() { FoodId = x.FoodId, Quantity = x.Quantity }).ToList();
+                        selectedEmployee.OriginalFood = selectedEmployee.ListSideFood.Select(x => new Food { FoodId = x.FoodId, Quantity = x.Quantity }).ToList();
 
                         ShowSideFoodDialog();
                     }
@@ -131,25 +121,16 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Confirm order side dishes.
-        /// </summary>
-        /// <param name="data">Popup object.</param>
         private void ExecuteConfirmSideFoodPopup(object data)
         {
             ////Update general Order information
-            Employee employeeOrderInfo = ObservableListEmployee.Where(x => x.SysId == CurrentEmployeeOrder.SysId).SingleOrDefault();
+            Employee employeeOrderInfo = ObservableListEmployee.SingleOrDefault(x => x.SysId == CurrentEmployeeOrder.SysId);
             UpdateEmployeeOrderDetail(employeeOrderInfo, data);
         }
 
-        /// <summary>
-        /// Close popup side dish.
-        /// </summary>
-        /// <param name="data">Popup object.</param>
         private void ExecuteCloseSideFoodPopup(object data)
         {
-            Employee employeeOrderInfo = ObservableListEmployee.Where(x => x.SysId == CurrentEmployeeOrder.SysId).SingleOrDefault();
-
+            Employee employeeOrderInfo = ObservableListEmployee.SingleOrDefault(x => x.SysId == CurrentEmployeeOrder.SysId);
             if (employeeOrderInfo.ListSideFood != null && employeeOrderInfo.OriginalFood != null)
             {
                 foreach (var newItem in employeeOrderInfo.ListSideFood)
@@ -167,11 +148,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             UpdateEmployeeOrderDetail(employeeOrderInfo, data);
         }
 
-        /// <summary>
-        /// Update employee order details.
-        /// </summary>
-        /// <param name="employeeOrderInfo">Employee order info.</param>
-        /// <param name="data">Form data.</param>
         private void UpdateEmployeeOrderDetail(Employee employeeOrderInfo, object data)
         {
             int totalSideDishOrder = employeeOrderInfo.ListSideFood.Sum(x => x.Quantity);
@@ -201,22 +177,18 @@ namespace NexFB.WinAppSmartCard.ViewModels
             if (data != null)
             {
                 var foodId = (int)data;
-                Food selectedFoodItem = CurrentEmployeeOrder.ListSideFood.Where(x => x.FoodId == foodId).SingleOrDefault();
+                Food selectedFoodItem = CurrentEmployeeOrder.ListSideFood.SingleOrDefault(x => x.FoodId == foodId);
                 selectedFoodItem.Quantity = 0;
                 DisplayOrderInfoOfCurrentListSideDish(CurrentEmployeeOrder.ListSideFood);
             }
         }
 
-        /// <summary>
-        /// Delete employee from group.
-        /// </summary>
-        /// <param name="data">Employee sys id.</param>
         private void ExecuteDeleteEmployeeCommand(object data)
         {
             if (data != null)
             {
                 var sysId = (int)data;
-                Employee removedEmployee = ObservableListEmployee.Where(x => x.SysId == sysId).SingleOrDefault();
+                Employee removedEmployee = ObservableListEmployee.SingleOrDefault(x => x.SysId == sysId);
                 ObservableListEmployee.Remove(removedEmployee);
 
                 if (removedEmployee.SysId == OrderOwner.SysId)
@@ -236,16 +208,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
             MainViewModel.IsAllowChangeLanguage = this.ObservableListEmployee.Count < 2 && !CanTakeAway;
         }
 
-        /// <summary>
-        /// Execute reduce quantity of a side food.
-        /// </summary>
-        /// <param name="data">Side food id.</param>
         private void ExecuteSubQuantityCommand(object data)
         {
             if (data != null)
             {
                 var foodId = (int)data;
-                Food selectedFoodItem = CurrentEmployeeOrder.ListSideFood.Where(x => x.FoodId == foodId).SingleOrDefault();
+                Food selectedFoodItem = CurrentEmployeeOrder.ListSideFood.SingleOrDefault(x => x.FoodId == foodId);
                 if (selectedFoodItem != null)
                 {
                     selectedFoodItem.Quantity = selectedFoodItem.Quantity > 0 ? selectedFoodItem.Quantity -= 1 : 0;
@@ -254,16 +222,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Add more quantity for specific side food.
-        /// </summary>
-        /// <param name="data">Side food id.</param>
         private void ExecuteAddQuantityCommand(object data)
         {
             if (data != null)
             {
                 var foodId = (int)data;
-                Food selectedFoodItem = CurrentEmployeeOrder.ListSideFood.Where(x => x.FoodId == foodId).SingleOrDefault();
+                Food selectedFoodItem = CurrentEmployeeOrder.ListSideFood.SingleOrDefault(x => x.FoodId == foodId);
                 if (selectedFoodItem != null)
                 {
                     selectedFoodItem.Quantity += 1;
@@ -272,9 +236,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Save data to database.
-        /// </summary>
         private void ExecuteSaveOrderSideFood()
         {
             var mainDishes = new StringBuilder(ConstantValue.BeginRootTag);
@@ -324,10 +285,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Show notification view after order successful.
-        /// </summary>
-        /// <param name="result">OrderResult data.</param>
         private void PrepareDataNotificationView(OrderResult result)
         {
             MainViewModel.UpdateOrderOwnerInfoAfterOrderSuccessful();
@@ -350,23 +307,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
             ShowNotificationView();
         }
 
-        /// <summary>
-        /// Display order info after ordered.
-        /// </summary>
-        /// <param name="employee">Selected Employee.</param>
-        /// <param name="currentCulture">Current Culture.</param>
         private void DisplayOrderedMeal(Employee employee, int currentCulture)
         {
             if (employee.SelectedValueDropDown > 0 && employee.SelectedValueDropDown != int.MaxValue)
             {
-                if (currentCulture == (int)LanguageLocalization.VietNamCulture)
-                {
-                    employee.DisplayNotifyMenuName = employee.ListAlternativeFood.Where(x => x.FoodId == employee.SelectedValueDropDown).SingleOrDefault().FoodVnmName;
-                }
-                else
-                {
-                    employee.DisplayNotifyMenuName = employee.ListAlternativeFood.Where(x => x.FoodId == employee.SelectedValueDropDown).SingleOrDefault().FoodEngName;
-                }
+                employee.DisplayNotifyMenuName = currentCulture == (int)LanguageLocalization.VietNamCulture
+                    ? employee.ListAlternativeFood.SingleOrDefault(x => x.FoodId == employee.SelectedValueDropDown).FoodVnmName
+                    : employee.ListAlternativeFood.SingleOrDefault(x => x.FoodId == employee.SelectedValueDropDown).FoodEngName;
             }
             else
             {
@@ -401,11 +348,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Display total payment.
-        /// </summary>
-        /// <param name="foods">List side food.</param>
-        /// <returns>Data to display.</returns>
         private string DisplayTotalPayment(List<Food> foods)
         {
             CultureInfo culture = CultureInfo.GetCultureInfo("vi-VN");
@@ -413,11 +355,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             return totalPayment > 0 ? totalPayment.ToString("#,###", culture.NumberFormat) : "0";
         }
 
-        /// <summary>
-        /// Calculate payment.
-        /// </summary>
-        /// <param name="foods">List employee order foods.</param>
-        /// <returns>Value of payment.</returns>
         private decimal CalculatePayment(List<Food> foods)
         {
             decimal totalPayment = 0;
@@ -442,9 +379,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             TotalPayment = DisplayTotalPayment(food);
         }
 
-        /// <summary>
-        /// Display Invoice payment.
-        /// </summary>
         private void DisplayInvoicePayment()
         {
             int totalOrder = 0;
@@ -483,11 +417,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             _digitalClockDispatcher.Start();
         }
 
-        /// <summary>
-        /// Timer click.
-        /// </summary>
-        /// <param name="sender">Object sender.</param>
-        /// <param name="e">Event Arguments.</param>
         private void TimerTick(object sender, EventArgs e)
         {
             CountDownTimer -= 1;

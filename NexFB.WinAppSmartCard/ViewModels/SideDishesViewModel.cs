@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="SideDishesViewModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.10.16">Created</change>
-// </history>
-
-namespace NexFB.WinAppSmartCard.ViewModels
+﻿namespace NexFB.WinAppSmartCard.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -25,9 +16,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using NexFB.WinAppSmartCard.ViewModels.Properties;
 
-    /// <summary>
-    /// Side Dishes ViewModel.
-    /// </summary>
     public class SideDishesViewModel : SideDishModelProperty
     {
         private static DispatcherTimer _digitalClockDispatcher = new DispatcherTimer();
@@ -111,9 +99,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             return false;
         }
 
-        /// <summary>
-        /// Save data to database.
-        /// </summary>
         private void ExecuteSaveDataCommand()
         {
             HasSelectedFood = new List<int>();
@@ -174,17 +159,14 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         private void StartCloseTimer()
         {
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
+            var timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
             timer.Tick += (sender, e) => TimerTick(sender, e);
             timer.Start();
         }
 
-        /// <summary>
-        /// Timer tick count down.
-        /// </summary>
-        /// <param name="sender">Object sender.</param>
-        /// <param name="e">Event Args.</param>
         private void TimerTick(object sender, EventArgs e)
         {
             CountDownTimer -= 1;
@@ -198,9 +180,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Add new side dishes.
-        /// </summary>
         private void ExecuteAddFoodCommand()
         {
             var getSideFoodCriteria = new GetSideFoodBySysIdCriteria() { SysId = OrderOwner.SysId };
@@ -243,7 +222,11 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                         sideFoodData.DropDownChanged += new SideFood.OnDropDownValueChanged(GetPriceChanged);
 
-                        sideFoodData.ListSideFood.ForEach(x => { x.CurrentCulture = MainViewModel.CurrentCulture; x.CurrentItemNo = sideFoodData.OrderNo; });
+                        sideFoodData.ListSideFood.ForEach(x =>
+                        {
+                            x.CurrentCulture = MainViewModel.CurrentCulture;
+                            x.CurrentItemNo = sideFoodData.OrderNo;
+                        });
                         ObservableSideOrder.Add(sideFoodData);
                     }
                 }
@@ -252,11 +235,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Initialize data.
-        /// </summary>
-        /// <param name="orderOwner">Order owner.</param>
-        /// <param name="mainViewModel">Main view model.</param>
         private void InitializeSideFoodData(Employee orderOwner, MainViewModel mainViewModel)
         {
             if (OrderOwner == null)
@@ -281,11 +259,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             AddQuantityCommand = new RelayCommand((x) => CanExecuteAddQuantityCommand(), (y) => ExecuteAddQuantityCommand(y));
         }
 
-        /// <summary>
-        /// Method get price changed.
-        /// </summary>
-        /// <param name="sender">Object sender.</param>
-        /// <param name="e">Event arguments.</param>
         private void GetPriceChanged(object sender, EventArgs e)
         {
             if (sender != null)
@@ -301,23 +274,19 @@ namespace NexFB.WinAppSmartCard.ViewModels
             if (value != null)
             {
                 int orderNo = (int)value;
-                SideFood selectedItem = ObservableSideOrder.Where(x => x.OrderNo == orderNo).SingleOrDefault();
+                SideFood selectedItem = ObservableSideOrder.SingleOrDefault(x => x.OrderNo == orderNo);
                 selectedItem.Quantity += 1;
                 selectedItem.ChangedPrice = selectedItem.OriginalPrice * selectedItem.Quantity;
                 DisplayTotalPrice();
             }
         }
 
-        /// <summary>
-        /// Subtraction quantity.
-        /// </summary>
-        /// <param name="value">Current item id.</param>
         private void ExecuteSubQuantityCommand(object value)
         {
             if (value != null)
             {
                 int orderNo = (int)value;
-                SideFood selectedItem = ObservableSideOrder.Where(x => x.OrderNo == orderNo).SingleOrDefault();
+                SideFood selectedItem = ObservableSideOrder.SingleOrDefault(x => x.OrderNo == orderNo);
                 if (selectedItem.Quantity > 1)
                 {
                     selectedItem.Quantity -= 1;
@@ -328,16 +297,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Delete food from list.
-        /// </summary>
-        /// <param name="value">Current item id.</param>
         private void ExecuteDeleteFoodCommand(object value)
         {
             if (value != null)
             {
                 int orderNo = (int)value;
-                SideFood deletedItem = ObservableSideOrder.Where(x => x.OrderNo == orderNo).SingleOrDefault();
+                SideFood deletedItem = ObservableSideOrder.SingleOrDefault(x => x.OrderNo == orderNo);
                 ObservableSideOrder.Remove(deletedItem);
                 if (ObservableSideOrder.Count == 0)
                 {

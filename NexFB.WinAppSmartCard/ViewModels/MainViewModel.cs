@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="MainViewModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.10.17">Created</change>
-// </history>
-
-namespace NexFB.WinAppSmartCard.ViewModels
+﻿namespace NexFB.WinAppSmartCard.ViewModels
 {
     using System;
     using System.Configuration;
@@ -36,14 +27,10 @@ namespace NexFB.WinAppSmartCard.ViewModels
     using NexFB.WinAppSmartCard.GlobalResources.Services;
     using NexFB.WinAppSmartCard.ViewModels.Properties;
     using WPFMessageBoxCustomControl.Enums;
-    
-    /// <summary>
-    /// Main View Model.
-    /// </summary>
+
     public partial class MainViewModel : MainModelProperty
     {
         private static string _host = ConfigurationManager.AppSettings[ConstantValue.HubHost];
-        private static string _hostLocal = ConfigurationManager.AppSettings[ConstantValue.HubHostLocal];
         private static DispatcherTimer _dailyClockDispatcher = new DispatcherTimer();
         private ViewModelBase _currentViewModel;
 
@@ -271,9 +258,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             return IsAllowChangeLanguage;
         }
 
-        /// <summary>
-        /// Execute Command.
-        /// </summary>
         private void ExecuteMainDishesCommand()
         {
             if (OrderOwner == null)
@@ -308,9 +292,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Action when press button Select Main dish.
-        /// </summary>
         private void SelectMainDishAction()
         {
             IsMainDishTab = true;
@@ -354,9 +335,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             CheckCurrentViewModel();
         }
 
-        /// <summary>
-        /// Cancel dispatcher timer when user want to place new order.
-        /// </summary>
         private void CancelDispatcherTimer()
         {
             if (CurrentViewModel != null)
@@ -372,6 +350,9 @@ namespace NexFB.WinAppSmartCard.ViewModels
                         break;
                     case ConstantValue.CombinedDishesViewModel:
                         ((CombinedDishesViewModel)CurrentViewModel).CancelTimerDispatcher();
+                        break;
+                    default:
+                        // do nothing
                         break;
                 }
             }
@@ -392,9 +373,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         #region Private Methods
 
-        /// <summary>
-        /// Refresh data for language change.
-        /// </summary>
         private void CheckDataForLanguageChange()
         {
             string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
@@ -409,12 +387,12 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 case ConstantValue.CombinedDishesViewModel:
                     ((CombinedDishesViewModel)CurrentViewModel).CheckDataForLanguageChange();
                     break;
+                default:
+                    // do nothing
+                    break;
             }
         }
 
-        /// <summary>
-        /// Set Default Menu Color.
-        /// </summary>
         private void DefaulMenuColor()
         {
             MainDishesMenu.BackgroundColor = ConstantValue.MainDishesMenuColor;
@@ -426,9 +404,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             SideDishesMenu.FontWeight = ConstantValue.FontWeightNormal;
         }
 
-        /// <summary>
-        /// Check Current View Model.
-        /// </summary>
         private void CheckCurrentViewModel()
         {
             DefaulMenuColor();
@@ -448,9 +423,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Show main Screen or Standby screen.
-        /// </summary>
         private void CheckCurrentScreen()
         {
             if (string.IsNullOrEmpty(CurrentCardNumber))
@@ -465,10 +437,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Check Data before add to Main Screen.
-        /// </summary>
-        /// <param name="employeeData">Current employee info.</param>
         private void CheckDataToAddToGrid(EmployeeInfo employeeData)
         {
             if (employeeData != null)
@@ -516,20 +484,13 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
         private void ShowMessageCannotOrder(Employee employeeInfoMapping)
         {
-            if (employeeInfoMapping.MenuId == ConstantValue.NoMenuAvailableCode)
-            {
-                this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_NoMenu);
-            }
-            else
-            {
-                this.ShowErrorMessage(this.CurrentCulture, MainScreenResources.Message_AlreadyOrder);
-            }
+            this.ShowErrorMessage(
+                this.CurrentCulture,
+                employeeInfoMapping.MenuId == ConstantValue.NoMenuAvailableCode
+                    ? MainScreenResources.Message_NoMenu
+                    : MainScreenResources.Message_AlreadyOrder);
         }
 
-        /// <summary>
-        /// Process continue to add data when timer is tick.
-        /// </summary>
-        /// <param name="employeeData">Employee data.</param>
         private void AddDataWhenTimerLive(EmployeeInfo employeeData)
         {
             if (employeeData != null)
@@ -542,10 +503,6 @@ namespace NexFB.WinAppSmartCard.ViewModels
             }
         }
 
-        /// <summary>
-        /// Set Application Themes.
-        /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         private void SetApplicationThemes()
         {
             try
@@ -555,7 +512,7 @@ namespace NexFB.WinAppSmartCard.ViewModels
                 var currentDate = DateTime.Now.Date;
                 int currentYear = DateTime.Now.Year;
                 CultureInfo currentCulture = CultureInfo.CurrentCulture;
-                string xmlDateFormat = "dd/MM/yyyy";
+                const string xmlDateFormat = "dd/MM/yyyy";
 
                 xd.Load(Path.Combine(baseDirectory, "Themes.xml"));
                 XmlNodeList nodelist = xd.SelectNodes("/Theme/ImageTheme");

@@ -1,22 +1,12 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="MealForecastItemModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2015/1/8">Created.</change>
-// </history>
-
-namespace NexFB.Models.Report.MealForecastReport
+﻿namespace NexFB.Models.Report.MealForecastReport
 {
     using System;
 
-    /// <summary>
-    /// The meal forecast report history.
-    /// </summary>
     [Serializable]
     public class MealForecastItemModel
     {
+        private const int Hundred = 100;
+
         public DateTime OnDate { get; set; }
         public int NonRegistrationVegetarian { get; set; }
         public int NonRegistrationNonVegetarian { get; set; }
@@ -29,8 +19,7 @@ namespace NexFB.Models.Report.MealForecastReport
         {
             get
             {
-                double efficiency = 0;
-
+                double efficiency;
                 if (ActualOrderNonVegetarian < 0)
                 {
                     efficiency = -1;
@@ -43,7 +32,7 @@ namespace NexFB.Models.Report.MealForecastReport
                     }
                     else
                     {
-                        efficiency = Math.Round((double)ActualOrderNonVegetarian / RegistrationNonVegetarian * 100);
+                        efficiency = Math.Round((double)ActualOrderNonVegetarian / RegistrationNonVegetarian * Hundred);
                     }
                 }
 
@@ -59,8 +48,7 @@ namespace NexFB.Models.Report.MealForecastReport
         {
             get
             {
-                double efficiency = 0;
-
+                double efficiency;
                 if (ActualOrderVegetarian < 0)
                 {
                     efficiency = -1;
@@ -73,7 +61,7 @@ namespace NexFB.Models.Report.MealForecastReport
                     }
                     else
                     {
-                        efficiency = Math.Round((double)ActualOrderVegetarian / RegistrationVegetarian * 100);
+                        efficiency = Math.Round((double)ActualOrderVegetarian / RegistrationVegetarian * Hundred);
                     }
                 }
 

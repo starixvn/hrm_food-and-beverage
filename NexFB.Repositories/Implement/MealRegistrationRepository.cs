@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="MealRegistrationRepository.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/4/2014 2:58:02 PM">Created.</change>
-// </history>
-
-namespace NexFB.Repositories.Implement
+﻿namespace NexFB.Repositories.Implement
 {
     using System;
     using System.Collections.Generic;
@@ -17,16 +8,8 @@ namespace NexFB.Repositories.Implement
     using NexFB.Models.MealRegistration;
     using NexFB.Repositories.Interface;
 
-    /// <summary>
-    /// The meal registration repository.
-    /// </summary>
     public class MealRegistrationRepository : IMealRegistrationRepository
     {
-        /// <summary>
-        /// Get register meal by range.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The list meal date model.</returns>
         public IList<MealRegisterModel> GetRegisterMealByRangeDate(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -34,7 +17,7 @@ namespace NexFB.Repositories.Implement
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
                     multi.Read();
-                    IEnumerable<RawMealDateModel> rawMealDates = multi.Read<RawMealDateModel>();
+                    var rawMealDates = multi.Read<RawMealDateModel>();
 
                     IList<MealRegisterModel> mealDates = ConvertMealDate(rawMealDates);
                     return mealDates;
@@ -42,11 +25,6 @@ namespace NexFB.Repositories.Implement
             }
         }
 
-        /// <summary>
-        /// Convert meal date.
-        /// </summary>
-        /// <param name="rawMealDates">The enumerator raw meal dates.</param>
-        /// <returns>The list meal date in week model.</returns>
         private IList<MealRegisterModel> ConvertMealDate(IEnumerable<RawMealDateModel> rawMealDates)
         {
             var mealRegister = new List<MealRegisterModel>();
@@ -68,17 +46,14 @@ namespace NexFB.Repositories.Implement
             return mealRegister;
         }
 
-        /// <summary>
-        /// Get meal date in week.
-        /// </summary>
-        /// <param name="rawMealInWeek">The list meal date in week.</param>
-        /// <returns>The list meal date model.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "<Pending>")]
         private IList<MealDateModel> GetMealDateInWeek(List<RawMealDateModel> rawMealInWeek)
         {
             IList<MealDateModel> mealDates = new List<MealDateModel>();
-            int numberDay = rawMealInWeek.Count();
+            int numberDay = rawMealInWeek.Count;
+            const byte TotalDayOfWeek = 7;
 
-            if (numberDay != 7)
+            if (numberDay != TotalDayOfWeek)
             {
                 rawMealInWeek = InsertMissingDateInWeek(rawMealInWeek);
             }
@@ -103,32 +78,19 @@ namespace NexFB.Repositories.Implement
             return mealDates;
         }
 
-        /// <summary>
-        /// Insert missing date in week.
-        /// </summary>
-        /// <param name="rawMealInWeek">The meal date in week.</param>
-        /// <returns>The list with new missing date in week.</returns>
         private List<RawMealDateModel> InsertMissingDateInWeek(List<RawMealDateModel> rawMealInWeek)
         {
             var newRawMealInWeek = new List<RawMealDateModel>();
             int week = rawMealInWeek.First().Week;
             DateTime fitstWorkDate = rawMealInWeek.First().WorkDate;
             int firstWeekDay = rawMealInWeek.First().WeekDay;
+            const byte TotalDayOfWeek = 7;
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < TotalDayOfWeek; i++)
             {
                 int weekDay = i + 1;
                 int dateIndex = rawMealInWeek.FindIndex(x => x.WeekDay == weekDay);
-                DateTime itemWorkDate;
-
-                if (i > 0)
-                {
-                    itemWorkDate = newRawMealInWeek[0].WorkDate.AddDays(i);
-                }
-                else
-                {
-                    itemWorkDate = fitstWorkDate.AddDays(weekDay - firstWeekDay);
-                }
+                DateTime itemWorkDate = i > 0 ? newRawMealInWeek[0].WorkDate.AddDays(i) : fitstWorkDate.AddDays(weekDay - firstWeekDay);
 
                 var newDate = new RawMealDateModel
                 {
