@@ -17,6 +17,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <IsWebBootstrapper>true</IsWebBootstrapper>
+    <CodeAnalysisRuleSet>..\.sonarlint\food-beveragecsharp.ruleset</CodeAnalysisRuleSet>
     <PublishUrl>D:\Deploy\PosKitchen\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -45,6 +46,7 @@
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\.sonarlint\food-beveragecsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -54,6 +56,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\.sonarlint\food-beveragecsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>25158EA8A6F71A8AD448B0788A12477C1023ECA7</ManifestCertificateThumbprint>
@@ -186,6 +189,9 @@
     <Resource Include="Icon.ico" />
     <Resource Include="Images\checkbox-checked.png" />
     <Resource Include="Images\checkbox-unchecked.png" />
+    <AdditionalFiles Include="..\.sonarlint\food-beverage\CSharp\SonarLint.xml">
+      <Link>SonarLint.xml</Link>
+    </AdditionalFiles>
     <Content Include="Images\HongMa\no-avatar.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -270,6 +276,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="..\.sonarlint\food-beveragecsharp.ruleset">
+      <Link>food-beveragecsharp.ruleset</Link>
+    </None>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>

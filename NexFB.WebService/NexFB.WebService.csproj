@@ -15,6 +15,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
+    <CodeAnalysisRuleSet>..\.sonarlint\food-beveragecsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,6 +25,7 @@
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\.sonarlint\food-beveragecsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\.sonarlint\food-beveragecsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fanex.Common">
@@ -84,6 +87,9 @@
     <Compile Include="Translator\FBTranslator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.sonarlint\food-beveragecsharp.ruleset">
+      <Link>food-beveragecsharp.ruleset</Link>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -96,6 +102,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <AdditionalFiles Include="..\.sonarlint\food-beverage\CSharp\SonarLint.xml">
+      <Link>SonarLint.xml</Link>
+    </AdditionalFiles>
     <Content Include="Service.svc" />
     <Content Include="SpName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
