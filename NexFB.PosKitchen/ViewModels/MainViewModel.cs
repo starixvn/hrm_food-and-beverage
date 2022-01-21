@@ -1,18 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="MainViewModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.8.22">Created</change>
-// </history>
-
-namespace NexFB.PosKitchen.ViewModels
+﻿namespace NexFB.PosKitchen.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -33,16 +23,13 @@ namespace NexFB.PosKitchen.ViewModels
     using WPFMessageBoxCustomControl;
     using WPFMessageBoxCustomControl.Enums;
 
-    /// <summary>
-    /// Main ViewModel.
-    /// </summary>
     public class MainViewModel : MainModelProperty
     {
-        private static string _host = ConfigurationManager.AppSettings[Constant.HubHost];
-        private static string _hostLocal = ConfigurationManager.AppSettings[Constant.HubHostLocal];
-        private static DispatcherTimer _digitalClockDispatcher = new DispatcherTimer();
-        private static DispatcherTimer _refeshAppDataDispatcher = new DispatcherTimer();
-        private static DispatcherTimer _newOrderNotify = new DispatcherTimer();
+        private static readonly string _host = ConfigurationManager.AppSettings[Constant.HubHost];
+        private static readonly string _hostLocal = ConfigurationManager.AppSettings[Constant.HubHostLocal];
+        private static readonly DispatcherTimer _digitalClockDispatcher = new DispatcherTimer();
+        private static readonly DispatcherTimer _refeshAppDataDispatcher = new DispatcherTimer();
+        private static readonly DispatcherTimer _newOrderNotify = new DispatcherTimer();
 
         public MainViewModel()
         {
@@ -57,13 +44,7 @@ namespace NexFB.PosKitchen.ViewModels
         }
 
         #region Tasks Send Data To Hub
-
-        /// <summary>
-        /// Send new order to hub.
-        /// </summary>
-        /// <param name="orderId">New order id.</param>
-        /// <returns>Task executed.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
+        
         public Task SendNewOrder(int orderId)
         {
             if (Connection.State == ConnectionState.Connected)
@@ -74,7 +55,7 @@ namespace NexFB.PosKitchen.ViewModels
                 }
                 catch
                 {
-                    return Task.Factory.StartNew(new Action(() => { }));
+                    return Task.Factory.StartNew(() => { });
                 }
             }
             else
@@ -85,17 +66,11 @@ namespace NexFB.PosKitchen.ViewModels
                 }
                 catch
                 {
-                    return Task.Factory.StartNew(new Action(() => { }));
+                    return Task.Factory.StartNew(() => { });
                 }
             }
         }
 
-        /// <summary>
-        /// Send Edit order to hub.
-        /// </summary>
-        /// <param name="orderId">Edited order id.</param>
-        /// <returns>Task executed.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         public Task SendEditOrder(int orderId)
         {
             if (Connection.State == ConnectionState.Connected)
@@ -106,7 +81,7 @@ namespace NexFB.PosKitchen.ViewModels
                 }
                 catch
                 {
-                    return Task.Factory.StartNew(new Action(() => { }));
+                    return Task.Factory.StartNew(() => { });
                 }
             }
             else
@@ -117,7 +92,7 @@ namespace NexFB.PosKitchen.ViewModels
                 }
                 catch
                 {
-                    return Task.Factory.StartNew(new Action(() => { }));
+                    return Task.Factory.StartNew(() => { });
                 }
             }
         }
@@ -168,14 +143,10 @@ namespace NexFB.PosKitchen.ViewModels
             KeyPadVisibility = KeyPadVisibility == Constant.Visible ? Constant.Hidden : Constant.Visible;
         }
 
-        /// <summary>
-        /// Method Press virtual key pad.
-        /// </summary>
-        /// <param name="value">Object parameter.</param>
         private void ExecuteNumPadPressed(object value)
         {
             var keyPadParameter = value.ToString();
-            switch (keyPadParameter.ToUpper())
+            switch (keyPadParameter.ToUpperInvariant())
             {
                 case "BACK":
                     if (SearchResult.Length > 0)
@@ -186,7 +157,7 @@ namespace NexFB.PosKitchen.ViewModels
                     break;
 
                 case "ENTER":
-                    string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+                    string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpperInvariant();
                     switch (currentViewModel)
                     {
                         case Constant.WaitingMealViewModel:
@@ -201,6 +172,9 @@ namespace NexFB.PosKitchen.ViewModels
                         case Constant.CanceledFoodViewModel:
                             ExecuteViewCanceledFood();
                             break;
+                        default:
+                            // do nothing
+                            break;
                     }
 
                     break;
@@ -211,10 +185,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Execute Deliver Order Food Command.
-        /// </summary>
-        /// <param name="value">Parameter Value.</param>
         private void ExecuteDeliverOrderFoodCommand(object value)
         {
             if (value != null)
@@ -223,11 +193,11 @@ namespace NexFB.PosKitchen.ViewModels
                 bool printed = ExecutePrintInvoice(orderId, (int)InvoiceNumberStatus.DeliverOrderFoodInvoice, false);
                 if (printed)
                 {
-                    var criteria = new ProcessDeliverOrderCriteria() { OrderId = orderId };
+                    var criteria = new ProcessDeliverOrderCriteria { OrderId = orderId };
                     CommandResult received = KitchenService.DeliverOrder(criteria);
                     if (received.Code != 0)
                     {
-                        WPFMessageBox.Show(CurrentCulture, received.Message.ToString());
+                        WPFMessageBox.Show(CurrentCulture, received.Message);
                     }
                     else
                     {
@@ -245,14 +215,10 @@ namespace NexFB.PosKitchen.ViewModels
             }
             else
             {
-                WPFMessageBox.Show(CurrentCulture, Lang.ErrorMessage.ToString());
+                WPFMessageBox.Show(CurrentCulture, Lang.ErrorMessage);
             }
         }
 
-        /// <summary>
-        /// Execute Receive Order Food Command.
-        /// </summary>
-        /// <param name="value">Parameter value.</param>
         private void ExecuteReceiveOrderFoodCommand(object value)
         {
             if (value != null)
@@ -262,11 +228,11 @@ namespace NexFB.PosKitchen.ViewModels
 
                 if (printed)
                 {
-                    var criteria = new ProcessReceiveOrderCriteria() { OrderId = orderId };
+                    var criteria = new ProcessReceiveOrderCriteria { OrderId = orderId };
                     CommandResult received = KitchenService.ReceiveOrder(criteria);
                     if (received.Code != 0)
                     {
-                        WPFMessageBox.Show(CurrentCulture, received.Message.ToString());
+                        WPFMessageBox.Show(CurrentCulture, received.Message);
                     }
                     else
                     {
@@ -284,20 +250,16 @@ namespace NexFB.PosKitchen.ViewModels
             }
             else
             {
-                WPFMessageBox.Show(CurrentCulture, Lang.ErrorMessage.ToString());
+                WPFMessageBox.Show(CurrentCulture, Lang.ErrorMessage);
             }
         }
 
-        /// <summary>
-        /// Execute Undo Order Command.
-        /// </summary>
-        /// <param name="value">Parameter value.</param>
         private void ExecuteUndoOrderCommand(object value)
         {
             if (value != null)
             {
                 int orderId = (int)value;
-                var criteria = new UndoOrderCriteria() { OrderId = orderId };
+                var criteria = new UndoOrderCriteria { OrderId = orderId };
                 CommandResult result = KitchenService.UndoOrder(criteria);
                 if (result.Code != 0)
                 {
@@ -322,10 +284,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Edit order command.
-        /// </summary>
-        /// <param name="value">Current order id.</param>
         private void ExecuteEditOrderCommand(object value)
         {
             int orderId = 0;
@@ -336,17 +294,13 @@ namespace NexFB.PosKitchen.ViewModels
             else
             {
                 orderId = (int)value;
-                var getOrderDetailsCriteria = new GetOrderDetailsCriteria() { OrderId = orderId };
+                var getOrderDetailsCriteria = new GetOrderDetailsCriteria { OrderId = orderId };
                 Order order = KitchenService.GetOrderDetails(getOrderDetailsCriteria);
                 CurrentViewModel = new OrderFoodViewModel(this, order);
                 CheckCurrentViewModel();
             }
         }
 
-        /// <summary>
-        /// Execute Cancel Command.
-        /// </summary>
-        /// <param name="value">Current Order Id.</param>
         private void ExecuteCancelCommand(object value)
         {
             if (value != null)
@@ -361,7 +315,7 @@ namespace NexFB.PosKitchen.ViewModels
                 if (confirmCancel == WPFMessageBoxResult.Yes)
                 {
                     int orderId = (int)value;
-                    var cancelOrderCriteria = new CancelOrderCriteria()
+                    var cancelOrderCriteria = new CancelOrderCriteria
                     {
                         OrderId = orderId,
                         ModifiedDate = DateTime.Now
@@ -370,7 +324,7 @@ namespace NexFB.PosKitchen.ViewModels
                     CommandResult result = this.KitchenService.CancelOrder(cancelOrderCriteria);
                     if (result.Code != 0)
                     {
-                        this.ShowErrorMessage((int)LanguageLocalization.VietNamCulture, result.Message.ToString());
+                        this.ShowErrorMessage((int)LanguageLocalization.VietNamCulture, result.Message);
                     }
                     else
                     {
@@ -385,14 +339,9 @@ namespace NexFB.PosKitchen.ViewModels
 
         #region Methods
 
-        /// <summary>
-        /// Remove order from list.
-        /// </summary>
-        /// <param name="orderId">Current order id.</param>
-        /// <param name="isRejectedOrder">Check for rejected order case.</param>
         private void ProcessDataFromCurrentList(int orderId, bool isRejectedOrder)
         {
-            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpperInvariant();
             switch (currentViewModel)
             {
                 case Constant.WaitingMealViewModel:
@@ -411,6 +360,9 @@ namespace NexFB.PosKitchen.ViewModels
                         ((CanceledFoodViewModel)CurrentViewModel).AddRejectedOrderToList(rejectedOrder);
                     }
 
+                    break;
+                default:
+                    // do nothing
                     break;
             }
         }
@@ -432,13 +384,9 @@ namespace NexFB.PosKitchen.ViewModels
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => EditOrder(order)));
         }
 
-        /// <summary>
-        /// Edit selected order.
-        /// </summary>
-        /// <param name="order">Order entity.</param>
         private void EditOrder(Order order)
         {
-            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpperInvariant();
             switch (currentViewModel)
             {
                 case Constant.WaitingMealViewModel:
@@ -446,6 +394,9 @@ namespace NexFB.PosKitchen.ViewModels
                     break;
                 case Constant.AwaitingDeliverViewModel:
                     ((AwaitingDeliverViewModel)CurrentViewModel).EditDataInAwaitingDeliverMeals(order);
+                    break;
+                default:
+                    // do nothing
                     break;
             }
         }
@@ -455,13 +406,9 @@ namespace NexFB.PosKitchen.ViewModels
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => DeleteOrder(orderId)));
         }
 
-        /// <summary>
-        /// Deleted selected order.
-        /// </summary>
-        /// <param name="orderId">Selected orderId.</param>
         private void DeleteOrder(int orderId)
         {
-            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpperInvariant();
             switch (currentViewModel)
             {
                 case Constant.WaitingMealViewModel:
@@ -469,6 +416,9 @@ namespace NexFB.PosKitchen.ViewModels
                     break;
                 case Constant.AwaitingDeliverViewModel:
                     ((AwaitingDeliverViewModel)CurrentViewModel).DeleteDataInAwaitingDeliverMeals(orderId);
+                    break;
+                default:
+                    // do nothing
                     break;
             }
         }
@@ -493,13 +443,9 @@ namespace NexFB.PosKitchen.ViewModels
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => KitchenStaffRejectedOrder(orderId)));
         }
 
-        /// <summary>
-        /// Kitchen Staff receive order.
-        /// </summary>
-        /// <param name="orderId">Received order id.</param>
         private void KitchenStaffReceiveOrder(int orderId)
         {
-            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpperInvariant();
             Order order = GetOrderById(orderId);
             switch (currentViewModel)
             {
@@ -510,16 +456,15 @@ namespace NexFB.PosKitchen.ViewModels
                 case Constant.AwaitingDeliverViewModel:
                     ((AwaitingDeliverViewModel)CurrentViewModel).NewOrderDataInAwaitingDeliverMeals(order);
                     break;
+                default:
+                    // do nothing
+                    break;
             }
         }
 
-        /// <summary>
-        /// Kitchen Staff awaiting deliver order.
-        /// </summary>
-        /// <param name="orderId">Received order id.</param>
         private void KitchenStaffAwaitingDeliverOrder(int orderId)
         {
-            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpperInvariant();
             switch (currentViewModel)
             {
                 case Constant.AwaitingDeliverViewModel:
@@ -529,16 +474,15 @@ namespace NexFB.PosKitchen.ViewModels
                     Order order = GetOrderById(orderId);
                     ((DeliveredFoodViewModel)CurrentViewModel).NewOrderDataInDeliveredMeals(order);
                     break;
+                default:
+                    // do nothing
+                    break;
             }
         }
 
-        /// <summary>
-        /// Kitchen Staff awaiting deliver order.
-        /// </summary>
-        /// <param name="orderId">Received order id.</param>
         private void KitchenStaffUndoDeliveredOrder(int orderId)
         {
-            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpperInvariant();
             switch (currentViewModel)
             {
                 case Constant.WaitingMealViewModel:
@@ -552,6 +496,9 @@ namespace NexFB.PosKitchen.ViewModels
                 case Constant.DeliveredFoodViewModel:
                     ((DeliveredFoodViewModel)CurrentViewModel).DeleteDataInDeliveredMeals(orderId);
                     break;
+                default:
+                    // do nothing
+                    break;
             }
         }
 
@@ -562,7 +509,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         private Order GetOrderById(int orderId)
         {
-            var criteria = new GetMealOrderByIdCriteria()
+            var criteria = new GetMealOrderByIdCriteria
             {
                 OrderId = orderId
             };
@@ -571,13 +518,6 @@ namespace NexFB.PosKitchen.ViewModels
             return order;
         }
 
-        /// <summary>
-        /// Send notify to hub server.
-        /// </summary>
-        /// <param name="orderId">Current order id.</param>
-        /// <param name="screenControl">From screen control.</param>
-        /// <returns>Executed task.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         private Task SendMessage(int orderId, int screenControl)
         {
             if (Connection.State == ConnectionState.Connected)
@@ -588,7 +528,7 @@ namespace NexFB.PosKitchen.ViewModels
                 }
                 catch
                 {
-                    return Task.Factory.StartNew(new Action(() => { }));
+                    return Task.Factory.StartNew(() => { });
                 }
             }
             else
@@ -599,15 +539,11 @@ namespace NexFB.PosKitchen.ViewModels
                 }
                 catch
                 {
-                    return Task.Factory.StartNew(new Action(() => { }));
+                    return Task.Factory.StartNew(() => { });
                 }
             }
         }
 
-        /// <summary>
-        /// Connect to server hub.
-        /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         private void InitializeHubConnection()
         {
             Active = true;
@@ -633,16 +569,13 @@ namespace NexFB.PosKitchen.ViewModels
 
                 while (Active)
                 {
-                    Thread.Sleep(10);
+                    const byte MillisecondsTimeout = 10;
+                    Thread.Sleep(MillisecondsTimeout);
                 }
             }) { IsBackground = true };
             Thread.Start();
         }
 
-        /// <summary>
-        /// Connect to local Hub.
-        /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         private void InitializeHubConnectionLocal()
         {
             ActiveLocal = true;
@@ -668,15 +601,13 @@ namespace NexFB.PosKitchen.ViewModels
 
                 while (ActiveLocal)
                 {
-                    Thread.Sleep(10);
+                    const byte MillisecondsTimeout = 10;
+                    Thread.Sleep(MillisecondsTimeout);
                 }
             }) { IsBackground = true };
             ThreadLocal.Start();
         }
 
-        /// <summary>
-        /// Method Initialize RelayCommand.
-        /// </summary>
         private void InitializeRelayCommand()
         {
             DisplayKeyPad = new RelayCommand((x) => ExecuteDisplayKeyPad());
@@ -700,15 +631,12 @@ namespace NexFB.PosKitchen.ViewModels
             DeliverOrderFoodCommand = new RelayCommand((x) => ExecuteDeliverOrderFoodCommand(x));
         }
 
-        /// <summary>
-        /// Check Current View model.
-        /// </summary>
         private void CheckCurrentViewModel()
         {
             DefaulMenuColor();
             KeyPadVisibility = Constant.Hidden;
             SearchTextBoxVisibility = Constant.Visible;
-            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpperInvariant();
             switch (currentViewModel)
             {
                 case Constant.WaitingMealViewModel:
@@ -742,6 +670,7 @@ namespace NexFB.PosKitchen.ViewModels
                     SearchTextBoxVisibility = Constant.Hidden;
                     break;
                 default:
+                    // do nothing
                     break;
             }
         }
@@ -749,7 +678,7 @@ namespace NexFB.PosKitchen.ViewModels
         private void TimerDigitalClock()
         {
             _digitalClockDispatcher.Interval = new TimeSpan(0, 0, 1);
-            _digitalClockDispatcher.Tick += new EventHandler(Timer_Click);
+            _digitalClockDispatcher.Tick += Timer_Click;
             _digitalClockDispatcher.Start();
         }
 
@@ -760,11 +689,6 @@ namespace NexFB.PosKitchen.ViewModels
             TodayTime = dateTimeNow.ToString("HH:mm");
         }
 
-        /// <summary>
-        /// Timer get data.
-        /// </summary>
-        /// <param name="getType">Get for all app or part of app.</param>
-        /// <param name="order">New order for app.</param>
         private void StartTimerGetData(int getType, Order order)
         {
             DispatcherTimer timer = new DispatcherTimer();
@@ -783,18 +707,10 @@ namespace NexFB.PosKitchen.ViewModels
             timer.Start();
         }
 
-        /// <summary>
-        /// Timer tick.
-        /// </summary>
-        /// <param name="sender">Object sender.</param>
-        /// <param name="e">Event arguments.</param>
-        /// <param name="getType">Get for all app or part of app.</param>
-        /// <param name="order">New order for app.</param>
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", Justification = "Reviewed. Suppression is OK here.")]
         private void TimerTickToGetData(object sender, EventArgs e, int getType, Order order)
         {
             DispatcherTimer timer = (DispatcherTimer)sender;
-            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+            string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpperInvariant();
 
             if (getType == (int)QueryData.GetNewOrder)
             {
@@ -821,13 +737,11 @@ namespace NexFB.PosKitchen.ViewModels
                     case Constant.AwaitingDeliverViewModel:
                         ((AwaitingDeliverViewModel)CurrentViewModel).GetNewDataForApp();
                         break;
-                    case Constant.DeliveredFoodViewModel:
-                        ////((DeliveredFoodViewModel)CurrentViewModel).GetNewDataForApp();
-                        break;
                     case Constant.CanceledFoodViewModel:
                         ((CanceledFoodViewModel)CurrentViewModel).GetNewDataForApp();
                         break;
-                    case Constant.OrderFoodViewModel:
+                    default:
+                        // do nothing
                         break;
                 }
             }
@@ -865,9 +779,6 @@ namespace NexFB.PosKitchen.ViewModels
             return waitingMeal;
         }
 
-        /// <summary>
-        /// Set Default Menu Color.
-        /// </summary>
         private void DefaulMenuColor()
         {
             Menu1.BackgroundColor = Constant.Menu1Color;

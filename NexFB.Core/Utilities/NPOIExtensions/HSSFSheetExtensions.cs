@@ -178,12 +178,12 @@
                     }
                     else if (mergedRegion.FirstColumn > columnIndex)
                     {
-                        mergedRegion.FirstColumn = mergedRegion.FirstColumn - 1;
-                        mergedRegion.LastColumn = mergedRegion.LastColumn - 1;
+                        mergedRegion.FirstColumn--;
+                        mergedRegion.LastColumn--;
                     }
                     else if (columnIndex <= mergedRegion.LastColumn)
                     {
-                        mergedRegion.LastColumn = mergedRegion.LastColumn - 1;
+                        mergedRegion.LastColumn--;
                     }
                     else
                     {

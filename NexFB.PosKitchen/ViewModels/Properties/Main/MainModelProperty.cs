@@ -1,16 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="MainModelProperty.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.10.27">Created</change>
-// </history>
-
-namespace NexFB.PosKitchen.ViewModels.Properties.Main
+﻿namespace NexFB.PosKitchen.ViewModels.Properties.Main
 {
     using System;
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.Threading;
     using System.Windows.Input;
     using Microsoft.AspNet.SignalR.Client.Hubs;
@@ -18,16 +10,13 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
     using NexFB.Pos.Core.Enums;
     using NexFB.Pos.Core.Models;
 
-    /// <summary>
-    /// Main Model Property.
-    /// </summary>
     public class MainModelProperty : ViewModelBase
     {
         #region Private Fields
 
-        private static string _delayTime = ConfigurationManager.AppSettings[Constant.DatabaseDelayTime];
-        private static string _autoRefeshTime = ConfigurationManager.AppSettings[Constant.AutoRefeshTime];
-        private static double _displayBanner = Constant.BannerResolution1280;
+        private static readonly string _delayTime = ConfigurationManager.AppSettings[Constant.DatabaseDelayTime];
+        private static readonly string _autoRefeshTime = ConfigurationManager.AppSettings[Constant.AutoRefeshTime];
+        private double _displayBanner = Constant.BannerResolution1280;
         private ViewModelBase _currentViewModel;
 
         private int _keypadFontSize;
@@ -120,21 +109,9 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
             }
         }
 
-        public double DelayTime
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(_delayTime) ? double.Parse(_delayTime) : 0;
-            }
-        }
+        public double DelayTime => !string.IsNullOrEmpty(_delayTime) ? double.Parse(_delayTime) : 0;
 
-        public double AutoRefeshTime
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(_autoRefeshTime) ? double.Parse(_autoRefeshTime) : 0;
-            }
-        }
+        public double AutoRefeshTime => !string.IsNullOrEmpty(_autoRefeshTime) ? double.Parse(_autoRefeshTime) : 0;
 
         public string SearchResult
         {
@@ -146,7 +123,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
             set
             {
                 _searchResult = value;
-                string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpper().ToString();
+                string currentViewModel = this.CurrentViewModel.GetType().Name.ToUpperInvariant();
                 switch (currentViewModel)
                 {
                     case Constant.WaitingMealViewModel:
@@ -160,6 +137,9 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
                         break;
                     case Constant.CanceledFoodViewModel:
                         CanceledSearchResult = _searchResult;
+                        break;
+                    default:
+                        // do nothing
                         break;
                 }
 
@@ -365,6 +345,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
             }
         }
 
+        [SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "Ok")]
         public double KeypadHeight
         {
             get
@@ -380,6 +361,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
             }
         }
 
+        [SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "Ok")]
         public int KeypadFontSize
         {
             get
@@ -395,6 +377,7 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
             }
         }
 
+        [SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "Ok")]
         public double DisplayBanner
         {
             get
@@ -456,10 +439,6 @@ namespace NexFB.PosKitchen.ViewModels.Properties.Main
 
         #region Methods
 
-        /// <summary>
-        /// Check Current Culture.
-        /// </summary>
-        /// <returns>Vietnamese or English culture.</returns>
         public int CheckCurrentCulture()
         {
             string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];

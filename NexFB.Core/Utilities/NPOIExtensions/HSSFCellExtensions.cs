@@ -99,18 +99,19 @@
             // Copy merged cells.
             CellRangeAddress sourceRange = null;
 
-            for (var i = 0; i < sourceCell.Sheet.NumMergedRegions; i++)
+            int i = 0;
+            while (sourceRange == null && i < sourceCell.Sheet.NumMergedRegions)
             {
                 CellRangeAddress range = sourceCell.Sheet.GetMergedRegion(i);
-
                 if ((range.FirstColumn <= sourceCell.ColumnIndex)
                     && (range.LastColumn >= sourceCell.ColumnIndex)
                     && (range.FirstRow <= sourceCell.RowIndex)
                     && (range.LastRow >= sourceCell.RowIndex))
                 {
                     sourceRange = range;
-                    break;
                 }
+
+                i += 1;
             }
 
             if (sourceRange != null)

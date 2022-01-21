@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ControlBox.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.8.21">Created</change>
-// </history>
-
-namespace NexFB.PosKitchen.DependencyProperties
+﻿namespace NexFB.PosKitchen.DependencyProperties
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
@@ -15,9 +6,6 @@ namespace NexFB.PosKitchen.DependencyProperties
     using System.Windows;
     using System.Windows.Interop;
 
-    /// <summary>
-    /// Class ControlBox.
-    /// </summary>
     public static class ControlBox
     {
         public static readonly DependencyProperty HasHelpButtonProperty = DependencyProperty.RegisterAttached(
@@ -39,59 +27,46 @@ namespace NexFB.PosKitchen.DependencyProperties
             new UIPropertyMetadata(true, OnControlBoxChanged));
 
         private const int _Style = -16;
-        private const int _ExtStyle = -20;
 
         private const int _MaximizeBox = 0x10000;
         private const int _MinimizeBox = 0x20000;
-        private const int _ContextHelp = 0x400;
 
-        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         [AttachedPropertyBrowsableForType(typeof(Window))]
         public static bool GetHasHelpButton(Window element)
         {
             return (bool)element.GetValue(HasHelpButtonProperty);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         [AttachedPropertyBrowsableForType(typeof(Window))]
         public static void SetHasHelpButton(Window element, bool value)
         {
             element.SetValue(HasHelpButtonProperty, value);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         [AttachedPropertyBrowsableForType(typeof(Window))]
         public static bool GetHasMaximizeButton(Window element)
         {
             return (bool)element.GetValue(HasMaximizeButtonProperty);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         [AttachedPropertyBrowsableForType(typeof(Window))]
         public static void SetHasMaximizeButton(Window element, bool value)
         {
             element.SetValue(HasMaximizeButtonProperty, value);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         [AttachedPropertyBrowsableForType(typeof(Window))]
         public static bool GetHasMinimizeButton(Window element)
         {
             return (bool)element.GetValue(HasMinimizeButtonProperty);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed. Suppression is OK here.")]
         [AttachedPropertyBrowsableForType(typeof(Window))]
         public static void SetHasMinimizeButton(Window element, bool value)
         {
             element.SetValue(HasMinimizeButtonProperty, value);
         }
 
-        /// <summary>
-        /// Change value of control box to set view style of Window.
-        /// </summary>
-        /// <param name="d">Dependency Object.</param>
-        /// <param name="e">Event changed.</param>
         private static void OnControlBoxChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var window = d as Window;
@@ -119,11 +94,6 @@ namespace NexFB.PosKitchen.DependencyProperties
             window.SourceInitialized -= OnWindowSourceInitialized;
         }
 
-        /// <summary>
-        /// Update Style.
-        /// </summary>
-        /// <param name="window">Working window.</param>
-        /// <param name="windowHandler">Data type represent to a pointer or handle.</param>
         private static void UpdateStyle(Window window, IntPtr windowHandler)
         {
             var style = NativeMethods.GetWindowLong(windowHandler, _Style);
@@ -147,9 +117,6 @@ namespace NexFB.PosKitchen.DependencyProperties
             }
         }
 
-        /// <summary>
-        /// User external DLL.
-        /// </summary>
         private static class NativeMethods
         {
             [DllImport("user32.dll")]

@@ -19,16 +19,12 @@
 
         public int ModifiedBy { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "FoodMenu_InsertFoodMenuHistory";
-        }
+        public override string GetSettingKey() => "FoodMenu_InsertFoodMenuHistory";
 
-        public override bool IsValid()
-        {
-            return MenuId > 0 && ModifiedBy > 0 &&
-                (CurrentPricePerMeal > 0 || CurrentPricePerDay > 0) &&
-                (NewPricePerMeal > 0 || NewPricePerDay > 0);
-        }
+        public override bool IsValid() => MenuId > 0 && ModifiedBy > 0 && IsValidCurrentPrice() && IsValidNewPrice();
+
+        private bool IsValidCurrentPrice() => CurrentPricePerMeal > 0 || CurrentPricePerDay > 0;
+
+        private bool IsValidNewPrice() => NewPricePerMeal > 0 || NewPricePerDay > 0;
     }
 }

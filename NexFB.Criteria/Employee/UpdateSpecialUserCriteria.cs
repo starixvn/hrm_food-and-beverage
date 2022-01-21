@@ -29,9 +29,8 @@
 
         public override string GetSettingKey() => "Employee_Upd_SpecialEmp";
 
-        public override bool IsValid()
-        {
-            return !string.IsNullOrEmpty(Code) && !string.IsNullOrEmpty(NickName) && DepartmentId > 0 && EmployeeTypeId > 0 && UserId > 0;
-        }
+        public override bool IsValid() => IsValidCodeAndNickname() && DepartmentId > 0 && EmployeeTypeId > 0 && UserId > 0;
+
+        private bool IsValidCodeAndNickname() => !string.IsNullOrWhiteSpace(Code) && !string.IsNullOrWhiteSpace(NickName);
     }
 }

@@ -1,15 +1,7 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ExportReportController.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="12/3/2014 2:23:17 PM">Created.</change>
-// </history>
-
-namespace NexFB.Site.Controllers
+﻿namespace NexFB.Site.Controllers
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Core.Enums;
     using Criteria.FoodItemManagement;
@@ -32,9 +24,6 @@ namespace NexFB.Site.Controllers
     using Services.Implement;
     using Services.Interface;
 
-    /// <summary>
-    /// Export report controller.
-    /// </summary>
     public class ExportReportController : Controller
     {
         private const string _MonthlyMainDishReportLocalEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeeReportLocal.xls";
@@ -76,6 +65,8 @@ namespace NexFB.Site.Controllers
         {
         }
 
+        [SuppressMessage("Critical Code Smell", "S1541:Methods and properties should not be too complex", Justification = "<Pending>")]
+        [SuppressMessage("Major Code Smell", "S107:Methods should not have too many parameters", Justification = "<Pending>")]
         public ExportReportController(
             IEmployeeOrderHistoryService employeeOrderHistoryService,
             IAdminOrderHistoryService adminOrderHistoryService,
@@ -111,21 +102,13 @@ namespace NexFB.Site.Controllers
             return View();
         }
 
-        /// <summary>
-        /// Export monthly main dish report in local.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Excel file.</returns>
         public ActionResult ExportMonthlyMainDishReport(GetMonthlyMainDishReportLocalCriteria criteria)
         {
-            MonthlyLocalReportModel report = SessionManager.Get<MonthlyLocalReportModel>(
+            var report = SessionManager.Get<MonthlyLocalReportModel>(
                 ReportConstant.MonthlyMainDishReportLocalSessionKey + SessionManager.CurrentUser.UserId);
             string templateUrl = string.Empty;
 
-            if (report == null)
-            {
-                report = _monthlyMainDishReportService.GetMonthlyMainDishReportLocal(criteria);
-            }
+            report = report ?? _monthlyMainDishReportService.GetMonthlyMainDishReportLocal(criteria);
 
             if (report != null)
             {
@@ -150,61 +133,38 @@ namespace NexFB.Site.Controllers
             return new EmptyResult();
         }
 
-        /// <summary>
-        /// Export Employee Order History Report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The excel file.</returns>
         public ActionResult ExportEmployeeOrderHistoryReport(GetEmployeeOrderHistoryCriteria criteria)
         {
-            EmployeeOrderHistoryReport report = SessionManager.Get<EmployeeOrderHistoryReport>(
+            var report = SessionManager.Get<EmployeeOrderHistoryReport>(
                 ReportConstant.EmployeeOrderHistoryReportSessionKey + SessionManager.CurrentUser.UserId);
-            string templatePath = string.Empty;
 
-            if (report == null)
-            {
-                report = _employeeOrderHistoryService.GetEmployeeOrderHistoryReport(criteria);
-            }
+            report = report ?? _employeeOrderHistoryService.GetEmployeeOrderHistoryReport(criteria);
 
             if (report != null)
             {
-                templatePath = Server.MapPath(_EmployeeOrderHistoryTemplatePath);
+                string templatePath = Server.MapPath(_EmployeeOrderHistoryTemplatePath);
                 _employeeOrderHistoryService.ExportEmployeeOrderHistoryReport(report, templatePath);
             }
 
             return new EmptyResult();
         }
 
-        /// <summary>
-        /// Export Admin Order History Report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The excel file.</returns>
         public ActionResult ExportAdminOrderHistoryReport(GetAdminOrderHistoryCriteria criteria)
         {
             var report = SessionManager.Get<AdminOrderHistoryReport>(
                 ReportConstant.AdminOrderHistoryReportSessionKey + criteria.UserId);
-            string templatePath = string.Empty;
 
-            if (report == null)
-            {
-                report = _adminOrderHistoryService.GetAdminOrderHistoryReport(criteria);
-            }
+            report = report ?? _adminOrderHistoryService.GetAdminOrderHistoryReport(criteria);
 
             if (report != null)
             {
-                templatePath = Server.MapPath(_AdminOrderHistoryTemplatePath);
+                var templatePath = Server.MapPath(_AdminOrderHistoryTemplatePath);
                 _adminOrderHistoryService.ExportAdminOrderHistoryReport(report, templatePath);
             }
 
             return new EmptyResult();
         }
 
-        /// <summary>
-        /// Exports the side dish report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The EmptyResult.</returns>
         public ActionResult ExportSideDishReport(GetSideDishReportCriteria criteria)
         {
             string templateUrl = Server.MapPath(_SideDishReportTemplatePath);
@@ -218,32 +178,18 @@ namespace NexFB.Site.Controllers
             return new EmptyResult();
         }
 
-        /// <summary>
-        /// Export monthly main dish per day report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The excel file.</returns>
         public ActionResult ExportMonthlyMainDishPerDayReport(GetMonthlyMainDishPerDayReportCriteria criteria)
         {
-            MonthlyMainDishPerDayModel report = SessionManager.Get<MonthlyMainDishPerDayModel>(
+            var report = SessionManager.Get<MonthlyMainDishPerDayModel>(
                 ReportConstant.MonthlyMainDishPerDayReportSessionKey + SessionManager.CurrentUser.UserId);
-            string templatePath = string.Empty;
 
-            if (report == null)
-            {
-                report = _monthlyMainDishPerDayService.GetMonthlyMainDishPerDayReport(criteria);
-            }
+            report = report ?? _monthlyMainDishPerDayService.GetMonthlyMainDishPerDayReport(criteria);
 
             if (report != null)
             {
-                if (report.IsGroupByEmployee)
-                {
-                    templatePath = Server.MapPath(_MonthlyMainDishPerDayEmployeeTemplatePath);
-                }
-                else
-                {
-                    templatePath = Server.MapPath(_MonthlyMainDishPerDayDepartmentTemplatePath);
-                }
+                var templatePath = report.IsGroupByEmployee
+                    ? Server.MapPath(_MonthlyMainDishPerDayEmployeeTemplatePath)
+                    : Server.MapPath(_MonthlyMainDishPerDayDepartmentTemplatePath);
 
                 _monthlyMainDishPerDayService.ExportMonthlyMainDishPerDayReport(report, templatePath);
             }
@@ -251,11 +197,6 @@ namespace NexFB.Site.Controllers
             return new EmptyResult();
         }
 
-        /// <summary>
-        /// Exports the view menu report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The excel file.</returns>
         public ActionResult ExportViewMenuReport(GetViewMenuReportCriteria criteria)
         {
             UserSession user = SessionManager.CurrentUser;
@@ -274,51 +215,30 @@ namespace NexFB.Site.Controllers
             return new EmptyResult();
         }
 
-        /// <summary>
-        /// Export daily main dish report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The excel file.</returns>
         public ActionResult ExportDailyMainDishReport(GetDailyMainDishPricePerMealReportCriteria criteria)
         {
-            DailyMainDishReportModel report = SessionManager.Get<DailyMainDishReportModel>(
+            var report = SessionManager.Get<DailyMainDishReportModel>(
                 ReportConstant.DailyMainDishReportSessionKey + SessionManager.CurrentUser.UserId);
             string templatePath = Server.MapPath(_DailyMainDishReportTemplatePath);
 
-            if (report == null)
-            {
-                report = _dailyMainDishReportService.GetDailyMainDishReport(criteria);
-            }
+            report = report ?? _dailyMainDishReportService.GetDailyMainDishReport(criteria);
 
             _dailyMainDishReportService.ExportDailyMainDishReport(report, templatePath);
             return new EmptyResult();
         }
 
-        /// <summary>
-        /// Export Meal Forecast Report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The excel file.</returns>
         public ActionResult ExportMealForecastReport(GetMealForecastReportCriteria criteria)
         {
-            MealForecastReportModel report = SessionManager.Get<MealForecastReportModel>(ReportConstant.MealForecastReportSessionKey + SessionManager.CurrentUser.UserId);
-            string templatePath = string.Empty;
+            var report = SessionManager.Get<MealForecastReportModel>(
+                ReportConstant.MealForecastReportSessionKey + SessionManager.CurrentUser.UserId);
 
-            if (report == null)
-            {
-                report = _mealForecastReportService.GetMealForecastReport(criteria);
-            }
+            report = report ?? _mealForecastReportService.GetMealForecastReport(criteria);
 
             if (report != null)
             {
-                if (criteria.IsVegetarian == null)
-                {
-                    templatePath = Server.MapPath(_MealForecastAllTypeReportTemplatePath);
-                }
-                else
-                {
-                    templatePath = Server.MapPath(_MealForecastReportTemplatePath);
-                }
+                var templatePath = criteria.IsVegetarian == null
+                    ? Server.MapPath(_MealForecastAllTypeReportTemplatePath)
+                    : Server.MapPath(_MealForecastReportTemplatePath);
 
                 _mealForecastReportService.ExportMealForecastReport(report, templatePath, criteria.IsVegetarian);
             }
@@ -326,25 +246,16 @@ namespace NexFB.Site.Controllers
             return new EmptyResult();
         }
 
-        /// <summary>
-        /// Export Meal Forecast Detail Report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The excel file.</returns>
         public ActionResult ExportMealForecastDetailReport(GetMealForecastDetailReportCriteria criteria)
         {
-            MealForecastDetailReport report = SessionManager.Get<MealForecastDetailReport>(
+            var report = SessionManager.Get<MealForecastDetailReport>(
                 ReportConstant.MealForecastDetailReportSessionKey + SessionManager.CurrentUser.UserId);
-            string templatePath = string.Empty;
 
-            if (report == null)
-            {
-                report = _mealForecastDetailReportService.GetMealForecastDetailReport(criteria);
-            }
+            report = report ?? _mealForecastDetailReportService.GetMealForecastDetailReport(criteria);
 
             if (report != null)
             {
-                templatePath = Server.MapPath(_MealForecastDetailReportTemplatePath);
+                var templatePath = Server.MapPath(_MealForecastDetailReportTemplatePath);
                 _mealForecastDetailReportService.ExportMealForecastDetailReport(report, templatePath, criteria.IsVegetarian, criteria.OnDate);
             }
 
@@ -353,18 +264,14 @@ namespace NexFB.Site.Controllers
 
         public ActionResult ExportEmployeeRegistrationDetailReport(GetEmployeeRegistrationCriteria criteria)
         {
-            EmployeeRegistrationReportModel report = SessionManager.Get<EmployeeRegistrationReportModel>(
+            var report = SessionManager.Get<EmployeeRegistrationReportModel>(
                 ReportConstant.EmployeeRegistrationReportSessionKey + SessionManager.CurrentUser.UserId);
-            string templatePath = string.Empty;
 
-            if (report == null)
-            {
-                report = _mealForecastDetailReportService.GetEmployeeRegistration(criteria);
-            }
+            report = report ?? _mealForecastDetailReportService.GetEmployeeRegistration(criteria);
 
             if (report != null)
             {
-                templatePath = Server.MapPath(_EmployeeRegistrationReportTemplatePath);
+                var templatePath  = Server.MapPath(_EmployeeRegistrationReportTemplatePath);
                 _mealForecastDetailReportService.ExportEmployeeRegistrationReport(report, templatePath, criteria.IsVegetarian, criteria.WorkDate);
             }
 
@@ -372,29 +279,20 @@ namespace NexFB.Site.Controllers
         }
         public ActionResult ExportEmployeeNonRegistrationDetailReport(GetEmployeeNonRegistrationCriteria criteria)
         {
-            EmployeeRegistrationReportModel report = SessionManager.Get<EmployeeRegistrationReportModel>(
+            var report = SessionManager.Get<EmployeeRegistrationReportModel>(
                 ReportConstant.EmployeeNonRegistrationReportSessionKey + SessionManager.CurrentUser.UserId);
-            string templatePath = string.Empty;
 
-            if (report == null)
-            {
-                report = _mealForecastDetailReportService.GetEmployeeNonRegistration(criteria);
-            }
+            report = report ?? _mealForecastDetailReportService.GetEmployeeNonRegistration(criteria);
 
             if (report != null)
             {
-                templatePath = Server.MapPath(_EmployeeNonRegistrationReportTemplatePath);
+                var templatePath  = Server.MapPath(_EmployeeNonRegistrationReportTemplatePath);
                 _mealForecastDetailReportService.ExportEmployeeNonRegistrationReport(report, templatePath, criteria.IsVegetarian, criteria.WorkDate);
             }
 
             return new EmptyResult();
         }
 
-        /// <summary>
-        /// Export side dish summary report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The excel file.</returns>
         public ActionResult ExportSideDishSummaryReport(GetSideDishSummaryReportCriteria criteria)
         {
             string templatePath = Server.MapPath(_SideDishSummaryReportTemplatePath);
@@ -418,11 +316,11 @@ namespace NexFB.Site.Controllers
             };
 
             var report = _foodItemService.GetAllFoodItem(criteria);
-
             if (report != null)
             {
                 _foodItemReportService.ExportFoodItemReport(report, templatePath);
             }
+
             return new EmptyResult();
         }
 

@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DeliveredFoodViewModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.8.22">Created</change>
-// </history>
-
-namespace NexFB.PosKitchen.ViewModels
+﻿namespace NexFB.PosKitchen.ViewModels
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -15,11 +6,7 @@ namespace NexFB.PosKitchen.ViewModels
     using NexFB.Core.Enums;
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
-    using NexFB.Services.Implement;
 
-    /// <summary>
-    /// Delivered Food ViewModel.
-    /// </summary>
     public class DeliveredFoodViewModel : ViewModelBase
     {
         #region Fields
@@ -90,39 +77,13 @@ namespace NexFB.PosKitchen.ViewModels
         {
             get
             {
-                List<Order> deliveredMeals = new List<Order>();
+                List<Order> deliveredMeals;
                 if (!string.IsNullOrEmpty(SearchValue))
                 {
-                    if (SearchValue.Length <= 3)
-                    {
-                        var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() 
-                        { 
-                            OrderNo = int.Parse(SearchValue) 
-                        };
-                        IList<Order> orders = KitchenService.GetOrdersByOrderNo(getOrderDetailsCriteria);
-                        foreach (Order item in orders)
-                        {
-                            if (item.CurrentStatusId == (int)OrderStatus.DeliveredOrder
-                                || item.CurrentStatusId == (int)OrderStatus.EditedOrder)
-                            {
-                                deliveredMeals.Add(item);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var getOrderDetailsCriteria = new GetMealOrderByIdCriteria() 
-                        { 
-                            OrderId = int.Parse(SearchValue) 
-                        };
-                        Order order = KitchenService.GetMealOrderById(getOrderDetailsCriteria);
-                        if (order != null &&
-                        (order.CurrentStatusId == (int)OrderStatus.DeliveredOrder
-                        || order.CurrentStatusId == (int)OrderStatus.EditedOrder))
-                        {
-                            deliveredMeals.Add(order);
-                        }
-                    }
+                    const byte MaxLengthOrderNo = 3;
+                    deliveredMeals = SearchValue.Length <= MaxLengthOrderNo
+                        ? GetDeliveredMealsByOrderNo(int.Parse(SearchValue))
+                        : GetDeliveredMealsByOrderId(int.Parse(SearchValue));
                 }
                 else
                 {
@@ -169,7 +130,7 @@ namespace NexFB.PosKitchen.ViewModels
         {
             if (DeliveredMeals.Any(x => x.OrderId == orderId))
             {
-                Order currentOrder = DeliveredMeals.Where(x => x.OrderId == orderId).FirstOrDefault();
+                Order currentOrder = DeliveredMeals.FirstOrDefault(x => x.OrderId == orderId);
                 DeliveredMeals.Remove(currentOrder);
             }
         }
@@ -177,6 +138,29 @@ namespace NexFB.PosKitchen.ViewModels
         public void GetNewDataForApp()
         {
             DeliveredMeals = this.GetDeliveredMealOrder;
+        }
+
+        private List<Order> GetDeliveredMealsByOrderNo(int orderNo)
+        {
+            var criteria = new GetOrderDetailsByOrderNoCriteria { OrderNo = orderNo };
+            IList<Order> orders = KitchenService.GetOrdersByOrderNo(criteria);
+            return orders.Where(item => item.CurrentStatusId == (int)OrderStatus.DeliveredOrder
+                || item.CurrentStatusId == (int)OrderStatus.EditedOrder).ToList();
+        }
+
+        private List<Order> GetDeliveredMealsByOrderId(int orderId)
+        {
+            var deliveredMeals = new List<Order>();
+            var criteria = new GetMealOrderByIdCriteria { OrderId = orderId };
+            Order order = KitchenService.GetMealOrderById(criteria);
+            if (order != null
+                && (order.CurrentStatusId == (int)OrderStatus.DeliveredOrder
+                    || order.CurrentStatusId == (int)OrderStatus.EditedOrder))
+            {
+                deliveredMeals.Add(order);
+            }
+
+            return deliveredMeals;
         }
 
         #endregion

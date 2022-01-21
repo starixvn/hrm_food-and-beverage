@@ -15,7 +15,7 @@
     {
         private const string _PosDateFormat = "{0:dd/MM/yyyy HH:mm}";
 
-        private string _imageFolderPath = ConfigurationManager.AppSettings["ImageFolder"];
+        private readonly string _imageFolderPath = ConfigurationManager.AppSettings["ImageFolder"];
 
         public DateTime OnDate { get; set; }
 
@@ -73,13 +73,7 @@
 
         public bool IsLocal { get; set; }
 
-        public string PhoneAvailable
-        {
-            get
-            {
-                return string.IsNullOrEmpty(Phone) ? Constants.Hidden : Constants.Visible;
-            }
-        }
+        public string PhoneAvailable => string.IsNullOrEmpty(Phone) ? Constants.Hidden : Constants.Visible;
 
         public string DisplayRemak
         {
@@ -104,9 +98,10 @@
         {
             get
             {
-                if (ListMenu != null && (ListMenu.Count > 4 || ListMenu.Count == 0))
+                const byte MaxItems = 4;
+                if (ListMenu != null && (ListMenu.Count > MaxItems || ListMenu.Count == 0))
                 {
-                    List<OrderMenu> generalOrderList = new List<OrderMenu>();
+                    var generalOrders = new List<OrderMenu>();
                     List<OrderMenu> sideDish = ListMenu.Where(x => x.IsSideDish && !x.IsDeleted).ToList();
                     List<OrderMenu> mainMenu = ListMenu.Where(x => !x.IsSideDish && !x.IsDeleted).ToList();
 
@@ -131,110 +126,42 @@
                         MenuVnmName = WinFormMainResource.Total,
                         GeneralInfo = display
                     };
-                    generalOrderList.Add(generalInfo);
+                    generalOrders.Add(generalInfo);
 
-                    return generalOrderList;
+                    return generalOrders;
                 }
 
                 return ListMenu;
             }
         }
 
-        public string PrintLabel
-        {
-            get
-            {
-                return CurrentStatusId == (int)OrderStatus.NewOrder ? WinFormMainResource.ReceiveBilingual : WinFormMainResource.DeliverBilingual;
-            }
-        }
+        public string PrintLabel => CurrentStatusId == (int)OrderStatus.NewOrder
+                    ? WinFormMainResource.ReceiveBilingual : WinFormMainResource.DeliverBilingual;
 
-        public string RegisterDateString
-        {
-            get
-            {
-                return string.Format(_PosDateFormat, RegisterDate);
-            }
-        }
+        public string RegisterDateString => string.Format(_PosDateFormat, RegisterDate);
 
-        public string ReceiveDateString
-        {
-            get
-            {
-                return string.Format(_PosDateFormat, ReceiveDate);
-            }
-        }
+        public string ReceiveDateString => string.Format(_PosDateFormat, ReceiveDate);
 
-        public string DeliverDateString
-        {
-            get
-            {
-                return string.Format(_PosDateFormat, DeliverDate);
-            }
-        }
+        public string DeliverDateString => string.Format(_PosDateFormat, DeliverDate);
 
-        public string RejectedDateString
-        {
-            get
-            {
-                return string.Format(_PosDateFormat, RejectedDate);
-            }
-        }
+        public string RejectedDateString => string.Format(_PosDateFormat, RejectedDate);
 
-        public string CurrentDateString
-        {
-            get
-            {
-                return string.Format(_PosDateFormat, DateTime.Now);
-            }
-        }
+        public string CurrentDateString => string.Format(_PosDateFormat, DateTime.Now);
 
-        public bool HasNote
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(Remark);
-            }
-        }
+        public bool HasNote => !string.IsNullOrEmpty(Remark);
 
-        public string HasEdited
-        {
-            get
-            {
-                return IsEdited ? WinFormMainResource.Visible : WinFormMainResource.Hidden;
-            }
-        }
+        public string HasEdited => IsEdited ? WinFormMainResource.Visible : WinFormMainResource.Hidden;
 
-        public string TicketBackground
-        {
-            get
-            {
-                return InvoiceNumber == (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice ? WinFormMainResource.Black : string.Empty;
-            }
-        }
+        public string TicketBackground => InvoiceNumber == (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice
+            ? WinFormMainResource.Black : string.Empty;
 
-        public string TicketStrokeDash
-        {
-            get
-            {
-                return InvoiceNumber == (int)InvoiceNumberStatus.DeliverOrderFoodInvoice ? WinFormMainResource.StrokeDash : string.Empty;
-            }
-        }
+        public string TicketStrokeDash => InvoiceNumber == (int)InvoiceNumberStatus.DeliverOrderFoodInvoice
+            ? WinFormMainResource.StrokeDash : string.Empty;
 
-        public string TicketForeground
-        {
-            get
-            {
-                return InvoiceNumber == (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice ? WinFormMainResource.White : string.Empty;
-            }
-        }
+        public string TicketForeground => InvoiceNumber == (int)InvoiceNumberStatus.ReceiveOrderFoodInvoice
+            ? WinFormMainResource.White : string.Empty;
 
-        public int TotalOrder
-        {
-            get
-            {
-                return ListMenu.Where(x => !x.IsDeleted).Sum(x => x.QuantityOrder);
-            }
-        }
+        public int TotalOrder => ListMenu.Where(x => !x.IsDeleted).Sum(x => x.QuantityOrder);
 
         public string TotalAmount
         {
@@ -250,7 +177,8 @@
         {
             get
             {
-                return OrderNo.ToString().PadLeft(3, '0');
+                const byte MinLengthOrderNo = 3;
+                return OrderNo.ToString().PadLeft(MinLengthOrderNo, '0');
             }
         }
 
@@ -261,12 +189,12 @@
                 string text = string.Empty;
                 if (CurrentStatusId == (int)OrderStatus.NewOrder)
                 {
-                    text = WinFormMainResource.Receive.ToUpper();
+                    text = WinFormMainResource.Receive.ToUpperInvariant();
                 }
 
                 if (CurrentStatusId == (int)OrderStatus.ReceivedOrder || CurrentStatusId == (int)OrderStatus.ReducedOrder)
                 {
-                    text = WinFormMainResource.Export.ToUpper();
+                    text = WinFormMainResource.Export.ToUpperInvariant();
                 }
 
                 return text;
@@ -280,7 +208,7 @@
                 if (DepartmentId > 0)
                 {
                     DepartmentCode departmentCode = (DepartmentCode)DepartmentId;
-                    string displayNickName = NickName + "-" + departmentCode.ToString().ToUpper() + "({0})";
+                    string displayNickName = NickName + "-" + departmentCode.ToString().ToUpperInvariant() + "({0})";
                     return IsLocal ? string.Format(displayNickName, "L") : string.Format(displayNickName, "E");
                 }
                 else
@@ -290,28 +218,16 @@
             }
         }
 
-        public string PhoneHeaderVisible
-        {
-            get
-            {
-                return string.IsNullOrEmpty(Phone) ? "Hidden" : "Visible";
-            }
-        }
+        public string PhoneHeaderVisible => string.IsNullOrEmpty(Phone) ? "Hidden" : "Visible";
 
-        public bool DisabledButton
-        {
-            get
-            {
-                return CurrentStatusId != (int)OrderStatus.EditedOrder;
-            }
-        }
+        public bool DisabledButton => CurrentStatusId != (int)OrderStatus.EditedOrder;
 
         public string ImageSource
         {
             get
             {
-                string imageSource = string.Empty;
-                string baseDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
+                string imageSource;
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 string defaultImageSource = Path.Combine(baseDirectory, "Images\\no-avatar.jpg");
                 switch (DepartmentId)
                 {
@@ -340,9 +256,6 @@
             }
         }
 
-        private static bool GetResourceNames(string imageSource)
-        {
-            return File.Exists(imageSource);
-        }
+        private static bool GetResourceNames(string imageSource) => File.Exists(imageSource);
     }
 }

@@ -1,27 +1,10 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="NotifiableCollection.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.9.15">Created</change>
-// </history>
-
-namespace NexFB.Pos.Core.NotifyBase
+﻿namespace NexFB.Pos.Core.NotifyBase
 {
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
 
-    /// <summary>
-    /// Collection Changed Base.
-    /// </summary>
-    /// <typeparam name="T">Generic type.</typeparam>
     public class NotifiableCollection<T> : Collection<T>, INotifyCollectionChanged
     {
-        public NotifiableCollection()
-        {
-        }
-
         #region INotifyCollectionChanged Members
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 

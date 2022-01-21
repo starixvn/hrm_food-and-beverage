@@ -1,6 +1,7 @@
 ﻿namespace NexFB.Services.Implement.Report
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.Common.Helper;
     using NexFB.Core.Constants;
@@ -74,16 +75,19 @@
             var writer = new ExcelTemplateWriter(templatePath, reportName, Lang.AdminOrderHistoryReport);
 
             // Fill report title.
-            writer.CopyRows(0, 2);
-            writer.WriteRow(2, new object[] { reportTitle });
+            const byte TitleRowIndex = 2;
+            writer.CopyRows(0, TitleRowIndex);
+            writer.WriteRow(TitleRowIndex, new object[] { reportTitle });
 
             // Fill report header.
-            writer.CopyRows(3, 1);
+            const byte HeaderRowIndex = 3;
+            writer.CopyRows(HeaderRowIndex, 1);
 
             FillContentRow(report.EmployeeOrders, ref writer);
             FillTotalRow(report.EmployeeOrders, ref writer);
-            writer.SyncColumnsWidth(10);
 
+            const byte TotalColumns = 11;
+            writer.SyncColumnsWidth(TotalColumns);
             writer.Render();
         }
 
@@ -121,7 +125,6 @@
         private void FillTotalRow(List<AdminOrderModel> employeeOrders, ref ExcelTemplateWriter writer)
         {
             var totalAmount = CalculateTotalAmount(employeeOrders);
-
             object record = new
             {
                 Count = Lang.Total,
@@ -136,10 +139,11 @@
                 SideDish = CalculateTotalSideDish(employeeOrders),
                 Amount = totalAmount > 0 ? totalAmount.ToString(Constants.NumberFormat) : "0"
             };
-
-            writer.WriteRow(11, record);
+            const byte TotalRowIndex = 11;
+            writer.WriteRow(TotalRowIndex, record);
         }
 
+        [SuppressMessage("Major Code Smell", "S109:Magic numbers should not be used", Justification = "Ok")]
         private static int GetRowStyleByStatus(int statusId)
         {
             int rowIndex;

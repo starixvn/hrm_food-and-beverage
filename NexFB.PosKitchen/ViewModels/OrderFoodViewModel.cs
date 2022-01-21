@@ -1,19 +1,9 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="OrderFoodViewModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.8.28">Created</change>
-// </history>
-
-namespace NexFB.PosKitchen.ViewModels
+﻿namespace NexFB.PosKitchen.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
     using System.Linq;
@@ -39,16 +29,13 @@ namespace NexFB.PosKitchen.ViewModels
     using WPFMessageBoxCustomControl;
     using WPFMessageBoxCustomControl.Enums;
 
-    /// <summary>
-    /// Order Food ViewModel.
-    /// </summary>
     public partial class OrderFoodViewModel : OrderFoodProperty
     {
         #region Fields
 
         private static readonly OrderFoodData _OrderFoodData = new OrderFoodData();
         private static readonly OrderFoodPreviewData _OrderFoodPreviewData = new OrderFoodPreviewData();
-        private static string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
+        private static readonly string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
 
         #endregion
 
@@ -65,11 +52,6 @@ namespace NexFB.PosKitchen.ViewModels
 
         #region Initialize Data
 
-        /// <summary>
-        /// Initialize Data.
-        /// </summary>
-        /// <param name="mainViewModel">Main View Model.</param>
-        /// <param name="order">Order from edit screen.</param>
         public void InitializeData(MainViewModel mainViewModel, Order order)
         {
             base.InitializeData(mainViewModel.ScreenWidth, mainViewModel.ScreenHeight);
@@ -104,9 +86,6 @@ namespace NexFB.PosKitchen.ViewModels
             return EmployeeInfo != null;
         }
 
-        /// <summary>
-        /// Pick Room Command.
-        /// </summary>
         public void ExecutePickRoomCommand()
         {
             ChangeButtonBorder((int)KitchenGroupButton.PickRoomButton);
@@ -127,25 +106,18 @@ namespace NexFB.PosKitchen.ViewModels
             CommonKitchenOrder = AllObservationGroup;
         }
 
-        /// <summary>
-        /// Choose Main Food Command.
-        /// </summary>
-        /// <returns>Boolean to check.</returns>
         public bool CanExecuteChooseMainFoodCommand()
         {
             return UserInGroup.Any(x => x.IsSelectedMemberInGroup) && CanOrderMainFood;
         }
 
-        /// <summary>
-        /// Choose Main Food command.
-        /// </summary>
         public void ExecuteChooseMainFoodCommand()
         {
             ChangeButtonBorder((int)KitchenGroupButton.ChooseMainFoodButton);
             CommonKitchenOrder = AllObservationFood;
             if (UserInGroup.Any(x => x.IsSelectedMemberInGroup))
             {
-                KitchenEmployeeInfo currentSelectedMember = UserInGroup.Where(x => x.IsSelectedMemberInGroup).SingleOrDefault();
+                KitchenEmployeeInfo currentSelectedMember = UserInGroup.SingleOrDefault(x => x.IsSelectedMemberInGroup);
                 ChangeMenuColor(currentSelectedMember);
             }
         }
@@ -156,16 +128,13 @@ namespace NexFB.PosKitchen.ViewModels
             return UserInGroup.Any(x => x.IsSelectedMemberInGroup);
         }
 
-        /// <summary>
-        /// Choose Alternative Food command.
-        /// </summary>
         public void ExecuteChooseAlternativeFoodCommand()
         {
             ChangeButtonBorder((int)KitchenGroupButton.ChooseAlternativeFoodButton);
             CommonKitchenOrder = AllObservationAlternativeFood;
             if (UserInGroup.Any(x => x.IsSelectedMemberInGroup))
             {
-                KitchenEmployeeInfo currentSelectedMember = UserInGroup.Where(x => x.IsSelectedMemberInGroup).SingleOrDefault();
+                KitchenEmployeeInfo currentSelectedMember = UserInGroup.SingleOrDefault(x => x.IsSelectedMemberInGroup);
                 ChangeMenuColor(currentSelectedMember);
             }
         }
@@ -174,17 +143,13 @@ namespace NexFB.PosKitchen.ViewModels
 
         #region Middle Side Action
 
-        /// <summary>
-        /// Execute Meal Menu Selected.
-        /// </summary>
-        /// <param name="value">Value pass from user interface.</param>
         public void ExecuteMealMenuSelected(object value)
         {
             if (value != null)
             {
                 var itemId = (int)value;
                 bool checkMainFoodMenu = CheckMainFoodMenu;
-                var currentSelectedItem = CommonKitchenOrder.Where(x => x.ItemId == itemId).SingleOrDefault();
+                var currentSelectedItem = CommonKitchenOrder.SingleOrDefault(x => x.ItemId == itemId);
                 if (checkMainFoodMenu || CheckAlternativeFoodMenu || CheckGroupMenu)
                 {
                     if (CheckGroupMenu)
@@ -197,7 +162,7 @@ namespace NexFB.PosKitchen.ViewModels
                     else
                     {
                         ReleaseDataMiddleSide(false, currentSelectedItem);
-                        KitchenEmployeeInfo currentSelectedMember = UserInGroup.Where(x => x.IsSelectedMemberInGroup).SingleOrDefault();
+                        KitchenEmployeeInfo currentSelectedMember = UserInGroup.SingleOrDefault(x => x.IsSelectedMemberInGroup);
                         int additionalQuantity = 0;
                         if (checkMainFoodMenu)
                         {
@@ -225,11 +190,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Remove main dish when selected alternative dish.
-        /// </summary>
-        /// <param name="itemId">Selected item in list food.</param>
-        /// <param name="currentSelectedMember">Current selected employee.</param>
         public void RemoveMainDish(int itemId, KitchenEmployeeInfo currentSelectedMember)
         {
             if (itemId == int.MaxValue)
@@ -247,7 +207,7 @@ namespace NexFB.PosKitchen.ViewModels
                         currentSelectedMember.ListMainMenuOrderDeatails.Remove(selectedMenuItem);
                         currentSelectedMember.DisabledAutoAddFood = true;
 
-                        CommonKitchenOrder mainMenu = CommonKitchenOrder.Where(x => x.ItemId == int.MaxValue).SingleOrDefault();
+                        CommonKitchenOrder mainMenu = CommonKitchenOrder.SingleOrDefault(x => x.ItemId == int.MaxValue);
                         mainMenu.Quantity = 0;
                         mainMenu.IsSelectedMealMenu = false;
                         mainMenu.IsFocusedMealMenu = false;
@@ -261,9 +221,6 @@ namespace NexFB.PosKitchen.ViewModels
 
         #region Right Side Action
 
-        /// <summary>
-        /// Execute Select all user in group.
-        /// </summary>
         public void ExecuteSelectAllUserInGroupCommand()
         {
             UserInGroup.ToList().ForEach(x => x.IsPlaceOrder = true);
@@ -291,20 +248,16 @@ namespace NexFB.PosKitchen.ViewModels
             return true;
         }
 
-        /// <summary>
-        /// Selected Employee In Group.
-        /// </summary>
-        /// <param name="value">Employee Sys Id.</param>
         public void ExecuteEmployeeInGroupSelected(object value)
         {
             if (value != null)
             {
                 var sysId = (int)value;
-                CheckCanOrderMainFood(UserInGroup.Where(x => x.SysId == sysId).SingleOrDefault());
+                CheckCanOrderMainFood(UserInGroup.SingleOrDefault(x => x.SysId == sysId));
 
-                KitchenEmployeeInfo employeeHasDeletedOrder = UserInGroup.Where(
+                KitchenEmployeeInfo employeeHasDeletedOrder = UserInGroup.SingleOrDefault(
                     x => (x.ListMainMenuOrderDeatails.Count == 0 && x.ListAlternativeMenuOrderDeatails.Count == 0)
-                    && x.IsDeleteMainFood).SingleOrDefault();
+                    && x.IsDeleteMainFood);
                 if (employeeHasDeletedOrder != null)
                 {
                     if (employeeHasDeletedOrder.SysId != sysId)
@@ -315,7 +268,7 @@ namespace NexFB.PosKitchen.ViewModels
                 else
                 {
                     IsMenuFocused = false;
-                    var currentSelectedEmployee = UserInGroup.Where(x => x.SysId == sysId).SingleOrDefault();
+                    var currentSelectedEmployee = UserInGroup.SingleOrDefault(x => x.SysId == sysId);
                     UserInGroup.ToList().ForEach(y => y.IsSelectedMemberInGroup = false);
                     currentSelectedEmployee.IsSelectedMemberInGroup = true;
                     currentSelectedEmployee.IsPlaceOrder = true;
@@ -343,19 +296,12 @@ namespace NexFB.PosKitchen.ViewModels
 
         #region KeyPad Action
 
-        /// <summary>
-        /// Can Execute Receive Command.
-        /// </summary>
-        /// <returns>Boolean to check.</returns>
         public bool CanExecuteReceiveCommand()
         {
             bool hasOrderFood = UserInGroup.Any(x => x.ListMainMenuOrderDeatails.Count > 0 || x.ListAlternativeMenuOrderDeatails.Count > 0);
             return AllowReduceOrderToZero ? EmployeeInfo != null : EmployeeInfo != null && hasOrderFood && !IsCanceledOrder;
         }
 
-        /// <summary>
-        /// Receive order.
-        /// </summary>
         public void ExecuteReceiveCommand()
         {
             bool dataValid = CheckDataValid();
@@ -383,14 +329,11 @@ namespace NexFB.PosKitchen.ViewModels
             return !(isInChooseFood && isMenuFocused);
         }
 
-        /// <summary>
-        /// Add member to order.
-        /// </summary>
         public void ExecuteAddCommand()
         {
             if (!string.IsNullOrEmpty(Result))
             {
-                var getEmployeeByCodeCriteria = new GetEmployeeByCodeCriteria() { Code = Result };
+                var getEmployeeByCodeCriteria = new GetEmployeeByCodeCriteria { Code = Result };
                 List<EmployeeInfo> employees = this.KitchenService.GetEmployeeOrderInfo(getEmployeeByCodeCriteria);
                 List<KitchenEmployeeInfo> listKitchenEmployeeInfo = Mapper.Map<List<EmployeeInfo>, List<KitchenEmployeeInfo>>(employees);
                 if (listKitchenEmployeeInfo.Any())
@@ -405,7 +348,7 @@ namespace NexFB.PosKitchen.ViewModels
                         this.ShowOverlay();
                         DuplicateUser = new ObservableCollection<KitchenEmployeeInfo>(listKitchenEmployeeInfo);
                         MessageHeader = string.Format(WinFormMainResource.DuplicateEmployeeMessage, DuplicateUser.Count);
-                        EmployeeSelectionWindow employeeSelectionWindow = new EmployeeSelectionWindow()
+                        EmployeeSelectionWindow employeeSelectionWindow = new EmployeeSelectionWindow
                         {
                             DataContext = this,
                             Owner = Application.Current.MainWindow
@@ -429,13 +372,9 @@ namespace NexFB.PosKitchen.ViewModels
 
         public bool CanExecuteCancelCommand()
         {
-            return EmployeeInfo != null || CommonKitchenOrder.Count > 0 || (Result != null && Result.Count() > 0);
+            return EmployeeInfo != null || CommonKitchenOrder.Count > 0 || (Result != null && Result.Any());
         }
 
-        /// <summary>
-        /// Cancel command.
-        /// </summary>
-        /// <param name="value">Parameter value.</param>
         public void ExecuteCancelCommand(object value)
         {
             if (value != null)
@@ -469,10 +408,6 @@ namespace NexFB.PosKitchen.ViewModels
             return !(Result != null && Result.Length == 6);
         }
 
-        /// <summary>
-        /// Method Press virtual key pad.
-        /// </summary>
-        /// <param name="value">Object parameter.</param>
         public void ExecuteNumPadPressed(object value)
         {
             var keyPadParameter = value.ToString();
@@ -504,14 +439,10 @@ namespace NexFB.PosKitchen.ViewModels
 
         public void ExecuteSearchLoction()
         {
-            var filterList = AllObservationLocation.Where(x => x.ItemName.ToUpper().Contains(LocationResult));
+            var filterList = AllObservationLocation.Where(x => x.ItemName.ToUpperInvariant().Contains(LocationResult));
             CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>(filterList);
         }
 
-        /// <summary>
-        /// Action for Keypad Released.
-        /// </summary>
-        /// <returns>Boolean to check.</returns>
         public bool CanExecuteNumPadReleased()
         {
             bool hasSelectedMemberInGroup = UserInGroup.Any(x => x.IsSelectedMemberInGroup);
@@ -522,12 +453,9 @@ namespace NexFB.PosKitchen.ViewModels
             return hasMiddleSideDataFocused || hasSelectedMemberInGroup || hasTextBlockFocused || hasSearchLocationFocused;
         }
 
-        /// <summary>
-        /// Execute Number keypad Released.
-        /// </summary>
         public void ExecuteNumPadReleased()
         {
-            var currentSelectedEmployee = UserInGroup.Where(x => x.SysId == CurrentSelectedEmployeeSysId).SingleOrDefault();
+            var currentSelectedEmployee = UserInGroup.SingleOrDefault(x => x.SysId == CurrentSelectedEmployeeSysId);
             CommonKitchenOrder currentSelectedMenu = null;
 
             if (this.LocationTextboxResultFocused)
@@ -570,10 +498,6 @@ namespace NexFB.PosKitchen.ViewModels
 
         #region Modal Confirm Action
 
-        /// <summary>
-        /// Save Order Command.
-        /// </summary>
-        /// <param name="value">Current Screen.</param>
         public void ExecuteSaveOrderCommand(object value)
         {
             var mainMenuData = new StringBuilder(Constant.BeginRootTag);
@@ -607,15 +531,11 @@ namespace NexFB.PosKitchen.ViewModels
             AddOrEditOrderData(value, mainMenuData, alternativeMenuData, additionalMenuData);
         }
 
-        /// <summary>
-        /// Add employee in dialog after user select an Employee.
-        /// </summary>
-        /// <param name="value">Dialog object.</param>
         public void ExecuteSaveDialogCommand(object value)
         {
             if (DuplicateUser.Any(x => x.IsChecked))
             {
-                KitchenEmployeeInfo selectedEmployee = DuplicateUser.Where(x => x.IsChecked).FirstOrDefault();
+                KitchenEmployeeInfo selectedEmployee = DuplicateUser.FirstOrDefault(x => x.IsChecked);
                 if (EmployeeInfo == null)
                 {
                     EmployeeInfo = selectedEmployee;
@@ -626,7 +546,7 @@ namespace NexFB.PosKitchen.ViewModels
                 }
                 else
                 {
-                    GetEmployeeInGroup(DuplicateUser.Where(x => x.IsChecked).FirstOrDefault().SysId, value);
+                    GetEmployeeInGroup(DuplicateUser.FirstOrDefault(x => x.IsChecked).SysId, value);
                 }
             }
         }
@@ -662,10 +582,6 @@ namespace NexFB.PosKitchen.ViewModels
 
         #region Public Methods
 
-        /// <summary>
-        /// Add member to current order.
-        /// </summary>
-        /// <param name="selectedEmployeeInfo">Selected member.</param>
         public void AddMemberToOrder(KitchenEmployeeInfo selectedEmployeeInfo)
         {
             if (EmployeeInfo == null)
@@ -692,10 +608,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Change Menu color.
-        /// </summary>
-        /// <param name="currentSelectedEmployee">Menu color of Current Selected employee.</param>
         public void ChangeMenuColor(KitchenEmployeeInfo currentSelectedEmployee)
         {
             CheckCanOrderMainFood(currentSelectedEmployee);
@@ -715,7 +627,12 @@ namespace NexFB.PosKitchen.ViewModels
             if (checkMainFoodMenu || CheckAlternativeFoodMenu)
             {
                 AddFixedMenuToEmployee(currentSelectedEmployee, checkMainFoodMenu);
-                CommonKitchenOrder.ToList().ForEach(x => { x.IsFocusedMealMenu = false; x.IsSelectedMealMenu = false; x.Quantity = 0; });
+                CommonKitchenOrder.ToList().ForEach(x =>
+                    {
+                        x.IsFocusedMealMenu = false;
+                        x.IsSelectedMealMenu = false;
+                        x.Quantity = 0;
+                    });
                 List<EmployeeOrderDetails> employeeOrderDetails = null;
                 employeeOrderDetails = checkMainFoodMenu ? currentSelectedEmployee.ListMainMenuOrderDeatails : currentSelectedEmployee.ListAlternativeMenuOrderDeatails;
 
@@ -754,20 +671,13 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Add Menu to employee menu list.
-        /// </summary>
-        /// <param name="itemId">Menu item id.</param>
-        /// <param name="currentSelectedMember">Current member.</param>
-        /// <param name="menu">Main or snack menu.</param>
-        /// <param name="increaseValue">Additional value.</param>
         public void AddSelectedMenuItemToList(int itemId, KitchenEmployeeInfo currentSelectedMember, int menu, int increaseValue)
         {
             if (UserInGroup.Any(x => x.IsSelectedMemberInGroup))
             {
                 EmployeeOrderDetails employeeOrderDetails = null;
                 List<EmployeeOrderDetails> currentMenuList = null;
-                var orderDetails = new EmployeeOrderDetails()
+                var orderDetails = new EmployeeOrderDetails
                 {
                     SelectedMenuItemId = itemId,
                     SelectedMenuItemQuantity = 1,
@@ -777,16 +687,18 @@ namespace NexFB.PosKitchen.ViewModels
                 {
                     case (int)MenuType.MainMenu:
                         currentMenuList = currentSelectedMember.ListMainMenuOrderDeatails;
-                        employeeOrderDetails = currentMenuList.Where(x => x.SelectedMenuItemId == itemId).SingleOrDefault();
-
+                        employeeOrderDetails = currentMenuList.SingleOrDefault(x => x.SelectedMenuItemId == itemId);
                         break;
                     case (int)MenuType.AlternativeMenu:
                         currentMenuList = currentSelectedMember.ListAlternativeMenuOrderDeatails;
-                        employeeOrderDetails = currentMenuList.Where(x => x.SelectedMenuItemId == itemId).SingleOrDefault();
+                        employeeOrderDetails = currentMenuList.SingleOrDefault(x => x.SelectedMenuItemId == itemId);
+                        break;
+                    default:
+                        // do nothing
                         break;
                 }
 
-                CommonKitchenOrder selectedMenu = CommonKitchenOrder.Where(x => x.ItemId == itemId).SingleOrDefault();
+                CommonKitchenOrder selectedMenu = CommonKitchenOrder.SingleOrDefault(x => x.ItemId == itemId);
                 if (selectedMenu != null)
                 {
                     orderDetails.SelectedMenuItemName = selectedMenu.ItemName;
@@ -813,7 +725,7 @@ namespace NexFB.PosKitchen.ViewModels
 
         public List<KitchenEmployeeInfo> GetUserByGroup(int groupId)
         {
-            var getUserByGroupIdCriteria = new GetUserByGroupIdCriteria() { GroupOrderId = groupId };
+            var getUserByGroupIdCriteria = new GetUserByGroupIdCriteria { GroupOrderId = groupId };
             List<EmployeeInfo> users = this.KitchenService.GetUserByGroupId(getUserByGroupIdCriteria);
             List<KitchenEmployeeInfo> data = Mapper.Map<List<EmployeeInfo>, List<KitchenEmployeeInfo>>(users);
             return data;
@@ -829,18 +741,12 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Get Employee Belong to a Group.
-        /// </summary>
-        /// <param name="sysId">Employee Sys Id.</param>
-        /// <param name="value">Instance of EmployeeSelectionWindow.</param>
-        /// <returns>Boolean to check.</returns>
         public bool GetEmployeeInGroup(int sysId, object value = null)
         {
             if (!UserInGroup.Any(x => x.SysId == sysId))
             {
                 KitchenEmployeeInfo employee = this.GetEmployeeBySysId(sysId);
-                var getEmployeeOrderStatusCriteria = new GetEmployeeOrderStatusCriteria() { SysId = employee.SysId };
+                var getEmployeeOrderStatusCriteria = new GetEmployeeOrderStatusCriteria { SysId = employee.SysId };
                 EmployeeOrderStatus employeeStatus = this.KitchenService.EmployeeOrderStatus(getEmployeeOrderStatusCriteria);
                 employee.MenuId = employeeStatus.MenuId;
                 employee.MenuVnmName = employeeStatus.MenuVnmName;
@@ -878,10 +784,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Add Member In Group to Grid.
-        /// </summary>
-        /// <param name="currentSelectedItem">Current Selected member.</param>
         public void AddMemberInGroupToGrid(CommonKitchenOrder currentSelectedItem)
         {
             if (CheckGroupMenu)
@@ -913,15 +815,9 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Check valid employee data in grid.
-        /// </summary>
-        /// <param name="sysId">Employee sys id.</param>
-        /// <param name="value">Employee selection Dialog value.</param>
-        /// <returns>Boolean to check.</returns>
         public bool CheckValidEmployeeData(int sysId, object value = null)
         {
-            KitchenEmployeeInfo currentSelectedEmployee = UserInGroup.Where(x => x.SysId == sysId).SingleOrDefault();
+            KitchenEmployeeInfo currentSelectedEmployee = UserInGroup.SingleOrDefault(x => x.SysId == sysId);
             CheckCanOrderMainFood(currentSelectedEmployee);
             if (CanOrderMainFood)
             {
@@ -949,14 +845,11 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Keypad change to Number keypad.
-        /// </summary>
         public void ExecuteChangeKeyPad()
         {
             if (!FullKeyPadVisible)
             {
-                VirtualKeyboard virtalKeyboard = new VirtualKeyboard()
+                var virtalKeyboard = new VirtualKeyboard
                 {
                     DataContext = this,
                     Owner = Application.Current.MainWindow,
@@ -973,11 +866,6 @@ namespace NexFB.PosKitchen.ViewModels
             ExecuteChangeKeyPad();
         }
 
-        /// <summary>
-        /// Middle side data released.
-        /// </summary>
-        /// <param name="currentSelectedMenu">Current selected Menu.</param>
-        /// <param name="currentSelectedEmployee">Current Selected Employee.</param>
         public void MiddSideDataReleased(CommonKitchenOrder currentSelectedMenu, KitchenEmployeeInfo currentSelectedEmployee)
         {
             EmployeeOrderDetails menuRemoved = null;
@@ -987,8 +875,8 @@ namespace NexFB.PosKitchen.ViewModels
                 {
                     if (CurrentSelectedMainMenuId > 0)
                     {
-                        currentSelectedMenu = CommonKitchenOrder.Where(x => x.ItemId == CurrentSelectedMainMenuId).SingleOrDefault();
-                        menuRemoved = currentSelectedEmployee.ListMainMenuOrderDeatails.Where(x => x.SelectedMenuItemId == CurrentSelectedMainMenuId).SingleOrDefault();
+                        currentSelectedMenu = CommonKitchenOrder.SingleOrDefault(x => x.ItemId == CurrentSelectedMainMenuId);
+                        menuRemoved = currentSelectedEmployee.ListMainMenuOrderDeatails.SingleOrDefault(x => x.SelectedMenuItemId == CurrentSelectedMainMenuId);
                         if (menuRemoved != null)
                         {
                             currentSelectedEmployee.ListMainMenuOrderDeatails.Remove(menuRemoved);
@@ -1000,8 +888,8 @@ namespace NexFB.PosKitchen.ViewModels
                 {
                     if (CurrentSelectedAlternativeMenuId > 0)
                     {
-                        currentSelectedMenu = CommonKitchenOrder.Where(x => x.ItemId == CurrentSelectedAlternativeMenuId).SingleOrDefault();
-                        menuRemoved = currentSelectedEmployee.ListAlternativeMenuOrderDeatails.Where(x => x.SelectedMenuItemId == CurrentSelectedAlternativeMenuId).SingleOrDefault();
+                        currentSelectedMenu = CommonKitchenOrder.SingleOrDefault(x => x.ItemId == CurrentSelectedAlternativeMenuId);
+                        menuRemoved = currentSelectedEmployee.ListAlternativeMenuOrderDeatails.SingleOrDefault(x => x.SelectedMenuItemId == CurrentSelectedAlternativeMenuId);
                         if (menuRemoved != null)
                         {
                             currentSelectedEmployee.ListAlternativeMenuOrderDeatails.Remove(menuRemoved);
@@ -1022,7 +910,7 @@ namespace NexFB.PosKitchen.ViewModels
             {
                 if (CurrentSelectedGroupId > 0)
                 {
-                    currentSelectedMenu = CommonKitchenOrder.Where(x => x.ItemId == CurrentSelectedGroupId).SingleOrDefault();
+                    currentSelectedMenu = CommonKitchenOrder.SingleOrDefault(x => x.ItemId == CurrentSelectedGroupId);
                     currentSelectedMenu.IsFocusedMealMenu = false;
                     currentSelectedMenu.IsSelectedMealMenu = false;
                     AddMemberInGroupToGrid(currentSelectedMenu);
@@ -1030,10 +918,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Remove employee order.
-        /// </summary>
-        /// <param name="currentSelectedEmployee">Selected employee.</param>
         public void EmployeeInListReleased(KitchenEmployeeInfo currentSelectedEmployee)
         {
             if (CurrentSelectedEmployeeSysId > 0)
@@ -1051,10 +935,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Change member color.
-        /// </summary>
-        /// <param name="currentSelectedEmployee">Current selected employee.</param>
         public void ChangeMemberOrderColor(KitchenEmployeeInfo currentSelectedEmployee)
         {
             if (currentSelectedEmployee.IsPlaceOrder)
@@ -1069,11 +949,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Add current menu of employee to list.
-        /// </summary>
-        /// <param name="currentSelectedEmployee">Current selected employee.</param>
-        /// <param name="isMainFoodMenu">Is main or alternative menu.</param>
         public void AddFixedMenuToEmployee(KitchenEmployeeInfo currentSelectedEmployee, bool isMainFoodMenu)
         {
             if (isMainFoodMenu)
@@ -1083,7 +958,7 @@ namespace NexFB.PosKitchen.ViewModels
 
                 if (!CommonKitchenOrder.Any(x => x.ItemId == int.MaxValue))
                 {
-                    dynamicMainFoodMenu = new CommonKitchenOrder()
+                    dynamicMainFoodMenu = new CommonKitchenOrder
                     {
                         ItemId = int.MaxValue,
                         IsSelectedMealMenu = false,
@@ -1094,7 +969,7 @@ namespace NexFB.PosKitchen.ViewModels
                 }
                 else
                 {
-                    dynamicMainFoodMenu = CommonKitchenOrder.Where(x => x.ItemId == int.MaxValue).SingleOrDefault();
+                    dynamicMainFoodMenu = CommonKitchenOrder.SingleOrDefault(x => x.ItemId == int.MaxValue);
                 }
 
                 CheckExistingFixedMenu(currentSelectedEmployee, dynamicMainFoodMenu);
@@ -1114,14 +989,9 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Get Employee By Sys Id.
-        /// </summary>
-        /// <param name="sysId">Employee Sys Id.</param>
-        /// <returns>KitchenEmployee Info.</returns>
         public KitchenEmployeeInfo GetEmployeeBySysId(int sysId)
         {
-            var criteria = new GetEmployeeBySysIdCriteria() { SysId = sysId };
+            var criteria = new GetEmployeeBySysIdCriteria { SysId = sysId };
             KitchenEmployeeInfo kitchenEmployee = null;
             EmployeeInfo employee = this.KitchenService.GetEmployeeBySysId(criteria);
             if (employee != null)
@@ -1132,13 +1002,6 @@ namespace NexFB.PosKitchen.ViewModels
             return kitchenEmployee;
         }
 
-        /// <summary>
-        /// Check for action add or insert.
-        /// </summary>
-        /// <param name="value">OrderConfirmationWindow object.</param>
-        /// <param name="mainMenuData">Main menu data.</param>
-        /// <param name="alternativeMenuData">Alternative Menu data.</param>
-        /// <param name="additionalMenuData">Additional menu data.</param>
         public void AddOrEditOrderData(object value, StringBuilder mainMenuData, StringBuilder alternativeMenuData, StringBuilder additionalMenuData)
         {
             if (mainMenuData.Length == 6)
@@ -1166,17 +1029,9 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Edit an existing order.
-        /// </summary>
-        /// <param name="locationId">Current owner location.</param>
-        /// <param name="mainMenuData">Data Main menu.</param>
-        /// <param name="alternativeMenuData">Data Alternative Menu.</param>
-        /// <param name="additionalMenuData">Data Additional Menu.</param>
-        /// <param name="value">Current object window.</param>
         public void EditOrder(int locationId, StringBuilder mainMenuData, StringBuilder alternativeMenuData, StringBuilder additionalMenuData, object value)
         {
-            var editOrderMealCriteria = new EditOrderMealCriteria()
+            var editOrderMealCriteria = new EditOrderMealCriteria
             {
                 OwnerId = EmployeeInfo.SysId,
                 ModifiedDate = DateTime.Now,
@@ -1190,14 +1045,7 @@ namespace NexFB.PosKitchen.ViewModels
             CommandResult result = KitchenService.EditOrderFood(editOrderMealCriteria);
             if (result.Code != 0)
             {
-                if (result.Code == 106)
-                {
-                    WPFMessageBox.Show(CurrentCulture(), WinFormMainResource.Message_DeliveryArea);
-                }
-                else
-                {
-                    WPFMessageBox.Show(CurrentCulture(), result.Message);
-                }
+                WPFMessageBox.Show(CurrentCulture(), result.Code == 106 ? WinFormMainResource.Message_DeliveryArea : result.Message);
             }
             else
             {
@@ -1208,17 +1056,9 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Insert new order.
-        /// </summary>
-        /// <param name="locationId">Current owner location.</param>
-        /// <param name="mainMenuData">Data Main menu.</param>
-        /// <param name="alternativeMenuData">Data Alternative Menu.</param>
-        /// <param name="additionalMenuData">Data Additional Menu.</param>
-        /// <param name="value">Current object window.</param>
         public void InsertNewOrder(int locationId, StringBuilder mainMenuData, StringBuilder alternativeMenuData, StringBuilder additionalMenuData, object value)
         {
-            var insertOrderMealCriteria = new InsertOrderMealCriteria()
+            var insertOrderMealCriteria = new InsertOrderMealCriteria
             {
                 OwnerId = EmployeeInfo.SysId,
                 CreatedDate = DateTime.Now,
@@ -1232,14 +1072,7 @@ namespace NexFB.PosKitchen.ViewModels
             OrderResult result = KitchenService.InsertOrderFood(insertOrderMealCriteria);
             if (result.CommandResult.Code != 0)
             {
-                if (result.CommandResult.Code == 106)
-                {
-                    WPFMessageBox.Show(CurrentCulture(), WinFormMainResource.Message_DeliveryArea);
-                }
-                else
-                {
-                    WPFMessageBox.Show(CurrentCulture(), result.CommandResult.Message);
-                }
+                WPFMessageBox.Show(CurrentCulture(), result.CommandResult.Code == 106 ? WinFormMainResource.Message_DeliveryArea : result.CommandResult.Message);
             }
             else
             {
@@ -1250,28 +1083,19 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Validate data before save order.
-        /// </summary>
-        /// <returns>Boolean to check.</returns>
         public bool CheckDataValid()
         {
-            if (EmployeeInfo != null)
+            if (EmployeeInfo != null && LocationId < 1)
             {
-                if (LocationId < 1)
-                {
-                    this.ShowErrorMessage(CurrentCulture(), WinFormMainResource.Message_PickRoom);
-                    return false;
-                }
+                this.ShowErrorMessage(CurrentCulture(), WinFormMainResource.Message_PickRoom);
+                return false;
             }
 
-            if (!AllowReduceOrderToZero && UserInGroup != null && UserInGroup.Count > 0)
+            if (!AllowReduceOrderToZero && UserInGroup != null && UserInGroup.Count > 0
+                && !UserInGroup.Any(x => x.ListMainMenuOrderDeatails.Count > 0 || x.ListAlternativeMenuOrderDeatails.Count > 0))
             {
-                if (!UserInGroup.Any(x => x.ListMainMenuOrderDeatails.Count > 0 || x.ListAlternativeMenuOrderDeatails.Count > 0))
-                {
-                    this.ShowErrorMessage(CurrentCulture(), WinFormMainResource.Message_Atleast1);
-                    return false;
-                }
+                this.ShowErrorMessage(CurrentCulture(), WinFormMainResource.Message_Atleast1);
+                return false;
             }
 
             return true;
@@ -1282,13 +1106,8 @@ namespace NexFB.PosKitchen.ViewModels
             CanOrderMainFood = selectedEmploye.MenuId != Constant.DisabledEmployeeOrder;
         }
 
-        /// <summary>
-        /// Cancel Current order.
-        /// </summary>
-        /// <param name="value">Parameter value.</param>
         public void ResetCurrentModel(object value = null)
         {
-            string defaultColor = Constant.DefaultMenuColor;
             CommonKitchenOrder = new ObservableCollection<CommonKitchenOrder>();
             UserInGroup = new ObservableCollection<KitchenEmployeeInfo>();
             DuplicateUser = new ObservableCollection<KitchenEmployeeInfo>();
@@ -1299,13 +1118,13 @@ namespace NexFB.PosKitchen.ViewModels
             EmployeeInfo = null;
             Result = null;
             LocationName = null;
-            OwnerImage = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, Constant.DefaultAvatar);
+            OwnerImage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constant.DefaultAvatar);
             LocationId = 0;
             MessageHeader = string.Empty;
-            BorderButtonMainFood = defaultColor;
-            BorderButtonPickGroup = defaultColor;
-            BorderButtonPickRoom = defaultColor;
-            BorderButtonAlternativeFood = defaultColor;
+            BorderButtonMainFood = Constant.DefaultMenuColor;
+            BorderButtonPickGroup = Constant.DefaultMenuColor;
+            BorderButtonPickRoom = Constant.DefaultMenuColor;
+            BorderButtonAlternativeFood = Constant.DefaultMenuColor;
             CurrentSelectedAlternativeMenuId = 0;
             CurrentSelectedEmployeeSysId = 0;
             CurrentSelectedMainMenuId = 0;
@@ -1332,12 +1151,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Check string length of general order info.
-        /// </summary>
-        /// <param name="listMainOrder">List main order.</param>
-        /// <param name="listAlternativeOrder">List alternative order.</param>
-        /// <returns>Number of characters.</returns>
         public int CheckOrderInfoDataLength(List<EmployeeOrderDetails> listMainOrder, List<EmployeeOrderDetails> listAlternativeOrder)
         {
             int totalCharacter = 0;
@@ -1357,15 +1170,11 @@ namespace NexFB.PosKitchen.ViewModels
             return totalCharacter;
         }
 
-        /// <summary>
-        /// Mapping data from entity to object in app.
-        /// </summary>
-        /// <param name="order">Data from DB.</param>
         public void PrepareEditData(Order order)
         {
             if (order != null)
             {
-                List<KitchenEmployeeInfo> data = new List<KitchenEmployeeInfo>();
+                var data = new List<KitchenEmployeeInfo>();
                 EmployeeInfo = GetEmployeeBySysId(order.SysId);
                 OwnerImage = EmployeeInfo.ImageSource;
                 LocationId = order.LocationId;
@@ -1402,10 +1211,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Set border to main textbox.
-        /// </summary>
-        /// <param name="isFocused">Set or unset.</param>
         public void MainTextBlockHighLight(bool isFocused)
         {
             if (MainTexboxResultBorder != null)
@@ -1423,10 +1228,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Set border to search location textbox.
-        /// </summary>
-        /// <param name="isFocused">Set or unset.</param>
         public void LocationTextBlockHighLight(bool isFocused)
         {
             if (LocationTexboxResultBorder != null)
@@ -1445,9 +1246,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Check for Virtual keyboard visible and close it.
-        /// </summary>
         private void CloseFullKeyPadWhenVisible()
         {
             if (Application.Current.Windows.Count > 1)
@@ -1465,12 +1263,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Mapping Data for edit action.
-        /// </summary>
-        /// <param name="orderData">List order menu.</param>
-        /// <param name="sysId">Current Sys id.</param>
-        /// <returns>Kitchen Employee Info entity.</returns>
         private KitchenEmployeeInfo MappingDataForEditAction(List<OrderMenu> orderData, int sysId)
         {
             KitchenEmployeeInfo kitchenEmployeeInfo = GetEmployeeBySysId(sysId);
@@ -1478,7 +1270,7 @@ namespace NexFB.PosKitchen.ViewModels
             {
                 if ((orderDetail.IsMainMenu && !orderDetail.IsSideDish) || (!orderDetail.IsMainMenu && !orderDetail.IsSideDish))
                 {
-                    var employeeOrderDetails = new EmployeeOrderDetails()
+                    var employeeOrderDetails = new EmployeeOrderDetails
                     {
                         SelectedMenuItemId = orderDetail.MenuId,
                         SelectedMenuItemName = IsVnmCulture ? orderDetail.MenuVnmName : orderDetail.MenuEngName,
@@ -1500,7 +1292,7 @@ namespace NexFB.PosKitchen.ViewModels
                 if (orderDetail.IsSideDish && !orderDetail.IsMainMenu)
                 {
                     kitchenEmployeeInfo.ListAlternativeMenuOrderDeatails.Add(
-                       new EmployeeOrderDetails()
+                       new EmployeeOrderDetails
                        {
                            SelectedMenuItemId = orderDetail.MenuId,
                            SelectedMenuItemName = IsVnmCulture ? orderDetail.MenuVnmName : orderDetail.MenuEngName,
@@ -1518,30 +1310,21 @@ namespace NexFB.PosKitchen.ViewModels
             return kitchenEmployeeInfo;
         }
 
-        /// <summary>
-        /// Timer tick to get data.
-        /// </summary>
-        /// <param name="sender">Object Sender.</param>
-        /// <param name="e">Event Argument..</param>
         private void TimerTickToAddQuantity(object sender, EventArgs e)
         {
             DispatcherTimer timer = (DispatcherTimer)sender;
-            var currentSelectedItem = CommonKitchenOrder.Where(x => x.IsFocusedMealMenu && x.IsSelectedMealMenu).SingleOrDefault();
+            var currentSelectedItem = CommonKitchenOrder.SingleOrDefault(x => x.IsFocusedMealMenu && x.IsSelectedMealMenu);
             if (currentSelectedItem != null)
             {
-                KitchenEmployeeInfo currentSelectedMember = UserInGroup.Where(x => x.IsSelectedMemberInGroup).SingleOrDefault();
-                int moreQuantity;
-                bool isNumeric = int.TryParse(Result, out moreQuantity);
+                KitchenEmployeeInfo currentSelectedMember = UserInGroup.SingleOrDefault(x => x.IsSelectedMemberInGroup);
+                bool isNumeric = int.TryParse(Result, out int moreQuantity);
                 if (isNumeric)
                 {
-                    if (CheckMainFoodMenu)
-                    {
-                        AddSelectedMenuItemToList(currentSelectedItem.ItemId, currentSelectedMember, (int)MenuType.MainMenu, moreQuantity);
-                    }
-                    else
-                    {
-                        AddSelectedMenuItemToList(currentSelectedItem.ItemId, currentSelectedMember, (int)MenuType.AlternativeMenu, moreQuantity);
-                    }
+                    AddSelectedMenuItemToList(
+                        currentSelectedItem.ItemId,
+                        currentSelectedMember,
+                        CheckMainFoodMenu ? (int)MenuType.MainMenu : (int)MenuType.AlternativeMenu,
+                        moreQuantity);
                 }
             }
 
@@ -1549,10 +1332,6 @@ namespace NexFB.PosKitchen.ViewModels
             timer.Stop();
         }
 
-        /// <summary>
-        /// Get All Employee in a group and add them to the group in POS.
-        /// </summary>
-        /// <param name="groupId">Selected Group Id.</param>
         private void PrepareDataEmployeeInGroup(int groupId)
         {
             UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup.Where(x => x.IsPlaceOrder));
@@ -1567,13 +1346,12 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Timer get data.
-        /// </summary>
         private void StartTimerAddQuantity()
         {
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(TimerAddQuantity);
+            var timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(TimerAddQuantity)
+            };
             timer.Tick += TimerTickToAddQuantity;
             timer.Start();
         }
@@ -1582,15 +1360,11 @@ namespace NexFB.PosKitchen.ViewModels
 
         #region Private Methods
 
-        private KitchenEmployeeInfo MappingEmployeeData(EmployeeInfo employeeInfo)
+        private static KitchenEmployeeInfo MappingEmployeeData(EmployeeInfo employeeInfo)
         {
             return employeeInfo != null ? Mapper.Map<EmployeeInfo, KitchenEmployeeInfo>(employeeInfo) : null;
         }
 
-        /// <summary>
-        /// Check Current Culture.
-        /// </summary>
-        /// <returns>Vietnamese or English culture.</returns>
         private int CurrentCulture()
         {
             if (string.IsNullOrEmpty(_defaultLanguage) || _defaultLanguage == Constant.DefaultCulture)
@@ -1605,11 +1379,6 @@ namespace NexFB.PosKitchen.ViewModels
             }
         }
 
-        /// <summary>
-        /// Default add Main food to employee.
-        /// </summary>
-        /// <param name="currentSelectedEmployee">Selected employee.</param>
-        /// <returns>Current employee data.</returns>
         private KitchenEmployeeInfo AutoAddMainFoodWhenFocused(KitchenEmployeeInfo currentSelectedEmployee)
         {
             if (!currentSelectedEmployee.IsDeleteMainFood)
@@ -1620,7 +1389,7 @@ namespace NexFB.PosKitchen.ViewModels
                     mealName = Constant.FixedMeal;
                 }
 
-                var employeeMainMeal = new EmployeeOrderDetails()
+                var employeeMainMeal = new EmployeeOrderDetails
                 {
                     SelectedMenuItemId = int.MaxValue,
                     SelectedMenuItemName = mealName,
@@ -1636,9 +1405,6 @@ namespace NexFB.PosKitchen.ViewModels
             return currentSelectedEmployee;
         }
 
-        /// <summary>
-        /// Register Relay Command.
-        /// </summary>
         private void RegisterRelayCommands()
         {
             RegisterNumPadRelayCommand();
@@ -1655,9 +1421,6 @@ namespace NexFB.PosKitchen.ViewModels
             CloseVirtualKeyboard = new RelayCommand((x) => ExecuteCloseVirtualKeyboard(x));
         }
 
-        /// <summary>
-        /// Register Key Pad Relay Command.
-        /// </summary>
         private void RegisterNumPadRelayCommand()
         {
             AddCommand = new RelayCommand((x) => CanExecuteAddCommand(), (y) => ExecuteAddCommand());
@@ -1672,10 +1435,6 @@ namespace NexFB.PosKitchen.ViewModels
             ChooseAlternativeFoodCommand = new RelayCommand((x) => CanExecuteChooseAlternativeFoodCommand(), (y) => ExecuteChooseAlternativeFoodCommand());
         }
 
-        /// <summary>
-        /// Get Timer Add Quantity.
-        /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         private void GetTimerAddQuantiy()
         {
             string timerAddQuantity = ConfigurationManager.AppSettings[Constant.TimerAddQuantity];
