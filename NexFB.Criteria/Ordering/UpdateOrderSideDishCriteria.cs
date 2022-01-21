@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="UpdateOrderSideDishCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/22/2014 2:53:04 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.Ordering
+﻿namespace NexFB.Criteria.Ordering
 {
     using System;
     using System.Collections.Generic;
@@ -17,9 +8,6 @@ namespace NexFB.Criteria.Ordering
     using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
 
-    /// <summary>
-    /// Update Order Side Dish Criteria.
-    /// </summary>
     public class UpdateOrderSideDishCriteria : CriteriaBase
     {
         private const string _MemberTpl = "<User SysId='{0}' FoodID='{1}' QTY='{2}'></User>";
@@ -66,28 +54,10 @@ namespace NexFB.Criteria.Ordering
             }
         }
 
-        public override string GetSettingKey()
-        {
-            return "MealOrder_Edit_RequestSideDishByWeb";
-        }
+        public override string GetSettingKey() => "MealOrder_Edit_RequestSideDishByWeb";
 
-        /// <summary>
-        /// Function to check Is valid data.
-        /// </summary>
-        /// <returns>Result of check.</returns>
-        public override bool IsValid()
-        {
-            var check = false;
-            foreach (OrderMemberModel member in Members)
-            {
-                if (member.IsOrder)
-                {
-                    check = true;
-                    break;
-                }
-            }
+        public override bool IsValid() => OrderId > 0 && LocationId != null && IsValidMembers();
 
-            return OrderId > 0 && LocationId != null && Members != null && check && Members.Any();
-        }
+        private bool IsValidMembers() => Members != null && Members.Any() && Members.Any(x => x.IsOrder);
     }
 }

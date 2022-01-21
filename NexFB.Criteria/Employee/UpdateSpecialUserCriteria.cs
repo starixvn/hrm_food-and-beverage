@@ -1,20 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateSpecialUserCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.12.5">Created</change>
-// </history>
-
-namespace NexFB.Criteria.Employee
+﻿namespace NexFB.Criteria.Employee
 {
     using System;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Update Special Employee criteria.
-    /// </summary>
     public class UpdateSpecialUserCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "SysId")]
@@ -39,10 +27,7 @@ namespace NexFB.Criteria.Employee
         [SpParam(Ignored = true)]
         public DateTime ModifiedDate { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "Employee_Upd_SpecialEmp";
-        }
+        public override string GetSettingKey() => "Employee_Upd_SpecialEmp";
 
         public override bool IsValid()
         {

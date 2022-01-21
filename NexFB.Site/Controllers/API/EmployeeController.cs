@@ -34,7 +34,7 @@
         [HttpGet]
         public IList<Employee> GetEmployees(string keyWord = "", string departmentId = "", string teamId = null, bool isShowDisable = false)
         {
-            var criteria = new GetEmployeeCriteria()
+            var criteria = new GetEmployeeCriteria
             {
                 DepartmentId = string.IsNullOrEmpty(departmentId) ? this.CurrentUser.DepartmentId.ToString() : departmentId,
                 Keyword = keyWord,
@@ -50,7 +50,7 @@
         [HttpGet]
         public SpecialUser GetSpecialUserById(int userId)
         {
-            var criteria = new GetSpecialUserByIdCriteria()
+            var criteria = new GetSpecialUserByIdCriteria
             {
                 UserId = userId
             };
@@ -63,7 +63,7 @@
         [HttpGet]
         public IList<SpecialUser> GetSpecialUsers(string departmentId, string employeeTypeId, bool? isActive = null)
         {
-            var criteria = new GetSpecialUserCriteria()
+            var criteria = new GetSpecialUserCriteria
             {
                 DepartmentId = departmentId,
                 EmployeeTypeId = employeeTypeId,
@@ -77,7 +77,7 @@
         [HttpPost]
         public CommandResult InsertSpecialUser(SpecialUser model)
         {
-            var criteria = new InsertSpecialUserCriteria()
+            var criteria = new InsertSpecialUserCriteria
             {
                 CreatedBy = this.CurrentUser.UserId,
                 CreatedDate = DateTime.Now,
@@ -116,7 +116,7 @@
         [HttpPut]
         public CommandResult UpdateStatusSpecialUser(SpecialUser model)
         {
-            var criteria = new ActivateSpecialUserCriteria()
+            var criteria = new ActivateSpecialUserCriteria
             {
                 ModifiedBy = this.CurrentUser.UserId,
                 ModifiedDate = DateTime.Now,

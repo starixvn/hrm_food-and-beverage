@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ViewMenuReportService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Larry.Tran" date="2015.1.19">Created</change>
-// </history>
-
-namespace NexFB.Services.Implement.Report
+﻿namespace NexFB.Services.Implement.Report
 {
     using System;
     using System.Collections.Generic;
@@ -22,12 +13,9 @@ namespace NexFB.Services.Implement.Report
     using NexFB.Resources;
     using NexFB.Services.Interface.Report;
 
-    /// <summary>
-    /// ViewMenuReportService class.
-    /// </summary>
     public class ViewMenuReportService : BaseService, IViewMenuReportService
     {
-        private IReportRepository _reportRepository;
+        private readonly IReportRepository _reportRepository;
 
         public ViewMenuReportService()
             : this(null)
@@ -39,11 +27,6 @@ namespace NexFB.Services.Implement.Report
             _reportRepository = reportRepository ?? new ReportRepository();
         }
 
-        /// <summary>
-        /// Gets the view menu report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>ViewMenuReportModel data.</returns>
         public ViewMenuReportModel GetViewMenuReport(GetViewMenuReportCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -56,12 +39,6 @@ namespace NexFB.Services.Implement.Report
             return report;
         }
 
-        /// <summary>
-        /// Exports the view menu report.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="templatePath">The template path.</param>
-        /// <param name="menuDate">The menu date.</param>
         public void ExportViewMenuReport(ViewMenuReportModel report, string templatePath, DateTime fromDate, DateTime toDate)
         {
             string reportTitle = Lang.ViewMenuReport;
@@ -83,7 +60,7 @@ namespace NexFB.Services.Implement.Report
             writer.Render();
         }
 
-        private void FillHeaderRow(IEnumerable<DateTime> dates, ref ExcelTemplateWriter writer)
+        private static void FillHeaderRow(IEnumerable<DateTime> dates, ref ExcelTemplateWriter writer)
         {
             var colIndex = 1;
             foreach (var date in dates)
@@ -97,12 +74,7 @@ namespace NexFB.Services.Implement.Report
             }
         }
 
-        /// <summary>
-        /// Fills the content row.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="writer">The writer.</param>
-        private void FillContentRow(IList<MenuTypeModel> menus, int totalColumn, ref ExcelTemplateWriter writer)
+        private static void FillContentRow(IList<MenuTypeModel> menus, int totalColumn, ref ExcelTemplateWriter writer)
         {
             var rowIndex = 3;
             foreach (var item in menus)
@@ -115,7 +87,11 @@ namespace NexFB.Services.Implement.Report
             }
         }
 
-        private void FillSubRows(IList<MenuItemPerDateModel> menuForEachDay, int maxMenuItemPerMeal, ref ExcelTemplateWriter writer, ref int rowIndex)
+        private static void FillSubRows(
+            IList<MenuItemPerDateModel> menuForEachDay,
+            int maxMenuItemPerMeal,
+            ref ExcelTemplateWriter writer,
+            ref int rowIndex)
         {
             for (int i = 0; i < maxMenuItemPerMeal; i++)
             {
@@ -133,7 +109,7 @@ namespace NexFB.Services.Implement.Report
             }
         }
 
-        private string GetMenuFoodName(IList<ViewMenuItemModel> menus, int index)
+        private static string GetMenuFoodName(IList<ViewMenuItemModel> menus, int index)
         {
             string menuFoodName = string.Empty;
             try

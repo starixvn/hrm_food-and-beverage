@@ -13,7 +13,6 @@
         #region Attributes
 
         private readonly string _fileName;
-        private readonly string _sheetName;
         private readonly ISheet _templateSheet;
         private readonly ISheet _sheet;
         private int _rowId = 0;
@@ -36,9 +35,8 @@
         public ExcelTemplateWriter(HSSFWorkbook template, string excelFileName, string sheetName)
         {
             this._fileName = excelFileName;
-            this._sheetName = sheetName;
             this._templateSheet = template.GetSheetAt(0);
-            this._sheet = template.CreateSheet(this._sheetName);
+            this._sheet = template.CreateSheet(sheetName);
         }
 
         #endregion Constructors

@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="UserControlController.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/26/2014 2:04:39 PM">Created.</change>
-// </history>
-
-namespace NexFB.Site.Controllers.API
+﻿namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
@@ -25,18 +16,12 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Web.Services.Implement;
     using NexFB.Web.Services.Interface;
 
-    /// <summary>
-    /// The user control controller.
-    /// </summary>
     public class UserControlController : BaseController
     {
-        private IUserControlService _userControlService;
-
-        private ICommonService _commonService;
-
-        private IWebCommonService _webCommonService;
-
-        private IEmployeeService _employeeService;
+        private readonly IUserControlService _userControlService;
+        private readonly ICommonService _commonService;
+        private readonly IWebCommonService _webCommonService;
+        private readonly IEmployeeService _employeeService;
 
         public UserControlController()
             : this(null, null, null, null)
@@ -59,7 +44,7 @@ namespace NexFB.Site.Controllers.API
         [ApiAuthorize(FunctionKey = FBFunctionKey.ManageRole, Policy = Policy.Read)]
         public IEnumerable<FunctionModel> GetFunctionByRole(int roleId)
         {
-            var criteria = new GetFunctionByRoleCriteria()
+            var criteria = new GetFunctionByRoleCriteria
             {
                 RoleId = roleId
             };
@@ -95,14 +80,6 @@ namespace NexFB.Site.Controllers.API
             return policy;
         }
 
-        /// <summary>
-        /// Get all employee role.
-        /// </summary>
-        /// <param name="keyword">The keyword to search.</param>
-        /// <param name="departmentId">The department ID.</param>
-        /// <param name="teamId">The team ID.</param>
-        /// <param name="roleId">The role ID.</param>
-        /// <returns>The enumerator Employee model.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.ManageUser, Policy = Policy.Read)]
         public IEnumerable<EmployeeModel> GetAllEmployeeRole(
@@ -122,11 +99,6 @@ namespace NexFB.Site.Controllers.API
             return _userControlService.GetAllEmployeeRole(criteria);
         }
 
-        /// <summary>
-        /// Get employee role by Id.
-        /// </summary>
-        /// <param name="systemId">The system ID.</param>
-        /// <returns>The employee model.</returns>
         [HttpGet]
         public EmployeeModel GetEmployeeRoleById(int systemId)
         {
@@ -161,20 +133,14 @@ namespace NexFB.Site.Controllers.API
         [HttpGet]
         public string GetDefaultPassword()
         {
-            string defaultPassword = Constants.DefaultPassword;
-            return defaultPassword;
+            return Constants.DefaultPassword;
         }
 
-        /// <summary>
-        /// Reset Password.
-        /// </summary>
-        /// <param name="userId">The user Id.</param>
-        /// <returns>Command Result.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.ManageUser, Policy = Policy.Host)]
         public CommandResult ResetPassword(int userId)
         {
-            var criteria = new ChangePasswordCriteria()
+            var criteria = new ChangePasswordCriteria
             {
                 UserId = userId,
                 Password = Constants.DefaultPassword,

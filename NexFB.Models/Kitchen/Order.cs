@@ -340,12 +340,7 @@
             }
         }
 
-        /// <summary>
-        /// Get Resource of application.
-        /// </summary>
-        /// <param name="imageSource">The source of image.</param>
-        /// <returns>Boolean to check.</returns>
-        private bool GetResourceNames(string imageSource)
+        private static bool GetResourceNames(string imageSource)
         {
             return File.Exists(imageSource);
         }

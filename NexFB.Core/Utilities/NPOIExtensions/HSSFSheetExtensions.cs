@@ -1,33 +1,12 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="HSSFSheetExtensions.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="11/27/2014 3:05:33 PM">Created.</change>
-// </history>
-
-namespace NexFB.Core.Utilities.NPOIExtensions
+﻿namespace NexFB.Core.Utilities.NPOIExtensions
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
 
-    /// <summary>
-    /// Sheet Extensions.
-    /// </summary>
     public static class HSSFSheetExtensions
     {
-        /// <summary>
-        /// Copies a number of rows from another sheet.
-        /// </summary>
-        /// <param name="sheet">Current sheet.</param>
-        /// <param name="sourceSheet">Source sheet.</param>
-        /// <param name="sourceRowIndex">Start row index of the source sheet.</param>
-        /// <param name="rowIndex">Start row index of the current sheet.</param>
-        /// <param name="total">Number of rows that will be copied.</param>
         public static void CopyRows(this ISheet sheet, ISheet sourceSheet, int sourceRowIndex, int rowIndex, int total)
         {
             for (var i = 0; i < total; i++)
@@ -36,16 +15,6 @@ namespace NexFB.Core.Utilities.NPOIExtensions
             }
         }
 
-        /// <summary>
-        /// Copies a row from the source to the current sheet.
-        /// </summary>
-        /// <param name="sheet">Current sheet.</param>
-        /// <param name="sourceSheet">Source sheet.</param>
-        /// <param name="sourceRowIndex">The index of source row.</param>
-        /// <param name="rowIndex">The index of the row where data will be copied to.</param>
-        /// <param name="firstColumnIndex">First column index of copying area.</param>
-        /// <param name="lastColumnIndex">Last column index of copying area.</param>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static void CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowIndex, int rowIndex, int firstColumnIndex, int lastColumnIndex)
         {
             // Expand the sheet to satisfy the number of needed rows.
@@ -84,57 +53,48 @@ namespace NexFB.Core.Utilities.NPOIExtensions
                     CloneCell(newCell, sourceCell);
 
                     // Copy merged area.
-                    CellRangeAddress sourceRange = null;
-                    for (var j = 0; j < sourceSheet.NumMergedRegions; j++)
-                    {
-                        CellRangeAddress range = sourceSheet.GetMergedRegion(j);
-                        if (range.FirstColumn == sourceCell.ColumnIndex && range.FirstRow == sourceCell.RowIndex)
-                        {
-                            sourceRange = range;
-                            break;
-                        }
-                    }
-
-                    if (sourceRange != null)
-                    {
-                        var newRange = new CellRangeAddress(
-                            newCell.RowIndex,
-                            newCell.RowIndex + sourceRange.LastRow - sourceRange.FirstRow,
-                            newCell.ColumnIndex,
-                            newCell.ColumnIndex + sourceRange.LastColumn - sourceRange.FirstColumn);
-                        sheet.AddMergedRegion(newRange);
-                    }
+                    CopyMergedArea(sheet, sourceSheet, sourceCell, newCell);
                 }
             }
         }
 
-        /// <summary>
-        /// Copies a row from the source to the current sheet.
-        /// </summary>
-        /// <param name="sheet">Current sheet.</param>
-        /// <param name="sourceSheet">Source sheet.</param>
-        /// <param name="sourceRowIndex">The index of source row.</param>
-        /// <param name="rowIndex">The index of the row where data will be copied to.</param>
+        private static void CopyMergedArea(ISheet sheet, ISheet sourceSheet, ICell sourceCell, ICell newCell)
+        {
+            CellRangeAddress sourceRange = null;
+            int j = 0;
+            while (sourceRange == null && j < sourceSheet.NumMergedRegions)
+            {
+                CellRangeAddress range = sourceSheet.GetMergedRegion(j);
+
+                if (range.FirstColumn == sourceCell.ColumnIndex && range.FirstRow == sourceCell.RowIndex)
+                {
+                    sourceRange = range;
+                }
+
+                j += 1;
+            }
+
+            if (sourceRange != null)
+            {
+                var newRange = new CellRangeAddress(
+                    newCell.RowIndex,
+                    newCell.RowIndex + sourceRange.LastRow - sourceRange.FirstRow,
+                    newCell.ColumnIndex,
+                    newCell.ColumnIndex + sourceRange.LastColumn - sourceRange.FirstColumn);
+                sheet.AddMergedRegion(newRange);
+            }
+        }
+
         public static void CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowIndex, int rowIndex)
         {
             sheet.CopyRow(sourceSheet, sourceRowIndex, rowIndex, 0, int.MaxValue - 1);
         }
 
-        /// <summary>
-        /// Removes a row at a specific index.
-        /// </summary>
-        /// <param name="sheet">Current sheet.</param>
-        /// <param name="rowIndex">Index of row that needs to be removed.</param>
         public static void RemoveRow(this ISheet sheet, int rowIndex)
         {
             sheet.RemoveRow(sheet.GetRow(rowIndex));
         }
 
-        /// <summary>
-        /// Removes a list of columns from the sheet.
-        /// </summary>
-        /// <param name="sheet">Current sheet.</param>
-        /// <param name="columns">List of column indexes.</param>
         public static void RemoveColumns(this ISheet sheet, List<int> columns)
         {
             columns.Sort();
@@ -144,12 +104,6 @@ namespace NexFB.Core.Utilities.NPOIExtensions
             }
         }
 
-        /// <summary>
-        /// Removes a column from the sheet at a specific index.
-        /// </summary>
-        /// <param name="sheet">Current sheet.</param>
-        /// <param name="columnIndex">Index of column that needs to be removed.</param>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static void RemoveColumn(this ISheet sheet, int columnIndex)
         {
             bool adjustColumn = true;
@@ -165,113 +119,97 @@ namespace NexFB.Core.Utilities.NPOIExtensions
 
                     if (lastColumn >= columnIndex)
                     {
-                        for (int currentCol = columnIndex; currentCol < lastColumn; currentCol++)
-                        {
-                            // Remove old cell.
-                            var oldCell = row.GetCell(currentCol);
-                            if (oldCell != null)
-                            {
-                                row.RemoveCell(oldCell);
-                            }
-
-                            // Move cell.
-                            var nextCell = row.GetCell(currentCol + 1);
-                            if (nextCell != null)
-                            {
-                                var newCell = row.CreateCell(currentCol, nextCell.CellType);
-                                if (adjustColumn)
-                                {
-                                    sheet.SetColumnWidth(newCell.ColumnIndex, sheet.GetColumnWidth(nextCell.ColumnIndex));
-                                }
-
-                                CloneCell(newCell, nextCell);
-                            }
-                        }
-
-                        // Remove last cell.
-                        var removeCell = row.GetCell(lastColumn);
-                        if (removeCell != null)
-                        {
-                            row.RemoveCell(removeCell);
-                        }
+                        AdjustCell(sheet, columnIndex, adjustColumn, row, lastColumn);
                     }
 
                     // Adjust merged region
-                    for (int i = sheet.NumMergedRegions - 1; i >= 0; i--)
-                    {
-                        var mergedRegion = sheet.GetMergedRegion(i);
-
-                        if (rowIndex == mergedRegion.FirstRow)
-                        {
-                            if ((columnIndex == mergedRegion.FirstColumn)
-                                && (columnIndex == mergedRegion.LastColumn))
-                            {
-                                sheet.RemoveMergedRegion(i);
-                            }
-                            else if (mergedRegion.FirstColumn > columnIndex)
-                            {
-                                mergedRegion.FirstColumn = mergedRegion.FirstColumn - 1;
-                                mergedRegion.LastColumn = mergedRegion.LastColumn - 1;
-                            }
-                            else if (columnIndex <= mergedRegion.LastColumn)
-                            {
-                                mergedRegion.LastColumn = mergedRegion.LastColumn - 1;
-                            }
-                        }
-                    }
+                    AdjustMergedRegion(sheet, columnIndex, rowIndex);
 
                     adjustColumn = false;
                 }
             }
         }
 
-        /// <summary>
-        /// Clones a cell.
-        /// </summary>
-        /// <param name="sheet">Current sheet.</param>
-        /// <param name="newCell">New cell instance.</param>
-        /// <param name="sourceCell">Source cell instance.</param>
+        private static void AdjustCell(ISheet sheet, int columnIndex, bool adjustColumn, IRow row, int lastColumn)
+        {
+            for (int currentCol = columnIndex; currentCol < lastColumn; currentCol++)
+            {
+                // Remove old cell.
+                var oldCell = row.GetCell(currentCol);
+                if (oldCell != null)
+                {
+                    row.RemoveCell(oldCell);
+                }
+
+                // Move cell.
+                var nextCell = row.GetCell(currentCol + 1);
+                if (nextCell != null)
+                {
+                    var newCell = row.CreateCell(currentCol, nextCell.CellType);
+                    if (adjustColumn)
+                    {
+                        sheet.SetColumnWidth(newCell.ColumnIndex, sheet.GetColumnWidth(nextCell.ColumnIndex));
+                    }
+
+                    CloneCell(newCell, nextCell);
+                }
+            }
+
+            // Remove last cell.
+            var removeCell = row.GetCell(lastColumn);
+            if (removeCell != null)
+            {
+                row.RemoveCell(removeCell);
+            }
+        }
+
+        private static void AdjustMergedRegion(ISheet sheet, int columnIndex, int rowIndex)
+        {
+            for (int i = sheet.NumMergedRegions - 1; i >= 0; i--)
+            {
+                var mergedRegion = sheet.GetMergedRegion(i);
+
+                if (rowIndex == mergedRegion.FirstRow)
+                {
+                    if ((columnIndex == mergedRegion.FirstColumn)
+                        && (columnIndex == mergedRegion.LastColumn))
+                    {
+                        sheet.RemoveMergedRegion(i);
+                    }
+                    else if (mergedRegion.FirstColumn > columnIndex)
+                    {
+                        mergedRegion.FirstColumn = mergedRegion.FirstColumn - 1;
+                        mergedRegion.LastColumn = mergedRegion.LastColumn - 1;
+                    }
+                    else if (columnIndex <= mergedRegion.LastColumn)
+                    {
+                        mergedRegion.LastColumn = mergedRegion.LastColumn - 1;
+                    }
+                    else
+                    {
+                        // do nothing
+                    }
+                }
+            }
+        }
+
         public static ICellStyle GetCellFormat(ICell sourceCell)
         {
             return sourceCell.CellStyle;
         }
 
-        /// <summary>
-        /// Gets a cell at specific row and column.
-        /// </summary>
-        /// <param name="sheet">Current sheet.</param>
-        /// <param name="rowIndex">Row index.</param>
-        /// <param name="colIndex">Column index.</param>
-        /// <returns>Cell instance at the passed position.</returns>
         public static ICell GetCell(this ISheet sheet, int rowIndex, int colIndex)
         {
             sheet.CreateCell(rowIndex, colIndex);
             return sheet.GetRow(rowIndex).GetCell(colIndex);
         }
 
-        /// <summary>
-        /// Merges cells into a cell range.
-        /// </summary>
-        /// <param name="sheet">Current sheet.</param>
-        /// <param name="firstRow">First row index of region needs to be merged.</param>
-        /// <param name="firstCol">First column index of region needs to be merged.</param>
-        /// <param name="lastRow">Last row index of region needs to be merged.</param>
-        /// <param name="lastCol">Last column index of region needs to be merged.</param>
-        /// <returns>Index of merged cells.</returns>
         public static int MergeCells(this ISheet sheet, int firstRow, int firstCol, int lastRow, int lastCol)
         {
             var rangeAddress = new CellRangeAddress(firstRow, lastRow, firstCol, lastCol);
             return sheet.AddMergedRegion(rangeAddress);
         }
 
-        /// <summary>
-        /// Removes merged regions from the sheet.
-        /// </summary>
-        /// <param name="sheet">Current sheet.</param>
-        /// <param name="firstRow">First row index of region needs to be removed.</param>
-        /// <param name="firstCol">First column index of region needs to be removed.</param>
-        /// <param name="lastRow">Last row index of region needs to be removed.</param>
-        /// <param name="lastCol">Last column index of region needs to be removed.</param>
         public static void RemoveMergedRegions(this ISheet sheet, int firstRow, int firstCol, int lastRow, int lastCol)
         {
             for (int i = sheet.NumMergedRegions - 1; i >= 0; i--)
@@ -287,15 +225,6 @@ namespace NexFB.Core.Utilities.NPOIExtensions
             }
         }
 
-        /// <summary>
-        /// Creates a merged cell.
-        /// </summary>
-        /// <param name="sheet">Current sheet.</param>
-        /// <param name="rowIndex">Row index.</param>
-        /// <param name="colIndex">Column index.</param>
-        /// <param name="rowSpan">Number of row span.</param>
-        /// <param name="colSpan">Number of column span.</param>
-        /// <returns>New cell instance.</returns>
         public static ICell CreateCell(this ISheet sheet, int rowIndex, int colIndex, int rowSpan, int colSpan)
         {
             ICell cell = sheet.CreateCell(rowIndex, colIndex);
@@ -308,16 +237,6 @@ namespace NexFB.Core.Utilities.NPOIExtensions
             return cell;
         }
 
-        /// <summary>
-        /// Creates a merged cell.
-        /// </summary>
-        /// <param name="sheet">Current sheet.</param>
-        /// <param name="rowIndex">Row index.</param>
-        /// <param name="colIndex">Column index.</param>
-        /// <param name="rowSpan">Number of row span.</param>
-        /// <param name="colSpan">Number of column span.</param>
-        /// <param name="cellStyle">Cell style.</param>
-        /// <returns>New cell instance.</returns>
         public static ICell CreateCell(this ISheet sheet, int rowIndex, int colIndex, int rowSpan, int colSpan, ICellStyle cellStyle)
         {
             ICell cell = sheet.CreateCell(rowIndex, colIndex, rowSpan, colSpan);
@@ -325,13 +244,6 @@ namespace NexFB.Core.Utilities.NPOIExtensions
             return cell;
         }
 
-        /// <summary>
-        /// Creates new cell at specific row and column index.
-        /// </summary>
-        /// <param name="sheet">Current sheet.</param>
-        /// <param name="rowIndex">Row index.</param>
-        /// <param name="colIndex">Column index.</param>
-        /// <returns>New cell instance.</returns>
         public static ICell CreateCell(this ISheet sheet, int rowIndex, int colIndex)
         {
             IRow row = sheet.GetRow(rowIndex);
@@ -343,12 +255,6 @@ namespace NexFB.Core.Utilities.NPOIExtensions
             return cell;
         }
 
-        /// <summary>
-        /// Clones value and style of a cell.
-        /// </summary>
-        /// <param name="newCell">New cell instance.</param>
-        /// <param name="sourceCell">Source cell instance.</param>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private static void CloneCell(ICell newCell, ICell sourceCell)
         {
             if (sourceCell != null)
@@ -373,34 +279,28 @@ namespace NexFB.Core.Utilities.NPOIExtensions
                 switch (sourceCell.CellType)
                 {
                     case CellType.Boolean:
-                        {
-                            newCell.SetCellValue(sourceCell.BooleanCellValue);
-                            break;
-                        }
+                        newCell.SetCellValue(sourceCell.BooleanCellValue);
+                        break;
 
                     case CellType.Numeric:
-                        {
-                            newCell.SetCellValue(sourceCell.NumericCellValue);
-                            break;
-                        }
+                        newCell.SetCellValue(sourceCell.NumericCellValue);
+                        break;
 
                     case CellType.String:
-                        {
-                            newCell.SetCellValue(sourceCell.StringCellValue);
-                            break;
-                        }
+                        newCell.SetCellValue(sourceCell.StringCellValue);
+                        break;
 
                     case CellType.Error:
-                        {
-                            newCell.SetCellValue(sourceCell.ErrorCellValue);
-                            break;
-                        }
+                        newCell.SetCellValue(sourceCell.ErrorCellValue);
+                        break;
 
                     case CellType.Formula:
-                        {
-                            newCell.CellFormula = sourceCell.CellFormula;
-                            break;
-                        }
+                        newCell.CellFormula = sourceCell.CellFormula;
+                        break;
+
+                    default:
+                        // do nothing
+                        break;
                 }
             }
         }

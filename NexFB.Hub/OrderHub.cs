@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="OrderHub.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.9.15">Created</change>
-// </history>
-
-namespace NexFB.Hub
+﻿namespace NexFB.Hub
 {
     using System.Collections.ObjectModel;
     using Microsoft.AspNet.SignalR;
@@ -19,9 +10,6 @@ namespace NexFB.Hub
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
 
-    /// <summary>
-    /// The Order hub.
-    /// </summary>
     [HubName("order")]
     public class OrderHub : Hub
     {
@@ -43,7 +31,7 @@ namespace NexFB.Hub
 
         public void RefeshAwaitingDeliverOrderList(ObservableCollection<Order> awaitingDeliverMeals, int currentOrderDelivered)
         {
-            var criteria = new GetMealOrderByIdCriteria()
+            var criteria = new GetMealOrderByIdCriteria
             {
                 OrderId = currentOrderDelivered
             };
@@ -55,11 +43,6 @@ namespace NexFB.Hub
 
         #endregion
 
-        /// <summary>
-        /// Notify when kitchen receive order.
-        /// </summary>
-        /// <param name="orderId">Current Order id.</param>
-        /// <param name="screenControl">Current screen.</param>
         public void KitchenNotify(int orderId, int screenControl)
         {
             SendEditOrderForWeb(orderId);
@@ -76,6 +59,9 @@ namespace NexFB.Hub
                     break;
                 case 4:
                     Clients.All.appNotifyRejectedOrder(orderId);
+                    break;
+                default:
+                    // do nothing
                     break;
             }
         }
@@ -120,14 +106,9 @@ namespace NexFB.Hub
             Clients.All.editOrderForApp(orderId);
         }
 
-        /// <summary>
-        /// Function to get order by Id for web.
-        /// </summary>
-        /// <param name="orderId">The order id.</param>
-        /// <returns>MealOrdering Model.</returns>
         private MealOrderingModel GetOrderById(int orderId)
         {
-            var criteria = new GetOrderByIdCriteria()
+            var criteria = new GetOrderByIdCriteria
             {
                 OrderId = orderId
             };
