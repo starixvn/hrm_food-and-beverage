@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="KitchenEmployeeInfo.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.10.1">Created</change>
-// </history>
-
-namespace NexFB.Pos.Core.Models
+﻿namespace NexFB.Pos.Core.Models
 {
     using System.Collections.Generic;
     using System.Configuration;
@@ -17,9 +8,6 @@ namespace NexFB.Pos.Core.Models
     using NexFB.Pos.Core.Helpers;
     using NexFB.Pos.Core.NotifyBase;
 
-    /// <summary>
-    /// Kitchen Employee Info.
-    /// </summary>
     public class KitchenEmployeeInfo : PropertyChangedBase
     {
         #region Private Fields
@@ -370,37 +358,16 @@ namespace NexFB.Pos.Core.Models
             }
         }
 
-        public string FullNameUpper
-        {
-            get
-            {
-                return FullName.ToUpper();
-            }
-        }
+        public string FullNameUpper => FullName.ToUpperInvariant();
 
         public string DeparmentNameDetails
-        {
-            get
-            {
-                return IsLocal ? DepartmentName + " - " + Constant.Local : DepartmentName + " - " + Constant.Expat;
-            }
-        }
+            => IsLocal ? DepartmentName + " - " + Constant.Local : DepartmentName + " - " + Constant.Expat;
 
         public string LocationName
-        {
-            get
-            {
-                return (string.IsNullOrEmpty(_defaultLanguage) || _defaultLanguage == Constant.DefaultCulture) ? LocationVnmName : LocationEngName;
-            }
-        }
+            => (string.IsNullOrEmpty(_defaultLanguage) || _defaultLanguage == Constant.DefaultCulture) ? LocationVnmName : LocationEngName;
 
         public string EmployeeSelectionGeneralInfo
-        {
-            get
-            {
-                return FullName + " (" + NickName + ") " + "from " + DeparmentNameDetails;
-            }
-        }
+            => FullName + " (" + NickName + ") " + "from " + DeparmentNameDetails;
 
         public string EmployeeOrderMealColor
         {

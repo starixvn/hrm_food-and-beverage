@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="PrintHelper.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.8.29">Created</change>
-// </history>
-
-namespace NexFB.Pos.Core.PrintHelper
+﻿namespace NexFB.Pos.Core.PrintHelper
 {
     using System;
     using System.IO;
@@ -22,9 +13,6 @@ namespace NexFB.Pos.Core.PrintHelper
     using System.Windows.Xps.Packaging;
     using NexFB.Resources;
 
-    /// <summary>
-    /// Print Helper.
-    /// </summary>
     public class PrintHelper : IPrintHelper
     {
         public void InjectData(FixedDocument document, object dataSource)
@@ -37,11 +25,6 @@ namespace NexFB.Pos.Core.PrintHelper
                null);
         }
 
-        /// <summary>
-        /// Method Convert Fixed Document to XPS file.
-        /// </summary>
-        /// <param name="fixedDoc">Fixed Document.</param>
-        /// <param name="outputFile">Output file.</param>
         public void ConvertToXps(FixedDocument fixedDoc, string outputFile)
         {
             using (FileStream outputStream = File.Create(outputFile))
@@ -66,11 +49,6 @@ namespace NexFB.Pos.Core.PrintHelper
             }
         }
 
-        /// <summary>
-        /// Print Invoice.
-        /// </summary>
-        /// <param name="documentPaginator">Document type.</param>
-        /// <returns>Check is printed.</returns>
         public bool Print(DocumentPaginator documentPaginator)
         {
             LocalPrintServer localPrintServer = new LocalPrintServer(PrintSystemDesiredAccess.AdministrateServer);
@@ -90,23 +68,19 @@ namespace NexFB.Pos.Core.PrintHelper
                 XpsDocumentWriter xpsDocumentWriter = PrintQueue.CreateXpsDocumentWriter(sourcePrintQueue);
                 xpsDocumentWriter.Write(documentPaginator);
                 printed = true;
+
+                sourcePrintQueue.Dispose();
             }
 
-            sourcePrintQueue.Dispose();
             return printed;
         }
 
-        /// <summary>
-        /// Load Template from XAML file.
-        /// </summary>
-        /// <param name="templatePath">Path to XAML file.</param>
-        /// <returns>An Object.</returns>
         public object LoadTemplate(string templatePath)
         {
             object template;
 
             // get the needed template paths
-            string absolutePath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, templatePath);
+            string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, templatePath);
             string directoryPath = Path.GetDirectoryName(absolutePath);
             using (FileStream inputStream = File.OpenRead(absolutePath))
             {

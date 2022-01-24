@@ -1,7 +1,6 @@
 ﻿namespace NexFB.WindowsService
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Configuration;
     using System.IO;
@@ -57,7 +56,7 @@
             IList<NexcelService.UserModel> users = NexcelService.GetUser(fromDate);
             if (users != null && users.Any())
             {
-                var insertCriteria = new InsertAndUpdateUserNexcelCriteria()
+                var insertCriteria = new InsertAndUpdateUserNexcelCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.Nexcel,
                     Users = users
@@ -76,7 +75,7 @@
             IList<NexcelService.TeamModel> teams = NexcelService.GetTeam(fromDate);
             if (teams != null && teams.Any())
             {
-                var insertCriteria = new InsertAndUpdateTeamNexcelCriteria()
+                var insertCriteria = new InsertAndUpdateTeamNexcelCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.Nexcel,
                     Teams = teams
@@ -94,7 +93,7 @@
             IList<NexcelService.ShiftModel> shifts = NexcelService.GetShift();
             if (shifts != null && shifts.Any())
             {
-                var criteria = new InsertAndUpdateShiftNexcelCriteria()
+                var criteria = new InsertAndUpdateShiftNexcelCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.Nexcel,
                     Shifts = shifts
@@ -113,7 +112,7 @@
             IList<NexcelService.EmployeeCalendarModel> calendars = NexcelService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
             {
-                var criteria = new InsertAndUpdateEmployeeCalendarNexcelCriteria()
+                var criteria = new InsertAndUpdateEmployeeCalendarNexcelCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.Nexcel,
                     EmployeeCalendars = calendars
@@ -139,10 +138,6 @@
             }
         }
 
-        /// <summary>
-        /// Function to update users of Hong Ma.
-        /// </summary>
-        /// <returns>Command Result.</returns>
         public CommandResult UpdateUserForHM()
         {
             CommandResult result = null;
@@ -151,7 +146,7 @@
 
             if (users != null && users.Any())
             {
-                var insertCriteria = new InsertAndUpdateUserHMCriteria()
+                var insertCriteria = new InsertAndUpdateUserHMCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.HongMA,
                     Users = users
@@ -163,10 +158,6 @@
             return result;
         }
 
-        /// <summary>
-        /// Function to update teams of Hong Ma.
-        /// </summary>
-        /// <returns>Command Result.</returns>
         public CommandResult UpdateTeamForHM()
         {
             CommandResult result = null;
@@ -174,7 +165,7 @@
             IList<HongMaService.TeamModel> teams = HongmaService.GetTeam(fromDate);
             if (teams != null && teams.Any())
             {
-                var insertCriteria = new InsertAndUpdateTeamHMCriteria()
+                var insertCriteria = new InsertAndUpdateTeamHMCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.HongMA,
                     Teams = teams
@@ -186,17 +177,13 @@
             return result;
         }
 
-        /// <summary>
-        /// Function to update shift of Hong Ma.
-        /// </summary>
-        /// <returns>Command Result.</returns>
         public CommandResult UpdateShiftForHM()
         {
             CommandResult result = null;
             IList<HongMaService.ShiftModel> shifts = HongmaService.GetShift();
             if (shifts != null && shifts.Any())
             {
-                var criteria = new InsertAndUpdateShiftHMCriteria()
+                var criteria = new InsertAndUpdateShiftHMCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.HongMA,
                     Shifts = shifts
@@ -208,10 +195,6 @@
             return result;
         }
 
-        /// <summary>
-        /// Function to update employee calendar of Hong Ma.
-        /// </summary>
-        /// <returns>Command Result.</returns>
         public CommandResult UpdateEmployeeCalendarForHM()
         {
             CommandResult result = null;
@@ -219,7 +202,7 @@
             IList<HongMaService.EmployeeCalendarModel> calendars = HongmaService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
             {
-                var criteria = new InsertAndUpdateEmployeeCalendarHMCriteria()
+                var criteria = new InsertAndUpdateEmployeeCalendarHMCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.HongMA,
                     EmployeeCalendars = calendars
@@ -231,9 +214,6 @@
             return result;
         }
 
-        /// <summary>
-        /// Function to update photo of employee for Hong Ma.
-        /// </summary>
         public void UpdatePhotoForHM()
         {
             string photoPath = ConfigurationManager.AppSettings["PhotoPathHongMa"];
@@ -248,10 +228,6 @@
             }
         }
 
-        /// <summary>
-        /// Function to update users of SMS.
-        /// </summary>
-        /// <returns>Command Result.</returns>
         public CommandResult UpdateUserForSms()
         {
             CommandResult result = null;
@@ -259,7 +235,7 @@
             IList<SMSService.UserModel> users = SmsService.GetUser(fromDate);
             if (users != null && users.Any())
             {
-                var insertCriteria = new InsertAndUpdateUserSmsCriteria()
+                var insertCriteria = new InsertAndUpdateUserSmsCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.Sms,
                     Users = users
@@ -271,10 +247,6 @@
             return result;
         }
 
-        /// <summary>
-        /// Function to update teams of SMS.
-        /// </summary>
-        /// <returns>Command Result.</returns>
         public CommandResult UpdateTeamForSms()
         {
             CommandResult result = null;
@@ -282,7 +254,7 @@
             IList<SMSService.TeamModel> teams = SmsService.GetTeam(fromDate);
             if (teams != null && teams.Any())
             {
-                var insertCriteria = new InsertAndUpdateTeamSmsCriteria()
+                var insertCriteria = new InsertAndUpdateTeamSmsCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.Sms,
                     Teams = teams
@@ -294,17 +266,13 @@
             return result;
         }
 
-        /// <summary>
-        /// Function to update shift of SMS.
-        /// </summary>
-        /// <returns>Command Result.</returns>
         public CommandResult UpdateShiftForSms()
         {
             CommandResult result = null;
             IList<SMSService.ShiftModel> shifts = SmsService.GetShift();
             if (shifts != null && shifts.Any())
             {
-                var criteria = new InsertAndUpdateShiftSmsCriteria()
+                var criteria = new InsertAndUpdateShiftSmsCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.Sms,
                     Shifts = shifts
@@ -316,10 +284,6 @@
             return result;
         }
 
-        /// <summary>
-        /// Function to update employee calendar of SMS.
-        /// </summary>
-        /// <returns>Command Result.</returns>
         public CommandResult UpdateEmployeeCalendarForSms()
         {
             CommandResult result  = null;
@@ -327,7 +291,7 @@
             IList<SMSService.EmployeeCalendarModel> calendars = SmsService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
             {
-                var criteria = new InsertAndUpdateEmployeeCalendarSmsCriteria()
+                var criteria = new InsertAndUpdateEmployeeCalendarSmsCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.Sms,
                     EmployeeCalendars = calendars
@@ -339,9 +303,6 @@
             return result;
         }
 
-        /// <summary>
-        /// Function to update photo of employee for SMS.
-        /// </summary>
         public void UpdatePhotoForSms()
         {
             string photoPath = ConfigurationManager.AppSettings["PhotoPathSMS"];
@@ -358,7 +319,7 @@
 
         public DateTime GetDateFromBeforeUpdateUser(int departmentId)
         {
-            var criteria = new GetLastUserModifiedDateCriteria()
+            var criteria = new GetLastUserModifiedDateCriteria
             {
                 DepartmentId = departmentId
             };
@@ -380,7 +341,7 @@
 
         public DateTime GetDateFromBeforeUpdateEmployeeCalendar(int departmentId)
         {
-            var criteria = new GetLastEmployeeCalendarModifiedDateCriteria()
+            var criteria = new GetLastEmployeeCalendarModifiedDateCriteria
             {
                 DepartmentId = departmentId
             };
@@ -396,7 +357,7 @@
             IList<LuminetService.UserModel> users = LuminetService.GetUser(fromDate);
             if (users != null && users.Any())
             {
-                var insertCriteria = new InsertAndUpdateUserLuminetCriteria()
+                var insertCriteria = new InsertAndUpdateUserLuminetCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.Luminet,
                     Users = users
@@ -415,7 +376,7 @@
             IList<LuminetService.TeamModel> teams = LuminetService.GetTeam(fromDate);
             if (teams != null && teams.Any())
             {
-                var insertCriteria = new InsertAndUpdateTeamLuminetCriteria()
+                var insertCriteria = new InsertAndUpdateTeamLuminetCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.Luminet,
                     Teams = teams
@@ -433,7 +394,7 @@
             IList<LuminetService.ShiftModel> shifts = LuminetService.GetShift();
             if (shifts != null && shifts.Any())
             {
-                var criteria = new InsertAndUpdateShiftLuminetCriteria()
+                var criteria = new InsertAndUpdateShiftLuminetCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.Luminet,
                     Shifts = shifts
@@ -452,7 +413,7 @@
             IList<LuminetService.EmployeeCalendarModel> calendars = LuminetService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
             {
-                var criteria = new InsertAndUpdateEmployeeCalendarLuminetCriteria()
+                var criteria = new InsertAndUpdateEmployeeCalendarLuminetCriteria
                 {
                     DepartmentId = (int)DepartmentIdentity.Luminet,
                     EmployeeCalendars = calendars

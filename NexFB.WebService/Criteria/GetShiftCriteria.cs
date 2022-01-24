@@ -4,14 +4,8 @@
 
     public class GetShiftCriteria : CriteriaBase
     {
-        public override string GetSettingKey()
-        {
-            return "Shift_Get";
-        }
+        public override string GetSettingKey() => "Shift_Get";
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

@@ -7,14 +7,8 @@
     {
         public DateTime? FromDate { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "EmployeeGroup_Get";
-        }
+        public override string GetSettingKey() => "EmployeeGroup_Get";
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

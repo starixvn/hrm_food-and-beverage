@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CoreMappingRegister.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.8.22">Created</change>
-// </history>
-
-namespace NexFB.Pos.Core.Mapping
+﻿namespace NexFB.Pos.Core.Mapping
 {
     using System.Configuration;
     using AutoMapper;
@@ -16,14 +7,8 @@ namespace NexFB.Pos.Core.Mapping
     using NexFB.Pos.Core.Constants;
     using NexFB.Pos.Core.Models;
 
-    /// <summary>
-    /// Core Mapping Register.
-    /// </summary>
     public class CoreMappingRegister : IMappingRegister
     {
-        /// <summary>
-        /// Method Register Mapper.
-        /// </summary>
         public void Register()
         {
             string defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
@@ -43,16 +28,13 @@ namespace NexFB.Pos.Core.Mapping
             MapTwoWay<EmployeeInfo, KitchenEmployeeInfo>();
         }
 
-        private void MapTwoWay<TLeft, TRight>()
+        private static void MapTwoWay<TLeft, TRight>()
         {
             Mapper.CreateMap<TLeft, TRight>();
             Mapper.CreateMap<TRight, TLeft>();
         }
 
-        /// <summary>
-        /// Mapping data for Vietnamese Culture.
-        /// </summary>
-        private void MappingDataVietNamese()
+        private static void MappingDataVietNamese()
         {
             Mapper.CreateMap<Location, CommonKitchenOrder>()
                .ForMember(x => x.ItemId, x => x.MapFrom(y => y.LocationId))
@@ -67,7 +49,7 @@ namespace NexFB.Pos.Core.Mapping
               .ForMember(x => x.GroupOrderId, x => x.MapFrom(y => y.OrderId));
         }
 
-        private void MappingDataEnglish()
+        private static void MappingDataEnglish()
         {
             Mapper.CreateMap<Location, CommonKitchenOrder>()
              .ForMember(x => x.ItemId, x => x.MapFrom(y => y.LocationId))
