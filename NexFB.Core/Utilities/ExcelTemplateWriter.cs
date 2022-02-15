@@ -15,7 +15,7 @@
         private readonly string _fileName;
         private readonly ISheet _templateSheet;
         private readonly ISheet _sheet;
-        private int _rowId = 0;
+        private int _rowId;
 
         #endregion Attributes
 
@@ -43,13 +43,7 @@
 
         #region Properties
 
-        public int RowId
-        {
-            get
-            {
-                return this._rowId;
-            }
-        }
+        public int RowId => this._rowId;
 
         #endregion Properties
 

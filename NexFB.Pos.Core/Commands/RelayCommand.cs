@@ -1,35 +1,18 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RelayCommand.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.8.21">Created</change>
-// </history>
-
-namespace NexFB.Pos.Core.Commands
+﻿namespace NexFB.Pos.Core.Commands
 {
     using System;
     using System.Windows.Input;
 
-    /// <summary>
-    /// Relay commands.
-    /// </summary>
     public class RelayCommand : ICommand
     {
         private readonly Predicate<object> _canExecute;
         private readonly Action<object> _execute;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RelayCommand" /> class.
-        /// </summary>
-        /// <param name="canExecute">Check permission to execute event.</param>
-        /// <param name="execute">The result when execute event.</param>
         public RelayCommand(Predicate<object> canExecute, Action<object> execute)
         {
             if (execute == null)
             {
-                throw new ArgumentNullException("execute");
+                throw new ArgumentNullException(nameof(execute));
             }
 
             _canExecute = canExecute;
@@ -40,7 +23,7 @@ namespace NexFB.Pos.Core.Commands
         {
             if (execute == null)
             {
-                throw new ArgumentNullException("execute");
+                throw new ArgumentNullException(nameof(execute));
             }
 
             _execute = execute;
@@ -54,12 +37,12 @@ namespace NexFB.Pos.Core.Commands
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute((object)parameter);
+            return _canExecute == null || _canExecute(parameter);
         }
 
         public void Execute(object parameter)
         {
-            _execute((object)parameter);
+            _execute(parameter);
         }
     }
 }

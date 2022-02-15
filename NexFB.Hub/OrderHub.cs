@@ -45,19 +45,24 @@
 
         public void KitchenNotify(int orderId, int screenControl)
         {
+            const byte ReceiveNewOrder = 1;
+            const byte AwaitingDeliverOrder = 2;
+            const byte UndoDeliveredOrder = 3;
+            const byte RejectedOrder = 4;
+
             SendEditOrderForWeb(orderId);
             switch (screenControl)
             {
-                case 1:
+                case ReceiveNewOrder:
                     Clients.All.appNotifyReceiveNewOrder(orderId);
                     break;
-                case 2:
+                case AwaitingDeliverOrder:
                     Clients.All.appNotifyAwaitingDeliverOrder(orderId);
                     break;
-                case 3:
+                case UndoDeliveredOrder:
                     Clients.All.appNotifyUndoDeliveredOrder(orderId);
                     break;
-                case 4:
+                case RejectedOrder:
                     Clients.All.appNotifyRejectedOrder(orderId);
                     break;
                 default:

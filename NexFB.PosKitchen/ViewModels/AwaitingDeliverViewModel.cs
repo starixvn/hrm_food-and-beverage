@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AwaitingDeliverViewModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.9.8">Created</change>
-// </history>
-
-namespace NexFB.PosKitchen.ViewModels
+﻿namespace NexFB.PosKitchen.ViewModels
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -16,9 +7,6 @@ namespace NexFB.PosKitchen.ViewModels
     using NexFB.Criteria.Kitchen;
     using NexFB.Models.Kitchen;
 
-    /// <summary>
-    /// Awaiting Deliver ViewModel.
-    /// </summary>
     public class AwaitingDeliverViewModel : ViewModelBase
     {
         #region Fields
@@ -86,33 +74,13 @@ namespace NexFB.PosKitchen.ViewModels
         {
             get
             {
-                IList<Order> awaitingDeliverMeals = new List<Order>();
-                if (!string.IsNullOrEmpty(SearchValue))
+                IList<Order> awaitingDeliverMeals;
+                if (!string.IsNullOrWhiteSpace(SearchValue))
                 {
-                    if (SearchValue.Length <= 3)
-                    {
-                        var getOrderDetailsCriteria = new GetOrderDetailsByOrderNoCriteria() { OrderNo = int.Parse(SearchValue) };
-                        IList<Order> orders = KitchenService.GetOrdersByOrderNo(getOrderDetailsCriteria);
-                        foreach (Order item in orders)
-                        {
-                            if (item.CurrentStatusId == (int)OrderStatus.ReceivedOrder
-                                || item.CurrentStatusId == (int)OrderStatus.ReducedOrder)
-                            {
-                                awaitingDeliverMeals.Add(item);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var getOrderDetailsCriteria = new GetMealOrderByIdCriteria() { OrderId = int.Parse(SearchValue) };
-                        Order order = KitchenService.GetMealOrderById(getOrderDetailsCriteria);
-                        if (order != null &&
-                        (order.CurrentStatusId == (int)OrderStatus.ReceivedOrder
-                        || order.CurrentStatusId == (int)OrderStatus.ReducedOrder))
-                        {
-                            awaitingDeliverMeals.Add(order);
-                        }
-                    }
+                    const byte MaxLengthOrderNo = 3;
+                    awaitingDeliverMeals = SearchValue.Length <= MaxLengthOrderNo
+                        ? GetAwaitingDeliverMealsByOrderNo(int.Parse(SearchValue))
+                        : GetAwaitingDeliverMealsByOrderId(int.Parse(SearchValue));
                 }
                 else
                 {
@@ -128,7 +96,7 @@ namespace NexFB.PosKitchen.ViewModels
         {
             if (AwaitingDeliverMeals.Any(x => x.OrderId == order.OrderId))
             {
-                Order oldOrder = AwaitingDeliverMeals.Where(x => x.OrderId == order.OrderId).FirstOrDefault();
+                Order oldOrder = AwaitingDeliverMeals.FirstOrDefault(x => x.OrderId == order.OrderId);
                 AwaitingDeliverMeals.Remove(oldOrder);
                 AwaitingDeliverMeals.Add(order);
             }
@@ -138,7 +106,7 @@ namespace NexFB.PosKitchen.ViewModels
         {
             if (AwaitingDeliverMeals.Any(x => x.OrderId == orderId))
             {
-                var oldOrder = AwaitingDeliverMeals.Where(x => x.OrderId == orderId).FirstOrDefault();
+                var oldOrder = AwaitingDeliverMeals.FirstOrDefault(x => x.OrderId == orderId);
                 AwaitingDeliverMeals.Remove(oldOrder);
             }
         }
@@ -154,6 +122,29 @@ namespace NexFB.PosKitchen.ViewModels
         public void GetNewDataForApp()
         {
             AwaitingDeliverMeals = this.GetAwaitingDeliverMealOrder;
+        }
+
+        private List<Order> GetAwaitingDeliverMealsByOrderNo(int orderNo)
+        {
+            var criteria = new GetOrderDetailsByOrderNoCriteria { OrderNo = orderNo };
+            IList<Order> orders = KitchenService.GetOrdersByOrderNo(criteria);
+            return orders.Where(item => item.CurrentStatusId == (int)OrderStatus.ReceivedOrder
+                || item.CurrentStatusId == (int)OrderStatus.ReducedOrder).ToList();
+        }
+
+        private List<Order> GetAwaitingDeliverMealsByOrderId(int orderId)
+        {
+            var meals = new List<Order>();
+            var criteria = new GetMealOrderByIdCriteria { OrderId = orderId };
+            Order order = KitchenService.GetMealOrderById(criteria);
+            if (order != null &&
+                (order.CurrentStatusId == (int)OrderStatus.ReceivedOrder
+                || order.CurrentStatusId == (int)OrderStatus.ReducedOrder))
+            {
+                meals.Add(order);
+            }
+
+            return meals;
         }
 
         #endregion
