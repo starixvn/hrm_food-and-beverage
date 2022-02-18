@@ -233,6 +233,12 @@
     <AdditionalFiles Include="..\.sonarlint\food-beverage\CSharp\SonarLint.xml">
       <Link>SonarLint.xml</Link>
     </AdditionalFiles>
+    <Content Include="App_Data\SpNames.PROD.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Data\SpNames.LOCAL.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\SpNames.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -261,23 +267,11 @@
     <Content Include="Src\App\Report\Templates\employeeRegistrationDetailReport.html" />
     <Content Include="Src\App\Report\Templates\monthlyBreakfastAndSupperReport.html" />
     <Content Include="Src\App\Report\Templates\monthlyLunchAndDinnerReport.html" />
-    <Content Include="Web.local.config">
+    <Content Include="Web.LOCAL.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.local.Debug.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.local.Release.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.pro.config">
+    <Content Include="Web.PROD.config">
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.pro.Debug.config">
-      <DependentUpon>Web.pro.config</DependentUpon>
-    </Content>
-    <Content Include="Web.pro.Release.config">
-      <DependentUpon>Web.pro.config</DependentUpon>
     </Content>
     <Content Include="Deployment.ignore" />
     <Content Include="..\.sonarlint\food-beveragecsharp.ruleset">
