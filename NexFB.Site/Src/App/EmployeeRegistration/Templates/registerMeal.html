@@ -1,65 +1,69 @@
 ﻿
 <div>
-	<div class="modal-header">
-		<div class="popup-header">
-			{{"RegisterMeal" | translate}} - {{timePeriod}}<span class="close-popup" ng-click="cancel()"></span>
-		</div>
-	</div>
+    <div class="modal-header">
+        <div class="popup-header">
+            {{"RegisterMeal" | translate}} - {{timePeriod}}<span class="close-popup" ng-click="cancel()"></span>
+        </div>
+    </div>
 
-	<div class="modal-body assign-role-modal">
-		<form class="col-sm-12 form-horizontal table-popup" novalidate>
-			<table name="registrationMeal" class="table table-bordered">
-				<thead>
-					<th data-translate="Meal">
-					</th>
-					<th data-translate="NonVegetarian">
-					</th>
-					<th data-translate="Vegetarian">
-					</th>
-					<th data-translate="NonRegistration">
-					</th>
-				</thead>
-				<tbody>
-					<tr ng-repeat="meal in meals" check-meal-timesheet >
-						<td ng-bind="meal.MealEngName">
-						</td>
-						<td class="text-center width-100">
-							<input id="meal{{meal.MealId}}_non" type="radio" value="{{meal.MealId}}" only-one-check
-								ng-checked="meal.IsVegetarian == 0 && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || meal.IsDisableNonVegetarian" />
-						</td>
-						<td class="text-center width-120">
-							<input id="meal{{meal.MealId}}" type="radio" value="{{meal.MealId}}" only-one-check 
-								ng-checked="meal.IsVegetarian && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || meal.IsDisableVegetarian"/>
-						</td>
-						<td class="text-center width-100">
-							<input type="radio" only-one-check ng-checked="meal.IsVegetarian == null || checkNonRegistration" ng-disabled="meal.IsDisableNonRegistration"/>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</form>
-		<div class="txt-warning">
-			<label data-translate="RegistrationRuleWarning"></label>:
-			<br />
-			&nbsp;- <label data-translate="SevenDayRegisterMealWarning"></label>
-			<br />
-			&nbsp;- <label data-translate="OtherTypeRegistrationWarning"></label>
-			<br />
-			&nbsp;- <label data-translate="SevenDayRegisterMealWarningVN"></label>
-			<br />
-			&nbsp;- <label data-translate="OtherTypeRegistrationWarningVN"></label>
-			<br />
-			&nbsp;- <label>請預訂"齋飯"在前一天.</label>
-			<br />
-			&nbsp;- <label>注意: 訂“齋飯”的規定只可以訂全日食齋</label>
-		</div>
-	</div>
+    <div class="modal-body assign-role-modal">
+        <form class="col-sm-12 form-horizontal table-popup" novalidate>
+            <table name="registrationMeal" class="table table-bordered">
+                <thead>
+                <th data-translate="Meal">
+                </th>
+                <th data-translate="NonVegetarian">
+                </th>
+                <th data-translate="Vegetarian">
+                </th>
+                <th data-translate="NonRegistration">
+                </th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="meal in meals" check-meal-timesheet>
+                        <td ng-bind="meal.MealEngName">
+                        </td>
+                        <td class="text-center width-100">
+                            <input id="meal{{meal.MealId}}_non" type="radio" value="{{meal.MealId}}" only-one-check
+                                   ng-checked="meal.IsVegetarian == 0 && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || meal.IsDisableNonVegetarian" />
+                        </td>
+                        <td class="text-center width-120">
+                            <input id="meal{{meal.MealId}}" type="radio" value="{{meal.MealId}}" only-one-check
+                                   ng-checked="meal.IsVegetarian && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || meal.IsDisableVegetarian || notVegetarian" />
+                        </td>
+                        <td class="text-center width-100">
+                            <input type="radio" only-one-check ng-checked="meal.IsVegetarian == null || checkNonRegistration" ng-disabled="meal.IsDisableNonRegistration" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="txt-warning">
+            <label data-translate="RegistrationRuleWarning"></label>:
+            <br />
+            &nbsp;- <label data-translate="SevenDayRegisterMealWarning"></label>
+            <br />
+            &nbsp;- <label data-translate="VegetarianWarning"></label>
+            <br />
+            &nbsp;- <label data-translate="OtherTypeRegistrationWarning"></label>
+            <br />
+            &nbsp;- <label data-translate="SevenDayRegisterMealWarningVN"></label>
+            <br />
+            &nbsp;- <label data-translate="VegetarianWarningVN"></label>
+            <br />
+            &nbsp;- <label data-translate="OtherTypeRegistrationWarningVN"></label>
+            <br />
+            &nbsp;- <label>請提前一天登記成為素食者.</label>
+            <br />
+            &nbsp;- <label>注意: 您只能在農曆的第 1 天或第 15 天註冊素食.</label>
+        </div>
+    </div>
 
-	<div class="modal-footer">
-		<button class="button" ng-show="isNotToday" get-meal-registration validate-meal-registration data-translate="Submit">
-		</button>
-		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-		</button>
-	</div>
+    <div class="modal-footer">
+        <button class="button" ng-show="isNotToday" get-meal-registration validate-meal-registration data-translate="Submit">
+        </button>
+        <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+        </button>
+    </div>
 </div>
 

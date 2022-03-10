@@ -3004,7 +3004,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Xin vui lòng đặt Món Chay trước 1 ngày..
+        ///   Looks up a localized string similar to Xin vui lòng đặt Món Chay trước một ngày..
         /// </summary>
         public static string SevenDayRegisterMealWarningVN {
             get {
@@ -3513,6 +3513,24 @@ namespace NexFB.Resources {
         public static string Vegetarian {
             get {
                 return ResourceManager.GetString("Vegetarian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only register on the 1st or 15th day of the lunar calendar..
+        /// </summary>
+        public static string VegetarianWarning {
+            get {
+                return ResourceManager.GetString("VegetarianWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chỉ được đặt Món Chay vào ngày một hoặc rằm âm lịch hàng tháng.
+        /// </summary>
+        public static string VegetarianWarningVN {
+            get {
+                return ResourceManager.GetString("VegetarianWarningVN", resourceCulture);
             }
         }
         
