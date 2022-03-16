@@ -230,27 +230,39 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                 });
 
                 $scope.modalRegisterInstance.result.then(function (registrationInfo) {
-                    var mealRegistration = {
-                        meal: registrationInfo.mealsTemplate,
-                        onDate: date.WorkDate.toString()
-                    };
-
-                    mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
-                        if (response.IsSuccessful) {
-                            date.Meals = registrationInfo.meals;
-                            notificationFactory.success("DataChangeSuccessfully");
-                        }
-                        else {
-                            notificationFactory.error("", response.Message);
-                        }
-                    }).error(function (response, status) {
-                        if (status === 405) {
-                            ErrorFactory.errorHandle(status);
-                        }
-                        else {
-                            notificationFactory.error("DataChangeFail");
-                        }
+                    var radioVegetarian = registrationInfo.meals;
+                    var noVegetarian = true;
+                    radioVegetarian.forEach(x => {
+                        if (x.IsVegetarian === 1)
+                            noVegetarian = false;
                     });
+                    var wd = new Date(date.WorkDate);
+                    var isVegetarianDay = mealRegistrationUtilities.checkVegetarianDay(wd.getDate(), wd.getMonth() + 1, wd.getFullYear(), 7);
+
+                    if (!noVegetarian && !isVegetarianDay) {
+                        notificationFactory.error("", "Can't register because it's not a vegetarian day");
+                    } else {
+                        var mealRegistration = {
+                            meal: registrationInfo.mealsTemplate,
+                            onDate: date.WorkDate.toString()
+                        };
+
+                        mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
+                            if (response.IsSuccessful) {
+                                date.Meals = registrationInfo.meals;
+                                notificationFactory.success("DataChangeSuccessfully");
+                            } else {
+                                notificationFactory.error("", response.Message);
+                            }
+                        }).error(function (response, status) {
+                            if (status === 405) {
+                                ErrorFactory.errorHandle(status);
+                            } else {
+                                notificationFactory.error("DataChangeFail");
+                            }
+                        });
+                    }
+                    //console.log(registrationInfo.meals[0].IsVegetarian);
                 });
             };
 
@@ -314,40 +326,51 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                 });
 
                 $scope.modalRegisterInstance.result.then(function (registrationInfo) {
-                    var mealRegistration = {
-                        meal: registrationInfo.mealsTemplate,
-                        onDate: mealRegistrationUtilities.getRegisterDateInWeek(week)
-                    };
+                    var radioVegetarian = registrationInfo.meals;
+                    var noVegetarian = true;
+                    radioVegetarian.forEach(x => {
+                        if (x.IsVegetarian === 1)
+                            noVegetarian = false;
+                    });
 
-                    mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
-                        if (response.IsSuccessful) {
-                            var isUpdateVegetarian = mealRegistrationUtilities.checkIsUpdateVegetarian(registrationInfo.meals),
-                                hasDateEffectedVegetarian = updatedRegistrationMealToWeek(week, registrationInfo.meals),
-                                hasNonRegisterVegetarianDate = mealRegistrationUtilities.checkNonRegisterVegetarianDateInWeek(week, $scope.registerSetting);
+                    if (!noVegetarian) {
+                        notificationFactory.error("", "Can't register vegetarian for all days in week");
+                    } else {
+                        var mealRegistration = {
+                            meal: registrationInfo.mealsTemplate,
+                            onDate: mealRegistrationUtilities.getRegisterDateInWeek(week)
+                        };
 
-                            if (isUpdateVegetarian && hasNonRegisterVegetarianDate) {
-                                if (hasDateEffectedVegetarian) {
-                                    notificationFactory.success("UpdateVegetarianInfo");
+                        mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
+                            if (response.IsSuccessful) {
+                                var isUpdateVegetarian = mealRegistrationUtilities.checkIsUpdateVegetarian(registrationInfo.meals),
+                                    hasDateEffectedVegetarian = updatedRegistrationMealToWeek(week, registrationInfo.meals),
+                                    hasNonRegisterVegetarianDate = mealRegistrationUtilities.checkNonRegisterVegetarianDateInWeek(week, $scope.registerSetting);
+
+                                if (isUpdateVegetarian && hasNonRegisterVegetarianDate) {
+                                    if (hasDateEffectedVegetarian) {
+                                        notificationFactory.success("UpdateVegetarianInfo");
+                                    }
+                                    else {
+                                        notificationFactory.success("NonUpdateVegetarianWarning");
+                                    }
                                 }
                                 else {
-                                    notificationFactory.success("NonUpdateVegetarianWarning");
+                                    notificationFactory.success("DataChangeSuccessfully");
                                 }
                             }
                             else {
-                                notificationFactory.success("DataChangeSuccessfully");
+                                notificationFactory.error("", response.Message);
                             }
-                        }
-                        else {
-                            notificationFactory.error("", response.Message);
-                        }
-                    }).error(function (response, status) {
-                        if (status === 405) {
-                            ErrorFactory.errorHandle(status);
-                        }
-                        else {
-                            notificationFactory.error("DataChangeFail");
-                        }
-                    });
+                        }).error(function (response, status) {
+                            if (status === 405) {
+                                ErrorFactory.errorHandle(status);
+                            }
+                            else {
+                                notificationFactory.error("DataChangeFail");
+                            }
+                        });
+                    }
                 });
             };
 
@@ -410,40 +433,50 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                 });
 
                 $scope.modalRegisterInstance.result.then(function (registrationInfo) {
-                    var mealRegistration = {
-                        meal: registrationInfo.mealsTemplate,
-                        onDate: mealRegistrationUtilities.getRegisterDateInMonth(allWeekMeals)
-                    };
+                    var radioVegetarian = registrationInfo.meals;
+                    var noVegetarian = true;
+                    radioVegetarian.forEach(x => {
+                        if (x.IsVegetarian === 1)
+                            noVegetarian = false;
+                    });
 
-                    mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
-                        if (response.IsSuccessful) {
-                            var isUpdateVegetarian = mealRegistrationUtilities.checkIsUpdateVegetarian(registrationInfo.meals),
-                                hasDateEffectedVegetarian = updatedRegistrationMealToMonth(allWeekMeals, registrationInfo.meals),
-                                hasNonRegisterVegetarianDate = mealRegistrationUtilities.checkNonRegisterVegetarianDateInMonth(allWeekMeals, $scope.registerSetting);
+                    if (!noVegetarian) {
+                        notificationFactory.error("", "Can't register vegetarian for all days in month");
+                    } else {
+                        var mealRegistration = {
+                            meal: registrationInfo.mealsTemplate,
+                            onDate: mealRegistrationUtilities.getRegisterDateInMonth(allWeekMeals)
+                        };
+                        mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
+                            if (response.IsSuccessful) {
+                                var isUpdateVegetarian = mealRegistrationUtilities.checkIsUpdateVegetarian(registrationInfo.meals),
+                                    hasDateEffectedVegetarian = updatedRegistrationMealToMonth(allWeekMeals, registrationInfo.meals),
+                                    hasNonRegisterVegetarianDate = mealRegistrationUtilities.checkNonRegisterVegetarianDateInMonth(allWeekMeals, $scope.registerSetting);
 
-                            if (isUpdateVegetarian && hasNonRegisterVegetarianDate) {
-                                if (hasDateEffectedVegetarian) {
-                                    notificationFactory.success("UpdateVegetarianInfo");
+                                if (isUpdateVegetarian && hasNonRegisterVegetarianDate) {
+                                    if (hasDateEffectedVegetarian) {
+                                        notificationFactory.success("UpdateVegetarianInfo");
+                                    }
+                                    else {
+                                        notificationFactory.success("NonUpdateVegetarianWarning");
+                                    }
                                 }
                                 else {
-                                    notificationFactory.success("NonUpdateVegetarianWarning");
+                                    notificationFactory.success("DataChangeSuccessfully");
                                 }
                             }
                             else {
-                                notificationFactory.success("DataChangeSuccessfully");
+                                notificationFactory.error("", response.Message);
                             }
-                        }
-                        else {
-                            notificationFactory.error("", response.Message);
-                        }
-                    }).error(function (response, status) {
-                        if (status === 405) {
-                            ErrorFactory.errorHandle(status);
-                        }
-                        else {
-                            notificationFactory.error("DataChangeFail");
-                        }
-                    });
+                        }).error(function (response, status) {
+                            if (status === 405) {
+                                ErrorFactory.errorHandle(status);
+                            }
+                            else {
+                                notificationFactory.error("DataChangeFail");
+                            }
+                        });
+                    }
                 });
             };
 
@@ -509,41 +542,52 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                 });
 
                 $scope.modalRegisterInstance.result.then(function (registrationInfo) {
-                    var mealRegistration = {
-                        meal: registrationInfo.mealsTemplate,
-                        onDate: mealRegistrationUtilities.getRegisterDateOfWeek(weekDayIndex, allWeekMeals)
-                    };
+                    var radioVegetarian = registrationInfo.meals;
+                    var noVegetarian = true;
+                    radioVegetarian.forEach(x => {
+                        if (x.IsVegetarian === 1)
+                            noVegetarian = false;
+                    });
 
-                    mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
-                        if (response.IsSuccessful) {
-                            var isUpdateVegetarian = mealRegistrationUtilities.checkIsUpdateVegetarian(registrationInfo.meals),
-                                hasDateEffectedVegetarian = updatedRegistrationMealToSameDateInWeek(allWeekMeals, registrationInfo.meals, weekDayIndex),
-                                hasNonRegisterVegetarianDate =
-                                    mealRegistrationUtilities.checkNonRegisterVegetarianSameDateInMonth(allWeekMeals, weekDayIndex, $scope.registerSetting);
+                    if (!noVegetarian) {
+                        notificationFactory.error("", "Can't register vegetarian for all same days in month");
+                    } else {
+                        var mealRegistration = {
+                            meal: registrationInfo.mealsTemplate,
+                            onDate: mealRegistrationUtilities.getRegisterDateOfWeek(weekDayIndex, allWeekMeals)
+                        };
 
-                            if (isUpdateVegetarian && hasNonRegisterVegetarianDate) {
-                                if (hasDateEffectedVegetarian) {
-                                    notificationFactory.success("UpdateVegetarianInfo");
+                        mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
+                            if (response.IsSuccessful) {
+                                var isUpdateVegetarian = mealRegistrationUtilities.checkIsUpdateVegetarian(registrationInfo.meals),
+                                    hasDateEffectedVegetarian = updatedRegistrationMealToSameDateInWeek(allWeekMeals, registrationInfo.meals, weekDayIndex),
+                                    hasNonRegisterVegetarianDate =
+                                        mealRegistrationUtilities.checkNonRegisterVegetarianSameDateInMonth(allWeekMeals, weekDayIndex, $scope.registerSetting);
+
+                                if (isUpdateVegetarian && hasNonRegisterVegetarianDate) {
+                                    if (hasDateEffectedVegetarian) {
+                                        notificationFactory.success("UpdateVegetarianInfo");
+                                    }
+                                    else {
+                                        notificationFactory.success("NonUpdateVegetarianWarning");
+                                    }
                                 }
                                 else {
-                                    notificationFactory.success("NonUpdateVegetarianWarning");
+                                    notificationFactory.success("DataChangeSuccessfully");
                                 }
                             }
                             else {
-                                notificationFactory.success("DataChangeSuccessfully");
+                                notificationFactory.error("", response.Message);
                             }
-                        }
-                        else {
-                            notificationFactory.error("", response.Message);
-                        }
-                    }).error(function (response, status) {
-                        if (status === 405) {
-                            ErrorFactory.errorHandle(status);
-                        }
-                        else {
-                            notificationFactory.error("DataChangeFail");
-                        }
-                    });
+                        }).error(function (response, status) {
+                            if (status === 405) {
+                                ErrorFactory.errorHandle(status);
+                            }
+                            else {
+                                notificationFactory.error("DataChangeFail");
+                            }
+                        });
+                    }
                 });
             };
         }]);
@@ -616,27 +660,38 @@ mealRegistrationModule.controller('DefaultRegisterMeal',
                 });
 
                 $scope.modalRegisterInstance.result.then(function (registrationInfo) {
-                    var mealRegistration = {
-                        meal: registrationInfo.mealsTemplate,
-                        dayofWeek: date.WeekDay
-                    };
-
-                    mealRegistrationFactory.setDefaultRegisterMeal(mealRegistration).success(function (response) {
-                        if (response.IsSuccessful) {
-                            date.Meals = registrationInfo.meals;
-                            notificationFactory.success("DataChangeSuccessfully");
-                        }
-                        else {
-                            notificationFactory.error("", response.Message);
-                        }
-                    }).error(function (response, status) {
-                        if (status === 405) {
-                            ErrorFactory.errorHandle(status);
-                        }
-                        else {
-                            notificationFactory.error("DataChangeFail");
-                        }
+                    var radioVegetarian = registrationInfo.meals;
+                    var noVegetarian = true;
+                    radioVegetarian.forEach(x => {
+                        if (x.IsVegetarian === 1)
+                            noVegetarian = false;
                     });
+
+                    if (!noVegetarian) {
+                        notificationFactory.error("", "You can only register vegetarian on the 1st and 15th of every lunar month");
+                    } else {
+                        var mealRegistration = {
+                            meal: registrationInfo.mealsTemplate,
+                            dayofWeek: date.WeekDay
+                        };
+
+                        mealRegistrationFactory.setDefaultRegisterMeal(mealRegistration).success(function (response) {
+                            if (response.IsSuccessful) {
+                                date.Meals = registrationInfo.meals;
+                                notificationFactory.success("DataChangeSuccessfully");
+                            }
+                            else {
+                                notificationFactory.error("", response.Message);
+                            }
+                        }).error(function (response, status) {
+                            if (status === 405) {
+                                ErrorFactory.errorHandle(status);
+                            }
+                            else {
+                                notificationFactory.error("DataChangeFail");
+                            }
+                        });
+                    }
                 });
             };
 
@@ -689,27 +744,38 @@ mealRegistrationModule.controller('DefaultRegisterMeal',
                 });
 
                 $scope.modalRegisterInstance.result.then(function (registrationInfo) {
-                    var mealRegistration = {
-                        meal: registrationInfo.mealsTemplate,
-                        dayofWeek: mealRegistrationUtilities.getDefaultDateInWeek(weekMeals)
-                    };
-
-                    mealRegistrationFactory.setDefaultRegisterMeal(mealRegistration).success(function (response) {
-                        if (response.IsSuccessful) {
-                            updatedDefaultMealToWeek(weekMeals, registrationInfo.meals);
-                            notificationFactory.success("DataChangeSuccessfully");
-                        }
-                        else {
-                            notificationFactory.error("", response.Message);
-                        }
-                    }).error(function (response, status) {
-                        if (status === 405) {
-                            ErrorFactory.errorHandle(status);
-                        }
-                        else {
-                            notificationFactory.error("DataChangeFail");
-                        }
+                    var radioVegetarian = registrationInfo.meals;
+                    var noVegetarian = true;
+                    radioVegetarian.forEach(x => {
+                        if (x.IsVegetarian === 1)
+                            noVegetarian = false;
                     });
+
+                    if (!noVegetarian) {
+                        notificationFactory.error("", "You can only register vegetarian on the 1st and 15th of every lunar month");
+                    } else {
+                        var mealRegistration = {
+                            meal: registrationInfo.mealsTemplate,
+                            dayofWeek: mealRegistrationUtilities.getDefaultDateInWeek(weekMeals)
+                        };
+
+                        mealRegistrationFactory.setDefaultRegisterMeal(mealRegistration).success(function (response) {
+                            if (response.IsSuccessful) {
+                                updatedDefaultMealToWeek(weekMeals, registrationInfo.meals);
+                                notificationFactory.success("DataChangeSuccessfully");
+                            }
+                            else {
+                                notificationFactory.error("", response.Message);
+                            }
+                        }).error(function (response, status) {
+                            if (status === 405) {
+                                ErrorFactory.errorHandle(status);
+                            }
+                            else {
+                                notificationFactory.error("DataChangeFail");
+                            }
+                        });
+                    }
                 });
             };
 
@@ -761,11 +827,11 @@ mealRegistrationModule.controller('RegisterMealController',
             } else {
                 $scope.timePeriod = timePeriod;
             }
+
             $scope.registerSetting = registerSetting;
             $scope.originalMeals = angular.copy(meals);
             $scope.isNotToday = true;
             $scope.notVegetarian = true; //block
-
             $scope.rightMeal = {
                 1: true,
                 2: true,
