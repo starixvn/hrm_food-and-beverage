@@ -8,6 +8,7 @@
 // </history>
 
 using System.Globalization;
+using System.Xml;
 
 namespace NexFB.Site.Controllers.API
 {
@@ -80,10 +81,26 @@ namespace NexFB.Site.Controllers.API
         [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Host)]
         public CommandResult RegisterMealByRangeDate(RegisterMealByRangeDateCriteria criteria)
         {
-            bool isVeg = criteria.Meal.Contains("IsVeg=\"1\"");
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(criteria.Meal);
+            XmlNodeList mealList = xml.GetElementsByTagName("Meal");
+
+            string registerSupper = mealList[3].Attributes?["IsVeg"]?.Value;
+
+            bool isVeg = false;
+            for (int i = 0; i < 4; i++)
+            {
+                if (mealList[i].Attributes?["IsVeg"]?.Value == "1")
+                {
+                    isVeg = true;
+                    break;
+                }
+            }
+
             bool isValidDate = DateTime.TryParse(criteria.OnDate, out var onDate);
-            bool isVegetarianDay = CheckVegetarianDay(onDate.Day, onDate.Month, onDate.Year, 7);
-            bool isValidRegisterVegetarian = isVeg && isValidDate && isVegetarianDay;
+            int lunarDay = CheckVegetarianDay(onDate.Day, onDate.Month, onDate.Year, 7);
+            bool isValidRegisterVegetarian = !(registerSupper == "1" && lunarDay != 1 && lunarDay != 14 && lunarDay != 15 && lunarDay != 30);
+            if (isVeg && registerSupper != "1" && lunarDay != 1 && lunarDay != 15) isValidRegisterVegetarian = false;
 
             if ((isValidRegisterVegetarian || !isVeg) && criteria != null)
             {
@@ -110,7 +127,20 @@ namespace NexFB.Site.Controllers.API
         [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Host)]
         public CommandResult RegisterMealByDefault(SetRegisterMealByDefaultCriteria criteria)
         {
-            bool isVeg = criteria.Meal.Contains("IsVeg=\"1\"");
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(criteria.Meal);
+            XmlNodeList mealList = xml.GetElementsByTagName("Meal");
+
+            bool isVeg = false;
+            for (int i = 0; i < 4; i++)
+            {
+                if (mealList[i].Attributes?["IsVeg"]?.Value == "1")
+                {
+                    isVeg = true;
+                    break;
+                }
+            }
+
             if (isVeg)
                 return _mealRegistrationService.RegisterMealByDefault(criteria);
 
@@ -249,7 +279,7 @@ namespace NexFB.Site.Controllers.API
             return i - 1;
         }
 
-        public bool CheckVegetarianDay(int dd, int mm, int yy, double timeZone)
+        public int CheckVegetarianDay(int dd, int mm, int yy, double timeZone)
         {
             double leapMonthDiff;
             int lunarYear, lunarLeap;
@@ -296,7 +326,7 @@ namespace NexFB.Site.Controllers.API
             {
                 lunarYear -= 1;
             }
-            return ((int)(lunarDay) == 1 || (int)(lunarDay) == 15);
+            return ((int)(lunarDay));
         }
     }
 }

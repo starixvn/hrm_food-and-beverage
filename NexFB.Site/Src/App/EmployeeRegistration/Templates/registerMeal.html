@@ -29,7 +29,7 @@
                         </td>
                         <td class="text-center width-120">
                             <input id="meal{{meal.MealId}}" type="radio" value="{{meal.MealId}}" only-one-check
-                                   ng-checked="meal.IsVegetarian && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || meal.IsDisableVegetarian || notVegetarian" />
+                                   ng-checked="meal.IsVegetarian && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || meal.IsDisableVegetarian || disableRegisterVegetarian.{{meal.MealId}} " />
                         </td>
                         <td class="text-center width-100">
                             <input type="radio" only-one-check ng-checked="meal.IsVegetarian == null || checkNonRegistration" ng-disabled="meal.IsDisableNonRegistration" />

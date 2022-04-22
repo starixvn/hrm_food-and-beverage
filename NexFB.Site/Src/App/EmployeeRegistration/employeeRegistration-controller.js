@@ -231,16 +231,16 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
 
                 $scope.modalRegisterInstance.result.then(function (registrationInfo) {
                     var radioVegetarian = registrationInfo.meals;
+                    var wd = new Date(date.WorkDate);
+                    var lunarDay = mealRegistrationUtilities.checkVegetarianDay(wd.getDate(), wd.getMonth() + 1, wd.getFullYear(), 7);
                     var noVegetarian = true;
                     radioVegetarian.forEach(x => {
-                        if (x.IsVegetarian === 1)
-                            noVegetarian = false;
+                        if (x.IsVegetarian === 1 && x.MealId !== 4 && lunarDay !== 1 && lunarDay !== 15) noVegetarian = false;
+                        if (x.IsVegetarian === 1 && x.MealId === 4 && lunarDay !== 1 && lunarDay !== 15 && lunarDay !== 14 && lunarDay !== 30) noVegetarian = false;
                     });
-                    var wd = new Date(date.WorkDate);
-                    var isVegetarianDay = mealRegistrationUtilities.checkVegetarianDay(wd.getDate(), wd.getMonth() + 1, wd.getFullYear(), 7);
 
-                    if (!noVegetarian && !isVegetarianDay) {
-                        notificationFactory.error("", "Can't register because it's not a vegetarian day");
+                    if (!noVegetarian) {
+                        notificationFactory.error("", "Can't register because it's not a vegetarian day or supper before vegetarian day");
                     } else {
                         var mealRegistration = {
                             meal: registrationInfo.mealsTemplate,
@@ -262,7 +262,6 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                             }
                         });
                     }
-                    //console.log(registrationInfo.meals[0].IsVegetarian);
                 });
             };
 
@@ -831,8 +830,14 @@ mealRegistrationModule.controller('RegisterMealController',
             $scope.registerSetting = registerSetting;
             $scope.originalMeals = angular.copy(meals);
             $scope.isNotToday = true;
-            $scope.notVegetarian = true; //block
             $scope.rightMeal = {
+                1: true,
+                2: true,
+                3: true,
+                4: true
+            };
+
+            $scope.disableRegisterVegetarian = {
                 1: true,
                 2: true,
                 3: true,
@@ -842,8 +847,25 @@ mealRegistrationModule.controller('RegisterMealController',
             $scope.vegetarianDate = {};
             $scope.nonVegetarianDate = {};
 
-            if (typeof (timePeriod) === "object")
-                $scope.notVegetarian = !mealRegistrationUtilities.checkVegetarianDay(timePeriod.getDate(), timePeriod.getMonth() + 1, timePeriod.getFullYear(), 7);
+            if (typeof (timePeriod) === "object") {
+                var lunarDay = mealRegistrationUtilities.checkVegetarianDay(timePeriod.getDate(), timePeriod.getMonth() + 1, timePeriod.getFullYear(), 7);
+                if (lunarDay === 1 || lunarDay === 15) {
+                    $scope.disableRegisterVegetarian = {
+                        1: false,
+                        2: false,
+                        3: false,
+                        4: false
+                    };
+                }
+                if (lunarDay === 30 || lunarDay === 14) {
+                    $scope.disableRegisterVegetarian = {
+                        1: true,
+                        2: true,
+                        3: true,
+                        4: false
+                    };
+                }
+            }
 
             var checkWorkDateNotToday = function (workDate) {
                 var toDay = new Date(),
