@@ -88,19 +88,29 @@ namespace NexFB.Site.Controllers.API
             string registerSupper = mealList[3].Attributes?["IsVeg"]?.Value;
 
             bool isVeg = false;
+            bool isVegButNotSupper = false;
             for (int i = 0; i < 4; i++)
             {
-                if (mealList[i].Attributes?["IsVeg"]?.Value == "1")
+                if (mealList[i].Attributes?["IsVeg"]?.Value == "1" && i < 3)
                 {
                     isVeg = true;
+                    isVegButNotSupper = true;
                     break;
+                }
+                if (mealList[i].Attributes?["IsVeg"]?.Value == "1" && i == 3)
+                {
+                    isVeg = true;
                 }
             }
 
             bool isValidDate = DateTime.TryParse(criteria.OnDate, out var onDate);
-            int lunarDay = CheckVegetarianDay(onDate.Day, onDate.Month, onDate.Year, 7);
-            bool isValidRegisterVegetarian = !(registerSupper == "1" && lunarDay != 1 && lunarDay != 14 && lunarDay != 15 && lunarDay != 30);
-            if (isVeg && registerSupper != "1" && lunarDay != 1 && lunarDay != 15) isValidRegisterVegetarian = false;
+            bool isVegetarianDay = CheckVegetarianDay(onDate.Day, onDate.Month, onDate.Year, 7);
+
+            DateTime nextDate = onDate.AddDays(1);
+            bool isBeforeVegetarianDay = CheckVegetarianDay(nextDate.Day, nextDate.Month, nextDate.Year, 7);
+
+            bool isValidRegisterVegetarian = !(registerSupper == "1" && !isVegetarianDay && !isBeforeVegetarianDay);
+            if (isVegButNotSupper && !isVegetarianDay) isValidRegisterVegetarian = false;
 
             if ((isValidRegisterVegetarian || !isVeg) && criteria != null)
             {
@@ -279,7 +289,7 @@ namespace NexFB.Site.Controllers.API
             return i - 1;
         }
 
-        public int CheckVegetarianDay(int dd, int mm, int yy, double timeZone)
+        public bool CheckVegetarianDay(int dd, int mm, int yy, double timeZone)
         {
             double leapMonthDiff;
             int lunarYear, lunarLeap;
@@ -326,7 +336,7 @@ namespace NexFB.Site.Controllers.API
             {
                 lunarYear -= 1;
             }
-            return ((int)(lunarDay));
+            return ((int)(lunarDay) == 1 || (int)(lunarDay) == 15);
         }
     }
 }

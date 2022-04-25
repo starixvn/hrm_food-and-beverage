@@ -845,7 +845,7 @@ mealRegistrationModule.factory("mealRegistrationUtilities",
                 if (lunarMonth >= 11 && diff < 4) {
                     lunarYear -= 1;
                 }
-                return (parseInt(lunarDay));
+                return (parseInt(lunarDay) === 1 || parseInt(lunarDay) === 15);
             }
 
             return utility;

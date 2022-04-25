@@ -231,12 +231,17 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
 
                 $scope.modalRegisterInstance.result.then(function (registrationInfo) {
                     var radioVegetarian = registrationInfo.meals;
+
                     var wd = new Date(date.WorkDate);
-                    var lunarDay = mealRegistrationUtilities.checkVegetarianDay(wd.getDate(), wd.getMonth() + 1, wd.getFullYear(), 7);
+                    var isVegetarianDay = mealRegistrationUtilities.checkVegetarianDay(wd.getDate(), wd.getMonth() + 1, wd.getFullYear(), 7);
+
+                    wd.setDate(wd.getDate() + 1);
+                    var isBeforeVegetarianDay = mealRegistrationUtilities.checkVegetarianDay(wd.getDate(), wd.getMonth() + 1, wd.getFullYear(), 7);
+
                     var noVegetarian = true;
                     radioVegetarian.forEach(x => {
-                        if (x.IsVegetarian === 1 && x.MealId !== 4 && lunarDay !== 1 && lunarDay !== 15) noVegetarian = false;
-                        if (x.IsVegetarian === 1 && x.MealId === 4 && lunarDay !== 1 && lunarDay !== 15 && lunarDay !== 14 && lunarDay !== 30) noVegetarian = false;
+                        if (x.IsVegetarian === 1 && x.MealId !== 4 && !isVegetarianDay) noVegetarian = false;
+                        if (x.IsVegetarian === 1 && x.MealId === 4 && !isVegetarianDay && !isBeforeVegetarianDay) noVegetarian = false;
                     });
 
                     if (!noVegetarian) {
@@ -848,8 +853,8 @@ mealRegistrationModule.controller('RegisterMealController',
             $scope.nonVegetarianDate = {};
 
             if (typeof (timePeriod) === "object") {
-                var lunarDay = mealRegistrationUtilities.checkVegetarianDay(timePeriod.getDate(), timePeriod.getMonth() + 1, timePeriod.getFullYear(), 7);
-                if (lunarDay === 1 || lunarDay === 15) {
+                var isVegetarianDay = mealRegistrationUtilities.checkVegetarianDay(timePeriod.getDate(), timePeriod.getMonth() + 1, timePeriod.getFullYear(), 7);
+                if (isVegetarianDay) {
                     $scope.disableRegisterVegetarian = {
                         1: false,
                         2: false,
@@ -857,7 +862,9 @@ mealRegistrationModule.controller('RegisterMealController',
                         4: false
                     };
                 }
-                if (lunarDay === 30 || lunarDay === 14) {
+                timePeriod.setDate(timePeriod.getDate() + 1);
+                var isBeforeVegetarianDay = mealRegistrationUtilities.checkVegetarianDay(timePeriod.getDate(), timePeriod.getMonth() + 1, timePeriod.getFullYear(), 7);
+                if (isBeforeVegetarianDay) {
                     $scope.disableRegisterVegetarian = {
                         1: true,
                         2: true,
