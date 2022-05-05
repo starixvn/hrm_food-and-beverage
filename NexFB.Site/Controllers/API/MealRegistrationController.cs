@@ -90,7 +90,7 @@ namespace NexFB.Site.Controllers.API
 
             bool isVeg = false;
             bool isVegButNotSupper = false;
-            int indexSupper = 3;
+            const int indexSupper = 3;
             for (int i = 0; i < 4; i++)
             {
                 if (mealList[i].Attributes?[IsVeg]?.Value == "1" && i < indexSupper)
@@ -298,7 +298,7 @@ namespace NexFB.Site.Controllers.API
 
         public bool CheckVegetarianDay(int dd, int mm, int yy, double timeZone)
         {
-            int middleLunarMonth = 15;
+            const int middleLunarMonth = 15;
             double leapMonthDiff;
             int lunarYear, lunarLeap;
             double dayNumber = GetJuliusFromDate(dd, mm, yy);
