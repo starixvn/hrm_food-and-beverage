@@ -95,6 +95,24 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
+        /// Get employee register meal by workdate and mealID.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>THe employee register model.</returns>
+        public EmployeeRegisterModel GetEmployeeRegisterByWorkDateAndMealId(GetEmployeeRegisterByWorkDateAndMealIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            EmployeeRegisterModel employeeRegister = null;
+
+            if (criteria.IsValid())
+            {
+                employeeRegister = GetDataEntity<EmployeeRegisterModel>(criteria);
+            }
+
+            return employeeRegister;
+        }
+
+        /// <summary>
         /// Register meal by default.
         /// </summary>
         /// <param name="criteria">The criteria.</param>

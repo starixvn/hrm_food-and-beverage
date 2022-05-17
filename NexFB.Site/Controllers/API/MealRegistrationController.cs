@@ -140,6 +140,19 @@ namespace NexFB.Site.Controllers.API
             return _mealRegistrationService.GetDefaultRegisterMeal(criteria);
         }
 
+        [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Read)]
+        public EmployeeRegisterModel GetEmployeeRegisterByWorkDateAndMealId(int systemId = 0, int mealID = 0)
+        {
+            var criteria = new GetEmployeeRegisterByWorkDateAndMealIdCriteria
+            {
+                SystemId = systemId,
+                MealID = mealID,
+                WorkDate = DateTime.Now.ToString("yyyy-MM-dd"),
+            };
+
+            return _mealRegistrationService.GetEmployeeRegisterByWorkDateAndMealId(criteria);
+        }
+
         [HttpPost]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Host)]
         public CommandResult RegisterMealByDefault(SetRegisterMealByDefaultCriteria criteria)

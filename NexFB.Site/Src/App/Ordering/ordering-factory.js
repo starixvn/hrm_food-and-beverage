@@ -2,297 +2,304 @@
 /*global orderingModule*/
 
 orderingModule.factory("orderingFactory",
-	['$http', 'baseUrl', function ($http, baseUrl) {
-		return {
-			getCurrentUser: function () {
-				return $http.get(baseUrl + 'api/Ordering/GetCurrentUser');
-			},
-			getLocation: function () {
-				return $http.get(baseUrl + 'api/Common/GetAllDeliveryArea');
-			},
-			getMyOrder: function () {
-				return $http.get(baseUrl + 'api/Ordering/GetMyOrder');
-			},
-			getAddNewOrder: function () {
-				return $http.get(baseUrl + 'api/Ordering/GetAddNew');
-			},
-			getOrderNewOrder: function (userId) {
-				return $http.get(baseUrl + 'api/Ordering/GetOrderNewOrder',
-					{
-						params: { userId: userId }
-					}
-				);
-			},
-			getSavedOrder: function () {
-				return $http.get(baseUrl + 'api/Ordering/GetSavedOrder');
-			},
-			getMyMenu: function () {
-				return $http.get(baseUrl + 'api/Ordering/GetMyMenu');
-			},
-			getDepartment: function () {
-				return $http.get(baseUrl + 'api/Common/GetAllDepartment');
-			},
-			getEmployees: function (keyWord, departmentId, teamId, isShowDisable) {
-				return $http.get(baseUrl + 'api/Employee/GetEmployees',
-					{
-						params: {
-							keyWord: keyWord,
-							departmentId: departmentId,
-							teamId: teamId,
-							isShowDisable: isShowDisable
-						}
-					}
-				);
-			},
-			getMenuByUserId: function (userId) {
-				return $http.get(baseUrl + 'api/Ordering/GetMenuByUserId',
-					{
-						params: { userId: userId }
-					}
-				);
-			},
-			getOrderById: function (orderId) {
-				return $http.get(baseUrl + 'api/Ordering/GetOrderById',
-					{
-						params: { orderId: orderId }
-					}
-				);
-			},
-			addMember: function (member) {
-				return $http.post(baseUrl + 'api/OrderMember', member);
-				//return $http['addMember']('/api/OrderMember', { params: { memberId: memberId} });
-				//AddMember
-			},
-			removeMember: function (memberId) {
-				return $http['delete'](baseUrl + 'api/OrderMember', { params: { memberId: memberId} });
-			},
-			createOrder: function (order) {
-				return $http.post(baseUrl + 'api/Ordering/InsertOrder', order);
-			},
-			editOrder: function (order) {
-				return $http.put(baseUrl + 'api/Ordering/UpdateOrder', order);
-			},
-			deleteOrder: function (orderId) {
-				return $http['delete'](baseUrl + 'api/Ordering', { params: { orderId: orderId} });
-			},
-			getAlternativeMenuByUserId: function (userId) {
-				return $http.get(baseUrl + 'api/Ordering/GetAlternativeMenusByUserId', { params: { userId: userId} });
-			},
-			getSideDishByUserId: function (userId) {
-				return $http.get(baseUrl + 'api/Ordering/GetSideDishByUserId', { params: { userId: userId} });
-			},
-			createOrderSideDish: function (order) {
-				return $http.post(baseUrl + 'api/Ordering/InsertOrderSideDish', order);
-			},
-			editOrderSideDish: function (order) {
-				return $http.put(baseUrl + 'api/Ordering/UpdateOrderSideDish', order);
-			},
-			checkValidModifiedTime: function (startTime, orderId) {
-				return $http.get(baseUrl + 'api/Ordering/CheckValidModifiedTime',
-					{ params: { startTime: startTime, orderId: orderId} });
-			},
-			checkDeliveryAreaExist: function (deliveryAreaId) {
-				return $http.get(baseUrl + 'api/DeliveryArea/CheckDeliveryAreaExist',
-					{ params: { deliveryAreaId: deliveryAreaId} });
-			},
-			getMemberNewOrderByAdmin: function (userId, mealId, onDate ) {
+    ['$http', 'baseUrl', function ($http, baseUrl) {
+        return {
+            getCurrentUser: function () {
+                return $http.get(baseUrl + 'api/Ordering/GetCurrentUser');
+            },
+            getLocation: function () {
+                return $http.get(baseUrl + 'api/Common/GetAllDeliveryArea');
+            },
+            getMyOrder: function () {
+                return $http.get(baseUrl + 'api/Ordering/GetMyOrder');
+            },
+            getAddNewOrder: function () {
+                return $http.get(baseUrl + 'api/Ordering/GetAddNew');
+            },
+            getOrderNewOrder: function (userId) {
+                return $http.get(baseUrl + 'api/Ordering/GetOrderNewOrder',
+                    {
+                        params: { userId: userId }
+                    }
+                );
+            },
+            getSavedOrder: function () {
+                return $http.get(baseUrl + 'api/Ordering/GetSavedOrder');
+            },
+            getEmployeeRegister: function (systemId, mealID) {
+                return $http.get(baseUrl + 'api/MealRegistration/GetEmployeeRegisterByWorkDateAndMealId',
+                    {
+                        params: {
+                            systemId: systemId,
+                            mealID: mealID
+                        }
+                    });
+            },
+            getMyMenu: function () {
+                return $http.get(baseUrl + 'api/Ordering/GetMyMenu');
+            },
+            getDepartment: function () {
+                return $http.get(baseUrl + 'api/Common/GetAllDepartment');
+            },
+            getEmployees: function (keyWord, departmentId, teamId, isShowDisable) {
+                return $http.get(baseUrl + 'api/Employee/GetEmployees',
+                    {
+                        params: {
+                            keyWord: keyWord,
+                            departmentId: departmentId,
+                            teamId: teamId,
+                            isShowDisable: isShowDisable
+                        }
+                    }
+                );
+            },
+            getMenuByUserId: function (userId) {
+                return $http.get(baseUrl + 'api/Ordering/GetMenuByUserId',
+                    {
+                        params: { userId: userId }
+                    }
+                );
+            },
+            getOrderById: function (orderId) {
+                return $http.get(baseUrl + 'api/Ordering/GetOrderById',
+                    {
+                        params: { orderId: orderId }
+                    }
+                );
+            },
+            addMember: function (member) {
+                return $http.post(baseUrl + 'api/OrderMember', member);
+                //return $http['addMember']('/api/OrderMember', { params: { memberId: memberId} });
+                //AddMember
+            },
+            removeMember: function (memberId) {
+                return $http['delete'](baseUrl + 'api/OrderMember', { params: { memberId: memberId } });
+            },
+            createOrder: function (order) {
+                return $http.post(baseUrl + 'api/Ordering/InsertOrder', order);
+            },
+            editOrder: function (order) {
+                return $http.put(baseUrl + 'api/Ordering/UpdateOrder', order);
+            },
+            deleteOrder: function (orderId) {
+                return $http['delete'](baseUrl + 'api/Ordering', { params: { orderId: orderId } });
+            },
+            getAlternativeMenuByUserId: function (userId) {
+                return $http.get(baseUrl + 'api/Ordering/GetAlternativeMenusByUserId', { params: { userId: userId } });
+            },
+            getSideDishByUserId: function (userId) {
+                return $http.get(baseUrl + 'api/Ordering/GetSideDishByUserId', { params: { userId: userId } });
+            },
+            createOrderSideDish: function (order) {
+                return $http.post(baseUrl + 'api/Ordering/InsertOrderSideDish', order);
+            },
+            editOrderSideDish: function (order) {
+                return $http.put(baseUrl + 'api/Ordering/UpdateOrderSideDish', order);
+            },
+            checkValidModifiedTime: function (startTime, orderId) {
+                return $http.get(baseUrl + 'api/Ordering/CheckValidModifiedTime',
+                    { params: { startTime: startTime, orderId: orderId } });
+            },
+            checkDeliveryAreaExist: function (deliveryAreaId) {
+                return $http.get(baseUrl + 'api/DeliveryArea/CheckDeliveryAreaExist',
+                    { params: { deliveryAreaId: deliveryAreaId } });
+            },
+            getMemberNewOrderByAdmin: function (userId, mealId, onDate) {
                 return $http.get(baseUrl + 'api/Ordering/GetMemberNewOrderByAdmin',
-					{
+                    {
                         params: {
                             userId: userId,
                             mealId: mealId,
                             onDate: onDate
                         }
-					}
-				);
-			},
-			adminEditOrder: function (order) {
-				return $http.put(baseUrl + 'api/Ordering/AdminUpdateOrder', order);
-			},
-			adminEditOrderSideDish: function (order) {
-				return $http.put(baseUrl + 'api/Ordering/AdminUpdateOrderSideDish', order);
-			}
-		};
-	} ]
+                    }
+                );
+            },
+            adminEditOrder: function (order) {
+                return $http.put(baseUrl + 'api/Ordering/AdminUpdateOrder', order);
+            },
+            adminEditOrderSideDish: function (order) {
+                return $http.put(baseUrl + 'api/Ordering/AdminUpdateOrderSideDish', order);
+            }
+        };
+    }]
 );
 
 orderingModule.factory('orderingUtilities', function () {
-	var utilities = {};
+    var utilities = {};
 
-	/*
-	** Calculate total price of all member in order
-	*/
-	utilities.calculateTotalAmount = function (members) {
-		var total = 0;
+    /*
+    ** Calculate total price of all member in order
+    */
+    utilities.calculateTotalAmount = function (members) {
+        var total = 0;
 
-		angular.forEach(members, function (member) {
-			angular.forEach(member.Menus, function (menu) {
-				total += menu.TotalAmount;
-			});
-		});
+        angular.forEach(members, function (member) {
+            angular.forEach(member.Menus, function (menu) {
+                total += menu.TotalAmount;
+            });
+        });
 
-		return total;
-	};
+        return total;
+    };
 
-	utilities.getSelectedMenu = function (currentMenus, allMenus) {
-		var resultMenu = '';
+    utilities.getSelectedMenu = function (currentMenus, allMenus) {
+        var resultMenu = '';
 
-		angular.forEach(allMenus, function (menu) {
-			if (menu.MenuId === currentMenus.MenuId && menu.IsMainMenu === currentMenus.IsMainMenu) {
-				resultMenu = menu;
-			}
-		});
+        angular.forEach(allMenus, function (menu) {
+            if (menu.MenuId === currentMenus.MenuId && menu.IsMainMenu === currentMenus.IsMainMenu) {
+                resultMenu = menu;
+            }
+        });
 
-		return resultMenu;
-	};
+        return resultMenu;
+    };
 
-	utilities.getSelectedStatus = function (orderStatusesOptions) {
-		var statusValue = '';
+    utilities.getSelectedStatus = function (orderStatusesOptions) {
+        var statusValue = '';
 
-		angular.forEach(orderStatusesOptions, function (status) {
-			if (status.ticked) {
-				statusValue = status.Value;
-			}
-		});
+        angular.forEach(orderStatusesOptions, function (status) {
+            if (status.ticked) {
+                statusValue = status.Value;
+            }
+        });
 
-		return statusValue;
-	};
+        return statusValue;
+    };
 
-	utilities.getSelectedPlatform = function (orderPlatformOptions) {
-		var platformValue = 0;
+    utilities.getSelectedPlatform = function (orderPlatformOptions) {
+        var platformValue = 0;
 
-		angular.forEach(orderPlatformOptions, function (platform) {
-			if (platform.ticked) {
-				if(platform.Value === 1)
-				{
-					platformValue = 'W';
-				}
-				else if(platform.Value === 2){
-					platformValue = 'P';
-				}
-				else if(platform.Value === 3){
-					platformValue = 'P-U';
-				}
-			}
-		});
+        angular.forEach(orderPlatformOptions, function (platform) {
+            if (platform.ticked) {
+                if (platform.Value === 1) {
+                    platformValue = 'W';
+                }
+                else if (platform.Value === 2) {
+                    platformValue = 'P';
+                }
+                else if (platform.Value === 3) {
+                    platformValue = 'P-U';
+                }
+            }
+        });
 
-		return platformValue;
-	};
+        return platformValue;
+    };
 
 
-	utilities.sortOrderIdByDesc = function (order, orders) {
-		if (orders.length === 0) {
-			orders.push(order);
-		}
-		else {
-			var smallest = true;
+    utilities.sortOrderIdByDesc = function (order, orders) {
+        if (orders.length === 0) {
+            orders.push(order);
+        }
+        else {
+            var smallest = true;
 
-			for (var i = 0; i < orders.length; i++) {
-				if (order.OrderId > orders[i].OrderId) {
-					orders.splice(i, 0, order);
-					i = orders.length;
-					smallest = false;
-				}
-			}
+            for (var i = 0; i < orders.length; i++) {
+                if (order.OrderId > orders[i].OrderId) {
+                    orders.splice(i, 0, order);
+                    i = orders.length;
+                    smallest = false;
+                }
+            }
 
-			if (smallest) {
-				orders.push(order);
-			}
-		}
+            if (smallest) {
+                orders.push(order);
+            }
+        }
 
-		return orders;
-	};
+        return orders;
+    };
 
-	utilities.setDefaultLocation = function (locations, locationId) {
-		angular.forEach(locations, function (value) {
-			value.ticked = false;
+    utilities.setDefaultLocation = function (locations, locationId) {
+        angular.forEach(locations, function (value) {
+            value.ticked = false;
 
-			if (value.LocationId === locationId) {
-				value.ticked = true;
-			}
-		});
-	};
+            if (value.LocationId === locationId) {
+                value.ticked = true;
+            }
+        });
+    };
 
-	utilities.setEditStatus = function (orderStatuses, StatusId) {
-		angular.forEach(orderStatuses, function (value) {
-			value.ticked = false;
+    utilities.setEditStatus = function (orderStatuses, StatusId) {
+        angular.forEach(orderStatuses, function (value) {
+            value.ticked = false;
 
-			if (value.Value === StatusId) {
-				value.ticked = true;
-			}
-		});
-	};
+            if (value.Value === StatusId) {
+                value.ticked = true;
+            }
+        });
+    };
 
-	utilities.setEditMeal = function (meals, MealID) {
-		angular.forEach(meals, function (value) {
-			value.ticked = false;
+    utilities.setEditMeal = function (meals, MealID) {
+        angular.forEach(meals, function (value) {
+            value.ticked = false;
 
-			if (value.MealId === MealID) {
-				value.ticked = true;
-			}
-		});
-	};
+            if (value.MealId === MealID) {
+                value.ticked = true;
+            }
+        });
+    };
 
-	utilities.setOrderPlatform = function (orderPlatformOptions, orderFrom) {
-		var orderFromNumber = 0;
-		if(orderFrom === 'W')
-		{
-			orderFromNumber = 1;
-		}
-		else if(orderFrom === 'P'){
-			orderFromNumber = 2;
-		}
-		else if(orderFrom === 'P-U'){
-			orderFromNumber = 3;
-		}
-		angular.forEach(orderPlatformOptions, function (value) {
-			value.ticked = false;
-			if (value.Value === orderFromNumber) {
-				value.ticked = true;
-			}
-		});
-	};
+    utilities.setOrderPlatform = function (orderPlatformOptions, orderFrom) {
+        var orderFromNumber = 0;
+        if (orderFrom === 'W') {
+            orderFromNumber = 1;
+        }
+        else if (orderFrom === 'P') {
+            orderFromNumber = 2;
+        }
+        else if (orderFrom === 'P-U') {
+            orderFromNumber = 3;
+        }
+        angular.forEach(orderPlatformOptions, function (value) {
+            value.ticked = false;
+            if (value.Value === orderFromNumber) {
+                value.ticked = true;
+            }
+        });
+    };
 
-	utilities.getOrderLocation = function (typeOrder, scope) {
-		var locationId = '';
+    utilities.getOrderLocation = function (typeOrder, scope) {
+        var locationId = '';
 
-		// New Order
-		if (typeOrder === 0) {
-			angular.forEach(scope.newOrderLocations, function (value) {
-				if (value.ticked) {
-					locationId = value.LocationId;
-				}
-			});
-		}
-		// Saved Order
-		else if (typeOrder === 1) {
-			angular.forEach(scope.savedOrderLocations, function (value) {
-				if (value.ticked) {
-					locationId = value.LocationId;
-				}
-			});
-		}
-		// Side Dish Order
-		else if (typeOrder === 2) {
-			angular.forEach(scope.sideDishOrderLocations, function (value) {
-				if (value.ticked) {
-					locationId = value.LocationId;
-				}
-			});
-		}
+        // New Order
+        if (typeOrder === 0) {
+            angular.forEach(scope.newOrderLocations, function (value) {
+                if (value.ticked) {
+                    locationId = value.LocationId;
+                }
+            });
+        }
+        // Saved Order
+        else if (typeOrder === 1) {
+            angular.forEach(scope.savedOrderLocations, function (value) {
+                if (value.ticked) {
+                    locationId = value.LocationId;
+                }
+            });
+        }
+        // Side Dish Order
+        else if (typeOrder === 2) {
+            angular.forEach(scope.sideDishOrderLocations, function (value) {
+                if (value.ticked) {
+                    locationId = value.LocationId;
+                }
+            });
+        }
 
-		return locationId;
-	};
+        return locationId;
+    };
 
-	utilities.resetSelectOrderLocation = function (scope) {
-		angular.forEach(scope.newOrderLocations, function (value) {
-			value.ticked = false;
-		});
+    utilities.resetSelectOrderLocation = function (scope) {
+        angular.forEach(scope.newOrderLocations, function (value) {
+            value.ticked = false;
+        });
 
-		angular.forEach(scope.sideDishOrderLocations, function (value) {
-			value.ticked = false;
-		});
-	};
+        angular.forEach(scope.sideDishOrderLocations, function (value) {
+            value.ticked = false;
+        });
+    };
 
-	return utilities;
+    return utilities;
 });
