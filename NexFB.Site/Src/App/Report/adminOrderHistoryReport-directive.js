@@ -6,9 +6,9 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
     var generateDataBody = function (report, scope) {
         var createOrderDetail = function (currentCell) {
             var orderId = currentCell.Value;
-            var details = "<div class='text-center admin-order-action'>"
+            var details = "<div class='text-center admin-order-action'>";
             details += "<a class='order-detail-edit glyphicon glyphicon-edit' href='javascript:;' order-detail-number ='" + orderId + "'></a>";
-            details += "<a class='order-detail glyphicon glyphicon-list-alt' href='javascript:;' order-detail-number ='" + orderId + "'></a>"
+            details += "<a class='order-detail glyphicon glyphicon-list-alt' href='javascript:;' order-detail-number ='" + orderId + "'></a>";
             details += "</div>";
             return details;
         };
@@ -112,7 +112,7 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
             var result = "<div class='meal-list'>";
             result += "<a href='javascript:;' class='btn-expand-meal-list' order-id='" + currentCell.Value.Order.OrderId + "'>" + currentCell.Value.Meal.MealEngName + "</a>";
             result += "</div>"
-            
+
             return result;
         }
 
@@ -126,17 +126,18 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                 var employeeOrder = report.EmployeeOrders[i],
                     currentRow = [],
                     cssClass = getCssClass(employeeOrder.Status.StatusId, scope.orderStatus);
-              
+
                 currentRow = {
                     Columns: [
                         { Name: "Count", Value: rowIndex },
                         { Name: "Time", Value: moment(employeeOrder.OrderTime).format(scope.timeFormat) },
-                        { Name: "Meal", Value: employeeOrder, CustomCellRender: selectMeal},
+                        { Name: "Meal", Value: employeeOrder, CustomCellRender: selectMeal },
                         { Name: "Order", Value: employeeOrder.Order.OrderNo },
                         { Name: "Ref", Value: employeeOrder.Order.OrderId },
                         { Name: "OrderPlatform", Value: employeeOrder.OrderFrom },
                         { Name: "Status", Value: employeeOrder.Status.Name, CssClass: cssClass },
                         { Name: "OrderedBy", Value: employeeOrder.OrderBy.NickName },
+                        { Name: "Company", Value: employeeOrder.OrderBy.DepartmentName },
                         { Name: "MainDish", Value: employeeOrder.Menus, CustomCellRender: getMainDish },
                         { Name: "SideDish", Value: employeeOrder.Menus, CustomCellRender: getSideDish }
                     ]
@@ -173,6 +174,7 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
             { HeaderText: "Order Platform", Width: 150, Name: "OrderPlatform", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Status", Width: 100, Name: "Status", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Ordered By", Width: 120, Name: "OrderedBy", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: "Company", Width: 80, Name: "Company", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Main Dish", Width: 80, Name: "MainDish", HeaderAlign: "center", CellAlign: "right" },
             { HeaderText: "Side Dish", Width: 80, Name: "SideDish", HeaderAlign: "center", CellAlign: "right" },
             { HeaderText: "Amount", Width: 100, Name: "Amount", HeaderAlign: "center", CellAlign: "right" },
@@ -191,7 +193,7 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
         footerRow = [
             {
                 Columns: [
-                    { Name: "Count", Value: "Total", MergeColNumber: 8, CellAlign: "right" },
+                    { Name: "Count", Value: "Total", MergeColNumber: 9, CellAlign: "right" },
                     { Name: "MainDish", Value: totalMainDish, CellAlign: "right" },
                     { Name: "SideDish", Value: totalSideDish, CellAlign: "right" },
                     { Name: "Amount", Value: numeral(totalAmount).format(numberFormat), CellAlign: "right" }
@@ -234,7 +236,7 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                         text: "Admin Order History Report - " + moment(scope.filter.date).format(scope.dateFormat),
                         showExcelButton: true,
                         exportExcelFunction: function () {
-                        scope.exportExcel.call(this, scope.filter);
+                            scope.exportExcel.call(this, scope.filter);
                         }
                     },
                     showFooter: true,
@@ -284,9 +286,9 @@ reportModule.directive('exportAdminOrderHistoryReport', ['baseUrl', function (ba
         link: function (scope) {
             scope.$on('exportAdminOrderHistoryReport', function () {
                 var data = $.param(scope.criteria),
-                url = baseUrl + 'ExportReport/ExportAdminOrderHistoryReport',
-                downloadUrl = url + "?" + data,
-                iframe = $('body iframe');
+                    url = baseUrl + 'ExportReport/ExportAdminOrderHistoryReport',
+                    downloadUrl = url + "?" + data,
+                    iframe = $('body iframe');
 
                 if (iframe.length === 0) {
                     iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');

@@ -92,6 +92,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                         orderPlatform: filter.orderPlatform,
                         mealId: filter.mealId,
                         statusId: filter.statusId,
+                        companyId: filter.companyId,
                         isPagingCallback: filter.isPagingCallback,
                         startIndex: filter.startIndex,
                         itemsPerPage: filter.itemsPerPage
@@ -197,6 +198,9 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         getOrderStatusEnum: function () {
             return $http.get(baseUrl + 'api/report/GetOrderStatusEnum');
         },
+        getCompanyEnum: function () {
+            return $http.get(baseUrl + 'api/report/GetCompanyEnum');
+        },
         setHistory: function (scope, isCallBack) {
             history.fromDate = scope.filter.fromDate;
             history.toDate = scope.filter.toDate;
@@ -216,19 +220,19 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         },
         getMonthlyMainDishReportPerDay: function (filter) {
             return $http.get(baseUrl + 'api/report/GetMonthlyMainDishPerDayReport',
-            {
-                params: {
-                    reportDate: filter.reportDate.toDateString(),
-                    departmentId: filter.departmentId,
-                    employeeTypeId: filter.employeeTypeId,
-                    teamId: filter.teamId,
-                    workDay: filter.workDay,
-                    groupBy: filter.groupBy,
-                    startIndex: filter.startIndex,
-                    itemsPerPage: filter.itemsPerPage,
-                    isPagingCallback: filter.isPagingCallback
-                }
-            });
+                {
+                    params: {
+                        reportDate: filter.reportDate.toDateString(),
+                        departmentId: filter.departmentId,
+                        employeeTypeId: filter.employeeTypeId,
+                        teamId: filter.teamId,
+                        workDay: filter.workDay,
+                        groupBy: filter.groupBy,
+                        startIndex: filter.startIndex,
+                        itemsPerPage: filter.itemsPerPage,
+                        isPagingCallback: filter.isPagingCallback
+                    }
+                });
         },
         getDayTypeEnum: function () {
             return $http.get(baseUrl + 'api/report/GetDayType');

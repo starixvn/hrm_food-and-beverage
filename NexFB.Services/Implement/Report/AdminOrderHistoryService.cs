@@ -86,7 +86,7 @@
             FillContentRow(report.EmployeeOrders, ref writer);
             FillTotalRow(report.EmployeeOrders, ref writer);
 
-            const byte TotalColumns = 11;
+            const byte TotalColumns = 12;
             writer.SyncColumnsWidth(TotalColumns);
             writer.Render();
         }
@@ -113,6 +113,7 @@
                     OrderPlatform = employeeOrder.OrderFrom,
                     Status = employeeOrder.Status.Name,
                     OrderedBy = employeeOrder.OrderBy.NickName,
+                    Company = employeeOrder.OrderBy.DepartmentName,
                     MainDish = CreateMainDish(employeeOrder.Menus),
                     SideDish = CreateSideDish(employeeOrder.Menus),
                     Amount = amountTemplate
@@ -135,6 +136,7 @@
                 OrderPlatform = string.Empty,
                 Status = string.Empty,
                 OrderedBy = string.Empty,
+                Company = string.Empty,
                 MainDish = CalculateTotalMainDish(employeeOrders),
                 SideDish = CalculateTotalSideDish(employeeOrders),
                 Amount = totalAmount > 0 ? totalAmount.ToString(Constants.NumberFormat) : "0"

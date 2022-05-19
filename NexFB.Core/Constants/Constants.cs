@@ -27,7 +27,7 @@ namespace NexFB.Core.Constants
         public const string Hidden = "Hidden";
 
         public const string Visible = "Visible";
-        
+
         public const int MaximumTimeTranslateRemark = 5;
 
         public const string NumberFormat = "0,0";

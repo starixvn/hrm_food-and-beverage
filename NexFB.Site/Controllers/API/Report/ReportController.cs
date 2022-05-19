@@ -382,6 +382,7 @@ namespace NexFB.Site.Controllers.API.Report
             int orderPlatform = 0,
             string mealId = "",
             string statusId = "",
+            string companyId = "",
             bool isPagingCallback = false,
             int startIndex = 0,
             int itemsPerPage = 50)
@@ -395,7 +396,8 @@ namespace NexFB.Site.Controllers.API.Report
                 MyMenu = employeeMenu,
                 OrderPlatform = orderPlatform,
                 MealId = mealId,
-                StatusId = statusId
+                StatusId = statusId,
+                CompanyId = companyId
             };
 
             AdminOrderHistoryReport fullReport;
@@ -679,6 +681,28 @@ namespace NexFB.Site.Controllers.API.Report
             }
 
             return orderStatues;
+        }
+
+        [HttpGet]
+        public List<object> GetCompanyEnum()
+        {
+            var companies = new List<object>();
+
+            foreach (DepartmentIdentity departmentEnum in (DepartmentIdentity[])Enum.GetValues(typeof(DepartmentIdentity)))
+            {
+                if (departmentEnum != DepartmentIdentity.None)
+                {
+                    var department = new
+                    {
+                        Value = (int)departmentEnum,
+                        Name = Enumerations.GetDescription(departmentEnum)
+                    };
+
+                    companies.Add(department);
+                }
+            }
+
+            return companies;
         }
 
         [HttpGet]

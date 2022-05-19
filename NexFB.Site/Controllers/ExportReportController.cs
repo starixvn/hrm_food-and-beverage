@@ -271,7 +271,7 @@
 
             if (report != null)
             {
-                var templatePath  = Server.MapPath(_EmployeeRegistrationReportTemplatePath);
+                var templatePath = Server.MapPath(_EmployeeRegistrationReportTemplatePath);
                 _mealForecastDetailReportService.ExportEmployeeRegistrationReport(report, templatePath, criteria.IsVegetarian, criteria.WorkDate);
             }
 
@@ -286,7 +286,7 @@
 
             if (report != null)
             {
-                var templatePath  = Server.MapPath(_EmployeeNonRegistrationReportTemplatePath);
+                var templatePath = Server.MapPath(_EmployeeNonRegistrationReportTemplatePath);
                 _mealForecastDetailReportService.ExportEmployeeNonRegistrationReport(report, templatePath, criteria.IsVegetarian, criteria.WorkDate);
             }
 

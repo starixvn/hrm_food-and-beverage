@@ -27,6 +27,8 @@ namespace NexFB.Models.Entities
 
         public string DomainUsername { get; set; }
 
+        public string DepartmentName { get; set; }
+
         public string FullName { get; set; }
 
         public string NickName { get; set; }

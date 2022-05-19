@@ -262,6 +262,12 @@
     <Content Include="Src\App\Report\employeeRegistrationDetailReport-controller.js" />
     <Content Include="Src\App\Report\monthlyLunchAndDinnerAmountReport-controller.js" />
     <Content Include="Src\App\Report\monthlyBreakfastAndSupperAmountReport-controller.js" />
+    <Content Include="Src\App\Report\report.css">
+      <DependentUpon>report.less</DependentUpon>
+    </Content>
+    <Content Include="Src\App\Report\report.min.css">
+      <DependentUpon>report.css</DependentUpon>
+    </Content>
     <Content Include="Src\App\Report\Templates\adminOrderDetailEdit.html" />
     <Content Include="Src\App\Report\Templates\employeeNonRegistrationDetailReport.html" />
     <Content Include="Src\App\Report\Templates\employeeRegistrationDetailReport.html" />

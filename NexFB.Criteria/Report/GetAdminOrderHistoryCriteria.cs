@@ -33,6 +33,7 @@ namespace NexFB.Criteria.Report
         public string MealId { get; set; }
 
         public string StatusId { get; set; }
+        public string CompanyId { get; set; }
 
         public override string GetSettingKey()
         {
