@@ -365,7 +365,7 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <input type="checkbox" ng-model="favoriteGroupCheck[$index]" ng-disabled="!member.IsAllowOrder" />
+                                    <input type="checkbox" ng-model="member.IsOrder" ng-disabled="!member.IsAllowOrder" />
                                 </td>
                                 <td class="text-center">
                                     <a ng-click="removeMember($index, member.Member.UserId, typeOrder.savedOrder)" ng-show="member.Member.UserId != savedOrder.CreatorOrder.UserId"

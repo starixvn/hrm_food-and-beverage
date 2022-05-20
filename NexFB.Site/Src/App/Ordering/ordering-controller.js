@@ -55,8 +55,6 @@ orderingModule.controller("OrderingController",
                 Rejected: 6
             };
 
-            $scope.favoriteGroupCheck = {};
-
             $scope.getMessage();
             $scope.newOrder = [];
             $scope.savedOrder = [];
@@ -321,7 +319,7 @@ orderingModule.controller("OrderingController",
                                 var empId = member.Member.UserId;
                                 orderingFactory.getEmployeeRegister(empId, mealID)
                                     .success(function (data) {
-                                        $scope.favoriteGroupCheck[index] = data.IsVegetarian !== null ? true : false;
+                                        $scope.savedOrder.Members[index].IsOrder = (data.IsVegetarian !== null && scope.savedOrder.Members[index].IsAllowOrder) ? true : false;
                                     })
                                     .error(function (response, status) {
                                         ErrorFactory.errorHandle(status);
@@ -413,7 +411,6 @@ orderingModule.controller("OrderingController",
 
                         for (var i = 0; i < order.Members.length; i++) {
                             var value = order.Members[i];
-
                             if (typeOrder !== $scope.typeOrder.sideDishOrder && value.IsOrder) {
                                 if (value.IsAllowOrder) {
                                     numberMembersOrder += 1;
@@ -456,7 +453,7 @@ orderingModule.controller("OrderingController",
 
                     var memberNonMenuMessage = '';
 
-                    angular.forEach(order.Members, function (member) {
+                    angular.forEach(order.Members, function (member, index) {
                         angular.forEach(member.Menus, function (menu) {
                             if (menu.MenuId === -1 && member.IsOrder) {
                                 memberNonMenuMessage += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + member.Member.NickName;
