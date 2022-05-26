@@ -42,7 +42,7 @@
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
                     var data = multi.Read<MealOrderingModel, Employee, Status, Location, MealOrderingModel>(
-                        (od, e, s, l) => 
+                        (od, e, s, l) =>
                     {
                         od.CreatorOrder = e;
                         od.Status = s;
@@ -140,7 +140,7 @@
                                 IsOrder = s == null,
                                 Member = e,
                                 CurrentStatus = s,
-                                IsAllowOrder = od.RawIsAllowOrder
+                                IsAllowOrder = od.RawIsAllowOrder,
                             };
 
                             memberOrder.Menus.Add(m);
@@ -178,10 +178,11 @@
                         order.CurrentMenus.Add(m);
                         var memberOrder = new OrderMemberModel
                         {
-                            IsOrder = od.RawIsAllowOrder ? od.IsOrder : false,
+                            IsOrder = od.RawIsAllowOrder && od.IsOrder,
                             Member = e,
                             CurrentStatus = s,
-                            IsAllowOrder = od.RawIsAllowOrder
+                            IsAllowOrder = od.RawIsAllowOrder,
+                            IsVegetarianRegister = od.IsVegetarian
                         };
 
                         if (m != null)
@@ -389,7 +390,7 @@
             return result;
         }
 
-        private decimal GetDoubleValue(dynamic value) 
+        private decimal GetDoubleValue(dynamic value)
         {
             decimal result = 0;
 

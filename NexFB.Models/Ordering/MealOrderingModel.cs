@@ -49,6 +49,7 @@ namespace NexFB.Models.Ordering
         public Employee CreatorOrder { get; set; }
 
         public bool TakeAway { get; set; }
+        public bool? IsVegetarian { get; set; }
 
         public string Phone { get; set; }
 

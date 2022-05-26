@@ -26,15 +26,6 @@ orderingModule.factory("orderingFactory",
             getSavedOrder: function () {
                 return $http.get(baseUrl + 'api/Ordering/GetSavedOrder');
             },
-            getEmployeeRegister: function (systemId, mealID) {
-                return $http.get(baseUrl + 'api/MealRegistration/GetEmployeeRegisterByWorkDateAndMealId',
-                    {
-                        params: {
-                            systemId: systemId,
-                            mealID: mealID
-                        }
-                    });
-            },
             getMyMenu: function () {
                 return $http.get(baseUrl + 'api/Ordering/GetMyMenu');
             },

@@ -24,7 +24,6 @@ namespace NexFB.Services.Interface
         CommandResult RegisterMealByRangeDate(RegisterMealByRangeDateCriteria criteria);
 
         IList<MealDateModel> GetDefaultRegisterMeal(GetRegisterMealByDefaultCriteria criteria);
-        EmployeeRegisterModel GetEmployeeRegisterByWorkDateAndMealId(GetEmployeeRegisterByWorkDateAndMealIdCriteria criteria);
 
         CommandResult RegisterMealByDefault(SetRegisterMealByDefaultCriteria criteria);
 

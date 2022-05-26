@@ -35,5 +35,7 @@ namespace NexFB.Models.Ordering
         public bool IsAllowOrder { get; set; }
 
         public Status CurrentStatus { get; set; }
+
+        public bool? IsVegetarianRegister { get; set; }
     }
 }

@@ -94,8 +94,6 @@
 		<Setting Key="RegisterMeal_GetDefault" SpName="RegisterMeal_GetDefault" DbName="FBM" Plain="0">
 			<Mapping DataField="SysID" ObjectProperty="UserId" />
 		</Setting>
-		<Setting Key="RegisterMeal_GetBySysID" SpName="RegisterMeal_GetBySysID" DbName="FBM" Plain="0">
-		</Setting>
 		<Setting Key="RegisterMeal_SetDefault" SpName="RegisterMeal_SetDefault" DbName="FBM" Plain="0">
 		</Setting>
 		<Setting Key="RegisterMeal_ApplyFromTemplate" SpName="RegisterMeal_ApplyFromTemplate" DbName="FBM" Plain="0">

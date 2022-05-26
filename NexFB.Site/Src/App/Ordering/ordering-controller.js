@@ -312,18 +312,10 @@ orderingModule.controller("OrderingController",
                     orderingFactory.getSavedOrder()
                         .success(function (data) {
                             $scope.savedOrder = data;
-                            var mealID = $scope.savedOrder.MealID;
                             var members = $scope.savedOrder.Members;
 
                             members.forEach((member, index) => {
-                                var empId = member.Member.UserId;
-                                orderingFactory.getEmployeeRegister(empId, mealID)
-                                    .success(function (data) {
-                                        $scope.savedOrder.Members[index].IsOrder = (data.IsVegetarian !== null && scope.savedOrder.Members[index].IsAllowOrder) ? true : false;
-                                    })
-                                    .error(function (response, status) {
-                                        ErrorFactory.errorHandle(status);
-                                    });
+                                $scope.savedOrder.Members[index].IsOrder = (member.IsVegetarianRegister !== null && scope.savedOrder.Members[index].IsAllowOrder) ? true : false;
                             });
 
                             orderingService.setMemberSavedOrder(data.Members);
