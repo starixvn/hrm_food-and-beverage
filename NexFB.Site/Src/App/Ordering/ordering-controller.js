@@ -314,8 +314,8 @@ orderingModule.controller("OrderingController",
                             $scope.savedOrder = data;
                             var members = $scope.savedOrder.Members;
 
-                            members.forEach((member, index) => {
-                                $scope.savedOrder.Members[index].IsOrder = (member.IsVegetarianRegister !== null && scope.savedOrder.Members[index].IsAllowOrder) ? true : false;
+                            $scope.savedOrder.Members.forEach((member, index) => {
+                                $scope.savedOrder.Members[index].IsOrder = (member.IsVegetarianRegister !== null && $scope.savedOrder.Members[index].IsAllowOrder) ? true : false;
                             });
 
                             orderingService.setMemberSavedOrder(data.Members);
