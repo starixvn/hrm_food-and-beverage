@@ -3004,7 +3004,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Xin vui lòng đặt Món Chay trước một ngày..
+        ///   Looks up a localized string similar to Xin vui lòng đặt món Chay trễ nhất là trước 1 ngày.
         /// </summary>
         public static string SevenDayRegisterMealWarningVN {
             get {

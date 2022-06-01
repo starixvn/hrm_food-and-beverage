@@ -1186,7 +1186,7 @@
     <value>Lưu ý : Quy định đặt Chay chỉ dành cho nhân viên ăn chay cả ngày.</value>
   </data>
 	<data name="SevenDayRegisterMealWarningVN" xml:space="preserve">
-    <value>Xin vui lòng đặt Món Chay trước một ngày.</value>
+    <value>Xin vui lòng đặt món Chay trễ nhất là trước 1 ngày</value>
   </data>
 	<data name="VegetarianWarningVN" xml:space="preserve">
     <value>Chỉ được đặt Món Chay vào ngày một hoặc rằm âm lịch hàng tháng</value>
