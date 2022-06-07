@@ -6,53 +6,55 @@
     </div>
     <div class="row filter">
         <form class="form-inline" role="form">
-        <div class="form-group mealplanning-filter">
-            <label data-translate="Meal">
-            </label>
-            <div class="sel-meal field selectbox">
-                <add-class-to-role-filter multi-select input-model="mealsOption" button-label="MealEngName"
-                    helper-elements="all reset" item-label="MealEngName" tick-property="ticked" max-labels="0"
-                    class="multi-select">
-				</add-class-to-role-filter>
+            <div class="form-group mealplanning-filter">
+                <label data-translate="Meal">
+                </label>
+                <div class="sel-meal field selectbox">
+                    <add-class-to-role-filter multi-select input-model="mealsOption" button-label="MealEngName"
+                                              helper-elements="all reset" item-label="MealEngName" tick-property="ticked" max-labels="0"
+                                              class="multi-select">
+                    </add-class-to-role-filter>
+                </div>
             </div>
-        </div>
-        <div class="form-group mealplanning-filter">
-            <label data-translate="EmployeeType">
-            </label>
-            <div class="sel-meal field selectbox">
-                <add-class-to-role-filter multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId"
-                    helper-elements="all reset" item-label="EmployeeTypeName" tick-property="ticked"
-                    max-labels="0" class="multi-select employee-type">
-					</add-class-to-role-filter>
+            <div class="form-group mealplanning-filter">
+                <label data-translate="EmployeeType">
+                </label>
+                <div class="sel-meal field selectbox">
+                    <add-class-to-role-filter multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId"
+                                              helper-elements="all reset" item-label="EmployeeTypeName" tick-property="ticked"
+                                              max-labels="0" class="multi-select employee-type">
+                    </add-class-to-role-filter>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label data-translate="From">
-            </label>
-            <input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup
-                is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
-            <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
-        </div>
-        <div class="form-group">
-            <label data-translate="To">
-            </label>
-            <input class="calendar-form-control" type="text" ng-model="filter.endDate" datepicker-popup
-                is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
-            <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
-        </div>
-        <div class="form-group">
-            <input type="button" class="button pull-right" value="Submit" ng-click="query(filter)" />
-        </div>
+            <div class="form-group">
+                <label data-translate="From">
+                </label>
+                <input class="calendar-form-control" type="text" ng-model="filter.startDate" datepicker-popup
+                       is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
+                <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
+            </div>
+            <div class="form-group">
+                <label data-translate="To">
+                </label>
+                <input class="calendar-form-control" type="text" ng-model="filter.endDate" datepicker-popup
+                       is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
+                <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+            </div>
+            <div class="form-group">
+                <input type="button" class="button pull-right" value="Submit" ng-click="query(filter)" />
+            </div>
         </form>
     </div>
     <div class="row table-mealPlanning">
         <table class="table table-bordered table-striped col-sm-12">
             <thead>
                 <tr class="header-table">
-                    <th colspan="10" ng-show="policy.permission == 2">
+                    <th colspan="11" ng-show="policy.permission == 2">
                         <a class="pull-left button-icon create-button" ng-click="addMealPlanning('', false)"
-                            ng-show="policy.permission == 2"><span class="icon plus"></span><span class="button-text"
-                                data-translate="CreateMealPlanning"></span></a>
+                           ng-show="policy.permission == 2">
+                            <span class="icon plus"></span><span class="button-text"
+                                                                 data-translate="CreateMealPlanning"></span>
+                        </a>
                         <input type="text" ng-model="queryData" ng-change="search()" class="search-inline-textbox search pull-right">
                     </th>
                     <th colspan="8" ng-show="policy.permission == 1">
@@ -60,6 +62,8 @@
                     </th>
                 </tr>
                 <tr>
+                    <th>
+                    </th>
                     <th data-translate="SymbolCount">
                     </th>
                     <th data-translate="FoodMenuVnm">
@@ -73,7 +77,7 @@
                     </th>
                     <th class="" data-translate="EmployeeType">
                     </th>
-					<th data-translate="SetMenu">
+                    <th data-translate="SetMenu">
                     </th>
                     <th class="width-300" data-translate="FoodItem">
                     </th>
@@ -85,6 +89,11 @@
             </thead>
             <tbody ng-repeat="mealPlanning in pagedItems[currentPage]">
                 <tr ng-repeat="food in mealPlanning.SetMenu.FoodItems" ng-show="mealPlanning.SetMenu.FoodItems.length > 0">
+                    <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
+                        ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" class="text-center">
+                        <input type="checkbox" ng-checked="mealPlanning.ticked" ng-click="multiSelect()"
+                               ng-if="policy.permission == 2" ng-disabled="mealPlanning.IsDisable || mealPlanning.IsExist" />
+                    </td>
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
                         ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" class="text-center"
                         ng-bind="mealPlanning.itemIndex + 1">
@@ -108,8 +117,8 @@
                     </td>
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
                         ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" class="text-center">
-                        <span data-translate="Yes" ng-if="mealPlanning.Menu.IsVegetarian"></span><span
-                            data-translate="No" ng-if="!mealPlanning.Menu.IsVegetarian"></span>
+                        <span data-translate="Yes" ng-if="mealPlanning.Menu.IsVegetarian"></span>
+                        <span data-translate="No" ng-if="!mealPlanning.Menu.IsVegetarian"></span>
                     </td>
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
                         ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}">
@@ -123,7 +132,7 @@
                             </ul>
                         </div>
                     </td>
-					<td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
+                    <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
                         ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}">
                         <span ng-bind="mealPlanning.SetMenu.SetMenuVnmName"></span>
                     </td>
@@ -133,7 +142,7 @@
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
                         ng-show="$first" rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" class="text-center">
                         <input type="checkbox" ng-checked="mealPlanning.IsActive" ng-click="confirmActive(mealPlanning)"
-                            ng-if="policy.permission == 2" ng-disabled="mealPlanning.IsDisable" />
+                               ng-if="policy.permission == 2" ng-disabled="mealPlanning.IsDisable" />
                         <img class="ico-tick" ng-if="policy.permission == 1 && mealPlanning.IsActive" />
                     </td>
                     <td ng-class="{oddRow: $parent.$index % 2 == 0, evenRow: $parent.$index % 2 != 0}"
@@ -141,11 +150,15 @@
                         class="text-center">
                         <div>
                             <a class="glyphicon glyphicon-edit" href="" ng-click="edit(mealPlanning)" ng-show="!mealPlanning.IsDisable || mealPlanning.IsCurrentMeal" />
-							<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteMealPlanning(mealPlanning)" ng-show="!mealPlanning.IsDisable" />
-                           </div>
+                            <a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteMealPlanning(mealPlanning)" ng-show="!mealPlanning.IsDisable" />
+                        </div>
                     </td>
                 </tr>
                 <tr ng-show="mealPlanning.SetMenu.FoodItems.length == 0">
+                    <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}" class="text-center">
+                        <input type="checkbox" ng-checked="mealPlanning.ticked" ng-click="multiSelect(mealPlanning)"
+                               ng-if="policy.permission == 2" ng-disabled="mealPlanning.IsDisable || mealPlanning.IsExist" />
+                    </td>
                     <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}" class="text-center"
                         ng-bind="mealPlanning.itemIndex + 1">
                     </td>
@@ -164,8 +177,8 @@
                         </div>
                     </td>
                     <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}" class="text-center">
-                        <span data-translate="Yes" ng-if="mealPlanning.Menu.IsVegetarian"></span><span
-                            data-translate="No" ng-if="!mealPlanning.Menu.IsVegetarian"></span>
+                        <span data-translate="Yes" ng-if="mealPlanning.Menu.IsVegetarian"></span>
+                        <span data-translate="No" ng-if="!mealPlanning.Menu.IsVegetarian"></span>
                     </td>
                     <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}">
                         <div ng-if="mealPlanning.Menu.EmployeeTypes.length == 1">
@@ -178,13 +191,13 @@
                             </ul>
                         </div>
                     </td>
-					<td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}">
+                    <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}">
                         <span ng-bind="mealPlanning.SetMenu.SetMenuVnmName"></span>
                     </td>
                     <td ng-show="!mealPlanning.IsExist && policy.permission == 2" ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}"
                         class="text-center" colspan="3">
                         <a class="icon plus" href="" ng-show="!mealPlanning.IsDisable" ng-click="addMealPlanning(mealPlanning, true)"
-                            title="Add Meal Planning"></a>
+                           title="Add Meal Planning"></a>
                     </td>
                     <td ng-show="!mealPlanning.IsExist && policy.permission == 1" ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}"
                         class="text-center" colspan="2">
@@ -194,14 +207,14 @@
                     <td ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}" ng-show="mealPlanning.IsExist"
                         rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" class="text-center">
                         <input type="checkbox" ng-checked="mealPlanning.IsActive" ng-click="confirmActive(mealPlanning)"
-                            ng-show="policy.permission == 2" ng-disabled="mealPlanning.IsDisable" />
+                               ng-show="policy.permission == 2" ng-disabled="mealPlanning.IsDisable" />
                         <img class="ico-tick" ng-if="policy.permission == 1 && mealPlanning.IsActive" />
                     </td>
                     <td ng-show="mealPlanning.IsExist && policy.permission == 2" ng-class="{oddRow: $index % 2 == 0, evenRow: $index % 2 != 0}"
                         rowspan="{{mealPlanning.SetMenu.FoodItems.length}}" class="text-center">
                         <div>
                             <a class="glyphicon glyphicon-edit" href="" ng-click="edit(mealPlanning)" ng-show="!mealPlanning.IsDisable || mealPlanning.IsCurrentMeal" />
-							<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteMealPlanning(mealPlanning)" ng-show="!mealPlanning.IsDisable" />
+                            <a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteMealPlanning(mealPlanning)" ng-show="!mealPlanning.IsDisable" />
                         </div>
                     </td>
                 </tr>
@@ -217,7 +230,7 @@
                     <td colspan="10" class="paging">
                         <span data-translate="Show"></span>
                         <select class="dropdown-entry" ng-model="entrySelected" ng-change="showEntries()"
-                            ng-options="entry for entry in entries">
+                                ng-options="entry for entry in entries">
                         </select>
                         <span data-translate="entries"></span>
                         <pagination-bar></pagination-bar>

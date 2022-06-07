@@ -2,351 +2,392 @@
 /*global mealPlanningManagementModule*/
 
 mealPlanningManagementModule.controller('MealPlanningManagementController',
-['$scope', '$modal', 'mealPlanningFactory', 'ErrorFactory', 'notificationFactory', 'commonFactory',
-'foodMenuFactory', 'foodMenuUtilities', 'mealPlanningUtilities', 'foodItemFactory', 'baseUrl',
-function ($scope, $modal, mealPlanningFactory, ErrorFactory, notificationFactory, commonFactory,
-foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory, baseUrl) {
-	/*
-	** Declare variables.
-	*/
-	$scope.originalPage = 0;
-	var toDay = new Date();
+    ['$scope', '$modal', 'mealPlanningFactory', 'ErrorFactory', 'notificationFactory', 'commonFactory',
+        'foodMenuFactory', 'foodMenuUtilities', 'mealPlanningUtilities', 'foodItemFactory', 'baseUrl',
+        function ($scope, $modal, mealPlanningFactory, ErrorFactory, notificationFactory, commonFactory,
+            foodMenuFactory, foodMenuUtilities, mealPlanningUtilities, foodItemFactory, baseUrl) {
+            /*
+            ** Declare variables.
+            */
+            $scope.originalPage = 0;
+            var toDay = new Date();
 
-	var startDate = new Date(),
-		endDate = new Date();
+            var startDate = new Date(),
+                endDate = new Date();
 
-	$scope.filter = {
-		startDate: new Date(startDate),
-		endDate: new Date(endDate)
-	};
+            $scope.filter = {
+                startDate: new Date(startDate),
+                endDate: new Date(endDate)
+            };
 
-	$scope.calendar = {
-		startDateOpened: false,
-		endDateOpened: false
-	};
+            $scope.calendar = {
+                startDateOpened: false,
+                endDateOpened: false
+            };
 
-	/*
-	** If route change, close dialog.
-	*/
-	$scope.$on('$routeChangeStart', function () {
-		// if modal instance defined, dismiss dialog
-		if ($scope.modalInstance) {
-			$scope.modalInstance.dismiss('cancel');
-		}
-	});
+            $scope.idsMultiSelect = "";
 
-	/*
-	** Get all meal timesheet.
-	*/
-	mealPlanningFactory.getAllMealTimesheet().success(function (mealTimesheets) {
-		$scope.mealTimesheets = mealTimesheets;
-	}).error(function (response, status) {
-		ErrorFactory.errorHandle(status);
-	});
-	/*
-	** Paging.
-	*/
-	$scope.showEntries = function () {
-		commonFactory.tablePagination($scope, $scope.mealPlannings, $scope.entrySelected);
-	};
+            /*
+            ** If route change, close dialog.
+            */
+            $scope.$on('$routeChangeStart', function () {
+                // if modal instance defined, dismiss dialog
+                if ($scope.modalInstance) {
+                    $scope.modalInstance.dismiss('cancel');
+                }
+            });
 
-	$scope.entrySelected = 10;
-	commonFactory.numberEntryList($scope);
+            /*
+            ** Get all meal timesheet.
+            */
+            mealPlanningFactory.getAllMealTimesheet().success(function (mealTimesheets) {
+                $scope.mealTimesheets = mealTimesheets;
+            }).error(function (response, status) {
+                ErrorFactory.errorHandle(status);
+            });
+            /*
+            ** Paging.
+            */
+            $scope.showEntries = function () {
+                commonFactory.tablePagination($scope, $scope.mealPlannings, $scope.entrySelected);
+            };
 
-	/*
-	** Open calendar.
-	*/
-	$scope.openPopupStartDate = function ($event) {
-		commonFactory.openPopupStartDate($event, $scope);
-	};
+            $scope.entrySelected = 10;
+            commonFactory.numberEntryList($scope);
 
-	$scope.openPopupEndDate = function ($event) {
-		commonFactory.openPopupEndDate($event, $scope);
-	};
+            /*
+            ** Open calendar.
+            */
+            $scope.openPopupStartDate = function ($event) {
+                commonFactory.openPopupStartDate($event, $scope);
+            };
 
-	/*
-	** Get all foods item.
-	*/
-	foodItemFactory.getAllFoodItem(null, true).success(function (foods) {
-		$scope.foodOptions = foods;
-	}).error(function (response, status) {
-		ErrorFactory.errorHandle(status);
-	});
+            $scope.openPopupEndDate = function ($event) {
+                commonFactory.openPopupEndDate($event, $scope);
+            };
 
-	/*
-	** Get all food menu to filter.
-	*/
-	foodMenuFactory.getAllFoodMenuToFilter().success(function (foodMenus) {
-		$scope.menuOptions = foodMenus;
-	}).error(function (response, status) {
-		ErrorFactory.errorHandle(status);
-	});
+            /*
+            ** Get all foods item.
+            */
+            foodItemFactory.getAllFoodItem(null, true).success(function (foods) {
+                $scope.foodOptions = foods;
+            }).error(function (response, status) {
+                ErrorFactory.errorHandle(status);
+            });
 
-	/*
-	** Get all meal timesheet.
-	*/
-	foodMenuFactory.getAllMealTimesheet().success(function (meals) {
-		$scope.mealsOption = meals;
-	}).error(function (response, status) {
-		ErrorFactory.errorHandle(status);
-	});
+            /*
+            ** Get all food menu to filter.
+            */
+            foodMenuFactory.getAllFoodMenuToFilter().success(function (foodMenus) {
+                $scope.menuOptions = foodMenus;
+            }).error(function (response, status) {
+                ErrorFactory.errorHandle(status);
+            });
 
-	/*
-	** Get all employee type.
-	*/
-	foodMenuFactory.getAllEmployeeType(null, null).success(function (employeeTypes) {
-		$scope.employeeTypesOption = employeeTypes;
-	}).error(function (response, status) {
-		ErrorFactory.errorHandle(status);
-	});
+            /*
+            ** Get all meal timesheet.
+            */
+            foodMenuFactory.getAllMealTimesheet().success(function (meals) {
+                $scope.mealsOption = meals;
+            }).error(function (response, status) {
+                ErrorFactory.errorHandle(status);
+            });
 
-	/*
-	** Get user permission.
-	*/
-	mealPlanningFactory.getUserPermissionOnMealPlanning().success(function (permission) {
-		$scope.policy = {
-			permission: permission
-		};
-	}).error(function (response, status) {
-		ErrorFactory.errorHandle(status);
-	});
+            /*
+            ** Get all employee type.
+            */
+            foodMenuFactory.getAllEmployeeType(null, null).success(function (employeeTypes) {
+                $scope.employeeTypesOption = employeeTypes;
+            }).error(function (response, status) {
+                ErrorFactory.errorHandle(status);
+            });
 
-	/*
-	** Get all meal planning.
-	*/
-	var getAllMealPlanning = function (fromDate, toDate, mealId, employeeTypeId) {
-		mealPlanningFactory.getAllMealPlanning(fromDate, toDate, mealId, employeeTypeId)
-		.success(function (mealPlannings) {
-			$scope.mealPlannings = mealPlannings;
-			commonFactory.tablePagination($scope, $scope.mealPlannings, $scope.entrySelected);
-			$scope.currentPage = $scope.originalPage;
-		}).error(function (response, status) {
-			ErrorFactory.errorHandle(status);
-		});
-	};
+            /*
+            ** Get user permission.
+            */
+            mealPlanningFactory.getUserPermissionOnMealPlanning().success(function (permission) {
+                $scope.policy = {
+                    permission: permission
+                };
+            }).error(function (response, status) {
+                ErrorFactory.errorHandle(status);
+            });
 
-	getAllMealPlanning(toDay.toDateString(), toDay.toDateString(), null, null);
+            /*
+            ** Get all meal planning.
+            */
+            var setDefaultCheckForMultiSelect = function (items) {
+                angular.forEach(items, function (item) {
+                    item.ticked = false;
+                });
+            };
 
-	/*
-	** Query data.
-	*/
-	$scope.query = function (filter) {
-		if (filter) {
-			var mealId = foodMenuUtilities.getMealId($scope.mealsOption),
-				employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption),
-				fromDate = filter.startDate.toDateString(),
-				toDate = filter.endDate.toDateString();
+            var getAllMealPlanning = function (fromDate, toDate, mealId, employeeTypeId) {
+                mealPlanningFactory.getAllMealPlanning(fromDate, toDate, mealId, employeeTypeId)
+                    .success(function (mealPlannings) {
+                        $scope.mealPlannings = mealPlannings;
+                        setDefaultCheckForMultiSelect($scope.mealPlannings);
+                        commonFactory.tablePagination($scope, $scope.mealPlannings, $scope.entrySelected);
+                        $scope.currentPage = $scope.originalPage;
+                    }).error(function (response, status) {
+                        ErrorFactory.errorHandle(status);
+                    });
+            };
 
-			getAllMealPlanning(fromDate, toDate, mealId, employeeTypeId);
-		}
-	};
+            getAllMealPlanning(toDay.toDateString(), toDay.toDateString(), null, null);
+            /*
+            ** Query data.
+            */
+            $scope.query = function (filter) {
+                if (filter) {
+                    var mealId = foodMenuUtilities.getMealId($scope.mealsOption),
+                        employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption),
+                        fromDate = filter.startDate.toDateString(),
+                        toDate = filter.endDate.toDateString();
 
-	/*
-	** Add meal planning.
-	*/
-	$scope.addMealPlanning = function (mealPlanning, currentMealPlanning) {
-		$scope.originalPage = $scope.currentPage;
+                    getAllMealPlanning(fromDate, toDate, mealId, employeeTypeId);
+                }
+            };
 
-		$scope.modalInstance = $modal.open({
-			templateUrl: baseUrl + 'src/app/MealPlanningManagement/Templates/create.html',
-			controller: "CreateMealPlanningController",
-			backdrop: 'static',
-			resolve: {
-				mealPlanning: function () {
-					return mealPlanning;
-				},
-				menuOptions: function () {
-					return $scope.menuOptions;
-				},
-				foodOptions: function () {
-					return $scope.foodOptions;
-				},
-				currentMealPlanning: function () {
-					return currentMealPlanning;
-				}
-			},
-			windowClass: "modal-confirm-center meal-planning-modal"
-		});
+            /*
+            ** Multi select to insert
+            */
+            $scope.multiSelect = function (mealPlanning) {
+                mealPlanning.ticked = !mealPlanning.ticked;
+            };
 
-		$scope.modalInstance.result.then()['finally'](function () {
-			var fromDate = angular.copy($scope.filter.startDate).toDateString(),
-					toDate = angular.copy($scope.filter.endDate).toDateString(),
-					mealId = foodMenuUtilities.getMealId($scope.mealsOption),
-					employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-			getAllMealPlanning(fromDate, toDate, mealId, employeeTypeId);
-			$scope.modalInstance = '';
-		});
-	};
+            /*
+            ** get id from multi select checkbox
+            */
 
-	/*
-	** Edit meal planning.
-	*/
-	$scope.edit = function (mealPlanning) {
-		var udpatedData = function (updateMealPlanning, setMenu, foodItems) {
-			mealPlanning.IsActive = updateMealPlanning.isActive;
+            var getIdFromOptions = function (Options) {
+                var arrId = '';
 
-			if (setMenu) {
-				mealPlanning.SetMenu = setMenu;
-			}
+                angular.forEach(Options, function (value) {
+                    if (value.ticked) {
+                        var id = value.Menu.MenuId.toString();
+                        arrId = arrId !== '' ? arrId + ',' + id : id;
+                    }
+                });
 
-			mealPlanning.SetMenu.FoodItems = foodItems;
-		};
+                return arrId;
+            };
 
-		$scope.modalInstance = $modal.open({
-			templateUrl: baseUrl + 'src/app/MealPlanningManagement/Templates/edit.html',
-			controller: "EditMealPlanningController",
-			backdrop: 'static',
-			resolve: {
-				mealPlanning: function () {
-					return angular.copy(mealPlanning);
-				},
-				menuOptions: function () {
-					return $scope.menuOptions;
-				},
-				foodOptions: function () {
-					return $scope.foodOptions;
-				},
-				mealTimesheets: function () {
-					return $scope.mealTimesheets;
-				},
-				isOriginalActive: function () {
-					return mealPlanning.IsActive;
-				}
-			},
-			windowClass: "modal-confirm-center meal-planning-modal"
-		});
+            /*
+            ** Add meal planning.
+            */
+            $scope.addMealPlanning = function (mealPlanning, currentMealPlanning) {
+                $scope.originalPage = $scope.currentPage;
+                $scope.idsMultiSelect = getIdFromOptions($scope.mealPlannings);
 
-		$scope.modalInstance.result.then(function (informationMealPlanning) {
-			udpatedData(informationMealPlanning.updateMealPlanning, informationMealPlanning.setMenu, informationMealPlanning.foodItems);
-		})['finally'](function () {
-			$scope.modalInstance = '';
-		});
-	};
+                $scope.modalInstance = $modal.open({
+                    templateUrl: baseUrl + 'src/app/MealPlanningManagement/Templates/create.html',
+                    controller: "CreateMealPlanningController",
+                    backdrop: 'static',
+                    resolve: {
+                        mealPlanning: function () {
+                            return mealPlanning;
+                        },
+                        menuOptions: function () {
+                            return $scope.menuOptions;
+                        },
+                        foodOptions: function () {
+                            return $scope.foodOptions;
+                        },
+                        currentMealPlanning: function () {
+                            return currentMealPlanning;
+                        },
+                        idsMultiSelect: function () {
+                            return $scope.idsMultiSelect;
+                        }
+                    },
+                    windowClass: "modal-confirm-center meal-planning-modal"
+                });
 
-	/*
-	** Activate or deactivate food menu.
-	*/
-	$scope.confirmActive = function (mealPlanning) {
-		var action = !mealPlanning.IsActive ? "activate" : "deactivate",
-			newMealPlanning = {
-				menuId: mealPlanning.Menu.MenuId,
-				IsActive: !mealPlanning.IsActive,
-				onDate: mealPlanning.Date
-			};
+                $scope.modalInstance.result.then()['finally'](function () {
+                    var fromDate = angular.copy($scope.filter.startDate).toDateString(),
+                        toDate = angular.copy($scope.filter.endDate).toDateString(),
+                        mealId = foodMenuUtilities.getMealId($scope.mealsOption),
+                        employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
+                    getAllMealPlanning(fromDate, toDate, mealId, employeeTypeId);
+                    $scope.modalInstance = '';
+                });
+            };
 
-		mealPlanning.IsActive = newMealPlanning.IsActive;
+            /*
+            ** Edit meal planning.
+            */
+            $scope.edit = function (mealPlanning) {
+                var udpatedData = function (updateMealPlanning, setMenu, foodItems) {
+                    mealPlanning.IsActive = updateMealPlanning.isActive;
 
-		var mealId = mealPlanningUtilities.createMealId(mealPlanning.Menu.Meals),
-			employeeTypeId = mealPlanningUtilities.createEmployeeTypeId(mealPlanning.Menu.EmployeeTypes);
+                    if (setMenu) {
+                        mealPlanning.SetMenu = setMenu;
+                    }
 
-		mealPlanningFactory.checkDisableMealPlanning(mealPlanning.Date.toString(), mealId, employeeTypeId, mealPlanning.Menu.MenuId)
-		.success(function (isDisable) {
-			if (isDisable === 'true') {
-				mealPlanning.IsActive = !newMealPlanning.IsActive;
-				mealPlanning.IsDisable = isDisable;
+                    mealPlanning.SetMenu.FoodItems = foodItems;
+                };
 
-				if (action === 'activate') {
-					notificationFactory.error("MealPlanningActivateWarning");
-				}
-				else {
-					notificationFactory.error("MealPlanningDeactivateWarning");
-				}
-			}
-			else {
-				$scope.modalInstance = $modal.open({
-					templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
-					controller: "ModalConfirmController",
-					backdrop: 'static',
-					resolve: {
-						name: function () {
-							return mealPlanning.Menu.MenuVnmName + ' ( on ' + new Date(mealPlanning.Date).toString("MMM dd, yyyy") + ')';
-						},
-						action: function () {
-							return action;
-						}
-					},
-					windowClass: "modal-confirm-center"
-				});
+                $scope.modalInstance = $modal.open({
+                    templateUrl: baseUrl + 'src/app/MealPlanningManagement/Templates/edit.html',
+                    controller: "EditMealPlanningController",
+                    backdrop: 'static',
+                    resolve: {
+                        mealPlanning: function () {
+                            return angular.copy(mealPlanning);
+                        },
+                        menuOptions: function () {
+                            return $scope.menuOptions;
+                        },
+                        foodOptions: function () {
+                            return $scope.foodOptions;
+                        },
+                        mealTimesheets: function () {
+                            return $scope.mealTimesheets;
+                        },
+                        isOriginalActive: function () {
+                            return mealPlanning.IsActive;
+                        }
+                    },
+                    windowClass: "modal-confirm-center meal-planning-modal"
+                });
 
-				var keyMessage = '';
+                $scope.modalInstance.result.then(function (informationMealPlanning) {
+                    udpatedData(informationMealPlanning.updateMealPlanning, informationMealPlanning.setMenu, informationMealPlanning.foodItems);
+                })['finally'](function () {
+                    var fromDate = angular.copy($scope.filter.startDate).toDateString(),
+                        toDate = angular.copy($scope.filter.endDate).toDateString(),
+                        mealId = foodMenuUtilities.getMealId($scope.mealsOption),
+                        employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
+                    getAllMealPlanning(fromDate, toDate, mealId, employeeTypeId);
+                    $scope.modalInstance = '';
+                });
+            };
 
-				$scope.modalInstance.result.then(function () {
-					mealPlanningFactory.activateMealPlanning(newMealPlanning).success(function (response) {
-						if (response.IsSuccessful) {
-							keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
-							notificationFactory.success(keyMessage);
-						}
-						else {
-							keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-							mealPlanning.IsActive = !newMealPlanning.IsActive;
+            /*
+            ** Activate or deactivate food menu.
+            */
+            $scope.confirmActive = function (mealPlanning) {
+                var action = !mealPlanning.IsActive ? "activate" : "deactivate",
+                    newMealPlanning = {
+                        menuId: mealPlanning.Menu.MenuId,
+                        IsActive: !mealPlanning.IsActive,
+                        onDate: mealPlanning.Date
+                    };
 
-							notificationFactory.error(keyMessage);
-						}
-					}).error(function (response, status) {
-						if (status === 405) {
-							ErrorFactory.errorHandle(status);
-						}
-						else {
-							keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
-							mealPlanning.IsActive = !newMealPlanning.IsActive;
-							notificationFactory.error(keyMessage);
-						}
-					});
-				}, function () {
-					mealPlanning.IsActive = !newMealPlanning.IsActive;
-				})['finally'](function () {
-					$scope.modalInstance = '';
-				});
-			}
-		}).error(function (response, status) {
-			ErrorFactory.errorHandle(status);
-		});
-	};
+                mealPlanning.IsActive = newMealPlanning.IsActive;
 
-	/*
-	** Delete meal planning.
-	*/
-	var updateDeleteMealPlanning = function (mealPlanning) {
-		mealPlanning.SetMenu.SetMenuId = '';
-		mealPlanning.SetMenu.SetMenuVnmName = '';
-		mealPlanning.SetMenu.FoodItems = [];
-		mealPlanning.IsExist = false;
-		mealPlanning.IsActive = false;
-	};
+                var mealId = mealPlanningUtilities.createMealId(mealPlanning.Menu.Meals),
+                    employeeTypeId = mealPlanningUtilities.createEmployeeTypeId(mealPlanning.Menu.EmployeeTypes);
 
-	$scope.deleteMealPlanning = function (mealPlanning) {
-		$scope.modalInstance = $modal.open({
-			templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
-			controller: "ModalConfirmController",
-			backdrop: 'static',
-			resolve: {
-				action: function () {
-					return 'delete';
-				},
-				name: function () {
-					return mealPlanning.Menu.MenuVnmName + ' ( on ' + new Date(mealPlanning.Date).toString("MMM dd, yyyy") + ')';
-				}
-			},
-			windowClass: "modal-confirm-center"
-		});
+                mealPlanningFactory.checkDisableMealPlanning(mealPlanning.Date.toString(), mealId, employeeTypeId, mealPlanning.Menu.MenuId)
+                    .success(function (isDisable) {
+                        if (isDisable === 'true') {
+                            mealPlanning.IsActive = !newMealPlanning.IsActive;
+                            mealPlanning.IsDisable = isDisable;
 
-		$scope.modalInstance.result.then(function () {
-			var menuId = mealPlanning.Menu.MenuId,
-				onDate = mealPlanning.Date;
+                            if (action === 'activate') {
+                                notificationFactory.error("MealPlanningActivateWarning");
+                            }
+                            else {
+                                notificationFactory.error("MealPlanningDeactivateWarning");
+                            }
+                        }
+                        else {
+                            $scope.modalInstance = $modal.open({
+                                templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
+                                controller: "ModalConfirmController",
+                                backdrop: 'static',
+                                resolve: {
+                                    name: function () {
+                                        return mealPlanning.Menu.MenuVnmName + ' ( on ' + new Date(mealPlanning.Date).toString("MMM dd, yyyy") + ')';
+                                    },
+                                    action: function () {
+                                        return action;
+                                    }
+                                },
+                                windowClass: "modal-confirm-center"
+                            });
 
-			mealPlanningFactory.deleteMealPlanning(menuId, onDate).success(function (response) {
-				if (response.IsSuccessful) {
-					updateDeleteMealPlanning(mealPlanning);
-					notificationFactory.success("DataChangeSuccessfully");
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			});
-		})['finally'](function () {
-			$scope.modalInstance = '';
-		});
-	};
-} ]);
+                            var keyMessage = '';
+
+                            $scope.modalInstance.result.then(function () {
+                                mealPlanningFactory.activateMealPlanning(newMealPlanning).success(function (response) {
+                                    if (response.IsSuccessful) {
+                                        keyMessage = action === "activate" ? "ActivationSuccess" : "DeactivationSuccess";
+                                        notificationFactory.success(keyMessage);
+                                    }
+                                    else {
+                                        keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+                                        mealPlanning.IsActive = !newMealPlanning.IsActive;
+
+                                        notificationFactory.error(keyMessage);
+                                    }
+                                }).error(function (response, status) {
+                                    if (status === 405) {
+                                        ErrorFactory.errorHandle(status);
+                                    }
+                                    else {
+                                        keyMessage = action === "activate" ? "ActivationFail" : "DeactivationFail";
+                                        mealPlanning.IsActive = !newMealPlanning.IsActive;
+                                        notificationFactory.error(keyMessage);
+                                    }
+                                });
+                            }, function () {
+                                mealPlanning.IsActive = !newMealPlanning.IsActive;
+                            })['finally'](function () {
+                                $scope.modalInstance = '';
+                            });
+                        }
+                    }).error(function (response, status) {
+                        ErrorFactory.errorHandle(status);
+                    });
+            };
+
+            /*
+            ** Delete meal planning.
+            */
+            var updateDeleteMealPlanning = function (mealPlanning) {
+                mealPlanning.SetMenu.SetMenuId = '';
+                mealPlanning.SetMenu.SetMenuVnmName = '';
+                mealPlanning.SetMenu.FoodItems = [];
+                mealPlanning.IsExist = false;
+                mealPlanning.IsActive = false;
+            };
+
+            $scope.deleteMealPlanning = function (mealPlanning) {
+                $scope.modalInstance = $modal.open({
+                    templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
+                    controller: "ModalConfirmController",
+                    backdrop: 'static',
+                    resolve: {
+                        action: function () {
+                            return 'delete';
+                        },
+                        name: function () {
+                            return mealPlanning.Menu.MenuVnmName + ' ( on ' + new Date(mealPlanning.Date).toString("MMM dd, yyyy") + ')';
+                        }
+                    },
+                    windowClass: "modal-confirm-center"
+                });
+
+                $scope.modalInstance.result.then(function () {
+                    var menuId = mealPlanning.Menu.MenuId,
+                        onDate = mealPlanning.Date;
+
+                    mealPlanningFactory.deleteMealPlanning(menuId, onDate).success(function (response) {
+                        if (response.IsSuccessful) {
+                            updateDeleteMealPlanning(mealPlanning);
+                            notificationFactory.success("DataChangeSuccessfully");
+                        }
+                        else {
+                            notificationFactory.error("", response.Message);
+                        }
+                    }).error(function (response, status) {
+                        ErrorFactory.errorHandle(status);
+                    });
+                })['finally'](function () {
+                    $scope.modalInstance = '';
+                });
+            };
+        }]);

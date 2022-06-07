@@ -17,7 +17,7 @@ namespace NexFB.Criteria.FoodMealPlanning
     /// </summary>
     public class InsertMealPlanningCriteria : CriteriaBase
     {
-        public int MenuId { get; set; }
+        public string MenuId { get; set; }
 
         public DateTime OnDate { get; set; }
 
@@ -34,7 +34,7 @@ namespace NexFB.Criteria.FoodMealPlanning
 
         public override string GetSettingKey()
         {
-            return "FoodPlan_Insert";
+            return "FoodPlan_Multi_Insert";
         }
 
         public override bool IsValid()
