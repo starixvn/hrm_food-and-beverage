@@ -51,7 +51,7 @@ namespace NexFB.WindowsService.Criteria
                             calendar.IsLeaveDay,
                             calendar.LeaveTypeId,
                             calendar.LeaveDay,
-                            calendar.ModifiedDate);
+                            calendar.LeaveDay.HasValue ? calendar.ModifiedDate.Value.ToString("yyyy-MM-dd HH:mm:ss:fff") : string.Empty);
                     }
                 }
 

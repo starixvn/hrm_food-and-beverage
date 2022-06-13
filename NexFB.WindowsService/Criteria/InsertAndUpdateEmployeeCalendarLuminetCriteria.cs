@@ -39,7 +39,7 @@
                             calendar.IsLeaveDay,
                             calendar.LeaveTypeId,
                             calendar.LeaveDay.HasValue ? calendar.LeaveDay.Value : 0,
-                            calendar.ModifiedDate);
+                            calendar.LeaveDay.HasValue ? calendar.ModifiedDate.Value.ToString("yyyy-MM-dd HH:mm:ss:fff") : string.Empty);
                     }
                 }
 
