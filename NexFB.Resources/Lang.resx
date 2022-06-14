@@ -303,6 +303,9 @@
 	<data name="SymbolCount" xml:space="preserve">
     <value>#</value>
   </data>
+	<data name="FreeOrder" xml:space="preserve">
+    <value>Free Order</value>
+  </data>
 	<data name="Team" xml:space="preserve">
     <value>Team</value>
   </data>

@@ -48,5 +48,7 @@ namespace NexFB.Models.Entities
         public DateTime JoinedDate { get; set; }
 
         public string Roles { get; set; }
+
+        public bool? IsFreeOrder { get; set; }
     }
 }

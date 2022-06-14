@@ -1456,6 +1456,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Free Order.
+        /// </summary>
+        public static string FreeOrder {
+            get {
+                return ResourceManager.GetString("FreeOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fri.
         /// </summary>
         public static string Fri {

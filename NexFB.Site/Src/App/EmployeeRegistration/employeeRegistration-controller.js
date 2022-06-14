@@ -75,6 +75,7 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
             var getRegisterMealByRangeDate = function (fromDate, toDate, mealId) {
                 mealRegistrationFactory.getRegisterMealByRangeDate(fromDate.toDateString(), toDate.toDateString(), mealId).success(function (mealDates) {
                     $scope.allWeekMeals = mealDates;
+                    console.log($scope.allWeekMeals)
                 }).error(function (response, status) {
                     ErrorFactory.errorHandle(status);
                 });

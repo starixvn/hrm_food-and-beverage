@@ -25,6 +25,7 @@ namespace NexFB.Criteria.UserControl
         public string RoleDepartments { get; set; }
 
         public int ModifiedBy { get; set; }
+        public bool? IsFreeOrder { get; set; }
 
         public DateTime ModifiedDate { get; set; }
 

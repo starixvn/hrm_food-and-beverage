@@ -4,7 +4,7 @@
 reportModule.directive('renderMonthlyReport', function () {
     var generateNumberMealsRow = function (numberMealsMonth) {
         var numberMealsRow = [],
-			numberMeals = numberMealsMonth.NumberMeals;
+            numberMeals = numberMealsMonth.NumberMeals;
 
         for (var i = 0; i < numberMeals.length; i++) {
             var row = { Name: "" + (i + 1), Value: numberMeals[i] };
@@ -22,18 +22,18 @@ reportModule.directive('renderMonthlyReport', function () {
 
         if (report && report.Meals) {
             var currentSubRow = [],
-				rowIndex = scope.gridOption.startIndex + 1;
+                rowIndex = scope.gridOption.startIndex + 1;
 
             for (var i = 0; i < report.Meals.length; i++) {
                 var meal = report.Meals[i],
-					currentRow = [],
-					mealItems = meal.MealItems;
+                    currentRow = [],
+                    mealItems = meal.MealItems;
 
                 if (report.GroupBy == 0) {
                     currentRow = {
                         Columns: [
-							{ Name: "Meal", Value: meal.Meal.MealEngName, MergeColNumber: 4, CellAlign: "left" },
-							{ Name: "1", Value: "", MergeColNumber: 33 }
+                            { Name: "Meal", Value: meal.Meal.MealEngName, MergeColNumber: 5, CellAlign: "left" },
+                            { Name: "1", Value: "", MergeColNumber: 33 }
                         ],
                         SubRows: [],
                         CssClass: 'parent-row-background'
@@ -42,8 +42,8 @@ reportModule.directive('renderMonthlyReport', function () {
                 else {
                     currentRow = {
                         Columns: [
-							{ Name: "Meal", Value: meal.Meal.MealEngName, MergeColNumber: 2, CellAlign: "left" },
-							{ Name: "1", Value: "", MergeColNumber: 33, TdClass: "meal-background" }
+                            { Name: "Meal", Value: meal.Meal.MealEngName, MergeColNumber: 2, CellAlign: "left" },
+                            { Name: "1", Value: "", MergeColNumber: 33, TdClass: "meal-background" }
                         ],
                         SubRows: [],
                         CssClass: 'parent-row-background'
@@ -55,21 +55,22 @@ reportModule.directive('renderMonthlyReport', function () {
                     if (report.GroupBy == 0) {
                         currentSubRow = {
                             Columns: [
-							{ Name: "Meal", Value: rowIndex, CssClass: "remove-padding-left" },
-							{ Name: "NickName", Value: mealItem.Employee.NickName },
-							{ Name: "EmployeeType", Value: mealItem.EmployeeType.EmployeeTypeName },
-							{ Name: "Department", Value: mealItem.Department.Name + ' > ' + mealItem.Team.Name }
+                                { Name: "Meal", Value: rowIndex, CssClass: "remove-padding-left" },
+                                { Name: "NickName", Value: mealItem.Employee.NickName },
+                                { Name: "EmployeeType", Value: mealItem.EmployeeType.EmployeeTypeName },
+                                { Name: "Department", Value: mealItem.Department.Name },
+                                { Name: "Team", Value: mealItem.Team.Name }
                             ]
                         };
                     }
                     else {
                         currentSubRow = {
                             Columns: [
-							{ Name: "Meal", Value: rowIndex, CssClass: "remove-padding-left" },
-							{
-							    Name: report.GroupBy == 1 ? "Department" : "Cost Center",
-							    Value: report.GroupBy == 1 ? mealItem.Department.Name + ' > ' + mealItem.Team.Name : mealItem.CostCenter
-							}
+                                { Name: "Meal", Value: rowIndex, CssClass: "remove-padding-left" },
+                                {
+                                    Name: report.GroupBy == 1 ? "Department" : "Cost Center",
+                                    Value: report.GroupBy == 1 ? mealItem.Department.Name + ' > ' + mealItem.Team.Name : mealItem.CostCenter
+                                }
                             ]
                         };
                     }
@@ -81,7 +82,7 @@ reportModule.directive('renderMonthlyReport', function () {
                 }
                 rows.push(currentRow);
 
-                if (report.GroupBy == 2) {
+                if (report.GroupBy === 2) {
                     var subTotalRow = generateSubTotalRow(meal, report.GroupBy);
                     rows.push(subTotalRow);
                 }
@@ -92,7 +93,7 @@ reportModule.directive('renderMonthlyReport', function () {
 
     var generateSubTotalRow = function (meal, groupBy) {
         var currentRow = [];
-        var mergeColumn = groupBy == 0 ? 4 : 2
+        var mergeColumn = groupBy === 0 ? 5 : 2;
 
         var columns = [{ Name: "Meal", Value: "Total", MergeColNumber: mergeColumn, CellAlign: "center" }];
 
@@ -104,7 +105,7 @@ reportModule.directive('renderMonthlyReport', function () {
                     MergeColNumber: 1,
                     CellAlign: "right"
                 };
-                columns.push(value)
+                columns.push(value);
             }
         }
         columns.push({ Name: "Quantity", Value: meal.TotalQuantityOfMeal, MergeColNumber: 1, CellAlign: "right" })
@@ -128,7 +129,8 @@ reportModule.directive('renderMonthlyReport', function () {
                         { HeaderText: "#", Name: "Meal", MergeRowNumber: 2 },
                         { HeaderText: "Nick", Name: "NickName", MergeRowNumber: 2 },
                         { HeaderText: "Employee Type", Name: "EmployeeType", MergeRowNumber: 2 },
-                        { HeaderText: "Team", Name: "Department", MergeRowNumber: 2 },
+                        { HeaderText: "Department", Name: "Department", MergeRowNumber: 2 },
+                        { HeaderText: "Team", Name: "Team", MergeRowNumber: 2 },
                         { HeaderText: "" + moment(month).format(monthFormat), Name: "1", MergeColNumber: 31 },
                         { HeaderText: "Total", Name: "Quantity", MergeColNumber: 2 }
                     ]
@@ -159,7 +161,8 @@ reportModule.directive('renderMonthlyReport', function () {
                 { HeaderText: "#", Width: 60, Name: "Meal", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
                 { HeaderText: "Nick", Width: 90, Name: "NickName", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Employee Type", Width: 150, Name: "EmployeeType", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: "Team", Width: 150, Name: "Department", HeaderAlign: "center", CellAlign: "left" }
+                { HeaderText: "Department", Width: 100, Name: "Department", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: "Team", Width: 150, Name: "Team", HeaderAlign: "center", CellAlign: "left" }
             ];
         }
         else {
@@ -196,12 +199,12 @@ reportModule.directive('renderMonthlyReport', function () {
         if (weekdays) {
             if (groupBy == 0) {
                 columns = [
-                { Value: "Total", Name: "Meal", MergeColNumber: 4 }
+                    { Value: "Total", Name: "Meal", MergeColNumber: 5 }
                 ];
             }
             else {
                 columns = [
-                { Value: "Total", Name: "Meal", MergeColNumber: 2 }
+                    { Value: "Total", Name: "Meal", MergeColNumber: 2 }
                 ];
             }
 
@@ -256,14 +259,14 @@ reportModule.directive('renderMonthlyReport', function () {
                     showTree: true,
                     showTitle: true,
                     titleInfo:
-                        {
-                            text: "Monthly Main Dish Report - Per Meal",
-                            showExcelButton: true,
-                            exportExcelFunction: function () {
-                                scope.exportExcel.call(this, scope.filter);
-                            }
-                        },
-                    numberOfFrozenColumn: report.GroupBy == 0 ? 4 : 2,
+                    {
+                        text: "Monthly Main Dish Report - Per Meal",
+                        showExcelButton: true,
+                        exportExcelFunction: function () {
+                            scope.exportExcel.call(this, scope.filter);
+                        }
+                    },
+                    numberOfFrozenColumn: report.GroupBy == 0 ? 5 : 2,
                     showFooter: true,
                     footerRows: footerData,
                     gridExpandHeight: 250,
@@ -291,9 +294,9 @@ reportModule.directive('exportMonthlyMainDishLocalReport', ['baseUrl', function 
         link: function (scope) {
             scope.$on('exportMonthlyMainDishLocalReport', function () {
                 var data = $.param(scope.criteria),
-					url = baseUrl + 'ExportReport/ExportMonthlyMainDishReport',
-					downloadUrl = url + "?" + data,
-					iframe = $('body iframe');
+                    url = baseUrl + 'ExportReport/ExportMonthlyMainDishReport',
+                    downloadUrl = url + "?" + data,
+                    iframe = $('body iframe');
 
                 if (iframe.length === 0) {
                     iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
@@ -313,14 +316,14 @@ reportModule.directive('resetScroll', ['$timeout', function (timer) {
             iElement.click(function () {
                 var resetScroll = function () {
                     scope.$watch(
-						function () { return $('.x-scrollbar').length; },
-						function (newValue) {
-						    if (newValue) {
-						        $(".x-scrollbar").scrollLeft(1, 0);
-						        $('.y-scrollbar').scrollTop(1, 1);
-						    }
-						}
-					);
+                        function () { return $('.x-scrollbar').length; },
+                        function (newValue) {
+                            if (newValue) {
+                                $(".x-scrollbar").scrollLeft(1, 0);
+                                $('.y-scrollbar').scrollTop(1, 1);
+                            }
+                        }
+                    );
                 };
                 timer(resetScroll, 500);
             });
