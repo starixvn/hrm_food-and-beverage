@@ -66,7 +66,6 @@ namespace NexFB.Services.Implement
         {
             Check.Argument.IsNotNull(criteria, "criteria");
             IEnumerable<EmployeeRegisterFood> listRegisterFood = null;
-            //IList<EmployeeRegisterFood> listRegisterFood = new List<EmployeeRegisterFood>();
 
             if (criteria.IsValid())
             {
