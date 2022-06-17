@@ -75,11 +75,51 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
             var getRegisterMealByRangeDate = function (fromDate, toDate, mealId) {
                 mealRegistrationFactory.getRegisterMealByRangeDate(fromDate.toDateString(), toDate.toDateString(), mealId).success(function (mealDates) {
                     $scope.allWeekMeals = mealDates;
-                    console.log($scope.allWeekMeals)
+                }).error(function (response, status) {
+                    ErrorFactory.errorHandle(status);
+                });
+
+                mealRegistrationFactory.getEmployeeRegisterByRangeDate(fromDate.toDateString(), toDate.toDateString(), mealId).success(function (listRegister) {
+                    $scope.empRegisterFood = listRegister;
                 }).error(function (response, status) {
                     ErrorFactory.errorHandle(status);
                 });
             };
+
+
+
+            /*
+            ** Check show icon vegetarian or non-vegetarian
+            */
+            $scope.showIcon = function (id, date) {
+                var itemRegisterFood = $scope.empRegisterFood.find(item => (item.WorkDate === date && item.MealId === id));
+                if (itemRegisterFood !== undefined) {
+                    switch (itemRegisterFood.IsVegetarian) {
+                        case true:
+                            return "icon-veg";
+                        case false:
+                            return "icon-none-veg";
+                        default:
+                            if (itemRegisterFood.IsVegetarianManual) {
+                                return "icon-veg-blur";
+                            } else if (itemRegisterFood.IsVegetarianManual === false) {
+                                return "icon-none-veg-blur";
+                            }
+                    }
+                }
+            }
+
+            /*
+            ** Check show short name
+            */
+            $scope.showShortName = function (id, date, isVeg) {
+                var itemRegisterFood = $scope.empRegisterFood.find(item => (item.WorkDate === date && item.MealId === id));
+                if (isVeg !== null) {
+                    return true;
+                } else {
+                    return itemRegisterFood && itemRegisterFood.IsVegetarianManual !== null;
+                }
+            }
 
             $scope.$watch('tabMonthly', function (newValue) {
                 if (newValue) {
@@ -225,6 +265,9 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                         },
                         registerSetting: function () {
                             return $scope.registerSetting;
+                        },
+                        listRegister: function () {
+                            return $scope.empRegisterFood;
                         }
                     },
                     windowClass: "modal-confirm-center register-meal-dialog"
@@ -256,6 +299,11 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                         mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
                             if (response.IsSuccessful) {
                                 date.Meals = registrationInfo.meals;
+                                var changedMonth = $scope.currentDate,
+                                    fromDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth(), 1),
+                                    toDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth() + 1, 0);
+                                getRegisterMealByRangeDate(fromDate, toDate, null);
+
                                 notificationFactory.success("DataChangeSuccessfully");
                             } else {
                                 notificationFactory.error("", response.Message);
@@ -325,6 +373,9 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                         },
                         registerSetting: function () {
                             return $scope.registerSetting;
+                        },
+                        listRegister: function () {
+                            return '';
                         }
                     },
                     windowClass: "modal-confirm-center register-meal-dialog"
@@ -345,6 +396,10 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                             meal: registrationInfo.mealsTemplate,
                             onDate: mealRegistrationUtilities.getRegisterDateInWeek(week)
                         };
+                        var changedMonth = $scope.currentDate,
+                            fromDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth(), 1),
+                            toDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth() + 1, 0);
+
 
                         mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
                             if (response.IsSuccessful) {
@@ -355,13 +410,16 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                                 if (isUpdateVegetarian && hasNonRegisterVegetarianDate) {
                                     if (hasDateEffectedVegetarian) {
                                         notificationFactory.success("UpdateVegetarianInfo");
+                                        getRegisterMealByRangeDate(fromDate, toDate, null);
                                     }
                                     else {
                                         notificationFactory.success("NonUpdateVegetarianWarning");
+                                        getRegisterMealByRangeDate(fromDate, toDate, null);
                                     }
                                 }
                                 else {
                                     notificationFactory.success("DataChangeSuccessfully");
+                                    getRegisterMealByRangeDate(fromDate, toDate, null);
                                 }
                             }
                             else {
@@ -432,6 +490,9 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                         },
                         registerSetting: function () {
                             return $scope.registerSetting;
+                        },
+                        listRegister: function () {
+                            return '';
                         }
                     },
                     windowClass: "modal-confirm-center register-meal-dialog"
@@ -458,16 +519,23 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                                     hasDateEffectedVegetarian = updatedRegistrationMealToMonth(allWeekMeals, registrationInfo.meals),
                                     hasNonRegisterVegetarianDate = mealRegistrationUtilities.checkNonRegisterVegetarianDateInMonth(allWeekMeals, $scope.registerSetting);
 
+                                var changedMonth = $scope.currentDate,
+                                    fromDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth(), 1),
+                                    toDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth() + 1, 0);
+
                                 if (isUpdateVegetarian && hasNonRegisterVegetarianDate) {
                                     if (hasDateEffectedVegetarian) {
                                         notificationFactory.success("UpdateVegetarianInfo");
+                                        getRegisterMealByRangeDate(fromDate, toDate, null);
                                     }
                                     else {
                                         notificationFactory.success("NonUpdateVegetarianWarning");
+                                        getRegisterMealByRangeDate(fromDate, toDate, null);
                                     }
                                 }
                                 else {
                                     notificationFactory.success("DataChangeSuccessfully");
+                                    getRegisterMealByRangeDate(fromDate, toDate, null);
                                 }
                             }
                             else {
@@ -541,6 +609,9 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                         },
                         registerSetting: function () {
                             return $scope.registerSetting;
+                        },
+                        listRegister: function () {
+                            return '';
                         }
                     },
                     windowClass: "modal-confirm-center register-meal-dialog"
@@ -568,17 +639,24 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                                     hasDateEffectedVegetarian = updatedRegistrationMealToSameDateInWeek(allWeekMeals, registrationInfo.meals, weekDayIndex),
                                     hasNonRegisterVegetarianDate =
                                         mealRegistrationUtilities.checkNonRegisterVegetarianSameDateInMonth(allWeekMeals, weekDayIndex, $scope.registerSetting);
+                                var changedMonth = $scope.currentDate,
+                                    fromDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth(), 1),
+                                    toDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth() + 1, 0);
+
 
                                 if (isUpdateVegetarian && hasNonRegisterVegetarianDate) {
                                     if (hasDateEffectedVegetarian) {
                                         notificationFactory.success("UpdateVegetarianInfo");
+                                        getRegisterMealByRangeDate(fromDate, toDate, null);
                                     }
                                     else {
                                         notificationFactory.success("NonUpdateVegetarianWarning");
+                                        getRegisterMealByRangeDate(fromDate, toDate, null);
                                     }
                                 }
                                 else {
                                     notificationFactory.success("DataChangeSuccessfully");
+                                    getRegisterMealByRangeDate(fromDate, toDate, null);
                                 }
                             }
                             else {
@@ -659,6 +737,9 @@ mealRegistrationModule.controller('DefaultRegisterMeal',
                         },
                         registerSetting: function () {
                             return null;
+                        },
+                        listRegister: function () {
+                            return '';
                         }
                     },
                     windowClass: "modal-confirm-center register-meal-dialog"
@@ -743,6 +824,9 @@ mealRegistrationModule.controller('DefaultRegisterMeal',
                         },
                         registerSetting: function () {
                             return $scope.registerSetting;
+                        },
+                        listRegister: function () {
+                            return '';
                         }
                     },
                     windowClass: "modal-confirm-center register-meal-dialog"
@@ -822,9 +906,10 @@ mealRegistrationModule.controller('DefaultRegisterMeal',
 
 mealRegistrationModule.controller('RegisterMealController',
     ['meals', '$scope', 'workDate', '$modalInstance', 'mealTimesheet', 'mode', 'isSameMeal', 'timePeriod',
-        'isSerialRegistration', '$modal', 'notificationFactory', 'registerSetting', 'baseUrl', 'mealRegistrationUtilities',
+        'isSerialRegistration', '$modal', 'notificationFactory', 'registerSetting', 'listRegister', 'baseUrl', 'mealRegistrationUtilities',
         function (meals, $scope, workDate, $modalInstance, mealTimesheet, mode, isSameMeal, timePeriod,
-            isSerialRegistration, $modal, notificationFactory, registerSetting, baseUrl, mealRegistrationUtilities) {
+            isSerialRegistration, $modal, notificationFactory, registerSetting, listRegister, baseUrl, mealRegistrationUtilities) {
+
             $scope.meals = meals;
             $scope.mode = mode;
             if (typeof (timePeriod) === "object") {
@@ -852,6 +937,8 @@ mealRegistrationModule.controller('RegisterMealController',
 
             $scope.vegetarianDate = {};
             $scope.nonVegetarianDate = {};
+            $scope.listRegister = listRegister;
+            $scope.wd = workDate;
 
             if (typeof (timePeriod) === "object") {
                 var isVegetarianDay = mealRegistrationUtilities.checkVegetarianDay(timePeriod.getDate(), timePeriod.getMonth() + 1, timePeriod.getFullYear(), 7);
@@ -872,6 +959,54 @@ mealRegistrationModule.controller('RegisterMealController',
                         3: true,
                         4: false
                     };
+                }
+            }
+
+            //check radio button
+            $scope.checkRadio1 = function (id) {
+                if ($scope.listRegister === '') return false;
+                var itemRegisterFood = $scope.listRegister.find(item => (item.WorkDate === $scope.wd && item.MealId === id));
+                if (itemRegisterFood !== undefined) {
+                    switch (itemRegisterFood.IsVegetarian) {
+                        case false:
+                            return true;
+                        default:
+                            if (itemRegisterFood.IsVegetarianManual === false) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                    }
+                }
+            }
+            $scope.checkRadio2 = function (id) {
+                if ($scope.listRegister === '') return false;
+                var itemRegisterFood = $scope.listRegister.find(item => (item.WorkDate === $scope.wd && item.MealId === id));
+                if (itemRegisterFood !== undefined) {
+                    switch (itemRegisterFood.IsVegetarian) {
+                        case true:
+                            return true;
+                        default:
+                            if (itemRegisterFood.IsVegetarianManual === true) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                    }
+                }
+            }
+            $scope.checkRadio3 = function (id) {
+                if ($scope.listRegister === '') return true;
+                var itemRegisterFood = $scope.listRegister.find(item => (item.WorkDate === $scope.wd && item.MealId === id));
+                if (itemRegisterFood !== undefined) {
+                    switch (itemRegisterFood.IsVegetarian) {
+                        case null:
+                            if (itemRegisterFood.IsVegetarianManual === null) {
+                                return true;
+                            }
+                        default:
+                            return false;
+                    }
                 }
             }
 

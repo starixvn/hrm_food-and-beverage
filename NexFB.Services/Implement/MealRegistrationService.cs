@@ -58,6 +58,25 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
+        /// Get register meal by range date.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list meal in week model.</returns>
+        public IEnumerable<EmployeeRegisterFood> GetEmployeeRegisterFoodByRangeDate(GetEmployeeRegisterFoodByRangeDateCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<EmployeeRegisterFood> listRegisterFood = null;
+            //IList<EmployeeRegisterFood> listRegisterFood = new List<EmployeeRegisterFood>();
+
+            if (criteria.IsValid())
+            {
+                listRegisterFood = GetData<EmployeeRegisterFood>(criteria);
+            }
+
+            return listRegisterFood;
+        }
+
+        /// <summary>
         /// Register meal by range date.
         /// </summary>
         /// <param name="criteria">The criteria.</param>

@@ -20,6 +20,7 @@ namespace NexFB.Services.Interface
     public interface IMealRegistrationService
     {
         IList<MealRegisterModel> GetRegisterMealByRangeDate(GetRegisterMealByRangeDateCriteria criteria);
+        IEnumerable<EmployeeRegisterFood> GetEmployeeRegisterFoodByRangeDate(GetEmployeeRegisterFoodByRangeDateCriteria criteria);
 
         CommandResult RegisterMealByRangeDate(RegisterMealByRangeDateCriteria criteria);
 

@@ -81,13 +81,18 @@
                     <span class="pull-right" ng-bind="date.WorkDate | date: 'd'">
                     </span>
                     <div ng-repeat="meal in date.Meals">
-                        <span get-class-by-name ng-class="mealClass" ng-show="meal.IsVegetarian != null" class="txt-name">
+                        <span get-class-by-name ng-class="mealClass" ng-show="showShortName(meal.MealId, date.WorkDate,meal.IsVegetarian)" class="txt-name">
                             {{meal.ShortName}}:
                         </span>
-                        <span class="icon-veg" ng-show="meal.IsVegetarian == 1">
+                        <span class="{{showIcon(meal.MealId, date.WorkDate)}}">
+                        </span>
+                        <!--<span get-class-by-name ng-class="mealClass" ng-show="meal.IsVegetarian != null" class="txt-name">
+                            {{meal.ShortName}}:
+                        </span>-->
+                        <!--<span class="icon-veg" ng-show="meal.IsVegetarian == 1">
                         </span>
                         <span class="icon-none-veg" ng-show="meal.IsVegetarian == 0">
-                        </span>
+                        </span>-->
                     </div>
                 </td>
             </tr>

@@ -74,6 +74,30 @@ namespace NexFB.Site.Controllers.API
         }
 
         /// <summary>
+        /// Get Employee Register Food By Range Date.
+        /// </summary>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="mealId">The meal Id.</param>
+        /// <returns>The list food employee register</returns>
+        [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Read)]
+        public IEnumerable<EmployeeRegisterFood> GetEmployeeRegisterFoodByRangeDate(
+            DateTime fromDate,
+            DateTime toDate,
+            short? mealId = null)
+        {
+            var criteria = new GetEmployeeRegisterFoodByRangeDateCriteria
+            {
+                SystemId = this.CurrentUser.UserId,
+                MealId = mealId,
+                FromDate = fromDate,
+                ToDate = toDate
+            };
+
+            return _mealRegistrationService.GetEmployeeRegisterFoodByRangeDate(criteria);
+        }
+
+        /// <summary>
         /// Register meal by range date.
         /// </summary>
         /// <param name="criteria">The criteria.</param>

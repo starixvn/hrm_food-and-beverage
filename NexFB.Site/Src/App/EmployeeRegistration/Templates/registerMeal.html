@@ -25,6 +25,17 @@
                         </td>
                         <td class="text-center width-100">
                             <input id="meal{{meal.MealId}}_non" type="radio" value="{{meal.MealId}}" only-one-check
+                                   ng-checked="checkRadio1(meal.MealId) && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || meal.IsDisableNonVegetarian" />
+                        </td>
+                        <td class="text-center width-120">
+                            <input id="meal{{meal.MealId}}" type="radio" value="{{meal.MealId}}" only-one-check
+                                   ng-checked="checkRadio2(meal.MealId) && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || meal.IsDisableVegetarian || disableRegisterVegetarian.{{meal.MealId}} " />
+                        </td>
+                        <td class="text-center width-100">
+                            <input type="radio" only-one-check ng-checked="checkRadio3(meal.MealId) || checkNonRegistration" ng-disabled="meal.IsDisableNonRegistration" />
+                        </td>
+                        <!--<td class="text-center width-100">
+                            <input id="meal{{meal.MealId}}_non" type="radio" value="{{meal.MealId}}" only-one-check
                                    ng-checked="meal.IsVegetarian == 0 && isRegisterDate" ng-disabled="!rightMeal.{{meal.MealId}} || meal.IsDisableNonVegetarian" />
                         </td>
                         <td class="text-center width-120">
@@ -33,7 +44,7 @@
                         </td>
                         <td class="text-center width-100">
                             <input type="radio" only-one-check ng-checked="meal.IsVegetarian == null || checkNonRegistration" ng-disabled="meal.IsDisableNonRegistration" />
-                        </td>
+                        </td>-->
                     </tr>
                 </tbody>
             </table>
