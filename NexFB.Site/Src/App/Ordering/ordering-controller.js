@@ -391,7 +391,7 @@ orderingModule.controller("OrderingController",
                 });
 
                 $scope.ValidateNewOrder = function (order, typeOrder) {
-                    console.log(order);
+                    //console.log(order);
                     var isValid = true;
 
                     if (order.Members.length < 1) {
@@ -460,20 +460,21 @@ orderingModule.controller("OrderingController",
                         notificationFactory.error("", message);
                     }
 
-                    //check non-registration but order
-                    var errorMembers = "";
-                    order.Members.forEach(member => {
-                        if (member.IsVegetarianRegister === null && member.IsOrder) {
-                            isValid = false;
-                            errorMembers += (errorMembers === ""
-                                ? member.Member.NickName
-                                : ", " + member.Member.NickName);
-                        }
-                    });
+                    //////check non-registration but order
+                    ////var errorMembers = "";
+                    ////order.Members.forEach(member => {
+                    ////    if (member.IsVegetarianRegister === null && member.IsOrder) {
+                    ////        isValid = false;
+                    ////        errorMembers += (errorMembers === ""
+                    ////            ? member.Member.NickName
+                    ////            : ", " + member.Member.NickName);
+                    ////    }
+                    ////});
 
-                    if (errorMembers) {
-                        notificationFactory.error("", errorMembers + " can't order because of non-registration");
-                    }
+                    ////if (errorMembers) {
+                    ////    notificationFactory.error("", errorMembers + " can't order because of non-registration");
+                    ////}
+
 
                     return isValid;
                 };
