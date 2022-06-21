@@ -69,9 +69,11 @@
 
         public void ExportAdminOrderHistoryReport(AdminOrderHistoryReport report, string templatePath)
         {
-            var reportDate = report.EmployeeOrders.ElementAt(0).OnDate.ToString(Constants.DateFormat);
-            var reportName = Lang.AdminOrderHistoryReportName + "_" + reportDate.Replace(" ", "_");
-            var reportTitle = Lang.AdminOrderHistoryReportTitle + " - " + reportDate;
+            var count = report.EmployeeOrders.Count;
+            var reportToDate = report.EmployeeOrders.ElementAt(0).OnDate.ToString(Constants.DateFormat);
+            var reportFromDate = report.EmployeeOrders.ElementAt(count - 1).OnDate.ToString(Constants.DateFormat);
+            var reportName = Lang.AdminOrderHistoryReportName + "_" + reportFromDate.Replace(" ", "_") + "_" + reportToDate.Replace(" ", "_");
+            var reportTitle = Lang.AdminOrderHistoryReportTitle + " - " + reportFromDate + " to " + reportToDate;
             var writer = new ExcelTemplateWriter(templatePath, reportName, Lang.AdminOrderHistoryReport);
 
             // Fill report title.
@@ -106,7 +108,7 @@
                 var record = new
                 {
                     Count = i + 1,
-                    Time = employeeOrder.OrderTime.ToString("HH:mm"),
+                    Time = employeeOrder.OrderTime.ToString("MM/dd/yyyy hh:mm tt"),
                     Meal = employeeOrder.Meal.MealEngName,
                     Order = employeeOrder.Order.OrderNo,
                     Ref = employeeOrder.Order.OrderId,

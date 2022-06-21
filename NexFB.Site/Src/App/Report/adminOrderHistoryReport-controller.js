@@ -8,6 +8,8 @@ reportModule.controller('AdminOrderHistoryReportController',
             foodMenuUtilities, notificationFactory, groupControlFactory, $modal, baseUrl) {
             $scope.searchEmployee = '';
 
+            $scope.toDate = new Date();
+
             $scope.openMealList = false;
 
             $scope.orderStatus = {
@@ -35,7 +37,8 @@ reportModule.controller('AdminOrderHistoryReportController',
 
             $scope.joinStatus = $scope.orderStatus.New + ',' + $scope.orderStatus.Accepted + ',' + $scope.orderStatus.Reduced + ',';
             $scope.filter = {
-                date: new Date(),
+                fromDate: new Date($scope.toDate.getFullYear(), $scope.toDate.getMonth(), 1),
+                toDate: new Date(),
                 userId: null,
                 employeeMenu: 0,
                 orderPlatform: 0,
@@ -77,14 +80,19 @@ reportModule.controller('AdminOrderHistoryReportController',
             $scope.timeFormat = reportUtilities.getTimeFormatAdminOrderHistoryReport();
 
             $scope.calendar = {
-                startDateOpened: false
+                startDateOpened: false,
+                endDateOpened: false
             };
 
             /*
-            ** Open calendar.
-            */
-            $scope.openPopupDate = function ($event) {
+             ** Open calendar.
+             */
+            $scope.openPopupStartDate = function ($event) {
                 commonFactory.openPopupStartDate($event, $scope);
+            };
+
+            $scope.openPopupEndDate = function ($event) {
+                commonFactory.openPopupEndDate($event, $scope);
             };
 
             $scope.gridOption = {
@@ -205,7 +213,15 @@ reportModule.controller('AdminOrderHistoryReportController',
                 filter.companyId = getIdFromOptions($scope.companiesOptions);
                 filter.userId = filter.employee ? filter.employee.UserId : '';
 
-                $scope.getAdminOrderHistoryReport(filter);
+                var fromDate = new Date(filter.fromDate),
+                    toDate = new Date(filter.toDate);
+
+                if (fromDate > toDate) {
+                    notificationFactory.error("DateRangeInvalid");
+                }
+                else {
+                    $scope.getAdminOrderHistoryReport(filter);
+                }
             };
 
             /*
@@ -287,8 +303,8 @@ reportModule.controller('AdminOrderHistoryReportController',
                 filter.userId = filter.employee ? filter.employee.UserId : '';
 
                 $scope.criteria = {
-                    fromDate: filter.date.toDateString(),
-                    toDate: filter.date.toDateString(),
+                    fromDate: filter.fromDate.toDateString(),
+                    toDate: filter.toDate.toDateString(),
                     userId: filter.userId,
                     myMenu: filter.employeeMenu,
                     orderPlatform: filter.orderPlatform,

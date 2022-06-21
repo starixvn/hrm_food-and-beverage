@@ -376,7 +376,8 @@ namespace NexFB.Site.Controllers.API.Report
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.AdminOrderHistoryReport, Policy = Policy.Read)]
         public AdminOrderHistoryReport GetAdminOrderHistoryReport(
-            DateTime date,
+            DateTime fromDate,
+            DateTime toDate,
             int? userId = null,
             int employeeMenu = 0,
             int orderPlatform = 0,
@@ -390,8 +391,8 @@ namespace NexFB.Site.Controllers.API.Report
             var criteria = new GetAdminOrderHistoryCriteria
             {
                 UserId = userId,
-                FromDate = date,
-                ToDate = date,
+                FromDate = fromDate,
+                ToDate = toDate,
                 OrderBy = 0,
                 MyMenu = employeeMenu,
                 OrderPlatform = orderPlatform,

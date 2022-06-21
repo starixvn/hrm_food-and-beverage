@@ -32,7 +32,7 @@
 
                 <label class="col-sm-1 text-right order-status-history-report" data-translate="Company">
                 </label>
-                <div class="col-sm-2 field width-12percent">
+                <div class="col-sm-2 field width-company">
                     <add-class-to-role-filter multi-select input-model="companiesOptions" button-label="Name"
                                               helper-elements="all reset" item-label="Name" tick-property="ticked" max-labels="0"
                                               class="multi-select ">
@@ -40,12 +40,19 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-1 text-right" data-translate="Date">
+                <label class="col-sm-1 text-right" data-translate="From">
                 </label>
                 <div class="col-sm-2 field">
-                    <input class="calendar-form-control" type="text" ng-model="filter.date" datepicker-popup
+                    <input class="calendar-form-control" type="text" ng-model="filter.fromDate" datepicker-popup
                            is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
-                    <calendar-image class="calendar-image" ng-click="openPopupDate($event)"></calendar-image>
+                    <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
+                </div>
+                <label class="col-sm-1 text-right ml-15" data-translate="To">
+                </label>
+                <div class="col-sm-2 field">
+                    <input class="calendar-form-control" type="text" ng-model="filter.toDate" datepicker-popup
+                           is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
+                    <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
                 </div>
                 <label class="col-sm-1 text-right admin-history-report" data-translate="Employee">
                 </label>
@@ -57,10 +64,10 @@
                 <label class="menu-type-history-report-label col-sm-1 text-right" data-translate="MenuType">
                 </label>
                 <div class="col-sm-2 field">
-                    <select class="menu-type-history-report width-100percent" ng-model="filter.employeeMenu" ng-options="menuTypeItem.Value as menuTypeItem.Name for menuTypeItem in menuTypeOptions">
+                    <select class="menu-type-history-report width-90percent" ng-model="filter.employeeMenu" ng-options="menuTypeItem.Value as menuTypeItem.Name for menuTypeItem in menuTypeOptions">
                     </select>
                 </div>
-                <div class="col-sm-1 btn-box admin-history-order-btn-box">
+                <div class="col-sm-1 btn-box admin-history-order-btn-box btn-submit">
                     <input type="button" value="Submit" class="button btn-ml" ng-click="query(filter)" />
                 </div>
             </div>

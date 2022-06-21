@@ -116,6 +116,11 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
             return result;
         }
 
+        var formatOrderTime = function (time) {
+            var date = new Date(time);
+            return date.toLocaleString();
+        }
+
         var rows = [];
 
         if (report && report.EmployeeOrders) {
@@ -130,7 +135,7 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                 currentRow = {
                     Columns: [
                         { Name: "Count", Value: rowIndex },
-                        { Name: "Time", Value: moment(employeeOrder.OrderTime).format(scope.timeFormat) },
+                        { Name: "Time", Value: formatOrderTime(moment(employeeOrder.OrderTime)) },
                         { Name: "Meal", Value: employeeOrder, CustomCellRender: selectMeal },
                         { Name: "Order", Value: employeeOrder.Order.OrderNo },
                         { Name: "Ref", Value: employeeOrder.Order.OrderId },
@@ -233,7 +238,7 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                     showTree: true,
                     showTitle: true,
                     titleInfo: {
-                        text: "Admin Order History Report - " + moment(scope.filter.date).format(scope.dateFormat),
+                        text: "Admin Order History Report - " + moment(scope.filter.fromDate).format(scope.dateFormat) + " to " + moment(scope.filter.toDate).format(scope.dateFormat),
                         showExcelButton: true,
                         exportExcelFunction: function () {
                             scope.exportExcel.call(this, scope.filter);
