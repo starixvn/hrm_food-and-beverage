@@ -33,6 +33,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                     params: {
                         reportDate: filter.reportDate.toDateString(),
                         departmentId: filter.departmentId,
+                        userId: filter.userId > 0 ? filter.userId : filter.employee ? filter.employee.UserId : '',
                         employeeTypeId: filter.employeeTypeId,
                         teamId: filter.teamId,
                         mealId: filter.mealId,

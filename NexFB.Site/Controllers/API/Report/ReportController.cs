@@ -94,6 +94,7 @@ namespace NexFB.Site.Controllers.API.Report
         public MonthlyLocalReportModel GetMonthlyMainDishReportLocal(
             DateTime reportDate,
             string departmentId = "",
+            int? userId = null,
             string employeeTypeId = "",
             string teamId = "",
             string mealId = "",
@@ -106,6 +107,7 @@ namespace NexFB.Site.Controllers.API.Report
         {
             var criteria = new GetMonthlyMainDishReportLocalCriteria
             {
+                UserId = userId,
                 ReportDate = reportDate,
                 DepartmentId = departmentId,
                 EmployeeTypeId = employeeTypeId,
