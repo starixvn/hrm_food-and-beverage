@@ -222,10 +222,12 @@ reportModule.controller('MonthlyMainDishReportLocalController',
                 filter.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
                 filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
                 filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
+                filter.userId = filter.employee ? filter.employee.UserId : '';
 
                 $scope.criteria = {
                     reportDate: filter.reportDate.toDateString(),
                     departmentId: filter.departmentId,
+                    userId: filter.userId,
                     employeeTypeId: filter.employeeTypeId,
                     teamId: filter.teamId,
                     mealId: filter.mealId,

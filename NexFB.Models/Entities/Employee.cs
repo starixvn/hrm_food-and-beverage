@@ -32,6 +32,7 @@ namespace NexFB.Models.Entities
         public string FullName { get; set; }
 
         public string NickName { get; set; }
+        public string Team { get; set; }
 
         public int EmployeeType { get; set; }
 

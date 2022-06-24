@@ -72,8 +72,19 @@
             var count = report.EmployeeOrders.Count;
             var reportToDate = report.EmployeeOrders.ElementAt(0).OnDate.ToString(Constants.DateFormat);
             var reportFromDate = report.EmployeeOrders.ElementAt(count - 1).OnDate.ToString(Constants.DateFormat);
-            var reportName = Lang.AdminOrderHistoryReportName + "_" + reportFromDate.Replace(" ", "_") + "_" + reportToDate.Replace(" ", "_");
-            var reportTitle = Lang.AdminOrderHistoryReportTitle + " - " + reportFromDate + " to " + reportToDate;
+            var reportName = "";
+            var reportTitle = "";
+
+            if (reportToDate == reportFromDate)
+            {
+                reportName = Lang.AdminOrderHistoryReportName + "_" + reportFromDate.Replace(" ", "_");
+                reportTitle = Lang.AdminOrderHistoryReportTitle + " - " + reportFromDate;
+            }
+            else
+            {
+                reportName = Lang.AdminOrderHistoryReportName + "_" + reportFromDate.Replace(" ", "_") + "_" + reportToDate.Replace(" ", "_");
+                reportTitle = Lang.AdminOrderHistoryReportTitle + " - " + reportFromDate + " to " + reportToDate;
+            }
             var writer = new ExcelTemplateWriter(templatePath, reportName, Lang.AdminOrderHistoryReport);
 
             // Fill report title.
@@ -88,7 +99,7 @@
             FillContentRow(report.EmployeeOrders, ref writer);
             FillTotalRow(report.EmployeeOrders, ref writer);
 
-            const byte TotalColumns = 12;
+            const byte TotalColumns = 14;
             writer.SyncColumnsWidth(TotalColumns);
             writer.Render();
         }
@@ -115,6 +126,8 @@
                     OrderPlatform = employeeOrder.OrderFrom,
                     Status = employeeOrder.Status.Name,
                     OrderedBy = employeeOrder.OrderBy.NickName,
+                    FullName = employeeOrder.OrderBy.FullName,
+                    Section = employeeOrder.OrderBy.Team,
                     Company = employeeOrder.OrderBy.DepartmentName,
                     MainDish = CreateMainDish(employeeOrder.Menus),
                     SideDish = CreateSideDish(employeeOrder.Menus),
@@ -138,6 +151,8 @@
                 OrderPlatform = string.Empty,
                 Status = string.Empty,
                 OrderedBy = string.Empty,
+                FullName = string.Empty,
+                Section = string.Empty,
                 Company = string.Empty,
                 MainDish = CalculateTotalMainDish(employeeOrders),
                 SideDish = CalculateTotalSideDish(employeeOrders),

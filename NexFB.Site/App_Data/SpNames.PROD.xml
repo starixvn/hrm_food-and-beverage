@@ -349,6 +349,7 @@
 			<Mapping DataField="OrderBy" ObjectProperty="UserId" Class="Employee" />
 			<Mapping DataField="OrderFullName" ObjectProperty="FullName" Class="Employee" />
 			<Mapping DataField="OrderNickName" ObjectProperty="NickName" Class="Employee" />
+			<Mapping DataField="OrderTeamName" ObjectProperty="Team" Class="Employee" />
 			<Mapping DataField="OrderDepartmentName" ObjectProperty="DepartmentName" Class="Employee" />
 			<Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status" />
 			<Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status" />

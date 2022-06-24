@@ -142,6 +142,8 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                         { Name: "OrderPlatform", Value: employeeOrder.OrderFrom },
                         { Name: "Status", Value: employeeOrder.Status.Name, CssClass: cssClass },
                         { Name: "OrderedBy", Value: employeeOrder.OrderBy.NickName },
+                        { Name: "FullName", Value: employeeOrder.OrderBy.FullName },
+                        { Name: "Section", Value: employeeOrder.OrderBy.Team },
                         { Name: "Company", Value: employeeOrder.OrderBy.DepartmentName },
                         { Name: "MainDish", Value: employeeOrder.Menus, CustomCellRender: getMainDish },
                         { Name: "SideDish", Value: employeeOrder.Menus, CustomCellRender: getSideDish }
@@ -179,6 +181,8 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
             { HeaderText: "Order Platform", Width: 150, Name: "OrderPlatform", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Status", Width: 100, Name: "Status", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Ordered By", Width: 120, Name: "OrderedBy", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: "Full Name", Width: 120, Name: "FullName", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: "Section", Width: 120, Name: "Section", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Company", Width: 80, Name: "Company", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Main Dish", Width: 80, Name: "MainDish", HeaderAlign: "center", CellAlign: "right" },
             { HeaderText: "Side Dish", Width: 80, Name: "SideDish", HeaderAlign: "center", CellAlign: "right" },
@@ -198,7 +202,7 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
         footerRow = [
             {
                 Columns: [
-                    { Name: "Count", Value: "Total", MergeColNumber: 9, CellAlign: "right" },
+                    { Name: "Count", Value: "Total", MergeColNumber: 11, CellAlign: "right" },
                     { Name: "MainDish", Value: totalMainDish, CellAlign: "right" },
                     { Name: "SideDish", Value: totalSideDish, CellAlign: "right" },
                     { Name: "Amount", Value: numeral(totalAmount).format(numberFormat), CellAlign: "right" }
