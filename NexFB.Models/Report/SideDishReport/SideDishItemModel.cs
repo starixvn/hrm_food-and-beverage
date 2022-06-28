@@ -19,7 +19,7 @@ namespace NexFB.Models.Report.SideDishReport
     /// </summary>
     public class SideDishItemModel
     {
-        public string DepartmentTeamName { get; set; }        
+        public string DepartmentTeamName { get; set; }
 
         public DateTime WorkDate { get; set; }
 
@@ -28,6 +28,7 @@ namespace NexFB.Models.Report.SideDishReport
         public string FullName { get; set; }
 
         public string NickName { get; set; }
+        public string Team { get; set; }
 
         public string FoodVNMName { get; set; }
 

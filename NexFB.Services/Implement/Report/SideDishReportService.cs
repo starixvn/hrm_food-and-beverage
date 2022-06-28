@@ -74,7 +74,7 @@ namespace NexFB.Services.Implement.Report
 
             FillTotalRow(report, writer);
 
-            writer.SyncColumnsWidth(10);
+            writer.SyncColumnsWidth(11);
             writer.Render();
         }
 
@@ -94,6 +94,7 @@ namespace NexFB.Services.Implement.Report
                 Cell5 = string.Empty,
                 Cell6 = string.Empty,
                 Cell7 = string.Empty,
+                Cell8 = string.Empty,
                 Total = Lang.Total,
                 TotalQuantity = report.TotalQuantity,
                 TotalAmount = report.TotalAmount,
@@ -121,6 +122,7 @@ namespace NexFB.Services.Implement.Report
                     Shift = item.Shift,
                     FullName = item.FullName,
                     NickName = item.NickName,
+                    Section = item.Team,
                     FoodVNMName = item.FoodVNMName,
                     FoodEngName = item.FoodEngName,
                     Price = item.Price,
@@ -130,7 +132,7 @@ namespace NexFB.Services.Implement.Report
 
                 if (!groupName.Contains(item.DepartmentTeamName))
                 {
-                    writer.WriteRow(2, new object[] { item.DepartmentTeamName });
+                    //writer.WriteRow(2, new object[] { item.DepartmentTeamName });
 
                     groupName.Add(item.DepartmentTeamName);
                 }

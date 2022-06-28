@@ -60,7 +60,7 @@ namespace NexFB.Site.Controllers.API
             return _deliveryAreaService.GetAllDeliveryArea(criteria);
         }
 
-        public IEnumerable<Team> GetAllTeamByCompany(int departmentId)
+        public IEnumerable<Team> GetAllTeamByCompany(string departmentId = null)
         {
             var criteria = new GetAllTeamByCompanyCriteria
             {

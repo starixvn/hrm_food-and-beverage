@@ -17,6 +17,8 @@ namespace NexFB.Criteria.ShiftMealMapping
     public class GetAllShiftMealMappingCriteria : CriteriaBase
     {
         public string DepartmentId { get; set; }
+        public string ShiftCode { get; set; }
+        public string TeamCode { get; set; }
 
         public override string GetSettingKey()
         {

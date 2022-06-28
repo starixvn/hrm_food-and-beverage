@@ -45,11 +45,13 @@ namespace NexFB.Site.Controllers.API
         }
 
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealRegistrationByShift, Policy = Policy.Read)]
-        public IEnumerable<ShiftMealMappingModel> GetAllShiftMeal(string departmentId = "")
+        public IEnumerable<ShiftMealMappingModel> GetAllShiftMeal(string departmentId = null, string teamCode = null, string shiftCode = null)
         {
             var criteria = new GetAllShiftMealMappingCriteria
             {
-                DepartmentId = departmentId
+                DepartmentId = departmentId,
+                TeamCode = teamCode,
+                ShiftCode = shiftCode,
             };
 
             return _shiftMealMappingService.GetAllShiftMeal(criteria);
