@@ -630,6 +630,7 @@
     <Content Include="Src\App\Report\ExcelTemplates\MonthlyMainDishCostCenterReportLocal.xls" />
     <Content Include="Src\App\Report\ExcelTemplates\EmployeeNonRegistrationDetailReport.xls" />
     <Content Include="Src\App\KitchenStaff\kitchenstaff.less" />
+    <Content Include="Src\App\Report\ExcelTemplates\ShiftMealMappingReport.xls" />
     <None Include="Src\Content\Common\bootstrap-theme.css.map" />
     <None Include="Src\Content\Common\bootstrap.css.map" />
     <Content Include="Src\Content\Fonts\big_noodle_titling.ttf" />

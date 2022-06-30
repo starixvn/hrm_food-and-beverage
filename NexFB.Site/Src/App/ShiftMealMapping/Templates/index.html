@@ -37,6 +37,9 @@
             <div class="form-group">
                 <input type="button" value="Submit" class="button" ng-click="query(departmentId)" />
             </div>
+            <div class="form-group">
+                <input type="button" value="Excel" class="btn-excel" ng-click="excel(departmentId)" />
+            </div>
         </form>
     </div>
     <div class="row table-menu">
@@ -46,6 +49,7 @@
                     <th colspan="14">
                         <input type="text" ng-model="queryData" ng-change="searchInShift()" class="search-inline-textbox search pull-right">
                     </th>
+
                 </tr>
                 <tr>
                     <th data-translate="SymbolCount" rowspan="2"></th>

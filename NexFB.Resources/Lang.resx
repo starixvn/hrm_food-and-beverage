@@ -948,6 +948,9 @@
 	<data name="SideDishReport" xml:space="preserve">
     <value>Side Dish Report</value>
   </data>
+	<data name="ShiftMealMappingReport" xml:space="preserve">
+    <value>Shift-Meal Mapping Report</value>
+  </data>
 	<data name="WorkDay" xml:space="preserve">
     <value>Work day</value>
   </data>

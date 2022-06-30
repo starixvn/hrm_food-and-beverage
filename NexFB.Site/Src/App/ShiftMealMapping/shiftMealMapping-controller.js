@@ -64,7 +64,6 @@ shiftMealMappingModule.controller('ShiftMealMappingController',
                 $scope.shiftCode = code;
             }
             $scope.onChangeSection = function (name, departmentId) {
-
                 $scope.sectionName = name;
                 $scope.shiftCode = '';
                 shiftMealMappingFactory.getAllShiftMeal(departmentId, name, null).success(function (shiftMeals) {
@@ -128,6 +127,31 @@ shiftMealMappingModule.controller('ShiftMealMappingController',
             $scope.query = function (departmentId) {
                 getAllShiftMeals(departmentId, $scope.sectionName, $scope.shiftCode);
             };
+
+            /*
+            ** export excel.
+            */
+
+            $scope.excel = function (departmentId) {
+                var criteria = {
+                    departmentId: departmentId,
+                    teamCode: $scope.sectionName,
+                    shiftCode: $scope.shiftCode
+                };
+
+                var data = $.param(criteria),
+                    url = baseUrl + 'ExportReport/ExportShiftMealMapping',
+                    downloadUrl = url + "?" + data,
+                    iframe = $('body iframe');
+
+                if (iframe.length === 0) {
+                    iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
+                    iframe.appendTo('body');
+                }
+
+                iframe.attr('src', downloadUrl);
+            };
+
             /*
             ** Submit shit-meal mapping.
             */

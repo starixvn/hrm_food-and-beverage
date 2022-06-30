@@ -3040,6 +3040,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shift-Meal Mapping Report.
+        /// </summary>
+        public static string ShiftMealMappingReport {
+            get {
+                return ResourceManager.GetString("ShiftMealMappingReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (Eng).
         /// </summary>
         public static string ShortEng {

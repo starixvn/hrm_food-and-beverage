@@ -1,4 +1,8 @@
-﻿namespace NexFB.Site.Controllers
+﻿using System.Collections.Generic;
+using NexFB.Criteria.ShiftMealMapping;
+using NexFB.Models.ShiftMealMapping;
+
+namespace NexFB.Site.Controllers
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
@@ -32,6 +36,7 @@
         private const string _EmployeeOrderHistoryTemplatePath = @"~\Src\App\Report\ExcelTemplates\EmployeeOrderHistoryReport.xls";
         private const string _AdminOrderHistoryTemplatePath = @"~\Src\App\Report\ExcelTemplates\AdminOrderHistoryReport.xls";
         private const string _SideDishReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\SideDishReport.xls";
+        private const string _ShiftMealMappingReport = @"~\Src\App\Report\ExcelTemplates\ShiftMealMappingReport.xls";
         private const string _MonthlyMainDishPerDayEmployeeTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishEmployeePerDayReport.xls";
         private const string _MonthlyMainDishPerDayDepartmentTemplatePath = @"~\Src\App\Report\ExcelTemplates\MonthlyMainDishDepartmentPerDayReport.xls";
         private const string _MealForecastAllTypeReportTemplatePath = @"~\Src\App\Report\ExcelTemplates\MealForecastAllTypeReport.xls";
@@ -59,9 +64,10 @@
         private readonly IFoodItemService _foodItemService;
         private readonly IFoodItemReportService _foodItemReportService;
         private readonly IMonthlyMealTotalAmountService _monthlyMealTotalAmountService;
+        private readonly IShiftMealMappingService _shiftMealMappingService;
 
         public ExportReportController()
-            : this(null, null, null, null, null, null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -80,7 +86,8 @@
             ISideDishSummaryReportService sideDishSummaryReportService,
             IFoodItemService foodItemService,
             IFoodItemReportService foodItemReportService,
-            IMonthlyMealTotalAmountService monthlyMealTotalAmountService)
+            IMonthlyMealTotalAmountService monthlyMealTotalAmountService,
+            IShiftMealMappingService shiftMealMappingService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _employeeOrderHistoryService = employeeOrderHistoryService ?? new EmployeeOrderHistoryService();
@@ -95,6 +102,7 @@
             _foodItemService = foodItemService ?? new FoodItemService();
             _foodItemReportService = foodItemReportService ?? new FoodItemReportService();
             _monthlyMealTotalAmountService = monthlyMealTotalAmountService ?? new MonthlyMealTotalAmountService();
+            _shiftMealMappingService = shiftMealMappingService ?? new ShiftMealMappingService();
         }
 
         public ActionResult Index()
@@ -173,6 +181,18 @@
             if (report != null)
             {
                 _sideDishReportService.ExportSideDishReport(report, templateUrl);
+            }
+
+            return new EmptyResult();
+        }
+
+        public ActionResult ExportShiftMealMapping(GetAllShiftMealMappingCriteria criteria)
+        {
+            string templateUrl = Server.MapPath(_ShiftMealMappingReport);
+            IEnumerable<ShiftMealMappingModel> report = _shiftMealMappingService.GetAllShiftMeal(criteria);
+            if (report != null)
+            {
+                _shiftMealMappingService.ExportShiftMealMapping(report, templateUrl);
             }
 
             return new EmptyResult();

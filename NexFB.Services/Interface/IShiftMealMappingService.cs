@@ -21,6 +21,8 @@ namespace NexFB.Services.Interface
     {
         IEnumerable<ShiftMealMappingModel> GetAllShiftMeal(GetAllShiftMealMappingCriteria criteria);
 
+        void ExportShiftMealMapping(IEnumerable<ShiftMealMappingModel> report, string templatePath);
+
         CommandResult UpdateShiftMeal(UpdateShiftMealByShiftIdCriteria criteria);
     }
 }

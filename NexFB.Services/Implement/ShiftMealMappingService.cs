@@ -7,6 +7,11 @@
 //   <change who="Josh.Phan" date="10/14/2014 1:08:37 PM">Created.</change>
 // </history>
 
+using NexFB.Core.Utilities;
+using NexFB.Models.Entities;
+using NexFB.Models.FoodItemManagement;
+using NexFB.Resources;
+
 namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
@@ -52,6 +57,51 @@ namespace NexFB.Services.Implement
             }
 
             return shiftMeals;
+        }
+
+        public void ExportShiftMealMapping(IEnumerable<ShiftMealMappingModel> report, string templatePath)
+        {
+            string reportTitle = Lang.ShiftMealMappingReport;
+            var writer = new ExcelTemplateWriter(templatePath, reportTitle, reportTitle);
+
+            // Create report title.
+            writer.CopyRows(0, 1);
+
+            // Create report header.
+            writer.CopyRows(1, 2);
+
+            FillContentRow(report, writer);
+
+            writer.SyncColumnsWidth(13);
+            writer.Render();
+        }
+
+        private void FillContentRow(IEnumerable<ShiftMealMappingModel> report, ExcelTemplateWriter writer)
+        {
+            int counter = 1;
+
+            foreach (ShiftMealMappingModel item in report)
+            {
+                var subItem = new
+                {
+                    No = counter,
+                    Department = item.Department.Name,
+                    Shift = item.ShiftName,
+                    CheckIn = item.BeginCheckInTime,
+                    CheckOut = item.BeginCheckOutTime,
+                    MealPreviousSupper = item.MealPreviousSupper ? "x" : "",
+                    MealBreakfast = item.MealBreakfast ? "x" : "",
+                    MealLunch = item.MealLunch ? "x" : "",
+                    MealDinner = item.MealDinner ? "x" : "",
+                    MealSupper = item.MealSupper ? "x" : "",
+                    MealNextBreakfast = item.MealNextBreakfast ? "x" : "",
+                    MealNextLunch = item.MealNextLunch ? "x" : "",
+                    MealNextDinner = item.MealNextDinner ? "x" : "",
+                };
+
+                writer.WriteRow(4, subItem);
+                counter++;
+            }
         }
 
         /// <summary>
