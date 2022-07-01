@@ -391,7 +391,6 @@ orderingModule.controller("OrderingController",
                 });
 
                 $scope.ValidateNewOrder = function (order, typeOrder) {
-                    //console.log(order);
                     var isValid = true;
 
                     if (order.Members.length < 1) {
@@ -461,20 +460,21 @@ orderingModule.controller("OrderingController",
                     }
 
                     //////check non-registration but order
-                    ////var errorMembers = "";
-                    ////order.Members.forEach(member => {
-                    ////    if (member.IsVegetarianRegister === null && member.IsOrder) {
-                    ////        isValid = false;
-                    ////        errorMembers += (errorMembers === ""
-                    ////            ? member.Member.NickName
-                    ////            : ", " + member.Member.NickName);
-                    ////    }
-                    ////});
+                    var errorMembers = "";
+                    if (typeOrder !== $scope.typeOrder.sideDishOrder) {
+                        order.Members.forEach(member => {
+                            if (member.IsVegetarianRegister === null && member.IsOrder && !member.Member.IsFreeOrder) {
+                                isValid = false;
+                                errorMembers += (errorMembers === ""
+                                    ? member.Member.NickName
+                                    : ", " + member.Member.NickName);
+                            }
+                        });
+                    }
 
-                    ////if (errorMembers) {
-                    ////    notificationFactory.error("", errorMembers + " can't order because of non-registration");
-                    ////}
-
+                    if (errorMembers) {
+                        notificationFactory.error("", errorMembers + " can't order because of non-registration");
+                    }
 
                     return isValid;
                 };
@@ -699,7 +699,8 @@ orderingModule.controller("OrderingController",
                         Menus: '',
                         AllMenus: '',
                         IsOrder: true,
-                        IsAllowOrder: false
+                        IsAllowOrder: false,
+                        IsVegetarianRegister: null
                     };
                     member.Member = newMember.employee;
                     var userId = member.Member.UserId;
@@ -711,6 +712,8 @@ orderingModule.controller("OrderingController",
                             if (order.Members && order.Members.length > 0) {
                                 member.Menus = order.Members[0].Menus;
                                 member.IsAllowOrder = order.Members[0].IsAllowOrder;
+                                member.IsVegetarianRegister = order.Members[0].IsVegetarianRegister;
+                                member.Member.IsFreeOrder = order.Members[0].Member.IsFreeOrder;
                             }
 
                             var isExisted = false;

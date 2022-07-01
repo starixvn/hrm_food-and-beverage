@@ -141,6 +141,7 @@
                                 Member = e,
                                 CurrentStatus = s,
                                 IsAllowOrder = od.RawIsAllowOrder,
+                                IsVegetarianRegister = od.IsVegetarian
                             };
 
                             memberOrder.Menus.Add(m);

@@ -146,7 +146,6 @@ userControlModule.controller("ManageUserController",
             }
 
             $scope.query = function (filter) {
-                console.log(filter)
                 getSelectedRole(filter);
                 getAllEmployeeRole(filter);
             };
@@ -165,8 +164,6 @@ userControlModule.controller("ManageUserController",
                 });
 
                 modalAssignInstance.result.then(function (userRoles) {
-                    console.log(userRoles);
-
                     userControlFactory.assignRoleToUser(userRoles).success(function (response) {
                         if (response.IsSuccessful) {
                             employee.Roles = userRoles.rolesName;
