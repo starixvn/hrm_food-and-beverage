@@ -330,6 +330,8 @@
 		</Setting>
 		<Setting Key="Shift_Edit_ByShiftID" SpName="Shift_Edit_ByShiftID" DbName="FBM" Plain="0">
 		</Setting>
+		<Setting Key="Shift_Meal_GetByMealID" SpName="Shift_Meal_GetByMealID" DbName="FBM" Plain="0">
+		</Setting>
 	</Function>
 	<Function Name="Report">
 		<Setting Key="RPT_MonthMainDishByLocal" SpName="RPT_MonthMainDishByLocal" DbName="FBM" Plain="0">

@@ -10,6 +10,7 @@
 using NexFB.Core.Utilities;
 using NexFB.Models.Entities;
 using NexFB.Models.FoodItemManagement;
+using NexFB.Models.Ordering;
 using NexFB.Resources;
 
 namespace NexFB.Services.Implement
@@ -57,6 +58,19 @@ namespace NexFB.Services.Implement
             }
 
             return shiftMeals;
+        }
+
+        public IEnumerable<ShiftMealByUserIdAndMealIdModel> GetAllShiftMealByUserIdAndMealId(GetShiftMealByUserIdAndMealIdCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<ShiftMealByUserIdAndMealIdModel> result = null;
+
+            if (criteria.IsValid())
+            {
+                result = GetData<ShiftMealByUserIdAndMealIdModel>(criteria);
+            }
+
+            return result;
         }
 
         public void ExportShiftMealMapping(IEnumerable<ShiftMealMappingModel> report, string templatePath)

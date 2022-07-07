@@ -7,6 +7,8 @@
 //   <change who="Josh.Phan" date="10/14/2014 1:06:14 PM">Created.</change>
 // </history>
 
+using NexFB.Models.Ordering;
+
 namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
@@ -20,6 +22,7 @@ namespace NexFB.Services.Interface
     public interface IShiftMealMappingService
     {
         IEnumerable<ShiftMealMappingModel> GetAllShiftMeal(GetAllShiftMealMappingCriteria criteria);
+        IEnumerable<ShiftMealByUserIdAndMealIdModel> GetAllShiftMealByUserIdAndMealId(GetShiftMealByUserIdAndMealIdCriteria criteria);
 
         void ExportShiftMealMapping(IEnumerable<ShiftMealMappingModel> report, string templatePath);
 

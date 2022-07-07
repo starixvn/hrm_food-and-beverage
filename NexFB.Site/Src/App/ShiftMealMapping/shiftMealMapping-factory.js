@@ -7,6 +7,10 @@ shiftMealMappingModule.factory('shiftMealMappingFactory', ['$http', 'baseUrl', f
             return $http.get(baseUrl + 'api/ShiftMealMapping/GetAllShiftMeal',
                 { params: { departmentId: departmentId, shiftCode: shiftCode, teamCode: teamCode } });
         },
+        getShiftMealByUserIdAndMealId: function (mealId, userId) {
+            return $http.get(baseUrl + 'api/ShiftMealMapping/GetAllShiftMealByUserIdAndMealId',
+                { params: { mealId: mealId, userId: userId } });
+        },
         updateShiftMeal: function (shift) {
             return $http.post(baseUrl + 'api/ShiftMealMapping/UpdateShiftMeal', shift);
         },
