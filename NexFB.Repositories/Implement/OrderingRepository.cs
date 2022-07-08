@@ -141,7 +141,8 @@
                                 Member = e,
                                 CurrentStatus = s,
                                 IsAllowOrder = od.RawIsAllowOrder,
-                                IsVegetarianRegister = od.IsVegetarian
+                                IsVegetarianRegister = od.IsVegetarian,
+                                IsAllowOrderByShift = od.IsAllowOrderByShift
                             };
 
                             memberOrder.Menus.Add(m);
@@ -183,7 +184,8 @@
                             Member = e,
                             CurrentStatus = s,
                             IsAllowOrder = od.RawIsAllowOrder,
-                            IsVegetarianRegister = od.IsVegetarian
+                            IsVegetarianRegister = od.IsVegetarian,
+                            IsAllowOrderByShift = od.IsAllowOrderByShift
                         };
 
                         if (m != null)

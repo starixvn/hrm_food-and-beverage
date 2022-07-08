@@ -81,7 +81,6 @@
     <Compile Include="Kitchen\OrderResult.cs" />
     <Compile Include="MealRegistration\DefaultMealModel.cs" />
     <Compile Include="MealRegistration\EmployeeRegisterFood.cs" />
-    <Compile Include="Ordering\ShiftMealByUserIdAndMealIdModel.cs" />
     <Compile Include="Report\MealForecastReport\EmployeeRegistrationModel.cs" />
     <Compile Include="MealRegistration\MealDateModel.cs" />
     <Compile Include="MealRegistration\MealModel.cs" />

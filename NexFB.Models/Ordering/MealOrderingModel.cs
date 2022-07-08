@@ -50,6 +50,7 @@ namespace NexFB.Models.Ordering
 
         public bool TakeAway { get; set; }
         public bool? IsVegetarian { get; set; }
+        public bool IsAllowOrderByShift { get; set; }
 
         public string Phone { get; set; }
 

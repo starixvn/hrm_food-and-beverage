@@ -59,35 +59,6 @@ namespace NexFB.Site.Controllers.API
             return _shiftMealMappingService.GetAllShiftMeal(criteria);
         }
 
-        [ApiAuthorize(FunctionKey = FBFunctionKey.MealRegistrationByShift, Policy = Policy.Read)]
-        public IEnumerable<ShiftMealByUserIdAndMealIdModel> GetAllShiftMealByUserIdAndMealId(int mealId = 0, string userId = null)
-        {
-            var today = DateTime.Now;
-            var fd = new DateTime();
-            var sd = new DateTime();
-
-
-            if (mealId == 4)
-            {
-                fd = new DateTime(today.Year, today.Month, today.Day);
-                sd = fd.AddDays(1);
-            }
-            else
-            {
-                sd = new DateTime(today.Year, today.Month, today.Day);
-                fd = sd.AddDays(-1);
-            }
-
-            var criteria = new GetShiftMealByUserIdAndMealIdCriteria
-            {
-                MealId = mealId,
-                FirstDate = fd,
-                SecondDate = sd,
-                UserId = userId
-            };
-
-            return _shiftMealMappingService.GetAllShiftMealByUserIdAndMealId(criteria);
-        }
 
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealRegistrationByShift, Policy = Policy.Host)]
         [HttpPost]

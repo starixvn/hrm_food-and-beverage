@@ -60,19 +60,6 @@ namespace NexFB.Services.Implement
             return shiftMeals;
         }
 
-        public IEnumerable<ShiftMealByUserIdAndMealIdModel> GetAllShiftMealByUserIdAndMealId(GetShiftMealByUserIdAndMealIdCriteria criteria)
-        {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<ShiftMealByUserIdAndMealIdModel> result = null;
-
-            if (criteria.IsValid())
-            {
-                result = GetData<ShiftMealByUserIdAndMealIdModel>(criteria);
-            }
-
-            return result;
-        }
-
         public void ExportShiftMealMapping(IEnumerable<ShiftMealMappingModel> report, string templatePath)
         {
             string reportTitle = Lang.ShiftMealMappingReport;

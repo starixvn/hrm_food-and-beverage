@@ -22,7 +22,6 @@ namespace NexFB.Services.Interface
     public interface IShiftMealMappingService
     {
         IEnumerable<ShiftMealMappingModel> GetAllShiftMeal(GetAllShiftMealMappingCriteria criteria);
-        IEnumerable<ShiftMealByUserIdAndMealIdModel> GetAllShiftMealByUserIdAndMealId(GetShiftMealByUserIdAndMealIdCriteria criteria);
 
         void ExportShiftMealMapping(IEnumerable<ShiftMealMappingModel> report, string templatePath);
 

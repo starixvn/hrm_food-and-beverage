@@ -4,9 +4,9 @@
 
 orderingModule.controller("OrderingController",
     ['$translate', '$scope', '$route', '$timeout', '$modal', 'orderingFactory', 'orderingService',
-        'notificationFactory', 'shiftMealMappingFactory', 'ErrorFactory', 'orderingUtilities', 'baseUrl',
+        'notificationFactory', 'ErrorFactory', 'orderingUtilities', 'baseUrl',
         function ($translate, $scope, $route, $timeout, $modal, orderingFactory, orderingService,
-            notificationFactory, shiftMealMappingFactory, ErrorFactory, orderingUtilities, baseUrl) {
+            notificationFactory, ErrorFactory, orderingUtilities, baseUrl) {
             $scope.getMessage = function () {
                 $translate('ConfirmMessageSaveOrder').then(function (message) {
                     $scope.confirmMessageSaveOrder = message;
@@ -475,19 +475,26 @@ orderingModule.controller("OrderingController",
                     if (errorMembers) {
                         notificationFactory.error("", errorMembers + " can't order because of non-registration");
                     }
+
+                    //check non-registration but order
+                    var errorShiftMembers = "";
+                    if (typeOrder !== $scope.typeOrder.sideDishOrder) {
+                        order.Members.forEach(member => {
+                            if (!member.IsAllowOrderByShift && member.IsOrder && !member.Member.IsFreeOrder) {
+                                isValid = false;
+                                console.log(member.Member.NickName)
+                                errorShiftMembers += (errorShiftMembers === ""
+                                    ? member.Member.NickName
+                                    : ", " + member.Member.NickName);
+                            }
+                        });
+                    }
+
+                    if (errorShiftMembers) {
+                        notificationFactory.error("", errorShiftMembers + " can't order because only allow ordering by shift");
+                    }
                     return isValid;
                 };
-
-                var getShiftMealByUserIdAndMealId = function (mealID, userId) {
-                    let promise = new Promise(function (resolve, reject) {
-                        shiftMealMappingFactory.getShiftMealByUserIdAndMealId(mealID, userId).success(function (rp) {
-                            resolve(rp);
-                        }).error(function (response, status) {
-                            ErrorFactory.errorHandle(status);
-                        });
-                    });
-                    return promise;
-                }
 
                 var closeAlternativeSelect = function () {
                     var newMembers = orderingService.getMemberNewOrder(),
@@ -513,112 +520,69 @@ orderingModule.controller("OrderingController",
                         order.Location.LocationId = orderingUtilities.getOrderLocation(typeOrder, $scope);
                     }
 
-                    //check only allow ordering by shift
-
-                    var members = order.Members;
-                    var userId = "";
-                    members.forEach(member => {
-                        if (userId === "") {
-                            userId += member.Member.UserId;
-                        } else {
-                            userId += "," + member.Member.UserId;
-                        }
-                        member.Member.IsAllow = false;
-                    });
-
-                    getShiftMealByUserIdAndMealId(order.MealID, userId).then((result) => {
-                        var errorMems = "";
-
-                        members.forEach(member => {
-                            if (result) {
-                                result.forEach(item => {
-                                    if (member.Member.UserId === item.UserId &&
-                                        (item.IsAllowOrderOnFirstDate || item.IsAllowOrderOnSecondDate)) {
-                                        member.Member.IsAllow = true;
-                                    }
+                    if ($scope.ValidateNewOrder(order, typeOrder)) {
+                        orderingFactory.checkDeliveryAreaExist(order.Location.LocationId).success(function (isExisted) {
+                            if (isExisted === 'true') {
+                                $scope.modalConfirmSaveOrderInstance = $modal.open({
+                                    templateUrl: baseUrl + 'Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
+                                    controller: "ModalConfirmController2",
+                                    backdrop: 'static',
+                                    resolve: {
+                                        content: function () {
+                                            return $scope.confirmMessageSaveOrder;
+                                        }
+                                    },
+                                    windowClass: "modal-confirm-center1"
                                 });
-                            }
-                        });
 
-                        if (typeOrder !== $scope.typeOrder.sideDishOrder) {
-                            members.forEach(member => {
-                                if (!member.Member.IsAllow && member.IsOrder && !member.Member.IsFreeOrder) {
-                                    errorMems += (errorMems === ""
-                                        ? member.Member.NickName
-                                        : ", " + member.Member.NickName);
-                                }
-                            });
-                        }
+                                $scope.modalConfirmSaveOrderInstance.result.then(function () {
+                                    closeAlternativeSelect();
 
-                        if (errorMems !== "") {
-                            notificationFactory.error("",
-                                errorMems + " can't order because only allow to order by shift");
-                        } else {
-                            if ($scope.ValidateNewOrder(order, typeOrder)) {
-                                orderingFactory.checkDeliveryAreaExist(order.Location.LocationId).success(function (isExisted) {
-                                    if (isExisted === 'true') {
-                                        $scope.modalConfirmSaveOrderInstance = $modal.open({
-                                            templateUrl: baseUrl + 'Src/Components/Extensions/Common/Templates/ModalConfirmContent2.html',
-                                            controller: "ModalConfirmController2",
-                                            backdrop: 'static',
-                                            resolve: {
-                                                content: function () {
-                                                    return $scope.confirmMessageSaveOrder;
+                                    if (typeOrder !== $scope.typeOrder.sideDishOrder) {
+                                        orderingFactory.createOrder(order)
+                                            .success(function (response) {
+                                                if (response.result.IsSuccessful) {
+                                                    notificationFactory.success("DataChangeSuccessfully");
+                                                    $scope.sendNewOrder(response.orderId);
+                                                    $scope.getDefaultForAddOrder();
                                                 }
-                                            },
-                                            windowClass: "modal-confirm-center1"
-                                        });
-
-                                        $scope.modalConfirmSaveOrderInstance.result.then(function () {
-                                            closeAlternativeSelect();
-
-                                            if (typeOrder !== $scope.typeOrder.sideDishOrder) {
-                                                orderingFactory.createOrder(order)
-                                                    .success(function (response) {
-                                                        if (response.result.IsSuccessful) {
-                                                            notificationFactory.success("DataChangeSuccessfully");
-                                                            $scope.sendNewOrder(response.orderId);
-                                                            $scope.getDefaultForAddOrder();
-                                                        }
-                                                        else {
-                                                            notificationFactory.error('', response.result.Message);
-                                                        }
-                                                    })
-                                                    .error(function (response, status) {
-                                                        ErrorFactory.errorHandle(status);
-                                                    });
-                                            }
-                                            else {
-                                                orderingFactory.createOrderSideDish(order)
-                                                    .success(function (response) {
-                                                        if (response.result.IsSuccessful) {
-                                                            notificationFactory.success("DataChangeSuccessfully");
-                                                            $scope.sendNewOrder(response.orderId);
-                                                            $scope.getDefaultForAddOrder();
-                                                        }
-                                                        else {
-                                                            notificationFactory.error('', response.result.Message);
-                                                        }
-                                                    })
-                                                    .error(function (response, status) {
-                                                        ErrorFactory.errorHandle(status);
-                                                    });
-                                            }
-                                        }, function () {
-                                        })['finally'](function () {
-                                            orderingUtilities.resetSelectOrderLocation($scope);
-                                            $scope.modalConfirmSaveOrderInstance = undefined;
-                                        });
+                                                else {
+                                                    notificationFactory.error('', response.result.Message);
+                                                }
+                                            })
+                                            .error(function (response, status) {
+                                                ErrorFactory.errorHandle(status);
+                                            });
                                     }
                                     else {
-                                        notificationFactory.error('DeliveryAreaNotExistError');
+                                        orderingFactory.createOrderSideDish(order)
+                                            .success(function (response) {
+                                                if (response.result.IsSuccessful) {
+                                                    notificationFactory.success("DataChangeSuccessfully");
+                                                    $scope.sendNewOrder(response.orderId);
+                                                    $scope.getDefaultForAddOrder();
+                                                }
+                                                else {
+                                                    notificationFactory.error('', response.result.Message);
+                                                }
+                                            })
+                                            .error(function (response, status) {
+                                                ErrorFactory.errorHandle(status);
+                                            });
                                     }
-                                }).error(function (response, status) {
-                                    ErrorFactory.errorHandle(status);
+                                }, function () {
+                                })['finally'](function () {
+                                    orderingUtilities.resetSelectOrderLocation($scope);
+                                    $scope.modalConfirmSaveOrderInstance = undefined;
                                 });
                             }
-                        }
-                    });
+                            else {
+                                notificationFactory.error('DeliveryAreaNotExistError');
+                            }
+                        }).error(function (response, status) {
+                            ErrorFactory.errorHandle(status);
+                        });
+                    }
                 };
 
                 $scope.removeMember = function (index, memberId, typeOrder) {
@@ -753,7 +717,8 @@ orderingModule.controller("OrderingController",
                         AllMenus: '',
                         IsOrder: true,
                         IsAllowOrder: false,
-                        IsVegetarianRegister: null
+                        IsVegetarianRegister: null,
+                        IsAllowOrderByShift: false
                     };
                     member.Member = newMember.employee;
                     var userId = member.Member.UserId;
@@ -766,6 +731,7 @@ orderingModule.controller("OrderingController",
                                 member.Menus = order.Members[0].Menus;
                                 member.IsAllowOrder = order.Members[0].IsAllowOrder;
                                 member.IsVegetarianRegister = order.Members[0].IsVegetarianRegister;
+                                member.IsAllowOrderByShift = order.Members[0].IsAllowOrderByShift;
                                 member.Member.IsFreeOrder = order.Members[0].Member.IsFreeOrder;
                             }
 
