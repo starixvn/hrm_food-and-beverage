@@ -852,5 +852,48 @@ mealRegistrationModule.factory("mealRegistrationUtilities",
                 return (parseInt(lunarDay) === 1 || parseInt(lunarDay) === 15);
             }
 
+            utility.getLunarDay = function (dd, mm, yy, timeZone) {
+                var k, dayNumber, monthStart, a11, b11, lunarDay, lunarMonth, lunarYear, lunarLeap, diff, leapMonthDiff;
+                dayNumber = getJuliusFromDate(dd, mm, yy);
+                k = parseInt((dayNumber - 2415021.076998695) / 29.530588853);
+                monthStart = getNewMoonDay(k + 1, timeZone);
+                if (monthStart > dayNumber) {
+                    monthStart = getNewMoonDay(k, timeZone);
+                }
+                a11 = getLunarMonth11(yy, timeZone);
+                b11 = a11;
+                if (a11 >= monthStart) {
+                    lunarYear = yy;
+                    a11 = getLunarMonth11(yy - 1, timeZone);
+                } else {
+                    lunarYear = yy + 1;
+                    b11 = getLunarMonth11(yy + 1, timeZone);
+                }
+                lunarDay = dayNumber - monthStart + 1;
+                diff = parseInt((monthStart - a11) / 29);
+                lunarLeap = 0;
+                lunarMonth = diff + 11;
+                if (b11 - a11 > 365) {
+                    leapMonthDiff = getLeapMonthOffset(a11, timeZone);
+                    if (diff >= leapMonthDiff) {
+                        lunarMonth = diff + 10;
+                        if (diff == leapMonthDiff) {
+                            lunarLeap = 1;
+                        }
+                    }
+                }
+                if (lunarMonth > 12) {
+                    lunarMonth = lunarMonth - 12;
+                }
+                if (lunarMonth >= 11 && diff < 4) {
+                    lunarYear -= 1;
+                }
+                return {
+                    day: parseInt(lunarDay),
+                    month: parseInt(lunarMonth),
+                    year: parseInt(lunarYear)
+                };
+            }
+
             return utility;
         }]);

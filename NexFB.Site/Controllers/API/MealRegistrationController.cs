@@ -131,12 +131,15 @@ namespace NexFB.Site.Controllers.API
 
             bool isValidDate = DateTime.TryParse(criteria.OnDate, out var onDate);
             bool isVegetarianDay = CheckVegetarianDay(onDate.Day, onDate.Month, onDate.Year, 7);
+            int getLunarMonthWorkDate = GetLunarMonth(onDate.Day, onDate.Month, onDate.Year, 7);
 
             DateTime nextDate = onDate.AddDays(1);
             bool isBeforeVegetarianDay = CheckVegetarianDay(nextDate.Day, nextDate.Month, nextDate.Year, 7);
+            int getLunarMonthTheDateAfterWorkDate = GetLunarMonth(nextDate.Day, nextDate.Month, nextDate.Year, 7);
 
-            bool isValidRegisterVegetarian = !(registerSupper == "1" && !isVegetarianDay && !isBeforeVegetarianDay);
-            if (isVegButNotSupper && !isVegetarianDay)
+            bool isValidRegisterVegetarian = !(registerSupper == "1" && !isVegetarianDay && !isBeforeVegetarianDay && getLunarMonthTheDateAfterWorkDate != 7);
+
+            if (isVegButNotSupper && !isVegetarianDay && getLunarMonthWorkDate != 7)
             {
                 isValidRegisterVegetarian = false;
             }
@@ -369,6 +372,57 @@ namespace NexFB.Site.Controllers.API
                 lunarYear -= 1;
             }
             return ((int)(lunarDay) == 1 || (int)(lunarDay) == middleLunarMonth);
+        }
+
+        public int GetLunarMonth(int dd, int mm, int yy, double timeZone)
+        {
+            const int middleLunarMonth = 15;
+            double leapMonthDiff;
+            int lunarYear, lunarLeap;
+            double dayNumber = GetJuliusFromDate(dd, mm, yy);
+            int k = (int)((dayNumber - 2415021.076998695) / 29.530588853);
+            int monthStart = GetNewMoonDay(k + 1, timeZone);
+            if (monthStart > dayNumber)
+            {
+                monthStart = GetNewMoonDay(k, timeZone);
+            }
+            double a11 = GetLunarMonth11(yy, timeZone);
+            double b11 = a11;
+            if (a11 >= monthStart)
+            {
+                lunarYear = yy;
+                a11 = GetLunarMonth11(yy - 1, timeZone);
+            }
+            else
+            {
+                lunarYear = yy + 1;
+                b11 = GetLunarMonth11(yy + 1, timeZone);
+            }
+            double lunarDay = dayNumber - monthStart + 1;
+            double diff = (int)((monthStart - a11) / 29);
+            lunarLeap = 0;
+            double lunarMonth = diff + 11;
+            if (b11 - a11 > 365)
+            {
+                leapMonthDiff = GetLeapMonthOffset(a11, timeZone);
+                if (diff >= leapMonthDiff)
+                {
+                    lunarMonth = diff + 10;
+                    if (diff == leapMonthDiff)
+                    {
+                        lunarLeap = 1;
+                    }
+                }
+            }
+            if (lunarMonth > 12)
+            {
+                lunarMonth = lunarMonth - 12;
+            }
+            if (lunarMonth >= 11 && diff < 4)
+            {
+                lunarYear -= 1;
+            }
+            return (int)(lunarMonth);
         }
     }
 }
