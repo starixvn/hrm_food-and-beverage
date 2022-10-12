@@ -98,6 +98,12 @@ namespace NexFB.Site
                 "~/Src/App/EmployeeRegistration/employeeRegistration-controller.js",
                 "~/Src/App/EmployeeRegistration/employeeRegistration-factory.js",
                 "~/Src/App/EmployeeRegistration/employeeRegistration-directive.js",
+
+                "~/Src/App/ManageVegetarian/manageVegetarian-route.js",
+                "~/Src/App/ManageVegetarian/manageVegetarian-controller.js",
+                //"~/Src/App/ManageVegetarian/manageVegetarian-factory.js",
+                //"~/Src/App/ManageVegetarian/manageVegetarian-directive.js",
+
                 "~/Src/App/UserControl/userControl-route.js",
                 "~/Src/App/UserControl/userControl-controller.js",
                 "~/Src/App/UserControl/userControl-factory.js",
