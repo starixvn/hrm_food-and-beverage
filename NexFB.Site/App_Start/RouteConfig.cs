@@ -65,7 +65,8 @@ namespace NexFB.Site
                 "MealTimeManagement/Index",
                 "MonthlyLunchAndDinnerReport/Index",
                 "MonthlyBreakfastAndSupperReport/Index",
-                "KitchenStaff/Order"
+                "KitchenStaff/Order",
+                "ManageVegetarian/Index"
             };
             homeRouteUrls.ForEach(url => routes.MapRoute(
                 name: url,

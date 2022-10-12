@@ -264,6 +264,9 @@
 	<data name="MealRegistration" xml:space="preserve">
     <value>Meal Registration</value>
   </data>
+	<data name="ManageVegetarian" xml:space="preserve">
+    <value>Manage Vegetarian</value>
+  </data>
 	<data name="Remark" xml:space="preserve">
     <value>Remark</value>
   </data>

@@ -1762,6 +1762,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Vegetarian.
+        /// </summary>
+        public static string ManageVegetarian {
+            get {
+                return ResourceManager.GetString("ManageVegetarian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meal Forecast Report/Detail.
         /// </summary>
         public static string MealForecastDetailReport {
