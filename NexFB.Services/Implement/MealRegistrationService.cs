@@ -76,6 +76,24 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
+        /// Get vegetarian management by range date.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list meal in week model.</returns>
+        public IEnumerable<VegetarianManagement> GetVegetarianManagementByRangeDate(GetVegetarianManagementByRangeDateCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<VegetarianManagement> listResult = null;
+
+            if (criteria.IsValid())
+            {
+                listResult = GetData<VegetarianManagement>(criteria);
+            }
+
+            return listResult;
+        }
+
+        /// <summary>
         /// Register meal by range date.
         /// </summary>
         /// <param name="criteria">The criteria.</param>

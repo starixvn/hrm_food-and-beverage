@@ -101,7 +101,7 @@ namespace NexFB.Site
 
                 "~/Src/App/ManageVegetarian/manageVegetarian-route.js",
                 "~/Src/App/ManageVegetarian/manageVegetarian-controller.js",
-                //"~/Src/App/ManageVegetarian/manageVegetarian-factory.js",
+                "~/Src/App/ManageVegetarian/manageVegetarian-factory.js",
                 //"~/Src/App/ManageVegetarian/manageVegetarian-directive.js",
 
                 "~/Src/App/UserControl/userControl-route.js",

@@ -138,6 +138,7 @@
     <Compile Include="MealRegistration\GetRegisterMealByRangeDateCriteria.cs" />
     <Compile Include="Kitchen\UndoOrderCriteria.cs" />
     <Compile Include="MealRegistration\GetRegisterMealSettingCriteria.cs" />
+    <Compile Include="MealRegistration\GetVegetarianManagementByRangeDateCriteria.cs" />
     <Compile Include="MealRegistration\SetRegisterMealByDefaultCriteria.cs" />
     <Compile Include="MealTimeManagement\UpdateMealTimeCriteria.cs" />
     <Compile Include="Ordering\AddMemberCriteria.cs" />

@@ -61,11 +61,11 @@
                     <span class="pull-right" ng-bind="date.WorkDate | date: 'd'">
                     </span>
                     <div ng-repeat="meal in date.Meals">
-                        <div ng-show="test(meal.MealId)">
-                            <span get-class-by-name ng-class="mealClass" ng-show="showShortName(meal.MealId, date.WorkDate,meal.IsVegetarian,meal)" class="txt-name">
+                        <div ng-show="isShowShortNameAndIcon(meal.MealId, date.WorkDate)">
+                            <span get-class-by-name ng-class="mealClass" class="txt-name">
                                 {{meal.ShortName}}:
                             </span>
-                            <span class="{{showIcon(meal.MealId, date.WorkDate)}}">
+                            <span class="icon-allow-register-vegetarian">
                             </span>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
             <li class="lbl-supper">S: {{"Supper" | translate}}</li>
         </ul>
         <ul class="list-unstyled list-inline">
-            <li><i class="icon-allow-register-vegetarian"></i>{{"Non-Vegetarian" | translate}}</li>
+            <li><i class="icon-allow-register-vegetarian"></i>Allow registering vegetarian</li>
         </ul>
     </div>
 </div>

@@ -98,6 +98,28 @@ namespace NexFB.Site.Controllers.API
         }
 
         /// <summary>
+        /// Get Vegetarian Management By Range Date.
+        /// </summary>
+        /// <param name="fromDate">The from date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <param name="mealId">The meal Id.</param>
+        [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Read)]
+        public IEnumerable<VegetarianManagement> GetVegetarianManagementByRangeDate(
+            DateTime fromDate,
+            DateTime toDate,
+            short? mealId = null)
+        {
+            var criteria = new GetVegetarianManagementByRangeDateCriteria
+            {
+                MealId = mealId,
+                FromDate = fromDate,
+                ToDate = toDate
+            };
+
+            return _mealRegistrationService.GetVegetarianManagementByRangeDate(criteria);
+        }
+
+        /// <summary>
         /// Register meal by range date.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
