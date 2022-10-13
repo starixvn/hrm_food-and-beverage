@@ -21,6 +21,7 @@ namespace NexFB.Services.Interface
     {
         IList<MealRegisterModel> GetRegisterMealByRangeDate(GetRegisterMealByRangeDateCriteria criteria);
         IEnumerable<EmployeeRegisterFood> GetEmployeeRegisterFoodByRangeDate(GetEmployeeRegisterFoodByRangeDateCriteria criteria);
+        IEnumerable<VegetarianManagement> GetVegetarianManagementByRangeDate(GetVegetarianManagementByRangeDateCriteria criteria);
 
         CommandResult RegisterMealByRangeDate(RegisterMealByRangeDateCriteria criteria);
 
