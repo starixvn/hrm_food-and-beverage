@@ -91,6 +91,8 @@
 		</Setting>
 		<Setting Key="RegisterMeal_SetByRangeDate" SpName="RegisterMeal_SetByRangeDate" DbName="FBM" Plain="0">
 		</Setting>
+		<Setting Key="VegetarianManagement_SetBySingleDate" SpName="VegetarianManagement_SetBySingleDate" DbName="FBM" Plain="0">
+		</Setting>
 		<Setting Key="EmployeeRegisterFood_GetByRangeDate" SpName="EmployeeRegisterFood_GetByRangeDate" DbName="FBM" Plain="0">
 		</Setting>
 		<Setting Key="VegetarianManagement_GetByRangeDate" SpName="VegetarianManagement_GetByRangeDate" DbName="FBM" Plain="0">

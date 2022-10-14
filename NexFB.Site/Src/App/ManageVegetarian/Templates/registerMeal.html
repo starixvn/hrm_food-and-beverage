@@ -1,0 +1,40 @@
+﻿
+<div>
+    <div class="modal-header">
+        <div class="popup-header">
+            {{"RegisterMeal" | translate}} - {{timePeriod}}<span class="close-popup" ng-click="cancel()"></span>
+        </div>
+    </div>
+
+    <div class="modal-body assign-role-modal">
+        <form class="col-sm-12 form-horizontal table-popup" novalidate>
+            <table name="vegetarian-management" class="table table-bordered">
+                <thead>
+                <th data-translate="Meal">
+                </th>
+                <th>
+                    Allow registering vegetarian
+                </th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="meal in meals">
+                        <td ng-bind="meal.MealEngName">
+                        </td>
+                        <td class="text-center width-percent-50">
+                            <input id="meal{{meal.MealId}}" type="checkbox" value="{{meal.MealId}}"
+                                   ng-checked="isVegetarianMeal(meal.MealId)" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="button" ng-show="isNotToday" ng-click="submit()" data-translate="Submit">
+        </button>
+        <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
+        </button>
+    </div>
+</div>
+

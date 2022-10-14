@@ -111,6 +111,25 @@ namespace NexFB.Services.Implement
             return commandResult;
         }
 
+
+        /// <summary>
+        /// set vegetarian management by range date.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        public CommandResult SetVegetarianManagementBySingleDate(SetVegetarianManagementBySingleDateCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            CommandResult commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
         /// <summary>
         /// Get default register meal.
         /// </summary>
