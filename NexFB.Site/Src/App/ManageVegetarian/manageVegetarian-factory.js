@@ -4,10 +4,9 @@
 
 manageVegetarianModule.factory('manageVegetarianFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
     return {
-        //getEmployeeRegisterByRangeDate: function (fromDate, toDate, mealId) {
-        //    return $http.get(baseUrl + 'api/MealRegistration/GetEmployeeRegisterFoodByRangeDate',
-        //        { params: { fromDate: fromDate, toDate: toDate, mealId: mealId } });
-        //},
+        setVegetarianManagementByRangeDate: function (mealRegistration) {
+            return $http.post(baseUrl + 'api/MealRegistration/SetVegetarianManagementBySingleDate', mealRegistration);
+        },
         getVegetarianManagementByRangeDate: function (fromDate, toDate, mealId) {
             return $http.get(baseUrl + 'api/MealRegistration/GetVegetarianManagementByRangeDate',
                 { params: { fromDate: fromDate, toDate: toDate, mealId: mealId } });

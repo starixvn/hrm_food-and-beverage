@@ -24,6 +24,7 @@ namespace NexFB.Services.Interface
         IEnumerable<VegetarianManagement> GetVegetarianManagementByRangeDate(GetVegetarianManagementByRangeDateCriteria criteria);
 
         CommandResult RegisterMealByRangeDate(RegisterMealByRangeDateCriteria criteria);
+        CommandResult SetVegetarianManagementBySingleDate(SetVegetarianManagementBySingleDateCriteria criteria);
 
         IList<MealDateModel> GetDefaultRegisterMeal(GetRegisterMealByDefaultCriteria criteria);
 

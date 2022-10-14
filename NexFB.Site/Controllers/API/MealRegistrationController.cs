@@ -178,6 +178,21 @@ namespace NexFB.Site.Controllers.API
             return _mealRegistrationService.RegisterMealByRangeDate(criteria);
         }
 
+        /// <summary>
+        /// Set Vegetarian Management By Single Date
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The command result.</returns>
+        [HttpPost]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Host)]
+        public CommandResult SetVegetarianManagementBySingleDate(SetVegetarianManagementBySingleDateCriteria criteria)
+        {
+            criteria.ModifiedBy = this.CurrentUser.UserId;
+            criteria.ModifiedDate = DateTime.Now;
+
+            return _mealRegistrationService.SetVegetarianManagementBySingleDate(criteria);
+        }
+
         [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Read)]
         public IList<MealDateModel> GetDefaultRegisterMeal()
         {

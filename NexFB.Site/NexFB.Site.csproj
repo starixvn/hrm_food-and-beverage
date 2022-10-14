@@ -261,6 +261,7 @@
     <Content Include="Src\App\ManageVegetarian\manageVegetarian-route.js" />
     <Content Include="Src\App\ManageVegetarian\Templates\index.html" />
     <Content Include="Src\App\ManageVegetarian\Templates\monthlyRegistration.html" />
+    <Content Include="Src\App\ManageVegetarian\Templates\registerMeal.html" />
     <Content Include="Src\App\Report\employeeNonRegistrationDetailReport-controller.js" />
     <Content Include="Src\App\Report\employeeNonRegistrationDetailReport-directive.js" />
     <Content Include="Src\App\Report\employeeRegistrationDetailReport-directive.js" />
