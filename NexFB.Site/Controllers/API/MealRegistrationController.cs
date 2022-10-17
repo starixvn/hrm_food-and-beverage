@@ -14,6 +14,7 @@ namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
@@ -128,47 +129,29 @@ namespace NexFB.Site.Controllers.API
         [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Host)]
         public CommandResult RegisterMealByRangeDate(RegisterMealByRangeDateCriteria criteria)
         {
-            XmlDocument xml = new XmlDocument();
-            xml.LoadXml(criteria.Meal);
-            XmlNodeList mealList = xml.GetElementsByTagName("Meal");
-
-            string registerSupper = mealList[3].Attributes?[IsVeg]?.Value;
-
-            bool isVeg = false;
-            bool isVegButNotSupper = false;
-            const int indexSupper = 3;
-            for (int i = 0; i < 4; i++)
-            {
-                if (mealList[i].Attributes?[IsVeg]?.Value == "1" && i < indexSupper)
-                {
-                    isVeg = true;
-                    isVegButNotSupper = true;
-                    break;
-                }
-                if (mealList[i].Attributes?[IsVeg]?.Value == "1" && i == indexSupper)
-                {
-                    isVeg = true;
-                }
-            }
+            bool isValidRegister = true;
 
             bool isValidDate = DateTime.TryParse(criteria.OnDate, out var onDate);
-            bool isVegetarianDay = CheckVegetarianDay(onDate.Day, onDate.Month, onDate.Year, 7);
-            int getLunarMonthWorkDate = GetLunarMonth(onDate.Day, onDate.Month, onDate.Year, 7);
-
-            DateTime nextDate = onDate.AddDays(1);
-            bool isBeforeVegetarianDay = CheckVegetarianDay(nextDate.Day, nextDate.Month, nextDate.Year, 7);
-            int getLunarMonthTheDateAfterWorkDate = GetLunarMonth(nextDate.Day, nextDate.Month, nextDate.Year, 7);
-
-            bool isValidRegisterVegetarian = !(registerSupper == "1" && !isVegetarianDay && !isBeforeVegetarianDay && getLunarMonthTheDateAfterWorkDate != 7);
-
-            if (isVegButNotSupper && !isVegetarianDay && getLunarMonthWorkDate != 7)
+            if (isValidDate)
             {
-                isValidRegisterVegetarian = false;
+                var isAllowRegisterVegetarian = GetVegetarianManagementByRangeDate(onDate, onDate, null).ToList<VegetarianManagement>();
+                XmlDocument xml = new XmlDocument();
+                xml.LoadXml(criteria.Meal);
+                XmlNodeList mealList = xml.GetElementsByTagName("Meal");
+
+                for (int i = 0; i < 4; i++)
+                {
+                    if (mealList[i].Attributes?[IsVeg]?.Value == "1")
+                    {
+                        if (isAllowRegisterVegetarian.Count == 0 || (isAllowRegisterVegetarian.Count != 0 && (bool)!isAllowRegisterVegetarian[i].IsAllowVegetarian))
+                        {
+                            isValidRegister = false;
+                        }
+                    }
+                }
             }
 
-            bool isValidRegister = (isValidRegisterVegetarian || !isVeg) && criteria != null;
-
-            if (isValidRegister)
+            if (isValidRegister && criteria != null)
             {
                 criteria.SystemId = this.CurrentUser.UserId;
                 criteria.ModifiedBy = this.CurrentUser.UserId;

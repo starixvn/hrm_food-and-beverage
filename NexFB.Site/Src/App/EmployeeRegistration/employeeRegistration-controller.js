@@ -274,50 +274,30 @@ mealRegistrationModule.controller('MonthlyRegistrationController',
                 });
 
                 $scope.modalRegisterInstance.result.then(function (registrationInfo) {
-                    var radioVegetarian = registrationInfo.meals;
+                    var mealRegistration = {
+                        meal: registrationInfo.mealsTemplate,
+                        onDate: date.WorkDate.toString()
+                    };
 
-                    var wd = new Date(date.WorkDate);
-                    var isVegetarianDay = mealRegistrationUtilities.checkVegetarianDay(wd.getDate(), wd.getMonth() + 1, wd.getFullYear(), 7);
-                    var getLunarDayWorkDate = mealRegistrationUtilities.getLunarDay(wd.getDate(), wd.getMonth() + 1, wd.getFullYear(), 7);
+                    mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
+                        if (response.IsSuccessful) {
+                            date.Meals = registrationInfo.meals;
+                            var changedMonth = $scope.currentDate,
+                                fromDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth(), 1),
+                                toDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth() + 1, 0);
+                            getRegisterMealByRangeDate(fromDate, toDate, null);
 
-                    wd.setDate(wd.getDate() + 1);
-                    var isBeforeVegetarianDay = mealRegistrationUtilities.checkVegetarianDay(wd.getDate(), wd.getMonth() + 1, wd.getFullYear(), 7);
-                    var getLunarDayTheDayAfterWorkDate = mealRegistrationUtilities.getLunarDay(wd.getDate(), wd.getMonth() + 1, wd.getFullYear(), 7);
-
-                    var noVegetarian = true;
-                    radioVegetarian.forEach(x => {
-                        if (x.IsVegetarian === 1 && x.MealId !== 4 && !isVegetarianDay && getLunarDayWorkDate.month !== 7) noVegetarian = false;
-                        if (x.IsVegetarian === 1 && x.MealId === 4 && !isVegetarianDay && !isBeforeVegetarianDay && getLunarDayTheDayAfterWorkDate.month !== 7) noVegetarian = false;
+                            notificationFactory.success("DataChangeSuccessfully");
+                        } else {
+                            notificationFactory.error("", response.Message);
+                        }
+                    }).error(function (response, status) {
+                        if (status === 405) {
+                            ErrorFactory.errorHandle(status);
+                        } else {
+                            notificationFactory.error("DataChangeFail");
+                        }
                     });
-
-                    if (!noVegetarian) {
-                        notificationFactory.error("", "Can't register because it's not a vegetarian day or supper before vegetarian day");
-                    } else {
-                        var mealRegistration = {
-                            meal: registrationInfo.mealsTemplate,
-                            onDate: date.WorkDate.toString()
-                        };
-
-                        mealRegistrationFactory.registerMealByRangeDate(mealRegistration).success(function (response) {
-                            if (response.IsSuccessful) {
-                                date.Meals = registrationInfo.meals;
-                                var changedMonth = $scope.currentDate,
-                                    fromDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth(), 1),
-                                    toDate = new Date(changedMonth.getFullYear(), changedMonth.getMonth() + 1, 0);
-                                getRegisterMealByRangeDate(fromDate, toDate, null);
-
-                                notificationFactory.success("DataChangeSuccessfully");
-                            } else {
-                                notificationFactory.error("", response.Message);
-                            }
-                        }).error(function (response, status) {
-                            if (status === 405) {
-                                ErrorFactory.errorHandle(status);
-                            } else {
-                                notificationFactory.error("DataChangeFail");
-                            }
-                        });
-                    }
                 });
             };
 
@@ -907,9 +887,9 @@ mealRegistrationModule.controller('DefaultRegisterMeal',
         }]);
 
 mealRegistrationModule.controller('RegisterMealController',
-    ['meals', '$scope', 'workDate', '$modalInstance', 'mealTimesheet', 'mode', 'isSameMeal', 'timePeriod',
+    ['meals', 'manageVegetarianFactory', '$scope', 'workDate', '$modalInstance', 'mealTimesheet', 'mode', 'isSameMeal', 'timePeriod',
         'isSerialRegistration', '$modal', 'notificationFactory', 'registerSetting', 'listRegister', 'baseUrl', 'mealRegistrationUtilities',
-        function (meals, $scope, workDate, $modalInstance, mealTimesheet, mode, isSameMeal, timePeriod,
+        function (meals, manageVegetarianFactory, $scope, workDate, $modalInstance, mealTimesheet, mode, isSameMeal, timePeriod,
             isSerialRegistration, $modal, notificationFactory, registerSetting, listRegister, baseUrl, mealRegistrationUtilities) {
 
             $scope.meals = meals;
@@ -943,6 +923,19 @@ mealRegistrationModule.controller('RegisterMealController',
             $scope.wd = workDate;
 
             if (typeof (timePeriod) === "object") {
+                manageVegetarianFactory.getVegetarianManagementByRangeDate(workDate, workDate, null).success(function (result) {
+                    if (result.length !== 0) {
+                        $scope.disableRegisterVegetarian = {
+                            1: !result[0].IsAllowVegetarian,
+                            2: !result[1].IsAllowVegetarian,
+                            3: !result[2].IsAllowVegetarian,
+                            4: !result[3].IsAllowVegetarian
+                        };
+                    }
+                }).error(function (response, status) {
+                    ErrorFactory.errorHandle(status);
+                });
+
                 var isVegetarianDay = mealRegistrationUtilities.checkVegetarianDay(timePeriod.getDate(), timePeriod.getMonth() + 1, timePeriod.getFullYear(), 7);
                 var getLunarDayWorkDate = mealRegistrationUtilities.getLunarDay(timePeriod.getDate(), timePeriod.getMonth() + 1, timePeriod.getFullYear(), 7);
 
