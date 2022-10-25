@@ -134,24 +134,21 @@ namespace NexFB.Site.Controllers.API
             bool isValidDate = DateTime.TryParse(criteria.OnDate, out var onDate);
             if (isValidDate)
             {
-                var isAllowRegisterVegetarian = GetVegetarianManagementByRangeDate(onDate, onDate, null).ToList<VegetarianManagement>();
+                var isAllowRegisterVegetarian = GetVegetarianManagementByRangeDate(onDate, onDate).ToList<VegetarianManagement>();
                 XmlDocument xml = new XmlDocument();
                 xml.LoadXml(criteria.Meal);
                 XmlNodeList mealList = xml.GetElementsByTagName("Meal");
 
                 for (int i = 0; i < 4; i++)
                 {
-                    if (mealList[i].Attributes?[IsVeg]?.Value == "1")
+                    if (!CheckRegisterMeal(mealList, isAllowRegisterVegetarian, i))
                     {
-                        if (isAllowRegisterVegetarian.Count == 0 || (isAllowRegisterVegetarian.Count != 0 && (bool)!isAllowRegisterVegetarian[i].IsAllowVegetarian))
-                        {
-                            isValidRegister = false;
-                        }
+                        isValidRegister = false;
                     }
                 }
             }
 
-            if (isValidRegister && criteria != null)
+            if (isValidRegister)
             {
                 criteria.SystemId = this.CurrentUser.UserId;
                 criteria.ModifiedBy = this.CurrentUser.UserId;
@@ -159,6 +156,26 @@ namespace NexFB.Site.Controllers.API
             }
 
             return _mealRegistrationService.RegisterMealByRangeDate(criteria);
+        }
+
+        private static bool CheckRegisterMeal(XmlNodeList mealList, List<VegetarianManagement> isAllowRegisterVegetarian, int index)
+        {
+            if (mealList[index].Attributes?[IsVeg]?.Value == "1")
+            {
+                if (isAllowRegisterVegetarian.Count == 0)
+                {
+                    return false;
+                }
+                else if ((bool)!isAllowRegisterVegetarian[index].IsAllowVegetarian)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return true;
         }
 
         /// <summary>
