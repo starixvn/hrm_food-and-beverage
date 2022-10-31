@@ -29,6 +29,9 @@ orderingModule.factory("orderingFactory",
             getMyMenu: function () {
                 return $http.get(baseUrl + 'api/Ordering/GetMyMenu');
             },
+            getRemarkList: function () {
+                return $http.get(baseUrl + 'api/Ordering/GetOrderRemark');
+            },
             getDepartment: function () {
                 return $http.get(baseUrl + 'api/Common/GetAllDepartment');
             },

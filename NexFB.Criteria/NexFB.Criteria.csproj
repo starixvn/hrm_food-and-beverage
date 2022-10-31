@@ -147,6 +147,7 @@
     <Compile Include="Ordering\AdminUpdateOrderSideDishCriteria.cs" />
     <Compile Include="Ordering\GetAlternativeMenuByUserIdCriteria.cs" />
     <Compile Include="Ordering\GetLastMofifiedDateByOrderIdCriteria.cs" />
+    <Compile Include="Ordering\GetOrderRemarkCriteria.cs" />
     <Compile Include="Ordering\InsertOrderSideDishCriteria.cs" />
     <Compile Include="Ordering\RemoveMemberCriteria.cs" />
     <Compile Include="Ordering\DeleteOrderCriteria.cs" />

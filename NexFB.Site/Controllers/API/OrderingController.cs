@@ -65,7 +65,7 @@ namespace NexFB.Site.Controllers.API
             return orders;
         }
 
-         /// <summary>
+        /// <summary>
         /// Function to get menu.
         /// </summary>
         /// <returns>MealOrdering Model.</returns>
@@ -162,7 +162,7 @@ namespace NexFB.Site.Controllers.API
             };
 
             MealOrderingModel order = _orderService.GetOrderById(criteria);
-            order.CurrentUser = new Employee() 
+            order.CurrentUser = new Employee()
             {
                 UserId = this.CurrentUser.UserId,
                 NickName = this.CurrentUser.NickName,
@@ -170,6 +170,25 @@ namespace NexFB.Site.Controllers.API
             };
 
             return order;
+        }
+
+        /// <summary>
+        /// Function to get top 10 remark.
+        /// </summary>
+        /// <param name="RegisterBy"></param>
+        /// <returns>Top 10 remark of</returns>
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
+        public IEnumerable<OrderRemarkModel> GetOrderRemark()
+        {
+            var criteria = new GetOrderRemarkCriteria()
+            {
+                RegisterBy = this.CurrentUser.UserId
+            };
+
+            IEnumerable<OrderRemarkModel> listRemark = _orderService.GetOrderRemark(criteria);
+
+            return listRemark;
         }
 
         /// <summary>
@@ -182,7 +201,7 @@ namespace NexFB.Site.Controllers.API
         public object InsertOrder(MealOrderingModel model)
         {
             var criteria = new InsertOrderCriteria()
-            { 
+            {
                 CreatedBy = this.CurrentUser.UserId,
                 CreatedDate = DateTime.Now,
                 IsSavedOrder = model.IsSavedOrder,

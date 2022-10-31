@@ -269,6 +269,24 @@ namespace NexFB.Services.Implement
         }
 
         /// <summary>
+        /// get top 10 order remarks
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>top 10 order remarks</returns>
+        public IEnumerable<OrderRemarkModel> GetOrderRemark(GetOrderRemarkCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IEnumerable<OrderRemarkModel> result = null;
+
+            if (criteria.IsValid())
+            {
+                result = GetData<OrderRemarkModel>(criteria);
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Insert order side dish.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
