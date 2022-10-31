@@ -112,6 +112,8 @@
 		</Setting>
 	</Function>
 	<Function Name="Ordering">
+		<Setting Key="Remark_GetTopTen" SpName="Remark_GetTopTen" DbName="FBM" Plain="0">
+		</Setting>
 		<Setting Key="MealOrder_Get_MenuBySysID" SpName="MealOrder_Get_MenuBySysID" DbName="FBM" Plain="0">
 			<Mapping DataField="MenuEngName" ObjectProperty="NameEN" Class="Menu" />
 			<Mapping DataField="MenuVNMName" ObjectProperty="NameVN" Class="Menu" />

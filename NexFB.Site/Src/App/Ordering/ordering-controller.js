@@ -101,6 +101,59 @@ orderingModule.controller("OrderingController",
                 }
             };
 
+            //suggest top 10 remarks when order
+            $scope.getRemarkList = function () {
+                orderingFactory.getRemarkList()
+                    .success(function (data) {
+                        $scope.remarkList = []
+                        data.forEach(remark => {
+                            $scope.remarkList.push(remark.Remark)
+                        })
+                    })
+                    .error(function (response, status) {
+                        ErrorFactory.errorHandle(status);
+                    });
+            }
+
+            $scope.getRemarkList()
+            $scope.remarkListResult = []
+            $scope.hoverRemark = ""
+
+            $scope.fillTextboxNewOrder = function (string) {
+                $scope.newOrder.Remark = string;
+                $scope.hidethis = true;
+            }
+
+            $scope.fillTextboxSavedOrder = function (string) {
+                $scope.savedOrder.Remark = string;
+                $scope.hidethis = true;
+            }
+
+            $scope.fillTextboxSideDishOrder = function (string) {
+                $scope.sideDishOrder.Remark = string;
+                $scope.hidethis = true;
+            }
+
+            $scope.focusInput = function () {
+                $scope.hidethis = false;
+                $scope.remarkListResult = $scope.remarkList
+            };
+
+            $scope.blurInput = function () {
+                if (!$scope.hoverRemark) {
+                    $scope.hidethis = true;
+                }
+            };
+
+            $scope.mouseoverRemark = function (remark) {
+                $scope.hoverRemark = remark
+            };
+
+            $scope.mouseleaveRemark = function () {
+                $scope.hoverRemark = ""
+            };
+
+
             $scope.sendEditOrder = function (orderId) {
                 orderSignalR.server.sendEditOrder(orderId);
             };
@@ -545,6 +598,7 @@ orderingModule.controller("OrderingController",
                                                     notificationFactory.success("DataChangeSuccessfully");
                                                     $scope.sendNewOrder(response.orderId);
                                                     $scope.getDefaultForAddOrder();
+                                                    $scope.getRemarkList();
                                                 }
                                                 else {
                                                     notificationFactory.error('', response.result.Message);

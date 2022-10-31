@@ -44,6 +44,8 @@ namespace NexFB.Services.Interface
 
         IEnumerable<Menu> GetAlternativeMenuByUserId(GetAlternativeMenuByUserIdCriteria criteria);
 
+        IEnumerable<OrderRemarkModel> GetOrderRemark(GetOrderRemarkCriteria criteria);
+
         CommandResult InsertOrderSideDish(InsertOrderSideDishCriteria criteria);
 
         CommandResult UpdateOrderSideDish(UpdateOrderSideDishCriteria criteria);
