@@ -268,7 +268,7 @@
                             <label data-translate="Remark">
                             </label>
                             <input ng-model="newOrder.Remark" type="text" class="txt-remark" maxlength="500" ng-focus="focusInput()" ng-blur="blurInput()" />
-                            <ul ng-model="hidethis" ng-hide="hidethis">
+                            <ul ng-model="hidethis" ng-hide="hidethis" class="scroll-list-remark">
                                 <li class="list-group-item-order"
                                     ng-repeat="remark in remarkListResult"
                                     ng-click="fillTextboxNewOrder(remark)"
@@ -398,7 +398,7 @@
                             </label>
                             <!--<input ng-model="savedOrder.Remark" type="text" class="txt-remark" maxlength="500" />-->
                             <input ng-model="savedOrder.Remark" type="text" class="txt-remark" maxlength="500" ng-focus="focusInput()" ng-blur="blurInput()" />
-                            <ul ng-model="hidethis" ng-hide="hidethis">
+                            <ul ng-model="hidethis" ng-hide="hidethis" class="scroll-list-remark">
                                 <li class="list-group-item-order"
                                     ng-repeat="remark in remarkListResult"
                                     ng-click="fillTextboxSavedOrder(remark)"
@@ -517,7 +517,7 @@
                             </label>
                             <!--<input ng-model="sideDishOrder.Remark" type="text" class="txt-remark" maxlength="500" />-->
                             <input ng-model="sideDishOrder.Remark" type="text" class="txt-remark" maxlength="500" ng-focus="focusInput()" ng-blur="blurInput()" />
-                            <ul ng-model="hidethis" ng-hide="hidethis">
+                            <ul ng-model="hidethis" ng-hide="hidethis" class="scroll-list-remark">
                                 <li class="list-group-item-order"
                                     ng-repeat="remark in remarkListResult"
                                     ng-click="fillTextboxSideDishOrder(remark)"
@@ -535,6 +535,9 @@
                             </label>
                             <input ng-model="sideDishOrder.Phone" type="text" maxlength="50" class="txtPhone" />
                         </div>
+
+                    </div>
+                    <div class="row form-inline form-order">
                         <div class="form-group takeAway">
                             <input type="checkbox" ng-model="sideDishOrder.TakeAway" />
                             <label data-translate="TakeAway">

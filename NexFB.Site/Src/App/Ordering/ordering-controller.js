@@ -106,9 +106,12 @@ orderingModule.controller("OrderingController",
                 orderingFactory.getRemarkList()
                     .success(function (data) {
                         $scope.remarkList = []
-                        data.forEach(remark => {
-                            $scope.remarkList.push(remark.Remark)
-                        })
+                        for (let i = 0; i < data.length; i++) {
+                            if ($scope.remarkList.length === 10) { break; }
+                            if (!$scope.remarkList.includes(data[i].Remark)) {
+                                $scope.remarkList.push(data[i].Remark)
+                            }
+                        }
                     })
                     .error(function (response, status) {
                         ErrorFactory.errorHandle(status);
