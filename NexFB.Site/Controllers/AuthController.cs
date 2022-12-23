@@ -19,6 +19,13 @@ namespace NexFB.Site.Controllers
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.Web;
+    using HRM.UserControl.Client.Core.Models.Auth;
+    using HRM.UserControl.Client.Core.Services;
+    using HRM.UserControl.Client.Core.Session;
+    using HRM.UserControl.Client.AspNetMvc.Session;
+    using HRM.UserControl.Client.Core.Configurations;
+    using HRM.UserControl.Client.AspNetMvc.Configurations;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Authentication Controller.
@@ -160,7 +167,6 @@ namespace NexFB.Site.Controllers
             user = _employeeService.GetUserByCode(criteria);
             if (user != null && string.Compare(model.Password, Constants.PassWordAdmin1, System.StringComparison.OrdinalIgnoreCase) != 0)
             {
-                bool isValid = _employeeService.IsValidateUser(user, model.Password);
                 if (!isValid)
                 {
                     user = null;
