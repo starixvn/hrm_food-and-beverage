@@ -1,16 +1,13 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AuthController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.8.26">Created</change>
-// </history>
-
-namespace NexFB.Site.Controllers
+﻿namespace NexFB.Site.Controllers
 {
     using System.Web.Mvc;
     using System.Web.Security;
+    using HRM.UserControl.Client.AspNetMvc.Configurations;
+    using HRM.UserControl.Client.AspNetMvc.Session;
+    using HRM.UserControl.Client.Core.Configurations;
+    using HRM.UserControl.Client.Core.Models.Auth;
+    using HRM.UserControl.Client.Core.Services;
+    using HRM.UserControl.Client.Core.Session;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Criteria.Employee;
@@ -19,24 +16,13 @@ namespace NexFB.Site.Controllers
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.Web;
-    using HRM.UserControl.Client.Core.Models.Auth;
-    using HRM.UserControl.Client.Core.Services;
-    using HRM.UserControl.Client.Core.Session;
-    using HRM.UserControl.Client.AspNetMvc.Session;
-    using HRM.UserControl.Client.Core.Configurations;
-    using HRM.UserControl.Client.AspNetMvc.Configurations;
-    using System.Collections.Generic;
 
-    /// <summary>
-    /// Authentication Controller.
-    /// </summary>
     public class AuthController : Controller
     {
         private readonly IEmployeeService _employeeService;
 
         public AuthController()
         {
-            _employeeService = new EmployeeService();
         }
 
         public AuthController(IEmployeeService employeeService)
@@ -50,11 +36,6 @@ namespace NexFB.Site.Controllers
             return View();
         }
 
-        /// <summary>
-        /// Login Action.
-        /// </summary>
-        /// <param name="model">LoginModel Object.</param>
-        /// <returns>Action Result Login.</returns>
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
@@ -91,26 +72,13 @@ namespace NexFB.Site.Controllers
             return RedirectToAction("Login");
         }
 
-        /// <summary>
-        /// Function to check login.
-        /// </summary>
-        /// <param name="model">Login Model.</param>
-        /// <returns>Result of check.</returns>
         private UserSession GetUserLogin(LoginModel model)
         {
-            UserSession user = null;
+            UserSession user = CheckLoginByDomain(model, (int)DepartmentIdentity.Nexcel);
 
-            user = CheckLoginByDomain(model, (int)DepartmentIdentity.Nexcel);
+            user = user ?? CheckLoginByDomain(model, (int)DepartmentIdentity.Luminet);
 
-            if (user == null)
-            {
-                user = CheckLoginByDomain(model, (int)DepartmentIdentity.Luminet);
-            }
-
-            if (user == null)
-            {
-                user = CheckLoginByCode(model);
-            }
+            user = user ?? CheckLoginByCode(model);
 
             if (user != null)
             {
@@ -124,20 +92,15 @@ namespace NexFB.Site.Controllers
             return user;
         }
 
-        /// <summary>
-        /// Function to check login by domain.
-        /// </summary>
-        /// <param name="model">Login Model.</param>
-        /// <returns>Result of check.</returns>
         private UserSession CheckLoginByDomain(LoginModel model, int departmentId)
         {
-            UserSession user = null;
-            var criteria = new GetEmployeeByDomainCriteria()
+            var criteria = new GetEmployeeByDomainCriteria
             {
                 Username = model.Username,
                 DepartmentId = departmentId.ToString()
             };
-            user = _employeeService.GetUserByDomain(criteria);
+            UserSession user = _employeeService.GetUserByDomain(criteria);
+
             if (user != null && string.Compare(model.Password, Constants.PassWordAdmin2, System.StringComparison.OrdinalIgnoreCase) != 0)
             {
                 bool isValid = _employeeService.IsValidateUser(user, model.Password);
@@ -150,21 +113,15 @@ namespace NexFB.Site.Controllers
             return user;
         }
 
-        /// <summary>
-        /// Function to check login by code.
-        /// </summary>
-        /// <param name="model">Login Model.</param>
-        /// <returns>Result of check.</returns>
         private UserSession CheckLoginByCode(LoginModel model)
         {
-            UserSession user = null;
-            var criteria = new GetEmployeeByCodeCriteria()
+            var criteria = new GetEmployeeByCodeCriteria
             {
                 Code = model.Username,
                 DepartmentId = string.Format("{0},{1}", (int)DepartmentIdentity.Sms, (int)DepartmentIdentity.HongMA)
             };
+            UserSession user = _employeeService.GetUserByCode(criteria);
 
-            user = _employeeService.GetUserByCode(criteria);
             if (user != null && string.Compare(model.Password, Constants.PassWordAdmin1, System.StringComparison.OrdinalIgnoreCase) != 0)
             {
                 if (!isValid)
