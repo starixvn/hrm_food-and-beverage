@@ -31,3 +31,4 @@ $tf*/
 *.Publish.xml
 /NexFB.suo
 .vs/
+packages/
