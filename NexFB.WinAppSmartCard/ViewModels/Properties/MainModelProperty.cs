@@ -9,13 +9,13 @@
 
 namespace NexFB.WinAppSmartCard.ViewModels.Properties
 {
-    using System.Threading;
-    using System.Windows;
-    using System.Windows.Input;
-    using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.Pos.Core.Models;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
+    using System;
+    using System.Threading;
+    using System.Windows;
+    using System.Windows.Input;
 
     /// <summary>
     /// Main Model Property.
@@ -316,7 +316,7 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
             {
                 if (_screeHeight > 900)
                 {
-                    _logoMargin = _screeHeight == 960 ? ConstantValue.LogoMargin960 : ConstantValue.LogoMarginMoreThan960;
+                    _logoMargin = Math.Round(_screeHeight, 0, MidpointRounding.ToEven) == 960 ? ConstantValue.LogoMargin960 : ConstantValue.LogoMarginMoreThan960;
                 }
                 else
                 {

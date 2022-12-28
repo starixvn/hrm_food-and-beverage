@@ -25,19 +25,9 @@ namespace NexFB.Site.Controllers.API
         /// </summary>
         /// <param name="lang">Language input.</param>
         /// <returns>String resource JSON format.</returns>
-        public string Get(string lang)
+        public string Get()
         {
-            ResourceManager resourceManager = null;
-            switch (lang)
-            {
-                case "en":
-                    resourceManager = new ResourceManager(typeof(Lang)) { IgnoreCase = true };
-                    break;
-                default:
-                    resourceManager = new ResourceManager(typeof(Lang)) { IgnoreCase = true };
-                    break;
-            }
-
+            ResourceManager resourceManager = new ResourceManager(typeof(Lang)) { IgnoreCase = true };
             ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
             var dictionary = resourceSet.Cast<DictionaryEntry>();
             var items = dictionary.Select(dict => string.Format("\"{0}\" : \"{1}\"", dict.Key, string.Join(",", dict.Value)));

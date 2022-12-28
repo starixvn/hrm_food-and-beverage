@@ -191,7 +191,7 @@ namespace NexFB.WinAppSmartCard.SmartCardHelper
             while (!e.Cancel)
             {
                 SmartcardErrorCode result;
-                lock (this)
+                lock (_Instance)
                 {
                     if (!this.HasContext)
                     {
@@ -238,7 +238,7 @@ namespace NexFB.WinAppSmartCard.SmartCardHelper
                                                 data = ByteArrayToString(_states[item].RGBAttribute(), attribute);
                                             }
                                         }
-                                        
+
                                         CardNumber = data;
                                         break;
                                     }

@@ -348,7 +348,7 @@ namespace NexFB.Site.Controllers.API
         {
             int i;
             int k = (int)((a11 - 2415021.076998695) / 29.530588853 + 0.5);
-            double last = 0;
+            double last;
             i = 1; // We start with the month following lunar month 11
             double arc = GetSunLongitude(GetNewMoonDay(k + i, timeZone), timeZone);
             do
@@ -356,15 +356,13 @@ namespace NexFB.Site.Controllers.API
                 last = arc;
                 i++;
                 arc = GetSunLongitude(GetNewMoonDay(k + i, timeZone), timeZone);
-            } while (arc != last && i < 14);
+            } while ((int)arc != last && i < 14);
             return i - 1;
         }
 
         public bool CheckVegetarianDay(int dd, int mm, int yy, double timeZone)
         {
             const int middleLunarMonth = 15;
-            double leapMonthDiff;
-            int lunarYear, lunarLeap;
             double dayNumber = GetJuliusFromDate(dd, mm, yy);
             int k = (int)((dayNumber - 2415021.076998695) / 29.530588853);
             int monthStart = GetNewMoonDay(k + 1, timeZone);
@@ -372,50 +370,14 @@ namespace NexFB.Site.Controllers.API
             {
                 monthStart = GetNewMoonDay(k, timeZone);
             }
-            double a11 = GetLunarMonth11(yy, timeZone);
-            double b11 = a11;
-            if (a11 >= monthStart)
-            {
-                lunarYear = yy;
-                a11 = GetLunarMonth11(yy - 1, timeZone);
-            }
-            else
-            {
-                lunarYear = yy + 1;
-                b11 = GetLunarMonth11(yy + 1, timeZone);
-            }
             double lunarDay = dayNumber - monthStart + 1;
-            double diff = (int)((monthStart - a11) / 29);
-            lunarLeap = 0;
-            double lunarMonth = diff + 11;
-            if (b11 - a11 > 365)
-            {
-                leapMonthDiff = GetLeapMonthOffset(a11, timeZone);
-                if (diff >= leapMonthDiff)
-                {
-                    lunarMonth = diff + 10;
-                    if (diff == leapMonthDiff)
-                    {
-                        lunarLeap = 1;
-                    }
-                }
-            }
-            if (lunarMonth > 12)
-            {
-                lunarMonth = lunarMonth - 12;
-            }
-            if (lunarMonth >= 11 && diff < 4)
-            {
-                lunarYear -= 1;
-            }
+
             return ((int)(lunarDay) == 1 || (int)(lunarDay) == middleLunarMonth);
         }
 
         public int GetLunarMonth(int dd, int mm, int yy, double timeZone)
         {
-            const int middleLunarMonth = 15;
             double leapMonthDiff;
-            int lunarYear, lunarLeap;
             double dayNumber = GetJuliusFromDate(dd, mm, yy);
             int k = (int)((dayNumber - 2415021.076998695) / 29.530588853);
             int monthStart = GetNewMoonDay(k + 1, timeZone);
@@ -427,17 +389,13 @@ namespace NexFB.Site.Controllers.API
             double b11 = a11;
             if (a11 >= monthStart)
             {
-                lunarYear = yy;
                 a11 = GetLunarMonth11(yy - 1, timeZone);
             }
             else
             {
-                lunarYear = yy + 1;
                 b11 = GetLunarMonth11(yy + 1, timeZone);
             }
-            double lunarDay = dayNumber - monthStart + 1;
             double diff = (int)((monthStart - a11) / 29);
-            lunarLeap = 0;
             double lunarMonth = diff + 11;
             if (b11 - a11 > 365)
             {
@@ -445,19 +403,11 @@ namespace NexFB.Site.Controllers.API
                 if (diff >= leapMonthDiff)
                 {
                     lunarMonth = diff + 10;
-                    if (diff == leapMonthDiff)
-                    {
-                        lunarLeap = 1;
-                    }
                 }
             }
             if (lunarMonth > 12)
             {
                 lunarMonth = lunarMonth - 12;
-            }
-            if (lunarMonth >= 11 && diff < 4)
-            {
-                lunarYear -= 1;
             }
             return (int)(lunarMonth);
         }

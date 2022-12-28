@@ -396,7 +396,7 @@ namespace NexFB.Services.Implement.Report
                 {
                     rowIndex = 5;
                 }
-                else if (mealForecastDetail.OrderRate == 100)
+                else if (mealForecastDetail.OrderRate == 100.0)
                 {
                     rowIndex = 4;
                 }
@@ -485,7 +485,7 @@ namespace NexFB.Services.Implement.Report
             {
                 rowIndex = 9;
             }
-            else if (totalMeal.Efficiency == 100)
+            else if (totalMeal.Efficiency == 100.0)
             {
                 rowIndex = 8;
             }

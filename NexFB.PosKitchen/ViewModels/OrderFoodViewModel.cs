@@ -703,14 +703,14 @@
                 {
                     orderDetails.SelectedMenuItemName = selectedMenu.ItemName;
                     orderDetails.SelectedMenuItemPrice = selectedMenu.Price;
-                    if (!currentMenuList.Any(x => x.SelectedMenuItemId == itemId))
+                    if (currentMenuList != null && !currentMenuList.Any(x => x.SelectedMenuItemId == itemId))
                     {
                         currentMenuList.Add(orderDetails);
                         selectedMenu.Quantity = orderDetails.SelectedMenuItemQuantity;
                     }
                     else
                     {
-                        if (increaseValue != 0)
+                        if (employeeOrderDetails != null && increaseValue != 0)
                         {
                             employeeOrderDetails.SelectedMenuItemQuantity = increaseValue;
                             selectedMenu.Quantity = employeeOrderDetails.SelectedMenuItemQuantity;
@@ -868,6 +868,7 @@
 
         public void MiddSideDataReleased(CommonKitchenOrder currentSelectedMenu, KitchenEmployeeInfo currentSelectedEmployee)
         {
+            var presentMenu = currentSelectedMenu;
             EmployeeOrderDetails menuRemoved = null;
             if (CheckMainFoodMenu || CheckAlternativeFoodMenu)
             {
@@ -875,7 +876,7 @@
                 {
                     if (CurrentSelectedMainMenuId > 0)
                     {
-                        currentSelectedMenu = CommonKitchenOrder.SingleOrDefault(x => x.ItemId == CurrentSelectedMainMenuId);
+                        presentMenu = CommonKitchenOrder.SingleOrDefault(x => x.ItemId == CurrentSelectedMainMenuId);
                         menuRemoved = currentSelectedEmployee.ListMainMenuOrderDeatails.SingleOrDefault(x => x.SelectedMenuItemId == CurrentSelectedMainMenuId);
                         if (menuRemoved != null)
                         {
@@ -888,7 +889,7 @@
                 {
                     if (CurrentSelectedAlternativeMenuId > 0)
                     {
-                        currentSelectedMenu = CommonKitchenOrder.SingleOrDefault(x => x.ItemId == CurrentSelectedAlternativeMenuId);
+                        presentMenu = CommonKitchenOrder.SingleOrDefault(x => x.ItemId == CurrentSelectedAlternativeMenuId);
                         menuRemoved = currentSelectedEmployee.ListAlternativeMenuOrderDeatails.SingleOrDefault(x => x.SelectedMenuItemId == CurrentSelectedAlternativeMenuId);
                         if (menuRemoved != null)
                         {
@@ -899,7 +900,7 @@
 
                 currentSelectedEmployee.OrderSummary = _OrderFoodData.DisplayEmployeeOrderSummary(currentSelectedEmployee);
                 UserInGroup = new ObservableCollection<KitchenEmployeeInfo>(this.UserInGroup);
-                currentSelectedMenu.Quantity = 0;
+                presentMenu.Quantity = 0;
                 ChangeMenuColor(currentSelectedEmployee);
                 if (currentSelectedEmployee.ListMainMenuOrderDeatails.Count == 0 && currentSelectedEmployee.ListAlternativeMenuOrderDeatails.Count == 0)
                 {
@@ -910,10 +911,10 @@
             {
                 if (CurrentSelectedGroupId > 0)
                 {
-                    currentSelectedMenu = CommonKitchenOrder.SingleOrDefault(x => x.ItemId == CurrentSelectedGroupId);
-                    currentSelectedMenu.IsFocusedMealMenu = false;
-                    currentSelectedMenu.IsSelectedMealMenu = false;
-                    AddMemberInGroupToGrid(currentSelectedMenu);
+                    presentMenu = CommonKitchenOrder.SingleOrDefault(x => x.ItemId == CurrentSelectedGroupId);
+                    presentMenu.IsFocusedMealMenu = false;
+                    presentMenu.IsSelectedMealMenu = false;
+                    AddMemberInGroupToGrid(presentMenu);
                 }
             }
         }

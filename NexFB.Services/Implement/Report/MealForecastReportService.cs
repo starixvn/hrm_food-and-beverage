@@ -285,7 +285,7 @@ namespace NexFB.Services.Implement.Report
             {
                 rowIndex = isVegetarian == null ? 13 : 9;
             }
-            else if (totalMeal.Efficiency == 100)
+            else if (totalMeal.Efficiency == 100.0)
             {
                 rowIndex = isVegetarian == null ? 12 : 8;
             }
@@ -324,11 +324,11 @@ namespace NexFB.Services.Implement.Report
                 {
                     rowIndex = isVegetarian == false ? 10 : 11;
                 }
-                else if (orderRate < 100)
+                else if (orderRate < 100.0)
                 {
                     rowIndex = isVegetarian == false ? 6 : 7;
                 }
-                else if (orderRate == 100)
+                else if (orderRate == 100.0)
                 {
                     rowIndex = isVegetarian == false ? 4 : 5;
                 }
