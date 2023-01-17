@@ -9,10 +9,15 @@
 
 namespace NexFB.WinAppSmartCard.ViewModels.Properties
 {
+    using Microsoft.AspNet.SignalR.Client.Hubs;
+    using NexFB.Models.Ordering;
+    using NexFB.Models.Report.ViewMenuReport;
     using NexFB.Pos.Core.Models;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Models;
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Threading;
     using System.Windows;
     using System.Windows.Input;
@@ -31,6 +36,10 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
         private string _standbyScreenVisible;
         private string _currentCardNumber;
         private Employee _orderOwner;
+        private ObservableCollection<string> _currentMeals = new ObservableCollection<string>(new string[10]);
+        private ObservableCollection<string> _nextMeals = new ObservableCollection<string>(new string[10]);
+        private ObservableCollection<string> _currentMealsEng = new ObservableCollection<string>(new string[10]);
+        private ObservableCollection<string> _nextMealsEng = new ObservableCollection<string>(new string[10]);
         private MenuColor _mainDishesMenu = new MenuColor();
         private MenuColor _sideDishesMenu = new MenuColor();
         private bool _mainTabReadOnly;
@@ -237,6 +246,62 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
             {
                 _orderOwner = value;
                 OnPropertyChanged("OrderOwner");
+            }
+        }
+
+        public ObservableCollection<string> CurrentMeals
+        {
+            get
+            {
+                return _currentMeals;
+            }
+
+            set
+            {
+                _currentMeals = value;
+                OnPropertyChanged("CurrentMeal");
+            }
+        }
+
+        public ObservableCollection<string> NextMeals
+        {
+            get
+            {
+                return _nextMeals;
+            }
+
+            set
+            {
+                _nextMeals = value;
+                OnPropertyChanged("NextMeals");
+            }
+        }
+
+        public ObservableCollection<string> CurrentMealsEng
+        {
+            get
+            {
+                return _currentMealsEng;
+            }
+
+            set
+            {
+                _currentMealsEng = value;
+                OnPropertyChanged("CurrentMealsEng");
+            }
+        }
+
+        public ObservableCollection<string> NextMealsEng
+        {
+            get
+            {
+                return _nextMealsEng;
+            }
+
+            set
+            {
+                _nextMealsEng = value;
+                OnPropertyChanged("NextMealsEng");
             }
         }
 

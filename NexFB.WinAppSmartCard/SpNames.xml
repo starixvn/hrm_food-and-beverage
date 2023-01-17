@@ -22,6 +22,18 @@
 		<Setting Key="POS_Get_OrderDetail" SpName="POS_Get_OrderDetail" DbName="NexFB" Plain="0" >
 			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
 		</Setting>
-
+		<Setting Key="MealOrder_Get_MyStatusBySysID" SpName="MealOrder_Get_MyStatusBySysID" DbName="NexFB" Plain="0">
+			<Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status" />
+			<Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status" />
+			<Mapping DataField="SysId" ObjectProperty="UserId" Class="Employee" />
+			<Mapping DataField="MenuEngName" ObjectProperty="NameEN" Class="Menu" />
+			<Mapping DataField="MenuVNMName" ObjectProperty="NameVN" Class="Menu" />
+			<Mapping DataField="IsHaveAltMenu" ObjectProperty="IsHaveAlternativeMenu" Class="Menu" />
+			<Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location" />
+			<Mapping DataField="LocationVNMName" ObjectProperty="NameVN" Class="Location" />
+			<Mapping DataField="IsAllowOrder" ObjectProperty="RawIsAllowOrder" Class="MealOrderingModel" />
+		</Setting>
+		<Setting Key="RPT_ViewMenuReport" SpName="RPT_ViewMenuReport" DbName="NexFB" Plain="0">
+		</Setting>
 	</Function>
 </Functions>

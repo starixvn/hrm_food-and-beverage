@@ -141,7 +141,7 @@ namespace NexFB.WinAppSmartCard
         {
             var currentViewModel = (MainViewModel)this.DataContext;
 
-            if (e.Key == Key.Enter 
+            if (e.Key == Key.Enter
                 && ((MainDishesViewModel)currentViewModel.CurrentViewModel).ObservableListEmployee.Count > 0)
             {
                 ((MainDishesViewModel)currentViewModel.CurrentViewModel).ExecuteConfirmCommand();

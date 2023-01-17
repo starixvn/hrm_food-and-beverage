@@ -9,13 +9,15 @@
 
 namespace NexFB.WinAppSmartCard.ViewModels
 {
+    using NexFB.Pos.Core.NotifyBase;
+    using NexFB.Services.Implement;
+    using NexFB.Services.Implement.Report;
+    using NexFB.Services.Interface;
+    using NexFB.Services.Interface.Report;
+    using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using System;
     using System.Windows;
     using System.Windows.Threading;
-    using NexFB.Pos.Core.NotifyBase;
-    using NexFB.Services.Implement;
-    using NexFB.Services.Interface;
-    using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using WPFMessageBoxCustomControl;
     using WPFMessageBoxCustomControl.Enums;
 
@@ -26,19 +28,42 @@ namespace NexFB.WinAppSmartCard.ViewModels
     {
         private IKitchenService _kitchenService;
         private ISmartCardOrderService _smartCardOrderService;
+        private IOrderingService _orderingService;
+        private IViewMenuReportService _viewMenuReportService;
 
-        public ViewModelBase(IKitchenService kitchenService, ISmartCardOrderService smartCardOrderService)
+        public ViewModelBase(IKitchenService kitchenService, ISmartCardOrderService smartCardOrderService, IOrderingService orderingService, IViewMenuReportService viewMenuReportService)
         {
             _kitchenService = kitchenService ?? new KitchenService();
             _smartCardOrderService = smartCardOrderService ?? new SmartCardOrderService();
+            _orderingService = orderingService ?? new OrderingService();
+            _viewMenuReportService = viewMenuReportService ?? new ViewMenuReportService();
         }
 
         public ViewModelBase()
-            : this(null, null)
+            : this(null, null, null, null)
         {
         }
 
         #region Properties
+
+        public IViewMenuReportService ViewMenuReportService
+        {
+            get
+            {
+                return _viewMenuReportService;
+            }
+
+            set
+            {
+                if (_viewMenuReportService == value)
+                {
+                    return;
+                }
+
+                _viewMenuReportService = value;
+                OnPropertyChanged("ViewMenuReportService");
+            }
+        }
 
         public IKitchenService KitchenService
         {
@@ -75,6 +100,25 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                 _smartCardOrderService = value;
                 OnPropertyChanged("SmartCardOrderService");
+            }
+        }
+
+        public IOrderingService OrderingService
+        {
+            get
+            {
+                return _orderingService;
+            }
+
+            set
+            {
+                if (_orderingService == value)
+                {
+                    return;
+                }
+
+                _orderingService = value;
+                OnPropertyChanged("OrderingService");
             }
         }
 

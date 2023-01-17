@@ -5,126 +5,169 @@
 		xmlns:views="clr-namespace:NexFB.WinAppSmartCard.Views"
 		xmlns:helpers="clr-namespace:NexFB.WinAppSmartCard.GlobalResources.Helpers"
 		WindowStyle="None" WindowState="Maximized" AllowsTransparency="False">
-	<Window.Resources>
-		<helpers:LocalizationHelper x:Key="localisation"/>
-		<Storyboard x:Key="Flash" RepeatBehavior="Forever">
-			<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="" Storyboard.TargetProperty="(UIElement.Opacity)">
-				<SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-				<SplineDoubleKeyFrame KeyTime="00:00:04" Value="1"/>
-			</DoubleAnimationUsingKeyFrames>
-		</Storyboard>
-	</Window.Resources>
+    <Window.Resources>
+        <helpers:LocalizationHelper x:Key="localisation"/>
+        <Storyboard x:Key="Flash" RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:04" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
 
-	<Window.Triggers>
-		<!--<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+    <Window.Triggers>
+        <!--<EventTrigger RoutedEvent="FrameworkElement.Loaded">
 			<BeginStoryboard Storyboard="{StaticResource Flash}"/>
 		</EventTrigger>-->
-	</Window.Triggers>
+    </Window.Triggers>
 
-	<Grid>
-		<Grid Visibility="{Binding Path=StandbyScreenVisible}">
-			<Grid.Background>
-				<ImageBrush ImageSource="{Binding Path=IdleScreenThemes}"/>
-			</Grid.Background>
-			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-			</Grid.RowDefinitions>
+    <Grid>
+        <Grid Visibility="{Binding Path=StandbyScreenVisible}">
+            <Grid.Background>
+                <ImageBrush ImageSource="{Binding Path=IdleScreenThemes}"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-			<!--F&B Logo-->
+            <!--F&B Logo-->
 
-			<Image Source="pack://application:,,,/Images/logo.png" MaxHeight="150" HorizontalAlignment="Center"
-			Stretch="Fill" VerticalAlignment="Top" Grid.Row="2" Width =" 356" Margin="{Binding Path=LogoMargin}"/>
+            <Image Source="pack://application:,,,/Images/logo.png" MaxHeight="150" HorizontalAlignment="Center"
+			Stretch="Fill" VerticalAlignment="Top" Grid.Row="2"  Width ="356" Margin="{Binding Path=LogoMargin}"/>
 
 
-			<Rectangle Grid.Row="3" Width="200" Height="100" VerticalAlignment="Bottom" HorizontalAlignment="Right" Fill="Transparent">
-				<Rectangle.ContextMenu>
-					<ContextMenu>
-						<MenuItem Header="Exit" Mouse.PreviewMouseDown="MenuItem_PreviewMouseDown_Exit" Margin="0,0,0,10" FontSize="20"/>
-						<MenuItem Header="Restart" Mouse.PreviewMouseDown="MenuItem_PreviewMouseDown_Restart" Margin="0,10,0,0" FontSize="20"/>
-					</ContextMenu>
-				</Rectangle.ContextMenu>
-			</Rectangle>
+            <Rectangle Grid.Row="3" Width="200" Height="100" VerticalAlignment="Bottom" HorizontalAlignment="Right" Fill="Transparent">
+                <Rectangle.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Exit" Mouse.PreviewMouseDown="MenuItem_PreviewMouseDown_Exit" Margin="0,0,0,10" FontSize="20"/>
+                        <MenuItem Header="Restart" Mouse.PreviewMouseDown="MenuItem_PreviewMouseDown_Restart" Margin="0,10,0,0" FontSize="20"/>
+                    </ContextMenu>
+                </Rectangle.ContextMenu>
+            </Rectangle>
 
-			<Rectangle Width="520" HorizontalAlignment="Center" Height="130" VerticalAlignment="Bottom"
+            <Rectangle Width="520" HorizontalAlignment="Center" Height="130" VerticalAlignment="Bottom"
 			 Panel.ZIndex="-1" Fill="#fff" Opacity=".6" Margin="0,0,0,-10" Grid.Row="2">
-			</Rectangle>
-			<StackPanel x:Name="stackPanel" Grid.Row="2"
+            </Rectangle>
+
+            <StackPanel x:Name="stackPanel" Grid.Row="2"
 			VerticalAlignment="Bottom" HorizontalAlignment="Center">
-				<TextBlock  Name="textBlock1" Text="QUẸT THẺ ĐỂ ĐẶT MÓN ĂN" FontSize="28"
+                <TextBlock  Name="textBlock1" Text="QUẸT THẺ ĐỂ ĐẶT MÓN ĂN" FontSize="28"
 				HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold"/>
-				<TextBlock Name="textBlock2" Text="SWIPE YOUR CARD TO ORDER MEAL" FontWeight="Bold"
+                <TextBlock Name="textBlock2" Text="SWIPE YOUR CARD TO ORDER MEAL" FontWeight="Bold"
 				HorizontalAlignment="Center" FontSize="28" VerticalAlignment="Center"/>
-				<TextBlock Text="請刷卡訂餐" FontWeight="Bold" Foreground="#343434"
+                <TextBlock Text="請刷卡訂餐" FontWeight="Bold" Foreground="#343434"
 				HorizontalAlignment="Center" FontSize="28" VerticalAlignment="Center"/>
-			</StackPanel>
-		</Grid>
-		<Grid Visibility="{Binding Path=MainScreenVisible}">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="48"/>
-				<RowDefinition />
-			</Grid.RowDefinitions>
-			<DockPanel Grid.Row="0" Background="#464646">
-				<Button IsEnabled="{Binding MainButtonEnable}"
+            </StackPanel>
+
+            <Rectangle Width="590" HorizontalAlignment="Left" Height="460" VerticalAlignment="Bottom"
+			 Panel.ZIndex="-1" Fill="#000" Opacity=".7" Margin="100,-25,0,-10" Grid.Row="2">
+            </Rectangle>
+
+            <StackPanel x:Name="stackPanelCurrentMenu" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" >
+                <TextBlock Name="CurrentMenu" Text="Current Menu" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold" Margin="330,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="meal1" Text="{Binding Path=CurrentMeals[0]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="mealeng1" Text="{Binding Path=CurrentMealsEng[0]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Name="meal2" Text="{Binding Path=CurrentMeals[1]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="mealeng2" Text="{Binding Path=CurrentMealsEng[1]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Name="meal3" Text="{Binding Path=CurrentMeals[2]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="mealeng3" Text="{Binding Path=CurrentMealsEng[2]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Name="meal4" Text="{Binding Path=CurrentMeals[3]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="mealeng4" Text="{Binding Path=CurrentMealsEng[3]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Name="meal5" Text="{Binding Path=CurrentMeals[4]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="mealeng5" Text="{Binding Path=CurrentMealsEng[4]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Name="meal6" Text="{Binding Path=CurrentMeals[5]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="mealeng6" Text="{Binding Path=CurrentMealsEng[5]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+            </StackPanel>
+
+            <Rectangle Width="590" HorizontalAlignment="Right" Height="360" VerticalAlignment="Bottom"
+			 Panel.ZIndex="-1" Fill="#000" Opacity=".7" Margin="0,-25,100,-10" Grid.Row="2">
+            </Rectangle>
+
+            <StackPanel x:Name="stackPanelNextMenu" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="1130,0,0,0">
+                <TextBlock Name="NextMenu" Text="Next Menu" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold" Margin="350,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="nmeal1" Text="{Binding Path=NextMeals[0]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="nmealeng1" Text="{Binding Path=NextMealsEng[0]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Name="nmeal2" Text="{Binding Path=NextMeals[1]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="nmealeng2" Text="{Binding Path=NextMealsEng[1]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Name="nmeal3" Text="{Binding Path=NextMeals[2]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="nmealeng3" Text="{Binding Path=NextMealsEng[2]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Name="nmeal4" Text="{Binding Path=NextMeals[3]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="nmealeng4" Text="{Binding Path=NextMealsEng[3]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Name="nmeal5" Text="{Binding Path=NextMeals[4]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="nmealeng5" Text="{Binding Path=NextMealsEng[4]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Name="nmeal6" Text="{Binding Path=NextMeals[5]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Name="nmealeng6" Text="{Binding Path=NextMealsEng[5]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+            </StackPanel>
+
+
+        </Grid>
+        <Grid Visibility="{Binding Path=MainScreenVisible}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" Background="#464646">
+                <Button IsEnabled="{Binding MainButtonEnable}"
 				 Command="{Binding Path=MainDishesCommand}" Background="{Binding Path=MainDishesMenu.BackgroundColor}"
 			Foreground="{Binding Path=MainDishesMenu.ForegroundColor}" FontWeight="{Binding Path=MainDishesMenu.FontWeight}"
 				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.MainDishes]}" 
 				Height="50" HorizontalAlignment="Left" Name="btnMainDishes" VerticalAlignment="Center" Width="140" Margin="-1,0,0,0" />
 
-				<Button  IsEnabled="{Binding SideButtonEnable}"
+                <Button  IsEnabled="{Binding SideButtonEnable}"
 				Command="{Binding Path=SideDishesCommand}" Background="{Binding Path=SideDishesMenu.BackgroundColor}"
 				Foreground="{Binding Path=SideDishesMenu.ForegroundColor}" FontWeight="{Binding Path=SideDishesMenu.FontWeight}"
 				Style="{StaticResource TileButton}" Height="50" HorizontalAlignment="Left" Name="btnSideDishes" VerticalAlignment="Center" 
 				MinWidth="140" Margin="2,0,0,0" Width="auto">
-					<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.SideDishCharged]}" Margin="15,0,15,0"/>
-				</Button>
+                    <TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.SideDishCharged]}" Margin="15,0,15,0"/>
+                </Button>
 
-				<!--<Button
+                <!--<Button
 				Command="{Binding Path=CombinedDishesCommand}" Background="{Binding Path=CombinedDishesMenu.BackgroundColor}"
 				Foreground="{Binding Path=CombinedDishesMenu.ForegroundColor}" FontWeight="{Binding Path=CombinedDishesMenu.FontWeight}"
 				Style="{StaticResource TileButton}" Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.AddMoreSideDish]}" 
 				Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="2,0,0,0" />-->
 
-				<Button Mouse.PreviewMouseDown="LanguageButton_PreviewMouseDown"
+                <Button Mouse.PreviewMouseDown="LanguageButton_PreviewMouseDown"
 				 Background="#949494" Foreground="#fff" Style="{StaticResource TileButton}" MinWidth="120"
 				Height="50" x:Name="languageButton" Margin="2,0,0,0" HorizontalAlignment="Right" >
-					<StackPanel MinWidth="120" Height="50" Orientation="Horizontal">
-						<Image Source="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.FlagSource]}" Margin="10,0,0,0"
+                    <StackPanel MinWidth="120" Height="50" Orientation="Horizontal">
+                        <Image Source="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.FlagSource]}" Margin="10,0,0,0"
 						Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.CurrentCulture]}" 
+                        <TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.CurrentCulture]}" 
 						Margin="10,0,10,0" FontWeight="Black" FontSize="18" VerticalAlignment="Center"/>
-					</StackPanel>
-					<Button.ContextMenu>
-						<ContextMenu>
-							<MenuItem Command="{Binding Path=ChangeLanguageCommand}" CommandParameter="1"
+                    </StackPanel>
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding Path=ChangeLanguageCommand}" CommandParameter="1"
 							Header="English" Margin="0,5,0,5" FontSize="15">
-								<MenuItem.Icon>
-									<Image Source="pack://application:,,,/Images/Flag_of_England.png" Width="24" Height="24"/>
-								</MenuItem.Icon>
-							</MenuItem>
-							<MenuItem Command="{Binding Path=ChangeLanguageCommand}" CommandParameter="2"
+                                <MenuItem.Icon>
+                                    <Image Source="pack://application:,,,/Images/Flag_of_England.png" Width="24" Height="24"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Command="{Binding Path=ChangeLanguageCommand}" CommandParameter="2"
 							Header="Tiếng Việt" Margin="0,5,0,5" FontSize="15">
-								<MenuItem.Icon>
-									<Image Source="pack://application:,,,/Images/Flag_of_Vietnam.png" Width="24" Height="24"/>
-								</MenuItem.Icon>
-							</MenuItem>
-							<MenuItem Command="{Binding Path=ChangeLanguageCommand}" CommandParameter="3"
+                                <MenuItem.Icon>
+                                    <Image Source="pack://application:,,,/Images/Flag_of_Vietnam.png" Width="24" Height="24"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Command="{Binding Path=ChangeLanguageCommand}" CommandParameter="3"
 							Header="简体中文" Margin="0,5,0,5" FontSize="15">
-								<MenuItem.Icon>
-									<Image Source="pack://application:,,,/Images/Flag_of_China.png" Width="24" Height="24"/>
-								</MenuItem.Icon>
-							</MenuItem>
-						</ContextMenu>
-					</Button.ContextMenu>
-				</Button>
-			</DockPanel >
-			<Grid Grid.Row="1" >
-				<ContentControl Content="{Binding CurrentViewModel}"
+                                <MenuItem.Icon>
+                                    <Image Source="pack://application:,,,/Images/Flag_of_China.png" Width="24" Height="24"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+            </DockPanel >
+            <Grid Grid.Row="1" >
+                <ContentControl Content="{Binding CurrentViewModel}"
 			x:Name="contentControl" Margin="3" />
-			</Grid>
-		</Grid>
-	</Grid>
+            </Grid>
+        </Grid>
+    </Grid>
 
 </Window>

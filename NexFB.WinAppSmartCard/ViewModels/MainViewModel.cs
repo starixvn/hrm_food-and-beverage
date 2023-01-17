@@ -1,6 +1,7 @@
 ﻿namespace NexFB.WinAppSmartCard.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
@@ -15,9 +16,14 @@
     using AutoMapper;
     using Microsoft.AspNet.SignalR.Client;
     using Microsoft.AspNet.SignalR.Client.Hubs;
+    using NexFB.Core.Enums;
     using NexFB.Criteria.Kitchen;
+    using NexFB.Criteria.Ordering;
+    using NexFB.Criteria.Report;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
+    using NexFB.Models.Ordering;
+    using NexFB.Models.Report.ViewMenuReport;
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.Enums;
     using NexFB.WinAppSmartCard.Core.Constants;
@@ -36,6 +42,7 @@
 
         public MainViewModel()
         {
+            GetMealsToShowOnCreen();
             SetApplicationThemes();
             InitializeHubConnection();
             ExecuteMainDishesCommand();
@@ -103,6 +110,69 @@
                     mainWindow.InitializeAutoLogoffFeature();
                 }));
             }
+        }
+
+        public void GetMealsToShowOnCreen()
+        {
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+            {
+                var criteria = new GetMemberNewOrderCriteria()
+                {
+                    UserId = 1
+                };
+                var mealId = this.OrderingService.GetMemberNewOrder(criteria).MealID;
+
+                GetCurrentNameMeals(mealId);
+
+                GetNextNameMeals(mealId);
+
+            }));
+        }
+
+        private void GetNextNameMeals(int mealId)
+        {
+            mealId++;
+            var criteriaGetNextMeals = new GetViewMenuReportCriteria
+            {
+                MealId = mealId == 5 ? "1" : mealId.ToString(),
+                FromDate = mealId == 5 ? DateTime.Now.AddDays(1) : DateTime.Now,
+                ToDate = mealId == 5 ? DateTime.Now.AddDays(1) : DateTime.Now,
+                SysId = 1
+            };
+            var nextMealsReport = this.ViewMenuReportService.GetViewMenuReport(criteriaGetNextMeals);
+            var nextMeals = nextMealsReport.Menus.Count != 0 ? nextMealsReport.Menus[0].MenuForEachDay[0].Menus : null;
+
+            if (nextMeals != null)
+            {
+                for (int i = 0; i < nextMeals.Count; i++)
+                {
+                    NextMeals[i] = $"{i + 1}. {nextMeals[i].FoodVNMName}";
+                    NextMealsEng[i] = $"({nextMeals[i].FoodEngName})";
+                }
+            }
+        }
+
+        private void GetCurrentNameMeals(int mealId)
+        {
+            var criteriaGetCurrentMeals = new GetViewMenuReportCriteria
+            {
+                MealId = mealId.ToString(),
+                FromDate = DateTime.Now,
+                ToDate = DateTime.Now,
+                SysId = 1
+            };
+            var currentMealsReport = this.ViewMenuReportService.GetViewMenuReport(criteriaGetCurrentMeals);
+            var currentMenus = currentMealsReport.Menus.Count != 0 ? currentMealsReport.Menus[0].MenuForEachDay[0].Menus : null;
+
+            if (currentMenus != null)
+            {
+                for (int i = 0; i < currentMenus.Count; i++)
+                {
+                    CurrentMeals[i] = $"{i + 1}. {currentMenus[i].FoodVNMName}";
+                    CurrentMealsEng[i] = $"({currentMenus[i].FoodEngName})";
+                }
+            }
+
         }
 
         /// <summary>
@@ -197,7 +267,7 @@
             {
                 InitializeHubConnection();
             }
-            
+
             try
             {
                 return Proxy.Invoke("SendNewOrder", orderId);
@@ -591,7 +661,8 @@
                 {
                     Thread.Sleep(10);
                 }
-            }) { IsBackground = true };
+            })
+            { IsBackground = true };
             Thread.Start();
         }
 
