@@ -116,7 +116,7 @@
         {
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
             {
-                var criteria = new GetMemberNewOrderCriteria()
+                var criteria = new GetMemberNewOrderCriteria
                 {
                     UserId = 1
                 };

@@ -9,6 +9,7 @@
 
 namespace NexFB.Services.Implement.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Common.Helper;
@@ -285,7 +286,7 @@ namespace NexFB.Services.Implement.Report
             {
                 rowIndex = isVegetarian == null ? 13 : 9;
             }
-            else if (totalMeal.Efficiency == 100.0)
+            else if (totalMeal.Efficiency.Equals(100))
             {
                 rowIndex = isVegetarian == null ? 12 : 8;
             }
@@ -328,7 +329,7 @@ namespace NexFB.Services.Implement.Report
                 {
                     rowIndex = isVegetarian == false ? 6 : 7;
                 }
-                else if (orderRate == 100.0)
+                else if (orderRate.Equals(100))
                 {
                     rowIndex = isVegetarian == false ? 4 : 5;
                 }
@@ -347,7 +348,7 @@ namespace NexFB.Services.Implement.Report
                 {
                     rowIndex = 5;
                 }
-                else if (orderRate == 100)
+                else if (orderRate.Equals(100))
                 {
                     rowIndex = 4;
                 }

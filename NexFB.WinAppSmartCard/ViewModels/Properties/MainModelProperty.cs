@@ -381,7 +381,7 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
             {
                 if (_screeHeight > 900)
                 {
-                    _logoMargin = Math.Round(_screeHeight, 0, MidpointRounding.ToEven) == 960 ? ConstantValue.LogoMargin960 : ConstantValue.LogoMarginMoreThan960;
+                    _logoMargin = _screeHeight.Equals(960) ? ConstantValue.LogoMargin960 : ConstantValue.LogoMarginMoreThan960;
                 }
                 else
                 {

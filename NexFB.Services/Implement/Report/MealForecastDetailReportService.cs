@@ -103,16 +103,16 @@ namespace NexFB.Services.Implement.Report
 
         public EmployeeRegistrationReportModel GetPagingEmployeeNonRegistration(EmployeeRegistrationReportModel fullReport, int startIndex, int itemsPerPage)
         {
-                var pagingReport = new EmployeeRegistrationReportModel();
+            var pagingReport = new EmployeeRegistrationReportModel();
 
-                if (fullReport.EmployeeNonRegistrations.Count > 0)
-                {
-                    pagingReport.EmployeeNonRegistrations = GetPagingEmployeeNonRegistrationDetail(fullReport, startIndex, itemsPerPage);
-                    pagingReport.TotalItem = fullReport.TotalItem;
-                    pagingReport.TotalMeal = fullReport.TotalMeal;
-                }
+            if (fullReport.EmployeeNonRegistrations.Count > 0)
+            {
+                pagingReport.EmployeeNonRegistrations = GetPagingEmployeeNonRegistrationDetail(fullReport, startIndex, itemsPerPage);
+                pagingReport.TotalItem = fullReport.TotalItem;
+                pagingReport.TotalMeal = fullReport.TotalMeal;
+            }
 
-                return pagingReport;
+            return pagingReport;
         }
         /// <summary>
         /// Get paging report.
@@ -383,7 +383,7 @@ namespace NexFB.Services.Implement.Report
         private void FillContentRow(List<MealForecastDetailModel> mealForecastDetails, ref ExcelTemplateWriter writer)
         {
             int numberRecords = mealForecastDetails.Count, rowIndex = 4;
-            
+
             for (int i = 0; i < numberRecords; i++)
             {
                 MealForecastDetailModel mealForecastDetail = mealForecastDetails[i];
@@ -396,7 +396,7 @@ namespace NexFB.Services.Implement.Report
                 {
                     rowIndex = 5;
                 }
-                else if (mealForecastDetail.OrderRate == 100.0)
+                else if (mealForecastDetail.OrderRate.Equals(100))
                 {
                     rowIndex = 4;
                 }
@@ -485,7 +485,7 @@ namespace NexFB.Services.Implement.Report
             {
                 rowIndex = 9;
             }
-            else if (totalMeal.Efficiency == 100.0)
+            else if (totalMeal.Efficiency.Equals(100))
             {
                 rowIndex = 8;
             }

@@ -356,7 +356,7 @@ namespace NexFB.Site.Controllers.API
                 last = arc;
                 i++;
                 arc = GetSunLongitude(GetNewMoonDay(k + i, timeZone), timeZone);
-            } while ((int)arc != last && i < 14);
+            } while (!last.Equals((int)arc) && i < 14);
             return i - 1;
         }
 
