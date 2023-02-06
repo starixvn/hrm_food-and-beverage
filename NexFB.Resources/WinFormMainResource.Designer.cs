@@ -19,7 +19,7 @@ namespace NexFB.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class WinFormMainResource {
@@ -340,6 +340,15 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main Dish.
+        /// </summary>
+        public static string MainDishBilingual {
+            get {
+                return ResourceManager.GetString("MainDishBilingual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main Food.
         /// </summary>
         public static string MainFood {
@@ -507,6 +516,15 @@ namespace NexFB.Resources {
         public static string OrderOwner {
             get {
                 return ResourceManager.GetString("OrderOwner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order Type :.
+        /// </summary>
+        public static string OrderTypeBilingual {
+            get {
+                return ResourceManager.GetString("OrderTypeBilingual", resourceCulture);
             }
         }
         
@@ -732,6 +750,15 @@ namespace NexFB.Resources {
         public static string sharps {
             get {
                 return ResourceManager.GetString("sharps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Side Dish.
+        /// </summary>
+        public static string SideDishBilingual {
+            get {
+                return ResourceManager.GetString("SideDishBilingual", resourceCulture);
             }
         }
         

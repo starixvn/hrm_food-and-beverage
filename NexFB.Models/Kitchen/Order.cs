@@ -75,6 +75,14 @@
 
         public string PhoneAvailable => string.IsNullOrEmpty(Phone) ? Constants.Hidden : Constants.Visible;
 
+        public string OrderType
+        {
+            get
+            {
+                return ListMenu[0].IsSideDish ? WinFormMainResource.SideDishBilingual : WinFormMainResource.MainDishBilingual;
+            }
+        }
+
         public string DisplayRemak
         {
             get
