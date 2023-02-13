@@ -33,6 +33,7 @@ namespace NexFB.Services.Interface
         IList<UserFunction> GetAllEmployeeFunction(GetAllEmployeeFunctionCriteria criteria);
 
         IList<Employee> GetEmployeeByQuery(GetEmployeeCriteria criteria);
+        IList<EmployeeShift> GetEmployeeShiftInMonth(GetEmployeeShiftInMonthCriteria criteria);
 
         Employee GetEmployeeById(GetEmployeeByIdCriteria criteria);
 

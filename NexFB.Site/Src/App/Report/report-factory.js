@@ -45,6 +45,10 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                     }
                 });
         },
+        getEmployeeShiftInMonth: function (filter) {
+            return $http.get(baseUrl + 'api/report/GetEmployeeShiftInMonth',
+                { params: { reportDate: filter.reportDate.toDateString(), } });
+        },
         getDailyMainDishReport: function (filter) {
             return $http.get(baseUrl + 'api/report/GetDailyMainDishReport', {
                 params: {

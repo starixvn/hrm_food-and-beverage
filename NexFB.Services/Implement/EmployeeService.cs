@@ -153,6 +153,19 @@ namespace NexFB.Services.Implement
             return functions;
         }
 
+        public IList<EmployeeShift> GetEmployeeShiftInMonth(GetEmployeeShiftInMonthCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            IList<EmployeeShift> result = null;
+
+            if (criteria.IsValid())
+            {
+                result = GetData<EmployeeShift>(criteria).ToList();
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Function to get employees by query.
         /// </summary>

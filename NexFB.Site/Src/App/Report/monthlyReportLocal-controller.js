@@ -118,6 +118,11 @@ reportModule.controller('MonthlyMainDishReportLocalController',
             };
 
             /*
+            ** Get emp shift in month
+            */
+
+
+            /*
             ** Get all department.
             */
             reportFactory.getDepartmentByUserRole().success(function (departments) {
@@ -186,16 +191,32 @@ reportModule.controller('MonthlyMainDishReportLocalController',
             /*
             ** Get monthly main dish report by local.
             */
-            $scope.getMonthlyReportLocal = function (filter) {
-                reportFactory.getMonthlyMainDishReportByLocal(filter)
-                    .success(function (report) {
-                        $scope.localReport = report;
-                        $scope.$broadcast('renderMonthlyReport');
-                    })
-                    .error(function (response, status) {
-                        ErrorFactory.errorHandle(status);
-                    });
+            $scope.getMonthlyReportLocal = async function (filter) {
+                reportFactory.getEmployeeShiftInMonth(filter).success(function (result) {
+                    $scope.employeeShift = result;
+                }).error(function (response, status) {
+                    ErrorFactory.errorHandle(status);
+                });
+                setTimeout(() => {
+                    reportFactory.getMonthlyMainDishReportByLocal(filter)
+                        .success(function (report) {
+                            $scope.localReport = report;
+                            $scope.$broadcast('renderMonthlyReport');
+
+                        })
+                        .error(function (response, status) {
+                            ErrorFactory.errorHandle(status);
+                        });
+                }, 500);
             };
+
+            function getShift() {
+                return new Promise(resolve => {
+                    setTimeout(() => {
+
+                    }, 2000);
+                });
+            }
 
             /*
             ** Query data.

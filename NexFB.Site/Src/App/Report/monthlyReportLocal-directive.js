@@ -2,12 +2,28 @@
 /*global reportModule, moment*/
 
 reportModule.directive('renderMonthlyReport', function () {
-    var generateNumberMealsRow = function (numberMealsMonth) {
+    var generateNumberMealsRow = function (numberMealsMonth, employeeShift, userId, reportDateString) {
+        var year = (new Date(reportDateString)).getFullYear();
+        var month = (new Date(reportDateString)).getMonth();
         var numberMealsRow = [],
             numberMeals = numberMealsMonth.NumberMeals;
 
         for (var i = 0; i < numberMeals.length; i++) {
-            var row = { Name: "" + (i + 1), Value: numberMeals[i] };
+            var dayInMonth = new Date(year, month, i + 1)
+            var shift = employeeShift.find(x => x.SysID === userId && dayInMonth.getDay() === (new Date(x.WorkDate)).getDay());
+            var title = ""
+            if (userId !== 0) {
+                if (shift !== undefined) {
+                    var shiftCode = shift.Shift.replace(/\s+/g, '').replace(/>/g, '-');
+                    title = `title = Shift:${shiftCode}`
+                }
+                else {
+                    title = `title = Shift:###`
+                }
+            }
+
+
+            var row = { Name: "" + (i + 1), Value: numberMeals[i], CustomAttr: title };
             numberMealsRow.push(row);
         }
 
@@ -17,7 +33,7 @@ reportModule.directive('renderMonthlyReport', function () {
         return numberMealsRow;
     };
 
-    var generateDataBody = function (report, scope) {
+    var generateDataBody = function (report, employeeShift, scope) {
         var rows = [];
 
         if (report && report.Meals) {
@@ -51,8 +67,10 @@ reportModule.directive('renderMonthlyReport', function () {
                 }
                 for (var j = 0; j < mealItems.length; j++) {
                     var mealItem = mealItems[j];
+                    var userId = 0;
 
                     if (report.GroupBy == 0) {
+                        userId = mealItem.Employee.UserId;
                         currentSubRow = {
                             Columns: [
                                 { Name: "Meal", Value: rowIndex, CssClass: "remove-padding-left" },
@@ -74,8 +92,7 @@ reportModule.directive('renderMonthlyReport', function () {
                             ]
                         };
                     }
-
-                    var numberMealsRow = generateNumberMealsRow(mealItem.NumberMealsMonth);
+                    var numberMealsRow = generateNumberMealsRow(mealItem.NumberMealsMonth, employeeShift, userId, report.Month);
                     currentSubRow.Columns = currentSubRow.Columns.concat(numberMealsRow);
                     currentRow.SubRows.push(currentSubRow);
                     rowIndex++;
@@ -246,7 +263,8 @@ reportModule.directive('renderMonthlyReport', function () {
 
                 var id = iElement.attr('id'),
                     report = scope.localReport,
-                    bodyData = generateDataBody(report, scope),
+                    empShift = scope.employeeShift,
+                    bodyData = generateDataBody(report, empShift, scope),
                     groupHeaderData = generateGroupHeader(report.Month, report.GroupBy, scope.monthFormat),
                     headerData = generateDataHeader(report.WeekDays, report.GroupBy, scope.numberFormat),
                     footerData = generateDataFooter(report.Total, report.GroupBy);

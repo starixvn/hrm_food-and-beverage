@@ -14,6 +14,7 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Criteria.Report;
     using NexFB.Criteria.SideDishManagement;
     using NexFB.Criteria.UserControl;
+    using NexFB.Models.Employee;
     using NexFB.Models.Entities;
     using NexFB.Models.Report.AdminOrderHistoryReport;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
@@ -132,6 +133,17 @@ namespace NexFB.Site.Controllers.API.Report
 
             MonthlyLocalReportModel pagingReport = _monthlyMainDishReportService.GetPaingReport(fullReport, startIndex, itemsPerPage);
             return pagingReport;
+        }
+
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.MonthlyMainDishReportPerMeal, Policy = Policy.Read)]
+        public IList<EmployeeShift> GetEmployeeShiftInMonth(DateTime reportDate)
+        {
+            var criteriatest = new GetEmployeeShiftInMonthCriteria
+            {
+                ReportDate = reportDate
+            };
+            return _employeeService.GetEmployeeShiftInMonth(criteriatest);
         }
 
         [HttpGet]

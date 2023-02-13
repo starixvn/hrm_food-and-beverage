@@ -15,6 +15,8 @@
 		<Setting Key="Employee_GetEmployees" SpName="Employee_GetEmployees" DbName="FBM" Plain="0">
 			<Mapping DataField="SysID" ObjectProperty="UserId" />
 		</Setting>
+		<Setting Key="EmpShift_GetShiftInMonth" SpName="EmpShift_GetShiftInMonth" DbName="FBM" Plain="0">
+		</Setting>
 		<Setting Key="UserCtrl_GetMenuFunctionBySysID" SpName="UserCtrl_GetMenuFunctionBySysID" DbName="FBM" Plain="0">
 			<Mapping DataField="MenuName" ObjectProperty="Name" />
 			<Mapping DataField="Url" ObjectProperty="MenuLink" />
