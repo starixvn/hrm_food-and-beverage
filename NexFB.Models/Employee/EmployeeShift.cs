@@ -11,7 +11,6 @@ namespace NexFB.Models.Employee
     {
         public int SysID { get; set; }
         public DateTime WorkDate { get; set; }
-        public string NickName { get; set; }
         public string Shift { get; set; }
     }
 }

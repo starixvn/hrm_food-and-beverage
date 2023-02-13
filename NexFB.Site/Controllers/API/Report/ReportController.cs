@@ -128,6 +128,15 @@ namespace NexFB.Site.Controllers.API.Report
             if (fullReport == null)
             {
                 fullReport = _monthlyMainDishReportService.GetMonthlyMainDishReportLocal(criteria);
+                if (fullReport.Meals.Count > 0)
+                {
+                    var criteriaShift = new GetEmployeeShiftInMonthCriteria
+                    {
+                        ReportDate = reportDate
+                    };
+                    var shifts = _employeeService.GetEmployeeShiftInMonth(criteriaShift);
+                    AddShiftToReport(fullReport, shifts);
+                }
                 SessionManager.Set<MonthlyLocalReportModel>(ReportConstant.MonthlyMainDishReportLocalSessionKey + CurrentUser.UserId, fullReport);
             }
 
@@ -135,15 +144,22 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
-        [HttpGet]
-        [ApiAuthorize(FunctionKey = FBFunctionKey.MonthlyMainDishReportPerMeal, Policy = Policy.Read)]
-        public IList<EmployeeShift> GetEmployeeShiftInMonth(DateTime reportDate)
+        private void AddShiftToReport(MonthlyLocalReportModel fullReport, IList<EmployeeShift> shifts)
         {
-            var criteriatest = new GetEmployeeShiftInMonthCriteria
+            for (int i = 0; i < fullReport.Meals.Count; i++)
             {
-                ReportDate = reportDate
-            };
-            return _employeeService.GetEmployeeShiftInMonth(criteriatest);
+                AddShiftToMeal(fullReport.Meals[i], shifts);
+            }
+        }
+
+        private void AddShiftToMeal(MealMonthModel mealMonthModel, IList<EmployeeShift> shifts)
+        {
+            foreach (var employee in mealMonthModel.MealItems)
+            {
+                var id = employee.Employee.UserId;
+                var result = shifts.Where(x => x.SysID == id).OrderBy(x => x.WorkDate);
+                employee.NumberMealsMonth.Shifts = result.Select(x => x.Shift).ToArray().ToList();
+            }
         }
 
         [HttpGet]

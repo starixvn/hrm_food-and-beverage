@@ -2,26 +2,24 @@
 /*global reportModule, moment*/
 
 reportModule.directive('renderMonthlyReport', function () {
-    var generateNumberMealsRow = function (numberMealsMonth, employeeShift, userId, reportDateString) {
+    var generateNumberMealsRow = function (numberMealsMonth, userId, reportDateString) {
         var year = (new Date(reportDateString)).getFullYear();
         var month = (new Date(reportDateString)).getMonth();
         var numberMealsRow = [],
-            numberMeals = numberMealsMonth.NumberMeals;
+            numberMeals = numberMealsMonth.NumberMeals,
+            shifts = numberMealsMonth.Shifts;
 
         for (var i = 0; i < numberMeals.length; i++) {
-            var dayInMonth = new Date(year, month, i + 1)
-            var shift = employeeShift.find(x => x.SysID === userId && dayInMonth.getDay() === (new Date(x.WorkDate)).getDay());
             var title = ""
             if (userId !== 0) {
-                if (shift !== undefined) {
-                    var shiftCode = shift.Shift.replace(/\s+/g, '').replace(/>/g, '-');
+                if (shifts[i]) {
+                    var shiftCode = shifts[i].replace(/\s+/g, '').replace(/>/g, '-');
                     title = `title = Shift:${shiftCode}`
                 }
                 else {
                     title = `title = Shift:###`
                 }
             }
-
 
             var row = { Name: "" + (i + 1), Value: numberMeals[i], CustomAttr: title };
             numberMealsRow.push(row);
@@ -92,7 +90,7 @@ reportModule.directive('renderMonthlyReport', function () {
                             ]
                         };
                     }
-                    var numberMealsRow = generateNumberMealsRow(mealItem.NumberMealsMonth, employeeShift, userId, report.Month);
+                    var numberMealsRow = generateNumberMealsRow(mealItem.NumberMealsMonth, userId, report.Month);
                     currentSubRow.Columns = currentSubRow.Columns.concat(numberMealsRow);
                     currentRow.SubRows.push(currentSubRow);
                     rowIndex++;
