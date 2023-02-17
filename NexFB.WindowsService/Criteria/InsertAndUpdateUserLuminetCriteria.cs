@@ -9,12 +9,12 @@
     {
         private const string _UserTpl =
             "<User EmpId='{0}' Password='{1}' Code='{2}' "
-            + "NickName='{3}' FullName='{4}' DomainName='{5}' DepartmentId='{6}' IsEnabled='{7}' "
+            + "NickName='{3}' FullName='{4}' DomainName='{5}' CompanyId='{6}' IsEnabled='{7}' "
             + " IsDeleted='{8}' JoinedDate='{9}' ModifiedDate='{10}' TeamId='{11}' IsLocal='{12}' "
             + " CardNumber='{13}' CostCenter='{14}'></User>";
 
         [SpParam(Ignored = true)]
-        public int DepartmentId { get; set; }
+        public int CompanyId { get; set; }
 
         [SpParam(Ignored = true)]
         public IList<LuminetService.UserModel> Users { get; set; }
@@ -37,7 +37,7 @@
                             user.NickName,
                             user.FullName,
                             user.DomainName,
-                            DepartmentId,
+                            CompanyId,
                             user.IsEnabled,
                             user.IsDeleted,
                             user.JoinedDate,
@@ -60,7 +60,7 @@
 
         public override bool IsValid()
         {
-            return DepartmentId > 0 && Users != null && Users.Any();
+            return CompanyId > 0 && Users != null && Users.Any();
         }
     }
 }

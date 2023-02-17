@@ -187,16 +187,16 @@
     <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.UserModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\HongMaService\Service.xsd">
+    <None Include="Service References\HongMaService\Service3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\HongMaService\Service1.xsd">
+    <None Include="Service References\HongMaService\Service31.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\HongMaService\Service2.xsd">
+    <None Include="Service References\HongMaService\Service32.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\HongMaService\SynchronizeDataService.wsdl" />
+    <None Include="Service References\HongMaService\SynchronizeDataService1.wsdl" />
     <None Include="Service References\LuminetService\NexFB.WindowsService.LuminetService.EmployeeCalendarModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -212,16 +212,16 @@
     <None Include="Service References\LuminetService\NexFB.WindowsService.LuminetService.UserModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\LuminetService\Service.xsd">
+    <None Include="Service References\LuminetService\Service3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LuminetService\Service1.xsd">
+    <None Include="Service References\LuminetService\Service31.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LuminetService\Service2.xsd">
+    <None Include="Service References\LuminetService\Service32.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LuminetService\SynchronizeDataService.wsdl" />
+    <None Include="Service References\LuminetService\SynchronizeDataService1.wsdl" />
     <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.EmployeeCalendarModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -237,16 +237,16 @@
     <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.UserModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\NexcelService\Service.xsd">
+    <None Include="Service References\NexcelService\Service3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\NexcelService\Service1.xsd">
+    <None Include="Service References\NexcelService\Service31.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\NexcelService\Service2.xsd">
+    <None Include="Service References\NexcelService\Service32.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\NexcelService\SynchronizeDataService.wsdl" />
+    <None Include="Service References\NexcelService\SynchronizeDataService1.wsdl" />
     <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.EmployeeCalendarModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -262,16 +262,16 @@
     <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.UserModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\SMSService\Service.xsd">
+    <None Include="Service References\SMSService\Service3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\SMSService\Service1.xsd">
+    <None Include="Service References\SMSService\Service31.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\SMSService\Service2.xsd">
+    <None Include="Service References\SMSService\Service32.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\SMSService\SynchronizeDataService.wsdl" />
+    <None Include="Service References\SMSService\SynchronizeDataService1.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -310,28 +310,23 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\NexcelService\Service.disco" />
     <None Include="Service References\NexcelService\configuration91.svcinfo" />
     <None Include="Service References\NexcelService\configuration.svcinfo" />
     <None Include="Service References\NexcelService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\SMSService\Service.disco" />
     <None Include="Service References\SMSService\configuration91.svcinfo" />
     <None Include="Service References\SMSService\configuration.svcinfo" />
     <None Include="Service References\SMSService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\HongMaService\Service.disco" />
     <None Include="Service References\HongMaService\configuration91.svcinfo" />
     <None Include="Service References\HongMaService\configuration.svcinfo" />
     <None Include="Service References\HongMaService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\LuminetService\Service.disco" />
     <None Include="Service References\LuminetService\configuration91.svcinfo" />
     <None Include="Service References\LuminetService\configuration.svcinfo" />
     <None Include="Service References\LuminetService\Reference.svcmap">
@@ -341,6 +336,10 @@
     <AdditionalFiles Include="..\.sonarlint\food-beverage\CSharp\SonarLint.xml">
       <Link>SonarLint.xml</Link>
     </AdditionalFiles>
+    <None Include="Service References\HongMaService\Service1.disco" />
+    <None Include="Service References\LuminetService\Service1.disco" />
+    <None Include="Service References\NexcelService\Service1.disco" />
+    <None Include="Service References\SMSService\Service1.disco" />
     <Content Include="SpName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

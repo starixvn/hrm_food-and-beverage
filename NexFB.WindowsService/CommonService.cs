@@ -58,7 +58,7 @@
             {
                 var insertCriteria = new InsertAndUpdateUserNexcelCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.Nexcel,
+                    CompanyId = (int)DepartmentIdentity.Nexcel,
                     Users = users
                 };
 
@@ -77,7 +77,7 @@
             {
                 var insertCriteria = new InsertAndUpdateTeamNexcelCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.Nexcel,
+                    CompanyId = (int)DepartmentIdentity.Nexcel,
                     Teams = teams
                 };
 
@@ -95,7 +95,7 @@
             {
                 var criteria = new InsertAndUpdateShiftNexcelCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.Nexcel,
+                    CompanyId = (int)DepartmentIdentity.Nexcel,
                     Shifts = shifts
                 };
 
@@ -114,7 +114,7 @@
             {
                 var criteria = new InsertAndUpdateEmployeeCalendarNexcelCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.Nexcel,
+                    CompanyId = (int)DepartmentIdentity.Nexcel,
                     EmployeeCalendars = calendars
                 };
 
@@ -148,7 +148,7 @@
             {
                 var insertCriteria = new InsertAndUpdateUserHMCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.HongMA,
+                    CompanyId = (int)DepartmentIdentity.HongMA,
                     Users = users
                 };
 
@@ -167,7 +167,7 @@
             {
                 var insertCriteria = new InsertAndUpdateTeamHMCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.HongMA,
+                    CompanyId = (int)DepartmentIdentity.HongMA,
                     Teams = teams
                 };
 
@@ -185,7 +185,7 @@
             {
                 var criteria = new InsertAndUpdateShiftHMCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.HongMA,
+                    CompanyId = (int)DepartmentIdentity.HongMA,
                     Shifts = shifts
                 };
 
@@ -204,7 +204,7 @@
             {
                 var criteria = new InsertAndUpdateEmployeeCalendarHMCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.HongMA,
+                    CompanyId = (int)DepartmentIdentity.HongMA,
                     EmployeeCalendars = calendars
                 };
 
@@ -237,7 +237,7 @@
             {
                 var insertCriteria = new InsertAndUpdateUserSmsCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.Sms,
+                    CompanyId = (int)DepartmentIdentity.Sms,
                     Users = users
                 };
 
@@ -256,7 +256,7 @@
             {
                 var insertCriteria = new InsertAndUpdateTeamSmsCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.Sms,
+                    CompanyId = (int)DepartmentIdentity.Sms,
                     Teams = teams
                 };
 
@@ -274,7 +274,7 @@
             {
                 var criteria = new InsertAndUpdateShiftSmsCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.Sms,
+                    CompanyId = (int)DepartmentIdentity.Sms,
                     Shifts = shifts
                 };
 
@@ -293,7 +293,7 @@
             {
                 var criteria = new InsertAndUpdateEmployeeCalendarSmsCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.Sms,
+                    CompanyId = (int)DepartmentIdentity.Sms,
                     EmployeeCalendars = calendars
                 };
 
@@ -321,7 +321,7 @@
         {
             var criteria = new GetLastUserModifiedDateCriteria
             {
-                DepartmentId = departmentId
+                CompanyId = departmentId
             };
 
             DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
@@ -332,7 +332,7 @@
         {
             var criteria = new GetLastTeamModifiedDateCriteria()
             {
-                DepartmentId = departmentId
+                CompanyId = departmentId
             };
 
             DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
@@ -343,7 +343,7 @@
         {
             var criteria = new GetLastEmployeeCalendarModifiedDateCriteria
             {
-                DepartmentId = departmentId
+                CompanyId = departmentId
             };
 
             DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
@@ -359,7 +359,7 @@
             {
                 var insertCriteria = new InsertAndUpdateUserLuminetCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.Luminet,
+                    CompanyId = (int)DepartmentIdentity.Luminet,
                     Users = users
                 };
 
@@ -378,7 +378,7 @@
             {
                 var insertCriteria = new InsertAndUpdateTeamLuminetCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.Luminet,
+                    CompanyId = (int)DepartmentIdentity.Luminet,
                     Teams = teams
                 };
 
@@ -396,7 +396,7 @@
             {
                 var criteria = new InsertAndUpdateShiftLuminetCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.Luminet,
+                    CompanyId = (int)DepartmentIdentity.Luminet,
                     Shifts = shifts
                 };
 
@@ -415,7 +415,7 @@
             {
                 var criteria = new InsertAndUpdateEmployeeCalendarLuminetCriteria
                 {
-                    DepartmentId = (int)DepartmentIdentity.Luminet,
+                    CompanyId = (int)DepartmentIdentity.Luminet,
                     EmployeeCalendars = calendars
                 };
 

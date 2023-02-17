@@ -1,14 +1,13 @@
 ﻿namespace NexFB.WindowsService
 {
-    using log4net;
-    using NexFB.Core.Enums;
-    using NexFB.Core.Models;
     using System;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Reflection;
     using System.ServiceProcess;
     using System.Timers;
+    using log4net;
+    using NexFB.Core.Models;
 
     public partial class AutoService : ServiceBase
     {
@@ -66,7 +65,6 @@
             _LOG.Info("Service stopped at " + DateTime.Now.ToString());
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void ExecuteJob(object sender, ElapsedEventArgs e)
         {
             if (!_isBusy)
@@ -178,7 +176,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateTeamNexcel()
         {
             try
@@ -193,7 +190,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateUserNexcel()
         {
             try
@@ -208,7 +204,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateShiftNexcel()
         {
             try
@@ -223,7 +218,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateCalendarNexcel()
         {
             try
@@ -238,7 +232,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdatePhotoNexcel()
         {
             try
@@ -253,7 +246,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateTeamHM()
         {
             try
@@ -268,7 +260,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateUserHM()
         {
             try
@@ -283,7 +274,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateShiftHM()
         {
             try
@@ -298,7 +288,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateCalendarHM()
         {
             try
@@ -313,7 +302,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdatePhotoHM()
         {
             try
@@ -328,7 +316,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateTeamSMS()
         {
             try
@@ -343,7 +330,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateUserSMS()
         {
             try
@@ -358,7 +344,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateShiftSMS()
         {
             try
@@ -373,7 +358,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateCalendarSMS()
         {
             try
@@ -388,7 +372,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdatePhotoSMS()
         {
             try
@@ -403,13 +386,11 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateTeamLuminet()
         {
             try
             {
                 _LOG.Info("Update Teams Luminet started at " + DateTime.Now.ToString());
-                //CommandResult result = UpdateTeamForLuminet();
                 CommandResult result = _commonService.UpdateTeamForLuminet();
                 _LOG.Info("Result of update team Luminet: " + (result == null ? "0" : result.Message));
             }
@@ -419,26 +400,6 @@
             }
         }
 
-        //private CommandResult UpdateTeamForLuminet()
-        //{
-        //    CommandResult result = null;
-        //    DateTime fromDate = _commonService.GetDateFromBeforeUpdateTeam((int)DepartmentIdentity.Luminet);
-        //    IList<LuminetService.TeamModel> teams = LuminetService.GetTeam(fromDate);
-        //    if (teams != null && teams.Any())
-        //    {
-        //        var insertCriteria = new InsertAndUpdateTeamLuminetCriteria()
-        //        {
-        //            DepartmentId = (int)DepartmentIdentity.Luminet,
-        //            Teams = teams
-        //        };
-
-        //        result = Repository.Update(insertCriteria);
-        //    }
-
-        //    return result;
-        //}
-
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateUserLuminet()
         {
             try
@@ -453,7 +414,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateShiftLuminet()
         {
             try
@@ -468,7 +428,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdateCalendarLuminet()
         {
             try
@@ -483,7 +442,6 @@
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]
         private void UpdatePhotoLuminet()
         {
             try

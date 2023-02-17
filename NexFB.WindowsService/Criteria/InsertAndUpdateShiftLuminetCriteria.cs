@@ -11,10 +11,10 @@
         private const string _ShiftTpl =
             "<Shift ShiftId='{0}' Code='{1}' Name='{2}' "
             + "BeginCheckInTime='{3}' EndCheckInTime='{4}' BeginCheckOutTime='{5}' EndCheckOutTime='{6}' IsInAfterDay='{7}' "
-            + " IsOutAfterDay='{8}' DepartmentId='{9}' ModifiedDate='{10}' IsDisabled='{11}'></Shift>";
+            + " IsOutAfterDay='{8}' CompanyId='{9}' ModifiedDate='{10}' IsDisabled='{11}'></Shift>";
 
         [SpParam(Ignored = true)]
-        public int DepartmentId { get; set; }
+        public int CompanyId { get; set; }
 
         [SpParam(Ignored = true)]
         public IList<LuminetService.ShiftModel> Shifts { get; set; }
@@ -40,7 +40,7 @@
                             shift.EndCheckOutTime,
                             shift.IsInAfterDay,
                             shift.IsOutAfterDay,
-                            this.DepartmentId,
+                            CompanyId,
                             DateTime.Now,
                             shift.IsDisabled);
                     }
@@ -57,7 +57,7 @@
 
         public override bool IsValid()
         {
-            return DepartmentId > 0 && Shifts != null && Shifts.Any();
+            return CompanyId > 0 && Shifts != null && Shifts.Any();
         }
     }
 }

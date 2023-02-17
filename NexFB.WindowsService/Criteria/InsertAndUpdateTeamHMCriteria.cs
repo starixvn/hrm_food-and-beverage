@@ -1,29 +1,17 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="InsertAndUpdateTeamHMCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.9.5">Created</change>
-// </history>
-
-namespace NexFB.WindowsService.Criteria
+﻿namespace NexFB.WindowsService.Criteria
 {
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// InsertAndUpdateTeamHongMa Criteria.
-    /// </summary>
     public class InsertAndUpdateTeamHMCriteria : CriteriaBase
     {
-        private const string _UserTpl = "<Team TeamId='{0}' DepartmentId='{1}' Code='{2}' "
-            + "Name='{3}' IsDeleted='{4}' ModifiedDate='{5}'></Team>";
+        private const string _UserTpl = "<Team TeamId='{0}' CompanyId='{1}' Code='{2}' "
+            + "Name='{3}' IsDeleted='{4}' ModifiedDate='{5}' SectionId='{6}'></Team>";
 
         [SpParam(Ignored = true)]
-        public int DepartmentId { get; set; }
+        public int CompanyId { get; set; }
 
         [SpParam(Ignored = true)]
         public IList<HongMaService.TeamModel> Teams { get; set; }
@@ -41,11 +29,12 @@ namespace NexFB.WindowsService.Criteria
                         value.AppendFormat(
                             _UserTpl,
                             team.TeamId,
-                            DepartmentId,
+                            CompanyId,
                             team.Code,
                             team.Name,
                             team.IsDeleted,
-                            team.ModifiedDate);
+                            team.ModifiedDate,
+                            team.SectionId);
                     }
                 }
 
@@ -60,7 +49,7 @@ namespace NexFB.WindowsService.Criteria
 
         public override bool IsValid()
         {
-            return DepartmentId > 0 && Teams != null && Teams.Any();
+            return CompanyId > 0 && Teams != null && Teams.Any();
         }
     }
 }

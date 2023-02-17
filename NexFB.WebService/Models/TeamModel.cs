@@ -16,7 +16,7 @@
         public string Name { get; set; }
 
         [DataMember]
-        public int DepartmentId { get; set; }
+        public int SectionId { get; set; }
 
         [DataMember]
         public int LeaderId { get; set; }

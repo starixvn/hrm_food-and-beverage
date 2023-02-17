@@ -8,12 +8,12 @@
     public class InsertAndUpdateEmployeeCalendarLuminetCriteria : CriteriaBase
     {
         private const string _EmployeeCalendarTpl =
-            "<Calendar EmpId='{0}' WorkDate='{1}' DepartmentId='{2}' "
+            "<Calendar EmpId='{0}' WorkDate='{1}' CompanyId='{2}' "
             + "ShiftId='{3}' IsHoliday='{4}' IsOffDay='{5}' IsLeaveDay='{6}' LeaveTypeId='{7}' "
             + " LeaveDay='{8}'  ModifiedDate='{9}'></Calendar>";
 
         [SpParam(Ignored = true)]
-        public int DepartmentId { get; set; }
+        public int CompanyId { get; set; }
 
         [SpParam(Ignored = true)]
         public IList<LuminetService.EmployeeCalendarModel> EmployeeCalendars { get; set; }
@@ -32,7 +32,7 @@
                             _EmployeeCalendarTpl,
                             calendar.UserId,
                             calendar.WorkDate.ToShortDateString(),
-                            this.DepartmentId,
+                            CompanyId,
                             calendar.ShiftId,
                             calendar.IsHoliday,
                             calendar.IsOffDay,
@@ -54,7 +54,7 @@
 
         public override bool IsValid()
         {
-            return DepartmentId > 0 && EmployeeCalendars != null && EmployeeCalendars.Any();
+            return CompanyId > 0 && EmployeeCalendars != null && EmployeeCalendars.Any();
         }
     }
 }

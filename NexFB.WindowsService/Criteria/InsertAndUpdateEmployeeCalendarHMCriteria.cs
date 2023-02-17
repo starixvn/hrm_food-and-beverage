@@ -1,31 +1,19 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="InsertAndUpdateEmployeeCalendarHMCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.10.2">Created</change>
-// </history>
-
-namespace NexFB.WindowsService.Criteria
+﻿namespace NexFB.WindowsService.Criteria
 {
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// InsertAndUpdateEmployeeCalendar Criteria.
-    /// </summary>
     public class InsertAndUpdateEmployeeCalendarHMCriteria : CriteriaBase
     {
         private const string _EmployeeCalendarTpl =
-            "<Calendar EmpId='{0}' WorkDate='{1}' DepartmentId='{2}' "
+            "<Calendar EmpId='{0}' WorkDate='{1}' CompanyId='{2}' "
             + "ShiftId='{3}' IsHoliday='{4}' IsOffDay='{5}' IsLeaveDay='{6}' LeaveTypeId='{7}' "
             + " LeaveDay='{8}'  ModifiedDate='{9}'></Calendar>";
 
         [SpParam(Ignored = true)]
-        public int DepartmentId { get; set; }
+        public int CompanyId { get; set; }
 
         [SpParam(Ignored = true)]
         public IList<HongMaService.EmployeeCalendarModel> EmployeeCalendars { get; set; }
@@ -44,7 +32,7 @@ namespace NexFB.WindowsService.Criteria
                             _EmployeeCalendarTpl,
                             calendar.UserId,
                             calendar.WorkDate.ToShortDateString(),
-                            this.DepartmentId,
+                            CompanyId,
                             calendar.ShiftId,
                             calendar.IsHoliday,
                             calendar.IsOffDay,
@@ -66,7 +54,7 @@ namespace NexFB.WindowsService.Criteria
 
         public override bool IsValid()
         {
-            return DepartmentId > 0 && EmployeeCalendars != null && EmployeeCalendars.Any();
+            return CompanyId > 0 && EmployeeCalendars != null && EmployeeCalendars.Any();
         }
     }
 }

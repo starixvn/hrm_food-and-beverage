@@ -1,32 +1,20 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="InsertAndUpdateUserHMCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.9.4">Created</change>
-// </history>
-
-namespace NexFB.WindowsService.Criteria
+﻿namespace NexFB.WindowsService.Criteria
 {
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// InsertAndUpdateUser Criteria.
-    /// </summary>
     public class InsertAndUpdateUserHMCriteria : CriteriaBase
     {
         private const string _UserTpl =
             "<User EmpId='{0}' Password='{1}' Code='{2}' "
-            + "NickName='{3}' FullName='{4}' DomainName='{5}' DepartmentId='{6}' IsEnabled='{7}' "
+            + "NickName='{3}' FullName='{4}' DomainName='{5}' CompanyId='{6}' IsEnabled='{7}' "
             + " IsDeleted='{8}' JoinedDate='{9}' ModifiedDate='{10}' TeamId='{11}' IsLocal='{12}' "
              + " CardNumber='{13}' CostCenter='{14}'></User>";
 
         [SpParam(Ignored = true)]
-        public int DepartmentId { get; set; }
+        public int CompanyId { get; set; }
 
         [SpParam(Ignored = true)]
         public IList<HongMaService.UserModel> Users { get; set; }
@@ -49,7 +37,7 @@ namespace NexFB.WindowsService.Criteria
                             user.NickName,
                             user.FullName,
                             user.DomainName,
-                            DepartmentId,
+                            CompanyId,
                             user.IsEnabled,
                             user.IsDeleted,
                             user.JoinedDate,
@@ -72,7 +60,7 @@ namespace NexFB.WindowsService.Criteria
 
         public override bool IsValid()
         {
-            return DepartmentId > 0 && Users != null && Users.Any();
+            return CompanyId > 0 && Users != null && Users.Any();
         }
     }
 }

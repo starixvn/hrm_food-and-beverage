@@ -330,9 +330,6 @@ namespace NexFB.WindowsService.LuminetService {
         private string CodeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int DepartmentIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool IsDeletedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -346,6 +343,9 @@ namespace NexFB.WindowsService.LuminetService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int RankField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SectionIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TeamIdField;
@@ -382,19 +382,6 @@ namespace NexFB.WindowsService.LuminetService {
                 if ((object.ReferenceEquals(this.CodeField, value) != true)) {
                     this.CodeField = value;
                     this.RaisePropertyChanged("Code");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int DepartmentId {
-            get {
-                return this.DepartmentIdField;
-            }
-            set {
-                if ((this.DepartmentIdField.Equals(value) != true)) {
-                    this.DepartmentIdField = value;
-                    this.RaisePropertyChanged("DepartmentId");
                 }
             }
         }
@@ -460,6 +447,19 @@ namespace NexFB.WindowsService.LuminetService {
                 if ((this.RankField.Equals(value) != true)) {
                     this.RankField = value;
                     this.RaisePropertyChanged("Rank");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SectionId {
+            get {
+                return this.SectionIdField;
+            }
+            set {
+                if ((this.SectionIdField.Equals(value) != true)) {
+                    this.SectionIdField = value;
+                    this.RaisePropertyChanged("SectionId");
                 }
             }
         }

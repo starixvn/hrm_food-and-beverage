@@ -38,12 +38,12 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="AssistantLeaderId" type="xs:int" />
       <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DepartmentId" type="xs:int" />
       <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
       <xs:element minOccurs="0" name="LeaderId" type="xs:int" />
       <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Rank" type="xs:int" />
+      <xs:element minOccurs="0" name="SectionId" type="xs:int" />
       <xs:element minOccurs="0" name="TeamId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>

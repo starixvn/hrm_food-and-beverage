@@ -7,11 +7,11 @@
 
     public class InsertAndUpdateTeamLuminetCriteria : CriteriaBase
     {
-        private const string _UserTpl = "<Team TeamId='{0}' DepartmentId='{1}' Code='{2}' "
-            + "Name='{3}' IsDeleted='{4}' ModifiedDate='{5}'></Team>";
+        private const string _UserTpl = "<Team TeamId='{0}' CompanyId='{1}' Code='{2}' "
+            + "Name='{3}' IsDeleted='{4}' ModifiedDate='{5}' SectionId='1'></Team>";
 
         [SpParam(Ignored = true)]
-        public int DepartmentId { get; set; }
+        public int CompanyId { get; set; }
 
         [SpParam(Ignored = true)]
         public IList<LuminetService.TeamModel> Teams { get; set; }
@@ -29,7 +29,7 @@
                         value.AppendFormat(
                             _UserTpl,
                             team.TeamId,
-                            DepartmentId,
+                            CompanyId,
                             team.Code,
                             team.Name,
                             team.IsDeleted,
@@ -48,7 +48,7 @@
 
         public override bool IsValid()
         {
-            return DepartmentId > 0 && Teams != null && Teams.Any();
+            return CompanyId > 0 && Teams != null && Teams.Any();
         }
     }
 }
