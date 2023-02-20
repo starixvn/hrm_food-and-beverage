@@ -19,21 +19,8 @@
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    var employees = multi.Read<EmployeeModel, Team, EmployeeModel>(
-                        (emp, team) =>
-                        {
-                            emp.Team = team;
-                            return emp;
-                        },
-                        "TeamId");
-
-                    var roles = multi.Read<EmployeeRoleModel, Role, EmployeeRoleModel>(
-                        (empRo, ro) =>
-                        {
-                            empRo.Role = ro;
-                            return empRo;
-                        },
-                        "RoleId");
+                    IEnumerable<EmployeeModel> employees = GetEmployee(multi);
+                    IEnumerable<EmployeeRoleModel> roles = GetEmployeeRole(multi);
 
                     var roleCompanies = multi.Read<RoleCompany>();
 
@@ -58,21 +45,8 @@
             {
                 using (GridReader multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    var employees = multi.Read<EmployeeModel, Team, EmployeeModel>(
-                        (emp, team) =>
-                        {
-                            emp.Team = team;
-                            return emp;
-                        },
-                        "TeamId");
-
-                    var roles = multi.Read<EmployeeRoleModel, Role, EmployeeRoleModel>(
-                        (empRo, ro) =>
-                        {
-                            empRo.Role = ro;
-                            return empRo;
-                        },
-                        "RoleId");
+                    IEnumerable<EmployeeModel> employees = GetEmployee(multi);
+                    IEnumerable<EmployeeRoleModel> roles = GetEmployeeRole(multi);
 
                     var roleCompanies = multi.Read<RoleCompany>();
 
@@ -104,6 +78,28 @@
                     return rolesDepartment;
                 }
             }
+        }
+
+        private static IEnumerable<EmployeeModel> GetEmployee(GridReader multi)
+        {
+            return multi.Read<EmployeeModel, Team, EmployeeModel>(
+                        (emp, team) =>
+                        {
+                            emp.Team = team;
+                            return emp;
+                        },
+                        "TeamId");
+        }
+
+        private static IEnumerable<EmployeeRoleModel> GetEmployeeRole(GridReader multi)
+        {
+            return multi.Read<EmployeeRoleModel, Role, EmployeeRoleModel>(
+                        (empRo, ro) =>
+                        {
+                            empRo.Role = ro;
+                            return empRo;
+                        },
+                        "RoleId");
         }
 
         private static IEnumerable<EmployeeModel> GetRolesOfEmployees(

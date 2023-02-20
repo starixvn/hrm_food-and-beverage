@@ -1,72 +1,64 @@
-﻿
-<div id="confirmPopup">
-	<div class="modal-header">
-		<div class="popup-header">
-			<span>{{"ManageGroupMember" | translate}}{{" " + group.GroupName}}</span>
-			<span class="close-popup" ng-click="cancel()"></span>
-		</div>
-	</div>
-	<div class="modal-body manage-memger-group-modal">
-		<form class="form-inline" role="form" ng-show="permission == 2">
-			<div class="form-group">
-				<label class="control-label" data-translate="Member">
-				</label>
-				<input name="txtMemberGroup" class="form-control custom-padding search-member-group" ng-model="searchKey"
-					placeholder="Enter full name or nick name" search-auto-complete search-employees="getEmployee(searchKey)"
-					ng-change="unSelectEmployee(searchKey)" employee="member.employee" ng-enter="add()" clear-search-member-input/>
-			</div>
-			<div class="form-group add-member-group">
-				<a ng-click="add()" class="button">
-					<i class="glyphicon glyphicon-plus icon-plus">
-					</i>
-					<label data-translate="Add">
-					</label>
-				</a>
-			</div>
-		</form>
+﻿<div id="confirmPopup">
+    <div class="modal-header">
+        <div class="popup-header">
+            <span>{{"ManageGroupMember" | translate}}{{" " + group.GroupName}}</span>
+            <span class="close-popup" ng-click="cancel()"></span>
+        </div>
+    </div>
+    <div class="modal-body manage-memger-group-modal">
+        <form class="form-inline" role="form" ng-show="permission == 2">
+            <div class="form-group">
+                <label class="control-label" data-translate="Member"></label>
+                <input name="txtMemberGroup" class="form-control custom-padding search-member-group" ng-model="searchKey"
+                       placeholder="Enter full name or nickname" search-auto-complete search-employees="getEmployee(searchKey)"
+                       ng-change="unSelectEmployee(searchKey)" employee="member.employee" ng-enter="add()" clear-search-member-input />
+            </div>
+            <div class="form-group add-member-group">
+                <a ng-click="add()" class="button">
+                    <i class="glyphicon glyphicon-plus icon-plus"></i>
+                    <label data-translate="Add"></label>
+                </a>
+            </div>
+        </form>
 
-		<div>
-			<table class="table table-bordered table-striped col-sm-12">
-				<thead>
-					<tr class="header-table">
-						<th colspan="5" ng-show="permission == 2">
-							<input type="text" ng-model="searchData.queryData" ng-change="searchMemberGroup()" class="search-inline-textbox search pull-right">
-						</th>
-						<th colspan="4" ng-show="permission == 1">
-							<input type="text" ng-model="searchData.queryData" ng-change="searchMemberGroup()" class="search-inline-textbox search pull-right">
-						</th>
-					</tr>
-					<tr>
-						<th data-translate="SymbolCount"></th>
-						<th class="width-80" data-translate="MemberName"></th>
-						<th data-translate="Department"></th>
-						<th class="width-100" data-translate="Group"></th>
-						<th data-translate="Action" ng-show="permission == 2"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="member in filterMembers">
-						<td class="text-center" ng-bind="$index + 1" >
-						</td>
-						<td ng-bind="member.Nickname">
-						</td>
-						<td ng-bind="member.DepartmentName">
-						</td>
-						<td>
-							<ul class="group-toggle-item" >
-								<li ng-repeat="group in member.AssignedGroups" ng-bind="group.GroupName"></li>
-							</ul>
-						</td>
-						<td class="text-center" ng-show="permission == 2">
-							<a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteMember(member)"></a>
-						</td>
-					</tr>
-					<tr ng-show="!filterMembers || filterMembers.length == 0">
-						<td class="empty-result" colspan="5" data-translate="EmptyResult">
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+        <div>
+            <table class="table table-bordered table-striped col-sm-12">
+                <thead>
+                    <tr class="header-table">
+                        <th colspan="5" ng-show="permission == 2">
+                            <input type="text" ng-model="searchData.queryData" ng-change="searchMemberGroup()" class="search-inline-textbox search pull-right">
+                        </th>
+                        <th colspan="4" ng-show="permission == 1">
+                            <input type="text" ng-model="searchData.queryData" ng-change="searchMemberGroup()" class="search-inline-textbox search pull-right">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th data-translate="SymbolCount"></th>
+                        <th class="width-80" data-translate="MemberName"></th>
+                        <th data-translate="Company"></th>
+                        <th class="width-100" data-translate="Group"></th>
+                        <th data-translate="Action" ng-show="permission == 2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="member in filterMembers">
+                        <td class="text-center" ng-bind="$index + 1"></td>
+                        <td ng-bind="member.Nickname"></td>
+                        <td ng-bind="member.CompanyName"></td>
+                        <td>
+                            <ul class="group-toggle-item">
+                                <li ng-repeat="group in member.AssignedGroups" ng-bind="group.GroupName"></li>
+                            </ul>
+                        </td>
+                        <td class="text-center" ng-show="permission == 2">
+                            <a class="glyphicon glyphicon-remove icon-remove" href="" ng-click="deleteMember(member)"></a>
+                        </td>
+                    </tr>
+                    <tr ng-show="!filterMembers || filterMembers.length == 0">
+                        <td class="empty-result" colspan="5" data-translate="EmptyResult"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

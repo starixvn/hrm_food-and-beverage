@@ -53,7 +53,6 @@
 		<Setting Key="UserCtrl_GetEmployees" SpName="UserCtrl_GetEmployees" DbName="FBM" Plain="0">
 			<Mapping DataField="SysID" ObjectProperty="UserId" />
 			<Mapping DataField="EmpId" ObjectProperty="EmployeeId" />
-			<Mapping DataField="DepartmentName" ObjectProperty="Name" />
 			<Mapping DataField="EmpTeamCode" ObjectProperty="Code" />
 			<Mapping DataField="EmpTeamName" ObjectProperty="Name" />
 			<Mapping DataField="RoleName" ObjectProperty="Name" />
@@ -61,7 +60,6 @@
 		<Setting Key="UserCtrl_GetEmployeeBySysId" SpName="UserCtrl_GetEmployeeBySysId" DbName="FBM" Plain="0">
 			<Mapping DataField="SysID" ObjectProperty="SystemId" />
 			<Mapping DataField="EmpId" ObjectProperty="EmployeeId" />
-			<Mapping DataField="DepartmentName" ObjectProperty="Name" />
 			<Mapping DataField="EmpTeamCode" ObjectProperty="Code" />
 			<Mapping DataField="EmpTeamName" ObjectProperty="Name" />
 			<Mapping DataField="RoleName" ObjectProperty="Name" />

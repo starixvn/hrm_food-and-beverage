@@ -1,66 +1,60 @@
-﻿
-<div id="confirmPopup">
-	<div class="modal-header">
-		<div class="popup-header">
-			<span>{{"AssignAllSelectedHeader" | translate}}</span>
-			<span class="close-popup" ng-click="cancel()"></span>
-		</div>
-	</div>
-	<div class="modal-body assign-group-body">
-		<form class="form-horizontal form-multiLine" role="form">
-			<div class="form-group">
-				<label class="col-sm-5 text-right control-label">{{"AssignSelectedMemberLabel" | translate}}:
-				</label>
-				<div class="col-sm-3 field">
-					<add-class-to-role-filter multi-select input-model="groupOptions" button-label="GroupName" helper-elements="all reset"
-						item-label="GroupName" tick-property="ticked" max-labels="0" class="multi-select">
-					</add-class-to-role-filter>
-				</div>
-			</div>
-		</form>
+﻿<div id="confirmPopup">
+    <div class="modal-header">
+        <div class="popup-header">
+            <span>{{"AssignAllSelectedHeader" | translate}}</span>
+            <span class="close-popup" ng-click="cancel()"></span>
+        </div>
+    </div>
+    <div class="modal-body assign-group-body">
+        <form class="form-horizontal form-multiLine" role="form">
+            <div class="form-group">
+                <label class="col-sm-5 text-right control-label">
+                    {{"AssignSelectedMemberLabel" | translate}}:
+                </label>
+                <div class="col-sm-3 field">
+                    <add-class-to-role-filter multi-select input-model="groupOptions" button-label="GroupName" helper-elements="all reset"
+                                              item-label="GroupName" tick-property="ticked" max-labels="0" class="multi-select">
+                    </add-class-to-role-filter>
+                </div>
+            </div>
+        </form>
 
-		<div>
-			<table class="table table-bordered table-striped col-sm-12">
-				<thead>
-					<tr class="header-table">
-						<th colspan="4">
-							<input type="text" ng-model="searchData.queryData" ng-change="searchMemberGroup()" class="search-inline-textbox search pull-right">
-						</th>
-					</tr>
-					<tr>
-						<th data-translate="SymbolCount"></th>
-						<th class="width-80" data-translate="MemberName"></th>
-						<th data-translate="Department"></th>
-						<th class="width-100" data-translate="Group"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="member in filterMembers">
-						<td class="text-center" ng-bind="$index + 1" >
-						</td>
-						<td ng-bind="member.Nickname">
-						</td>
-						<td ng-bind="member.DepartmentName">
-						</td>
-						<td>
-							<ul class="group-toggle-item" >
-								<li ng-repeat="group in member.AssignedGroups" ng-bind="group.GroupName"></li>
-							</ul>
-						</td>
-					</tr>
-					<tr ng-show="!filterMembers || filterMembers.length == 0">
-						<td class="empty-result" colspan="4" data-translate="EmptyResult">
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="button" data-translate="Submit" ng-click="save()" >
-		</button>
-		<button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-		</button>
-	</div>
+        <div>
+            <table class="table table-bordered table-striped col-sm-12">
+                <thead>
+                    <tr class="header-table">
+                        <th colspan="4">
+                            <input type="text" ng-model="searchData.queryData" ng-change="searchMemberGroup()" class="search-inline-textbox search pull-right">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th data-translate="SymbolCount"></th>
+                        <th class="width-80" data-translate="MemberName"></th>
+                        <th data-translate="Company"></th>
+                        <th class="width-100" data-translate="Group"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="member in filterMembers">
+                        <td class="text-center" ng-bind="$index + 1"></td>
+                        <td ng-bind="member.Nickname"></td>
+                        <td ng-bind="member.CompanyName"></td>
+                        <td>
+                            <ul class="group-toggle-item">
+                                <li ng-repeat="group in member.AssignedGroups" ng-bind="group.GroupName"></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr ng-show="!filterMembers || filterMembers.length == 0">
+                        <td class="empty-result" colspan="4" data-translate="EmptyResult">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="button" data-translate="Submit" ng-click="save()"></button>
+        <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel"></button>
+    </div>
 </div>
-

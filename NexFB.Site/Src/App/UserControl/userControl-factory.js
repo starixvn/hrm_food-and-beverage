@@ -22,11 +22,8 @@ userControlModule.factory('userControlFactory', ['$http', 'baseUrl', function ($
         getEmployeeRoleById: function (systemId) {
             return $http.get(baseUrl + 'api/UserControl/GetEmployeeRoleById', { params: { systemId: systemId } });
         },
-        getAllDepartment: function () {
-            return $http.get(baseUrl + 'api/Common/GetAllDepartment');
-        },
-        getAllTeamByCompany: function (departmentId) {
-            return $http.get(baseUrl + 'api/Common/GetAllTeamByCompany', { params: { departmentId: departmentId } });
+        getAllTeamByCompany: function (companyId) {
+            return $http.get(baseUrl + 'api/Common/GetAllTeamByCompany', { params: { companyId: companyId } });
         },
         assignRoleToUser: function (userRoles) {
             return $http.post(baseUrl + 'api/UserControl/AssignRoleToUser', userRoles);

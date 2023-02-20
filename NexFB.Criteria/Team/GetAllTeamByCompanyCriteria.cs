@@ -1,19 +1,7 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="GetAllTeamByCompanyCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/29/2014 12:45:51 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.Team
+﻿namespace NexFB.Criteria.Team
 {
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get all team criteria.
-    /// </summary>
     public class GetAllTeamByCompanyCriteria : CriteriaBase
     {
         public string DepartmentId { get; set; }

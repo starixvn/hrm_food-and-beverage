@@ -1,20 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="MemberModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Brian.Dinh" date="2014.11.6">Created</change>
-// </history>
-
-namespace NexFB.Models.GroupControl
+﻿namespace NexFB.Models.GroupControl
 {
     using System;
     using System.Collections.Generic;
 
-    /// <summary>
-    /// Member model.
-    /// </summary>
     public class MemberModel
     {
         public int SysId { get; set; }
@@ -25,9 +13,8 @@ namespace NexFB.Models.GroupControl
 
         public string Nickname { get; set; }
 
-        public short? DepartmentId { get; set; }
-
-        public string DepartmentName { get; set; }
+        public short? CompanyId { get; set; }
+        public string CompanyName { get; set; }
 
         public string EmployeeTypeName { get; set; }
 

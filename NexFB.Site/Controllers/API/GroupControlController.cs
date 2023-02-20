@@ -1,17 +1,7 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GroupControlController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Brian.Dinh" date="2014.11.6">Created</change>
-// </history>
-
-namespace NexFB.Site.Controllers.API
+﻿namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Text;
     using System.Web.Http;
@@ -26,9 +16,6 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Web.Services.Implement;
     using NexFB.Web.Services.Interface;
 
-    /// <summary>
-    /// The user control controller.
-    /// </summary>
     public class GroupControlController : BaseController
     {
         private readonly IGroupControlService _groupControlService;
@@ -50,11 +37,6 @@ namespace NexFB.Site.Controllers.API
 
         #region Manage Group
 
-        /// <summary>
-        /// Get all group.
-        /// </summary>
-        /// <returns>Group list.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Accept")]
         public IEnumerable<object> GetAllGroup()
         {
             var criteria = new GetGroupCriteria();
@@ -64,25 +46,18 @@ namespace NexFB.Site.Controllers.API
             return groups.Select(t => new { t.GroupId, t.GroupName });
         }
 
-        /// <summary>
-        /// Get group.
-        /// </summary>
-        /// <param name="groupId">GroupId input.</param>
-        /// <param name="isActive">IsActive input.</param>
-        /// <returns>Group list.</returns>
         [ApiAuthorize(FunctionKey = FBFunctionKey.ManageGroup, Policy = Policy.Read)]
         public IEnumerable<GroupModel> GetGroup(string groupId = null, bool? isActive = null)
         {
             var criteria = new GetGroupCriteria
-                {
-                    GroupId = groupId,
-                    IsActive = isActive
-                };
+            {
+                GroupId = groupId,
+                IsActive = isActive
+            };
 
             return _groupControlService.GetGroup(criteria);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Accept")]
         public int GetUserPermissionOnManageGroup()
         {
             int policy = _webCommonService.GetPermission(FBFunctionKey.ManageGroup);
@@ -115,11 +90,6 @@ namespace NexFB.Site.Controllers.API
             return _groupControlService.InsertGroup(criteria);
         }
 
-        /// <summary>
-        /// Update Group.
-        /// </summary>
-        /// <param name="criteria">Criteria input.</param>
-        /// <returns>Command result.</returns>
         [ApiAuthorize(FunctionKey = FBFunctionKey.ManageGroup, Policy = Policy.Host)]
         [HttpPut]
         public CommandResult UpdateGroup(UpdateGroupCriteria criteria)
@@ -131,26 +101,15 @@ namespace NexFB.Site.Controllers.API
             }
 
             return _groupControlService.UpdateGroup(criteria);
-        } 
+        }
 
-        #endregion
+        #endregion Manage Group
 
         #region Manage User In Group
 
-        /// <summary>
-        /// Get members.
-        /// </summary>
-        /// <param name="departmentId">DepartmentId input.</param>
-        /// <param name="employeeTypeId">EmployeeTypeId input.</param>
-        /// <param name="teamId">The team Id.</param>
-        /// <param name="query">Query input.</param>
-        /// <param name="groupId">GroupId input.</param>
-        /// <param name="joinedDateFrom">Joined date from.</param>
-        /// <param name="joinedDateTo">Joined date to.</param>
-        /// <returns>Member list.</returns>
         [ApiAuthorize(FunctionKey = FBFunctionKey.ManageUserInGroup, Policy = Policy.Read)]
         public IEnumerable<MemberModel> GetMember(
-            string departmentId = null,
+            string companyId = null,
             string employeeTypeId = null,
             string teamId = null,
             string query = null,
@@ -159,20 +118,19 @@ namespace NexFB.Site.Controllers.API
             DateTime? joinedDateTo = null)
         {
             var criteria = new GetMemberCriteria
-                {
-                    DepartmentId = departmentId,
-                    EmployeeTypeId = employeeTypeId,
-                    TeamId = teamId,
-                    Query = query,
-                    GroupId = groupId,
-                    JoinedDateFrom = joinedDateFrom,
-                    JoinedDateTo = joinedDateTo
-                };
+            {
+                CompanyId = companyId,
+                EmployeeTypeId = employeeTypeId,
+                TeamId = teamId,
+                Query = query,
+                GroupId = groupId,
+                JoinedDateFrom = joinedDateFrom,
+                JoinedDateTo = joinedDateTo
+            };
 
             return _groupControlService.GetMember(criteria);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Accept")]
         public int GetUserPermissionOnManageUserInGroup()
         {
             int policy = _webCommonService.GetPermission(FBFunctionKey.ManageUserInGroup);
@@ -207,12 +165,6 @@ namespace NexFB.Site.Controllers.API
             return _groupControlService.AssignGroupToMember(criteria);
         }
 
-        /// <summary>
-        /// Delete member of group.
-        /// </summary>
-        /// <param name="memberId">The member Id.</param>
-        /// <param name="groupId">The group Id.</param>
-        /// <returns>The command result.</returns>
         [HttpDelete]
         public CommandResult DeleteMemberGroup(string memberId, int groupId)
         {
@@ -227,11 +179,6 @@ namespace NexFB.Site.Controllers.API
             return _groupControlService.DeleteMemberGroup(criteria);
         }
 
-        /// <summary>
-        /// Activate or deactivate group.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The command result.</returns>
         [HttpPut]
         public CommandResult ActivateGroup(ActivateGroupCriteria criteria)
         {
@@ -244,12 +191,6 @@ namespace NexFB.Site.Controllers.API
             return _groupControlService.ActivateGroup(criteria);
         }
 
-        /// <summary>
-        /// Transform xml para for criteria.
-        /// </summary>
-        /// <param name="rawSysIds">The sysIDs.</param>
-        /// <param name="rawGroupIds">The groupIDs.</param>
-        /// <returns>The document.</returns>
         private string TransformXmlPara(string rawSysIds, string rawGroupIds)
         {
             List<string> sysIds = rawSysIds.Split(',').ToList();
@@ -288,6 +229,6 @@ namespace NexFB.Site.Controllers.API
             return document.ToString();
         }
 
-        #endregion
+        #endregion Manage User In Group
     }
 }

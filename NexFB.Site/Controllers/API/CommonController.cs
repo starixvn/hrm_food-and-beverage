@@ -54,11 +54,11 @@
             return _deliveryAreaService.GetAllDeliveryArea(criteria);
         }
 
-        public IEnumerable<Team> GetAllTeamByCompany(string departmentId = null)
+        public IEnumerable<Team> GetAllTeamByCompany(string companyId = null)
         {
             var criteria = new GetAllTeamByCompanyCriteria
             {
-                DepartmentId = departmentId
+                DepartmentId = companyId
             };
 
             return _commonService.GetAllTeamByCompany(criteria);
@@ -71,12 +71,12 @@
         }
 
         public IEnumerable<EmployeeTypeModel> GetAllEmployeeType(
-            string departmentId = "",
+            string companyId = "",
             bool? isLocal = null)
         {
             var criteria = new GetAllEmployeeTypeCriteria
             {
-                DepartmentId = departmentId,
+                DepartmentId = companyId,
                 IsLocal = isLocal
             };
 

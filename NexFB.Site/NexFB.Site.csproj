@@ -248,6 +248,7 @@
     <Content Include="File\UserManual\Meal Registration.pdf" />
     <Content Include="Src\App\FoodMenuManagement\Templates\menuHistory.html" />
     <Content Include="Src\App\FoodMenuManagement\viewHistoryFoodMenu-controller.js" />
+    <Content Include="Src\App\GroupControl\manage-group-member-controller.js" />
     <Content Include="Src\App\KitchenStaff\editstafforder-controller.js" />
     <Content Include="Src\App\KitchenStaff\kitchenstaff-directive.js" />
     <Content Include="Src\App\KitchenStaff\kitchenstaff-route.js" />
@@ -256,6 +257,7 @@
     <Content Include="Src\App\KitchenStaff\Templates\AddMember.html" />
     <Content Include="Src\App\KitchenStaff\Templates\EditOrder.html" />
     <Content Include="Src\App\KitchenStaff\Templates\Index.html" />
+    <Content Include="Src\App\ManageUserInGroup\assign-group-to-member-controller.js" />
     <Content Include="Src\App\ManageVegetarian\manageVegetarian-factory.js" />
     <Content Include="Src\App\ManageVegetarian\manageVegetarian-controller.js" />
     <Content Include="Src\App\ManageVegetarian\manageVegetarian-route.js" />
