@@ -177,6 +177,63 @@
             return result;
         }
 
+        public CommandResult UpdateSectionForHM()
+        {
+            CommandResult result = null;
+            DateTime fromDate = GetDateFromBeforeUpdateSection((int)DepartmentIdentity.HongMA);
+            IList<HongMaService.SectionModel> sections = HongmaService.GetSection(fromDate);
+            if (sections != null && sections.Any())
+            {
+                var insertCriteria = new InsertAndUpdateSectionHMCriteria
+                {
+                    CompanyId = (int)DepartmentIdentity.HongMA,
+                    Sections = sections
+                };
+
+                result = Repository.Update(insertCriteria);
+            }
+
+            return result;
+        }
+
+        public CommandResult UpdateDepartmentForHM()
+        {
+            CommandResult result = null;
+            DateTime fromDate = GetDateFromBeforeUpdateDepartment((int)DepartmentIdentity.HongMA);
+            IList<HongMaService.DepartmentModel> departments = HongmaService.GetDepartment(fromDate);
+            if (departments != null && departments.Any())
+            {
+                var insertCriteria = new InsertAndUpdateDepartmentHMCriteria
+                {
+                    CompanyId = (int)DepartmentIdentity.HongMA,
+                    Departments = departments
+                };
+
+                result = Repository.Update(insertCriteria);
+            }
+
+            return result;
+        }
+
+        public CommandResult UpdateUnitForHM()
+        {
+            CommandResult result = null;
+            DateTime fromDate = GetDateFromBeforeUpdateUnit((int)DepartmentIdentity.HongMA);
+            IList<HongMaService.UnitModel> units = HongmaService.GetUnit(fromDate);
+            if (units != null && units.Any())
+            {
+                var insertCriteria = new InsertAndUpdateUnitHMCriteria
+                {
+                    CompanyId = (int)DepartmentIdentity.HongMA,
+                    Units = units
+                };
+
+                result = Repository.Update(insertCriteria);
+            }
+
+            return result;
+        }
+
         public CommandResult UpdateShiftForHM()
         {
             CommandResult result = null;
@@ -266,6 +323,63 @@
             return result;
         }
 
+        public CommandResult UpdateSectionForSMS()
+        {
+            CommandResult result = null;
+            DateTime fromDate = GetDateFromBeforeUpdateSection((int)DepartmentIdentity.Sms);
+            IList<SMSService.SectionModel> sections = SmsService.GetSection(fromDate);
+            if (sections != null && sections.Any())
+            {
+                var insertCriteria = new InsertAndUpdateSectionSMSCriteria
+                {
+                    CompanyId = (int)DepartmentIdentity.Sms,
+                    Sections = sections
+                };
+
+                result = Repository.Update(insertCriteria);
+            }
+
+            return result;
+        }
+
+        public CommandResult UpdateDepartmentForSMS()
+        {
+            CommandResult result = null;
+            DateTime fromDate = GetDateFromBeforeUpdateDepartment((int)DepartmentIdentity.Sms);
+            IList<SMSService.DepartmentModel> departments = SmsService.GetDepartment(fromDate);
+            if (departments != null && departments.Any())
+            {
+                var insertCriteria = new InsertAndUpdateDepartmentSMSCriteria
+                {
+                    CompanyId = (int)DepartmentIdentity.Sms,
+                    Departments = departments
+                };
+
+                result = Repository.Update(insertCriteria);
+            }
+
+            return result;
+        }
+
+        public CommandResult UpdateUnitForSMS()
+        {
+            CommandResult result = null;
+            DateTime fromDate = GetDateFromBeforeUpdateUnit((int)DepartmentIdentity.Sms);
+            IList<SMSService.UnitModel> units = SmsService.GetUnit(fromDate);
+            if (units != null && units.Any())
+            {
+                var insertCriteria = new InsertAndUpdateUnitSMSCriteria
+                {
+                    CompanyId = (int)DepartmentIdentity.Sms,
+                    Units = units
+                };
+
+                result = Repository.Update(insertCriteria);
+            }
+
+            return result;
+        }
+
         public CommandResult UpdateShiftForSms()
         {
             CommandResult result = null;
@@ -333,6 +447,39 @@
             var criteria = new GetLastTeamModifiedDateCriteria()
             {
                 CompanyId = departmentId
+            };
+
+            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
+            return fromDate;
+        }
+
+        public DateTime GetDateFromBeforeUpdateSection(int companyId)
+        {
+            var criteria = new GetLastSectionModifiedDateCriteria()
+            {
+                CompanyId = companyId
+            };
+
+            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
+            return fromDate;
+        }
+
+        public DateTime GetDateFromBeforeUpdateDepartment(int companyId)
+        {
+            var criteria = new GetLastDepartmentModifiedDateCriteria()
+            {
+                CompanyId = companyId
+            };
+
+            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
+            return fromDate;
+        }
+
+        public DateTime GetDateFromBeforeUpdateUnit(int companyId)
+        {
+            var criteria = new GetLastUnitModifiedDateCriteria()
+            {
+                CompanyId = companyId
             };
 
             DateTime fromDate = this.GetDataEntity<DateTime>(criteria);

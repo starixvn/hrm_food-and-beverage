@@ -41,6 +41,33 @@
             return GetData<TeamModel>(criteria);
         }
 
+        public IEnumerable<SectionModel> GetSection(DateTime? fromDate)
+        {
+            var criteria = new GetSectionCriteria
+            {
+                FromDate = fromDate
+            };
+            return GetData<SectionModel>(criteria);
+        }
+
+        public IEnumerable<DepartmentModel> GetDepartment(DateTime? fromDate)
+        {
+            var criteria = new GetDepartmentCriteria
+            {
+                FromDate = fromDate
+            };
+            return GetData<DepartmentModel>(criteria);
+        }
+
+        public IEnumerable<UnitModel> GetUnit(DateTime? fromDate)
+        {
+            var criteria = new GetUnitCriteria
+            {
+                FromDate = fromDate
+            };
+            return GetData<UnitModel>(criteria);
+        }
+
         public IEnumerable<ShiftModel> GetShift()
         {
             var criteria = new GetShiftCriteria();

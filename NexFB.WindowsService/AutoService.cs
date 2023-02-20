@@ -111,6 +111,9 @@
                 if (EnableHongMA)
                 {
                     UpdateTeamHM();
+                    UpdateSectionHM();
+                    UpdateDepartmentHM();
+                    UpdateUnitHM();
                     UpdateUserHM();
                     UpdateShiftHM();
                     UpdateCalendarHM();
@@ -135,6 +138,9 @@
                 if (EnableSms)
                 {
                     UpdateTeamSMS();
+                    UpdateSectionSMS();
+                    UpdateDepartmentSMS();
+                    UpdateUnitSMS();
                     UpdateUserSMS();
                     UpdateShiftSMS();
                     UpdateCalendarSMS();
@@ -260,6 +266,48 @@
             }
         }
 
+        private void UpdateSectionHM()
+        {
+            try
+            {
+                _LOG.Info("Update Section Hong Ma started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateSectionForHM();
+                _LOG.Info("Result of update Section Hong Ma: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        private void UpdateDepartmentHM()
+        {
+            try
+            {
+                _LOG.Info("Update Department Hong Ma started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateDepartmentForHM();
+                _LOG.Info("Result of update Department Hong Ma: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        private void UpdateUnitHM()
+        {
+            try
+            {
+                _LOG.Info("Update Unit Hong Ma started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateUnitForHM();
+                _LOG.Info("Result of update Unit Hong Ma: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
         private void UpdateUserHM()
         {
             try
@@ -323,6 +371,48 @@
                 _LOG.Info("Update Teams SMS started at " + DateTime.Now.ToString());
                 CommandResult result = _commonService.UpdateTeamForSms();
                 _LOG.Info("Result of update team SMS: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        private void UpdateSectionSMS()
+        {
+            try
+            {
+                _LOG.Info("Update Section SMS started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateSectionForSMS();
+                _LOG.Info("Result of update Section SMS: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        private void UpdateDepartmentSMS()
+        {
+            try
+            {
+                _LOG.Info("Update Department SMS started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateDepartmentForSMS();
+                _LOG.Info("Result of update Department SMS: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
+            }
+        }
+
+        private void UpdateUnitSMS()
+        {
+            try
+            {
+                _LOG.Info("Update Unit SMS started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.UpdateUnitForSMS();
+                _LOG.Info("Result of update Unit SMS: " + (result == null ? "0" : result.Message));
             }
             catch (Exception ex)
             {

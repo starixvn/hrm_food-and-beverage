@@ -7,7 +7,7 @@
 
     public class InsertAndUpdateTeamHMCriteria : CriteriaBase
     {
-        private const string _UserTpl = "<Team TeamId='{0}' CompanyId='{1}' Code='{2}' "
+        private const string _TeamTpl = "<Team TeamId='{0}' CompanyId='{1}' Code='{2}' "
             + "Name='{3}' IsDeleted='{4}' ModifiedDate='{5}' SectionId='{6}'></Team>";
 
         [SpParam(Ignored = true)]
@@ -27,7 +27,7 @@
                     foreach (HongMaService.TeamModel team in Teams)
                     {
                         value.AppendFormat(
-                            _UserTpl,
+                            _TeamTpl,
                             team.TeamId,
                             CompanyId,
                             team.Code,

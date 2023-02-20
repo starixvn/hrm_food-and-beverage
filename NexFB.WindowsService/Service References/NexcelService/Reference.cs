@@ -489,6 +489,413 @@ namespace NexFB.WindowsService.NexcelService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SectionModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.SerializableAttribute()]
+    public partial class SectionModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DepartmentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsActiveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsDeletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime ModifiedDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SectionIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DepartmentId {
+            get {
+                return this.DepartmentIdField;
+            }
+            set {
+                if ((this.DepartmentIdField.Equals(value) != true)) {
+                    this.DepartmentIdField = value;
+                    this.RaisePropertyChanged("DepartmentId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsActive {
+            get {
+                return this.IsActiveField;
+            }
+            set {
+                if ((this.IsActiveField.Equals(value) != true)) {
+                    this.IsActiveField = value;
+                    this.RaisePropertyChanged("IsActive");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsDeleted {
+            get {
+                return this.IsDeletedField;
+            }
+            set {
+                if ((this.IsDeletedField.Equals(value) != true)) {
+                    this.IsDeletedField = value;
+                    this.RaisePropertyChanged("IsDeleted");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime ModifiedDate {
+            get {
+                return this.ModifiedDateField;
+            }
+            set {
+                if ((this.ModifiedDateField.Equals(value) != true)) {
+                    this.ModifiedDateField = value;
+                    this.RaisePropertyChanged("ModifiedDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SectionId {
+            get {
+                return this.SectionIdField;
+            }
+            set {
+                if ((this.SectionIdField.Equals(value) != true)) {
+                    this.SectionIdField = value;
+                    this.RaisePropertyChanged("SectionId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DepartmentModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.SerializableAttribute()]
+    public partial class DepartmentModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DepartmentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsActiveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsDeletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime ModifiedDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DepartmentId {
+            get {
+                return this.DepartmentIdField;
+            }
+            set {
+                if ((this.DepartmentIdField.Equals(value) != true)) {
+                    this.DepartmentIdField = value;
+                    this.RaisePropertyChanged("DepartmentId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsActive {
+            get {
+                return this.IsActiveField;
+            }
+            set {
+                if ((this.IsActiveField.Equals(value) != true)) {
+                    this.IsActiveField = value;
+                    this.RaisePropertyChanged("IsActive");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsDeleted {
+            get {
+                return this.IsDeletedField;
+            }
+            set {
+                if ((this.IsDeletedField.Equals(value) != true)) {
+                    this.IsDeletedField = value;
+                    this.RaisePropertyChanged("IsDeleted");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime ModifiedDate {
+            get {
+                return this.ModifiedDateField;
+            }
+            set {
+                if ((this.ModifiedDateField.Equals(value) != true)) {
+                    this.ModifiedDateField = value;
+                    this.RaisePropertyChanged("ModifiedDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((this.UnitIdField.Equals(value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UnitModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.SerializableAttribute()]
+    public partial class UnitModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsActiveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsDeletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime ModifiedDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsActive {
+            get {
+                return this.IsActiveField;
+            }
+            set {
+                if ((this.IsActiveField.Equals(value) != true)) {
+                    this.IsActiveField = value;
+                    this.RaisePropertyChanged("IsActive");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsDeleted {
+            get {
+                return this.IsDeletedField;
+            }
+            set {
+                if ((this.IsDeletedField.Equals(value) != true)) {
+                    this.IsDeletedField = value;
+                    this.RaisePropertyChanged("IsDeleted");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime ModifiedDate {
+            get {
+                return this.ModifiedDateField;
+            }
+            set {
+                if ((this.ModifiedDateField.Equals(value) != true)) {
+                    this.ModifiedDateField = value;
+                    this.RaisePropertyChanged("ModifiedDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((this.UnitIdField.Equals(value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ShiftModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
     [System.SerializableAttribute()]
     public partial class ShiftModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -1045,20 +1452,56 @@ namespace NexFB.WindowsService.NexcelService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetUser", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetUserResponse")]
         NexFB.WindowsService.NexcelService.UserModel[] GetUser(System.Nullable<System.DateTime> fromDate);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetUser", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetUserResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.UserModel[]> GetUserAsync(System.Nullable<System.DateTime> fromDate);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetTeam", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetTeamResponse")]
         NexFB.WindowsService.NexcelService.TeamModel[] GetTeam(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetTeam", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetTeamResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.TeamModel[]> GetTeamAsync(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetSection", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetSectionResponse")]
+        NexFB.WindowsService.NexcelService.SectionModel[] GetSection(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetSection", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetSectionResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.SectionModel[]> GetSectionAsync(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetDepartment", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetDepartmentResponse")]
+        NexFB.WindowsService.NexcelService.DepartmentModel[] GetDepartment(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetDepartment", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetDepartmentResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.DepartmentModel[]> GetDepartmentAsync(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetUnit", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetUnitResponse")]
+        NexFB.WindowsService.NexcelService.UnitModel[] GetUnit(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetUnit", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetUnitResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.UnitModel[]> GetUnitAsync(System.Nullable<System.DateTime> fromDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetShift", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetShiftResponse")]
         NexFB.WindowsService.NexcelService.ShiftModel[] GetShift();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetShift", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetShiftResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.ShiftModel[]> GetShiftAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendar", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendarResponse")]
         NexFB.WindowsService.NexcelService.EmployeeCalendarModel[] GetEmployeeCalendar(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendar", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendarResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.EmployeeCalendarModel[]> GetEmployeeCalendarAsync(System.Nullable<System.DateTime> fromDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetPhoto", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetPhotoResponse")]
         NexFB.WindowsService.NexcelService.PhotoModel[] GetPhoto(System.Nullable<System.DateTime> fromDate);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetPhoto", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetPhotoResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.PhotoModel[]> GetPhotoAsync(System.Nullable<System.DateTime> fromDate);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetTextTranslation", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetTextTranslationResponse")]
         string GetTextTranslation(string sourceText);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetTextTranslation", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetTextTranslationResponse")]
+        System.Threading.Tasks.Task<string> GetTextTranslationAsync(string sourceText);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1092,24 +1535,72 @@ namespace NexFB.WindowsService.NexcelService {
             return base.Channel.GetUser(fromDate);
         }
         
+        public System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.UserModel[]> GetUserAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetUserAsync(fromDate);
+        }
+        
         public NexFB.WindowsService.NexcelService.TeamModel[] GetTeam(System.Nullable<System.DateTime> fromDate) {
             return base.Channel.GetTeam(fromDate);
+        }
+        
+        public System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.TeamModel[]> GetTeamAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetTeamAsync(fromDate);
+        }
+        
+        public NexFB.WindowsService.NexcelService.SectionModel[] GetSection(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetSection(fromDate);
+        }
+        
+        public System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.SectionModel[]> GetSectionAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetSectionAsync(fromDate);
+        }
+        
+        public NexFB.WindowsService.NexcelService.DepartmentModel[] GetDepartment(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetDepartment(fromDate);
+        }
+        
+        public System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.DepartmentModel[]> GetDepartmentAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetDepartmentAsync(fromDate);
+        }
+        
+        public NexFB.WindowsService.NexcelService.UnitModel[] GetUnit(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetUnit(fromDate);
+        }
+        
+        public System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.UnitModel[]> GetUnitAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetUnitAsync(fromDate);
         }
         
         public NexFB.WindowsService.NexcelService.ShiftModel[] GetShift() {
             return base.Channel.GetShift();
         }
         
+        public System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.ShiftModel[]> GetShiftAsync() {
+            return base.Channel.GetShiftAsync();
+        }
+        
         public NexFB.WindowsService.NexcelService.EmployeeCalendarModel[] GetEmployeeCalendar(System.Nullable<System.DateTime> fromDate) {
             return base.Channel.GetEmployeeCalendar(fromDate);
+        }
+        
+        public System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.EmployeeCalendarModel[]> GetEmployeeCalendarAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetEmployeeCalendarAsync(fromDate);
         }
         
         public NexFB.WindowsService.NexcelService.PhotoModel[] GetPhoto(System.Nullable<System.DateTime> fromDate) {
             return base.Channel.GetPhoto(fromDate);
         }
         
+        public System.Threading.Tasks.Task<NexFB.WindowsService.NexcelService.PhotoModel[]> GetPhotoAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetPhotoAsync(fromDate);
+        }
+        
         public string GetTextTranslation(string sourceText) {
             return base.Channel.GetTextTranslation(sourceText);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetTextTranslationAsync(string sourceText) {
+            return base.Channel.GetTextTranslationAsync(sourceText);
         }
     }
 }
