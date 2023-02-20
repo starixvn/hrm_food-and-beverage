@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="HomeController.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/22/2014 9:03:31 AM">Created.</change>
-// </history>
-
-namespace NexFB.Site.Controllers
+﻿namespace NexFB.Site.Controllers
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
@@ -17,13 +8,10 @@ namespace NexFB.Site.Controllers
     using NexFB.Services.Interface;
     using NexFB.Web;
 
-    /// <summary>
-    /// The home controller.
-    /// </summary>
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly IEmployeeService _employeeService;
+        private readonly IEmployeeService employeeService;
 
         public HomeController()
             : this(null)
@@ -32,13 +20,9 @@ namespace NexFB.Site.Controllers
 
         public HomeController(IEmployeeService employeeService)
         {
-            _employeeService = employeeService ?? new EmployeeService();
+            this.employeeService = employeeService ?? new EmployeeService();
         }
 
-        /// <summary>
-        /// Action Index.
-        /// </summary>
-        /// <returns>Action Result.</returns>
         public ActionResult Index()
         {
             if (SessionManager.CurrentUser != null)
@@ -46,11 +30,11 @@ namespace NexFB.Site.Controllers
                 UserSession user = SessionManager.CurrentUser;
                 if (user != null)
                 {
-                    var getEmployeeMenuCriteria = new GetEmployeeMenuBySystemIdCriteria
+                    var criteria = new GetEmployeeMenuBySystemIdCriteria
                     {
                         SystemId = user.UserId
                     };
-                    IList<MenuGroup> menuGroup = _employeeService.GetEmployeeMenuById(getEmployeeMenuCriteria);
+                    IList<MenuGroup> menuGroup = employeeService.GetEmployeeMenuById(criteria);
                     ViewBag.MenuGroup = menuGroup;
                 }
 

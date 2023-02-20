@@ -84,14 +84,14 @@
         [ApiAuthorize(FunctionKey = FBFunctionKey.ManageUser, Policy = Policy.Read)]
         public IEnumerable<EmployeeModel> GetAllEmployeeRole(
             string keyword = null,
-            string departmentId = null,
+            string companyId = null,
             string teamId = null,
             string roleId = null)
         {
             var criteria = new GetAllEmployeeRoleCriteria
             {
                 Keyword = keyword,
-                DepartmentId = departmentId,
+                CompanyId = companyId,
                 TeamId = teamId,
                 RoleId = roleId
             };

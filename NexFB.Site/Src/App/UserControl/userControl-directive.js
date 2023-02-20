@@ -117,17 +117,15 @@ userControlModule.directive('assignUserPermission', function () {
 
                     if (checked && !parent.is(':checked')) {
                         parent.prop('checked', true);
-                    }
-                    else {
-                        var siblings = $("[name='department'][pid='" + parentId + "']:checked");
+                    } else {
+                        var siblings = $("[name='company'][pid='" + parentId + "']:checked");
 
                         if (!siblings || (siblings && siblings.length === 0)) {
                             parent.prop('checked', false);
                         }
                     }
-                }
-                else if (currentId) {
-                    $("[name='department'][pid='" + currentId + "']").prop('checked', checked);
+                } else if (currentId) {
+                    $("[name='company'][pid='" + currentId + "']").prop('checked', checked);
                 }
             });
         }
@@ -136,34 +134,17 @@ userControlModule.directive('assignUserPermission', function () {
 
 // get user permission when click save button
 userControlModule.directive('getUserPermission', function () {
-    var getDepartmentTemplate = function (roleDiv, roleId) {
+    var getCompanyTemplate = function (roleDiv, roleId) {
         var result = '',
-            template = '<RoleDepartment RoleID="' + roleId + '"',
-            departments = $(roleDiv).find("[name='department'][pid='" + roleId + "']:checked");
+            template = '<Row RoleId="' + roleId + '"',
+            companies = $(roleDiv).find("[name='company'][pid='" + roleId + "']:checked");
 
-        if (departments) {
-            for (var i = 0; i < departments.length; i++) {
-                var department = departments[i],
-                    departmentId = $(department).val(),
-                    departmentTemplate = template + ' DepartmentID="' + departmentId + '"/>';
-                result = result !== '' ? result + departmentTemplate : departmentTemplate;
-            }
-        }
-
-        return result;
-    };
-
-    var getDepartmentName = function (roleDiv, roleId) {
-        var result = '',
-            departments = $(roleDiv).find("[name='department'][pid='" + roleId + "']:checked");
-
-        if (departments) {
-            for (var i = 0; i < departments.length; i++) {
-                var department = departments[i],
-                    departmentId = $(department).val(),
-                    departmentName = $('#departmentName' + departmentId).text();
-
-                result = result !== '' ? result + ', ' + departmentName : departmentName;
+        if (companies) {
+            for (var i = 0; i < companies.length; i++) {
+                var company = companies[i],
+                    companyId = $(company).val(),
+                    companyTemplate = template + ' CompanyId="' + companyId + '"/>';
+                result = result !== '' ? result + companyTemplate : companyTemplate;
             }
         }
 
@@ -177,36 +158,26 @@ userControlModule.directive('getUserPermission', function () {
                 var roleDiv = $("[name='userRoles']"),
                     roleItems = $(roleDiv).find("[name='role']:checked"),
                     roles = '',
-                    rolesName = '',
-                    roleDepartments = '<ROOT>',
+                    roleCompanies = '<ROOT>',
                     isFreeOrder = $('#free-order').is(':checked');
 
                 if (roleItems) {
                     for (var i = 0; i < roleItems.length; i++) {
                         var item = roleItems[i],
-                            roleId = $(item).val(),
-                            roleName = $('#roleName' + roleId).text();
+                            roleId = $(item).val();
 
                         roles = roles !== '' ? roles + ',' + roleId : roleId;
-                        rolesName = rolesName !== '' ? rolesName + ', ' + roleName : roleName;
 
-                        // get department of role if it has
-                        var departmentTemplate = getDepartmentTemplate(roleDiv, roleId);
-                        roleDepartments += departmentTemplate;
-
-                        // get department name
-                        var departmentsName = getDepartmentName(roleDiv, roleId);
-
-                        if (departmentsName) {
-                            rolesName += '(' + departmentsName + ')';
-                        }
+                        // get company of role if it has
+                        var companyTemplate = getCompanyTemplate(roleDiv, roleId);
+                        roleCompanies += companyTemplate;
                     }
                 }
 
-                roleDepartments += '</ROOT>';
+                roleCompanies += '</ROOT>';
 
                 // call save function
-                scope.save.call(this, roles, roleDepartments, rolesName, isFreeOrder);
+                scope.save.call(this, roles, roleCompanies, isFreeOrder);
             });
         }
     };

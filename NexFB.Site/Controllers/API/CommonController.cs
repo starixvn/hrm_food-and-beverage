@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="CommonController.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/29/2014 11:19:47 AM">Created.</change>
-// </history>
-
-namespace NexFB.Site.Controllers.API
+﻿namespace NexFB.Site.Controllers.API
 {
     using System.Collections.Generic;
     using NexFB.Criteria.DeliveryArea;
@@ -15,14 +6,12 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Team;
+    using NexFB.Models;
     using NexFB.Models.Employee;
     using NexFB.Models.Entities;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
 
-    /// <summary>
-    /// Common controller.
-    /// </summary>
     public class CommonController : BaseController
     {
         private readonly ICommonService _commonService;
@@ -37,6 +26,11 @@ namespace NexFB.Site.Controllers.API
         {
             _commonService = commonService ?? new CommonService();
             _deliveryAreaService = deliveryAreaService ?? new DeliveryAreaService();
+        }
+
+        public IEnumerable<Company> GetAllCompany()
+        {
+            return _commonService.GetAllCompany();
         }
 
         public IEnumerable<Department> GetAllDepartment()

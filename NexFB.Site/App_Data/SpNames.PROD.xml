@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
+    <Function Name="Company">
+        <Setting Key="Company_GetAll" SpName="Company_GetAll" DbName="FBM" Plain="0" />
+    </Function>
 	<Function Name="Employee">
 		<Setting Key="Employee_ChangePassword" SpName="Employee_ChangePassword" DbName="FBM" Plain="0">
 		</Setting>

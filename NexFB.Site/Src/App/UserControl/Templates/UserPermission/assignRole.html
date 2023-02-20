@@ -35,11 +35,10 @@
                                     <span id="roleName{{role.RoleId}}" ng-bind="role.Name">
                                     </span>
                                 </div>
-                                <div class="department" ng-repeat="department in departments track by department.DepartmentId" ng-if="role.RoleId == 2">
-                                    <input type="checkbox" value="{{department.DepartmentId}}" pid="{{role.RoleId}}" name="department" assign-user-permission
-                                           ng-checked="checkDepartmentPermission(role.RoleId, department.DepartmentId)" />
-                                    <span id="departmentName{{department.DepartmentId}}" ng-bind="department.Name">
-                                    </span>
+                                <div class="department" ng-repeat="company in companyOptions track by company.CompanyId" ng-if="role.RoleId == 2">
+                                    <input type="checkbox" value="{{company.CompanyId}}" pid="{{role.RoleId}}" name="company" assign-user-permission
+                                           ng-checked="checkCompanyPermission(role.RoleId, company.CompanyId)" />
+                                    <span id="companyName{{company.CompanyId}}" ng-bind="company.Name"></span>
                                 </div>
                             </div>
                         </td>
@@ -56,10 +55,7 @@
     </div>
 
     <div class="modal-footer">
-        <button class="button" get-user-permission data-translate="Save">
-        </button>
-        <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel">
-        </button>
+        <button class="button" get-user-permission data-translate="Save"></button>
+        <button class="btn btn-default customize" ng-click="cancel()" data-translate="Cancel"></button>
     </div>
 </div>
-

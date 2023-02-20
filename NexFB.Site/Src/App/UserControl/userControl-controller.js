@@ -66,164 +66,6 @@ userControlModule.controller("ManageRoleController",
             };
         }]);
 
-userControlModule.controller("ManageUserController",
-    ['$scope', 'userControlFactory', 'notificationFactory', '$route', '$modal', 'ErrorFactory', 'commonFactory', 'baseUrl',
-        function ($scope, userControlFactory, notificationFactory, $route, $modal, ErrorFactory, commonFactory, baseUrl) {
-            $scope.filter = {
-                keyword: '',
-                departmentId: '',
-                teamId: '',
-                roleId: ''
-            };
-
-            userControlFactory.getManageUserPermission().success(function (permission) {
-                $scope.policy = {
-                    permission: parseInt(permission)
-                };
-            }).error(function (response, status) {
-                ErrorFactory.errorHandle(status);
-            });
-
-            userControlFactory.getAllDepartment().success(function (departments) {
-                $scope.departmentOptions = departments;
-            }).error(function (response, status) {
-                ErrorFactory.errorHandle(status);
-            });
-
-            $scope.getTeamByCompany = function (departmentId) {
-                if (departmentId) {
-                    userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
-                        $scope.teamOptions = teams;
-                    }).error(function (response, status) {
-                        ErrorFactory.errorHandle(status);
-                    });
-                }
-                $scope.teamOptions = '';
-                $scope.filter.teamId = '';
-            };
-
-            userControlFactory.getAllSystemRole().success(function (roles) {
-                $scope.roleOptions = roles;
-            }).error(function (response, status) {
-                ErrorFactory.errorHandle(status);
-            });
-
-            userControlFactory.getDefaultPassword().success(function (password) {
-                $scope.defaultPassword = password.split('"')[1];
-            }).error(function (response, status) {
-                ErrorFactory.errorHandle(status);
-            });
-
-            $scope.showEntries = function () {
-                commonFactory.tablePagination($scope, $scope.employees, $scope.entrySelected);
-            };
-
-            $scope.entrySelected = 20;
-            commonFactory.numberEntryList($scope);
-
-            function getAllEmployeeRole(filter) {
-                userControlFactory.getAllEmployeeRole(filter.keyword, filter.departmentId, filter.teamId, filter.roleId)
-                    .success(function (employees) {
-                        $scope.employees = employees;
-                        commonFactory.tablePagination($scope, employees, $scope.entrySelected);
-                    })
-                    .error(function (response, status) {
-                        ErrorFactory.errorHandle(status);
-                    });
-            }
-
-            getAllEmployeeRole($scope.filter);
-
-            function getSelectedRole(filter) {
-                filter.roleId = '';
-
-                angular.forEach($scope.roleOptions, function (value) {
-                    if (value.ticked) {
-                        var roleId = value.RoleId;
-                        filter.roleId = filter.roleId !== '' ? filter.roleId + ',' + roleId : roleId;
-                    }
-                });
-            }
-
-            $scope.query = function (filter) {
-                getSelectedRole(filter);
-                getAllEmployeeRole(filter);
-            };
-
-            $scope.assignRole = function (employee) {
-
-                var modalAssignInstance = $modal.open({
-                    templateUrl: baseUrl + 'src/app/UserControl/Templates/UserPermission/assignRole.html',
-                    controller: "AssignRoleToUserController",
-                    backdrop: 'static',
-                    resolve: {
-                        userId: function () {
-                            return employee.UserId;
-                        }
-                    }
-                });
-
-                modalAssignInstance.result.then(function (userRoles) {
-                    userControlFactory.assignRoleToUser(userRoles).success(function (response) {
-                        if (response.IsSuccessful) {
-                            employee.Roles = userRoles.rolesName;
-                            notificationFactory.success("DataChangeSuccessfully");
-                            getAllEmployeeRole($scope.filter);
-                        }
-                        else {
-                            notificationFactory.error("", response.Message);
-                        }
-                    }).error(function (response, status) {
-                        if (status === 405) {
-                            ErrorFactory.errorHandle(status);
-                        }
-                        else {
-                            notificationFactory.error("DataChangeFail");
-                        }
-                    });
-                });
-            };
-
-            $scope.resetPassword = function (employee) {
-                var modalResetPassword = $modal.open({
-                    templateUrl: baseUrl + 'src/app/UserControl/Templates/UserPermission/resetPassword.html',
-                    controller: "ResetPasswordController",
-                    backdrop: 'static',
-                    resolve: {
-                        employee: function () {
-                            return employee;
-                        },
-                        defaultPassword: function () {
-                            return $scope.defaultPassword;
-                        }
-                    },
-                    windowClass: "modal-reset-password"
-                });
-
-                modalResetPassword.result.then(function (userId) {
-                    userControlFactory.resetPassword(userId).success(function (response) {
-                        if (response.IsSuccessful) {
-                            notificationFactory.success("DataChangeSuccessfully");
-                        }
-                        else {
-                            notificationFactory.error("", response.Message);
-                        }
-                    }).error(function (response, status) {
-                        if (status === 405) {
-                            ErrorFactory.errorHandle(status);
-                        }
-                        else {
-                            notificationFactory.error("DataChangeFail");
-                        }
-                    });
-                });
-            };
-
-            $scope.reload = function () {
-                $route.reload();
-            };
-        }]);
-
 userControlModule.controller('AssignRoleToUserController',
     ['$scope', '$modalInstance', 'userId', 'userControlFactory', 'ErrorFactory',
         function ($scope, $modalInstance, userId, userControlFactory, ErrorFactory) {
@@ -241,8 +83,8 @@ userControlModule.controller('AssignRoleToUserController',
                 ErrorFactory.errorHandle(status);
             });
 
-            userControlFactory.getAllDepartment().success(function (departments) {
-                $scope.departments = departments;
+            userControlFactory.getAllCompany().success(function (companies) {
+                $scope.companyOptions = companies;
             }).error(function (response, status) {
                 ErrorFactory.errorHandle(status);
             });
@@ -258,12 +100,12 @@ userControlModule.controller('AssignRoleToUserController',
                 return isChecked;
             };
 
-            $scope.checkDepartmentPermission = function (roleId, departmentId) {
+            $scope.checkCompanyPermission = function (roleId, companyId) {
                 var isChecked = false;
                 angular.forEach($scope.roles, function (role) {
                     if (role.RoleId === roleId) {
-                        angular.forEach(role.Departments, function (department) {
-                            if (department.DepartmentId === departmentId) {
+                        angular.forEach(role.Companies, function (company) {
+                            if (company.CompanyId === companyId) {
                                 isChecked = true;
                             }
                         });
@@ -273,12 +115,11 @@ userControlModule.controller('AssignRoleToUserController',
                 return isChecked;
             };
 
-            $scope.save = function (roles, roleDepartments, rolesName, isFreeOrder) {
+            $scope.save = function (roles, roleCompanies, isFreeOrder) {
                 var userRoles = {
                     systemID: userId,
                     roleID: roles,
-                    roleDepartments: roleDepartments,
-                    rolesName: rolesName,
+                    roleCompanies: roleCompanies,
                     isFreeOrder: isFreeOrder
                 };
                 $modalInstance.close(userRoles);

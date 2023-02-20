@@ -1,5 +1,6 @@
 ﻿namespace NexFB.Site.Controllers
 {
+    using System;
     using System.Web.Mvc;
     using System.Web.Security;
     using HRM.UserControl.Client.AspNetMvc.Configurations;
@@ -20,14 +21,27 @@
     public class AuthController : Controller
     {
         private readonly IEmployeeService _employeeService;
+        private readonly IAuthService _authService;
+        private readonly ICryptoService _cryptoService;
+        private readonly IUserControlSession _userControlSession;
+        private readonly IUserControlSettings _userControlSettings;
 
         public AuthController()
+            : this(null, null, null, null, null)
         {
         }
 
-        public AuthController(IEmployeeService employeeService)
+        public AuthController(IEmployeeService employeeService,
+            IAuthService authService,
+            ICryptoService cryptoService,
+            IUserControlSession userControlSession,
+            IUserControlSettings userControlSettings)
         {
-            _employeeService = employeeService;
+            _employeeService = employeeService ?? new EmployeeService();
+            _authService = authService ?? new AuthService();
+            _cryptoService = cryptoService ?? new CryptoService();
+            _userControlSession = userControlSession ?? new UserControlSession();
+            _userControlSettings = userControlSettings ?? new UserControlSettings();
         }
 
         [HttpGet]
@@ -74,9 +88,9 @@
 
         private UserSession GetUserLogin(LoginModel model)
         {
-            UserSession user = CheckLoginByDomain(model, (int)DepartmentIdentity.Nexcel);
+            UserSession user = CheckLoginByDomain(model, (byte)DepartmentIdentity.Nexcel);
 
-            user = user ?? CheckLoginByDomain(model, (int)DepartmentIdentity.Luminet);
+            user = user ?? CheckLoginByDomain(model, (byte)DepartmentIdentity.Luminet);
 
             user = user ?? CheckLoginByCode(model);
 
@@ -87,12 +101,13 @@
                     SystemId = user.UserId
                 };
                 user.Functions = _employeeService.GetAllEmployeeFunction(getallFunctionCriteria);
+                return user;
             }
 
             return user;
         }
 
-        private UserSession CheckLoginByDomain(LoginModel model, int departmentId)
+        private UserSession CheckLoginByDomain(LoginModel model, byte departmentId)
         {
             var criteria = new GetEmployeeByDomainCriteria
             {
@@ -118,19 +133,63 @@
             var criteria = new GetEmployeeByCodeCriteria
             {
                 Code = model.Username,
-                DepartmentId = string.Format("{0},{1}", (int)DepartmentIdentity.Sms, (int)DepartmentIdentity.HongMA)
+                DepartmentId = string.Format("{0},{1}", (byte)DepartmentIdentity.Sms, (byte)DepartmentIdentity.HongMA)
             };
             UserSession user = _employeeService.GetUserByCode(criteria);
 
-            if (user != null && string.Compare(model.Password, Constants.PassWordAdmin1, System.StringComparison.OrdinalIgnoreCase) != 0)
+            if (user != null && string.Compare(model.Password, Constants.PassWordAdmin1, StringComparison.OrdinalIgnoreCase) != 0)
             {
-                if (!isValid)
+                var token = _cryptoService.GenerateRijndaelKeyIV();
+                string[] keyiv = token.Split(':');
+                var rijndaelKey = keyiv[0];
+                var rijndaelIV = keyiv[1];
+                var loginParam = new LoginParam
+                {
+                    Username = _cryptoService.Encrypt(model.Username, rijndaelKey, rijndaelIV),
+                    Password = _cryptoService.Encrypt(model.Password, rijndaelKey, rijndaelIV),
+                    Token = token,
+                    IP = GetClientIP(),
+                    Platform = Request.Browser.Platform,
+                    BrowserName = Request.Browser.Browser,
+                    NetSessionId = Session.SessionID
+                };
+                var loginResult = _authService.Login(loginParam);
+
+                if (!loginResult.IsSuccessfull)
                 {
                     user = null;
+                }
+                else
+                {
+                    _userControlSession.UserId = loginResult.UserId;
+                    _userControlSession.SiteId = _userControlSettings.SiteId;
+                    _userControlSession.JwtToken = loginResult.JwtToken;
+                    _userControlSession.OnUserId = loginResult.OnUserId;
                 }
             }
 
             return user;
+        }
+
+        private string GetClientIP()
+        {
+            var clientIp = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (!string.IsNullOrWhiteSpace(clientIp))
+            {
+                var forwardedIps = clientIp.Split(new[] { ',' }, 1);
+                clientIp = forwardedIps[forwardedIps.Length - 1];
+            }
+            else
+            {
+                clientIp = Request.ServerVariables["REMOTE_ADDR"];
+            }
+
+            if (clientIp == "::1")
+            {
+                clientIp = "127.0.0.1";
+            }
+
+            return clientIp;
         }
     }
 }

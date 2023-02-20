@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="UserControlService.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/26/2014 1:27:20 PM">Created.</change>
-// </history>
-
-namespace NexFB.Services.Implement
+﻿namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -22,9 +13,6 @@ namespace NexFB.Services.Implement
     using NexFB.Repositories.Interface;
     using NexFB.Services.Interface;
 
-    /// <summary>
-    /// Authority Service.
-    /// </summary>
     public class UserControlService : BaseService, IUserControlService
     {
         private readonly IUserControlRepository _userControlRepository;
@@ -39,11 +27,6 @@ namespace NexFB.Services.Implement
             _userControlRepository = userControlRepository ?? new UserControlRepository();
         }
 
-        /// <summary>
-        /// Get all function by role.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator Function Model.</returns>
         public IEnumerable<FunctionModel> GetFunctionByRole(GetFunctionByRoleCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -63,15 +46,10 @@ namespace NexFB.Services.Implement
             return functionGroup;
         }
 
-        /// <summary>
-        /// Assign permission to role.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Command Result.</returns>
         public CommandResult AssignPermissionToRole(AssignPermissionToRoleCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            var commandResult = new CommandResult();
 
             if (criteria.IsValid())
             {
@@ -81,16 +59,9 @@ namespace NexFB.Services.Implement
             return commandResult;
         }
 
-        /// <summary>
-        /// Get all employee role.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator Employee Model.</returns>
         public IEnumerable<EmployeeModel> GetAllEmployeeRole(GetAllEmployeeRoleCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IEnumerable<EmployeeModel> employees = null;
-
             if (criteria.IsValid())
             {
                 employees = _userControlRepository.GetAllEmployeeRole(criteria);
@@ -99,16 +70,9 @@ namespace NexFB.Services.Implement
             return employees;
         }
 
-        /// <summary>
-        /// Get employee role by ID.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The employee model.</returns>
         public EmployeeModel GetEmployeeRoleById(GetEmployeeRoleByIdCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             EmployeeModel employee = null;
-
             if (criteria.IsValid())
             {
                 employee = _userControlRepository.GetEmployeeRoleById(criteria);
@@ -117,15 +81,10 @@ namespace NexFB.Services.Implement
             return employee;
         }
 
-        /// <summary>
-        /// Assign role to user.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The command result.</returns>
         public CommandResult AssignRoleToUser(AssignRoleToUserCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
+            var commandResult = new CommandResult();
 
             if (criteria.IsValid())
             {
@@ -135,11 +94,6 @@ namespace NexFB.Services.Implement
             return commandResult;
         }
 
-        /// <summary>
-        /// Get departments that user has Admin permission.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator Role Department model.</returns>
         public IEnumerable<Department> GetDepartmentUserHasPermission(GetEmployeeRoleByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -153,19 +107,13 @@ namespace NexFB.Services.Implement
             return departments;
         }
 
-        /// <summary>
-        /// Get function by role recursion.
-        /// </summary>
-        /// <param name="rawFunctions">The enumerator contain all functions.</param>
-        /// <param name="rawParentFunctionItem">The current parent function.</param>
-        /// <returns>The list Function Model.</returns>
         private List<FunctionModel> GetFunctionByRoleRecursion(
             IEnumerable<FunctionModel> rawFunctions,
             FunctionModel rawParentFunctionItem)
         {
             List<FunctionModel> rawChildFunctions = rawFunctions.Where(func => func.ParentFunctionId == rawParentFunctionItem.FunctionId).ToList();
 
-            if (rawChildFunctions != null && rawChildFunctions.Count() > 0)
+            if (rawChildFunctions != null && rawChildFunctions.Any())
             {
                 foreach (var rawChildFunctionItem in rawChildFunctions)
                 {

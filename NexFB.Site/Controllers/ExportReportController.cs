@@ -1,17 +1,15 @@
-﻿using System.Collections.Generic;
-using NexFB.Criteria.ShiftMealMapping;
-using NexFB.Models.ShiftMealMapping;
-
-namespace NexFB.Site.Controllers
+﻿namespace NexFB.Site.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
-    using Core.Enums;
-    using Criteria.FoodItemManagement;
     using NexFB.Core.Constants;
+    using NexFB.Core.Enums;
+    using NexFB.Criteria.FoodItemManagement;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Report;
+    using NexFB.Criteria.ShiftMealMapping;
     using NexFB.Models.Authority;
     using NexFB.Models.Report.AdminOrderHistoryReport;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
@@ -22,11 +20,12 @@ namespace NexFB.Site.Controllers
     using NexFB.Models.Report.SideDishReport;
     using NexFB.Models.Report.SideDishSummaryReport;
     using NexFB.Models.Report.ViewMenuReport;
+    using NexFB.Models.ShiftMealMapping;
+    using NexFB.Services.Implement;
     using NexFB.Services.Implement.Report;
+    using NexFB.Services.Interface;
     using NexFB.Services.Interface.Report;
     using NexFB.Web;
-    using Services.Implement;
-    using Services.Interface;
 
     public class ExportReportController : Controller
     {
@@ -297,6 +296,7 @@ namespace NexFB.Site.Controllers
 
             return new EmptyResult();
         }
+
         public ActionResult ExportEmployeeNonRegistrationDetailReport(GetEmployeeNonRegistrationCriteria criteria)
         {
             var report = SessionManager.Get<EmployeeRegistrationReportModel>(

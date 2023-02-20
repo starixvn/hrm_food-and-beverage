@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="AlternativeMenuManagement\InsertAlternativeMenuCriteria.cs" />
     <Compile Include="AlternativeMenuManagement\UpdateAlternativeMenuCriteria.cs" />
+    <Compile Include="Company\GetAllCompanyCriteria.cs" />
     <Compile Include="DeliveryArea\ActivateDeliveryAreaCriteria.cs" />
     <Compile Include="DeliveryArea\CheckDeliveryAreaExistOrderMealCriteria.cs" />
     <Compile Include="DeliveryArea\DeleteDeliveryAreaCriteria.cs" />

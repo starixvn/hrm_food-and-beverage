@@ -47,6 +47,7 @@
     <Compile Include="Authority\LoginModel.cs" />
     <Compile Include="Authority\MenuGroup.cs" />
     <Compile Include="Authority\MenuItem.cs" />
+    <Compile Include="Company.cs" />
     <Compile Include="Employee\EmployeeModel.cs" />
     <Compile Include="Employee\EmployeeShift.cs" />
     <Compile Include="Employee\EmployeeTypeModel.cs" />
@@ -144,7 +145,7 @@
     <Compile Include="SmartCardOrder\SCEmployeeOrder.cs" />
     <Compile Include="UserControl\EmployeeRoleModel.cs" />
     <Compile Include="UserControl\FunctionModel.cs" />
-    <Compile Include="UserControl\RoleDepartmentModel.cs" />
+    <Compile Include="UserControl\RoleCompany.cs" />
     <Compile Include="Authority\UserFunction.cs" />
     <Compile Include="UserControl\RoleSystemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -5,11 +5,13 @@
     using Fanex.Common.Helper;
     using NexFB.Core.Enums;
     using NexFB.Core.Services;
+    using NexFB.Criteria.Company;
     using NexFB.Criteria.Department;
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Team;
     using NexFB.Criteria.UserControl;
+    using NexFB.Models;
     using NexFB.Models.Employee;
     using NexFB.Models.Entities;
     using NexFB.Models.UserControl;
@@ -17,6 +19,12 @@
 
     public class CommonService : BaseService, ICommonService
     {
+        public IList<Company> GetAllCompany()
+        {
+            var criteria = new GetAllCompanyCriteria();
+            return GetData<Company>(criteria).ToList();
+        }
+
         public IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria, bool exceptSystemAdmin = false)
         {
             Check.Argument.IsNotNull(criteria, "criteria");

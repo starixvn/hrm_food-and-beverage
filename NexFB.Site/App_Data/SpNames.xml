@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
-	<Function Name="Employee">
+    <Function Name="Company">
+        <Setting Key="Company_GetAll" SpName="Company_GetAll" DbName="FBM" Plain="0" />
+    </Function>
+    <Function Name="Employee">
 		<Setting Key="Employee_ChangePassword" SpName="Employee_ChangePassword" DbName="FBM" Plain="0">
 		</Setting>
 		<Setting Key="Employee_GetEmployeeBySysID" SpName="Employee_GetEmployeeBySysID" DbName="FBM" Plain="0">
@@ -50,7 +53,6 @@
 		<Setting Key="UserCtrl_GetEmployees" SpName="UserCtrl_GetEmployees" DbName="FBM" Plain="0">
 			<Mapping DataField="SysID" ObjectProperty="UserId" />
 			<Mapping DataField="EmpId" ObjectProperty="EmployeeId" />
-			<Mapping DataField="DepartmentName" ObjectProperty="Name" />
 			<Mapping DataField="EmpTeamCode" ObjectProperty="Code" />
 			<Mapping DataField="EmpTeamName" ObjectProperty="Name" />
 			<Mapping DataField="RoleName" ObjectProperty="Name" />
@@ -58,13 +60,11 @@
 		<Setting Key="UserCtrl_GetEmployeeBySysId" SpName="UserCtrl_GetEmployeeBySysId" DbName="FBM" Plain="0">
 			<Mapping DataField="SysID" ObjectProperty="SystemId" />
 			<Mapping DataField="EmpId" ObjectProperty="EmployeeId" />
-			<Mapping DataField="DepartmentName" ObjectProperty="Name" />
 			<Mapping DataField="EmpTeamCode" ObjectProperty="Code" />
 			<Mapping DataField="EmpTeamName" ObjectProperty="Name" />
 			<Mapping DataField="RoleName" ObjectProperty="Name" />
 		</Setting>
-		<Setting Key="UserCtrl_SetEmployee" SpName="UserCtrl_SetEmployee" DbName="FBM" Plain="0">
-		</Setting>
+		<Setting Key="UserCtrl_SetEmployee" SpName="UserCtrl_SetEmployee" DbName="FBM" Plain="0" />
 	</Function>
 	<Function Name="Department">
 		<Setting Key="Department_GetAll" SpName="Department_GetAll" DbName="FBM" Plain="0">

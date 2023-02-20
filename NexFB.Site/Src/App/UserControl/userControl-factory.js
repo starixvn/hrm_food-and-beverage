@@ -2,43 +2,46 @@
 /*global userControlModule*/
 
 userControlModule.factory('userControlFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
-	return {
-		getFunctionByRole: function (roleId) {
-			return $http.get(baseUrl + 'api/UserControl/GetFunctionByRole', { params: { roleId: roleId} });
-		},
-		getAllSystemRole: function (exceptSystemAdmin) {
-			return $http.get(baseUrl + 'api/UserControl/GetAllSystemRole', { params: { exceptSystemAdmin: exceptSystemAdmin} });
-		},
-		assignPermissionToRole: function (roleFunction) {
-			return $http.post(baseUrl + 'api/UserControl/AssignPermissionToRole', roleFunction);
-		},
-		getAllEmployeeRole: function (keyword, departmentId, teamId, roleId) {
-			return $http.get(baseUrl + 'api/UserControl/GetAllEmployeeRole',
-					{ params: { keyword: keyword, departmentId: departmentId, teamId: teamId, roleId: roleId} });
-		},
-		getEmployeeRoleById: function (systemId) {
-			return $http.get(baseUrl + 'api/UserControl/GetEmployeeRoleById', { params: { systemId: systemId} });
-		},
-		getAllDepartment: function () {
-			return $http.get(baseUrl + 'api/Common/GetAllDepartment');
-		},
-		getAllTeamByCompany: function (departmentId) {
-			return $http.get(baseUrl + 'api/Common/GetAllTeamByCompany', { params: { departmentId: departmentId} });
-		},
-		assignRoleToUser: function (userRoles) {
-			return $http.post(baseUrl + 'api/UserControl/AssignRoleToUser', userRoles);
-		},
-		getManageRolePermission: function () {
-			return $http.get(baseUrl + 'api/UserControl/GetManageRolePermission');
-		},
-		getManageUserPermission: function () {
-			return $http.get(baseUrl + 'api/UserControl/GetManageUserPermission');
-		},
-		resetPassword: function (userId) {
-			return $http.get(baseUrl + 'api/UserControl/ResetPassword', { params: { userId: userId} });
-		},
-		getDefaultPassword: function () {
-			return $http.get(baseUrl + 'api/UserControl/GetDefaultPassword');
-		}
-	};
-} ]);
+    return {
+        getAllCompany: function () {
+            return $http.get(baseUrl + 'api/common/getAllCompany');
+        },
+        getFunctionByRole: function (roleId) {
+            return $http.get(baseUrl + 'api/UserControl/GetFunctionByRole', { params: { roleId: roleId } });
+        },
+        getAllSystemRole: function (exceptSystemAdmin) {
+            return $http.get(baseUrl + 'api/UserControl/GetAllSystemRole', { params: { exceptSystemAdmin: exceptSystemAdmin } });
+        },
+        assignPermissionToRole: function (roleFunction) {
+            return $http.post(baseUrl + 'api/UserControl/AssignPermissionToRole', roleFunction);
+        },
+        getAllEmployeeRole: function (keyword, companyId, teamId, roleId) {
+            return $http.get(baseUrl + 'api/UserControl/GetAllEmployeeRole',
+                { params: { keyword: keyword, companyId: companyId, teamId: teamId, roleId: roleId } });
+        },
+        getEmployeeRoleById: function (systemId) {
+            return $http.get(baseUrl + 'api/UserControl/GetEmployeeRoleById', { params: { systemId: systemId } });
+        },
+        getAllDepartment: function () {
+            return $http.get(baseUrl + 'api/Common/GetAllDepartment');
+        },
+        getAllTeamByCompany: function (departmentId) {
+            return $http.get(baseUrl + 'api/Common/GetAllTeamByCompany', { params: { departmentId: departmentId } });
+        },
+        assignRoleToUser: function (userRoles) {
+            return $http.post(baseUrl + 'api/UserControl/AssignRoleToUser', userRoles);
+        },
+        getManageRolePermission: function () {
+            return $http.get(baseUrl + 'api/UserControl/GetManageRolePermission');
+        },
+        getManageUserPermission: function () {
+            return $http.get(baseUrl + 'api/UserControl/GetManageUserPermission');
+        },
+        resetPassword: function (userId) {
+            return $http.get(baseUrl + 'api/UserControl/ResetPassword', { params: { userId: userId } });
+        },
+        getDefaultPassword: function () {
+            return $http.get(baseUrl + 'api/UserControl/GetDefaultPassword');
+        }
+    };
+}]);

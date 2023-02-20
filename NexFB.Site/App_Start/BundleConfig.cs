@@ -1,28 +1,12 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="BundleConfig.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/21/2014 3:28:12 PM">Created.</change>
-// </history>
-
-namespace NexFB.Site
+﻿namespace NexFB.Site
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Optimization;
 
-    /// <summary>
-    /// Bundle Config.
-    /// </summary>
     public static class BundleConfig
     {
-        /// <summary>
-        /// Register Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundle collection.</param>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+#pragma warning disable S138 // Functions should not have too many lines of code
         public static void RegisterBundles(BundleCollection bundles)
+#pragma warning restore S138 // Functions should not have too many lines of code
         {
             bundles.AddAndInclude(
                 "~/Src/Content/login/css",
@@ -105,6 +89,7 @@ namespace NexFB.Site
                 //"~/Src/App/ManageVegetarian/manageVegetarian-directive.js",
 
                 "~/Src/App/UserControl/userControl-route.js",
+                "~/Src/App/UserControl/manage-user-controller.js",
                 "~/Src/App/UserControl/userControl-controller.js",
                 "~/Src/App/UserControl/userControl-factory.js",
                 "~/Src/App/UserControl/userControl-directive.js",

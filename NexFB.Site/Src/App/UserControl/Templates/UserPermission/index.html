@@ -7,29 +7,25 @@
 <div class="col-sm-12">
     <form novalidate class="row form-inline filter">
         <div class="form-group">
-            <label data-translate="Keyword">
-            </label>
+            <label data-translate="Keyword"></label>
             <input class="form-control lstBox-limit" type="text" ng-model="filter.keyword" placeholder="full name or nick name" />
         </div>
         <div class="form-group">
-            <label data-translate="Department">
-            </label>
-            <select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
-                    class="form-control lstBox-limit" ng-change="getTeamByCompany(filter.departmentId)">
+            <label data-translate="Company"></label>
+            <select ng-model="filter.companyId" ng-options="opt.CompanyId as opt.Name for opt in companyOptions"
+                    class="form-control lstBox-limit" ng-change="getTeamByCompany(filter.companyId)">
                 <option value="">-- {{"All" | translate}} --</option>
             </select>
         </div>
         <div class="form-group">
-            <label data-translate="Team">
-            </label>
+            <label data-translate="Team"></label>
             <select ng-model="filter.teamId" ng-options="opt.TeamId as opt.Name for opt in teamOptions"
                     class="form-control lstBox-limit">
                 <option value="">-- {{"AllTeam" | translate}} --</option>
             </select>
         </div>
         <div class="form-group" name="multiSelectOption">
-            <label data-translate="Role">
-            </label>
+            <label data-translate="Role"></label>
             <div class="sel-role">
                 <add-class-to-role-filter multi-select input-model="roleOptions" button-label="Name"
                                           helper-elements="all reset" item-label="Name" tick-property="ticked" max-labels="0"
@@ -51,51 +47,31 @@
                 </th>
             </tr>
             <tr class="headerName">
-                <th class="employee-no" data-translate="SymbolCount">
-                </th>
-                <th class="employee-code" data-translate="Code">
-                </th>
-                <th class="authority-employee-nick" data-translate="NickName">
-                </th>
-                <th class="authority-employee-name" data-translate="FullName">
-                </th>
-                <th class="authority-employee-team" data-translate="Team">
-                </th>
-                <th class="authority-employee-company" data-translate="Department">
-                </th>
-                <th class="authority-employee-role" data-translate="Roles">
-                </th>
-                <th class="authority-employee-free-order" data-translate="Free Order">
-                </th>
-                <th class="authority-employee-action" data-translate="Action" ng-show="policy.permission == 2">
-                </th>
-                <th class="authority-employee-reset-password" data-translate="ResetPassword" ng-show="policy.permission == 2">
-                </th>
+                <th class="employee-no" data-translate="SymbolCount"></th>
+                <th class="employee-code" data-translate="Code"></th>
+                <th class="authority-employee-nick" data-translate="NickName"></th>
+                <th class="authority-employee-name" data-translate="FullName"></th>
+                <th class="authority-employee-team" data-translate="Team"></th>
+                <th class="authority-employee-company" data-translate="Company"></th>
+                <th class="authority-employee-role" data-translate="Roles"></th>
+                <th class="authority-employee-free-order" data-translate="Free Order"></th>
+                <th class="authority-employee-action" data-translate="Action" ng-show="policy.permission == 2"></th>
+                <th class="authority-employee-reset-password" data-translate="ResetPassword" ng-show="policy.permission == 2"></th>
             </tr>
         </thead>
         <tbody class="table-body">
             <tr ng-repeat="employee in pagedItems[currentPage]">
-                <td class="employee-no">
-                    {{employee.itemIndex + 1}}
-                </td>
-                <td class="employee-code">
-                    {{employee.Code}}
-                </td>
-                <td class="nick-name authority-employee-nick">
-                    {{employee.NickName}}
-                </td>
-                <td class="authority-employee-name">
-                    {{employee.FullName}}
-                </td>
+                <td class="employee-no">{{employee.itemIndex + 1}}</td>
+                <td class="employee-code">{{employee.Code}}</td>
+                <td class="nick-name authority-employee-nick">{{employee.NickName}}</td>
+                <td class="authority-employee-name">{{employee.FullName}}</td>
                 <td class="authority-employee-team">
                     <span tooltip="{{employee.Team.Name}}">{{employee.Team.Code}}</span>
                 </td>
                 <td class="authority-employee-company">
-                    {{employee.Department.Name}}
+                    {{employee.CompanyName}}
                 </td>
-                <td class="authority-employee-role">
-                    {{employee.Roles}}
-                </td>
+                <td class="authority-employee-role">{{employee.Roles}}</td>
                 <td class="text-center authority-employee-free-order">
                     <input type="checkbox" ng-checked="employee.IsFreeOrder" ng-click="ChangeFreeOrder(employee)" />
                 </td>
@@ -110,8 +86,7 @@
                 </td>
             </tr>
             <tr ng-show="employees == '' || employees == 'null' || pagedItems.length == 0">
-                <td class="empty-result" colspan="9" data-translate="EmptyResult">
-                </td>
+                <td class="empty-result" colspan="9" data-translate="EmptyResult"></td>
             </tr>
         </tbody>
         <tfoot>
