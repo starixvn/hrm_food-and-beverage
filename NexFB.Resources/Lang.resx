@@ -865,7 +865,7 @@
     <value>Monthly Main Dish Report - Per Meal</value>
   </data>
 	<data name="MonthlyMainDishLocalSheetName" xml:space="preserve">
-    <value>Monthly Main Dish Report - Per Meal</value>
+    <value>MonthlyMainDishReportPerMeal</value>
   </data>
 	<data name="GroupBy" xml:space="preserve">
     <value>Group by</value>

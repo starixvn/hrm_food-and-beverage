@@ -108,7 +108,6 @@ namespace NexFB.Site.Controllers.API.Report
         {
             var criteria = new GetMonthlyMainDishReportLocalCriteria
             {
-                UserId = userId,
                 ReportDate = reportDate,
                 DepartmentId = departmentId,
                 EmployeeTypeId = employeeTypeId,

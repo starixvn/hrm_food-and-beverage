@@ -56,7 +56,7 @@
         public void WriteCellRange(int rowIndex, int totalRow, int colIndex, int totalCol, object value)
         {
             var cellRange = new CellRangeAddress(rowIndex, rowIndex + totalRow - 1, colIndex, colIndex + totalCol - 1);
-            this._sheet.AddMergedRegion(cellRange);
+            //this._sheet.AddMergedRegion(cellRange);
 
             var cell = this._sheet.GetCell(rowIndex, colIndex);
             cell.SetCellValue(value);
