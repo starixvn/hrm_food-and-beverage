@@ -179,7 +179,7 @@ reportModule.controller('AdminOrderHistoryReportController',
                 });
             };
 
-            reportFactory.getDepartmentOfCurrentUser().success(function () {
+            reportFactory.getCompanyOfCurrentUser().success(function () {
                 $scope.filter.employeeMenu = $scope.menuType.All;
 
                 $scope.getAdminOrderHistoryReport($scope.filter);

@@ -1,20 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UserSession.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.8.26">Created</change>
-// </history>
-
-namespace NexFB.Models.Authority
+﻿namespace NexFB.Models.Authority
 {
     using System;
     using System.Collections.Generic;
 
-    /// <summary>
-    /// User Session.
-    /// </summary>
     [Serializable]
     public class UserSession
     {
@@ -32,7 +20,7 @@ namespace NexFB.Models.Authority
 
         public bool IsDisabled { get; set; }
 
-        public int DepartmentId { get; set; }
+        public short CompanyId { get; set; }
 
         public string Roles { get; set; }
 

@@ -155,8 +155,8 @@ foodMenuUtilities, notificationFactory) {
 	/*
 	** If SMS employee, set default of menu is Has Side Dish (Charged).Otherwise, default value is All.
 	*/
-	reportFactory.getDepartmentOfCurrentUser().success(function (departmentId) {
-		switch (departmentId) {
+    reportFactory.getCompanyOfCurrentUser().success(function (companyId) {
+		switch (companyId) {
 			case $scope.department.SMS:
 				$scope.filter.employeeMenu = $scope.menuType.HasSideDish;
 				break;

@@ -239,8 +239,8 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         getDayTypeEnum: function () {
             return $http.get(baseUrl + 'api/report/GetDayType');
         },
-        getDepartmentOfCurrentUser: function () {
-            return $http.get(baseUrl + 'api/common/GetDepartmentOfCurrentUser');
+        getCompanyOfCurrentUser: function () {
+            return $http.get(baseUrl + 'api/common/GetCompanyOfCurrentUser');
         },
         getLocation: function () {
             return $http.get(baseUrl + 'api/Common/GetAllDeliveryArea');

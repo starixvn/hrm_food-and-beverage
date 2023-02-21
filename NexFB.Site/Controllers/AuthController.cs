@@ -107,16 +107,16 @@
             return user;
         }
 
-        private UserSession CheckLoginByDomain(LoginModel model, byte departmentId)
+        private UserSession CheckLoginByDomain(LoginModel model, byte companyId)
         {
             var criteria = new GetEmployeeByDomainCriteria
             {
                 Username = model.Username,
-                DepartmentId = departmentId.ToString()
+                CompanyId = companyId.ToString()
             };
             UserSession user = _employeeService.GetUserByDomain(criteria);
 
-            if (user != null && string.Compare(model.Password, Constants.PassWordAdmin2, System.StringComparison.OrdinalIgnoreCase) != 0)
+            if (user != null && string.Compare(model.Password, Constants.PassWordAdmin2, StringComparison.OrdinalIgnoreCase) != 0)
             {
                 bool isValid = _employeeService.IsValidateUser(user, model.Password);
                 if (!isValid)
@@ -133,7 +133,7 @@
             var criteria = new GetEmployeeByCodeCriteria
             {
                 Code = model.Username,
-                DepartmentId = string.Format("{0},{1}", (byte)DepartmentIdentity.Sms, (byte)DepartmentIdentity.HongMA)
+                CompanyId = string.Format("{0},{1}", (byte)DepartmentIdentity.Sms, (byte)DepartmentIdentity.HongMA)
             };
             UserSession user = _employeeService.GetUserByCode(criteria);
 

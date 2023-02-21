@@ -83,9 +83,9 @@
             return _commonService.GetAllEmployeeType(criteria);
         }
 
-        public int GetDepartmentOfCurrentUser()
+        public int GetCompanyOfCurrentUser()
         {
-            return CurrentUser.DepartmentId;
+            return CurrentUser.CompanyId;
         }
     }
 }
