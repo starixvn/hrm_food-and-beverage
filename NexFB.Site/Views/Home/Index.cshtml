@@ -1,77 +1,76 @@
 ﻿@using NexFB.Models.Authority
-@using NexFB.Web
 @using NexFB.Resources
-@using NexFB.Core.Constants
 @using NexFB.Core.Enums
 @model UserSession
 @{
-	Layout = "~/Views/Shared/_Layout.cshtml";
-	var index = 1;
-	var menuGroups = (IList<MenuGroup>)ViewBag.MenuGroup;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var index = 1;
+    var menuGroups = (IList<MenuGroup>)ViewBag.MenuGroup;
 }
 
 <div class="row header">
-	<a class="logo" href="~/Ordering/Index">
-        <img src="~/Src/Content/Site/Images/logo.png" alt="F&amp;B" title="F&amp;B"/>
+    <a class="logo" href="~/Ordering/Index">
+        <img src="~/Src/Content/Site/Images/logo.png" alt="F&amp;B" title="F&amp;B" />
     </a>
-	<div class="nav">
-		<nav id="navbar-example" class="navbar navbar-static top-menu" role="navigation">
-			<div class="bs-example-js-navbar-collapse">
-				<ul class="nav navbar-nav">
-				@if (menuGroups != null)
-				{
-					foreach (MenuGroup menuParentItem in menuGroups)
-					{
-						var childMenuItems = menuParentItem.MenuItems;
-						if (childMenuItems != null && childMenuItems.Count() > 0)
-						{
-							var id = "drop" + index;
+    <div class="nav">
+        <nav id="navbar-example" class="navbar navbar-static top-menu" role="navigation">
+            <div class="bs-example-js-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    @if (menuGroups != null)
+                    {
+                        foreach (MenuGroup menuParentItem in menuGroups)
+                        {
+                            var childMenuItems = menuParentItem.MenuItems;
+                            if (childMenuItems != null && childMenuItems.Count() > 0)
+                            {
+                                var id = "drop" + index;
 
-									<li class="dropdown">
-										<a id="@id" href="#" data-role="button" class="dropdown-toggle" data-toggle="dropdown">@menuParentItem.Name<b class="caret"></b>
-										</a>
-										<ul class="dropdown-menu" data-role="button" aria-labelledby="@id">
-											@foreach (var childMenu in childMenuItems)
-					{
-												<li data-role="presentation"><a data-role="menuitem" tabindex="-1" href="~/@childMenu.MenuLink">@childMenu.Name</a>
-												</li>
-					}
-										</ul>
-									</li>
-							index ++;
-						}
-						else
-						{
-											<li>
-												<a href="~/@menuParentItem.MenuLink" >@menuParentItem.Name</a>
-											</li>
-						}
-					}
-				}
-				
-				</ul>
-			</div>
-		</nav>
-		<div id="user_utilities" class="user-info info" data-ng-controller="AuthenticationController">
-			<h2>@Model.FullName - @Model.NickName
-			</h2>
-			<a class="dropdown-arrow" href="javascript:;">
-			</a>
-			<ol>
-				@if (@Model.DepartmentId == (int)DepartmentIdentity.Nexcel)
-				{ 
-					<li>
-						<a href="javascript:;" data-ng-click="changePassword()">@Lang.ChangePassword</a>
-					</li>
-				}
-				
-				<li>
-					<a href="javascript:;" data-ng-click="logout()">@Lang.Logout</a>
-				</li>
-			</ol>
-		</div>
-	</div>
+                                <li class="dropdown">
+                                    <a id="@id" href="#" data-role="button" class="dropdown-toggle" data-toggle="dropdown">
+                                        @menuParentItem.Name<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu" data-role="button" aria-labelledby="@id">
+                                    @foreach (var childMenu in childMenuItems)
+                                    {
+                                        <li data-role="presentation">
+                                            <a data-role="menuitem" tabindex="-1" href="~/@childMenu.MenuLink">@childMenu.Name</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                            index++;
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="~/@menuParentItem.MenuLink">@menuParentItem.Name</a>
+                            </li>
+                        }
+                    }
+                }
+                </ul>
+            </div>
+        </nav>
+        <div id="user_utilities" class="user-info info" data-ng-controller="AuthenticationController">
+            <h2>
+                @Model.FullName - @Model.NickName
+            </h2>
+            <a class="dropdown-arrow" href="javascript:;">
+            </a>
+            <ol>
+                @if (@Model.CompanyId == (byte)DepartmentIdentity.Nexcel)
+                {
+                    <li>
+                        <a href="javascript:;" data-ng-click="changePassword()">@Lang.ChangePassword</a>
+                    </li>
+                }
+
+                <li>
+                    <a href="javascript:;" data-ng-click="logout()">@Lang.Logout</a>
+                </li>
+            </ol>
+        </div>
+    </div>
 </div>
 
-<div class="row" data-ng-view>
-</div>
+<div class="row" data-ng-view></div>
