@@ -281,6 +281,8 @@
     <Content Include="Src\App\Report\Templates\employeeRegistrationDetailReport.html" />
     <Content Include="Src\App\Report\Templates\monthlyBreakfastAndSupperReport.html" />
     <Content Include="Src\App\Report\Templates\monthlyLunchAndDinnerReport.html" />
+    <Content Include="Src\App\SideDishManagement\edit-side-dish-controller.js" />
+    <Content Include="Src\App\SideDishManagement\create-side-dish-controller.js" />
     <Content Include="Src\App\UserControl\manage-user-controller.js" />
     <Content Include="Web.LOCAL.config">
       <SubType>Designer</SubType>

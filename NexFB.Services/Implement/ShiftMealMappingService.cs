@@ -1,60 +1,22 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ShiftMealMappingService.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/14/2014 1:08:37 PM">Created.</change>
-// </history>
-
-using NexFB.Core.Utilities;
-using NexFB.Models.Entities;
-using NexFB.Models.FoodItemManagement;
-using NexFB.Models.Ordering;
-using NexFB.Resources;
-
-namespace NexFB.Services.Implement
+﻿namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
-    using Fanex.Common.Helper;
     using NexFB.Core.Models;
     using NexFB.Core.Services;
+    using NexFB.Core.Utilities;
     using NexFB.Criteria.ShiftMealMapping;
     using NexFB.Models.ShiftMealMapping;
-    using NexFB.Repositories.Implement;
-    using NexFB.Repositories.Interface;
+    using NexFB.Resources;
     using NexFB.Services.Interface;
 
-    /// <summary>
-    /// The Shift-Meal mapping service.
-    /// </summary>
     public class ShiftMealMappingService : BaseService, IShiftMealMappingService
     {
-        private readonly IShiftMealMappingRepository _shiftMealMappingRepository;
-
-        public ShiftMealMappingService()
-            : this(null)
-        {
-        }
-
-        public ShiftMealMappingService(IShiftMealMappingRepository shiftMealMappingRepository)
-        {
-            _shiftMealMappingRepository = shiftMealMappingRepository ?? new ShiftMealMappingRepository();
-        }
-
-        /// <summary>
-        /// Get all shift meal to mapping.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The enumerator Shift Meal Mapping model.</returns>
         public IEnumerable<ShiftMealMappingModel> GetAllShiftMeal(GetAllShiftMealMappingCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IEnumerable<ShiftMealMappingModel> shiftMeals = null;
-
             if (criteria.IsValid())
             {
-                shiftMeals = _shiftMealMappingRepository.GetAllShiftMeal(criteria);
+                shiftMeals = GetData<ShiftMealMappingModel>(criteria);
             }
 
             return shiftMeals;
@@ -86,18 +48,18 @@ namespace NexFB.Services.Implement
                 var subItem = new
                 {
                     No = counter,
-                    Department = item.Department.Name,
+                    CompanyName = item.CompanyName,
                     Shift = item.ShiftName,
                     CheckIn = item.BeginCheckInTime,
                     CheckOut = item.BeginCheckOutTime,
-                    MealPreviousSupper = item.MealPreviousSupper ? "x" : "",
-                    MealBreakfast = item.MealBreakfast ? "x" : "",
-                    MealLunch = item.MealLunch ? "x" : "",
-                    MealDinner = item.MealDinner ? "x" : "",
-                    MealSupper = item.MealSupper ? "x" : "",
-                    MealNextBreakfast = item.MealNextBreakfast ? "x" : "",
-                    MealNextLunch = item.MealNextLunch ? "x" : "",
-                    MealNextDinner = item.MealNextDinner ? "x" : "",
+                    MealPreviousSupper = item.MealPreviousSupper ? "x" : string.Empty,
+                    MealBreakfast = item.MealBreakfast ? "x" : string.Empty,
+                    MealLunch = item.MealLunch ? "x" : string.Empty,
+                    MealDinner = item.MealDinner ? "x" : string.Empty,
+                    MealSupper = item.MealSupper ? "x" : string.Empty,
+                    MealNextBreakfast = item.MealNextBreakfast ? "x" : string.Empty,
+                    MealNextLunch = item.MealNextLunch ? "x" : string.Empty,
+                    MealNextDinner = item.MealNextDinner ? "x" : string.Empty,
                 };
 
                 writer.WriteRow(4, subItem);
@@ -105,16 +67,9 @@ namespace NexFB.Services.Implement
             }
         }
 
-        /// <summary>
-        /// Update shift meal.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The command result.</returns>
         public CommandResult UpdateShiftMeal(UpdateShiftMealByShiftIdCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
-            CommandResult commandResult = new CommandResult();
-
+            var commandResult = new CommandResult();
             if (criteria.IsValid())
             {
                 commandResult = Repository.Update(criteria);

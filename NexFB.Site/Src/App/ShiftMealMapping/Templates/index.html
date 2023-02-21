@@ -1,5 +1,4 @@
-﻿
-<div class="col-sm-12">
+﻿<div class="col-sm-12">
     <div class="row sub-header">
         <ul class="breadcrumb list-inline pull-left">
             <li class="current" data-translate="ShiftMealMapping"></li>
@@ -8,10 +7,10 @@
     <div class="row filter">
         <form class="form-inline" role="form">
             <div class="form-group">
-                <label data-translate="Department"></label>
-                <select ng-model="departmentId"
-                        ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
-                        ng-change="getDataForFilter(departmentId)"
+                <label data-translate="Company"></label>
+                <select ng-model="companyId"
+                        ng-options="opt.CompanyId as opt.Name for opt in companyOptions"
+                        ng-change="getDataForFilter(companyId)"
                         required class="form-control">
                     <option value="">-- {{"All" | translate}} --</option>
                 </select>
@@ -20,7 +19,7 @@
                 <label data-translate="Section"></label>
                 <select ng-model="sectionName"
                         ng-options="opt.Code as opt.Name for opt in sections"
-                        ng-change="onChangeSection(sectionName,departmentId)"
+                        ng-change="onChangeSection(sectionName, companyId)"
                         required class="form-control">
                     <option value="">-- {{"All" | translate}} --</option>
                 </select>
@@ -35,10 +34,10 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="button" value="Submit" class="button" ng-click="query(departmentId)" />
+                <input type="button" value="Submit" class="button" ng-click="query(companyId)" />
             </div>
             <div class="form-group">
-                <input type="button" value="Excel" class="btn-excel" ng-click="excel(departmentId)" />
+                <input type="button" value="Excel" class="btn-excel" ng-click="excel(companyId)" />
             </div>
         </form>
     </div>
@@ -49,11 +48,10 @@
                     <th colspan="14">
                         <input type="text" ng-model="queryData" ng-change="searchInShift()" class="search-inline-textbox search pull-right">
                     </th>
-
                 </tr>
                 <tr>
                     <th data-translate="SymbolCount" rowspan="2"></th>
-                    <th data-translate="Department" rowspan="2"></th>
+                    <th data-translate="Company" rowspan="2"></th>
                     <th data-translate="Shift" rowspan="2"></th>
                     <th data-translate="CheckIn" rowspan="2"></th>
                     <th data-translate="CheckOut" rowspan="2"></th>
@@ -76,7 +74,7 @@
             <tbody>
                 <tr ng-repeat="shift in pagedItems[currentPage]">
                     <td class="text-center" ng-bind="shift.itemIndex + 1"></td>
-                    <td class="text-center" class="text-center" ng-bind="shift.Department.Name"></td>
+                    <td class="text-center" ng-bind="shift.CompanyName"></td>
                     <td class="text-center" ng-bind="shift.ShiftName"></td>
                     <td class="text-center" ng-bind="shift.BeginCheckInTime"></td>
                     <td class="text-center" ng-bind="shift.BeginCheckOutTime"></td>
@@ -135,3 +133,4 @@
             </tfoot>
         </table>
     </div>
+</div>

@@ -79,7 +79,6 @@
     <Compile Include="Implement\MealPlanningRepository.cs" />
     <Compile Include="Implement\MealRegistrationRepository.cs" />
     <Compile Include="Implement\OrderingRepository.cs" />
-    <Compile Include="Implement\ShiftMealMappingRepository.cs" />
     <Compile Include="Implement\SideDishRepository.cs" />
     <Compile Include="Interface\IGroupControlRepository.cs" />
     <Compile Include="Interface\IReportRepository.cs" />
@@ -92,7 +91,6 @@
     <Compile Include="Interface\IMealPlanningRepository.cs" />
     <Compile Include="Interface\IMealRegistrationRepository.cs" />
     <Compile Include="Interface\IOrderingRepository.cs" />
-    <Compile Include="Interface\IShiftMealMappingRepository.cs" />
     <Compile Include="Interface\ISideDishRepository.cs" />
     <Compile Include="Interface\Report\IAdminOrderHistoryRepository.cs" />
     <Compile Include="Interface\Report\IEmployeeOrderHistoryRepository.cs" />

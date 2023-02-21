@@ -1,26 +1,7 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ShiftMealMappingModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/14/2014 10:04:32 AM">Created.</change>
-// </history>
-
-namespace NexFB.Models.ShiftMealMapping
+﻿namespace NexFB.Models.ShiftMealMapping
 {
-    using NexFB.Models.Entities;
-
-    /// <summary>
-    /// Shift meal mapping model.
-    /// </summary>
     public class ShiftMealMappingModel
     {
-        public ShiftMealMappingModel()
-        {
-            Department = new Department();
-        }
-
         public int ShiftId { get; set; }
 
         public string ShiftCode { get; set; }
@@ -51,6 +32,7 @@ namespace NexFB.Models.ShiftMealMapping
 
         public bool MealNextDinner { get; set; }
 
-        public Department Department { get; set; }
+        public short CompanyId { get; set; }
+        public string CompanyName { get; set; }
     }
 }

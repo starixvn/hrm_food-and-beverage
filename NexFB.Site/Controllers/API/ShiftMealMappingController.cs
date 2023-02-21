@@ -1,15 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ShiftMealMappingController.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/14/2014 1:19:41 PM">Created.</change>
-// </history>
-
-using NexFB.Models.Ordering;
-
-namespace NexFB.Site.Controllers.API
+﻿namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
@@ -25,9 +14,6 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Web.Services.Implement;
     using NexFB.Web.Services.Interface;
 
-    /// <summary>
-    /// Shift-Meal mapping controller.
-    /// </summary>
     public class ShiftMealMappingController : BaseController
     {
         private readonly IShiftMealMappingService _shiftMealMappingService;
@@ -47,18 +33,17 @@ namespace NexFB.Site.Controllers.API
         }
 
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealRegistrationByShift, Policy = Policy.Read)]
-        public IEnumerable<ShiftMealMappingModel> GetAllShiftMeal(string departmentId = null, string teamCode = null, string shiftCode = null)
+        public IEnumerable<ShiftMealMappingModel> GetAllShiftMeal(string companyId = null, string teamCode = null, string shiftCode = null)
         {
             var criteria = new GetAllShiftMealMappingCriteria
             {
-                DepartmentId = departmentId,
+                CompanyId = companyId,
                 TeamCode = teamCode,
                 ShiftCode = shiftCode,
             };
 
             return _shiftMealMappingService.GetAllShiftMeal(criteria);
         }
-
 
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealRegistrationByShift, Policy = Policy.Host)]
         [HttpPost]

@@ -1,25 +1,13 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="UpdateShiftMealByShiftIdCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/14/2014 3:51:12 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.ShiftMealMapping
+﻿namespace NexFB.Criteria.ShiftMealMapping
 {
     using System;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Update shift meal by shift Id criteria.
-    /// </summary>
     public class UpdateShiftMealByShiftIdCriteria : CriteriaBase
     {
         public int ShiftId { get; set; }
 
-        public int DepartmentId { get; set; }
+        public short CompanyId { get; set; }
 
         [SpParam(SqlParamName = "Meal_S_0")]
         public bool MealPreviousSupper { get; set; }
@@ -49,14 +37,8 @@ namespace NexFB.Criteria.ShiftMealMapping
 
         public DateTime ModifiedDate { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "Shift_Edit_ByShiftID";
-        }
+        public override string GetSettingKey() => "Shift_Edit_ByShiftID";
 
-        public override bool IsValid()
-        {
-            return ShiftId > 0 && DepartmentId > 0;
-        }
-   }
+        public override bool IsValid() => ShiftId > 0 && CompanyId > 0;
+    }
 }

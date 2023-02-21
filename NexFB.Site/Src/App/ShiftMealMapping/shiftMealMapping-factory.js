@@ -3,15 +3,15 @@
 
 shiftMealMappingModule.factory('shiftMealMappingFactory', ['$http', 'baseUrl', function ($http, baseUrl) {
     return {
-        getAllShiftMeal: function (departmentId, teamCode, shiftCode) {
+        getAllShiftMeal: function (companyId, teamCode, shiftCode) {
             return $http.get(baseUrl + 'api/ShiftMealMapping/GetAllShiftMeal',
-                { params: { departmentId: departmentId, shiftCode: shiftCode, teamCode: teamCode } });
+                { params: { companyId: companyId, shiftCode: shiftCode, teamCode: teamCode } });
         },
         updateShiftMeal: function (shift) {
             return $http.post(baseUrl + 'api/ShiftMealMapping/UpdateShiftMeal', shift);
         },
-        getAllDepartment: function () {
-            return $http.get(baseUrl + 'api/Common/GetAllDepartment');
+        getAllCompany: function () {
+            return $http.get(baseUrl + 'api/common/getAllCompany');
         },
         getPermissionOnShiftMealMapping: function () {
             return $http.get(baseUrl + 'api/ShiftMealMapping/GetUserPermissionOnShiftMealMapping');
