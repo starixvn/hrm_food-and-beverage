@@ -15,9 +15,9 @@
         [SpParam(SqlParamName = "CardNumber")]
         public string EmployeeCard { get; set; }
 
-        public int DepartmentId { get; set; }
+        public short CompanyId { get; set; }
 
-        public int EmployeeTypeId { get; set; }
+        public short EmployeeTypeId { get; set; }
 
         public bool IsActive { get; set; }
 
@@ -29,7 +29,7 @@
 
         public override string GetSettingKey() => "Employee_Upd_SpecialEmp";
 
-        public override bool IsValid() => IsValidCodeAndNickname() && DepartmentId > 0 && EmployeeTypeId > 0 && UserId > 0;
+        public override bool IsValid() => IsValidCodeAndNickname() && CompanyId > 0 && EmployeeTypeId > 0 && UserId > 0;
 
         private bool IsValidCodeAndNickname() => !string.IsNullOrWhiteSpace(Code) && !string.IsNullOrWhiteSpace(NickName);
     }

@@ -1,19 +1,7 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Employee.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.8.26">Created</change>
-// </history>
-
-namespace NexFB.Models.Entities
+﻿namespace NexFB.Models.Entities
 {
     using System;
 
-    /// <summary>
-    /// Employee Model.
-    /// </summary>
     [Serializable]
     public class Employee
     {
@@ -34,7 +22,7 @@ namespace NexFB.Models.Entities
         public string NickName { get; set; }
         public string Team { get; set; }
 
-        public int EmployeeType { get; set; }
+        public short EmployeeType { get; set; }
 
         public string Email { get; set; }
 
@@ -51,5 +39,8 @@ namespace NexFB.Models.Entities
         public string Roles { get; set; }
 
         public bool? IsFreeOrder { get; set; }
+
+        public short CompanyId { get; set; }
+        public string CompanyName { get; set; }
     }
 }

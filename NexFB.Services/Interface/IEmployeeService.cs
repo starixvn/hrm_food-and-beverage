@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="IEmployeeService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.8.26">Created</change>
-// </history>
-
-namespace NexFB.Services.Interface
+﻿namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
     using NexFB.Core.Models;
@@ -33,6 +24,7 @@ namespace NexFB.Services.Interface
         IList<UserFunction> GetAllEmployeeFunction(GetAllEmployeeFunctionCriteria criteria);
 
         IList<Employee> GetEmployeeByQuery(GetEmployeeCriteria criteria);
+
         IList<EmployeeShift> GetEmployeeShiftInMonth(GetEmployeeShiftInMonthCriteria criteria);
 
         Employee GetEmployeeById(GetEmployeeByIdCriteria criteria);

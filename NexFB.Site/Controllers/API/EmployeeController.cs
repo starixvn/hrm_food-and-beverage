@@ -32,11 +32,11 @@
         }
 
         [HttpGet]
-        public IList<Employee> GetEmployees(string keyWord = "", string departmentId = "", string teamId = null, bool isShowDisable = false)
+        public IList<Employee> GetEmployees(string keyWord = "", string companyId = "", string teamId = null, bool isShowDisable = false)
         {
             var criteria = new GetEmployeeCriteria
             {
-                DepartmentId = string.IsNullOrEmpty(departmentId) ? this.CurrentUser.DepartmentId.ToString() : departmentId,
+                CompanyId = string.IsNullOrEmpty(companyId) ? this.CurrentUser.DepartmentId.ToString() : companyId,
                 Keyword = keyWord,
                 TeamId = teamId,
                 IsShowDisable = isShowDisable
@@ -61,11 +61,11 @@
 
         [ApiAuthorize(FunctionKey = FBFunctionKey.SpecialEmployee, Policy = Policy.Read)]
         [HttpGet]
-        public IList<SpecialUser> GetSpecialUsers(string departmentId, string employeeTypeId, bool? isActive = null)
+        public IList<SpecialUser> GetSpecialUsers(string companyId, string employeeTypeId, bool? isActive = null)
         {
             var criteria = new GetSpecialUserCriteria
             {
-                DepartmentId = departmentId,
+                CompanyId = companyId,
                 EmployeeTypeId = employeeTypeId,
                 IsActive = isActive
             };
@@ -84,7 +84,7 @@
                 Code = model.Code,
                 NickName = model.NickName,
                 EmployeeCard = model.EmployeeCard,
-                DepartmentId = model.DepartmentId,
+                CompanyId = model.CompanyId,
                 EmployeeTypeId = model.EmployeeType,
                 IsActive = model.IsActive
             };
@@ -104,7 +104,7 @@
                 Code = model.Code,
                 NickName = model.NickName,
                 EmployeeCard = model.EmployeeCard ?? string.Empty,
-                DepartmentId = model.DepartmentId,
+                CompanyId = model.CompanyId,
                 EmployeeTypeId = model.EmployeeType,
                 IsActive = model.IsActive
             };

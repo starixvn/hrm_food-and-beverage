@@ -10,9 +10,6 @@
             RoleItems = new List<Role>();
         }
 
-        public short CompanyId { get; set; }
-        public string CompanyName { get; set; }
-
         public Department Department { get; set; }
 
         public Team Team { get; set; }

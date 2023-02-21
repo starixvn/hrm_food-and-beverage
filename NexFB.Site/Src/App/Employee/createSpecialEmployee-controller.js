@@ -1,98 +1,91 @@
 ﻿'use strict';
 /*global employeeModule*/
 
-employeeModule.controller('CreateSpecialEmployeeController',
-['$scope', '$modalInstance', 'departmentItems', 'employeeFactory', 'notificationFactory', 'ErrorFactory',
-function ($scope, $modalInstance, departmentItems, employeeFactory, notificationFactory, ErrorFactory) {
-	/*
-	** Declare variables.
-	*/
-	$scope.departmentItems = departmentItems;
-	$scope.employeeTypeItems = [];
+employeeModule.controller('CreateSpecialEmployeeController', createSpecialEmployeeController);
+createSpecialEmployeeController.$inject = ['$scope', '$modalInstance', 'companyItems', 'employeeFactory', 'notificationFactory', 'ErrorFactory'];
 
-	$scope.defaultData = function () {
-		$scope.user = {
-			Code: '',
-			NickName: '',
-			EmployeeCard: '',
-			IsActive: true,
-			DepartmentId: '',
-			EmployeeType: ''
-		};
-	};
+function createSpecialEmployeeController($scope, $modalInstance, companyItems, employeeFactory, notificationFactory, ErrorFactory) {
+    $scope.companyItems = companyItems;
+    $scope.employeeTypeItems = [];
 
-	$scope.defaultData();
+    $scope.defaultData = function () {
+        $scope.user = {
+            Code: '',
+            NickName: '',
+            EmployeeCard: '',
+            IsActive: true,
+            CompanyId: '',
+            EmployeeType: ''
+        };
+    };
 
-	/*
-	** Get all employee type.
-	*/
-	var getEmployeeType = function (departmentId) {
-		employeeFactory.getEmployeeType(departmentId).success(function (employeeTypes) {
-			$scope.employeeTypeItems = employeeTypes;
-		}).error(function (response, status) {
-			ErrorFactory.errorHandle(status);
-		});
-	};
+    $scope.defaultData();
 
-	$scope.getEmployeeTypeByDepartment = function (departmentId) {
-		getEmployeeType(departmentId);
-	};
+    var getEmployeeType = function (companyId) {
+        employeeFactory.getEmployeeType(companyId).success(function (employeeTypes) {
+            $scope.employeeTypeItems = employeeTypes;
+        }).error(function (response, status) {
+            ErrorFactory.errorHandle(status);
+        });
+    };
 
-	$scope.validateSpecialUser = function (user) {
-		var isValid = true;
+    $scope.getEmployeeTypeByCompany = function (companyId) {
+        getEmployeeType(companyId);
+    };
 
-		if (!user.Code) {
-			isValid = false;
-			notificationFactory.error("RequireEmployeeCode");
-		}
+    $scope.validateSpecialUser = function (user) {
+        var isValid = true;
 
-		if (!user.NickName) {
-			isValid = false;
-			notificationFactory.error("RequireEmployeeName");
-		}
+        if (!user.Code) {
+            isValid = false;
+            notificationFactory.error('RequireEmployeeCode');
+        }
 
-		if (!user.DepartmentId) {
-			isValid = false;
-			notificationFactory.error("RequireDepartment");
-		}
+        if (!user.NickName) {
+            isValid = false;
+            notificationFactory.error('RequireEmployeeName');
+        }
 
-		if (!user.EmployeeType) {
-			isValid = false;
-			notificationFactory.error("RequireEmployeeType");
-		}
+        if (!user.CompanyId) {
+            isValid = false;
+            notificationFactory.error('CompanyRequired');
+        }
 
-		return isValid;
-	};
+        if (!user.EmployeeType) {
+            isValid = false;
+            notificationFactory.error('RequireEmployeeType');
+        }
 
-	$scope.saveSpecialUser = function (user, isContinue) {
-		$scope.disabledSubmitButton = true;
-		if ($scope.validateSpecialUser(user)) {
-			employeeFactory.insertSpecialUser(user).success(function (response) {
-				$scope.submitted = false;
-				$scope.disabledSubmitButton = false;
+        return isValid;
+    };
 
-				if (response.IsSuccessful) {
-					notificationFactory.success("DataChangeSuccessfully");
-					if (!isContinue) {
-						$modalInstance.close();
-					}
-					else {
-						$scope.defaultData();
-					}
-				}
-				else {
-					notificationFactory.error("", response.Message);
-				}
-			}).error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-				$scope.disabledSubmitButton = false;
-			});
-		}
+    $scope.saveSpecialUser = function (user, isContinue) {
+        $scope.disabledSubmitButton = true;
+        if ($scope.validateSpecialUser(user)) {
+            employeeFactory.insertSpecialUser(user).success(function (response) {
+                $scope.submitted = false;
+                $scope.disabledSubmitButton = false;
 
-		$scope.disabledSubmitButton = false;
-	};
+                if (response.IsSuccessful) {
+                    notificationFactory.success('DataChangeSuccessfully');
+                    if (!isContinue) {
+                        $modalInstance.close();
+                    } else {
+                        $scope.defaultData();
+                    }
+                } else {
+                    notificationFactory.error('', response.Message);
+                }
+            }).error(function (response, status) {
+                ErrorFactory.errorHandle(status);
+                $scope.disabledSubmitButton = false;
+            });
+        }
 
-	$scope.cancel = function () {
-		$modalInstance.dismiss("cancel");
-	};
-} ]);
+        $scope.disabledSubmitButton = false;
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+}
