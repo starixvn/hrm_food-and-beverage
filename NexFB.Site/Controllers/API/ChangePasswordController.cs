@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ChangePasswordController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.11.12">Created</change>
-// </history>
-
-namespace NexFB.Site.Controllers.API
+﻿namespace NexFB.Site.Controllers.API
 {
     using System.Web.Http;
     using NexFB.Core.Enums;
@@ -18,14 +9,11 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
 
-    /// <summary>
-    /// ChangePassword Controller.
-    /// </summary>
     public class ChangePasswordController : BaseController
     {
         private readonly IEmployeeService _employeeService;
 
-        public ChangePasswordController() 
+        public ChangePasswordController()
             : this(null)
         {
         }
@@ -35,16 +23,11 @@ namespace NexFB.Site.Controllers.API
             _employeeService = employeeService ?? new EmployeeService();
         }
 
-        /// <summary>
-        /// Function change password.
-        /// </summary>
-        /// <param name="model">ChangePassword Model.</param>
-        /// <returns>Command Result.</returns>
         [HttpPut]
         public CommandResult UpdatePassword(ChangePasswordModel model)
         {
             var result = new CommandResult();
-            if (this.CurrentUser.DepartmentId == (int)DepartmentIdentity.Nexcel)
+            if (this.CurrentUser.CompanyId == (byte)DepartmentIdentity.Nexcel)
             {
                 if (!string.IsNullOrWhiteSpace(model.OldPassword)
                 && !string.IsNullOrWhiteSpace(model.NewPassword)
