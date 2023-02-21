@@ -74,7 +74,7 @@ reportModule.directive('renderMonthlyReport', function () {
                                 { Name: "Meal", Value: rowIndex, CssClass: "remove-padding-left" },
                                 { Name: "NickName", Value: mealItem.Employee.NickName },
                                 { Name: "EmployeeType", Value: mealItem.EmployeeType.EmployeeTypeName },
-                                { Name: "Department", Value: mealItem.Department.Name },
+                                { Name: "Company", Value: mealItem.Department.Name },
                                 { Name: "Team", Value: mealItem.Team.Name }
                             ]
                         };
@@ -84,7 +84,7 @@ reportModule.directive('renderMonthlyReport', function () {
                             Columns: [
                                 { Name: "Meal", Value: rowIndex, CssClass: "remove-padding-left" },
                                 {
-                                    Name: report.GroupBy == 1 ? "Department" : "Cost Center",
+                                    Name: report.GroupBy == 1 ? "Company" : "Cost Center",
                                     Value: report.GroupBy == 1 ? mealItem.Department.Name + ' > ' + mealItem.Team.Name : mealItem.CostCenter
                                 }
                             ]
@@ -144,7 +144,7 @@ reportModule.directive('renderMonthlyReport', function () {
                         { HeaderText: "#", Name: "Meal", MergeRowNumber: 2 },
                         { HeaderText: "Nick", Name: "NickName", MergeRowNumber: 2 },
                         { HeaderText: "Employee Type", Name: "EmployeeType", MergeRowNumber: 2 },
-                        { HeaderText: "Department", Name: "Department", MergeRowNumber: 2 },
+                        { HeaderText: "Company", Name: "Company", MergeRowNumber: 2 },
                         { HeaderText: "Team", Name: "Team", MergeRowNumber: 2 },
                         { HeaderText: "" + moment(month).format(monthFormat), Name: "1", MergeColNumber: 31 },
                         { HeaderText: "Total", Name: "Quantity", MergeColNumber: 2 }
@@ -157,7 +157,7 @@ reportModule.directive('renderMonthlyReport', function () {
                 {
                     Columns: [
                         { HeaderText: "#", Name: "Meal", MergeRowNumber: 2 },
-                        { HeaderText: groupBy == 1 ? "Team" : "Cost Center", Name: groupBy == 1 ? "Department" : "Cost Center", MergeRowNumber: 2 },
+                        { HeaderText: groupBy == 1 ? "Team" : "Cost Center", Name: groupBy == 1 ? "Company" : "Cost Center", MergeRowNumber: 2 },
                         { HeaderText: "" + moment(month).format(monthFormat), Name: "1", MergeColNumber: 31 },
                         { HeaderText: "Total", Name: "Quantity", MergeColNumber: 2 }
                     ]
@@ -176,7 +176,7 @@ reportModule.directive('renderMonthlyReport', function () {
                 { HeaderText: "#", Width: 60, Name: "Meal", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
                 { HeaderText: "Nick", Width: 90, Name: "NickName", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Employee Type", Width: 150, Name: "EmployeeType", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: "Department", Width: 100, Name: "Department", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: "Company", Width: 100, Name: "Company", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: "Team", Width: 150, Name: "Team", HeaderAlign: "center", CellAlign: "left" }
             ];
         }
@@ -185,7 +185,7 @@ reportModule.directive('renderMonthlyReport', function () {
                 { HeaderText: "#", Width: 60, Name: "Meal", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
                 {
                     HeaderText: groupBy == 1 ? "Team" : "Cost Center",
-                    Width: 150, Name: groupBy == 1 ? "Department" : "Cost Center",
+                    Width: 150, Name: groupBy == 1 ? "Company" : "Cost Center",
                     HeaderAlign: "center",
                     CellAlign: "left"
                 }

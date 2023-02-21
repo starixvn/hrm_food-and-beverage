@@ -2,236 +2,236 @@
 /*global reportModule*/
 
 reportModule.controller('SideDishSummaryReportController',
-['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'userControlFactory', 'orderingFactory',
-'commonFactory', 'foodMenuFactory', 'foodMenuUtilities', 'notificationFactory',
-function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory, orderingFactory,
-commonFactory, foodMenuFactory, foodMenuUtilities, notificationFactory) {
-	$scope.history = reportFactory.getHistorySideDishSummary();
+    ['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'userControlFactory', 'orderingFactory',
+        'commonFactory', 'foodMenuFactory', 'foodMenuUtilities', 'notificationFactory',
+        function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory, orderingFactory,
+            commonFactory, foodMenuFactory, foodMenuUtilities, notificationFactory) {
+            $scope.history = reportFactory.getHistorySideDishSummary();
 
-	$scope.filter = {
-		fromDate: $scope.history.fromDate,
-		toDate: $scope.history.toDate,
-		departmentId: '',
-		teamId: $scope.history.teamId,
-		employeeTypeId: $scope.history.employeeTypeId,
-		employee: $scope.history.employee,
-		pageIndex: $scope.history.pageIndex,
-		itemsPerPage: $scope.history.itemsPerPage
-	};
+            $scope.filter = {
+                fromDate: $scope.history.fromDate,
+                toDate: $scope.history.toDate,
+                departmentId: '',
+                teamId: $scope.history.teamId,
+                employeeTypeId: $scope.history.employeeTypeId,
+                employee: $scope.history.employee,
+                pageIndex: $scope.history.pageIndex,
+                itemsPerPage: $scope.history.itemsPerPage
+            };
 
-	$scope.numberFormat = reportUtilities.getNumberFormat();
-	$scope.dateFormat = reportUtilities.getDateFormatEmployeeOrderHistoryReport();
-	$scope.originalDepartmentId = '';
-	$scope.teamOptions = [];
+            $scope.numberFormat = reportUtilities.getNumberFormat();
+            $scope.dateFormat = reportUtilities.getDateFormatEmployeeOrderHistoryReport();
+            $scope.originalDepartmentId = '';
+            $scope.teamOptions = [];
 
-	$scope.calendar = {
-		startDateOpened: false,
-		endDateOpened: false
-	};
+            $scope.calendar = {
+                startDateOpened: false,
+                endDateOpened: false
+            };
 
-	/*
-	** Open calendar.
-	*/
-	$scope.openPopupStartDate = function ($event) {
-		commonFactory.openPopupStartDate($event, $scope);
-	};
+            /*
+            ** Open calendar.
+            */
+            $scope.openPopupStartDate = function ($event) {
+                commonFactory.openPopupStartDate($event, $scope);
+            };
 
-	$scope.openPopupEndDate = function ($event) {
-		commonFactory.openPopupEndDate($event, $scope);
-	};
+            $scope.openPopupEndDate = function ($event) {
+                commonFactory.openPopupEndDate($event, $scope);
+            };
 
-	var getDepartmentFilter = function (departments) {
-		var departmentId = '';
+            var getDepartmentFilter = function (departments) {
+                var departmentId = '';
 
-		if (departments) {
-			if (departments.length === 1) {
-				departmentId = departments[0].DepartmentId;
-			}
-			else {
-				angular.forEach(departments, function (department) {
-					departmentId = departmentId ? departmentId + ',' + department.DepartmentId : department.DepartmentId;
-				});
-			}
-		}
+                if (departments) {
+                    if (departments.length === 1) {
+                        departmentId = departments[0].DepartmentId;
+                    }
+                    else {
+                        angular.forEach(departments, function (department) {
+                            departmentId = departmentId ? departmentId + ',' + department.DepartmentId : department.DepartmentId;
+                        });
+                    }
+                }
 
-		$scope.filter.departmentId = departmentId;
-		$scope.originalDepartmentId = departmentId;
-	};
+                $scope.filter.departmentId = departmentId;
+                $scope.originalDepartmentId = departmentId;
+            };
 
-	/*
-	** Get all department.
-	*/
-	reportFactory.getDepartmentByUserRole().success(function (departments) {
-		$scope.departmentOptions = departments;
-		getDepartmentFilter(departments);
-		if ($scope.history.departmentId > 0 || $scope.history.employee.UserId) {
-			$scope.filter.departmentId = $scope.history.departmentId;
-			if ($scope.history.employee && $scope.history.employee.UserId) {
-				$scope.filter.employee = $scope.history.employee;
-				$scope.searchEmployee = $scope.history.employee.NickName + ' (' + $scope.history.employee.FullName + ')';
-			}
-			$scope.getSideDishSummaryReport($scope.filter);
-			$scope.getTeamByCompany($scope.filter.departmentId);
-			getEmployeeType($scope.filter.departmentId, null);
-		} else {
-			$scope.getSideDishSummaryReport($scope.filter);
+            /*
+            ** Get all department.
+            */
+            reportFactory.getCompanyByUserRole().success(function (departments) {
+                $scope.departmentOptions = departments;
+                getDepartmentFilter(departments);
+                if ($scope.history.departmentId > 0 || $scope.history.employee.UserId) {
+                    $scope.filter.departmentId = $scope.history.departmentId;
+                    if ($scope.history.employee && $scope.history.employee.UserId) {
+                        $scope.filter.employee = $scope.history.employee;
+                        $scope.searchEmployee = $scope.history.employee.NickName + ' (' + $scope.history.employee.FullName + ')';
+                    }
+                    $scope.getSideDishSummaryReport($scope.filter);
+                    $scope.getTeamByCompany($scope.filter.departmentId);
+                    getEmployeeType($scope.filter.departmentId, null);
+                } else {
+                    $scope.getSideDishSummaryReport($scope.filter);
 
-			if (departments && departments.length === 1) {
-				$scope.getTeamByCompany($scope.filter.departmentId);
-			}
+                    if (departments && departments.length === 1) {
+                        $scope.getTeamByCompany($scope.filter.departmentId);
+                    }
 
-			getEmployeeType($scope.filter.departmentId, null);
-		}
-	}).error(function (response, status) {
-		ErrorFactory.errorHandle(status);
-	});
+                    getEmployeeType($scope.filter.departmentId, null);
+                }
+            }).error(function (response, status) {
+                ErrorFactory.errorHandle(status);
+            });
 
-	/*
-	** Get side dish summary report
-	*/
-	$scope.getSideDishSummaryReport = function (filter) {
-		reportFactory.getSideDishSummaryReport(filter).success(function (report) {
-			$scope.report = report;
-			$scope.$broadcast("renderSideDishSummaryReport");
-		}).error(function (response, status) {
-			ErrorFactory.errorHandle(status);
-		});
-	};
+            /*
+            ** Get side dish summary report
+            */
+            $scope.getSideDishSummaryReport = function (filter) {
+                reportFactory.getSideDishSummaryReport(filter).success(function (report) {
+                    $scope.report = report;
+                    $scope.$broadcast("renderSideDishSummaryReport");
+                }).error(function (response, status) {
+                    ErrorFactory.errorHandle(status);
+                });
+            };
 
-	/*
-	** Get all team of department.
-	*/
-	$scope.getTeamByCompany = function (departmentId) {
-		if (departmentId > 0) {
-			userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
-				$scope.teamOptions = teams;
-				if ($scope.history.teamId.length > 0) {
-					var ids = $scope.history.teamId.split(',');
-					angular.forEach($scope.teamOptions, function (team) {
-						angular.forEach(ids, function (id) {
-							if (team.TeamId === parseInt(id)) {
-								team.ticked = true;
-							}
-						});
-					});
-				}
-			}).error(function (response, status) {
-				ErrorFactory.errorHandle(status);
-			});
-		}
-		else {
-			$scope.teamOptions = [];
-		}
-	};
+            /*
+            ** Get all team of department.
+            */
+            $scope.getTeamByCompany = function (departmentId) {
+                if (departmentId > 0) {
+                    userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
+                        $scope.teamOptions = teams;
+                        if ($scope.history.teamId.length > 0) {
+                            var ids = $scope.history.teamId.split(',');
+                            angular.forEach($scope.teamOptions, function (team) {
+                                angular.forEach(ids, function (id) {
+                                    if (team.TeamId === parseInt(id)) {
+                                        team.ticked = true;
+                                    }
+                                });
+                            });
+                        }
+                    }).error(function (response, status) {
+                        ErrorFactory.errorHandle(status);
+                    });
+                }
+                else {
+                    $scope.teamOptions = [];
+                }
+            };
 
-	/*
-	** Get all employees.
-	*/
-	$scope.getEmployee = function () {
-		var departmentId = $scope.filter.departmentId;
+            /*
+            ** Get all employees.
+            */
+            $scope.getEmployee = function () {
+                var departmentId = $scope.filter.departmentId;
 
-		if (!departmentId) {
-			departmentId = $scope.originalDepartmentId;
-		}
+                if (!departmentId) {
+                    departmentId = $scope.originalDepartmentId;
+                }
 
-		return orderingFactory.getEmployees($scope.searchEmployee, departmentId, $scope.filter.teamId, true);
-	};
+                return orderingFactory.getEmployees($scope.searchEmployee, departmentId, $scope.filter.teamId, true);
+            };
 
-	$scope.unSelectEmployee = function () {
-		if ($scope.searchEmployee.trim() === '') {
-			if ($scope.filter && $scope.filter.employee) {
-				$scope.filter.employee = null;
-				$scope.history.employee = {};
-			}
-		}
-	};
+            $scope.unSelectEmployee = function () {
+                if ($scope.searchEmployee.trim() === '') {
+                    if ($scope.filter && $scope.filter.employee) {
+                        $scope.filter.employee = null;
+                        $scope.history.employee = {};
+                    }
+                }
+            };
 
-	/*
-	** Get all employee type.
-	*/
-	var getEmployeeType = function (departmentId, isLocal) {
-		foodMenuFactory.getAllEmployeeType(departmentId, isLocal).success(function (employeeTypes) {
-			$scope.employeeTypesOption = employeeTypes;
-			if ($scope.history.employeeTypeId.length > 0) {
-				var ids = $scope.history.employeeTypeId.split(',');
-				angular.forEach($scope.employeeTypesOption, function (employeeType) {
-					angular.forEach(ids, function (id) {
-						if (employeeType.EmployeeTypeId === parseInt(id)) {
-							employeeType.ticked = true;
-						}
-					});
-				});
-			}
-		}).error(function (response, status) {
-			ErrorFactory.errorHandle(status);
-		});
-	};
+            /*
+            ** Get all employee type.
+            */
+            var getEmployeeType = function (departmentId, isLocal) {
+                foodMenuFactory.getAllEmployeeType(departmentId, isLocal).success(function (employeeTypes) {
+                    $scope.employeeTypesOption = employeeTypes;
+                    if ($scope.history.employeeTypeId.length > 0) {
+                        var ids = $scope.history.employeeTypeId.split(',');
+                        angular.forEach($scope.employeeTypesOption, function (employeeType) {
+                            angular.forEach(ids, function (id) {
+                                if (employeeType.EmployeeTypeId === parseInt(id)) {
+                                    employeeType.ticked = true;
+                                }
+                            });
+                        });
+                    }
+                }).error(function (response, status) {
+                    ErrorFactory.errorHandle(status);
+                });
+            };
 
-	/*
-	** Get team and employee type when department change.
-	*/
-	$scope.getTeamAndEmployeeTypeOfDepartment = function (departmentId) {
-		$scope.history.departmentId = departmentId;
-		$scope.history.teamId = '';
-		$scope.history.employeeTypeId = '';
+            /*
+            ** Get team and employee type when department change.
+            */
+            $scope.getTeamAndEmployeeTypeOfCompany = function (departmentId) {
+                $scope.history.departmentId = departmentId;
+                $scope.history.teamId = '';
+                $scope.history.employeeTypeId = '';
 
-		$scope.getTeamByCompany(departmentId);
+                $scope.getTeamByCompany(departmentId);
 
-		if (!departmentId) {
-			departmentId = $scope.originalDepartmentId;
-		}
+                if (!departmentId) {
+                    departmentId = $scope.originalDepartmentId;
+                }
 
-		getEmployeeType(departmentId, null);
-	};
+                getEmployeeType(departmentId, null);
+            };
 
-	/*
-	** Filter report.
-	*/
-	$scope.query = function (filter) {
-		filter.pageIndex = 0;
-		filter.itemsPerPage = 50;
+            /*
+            ** Filter report.
+            */
+            $scope.query = function (filter) {
+                filter.pageIndex = 0;
+                filter.itemsPerPage = 50;
 
-		filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
-		reportFactory.setHistorySideDishSummary($scope);
+                filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
+                filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
+                reportFactory.setHistorySideDishSummary($scope);
 
-		if (!filter.departmentId) {
-			filter.departmentId = $scope.originalDepartmentId;
-		}
+                if (!filter.departmentId) {
+                    filter.departmentId = $scope.originalDepartmentId;
+                }
 
-		var fromDate = new Date(filter.fromDate),
-			toDate = new Date(filter.toDate),
-			maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate());
+                var fromDate = new Date(filter.fromDate),
+                    toDate = new Date(filter.toDate),
+                    maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate());
 
-		if (fromDate > toDate) {
-			notificationFactory.error("DateRangeInvalid");
-		}
-		else if (toDate > maxDate) {
-			notificationFactory.error("DateRangeOneYearWarning");
-		}
-		else {
-			$scope.getSideDishSummaryReport(filter);
-		}
-	};
+                if (fromDate > toDate) {
+                    notificationFactory.error("DateRangeInvalid");
+                }
+                else if (toDate > maxDate) {
+                    notificationFactory.error("DateRangeOneYearWarning");
+                }
+                else {
+                    $scope.getSideDishSummaryReport(filter);
+                }
+            };
 
-	/*
-	**  Export excel
-	*/
-	$scope.exportExcel = function (filter) {
-		filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-		filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
+            /*
+            **  Export excel
+            */
+            $scope.exportExcel = function (filter) {
+                filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
+                filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
 
-		$scope.criteria = {
-			departmentId: filter.departmentId,
-			employeeTypeId: filter.employeeTypeId,
-			teamId: filter.teamId,
-			userId: filter.employee ? filter.employee.UserId : '',
-			fromDate: filter.fromDate.toDateString(),
-			toDate: filter.toDate.toDateString(),
-			pageIndex: null,
-			itemsPerPage: null
-		};
+                $scope.criteria = {
+                    departmentId: filter.departmentId,
+                    employeeTypeId: filter.employeeTypeId,
+                    teamId: filter.teamId,
+                    userId: filter.employee ? filter.employee.UserId : '',
+                    fromDate: filter.fromDate.toDateString(),
+                    toDate: filter.toDate.toDateString(),
+                    pageIndex: null,
+                    itemsPerPage: null
+                };
 
-		$scope.$broadcast('exportSideDishSummaryReport');
-	};
-} ]);
+                $scope.$broadcast('exportSideDishSummaryReport');
+            };
+        }]);

@@ -8,12 +8,14 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Utilities;
+    using NexFB.Criteria.Company;
     using NexFB.Criteria.Department;
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Report;
     using NexFB.Criteria.SideDishManagement;
     using NexFB.Criteria.UserControl;
+    using NexFB.Models;
     using NexFB.Models.Employee;
     using NexFB.Models.Entities;
     using NexFB.Models.Report.AdminOrderHistoryReport;
@@ -33,7 +35,6 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Web;
     using NexFB.Web.Attributes;
 
-#pragma warning disable S107 // Methods should not have too many parameters
     public class ReportController : BaseController
     {
         private readonly IMonthlyMainDishReportService _monthlyMainDishReportService;
@@ -57,9 +58,7 @@ namespace NexFB.Site.Controllers.API.Report
         {
         }
 
-#pragma warning disable S1541 // Methods and properties should not be too complex
         public ReportController(
-#pragma warning restore S1541 // Methods and properties should not be too complex
             IMonthlyMainDishReportService monthlyMainDishReportService,
             IDailyMainDishReportService dailyMainDishReportService,
             ICommonService commonService,
@@ -97,7 +96,8 @@ namespace NexFB.Site.Controllers.API.Report
         [ApiAuthorize(FunctionKey = FBFunctionKey.MonthlyMainDishReportPerMeal, Policy = Policy.Read)]
         public MonthlyLocalReportModel GetMonthlyMainDishReportLocal(
             DateTime reportDate,
-            string departmentId = "",
+            string companyId = "",
+            int? userId = null,
             string employeeTypeId = "",
             string teamId = "",
             string mealId = "",
@@ -110,8 +110,9 @@ namespace NexFB.Site.Controllers.API.Report
         {
             var criteria = new GetMonthlyMainDishReportLocalCriteria
             {
+                UserId = userId,
                 ReportDate = reportDate,
-                DepartmentId = departmentId,
+                DepartmentId = companyId,
                 EmployeeTypeId = employeeTypeId,
                 TeamId = teamId,
                 MealId = mealId,
@@ -129,7 +130,7 @@ namespace NexFB.Site.Controllers.API.Report
             if (fullReport == null)
             {
                 fullReport = _monthlyMainDishReportService.GetMonthlyMainDishReportLocal(criteria);
-                if (fullReport.Meals.Count > 0)
+                if (fullReport.Meals.Count > 0 && groupBy == 0)
                 {
                     var criteriaShift = new GetEmployeeShiftInMonthCriteria
                     {
@@ -320,9 +321,9 @@ namespace NexFB.Site.Controllers.API.Report
         }
 
         [HttpGet]
-        public IEnumerable<Department> GetDepartmentByUserRole()
+        public IEnumerable<Company> GetCompanyByUserRole()
         {
-            IEnumerable<Department> departments = null;
+            IEnumerable<Company> departments = null;
             const byte financeRole = (byte)RolesSystem.Finance;
             const byte employeeRole = (byte)RolesSystem.Employee;
             const byte adminRole = (byte)RolesSystem.Admin;
@@ -342,8 +343,7 @@ namespace NexFB.Site.Controllers.API.Report
                 if (isContainSystemAdminRole || isContainAdminRole ||
                     (!isContainFinanceRole && (isContainEmployeeRole || isContainKitchenRole)))
                 {
-                    var criteria = new GetAllDepartmentCriteria();
-                    departments = _commonService.GetAllDepartment(criteria);
+                    departments = _commonService.GetAllCompany();
                 }
                 else if (isContainFinanceRole)
                 {
@@ -598,7 +598,6 @@ namespace NexFB.Site.Controllers.API.Report
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealForecastReport, Policy = Policy.Read)]
-#pragma warning disable S107 // Methods should not have too many parameters
         public EmployeeRegistrationReportModel GetEmployeeNonRegistration(
             DateTime date,
             string departmentId = "",
@@ -609,7 +608,6 @@ namespace NexFB.Site.Controllers.API.Report
             bool isPagingCallback = false,
             int startIndex = 0,
             int itemsPerPage = 50)
-#pragma warning restore S107 // Methods should not have too many parameters
         {
             EmployeeRegistrationReportModel fullReport;
             if (isPagingCallback)

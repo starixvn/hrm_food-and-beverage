@@ -17,6 +17,8 @@ namespace NexFB.Criteria.Report
     /// </summary>
     public class GetMonthlyMainDishReportLocalCriteria : CriteriaBase
     {
+        [SpParam(SqlParamName = "SysId")]
+        public int? UserId { get; set; }
         public DateTime ReportDate { get; set; }
 
         public string DepartmentId { get; set; }

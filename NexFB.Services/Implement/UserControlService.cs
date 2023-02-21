@@ -6,6 +6,7 @@
     using NexFB.Core.Models;
     using NexFB.Core.Services;
     using NexFB.Criteria.UserControl;
+    using NexFB.Models;
     using NexFB.Models.Employee;
     using NexFB.Models.Entities;
     using NexFB.Models.UserControl;
@@ -94,10 +95,10 @@
             return commandResult;
         }
 
-        public IEnumerable<Department> GetDepartmentUserHasPermission(GetEmployeeRoleByIdCriteria criteria)
+        public IEnumerable<Company> GetDepartmentUserHasPermission(GetEmployeeRoleByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<Department> departments = null;
+            IEnumerable<Company> departments = null;
 
             if (criteria.IsValid())
             {

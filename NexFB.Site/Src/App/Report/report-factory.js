@@ -32,7 +32,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                 {
                     params: {
                         reportDate: filter.reportDate.toDateString(),
-                        departmentId: filter.departmentId,
+                        companyId: filter.companyId,
                         userId: filter.userId > 0 ? filter.userId : filter.employee ? filter.employee.UserId : '',
                         employeeTypeId: filter.employeeTypeId,
                         teamId: filter.teamId,
@@ -63,8 +63,8 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                 }
             });
         },
-        getDepartmentByUserRole: function () {
-            return $http.get(baseUrl + 'api/report/GetDepartmentByUserRole');
+        getCompanyByUserRole: function () {
+            return $http.get(baseUrl + 'api/report/GetCompanyByUserRole');
         },
         getEmployeeOrderHistoryReport: function (filter) {
             return $http.get(baseUrl + 'api/report/GetEmployeeOrderHistoryReport',

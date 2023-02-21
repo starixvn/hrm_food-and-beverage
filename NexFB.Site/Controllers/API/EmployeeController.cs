@@ -36,7 +36,7 @@
         {
             var criteria = new GetEmployeeCriteria
             {
-                CompanyId = string.IsNullOrWhiteSpace(companyId) ? this.CurrentUser.CompanyId.ToString() : companyId,
+                CompanyId = string.IsNullOrEmpty(companyId) ? this.CurrentUser.CompanyId.ToString() : companyId,
                 Keyword = keyWord,
                 TeamId = teamId,
                 IsShowDisable = isShowDisable

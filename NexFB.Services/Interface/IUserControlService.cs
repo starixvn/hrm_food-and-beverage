@@ -12,6 +12,7 @@ namespace NexFB.Services.Interface
     using System.Collections.Generic;
     using NexFB.Core.Models;
     using NexFB.Criteria.UserControl;
+    using NexFB.Models;
     using NexFB.Models.Employee;
     using NexFB.Models.Entities;
     using NexFB.Models.UserControl;
@@ -31,6 +32,6 @@ namespace NexFB.Services.Interface
 
         CommandResult AssignRoleToUser(AssignRoleToUserCriteria criteria);
 
-        IEnumerable<Department> GetDepartmentUserHasPermission(GetEmployeeRoleByIdCriteria criteria);
+        IEnumerable<Company> GetDepartmentUserHasPermission(GetEmployeeRoleByIdCriteria criteria);
     }
 }

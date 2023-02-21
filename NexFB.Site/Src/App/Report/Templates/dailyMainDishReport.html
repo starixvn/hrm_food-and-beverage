@@ -1,67 +1,68 @@
 ﻿<div class="col-sm-12">
     <div class="row sub-header">
         <ul class="breadcrumb list-inline pull-left">
-			<li class="current" data-translate="DailyMainDishReport"></li>
+            <li class="current" data-translate="DailyMainDishReport"></li>
         </ul>
     </div>
-	 <div class="row filter daily-main-dish">
+    <div class="row filter daily-main-dish">
         <form class="form-horizontal form-multiLine" role="form">
-			<div class="form-group">
-				<label class="col-sm-1 text-right" data-translate="Department">
-				</label>
+            <div class="form-group">
+                <label class="col-sm-1 text-right" data-translate="Department">
+                </label>
                 <div class="col-sm-2 field">
                     <select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
-					    class="form-control" ng-change="getTeamAndEmployeeTypeOfDepartment(filter.departmentId)">
-					    <option value="" ng-if="departmentOptions.length > 1">-- {{"All" | translate}} --</option>
-				    </select>
+                            class="form-control" ng-change="getTeamAndEmployeeTypeOfCompany(filter.departmentId)">
+                        <option value="" ng-if="departmentOptions.length > 1">-- {{"All" | translate}} --</option>
+                    </select>
                 </div>
                 <label class="col-sm-1 text-right long-text-report" data-translate="Team"></label>
                 <div class="col-sm-2 field">
                     <add-class-to-role-filter multi-select input-model="teamOptions" button-label="Name" helper-elements="all reset"
-					    item-label="Name" tick-property="ticked" max-labels="0" class="multi-select">
-				    </add-class-to-role-filter>
+                                              item-label="Name" tick-property="ticked" max-labels="0" class="multi-select">
+                    </add-class-to-role-filter>
                 </div>
-				<label class="col-sm-1 text-right" data-translate="Employee">
+                <label class="col-sm-1 text-right" data-translate="Employee">
                 </label>
-				<div class="col-sm-2 field">
-				    <input class="form-control custom-padding" data-ng-model="searchEmployee"
-						placeholder="Enter full name or nick name" data-search-auto-complete data-search-employees="getEmployee()"
-						data-ng-change="unSelectEmployee()" data-employee="filter.employee" data-style="width: 250px;top: 27px;left: 0.28125px;" />
-				</div>
-				<label class="col-sm-1 text-right" data-translate="OrderCount" >
-				</label>
-				<div>
-					<select ng-model="filter.orderCount">
-						<option ng-repeat="number in [] | range: 11" value="{{number - 1}}" 
-							ng-selected="{{filter.orderCount == number}}">> {{number - 1}}
-						</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
+                <div class="col-sm-2 field">
+                    <input class="form-control custom-padding" data-ng-model="searchEmployee"
+                           placeholder="Enter full name or nick name" data-search-auto-complete data-search-employees="getEmployee()"
+                           data-ng-change="unSelectEmployee()" data-employee="filter.employee" data-style="width: 250px;top: 27px;left: 0.28125px;" />
+                </div>
+                <label class="col-sm-1 text-right" data-translate="OrderCount">
+                </label>
+                <div>
+                    <select ng-model="filter.orderCount">
+                        <option ng-repeat="number in [] | range: 11" value="{{number - 1}}"
+                                ng-selected="{{filter.orderCount == number}}">
+                            > {{number - 1}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-1 text-right" data-translate="EmployeeType"></label>
                 <div class="col-sm-2 field">
                     <add-class-to-role-filter multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId" helper-elements="all reset"
-					    item-label="EmployeeTypeName" tick-property="ticked" max-labels="0" class="multi-select employee-type">
-				    </add-class-to-role-filter>
+                                              item-label="EmployeeTypeName" tick-property="ticked" max-labels="0" class="multi-select employee-type">
+                    </add-class-to-role-filter>
                 </div>
-				<label class="col-sm-1 text-right long-text-report" data-translate="From"></label>
-				<div class="col-sm-2 field monthbox">
-					<input class="calendar-form-control" type="text" ng-model="filter.fromDate" datepicker-popup
-						is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
-					<calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
-				</div>
-				<label class="col-sm-1 text-right" data-translate="To"></label>
-				<div class="col-sm-2 field monthbox">
-					<input class="calendar-form-control" type="text" ng-model="filter.toDate" datepicker-popup
-						is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
-					<calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
-				</div>
-				<div class="col-sm-1 btn-box daily-btn-box">
-                     <input type="button" value="Submit" class="button" ng-click="query(filter)"/>
+                <label class="col-sm-1 text-right long-text-report" data-translate="From"></label>
+                <div class="col-sm-2 field monthbox">
+                    <input class="calendar-form-control" type="text" ng-model="filter.fromDate" datepicker-popup
+                           is-open="calendar.startDateOpened" ng-click="calendar.startDateOpened=true" />
+                    <calendar-image class="calendar-image" ng-click="openPopupStartDate($event)"></calendar-image>
                 </div>
-			</div>	
+                <label class="col-sm-1 text-right" data-translate="To"></label>
+                <div class="col-sm-2 field monthbox">
+                    <input class="calendar-form-control" type="text" ng-model="filter.toDate" datepicker-popup
+                           is-open="calendar.endDateOpened" ng-click="calendar.endDateOpened=true" />
+                    <calendar-image class="calendar-image" ng-click="openPopupEndDate($event)"></calendar-image>
+                </div>
+                <div class="col-sm-1 btn-box daily-btn-box">
+                    <input type="button" value="Submit" class="button" ng-click="query(filter)" />
+                </div>
+            </div>
         </form>
     </div>
-	<div id="dailyReport" class="freegrid" render-daily-report export-daily-main-dish-report ></div>
+    <div id="dailyReport" class="freegrid" render-daily-report export-daily-main-dish-report></div>
 </div>

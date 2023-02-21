@@ -22,7 +22,7 @@ reportModule.controller('MonthlyMainDishReportLocalController',
 
             $scope.filter = {
                 reportDate: currentDate,
-                departmentId: '',
+                companyId: '',
                 userId: null,
                 mealId: '',
                 employeeTypeId: '',
@@ -113,7 +113,7 @@ reportModule.controller('MonthlyMainDishReportLocalController',
                     }
                 }
 
-                $scope.filter.departmentId = departmentId;
+                $scope.filter.companyId = departmentId;
                 $scope.originalDepartmentId = departmentId;
             };
 
@@ -125,16 +125,16 @@ reportModule.controller('MonthlyMainDishReportLocalController',
             /*
             ** Get all department.
             */
-            reportFactory.getDepartmentByUserRole().success(function (departments) {
-                $scope.departmentOptions = departments;
-                getDepartmentFilter(departments);
+            reportFactory.getCompanyByUserRole().success(function (companies) {
+                $scope.companyOptions = companies;
+                getDepartmentFilter(companies);
                 $scope.getMonthlyReportLocal($scope.filter);
 
-                if (departments && departments.length === 1) {
-                    $scope.getTeamByCompany($scope.filter.departmentId);
+                if (companies && companies.length === 1) {
+                    $scope.getTeamByCompany($scope.filter.companyId);
                 }
 
-                getEmployeeType($scope.filter.departmentId, null);
+                getEmployeeType($scope.filter.companyId, null);
             }).error(function (response, status) {
                 ErrorFactory.errorHandle(status);
             });
@@ -178,14 +178,14 @@ reportModule.controller('MonthlyMainDishReportLocalController',
             /*
             ** 
             */
-            $scope.getTeamAndEmployeeTypeOfDepartment = function (departmentId) {
-                $scope.getTeamByCompany(departmentId);
+            $scope.getTeamAndEmployeeTypeOfCompany = function (companyId) {
+                $scope.getTeamByCompany(companyId);
 
-                if (!departmentId) {
-                    departmentId = $scope.originalDepartmentId;
+                if (!companyId) {
+                    companyId = $scope.originalDepartmentId;
                 }
 
-                getEmployeeType(departmentId, null);
+                getEmployeeType(companyId, null);
             };
 
             /*
@@ -214,8 +214,8 @@ reportModule.controller('MonthlyMainDishReportLocalController',
                 filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
                 filter.userId = filter.employee ? filter.employee.UserId : '';
 
-                if (!filter.departmentId) {
-                    filter.departmentId = $scope.originalDepartmentId;
+                if (!filter.companyId) {
+                    filter.companyId = $scope.originalDepartmentId;
                 }
 
                 $scope.getMonthlyReportLocal(filter);
@@ -232,7 +232,7 @@ reportModule.controller('MonthlyMainDishReportLocalController',
 
                 $scope.criteria = {
                     reportDate: filter.reportDate.toDateString(),
-                    departmentId: filter.departmentId,
+                    departmentId: filter.companyId,
                     userId: filter.userId,
                     employeeTypeId: filter.employeeTypeId,
                     teamId: filter.teamId,

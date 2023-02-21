@@ -61,7 +61,7 @@ reportModule.controller('MonthlyLunchAndDinnerReportController',
             /*
             ** Get all department.
             */
-            reportFactory.getDepartmentByUserRole().success(function (departments) {
+            reportFactory.getCompanyByUserRole().success(function (departments) {
                 $scope.departmentOptions = departments;
                 getDepartmentFilter(departments);
                 $scope.getMonthlyLunchAndDinnerReport($scope.filter);

@@ -8,12 +8,12 @@
     <div class="row filter monthly-per-meal-filter">
         <form class="form-horizontal form-multiLine" role="form">
             <div class="form-group">
-                <label class="col-sm-1 text-right" data-translate="Department">
+                <label class="col-sm-1 text-right" data-translate="Company">
                 </label>
                 <div class="col-sm-2 field">
-                    <select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
-                            class="form-control" ng-change="getTeamAndEmployeeTypeOfDepartment(filter.departmentId)">
-                        <option value="" ng-if="departmentOptions.length > 1">-- {{"All" | translate}} --</option>
+                    <select ng-model="filter.companyId" ng-options="opt.CompanyId as opt.Name for opt in companyOptions"
+                            class="form-control" ng-change="getTeamAndEmployeeTypeOfCompany(filter.companyId)">
+                        <option value="" ng-if="companyOptions.length > 1">-- {{"All" | translate}} --</option>
                     </select>
                 </div>
                 <label class="col-sm-1 text-right long-text-report" data-translate="Team"></label>
@@ -55,7 +55,7 @@
                 <div class="col-sm-2 field">
                     <select ng-model="filter.groupBy" class="form-control">
                         <option data-translate="Employee" value="0"></option>
-                        <option data-translate="Department" value="1"></option>
+                        <option data-translate="Company" value="1"></option>
                         <option data-translate="CostCenter" value="2"></option>
                     </select>
                 </div>

@@ -65,7 +65,7 @@
             }
         }
 
-        public IEnumerable<Department> GetDepartmentUserHasPermission(ICriteria criteria)
+        public IEnumerable<Company> GetDepartmentUserHasPermission(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -73,7 +73,7 @@
                 {
                     multi.Read();
                     multi.Read();
-                    var rolesDepartment = multi.Read<Department>();
+                    var rolesDepartment = multi.Read<Company>();
 
                     return rolesDepartment;
                 }
@@ -110,7 +110,7 @@
             {
                 IEnumerable<EmployeeRoleModel> rolesOfEmployee = roles.Where(item => item.UserId == employee.UserId).ToList();
 
-                foreach (EmployeeRoleModel role in rolesOfEmployee) 
+                foreach (EmployeeRoleModel role in rolesOfEmployee)
                 {
                     employee.RoleItems.Add(role.Role);
 

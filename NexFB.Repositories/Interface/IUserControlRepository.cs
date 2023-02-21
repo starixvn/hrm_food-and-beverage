@@ -11,6 +11,7 @@ namespace NexFB.Repositories.Interface
 {
     using System.Collections.Generic;
     using Fanex.Data.Repository;
+    using NexFB.Models;
     using NexFB.Models.Employee;
     using NexFB.Models.Entities;
 
@@ -23,6 +24,6 @@ namespace NexFB.Repositories.Interface
 
         EmployeeModel GetEmployeeRoleById(ICriteria criteria);
 
-        IEnumerable<Department> GetDepartmentUserHasPermission(ICriteria criteria);
+        IEnumerable<Company> GetDepartmentUserHasPermission(ICriteria criteria);
     }
 }
