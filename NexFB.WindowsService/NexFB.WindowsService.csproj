@@ -128,7 +128,6 @@
     <Compile Include="Criteria\InsertAndUpdateSectionHMCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateTeamLuminetCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateUserLuminetCriteria.cs" />
-    <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Criteria\InsertAndUpdateEmployeeCalendarSMSCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateEmployeeCalendarHMCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateShiftSMSCriteria.cs" />

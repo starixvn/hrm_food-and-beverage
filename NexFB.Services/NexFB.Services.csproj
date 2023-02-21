@@ -140,7 +140,6 @@
     <Compile Include="Interface\Report\IViewMenuReportService.cs" />
     <Compile Include="Interface\Report\ISideDishReportService.cs" />
     <Compile Include="Interface\Report\ISideDishSummaryReportService.cs" />
-    <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Implement\CommonService.cs" />
     <Compile Include="Implement\UserControlService.cs" />
     <Compile Include="Implement\EmployeeService.cs" />

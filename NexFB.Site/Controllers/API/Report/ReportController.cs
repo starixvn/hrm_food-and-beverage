@@ -33,6 +33,7 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Web;
     using NexFB.Web.Attributes;
 
+#pragma warning disable S107 // Methods should not have too many parameters
     public class ReportController : BaseController
     {
         private readonly IMonthlyMainDishReportService _monthlyMainDishReportService;
@@ -56,7 +57,9 @@ namespace NexFB.Site.Controllers.API.Report
         {
         }
 
+#pragma warning disable S1541 // Methods and properties should not be too complex
         public ReportController(
+#pragma warning restore S1541 // Methods and properties should not be too complex
             IMonthlyMainDishReportService monthlyMainDishReportService,
             IDailyMainDishReportService dailyMainDishReportService,
             ICommonService commonService,
@@ -95,7 +98,6 @@ namespace NexFB.Site.Controllers.API.Report
         public MonthlyLocalReportModel GetMonthlyMainDishReportLocal(
             DateTime reportDate,
             string departmentId = "",
-            int? userId = null,
             string employeeTypeId = "",
             string teamId = "",
             string mealId = "",
@@ -143,7 +145,7 @@ namespace NexFB.Site.Controllers.API.Report
             return pagingReport;
         }
 
-        private void AddShiftToReport(MonthlyLocalReportModel fullReport, IList<EmployeeShift> shifts)
+        private static void AddShiftToReport(MonthlyLocalReportModel fullReport, IList<EmployeeShift> shifts)
         {
             for (int i = 0; i < fullReport.Meals.Count; i++)
             {
@@ -151,13 +153,13 @@ namespace NexFB.Site.Controllers.API.Report
             }
         }
 
-        private void AddShiftToMeal(MealMonthModel mealMonthModel, IList<EmployeeShift> shifts)
+        private static void AddShiftToMeal(MealMonthModel mealMonthModel, IList<EmployeeShift> shifts)
         {
             foreach (var employee in mealMonthModel.MealItems)
             {
                 var id = employee.Employee.UserId;
                 var result = shifts.Where(x => x.SysID == id).OrderBy(x => x.WorkDate);
-                employee.NumberMealsMonth.Shifts = result.Select(x => x.Shift).ToArray().ToList();
+                employee.NumberMealsMonth.Shifts = result.Select(x => x.Shift).ToList();
             }
         }
 
@@ -193,9 +195,7 @@ namespace NexFB.Site.Controllers.API.Report
                 UserId = userId,
                 Query = query
             };
-            DailyMainDishReportModel fullReport = null;
-            DailyMainDishReportModel pagingReport = null;
-
+            DailyMainDishReportModel fullReport;
             if (isPagingCallback)
             {
                 fullReport = SessionManager.Get<DailyMainDishReportModel>(ReportConstant.DailyMainDishReportSessionKey + CurrentUser.UserId);
@@ -206,8 +206,7 @@ namespace NexFB.Site.Controllers.API.Report
                 SessionManager.Set<DailyMainDishReportModel>(ReportConstant.DailyMainDishReportSessionKey + CurrentUser.UserId, fullReport);
             }
 
-            pagingReport = _dailyMainDishReportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
-            return pagingReport;
+            return _dailyMainDishReportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
         }
 
         [HttpGet]
@@ -274,7 +273,7 @@ namespace NexFB.Site.Controllers.API.Report
         [HttpGet]
         public Employee GetEmployeeById(int userId)
         {
-            var criteria = new GetEmployeeByIdCriteria()
+            var criteria = new GetEmployeeByIdCriteria
             {
                 UserId = userId
             };
@@ -324,11 +323,11 @@ namespace NexFB.Site.Controllers.API.Report
         public IEnumerable<Department> GetDepartmentByUserRole()
         {
             IEnumerable<Department> departments = null;
-            int financeRole = (int)RolesSystem.Finance;
-            int employeeRole = (int)RolesSystem.Employee;
-            int adminRole = (int)RolesSystem.Admin;
-            int kitchenRole = (int)RolesSystem.Kitchen;
-            int systemAdminRole = (int)RolesSystem.SA;
+            const byte financeRole = (byte)RolesSystem.Finance;
+            const byte employeeRole = (byte)RolesSystem.Employee;
+            const byte adminRole = (byte)RolesSystem.Admin;
+            const byte kitchenRole = (byte)RolesSystem.Kitchen;
+            const byte systemAdminRole = (byte)RolesSystem.SA;
 
             string roles = CurrentUser.Roles;
 
@@ -599,6 +598,7 @@ namespace NexFB.Site.Controllers.API.Report
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealForecastReport, Policy = Policy.Read)]
+#pragma warning disable S107 // Methods should not have too many parameters
         public EmployeeRegistrationReportModel GetEmployeeNonRegistration(
             DateTime date,
             string departmentId = "",
@@ -609,6 +609,7 @@ namespace NexFB.Site.Controllers.API.Report
             bool isPagingCallback = false,
             int startIndex = 0,
             int itemsPerPage = 50)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             EmployeeRegistrationReportModel fullReport;
             if (isPagingCallback)

@@ -95,7 +95,6 @@
     <Compile Include="Interface\Report\IAdminOrderHistoryRepository.cs" />
     <Compile Include="Interface\Report\IEmployeeOrderHistoryRepository.cs" />
     <Compile Include="Interface\Report\IMealForecastDetailReportRepository.cs" />
-    <Compile Include="Properties\GlobalSuppression.cs" />
     <Compile Include="Implement\UserControlRepository.cs" />
     <Compile Include="Interface\IUserControlRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

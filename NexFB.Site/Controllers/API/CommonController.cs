@@ -76,7 +76,7 @@
         {
             var criteria = new GetAllEmployeeTypeCriteria
             {
-                DepartmentId = companyId,
+                CompanyId = companyId,
                 IsLocal = isLocal
             };
 

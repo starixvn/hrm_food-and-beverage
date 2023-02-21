@@ -1,8 +1,10 @@
-﻿// <history>
-//   <change who="Teddy.le" date="2021.3.5">Created</change>
-// </history>
-namespace NexFB.Site.Controllers.API
+﻿namespace NexFB.Site.Controllers.API
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Threading;
+    using System.Web.Mvc;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
@@ -11,11 +13,6 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.Web.Attributes;
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Threading;
-    using System.Web.Mvc;
 
     public class KitchenStaffController : BaseController
     {
@@ -23,7 +20,7 @@ namespace NexFB.Site.Controllers.API
         private readonly IStaffOrderingService _staffOrderService;
 
         public KitchenStaffController()
-           : this( null, null)
+           : this(null, null)
         {
         }
 
@@ -35,16 +32,11 @@ namespace NexFB.Site.Controllers.API
             _staffOrderService = staffOrderService ?? new StaffOrderingService();
         }
 
-        /// <summary>
-        /// Get order to new order.
-        /// </summary>
-        /// <param name="userId">The User Id.</param>
-        /// <returns>The model meal ordering.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.KitchenStaffOrder, Policy = Policy.Read)]
         public MealOrderingModel GetNewOrderByStaff(int userId, int mealId, DateTime onDate)
         {
-            var criteria = new GetMemberNewOrderByStaffCriteria()
+            var criteria = new GetMemberNewOrderByStaffCriteria
             {
                 UserId = userId,
                 MealId = mealId,
@@ -59,7 +51,7 @@ namespace NexFB.Site.Controllers.API
         [ApiAuthorize(FunctionKey = FBFunctionKey.KitchenStaffOrder, Policy = Policy.Read)]
         public IList<MealOrderingModel> GetStaffOrder(DateTime OnDate)
         {
-            var criteria = new GetStaffOrdersCriteria()
+            var criteria = new GetStaffOrdersCriteria
             {
                 UserId = this.CurrentUser.UserId,
                 OnDate = OnDate
@@ -69,12 +61,11 @@ namespace NexFB.Site.Controllers.API
             return orders;
         }
 
-
         [HttpPost]
         [ApiAuthorize(FunctionKey = FBFunctionKey.KitchenStaffOrder, Policy = Policy.Host)]
         public object InsertStaffOrder(MealOrderingModel model)
         {
-            var criteria = new InsertOrderByStaffCriteria()
+            var criteria = new InsertOrderByStaffCriteria
             {
                 CreatedBy = this.CurrentUser.UserId,
                 CreatedDate = DateTime.Now,
@@ -91,14 +82,14 @@ namespace NexFB.Site.Controllers.API
             };
 
             CommandResult result = _staffOrderService.InsertOrder(criteria);
-            return new { result = result, orderId = criteria.OrderId };
+            return new { result, orderId = criteria.OrderId };
         }
 
         [HttpPost]
         [ApiAuthorize(FunctionKey = FBFunctionKey.KitchenStaffOrder, Policy = Policy.Host)]
         public CommandResult UpdateStaffOrder(MealOrderingModel model)
         {
-            var criteria = new UpdateOrderByStaffCriteria()
+            var criteria = new UpdateOrderByStaffCriteria
             {
                 OrderId = model.OrderId,
                 ModifiedBy = this.CurrentUser.UserId,
@@ -119,7 +110,7 @@ namespace NexFB.Site.Controllers.API
         [ApiAuthorize(FunctionKey = FBFunctionKey.KitchenStaffOrder, Policy = Policy.Host)]
         public CommandResult Delete(int orderId)
         {
-            var criteria = new DeleteOrderByStaffCriteria()
+            var criteria = new DeleteOrderByStaffCriteria
             {
                 OrderId = orderId,
                 ModifiedBy = this.CurrentUser.UserId,
@@ -130,11 +121,6 @@ namespace NexFB.Site.Controllers.API
             return result;
         }
 
-        /// <summary>
-        /// Translate remark into vietnamese.
-        /// </summary>
-        /// <param name="remark">The remark of order.</param>
-        /// <returns>The translated text.</returns>
         private string TranslateRemark(string remark)
         {
             string translatedText = string.Empty;

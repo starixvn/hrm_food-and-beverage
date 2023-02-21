@@ -31,11 +31,13 @@
             writer.CopyRows(0, 1);
 
             // Create report header.
-            writer.CopyRows(1, 2);
+            const byte HeaderRowIndex = 2;
+            writer.CopyRows(1, HeaderRowIndex);
 
             FillContentRow(report, writer);
 
-            writer.SyncColumnsWidth(13);
+            const byte TotalColumns = 13;
+            writer.SyncColumnsWidth(TotalColumns);
             writer.Render();
         }
 
@@ -48,23 +50,29 @@
                 var subItem = new
                 {
                     No = counter,
-                    CompanyName = item.CompanyName,
+                    item.CompanyName,
                     Shift = item.ShiftName,
                     CheckIn = item.BeginCheckInTime,
                     CheckOut = item.BeginCheckOutTime,
-                    MealPreviousSupper = item.MealPreviousSupper ? "x" : string.Empty,
-                    MealBreakfast = item.MealBreakfast ? "x" : string.Empty,
-                    MealLunch = item.MealLunch ? "x" : string.Empty,
-                    MealDinner = item.MealDinner ? "x" : string.Empty,
-                    MealSupper = item.MealSupper ? "x" : string.Empty,
-                    MealNextBreakfast = item.MealNextBreakfast ? "x" : string.Empty,
-                    MealNextLunch = item.MealNextLunch ? "x" : string.Empty,
-                    MealNextDinner = item.MealNextDinner ? "x" : string.Empty,
+                    MealPreviousSupper = GetCheckbox(item.MealPreviousSupper),
+                    MealBreakfast = GetCheckbox(item.MealBreakfast),
+                    MealLunch = GetCheckbox(item.MealLunch),
+                    MealDinner = GetCheckbox(item.MealDinner),
+                    MealSupper = GetCheckbox(item.MealSupper),
+                    MealNextBreakfast = GetCheckbox(item.MealNextBreakfast),
+                    MealNextLunch = GetCheckbox(item.MealNextLunch),
+                    MealNextDinner = GetCheckbox(item.MealNextDinner),
                 };
 
-                writer.WriteRow(4, subItem);
+                const byte StartBodyRowIndex = 4;
+                writer.WriteRow(StartBodyRowIndex, subItem);
                 counter++;
             }
+        }
+
+        private static string GetCheckbox(bool isChecked)
+        {
+            return isChecked ? "x" : string.Empty;
         }
 
         public CommandResult UpdateShiftMeal(UpdateShiftMealByShiftIdCriteria criteria)
