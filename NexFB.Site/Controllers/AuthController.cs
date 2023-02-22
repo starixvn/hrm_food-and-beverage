@@ -88,9 +88,9 @@
 
         private UserSession GetUserLogin(LoginModel model)
         {
-            UserSession user = CheckLoginByDomain(model, (byte)DepartmentIdentity.Nexcel);
+            UserSession user = CheckLoginByDomain(model, (byte)CompanyIdentity.Nexcel);
 
-            user = user ?? CheckLoginByDomain(model, (byte)DepartmentIdentity.Luminet);
+            user = user ?? CheckLoginByDomain(model, (byte)CompanyIdentity.Luminet);
 
             user = user ?? CheckLoginByCode(model);
 
@@ -133,7 +133,7 @@
             var criteria = new GetEmployeeByCodeCriteria
             {
                 Code = model.Username,
-                CompanyId = string.Format("{0},{1}", (byte)DepartmentIdentity.Sms, (byte)DepartmentIdentity.HongMA)
+                CompanyId = string.Format("{0},{1}", (byte)CompanyIdentity.Sms, (byte)CompanyIdentity.HongMA)
             };
             UserSession user = _employeeService.GetUserByCode(criteria);
 

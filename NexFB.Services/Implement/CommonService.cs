@@ -27,9 +27,7 @@
 
         public IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria, bool exceptSystemAdmin = false)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             List<RoleSystemModel> roles = null;
-
             if (criteria.IsValid())
             {
                 roles = GetData<RoleSystemModel>(criteria).ToList();
@@ -46,9 +44,7 @@
 
         public IEnumerable<Department> GetAllDepartment(GetAllDepartmentCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IEnumerable<Department> departments = null;
-
             if (criteria.IsValid())
             {
                 departments = GetData<Department>(criteria);
@@ -59,9 +55,7 @@
 
         public IEnumerable<Team> GetAllTeamByCompany(GetAllTeamByCompanyCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IEnumerable<Team> teams = null;
-
             if (criteria.IsValid())
             {
                 teams = GetData<Team>(criteria);
@@ -72,9 +66,7 @@
 
         public IEnumerable<MealTimesheet> GetAllMealTimesheet(GetMealTimesheetCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IEnumerable<MealTimesheet> mealTimesheet = null;
-
             if (criteria.IsValid())
             {
                 mealTimesheet = GetData<MealTimesheet>(criteria);
@@ -85,9 +77,7 @@
 
         public IEnumerable<EmployeeTypeModel> GetAllEmployeeType(GetAllEmployeeTypeCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             IEnumerable<EmployeeTypeModel> employeeTypes = null;
-
             if (criteria.IsValid())
             {
                 employeeTypes = GetData<EmployeeTypeModel>(criteria);

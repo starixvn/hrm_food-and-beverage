@@ -92,8 +92,8 @@
     <Compile Include="Constants\ReportConstant.cs" />
     <Compile Include="Criteria\ResultCriteria.cs" />
     <Compile Include="Enums\DayType.cs" />
-    <Compile Include="Enums\DepartmentCode.cs" />
-    <Compile Include="Enums\DepartmentIdentity.cs" />
+    <Compile Include="Enums\CompanyCode.cs" />
+    <Compile Include="Enums\CompanyIdentity.cs" />
     <Compile Include="Enums\FoodMenuType.cs" />
     <Compile Include="Enums\GroupByReport.cs" />
     <Compile Include="Enums\HashProvider.cs" />

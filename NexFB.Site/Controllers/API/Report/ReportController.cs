@@ -717,9 +717,9 @@ namespace NexFB.Site.Controllers.API.Report
         {
             var companies = new List<object>();
 
-            foreach (DepartmentIdentity departmentEnum in (DepartmentIdentity[])Enum.GetValues(typeof(DepartmentIdentity)))
+            foreach (CompanyIdentity departmentEnum in (CompanyIdentity[])Enum.GetValues(typeof(CompanyIdentity)))
             {
-                if (departmentEnum != DepartmentIdentity.None)
+                if (departmentEnum != CompanyIdentity.None)
                 {
                     var department = new
                     {

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
     using System.Linq;
@@ -32,8 +31,8 @@
 
     public partial class MainViewModel : MainModelProperty
     {
-        private static string _host = ConfigurationManager.AppSettings[ConstantValue.HubHost];
-        private static DispatcherTimer _dailyClockDispatcher = new DispatcherTimer();
+        private static readonly string _host = ConfigurationManager.AppSettings[ConstantValue.HubHost];
+        private static readonly DispatcherTimer _dailyClockDispatcher = new DispatcherTimer();
         private ViewModelBase _currentViewModel;
 
         public MainViewModel()
@@ -91,7 +90,7 @@
                 new Action(() =>
                 {
                     this.CurrentCardNumber = newCardNumber;
-                    string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+                    string currentViewModel = this.CurrentViewModel.GetType().Name;
                     string cardValue = newCardNumber.Substring(newCardNumber.Length - 5, 5);
                     var criteria = new GetEmployeeByCardNumberCriteria { CardNumber = cardValue };
                     EmployeeInfo employeeData = this.SmartCardOrderService.GetEmployeeByCardId(criteria);
@@ -200,6 +199,7 @@
                         break;
 
                     default:
+                        // nothing
                         break;
                 }
             }
@@ -242,12 +242,6 @@
             HasChangeLanguage = false;
         }
 
-        /// <summary>
-        /// Send New Order to server hub.
-        /// </summary>
-        /// <param name="orderId">New order id.</param>
-        /// <returns>Task to execute.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         public Task SendMessage(int orderId)
         {
             if (Connection.State != ConnectionState.Connected)
@@ -265,9 +259,6 @@
             }
         }
 
-        /// <summary>
-        /// Change Culture.
-        /// </summary>
         public void ChangeCulture()
         {
             switch (CurrentCulture)
@@ -293,8 +284,8 @@
         {
             if (OrderOwner != null)
             {
-                var getEmployeeOrderStatus = new GetEmployeeOrderStatusCriteria() { SysId = OrderOwner.SysId };
-                EmployeeOrderStatus orderStatus = this.KitchenService.EmployeeOrderStatus(getEmployeeOrderStatus);
+                var criteria = new GetEmployeeOrderStatusCriteria { SysId = OrderOwner.SysId };
+                EmployeeOrderStatus orderStatus = this.KitchenService.EmployeeOrderStatus(criteria);
                 OrderOwner.AllowOrder = orderStatus.IsAllowOrder;
             }
         }
@@ -375,7 +366,7 @@
 
         private void ExecuteSideDishesCommand()
         {
-            string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+            string currentViewModel = this.CurrentViewModel.GetType().Name;
             if (currentViewModel == ConstantValue.MainDishesViewModel)
             {
                 IsMainDishTab = false;
@@ -398,7 +389,7 @@
         {
             if (CurrentViewModel != null)
             {
-                string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+                string currentViewModel = this.CurrentViewModel.GetType().Name;
                 switch (currentViewModel)
                 {
                     case ConstantValue.MainDishesViewModel:
@@ -437,7 +428,7 @@
 
         private void CheckDataForLanguageChange()
         {
-            string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
+            string currentViewModel = this.CurrentViewModel.GetType().Name;
             switch (currentViewModel)
             {
                 case ConstantValue.MainDishesViewModel:
@@ -472,20 +463,18 @@
         private void CheckCurrentViewModel()
         {
             DefaulMenuColor();
-            string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
-            switch (currentViewModel)
+            string currentViewModel = this.CurrentViewModel.GetType().Name;
+            if (currentViewModel == ConstantValue.MainDishesViewModel)
             {
-                case ConstantValue.MainDishesViewModel:
-                    MainDishesMenu.BackgroundColor = ConstantValue.DefaultMenuColor;
-                    MainDishesMenu.ForegroundColor = ConstantValue.MainDishesMenuColor;
-                    MainDishesMenu.FontWeight = ConstantValue.FontWeightBold;
-                    break;
-
-                default:
-                    SideDishesMenu.BackgroundColor = ConstantValue.DefaultMenuColor;
-                    SideDishesMenu.ForegroundColor = ConstantValue.SideDishesMenuColor;
-                    SideDishesMenu.FontWeight = ConstantValue.FontWeightBold;
-                    break;
+                MainDishesMenu.BackgroundColor = ConstantValue.DefaultMenuColor;
+                MainDishesMenu.ForegroundColor = ConstantValue.MainDishesMenuColor;
+                MainDishesMenu.FontWeight = ConstantValue.FontWeightBold;
+            }
+            else
+            {
+                SideDishesMenu.BackgroundColor = ConstantValue.DefaultMenuColor;
+                SideDishesMenu.ForegroundColor = ConstantValue.SideDishesMenuColor;
+                SideDishesMenu.FontWeight = ConstantValue.FontWeightBold;
             }
         }
 
@@ -507,8 +496,8 @@
         {
             if (employeeData != null)
             {
-                var getEmployeeOrderStatus = new GetEmployeeOrderStatusCriteria() { SysId = employeeData.SysId };
-                EmployeeOrderStatus orderStatus = this.KitchenService.EmployeeOrderStatus(getEmployeeOrderStatus);
+                var criteria = new GetEmployeeOrderStatusCriteria { SysId = employeeData.SysId };
+                EmployeeOrderStatus orderStatus = this.KitchenService.EmployeeOrderStatus(criteria);
                 if (orderStatus != null)
                 {
                     employeeData.AllowOrder = orderStatus.IsAllowOrder;
@@ -574,10 +563,10 @@
             try
             {
                 string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                XmlDocument xd = new XmlDocument();
+                var xd = new XmlDocument();
                 var currentDate = DateTime.Now.Date;
                 int currentYear = DateTime.Now.Year;
-                CultureInfo currentCulture = CultureInfo.CurrentCulture;
+                var currentCulture = CultureInfo.CurrentCulture;
                 const string xmlDateFormat = "dd/MM/yyyy";
 
                 xd.Load(Path.Combine(baseDirectory, "Themes.xml"));
@@ -585,9 +574,9 @@
 
                 var themeList = nodelist.Cast<XmlNode>().Select(x => new
                 {
-                    From = string.Format(x.SelectSingleNode("From").InnerText.ToString(), currentYear).ToString(),
-                    To = string.Format(x.SelectSingleNode("To").InnerText, currentYear).ToString(),
-                    ImageSource = Path.Combine(baseDirectory, string.Format("Images\\Themes\\{0}", x.SelectSingleNode("ImageName").InnerText)).ToString()
+                    From = string.Format(x.SelectSingleNode("From").InnerText, currentYear),
+                    To = string.Format(x.SelectSingleNode("To").InnerText, currentYear),
+                    ImageSource = Path.Combine(baseDirectory, string.Format("Images\\Themes\\{0}", x.SelectSingleNode("ImageName").InnerText))
                 }).ToList();
 
                 IdleScreenThemes = ConstantValue.NormalBackground;
@@ -646,7 +635,8 @@
 
                 while (Active)
                 {
-                    Thread.Sleep(10);
+                    const byte MillisecondsTimeout = 10;
+                    Thread.Sleep(MillisecondsTimeout);
                 }
             })
             { IsBackground = true };

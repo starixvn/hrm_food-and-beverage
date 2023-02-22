@@ -13,8 +13,8 @@
     {
         #region Private Fields
 
-        private static string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
-        private static string _imageFolderPath = ConfigurationManager.AppSettings[Constant.ImageFolder];
+        private static readonly string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
+        private static readonly string _imageFolderPath = ConfigurationManager.AppSettings[Constant.ImageFolder];
         private int _sysId;
         private int _empId;
         private int _mealId;
@@ -180,22 +180,22 @@
                 string defaultImageSource = Path.Combine(baseDirectory, Constant.DefaultAvatar);
                 switch (CompanyId)
                 {
-                    case (byte)DepartmentIdentity.Nexcel:
+                    case (byte)CompanyIdentity.Nexcel:
                         var imageNexcelTemplate = string.Format(Constant.NexcelAvatar, Code.Trim());
                         _imageSource = _imageFolderPath + imageNexcelTemplate;
                         break;
 
-                    case (byte)DepartmentIdentity.Luminet:
+                    case (byte)CompanyIdentity.Luminet:
                         var imageLuminetTemplate = string.Format(Constant.LuminetAvatar, Code.Trim());
                         _imageSource = _imageFolderPath + imageLuminetTemplate;
                         break;
 
-                    case (byte)DepartmentIdentity.Sms:
+                    case (byte)CompanyIdentity.Sms:
                         var imageSmsTemplate = string.Format(Constant.SmsAvatar, Code.Trim());
                         _imageSource = _imageFolderPath + imageSmsTemplate;
                         break;
 
-                    case (byte)DepartmentIdentity.HongMA:
+                    case (byte)CompanyIdentity.HongMA:
                         var imageHongMaTemplate = string.Format(Constant.HongMAAvatar, Code.Trim());
                         _imageSource = _imageFolderPath + imageHongMaTemplate;
                         break;

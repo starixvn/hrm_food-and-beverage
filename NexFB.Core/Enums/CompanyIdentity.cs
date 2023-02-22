@@ -2,21 +2,21 @@
 {
     using System.ComponentModel;
 
-    public enum DepartmentIdentity
+    public enum CompanyIdentity
     {
         [Description("None")]
-        None = 0,
+        None,
 
         [Description("Nexcel")]
-        Nexcel = 1,
+        Nexcel,
 
         [Description("Sms")]
-        Sms = 2,
+        Sms,
 
         [Description("Hong Ma")]
-        HongMA = 3,
+        HongMA,
 
         [Description("Luminet")]
-        Luminet = 4,
+        Luminet,
     }
 }

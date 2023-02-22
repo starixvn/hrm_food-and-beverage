@@ -28,7 +28,7 @@
         public CommandResult UpdatePassword(ChangePasswordModel model)
         {
             var result = new CommandResult();
-            if (this.CurrentUser.CompanyId == (byte)DepartmentIdentity.Nexcel)
+            if (this.CurrentUser.CompanyId == (byte)CompanyIdentity.Nexcel)
             {
                 if (!string.IsNullOrWhiteSpace(model.OldPassword)
                 && !string.IsNullOrWhiteSpace(model.NewPassword)

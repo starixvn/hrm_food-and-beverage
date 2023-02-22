@@ -214,7 +214,7 @@
             {
                 if (CompanyId > 0)
                 {
-                    var companyCode = (DepartmentCode)CompanyId;
+                    var companyCode = (CompanyCode)CompanyId;
                     string displayNickName = NickName + "-" + companyCode.ToString().ToUpperInvariant() + "({0})";
                     return IsLocal ? string.Format(displayNickName, "L") : string.Format(displayNickName, "E");
                 }
@@ -238,22 +238,22 @@
                 string defaultImageSource = Path.Combine(baseDirectory, "Images\\no-avatar.jpg");
                 switch (CompanyId)
                 {
-                    case (byte)DepartmentIdentity.Nexcel:
+                    case (byte)CompanyIdentity.Nexcel:
                         var imageNexcelTemplate = string.Format("Images\\Nexcel\\{0}.jpg", Code.Trim());
                         imageSource = _imageFolderPath + imageNexcelTemplate;
                         break;
 
-                    case (byte)DepartmentIdentity.Luminet:
+                    case (byte)CompanyIdentity.Luminet:
                         var imageLuminetTemplate = string.Format("Images\\Luminet\\{0}.jpg", Code.Trim());
                         imageSource = _imageFolderPath + imageLuminetTemplate;
                         break;
 
-                    case (byte)DepartmentIdentity.Sms:
+                    case (byte)CompanyIdentity.Sms:
                         var imageSmsTemplate = string.Format("Images\\SMS\\{0}.jpg", Code.Trim());
                         imageSource = _imageFolderPath + imageSmsTemplate;
                         break;
 
-                    case (byte)DepartmentIdentity.HongMA:
+                    case (byte)CompanyIdentity.HongMA:
                         var imageHongMaTemplate = string.Format("Images\\HongMa\\{0}.jpg", Code.Trim());
                         imageSource = _imageFolderPath + imageHongMaTemplate;
                         break;

@@ -12,7 +12,7 @@
         {
             get
             {
-                return CompanyId == ((byte)DepartmentIdentity.Nexcel).ToString()
+                return CompanyId == ((byte)CompanyIdentity.Nexcel).ToString()
                     ? string.Format("spvn\\{0}", Username)
                     : string.Format("luminet\\{0}", Username);
             }

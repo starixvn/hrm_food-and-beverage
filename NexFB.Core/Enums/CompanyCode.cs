@@ -2,7 +2,7 @@
 {
     using System.ComponentModel;
 
-    public enum DepartmentCode
+    public enum CompanyCode
     {
         [Description("None")]
         None,

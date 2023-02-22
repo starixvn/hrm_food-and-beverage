@@ -128,7 +128,7 @@
                     OrderedBy = employeeOrder.OrderBy.NickName,
                     FullName = employeeOrder.OrderBy.FullName,
                     Section = employeeOrder.OrderBy.Team,
-                    Company = employeeOrder.OrderBy.DepartmentName,
+                    Company = employeeOrder.OrderBy.CompanyName,
                     MainDish = CreateMainDish(employeeOrder.Menus),
                     SideDish = CreateSideDish(employeeOrder.Menus),
                     Amount = amountTemplate

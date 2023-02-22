@@ -267,7 +267,8 @@
             else
             {
                 deltat = -0.000278 + 0.000265 * T + 0.000262 * T2;
-            };
+            }
+
             JdNew = Jd1 + C1 - deltat;
             return (int)(JdNew);
         }
@@ -365,7 +366,7 @@
             }
             if (lunarMonth > 12)
             {
-                lunarMonth = lunarMonth - 12;
+                lunarMonth -= 12;
             }
             return (int)(lunarMonth);
         }

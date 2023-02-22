@@ -52,13 +52,13 @@
         public CommandResult UpdateUserForNexcel()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateUser((int)DepartmentIdentity.Nexcel);
+            DateTime fromDate = GetDateFromBeforeUpdateUser((int)CompanyIdentity.Nexcel);
             IList<NexcelService.UserModel> users = NexcelService.GetUser(fromDate);
             if (users != null && users.Any())
             {
                 var insertCriteria = new InsertAndUpdateUserNexcelCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Nexcel,
+                    CompanyId = (int)CompanyIdentity.Nexcel,
                     Users = users
                 };
 
@@ -71,13 +71,13 @@
         public CommandResult UpdateTeamForNexcel()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateTeam((int)DepartmentIdentity.Nexcel);
+            DateTime fromDate = GetDateFromBeforeUpdateTeam((int)CompanyIdentity.Nexcel);
             IList<NexcelService.TeamModel> teams = NexcelService.GetTeam(fromDate);
             if (teams != null && teams.Any())
             {
                 var insertCriteria = new InsertAndUpdateTeamNexcelCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Nexcel,
+                    CompanyId = (int)CompanyIdentity.Nexcel,
                     Teams = teams
                 };
 
@@ -95,7 +95,7 @@
             {
                 var criteria = new InsertAndUpdateShiftNexcelCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Nexcel,
+                    CompanyId = (int)CompanyIdentity.Nexcel,
                     Shifts = shifts
                 };
 
@@ -108,13 +108,13 @@
         public CommandResult UpdateEmployeeCalendarForNexcel()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar((int)DepartmentIdentity.Nexcel);
+            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar((int)CompanyIdentity.Nexcel);
             IList<NexcelService.EmployeeCalendarModel> calendars = NexcelService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
             {
                 var criteria = new InsertAndUpdateEmployeeCalendarNexcelCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Nexcel,
+                    CompanyId = (int)CompanyIdentity.Nexcel,
                     EmployeeCalendars = calendars
                 };
 
@@ -129,11 +129,9 @@
             string photoPath = ConfigurationManager.AppSettings["PhotoPathNexcel"];
             DateTime lastModifiedDate = GetLastModifiedDateOfPhoto(photoPath);
             IList<NexcelService.PhotoModel> photos = NexcelService.GetPhoto(lastModifiedDate);
-
-            string fullPath = string.Empty;
             foreach (NexcelService.PhotoModel photo in photos)
             {
-                fullPath = photoPath + "\\" + photo.Code;
+                string fullPath = photoPath + "\\" + photo.Code;
                 File.WriteAllBytes(@fullPath, photo.Photo);
             }
         }
@@ -141,14 +139,14 @@
         public CommandResult UpdateUserForHM()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateUser((int)DepartmentIdentity.HongMA);
+            DateTime fromDate = GetDateFromBeforeUpdateUser((int)CompanyIdentity.HongMA);
             IList<HongMaService.UserModel> users = HongmaService.GetUser(fromDate);
 
             if (users != null && users.Any())
             {
                 var insertCriteria = new InsertAndUpdateUserHMCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.HongMA,
+                    CompanyId = (int)CompanyIdentity.HongMA,
                     Users = users
                 };
 
@@ -161,13 +159,13 @@
         public CommandResult UpdateTeamForHM()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateTeam((int)DepartmentIdentity.HongMA);
+            DateTime fromDate = GetDateFromBeforeUpdateTeam((int)CompanyIdentity.HongMA);
             IList<HongMaService.TeamModel> teams = HongmaService.GetTeam(fromDate);
             if (teams != null && teams.Any())
             {
                 var insertCriteria = new InsertAndUpdateTeamHMCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.HongMA,
+                    CompanyId = (int)CompanyIdentity.HongMA,
                     Teams = teams
                 };
 
@@ -180,13 +178,13 @@
         public CommandResult UpdateSectionForHM()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateSection((int)DepartmentIdentity.HongMA);
+            DateTime fromDate = GetDateFromBeforeUpdateSection((int)CompanyIdentity.HongMA);
             IList<HongMaService.SectionModel> sections = HongmaService.GetSection(fromDate);
             if (sections != null && sections.Any())
             {
                 var insertCriteria = new InsertAndUpdateSectionHMCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.HongMA,
+                    CompanyId = (int)CompanyIdentity.HongMA,
                     Sections = sections
                 };
 
@@ -199,13 +197,13 @@
         public CommandResult UpdateDepartmentForHM()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateDepartment((int)DepartmentIdentity.HongMA);
+            DateTime fromDate = GetDateFromBeforeUpdateDepartment((int)CompanyIdentity.HongMA);
             IList<HongMaService.DepartmentModel> departments = HongmaService.GetDepartment(fromDate);
             if (departments != null && departments.Any())
             {
                 var insertCriteria = new InsertAndUpdateDepartmentHMCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.HongMA,
+                    CompanyId = (int)CompanyIdentity.HongMA,
                     Departments = departments
                 };
 
@@ -218,13 +216,13 @@
         public CommandResult UpdateUnitForHM()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateUnit((int)DepartmentIdentity.HongMA);
+            DateTime fromDate = GetDateFromBeforeUpdateUnit((int)CompanyIdentity.HongMA);
             IList<HongMaService.UnitModel> units = HongmaService.GetUnit(fromDate);
             if (units != null && units.Any())
             {
                 var insertCriteria = new InsertAndUpdateUnitHMCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.HongMA,
+                    CompanyId = (int)CompanyIdentity.HongMA,
                     Units = units
                 };
 
@@ -242,7 +240,7 @@
             {
                 var criteria = new InsertAndUpdateShiftHMCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.HongMA,
+                    CompanyId = (int)CompanyIdentity.HongMA,
                     Shifts = shifts
                 };
 
@@ -255,13 +253,13 @@
         public CommandResult UpdateEmployeeCalendarForHM()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar((int)DepartmentIdentity.HongMA);
+            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar((int)CompanyIdentity.HongMA);
             IList<HongMaService.EmployeeCalendarModel> calendars = HongmaService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
             {
                 var criteria = new InsertAndUpdateEmployeeCalendarHMCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.HongMA,
+                    CompanyId = (int)CompanyIdentity.HongMA,
                     EmployeeCalendars = calendars
                 };
 
@@ -276,11 +274,9 @@
             string photoPath = ConfigurationManager.AppSettings["PhotoPathHongMa"];
             DateTime lastModifiedDate = GetLastModifiedDateOfPhoto(photoPath);
             IList<HongMaService.PhotoModel> photos = HongmaService.GetPhoto(lastModifiedDate);
-
-            string fullPath = string.Empty;
             foreach (HongMaService.PhotoModel photo in photos)
             {
-                fullPath = photoPath + "\\" + photo.Code;
+                string fullPath = photoPath + "\\" + photo.Code;
                 File.WriteAllBytes(@fullPath, photo.Photo);
             }
         }
@@ -288,13 +284,13 @@
         public CommandResult UpdateUserForSms()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateUser((int)DepartmentIdentity.Sms);
+            DateTime fromDate = GetDateFromBeforeUpdateUser((int)CompanyIdentity.Sms);
             IList<SMSService.UserModel> users = SmsService.GetUser(fromDate);
             if (users != null && users.Any())
             {
                 var insertCriteria = new InsertAndUpdateUserSmsCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Sms,
+                    CompanyId = (int)CompanyIdentity.Sms,
                     Users = users
                 };
 
@@ -307,13 +303,13 @@
         public CommandResult UpdateTeamForSms()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateTeam((int)DepartmentIdentity.Sms);
+            DateTime fromDate = GetDateFromBeforeUpdateTeam((int)CompanyIdentity.Sms);
             IList<SMSService.TeamModel> teams = SmsService.GetTeam(fromDate);
             if (teams != null && teams.Any())
             {
                 var insertCriteria = new InsertAndUpdateTeamSmsCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Sms,
+                    CompanyId = (int)CompanyIdentity.Sms,
                     Teams = teams
                 };
 
@@ -326,13 +322,13 @@
         public CommandResult UpdateSectionForSMS()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateSection((int)DepartmentIdentity.Sms);
+            DateTime fromDate = GetDateFromBeforeUpdateSection((int)CompanyIdentity.Sms);
             IList<SMSService.SectionModel> sections = SmsService.GetSection(fromDate);
             if (sections != null && sections.Any())
             {
                 var insertCriteria = new InsertAndUpdateSectionSMSCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Sms,
+                    CompanyId = (int)CompanyIdentity.Sms,
                     Sections = sections
                 };
 
@@ -345,13 +341,13 @@
         public CommandResult UpdateDepartmentForSMS()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateDepartment((int)DepartmentIdentity.Sms);
+            DateTime fromDate = GetDateFromBeforeUpdateDepartment((int)CompanyIdentity.Sms);
             IList<SMSService.DepartmentModel> departments = SmsService.GetDepartment(fromDate);
             if (departments != null && departments.Any())
             {
                 var insertCriteria = new InsertAndUpdateDepartmentSMSCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Sms,
+                    CompanyId = (int)CompanyIdentity.Sms,
                     Departments = departments
                 };
 
@@ -364,13 +360,13 @@
         public CommandResult UpdateUnitForSMS()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateUnit((int)DepartmentIdentity.Sms);
+            DateTime fromDate = GetDateFromBeforeUpdateUnit((int)CompanyIdentity.Sms);
             IList<SMSService.UnitModel> units = SmsService.GetUnit(fromDate);
             if (units != null && units.Any())
             {
                 var insertCriteria = new InsertAndUpdateUnitSMSCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Sms,
+                    CompanyId = (int)CompanyIdentity.Sms,
                     Units = units
                 };
 
@@ -388,7 +384,7 @@
             {
                 var criteria = new InsertAndUpdateShiftSmsCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Sms,
+                    CompanyId = (int)CompanyIdentity.Sms,
                     Shifts = shifts
                 };
 
@@ -400,14 +396,14 @@
 
         public CommandResult UpdateEmployeeCalendarForSms()
         {
-            CommandResult result  = null;
-            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar((int)DepartmentIdentity.Sms);
+            CommandResult result = null;
+            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar((int)CompanyIdentity.Sms);
             IList<SMSService.EmployeeCalendarModel> calendars = SmsService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
             {
                 var criteria = new InsertAndUpdateEmployeeCalendarSmsCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Sms,
+                    CompanyId = (int)CompanyIdentity.Sms,
                     EmployeeCalendars = calendars
                 };
 
@@ -422,11 +418,9 @@
             string photoPath = ConfigurationManager.AppSettings["PhotoPathSMS"];
             DateTime lastModifiedDate = GetLastModifiedDateOfPhoto(photoPath);
             IList<SMSService.PhotoModel> photos = SmsService.GetPhoto(lastModifiedDate);
-
-            string fullPath = string.Empty;
             foreach (SMSService.PhotoModel photo in photos)
             {
-                fullPath = photoPath + "\\" + photo.Code;
+                string fullPath = photoPath + "\\" + photo.Code;
                 File.WriteAllBytes(@fullPath, photo.Photo);
             }
         }
@@ -437,76 +431,64 @@
             {
                 CompanyId = departmentId
             };
-
-            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
-            return fromDate;
+            return this.GetDataEntity<DateTime>(criteria);
         }
 
-        public DateTime GetDateFromBeforeUpdateTeam(int departmentId)
+        public DateTime GetDateFromBeforeUpdateTeam(int companyId)
         {
-            var criteria = new GetLastTeamModifiedDateCriteria()
+            var criteria = new GetLastTeamModifiedDateCriteria
             {
-                CompanyId = departmentId
+                CompanyId = companyId
             };
-
-            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
-            return fromDate;
+            return this.GetDataEntity<DateTime>(criteria);
         }
 
         public DateTime GetDateFromBeforeUpdateSection(int companyId)
         {
-            var criteria = new GetLastSectionModifiedDateCriteria()
+            var criteria = new GetLastSectionModifiedDateCriteria
             {
                 CompanyId = companyId
             };
-
-            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
-            return fromDate;
+            return this.GetDataEntity<DateTime>(criteria);
         }
 
         public DateTime GetDateFromBeforeUpdateDepartment(int companyId)
         {
-            var criteria = new GetLastDepartmentModifiedDateCriteria()
+            var criteria = new GetLastDepartmentModifiedDateCriteria
             {
                 CompanyId = companyId
             };
-
-            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
-            return fromDate;
+            return this.GetDataEntity<DateTime>(criteria);
         }
 
         public DateTime GetDateFromBeforeUpdateUnit(int companyId)
         {
-            var criteria = new GetLastUnitModifiedDateCriteria()
+            var criteria = new GetLastUnitModifiedDateCriteria
             {
                 CompanyId = companyId
             };
-
-            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
-            return fromDate;
+            return this.GetDataEntity<DateTime>(criteria);
         }
 
-        public DateTime GetDateFromBeforeUpdateEmployeeCalendar(int departmentId)
+        public DateTime GetDateFromBeforeUpdateEmployeeCalendar(int companyId)
         {
             var criteria = new GetLastEmployeeCalendarModifiedDateCriteria
             {
-                CompanyId = departmentId
+                CompanyId = companyId
             };
-
-            DateTime fromDate = this.GetDataEntity<DateTime>(criteria);
-            return fromDate;
+            return this.GetDataEntity<DateTime>(criteria);
         }
 
         public CommandResult UpdateUserForLuminet()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateUser((int)DepartmentIdentity.Luminet);
+            DateTime fromDate = GetDateFromBeforeUpdateUser((int)CompanyIdentity.Luminet);
             IList<LuminetService.UserModel> users = LuminetService.GetUser(fromDate);
             if (users != null && users.Any())
             {
                 var insertCriteria = new InsertAndUpdateUserLuminetCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Luminet,
+                    CompanyId = (int)CompanyIdentity.Luminet,
                     Users = users
                 };
 
@@ -519,13 +501,13 @@
         public CommandResult UpdateTeamForLuminet()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateTeam((int)DepartmentIdentity.Luminet);
+            DateTime fromDate = GetDateFromBeforeUpdateTeam((int)CompanyIdentity.Luminet);
             IList<LuminetService.TeamModel> teams = LuminetService.GetTeam(fromDate);
             if (teams != null && teams.Any())
             {
                 var insertCriteria = new InsertAndUpdateTeamLuminetCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Luminet,
+                    CompanyId = (int)CompanyIdentity.Luminet,
                     Teams = teams
                 };
 
@@ -543,7 +525,7 @@
             {
                 var criteria = new InsertAndUpdateShiftLuminetCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Luminet,
+                    CompanyId = (int)CompanyIdentity.Luminet,
                     Shifts = shifts
                 };
 
@@ -556,13 +538,13 @@
         public CommandResult UpdateEmployeeCalendarForLuminet()
         {
             CommandResult result = null;
-            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar((int)DepartmentIdentity.Luminet);
+            DateTime fromDate = GetDateFromBeforeUpdateEmployeeCalendar((int)CompanyIdentity.Luminet);
             IList<LuminetService.EmployeeCalendarModel> calendars = LuminetService.GetEmployeeCalendar(fromDate);
             if (calendars != null && calendars.Any())
             {
                 var criteria = new InsertAndUpdateEmployeeCalendarLuminetCriteria
                 {
-                    CompanyId = (int)DepartmentIdentity.Luminet,
+                    CompanyId = (int)CompanyIdentity.Luminet,
                     EmployeeCalendars = calendars
                 };
 
@@ -577,22 +559,20 @@
             string photoPath = ConfigurationManager.AppSettings["PhotoPathLuminet"];
             DateTime lastModifiedDate = GetLastModifiedDateOfPhoto(photoPath);
             IList<LuminetService.PhotoModel> photos = LuminetService.GetPhoto(lastModifiedDate);
-
-            string fullPath = string.Empty;
             foreach (LuminetService.PhotoModel photo in photos)
             {
-                fullPath = photoPath + "\\" + photo.Code;
+                string fullPath = photoPath + "\\" + photo.Code;
                 File.WriteAllBytes(@fullPath, photo.Photo);
             }
         }
 
-        private DateTime GetLastModifiedDateOfPhoto(string path)
+        private static DateTime GetLastModifiedDateOfPhoto(string path)
         {
             var lastModifiedDate = new DateTime(1990, 01, 01);
-            
-            DirectoryInfo directory = new DirectoryInfo(path);
+
+            var directory = new DirectoryInfo(path);
             FileInfo lastModifiedFile = directory.GetFiles().OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
-            
+
             if (lastModifiedFile != null)
             {
                 lastModifiedDate = lastModifiedFile.LastWriteTime;

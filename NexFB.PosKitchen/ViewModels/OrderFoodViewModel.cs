@@ -29,7 +29,7 @@
     using WPFMessageBoxCustomControl;
     using WPFMessageBoxCustomControl.Enums;
 
-    public partial class OrderFoodViewModel : OrderFoodProperty
+    public class OrderFoodViewModel : OrderFoodProperty
     {
         #region Fields
 
@@ -37,7 +37,7 @@
         private static readonly OrderFoodPreviewData _OrderFoodPreviewData = new OrderFoodPreviewData();
         private static readonly string _defaultLanguage = ConfigurationManager.AppSettings[Constant.DefaultLanguage];
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -48,7 +48,7 @@
             GetTimerAddQuantiy();
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Initialize Data
 
@@ -76,7 +76,7 @@
             }
         }
 
-        #endregion
+        #endregion Initialize Data
 
         #region Left Side Button Action
 
@@ -122,7 +122,7 @@
             }
         }
 
-        //// Button Choose Alternative Food 
+        //// Button Choose Alternative Food
         public bool CanExecuteChooseAlternativeFoodCommand()
         {
             return UserInGroup.Any(x => x.IsSelectedMemberInGroup);
@@ -139,7 +139,7 @@
             }
         }
 
-        #endregion
+        #endregion Left Side Button Action
 
         #region Middle Side Action
 
@@ -217,7 +217,7 @@
             }
         }
 
-        #endregion
+        #endregion Middle Side Action
 
         #region Right Side Action
 
@@ -292,7 +292,7 @@
             }
         }
 
-        #endregion
+        #endregion Right Side Action
 
         #region KeyPad Action
 
@@ -411,29 +411,26 @@
         public void ExecuteNumPadPressed(object value)
         {
             var keyPadParameter = value.ToString();
-            switch (keyPadParameter)
+            if (keyPadParameter == "BACK")
             {
-                case "BACK":
-                    Result = Result.Length > 0 ? Result.Remove(Result.Length - 1) : string.Empty;
-                    LocationResult = LocationResult.Length > 0 ? LocationResult.Remove(LocationResult.Length - 1) : string.Empty;
-                    break;
-
-                default:
-                    if (LocationTextboxResultFocused)
+                Result = Result.Length > 0 ? Result.Remove(Result.Length - 1) : string.Empty;
+                LocationResult = LocationResult.Length > 0 ? LocationResult.Remove(LocationResult.Length - 1) : string.Empty;
+            }
+            else
+            {
+                if (LocationTextboxResultFocused)
+                {
+                    LocationResult += keyPadParameter.Substring(keyPadParameter.Length - 1, 1);
+                    ExecuteSearchLoction();
+                }
+                else
+                {
+                    Result += keyPadParameter.Substring(keyPadParameter.Length - 1, 1);
+                    if ((CheckMainFoodMenu || CheckAlternativeFoodMenu) && CommonKitchenOrder.Any(x => x.IsFocusedMealMenu))
                     {
-                        LocationResult += keyPadParameter.Substring(keyPadParameter.Length - 1, 1);
-                        ExecuteSearchLoction();
+                        StartTimerAddQuantity();
                     }
-                    else
-                    {
-                        Result += keyPadParameter.Substring(keyPadParameter.Length - 1, 1);
-                        if ((CheckMainFoodMenu || CheckAlternativeFoodMenu) && CommonKitchenOrder.Any(x => x.IsFocusedMealMenu))
-                        {
-                            StartTimerAddQuantity();
-                        }
-                    }
-
-                    break;
+                }
             }
         }
 
@@ -494,7 +491,7 @@
             }
         }
 
-        #endregion
+        #endregion KeyPad Action
 
         #region Modal Confirm Action
 
@@ -578,7 +575,7 @@
             }
         }
 
-        #endregion
+        #endregion Modal Confirm Action
 
         #region Public Methods
 
@@ -689,10 +686,12 @@
                         currentMenuList = currentSelectedMember.ListMainMenuOrderDeatails;
                         employeeOrderDetails = currentMenuList.SingleOrDefault(x => x.SelectedMenuItemId == itemId);
                         break;
+
                     case (int)MenuType.AlternativeMenu:
                         currentMenuList = currentSelectedMember.ListAlternativeMenuOrderDeatails;
                         employeeOrderDetails = currentMenuList.SingleOrDefault(x => x.SelectedMenuItemId == itemId);
                         break;
+
                     default:
                         // do nothing
                         break;
@@ -1356,7 +1355,7 @@
             timer.Start();
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Private Methods
 
@@ -1451,6 +1450,6 @@
             }
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }
