@@ -13,6 +13,7 @@ namespace NexFB.Repositories.Implement
     using System.Linq;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using NexFB.Models;
     using NexFB.Models.Employee;
     using NexFB.Models.Entities;
     using NexFB.Models.MealRegistration;
@@ -614,7 +615,7 @@ namespace NexFB.Repositories.Implement
             {
                 Employee = GetEmployeeOfMealItem(rawMeal),
                 EmployeeType = GetEmloyeeTypeOfMealItem(rawMeal),
-                Department = GetDepartmentOfMealItem(rawMeal),
+                Company = GetCompanyOfMealItem(rawMeal),
                 Team = GetTeamOfMealItem(rawMeal),
                 CostCenter = rawMeal.CostCenter ?? string.Empty,
                 NumberMealsMonth = GetNumberMealsOfItem(rawMeal)
@@ -677,19 +678,19 @@ namespace NexFB.Repositories.Implement
         /// </summary>
         /// <param name="rawMeal">The data of current meal item.</param>
         /// <returns>The department.</returns>
-        private Department GetDepartmentOfMealItem(dynamic rawMeal)
+        private Company GetCompanyOfMealItem(dynamic rawMeal)
         {
-            int? departmentId = rawMeal.DepartmentID;
+            int? companyId = rawMeal.CompanyID;
 
-            if (departmentId.HasValue)
+            if (companyId.HasValue)
             {
-                var department = new Department
+                var company = new Company
                 {
-                    DepartmentId = (int)departmentId,
-                    Name = rawMeal.DepartmentName
+                    CompanyId = (short)companyId,
+                    Name = rawMeal.CompanyName
                 };
 
-                return department;
+                return company;
             }
 
             return null;
@@ -729,8 +730,8 @@ namespace NexFB.Repositories.Implement
             var mealDayOfMonth = new MealDayOfMonthModel();
 
             mealDayOfMonth.NumberMeals = GetNumberMealsInMonth(rawMeal);
-            mealDayOfMonth.TotalQuantity = rawMeal.TotalQty;
-            mealDayOfMonth.Amount = rawMeal.Amount;
+            mealDayOfMonth.TotalQuantity = rawMeal.TotalQty != null ? rawMeal.TotalQty : 0;
+            mealDayOfMonth.Amount = rawMeal.Amount != null ? rawMeal.Amount : 0;
 
             return mealDayOfMonth;
         }

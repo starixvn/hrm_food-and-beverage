@@ -23,7 +23,7 @@ namespace NexFB.Models.Report.MonthlyMainDishReportLocal
 
         public EmployeeTypeModel EmployeeType { get; set; }
 
-        public Department Department { get; set; }
+        public Company Company { get; set; }
 
         public Team Team { get; set; }
 

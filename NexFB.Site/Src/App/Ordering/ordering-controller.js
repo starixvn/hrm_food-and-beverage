@@ -538,7 +538,6 @@ orderingModule.controller("OrderingController",
                         order.Members.forEach(member => {
                             if (!member.IsAllowOrderByShift && member.IsOrder && !member.Member.IsFreeOrder) {
                                 isValid = false;
-                                console.log(member.Member.NickName)
                                 errorShiftMembers += (errorShiftMembers === ""
                                     ? member.Member.NickName
                                     : ", " + member.Member.NickName);

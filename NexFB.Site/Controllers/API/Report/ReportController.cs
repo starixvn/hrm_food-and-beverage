@@ -112,7 +112,7 @@ namespace NexFB.Site.Controllers.API.Report
             {
                 UserId = userId,
                 ReportDate = reportDate,
-                DepartmentId = companyId,
+                CompanyId = companyId,
                 EmployeeTypeId = employeeTypeId,
                 TeamId = teamId,
                 MealId = mealId,
@@ -449,7 +449,7 @@ namespace NexFB.Site.Controllers.API.Report
         [ApiAuthorize(FunctionKey = FBFunctionKey.MonthlyMainDishReportPerDay, Policy = Policy.Read)]
         public MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport(
             DateTime reportDate,
-            string departmentId = "",
+            string companyId = "",
             string employeeTypeId = "",
             string teamId = "",
             int? workDay = null,
@@ -463,7 +463,7 @@ namespace NexFB.Site.Controllers.API.Report
             var criteria = new GetMonthlyMainDishPerDayReportCriteria
             {
                 ReportDate = reportDate,
-                DepartmentId = departmentId,
+                CompanyId = companyId,
                 EmployeeTypeId = employeeTypeId,
                 TeamId = teamId,
                 WorkDay = workDay,

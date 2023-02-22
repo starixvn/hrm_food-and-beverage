@@ -31,7 +31,7 @@ reportModule.directive('renderMonthlyReport', function () {
         return numberMealsRow;
     };
 
-    var generateDataBody = function (report, employeeShift, scope) {
+    var generateDataBody = function (report, scope) {
         var rows = [];
 
         if (report && report.Meals) {
@@ -74,7 +74,7 @@ reportModule.directive('renderMonthlyReport', function () {
                                 { Name: "Meal", Value: rowIndex, CssClass: "remove-padding-left" },
                                 { Name: "NickName", Value: mealItem.Employee.NickName },
                                 { Name: "EmployeeType", Value: mealItem.EmployeeType.EmployeeTypeName },
-                                { Name: "Company", Value: mealItem.Department.Name },
+                                { Name: "Company", Value: mealItem.Company.Name },
                                 { Name: "Team", Value: mealItem.Team.Name }
                             ]
                         };
@@ -85,7 +85,7 @@ reportModule.directive('renderMonthlyReport', function () {
                                 { Name: "Meal", Value: rowIndex, CssClass: "remove-padding-left" },
                                 {
                                     Name: report.GroupBy == 1 ? "Company" : "Cost Center",
-                                    Value: report.GroupBy == 1 ? mealItem.Department.Name + ' > ' + mealItem.Team.Name : mealItem.CostCenter
+                                    Value: report.GroupBy == 1 ? mealItem.Company.Name + ' > ' + mealItem.Team.Name : mealItem.CostCenter
                                 }
                             ]
                         };
@@ -261,8 +261,7 @@ reportModule.directive('renderMonthlyReport', function () {
 
                 var id = iElement.attr('id'),
                     report = scope.localReport,
-                    empShift = scope.employeeShift,
-                    bodyData = generateDataBody(report, empShift, scope),
+                    bodyData = generateDataBody(report, scope),
                     groupHeaderData = generateGroupHeader(report.Month, report.GroupBy, scope.monthFormat),
                     headerData = generateDataHeader(report.WeekDays, report.GroupBy, scope.numberFormat),
                     footerData = generateDataFooter(report.Total, report.GroupBy);

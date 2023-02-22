@@ -1,5 +1,8 @@
-﻿namespace NexFB.Models
+﻿using System;
+
+namespace NexFB.Models
 {
+    [Serializable]
     public class Company
     {
         public short CompanyId { get; set; }

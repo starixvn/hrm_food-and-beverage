@@ -9,7 +9,7 @@ reportModule.controller('MonthlyMainDishReportPerDayController',
 
             $scope.filter = {
                 reportDate: new Date(),
-                departmentId: '',
+                companyId: '',
                 employeeTypeId: '',
                 teamId: '',
                 groupBy: 0,
@@ -19,7 +19,7 @@ reportModule.controller('MonthlyMainDishReportPerDayController',
                 isPagingCallback: false
             };
 
-            $scope.originalDepartmentId = '';
+            $scope.originalCompanyId = '';
 
             $scope.format = 'MMM yyyy';
             $scope.popUpMode = 'month';
@@ -68,47 +68,47 @@ reportModule.controller('MonthlyMainDishReportPerDayController',
                 $scope.opened = true;
             };
 
-            var getDepartmentFilter = function (departments) {
-                var departmentId = '';
+            var getCompanyFilter = function (companies) {
+                var companyId = '';
 
-                if (departments) {
-                    if (departments.length === 1) {
-                        departmentId = departments[0].DepartmentId;
+                if (companies) {
+                    if (companies.length === 1) {
+                        companyId = companies[0].companyId;
                     }
                     else {
-                        angular.forEach(departments, function (department) {
-                            departmentId = departmentId ? departmentId + ',' + department.DepartmentId : department.DepartmentId;
+                        angular.forEach(companies, function (company) {
+                            companyId = companyId ? companyId + ',' + company.companyId : company.companyId;
                         });
                     }
                 }
 
-                $scope.filter.departmentId = departmentId;
-                $scope.originalDepartmentId = departmentId;
+                $scope.filter.companyId = companyId;
+                $scope.originalCompanyId = companyId;
             };
 
             /*
-            ** Get all department.
+            ** Get all company.
             */
-            reportFactory.getCompanyByUserRole().success(function (departments) {
-                $scope.departmentOptions = departments;
-                getDepartmentFilter(departments);
+            reportFactory.getCompanyByUserRole().success(function (companies) {
+                $scope.companyOptions = companies;
+                getCompanyFilter(companies);
                 $scope.getMonthlyMainDishReportPerDay($scope.filter);
 
-                if (departments && departments.length === 1) {
-                    $scope.getTeamByCompany($scope.filter.departmentId);
+                if (companies && companies.length === 1) {
+                    $scope.getTeamByCompany($scope.filter.companyId);
                 }
 
-                getEmployeeType($scope.filter.departmentId, false);
+                getEmployeeType($scope.filter.companyId, false);
             }).error(function (response, status) {
                 ErrorFactory.errorHandle(status);
             });
 
             /*
-            ** Get all team of department.
+            ** Get all team of company.
             */
-            $scope.getTeamByCompany = function (departmentId) {
-                if (departmentId) {
-                    userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
+            $scope.getTeamByCompany = function (companyId) {
+                if (companyId) {
+                    userControlFactory.getAllTeamByCompany(companyId).success(function (teams) {
                         $scope.teamOptions = teams;
                     }).error(function (response, status) {
                         ErrorFactory.errorHandle(status);
@@ -122,8 +122,8 @@ reportModule.controller('MonthlyMainDishReportPerDayController',
             /*
             ** Get all employee type.
             */
-            var getEmployeeType = function (departmentId, isLocal) {
-                foodMenuFactory.getAllEmployeeType(departmentId, isLocal).success(function (employeeTypes) {
+            var getEmployeeType = function (companyId, isLocal) {
+                foodMenuFactory.getAllEmployeeType(companyId, isLocal).success(function (employeeTypes) {
                     $scope.employeeTypesOption = employeeTypes;
                 }).error(function (response, status) {
                     ErrorFactory.errorHandle(status);
@@ -131,16 +131,16 @@ reportModule.controller('MonthlyMainDishReportPerDayController',
             };
 
             /*
-            ** Get team and employee type by department.
+            ** Get team and employee type by company.
             */
-            $scope.getTeamAndEmployeeTypeOfCompany = function (departmentId) {
-                $scope.getTeamByCompany(departmentId);
+            $scope.getTeamAndEmployeeTypeOfCompany = function (companyId) {
+                $scope.getTeamByCompany(companyId);
 
-                if (!departmentId) {
-                    departmentId = $scope.originalDepartmentId;
+                if (!companyId) {
+                    companyId = $scope.originalCompanyId;
                 }
 
-                getEmployeeType(departmentId, false);
+                getEmployeeType(companyId, false);
             };
 
             /*
@@ -174,8 +174,8 @@ reportModule.controller('MonthlyMainDishReportPerDayController',
                 filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
                 filter.isPagingCallback = false;
 
-                if (!filter.departmentId) {
-                    filter.departmentId = $scope.originalDepartmentId;
+                if (!filter.companyId) {
+                    filter.companyId = $scope.originalCompanyId;
                 }
 
                 $scope.getMonthlyMainDishReportPerDay(filter);
@@ -190,7 +190,7 @@ reportModule.controller('MonthlyMainDishReportPerDayController',
 
                 $scope.criteria = {
                     reportDate: filter.reportDate.toDateString(),
-                    departmentId: filter.departmentId,
+                    companyId: filter.companyId,
                     employeeTypeId: filter.employeeTypeId,
                     teamId: filter.teamId,
                     workDay: filter.workDay,

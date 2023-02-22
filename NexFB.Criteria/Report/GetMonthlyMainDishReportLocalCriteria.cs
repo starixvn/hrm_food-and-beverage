@@ -21,7 +21,7 @@ namespace NexFB.Criteria.Report
         public int? UserId { get; set; }
         public DateTime ReportDate { get; set; }
 
-        public string DepartmentId { get; set; }
+        public string CompanyId { get; set; }
 
         public string EmployeeTypeId { get; set; }
 

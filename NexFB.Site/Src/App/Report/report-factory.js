@@ -225,7 +225,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                 {
                     params: {
                         reportDate: filter.reportDate.toDateString(),
-                        departmentId: filter.departmentId,
+                        companyId: filter.companyId,
                         employeeTypeId: filter.employeeTypeId,
                         teamId: filter.teamId,
                         workDay: filter.workDay,

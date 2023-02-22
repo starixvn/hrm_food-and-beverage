@@ -484,7 +484,7 @@ namespace NexFB.Services.Implement.Report
                     Count = rowIndex,
                     Nick = mealItem.Employee.NickName,
                     EmployeeType = mealItem.EmployeeType.EmployeeTypeName,
-                    DepartmentSection = mealItem.Department.Name + "> " + mealItem.Team.Name,
+                    DepartmentSection = mealItem.Company.Name + "> " + mealItem.Team.Name,
                     Day1 = numberMeals[0],
                     Day2 = numberMeals[1],
                     Day3 = numberMeals[2],
@@ -546,7 +546,7 @@ namespace NexFB.Services.Implement.Report
                 var record = new
                 {
                     Count = rowIndex,
-                    DepartmentSection = isGroupByCostCenter ? mealItem.CostCenter : mealItem.Department.Name + "> " + mealItem.Team.Name,
+                    DepartmentSection = isGroupByCostCenter ? mealItem.CostCenter : mealItem.Company.Name + "> " + mealItem.Team.Name,
                     Day1 = numberMeals[0],
                     Day2 = numberMeals[1],
                     Day3 = numberMeals[2],
