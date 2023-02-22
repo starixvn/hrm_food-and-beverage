@@ -1,31 +1,13 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetMealOrderByIdCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.9.16">Created</change>
-// </history>
-
-namespace NexFB.Criteria.Kitchen
+﻿namespace NexFB.Criteria.Kitchen
 {
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get Meal OrderBy Id.
-    /// </summary>
     public class GetMealOrderByIdCriteria : CriteriaBase
     {
         public int OrderId { get; set; }
 
-        public override bool IsValid()
-        {
-            return OrderId > 0;
-        }
+        public override bool IsValid() => OrderId > 0;
 
-        public override string GetSettingKey()
-        {
-            return "POS_Get_OrderRequestByOrderID";
-        }
+        public override string GetSettingKey() => "POS_Get_OrderRequestByOrderID";
     }
 }

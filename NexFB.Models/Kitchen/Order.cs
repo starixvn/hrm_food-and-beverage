@@ -51,9 +51,8 @@
 
         public int SysId { get; set; }
 
-        public int DepartmentId { get; set; }
-
-        public string DepartmentName { get; set; }
+        public short CompanyId { get; set; }
+        public string CompanyName { get; set; }
 
         public string NickName { get; set; }
 
@@ -213,10 +212,10 @@
         {
             get
             {
-                if (DepartmentId > 0)
+                if (CompanyId > 0)
                 {
-                    DepartmentCode departmentCode = (DepartmentCode)DepartmentId;
-                    string displayNickName = NickName + "-" + departmentCode.ToString().ToUpperInvariant() + "({0})";
+                    var companyCode = (DepartmentCode)CompanyId;
+                    string displayNickName = NickName + "-" + companyCode.ToString().ToUpperInvariant() + "({0})";
                     return IsLocal ? string.Format(displayNickName, "L") : string.Format(displayNickName, "E");
                 }
                 else
@@ -237,24 +236,28 @@
                 string imageSource;
                 string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 string defaultImageSource = Path.Combine(baseDirectory, "Images\\no-avatar.jpg");
-                switch (DepartmentId)
+                switch (CompanyId)
                 {
-                    case (int)DepartmentIdentity.Nexcel:
+                    case (byte)DepartmentIdentity.Nexcel:
                         var imageNexcelTemplate = string.Format("Images\\Nexcel\\{0}.jpg", Code.Trim());
                         imageSource = _imageFolderPath + imageNexcelTemplate;
                         break;
-                    case (int)DepartmentIdentity.Luminet:
+
+                    case (byte)DepartmentIdentity.Luminet:
                         var imageLuminetTemplate = string.Format("Images\\Luminet\\{0}.jpg", Code.Trim());
                         imageSource = _imageFolderPath + imageLuminetTemplate;
                         break;
-                    case (int)DepartmentIdentity.Sms:
+
+                    case (byte)DepartmentIdentity.Sms:
                         var imageSmsTemplate = string.Format("Images\\SMS\\{0}.jpg", Code.Trim());
                         imageSource = _imageFolderPath + imageSmsTemplate;
                         break;
-                    case (int)DepartmentIdentity.HongMA:
+
+                    case (byte)DepartmentIdentity.HongMA:
                         var imageHongMaTemplate = string.Format("Images\\HongMa\\{0}.jpg", Code.Trim());
                         imageSource = _imageFolderPath + imageHongMaTemplate;
                         break;
+
                     default:
                         imageSource = defaultImageSource;
                         break;

@@ -32,9 +32,6 @@ orderingModule.factory("orderingFactory",
             getRemarkList: function () {
                 return $http.get(baseUrl + 'api/Ordering/GetOrderRemark');
             },
-            getDepartment: function () {
-                return $http.get(baseUrl + 'api/Common/GetAllDepartment');
-            },
             getEmployees: function (keyWord, companyId, teamId, isShowDisable) {
                 return $http.get(baseUrl + 'api/Employee/GetEmployees',
                     {

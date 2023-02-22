@@ -10,8 +10,6 @@
             RoleItems = new List<Role>();
         }
 
-        public Department Department { get; set; }
-
         public Team Team { get; set; }
 
         public List<Role> RoleItems { get; set; }

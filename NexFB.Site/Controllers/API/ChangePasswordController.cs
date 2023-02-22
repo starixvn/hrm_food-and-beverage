@@ -1,5 +1,6 @@
 ﻿namespace NexFB.Site.Controllers.API
 {
+    using System;
     using System.Web.Http;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
@@ -32,9 +33,9 @@
                 if (!string.IsNullOrWhiteSpace(model.OldPassword)
                 && !string.IsNullOrWhiteSpace(model.NewPassword)
                 && !string.IsNullOrWhiteSpace(model.ConfirmPassword)
-                && string.Compare(model.NewPassword, model.ConfirmPassword, System.StringComparison.OrdinalIgnoreCase) == 0)
+                && string.Compare(model.NewPassword, model.ConfirmPassword, StringComparison.OrdinalIgnoreCase) == 0)
                 {
-                    var getUserCriteria = new GetEmployeeByIdCriteria()
+                    var getUserCriteria = new GetEmployeeByIdCriteria
                     {
                         UserId = this.CurrentUser.UserId
                     };
@@ -43,7 +44,7 @@
                     bool isValid = _employeeService.IsValidateUser(user, model.OldPassword);
                     if (isValid)
                     {
-                        var criteria = new ChangePasswordCriteria()
+                        var criteria = new ChangePasswordCriteria
                         {
                             UserId = this.CurrentUser.UserId,
                             Password = model.NewPassword,

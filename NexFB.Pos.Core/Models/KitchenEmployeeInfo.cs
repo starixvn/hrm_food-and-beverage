@@ -1,5 +1,6 @@
 ﻿namespace NexFB.Pos.Core.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.IO;
@@ -20,7 +21,7 @@
         private int _menuId;
         private int _quantity;
         private int _locationId;
-        private int _departmentId;
+        private short _companyId;
         private int _groupOrderId;
 
         private string _code;
@@ -32,7 +33,7 @@
         private string _imageSource;
         private string _mealVnmName;
         private string _orderSummary;
-        private string _departmentName;
+        private string _companyName;
         private string _locationEngName;
         private string _locationVnmName;
         private string _employeeOrderMealText;
@@ -49,7 +50,7 @@
         private List<EmployeeOrderDetails> _listMainMenuOrderDeatails;
         private List<EmployeeOrderDetails> _listAlternativeMenuOrderDeatails;
 
-        #endregion
+        #endregion Private Fields
 
         public KitchenEmployeeInfo()
         {
@@ -115,17 +116,17 @@
             }
         }
 
-        public int DepartmentId
+        public short CompanyId
         {
             get
             {
-                return _departmentId;
+                return _companyId;
             }
 
             set
             {
-                _departmentId = value;
-                this.OnPropertyChanged("DepartmentId");
+                _companyId = value;
+                this.OnPropertyChanged("CompanyId");
             }
         }
 
@@ -175,26 +176,30 @@
         {
             get
             {
-                string baseDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 string defaultImageSource = Path.Combine(baseDirectory, Constant.DefaultAvatar);
-                switch (DepartmentId)
+                switch (CompanyId)
                 {
-                    case (int)DepartmentIdentity.Nexcel:
+                    case (byte)DepartmentIdentity.Nexcel:
                         var imageNexcelTemplate = string.Format(Constant.NexcelAvatar, Code.Trim());
                         _imageSource = _imageFolderPath + imageNexcelTemplate;
                         break;
-                    case (int)DepartmentIdentity.Luminet:
+
+                    case (byte)DepartmentIdentity.Luminet:
                         var imageLuminetTemplate = string.Format(Constant.LuminetAvatar, Code.Trim());
                         _imageSource = _imageFolderPath + imageLuminetTemplate;
                         break;
-                    case (int)DepartmentIdentity.Sms:
+
+                    case (byte)DepartmentIdentity.Sms:
                         var imageSmsTemplate = string.Format(Constant.SmsAvatar, Code.Trim());
                         _imageSource = _imageFolderPath + imageSmsTemplate;
                         break;
-                    case (int)DepartmentIdentity.HongMA:
+
+                    case (byte)DepartmentIdentity.HongMA:
                         var imageHongMaTemplate = string.Format(Constant.HongMAAvatar, Code.Trim());
                         _imageSource = _imageFolderPath + imageHongMaTemplate;
                         break;
+
                     default:
                         _imageSource = defaultImageSource;
                         break;
@@ -344,30 +349,30 @@
             }
         }
 
-        public string DepartmentName
+        public string CompanyName
         {
             get
             {
-                return _departmentName;
+                return _companyName;
             }
 
             set
             {
-                _departmentName = value;
-                this.OnPropertyChanged("DepartmentName");
+                _companyName = value;
+                this.OnPropertyChanged("CompanyName");
             }
         }
 
         public string FullNameUpper => FullName.ToUpperInvariant();
 
-        public string DeparmentNameDetails
-            => IsLocal ? DepartmentName + " - " + Constant.Local : DepartmentName + " - " + Constant.Expat;
+        public string CompanyNameDetails
+            => IsLocal ? CompanyName + " - " + Constant.Local : CompanyName + " - " + Constant.Expat;
 
         public string LocationName
             => (string.IsNullOrEmpty(_defaultLanguage) || _defaultLanguage == Constant.DefaultCulture) ? LocationVnmName : LocationEngName;
 
         public string EmployeeSelectionGeneralInfo
-            => FullName + " (" + NickName + ") " + "from " + DeparmentNameDetails;
+            => FullName + " (" + NickName + ") " + "from " + CompanyNameDetails;
 
         public string EmployeeOrderMealColor
         {
@@ -554,6 +559,6 @@
             }
         }
 
-        #endregion
+        #endregion Public Properties
     }
 }

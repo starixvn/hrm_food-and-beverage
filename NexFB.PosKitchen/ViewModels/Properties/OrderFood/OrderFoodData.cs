@@ -91,8 +91,8 @@ namespace NexFB.PosKitchen.ViewModels.Properties.OrderFood
         {
             get
             {
-                var getAllGroup = new GetGroupNameCriteria();
-                List<GroupOrder> groups = this.KitchenService.GetAllGroupOrder(getAllGroup);
+                var criteria = new GetGroupNameCriteria();
+                List<GroupOrder> groups = this.KitchenService.GetAllGroupOrder(criteria);
                 if (groups != null)
                 {
                     List<CommonKitchenOrder> data = Mapper.Map<List<GroupOrder>, List<CommonKitchenOrder>>(groups);

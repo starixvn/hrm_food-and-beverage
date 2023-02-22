@@ -1,7 +1,6 @@
 ﻿namespace NexFB.WinAppSmartCard.ViewModels
 {
     using System;
-    using System.Collections.Generic;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
@@ -16,14 +15,11 @@
     using AutoMapper;
     using Microsoft.AspNet.SignalR.Client;
     using Microsoft.AspNet.SignalR.Client.Hubs;
-    using NexFB.Core.Enums;
     using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.Ordering;
     using NexFB.Criteria.Report;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
-    using NexFB.Models.Ordering;
-    using NexFB.Models.Report.ViewMenuReport;
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.Enums;
     using NexFB.WinAppSmartCard.Core.Constants;
@@ -82,14 +78,10 @@
             }
         }
 
-        #endregion
+        #endregion Properties
+
         #region Public Methods
 
-        /// <summary>
-        /// On change Card Number.
-        /// </summary>
-        /// <param name="newCardNumber">New Card number.</param>
-        /// <param name="mainWindow">Current Main Window.</param>
         public void OnSmartCardNumberChanged(string newCardNumber, MainWindow mainWindow)
         {
             if (!string.IsNullOrEmpty(newCardNumber))
@@ -101,8 +93,8 @@
                     this.CurrentCardNumber = newCardNumber;
                     string currentViewModel = this.CurrentViewModel.GetType().Name.ToString();
                     string cardValue = newCardNumber.Substring(newCardNumber.Length - 5, 5);
-                    var getEmployeeByCardNumber = new GetEmployeeByCardNumberCriteria() { CardNumber = cardValue };
-                    EmployeeInfo employeeData = this.SmartCardOrderService.GetEmployeeByCardId(getEmployeeByCardNumber);
+                    var criteria = new GetEmployeeByCardNumberCriteria { CardNumber = cardValue };
+                    EmployeeInfo employeeData = this.SmartCardOrderService.GetEmployeeByCardId(criteria);
 
                     CheckForValidCard(employeeData, currentViewModel);
 
@@ -125,7 +117,6 @@
                 GetCurrentNameMeals(mealId);
 
                 GetNextNameMeals(mealId);
-
             }));
         }
 
@@ -172,14 +163,8 @@
                     CurrentMealsEng[i] = $"({currentMenus[i].FoodEngName})";
                 }
             }
-
         }
 
-        /// <summary>
-        /// Check card swipe.
-        /// </summary>
-        /// <param name="employeeData">Employee data.</param>
-        /// <param name="currentViewModel">Current view model.</param>
         public void CheckForValidCard(EmployeeInfo employeeData, string currentViewModel)
         {
             if (employeeData != null)
@@ -195,6 +180,7 @@
 
                         AddDataWhenTimerLive(employeeData);
                         break;
+
                     case ConstantValue.SideDishesViewModel:
                         if (((SideDishesViewModel)CurrentViewModel).SideDishTimerLive)
                         {
@@ -203,6 +189,7 @@
                         }
 
                         break;
+
                     case ConstantValue.CombinedDishesViewModel:
                         if (((CombinedDishesViewModel)CurrentViewModel).SideDishTimerLive)
                         {
@@ -289,10 +276,12 @@
                     ResourceManagerService.ChangeLocale("vi-VN");
                     CurrentCulture = (int)LanguageLocalization.VietNamCulture;
                     break;
+
                 case (int)LanguageLocalization.ChinaCulture:
                     ResourceManagerService.ChangeLocale("zh-CN");
                     CurrentCulture = (int)LanguageLocalization.ChinaCulture;
                     break;
+
                 default:
                     ResourceManagerService.ChangeLocale("en-GB");
                     CurrentCulture = (int)LanguageLocalization.EnglishCulture;
@@ -319,7 +308,7 @@
             }
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Commands
 
@@ -415,12 +404,15 @@
                     case ConstantValue.MainDishesViewModel:
                         ((MainDishesViewModel)CurrentViewModel).CancelTimerDispatcher();
                         break;
+
                     case ConstantValue.SideDishesViewModel:
                         ((SideDishesViewModel)CurrentViewModel).CancelTimerDispatcher();
                         break;
+
                     case ConstantValue.CombinedDishesViewModel:
                         ((CombinedDishesViewModel)CurrentViewModel).CancelTimerDispatcher();
                         break;
+
                     default:
                         // do nothing
                         break;
@@ -439,7 +431,7 @@
             }
         }
 
-        #endregion
+        #endregion Commands
 
         #region Private Methods
 
@@ -451,12 +443,15 @@
                 case ConstantValue.MainDishesViewModel:
                     ((MainDishesViewModel)CurrentViewModel).CheckDataForLanguageChange(OrderOwner, this);
                     break;
+
                 case ConstantValue.SideDishesViewModel:
                     ((SideDishesViewModel)CurrentViewModel).CheckDataForLanguageChange();
                     break;
+
                 case ConstantValue.CombinedDishesViewModel:
                     ((CombinedDishesViewModel)CurrentViewModel).CheckDataForLanguageChange();
                     break;
+
                 default:
                     // do nothing
                     break;
@@ -485,6 +480,7 @@
                     MainDishesMenu.ForegroundColor = ConstantValue.MainDishesMenuColor;
                     MainDishesMenu.FontWeight = ConstantValue.FontWeightBold;
                     break;
+
                 default:
                     SideDishesMenu.BackgroundColor = ConstantValue.DefaultMenuColor;
                     SideDishesMenu.ForegroundColor = ConstantValue.SideDishesMenuColor;
@@ -624,11 +620,6 @@
             _dailyClockDispatcher.Start();
         }
 
-        /// <summary>
-        /// Timer click.
-        /// </summary>
-        /// <param name="sender">Object sender.</param>
-        /// <param name="e">Event Arguments.</param>
         private void TimerTick(object sender, EventArgs e)
         {
             if (DateTime.Now.Hour == 0)
@@ -637,10 +628,6 @@
             }
         }
 
-        /// <summary>
-        /// Connect to server hub.
-        /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Fix later.")]
         private void InitializeHubConnection()
         {
             Active = true;
@@ -666,6 +653,6 @@
             Thread.Start();
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

@@ -333,8 +333,8 @@
         {
             if (!string.IsNullOrEmpty(Result))
             {
-                var getEmployeeByCodeCriteria = new GetEmployeeByCodeCriteria { Code = Result };
-                List<EmployeeInfo> employees = this.KitchenService.GetEmployeeOrderInfo(getEmployeeByCodeCriteria);
+                var criteria = new GetEmployeeByCodeCriteria { Code = Result };
+                List<EmployeeInfo> employees = this.KitchenService.GetEmployeeOrderInfo(criteria);
                 List<KitchenEmployeeInfo> listKitchenEmployeeInfo = Mapper.Map<List<EmployeeInfo>, List<KitchenEmployeeInfo>>(employees);
                 if (listKitchenEmployeeInfo.Any())
                 {
@@ -725,10 +725,9 @@
 
         public List<KitchenEmployeeInfo> GetUserByGroup(int groupId)
         {
-            var getUserByGroupIdCriteria = new GetUserByGroupIdCriteria { GroupOrderId = groupId };
-            List<EmployeeInfo> users = this.KitchenService.GetUserByGroupId(getUserByGroupIdCriteria);
-            List<KitchenEmployeeInfo> data = Mapper.Map<List<EmployeeInfo>, List<KitchenEmployeeInfo>>(users);
-            return data;
+            var criteria = new GetUserByGroupIdCriteria { GroupOrderId = groupId };
+            List<EmployeeInfo> users = this.KitchenService.GetUserByGroupId(criteria);
+            return Mapper.Map<List<EmployeeInfo>, List<KitchenEmployeeInfo>>(users);
         }
 
         public void CloseDialog(object value)
@@ -746,8 +745,8 @@
             if (!UserInGroup.Any(x => x.SysId == sysId))
             {
                 KitchenEmployeeInfo employee = this.GetEmployeeBySysId(sysId);
-                var getEmployeeOrderStatusCriteria = new GetEmployeeOrderStatusCriteria { SysId = employee.SysId };
-                EmployeeOrderStatus employeeStatus = this.KitchenService.EmployeeOrderStatus(getEmployeeOrderStatusCriteria);
+                var criteria = new GetEmployeeOrderStatusCriteria { SysId = employee.SysId };
+                EmployeeOrderStatus employeeStatus = this.KitchenService.EmployeeOrderStatus(criteria);
                 employee.MenuId = employeeStatus.MenuId;
                 employee.MenuVnmName = employeeStatus.MenuVnmName;
                 employee.MenuEngName = employeeStatus.MenuEngName;

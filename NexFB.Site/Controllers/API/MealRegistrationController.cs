@@ -1,21 +1,10 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="MealRegistrationController.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/22/2014 2:42:38 PM">Created.</change>
-// </history>
-
-using System.Globalization;
-using System.Xml;
-
-namespace NexFB.Site.Controllers.API
+﻿namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
+    using System.Xml;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
@@ -28,9 +17,6 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Web.Services.Implement;
     using NexFB.Web.Services.Interface;
 
-    /// <summary>
-    /// Registration Meal controller.
-    /// </summary>
     public class MealRegistrationController : BaseController
     {
         private readonly IMealRegistrationService _mealRegistrationService;
@@ -50,13 +36,6 @@ namespace NexFB.Site.Controllers.API
             _webCommonService = webCommonService ?? new WebCommonService();
         }
 
-        /// <summary>
-        /// Get register meal by range date.
-        /// </summary>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="mealId">The meal Id.</param>
-        /// <returns>The list meal date model.</returns>
         [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Read)]
         public IList<MealRegisterModel> GetRegisterMealByRangeDate(
             DateTime fromDate,
@@ -74,13 +53,6 @@ namespace NexFB.Site.Controllers.API
             return _mealRegistrationService.GetRegisterMealByRangeDate(criteria);
         }
 
-        /// <summary>
-        /// Get Employee Register Food By Range Date.
-        /// </summary>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="mealId">The meal Id.</param>
-        /// <returns>The list food employee register</returns>
         [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Read)]
         public IEnumerable<EmployeeRegisterFood> GetEmployeeRegisterFoodByRangeDate(
             DateTime fromDate,
@@ -98,12 +70,6 @@ namespace NexFB.Site.Controllers.API
             return _mealRegistrationService.GetEmployeeRegisterFoodByRangeDate(criteria);
         }
 
-        /// <summary>
-        /// Get Vegetarian Management By Range Date.
-        /// </summary>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The to date.</param>
-        /// <param name="mealId">The meal Id.</param>
         [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Read)]
         public IEnumerable<VegetarianManagement> GetVegetarianManagementByRangeDate(
             DateTime fromDate,
@@ -120,11 +86,6 @@ namespace NexFB.Site.Controllers.API
             return _mealRegistrationService.GetVegetarianManagementByRangeDate(criteria);
         }
 
-        /// <summary>
-        /// Register meal by range date.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The command result.</returns>
         [HttpPost]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Host)]
         public CommandResult RegisterMealByRangeDate(RegisterMealByRangeDateCriteria criteria)
@@ -178,11 +139,6 @@ namespace NexFB.Site.Controllers.API
             return true;
         }
 
-        /// <summary>
-        /// Set Vegetarian Management By Single Date
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The command result.</returns>
         [HttpPost]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Registration, Policy = Policy.Host)]
         public CommandResult SetVegetarianManagementBySingleDate(SetVegetarianManagementBySingleDateCriteria criteria)
@@ -223,7 +179,9 @@ namespace NexFB.Site.Controllers.API
             }
 
             if (isVeg)
+            {
                 return _mealRegistrationService.RegisterMealByDefault(criteria);
+            }
 
             if (criteria != null)
             {

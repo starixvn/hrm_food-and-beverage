@@ -334,10 +334,8 @@
             <Mapping DataField="Meal_L_1" ObjectProperty="MealNextLunch" />
             <Mapping DataField="Meal_D_1" ObjectProperty="MealNextDinner" />
             <Mapping DataField="Meal_S_1" ObjectProperty="MealNextSupper" />
-            <Mapping DataField="DepartmentName" ObjectProperty="Name" />
         </Setting>
-        <Setting Key="Shift_Edit_ByShiftID" SpName="Shift_Edit_ByShiftID" DbName="FBM" Plain="0">
-        </Setting>
+        <Setting Key="Shift_Edit_ByShiftID" SpName="Shift_Edit_ByShiftID" DbName="FBM" Plain="0" />
     </Function>
     <Function Name="Report">
         <Setting Key="RPT_MonthMainDishByLocal" SpName="RPT_MonthMainDishByLocal" DbName="FBM" Plain="0">

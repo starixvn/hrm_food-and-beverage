@@ -29,7 +29,6 @@
         public List<Order> GetWaitngMealOrder(GetWaitingMealOrderCriteria criteria)
         {
             List<Order> waitingMeals = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 waitingMeals = this._kitchenRepository.GetMealOrder(criteria);
@@ -41,7 +40,6 @@
         public List<Order> GetAwaitingDeliverMealOrder(GetAwaitingDeliverMealOrderCriteria criteria)
         {
             List<Order> awaitingDeliverMeals = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 awaitingDeliverMeals = this._kitchenRepository.GetMealOrder(criteria);
@@ -53,7 +51,6 @@
         public List<Order> GetDeliveredMealOrder(GetDeliveredMealOrderCriteria criteria)
         {
             List<Order> waitingMeals = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 waitingMeals = this._kitchenRepository.GetMealOrder(criteria);
@@ -65,7 +62,6 @@
         public List<Order> GetCanceledMealOrder(GetCanceledMealOrderCriteria criteria)
         {
             List<Order> canceledMeals = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 canceledMeals = this._kitchenRepository.GetMealOrder(criteria);
@@ -77,7 +73,6 @@
         public CommandResult ReceiveOrder(ProcessReceiveOrderCriteria criteria)
         {
             CommandResult received = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 received = Repository.Update(criteria);
@@ -89,7 +84,6 @@
         public CommandResult DeliverOrder(ProcessDeliverOrderCriteria criteria)
         {
             CommandResult received = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 received = Repository.Update(criteria);
@@ -101,7 +95,6 @@
         public CommandResult UndoOrder(UndoOrderCriteria criteria)
         {
             CommandResult result = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 result = Repository.Update(criteria);
@@ -146,7 +139,6 @@
         public List<GroupOrder> GetAllGroupOrder(GetGroupNameCriteria criteria)
         {
             List<GroupOrder> groups = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 groups = this.GetData<GroupOrder>(criteria).ToList();
@@ -158,7 +150,6 @@
         public List<FoodOrder> GetAllFoodOrder(GetFoodNameCriteria criteria)
         {
             List<FoodOrder> foods = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 foods = this.GetData<FoodOrder>(criteria).ToList();
@@ -170,7 +161,6 @@
         public List<EmployeeInfo> GetUserByGroupId(GetUserByGroupIdCriteria criteria)
         {
             List<EmployeeInfo> users = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 users = this.GetData<EmployeeInfo>(criteria).ToList();
@@ -182,7 +172,6 @@
         public List<EmployeeInfo> GetEmployeeOrderInfo(GetEmployeeByCodeCriteria criteria)
         {
             List<EmployeeInfo> employees = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 employees = this.GetData<EmployeeInfo>(criteria).ToList();
@@ -194,7 +183,6 @@
         public EmployeeInGroup GetEmployeeInGroup(GetEmployeeInGroupBySysIdCriteria criteria)
         {
             EmployeeInGroup employeeInGroup = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 employeeInGroup = _kitchenRepository.GetEmployeeInGroup(criteria);
@@ -206,7 +194,6 @@
         public EmployeeInfo GetEmployeeBySysId(GetEmployeeBySysIdCriteria criteria)
         {
             EmployeeInfo employee = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 employee = this.GetDataEntity<EmployeeInfo>(criteria);
@@ -218,7 +205,6 @@
         public List<FoodOrder> GetAllAlternativeFoodOrder(GetAlternativeFoodCriteria criteria)
         {
             List<FoodOrder> alternativeFoods = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 alternativeFoods = this.GetData<FoodOrder>(criteria).ToList();
@@ -229,8 +215,7 @@
 
         public OrderResult InsertOrderFood(InsertOrderMealCriteria criteria)
         {
-            OrderResult orderResult = new OrderResult();
-            Check.Argument.IsNotNull(criteria, "criteria");
+            var orderResult = new OrderResult();
             if (criteria.IsValid())
             {
                 orderResult.CommandResult = this.Repository.Insert(criteria, hasGetOutputParams: true);
@@ -247,7 +232,6 @@
         public CommandResult EditOrderFood(EditOrderMealCriteria criteria)
         {
             CommandResult result = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 result = this.Repository.Update(criteria);
@@ -259,7 +243,6 @@
         public CommandResult CancelOrder(CancelOrderCriteria criteria)
         {
             CommandResult result = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 result = this.Repository.Update(criteria);
@@ -271,7 +254,6 @@
         public EmployeeOrderStatus EmployeeOrderStatus(GetEmployeeOrderStatusCriteria criteria)
         {
             EmployeeOrderStatus orderStatus = null;
-            Check.Argument.IsNotNull(criteria, "criteria");
             if (criteria.IsValid())
             {
                 orderStatus = this.GetDataEntity<EmployeeOrderStatus>(criteria);

@@ -479,7 +479,6 @@
     <Content Include="Src\App\Ordering\ordering-controller.js" />
     <Content Include="Src\App\Ordering\ordering-factory.js" />
     <Content Include="Src\App\Ordering\ordering-route.js" />
-    <Content Include="Src\App\Ordering\Templates\AddMember.html" />
     <Content Include="Src\App\Ordering\Templates\Index.html" />
     <Content Include="Src\App\Resources\resources-controller.js" />
     <Content Include="Src\App\Authentication\authentication-controller.js" />
