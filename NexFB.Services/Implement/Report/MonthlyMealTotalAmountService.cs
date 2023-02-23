@@ -5,11 +5,11 @@
     using System.Linq;
     using Core.Services;
     using Core.Utilities;
-    using Criteria.Department;
     using Criteria.Report;
     using Interface.Report;
-    using Models.Entities;
     using Models.Report.MonthlyMealPriceReport;
+    using NexFB.Criteria.Company;
+    using NexFB.Models;
     using Resources;
 
     public class MonthlyMealTotalAmountService : BaseService, IMonthlyMealTotalAmountService
@@ -94,10 +94,10 @@
             }
         }
 
-        public BreakfastAndSupperTotalAmountReportModel GetMonthlyBreakfastAndSupperReport(DateTime reportDate, string departmentId)
+        public BreakfastAndSupperTotalAmountReportModel GetMonthlyBreakfastAndSupperReport(DateTime reportDate, string companyId)
         {
             var report = new BreakfastAndSupperTotalAmountReportModel();
-            var mealsPrice = GetListBreakfastAndSupperAmountOnMonth(reportDate, departmentId);
+            var mealsPrice = GetListBreakfastAndSupperAmountOnMonth(reportDate, companyId);
 
             if (mealsPrice != null)
             {
@@ -111,22 +111,22 @@
             return report;
         }
 
-        private IEnumerable<BreakfastAndSupperModel> GetListBreakfastAndSupperAmountOnMonth(DateTime reportDate, string departmentId)
+        private IEnumerable<BreakfastAndSupperModel> GetListBreakfastAndSupperAmountOnMonth(DateTime reportDate, string companyId)
         {
             var criteria = new GetMonthlyBreakfastAndSupperReportCriteria
             {
                 ReportDate = reportDate,
-                DepartmentId = departmentId
+                CompanyId = companyId
             };
             return GetData<BreakfastAndSupperModel>(criteria);
         }
 
-        public void ExportMonthlyBreakfastAndSupperReport(string templateLink, DateTime reportDate, string departmentId)
+        public void ExportMonthlyBreakfastAndSupperReport(string templateLink, DateTime reportDate, string companyId)
         {
             var reportName = Lang.MonthlyBreakfastAndSupperTotalAmountReport;
             var writer = new ExcelTemplateWriter(templateLink, reportName);
-            var report = GetMonthlyBreakfastAndSupperReport(reportDate, departmentId);
-            string reportTitle = GetReportTitle(reportDate, departmentId, Lang.BreakfastAndSupper);
+            var report = GetMonthlyBreakfastAndSupperReport(reportDate, companyId);
+            string reportTitle = GetReportTitle(reportDate, companyId, Lang.BreakfastAndSupper);
             // Fill report title.
             writer.WriteRow(0, new { reportTitle });
             writer.CopyRows(1, 2);
@@ -169,21 +169,21 @@
             }
         }
 
-        private string GetReportTitle(DateTime reportDate, string departmentId, string suffixReportType)
+        private string GetReportTitle(DateTime reportDate, string companyId, string suffixReportType)
         {
-            var departmentName = Lang.AllDepartment;
-            var departments = departmentId.Split(',');
-            if (departments.Length == 1)
+            var companyName = "All Company";
+            var companies = !string.IsNullOrWhiteSpace(companyId) ? companyId.Split(',') : new string[] { };
+            if (companies.Length == 1)
             {
-                var criteria = new GetDepartmentByIdCriteria { DepartmentId = int.Parse(departments[0]) };
-                var department = GetDataEntity<Department>(criteria);
-                departmentName = department.Name;
+                var criteria = new GetCompanyByIdCriteria { CompanyId = short.Parse(companies[0]) };
+                var company = GetDataEntity<Company>(criteria);
+                companyName = company.Name;
             }
             return string.Format("{0}{1}{2}{3}{4}{5}",
                 Lang.MealRecord,
                 reportDate.ToString("MMM yyyy"),
                 " - ",
-                departmentName,
+                companyName,
                 Environment.NewLine,
                 suffixReportType).ToUpperInvariant();
         }

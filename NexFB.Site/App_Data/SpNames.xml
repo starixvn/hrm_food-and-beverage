@@ -2,6 +2,7 @@
 <Functions>
     <Function Name="Company">
         <Setting Key="Company_GetAll" SpName="Company_GetAll" DbName="FBM" Plain="0" />
+        <Setting Key="Company_GetById" SpName="Company_GetById" DbName="FBM" Plain="0" />
     </Function>
     <Function Name="Employee">
         <Setting Key="Employee_ChangePassword" SpName="Employee_ChangePassword" DbName="FBM" Plain="0">
@@ -69,8 +70,6 @@
     <Function Name="Department">
         <Setting Key="Department_GetAll" SpName="Department_GetAll" DbName="FBM" Plain="0">
             <Mapping DataField="DepartmentName" ObjectProperty="Name" />
-        </Setting>
-        <Setting Key="Department_GetByID" SpName="Department_GetByID" DbName="FBM" Plain="0">
         </Setting>
         <Setting Key="Location_GetAll" SpName="Location_GetAll" DbName="FBM" Plain="0">
             <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" />

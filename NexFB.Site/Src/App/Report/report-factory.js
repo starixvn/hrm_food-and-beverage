@@ -292,10 +292,10 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         },
         getMonthlyBreakfastAndSupperReport: function (filter) {
             var data = {
-                departmentId: filter.departmentId,
+                companyId: filter.companyId,
                 reportDate: filter.reportDate.toDateString()
             }
-            return $http.get(baseUrl + 'api/report/GetBreakfastAndSupperReport', { params: data })
+            return $http.get(baseUrl + 'api/BreakfastAndSupperReport/GetData', { params: data })
         },
         updateMealOrder: function (params) {
             return $http.put(baseUrl + 'api/Ordering/ChangeMealOrder', params);

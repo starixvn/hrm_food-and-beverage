@@ -7,16 +7,10 @@
     {
         public DateTime ReportDate { get; set; }
 
-        public string DepartmentId { get; set; }
+        public string CompanyId { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "Rpt_Get_MonthlyBreakfastAndSupperMealsAmount";
-        }
+        public override string GetSettingKey() => "Rpt_Get_MonthlyBreakfastAndSupperMealsAmount";
 
-        public override bool IsValid()
-        {
-            return !string.IsNullOrEmpty(DepartmentId);
-        }
+        public override bool IsValid() => !string.IsNullOrWhiteSpace(CompanyId);
     }
 }

@@ -7,11 +7,11 @@
     <div class="row filter monthly-per-day-filter">
         <form class="form-horizontal form-multiLine" role="form">
             <div class="form-group">
-                <label class="col-sm-1 text-right" data-translate="Department"></label>
+                <label class="col-sm-1 text-right" data-translate="Company"></label>
                 <div class="col-sm-2 field">
-                    <select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
-                            class="form-control" ng-change="getTeamAndEmployeeTypeOfCompany(filter.departmentId)">
-                        <option value="" ng-if="departmentOptions.length > 1">-- {{"All" | translate}} --</option>
+                    <select ng-model="filter.companyId" ng-options="opt.CompanyId as opt.Name for opt in companyOptions"
+                            class="form-control" ng-change="getTeamAndEmployeeTypeOfCompany(filter.companyId)">
+                        <option value="" ng-if="companyOptions.length > 1">-- {{"All" | translate}} --</option>
                     </select>
                 </div>
                 <label class="col-sm-1 text-right" data-translate="Month"></label>
