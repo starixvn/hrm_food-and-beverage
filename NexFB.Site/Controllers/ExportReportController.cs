@@ -344,11 +344,11 @@
             return new EmptyResult();
         }
 
-        public ActionResult ExportMonthlyLunchAndDinnerAmountReport(string departmentId, DateTime reportDate)
+        public ActionResult ExportMonthlyLunchAndDinnerAmountReport(string companyId, DateTime reportDate)
         {
             string templatePath = Server.MapPath(_MonthlyLunchAndDinnerAmountReportTemplatePath);
 
-            _monthlyMealTotalAmountService.ExportMonthlyLunchAndDinnerReport(templatePath, reportDate, departmentId);
+            _monthlyMealTotalAmountService.ExportMonthlyLunchAndDinnerReport(templatePath, reportDate, companyId);
 
             return new EmptyResult();
         }

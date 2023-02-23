@@ -3,21 +3,21 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Core.Services;
-    using Core.Utilities;
-    using Criteria.Report;
-    using Interface.Report;
-    using Models.Report.MonthlyMealPriceReport;
+    using NexFB.Core.Services;
+    using NexFB.Core.Utilities;
     using NexFB.Criteria.Company;
+    using NexFB.Criteria.Report;
     using NexFB.Models;
-    using Resources;
+    using NexFB.Models.Report.MonthlyMealPriceReport;
+    using NexFB.Resources;
+    using NexFB.Services.Interface.Report;
 
     public class MonthlyMealTotalAmountService : BaseService, IMonthlyMealTotalAmountService
     {
-        public LunchAndDinnerTotalAmountReportModel GetMonthlyLunchAndDinnerReport(DateTime reportDate, string departmentId)
+        public LunchAndDinnerTotalAmountReportModel GetMonthlyLunchAndDinnerReport(DateTime reportDate, string companyId)
         {
             var report = new LunchAndDinnerTotalAmountReportModel();
-            var mealsPrice = GetListLunchAndDinnerAmountOnMonth(reportDate, departmentId);
+            var mealsPrice = GetListLunchAndDinnerAmountOnMonth(reportDate, companyId);
 
             if (mealsPrice != null)
             {
@@ -31,36 +31,33 @@
             return report;
         }
 
-        private IEnumerable<LunchAndDinnerModel> GetListLunchAndDinnerAmountOnMonth(DateTime reportDate, string departmentId)
+        private IEnumerable<LunchAndDinnerModel> GetListLunchAndDinnerAmountOnMonth(DateTime reportDate, string companyId)
         {
             var criteria = new GetMonthlyLunchAndDinnerReportCriteria
             {
                 ReportDate = reportDate,
-                DepartmentId = departmentId
+                CompanyId = companyId
             };
             return GetData<LunchAndDinnerModel>(criteria);
         }
 
-        public void ExportMonthlyLunchAndDinnerReport(string templateLink, DateTime reportDate, string departmentId)
+        public void ExportMonthlyLunchAndDinnerReport(string templateLink, DateTime reportDate, string companyId)
         {
             var reportName = Lang.MonthlyLunchAndDinnerTotalAmountReport;
             var writer = new ExcelTemplateWriter(templateLink, reportName);
-            var report = GetMonthlyLunchAndDinnerReport(reportDate, departmentId);
-            string reportTitle = GetReportTitle(reportDate, departmentId, Lang.LunchAndDinner);
+            var report = GetMonthlyLunchAndDinnerReport(reportDate, companyId);
+            string reportTitle = GetReportTitle(reportDate, companyId, Lang.LunchAndDinner);
             // Fill report title.
             writer.WriteRow(0, new { reportTitle });
             writer.CopyRows(1, 2);
 
             FillLunchAndDinnerReportContentRow(report.MealPriceList, ref writer);
             FillTotalLunchAndDinerReportRow(report, writer);
-            writer.SyncColumnsWidth(6);
+
+            const byte TotalColumns = 6;
+            writer.SyncColumnsWidth(TotalColumns);
 
             writer.Render();
-        }
-
-        private string ConvertToNumberFormat(double number)
-        {
-            return string.Format("{0:#,##0}", number);
         }
 
         private void FillTotalLunchAndDinerReportRow(LunchAndDinnerTotalAmountReportModel report, ExcelTemplateWriter writer)
@@ -133,7 +130,9 @@
 
             FillBreakfastAndSupperReportContentRow(report.MealAmountList, ref writer);
             FillTotalBreakfastAndSupperReportRow(report, writer);
-            writer.SyncColumnsWidth(6);
+
+            const byte TotalColumns = 6;
+            writer.SyncColumnsWidth(TotalColumns);
 
             writer.Render();
         }

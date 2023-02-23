@@ -9,8 +9,7 @@
             <div class="form-group">
                 <label class="col-sm-1 text-right" data-translate="Company"></label>
                 <div class="col-sm-2 field">
-                    <select ng-model="filter.companyId" ng-options="opt.CompanyId as opt.Name for opt in companyOptions"
-                            class="form-control" ng-change="getTeamAndEmployeeTypeOfCompany(filter.companyId)">
+                    <select ng-model="filter.companyId" ng-options="opt.CompanyId as opt.Name for opt in companyOptions" class="form-control">
                         <option value="" ng-if="companyOptions.length > 1">-- {{"All" | translate}} --</option>
                     </select>
                 </div>

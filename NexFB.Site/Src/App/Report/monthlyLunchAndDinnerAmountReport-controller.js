@@ -1,122 +1,113 @@
 ﻿'use strict';
 
-reportModule.controller('MonthlyLunchAndDinnerReportController',
-    ['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'userControlFactory', 'commonFactory', 'baseUrl',
-        function ($scope, reportFactory, ErrorFactory, reportUtilities, userControlFactory, commonFactory, baseUrl) {
-            $scope.filter = {
-                reportDate: new Date(),
-                departmentId: '',
-                startIndex: 0,
-                isExportReport: false,
-                isPagingCallback: false
-            };
+reportModule.controller('MonthlyLunchAndDinnerReportController', monthlyLunchAndDinnerReportController);
+monthlyLunchAndDinnerReportController.$inject = ['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'commonFactory', 'baseUrl'];
 
-            $scope.originalDepartmentId = '';
+function monthlyLunchAndDinnerReportController($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, baseUrl) {
+    $scope.filter = {
+        reportDate: new Date(),
+        companyId: '',
+        startIndex: 0,
+        isExportReport: false,
+        isPagingCallback: false
+    };
 
-            $scope.format = 'MMM yyyy';
-            $scope.popUpMode = 'month';
-            $scope.dateOptions = {
-                minMode: 'month',
-                maxMode: 'month',
-                formatMonth: 'MMM'
-            };
+    $scope.originalCompanyId = '';
 
-            $scope.gridOption = {
-                itemsPerPage: 50,
-                currentPage: 0,
-                startIndex: 0
-            };
+    $scope.format = 'MMM yyyy';
+    $scope.popUpMode = 'month';
+    $scope.dateOptions = {
+        minMode: 'month',
+        maxMode: 'month',
+        formatMonth: 'MMM'
+    };
 
-            $scope.numberFormat = reportUtilities.getNumberFormat();
-            $scope.monthFormat = reportUtilities.getMonthFormat();
+    $scope.gridOption = {
+        itemsPerPage: 50,
+        currentPage: 0,
+        startIndex: 0
+    };
 
-            /*
-            ** Open pop-up calendar.
-            */
-            $scope.open = function ($event) {
-                $event.preventDefault();
-                $event.stopPropagation();
+    $scope.numberFormat = reportUtilities.getNumberFormat();
+    $scope.monthFormat = reportUtilities.getMonthFormat();
 
-                $scope.opened = true;
-            };
+    // Open pop-up calendar.
+    $scope.open = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
 
-            var getDepartmentFilter = function (departments) {
-                var departmentId = '';
+        $scope.opened = true;
+    };
 
-                if (departments) {
-                    if (departments.length === 1) {
-                        departmentId = departments[0].DepartmentId;
-                    }
-                    else {
-                        angular.forEach(departments, function (department) {
-                            departmentId = departmentId ? departmentId + ',' + department.DepartmentId : department.DepartmentId;
-                        });
-                    }
-                }
+    var getCompanyFilter = function (companies) {
+        var companyId = '';
 
-                $scope.filter.departmentId = departmentId;
-                $scope.originalDepartmentId = departmentId;
-            };
-
-            /*
-            ** Get all department.
-            */
-            reportFactory.getCompanyByUserRole().success(function (departments) {
-                $scope.departmentOptions = departments;
-                getDepartmentFilter(departments);
-                $scope.getMonthlyLunchAndDinnerReport($scope.filter);
-            }).error(function (response, status) {
-                ErrorFactory.errorHandle(status);
-            });
-
-            /*
-            ** Get Day Type.
-            */
-            reportFactory.getDayTypeEnum().success(function (dayTypes) {
-                $scope.dayTypeOptions = dayTypes;
-            }).error(function (response, status) {
-                ErrorFactory.errorHandle(status);
-            });
-            /*
-            ** Get monthly lunch and dinner report.
-            */
-            $scope.getMonthlyLunchAndDinnerReport = function (filter) {
-                reportFactory.getMonthlyLunchAndDinnerReport(filter).success(function (report) {
-                    $scope.report = report;
-                    commonFactory.tablePagination($scope, report, $scope.entrySelected);
-                }).error(function (response, status) {
-                    ErrorFactory.errorHandle(status);
+        if (companies) {
+            if (companies.length === 1) {
+                companyId = companies[0].CompanyId;
+            }
+            else {
+                angular.forEach(companies, function (company) {
+                    companyId = companyId ? companyId + ',' + company.CompanyId : company.CompanyId;
                 });
-            };
+            }
+        }
 
-            /*
-            ** Query data.
-            */
-            $scope.query = function (filter) {
-                if (!filter.departmentId) {
-                    filter.departmentId = $scope.originalDepartmentId;
-                }
+        $scope.filter.companyId = companyId;
+        $scope.originalCompanyId = companyId;
+    };
 
-                $scope.getMonthlyLunchAndDinnerReport(filter);
-            };
-            /*
-            ** Export Excel
-            */
-            $scope.exportExcel = function (filter) {
-                var criteria = {
-                    departmentId: filter.departmentId,
-                    reportDate: filter.reportDate.toDateString()
-                }
-                var data = $.param(criteria),
-                    url = baseUrl + 'ExportReport/ExportMonthlyLunchAndDinnerAmountReport',
-                    downloadUrl = url + "?" + data,
-                    iframe = $('body iframe');
+    // Get all company.
+    reportFactory.getCompanyByUserRole().success(function (companies) {
+        $scope.companyOptions = companies;
+        getCompanyFilter(companies);
+        $scope.getMonthlyLunchAndDinnerReport($scope.filter);
+    }).error(function (response, status) {
+        ErrorFactory.errorHandle(status);
+    });
 
-                if (iframe.length === 0) {
-                    iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
-                    iframe.appendTo('body');
-                }
+    // Get Day Type.
+    reportFactory.getDayTypeEnum().success(function (dayTypes) {
+        $scope.dayTypeOptions = dayTypes;
+    }).error(function (response, status) {
+        ErrorFactory.errorHandle(status);
+    });
 
-                iframe.attr('src', downloadUrl);
-            };
-        }]);
+    // Get monthly lunch and dinner report.
+    $scope.getMonthlyLunchAndDinnerReport = function (filter) {
+        reportFactory.getMonthlyLunchAndDinnerReport(filter).success(function (report) {
+            $scope.report = report;
+            commonFactory.tablePagination($scope, report, $scope.entrySelected);
+        }).error(function (response, status) {
+            ErrorFactory.errorHandle(status);
+        });
+    };
+
+    // Query data.
+    $scope.query = function (filter) {
+        if (!filter.companyId) {
+            filter.companyId = $scope.originalCompanyId;
+        }
+
+        $scope.getMonthlyLunchAndDinnerReport(filter);
+    };
+
+    // Export Excel
+    $scope.exportExcel = function (filter) {
+        var criteria = {
+            companyId: filter.companyId,
+            reportDate: filter.reportDate.toDateString()
+        }
+        var data = $.param(criteria),
+            url = baseUrl + 'ExportReport/ExportMonthlyLunchAndDinnerAmountReport',
+            downloadUrl = url + "?" + data,
+            iframe = $('body iframe');
+
+        if (iframe.length === 0) {
+            iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
+            iframe.appendTo('body');
+        }
+
+        iframe.attr('src', downloadUrl);
+    };
+}

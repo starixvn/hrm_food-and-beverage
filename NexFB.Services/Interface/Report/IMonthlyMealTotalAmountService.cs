@@ -5,9 +5,9 @@
 
     public interface IMonthlyMealTotalAmountService
     {
-        LunchAndDinnerTotalAmountReportModel GetMonthlyLunchAndDinnerReport(DateTime reportDate, string departmentId);
+        LunchAndDinnerTotalAmountReportModel GetMonthlyLunchAndDinnerReport(DateTime reportDate, string companyId);
 
-        void ExportMonthlyLunchAndDinnerReport(string templateLink, DateTime reportDate, string departmentId);
+        void ExportMonthlyLunchAndDinnerReport(string templateLink, DateTime reportDate, string companyId);
 
         BreakfastAndSupperTotalAmountReportModel GetMonthlyBreakfastAndSupperReport(DateTime reportDate, string companyId);
 

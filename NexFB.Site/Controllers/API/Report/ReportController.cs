@@ -4,12 +4,9 @@ namespace NexFB.Site.Controllers.API.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
-    using Models.Report.MonthlyMealPriceReport;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Utilities;
-    using NexFB.Criteria.Company;
-    using NexFB.Criteria.Department;
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Report;
@@ -51,10 +48,9 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly IMealForecastDetailReportService _mealForecastDetailReportService;
         private readonly ISideDishSummaryReportService _sideDishSummaryReportService;
         private readonly IEmployeeService _employeeService;
-        private readonly IMonthlyMealTotalAmountService _monthlyMealsTotalAmountService;
 
         public ReportController()
-            : this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -72,8 +68,7 @@ namespace NexFB.Site.Controllers.API.Report
             IMealForecastDetailReportService mealForecastDetailReportService,
             ISideDishService sideDishService,
             ISideDishSummaryReportService sideDishSummaryReportService,
-            IEmployeeService employeeService,
-            IMonthlyMealTotalAmountService monthlyMealsTotalAmountService)
+            IEmployeeService employeeService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _dailyMainDishReportService = dailyMainDishReportService ?? new DailyMainDishReportService();
@@ -89,7 +84,6 @@ namespace NexFB.Site.Controllers.API.Report
             _sideDishService = sideDishService ?? new SideDishService();
             _sideDishSummaryReportService = sideDishSummaryReportService ?? new SideDishSummaryReportService();
             _employeeService = employeeService ?? new EmployeeService();
-            _monthlyMealsTotalAmountService = monthlyMealsTotalAmountService ?? new MonthlyMealTotalAmountService();
         }
 
         [HttpGet]
@@ -751,11 +745,6 @@ namespace NexFB.Site.Controllers.API.Report
             }
 
             return menuTypes;
-        }
-
-        public LunchAndDinnerTotalAmountReportModel GetLunchAndDinnerReport(string departmentId, DateTime reportDate)
-        {
-            return _monthlyMealsTotalAmountService.GetMonthlyLunchAndDinnerReport(reportDate, departmentId);
         }
     }
 }
