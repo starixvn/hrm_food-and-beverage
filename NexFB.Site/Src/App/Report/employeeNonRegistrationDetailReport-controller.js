@@ -2,11 +2,11 @@
 /*global reportModule*/
 
 reportModule.controller('EmployeeNonRegistrationDetailReport',
-    ['$scope', '$window',  '$routeParams', 'reportFactory', 'ErrorFactory', 'reportUtilities',
+    ['$scope', '$window', '$routeParams', 'reportFactory', 'ErrorFactory', 'reportUtilities',
         function ($scope, $window, $routeParams, reportFactory, ErrorFactory, reportUtilities) {
             $scope.filter = {
                 date: $routeParams.date,
-                departmentId: $routeParams.departmentId,
+                companyId: $routeParams.companyId,
                 employeeTypeId: $routeParams.employeeTypeId,
                 mealId: $routeParams.mealId,
                 menuId: $routeParams.menuId,
@@ -15,7 +15,7 @@ reportModule.controller('EmployeeNonRegistrationDetailReport',
 
             $scope.numberFormat = reportUtilities.getNumberFormat();
             $scope.dateFormat = reportUtilities.getDateFormatEmployeeOrderHistoryReport();
-            $scope.originalDepartmentId = '';
+            $scope.originalCompanyId = '';
 
             $scope.gridOption = {
                 itemsPerPage: 50,
@@ -42,7 +42,7 @@ reportModule.controller('EmployeeNonRegistrationDetailReport',
             $scope.exportExcel = function (filter) {
                 $scope.criteria = {
                     workDate: filter.date,
-                    departmentId: filter.departmentId,
+                    companyId: filter.companyId,
                     employeeTypeId: filter.employeeTypeId,
                     mealId: filter.mealId,
                     menuId: filter.menuId,

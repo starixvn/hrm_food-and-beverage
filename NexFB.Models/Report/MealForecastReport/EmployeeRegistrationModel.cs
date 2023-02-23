@@ -21,7 +21,7 @@ namespace NexFB.Models.Report.MealForecastReport
 
         public int ActualOrder { get; set; }
 
-        public string DepartmentName { get; set; }
+        public string CompanyName { get; set; }
 
         public string ShiftName { get; set; }
 

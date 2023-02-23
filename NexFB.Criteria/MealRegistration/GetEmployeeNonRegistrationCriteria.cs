@@ -6,7 +6,7 @@ using System.Text;
 
 namespace NexFB.Criteria.MealRegistration
 {
-   public class GetEmployeeNonRegistrationCriteria : CriteriaBase
+    public class GetEmployeeNonRegistrationCriteria : CriteriaBase
     {
         public DateTime WorkDate { get; set; }
 
@@ -14,7 +14,7 @@ namespace NexFB.Criteria.MealRegistration
 
         public int? MenuId { get; set; }
 
-        public string DepartmentId { get; set; }
+        public string CompanyId { get; set; }
 
         public string EmployeeTypeId { get; set; }
 

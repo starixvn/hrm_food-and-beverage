@@ -433,7 +433,7 @@ namespace NexFB.Services.Implement.Report
                 {
                     Count = i,
                     Code = registration.Employee.Code,
-                    Deparment = registration.DepartmentName,
+                    Deparment = registration.CompanyName,
                     Shift = registration.ShiftName,
                     NickName = registration.Employee.NickName,
                     FullName = registration.Employee.FullName,
@@ -456,7 +456,7 @@ namespace NexFB.Services.Implement.Report
                 {
                     Count = i,
                     Code = nonregistration.Employee.Code,
-                    Deparment = nonregistration.DepartmentName,
+                    Deparment = nonregistration.CompanyName,
                     Shift = nonregistration.ShiftName,
                     NickName = nonregistration.Employee.NickName,
                     FullName = nonregistration.Employee.FullName,
