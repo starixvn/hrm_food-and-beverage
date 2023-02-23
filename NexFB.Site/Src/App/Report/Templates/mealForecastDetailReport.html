@@ -7,38 +7,38 @@
     </div>
     <div class="row filter meal-forecast">
         <form class="form-horizontal form-multiLine" role="form">
-        <div class="form-group">
-            <label class="col-sm-1 text-right" data-translate="Department">
-            </label>
-            <div class="col-sm-2 field">
-                <select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
-                    ng-show="departmentOptions.length > 1" class="form-control" ng-change="getEmployeeTypeOfDepartment(filter.departmentId)">
-                    <option value="">-- {{"All" | translate}} --</option>
-                </select>
-                <select ng-model="filter.departmentId" ng-options="opt.DepartmentId as opt.Name for opt in departmentOptions"
-                    ng-show="departmentOptions.length == 1" class="form-control" ng-change="getEmployeeTypeOfDepartment(filter.departmentId)">
-                </select>
+            <div class="form-group">
+                <label class="col-sm-1 text-right" data-translate="Company">
+                </label>
+                <div class="col-sm-2 field">
+                    <select ng-model="filter.companyId" ng-options="opt.CompanyId as opt.Name for opt in companyOptions"
+                            ng-show="companyOptions.length > 1" class="form-control" ng-change="getEmployeeTypeOfCompany(filter.companyId)">
+                        <option value="">-- {{"All" | translate}} --</option>
+                    </select>
+                    <select ng-model="filter.companyId" ng-options="opt.CompanyId as opt.Name for opt in companyOptions"
+                            ng-show="companyOptions.length == 1" class="form-control" ng-change="getEmployeeTypeOfCompany(filter.companyId)">
+                    </select>
+                </div>
+                <label class="col-sm-1 text-right long-text-report" data-translate="EmployeeType">
+                </label>
+                <div class="col-sm-2 field">
+                    <add-class-to-role-filter multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId" helper-elements="all reset"
+                                              item-label="EmployeeTypeName" tick-property="ticked" max-labels="0" class="multi-select employee-type">
+                    </add-class-to-role-filter>
+                </div>
+                <label class="col-sm-1 text-right" data-translate="DietType">
+                </label>
+                <div class="col-sm-2 field">
+                    <select ng-model="filter.dietType" class="form-control">
+                        <option value="">-- {{"All" | translate}} --</option>
+                        <option value="1">{{"Vegetarian" | translate}}</option>
+                        <option value="0">{{"Non-Vegetarian" | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-1 btn-box">
+                    <input type="button" value="Submit" class="button" ng-click="query(filter)" />
+                </div>
             </div>
-			<label class="col-sm-1 text-right long-text-report" data-translate="EmployeeType">
-            </label>
-            <div class="col-sm-2 field">
-                <add-class-to-role-filter multi-select input-model="employeeTypesOption" button-label="EmployeeTypeId" helper-elements="all reset"
-					item-label="EmployeeTypeName" tick-property="ticked" max-labels="0" class="multi-select employee-type">
-				</add-class-to-role-filter>
-            </div>
-            <label class="col-sm-1 text-right" data-translate="DietType">
-            </label>
-            <div class="col-sm-2 field">
-                <select ng-model="filter.dietType" class="form-control">
-                    <option value="">-- {{"All" | translate}} --</option>
-                    <option value="1">{{"Vegetarian" | translate}}</option>
-                    <option value="0">{{"Non-Vegetarian" | translate}}</option>
-                </select>
-            </div>
-            <div class="col-sm-1 btn-box">
-                <input type="button" value="Submit" class="button" ng-click="query(filter)" />
-            </div>
-        </div>
         </form>
     </div>
     <div id="mealForecastDetailReport" class="freegrid" render-meal-forecast-detail-report export-meal-forecast-detail-report>

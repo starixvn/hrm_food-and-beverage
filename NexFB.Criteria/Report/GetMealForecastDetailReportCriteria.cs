@@ -19,7 +19,7 @@ namespace NexFB.Criteria.Report
     {
         public DateTime OnDate { get; set; }
 
-        public string DepartmentId { get; set; }
+        public string CompanyId { get; set; }
 
         public string EmployeeTypeId { get; set; }
 

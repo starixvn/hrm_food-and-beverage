@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="DailyMainDishReportService.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="12/18/2014 5:26:19 PM">Created.</change>
-// </history>
-
-namespace NexFB.Services.Implement.Report
+﻿namespace NexFB.Services.Implement.Report
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -21,9 +12,6 @@ namespace NexFB.Services.Implement.Report
     using NexFB.Resources;
     using NexFB.Services.Interface.Report;
 
-    /// <summary>
-    /// The implement of Daily Main Dish Report service.
-    /// </summary>
     public class DailyMainDishReportService : BaseService, IDailyMainDishReportService
     {
         private readonly IReportRepository _reportRepository;
@@ -38,11 +26,6 @@ namespace NexFB.Services.Implement.Report
             _reportRepository = reportRepository ?? new ReportRepository();
         }
 
-        /// <summary>
-        /// Get daily main dish report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The daily main dish report.</returns>
         public DailyMainDishReportModel GetDailyMainDishReport(GetDailyMainDishPricePerMealReportCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -56,13 +39,6 @@ namespace NexFB.Services.Implement.Report
             return report;
         }
 
-        /// <summary>
-        /// Get paging report.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The Daily Main Dish report.</returns>
         public DailyMainDishReportModel GetPagingReport(
             DailyMainDishReportModel report,
             int startIndex,
@@ -79,11 +55,6 @@ namespace NexFB.Services.Implement.Report
             return pagingReport;
         }
 
-        /// <summary>
-        /// Export daily main dish report.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="templatePath">The template path.</param>
         public void ExportDailyMainDishReport(DailyMainDishReportModel report, string templatePath)
         {
             string reportName = Lang.DailyMainDishReportName;
@@ -103,12 +74,6 @@ namespace NexFB.Services.Implement.Report
 
             writer.Render();
         }
-
-        /// <summary>
-        /// Calculate total items of report.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <returns>The total items.</returns>
         private int CalculateTotalItems(DailyMainDishReportModel report)
         {
             int totalItem = 0;
@@ -121,13 +86,6 @@ namespace NexFB.Services.Implement.Report
             return totalItem;
         }
 
-        /// <summary>
-        /// Loop and get paging report.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The list new main dished of department and team.</returns>
         private List<DailyMainDishDepartmentTeamModel> LoopAndGetPagingReport(
             DailyMainDishReportModel report,
             int startIndex,
@@ -219,12 +177,6 @@ namespace NexFB.Services.Implement.Report
             writer.WriteRows(5, records);
         }
 
-        /// <summary>
-        /// Create record.
-        /// </summary>
-        /// <param name="employeeItems">The employee items.</param>
-        /// <param name="rowIndex">The row index.</param>
-        /// <returns>The list object record.</returns>
         private IEnumerable<object> CreateRecord(List<DailyEmployeeMainDishModel> employeeItems, ref int rowIndex)
         {
             IList<object> records = new List<object>();
@@ -252,12 +204,6 @@ namespace NexFB.Services.Implement.Report
             return records;
         }
 
-        /// <summary>
-        /// Create total record.
-        /// </summary>
-        /// <param name="total">The total data.</param>
-        /// <param name="typeTotal">The type of total.</param>
-        /// <returns>The object data total.</returns>
         private object CreateTotalRecord(TotalPriceModel total, string typeTotal)
         {
             var record = new
@@ -282,11 +228,6 @@ namespace NexFB.Services.Implement.Report
             writer.WriteRow(6, subTotalRecord);
         }
 
-        /// <summary>
-        /// Fill total amount row.
-        /// </summary>
-        /// <param name="totalAmount">The total amount.</param>
-        /// <param name="writer">The writer.</param>
         private void FillAmountRow(int totalAmount, ref ExcelTemplateWriter writer)
         {
             var record = new

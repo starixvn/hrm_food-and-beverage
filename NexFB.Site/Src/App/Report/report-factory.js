@@ -136,7 +136,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                 {
                     params: {
                         date: filter.date,
-                        departmentId: filter.departmentId,
+                        companyId: filter.companyId,
                         employeeTypeId: filter.employeeTypeId,
                         isVegetarian: filter.dietType.length === 0 ? '' : filter.dietType === '0' ? false : true,
                         isPagingCallback: filter.isPagingCallback,

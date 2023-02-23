@@ -6,14 +6,14 @@ reportModule.controller('MealForecastDetailReportController',
         function ($scope, $location, $routeParams, baseUrl, reportFactory, foodMenuFactory, foodMenuUtilities, ErrorFactory, reportUtilities) {
             $scope.filter = {
                 date: $routeParams.date,
-                departmentId: $routeParams.departmentId,
+                companyId: $routeParams.companyId,
                 employeeTypeId: $routeParams.employeeTypeId,
                 dietType: $routeParams.dietType
             };
 
             $scope.numberFormat = reportUtilities.getNumberFormat();
             $scope.dateFormat = reportUtilities.getDateFormatEmployeeOrderHistoryReport();
-            $scope.originalDepartmentId = '';
+            $scope.originalcompanyId = '';
             $scope.baseUrl = baseUrl;
 
             $scope.gridOption = {
@@ -43,14 +43,14 @@ reportModule.controller('MealForecastDetailReportController',
             };
 
             /*
-            ** Get all department.
+            ** Get all company.
             */
-            reportFactory.getCompanyByUserRole().success(function (departments) {
-                $scope.departmentOptions = departments;
-                $scope.filter.departmentId = $routeParams.departmentId.split(',').length > 1 ? $routeParams.departmentId : parseInt($routeParams.departmentId);
-                $scope.originalDepartmentId = $scope.filter.departmentId;
+            reportFactory.getCompanyByUserRole().success(function (companies) {
+                $scope.companyOptions = companies;
+                $scope.filter.companyId = $routeParams.companyId.split(',').length > 1 ? $routeParams.companyId : parseInt($routeParams.companyId);
+                $scope.originalcompanyId = $scope.filter.companyId;
                 $scope.getMealForecastDetailReport($scope.filter);
-                getEmployeeType($scope.filter.departmentId, null);
+                getEmployeeType($scope.filter.companyId, null);
             }).error(function (response, status) {
                 ErrorFactory.errorHandle(status);
             });
@@ -58,8 +58,8 @@ reportModule.controller('MealForecastDetailReportController',
             /*
             ** Get all employee type.
             */
-            var getEmployeeType = function (departmentId, isLocal) {
-                foodMenuFactory.getAllEmployeeType(departmentId, isLocal).success(function (employeeTypes) {
+            var getEmployeeType = function (companyId, isLocal) {
+                foodMenuFactory.getAllEmployeeType(companyId, isLocal).success(function (employeeTypes) {
                     $scope.employeeTypesOption = employeeTypes;
                     if ($scope.filter.employeeTypeId.length > 0) {
                         var ids = $scope.filter.employeeTypeId.split(',');
@@ -77,17 +77,17 @@ reportModule.controller('MealForecastDetailReportController',
             };
 
             /*
-            ** Get employee type when department change.
+            ** Get employee type when company change.
             */
-            $scope.getEmployeeTypeOfDepartment = function (departmentId) {
+            $scope.getEmployeeTypeOfcompany = function (companyId) {
                 $scope.filter.employeeTypeId = '';
 
-                if (!departmentId) {
-                    $scope.filter.departmentId = $scope.originalDepartmentId;
-                    departmentId = $scope.originalDepartmentId;
+                if (!companyId) {
+                    $scope.filter.companyId = $scope.originalcompanyId;
+                    companyId = $scope.originalcompanyId;
                 }
 
-                getEmployeeType(departmentId, null);
+                getEmployeeType(companyId, null);
             };
 
             /*
@@ -120,7 +120,7 @@ reportModule.controller('MealForecastDetailReportController',
             $scope.exportExcel = function (filter) {
                 $scope.criteria = {
                     onDate: filter.date,
-                    departmentId: filter.departmentId,
+                    companyId: filter.companyId,
                     isVegetarian: filter.dietType === '' ? '' : filter.dietType === '0' ? false : true
                 };
 
