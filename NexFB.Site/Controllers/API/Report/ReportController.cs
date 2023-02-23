@@ -487,7 +487,7 @@ namespace NexFB.Site.Controllers.API.Report
         public MealForecastReportModel GetMealForecastReport(
             DateTime fromDate,
             DateTime toDate,
-            string departmentId = "",
+            string companyId = "",
             string employeeTypeId = "",
             bool? isVegetarian = null,
             bool isPagingCallback = false,
@@ -505,7 +505,7 @@ namespace NexFB.Site.Controllers.API.Report
                 {
                     FromDate = fromDate,
                     ToDate = toDate,
-                    DepartmentId = departmentId,
+                    CompanyId = companyId,
                     EmployeeTypeId = employeeTypeId,
                     IsVegetarian = isVegetarian
                 };

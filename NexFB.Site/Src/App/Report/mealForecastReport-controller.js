@@ -10,7 +10,7 @@ reportModule.controller('MealForecastReportController',
             $scope.filter = {
                 fromDate: $scope.history.fromDate,
                 toDate: $scope.history.toDate,
-                departmentId: $scope.history.departmentId,
+                companyId: $scope.history.companyId,
                 employeeTypeId: $scope.history.employeeTypeId,
                 vegetarianType: $scope.history.vegetarianType,
                 isPagingCallback: $scope.history.isPagingCallback,
@@ -21,7 +21,7 @@ reportModule.controller('MealForecastReportController',
             $scope.baseUrl = baseUrl;
             $scope.numberFormat = reportUtilities.getNumberFormat();
             $scope.dateFormat = reportUtilities.getDateFormatEmployeeOrderHistoryReport();
-            $scope.originalDepartmentId = '';
+            $scope.originalCompanyId = '';
 
             $scope.calendar = {
                 startDateOpened: false,
@@ -65,35 +65,35 @@ reportModule.controller('MealForecastReportController',
                 filter.isPagingCallback = false;
             };
 
-            var getDepartmentFilter = function (departments) {
-                var departmentId = '';
+            var getCompanyFilter = function (companies) {
+                var companyId = '';
 
-                if (departments.length === 1) {
-                    departmentId = departments[0].DepartmentId;
+                if (companies.length === 1) {
+                    companyId = companies[0].CompanyId;
                 }
                 else {
-                    angular.forEach(departments, function (department) {
-                        departmentId = departmentId ? departmentId + ',' + department.DepartmentId : department.DepartmentId;
+                    angular.forEach(companies, function (company) {
+                        companyId = companyId ? companyId + ',' + company.CompanyId : company.CompanyId;
                     });
                 }
 
-                $scope.filter.departmentId = departmentId;
-                $scope.originalDepartmentId = departmentId;
+                $scope.filter.companyId = companyId;
+                $scope.originalCompanyId = companyId;
             };
 
             /*
-            ** Get all department.
+            ** Get all company.
             */
-            reportFactory.getCompanyByUserRole().success(function (departments) {
-                $scope.departmentOptions = departments;
-                getDepartmentFilter(departments);
+            reportFactory.getCompanyByUserRole().success(function (companies) {
+                $scope.companyOptions = companies;
+                getCompanyFilter(companies);
 
                 if ($scope.history.isCallBack) {
-                    $scope.filter.departmentId = angular.isNumber($scope.history.departmentId) ? parseInt($scope.history.departmentId) : $scope.history.departmentId;
+                    $scope.filter.companyId = angular.isNumber($scope.history.companyId) ? parseInt($scope.history.companyId) : $scope.history.companyId;
                 }
 
                 $scope.getMealForecastReport($scope.filter);
-                getEmployeeType($scope.filter.departmentId, null);
+                getEmployeeType($scope.filter.companyId, null);
             }).error(function (response, status) {
                 ErrorFactory.errorHandle(status);
             });
@@ -101,8 +101,8 @@ reportModule.controller('MealForecastReportController',
             /*
             ** Get all employee type.
             */
-            var getEmployeeType = function (departmentId, isLocal) {
-                foodMenuFactory.getAllEmployeeType(departmentId, isLocal).success(function (employeeTypes) {
+            var getEmployeeType = function (companyId, isLocal) {
+                foodMenuFactory.getAllEmployeeType(companyId, isLocal).success(function (employeeTypes) {
                     $scope.employeeTypesOption = employeeTypes;
                     if ($scope.history.isCallBack && $scope.history.employeeTypeId.length > 0) {
                         var ids = $scope.history.employeeTypeId.split(',');
@@ -120,18 +120,18 @@ reportModule.controller('MealForecastReportController',
             };
 
             /*
-            ** Get employee type when department change.
+            ** Get employee type when company change.
             */
-            $scope.getEmployeeTypeOfDepartment = function (departmentId) {
+            $scope.getEmployeeTypeOfCompany = function (companyId) {
                 $scope.history.isCallBack = false;
                 $scope.history.employeeTypeId = '';
 
-                if (!departmentId) {
-                    $scope.filter.departmentId = $scope.originalDepartmentId;
-                    departmentId = $scope.originalDepartmentId;
+                if (!companyId) {
+                    $scope.filter.companyId = $scope.originalCompanyId;
+                    companyId = $scope.originalCompanyId;
                 }
 
-                getEmployeeType(departmentId, null);
+                getEmployeeType(companyId, null);
             };
 
             /*
@@ -148,10 +148,10 @@ reportModule.controller('MealForecastReportController',
             };
 
             $scope.setHistory = function () {
-                var departmentId = $scope.filter.departmentId;
+                var companyId = $scope.filter.companyId;
 
-                if (!departmentId) {
-                    $scope.filter.departmentId = $scope.originalDepartmentId;
+                if (!companyId) {
+                    $scope.filter.companyId = $scope.originalCompanyId;
                 }
                 reportFactory.setHistory($scope, true);
             };
@@ -187,7 +187,7 @@ reportModule.controller('MealForecastReportController',
                 $scope.criteria = {
                     fromDate: filter.fromDate.toDateString(),
                     toDate: filter.toDate.toDateString(),
-                    departmentId: filter.departmentId,
+                    companyId: filter.companyId,
                     isVegetarian: filter.vegetarianType.length === 0 ? '' : filter.vegetarianType === '0' ? false : true
                 };
                 $scope.$broadcast('exportMealForecastReport');
