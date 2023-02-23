@@ -209,7 +209,7 @@ namespace NexFB.Site.Controllers.API.Report
         public SideDishReportModel GetSideDishReport(
             DateTime fromDate,
             DateTime toDate,
-            string departmentId = "",
+            string companyId = "",
             string teamIds = "",
             string employeeTypeIds = "",
             int? userId = null,
@@ -221,7 +221,7 @@ namespace NexFB.Site.Controllers.API.Report
             {
                 FromDate = fromDate,
                 ToDate = toDate,
-                DepartmentId = departmentId,
+                CompanyId = companyId,
                 TeamId = teamIds,
                 EmployeeTypeId = employeeTypeIds,
                 UserId = userId,
