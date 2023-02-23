@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="AdminOrderHistoryRepository.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Aaron.Cao" date="03/09/2015 12:40:00 PM">Created.</change>
-// </history>
-
-namespace NexFB.Repositories.Implement.Report
+﻿namespace NexFB.Repositories.Implement.Report
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -19,16 +10,8 @@ namespace NexFB.Repositories.Implement.Report
     using NexFB.Models.Report.AdminOrderHistoryReport;
     using NexFB.Repositories.Interface.Report;
 
-    /// <summary>
-    /// Admin order history repository.
-    /// </summary>
     public class AdminOrderHistoryRepository : IAdminOrderHistoryRepository
     {
-        /// <summary>
-        /// Get admin order history report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The admin order history report.</returns>
         public AdminOrderHistoryReport GetAdminOrderHistoryReport(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -47,7 +30,7 @@ namespace NexFB.Repositories.Implement.Report
                             return empOrder;
                         },
                         "MealID,OrderID,CurrentStatusID,OrderBy").ToList();
-                    
+
                     var allMenus = multi.Read<dynamic>();
                     foreach (var employeeOrder in report.EmployeeOrders)
                     {
@@ -60,11 +43,6 @@ namespace NexFB.Repositories.Implement.Report
             }
         }
 
-        /// <summary>
-        /// Create menu order.
-        /// </summary>
-        /// <param name="menusOfOrder">The raw menus of order.</param>
-        /// <returns>The list menu of current order.</returns>
         private List<Menu> CreateMenuOrder(IEnumerable<dynamic> menusOfOrder)
         {
             var menus = new List<Menu>();
@@ -87,12 +65,7 @@ namespace NexFB.Repositories.Implement.Report
             return menus;
         }
 
-        /// <summary>
-        /// Get value.
-        /// </summary>
-        /// <param name="value">Input value.</param>
-        /// <returns>True or False.</returns>
-        private bool GetBoolValue(dynamic value)
+        private static bool GetBoolValue(dynamic value)
         {
             return value == 1;
         }

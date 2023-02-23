@@ -31,7 +31,6 @@
 
         public AdminOrderHistoryReport GetAdminOrderHistoryReport(GetAdminOrderHistoryCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             var report = new AdminOrderHistoryReport();
 
             if (criteria.IsValid())
@@ -72,9 +71,8 @@
             var count = report.EmployeeOrders.Count;
             var reportToDate = report.EmployeeOrders.ElementAt(0).OnDate.ToString(Constants.DateFormat);
             var reportFromDate = report.EmployeeOrders.ElementAt(count - 1).OnDate.ToString(Constants.DateFormat);
-            var reportName = "";
-            var reportTitle = "";
-
+            string reportName;
+            string reportTitle;
             if (reportToDate == reportFromDate)
             {
                 reportName = Lang.AdminOrderHistoryReportName + "_" + reportFromDate.Replace(" ", "_");

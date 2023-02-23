@@ -353,7 +353,7 @@
         <Setting Key="Rpt_Get_OrderHistory" SpName="Rpt_Get_OrderHistory" DbName="FBM" Plain="0">
             <Mapping DataField="OrderBy" ObjectProperty="UserId" Class="Employee" />
             <Mapping DataField="OrderFullName" ObjectProperty="FullName" Class="Employee" />
-            <Mapping DataField="OrderDepartmentName" ObjectProperty="DepartmentName" Class="Employee" />
+            <Mapping DataField="OrderCompanyName" ObjectProperty="CompanyName" Class="Employee" />
             <Mapping DataField="OrderNickName" ObjectProperty="NickName" Class="Employee" />
             <Mapping DataField="OrderTeamName" ObjectProperty="Team" Class="Employee" />
             <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status" />

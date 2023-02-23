@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="AdminOrderModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Aaron.Cao" date="03/09/2015 3:15:00 PM">Created.</change>
-// </history>
-
-namespace NexFB.Models.Report.AdminOrderHistoryReport
+﻿namespace NexFB.Models.Report.AdminOrderHistoryReport
 {
     using System;
     using System.Collections.Generic;
@@ -15,9 +6,6 @@ namespace NexFB.Models.Report.AdminOrderHistoryReport
     using NexFB.Models.MealRegistration;
     using NexFB.Models.Ordering;
 
-    /// <summary>
-    /// Admin order model.
-    /// </summary>
     [Serializable]
     public class AdminOrderModel
     {

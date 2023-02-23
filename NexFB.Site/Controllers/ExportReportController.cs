@@ -158,8 +158,7 @@
 
         public ActionResult ExportAdminOrderHistoryReport(GetAdminOrderHistoryCriteria criteria)
         {
-            var report = SessionManager.Get<AdminOrderHistoryReport>(
-                ReportConstant.AdminOrderHistoryReportSessionKey + criteria.UserId);
+            var report = SessionManager.Get<AdminOrderHistoryReport>(ReportConstant.AdminOrderHistoryReportSessionKey + criteria.UserId);
 
             report = report ?? _adminOrderHistoryService.GetAdminOrderHistoryReport(criteria);
 

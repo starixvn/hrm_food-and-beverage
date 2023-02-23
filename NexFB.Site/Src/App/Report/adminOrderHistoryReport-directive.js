@@ -110,7 +110,8 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
 
         var selectMeal = function (currentCell) {
             var result = "<div class='meal-list'>";
-            result += "<a href='javascript:;' class='btn-expand-meal-list' order-id='" + currentCell.Value.Order.OrderId + "'>" + currentCell.Value.Meal.MealEngName + "</a>";
+            result += "<a href='javascript:;' class='btn-expand-meal-list' order-id='"
+                + currentCell.Value.Order.OrderId + "'>" + currentCell.Value.Meal.MealEngName + "</a>";
             result += "</div>"
 
             return result;
@@ -144,7 +145,7 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                         { Name: "OrderedBy", Value: employeeOrder.OrderBy.NickName },
                         { Name: "FullName", Value: employeeOrder.OrderBy.FullName },
                         { Name: "Section", Value: employeeOrder.OrderBy.Team },
-                        { Name: "Company", Value: employeeOrder.OrderBy.DepartmentName },
+                        { Name: "Company", Value: employeeOrder.OrderBy.CompanyName },
                         { Name: "MainDish", Value: employeeOrder.Menus, CustomCellRender: getMainDish },
                         { Name: "SideDish", Value: employeeOrder.Menus, CustomCellRender: getSideDish }
                     ]
@@ -242,7 +243,8 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                     showTree: true,
                     showTitle: true,
                     titleInfo: {
-                        text: "Admin Order History Report - " + moment(scope.filter.fromDate).format(scope.dateFormat) + " to " + moment(scope.filter.toDate).format(scope.dateFormat),
+                        text: "Admin Order History Report - " + moment(scope.filter.fromDate).format(scope.dateFormat)
+                            + " to " + moment(scope.filter.toDate).format(scope.dateFormat),
                         showExcelButton: true,
                         exportExcelFunction: function () {
                             scope.exportExcel.call(this, scope.filter);
@@ -250,7 +252,7 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                     },
                     showFooter: true,
                     footerRows: footerData,
-                    gridExpandHeight: 250,
+                    gridExpandHeight: 300,
                     showPager: true,
                     customPager: true,
                     pagerOption: {
