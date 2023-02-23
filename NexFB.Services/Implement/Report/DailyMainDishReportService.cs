@@ -184,7 +184,7 @@ namespace NexFB.Services.Implement.Report
         {
             var newMainDish = new DailyMainDishDepartmentTeamModel
             {
-                Department = mainDish.Department,
+                Company = mainDish.Company,
                 Team = mainDish.Team,
                 EmployeeDishes = mainDish.EmployeeDishes.Skip(startIndex).Take(numberItemsRemain).ToList()
             };
@@ -215,7 +215,7 @@ namespace NexFB.Services.Implement.Report
         {
             IEnumerable<object> records = CreateRecord(mainDish.EmployeeDishes, ref rowIndex);
 
-            writer.WriteRow(4, new object[] { mainDish.Department.Name + " - " + mainDish.Team.Name });
+            writer.WriteRow(4, new object[] { mainDish.Company.Name + " - " + mainDish.Team.Name });
             writer.WriteRows(5, records);
         }
 

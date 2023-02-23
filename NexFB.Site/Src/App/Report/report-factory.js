@@ -52,7 +52,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                     toDate: filter.toDate.toDateString(),
                     orderCount: filter.orderCount,
                     employeeTypeId: filter.employeeTypeId,
-                    departmentId: filter.departmentId,
+                    companyId: filter.companyId,
                     teamId: filter.teamId,
                     mealId: filter.mealId,
                     userId: filter.userId,

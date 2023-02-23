@@ -17,7 +17,7 @@ foodMenuUtilities, notificationFactory) {
 		Rejected: 6
 	};
 
-	$scope.department = {
+	$scope.company = {
 		Nexcel: '1',
 		SMS: '2',
 		HM: '3'
@@ -157,7 +157,7 @@ foodMenuUtilities, notificationFactory) {
 	*/
     reportFactory.getCompanyOfCurrentUser().success(function (companyId) {
 		switch (companyId) {
-			case $scope.department.SMS:
+			case $scope.company.SMS:
 				$scope.filter.employeeMenu = $scope.menuType.HasSideDish;
 				break;
 			default:

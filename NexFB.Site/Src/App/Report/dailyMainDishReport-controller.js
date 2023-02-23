@@ -14,7 +14,7 @@ reportModule.controller('DailyMainDishReportController',
                 fromDate: fromDate,
                 toDate: toDate,
                 orderCount: 0,
-                departmentId: '',
+                companyId: '',
                 employeeTypeId: '',
                 teamId: '',
                 mealId: '',
@@ -40,7 +40,7 @@ reportModule.controller('DailyMainDishReportController',
 
             $scope.dateFormat = reportUtilities.getDateFormatDailyReport();
             $scope.numberFormat = reportUtilities.getNumberFormat();
-            $scope.originalDepartmentId = '';
+            $scope.originalCompanyId = '';
             $scope.teamOptions = [];
 
             /*
@@ -72,37 +72,37 @@ reportModule.controller('DailyMainDishReportController',
                 commonFactory.openPopupEndDate($event, $scope);
             };
 
-            var getDepartmentFilter = function (departments) {
-                var departmentId = '';
+            var getCompanyFilter = function (companies) {
+                var companyId = '';
 
-                if (departments) {
-                    if (departments.length === 1) {
-                        departmentId = departments[0].DepartmentId;
+                if (companies) {
+                    if (companies.length === 1) {
+                        companyId = companies[0].CompanyId;
                     }
                     else {
-                        angular.forEach(departments, function (department) {
-                            departmentId = departmentId ? departmentId + ',' + department.DepartmentId : department.DepartmentId;
+                        angular.forEach(companies, function (company) {
+                            companyId = companyId ? companyId + ',' + company.CompanyId : company.CompanyId;
                         });
                     }
                 }
 
-                $scope.filter.departmentId = departmentId;
-                $scope.originalDepartmentId = departmentId;
+                $scope.filter.companyId = companyId;
+                $scope.originalCompanyId = companyId;
             };
 
             /*
-            ** Get all department.
+            ** Get all company.
             */
-            reportFactory.getCompanyByUserRole().success(function (departments) {
-                $scope.departmentOptions = departments;
-                getDepartmentFilter(departments);
+            reportFactory.getCompanyByUserRole().success(function (companies) {
+                $scope.companyOptions = companies;
+                getCompanyFilter(companies);
                 $scope.getDailyMainDishReport($scope.filter);
 
-                if (departments && departments.length === 1) {
-                    $scope.getTeamByCompany($scope.filter.departmentId);
+                if (companies && companies.length === 1) {
+                    $scope.getTeamByCompany($scope.filter.companyId);
                 }
 
-                getEmployeeType($scope.filter.departmentId, null);
+                getEmployeeType($scope.filter.companyId, null);
             }).error(function (response, status) {
                 ErrorFactory.errorHandle(status);
             });
@@ -120,11 +120,11 @@ reportModule.controller('DailyMainDishReportController',
             };
 
             /*
-            ** Get all team of department.
+            ** Get all team of company.
             */
-            $scope.getTeamByCompany = function (departmentId) {
-                if (departmentId) {
-                    userControlFactory.getAllTeamByCompany(departmentId).success(function (teams) {
+            $scope.getTeamByCompany = function (companyId) {
+                if (companyId) {
+                    userControlFactory.getAllTeamByCompany(companyId).success(function (teams) {
                         $scope.teamOptions = teams;
                     }).error(function (response, status) {
                         ErrorFactory.errorHandle(status);
@@ -139,13 +139,13 @@ reportModule.controller('DailyMainDishReportController',
             ** Get all employees.
             */
             $scope.getEmployee = function () {
-                var departmentId = $scope.filter.departmentId;
+                var companyId = $scope.filter.companyId;
 
-                if (!departmentId) {
-                    departmentId = $scope.originalDepartmentId;
+                if (!companyId) {
+                    companyId = $scope.originalCompanyId;
                 }
 
-                return groupControlFactory.getEmployees($scope.searchEmployee, departmentId, null, true);
+                return groupControlFactory.getEmployees($scope.searchEmployee, companyId, null, true);
             };
 
             $scope.unSelectEmployee = function () {
@@ -159,8 +159,8 @@ reportModule.controller('DailyMainDishReportController',
             /*
             ** Get all employee type.
             */
-            var getEmployeeType = function (departmentId, isLocal) {
-                foodMenuFactory.getAllEmployeeType(departmentId, isLocal).success(function (employeeTypes) {
+            var getEmployeeType = function (companyId, isLocal) {
+                foodMenuFactory.getAllEmployeeType(companyId, isLocal).success(function (employeeTypes) {
                     $scope.employeeTypesOption = employeeTypes;
                 }).error(function (response, status) {
                     ErrorFactory.errorHandle(status);
@@ -168,16 +168,16 @@ reportModule.controller('DailyMainDishReportController',
             };
 
             /*
-            ** Get team and employee type when department change.
+            ** Get team and employee type when company change.
             */
-            $scope.getTeamAndEmployeeTypeOfCompany = function (departmentId) {
-                $scope.getTeamByCompany(departmentId);
+            $scope.getTeamAndEmployeeTypeOfCompany = function (companyId) {
+                $scope.getTeamByCompany(companyId);
 
-                if (!departmentId) {
-                    departmentId = $scope.originalDepartmentId;
+                if (!companyId) {
+                    companyId = $scope.originalCompanyId;
                 }
 
-                getEmployeeType(departmentId, null);
+                getEmployeeType(companyId, null);
             };
 
             /*
@@ -203,8 +203,8 @@ reportModule.controller('DailyMainDishReportController',
                 filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
                 filter.userId = filter.employee ? filter.employee.UserId : '';
 
-                if (!filter.departmentId) {
-                    filter.departmentId = $scope.originalDepartmentId;
+                if (!filter.companyId) {
+                    filter.companyId = $scope.originalCompanyId;
                 }
 
                 var fromDate = new Date(filter.fromDate),
@@ -233,7 +233,7 @@ reportModule.controller('DailyMainDishReportController',
                     fromDate: filter.fromDate.toDateString(),
                     toDate: filter.toDate.toDateString(),
                     orderCount: filter.orderCount,
-                    departmentId: filter.departmentId,
+                    companyId: filter.companyId,
                     employeeTypeId: filter.employeeTypeId,
                     teamId: filter.teamId,
                     mealId: filter.mealId,

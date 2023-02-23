@@ -19,7 +19,7 @@ reportModule.directive('renderDailyReport', function () {
 
 				currentRow = {
 					Columns: [
-						{ Name: "Count", Value: mainDish.Department.Name + ' - ' + mainDish.Team.Name, MergeColNumber: 9, CellAlign: "left" }
+						{ Name: "Count", Value: mainDish.Company.Name + ' - ' + mainDish.Team.Name, MergeColNumber: 9, CellAlign: "left" }
 					],
 					SubRows: []
 				};

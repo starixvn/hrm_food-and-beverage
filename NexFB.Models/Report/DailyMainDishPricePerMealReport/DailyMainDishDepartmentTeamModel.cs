@@ -24,7 +24,7 @@ namespace NexFB.Models.Report.DailyMainDishPricePerMealReport
             EmployeeDishes = new List<DailyEmployeeMainDishModel>();
         }
 
-        public Department Department { get; set; }
+        public Company Company { get; set; }
 
         public Team Team { get; set; }
 

@@ -24,17 +24,8 @@ namespace NexFB.Repositories.Implement
     using NexFB.Models.Report.SideDishSummaryReport;
     using NexFB.Models.Report.ViewMenuReport;
     using NexFB.Repositories.Interface;
-
-    /// <summary>
-    /// The implement of report repository.
-    /// </summary>
     public class ReportRepository : IReportRepository
     {
-        /// <summary>
-        /// Get monthly main dish report by local.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The monthly local report.</returns>
         public MonthlyLocalReportModel GetMonthlyMainDishReportLocal(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -53,11 +44,6 @@ namespace NexFB.Repositories.Implement
             }
         }
 
-        /// <summary>
-        /// Get daily main dish price per meal.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The report.</returns>
         public DailyMainDishReportModel GetDailyMainDishReport(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -80,11 +66,6 @@ namespace NexFB.Repositories.Implement
             }
         }
 
-        /// <summary>
-        /// Get monthly main dish per day report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The monthly main dish per day report.</returns>
         public MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -104,13 +85,6 @@ namespace NexFB.Repositories.Implement
             }
         }
 
-        /// <summary>
-        /// Gets the side dish report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The SideDishReportModel class.</returns>
         public SideDishReportModel GetSideDishReport(ICriteria criteria, int? pageIndex = null, int? itemsPerPage = null)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -134,11 +108,6 @@ namespace NexFB.Repositories.Implement
             }
         }
 
-        /// <summary>
-        /// Gets the view menu report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>ViewMenuReportModel data.</returns>
         public ViewMenuReportModel GetViewMenuReport(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -189,14 +158,6 @@ namespace NexFB.Repositories.Implement
                 }
             }
         }
-
-        /// <summary>
-        /// Get side dish summary report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The side dish summary report.</returns>
         public SideDishSummaryReportModel GetSideDishSummaryReport(ICriteria criteria, int? pageIndex = null, int? itemsPerPage = null)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -222,11 +183,6 @@ namespace NexFB.Repositories.Implement
 
         #region Monthly Main Dish Per Day Report
 
-        /// <summary>
-        /// Get meals per day in month.
-        /// </summary>
-        /// <param name="rawReport">The raw report.</param>
-        /// <returns>The list meals per day.</returns>
         private List<MainDishPerDayModel> GetMealsInMonthPerDay(IEnumerable<dynamic> rawReport)
         {
             var meals = new List<MainDishPerDayModel>();
@@ -257,12 +213,6 @@ namespace NexFB.Repositories.Implement
 
             return meals;
         }
-
-        /// <summary>
-        /// Create meal items per day.
-        /// </summary>
-        /// <param name="rawMeals">The raw meals.</param>
-        /// <returns>The list meal items.</returns>
         private List<MealItemMonthModel> CreateMealItemPerDay(IEnumerable<dynamic> rawMeals)
         {
             var mealItems = new List<MealItemMonthModel>();
@@ -276,11 +226,6 @@ namespace NexFB.Repositories.Implement
             return mealItems;
         }
 
-        /// <summary>
-        /// Get weekday in month.
-        /// </summary>
-        /// <param name="rawReport">The raw data of report.</param>
-        /// <returns>The model contain weekdays in month.</returns>
         private MealDayOfMonthModel GetWeekDayPerDay(IEnumerable<dynamic> rawReport)
         {
             var weekDays = new MealDayOfMonthModel();
@@ -291,11 +236,6 @@ namespace NexFB.Repositories.Implement
             return weekDays;
         }
 
-        /// <summary>
-        /// Calculate total meals in month per day.
-        /// </summary>
-        /// <param name="meals">The list meals per day in month.</param>
-        /// <returns>The model contain total meals per day in month.</returns>
         private MealDayOfMonthModel CalculateTotalMealsPerDay(List<MainDishPerDayModel> meals)
         {
             var total = new MealDayOfMonthModel();
@@ -335,25 +275,20 @@ namespace NexFB.Repositories.Implement
             return amount;
         }
 
-        /// <summary>
-        /// Group main dish by department and team.
-        /// </summary>
-        /// <param name="rawReport">The report that not group.</param>
-        /// <returns>The list Daily Main Dish Department Team model.</returns>
         private List<DailyMainDishDepartmentTeamModel> GroupMainDishByDepartmentTeam(IEnumerable<dynamic> rawReport)
         {
             var mainDishes = new List<DailyMainDishDepartmentTeamModel>();
-            IEnumerable<dynamic> rawDepartmentIds = rawReport.Select(x => x.DepartmentID).Distinct();
+            IEnumerable<dynamic> rawCompanyIds = rawReport.Select(x => x.CompanyID).Distinct();
 
-            foreach (dynamic rawDepartmentId in rawDepartmentIds)
+            foreach (dynamic rawCompanyId in rawCompanyIds)
             {
-                IEnumerable<dynamic> rowDepartments = rawReport.Where(x => x.DepartmentID == rawDepartmentId);
-                IEnumerable<dynamic> rawTeamIds = rowDepartments.Select(x => x.EmpTeamID).Distinct();
+                IEnumerable<dynamic> rowCompanies = rawReport.Where(x => x.CompanyID == rawCompanyId);
+                IEnumerable<dynamic> rawTeamIds = rowCompanies.Select(x => x.EmpTeamID).Distinct();
 
                 foreach (dynamic rawTeamId in rawTeamIds)
                 {
-                    IEnumerable<dynamic> rowDepartmentTeams = rowDepartments.Where(x => x.EmpTeamID == rawTeamId);
-                    DailyMainDishDepartmentTeamModel mainDish = CreateMainDishDepartmentTeam(rowDepartmentTeams);
+                    IEnumerable<dynamic> rowCompanyTeams = rowCompanies.Where(x => x.EmpTeamID == rawTeamId);
+                    DailyMainDishDepartmentTeamModel mainDish = CreateMainDishDepartmentTeam(rowCompanyTeams);
                     mainDishes.Add(mainDish);
                 }
             }
@@ -361,71 +296,56 @@ namespace NexFB.Repositories.Implement
             return mainDishes;
         }
 
-        /// <summary>
-        /// Create main dish department team.
-        /// </summary>
-        /// <param name="rowDepartmentTeams">The row contains data to group.</param>
-        /// <returns>The Daily Main Dish Department Team model.</returns>
         private DailyMainDishDepartmentTeamModel CreateMainDishDepartmentTeam(
-            IEnumerable<dynamic> rowDepartmentTeams)
+            IEnumerable<dynamic> rowCompanyTeams)
         {
             var mainDish = new DailyMainDishDepartmentTeamModel();
             int index = 0;
 
-            foreach (dynamic rowDepartmentTeam in rowDepartmentTeams)
+            foreach (dynamic rowCompanyTeam in rowCompanyTeams)
             {
                 if (index == 0)
                 {
-                    mainDish.Department = CreateMainDishDepartment(rowDepartmentTeam);
-                    mainDish.Team = CreateMainDishTeam(rowDepartmentTeam);
+                    mainDish.Company = CreateMainDishDepartment(rowCompanyTeam);
+                    mainDish.Team = CreateMainDishTeam(rowCompanyTeam);
                 }
 
-                DailyEmployeeMainDishModel employeeDish = CreateEmployeeDish(rowDepartmentTeam);
+                DailyEmployeeMainDishModel employeeDish = CreateEmployeeDish(rowCompanyTeam);
                 mainDish.EmployeeDishes.Add(employeeDish);
             }
 
             return mainDish;
         }
 
-        /// <summary>
-        /// Create department.
-        /// </summary>
-        /// <param name="rowDepartmentTeam">The row contains department data.</param>
-        /// <returns>The department.</returns>
-        private Department CreateMainDishDepartment(dynamic rowDepartmentTeam)
+        private Company CreateMainDishDepartment(dynamic rowCompanyTeam)
         {
-            int? departmentId = rowDepartmentTeam.DepartmentID;
+            int? companyId = rowCompanyTeam.CompanyID;
 
-            if (departmentId.HasValue)
+            if (companyId.HasValue)
             {
-                var department = new Department
+                var company = new Company
                 {
-                    DepartmentId = (int)departmentId,
-                    Name = rowDepartmentTeam.DepartmentName
+                    CompanyId = (short)companyId,
+                    Name = rowCompanyTeam.CompanyName
                 };
 
-                return department;
+                return company;
             }
 
             return null;
         }
 
-        /// <summary>
-        /// Create team.
-        /// </summary>
-        /// <param name="rowDepartmentTeam">The row contains team data.</param>
-        /// <returns>The team model.</returns>
-        private Team CreateMainDishTeam(dynamic rowDepartmentTeam)
+        private Team CreateMainDishTeam(dynamic rowCompanyTeam)
         {
-            int? teamId = rowDepartmentTeam.EmpTeamID;
+            int? teamId = rowCompanyTeam.EmpTeamID;
 
             if (teamId.HasValue)
             {
                 var team = new Team
                 {
                     TeamId = (int)teamId,
-                    Code = rowDepartmentTeam.EmpTeamCode,
-                    Name = rowDepartmentTeam.EmpTeamName
+                    Code = rowCompanyTeam.EmpTeamCode,
+                    Name = rowCompanyTeam.EmpTeamName
                 };
 
                 return team;
@@ -434,45 +354,35 @@ namespace NexFB.Repositories.Implement
             return null;
         }
 
-        /// <summary>
-        /// Create employee dished.
-        /// </summary>
-        /// <param name="rowDepartmentTeam">The row contains employee data.</param>
-        /// <returns>The employee main dish model.</returns>
-        private DailyEmployeeMainDishModel CreateEmployeeDish(dynamic rowDepartmentTeam)
+        private DailyEmployeeMainDishModel CreateEmployeeDish(dynamic rowCompanyTeam)
         {
-            Shift shift = CreateEmployeeShift(rowDepartmentTeam);
-            Employee employee = CreateEmployeeInfo(rowDepartmentTeam);
+            Shift shift = CreateEmployeeShift(rowCompanyTeam);
+            Employee employee = CreateEmployeeInfo(rowCompanyTeam);
 
             var employeeDish = new DailyEmployeeMainDishModel
             {
-                WorkDate = rowDepartmentTeam.WorkDate,
+                WorkDate = rowCompanyTeam.WorkDate,
                 Shift = shift,
                 Employee = employee,
-                Breakfast = rowDepartmentTeam.Breakfast,
-                Lunch = rowDepartmentTeam.Lunch,
-                Dinner = rowDepartmentTeam.Dinner,
-                Supper = rowDepartmentTeam.Supper
+                Breakfast = rowCompanyTeam.Breakfast,
+                Lunch = rowCompanyTeam.Lunch,
+                Dinner = rowCompanyTeam.Dinner,
+                Supper = rowCompanyTeam.Supper
             };
 
             return employeeDish;
         }
 
-        /// <summary>
-        /// Create employee shift.
-        /// </summary>
-        /// <param name="rowDepartmentTeam">The row contains employee shift data.</param>
-        /// <returns>The shift model.</returns>
-        private Shift CreateEmployeeShift(dynamic rowDepartmentTeam)
+        private Shift CreateEmployeeShift(dynamic rowCompanyTeam)
         {
-            int? shiftId = rowDepartmentTeam.ShiftId;
+            int? shiftId = rowCompanyTeam.ShiftId;
 
             if (shiftId.HasValue)
             {
                 var shift = new Shift
                 {
                     ShiftId = (int)shiftId,
-                    ShiftCode = rowDepartmentTeam.ShiftCode
+                    ShiftCode = rowCompanyTeam.ShiftCode
                 };
 
                 return shift;
@@ -481,24 +391,19 @@ namespace NexFB.Repositories.Implement
             return null;
         }
 
-        /// <summary>
-        /// Create employee information.
-        /// </summary>
-        /// <param name="rowDepartmentTeam">The row contains employee data.</param>
-        /// <returns>The employee model.</returns>
-        private Employee CreateEmployeeInfo(dynamic rowDepartmentTeam)
+        private Employee CreateEmployeeInfo(dynamic rowCompanyTeam)
         {
-            int? userId = rowDepartmentTeam.SysID;
+            int? userId = rowCompanyTeam.SysID;
 
             if (userId.HasValue)
             {
                 var employee = new Employee
                 {
                     UserId = (int)userId,
-                    DomainUsername = rowDepartmentTeam.DomainUsername,
-                    Code = rowDepartmentTeam.Code,
-                    FullName = rowDepartmentTeam.FullName,
-                    NickName = rowDepartmentTeam.NickName
+                    DomainUsername = rowCompanyTeam.DomainUsername,
+                    Code = rowCompanyTeam.Code,
+                    FullName = rowCompanyTeam.FullName,
+                    NickName = rowCompanyTeam.NickName
                 };
 
                 return employee;
@@ -507,11 +412,6 @@ namespace NexFB.Repositories.Implement
             return null;
         }
 
-        /// <summary>
-        /// Get meals in month.
-        /// </summary>
-        /// <param name="rawReport">The raw data that returned from database.</param>
-        /// <returns>The list meals in month.</returns>
         private List<MealMonthModel> GetMealsInMonth(IEnumerable<dynamic> rawReport)
         {
             var meals = new List<MealMonthModel>();
@@ -528,11 +428,6 @@ namespace NexFB.Repositories.Implement
             return meals;
         }
 
-        /// <summary>
-        /// Get meal items in month.
-        /// </summary>
-        /// <param name="rawMeals">The enumerator of meal items.</param>
-        /// <returns>The meal in month.</returns>
         private MealMonthModel CreateMealInMonth(IEnumerable<dynamic> rawMeals)
         {
             var mealReport = new MealMonthModel();
@@ -603,12 +498,6 @@ namespace NexFB.Repositories.Implement
 
             return meal;
         }
-
-        /// <summary>
-        /// Get item of meal in month.
-        /// </summary>
-        /// <param name="rawMeal">The data of current meal item.</param>
-        /// <returns>The Meal Item Month model.</returns>
         private MealItemMonthModel GetItemOfMeal(dynamic rawMeal)
         {
             var mealItem = new MealItemMonthModel
@@ -624,11 +513,6 @@ namespace NexFB.Repositories.Implement
             return mealItem;
         }
 
-        /// <summary>
-        /// Get employee of meal item.
-        /// </summary>
-        /// <param name="rawMeal">The data of current meal item.</param>
-        /// <returns>The Employee model.</returns>
         private Employee GetEmployeeOfMealItem(dynamic rawMeal)
         {
             int? userId = rawMeal.SysID;
@@ -650,11 +534,6 @@ namespace NexFB.Repositories.Implement
             return null;
         }
 
-        /// <summary>
-        /// Get employee type of meal item.
-        /// </summary>
-        /// <param name="rawMeal">The data of current meal item.</param>
-        /// <returns>The Employee Type model.</returns>
         private EmployeeTypeModel GetEmloyeeTypeOfMealItem(dynamic rawMeal)
         {
             int? employeeTypeId = rawMeal.EmployeeTypeID;
@@ -673,11 +552,6 @@ namespace NexFB.Repositories.Implement
             return null;
         }
 
-        /// <summary>
-        /// Get department of meal item.
-        /// </summary>
-        /// <param name="rawMeal">The data of current meal item.</param>
-        /// <returns>The department.</returns>
         private Company GetCompanyOfMealItem(dynamic rawMeal)
         {
             int? companyId = rawMeal.CompanyID;
@@ -695,12 +569,6 @@ namespace NexFB.Repositories.Implement
 
             return null;
         }
-
-        /// <summary>
-        /// Get team of meal item.
-        /// </summary>
-        /// <param name="rawMeal">The data of current meal item.</param>
-        /// <returns>The Team model.</returns>
         private Team GetTeamOfMealItem(dynamic rawMeal)
         {
             int? teamId = rawMeal.EmpTeamID;
@@ -720,11 +588,6 @@ namespace NexFB.Repositories.Implement
             return null;
         }
 
-        /// <summary>
-        /// Get number meals of item in month.
-        /// </summary>
-        /// <param name="rawMeal">The raw data of current meal item.</param>
-        /// <returns>The model contain number meals of item in month.</returns>
         private MealDayOfMonthModel GetNumberMealsOfItem(dynamic rawMeal)
         {
             var mealDayOfMonth = new MealDayOfMonthModel();
@@ -736,11 +599,6 @@ namespace NexFB.Repositories.Implement
             return mealDayOfMonth;
         }
 
-        /// <summary>
-        /// Get weekday in month.
-        /// </summary>
-        /// <param name="rawReport">The raw data of report.</param>
-        /// <returns>The model contain weekdays in month.</returns>
         private MealDayOfMonthModel GetWeekDay(IEnumerable<dynamic> rawReport)
         {
             var weekDays = new MealDayOfMonthModel();
@@ -751,11 +609,6 @@ namespace NexFB.Repositories.Implement
             return weekDays;
         }
 
-        /// <summary>
-        /// Calculate total meals in month.
-        /// </summary>
-        /// <param name="meals">The list meals in month.</param>
-        /// <returns>The model contain total meals in month.</returns>
         private MealDayOfMonthModel CalculateTotalMeals(List<MealMonthModel> meals)
         {
             var total = new MealDayOfMonthModel();
@@ -786,11 +639,6 @@ namespace NexFB.Repositories.Implement
             return total;
         }
 
-        /// <summary>
-        /// Get number meals of day in month.
-        /// </summary>
-        /// <param name="rawWeekDay">The data of current meal item.</param>
-        /// <returns>The list number meals of day in month.</returns>
         private List<int> GetNumberMealsInMonth(dynamic rawWeekDay)
         {
             var numberMeals = new List<int>();
@@ -804,12 +652,6 @@ namespace NexFB.Repositories.Implement
             return numberMeals;
         }
 
-        /// <summary>
-        /// Get number meals of first week in month.
-        /// </summary>
-        /// <param name="rawWeekDay">The data of meal item.</param>
-        /// <param name="numberMeals">The list number meals of day in month.</param>
-        /// <returns>The list number meals contain number meals of first week.</returns>
         private List<int> GetNumberMealsFirstWeek(dynamic rawWeekDay, List<int> numberMeals)
         {
             numberMeals.Add(rawWeekDay.D1);
@@ -823,12 +665,6 @@ namespace NexFB.Repositories.Implement
             return numberMeals;
         }
 
-        /// <summary>
-        /// Get number meals of second week in month.
-        /// </summary>
-        /// <param name="rawWeekDay">The data of meal item.</param>
-        /// <param name="numberMeals">The list number meals of day in month.</param>
-        /// <returns>The list number meals contain number meals of second week.</returns>
         private List<int> GetNumberMealsSecondWeek(dynamic rawWeekDay, List<int> numberMeals)
         {
             numberMeals.Add(rawWeekDay.D8);
@@ -841,13 +677,6 @@ namespace NexFB.Repositories.Implement
 
             return numberMeals;
         }
-
-        /// <summary>
-        /// Get number meals of third week in month.
-        /// </summary>
-        /// <param name="rawWeekDay">The data of meal item.</param>
-        /// <param name="numberMeals">The list number meals of day in month.</param>
-        /// <returns>The list number meals contain number meals of third week.</returns>
         private List<int> GetNumberMealsThridWeek(dynamic rawWeekDay, List<int> numberMeals)
         {
             numberMeals.Add(rawWeekDay.D15);
@@ -861,12 +690,6 @@ namespace NexFB.Repositories.Implement
             return numberMeals;
         }
 
-        /// <summary>
-        /// Get number meals of fourth week in month.
-        /// </summary>
-        /// <param name="rawWeekDay">The data of meal item.</param>
-        /// <param name="numberMeals">The list number meals of day in month.</param>
-        /// <returns>The list number meals contain number meals of fourth week.</returns>
         private List<int> GetNumberMealsFourthWeek(dynamic rawWeekDay, List<int> numberMeals)
         {
             numberMeals.Add(rawWeekDay.D22);
@@ -880,12 +703,6 @@ namespace NexFB.Repositories.Implement
             return numberMeals;
         }
 
-        /// <summary>
-        /// Get number meals of fifth week in month.
-        /// </summary>
-        /// <param name="rawWeekDay">The data of meal item.</param>
-        /// <param name="numberMeals">The list number meals of day in month.</param>
-        /// <returns>The list number meals contain number meals of fifth week.</returns>
         private List<int> GetNumberMealsFifthWeek(dynamic rawWeekDay, List<int> numberMeals)
         {
             int? day29 = rawWeekDay.D29;

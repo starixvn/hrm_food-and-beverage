@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="MonthlyMainDishPerDayReportService.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="12/26/2014 4:14:43 PM">Created.</change>
-// </history>
-
-namespace NexFB.Services.Implement.Report
+﻿namespace NexFB.Services.Implement.Report
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -22,9 +13,6 @@ namespace NexFB.Services.Implement.Report
     using NexFB.Resources;
     using NexFB.Services.Interface.Report;
 
-    /// <summary>
-    /// The implement of Monthly Main Dish Per Day report service.
-    /// </summary>
     public class MonthlyMainDishPerDayReportService : BaseService, IMonthlyMainDishPerDayReportService
     {
         private readonly IReportRepository _reportRepository;
@@ -42,12 +30,6 @@ namespace NexFB.Services.Implement.Report
             _reportRepository = reportRepository ?? new ReportRepository();
             _monthlyMainDishPerMealReportService = reportService ?? new MonthlyMainDishReportService();
         }
-
-        /// <summary>
-        /// Get monthly main dish per day report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The report.</returns>
         public MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport(GetMonthlyMainDishPerDayReportCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -63,14 +45,6 @@ namespace NexFB.Services.Implement.Report
 
             return report;
         }
-
-        /// <summary>
-        /// Get paging report.
-        /// </summary>
-        /// <param name="fullReport">The full report.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The paging report.</returns>
         public MonthlyMainDishPerDayModel GetPagingReport(
             MonthlyMainDishPerDayModel fullReport,
             int startIndex,
@@ -88,12 +62,6 @@ namespace NexFB.Services.Implement.Report
             pagingReport.TypeDays = LoopAndGetPagingReport(fullReport, startIndex, itemsPerPage);
             return pagingReport;
         }
-
-        /// <summary>
-        /// Export monthly main dish per day report.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="templatePath">The template path.</param>
         public void ExportMonthlyMainDishPerDayReport(
             MonthlyMainDishPerDayModel report,
             string templatePath)
@@ -119,11 +87,6 @@ namespace NexFB.Services.Implement.Report
             writer.Render();
         }
 
-        /// <summary>
-        /// Convert weekend number from positive number to negative number.
-        /// </summary>
-        /// <param name="weekdays">The weekdays in month.</param>
-        /// <param name="writer">The excel writer.</param>
         private void WriteDayHeaderInMonth(List<int> weekdays, ref ExcelTemplateWriter writer)
         {
             int startCol = 4;
@@ -173,14 +136,6 @@ namespace NexFB.Services.Implement.Report
 
             return totalItem;
         }
-
-        /// <summary>
-        /// Loop and get paging report.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The list new type days.</returns>
         private List<MainDishPerDayModel> LoopAndGetPagingReport(
             MonthlyMainDishPerDayModel report,
             int startIndex,
@@ -233,13 +188,6 @@ namespace NexFB.Services.Implement.Report
             return typeDays;
         }
 
-        /// <summary>
-        /// Create new type day of paging report.
-        /// </summary>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="typeDay">The current meal.</param>
-        /// <param name="items">The number items per page.</param>
-        /// <returns>The new type day.</returns>
         private MainDishPerDayModel AddMealItemIntoPagingReport(
             int startIndex,
             MainDishPerDayModel typeDay,
