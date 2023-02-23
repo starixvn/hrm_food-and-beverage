@@ -2,265 +2,271 @@
 /*global appModule*/
 
 appModule.factory('commonFactory',
-['$filter', function ($filter) {
-	var common = {};
+    ['$filter', function ($filter) {
+        var common = {};
 
-	common.getDateFormat = function ($scope) {
-		$scope.dateFormat = "dd MMM, yyyy";
-	};
+        common.getDateFormat = function ($scope) {
+            $scope.dateFormat = "dd MMM, yyyy";
+        };
 
-	common.formatString = function () {
-		var theString = arguments[0];
-		for (var i = 1; i < arguments.length; i++) {
-			var regEx = new RegExp("\\{" + (i - 1) + "\\}", "gm");
-			theString = theString.replace(regEx, arguments[i]);
-		}
+        common.formatString = function () {
+            var theString = arguments[0];
+            for (var i = 1; i < arguments.length; i++) {
+                var regEx = new RegExp("\\{" + (i - 1) + "\\}", "gm");
+                theString = theString.replace(regEx, arguments[i]);
+            }
 
-		return theString;
-	};
+            return theString;
+        };
 
-	common.numberEntryList = function ($scope) {
-		$scope.entries = [10, 15, 20, 50, 100, 200];
-	};
+        common.numberEntryList = function ($scope) {
+            $scope.entries = [10, 15, 20, 50, 100, 200];
+        };
 
-	common.openPopupStartDate = function ($event, $scope) {
-		$event.preventDefault();
-		$event.stopPropagation();
+        common.openPopupStartDate = function ($event, $scope) {
+            $event.preventDefault();
+            $event.stopPropagation();
 
-		$scope.calendar.startDateOpened = true;
-		$scope.calendar.endDateOpened = false;
-	};
+            $scope.calendar.startDateOpened = true;
+            $scope.calendar.endDateOpened = false;
+        };
 
-	common.openPopupEndDate = function ($event, $scope) {
-		$event.preventDefault();
-		$event.stopPropagation();
+        common.openPopupEndDate = function ($event, $scope) {
+            $event.preventDefault();
+            $event.stopPropagation();
 
-		$scope.calendar.endDateOpened = true;
-		$scope.calendar.startDateOpened = false;
-	};
+            $scope.calendar.endDateOpened = true;
+            $scope.calendar.startDateOpened = false;
+        };
 
-	/**
-	* Check if item match search text. 
-	*/
-	var searchMatch = function (haystack, needle) {
-		if (!needle) {
-			return true;
-		}
+        /**
+        * Check if item match search text.
+        */
+        var searchMatch = function (haystack, needle) {
+            if (!needle) {
+                return true;
+            }
 
-		return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
-	};
+            return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+        };
 
-	/**
-	* Check all item recursion.
-	*/
-	var checkAllItemRecursion = function (item, scope, queryData) {
-		queryData = queryData ? queryData : scope.queryData;
+        /**
+        * Check all item recursion.
+        */
+        var checkAllItemRecursion = function (item, scope, queryData) {
+            queryData = queryData ? queryData : scope.queryData;
 
-		for (var attr in item) {
-			var childItem = item[attr];
+            for (var attr in item) {
+                var childItem = item[attr];
 
-			if (childItem != null && /^[a-zA-Z0-9]*$/.test(attr) &&
-					attr.toLowerCase().search('id') === -1 && attr.toLowerCase().search('length') === -1 &&
-					attr.toLowerCase().search('index') === -1 && attr.toLowerCase().search('hash') === -1 &&
-					attr.toLowerCase().search('time') === -1 && attr.toLowerCase().search('date') === -1 &&
-					attr.toLowerCase().search('modifiedby') === -1 && attr.toLowerCase().search('createdby') === -1) {
+                if (childItem != null && /^[a-zA-Z0-9]*$/.test(attr) &&
+                    attr.toLowerCase().search('id') === -1 && attr.toLowerCase().search('length') === -1 &&
+                    attr.toLowerCase().search('index') === -1 && attr.toLowerCase().search('hash') === -1 &&
+                    attr.toLowerCase().search('time') === -1 && attr.toLowerCase().search('date') === -1 &&
+                    attr.toLowerCase().search('modifiedby') === -1 && attr.toLowerCase().search('createdby') === -1) {
+                    if (typeof (childItem) === 'object') {
+                        var exist = checkAllItemRecursion(childItem, scope, queryData);
 
-				if (typeof (childItem) === 'object') {
-					var exist = checkAllItemRecursion(childItem, scope, queryData);
+                        if (exist) {
+                            return exist;
+                        }
+                    }
+                    else {
+                        if (searchMatch(item[attr].toString(), queryData)) {
+                            return true;
+                        }
+                    }
+                }
+            }
 
-					if (exist) {
-						return exist;
-					}
-				}
-				else {
-					if (searchMatch(item[attr].toString(), queryData)) {
-						return true;
-					}
-				}
-			}
-		}
+            return false;
+        };
 
-		return false;
-	};
+        /**
+        * Serach in table manage group member.
+        */
+        common.searchMemberGroup = function ($scope, members, queryData) {
+            $scope.filterMembers = [];
 
-	/**
-	* Serach in table manage group member.
-	*/
-	common.searchMemberGroup = function ($scope, members, queryData) {
-		$scope.filterMembers = [];
+            if (members && members.length > 0) {
+                $scope.filterMembers = $filter('filter')(members, function (item) {
+                    return checkAllItemRecursion(item, $scope, queryData);
+                });
+            }
+        };
 
-		if (members && members.length > 0) {
-			$scope.filterMembers = $filter('filter')(members, function (item) {
-				return checkAllItemRecursion(item, $scope, queryData);
-			});
-		}
-	};
+        common.tablePagination = function ($scope, dataPagination, itemPerPage, attrSearch) {
+            /**
+            * Scope Variable.
+            */
+            $scope.gap = 7;
+            $scope.filteredItems = [];
+            $scope.groupedItems = [];
+            $scope.attrSearch = attrSearch;
 
-	common.tablePagination = function ($scope, dataPagination, itemPerPage, attrSearch) {
-		/**
-		* Scope Variable.
-		*/
-		$scope.gap = 7;
-		$scope.filteredItems = [];
-		$scope.groupedItems = [];
-		$scope.attrSearch = attrSearch;
+            if (itemPerPage != null) {
+                $scope.itemsPerPage = itemPerPage;
+            }
+            else {
+                $scope.itemsPerPage = 20;
+            }
 
-		if (itemPerPage != null) {
-			$scope.itemsPerPage = itemPerPage;
-		}
-		else {
-			$scope.itemsPerPage = 20;
-		}
+            $scope.pagedItems = [];
+            $scope.currentPage = 0;
+            /**
+            * Init.
+            */
+            $scope.sort = {
+                sortingOrder: 'id',
+                reverse: false
+            };
 
-		$scope.pagedItems = [];
-		$scope.currentPage = 0;
-		/**
-		* Init. 
-		*/
-		$scope.sort = {
-			sortingOrder: 'id',
-			reverse: false
-		};
+            // init the filtered items
+            $scope.search = function () {
+                $scope.filteredItems = [];
 
-		// init the filtered items
-		$scope.search = function () {
-			$scope.filteredItems = [];
+                if (dataPagination && dataPagination !== 'null') {
+                    $scope.filteredItems = $filter('filter')(dataPagination, function (item) {
+                        return checkAllItemRecursion(item, $scope);
+                    });
+                }
 
-			if (dataPagination && dataPagination !== 'null') {
-				$scope.filteredItems = $filter('filter')(dataPagination, function (item) {
-					return checkAllItemRecursion(item, $scope);
-				});
-			}
+                $scope.currentPage = 0;
+                // now group by pages
+                $scope.groupToPages();
+            };
 
-			$scope.currentPage = 0;
-			// now group by pages
-			$scope.groupToPages();
-		};
+            /*
+            ** Use to search in Shift-Meal Mapping page.
+            */
+            var checkShift = function (item, attrSearch) {
+                for (var attr in item) {
+                    var childItem = item[attr];
 
-		/*
-		** Use to search in Shift-Meal Mapping page.
-		*/
-		var checkShift = function (item, attrSearch) {
-			for (var attr in item) {
-				var childItem = item[attr];
+                    if (childItem != null && attrSearch && attr.toLowerCase().search(attrSearch.toLowerCase()) !== -1) {
+                        if (searchMatch(item[attr].toString(), $scope.queryData)) {
+                            return true;
+                        }
+                    }
+                }
 
-				if (childItem != null && attrSearch && attr.toLowerCase().search(attrSearch.toLowerCase()) !== -1) {
-					if (searchMatch(item[attr].toString(), $scope.queryData)) {
-						return true;
-					}
-				}
-			}
+                return false;
+            };
 
-			return false;
-		};
+            $scope.searchInShift = function () {
+                $scope.filteredItems = [];
 
-		$scope.searchInShift = function () {
-			$scope.filteredItems = [];
+                if (dataPagination && dataPagination !== 'null') {
+                    $scope.filteredItems = $filter('filter')(dataPagination, function (item) {
+                        return checkShift(item, $scope.attrSearch);
+                    });
+                }
 
-			if (dataPagination && dataPagination !== 'null') {
-				$scope.filteredItems = $filter('filter')(dataPagination, function (item) {
-					return checkShift(item, $scope.attrSearch);
-				});
-			}
+                $scope.currentPage = 0;
+                // now group by pages
+                $scope.groupToPages();
+            };
 
-			$scope.currentPage = 0;
-			// now group by pages
-			$scope.groupToPages();
-		};
+            // calculate page in place
+            $scope.groupToPages = function () {
+                $scope.pagedItems = [];
+                for (var i = 0; i < $scope.filteredItems.length; i++) {
+                    $scope.filteredItems[i].itemIndex = i;
+                    if (i % $scope.itemsPerPage === 0) {
+                        $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [$scope.filteredItems[i]];
+                    } else {
+                        $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
+                    }
+                }
+            };
 
-		// calculate page in place
-		$scope.groupToPages = function () {
-			$scope.pagedItems = [];
-			for (var i = 0; i < $scope.filteredItems.length; i++) {
-				$scope.filteredItems[i].itemIndex = i;
-				if (i % $scope.itemsPerPage === 0) {
-					$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [$scope.filteredItems[i]];
-				} else {
-					$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
-				}
-			}
-		};
+            /**
+            * Event.
+            */
+            $scope.range = function (size, start, end) {
+                var ret = [];
+                if (size < end) {
+                    end = size;
+                    start = size - $scope.gap;
+                    if (start < 0) {
+                        start = 0;
+                    }
+                }
+                for (var i = start; i < end; i++) {
+                    ret.push(i);
+                }
+                return ret;
+            };
 
-		/**
-		* Event. 
-		*/
-		$scope.range = function (size, start, end) {
-			var ret = [];
-			if (size < end) {
-				end = size;
-				start = size - $scope.gap;
-				if (start < 0) {
-					start = 0;
-				}
-			}
-			for (var i = start; i < end; i++) {
-				ret.push(i);
-			}
-			return ret;
-		};
+            $scope.firstPage = function () {
+                if ($scope.currentPage > 0) {
+                    $scope.currentPage = 0;
+                }
+            };
 
-		$scope.firstPage = function () {
-			if ($scope.currentPage > 0) {
-				$scope.currentPage = 0;
-			}
-		};
+            $scope.lastPage = function () {
+                if ($scope.currentPage < $scope.pagedItems.length - 1) {
+                    $scope.currentPage = $scope.pagedItems.length - 1;
+                }
+            };
 
-		$scope.lastPage = function () {
-			if ($scope.currentPage < $scope.pagedItems.length - 1) {
-				$scope.currentPage = $scope.pagedItems.length - 1;
-			}
+            $scope.prevPage = function () {
+                if ($scope.currentPage > 0) {
+                    $scope.currentPage--;
+                }
+            };
 
-		};
+            $scope.nextPage = function () {
+                if ($scope.currentPage < $scope.pagedItems.length - 1) {
+                    $scope.currentPage++;
+                }
+            };
 
-		$scope.prevPage = function () {
-			if ($scope.currentPage > 0) {
-				$scope.currentPage--;
-			}
-		};
+            $scope.setPage = function () {
+                $scope.currentPage = this.n;
+            };
 
-		$scope.nextPage = function () {
-			if ($scope.currentPage < $scope.pagedItems.length - 1) {
-				$scope.currentPage++;
-			}
-		};
+            // functions have been describe process the data for display
+            $scope.search();
+        };
 
-		$scope.setPage = function () {
-			$scope.currentPage = this.n;
-		};
+        /*
+        ** Update employee type.
+        */
+        var getEmployeeTypeById = function (employeeTypeId, employeeTypesOption) {
+            var employeeType = '',
+                length = employeeTypesOption.length;
 
-		// functions have been describe process the data for display
-		$scope.search();
-	};
+            for (var i = 0; i < length; i++) {
+                var currentEmployeeType = employeeTypesOption[i];
 
-	/*
-	** Update employee type.
-	*/
-	var getEmployeeTypeById = function (employeeTypeId, employeeTypesOption) {
-		var employeeType = '',
-			length = employeeTypesOption.length;
+                if (currentEmployeeType.EmployeeTypeId === employeeTypeId) {
+                    return currentEmployeeType;
+                }
+            }
 
-		for (var i = 0; i < length; i++) {
-			var currentEmployeeType = employeeTypesOption[i];
+            return employeeType;
+        };
 
-			if (currentEmployeeType.EmployeeTypeId === employeeTypeId) {
-				return currentEmployeeType;
-			}
-		}
+        common.updateEmployeeTypes = function (employeeTypeIds, employeeTypesOption) {
+            var updateEmployeeTypeList = [],
+                employeeTypeIdList = employeeTypeIds.split(',');
 
-		return employeeType;
-	};
+            angular.forEach(employeeTypeIdList, function (employeeTypeId) {
+                var addedEmployeeType = getEmployeeTypeById(parseInt(employeeTypeId), employeeTypesOption);
+                updateEmployeeTypeList.push(addedEmployeeType);
+            });
 
-	common.updateEmployeeTypes = function (employeeTypeIds, employeeTypesOption) {
-		var updateEmployeeTypeList = [],
-			employeeTypeIdList = employeeTypeIds.split(',');
+            return updateEmployeeTypeList;
+        };
 
-		angular.forEach(employeeTypeIdList, function (employeeTypeId) {
-			var addedEmployeeType = getEmployeeTypeById(parseInt(employeeTypeId), employeeTypesOption);
-			updateEmployeeTypeList.push(addedEmployeeType);
-		});
+        common.blockUI = function() {
+            document.getElementById('loadingProcess').style.display = 'block';
+        };
 
-		return updateEmployeeTypeList;
-	};
+        common.unblockUI = function () {
+            document.getElementById('loadingProcess').style.display = 'none';
+        };
 
-	return common;
-} ]);
+        return common;
+    }]);

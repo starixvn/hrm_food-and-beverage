@@ -23,6 +23,15 @@
         public string StatusId { get; set; }
         public string CompanyId { get; set; }
 
+        [SpParam(Ignored = true)]
+        public int StartIndex { get; set; }
+
+        [SpParam(Ignored = true)]
+        public int ItemsPerPage { get; set; } = 50;
+
+        [SpParam(Ignored = true)]
+        public bool IsPagingCallback { get; set; }
+
         public override string GetSettingKey() => "Rpt_Get_OrderHistory";
 
         public override bool IsValid() => FromDate <= ToDate;

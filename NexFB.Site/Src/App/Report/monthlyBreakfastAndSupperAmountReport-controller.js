@@ -2,13 +2,11 @@
 
 reportModule.controller('MonthlyBreakfastAndSuperController', monthlyBreakfastAndSuperController);
 monthlyBreakfastAndSuperController.$inject = ['$scope', 'reportFactory', 'ErrorFactory', 'reportUtilities', 'commonFactory', 'baseUrl'];
+
 function monthlyBreakfastAndSuperController($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, baseUrl) {
     $scope.filter = {
         reportDate: new Date(),
-        companyId: '',
-        startIndex: 0,
-        isExportReport: false,
-        isPagingCallback: false
+        companyId: ''
     };
 
     $scope.originalCompanyId = '';
@@ -19,12 +17,6 @@ function monthlyBreakfastAndSuperController($scope, reportFactory, ErrorFactory,
         minMode: 'month',
         maxMode: 'month',
         formatMonth: 'MMM'
-    };
-
-    $scope.gridOption = {
-        itemsPerPage: 50,
-        currentPage: 0,
-        startIndex: 0
     };
 
     $scope.numberFormat = reportUtilities.getNumberFormat();
@@ -72,11 +64,15 @@ function monthlyBreakfastAndSuperController($scope, reportFactory, ErrorFactory,
 
     // Get monthly breakfast and supper report.
     $scope.getMonthlyBreakfastAndSupperReport = function (filter) {
+        commonFactory.blockUI();
         reportFactory.getMonthlyBreakfastAndSupperReport(filter).success(function (report) {
             $scope.report = report;
-            commonFactory.tablePagination($scope, report, $scope.entrySelected);
+
+            commonFactory.unblockUI();
         }).error(function (response, status) {
             ErrorFactory.errorHandle(status);
+
+            commonFactory.unblockUI();
         });
     };
 
@@ -94,7 +90,7 @@ function monthlyBreakfastAndSuperController($scope, reportFactory, ErrorFactory,
         var criteria = {
             companyId: filter.companyId,
             reportDate: filter.reportDate.toDateString()
-        }
+        };
         var data = $.param(criteria),
             url = baseUrl + 'ExportReport/ExportMonthlyBreakfastAndSupperAmountReport',
             downloadUrl = url + "?" + data,

@@ -1,6 +1,5 @@
 ﻿namespace NexFB.Site.Controllers.API
 {
-    using System;
     using System.Web.Mvc;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
@@ -14,7 +13,7 @@
     public class AdminOrderHistoryReportController : BaseController
     {
         private readonly IAdminOrderHistoryService reportService;
-        
+
         public AdminOrderHistoryReportController() : this(null)
         {
         }
@@ -26,34 +25,10 @@
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.AdminOrderHistoryReport, Policy = Policy.Read)]
-        public AdminOrderHistoryReport GetData(
-            DateTime fromDate,
-            DateTime toDate,
-            int? userId = null,
-            int employeeMenu = 0,
-            int orderPlatform = 0,
-            string mealId = "",
-            string statusId = "",
-            string companyId = "",
-            bool isPagingCallback = false,
-            int startIndex = 0,
-            int itemsPerPage = 50)
+        public AdminOrderHistoryReport GetData([System.Web.Http.FromUri] GetAdminOrderHistoryCriteria criteria)
         {
-            var criteria = new GetAdminOrderHistoryCriteria
-            {
-                UserId = userId,
-                FromDate = fromDate,
-                ToDate = toDate,
-                OrderBy = 0,
-                MyMenu = employeeMenu,
-                OrderPlatform = orderPlatform,
-                MealId = mealId,
-                StatusId = statusId,
-                CompanyId = companyId
-            };
-
             AdminOrderHistoryReport fullReport;
-            if (isPagingCallback)
+            if (criteria.IsPagingCallback)
             {
                 fullReport = SessionManager.Get<AdminOrderHistoryReport>(ReportConstant.AdminOrderHistoryReportSessionKey + criteria.UserId);
             }
@@ -63,7 +38,7 @@
                 SessionManager.Set<AdminOrderHistoryReport>(ReportConstant.AdminOrderHistoryReportSessionKey + criteria.UserId, fullReport);
             }
 
-            var pagingReport = reportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            var pagingReport = reportService.GetPagingReport(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
 
             return pagingReport;
         }

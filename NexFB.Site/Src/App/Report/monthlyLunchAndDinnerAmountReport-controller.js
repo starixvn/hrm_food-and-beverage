@@ -6,10 +6,7 @@ monthlyLunchAndDinnerReportController.$inject = ['$scope', 'reportFactory', 'Err
 function monthlyLunchAndDinnerReportController($scope, reportFactory, ErrorFactory, reportUtilities, commonFactory, baseUrl) {
     $scope.filter = {
         reportDate: new Date(),
-        companyId: '',
-        startIndex: 0,
-        isExportReport: false,
-        isPagingCallback: false
+        companyId: ''
     };
 
     $scope.originalCompanyId = '';
@@ -20,12 +17,6 @@ function monthlyLunchAndDinnerReportController($scope, reportFactory, ErrorFacto
         minMode: 'month',
         maxMode: 'month',
         formatMonth: 'MMM'
-    };
-
-    $scope.gridOption = {
-        itemsPerPage: 50,
-        currentPage: 0,
-        startIndex: 0
     };
 
     $scope.numberFormat = reportUtilities.getNumberFormat();
@@ -75,11 +66,16 @@ function monthlyLunchAndDinnerReportController($scope, reportFactory, ErrorFacto
 
     // Get monthly lunch and dinner report.
     $scope.getMonthlyLunchAndDinnerReport = function (filter) {
+        commonFactory.blockUI();
+
         reportFactory.getMonthlyLunchAndDinnerReport(filter).success(function (report) {
             $scope.report = report;
-            commonFactory.tablePagination($scope, report, $scope.entrySelected);
+
+            commonFactory.unblockUI();
         }).error(function (response, status) {
             ErrorFactory.errorHandle(status);
+
+            commonFactory.unblockUI();
         });
     };
 
@@ -97,7 +93,7 @@ function monthlyLunchAndDinnerReportController($scope, reportFactory, ErrorFacto
         var criteria = {
             companyId: filter.companyId,
             reportDate: filter.reportDate.toDateString()
-        }
+        };
         var data = $.param(criteria),
             url = baseUrl + 'ExportReport/ExportMonthlyLunchAndDinnerAmountReport',
             downloadUrl = url + "?" + data,

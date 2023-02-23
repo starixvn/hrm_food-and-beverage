@@ -150,11 +150,16 @@ function adminOrderHistoryReportController($scope, reportFactory, ErrorFactory, 
 
     // Get report.
     $scope.getAdminOrderHistoryReport = function (filter) {
+        commonFactory.blockUI();
         reportFactory.getAdminOrderHistoryReport(filter).success(function (report) {
             $scope.report = report;
             $scope.$broadcast("renderAdminOrderHistoryReport");
+
+            commonFactory.unblockUI();
         }).error(function (response, status) {
             ErrorFactory.errorHandle(status);
+
+            commonFactory.unblockUI();
         });
     };
 
