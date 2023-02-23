@@ -508,7 +508,7 @@ namespace NexFB.Site.Controllers.API.Report
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealForecastReport, Policy = Policy.Read)]
         public EmployeeRegistrationReportModel GetEmployeeRegistration(
             DateTime date,
-            string departmentId = "",
+            string companyId = "",
             string employeeTypeId = "",
             int? mealId = null,
             int? menuId = null,
@@ -529,7 +529,7 @@ namespace NexFB.Site.Controllers.API.Report
                     WorkDate = date,
                     MealId = mealId,
                     MenuId = menuId,
-                    DepartmentId = departmentId,
+                    CompanyId = companyId,
                     EmployeeTypeId = employeeTypeId,
                     IsVegetarian = isVegetarian
                 };

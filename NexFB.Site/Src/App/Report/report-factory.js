@@ -150,7 +150,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                 {
                     params: {
                         date: filter.date,
-                        departmentId: filter.departmentId,
+                        companyId: filter.companyId,
                         employeeTypeId: filter.employeeTypeId,
                         mealId: filter.mealId,
                         menuId: filter.menuId,

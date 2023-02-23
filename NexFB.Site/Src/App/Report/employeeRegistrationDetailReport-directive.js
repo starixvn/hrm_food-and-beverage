@@ -16,13 +16,15 @@ reportModule.directive('renderEmployeeRegistrationDetailReport', function () {
                     Columns: [
                         { Name: "Count", Value: rowIndex },
                         { Name: "Code", Value: employeeRegistration.Employee.Code },
-                        { Name: "Department", Value: employeeRegistration.DepartmentName },
+                        { Name: "Company", Value: employeeRegistration.CompanyName },
                         { Name: "Shift", Value: employeeRegistration.ShiftName },
                         { Name: "NickName", Value: employeeRegistration.Employee.NickName },
                         { Name: "FullName", Value: employeeRegistration.Employee.FullName },
                         { Name: "Meal", Value: employeeRegistration.Meal.MealName },
-                        { Name: "Vegetarian", Value: employeeRegistration.IsVegetarian === false ? 
-                            'Non-Vegetarian' : (employeeRegistration.IsVegetarian === true ? 'Vegetarian' : '-') },
+                        {
+                            Name: "Vegetarian", Value: employeeRegistration.IsVegetarian === false ?
+                                'Non-Vegetarian' : (employeeRegistration.IsVegetarian === true ? 'Vegetarian' : '-')
+                        },
                         { Name: "ActualOrder", Value: employeeRegistration.ActualOrder }
                     ]
                 };
@@ -38,7 +40,7 @@ reportModule.directive('renderEmployeeRegistrationDetailReport', function () {
         var columns = [
             { HeaderText: "#", Width: 65, Name: "Count", HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Code", Width: 160, Name: "Code", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Department", Width: 160, Name: "Department", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Company", Width: 160, Name: "Company", HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Shift", Width: 160, Name: "Shift", HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Nick Name", Width: 160, Name: "NickName", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Full Name", Width: 160, Name: "FullName", HeaderAlign: "center", CellAlign: "left" },
@@ -53,13 +55,13 @@ reportModule.directive('renderEmployeeRegistrationDetailReport', function () {
     var generateDataFooter = function (report, scope) {
         if (report !== null && report.EmployeeRegistrations.length > 0) {
             var footerRows = [],
-            totalMeal = {
-                Columns: [
-                    { Value: "Total Meal", Name: "Count", MergeColNumber: 7, CellAlign: "right" },
-                    { Value: numeral(report.TotalMeal.Registration).format(scope.numberFormat), Name: "Vegetarian" },
-                    { Value: report.TotalMeal.ActualOrder < 0 ? '-' : numeral(report.TotalMeal.ActualOrder).format(scope.numberFormat), Name: "ActualOrder" }
-                ]
-            };
+                totalMeal = {
+                    Columns: [
+                        { Value: "Total Meal", Name: "Count", MergeColNumber: 7, CellAlign: "right" },
+                        { Value: numeral(report.TotalMeal.Registration).format(scope.numberFormat), Name: "Vegetarian" },
+                        { Value: report.TotalMeal.ActualOrder < 0 ? '-' : numeral(report.TotalMeal.ActualOrder).format(scope.numberFormat), Name: "ActualOrder" }
+                    ]
+                };
 
             footerRows.push(totalMeal);
 
@@ -94,13 +96,13 @@ reportModule.directive('renderEmployeeRegistrationDetailReport', function () {
                     bodyRows: bodyData,
                     showTitle: true,
                     titleInfo:
-                            {
-                                text: "Meal Registration detail report for " + moment(scope.filter.date).format(scope.dateFormat),
-                                showExcelButton: true,
-                                exportExcelFunction: function () {
-                                    scope.exportExcel.call(this, scope.filter);
-                                }
-                            },
+                    {
+                        text: "Meal Registration detail report for " + moment(scope.filter.date).format(scope.dateFormat),
+                        showExcelButton: true,
+                        exportExcelFunction: function () {
+                            scope.exportExcel.call(this, scope.filter);
+                        }
+                    },
                     showFooter: true,
                     footerRows: footerData,
                     gridExpandHeight: 250,
@@ -142,4 +144,4 @@ reportModule.directive('exportEmployeeRegistrationDetailReport', ['baseUrl', fun
             });
         }
     };
-} ]);
+}]);
