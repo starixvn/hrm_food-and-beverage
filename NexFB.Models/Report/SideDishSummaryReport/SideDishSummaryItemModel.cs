@@ -19,7 +19,7 @@ namespace NexFB.Models.Report.SideDishSummaryReport
     {
         public int SysId { get; set; }
 
-        public string DepartmentTeamName { get; set; }
+        public string CompanyTeamName { get; set; }
 
         public string FullName { get; set; }
 

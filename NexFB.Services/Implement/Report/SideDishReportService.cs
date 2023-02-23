@@ -132,7 +132,7 @@ namespace NexFB.Services.Implement.Report
 
                 if (!groupName.Contains(item.DepartmentTeamName))
                 {
-                    //writer.WriteRow(2, new object[] { item.DepartmentTeamName });
+                    //writer.WriteRow(2, new object[] { item.CompanyTeamName });
 
                     groupName.Add(item.DepartmentTeamName);
                 }

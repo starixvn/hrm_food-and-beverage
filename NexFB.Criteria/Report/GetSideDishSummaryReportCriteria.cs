@@ -18,7 +18,7 @@ namespace NexFB.Criteria.Report
     /// </summary>
     public class GetSideDishSummaryReportCriteria : CriteriaBase
     {
-        public string DepartmentId { get; set; }
+        public string CompanyId { get; set; }
 
         public string EmployeeTypeId { get; set; }
 

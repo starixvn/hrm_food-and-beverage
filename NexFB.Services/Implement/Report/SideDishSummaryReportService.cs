@@ -94,10 +94,10 @@ namespace NexFB.Services.Implement.Report
 
             foreach (var item in report.SideDishSummarys)
             {
-                if (!groupName.Contains(item.DepartmentTeamName))
+                if (!groupName.Contains(item.CompanyTeamName))
                 {
-                    writer.WriteRow(4, new object[] { item.DepartmentTeamName });
-                    groupName.Add(item.DepartmentTeamName);
+                    writer.WriteRow(4, new object[] { item.CompanyTeamName });
+                    groupName.Add(item.CompanyTeamName);
                     rowIndex = 1;
                 }
 
