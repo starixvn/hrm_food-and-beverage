@@ -515,39 +515,35 @@ orderingModule.controller("OrderingController",
                         notificationFactory.error("", message);
                     }
 
-                    //////check non-registration but order
-                    var errorMembers = "";
+                    //check non-registration but order
+                    var arrErrorMembers = []
                     if (typeOrder !== $scope.typeOrder.sideDishOrder) {
                         order.Members.forEach(member => {
                             if (member.IsVegetarianRegister === null && member.IsOrder && !member.Member.IsFreeOrder) {
                                 isValid = false;
-                                errorMembers += (errorMembers === ""
-                                    ? member.Member.NickName
-                                    : ", " + member.Member.NickName);
+                                arrErrorMembers.push(member.Member.NickName);
                             }
                         });
                     }
 
-                    if (errorMembers) {
-                        notificationFactory.error("", errorMembers + " can't order because of non-registration");
-                    }
-
-                    //check non-registration but order
-                    var errorShiftMembers = "";
+                    //check not in shift but order
                     if (typeOrder !== $scope.typeOrder.sideDishOrder) {
                         order.Members.forEach(member => {
                             if (!member.IsAllowOrderByShift && member.IsOrder && !member.Member.IsFreeOrder) {
                                 isValid = false;
-                                errorShiftMembers += (errorShiftMembers === ""
-                                    ? member.Member.NickName
-                                    : ", " + member.Member.NickName);
+                                arrErrorMembers.push(member.Member.NickName);
                             }
                         });
                     }
 
-                    if (errorShiftMembers) {
-                        notificationFactory.error("", errorShiftMembers + " can't order because only allow ordering by shift");
+                    arrErrorMembers = arrErrorMembers.filter((item, index) => {
+                        return arrErrorMembers.indexOf(item) === index;
+                    });
+
+                    if (arrErrorMembers.length > 0) {
+                        notificationFactory.error("", arrErrorMembers.join(", ") + " can't order because only employee registered and registered in the correct shift can order meal");
                     }
+
                     return isValid;
                 };
 
