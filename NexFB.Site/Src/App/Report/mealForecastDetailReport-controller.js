@@ -1,136 +1,117 @@
 ﻿'use strict';
 /*global reportModule*/
 
-reportModule.controller('MealForecastDetailReportController',
-    ['$scope', '$location', '$routeParams', 'baseUrl', 'reportFactory', 'foodMenuFactory', 'foodMenuUtilities', 'ErrorFactory', 'reportUtilities',
-        function ($scope, $location, $routeParams, baseUrl, reportFactory, foodMenuFactory, foodMenuUtilities, ErrorFactory, reportUtilities) {
-            $scope.filter = {
-                date: $routeParams.date,
-                companyId: $routeParams.companyId,
-                employeeTypeId: $routeParams.employeeTypeId,
-                dietType: $routeParams.dietType
-            };
+reportModule.controller('MealForecastDetailReportController', mealForecastDetailReportController);
+mealForecastDetailReportController.$inject = ['$scope', '$location', '$routeParams', 'reportFactory', 'foodMenuFactory', 'foodMenuUtilities',
+    'ErrorFactory', 'reportUtilities', 'commonFactory', 'baseUrl'];
 
-            $scope.numberFormat = reportUtilities.getNumberFormat();
-            $scope.dateFormat = reportUtilities.getDateFormatEmployeeOrderHistoryReport();
-            $scope.originalcompanyId = '';
-            $scope.baseUrl = baseUrl;
+function mealForecastDetailReportController($scope, $location, $routeParams, reportFactory, foodMenuFactory, foodMenuUtilities,
+    ErrorFactory, reportUtilities, commonFactory, baseUrl) {
+    $scope.filter = {
+        date: $routeParams.date,
+        companyId: $routeParams.companyId,
+        employeeTypeId: $routeParams.employeeTypeId,
+        dietType: $routeParams.dietType
+    };
 
-            $scope.gridOption = {
-                itemsPerPage: 50,
-                currentPage: 0,
-                startIndex: 0
-            };
+    $scope.numberFormat = reportUtilities.getNumberFormat();
+    $scope.dateFormat = reportUtilities.getDateFormatEmployeeOrderHistoryReport();
+    $scope.originalcompanyId = '';
+    $scope.baseUrl = baseUrl;
 
-            /*
-            ** Reset grid option.
-            */
-            var resetGridOption = function () {
-                $scope.gridOption = {
-                    itemsPerPage: 50,
-                    currentPage: 0,
-                    startIndex: 0
-                };
-            };
+    $scope.gridOption = {
+        itemsPerPage: 50,
+        currentPage: 0,
+        startIndex: 0
+    };
 
-            /*
-            ** Reset paging option.
-            */
-            var resetPagingOption = function (filter) {
-                filter.startIndex = 0;
-                filter.itemsPerPage = 50;
-                filter.isPagingCallback = false;
-            };
+    var resetGridOption = function () {
+        $scope.gridOption = {
+            itemsPerPage: 50,
+            currentPage: 0,
+            startIndex: 0
+        };
+    };
 
-            /*
-            ** Get all company.
-            */
-            reportFactory.getCompanyByUserRole().success(function (companies) {
-                $scope.companyOptions = companies;
-                $scope.filter.companyId = $routeParams.companyId.split(',').length > 1 ? $routeParams.companyId : parseInt($routeParams.companyId);
-                $scope.originalcompanyId = $scope.filter.companyId;
-                $scope.getMealForecastDetailReport($scope.filter);
-                getEmployeeType($scope.filter.companyId, null);
-            }).error(function (response, status) {
-                ErrorFactory.errorHandle(status);
-            });
+    var resetPagingOption = function (filter) {
+        filter.startIndex = 0;
+        filter.itemsPerPage = 50;
+        filter.isPagingCallback = false;
+    };
 
-            /*
-            ** Get all employee type.
-            */
-            var getEmployeeType = function (companyId, isLocal) {
-                foodMenuFactory.getAllEmployeeType(companyId, isLocal).success(function (employeeTypes) {
-                    $scope.employeeTypesOption = employeeTypes;
-                    if ($scope.filter.employeeTypeId.length > 0) {
-                        var ids = $scope.filter.employeeTypeId.split(',');
-                        angular.forEach($scope.employeeTypesOption, function (employeeType) {
-                            angular.forEach(ids, function (id) {
-                                if (employeeType.EmployeeTypeId === parseInt(id)) {
-                                    employeeType.ticked = true;
-                                }
-                            });
-                        });
-                    }
-                }).error(function (response, status) {
-                    ErrorFactory.errorHandle(status);
+    reportFactory.getCompanyByUserRole().success(function (companies) {
+        $scope.companyOptions = companies;
+        $scope.filter.companyId = $routeParams.companyId.split(',').length > 1 ? $routeParams.companyId : parseInt($routeParams.companyId);
+        $scope.originalcompanyId = $scope.filter.companyId;
+        $scope.getMealForecastDetailReport($scope.filter);
+        getEmployeeType($scope.filter.companyId, null);
+    }).error(function (response, status) {
+        ErrorFactory.errorHandle(status);
+    });
+
+    var getEmployeeType = function (companyId, isLocal) {
+        foodMenuFactory.getAllEmployeeType(companyId, isLocal).success(function (employeeTypes) {
+            $scope.employeeTypesOption = employeeTypes;
+            if ($scope.filter.employeeTypeId.length > 0) {
+                var ids = $scope.filter.employeeTypeId.split(',');
+                angular.forEach($scope.employeeTypesOption, function (employeeType) {
+                    angular.forEach(ids, function (id) {
+                        if (employeeType.EmployeeTypeId === parseInt(id)) {
+                            employeeType.ticked = true;
+                        }
+                    });
                 });
-            };
+            }
+        }).error(function (response, status) {
+            ErrorFactory.errorHandle(status);
+        });
+    };
 
-            /*
-            ** Get employee type when company change.
-            */
-            $scope.getEmployeeTypeOfcompany = function (companyId) {
-                $scope.filter.employeeTypeId = '';
+    $scope.getEmployeeTypeOfcompany = function (companyId) {
+        $scope.filter.employeeTypeId = '';
 
-                if (!companyId) {
-                    $scope.filter.companyId = $scope.originalcompanyId;
-                    companyId = $scope.originalcompanyId;
-                }
+        if (!companyId) {
+            $scope.filter.companyId = $scope.originalcompanyId;
+            companyId = $scope.originalcompanyId;
+        }
 
-                getEmployeeType(companyId, null);
-            };
+        getEmployeeType(companyId, null);
+    };
 
-            /*
-            ** Get report
-            */
-            $scope.getMealForecastDetailReport = function (filter) {
-                reportFactory.getMealForecastDetailReport(filter).success(function (report) {
-                    $scope.report = report;
-                    $scope.$broadcast("renderMealForecastDetailReport");
-                }).error(function (response, status) {
-                    ErrorFactory.errorHandle(status);
-                });
-            };
+    $scope.getMealForecastDetailReport = function (filter) {
+        commonFactory.blockUI();
+        reportFactory.getMealForecastDetailReport(filter).success(function (report) {
+            $scope.report = report;
+            $scope.$broadcast("renderMealForecastDetailReport");
 
-            /*
-            ** Filter report.
-            */
-            $scope.query = function (filter) {
-                resetGridOption();
-                resetPagingOption(filter);
+            commonFactory.unblockUI();
+        }).error(function (response, status) {
+            ErrorFactory.errorHandle(status);
 
-                filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
+            commonFactory.unblockUI();
+        });
+    };
 
-                $scope.getMealForecastDetailReport(filter);
-            };
+    $scope.query = function (filter) {
+        resetGridOption();
+        resetPagingOption(filter);
 
-            /*
-            **  Export excel
-            */
-            $scope.exportExcel = function (filter) {
-                $scope.criteria = {
-                    onDate: filter.date,
-                    companyId: filter.companyId,
-                    isVegetarian: filter.dietType === '' ? '' : filter.dietType === '0' ? false : true
-                };
+        filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
 
-                $scope.$broadcast('exportMealForecastDetailReport');
-            };
+        $scope.getMealForecastDetailReport(filter);
+    };
 
-            /*
-            **  go back
-            */
-            $scope.goback = function () {
-                $location.url('/MealForecastReport/Index');
-            };
-        }]);
+    $scope.exportExcel = function (filter) {
+        $scope.criteria = {
+            onDate: filter.date,
+            companyId: filter.companyId,
+            isVegetarian: filter.dietType === '' ? '' : filter.dietType === '0' ? false : true
+        };
+
+        $scope.$broadcast('exportMealForecastDetailReport');
+    };
+
+    $scope.goback = function () {
+        $location.url('/MealForecastReport/Index');
+    };
+}
