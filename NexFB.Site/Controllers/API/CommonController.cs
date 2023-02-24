@@ -58,7 +58,7 @@
         {
             var criteria = new GetAllTeamByCompanyCriteria
             {
-                DepartmentId = companyId
+                CompanyId = companyId
             };
 
             return _commonService.GetAllTeamByCompany(criteria);

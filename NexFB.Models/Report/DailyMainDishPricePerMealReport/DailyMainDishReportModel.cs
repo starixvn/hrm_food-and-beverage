@@ -20,10 +20,10 @@ namespace NexFB.Models.Report.DailyMainDishPricePerMealReport
     {
         public DailyMainDishReportModel()
         {
-            MainDishes = new List<DailyMainDishDepartmentTeamModel>();
+            MainDishes = new List<DailyMainDishCompanyTeamModel>();
         }
 
-        public List<DailyMainDishDepartmentTeamModel> MainDishes { get; set; }
+        public List<DailyMainDishCompanyTeamModel> MainDishes { get; set; }
 
         public TotalPriceModel Total { get; set; }
 

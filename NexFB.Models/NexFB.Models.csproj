@@ -101,7 +101,7 @@
     <Compile Include="Report\AdminOrderHistoryReport\AdminOrderHistoryReport.cs" />
     <Compile Include="Report\AdminOrderHistoryReport\AdminOrderModel.cs" />
     <Compile Include="Report\DailyMainDishPricePerMealReport\DailyEmployeeMainDishModel.cs" />
-    <Compile Include="Report\DailyMainDishPricePerMealReport\DailyMainDishDepartmentTeamModel.cs" />
+    <Compile Include="Report\DailyMainDishPricePerMealReport\DailyMainDishCompanyTeamModel.cs" />
     <Compile Include="Report\DailyMainDishPricePerMealReport\DailyMainDishReportModel.cs" />
     <Compile Include="Report\DailyMainDishPricePerMealReport\TotalPriceModel.cs" />
     <Compile Include="Report\EmployeeOrderHistory\EmployeeOrderHistoryReport.cs" />

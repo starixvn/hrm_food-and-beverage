@@ -78,7 +78,7 @@
         {
             int totalItem = 0;
 
-            foreach (DailyMainDishDepartmentTeamModel mainDish in report.MainDishes)
+            foreach (DailyMainDishCompanyTeamModel mainDish in report.MainDishes)
             {
                 totalItem += mainDish.EmployeeDishes.Count();
             }
@@ -86,19 +86,19 @@
             return totalItem;
         }
 
-        private List<DailyMainDishDepartmentTeamModel> LoopAndGetPagingReport(
+        private List<DailyMainDishCompanyTeamModel> LoopAndGetPagingReport(
             DailyMainDishReportModel report,
             int startIndex,
             int itemsPerPage)
         {
-            var mainDishes = new List<DailyMainDishDepartmentTeamModel>();
+            var mainDishes = new List<DailyMainDishCompanyTeamModel>();
             int numberItemsInMainDish = 0;
             int numberMainDishes = report.MainDishes.Count;
             int index = 0;
 
             while (index < numberMainDishes)
             {
-                DailyMainDishDepartmentTeamModel mainDish = report.MainDishes[index];
+                DailyMainDishCompanyTeamModel mainDish = report.MainDishes[index];
                 numberItemsInMainDish = mainDish.EmployeeDishes.Count;
 
                 if (numberItemsInMainDish > startIndex)
@@ -107,7 +107,7 @@
 
                     if (numberItemsRemain <= itemsPerPage)
                     {
-                        DailyMainDishDepartmentTeamModel pagingMainDish = AddEmployeeItemIntoPagingReport(startIndex, mainDish, numberItemsRemain);
+                        DailyMainDishCompanyTeamModel pagingMainDish = AddEmployeeItemIntoPagingReport(startIndex, mainDish, numberItemsRemain);
                         mainDishes.Add(pagingMainDish);
 
                         if (numberItemsRemain == itemsPerPage)
@@ -122,7 +122,7 @@
                     }
                     else
                     {
-                        DailyMainDishDepartmentTeamModel paingMainDish = AddEmployeeItemIntoPagingReport(startIndex, mainDish, itemsPerPage);
+                        DailyMainDishCompanyTeamModel paingMainDish = AddEmployeeItemIntoPagingReport(startIndex, mainDish, itemsPerPage);
                         mainDishes.Add(paingMainDish);
                         break;
                     }
@@ -138,9 +138,9 @@
             return mainDishes;
         }
 
-        private DailyMainDishDepartmentTeamModel AddEmployeeItemIntoPagingReport(int startIndex, DailyMainDishDepartmentTeamModel mainDish, int numberItemsRemain)
+        private DailyMainDishCompanyTeamModel AddEmployeeItemIntoPagingReport(int startIndex, DailyMainDishCompanyTeamModel mainDish, int numberItemsRemain)
         {
-            var newMainDish = new DailyMainDishDepartmentTeamModel
+            var newMainDish = new DailyMainDishCompanyTeamModel
             {
                 Company = mainDish.Company,
                 Team = mainDish.Team,
@@ -154,9 +154,9 @@
         {
             int rowIndex = 1;
 
-            foreach (DailyMainDishDepartmentTeamModel mainDish in report.MainDishes)
+            foreach (DailyMainDishCompanyTeamModel mainDish in report.MainDishes)
             {
-                FillContentDepartmentTeam(mainDish, ref writer, ref rowIndex);
+                FillContentCompanyTeam(mainDish, ref writer, ref rowIndex);
             }
         }
 
@@ -166,8 +166,8 @@
             FillAmountRow(report.GrandTotal, ref writer);
         }
 
-        private void FillContentDepartmentTeam(
-            DailyMainDishDepartmentTeamModel mainDish,
+        private void FillContentCompanyTeam(
+            DailyMainDishCompanyTeamModel mainDish,
             ref ExcelTemplateWriter writer,
             ref int rowIndex)
         {

@@ -1,12 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ReportRepository.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="11/4/2014 9:26:56 AM">Created.</change>
-// </history>
-
+﻿
 namespace NexFB.Repositories.Implement
 {
     using System.Collections.Generic;
@@ -52,7 +44,7 @@ namespace NexFB.Repositories.Implement
                 {
                     var report = new DailyMainDishReportModel();
                     IEnumerable<dynamic> rawReport = multi.Read<dynamic>();
-                    report.MainDishes = GroupMainDishByDepartmentTeam(rawReport);
+                    report.MainDishes = GroupMainDishByCompanyTeam(rawReport);
 
                     report.Total = multi.Read<TotalPriceModel>().FirstOrDefault();
 
@@ -275,9 +267,9 @@ namespace NexFB.Repositories.Implement
             return amount;
         }
 
-        private List<DailyMainDishDepartmentTeamModel> GroupMainDishByDepartmentTeam(IEnumerable<dynamic> rawReport)
+        private List<DailyMainDishCompanyTeamModel> GroupMainDishByCompanyTeam(IEnumerable<dynamic> rawReport)
         {
-            var mainDishes = new List<DailyMainDishDepartmentTeamModel>();
+            var mainDishes = new List<DailyMainDishCompanyTeamModel>();
             IEnumerable<dynamic> rawCompanyIds = rawReport.Select(x => x.CompanyID).Distinct();
 
             foreach (dynamic rawCompanyId in rawCompanyIds)
@@ -288,7 +280,7 @@ namespace NexFB.Repositories.Implement
                 foreach (dynamic rawTeamId in rawTeamIds)
                 {
                     IEnumerable<dynamic> rowCompanyTeams = rowCompanies.Where(x => x.EmpTeamID == rawTeamId);
-                    DailyMainDishDepartmentTeamModel mainDish = CreateMainDishDepartmentTeam(rowCompanyTeams);
+                    DailyMainDishCompanyTeamModel mainDish = CreateMainDishCompanyTeam(rowCompanyTeams);
                     mainDishes.Add(mainDish);
                 }
             }
@@ -296,17 +288,17 @@ namespace NexFB.Repositories.Implement
             return mainDishes;
         }
 
-        private DailyMainDishDepartmentTeamModel CreateMainDishDepartmentTeam(
+        private DailyMainDishCompanyTeamModel CreateMainDishCompanyTeam(
             IEnumerable<dynamic> rowCompanyTeams)
         {
-            var mainDish = new DailyMainDishDepartmentTeamModel();
+            var mainDish = new DailyMainDishCompanyTeamModel();
             int index = 0;
 
             foreach (dynamic rowCompanyTeam in rowCompanyTeams)
             {
                 if (index == 0)
                 {
-                    mainDish.Company = CreateMainDishDepartment(rowCompanyTeam);
+                    mainDish.Company = CreateMainDishCompany(rowCompanyTeam);
                     mainDish.Team = CreateMainDishTeam(rowCompanyTeam);
                 }
 
@@ -317,7 +309,7 @@ namespace NexFB.Repositories.Implement
             return mainDish;
         }
 
-        private Company CreateMainDishDepartment(dynamic rowCompanyTeam)
+        private Company CreateMainDishCompany(dynamic rowCompanyTeam)
         {
             int? companyId = rowCompanyTeam.CompanyID;
 

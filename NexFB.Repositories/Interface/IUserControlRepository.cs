@@ -24,6 +24,6 @@ namespace NexFB.Repositories.Interface
 
         EmployeeModel GetEmployeeRoleById(ICriteria criteria);
 
-        IEnumerable<Company> GetDepartmentUserHasPermission(ICriteria criteria);
+        IEnumerable<Company> GetCompanyUserHasPermission(ICriteria criteria);
     }
 }

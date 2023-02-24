@@ -65,7 +65,7 @@
             }
         }
 
-        public IEnumerable<Company> GetDepartmentUserHasPermission(ICriteria criteria)
+        public IEnumerable<Company> GetCompanyUserHasPermission(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -73,9 +73,9 @@
                 {
                     multi.Read();
                     multi.Read();
-                    var rolesDepartment = multi.Read<Company>();
+                    var rolesCompany = multi.Read<Company>();
 
-                    return rolesDepartment;
+                    return rolesCompany;
                 }
             }
         }

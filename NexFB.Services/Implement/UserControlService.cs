@@ -95,17 +95,17 @@
             return commandResult;
         }
 
-        public IEnumerable<Company> GetDepartmentUserHasPermission(GetEmployeeRoleByIdCriteria criteria)
+        public IEnumerable<Company> GetCompanyUserHasPermission(GetEmployeeRoleByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
-            IEnumerable<Company> departments = null;
+            IEnumerable<Company> companies = null;
 
             if (criteria.IsValid())
             {
-                departments = _userControlRepository.GetDepartmentUserHasPermission(criteria);
+                companies = _userControlRepository.GetCompanyUserHasPermission(criteria);
             }
 
-            return departments;
+            return companies;
         }
 
         private List<FunctionModel> GetFunctionByRoleRecursion(

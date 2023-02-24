@@ -130,11 +130,11 @@ namespace NexFB.Services.Implement.Report
                     Amount = item.Amount
                 };
 
-                if (!groupName.Contains(item.DepartmentTeamName))
+                if (!groupName.Contains(item.CompanyTeamName))
                 {
                     //writer.WriteRow(2, new object[] { item.CompanyTeamName });
 
-                    groupName.Add(item.DepartmentTeamName);
+                    groupName.Add(item.CompanyTeamName);
                 }
 
                 writer.WriteRow(3, subItem);

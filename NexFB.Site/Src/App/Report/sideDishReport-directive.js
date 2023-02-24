@@ -38,42 +38,6 @@ reportModule.directive('sideDishReport', function () {
             var counter = (pageIndex * itemsPerPage) + 1;
 
             angular.forEach(data.SideDishItems, function (item) {
-                //var currentRow = {};
-
-                //var result = $.grep(rows, function (e) { return e.Columns[0].Value === item.DepartmentTeamName; });
-
-                //if (result.length > 0) {
-                //    currentRow = result[0];
-                //} else {
-                //    currentRow = {
-                //        Columns: [
-                //            //{ Name: "No", Value: item.DepartmentTeamName, MergeColNumber: 11, CellAlign: "left" }
-                //        ],
-                //        SubRows: []
-                //    };
-
-                //    rows.push(currentRow);
-                //}
-
-                //var currentSubRow = {
-                //    Columns: [
-                //        { Name: "No", Value: counter },
-                //        { Name: "WorkDate", Value: item.WorkDate },
-                //        { Name: "Shift", Value: item.Shift },
-                //        { Name: "FullName", Value: item.FullName },
-                //        { Name: "NickName", Value: item.NickName },
-                //        { Name: "Section", Value: item.Team },
-                //        { Name: "FoodVNMName", Value: item.FoodVNMName },
-                //        { Name: "FoodEngName", Value: item.FoodEngName },
-                //        { Name: "Price", Value: item.Price },
-                //        { Name: "Qty", Value: item.Qty },
-                //        { Name: "Amount", Value: item.Amount }
-                //    ]
-                //};
-
-                //currentRow.SubRows.push(currentSubRow);
-
-                //new render way: without section row
                 var currentRow = {
                     Columns: [
                         { Name: "No", Value: counter },

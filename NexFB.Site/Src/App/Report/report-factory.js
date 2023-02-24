@@ -6,7 +6,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         history = {
             fromDate: new Date(date.getFullYear(), date.getMonth(), 1),
             toDate: new Date(),
-            departmentId: '',
+            companyId: '',
             employeeTypeId: '',
             vegetarianType: '',
             isPagingCallback: false,
@@ -18,7 +18,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
     var historySideDishSummary = {
         fromDate: new Date(date.getFullYear(), date.getMonth(), 1),
         toDate: new Date(),
-        departmentId: '',
+        companyId: '',
         teamId: '',
         employeeTypeId: '',
         employee: {},
@@ -206,7 +206,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
         setHistory: function (scope, isCallBack) {
             history.fromDate = scope.filter.fromDate;
             history.toDate = scope.filter.toDate;
-            history.departmentId = scope.filter.departmentId;
+            history.companyId = scope.filter.companyId;
             history.employeeTypeId = scope.filter.employeeTypeId;
             history.vegetarianType = scope.filter.vegetarianType;
             history.startIndex = scope.filter.startIndex;
@@ -272,7 +272,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
             historySideDishSummary = {
                 fromDate: scope.filter.fromDate,
                 toDate: scope.filter.toDate,
-                departmentId: scope.filter.departmentId,
+                companyId: scope.filter.companyId,
                 teamId: scope.filter.teamId,
                 employeeTypeId: scope.filter.employeeTypeId,
                 employee: scope.filter.employee,

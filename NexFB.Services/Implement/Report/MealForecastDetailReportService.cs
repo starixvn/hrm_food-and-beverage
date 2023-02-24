@@ -211,7 +211,7 @@ namespace NexFB.Services.Implement.Report
         {
             string reportName = Lang.MealRegistrationDetailReportFileName + dateSelected.ToString("dd_MMM_yyyy");
             string reportTitle = Lang.EmployeeRegistrationDetail + " " + dateSelected.ToString("dd MMM, yyyy");
-            string reportSheetName = Lang.EmployeeRegistrationDetail + " " + dateSelected.ToString("dd MMM, yyyy");
+            string reportSheetName = dateSelected.ToString("dd MMM, yyyy");
             var writer = new ExcelTemplateWriter(templatePath, reportName, reportSheetName);
 
             // Fill report title.
@@ -236,7 +236,7 @@ namespace NexFB.Services.Implement.Report
         {
             string reportName = Lang.MealNonRegistrationDetailReportFileName + dateSelected.ToString("dd_MMM_yyyy");
             string reportTitle = Lang.EmployeeNonRegistrationDetail + " " + dateSelected.ToString("dd MMM, yyyy");
-            string reportSheetName = Lang.EmployeeNonRegistrationDetail + " " + dateSelected.ToString("dd MMM, yyyy");
+            string reportSheetName = dateSelected.ToString("dd MMM, yyyy");
             var writer = new ExcelTemplateWriter(templatePath, reportName, reportSheetName);
 
             // Fill report title.
@@ -517,7 +517,7 @@ namespace NexFB.Services.Implement.Report
             {
                 Count = totalName,
                 Code = string.Empty,
-                Department = string.Empty,
+                Company = string.Empty,
                 Shift = string.Empty,
                 NickName = string.Empty,
                 FullName = string.Empty,
@@ -535,7 +535,7 @@ namespace NexFB.Services.Implement.Report
             {
                 Count = totalName,
                 Code = string.Empty,
-                Department = string.Empty,
+                Company = string.Empty,
                 Shift = string.Empty,
                 NickName = string.Empty,
                 FullName = string.Empty,

@@ -141,7 +141,7 @@ namespace NexFB.Services.Implement.Report
             }
             else
             {
-                records = CreateMealGroupByDepartmentOrCostCenter(mealItems, ref rowIndex, isGroupByCostCenter);
+                records = CreateMealGroupByCompanyOrCostCenter(mealItems, ref rowIndex, isGroupByCostCenter);
             }
 
             var mealRecords = new RecordModel
@@ -172,7 +172,7 @@ namespace NexFB.Services.Implement.Report
             }
             else
             {
-                record = CreateTotalMealDepartmentRecord(total);
+                record = CreateTotalMealCompanyRecord(total);
             }
 
             var rowId = groupBy == GroupByReport.CostCenter ? 8 : 7;
@@ -463,12 +463,6 @@ namespace NexFB.Services.Implement.Report
             }
         }
 
-        /// <summary>
-        ///  Create meal records of report group by employee.
-        /// </summary>
-        /// <param name="mealItems">The list meal items.</param>
-        /// <param name="rowIndex">The row index.</param>
-        /// <returns>The enumerator object.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private IEnumerable<object> CreateMealGroupByEmployee(List<MealItemMonthModel> mealItems, ref int rowIndex)
         {
@@ -534,7 +528,7 @@ namespace NexFB.Services.Implement.Report
         /// <param name="rowIndex">The row index.</param>
         /// <returns>The enumerator object.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        private IEnumerable<object> CreateMealGroupByDepartmentOrCostCenter(List<MealItemMonthModel> mealItems, ref int rowIndex, bool isGroupByCostCenter)
+        private IEnumerable<object> CreateMealGroupByCompanyOrCostCenter(List<MealItemMonthModel> mealItems, ref int rowIndex, bool isGroupByCostCenter)
         {
             IList<object> records = new List<object>();
 
@@ -647,7 +641,7 @@ namespace NexFB.Services.Implement.Report
         /// </summary>
         /// <param name="totalMeal">The total meal.</param>
         /// <returns>The total row.</returns>
-        private object CreateTotalMealDepartmentRecord(MealDayOfMonthModel totalMeal)
+        private object CreateTotalMealCompanyRecord(MealDayOfMonthModel totalMeal)
         {
             List<int> numberMeals = totalMeal.NumberMeals;
 

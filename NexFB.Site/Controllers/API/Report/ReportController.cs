@@ -313,7 +313,7 @@ namespace NexFB.Site.Controllers.API.Report
         [HttpGet]
         public IEnumerable<Company> GetCompanyByUserRole()
         {
-            IEnumerable<Company> departments = null;
+            IEnumerable<Company> companies = null;
             const byte financeRole = (byte)RolesSystem.Finance;
             const byte employeeRole = (byte)RolesSystem.Employee;
             const byte adminRole = (byte)RolesSystem.Admin;
@@ -333,7 +333,7 @@ namespace NexFB.Site.Controllers.API.Report
                 if (isContainSystemAdminRole || isContainAdminRole ||
                     (!isContainFinanceRole && (isContainEmployeeRole || isContainKitchenRole)))
                 {
-                    departments = _commonService.GetAllCompany();
+                    companies = _commonService.GetAllCompany();
                 }
                 else if (isContainFinanceRole)
                 {
@@ -342,11 +342,11 @@ namespace NexFB.Site.Controllers.API.Report
                         SystemId = CurrentUser.UserId,
                         RoleId = financeRole.ToString()
                     };
-                    departments = _userControlService.GetDepartmentUserHasPermission(criteria);
+                    companies = _userControlService.GetCompanyUserHasPermission(criteria);
                 }
             }
 
-            return departments;
+            return companies;
         }
 
         [HttpGet]
@@ -663,17 +663,17 @@ namespace NexFB.Site.Controllers.API.Report
         {
             var companies = new List<object>();
 
-            foreach (CompanyIdentity departmentEnum in (CompanyIdentity[])Enum.GetValues(typeof(CompanyIdentity)))
+            foreach (CompanyIdentity companyEnum in (CompanyIdentity[])Enum.GetValues(typeof(CompanyIdentity)))
             {
-                if (departmentEnum != CompanyIdentity.None)
+                if (companyEnum != CompanyIdentity.None)
                 {
-                    var department = new
+                    var company = new
                     {
-                        Value = (int)departmentEnum,
-                        Name = Enumerations.GetDescription(departmentEnum)
+                        Value = (int)companyEnum,
+                        Name = Enumerations.GetDescription(companyEnum)
                     };
 
-                    companies.Add(department);
+                    companies.Add(company);
                 }
             }
 

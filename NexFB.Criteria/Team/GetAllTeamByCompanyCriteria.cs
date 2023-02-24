@@ -4,7 +4,7 @@
 
     public class GetAllTeamByCompanyCriteria : CriteriaBase
     {
-        public string DepartmentId { get; set; }
+        public string CompanyId { get; set; }
 
         public override string GetSettingKey()
         {

@@ -6,9 +6,9 @@ namespace NexFB.Models.Report.DailyMainDishPricePerMealReport
     using NexFB.Models.Entities;
 
     [Serializable]
-    public class DailyMainDishDepartmentTeamModel
+    public class DailyMainDishCompanyTeamModel
     {
-        public DailyMainDishDepartmentTeamModel()
+        public DailyMainDishCompanyTeamModel()
         {
             EmployeeDishes = new List<DailyEmployeeMainDishModel>();
         }
