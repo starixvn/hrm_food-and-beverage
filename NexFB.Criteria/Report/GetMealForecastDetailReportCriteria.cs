@@ -1,29 +1,27 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GetMealForecastDetailReportCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2015/1/16">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.Report
+﻿namespace NexFB.Criteria.Report
 {
     using System;
     using Fanex.Data.Repository;
 
-    /// <summary>
-    /// Get meal forecast detail report criteria.
-    /// </summary>
     public class GetMealForecastDetailReportCriteria : CriteriaBase
     {
-        public DateTime OnDate { get; set; }
+        [SpParam(SqlParamName = "OnDate")]
+        public DateTime Date { get; set; }
 
         public string CompanyId { get; set; }
 
         public string EmployeeTypeId { get; set; }
 
         public bool? IsVegetarian { get; set; }
+
+        [SpParam(Ignored = true)]
+        public int StartIndex { get; set; }
+
+        [SpParam(Ignored = true)]
+        public int ItemsPerPage { get; set; } = 50;
+
+        [SpParam(Ignored = true)]
+        public bool IsPagingCallback { get; set; }
 
         public override string GetSettingKey()
         {

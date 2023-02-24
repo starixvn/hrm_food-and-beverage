@@ -5,12 +5,12 @@
     public enum GroupByReport
     {
         [Description("Employee")]
-        Employee = 0,
+        Employee,
 
-        [Description("Department")]
-        Department = 1,
+        [Description("Company")]
+        Company,
 
-        [Description("CostCenter")]
-        CostCenter = 2,
+        [Description("Cost Center")]
+        CostCenter
     }
 }

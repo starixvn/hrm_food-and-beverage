@@ -52,7 +52,6 @@
     <Compile Include="Employee\EmployeeShift.cs" />
     <Compile Include="Employee\EmployeeTypeModel.cs" />
     <Compile Include="Employee\SpecialUser.cs" />
-    <Compile Include="Entities\Department.cs" />
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Authority\SystemRole.cs" />
     <Compile Include="Authority\UserSession.cs" />
@@ -121,9 +120,6 @@
     <Compile Include="Report\MonthlyMainDishReportLocal\MealItemMonthModel.cs" />
     <Compile Include="Report\MonthlyMainDishReportLocal\MealMonthModel.cs" />
     <Compile Include="Report\MonthlyMainDishReportLocal\MonthlyLocalReportModel.cs" />
-    <Compile Include="Report\MonthlyMainDishReportLocal\RawMonthlyLocalReportModel.cs">
-      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
-    </Compile>
     <Compile Include="Report\MonthlyMealPriceReport\BreakfastAndSupperModel.cs" />
     <Compile Include="Report\MonthlyMealPriceReport\BreakfastAndSupperTotalAmountReportModel.cs" />
     <Compile Include="Report\MonthlyMealPriceReport\LunchAndDinnerModel.cs" />

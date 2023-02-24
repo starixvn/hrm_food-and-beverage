@@ -68,10 +68,7 @@
         <Setting Key="UserCtrl_SetEmployee" SpName="UserCtrl_SetEmployee" DbName="FBM" Plain="0">
         </Setting>
     </Function>
-    <Function Name="Department">
-        <Setting Key="Department_GetAll" SpName="Department_GetAll" DbName="FBM" Plain="0">
-            <Mapping DataField="DepartmentName" ObjectProperty="Name" />
-        </Setting>
+    <Function Name="Location">
         <Setting Key="Location_GetAll" SpName="Location_GetAll" DbName="FBM" Plain="0">
             <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" />
             <Mapping DataField="LocationENGName" ObjectProperty="NameEN" />

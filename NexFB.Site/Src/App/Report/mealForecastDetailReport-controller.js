@@ -103,7 +103,7 @@ function mealForecastDetailReportController($scope, $location, $routeParams, rep
 
     $scope.exportExcel = function (filter) {
         $scope.criteria = {
-            onDate: filter.date,
+            date: filter.date,
             companyId: filter.companyId,
             isVegetarian: filter.dietType === '' ? '' : filter.dietType === '0' ? false : true
         };

@@ -2,8 +2,8 @@
 /*global reportModule*/
 
 reportModule.controller('EmployeeRegistrationDetailReport',
-    ['$scope', '$window', '$location', '$routeParams', 'reportFactory', 'foodMenuFactory', 'foodMenuUtilities', 'ErrorFactory', 'reportUtilities',
-        function ($scope, $window, $location, $routeParams, reportFactory, foodMenuFactory, foodMenuUtilities, ErrorFactory, reportUtilities) {
+    ['$scope', '$window', '$routeParams', 'reportFactory', 'ErrorFactory', 'reportUtilities',
+        function ($scope, $window, $routeParams, reportFactory, ErrorFactory, reportUtilities) {
             $scope.filter = {
                 date: $routeParams.date,
                 companyId: $routeParams.companyId,
@@ -41,7 +41,7 @@ reportModule.controller('EmployeeRegistrationDetailReport',
             */
             $scope.exportExcel = function (filter) {
                 $scope.criteria = {
-                    workDate: filter.date,
+                    date: filter.date,
                     companyId: filter.companyId,
                     employeeTypeId: filter.employeeTypeId,
                     mealId: filter.mealId,

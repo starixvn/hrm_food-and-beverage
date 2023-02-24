@@ -73,7 +73,6 @@
     <Compile Include="DeliveryArea\GetAllDeliveryAreaCriteria.cs" />
     <Compile Include="DeliveryArea\InsertDeliveryAreaCriteria.cs" />
     <Compile Include="DeliveryArea\UpdateDeliveryAreaCriteria.cs" />
-    <Compile Include="Department\GetAllDepartmentCriteria.cs" />
     <Compile Include="Company\GetCompanyByIdCriteria.cs" />
     <Compile Include="Employee\ActivateSpecialUserCriteria.cs" />
     <Compile Include="Employee\ChangePasswordCriteria.cs" />

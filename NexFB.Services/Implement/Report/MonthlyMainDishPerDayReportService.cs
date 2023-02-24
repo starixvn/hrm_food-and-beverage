@@ -30,21 +30,21 @@
             _reportRepository = reportRepository ?? new ReportRepository();
             _monthlyMainDishPerMealReportService = reportService ?? new MonthlyMainDishReportService();
         }
+
         public MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport(GetMonthlyMainDishPerDayReportCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             MonthlyMainDishPerDayModel report = null;
-
             if (criteria.IsValid())
             {
                 report = _reportRepository.GetMonthlyMainDishPerDayReport(criteria);
                 report.TotalItem = CalculateTotelItem(report.TypeDays);
                 report.Month = criteria.ReportDate;
-                report.IsGroupByEmployee = criteria.GroupBy == (int)GroupByReport.Employee;
+                report.IsGroupByEmployee = criteria.GroupBy == (byte)GroupByReport.Employee;
             }
 
             return report;
         }
+
         public MonthlyMainDishPerDayModel GetPagingReport(
             MonthlyMainDishPerDayModel fullReport,
             int startIndex,
@@ -62,6 +62,7 @@
             pagingReport.TypeDays = LoopAndGetPagingReport(fullReport, startIndex, itemsPerPage);
             return pagingReport;
         }
+
         public void ExportMonthlyMainDishPerDayReport(
             MonthlyMainDishPerDayModel report,
             string templatePath)
@@ -136,6 +137,7 @@
 
             return totalItem;
         }
+
         private List<MainDishPerDayModel> LoopAndGetPagingReport(
             MonthlyMainDishPerDayModel report,
             int startIndex,

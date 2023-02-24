@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using NexFB.Criteria.DeliveryArea;
-    using NexFB.Criteria.Department;
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Team;
@@ -31,12 +30,6 @@
         public IEnumerable<Company> GetAllCompany()
         {
             return _commonService.GetAllCompany();
-        }
-
-        public IEnumerable<Department> GetAllDepartment()
-        {
-            var criteria = new GetAllDepartmentCriteria();
-            return _commonService.GetAllDepartment(criteria);
         }
 
         public IEnumerable<Location> GetAllDeliveryArea(

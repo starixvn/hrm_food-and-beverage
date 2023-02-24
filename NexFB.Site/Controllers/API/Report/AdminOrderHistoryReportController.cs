@@ -1,6 +1,6 @@
 ﻿namespace NexFB.Site.Controllers.API
 {
-    using System.Web.Mvc;
+    using System.Web.Http;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Criteria.Report;
@@ -25,7 +25,7 @@
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.AdminOrderHistoryReport, Policy = Policy.Read)]
-        public AdminOrderHistoryReport GetData([System.Web.Http.FromUri] GetAdminOrderHistoryCriteria criteria)
+        public AdminOrderHistoryReport GetData([FromUri] GetAdminOrderHistoryCriteria criteria)
         {
             AdminOrderHistoryReport fullReport;
             if (criteria.IsPagingCallback)

@@ -41,7 +41,7 @@ reportModule.controller('EmployeeNonRegistrationDetailReport',
             */
             $scope.exportExcel = function (filter) {
                 $scope.criteria = {
-                    workDate: filter.date,
+                    date: filter.date,
                     companyId: filter.companyId,
                     employeeTypeId: filter.employeeTypeId,
                     mealId: filter.mealId,

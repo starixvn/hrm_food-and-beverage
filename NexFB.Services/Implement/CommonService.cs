@@ -2,11 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Fanex.Common.Helper;
     using NexFB.Core.Enums;
     using NexFB.Core.Services;
     using NexFB.Criteria.Company;
-    using NexFB.Criteria.Department;
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Team;
@@ -40,17 +38,6 @@
             }
 
             return roles;
-        }
-
-        public IEnumerable<Department> GetAllDepartment(GetAllDepartmentCriteria criteria)
-        {
-            IEnumerable<Department> departments = null;
-            if (criteria.IsValid())
-            {
-                departments = GetData<Department>(criteria);
-            }
-
-            return departments;
         }
 
         public IEnumerable<Team> GetAllTeamByCompany(GetAllTeamByCompanyCriteria criteria)

@@ -1,28 +1,18 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GetSideDishReportCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Larry.Tran" date="1/7/2015 3:44 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.Report
+﻿namespace NexFB.Criteria.Report
 {
     using System;
     using Fanex.Data.Repository;
     using NexFB.Core.Extensions;
 
-    /// <summary>
-    /// The GetSideDishReportCriteria class.
-    /// </summary>
     public class GetSideDishReportCriteria : CriteriaBase
     {
         public string CompanyId { get; set; }
 
-        public string EmployeeTypeId { get; set; }
+        [SpParam(SqlParamName = "EmployeeTypeId")]
+        public string EmployeeTypeIds { get; set; }
 
-        public string TeamId { get; set; }
+        [SpParam(SqlParamName = "TeamId")]
+        public string TeamIds { get; set; }
 
         [SpParam(SqlParamName = "SysID")]
         public int? UserId { get; set; }
@@ -31,7 +21,8 @@ namespace NexFB.Criteria.Report
 
         public DateTime ToDate { get; set; }
 
-        public string SideDishItemId { get; set; }
+        [SpParam(SqlParamName = "SideDishItemId")]
+        public string SideDishItemIds { get; set; }
 
         public int? PageIndex { get; set; }
 

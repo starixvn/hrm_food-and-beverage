@@ -84,35 +84,10 @@ namespace NexFB.Site.Controllers.API.Report
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MonthlyMainDishReportPerMeal, Policy = Policy.Read)]
-        public MonthlyLocalReportModel GetMonthlyMainDishReportLocal(
-            DateTime reportDate,
-            string companyId = "",
-            int? userId = null,
-            string employeeTypeId = "",
-            string teamId = "",
-            string mealId = "",
-            int groupBy = 0,
-            int startIndex = 0,
-            int itemsPerPage = 50,
-            bool isPagingCallback = false,
-            bool isDebug = false,
-            int isLocal = 1)
+        public MonthlyLocalReportModel GetMonthlyMainDishReportLocal([FromUri] GetMonthlyMainDishReportLocalCriteria criteria)
         {
-            var criteria = new GetMonthlyMainDishReportLocalCriteria
-            {
-                UserId = userId,
-                ReportDate = reportDate,
-                CompanyId = companyId,
-                EmployeeTypeId = employeeTypeId,
-                TeamId = teamId,
-                MealId = mealId,
-                GroupBy = groupBy,
-                IsDebug = isDebug,
-                IsLocal = isLocal
-            };
             MonthlyLocalReportModel fullReport = null;
-
-            if (isPagingCallback)
+            if (criteria.IsPagingCallback)
             {
                 fullReport = SessionManager.Get<MonthlyLocalReportModel>(ReportConstant.MonthlyMainDishReportLocalSessionKey + CurrentUser.UserId);
             }
@@ -120,11 +95,11 @@ namespace NexFB.Site.Controllers.API.Report
             if (fullReport == null)
             {
                 fullReport = _monthlyMainDishReportService.GetMonthlyMainDishReportLocal(criteria);
-                if (fullReport.Meals.Count > 0 && groupBy == 0)
+                if (fullReport.Meals.Count > 0 && criteria.GroupBy == 0)
                 {
                     var criteriaShift = new GetEmployeeShiftInMonthCriteria
                     {
-                        ReportDate = reportDate
+                        ReportDate = criteria.ReportDate
                     };
                     var shifts = _employeeService.GetEmployeeShiftInMonth(criteriaShift);
                     AddShiftToReport(fullReport, shifts);
@@ -132,7 +107,7 @@ namespace NexFB.Site.Controllers.API.Report
                 SessionManager.Set<MonthlyLocalReportModel>(ReportConstant.MonthlyMainDishReportLocalSessionKey + CurrentUser.UserId, fullReport);
             }
 
-            MonthlyLocalReportModel pagingReport = _monthlyMainDishReportService.GetPaingReport(fullReport, startIndex, itemsPerPage);
+            MonthlyLocalReportModel pagingReport = _monthlyMainDishReportService.GetPaingReport(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
             return pagingReport;
         }
 
@@ -156,38 +131,10 @@ namespace NexFB.Site.Controllers.API.Report
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.DailyMainDishReport, Policy = Policy.Read)]
-        public DailyMainDishReportModel GetDailyMainDishReport(
-            DateTime fromDate,
-            DateTime toDate,
-            int orderCount,
-            string companyId = "",
-            string employeeTypeId = "",
-            string teamId = "",
-            string mealId = "",
-            int? userId = null,
-            string query = "",
-            bool isDebug = false,
-            int? isLocal = null,
-            int startIndex = 0,
-            int itemsPerPage = 50,
-            bool isPagingCallback = false)
+        public DailyMainDishReportModel GetDailyMainDishReport([FromUri] GetDailyMainDishPricePerMealReportCriteria criteria)
         {
-            var criteria = new GetDailyMainDishPricePerMealReportCriteria
-            {
-                FromDate = fromDate,
-                ToDate = toDate,
-                OrderCount = orderCount,
-                CompanyId = companyId,
-                EmployeeTypeId = employeeTypeId,
-                TeamId = teamId,
-                MealId = mealId,
-                IsDebug = isDebug,
-                IsLocal = isLocal,
-                UserId = userId,
-                Query = query
-            };
             DailyMainDishReportModel fullReport;
-            if (isPagingCallback)
+            if (criteria.IsPagingCallback)
             {
                 fullReport = SessionManager.Get<DailyMainDishReportModel>(ReportConstant.DailyMainDishReportSessionKey + CurrentUser.UserId);
             }
@@ -197,66 +144,22 @@ namespace NexFB.Site.Controllers.API.Report
                 SessionManager.Set<DailyMainDishReportModel>(ReportConstant.DailyMainDishReportSessionKey + CurrentUser.UserId, fullReport);
             }
 
-            return _dailyMainDishReportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            return _dailyMainDishReportService.GetPagingReport(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
         }
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.SideDishReport, Policy = Policy.Read)]
-        public SideDishReportModel GetSideDishReport(
-            DateTime fromDate,
-            DateTime toDate,
-            string companyId = "",
-            string teamIds = "",
-            string employeeTypeIds = "",
-            int? userId = null,
-            string sideDishItemIds = "",
-            int? pageIndex = null,
-            int? itemsPerPage = null)
+        public SideDishReportModel GetSideDishReport([FromUri] GetSideDishReportCriteria criteria)
         {
-            var criteria = new GetSideDishReportCriteria
-            {
-                FromDate = fromDate,
-                ToDate = toDate,
-                CompanyId = companyId,
-                TeamId = teamIds,
-                EmployeeTypeId = employeeTypeIds,
-                UserId = userId,
-                SideDishItemId = sideDishItemIds,
-                PageIndex = pageIndex,
-                ItemsPerPage = itemsPerPage
-            };
-
             SideDishReportModel reportData = _sideDishReportService.GetSideDishReport(criteria);
-
             return reportData;
         }
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.SideDishSummaryReport, Policy = Policy.Read)]
-        public SideDishSummaryReportModel GetSideDishSummaryReport(
-            DateTime fromDate,
-            DateTime toDate,
-            string companyId = "",
-            string teamId = "",
-            string employeeTypeId = "",
-            int? userId = null,
-            int? pageIndex = null,
-            int? itemsPerPage = null)
+        public SideDishSummaryReportModel GetSideDishSummaryReport([FromUri] GetSideDishSummaryReportCriteria criteria)
         {
-            var criteria = new GetSideDishSummaryReportCriteria
-            {
-                FromDate = fromDate,
-                ToDate = toDate,
-                CompanyId = companyId,
-                EmployeeTypeId = employeeTypeId,
-                TeamId = teamId,
-                UserId = userId,
-                PageIndex = pageIndex,
-                ItemsPerPage = itemsPerPage
-            };
-
             SideDishSummaryReportModel report = _sideDishSummaryReportService.GetSideDishSummaryReport(criteria);
-
             return report;
         }
 
@@ -269,7 +172,6 @@ namespace NexFB.Site.Controllers.API.Report
                 UserId = userId
             };
             Employee user = _employeeService.GetEmployeeById(criteria);
-
             return user;
         }
 
@@ -306,7 +208,6 @@ namespace NexFB.Site.Controllers.API.Report
             };
 
             ViewMenuReportModel reportData = _viewMenuReportService.GetViewMenuReport(criteria);
-
             return reportData;
         }
 
@@ -351,33 +252,11 @@ namespace NexFB.Site.Controllers.API.Report
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.EmployeeOrderHistoricalReport, Policy = Policy.Read)]
-        public EmployeeOrderHistoryReport GetEmployeeOrderHistoryReport(
-            DateTime fromDate,
-            DateTime toDate,
-            int orderBy = 0,
-            int employeeMenu = 0,
-            int orderPlatform = 0,
-            string mealId = "",
-            string statusId = "",
-            bool isPagingCallback = false,
-            int startIndex = 0,
-            int itemsPerPage = 50)
+        public EmployeeOrderHistoryReport GetEmployeeOrderHistoryReport([FromUri] GetEmployeeOrderHistoryCriteria criteria)
         {
-            var criteria = new GetEmployeeOrderHistoryCriteria
-            {
-                UserId = CurrentUser.UserId,
-                FromDate = fromDate,
-                ToDate = toDate,
-                OrderBy = orderBy,
-                MyMenu = employeeMenu,
-                OrderPlatform = orderPlatform,
-                MealId = mealId,
-                StatusId = statusId
-            };
-
             EmployeeOrderHistoryReport fullReport;
             GetOrderedByEnum();
-            if (isPagingCallback)
+            if (criteria.IsPagingCallback)
             {
                 fullReport = SessionManager.Get<EmployeeOrderHistoryReport>(ReportConstant.EmployeeOrderHistoryReportSessionKey + CurrentUser.UserId);
             }
@@ -387,38 +266,16 @@ namespace NexFB.Site.Controllers.API.Report
                 SessionManager.Set<EmployeeOrderHistoryReport>(ReportConstant.EmployeeOrderHistoryReportSessionKey + CurrentUser.UserId, fullReport);
             }
 
-            EmployeeOrderHistoryReport pagingReport = _employeeOrderHistoryService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            EmployeeOrderHistoryReport pagingReport = _employeeOrderHistoryService.GetPagingReport(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
             return pagingReport;
         }
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MonthlyMainDishReportPerDay, Policy = Policy.Read)]
-        public MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport(
-            DateTime reportDate,
-            string companyId = "",
-            string employeeTypeId = "",
-            string teamId = "",
-            int? workDay = null,
-            int groupBy = 0,
-            bool isDebug = false,
-            int isLocal = 0,
-            int startIndex = 0,
-            int itemsPerPage = 50,
-            bool isPagingCallback = false)
+        public MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport([FromUri] GetMonthlyMainDishPerDayReportCriteria criteria)
         {
-            var criteria = new GetMonthlyMainDishPerDayReportCriteria
-            {
-                ReportDate = reportDate,
-                CompanyId = companyId,
-                EmployeeTypeId = employeeTypeId,
-                TeamId = teamId,
-                WorkDay = workDay,
-                GroupBy = groupBy,
-                IsDebug = isDebug,
-                IsLocal = isLocal
-            };
             MonthlyMainDishPerDayModel fullReport;
-            if (isPagingCallback)
+            if (criteria.IsPagingCallback)
             {
                 fullReport = SessionManager.Get<MonthlyMainDishPerDayModel>(
                         ReportConstant.MonthlyMainDishPerDayReportSessionKey + CurrentUser.UserId);
@@ -430,153 +287,83 @@ namespace NexFB.Site.Controllers.API.Report
                         ReportConstant.MonthlyMainDishPerDayReportSessionKey + CurrentUser.UserId, fullReport);
             }
 
-            MonthlyMainDishPerDayModel pagingReport = _monthlyPerDayService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            MonthlyMainDishPerDayModel pagingReport = _monthlyPerDayService.GetPagingReport(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
             return pagingReport;
         }
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealForecastReport, Policy = Policy.Read)]
-        public MealForecastReportModel GetMealForecastReport(
-            DateTime fromDate,
-            DateTime toDate,
-            string companyId = "",
-            string employeeTypeId = "",
-            bool? isVegetarian = null,
-            bool isPagingCallback = false,
-            int startIndex = 0,
-            int itemsPerPage = 50)
+        public MealForecastReportModel GetMealForecastReport([FromUri] GetMealForecastReportCriteria criteria)
         {
             MealForecastReportModel fullReport;
-            if (isPagingCallback)
+            if (criteria.IsPagingCallback)
             {
                 fullReport = SessionManager.Get<MealForecastReportModel>(ReportConstant.MealForecastReportSessionKey + CurrentUser.UserId);
             }
             else
             {
-                var criteria = new GetMealForecastReportCriteria
-                {
-                    FromDate = fromDate,
-                    ToDate = toDate,
-                    CompanyId = companyId,
-                    EmployeeTypeId = employeeTypeId,
-                    IsVegetarian = isVegetarian
-                };
-
                 fullReport = _mealForecastReportService.GetMealForecastReport(criteria);
                 SessionManager.Set<MealForecastReportModel>(ReportConstant.MealForecastReportSessionKey + CurrentUser.UserId, fullReport);
             }
 
-            MealForecastReportModel pagingReport = _mealForecastReportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            MealForecastReportModel pagingReport = _mealForecastReportService.GetPagingReport(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
             return pagingReport;
         }
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealForecastReport, Policy = Policy.Read)]
-        public MealForecastDetailReport GetMealForecastDetailReport(
-            DateTime date,
-            string companyId = "",
-            string employeeTypeId = "",
-            bool? isVegetarian = null,
-            bool isPagingCallback = false,
-            int startIndex = 0,
-            int itemsPerPage = 50)
+        public MealForecastDetailReport GetMealForecastDetailReport([FromUri] GetMealForecastDetailReportCriteria criteria)
         {
             MealForecastDetailReport fullReport;
-            if (isPagingCallback)
+            if (criteria.IsPagingCallback)
             {
                 fullReport = SessionManager.Get<MealForecastDetailReport>(ReportConstant.MealForecastDetailReportSessionKey + CurrentUser.UserId);
             }
             else
             {
-                var criteria = new GetMealForecastDetailReportCriteria
-                {
-                    OnDate = date,
-                    CompanyId = companyId,
-                    EmployeeTypeId = employeeTypeId,
-                    IsVegetarian = isVegetarian
-                };
-
                 fullReport = _mealForecastDetailReportService.GetMealForecastDetailReport(criteria);
                 SessionManager.Set<MealForecastDetailReport>(ReportConstant.MealForecastDetailReportSessionKey + CurrentUser.UserId, fullReport);
             }
 
-            MealForecastDetailReport pagingReport = _mealForecastDetailReportService.GetPagingReport(fullReport, startIndex, itemsPerPage);
+            MealForecastDetailReport pagingReport = _mealForecastDetailReportService.GetPagingReport(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
             return pagingReport;
         }
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealForecastReport, Policy = Policy.Read)]
-        public EmployeeRegistrationReportModel GetEmployeeRegistration(
-            DateTime date,
-            string companyId = "",
-            string employeeTypeId = "",
-            int? mealId = null,
-            int? menuId = null,
-            bool? isVegetarian = null,
-            bool isPagingCallback = false,
-            int startIndex = 0,
-            int itemsPerPage = 50)
+        public EmployeeRegistrationReportModel GetEmployeeRegistration([FromUri] GetEmployeeRegistrationCriteria criteria)
         {
             EmployeeRegistrationReportModel fullReport;
-            if (isPagingCallback)
+            if (criteria.IsPagingCallback)
             {
                 fullReport = SessionManager.Get<EmployeeRegistrationReportModel>(ReportConstant.EmployeeRegistrationReportSessionKey + CurrentUser.UserId);
             }
             else
             {
-                var criteria = new GetEmployeeRegistrationCriteria
-                {
-                    WorkDate = date,
-                    MealId = mealId,
-                    MenuId = menuId,
-                    CompanyId = companyId,
-                    EmployeeTypeId = employeeTypeId,
-                    IsVegetarian = isVegetarian
-                };
-
                 fullReport = _mealForecastDetailReportService.GetEmployeeRegistration(criteria);
                 SessionManager.Set<EmployeeRegistrationReportModel>(ReportConstant.EmployeeRegistrationReportSessionKey + CurrentUser.UserId, fullReport);
             }
 
-            EmployeeRegistrationReportModel pagingReport = _mealForecastDetailReportService.GetPagingEmployeeRegistration(fullReport, startIndex, itemsPerPage);
+            EmployeeRegistrationReportModel pagingReport = _mealForecastDetailReportService.GetPagingEmployeeRegistration(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
             return pagingReport;
         }
 
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.MealForecastReport, Policy = Policy.Read)]
-        public EmployeeRegistrationReportModel GetEmployeeNonRegistration(
-            DateTime date,
-            string companyId = "",
-            string employeeTypeId = "",
-            int? mealId = null,
-            int? menuId = null,
-            bool? isVegetarian = null,
-            bool isPagingCallback = false,
-            int startIndex = 0,
-            int itemsPerPage = 50)
+        public EmployeeRegistrationReportModel GetEmployeeNonRegistration([FromUri] GetEmployeeNonRegistrationCriteria criteria)
         {
             EmployeeRegistrationReportModel fullReport;
-            if (isPagingCallback)
+            if (criteria.IsPagingCallback)
             {
                 fullReport = SessionManager.Get<EmployeeRegistrationReportModel>(ReportConstant.EmployeeNonRegistrationReportSessionKey + CurrentUser.UserId);
             }
             else
             {
-                var criteria = new GetEmployeeNonRegistrationCriteria
-                {
-                    WorkDate = date,
-                    MealId = mealId,
-                    MenuId = menuId,
-                    CompanyId = companyId,
-                    EmployeeTypeId = employeeTypeId,
-                    IsVegetarian = isVegetarian
-                };
-
                 fullReport = _mealForecastDetailReportService.GetEmployeeNonRegistration(criteria);
                 SessionManager.Set<EmployeeRegistrationReportModel>(ReportConstant.EmployeeNonRegistrationReportSessionKey + CurrentUser.UserId, fullReport);
             }
 
-            EmployeeRegistrationReportModel pagingReport = _mealForecastDetailReportService.GetPagingEmployeeNonRegistration(fullReport, startIndex, itemsPerPage);
+            EmployeeRegistrationReportModel pagingReport = _mealForecastDetailReportService.GetPagingEmployeeNonRegistration(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
             return pagingReport;
         }
 

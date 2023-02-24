@@ -124,7 +124,7 @@
                     templateUrl = Server.MapPath(_MonthlyMainDishReportLocalEmployeeTemplatePath);
                 }
 
-                if (report.GroupBy == GroupByReport.Department)
+                if (report.GroupBy == GroupByReport.Company)
                 {
                     templateUrl = Server.MapPath(_MonthlyMainDishReportLocalDepartmentTemplatePath);
                 }
@@ -274,7 +274,7 @@
             if (report != null)
             {
                 var templatePath = Server.MapPath(_MealForecastDetailReportTemplatePath);
-                _mealForecastDetailReportService.ExportMealForecastDetailReport(report, templatePath, criteria.IsVegetarian, criteria.OnDate);
+                _mealForecastDetailReportService.ExportMealForecastDetailReport(report, templatePath, criteria.IsVegetarian, criteria.Date);
             }
 
             return new EmptyResult();
@@ -290,7 +290,7 @@
             if (report != null)
             {
                 var templatePath = Server.MapPath(_EmployeeRegistrationReportTemplatePath);
-                _mealForecastDetailReportService.ExportEmployeeRegistrationReport(report, templatePath, criteria.IsVegetarian, criteria.WorkDate);
+                _mealForecastDetailReportService.ExportEmployeeRegistrationReport(report, templatePath, criteria.IsVegetarian, criteria.Date);
             }
 
             return new EmptyResult();
@@ -306,7 +306,7 @@
             if (report != null)
             {
                 var templatePath = Server.MapPath(_EmployeeNonRegistrationReportTemplatePath);
-                _mealForecastDetailReportService.ExportEmployeeNonRegistrationReport(report, templatePath, criteria.IsVegetarian, criteria.WorkDate);
+                _mealForecastDetailReportService.ExportEmployeeNonRegistrationReport(report, templatePath, criteria.IsVegetarian, criteria.Date);
             }
 
             return new EmptyResult();

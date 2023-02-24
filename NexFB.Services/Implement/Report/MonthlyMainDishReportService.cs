@@ -1,18 +1,7 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="MonthlyMainDishReportService.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="1/15/2015 12:42:36 PM">Created.</change>
-// </history>
-
-namespace NexFB.Services.Implement.Report
+﻿namespace NexFB.Services.Implement.Report
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Fanex.Common.Helper;
     using NexFB.Core.Enums;
     using NexFB.Core.Utilities;
     using NexFB.Criteria.Report;
@@ -23,9 +12,6 @@ namespace NexFB.Services.Implement.Report
     using NexFB.Resources;
     using NexFB.Services.Interface.Report;
 
-    /// <summary>
-    /// The implement of Monthly Main Dish Report Per Meal service.
-    /// </summary>
     public class MonthlyMainDishReportService : IMonthlyMainDishReportService
     {
         private readonly IReportRepository _reportRepository;
@@ -40,34 +26,20 @@ namespace NexFB.Services.Implement.Report
             _reportRepository = reportRepository ?? new ReportRepository();
         }
 
-        /// <summary>
-        /// Get monthly main dish report by local.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The monthly local report.</returns>
         public MonthlyLocalReportModel GetMonthlyMainDishReportLocal(GetMonthlyMainDishReportLocalCriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
             var report = new MonthlyLocalReportModel();
-
             if (criteria.IsValid())
             {
                 report = _reportRepository.GetMonthlyMainDishReportLocal(criteria);
                 report.Month = criteria.ReportDate;
-                report.IsGroupByEmployee = criteria.GroupBy == (int)GroupByReport.Employee;
+                report.IsGroupByEmployee = criteria.GroupBy == (byte)GroupByReport.Employee;
                 report.GroupBy = (GroupByReport)criteria.GroupBy;
             }
 
             return report;
         }
 
-        /// <summary>
-        /// Get paging report.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The paging report.</returns>
         public MonthlyLocalReportModel GetPaingReport(
             MonthlyLocalReportModel report,
             int startIndex,
@@ -89,11 +61,6 @@ namespace NexFB.Services.Implement.Report
             return pagingReport;
         }
 
-        /// <summary>
-        /// Export monthly main dish report in local.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="templateLink">The url of template.</param>
         public void ExportMonthlyMainDishReportLocal(MonthlyLocalReportModel report, string templateLink)
         {
             string reportName = Lang.MonthlyMainDishLocalReportName;
@@ -121,28 +88,16 @@ namespace NexFB.Services.Implement.Report
             writer.Render();
         }
 
-        /// <summary>
-        /// Create meal records.
-        /// </summary>
-        /// <param name="mealItems">The list meal items.</param>
-        /// <param name="rowIndex">The row index.</param>
-        /// <returns>The Record model.</returns>
         public RecordModel CreateMealRecord(
             List<MealItemMonthModel> mealItems,
             GroupByReport groupBy,
             int rowIndex)
         {
-            IEnumerable<object> records = null;
             bool isGroupByCostCenter = groupBy == GroupByReport.CostCenter;
 
-            if (groupBy == GroupByReport.Employee)
-            {
-                records = CreateMealGroupByEmployee(mealItems, ref rowIndex);
-            }
-            else
-            {
-                records = CreateMealGroupByCompanyOrCostCenter(mealItems, ref rowIndex, isGroupByCostCenter);
-            }
+            IEnumerable<object> records = groupBy == GroupByReport.Employee
+                ? CreateMealGroupByEmployee(mealItems, ref rowIndex)
+                : CreateMealGroupByCompanyOrCostCenter(mealItems, ref rowIndex, isGroupByCostCenter);
 
             var mealRecords = new RecordModel
             {
@@ -153,27 +108,12 @@ namespace NexFB.Services.Implement.Report
             return mealRecords;
         }
 
-        /// <summary>
-        /// Fill total row.
-        /// </summary>
-        /// <param name="total">The total meal.</param>
-        /// <param name="writer">The writer.</param>
-        /// <returns>The writer after fill total row.</returns>
         public ExcelTemplateWriter FillTotalRow(
             MealDayOfMonthModel total,
             GroupByReport groupBy,
             ExcelTemplateWriter writer)
         {
-            object record = null;
-
-            if (groupBy == GroupByReport.Employee)
-            {
-                record = CreateTotalMealEmployeeRecord(total);
-            }
-            else
-            {
-                record = CreateTotalMealCompanyRecord(total);
-            }
+            object record = groupBy == GroupByReport.Employee ? CreateTotalMealEmployeeRecord(total) : CreateTotalMealCompanyRecord(total);
 
             var rowId = groupBy == GroupByReport.CostCenter ? 8 : 7;
             writer.WriteRow(rowId, record);
@@ -189,12 +129,12 @@ namespace NexFB.Services.Implement.Report
             WriteCostCenterTotal(report, ref writer);
         }
 
-        private int GetTotalRow(MonthlyLocalReportModel report)
+        private static int GetTotalRow(MonthlyLocalReportModel report)
         {
             return report.Meals.Sum(x => x.MealItems.Count) + report.Meals.Count * 2 + 7;
         }
 
-        private void WriteCostCenterContent(MonthlyLocalReportModel report, ref ExcelTemplateWriter writer)
+        private static void WriteCostCenterContent(MonthlyLocalReportModel report, ref ExcelTemplateWriter writer)
         {
             var rowIndexConst = GetTotalRow(report);
             var rowIndex = rowIndexConst;
@@ -251,25 +191,24 @@ namespace NexFB.Services.Implement.Report
             return listAmount;
         }
 
-        private void WriteCostCenter(List<string> listCostCenter, ref ExcelTemplateWriter writer, int rowIndexConst)
+        private static void WriteCostCenter(List<string> listCostCenter, ref ExcelTemplateWriter writer, int rowIndexConst)
         {
-            var colIndex = 1;
             var rowIndex = rowIndexConst;
             writer.CopyRows(1, 1);
             writer.CopyRows(10, 1);
-            writer.WriteCellRange(rowIndex, 1, colIndex, 1, string.Empty);
+            writer.WriteCellRange(rowIndex, 1, 1, 1, string.Empty);
 
             foreach (var costCenter in listCostCenter)
             {
                 rowIndex++;
                 writer.CopyRows(11, 1);
-                writer.WriteCellRange(rowIndex, 1, colIndex, 1, costCenter);
+                writer.WriteCellRange(rowIndex, 1, 1, 1, costCenter);
             }
 
             writer.CopyRows(11, 1);
         }
 
-        private List<string> GetListCostCenter(MonthlyLocalReportModel report)
+        private static List<string> GetListCostCenter(MonthlyLocalReportModel report)
         {
             var listCostCenter = new List<string>();
             foreach (var meal in report.Meals)
@@ -282,7 +221,7 @@ namespace NexFB.Services.Implement.Report
             return listCostCenter.Distinct().ToList();
         }
 
-        private int CalculateTotalItem(MonthlyLocalReportModel report)
+        private static int CalculateTotalItem(MonthlyLocalReportModel report)
         {
             int totalItem = 0;
 
@@ -294,27 +233,19 @@ namespace NexFB.Services.Implement.Report
             return totalItem;
         }
 
-        /// <summary>
-        /// Loop and get paging report.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The list new meals.</returns>
         private List<MealMonthModel> LoopAndGetPagingReport(
             MonthlyLocalReportModel report,
             int startIndex,
             int itemsPerPage)
         {
             var meals = new List<MealMonthModel>();
-            int numberItemsInMeal = 0;
             int numberMeals = report.Meals.Count;
             int index = 0;
 
             while (index < numberMeals)
             {
                 MealMonthModel meal = report.Meals[index];
-                numberItemsInMeal = meal.MealItems.Count;
+                int numberItemsInMeal = meal.MealItems.Count;
 
                 if (numberItemsInMeal > startIndex)
                 {
@@ -351,13 +282,6 @@ namespace NexFB.Services.Implement.Report
             return meals;
         }
 
-        /// <summary>
-        /// Create new meal of paging report.
-        /// </summary>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="meal">The current meal.</param>
-        /// <param name="items">The number items per page.</param>
-        /// <returns>The new meal.</returns>
         private MealMonthModel AddMealItemIntoPagingReport(int startIndex, MealMonthModel meal, int items)
         {
             var newMeal = new MealMonthModel
@@ -372,22 +296,18 @@ namespace NexFB.Services.Implement.Report
             return newMeal;
         }
 
-        /// <summary>
-        /// Convert weekend number from positive number to negative number.
-        /// </summary>
-        /// <param name="weekdays">The weekdays in month.</param>
-        /// <param name="writer">The excel writer.</param>
-        private void WriteDayHeaderInMonth(List<int> weekdays, ref ExcelTemplateWriter writer)
+        private static void WriteDayHeaderInMonth(List<int> weekdays, ref ExcelTemplateWriter writer)
         {
-            int startCol = 4;
+            const byte StartCol = 4;
+            const byte TotalDays = 31;
 
-            for (int i = 0; i < 31; i++)
+            for (byte i = 0; i < TotalDays; i++)
             {
                 int currentDate = weekdays[i];
 
                 if (currentDate == 7 || currentDate == 1)
                 {
-                    writer.WriteCellRange(4, 1, startCol + i, 1, -(i + 1));
+                    writer.WriteCellRange(4, 1, StartCol + i, 1, -(i + 1));
                 }
             }
         }
@@ -463,7 +383,6 @@ namespace NexFB.Services.Implement.Report
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private IEnumerable<object> CreateMealGroupByEmployee(List<MealItemMonthModel> mealItems, ref int rowIndex)
         {
             IList<object> records = new List<object>();
@@ -521,13 +440,6 @@ namespace NexFB.Services.Implement.Report
             return records;
         }
 
-        /// <summary>
-        ///  Create meal records of report group by department.
-        /// </summary>
-        /// <param name="mealItems">The list meal items.</param>
-        /// <param name="rowIndex">The row index.</param>
-        /// <returns>The enumerator object.</returns>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private IEnumerable<object> CreateMealGroupByCompanyOrCostCenter(List<MealItemMonthModel> mealItems, ref int rowIndex, bool isGroupByCostCenter)
         {
             IList<object> records = new List<object>();
@@ -583,11 +495,6 @@ namespace NexFB.Services.Implement.Report
             return records;
         }
 
-        /// <summary>
-        /// Create total meal row.
-        /// </summary>
-        /// <param name="totalMeal">The total meal.</param>
-        /// <returns>The total row.</returns>
         private object CreateTotalMealEmployeeRecord(MealDayOfMonthModel totalMeal)
         {
             List<int> numberMeals = totalMeal.NumberMeals;
@@ -636,11 +543,6 @@ namespace NexFB.Services.Implement.Report
             return record;
         }
 
-        /// <summary>
-        /// Create total meal row.
-        /// </summary>
-        /// <param name="totalMeal">The total meal.</param>
-        /// <returns>The total row.</returns>
         private object CreateTotalMealCompanyRecord(MealDayOfMonthModel totalMeal)
         {
             List<int> numberMeals = totalMeal.NumberMeals;

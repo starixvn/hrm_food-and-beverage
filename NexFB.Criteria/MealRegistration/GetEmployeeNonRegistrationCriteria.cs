@@ -1,14 +1,12 @@
-﻿using Fanex.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NexFB.Criteria.MealRegistration
+﻿namespace NexFB.Criteria.MealRegistration
 {
+    using System;
+    using Fanex.Data.Repository;
+
     public class GetEmployeeNonRegistrationCriteria : CriteriaBase
     {
-        public DateTime WorkDate { get; set; }
+        [SpParam(SqlParamName = "WorkDate")]
+        public DateTime Date { get; set; }
 
         public int? MealId { get; set; }
 
@@ -19,6 +17,15 @@ namespace NexFB.Criteria.MealRegistration
         public string EmployeeTypeId { get; set; }
 
         public bool? IsVegetarian { get; set; }
+
+        [SpParam(Ignored = true)]
+        public int StartIndex { get; set; }
+
+        [SpParam(Ignored = true)]
+        public int ItemsPerPage { get; set; } = 50;
+
+        [SpParam(Ignored = true)]
+        public bool IsPagingCallback { get; set; }
 
         public override string GetSettingKey()
         {

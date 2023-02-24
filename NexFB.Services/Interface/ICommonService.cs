@@ -1,7 +1,6 @@
 ﻿namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
-    using NexFB.Criteria.Department;
     using NexFB.Criteria.Employee;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Team;
@@ -16,8 +15,6 @@
         IList<Company> GetAllCompany();
 
         IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria, bool exceptSystemAdmin = false);
-
-        IEnumerable<Department> GetAllDepartment(GetAllDepartmentCriteria criteria);
 
         IEnumerable<Team> GetAllTeamByCompany(GetAllTeamByCompanyCriteria criteria);
 
