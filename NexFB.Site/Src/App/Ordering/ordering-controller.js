@@ -105,18 +105,33 @@ orderingModule.controller("OrderingController",
             $scope.getRemarkList = function () {
                 orderingFactory.getRemarkList()
                     .success(function (data) {
-                        $scope.remarkList = []
-                        for (let i = 0; i < data.length; i++) {
-                            if ($scope.remarkList.length === 10) { break; }
-                            if (!$scope.remarkList.includes(data[i].Remark)) {
-                                $scope.remarkList.push(data[i].Remark)
+                        const uniqueRemarks = [];
+                        $scope.remarkList = data.filter((element) => {
+                            if (uniqueRemarks.includes(element.Remark)) {
+                                return false;
                             }
-                        }
+                            uniqueRemarks.push(element.Remark);
+                            return true;
+                        });
                     })
                     .error(function (response, status) {
                         ErrorFactory.errorHandle(status);
                     });
             }
+
+            const compareFunction = (a, b) => {
+                const dateA = new Date(a.RegisterDate); // trích xuất ngày đăng ký của phần tử A
+                const dateB = new Date(b.RegisterDate); // trích xuất ngày đăng ký của phần tử B
+
+                // So sánh thời gian giữa A và B
+                if (dateA > dateB) {
+                    return -1;
+                } else if (dateA < dateB) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            };
 
             $scope.getRemarkList()
             $scope.remarkListResult = []

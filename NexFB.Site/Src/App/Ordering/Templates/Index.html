@@ -271,19 +271,15 @@
                             <ul ng-model="hidethis" ng-hide="hidethis" class="scroll-list-remark">
                                 <li class="list-group-item-order"
                                     ng-repeat="remark in remarkListResult"
-                                    ng-click="fillTextboxNewOrder(remark)"
-                                    ng-mouseover="mouseoverRemark(remark)"
-                                    ng-mouseleave="mouseleaveRemark(remark)">
-                                    {{remark}}
+                                    ng-click="fillTextboxNewOrder(remark.Remark)"
+                                    ng-mouseover="mouseoverRemark(remark.Remark)"
+                                    ng-mouseleave="mouseleaveRemark(remark.Remark)">
+                                    {{remark.Remark}}
                                 </li>
                             </ul>
-                        </div>
 
-                    </div>
-                    <div class="row form-inline form-order">
-                        <div class="form-group">
-                            <label style="margin-right: 8px;">
-                                Phone
+                            <label style="margin-right: 2px;">
+                                Tel
                             </label>
                             <input ng-model="newOrder.Phone" type="text" maxlength="50" class="txtPhone" />
                         </div>
@@ -401,18 +397,15 @@
                             <ul ng-model="hidethis" ng-hide="hidethis" class="scroll-list-remark">
                                 <li class="list-group-item-order"
                                     ng-repeat="remark in remarkListResult"
-                                    ng-click="fillTextboxSavedOrder(remark)"
-                                    ng-mouseover="mouseoverRemark(remark)"
-                                    ng-mouseleave="mouseleaveRemark(remark)">
-                                    {{remark}}
+                                    ng-click="fillTextboxSavedOrder(remark.Remark)"
+                                    ng-mouseover="mouseoverRemark(remark.Remark)"
+                                    ng-mouseleave="mouseleaveRemark(remark.Remark)">
+                                    {{remark.Remark}}
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="row form-inline form-order">
-                        <div class="form-group">
-                            <label style="margin-right: 8px;">
-                                Phone
+
+                            <label style="margin-right: 2px;">
+                                Tel
                             </label>
                             <input ng-model="savedOrder.Phone" type="text" maxlength="50" class="txtPhone" />
                         </div>
@@ -520,22 +513,18 @@
                             <ul ng-model="hidethis" ng-hide="hidethis" class="scroll-list-remark">
                                 <li class="list-group-item-order"
                                     ng-repeat="remark in remarkListResult"
-                                    ng-click="fillTextboxSideDishOrder(remark)"
-                                    ng-mouseover="mouseoverRemark(remark)"
-                                    ng-mouseleave="mouseleaveRemark(remark)">
-                                    {{remark}}
+                                    ng-click="fillTextboxSideDishOrder(remark.Remark)"
+                                    ng-mouseover="mouseoverRemark(remark.Remark)"
+                                    ng-mouseleave="mouseleaveRemark(remark.Remark)">
+                                    {{remark.Remark}}
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="row form-inline form-order">
-                        <div class="form-group">
-                            <label style="margin-right: 8px;">
-                                Phone
+
+                            <label style="margin-right: 2px;">
+                                Tel
                             </label>
                             <input ng-model="sideDishOrder.Phone" type="text" maxlength="50" class="txtPhone" />
                         </div>
-
                     </div>
                     <div class="row form-inline form-order">
                         <div class="form-group takeAway">
