@@ -83,6 +83,56 @@ function manageUserController($scope, $route, $modal, userControlFactory, notifi
         getSelectedRole(filter);
         getAllEmployeeRole(filter);
     };
+    $scope.ToggleFreeOrder = function (employee) {
+        employee.IsFreeOrder = !employee.IsFreeOrder;
+        var action = employee.IsFreeOrder ? "activate free order" : "deactivate free order";
+
+        $scope.modalInstance = $modal.open({
+            templateUrl: baseUrl + 'src/components/extensions/common/templates/ModalConfirmContent.html',
+            controller: "ModalConfirmController",
+            resolve: {
+                name: function () {
+                    return employee.NickName;
+                },
+                action: function () {
+                    return action;
+                }
+            },
+            windowClass: "modal-confirm-center special-employee-modal"
+        });
+
+        $scope.modalInstance.result.then(function () {
+            var roleID = ""
+            for (let i = 0; i < employee.RoleItems.length; i++) {
+                roleID += employee.RoleItems[i].RoleId + ",";
+            }
+            roleID = roleID.slice(0, -1);
+
+            var roleFunction = {
+                systemID: employee.UserId,
+                roleID,
+                roleCompanies: "<ROOT></ROOT>",
+                isFreeOrder: employee.IsFreeOrder
+            }
+
+            userControlFactory.assignRoleToUser(roleFunction).success(function (response) {
+                if (response.IsSuccessful) {
+                    notificationFactory.success("DataChangeSuccessfully");
+                }
+                else {
+                    employee.IsFreeOrder = !employee.IsFreeOrder;
+                    notificationFactory.error("", response.message);
+                }
+            }).error(function (response, status) {
+                employee.IsFreeOrder = !employee.IsFreeOrder;
+                ErrorFactory.errorHandle(status);
+            });
+        }, function () {
+            employee.IsFreeOrder = !employee.IsFreeOrder;
+        })['finally'](function () {
+            $scope.modalInstance = '';
+        });
+    };
 
     $scope.assignRole = function (employee) {
         var modalAssignInstance = $modal.open({

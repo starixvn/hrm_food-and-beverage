@@ -73,7 +73,7 @@
                 </td>
                 <td class="authority-employee-role">{{employee.Roles}}</td>
                 <td class="text-center authority-employee-free-order">
-                    <input type="checkbox" ng-checked="employee.IsFreeOrder" ng-click="ChangeFreeOrder(employee)" />
+                    <input type="checkbox" ng-checked="employee.IsFreeOrder" ng-click="ToggleFreeOrder(employee)" />
                 </td>
                 <td class="text-center authority-employee-action" ng-if="policy.permission == 2">
                     <a class="glyphicon glyphicon-edit icon-edit" href="" title="Edit" ng-click="assignRole(employee)" />
