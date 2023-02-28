@@ -24,6 +24,10 @@ namespace NexFB.Models.Report.DailyMainDishPricePerMealReport
 
         public Employee Employee { get; set; }
 
+        public string SectionName { get; set; }
+        public string DepartmentName { get; set; }
+        public string UnitName { get; set; }
+        public string TeamName { get; set; }
         public int Breakfast { get; set; }
 
         public int Lunch { get; set; }

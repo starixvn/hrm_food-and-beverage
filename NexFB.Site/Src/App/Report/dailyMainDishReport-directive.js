@@ -13,16 +13,8 @@ reportModule.directive('renderDailyReport', function () {
 
 			for (var i = 0; i < numberMainDishes; i++) {
 				var mainDish = report.MainDishes[i],
-					currentRow = [],
 					employeeDishes = mainDish.EmployeeDishes,
 					numberEmployeeDishes = employeeDishes.length;
-
-				currentRow = {
-					Columns: [
-						{ Name: "Count", Value: mainDish.Company.Name + ' - ' + mainDish.Team.Name, MergeColNumber: 9, CellAlign: "left" }
-					],
-					SubRows: []
-				};
 
 				for (var j = 0; j < numberEmployeeDishes; j++) {
 					var employeeDish = employeeDishes[j],
@@ -35,17 +27,19 @@ reportModule.directive('renderDailyReport', function () {
 							{ Name: "Shift", Value: shiftName },
 							{ Name: "FullName", Value: employeeDish.Employee.FullName },
 							{ Name: "NickName", Value: employeeDish.Employee.NickName },
+							{ Name: "UnitName", Value: employeeDish.UnitName },
+							{ Name: "DepartmentName", Value: employeeDish.DepartmentName },
+							{ Name: "SectionName", Value: employeeDish.SectionName },
+							{ Name: "TeamName", Value: employeeDish.TeamName },
 							{ Name: "Breakfast", Value: employeeDish.Breakfast },
 							{ Name: "Lunch", Value: employeeDish.Lunch },
 							{ Name: "Dinner", Value: employeeDish.Dinner },
 							{ Name: "Supper", Value: employeeDish.Supper }
 						]
 					};
-					currentRow.SubRows.push(currentSubRow);
+					rows.push(currentSubRow);
 					rowIndex++;
 				}
-
-				rows.push(currentRow);
 			}
 		}
 
@@ -59,6 +53,10 @@ reportModule.directive('renderDailyReport', function () {
 			{ HeaderText: "Shift", Width: 100, Name: "Shift", HeaderAlign: "center", CellAlign: "center" },
 			{ HeaderText: "Full Name", Width: 240, Name: "FullName", HeaderAlign: "center", CellAlign: "left" },
 			{ HeaderText: "Nick", Width: 140, Name: "NickName", HeaderAlign: "center", CellAlign: "left" },
+			{ HeaderText: "Unit", Width: 100, Name: "UnitName", HeaderAlign: "center", CellAlign: "center" },
+			{ HeaderText: "Department", Width: 100, Name: "DepartmentName", HeaderAlign: "center", CellAlign: "center" },
+			{ HeaderText: "Section", Width: 100, Name: "SectionName", HeaderAlign: "center", CellAlign: "center" },
+			{ HeaderText: "Team", Width: 100, Name: "TeamName", HeaderAlign: "center", CellAlign: "center" },
 			{ HeaderText: "Breakfast", Width: 130, Name: "Breakfast", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
 			{ HeaderText: "Lunch", Width: 130, Name: "Lunch", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
 			{ HeaderText: "Dinner", Width: 130, Name: "Dinner", HeaderAlign: "center", CellAlign: "right", FormatNumber: numberFormat },
@@ -72,17 +70,11 @@ reportModule.directive('renderDailyReport', function () {
 		var footerRow = [
 			{
 				Columns: [
-					{ Value: "Total", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
+					{ Value: "Total", Name: "Count", MergeColNumber: 9, CellAlign: "right" },
 					{ Value: report.Total ? report.Total.Breakfast : 0, Name: "Breakfast" },
 					{ Value: report.Total ? report.Total.Lunch : 0, Name: "Lunch" },
 					{ Value: report.Total ? report.Total.Dinner : 0, Name: "Dinner" },
 					{ Value: report.Total ? report.Total.Supper : 0, Name: "Supper" }
-				]
-			},
-			{
-				Columns: [
-					{ Value: "Grand Total", Name: "Count", MergeColNumber: 5, CellAlign: "right" },
-					{ Value: report.GrandTotal, Name: "Breakfast", MergeColNumber: 4, CellAlign: 'center' }
 				]
 			}
 		];
