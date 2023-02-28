@@ -70,7 +70,7 @@
 
             FillContentRow(report, ref writer);
             FillFooterRow(report, ref writer);
-            writer.SyncColumnsWidth(9);
+            writer.SyncColumnsWidth(13);
 
             writer.Render();
         }
@@ -163,7 +163,6 @@
         private void FillFooterRow(DailyMainDishReportModel report, ref ExcelTemplateWriter writer)
         {
             FillTotalRow(report, ref writer);
-            FillAmountRow(report.GrandTotal, ref writer);
         }
 
         private void FillContentCompanyTeam(
@@ -173,8 +172,7 @@
         {
             IEnumerable<object> records = CreateRecord(mainDish.EmployeeDishes, ref rowIndex);
 
-            writer.WriteRow(4, new object[] { mainDish.Company.Name + " - " + mainDish.Team.Name });
-            writer.WriteRows(5, records);
+            writer.WriteRows(4, records);
         }
 
         private IEnumerable<object> CreateRecord(List<DailyEmployeeMainDishModel> employeeItems, ref int rowIndex)
@@ -191,6 +189,10 @@
                     Shift = employeeItem.Shift != null ? employeeItem.Shift.ShiftCode : string.Empty,
                     FullName = employeeItem.Employee.FullName,
                     Nick = employeeItem.Employee.NickName,
+                    UnitName = employeeItem.UnitName,
+                    DepartmentName = employeeItem.DepartmentName,
+                    SectionName = employeeItem.SectionName,
+                    TeamName = employeeItem.TeamName,
                     Breakfast = employeeItem.Breakfast,
                     Lunch = employeeItem.Lunch,
                     Dinner = employeeItem.Dinner,
@@ -213,6 +215,10 @@
                 Shift = string.Empty,
                 FullName = string.Empty,
                 Nick = string.Empty,
+                UnitName = string.Empty,
+                DepartmentName = string.Empty,
+                SectionName = string.Empty,
+                TeamName = string.Empty,
                 Breakfast = total.Breakfast,
                 Lunch = total.Lunch,
                 Dinner = total.Dinner,
@@ -225,25 +231,7 @@
         private void FillTotalRow(DailyMainDishReportModel report, ref ExcelTemplateWriter writer)
         {
             object subTotalRecord = CreateTotalRecord(report.Total, Lang.Total);
-            writer.WriteRow(6, subTotalRecord);
-        }
-
-        private void FillAmountRow(int totalAmount, ref ExcelTemplateWriter writer)
-        {
-            var record = new
-            {
-                Count = Lang.GrandTotal,
-                Date = string.Empty,
-                Shift = string.Empty,
-                FullName = string.Empty,
-                Nick = string.Empty,
-                Breakfast = totalAmount,
-                Lunch = string.Empty,
-                Dinner = string.Empty,
-                Supper = string.Empty
-            };
-
-            writer.WriteRow(7, record);
+            writer.WriteRow(5, subTotalRecord);
         }
     }
 }
