@@ -8,7 +8,10 @@ reportModule.directive('sideDishReport', function () {
         { HeaderText: "Shift", Width: 80, Name: "Shift", HeaderAlign: "center", CellAlign: "center" },
         { HeaderText: "Full Name", Width: 170, Name: "FullName", HeaderAlign: "center", CellAlign: "left" },
         { HeaderText: "Nick", Width: 110, Name: "NickName", HeaderAlign: "center", CellAlign: "left" },
-        { HeaderText: "Section", Width: 150, Name: "Section", HeaderAlign: "center", CellAlign: "left" },
+        { HeaderText: "Unit", Width: 120, Name: "UnitName", HeaderAlign: "center", CellAlign: "center" },
+        { HeaderText: "Department", Width: 120, Name: "DepartmentName", HeaderAlign: "center", CellAlign: "center" },
+        { HeaderText: "Section", Width: 120, Name: "SectionName", HeaderAlign: "center", CellAlign: "center" },
+        { HeaderText: "Team", Width: 120, Name: "TeamName", HeaderAlign: "center", CellAlign: "center" },
         { HeaderText: "Side Dish (Vie)", Width: 170, Name: "FoodVNMName", HeaderAlign: "center", CellAlign: "left" },
         { HeaderText: "Side Dish (Eng)", Width: 170, Name: "FoodEngName", HeaderAlign: "center", CellAlign: "left" },
         { HeaderText: "Price", Width: 110, Name: "Price", HeaderAlign: "center", CellAlign: "right", FormatNumber: "0,0" },
@@ -20,7 +23,7 @@ reportModule.directive('sideDishReport', function () {
         var footerRows = [
             {
                 Columns: [
-                    { Value: "", Name: "No", MergeColNumber: 8, CellAlign: "left" },
+                    { Value: "", Name: "No", MergeColNumber: 11, CellAlign: "left" },
                     { Value: "Total", Name: "Price", CellAlign: "center" },
                     { Value: data.TotalQuantity.toString(), Name: "Qty", CellAlign: "right", FormatNumber: "0,0" },
                     { Value: data.TotalAmount.toString(), Name: "Amount", CellAlign: "right", FormatNumber: "0,0" }
@@ -45,7 +48,10 @@ reportModule.directive('sideDishReport', function () {
                         { Name: "Shift", Value: item.Shift },
                         { Name: "FullName", Value: item.FullName },
                         { Name: "NickName", Value: item.NickName },
-                        { Name: "Section", Value: item.Team },
+                        { Name: "UnitName", Value: item.UnitName },
+                        { Name: "DepartmentName", Value: item.DepartmentName },
+                        { Name: "SectionName", Value: item.SectionName },
+                        { Name: "TeamName", Value: item.TeamName },
                         { Name: "FoodVNMName", Value: item.FoodVNMName },
                         { Name: "FoodEngName", Value: item.FoodEngName },
                         { Name: "Price", Value: item.Price },

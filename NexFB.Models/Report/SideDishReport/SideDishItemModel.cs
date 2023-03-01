@@ -28,6 +28,10 @@ namespace NexFB.Models.Report.SideDishReport
         public string FullName { get; set; }
 
         public string NickName { get; set; }
+        public string UnitName { get; set; }
+        public string DepartmentName { get; set; }
+        public string SectionName { get; set; }
+        public string TeamName { get; set; }
         public string Team { get; set; }
 
         public string FoodVNMName { get; set; }
