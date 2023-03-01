@@ -10,7 +10,7 @@
         private const string _EmployeeCalendarTpl =
             "<Calendar EmpId='{0}' WorkDate='{1}' CompanyId='{2}' "
             + "ShiftId='{3}' IsHoliday='{4}' IsOffDay='{5}' IsLeaveDay='{6}' LeaveTypeId='{7}' "
-            + " LeaveDay='{8}'  ModifiedDate='{9}'></Calendar>";
+            + " LeaveDay='{8}'  ModifiedDate='{9}' HasCheckIn='{10}'></Calendar>";
 
         [SpParam(Ignored = true)]
         public int CompanyId { get; set; }
@@ -39,7 +39,8 @@
                             calendar.IsLeaveDay,
                             calendar.LeaveTypeId,
                             calendar.LeaveDay,
-                            calendar.LeaveDay.HasValue ? calendar.ModifiedDate.Value.ToString("yyyy-MM-dd HH:mm:ss:fff") : string.Empty);
+                            calendar.LeaveDay.HasValue ? calendar.ModifiedDate.Value.ToString("yyyy-MM-dd HH:mm:ss:fff") : string.Empty,
+                            calendar.HasCheckIn);
                     }
                 }
 

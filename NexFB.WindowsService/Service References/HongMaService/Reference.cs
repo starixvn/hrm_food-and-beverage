@@ -1115,6 +1115,9 @@ namespace NexFB.WindowsService.HongMaService {
         private System.Nullable<int> EarlyOutField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> HasCheckInField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<bool> IsHolidayField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1188,6 +1191,19 @@ namespace NexFB.WindowsService.HongMaService {
                 if ((this.EarlyOutField.Equals(value) != true)) {
                     this.EarlyOutField = value;
                     this.RaisePropertyChanged("EarlyOut");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> HasCheckIn {
+            get {
+                return this.HasCheckInField;
+            }
+            set {
+                if ((this.HasCheckInField.Equals(value) != true)) {
+                    this.HasCheckInField = value;
+                    this.RaisePropertyChanged("HasCheckIn");
                 }
             }
         }

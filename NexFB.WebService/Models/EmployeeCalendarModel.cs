@@ -53,5 +53,8 @@
 
         [DataMember]
         public DateTime? ModifiedDate { get; set; }
+
+        [DataMember]
+        public bool? HasCheckIn { get; set; }
     }
 }
