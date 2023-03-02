@@ -221,6 +221,12 @@
                                 </th>
                                 <th data-translate="Member">
                                 </th>
+                                <th data-translate="Unit" ng-show="newOrderShowMoreInfo == 2 || newOrderShowMoreInfo == 3">
+                                </th>
+                                <th data-translate="Department" ng-show="newOrderShowMoreInfo == 2 || newOrderShowMoreInfo == 3">
+                                </th>
+                                <th data-translate="Section" ng-show="newOrderShowMoreInfo == 2 || newOrderShowMoreInfo == 3">
+                                </th>
                                 <th data-translate="Menu">
                                 </th>
                                 <th class="col-action" data-translate="Remove">
@@ -237,6 +243,15 @@
                                     <span ng-show="!member.IsAllowOrder && member.Menus[0].MenuId != -1">
                                         ({{"Ordered" | translate}})
                                     </span>
+                                </td>
+                                <td ng-show="newOrderShowMoreInfo == 2 || newOrderShowMoreInfo == 3">
+                                    {{member.Member.Unit}}
+                                </td>
+                                <td ng-show="newOrderShowMoreInfo == 2 || newOrderShowMoreInfo == 3">
+                                    {{member.Member.Department}}
+                                </td>
+                                <td ng-show="newOrderShowMoreInfo == 2 || newOrderShowMoreInfo == 3">
+                                    {{member.Member.Section}}
                                 </td>
                                 <td>
                                     <div ng-show="!alter.alternativeMenu{{member.Member.UserId}}">
@@ -341,6 +356,12 @@
                                 </th>
                                 <th data-translate="Member">
                                 </th>
+                                <th data-translate="Unit" ng-show="savedOrderShowMoreInfo == 2 || savedOrderShowMoreInfo == 3">
+                                </th>
+                                <th data-translate="Department" ng-show="savedOrderShowMoreInfo == 2 || savedOrderShowMoreInfo == 3">
+                                </th>
+                                <th data-translate="Section" ng-show="savedOrderShowMoreInfo == 2 || savedOrderShowMoreInfo == 3">
+                                </th>
                                 <th data-translate="Menu">
                                 </th>
                                 <th data-translate="Order">
@@ -359,6 +380,15 @@
                                     <span ng-show="!member.IsAllowOrder && member.Menus[0].MenuId != -1">
                                         ({{"Ordered" | translate}})
                                     </span>
+                                </td>
+                                <td ng-show="savedOrderShowMoreInfo == 2 || savedOrderShowMoreInfo == 3">
+                                    {{member.Member.Unit}}
+                                </td>
+                                <td ng-show="savedOrderShowMoreInfo == 2 || savedOrderShowMoreInfo == 3">
+                                    {{member.Member.Department}}
+                                </td>
+                                <td ng-show="savedOrderShowMoreInfo == 2 || savedOrderShowMoreInfo == 3">
+                                    {{member.Member.Section}}
                                 </td>
                                 <td>
                                     <div ng-show="!alterSaved.alternativeMenu{{member.Member.UserId}}">
@@ -459,6 +489,12 @@
                                 </th>
                                 <th data-translate="Member">
                                 </th>
+                                <th data-translate="Unit" ng-show="sideDishOrderShowMoreInfo == 2 || sideDishOrderShowMoreInfo == 3">
+                                </th>
+                                <th data-translate="Department" ng-show="sideDishOrderShowMoreInfo == 2 || sideDishOrderShowMoreInfo == 3">
+                                </th>
+                                <th data-translate="Section" ng-show="sideDishOrderShowMoreInfo == 2 || sideDishOrderShowMoreInfo == 3">
+                                </th>
                                 <th data-translate="FoodItemCamalcase">
                                 </th>
                                 <th data-translate="Amount">
@@ -472,6 +508,15 @@
                                 <td class="text-center">{{$index + 1}}</td>
                                 <td>
                                     <span>{{member.Member.NickName}}</span>
+                                </td>
+                                <td ng-show="sideDishOrderShowMoreInfo == 2 || sideDishOrderShowMoreInfo == 3">
+                                    {{member.Member.Unit}}
+                                </td>
+                                <td ng-show="sideDishOrderShowMoreInfo == 2 || sideDishOrderShowMoreInfo == 3">
+                                    {{member.Member.Department}}
+                                </td>
+                                <td ng-show="sideDishOrderShowMoreInfo == 2 || sideDishOrderShowMoreInfo == 3">
+                                    {{member.Member.Section}}
                                 </td>
                                 <td>
                                     <span ng-show="member.Menus.length == 0" data-translate="SelectFoodItem"></span>
@@ -494,12 +539,12 @@
                                 </td>
                             </tr>
                             <tr class="total-price">
-                                <td class="total-sidedish" colspan="3" data-translate="Total"></td>
+                                <td class="total-sidedish" colspan="{{sideDishOrderShowMoreInfo == 2 || sideDishOrderShowMoreInfo == 3 ? 6 : 3}}" data-translate="Total"></td>
                                 <td class="text-right" ng-bind="calculateTotalAmount(sideDishOrder.Members) | number"></td>
                                 <td></td>
                             </tr>
                             <tr ng-show="sideDishOrder == '' || sideDishOrder.Members == ''">
-                                <td class="empty-result" colspan="5" data-translate="EmptyResult">
+                                <td class="empty-result" colspan="{{sideDishOrderShowMoreInfo == 2 || sideDishOrderShowMoreInfo == 3 ? 8 : 5}}" data-translate="EmptyResult">
                                 </td>
                             </tr>
                         </tbody>

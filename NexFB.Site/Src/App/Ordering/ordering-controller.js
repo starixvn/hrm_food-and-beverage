@@ -339,6 +339,7 @@ orderingModule.controller("OrderingController",
                     data.TakeAway = false;
 
                     $scope.newOrder = data;
+                    $scope.newOrderShowMoreInfo = data.Members[0].Member.CompanyId
                     orderingService.setMemberNewOrder(data.Members);
                 };
 
@@ -355,6 +356,7 @@ orderingModule.controller("OrderingController",
                     data.TakeAway = false;
                     data.Members = newMembers;
                     $scope.sideDishOrder = data;
+                    $scope.sideDishOrderShowMoreInfo = data.Members[0].Member.CompanyId
                     orderingService.setMemberSideDishOrder(data.Members);
                 };
 
@@ -383,6 +385,7 @@ orderingModule.controller("OrderingController",
                     orderingFactory.getSavedOrder()
                         .success(function (data) {
                             $scope.savedOrder = data;
+                            $scope.savedOrderShowMoreInfo = data.Members[0].Member.CompanyId
                             var members = $scope.savedOrder.Members;
 
                             $scope.savedOrder.Members.forEach((member, index) => {
@@ -551,12 +554,22 @@ orderingModule.controller("OrderingController",
                         });
                     }
 
+                    //check not checkin but order
+                    if (typeOrder !== $scope.typeOrder.sideDishOrder) {
+                        order.Members.forEach(member => {
+                            if (!member.Member.HasCheckIn && member.IsOrder && !member.Member.IsFreeOrder) {
+                                isValid = false;
+                                arrErrorMembers.push(member.Member.NickName);
+                            }
+                        });
+                    }
+
                     arrErrorMembers = arrErrorMembers.filter((item, index) => {
                         return arrErrorMembers.indexOf(item) === index;
                     });
 
                     if (arrErrorMembers.length > 0) {
-                        notificationFactory.error("", arrErrorMembers.join(", ") + " can't order because only employee registered and registered in the correct shift can order meal");
+                        notificationFactory.error("", arrErrorMembers.join(", ") + " can't order because only employee checked in, registered and registered in the correct shift can order meal");
                     }
 
                     return isValid;

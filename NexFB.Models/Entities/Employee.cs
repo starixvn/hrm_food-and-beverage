@@ -37,8 +37,13 @@
         public string Roles { get; set; }
 
         public bool? IsFreeOrder { get; set; }
-
+        public bool? HasCheckIn { get; set; }
         public short CompanyId { get; set; }
         public string CompanyName { get; set; }
+        public string Unit { get; set; }
+        public string Department { get; set; }
+        public string Section { get; set; }
+
+
     }
 }

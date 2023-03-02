@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="OrderingController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.9.1">Created</change>
-// </history>
-
-namespace NexFB.Site.Controllers.API
+﻿namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;
@@ -27,9 +18,6 @@ namespace NexFB.Site.Controllers.API
     using NexFB.Services.Interface;
     using NexFB.Web.Attributes;
 
-    /// <summary>
-    /// Ordering Controller.
-    /// </summary>
     public class OrderingController : BaseController
     {
         private readonly IOrderingService _orderService;
@@ -48,10 +36,6 @@ namespace NexFB.Site.Controllers.API
             _sideDishService = sideDishService ?? new SideDishService();
         }
 
-        /// <summary>
-        /// Function to get my orders.
-        /// </summary>
-        /// <returns>MealOrdering Model.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
         public IList<MealOrderingModel> GetMyOrder()
@@ -65,10 +49,6 @@ namespace NexFB.Site.Controllers.API
             return orders;
         }
 
-        /// <summary>
-        /// Function to get menu.
-        /// </summary>
-        /// <returns>MealOrdering Model.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
         public Menu GetMyMenu()
@@ -95,10 +75,6 @@ namespace NexFB.Site.Controllers.API
             return menu;
         }
 
-        /// <summary>
-        /// Add new order.
-        /// </summary>
-        /// <returns>The model meal ordering.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
         public MealOrderingModel GetAddNew()
@@ -112,10 +88,6 @@ namespace NexFB.Site.Controllers.API
             return order;
         }
 
-        /// <summary>
-        /// Function to get saved order.
-        /// </summary>
-        /// <returns>MealOrdering Model.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
         public MealOrderingModel GetSavedOrder()
@@ -129,11 +101,6 @@ namespace NexFB.Site.Controllers.API
             return order;
         }
 
-        /// <summary>
-        /// Get order to new order.
-        /// </summary>
-        /// <param name="userId">The User Id.</param>
-        /// <returns>The model meal ordering.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
         public MealOrderingModel GetOrderNewOrder(int userId)
@@ -147,11 +114,6 @@ namespace NexFB.Site.Controllers.API
             return order;
         }
 
-        /// <summary>
-        /// Function to get saved order.
-        /// </summary>
-        /// <param name="orderId">The Order Id.</param>
-        /// <returns>MealOrdering Model.</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
         public MealOrderingModel GetOrderById(int orderId)
@@ -172,11 +134,6 @@ namespace NexFB.Site.Controllers.API
             return order;
         }
 
-        /// <summary>
-        /// Function to get top 10 remark.
-        /// </summary>
-        /// <param name="RegisterBy"></param>
-        /// <returns>Top 10 remark of</returns>
         [HttpGet]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Read)]
         public IEnumerable<OrderRemarkModel> GetOrderRemark()
@@ -191,11 +148,6 @@ namespace NexFB.Site.Controllers.API
             return listRemark;
         }
 
-        /// <summary>
-        /// Function to insert a order.
-        /// </summary>
-        /// <param name="model">MealOrdering Model.</param>
-        /// <returns>Command Result.</returns>
         [HttpPost]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
         public object InsertOrder(MealOrderingModel model)
@@ -253,11 +205,6 @@ namespace NexFB.Site.Controllers.API
             return result;
         }
 
-        /// <summary>
-        /// Function to update a order.
-        /// </summary>
-        /// <param name="model">MealOrdering Model.</param>
-        /// <returns>Command Result.</returns>
         [HttpPut]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
         public CommandResult UpdateOrder(MealOrderingModel model)
@@ -280,11 +227,6 @@ namespace NexFB.Site.Controllers.API
             return result;
         }
 
-        /// <summary>
-        /// Function to delete a order.
-        /// </summary>
-        /// <param name="orderId">The order id.</param>
-        /// <returns>Command Result.</returns>
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
         public CommandResult Delete(int orderId)
         {
@@ -331,11 +273,6 @@ namespace NexFB.Site.Controllers.API
             return _sideDishService.GetSideDishByUserId(criteria);
         }
 
-        /// <summary>
-        /// Function to insert a order side dish.
-        /// </summary>
-        /// <param name="model">MealOrdering Model.</param>
-        /// <returns>Command Result.</returns>
         [HttpPost]
         [ApiAuthorize(FunctionKey = FBFunctionKey.Order, Policy = Policy.Host)]
         public object InsertOrderSideDish(MealOrderingModel model)
@@ -356,11 +293,6 @@ namespace NexFB.Site.Controllers.API
             return new { result = result, orderId = criteria.OrderId };
         }
 
-        /// <summary>
-        /// Update order side dish.
-        /// </summary>
-        /// <param name="model">The order.</param>
-        /// <returns>The command result.</returns>
         [HttpPut]
         public CommandResult UpdateOrderSideDish(MealOrderingModel model)
         {
@@ -401,12 +333,6 @@ namespace NexFB.Site.Controllers.API
             return result;
         }
 
-        /// <summary>
-        /// Check start time (the time when user open popup edit) must be greater than the last modified time of this order.
-        /// </summary>
-        /// <param name="startTime">The start time.</param>
-        /// <param name="orderId">The order Id.</param>
-        /// <returns>The boolean to know that user can update order or not.</returns>
         [HttpGet]
         public bool CheckValidModifiedTime(string startTime, int orderId)
         {
@@ -437,11 +363,6 @@ namespace NexFB.Site.Controllers.API
             return result;
         }
 
-        /// <summary>
-        /// Translate remark into vietnamese.
-        /// </summary>
-        /// <param name="remark">The remark of order.</param>
-        /// <returns>The translated text.</returns>
         private string TranslateRemark(string remark)
         {
             string translatedText = string.Empty;
