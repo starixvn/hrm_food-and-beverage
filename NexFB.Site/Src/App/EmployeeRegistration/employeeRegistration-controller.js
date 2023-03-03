@@ -14,14 +14,6 @@ mealRegistrationModule.controller('EmployeeRegistrationMealController',
                 ErrorFactory.errorHandle(status);
             });
 
-            mealRegistrationFactory.getCurrentUser()
-                .success(function (data) {
-                    $scope.currentUser = data;
-                })
-                .error(function (response, status) {
-                    ErrorFactory.errorHandle(status);
-                });
-
             $scope.goHomePage = function () {
                 $window.location.href = baseUrl + "Ordering/Index";
             };
