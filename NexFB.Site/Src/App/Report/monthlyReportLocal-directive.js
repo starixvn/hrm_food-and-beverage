@@ -13,11 +13,10 @@ reportModule.directive('renderMonthlyReport', function () {
             var title = ""
             if (userId !== 0) {
                 if (shifts[i]) {
-                    var shiftCode = shifts[i].replace(/\s+/g, '').replace(/>/g, '-');
-                    title = `title = Shift:${shiftCode}`
+                    title = "title ='Shift: " + shifts[i] + "'"
                 }
                 else {
-                    title = `title = Shift:###`
+                    title = "title ='No Shift'"
                 }
             }
 
