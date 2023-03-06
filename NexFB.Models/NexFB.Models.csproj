@@ -52,6 +52,7 @@
     <Compile Include="Employee\EmployeeShift.cs" />
     <Compile Include="Employee\EmployeeTypeModel.cs" />
     <Compile Include="Employee\SpecialUser.cs" />
+    <Compile Include="Entities\Department.cs" />
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Authority\SystemRole.cs" />
     <Compile Include="Authority\UserSession.cs" />
@@ -59,10 +60,13 @@
     <Compile Include="Entities\Location.cs" />
     <Compile Include="Entities\MealTimesheet.cs" />
     <Compile Include="Entities\Menu.cs" />
+    <Compile Include="Entities\MultiSelectItem.cs" />
     <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Section.cs" />
     <Compile Include="Entities\Shift.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\Team.cs" />
+    <Compile Include="Entities\Unit.cs" />
     <Compile Include="FoodItemManagement\FoodItemModel.cs" />
     <Compile Include="FoodItemManagement\RawFoodSetMenuModel.cs" />
     <Compile Include="FoodMealPlanning\MealPlanningModel.cs" />

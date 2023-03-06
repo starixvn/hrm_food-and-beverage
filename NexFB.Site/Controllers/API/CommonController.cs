@@ -47,7 +47,7 @@
             return _deliveryAreaService.GetAllDeliveryArea(criteria);
         }
 
-        public IEnumerable<Team> GetAllTeamByCompany(string companyId = null)
+        public IEnumerable<Unit> GetAllTeamByCompany(string companyId = null)
         {
             var criteria = new GetAllTeamByCompanyCriteria
             {
@@ -55,6 +55,16 @@
             };
 
             return _commonService.GetAllTeamByCompany(criteria);
+        }
+
+        public IList<MultiSelectItem> GetOrgChart(string companyId = null)
+        {
+            var criteria = new GetAllTeamByCompanyCriteria
+            {
+                CompanyId = companyId
+            };
+
+            return _commonService.GetOrgChart(criteria);
         }
 
         public IEnumerable<MealTimesheet> GetAllMealTimesheet()

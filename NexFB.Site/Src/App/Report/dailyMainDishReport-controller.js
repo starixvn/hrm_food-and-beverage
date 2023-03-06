@@ -17,7 +17,7 @@ function dailyMainDishReportController($scope, reportFactory, ErrorFactory, repo
         orderCount: 0,
         companyId: '',
         employeeTypeId: '',
-        teamId: '',
+        teamId: null,
         mealId: '',
         userId: '',
         query: '',
@@ -87,13 +87,17 @@ function dailyMainDishReportController($scope, reportFactory, ErrorFactory, repo
         $scope.getDailyMainDishReport($scope.filter);
 
         if (companies && companies.length === 1) {
-            $scope.getTeamByCompany($scope.filter.companyId);
+            $scope.getOrgChart($scope.filter.companyId);
         }
 
         getEmployeeType($scope.filter.companyId, null);
     }).error(function (response, status) {
         ErrorFactory.errorHandle(status);
     });
+
+    $scope.onSelectTeam = function (teamIds) {
+        $scope.filter.teamId = teamIds;
+    };
 
     $scope.getDailyMainDishReport = function (filter) {
         commonFactory.blockUI();
@@ -109,9 +113,9 @@ function dailyMainDishReportController($scope, reportFactory, ErrorFactory, repo
         });
     };
 
-    $scope.getTeamByCompany = function (companyId) {
+    $scope.getOrgChart = function (companyId) {
         if (companyId) {
-            userControlFactory.getAllTeamByCompany(companyId).success(function (teams) {
+            userControlFactory.getOrgChart(companyId).success(function (teams) {
                 $scope.teamOptions = teams;
             }).error(function (response, status) {
                 ErrorFactory.errorHandle(status);
@@ -149,7 +153,7 @@ function dailyMainDishReportController($scope, reportFactory, ErrorFactory, repo
     };
 
     $scope.getTeamAndEmployeeTypeOfCompany = function (companyId) {
-        $scope.getTeamByCompany(companyId);
+        $scope.getOrgChart(companyId);
 
         if (!companyId) {
             companyId = $scope.originalCompanyId;

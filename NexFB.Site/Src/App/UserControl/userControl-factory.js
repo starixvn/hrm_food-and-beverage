@@ -25,6 +25,9 @@ userControlModule.factory('userControlFactory', ['$http', 'baseUrl', function ($
         getAllTeamByCompany: function (companyId) {
             return $http.get(baseUrl + 'api/Common/GetAllTeamByCompany', { params: { companyId: companyId } });
         },
+        getOrgChart: function (companyId) {
+            return $http.get(baseUrl + 'api/Common/GetOrgChart', { params: { companyId: companyId } });
+        },
         assignRoleToUser: function (userRoles) {
             return $http.post(baseUrl + 'api/UserControl/AssignRoleToUser', userRoles);
         },

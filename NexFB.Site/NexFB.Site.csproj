@@ -25,7 +25,7 @@
     <AssemblyName>NexFB.Site</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <JSLintSkip>\Src\Components\Libs\</JSLintSkip>
   </PropertyGroup>
@@ -285,6 +285,8 @@
     <Content Include="Src\App\SideDishManagement\edit-side-dish-controller.js" />
     <Content Include="Src\App\SideDishManagement\create-side-dish-controller.js" />
     <Content Include="Src\App\UserControl\manage-user-controller.js" />
+    <Content Include="Src\Components\Libs\multiselect-tree-view.js" />
+    <Content Include="Src\Components\Extensions\Directives\multiselect-treeview-directive.js" />
     <Content Include="Web.LOCAL.config">
       <SubType>Designer</SubType>
     </Content>
@@ -583,6 +585,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Src\Content\Site\components\_multiselect-treeview.less" />
+    <Content Include="Src\Content\Site\components\_multiSelect.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -783,12 +787,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52261</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:52262/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
