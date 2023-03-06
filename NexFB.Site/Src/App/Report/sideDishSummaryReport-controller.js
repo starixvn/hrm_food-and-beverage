@@ -125,7 +125,7 @@ function sideDishSummaryReportController($scope, reportFactory, ErrorFactory, re
             companyId = $scope.originalCompanyId;
         }
 
-        return orderingFactory.getEmployees($scope.searchEmployee, companyId, $scope.filter.teamId, true);
+        return orderingFactory.getEmployees($scope.searchEmployee, null, companyId, $scope.filter.teamId, true);
     };
 
     $scope.unSelectEmployee = function () {

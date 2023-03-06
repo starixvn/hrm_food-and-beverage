@@ -55,6 +55,7 @@ orderingModule.controller("OrderingController",
                 Rejected: 6
             };
 
+            $scope.includeMember = false;
             $scope.getMessage();
             $scope.newOrder = [];
             $scope.savedOrder = [];
@@ -747,12 +748,12 @@ orderingModule.controller("OrderingController",
                 };
             };
 
-            var getEmployee = function (keyword) {
-                return orderingFactory.getEmployees(keyword);
+            var getEmployee = function (keyword, isIncludeMember) {
+                return orderingFactory.getEmployees(keyword, isIncludeMember);
             };
 
             $scope.getNewEmployee = function () {
-                return getEmployee($scope.searchNewMember);
+                return getEmployee($scope.searchNewMember, $scope.includeMember);
             };
 
             $scope.unSelectNewEmployee = function () {
@@ -764,7 +765,7 @@ orderingModule.controller("OrderingController",
             };
 
             $scope.getSavedEmployee = function () {
-                return getEmployee($scope.searchSavedMember);
+                return getEmployee($scope.searchSavedMember, $scope.includeMember);
             };
 
             $scope.unSelectSavedEmployee = function () {
@@ -776,7 +777,7 @@ orderingModule.controller("OrderingController",
             };
 
             $scope.getSideDishEmployee = function () {
-                return getEmployee($scope.searchSideDishMember);
+                return getEmployee($scope.searchSideDishMember, $scope.includeMember);
             };
 
             $scope.unSelectSideDishEmployee = function () {

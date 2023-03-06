@@ -7,6 +7,8 @@
         [SpParam(SqlParamName = "SysId")]
         public int? UserId { get; set; }
 
+        public int? UserRequestId { get; set; }
+
         public string CompanyId { get; set; }
 
         public string TeamId { get; set; }
@@ -17,6 +19,7 @@
         public string RoleId { get; set; }
 
         public bool IsShowDisable { get; set; }
+        public bool? IsIncludeMemberOtherDepartment { get; set; }
 
         public override string GetSettingKey() => "Employee_GetEmployees";
 

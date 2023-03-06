@@ -246,7 +246,7 @@ function sideDishReportController($scope, $location, $routeParams, reportFactory
     $scope.getEmployee = function () {
         self.getTeamIdsAndCompanyIds();
 
-        var result = orderingFactory.getEmployees($scope.searchEmployee, $scope.criteria.companyIds, $scope.criteria.teamIds, true);
+        var result = orderingFactory.getEmployees($scope.searchEmployee, null, $scope.criteria.companyIds, $scope.criteria.teamIds, true);
 
         return result;
     };

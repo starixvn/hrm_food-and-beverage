@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
+    using HRM.UserControl.Client.Core.Models.User;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
@@ -32,11 +33,13 @@
         }
 
         [HttpGet]
-        public IList<Employee> GetEmployees(string keyWord = "", string companyId = "", string teamId = null, bool isShowDisable = false)
+        public IList<Employee> GetEmployees(string keyWord = "", bool? isIncludeMember = null, string companyId = "", string teamId = null, bool isShowDisable = false)
         {
             var criteria = new GetEmployeeCriteria
             {
+                UserRequestId = this.CurrentUser.UserId,
                 CompanyId = string.IsNullOrWhiteSpace(companyId) ? this.CurrentUser.CompanyId.ToString() : companyId,
+                IsIncludeMemberOtherDepartment = isIncludeMember,
                 Keyword = keyWord,
                 TeamId = teamId,
                 IsShowDisable = isShowDisable

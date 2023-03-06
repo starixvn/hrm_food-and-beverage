@@ -32,11 +32,12 @@ orderingModule.factory("orderingFactory",
             getRemarkList: function () {
                 return $http.get(baseUrl + 'api/Ordering/GetOrderRemark');
             },
-            getEmployees: function (keyWord, companyId, teamId, isShowDisable) {
+            getEmployees: function (keyWord, isIncludeMember, companyId, teamId, isShowDisable) {
                 return $http.get(baseUrl + 'api/Employee/GetEmployees',
                     {
                         params: {
                             keyWord: keyWord,
+                            isIncludeMember: isIncludeMember,
                             companyId: companyId,
                             teamId: teamId,
                             isShowDisable: isShowDisable
