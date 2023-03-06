@@ -117,6 +117,7 @@ function dailyMainDishReportController($scope, reportFactory, ErrorFactory, repo
         if (companyId) {
             userControlFactory.getOrgChart(companyId).success(function (teams) {
                 $scope.teamOptions = teams;
+                $('multiselect-treeview-2-selectAll').val = false;
             }).error(function (response, status) {
                 ErrorFactory.errorHandle(status);
             });
@@ -179,7 +180,6 @@ function dailyMainDishReportController($scope, reportFactory, ErrorFactory, repo
         resetPagingOption(filter);
 
         filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-        filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
         filter.userId = filter.employee ? filter.employee.UserId : '';
 
         if (!filter.companyId) {
@@ -202,7 +202,6 @@ function dailyMainDishReportController($scope, reportFactory, ErrorFactory, repo
 
     $scope.exportExcel = function (filter) {
         filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-        filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
         filter.userId = filter.employee ? filter.employee.UserId : '';
 
         $scope.criteria = {
