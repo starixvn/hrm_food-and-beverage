@@ -16,7 +16,7 @@
 
         IEnumerable<RoleSystemModel> GetAllSystemRole(GetAllSystemRoleCriteria criteria, bool exceptSystemAdmin = false);
 
-        IEnumerable<Unit> GetAllTeamByCompany(GetAllTeamByCompanyCriteria criteria);
+        IEnumerable<Team> GetAllTeamByCompany(GetAllTeamByCompanyCriteria criteria);
         IList<MultiSelectItem> GetOrgChart(GetAllTeamByCompanyCriteria criteria);
 
         IEnumerable<MealTimesheet> GetAllMealTimesheet(GetMealTimesheetCriteria criteria);

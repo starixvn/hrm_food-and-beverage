@@ -47,7 +47,7 @@
             return _deliveryAreaService.GetAllDeliveryArea(criteria);
         }
 
-        public IEnumerable<Unit> GetAllTeamByCompany(string companyId = null)
+        public IEnumerable<Team> GetAllTeamByCompany(string companyId = null)
         {
             var criteria = new GetAllTeamByCompanyCriteria
             {

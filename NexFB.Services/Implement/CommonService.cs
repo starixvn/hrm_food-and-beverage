@@ -40,23 +40,15 @@
             return roles;
         }
 
-        public IEnumerable<Unit> GetAllTeamByCompany(GetAllTeamByCompanyCriteria criteria)
+        public IEnumerable<Team> GetAllTeamByCompany(GetAllTeamByCompanyCriteria criteria)
         {
-            List<Unit> units = new List<Unit>();
-            IEnumerable<dynamic> rawReport = null;
+            IEnumerable<Team> teams = null;
             if (criteria.IsValid())
             {
-                rawReport = GetData<dynamic>(criteria);
+                teams = GetData<Team>(criteria);
             }
 
-            IEnumerable<dynamic> rawUnits = rawReport.Select(x => x.UnitId).Distinct();
-
-            foreach (dynamic unitId in rawUnits)
-            {
-                units.Add(GroupUnits(units, unitId, rawReport));
-            }
-
-            return units;
+            return teams;
         }
 
         public Unit GroupUnits(List<Unit> units, int unitId, IEnumerable<dynamic> rawReport)
@@ -221,7 +213,20 @@
 
         public IList<MultiSelectItem> GetOrgChart(GetAllTeamByCompanyCriteria criteria)
         {
-            var units = GetAllTeamByCompany(criteria);
+            List<Unit> units = new List<Unit>();
+            IEnumerable<dynamic> rawReport = null;
+            if (criteria.IsValid())
+            {
+                rawReport = GetData<dynamic>(criteria);
+            }
+
+            IEnumerable<dynamic> rawUnits = rawReport.Select(x => x.UnitId).Distinct();
+
+            foreach (dynamic unitId in rawUnits)
+            {
+                units.Add(GroupUnits(units, unitId, rawReport));
+            }
+
             IList<MultiSelectItem> items = new List<MultiSelectItem>();
             if (units.Any())
             {
