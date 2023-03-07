@@ -146,10 +146,10 @@
 
                 html.push('<ul class="multiselect-treeview-group-items">'
                     + '<li class="multiselect-treeview-item">'
-                    + '<div class="checkbox-wrapper">'
+                    + '<div class="checkbox-wrapper"' + (!data.Items || data.Items.length === 0 ? 'style= "margin-left: 6px;"' : "")+'>'
                     + (!data.Items || data.Items.length === 0 ? '' :
                         '<i class="icon-expand-collapse glyphicon glyphicon-minus icon-minus"'
-                    + 'style = "top: 0px !important; margin-right: 0px !important;" ng - click="expandOrCollapse" ></i > ')
+                    + 'style = "top: 0px !important; margin-right: -2px !important;" ng - click="expandOrCollapse" ></i > ')
                     + '<input type="checkbox" id="' + me.id + '-' + itemId + '" value="' + data.Id + '" data-is-leaf="' + data.IsLeaf + '" '
                     + (data.Checked || options.isSelectedAll ? 'checked' : '') + ' ' + (disabled ? 'disabled' : '') + ' />'
                     + '<label for="' + me.id + '-' + itemId + '">' + data.Text + '</label>'
@@ -179,10 +179,10 @@
                     itemId = item.parentId + '-' + i,
                     disabled = options.disabled || (options.singleSelection && !data.IsLeaf);
                 html.push('<li class="multiselect-treeview-item is-child">'
-                    + '<div class="checkbox-wrapper">'
+                    + '<div class="checkbox-wrapper"' + (!data.Items || data.Items.length === 0 ? 'style= "margin-left: 6px;"' : "") +'>'
                     + (!data.Items || data.Items.length === 0 ? '' :
                         '<i class="icon-expand-collapse glyphicon glyphicon-minus icon-minus"'
-                    + 'style = "top: 0px !important; margin-right: 0px !important;" ng - click="expandOrCollapse" ></i > ')
+                    + 'style = "top: 0px !important; margin-left: 1px; margin-right: -2px !important;" ng - click="expandOrCollapse" ></i > ')
                     + '<input type="checkbox" id="' + me.id + '-' + itemId + '" value="' + data.Id + '" data-is-leaf="' + data.IsLeaf + '" '
                     + ' data-parentid="' + me.id + '-' + item.parentId + '"'
                     + ' ' + (data.Checked || options.isSelectedAll ? 'checked' : '') + ' ' + (disabled ? 'disabled' : '') + ' />'
