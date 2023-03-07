@@ -80,7 +80,6 @@
         .border-radius(3px);
         .box-shadow(0 1px 5px #959595);
         //overflow: hidden;
-
         &.hidden {
             display: none;
         }
@@ -105,6 +104,15 @@
                     position: relative;
                     padding: 0 0 0 10px;
 
+                    .icon-expand-collapse {
+                        top: 0px !important;
+                        margin-right: -1px !important;
+                        font-family: unset;
+                        border: 1px solid;
+                        height: 11px;
+                        line-height: 8px;
+                    }
+
                     &.is-child {
                         padding-left: 14px;
 
@@ -116,7 +124,7 @@
                         }
 
                         &:before {
-                            border-left: 1px solid #999;
+                            border-left: 1px dotted #999;
                             bottom: 50px;
                             height: 100%;
                             top: -6px;
@@ -124,7 +132,7 @@
                         }
 
                         &:after {
-                            border-top: 1px solid #999;
+                            border-top: 1px dotted #999;
                             height: 15px;
                             top: 11px;
                             width: 8px;
