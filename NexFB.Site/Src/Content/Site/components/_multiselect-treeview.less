@@ -5,6 +5,8 @@
     .multiselect-treeview-dropdown-button {
         display: inline-block;
         width: 100%;
+        height: 27px;
+        border-radius: 3px;
         background-color: #fff;
         border: 1px solid #ccc;
         padding: 3px 5px;
@@ -16,8 +18,16 @@
             cursor: not-allowed;
         }
 
+        .selected-text {
+            position: absolute;
+            top: 3px;
+        }
+
         .up-down-icon {
             float: right;
+            position: absolute;
+            top: 1px;
+            right: 6px;
 
             .down, .up {
                 display: inline-block;
