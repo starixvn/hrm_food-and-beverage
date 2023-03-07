@@ -45,8 +45,8 @@ reportModule.directive('renderMonthlyReport', function () {
                 if (report.GroupBy == 0) {
                     currentRow = {
                         Columns: [
-                            { Name: "Meal", Value: meal.Meal.MealEngName, MergeColNumber: 5, CellAlign: "left" },
-                            { Name: "1", Value: "", MergeColNumber: 33 }
+                            { Name: "Meal", Value: meal.Meal.MealEngName, MergeColNumber: 8, CellAlign: "left" },
+                            { Name: "1", Value: "", MergeColNumber: 36 }
                         ],
                         SubRows: [],
                         CssClass: 'parent-row-background'
@@ -71,9 +71,12 @@ reportModule.directive('renderMonthlyReport', function () {
                         currentSubRow = {
                             Columns: [
                                 { Name: "Meal", Value: rowIndex, CssClass: "remove-padding-left" },
+                                { Name: "FullName", Value: mealItem.Employee.FullName },
                                 { Name: "NickName", Value: mealItem.Employee.NickName },
                                 { Name: "EmployeeType", Value: mealItem.EmployeeType.EmployeeTypeName },
-                                { Name: "Company", Value: mealItem.Company.Name },
+                                { Name: "Unit", Value: mealItem.Employee.Unit },
+                                { Name: "Department", Value: mealItem.Employee.Department },
+                                { Name: "Section", Value: mealItem.Employee.Section },
                                 { Name: "Team", Value: mealItem.Team.Name }
                             ]
                         };
@@ -141,9 +144,12 @@ reportModule.directive('renderMonthlyReport', function () {
                 {
                     Columns: [
                         { HeaderText: "#", Name: "Meal", MergeRowNumber: 2 },
+                        { HeaderText: "Full Name", Name: "FullName", MergeRowNumber: 2 },
                         { HeaderText: "Nick", Name: "NickName", MergeRowNumber: 2 },
                         { HeaderText: "Employee Type", Name: "EmployeeType", MergeRowNumber: 2 },
-                        { HeaderText: "Company", Name: "Company", MergeRowNumber: 2 },
+                        { HeaderText: "Unit", Name: "Unit", MergeRowNumber: 2 },
+                        { HeaderText: "Department", Name: "Department", MergeRowNumber: 2 },
+                        { HeaderText: "Section", Name: "Section", MergeRowNumber: 2 },
                         { HeaderText: "Team", Name: "Team", MergeRowNumber: 2 },
                         { HeaderText: "" + moment(month).format(monthFormat), Name: "1", MergeColNumber: 31 },
                         { HeaderText: "Total", Name: "Quantity", MergeColNumber: 2 }
@@ -173,9 +179,12 @@ reportModule.directive('renderMonthlyReport', function () {
         if (groupBy == 0) {
             columns = [
                 { HeaderText: "#", Width: 60, Name: "Meal", HeaderAlign: "center", CellAlign: "center", ShowCollapseExpand: true },
+                { HeaderText: "Full Name", Width: 150, Name: "FullName", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Nick", Width: 90, Name: "NickName", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Employee Type", Width: 150, Name: "EmployeeType", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: "Company", Width: 100, Name: "Company", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: "Unit", Width: 100, Name: "Unit", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: "Department", Width: 100, Name: "Department", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: "Section", Width: 100, Name: "Section", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: "Team", Width: 150, Name: "Team", HeaderAlign: "center", CellAlign: "left" }
             ];
         }
@@ -213,7 +222,7 @@ reportModule.directive('renderMonthlyReport', function () {
         if (weekdays) {
             if (groupBy == 0) {
                 columns = [
-                    { Value: "Total", Name: "Meal", MergeColNumber: 5 }
+                    { Value: "Total", Name: "Meal", MergeColNumber: 8 }
                 ];
             }
             else {
@@ -280,7 +289,7 @@ reportModule.directive('renderMonthlyReport', function () {
                             scope.exportExcel.call(this, scope.filter);
                         }
                     },
-                    numberOfFrozenColumn: report.GroupBy == 0 ? 5 : 2,
+                    numberOfFrozenColumn: report.GroupBy == 0 ? 8 : 2,
                     showFooter: true,
                     footerRows: footerData,
                     gridExpandHeight: 250,

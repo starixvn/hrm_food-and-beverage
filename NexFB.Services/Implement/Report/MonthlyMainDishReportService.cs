@@ -74,7 +74,7 @@
             // Fill report header.
             writer.CopyRows(3, 1);
             writer.CopyRows(4, 1);
-            writer.WriteCellRange(3, 1, report.GroupBy == GroupByReport.Employee ? 4 : 2, 31, report.Month.ToString("MMM-yyyy"));
+            writer.WriteCellRange(3, 1, report.GroupBy == GroupByReport.Employee ? 8 : 2, 31, report.Month.ToString("MMM-yyyy"));
             WriteDayHeaderInMonth(report.WeekDays.NumberMeals, ref writer);
 
             FillContentRow(report, ref writer);
@@ -395,8 +395,12 @@
                 var record = new
                 {
                     Count = rowIndex,
+                    FullName = mealItem.Employee.FullName,
                     Nick = mealItem.Employee.NickName,
                     EmployeeType = mealItem.EmployeeType.EmployeeTypeName,
+                    Unit = mealItem.Employee.Unit,
+                    Department = mealItem.Employee.Department,
+                    Section = mealItem.Employee.Section,
                     DepartmentSection = mealItem.Company.Name + "> " + mealItem.Team.Name,
                     Day1 = numberMeals[0],
                     Day2 = numberMeals[1],

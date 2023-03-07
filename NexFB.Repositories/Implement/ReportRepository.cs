@@ -520,6 +520,9 @@ namespace NexFB.Repositories.Implement
                     UserId = (int)userId,
                     FullName = rawMeal.FullName,
                     NickName = rawMeal.NickName,
+                    Unit = rawMeal.Unit,
+                    Department = rawMeal.Department,
+                    Section = rawMeal.Section,
                     Code = rawMeal.Code,
                     DomainUsername = rawMeal.DomainUsername
                 };
