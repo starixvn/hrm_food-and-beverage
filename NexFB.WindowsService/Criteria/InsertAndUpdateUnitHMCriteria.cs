@@ -8,7 +8,7 @@
     public class InsertAndUpdateUnitHMCriteria : CriteriaBase
     {
         private const string _UnitTpl = "<Unit UnitId='{0}' CompanyId='{1}' Code='{2}' "
-            + "Name='{3}' IsActive='{4}' ModifiedDate='{5}' IsDeleted='{6}'></UnitId>";
+            + "Name='{3}' IsActive='{4}' ModifiedDate='{5}' IsDeleted='{6}'></Unit>";
 
         [SpParam(Ignored = true)]
         public int CompanyId { get; set; }
