@@ -81,6 +81,10 @@ function sideDishSummaryReportController($scope, reportFactory, ErrorFactory, re
         ErrorFactory.errorHandle(status);
     });
 
+    $scope.onSelectTeam = function (teamIds) {
+        $scope.filter.teamId = teamIds;
+    };
+
     $scope.getSideDishSummaryReport = function (filter) {
         commonFactory.blockUI();
         reportFactory.getSideDishSummaryReport(filter).success(function (report) {
@@ -97,7 +101,7 @@ function sideDishSummaryReportController($scope, reportFactory, ErrorFactory, re
 
     $scope.getTeamByCompany = function (companyId) {
         if (companyId > 0) {
-            userControlFactory.getAllTeamByCompany(companyId).success(function (teams) {
+            userControlFactory.getOrgChart(companyId).success(function (teams) {
                 $scope.teamOptions = teams;
                 if ($scope.history.teamId.length > 0) {
                     var ids = $scope.history.teamId.split(',');
@@ -174,7 +178,6 @@ function sideDishSummaryReportController($scope, reportFactory, ErrorFactory, re
         filter.itemsPerPage = 50;
 
         filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-        filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
         reportFactory.setHistorySideDishSummary($scope);
 
         if (!filter.companyId) {
@@ -196,7 +199,6 @@ function sideDishSummaryReportController($scope, reportFactory, ErrorFactory, re
 
     $scope.exportExcel = function (filter) {
         filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-        filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
 
         $scope.criteria = {
             companyId: filter.companyId,

@@ -14,7 +14,8 @@ function manageUserInGroupController($scope, $modal, $routeParams, commonFactory
         GroupId: '',
         EmployeeTypeId: '',
         JoinedDateFrom: '',
-        JoinedDateTo: ''
+        JoinedDateTo: '',
+        teamId: null
     };
 
     $scope.filter = angular.copy(originalFilter);
@@ -80,9 +81,13 @@ function manageUserInGroupController($scope, $modal, $routeParams, commonFactory
         notificationFactory.error("ErrorMessage");
     });
 
+    $scope.onSelectTeam = function (teamIds) {
+        $scope.filter.teamId = teamIds;
+    };
+
     $scope.getTeamByCompany = function (companyId) {
         if (companyId) {
-            userControlFactory.getAllTeamByCompany(companyId).success(function (teams) {
+            userControlFactory.getOrgChart(companyId).success(function (teams) {
                 $scope.teamOptions = teams;
             }).error(function (response, status) {
                 ErrorFactory.errorHandle(status);
@@ -142,7 +147,6 @@ function manageUserInGroupController($scope, $modal, $routeParams, commonFactory
 
             customizeFilter.GroupId = manageUserInGroupUtilities.getSelectedGroupIds($scope.groupOptions);
             customizeFilter.EmployeeTypeId = manageUserInGroupUtilities.getEmployeeTypeId($scope.employeeTypeOptions);
-            customizeFilter.TeamId = manageUserInGroupUtilities.getTeamIds($scope.teamOptions);
 
             if (customizeFilter.JoinedDateFrom && customizeFilter.JoinedDateTo) {
                 var fromDate = new Date(customizeFilter.JoinedDateFrom),

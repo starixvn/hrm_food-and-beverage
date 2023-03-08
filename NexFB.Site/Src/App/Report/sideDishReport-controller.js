@@ -23,7 +23,7 @@ function sideDishReportController($scope, $location, $routeParams, reportFactory
     $scope.criteria = {
         companyId: null,
         companyIds: '',
-        teamIds: '',
+        teamIds: null,
         employeeTypeIds: '',
         employee: {},
         userId: null,
@@ -182,8 +182,6 @@ function sideDishReportController($scope, $location, $routeParams, reportFactory
                             }
                         });
                     });
-                } else {
-                    $scope.criteria.teamIds = reportUtilities.getTeamId($scope.teams);
                 }
             }).error(function (response, status) {
                 ErrorFactory.errorHandle(status);
@@ -262,13 +260,16 @@ function sideDishReportController($scope, $location, $routeParams, reportFactory
         $location.url('/SideDishSummaryReport/Index');
     };
 
+    $scope.onSelectTeam = function (teamIds) {
+        $scope.criteria.teamIds = teamIds;
+    };
+
     self.getTeams = function () {
         if ($scope.criteria.companyId > 0) {
-            userControlFactory.getAllTeamByCompany($scope.criteria.companyId).success(function (teams) {
+            userControlFactory.getOrgChart($scope.criteria.companyId).success(function (teams) {
                 $scope.teams = teams;
                 if ($routeParams.companyId && $scope.criteria.companyId !== $scope.history.companyId) {
                     $scope.history.companyId = $scope.criteria.companyId;
-                    $scope.history.teamId = reportUtilities.getTeamId($scope.teams);
                 }
             }).error(function (response, status) {
                 ErrorFactory.errorHandle(status);
@@ -366,7 +367,6 @@ function sideDishReportController($scope, $location, $routeParams, reportFactory
 
     self.getTeamIdsAndCompanyIds = function () {
         self.getCompanyIds();
-        $scope.criteria.teamIds = reportUtilities.getTeamId($scope.teams);
     };
 
     self.loadData();

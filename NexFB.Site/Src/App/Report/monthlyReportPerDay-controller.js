@@ -82,7 +82,7 @@ function monthlyMainDishReportPerDayController($scope, reportFactory, ErrorFacto
         $scope.getMonthlyMainDishReportPerDay($scope.filter);
 
         if (companies && companies.length === 1) {
-            $scope.getTeamByCompany($scope.filter.companyId);
+            $scope.getOrgChart($scope.filter.companyId);
         }
 
         getEmployeeType($scope.filter.companyId, false);
@@ -90,10 +90,15 @@ function monthlyMainDishReportPerDayController($scope, reportFactory, ErrorFacto
         ErrorFactory.errorHandle(status);
     });
 
-    $scope.getTeamByCompany = function (companyId) {
+    $scope.onSelectTeam = function (teamIds) {
+        $scope.filter.teamId = teamIds;
+    };
+
+    $scope.getOrgChart = function (companyId) {
         if (companyId) {
-            userControlFactory.getAllTeamByCompany(companyId).success(function (teams) {
+            userControlFactory.getOrgChart(companyId).success(function (teams) {
                 $scope.teamOptions = teams;
+                $('multiselect-treeview-2-selectAll').val = false;
             }).error(function (response, status) {
                 ErrorFactory.errorHandle(status);
             });
@@ -112,7 +117,7 @@ function monthlyMainDishReportPerDayController($scope, reportFactory, ErrorFacto
     };
 
     $scope.getTeamAndEmployeeTypeOfCompany = function (companyId) {
-        $scope.getTeamByCompany(companyId);
+        $scope.getOrgChart(companyId);
 
         if (!companyId) {
             companyId = $scope.originalCompanyId;
@@ -145,7 +150,6 @@ function monthlyMainDishReportPerDayController($scope, reportFactory, ErrorFacto
         resetGridOption();
         resetPagingOption(filter);
         filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-        filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
         filter.isPagingCallback = false;
 
         if (!filter.companyId) {
@@ -157,7 +161,6 @@ function monthlyMainDishReportPerDayController($scope, reportFactory, ErrorFacto
 
     $scope.exportExcel = function (filter) {
         filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-        filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
 
         $scope.criteria = {
             reportDate: filter.reportDate.toDateString(),

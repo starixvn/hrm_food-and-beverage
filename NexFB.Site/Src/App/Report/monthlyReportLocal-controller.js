@@ -23,7 +23,7 @@ function monthlyMainDishReportLocalController($scope, reportFactory, ErrorFactor
         userId: null,
         mealId: '',
         employeeTypeId: '',
-        teamId: '',
+        teamId: null,
         groupBy: 0,
         startIndex: 0,
         itemsPerPage: 50,
@@ -107,7 +107,7 @@ function monthlyMainDishReportLocalController($scope, reportFactory, ErrorFactor
         $scope.getMonthlyReportLocal($scope.filter);
 
         if (companies && companies.length === 1) {
-            $scope.getTeamByCompany($scope.filter.companyId);
+            $scope.getOrgChart($scope.filter.companyId);
         }
 
         getEmployeeType($scope.filter.companyId, null);
@@ -115,14 +115,20 @@ function monthlyMainDishReportLocalController($scope, reportFactory, ErrorFactor
         ErrorFactory.errorHandle(status);
     });
 
-    $scope.getTeamByCompany = function (companyId) {
+    $scope.onSelectTeam = function (teamIds) {
+        $scope.filter.teamId = teamIds;
+    };
+
+    $scope.getOrgChart = function (companyId) {
         if (companyId) {
-            userControlFactory.getAllTeamByCompany(companyId).success(function (teams) {
+            userControlFactory.getOrgChart(companyId).success(function (teams) {
                 $scope.teamOptions = teams;
+                $('multiselect-treeview-2-selectAll').val = false;
             }).error(function (response, status) {
                 ErrorFactory.errorHandle(status);
             });
-        } else {
+        }
+        else {
             $scope.teamOptions = '';
         }
     };
@@ -142,7 +148,7 @@ function monthlyMainDishReportLocalController($scope, reportFactory, ErrorFactor
     };
 
     $scope.getTeamAndEmployeeTypeOfCompany = function (companyId) {
-        $scope.getTeamByCompany(companyId);
+        $scope.getOrgChart(companyId);
 
         if (!companyId) {
             companyId = $scope.originalCompanyd;
@@ -170,7 +176,6 @@ function monthlyMainDishReportLocalController($scope, reportFactory, ErrorFactor
         resetPagingOption(filter);
         filter.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
         filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-        filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
         filter.userId = filter.employee ? filter.employee.UserId : '';
 
         if (!filter.companyId) {
@@ -183,7 +188,6 @@ function monthlyMainDishReportLocalController($scope, reportFactory, ErrorFactor
     $scope.exportExcel = function (filter) {
         filter.mealId = foodMenuUtilities.getMealId($scope.mealsOption);
         filter.employeeTypeId = foodMenuUtilities.getEmployeeTypeId($scope.employeeTypesOption);
-        filter.teamId = reportUtilities.getTeamId($scope.teamOptions);
         filter.userId = filter.employee ? filter.employee.UserId : '';
 
         $scope.criteria = {
