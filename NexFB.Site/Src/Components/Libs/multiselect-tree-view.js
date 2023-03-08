@@ -269,6 +269,9 @@
                 if (me.$dropdownlist.hasClass('hidden')) {
                     me.$updownicon.find('span').removeClass('down').addClass('up');
                     me.$dropdownlist.removeClass('hidden');
+                } else {
+                    me.$updownicon.find('span').removeClass('up').addClass('down');
+                    me.$dropdownlist.addClass('hidden');
                 }
             });
             me.$selectAll.on('change', function () {
@@ -287,7 +290,6 @@
             });
 
             me.$iconExpandCollapse.on('click', function () {
-                //var $this = $(this)[0].parentElement.parentElement.childNodes[1];
                 var $this = $(this)[0];
                 var className = $this.className;
                 var classNameExpand = "icon-expand-collapse glyphicon glyphicon-plus icon-plus";
