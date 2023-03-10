@@ -1,39 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
-	<Function Name="Employee">
-		<Setting Key="Employee_GetEmployeeByCardNumber" SpName="Employee_GetEmployeeByCardNumber" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Get_GroupUserBySysID" SpName="POS_Get_GroupUserBySysID" DbName="NexFB" Plain="0" >
-			<Mapping DataField="Qty" ObjectProperty="Quantity"/>
-		</Setting>
-		<Setting Key="POS_Get_FoodAlternative" SpName="POS_Get_FoodAlternative" DbName="NexFB" Plain="0" >
-			<Mapping DataField="AltMenuId" ObjectProperty="FoodId"/>
-			<Mapping DataField="AltMenuCode" ObjectProperty="FoodCode"/>
-			<Mapping DataField="AltMenuVNMName" ObjectProperty="FoodVnmName"/>
-			<Mapping DataField="AltMenuEngName" ObjectProperty="FoodEngName"/>
-			<Mapping DataField="AltMenuPhoto" ObjectProperty="FoodPhoto"/>
-		</Setting>
-		<Setting Key="POS_Insert_OrderMealByUser" SpName="POS_Insert_OrderMealByUser" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Get_FoodOrder" SpName="POS_Get_FoodOrder" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Insert_OrderSideDishByUser" SpName="POS_Insert_OrderSideDishByUser" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Get_MyOrderBySysID" SpName="POS_Get_MyOrderBySysID" DbName="NexFB" Plain="0" >
-			<Mapping DataField="QtyOrder" ObjectProperty="QuantityOrder"/>
-		</Setting>
-		<Setting Key="POS_Get_MyStatusBySysID" SpName="POS_Get_MyStatusBySysID" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Get_OrderDetail" SpName="POS_Get_OrderDetail" DbName="NexFB" Plain="0" >
-			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
-		</Setting>
-		<Setting Key="MealOrder_Get_MyStatusBySysID" SpName="MealOrder_Get_MyStatusBySysID" DbName="NexFB" Plain="0">
-			<Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status" />
-			<Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status" />
-			<Mapping DataField="SysId" ObjectProperty="UserId" Class="Employee" />
-			<Mapping DataField="MenuEngName" ObjectProperty="NameEN" Class="Menu" />
-			<Mapping DataField="MenuVNMName" ObjectProperty="NameVN" Class="Menu" />
-			<Mapping DataField="IsHaveAltMenu" ObjectProperty="IsHaveAlternativeMenu" Class="Menu" />
-			<Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location" />
-			<Mapping DataField="LocationVNMName" ObjectProperty="NameVN" Class="Location" />
-			<Mapping DataField="IsAllowOrder" ObjectProperty="RawIsAllowOrder" Class="MealOrderingModel" />
-		</Setting>
-		<Setting Key="RPT_ViewMenuReport" SpName="RPT_ViewMenuReport" DbName="NexFB" Plain="0">
-		</Setting>
-	</Function>
+    <Function Name="Employee">
+        <Setting Key="Employee_GetEmployeeByCardNumber" SpName="Employee_GetEmployeeByCardNumber" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_Get_GroupUserBySysID" SpName="POS_Get_GroupUserBySysID" DbName="NexFB" Plain="0" >
+            <Mapping DataField="Qty" ObjectProperty="Quantity"/>
+        </Setting>
+        <Setting Key="POS_Get_FoodAlternative" SpName="POS_Get_FoodAlternative" DbName="NexFB" Plain="0" >
+            <Mapping DataField="AltMenuId" ObjectProperty="FoodId"/>
+            <Mapping DataField="AltMenuCode" ObjectProperty="FoodCode"/>
+            <Mapping DataField="AltMenuVNMName" ObjectProperty="FoodVnmName"/>
+            <Mapping DataField="AltMenuEngName" ObjectProperty="FoodEngName"/>
+            <Mapping DataField="AltMenuPhoto" ObjectProperty="FoodPhoto"/>
+        </Setting>
+        <Setting Key="POS_Insert_OrderMealByUser" SpName="POS_Insert_OrderMealByUser" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_Get_FoodOrder" SpName="POS_Get_FoodOrder" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_Insert_OrderSideDishByUser" SpName="POS_Insert_OrderSideDishByUser" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_Get_MyOrderBySysID" SpName="POS_Get_MyOrderBySysID" DbName="NexFB" Plain="0" >
+            <Mapping DataField="QtyOrder" ObjectProperty="QuantityOrder"/>
+        </Setting>
+        <Setting Key="POS_GetInfo_MainDishOrder" SpName="POS_GetInfo_MainDishOrder" DbName="NexFB" Plain="0" >
+        </Setting>
+        <Setting Key="POS_Get_MyStatusBySysID" SpName="POS_Get_MyStatusBySysID" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_Get_OrderDetail" SpName="POS_Get_OrderDetail" DbName="NexFB" Plain="0" >
+            <Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
+        </Setting>
+        <Setting Key="MealOrder_Get_MyStatusBySysID" SpName="MealOrder_Get_MyStatusBySysID" DbName="NexFB" Plain="0">
+            <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status" />
+            <Mapping DataField="CurrentStatusName" ObjectProperty="Name" Class="Status" />
+            <Mapping DataField="SysId" ObjectProperty="UserId" Class="Employee" />
+            <Mapping DataField="MenuEngName" ObjectProperty="NameEN" Class="Menu" />
+            <Mapping DataField="MenuVNMName" ObjectProperty="NameVN" Class="Menu" />
+            <Mapping DataField="IsHaveAltMenu" ObjectProperty="IsHaveAlternativeMenu" Class="Menu" />
+            <Mapping DataField="LocationENGName" ObjectProperty="NameEN" Class="Location" />
+            <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" Class="Location" />
+            <Mapping DataField="IsAllowOrder" ObjectProperty="RawIsAllowOrder" Class="MealOrderingModel" />
+        </Setting>
+        <Setting Key="RPT_ViewMenuReport" SpName="RPT_ViewMenuReport" DbName="NexFB" Plain="0">
+        </Setting>
+    </Function>
 </Functions>

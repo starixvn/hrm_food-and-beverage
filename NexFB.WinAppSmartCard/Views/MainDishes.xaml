@@ -5,193 +5,193 @@
 			 xmlns:helpers="clr-namespace:NexFB.WinAppSmartCard.GlobalResources.Helpers"
 			 xmlns:lb="clr-namespace:NexFB.WinAppSmartCard.DependencyProperties"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
-	<!--{Binding DataContext.ScreenWidth, RelativeSource={RelativeSource AncestorType=Window}}-->
+    <!--{Binding DataContext.ScreenWidth, RelativeSource={RelativeSource AncestorType=Window}}-->
 
-	<UserControl.Resources>
-		<helpers:LocalizationHelper x:Key="localisation"/>
-		<Color x:Key="customBlue"  A="255"   R="54" G="95" B="177"  />
-		<SolidColorBrush x:Key="customBlueBrush" Color="{StaticResource customBlue}"></SolidColorBrush>
-		<SolidColorBrush x:Key="customBlueBrushOpacity" Color="#fff" Opacity="0.11"></SolidColorBrush>
-		<Style x:Key="OrderListBox"  TargetType="ListBox">
-			<Setter Property="SnapsToDevicePixels" Value="True"/>
-			<Setter Property="OverridesDefaultStyle" Value="True"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="ListBox">
-						<Grid >
-							<Grid.RowDefinitions>
-								<RowDefinition Height="50"></RowDefinition>
-								<RowDefinition></RowDefinition>
-							</Grid.RowDefinitions>
-							<Grid Grid.Row="0" Height="50" VerticalAlignment="Center" Background="#E1E1E1">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="85"/>
-									<ColumnDefinition Width="425"/>
-									<ColumnDefinition Width="420"/>
-									<ColumnDefinition Width="170"/>
-								</Grid.ColumnDefinitions>
-								<Border BorderThickness="1" BorderBrush="#999999" Grid.Column="0"></Border>
-								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
-								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="2"></Border>
-								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="3"></Border>
-								<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.NumberCount]}"
+    <UserControl.Resources>
+        <helpers:LocalizationHelper x:Key="localisation"/>
+        <Color x:Key="customBlue"  A="255"   R="54" G="95" B="177"  />
+        <SolidColorBrush x:Key="customBlueBrush" Color="{StaticResource customBlue}"></SolidColorBrush>
+        <SolidColorBrush x:Key="customBlueBrushOpacity" Color="#fff" Opacity="0.11"></SolidColorBrush>
+        <Style x:Key="OrderListBox"  TargetType="ListBox">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Height="50" VerticalAlignment="Center" Background="#E1E1E1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="85"/>
+                                    <ColumnDefinition Width="425"/>
+                                    <ColumnDefinition Width="420"/>
+                                    <ColumnDefinition Width="170"/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderThickness="1" BorderBrush="#999999" Grid.Column="0"></Border>
+                                <Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
+                                <Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="2"></Border>
+                                <Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="3"></Border>
+                                <TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.NumberCount]}"
 								 FontSize="20" FontFamily="Segoe Ui Dark"
 								 Foreground="#014A81" SnapsToDevicePixels="True" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-								<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Member]}"
+                                <TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Member]}"
 								 FontSize="20" FontFamily="Segoe Ui Dark" 
 								 Foreground="#014A81" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
 
-								<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Menu]}"
+                                <TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Menu]}"
 								FontSize="20" FontFamily="Segoe Ui Dark"  
 								 Foreground="#014A81" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="2" />
 
-								<TextBlock
+                                <TextBlock
 								Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Delete]}" FontSize="20" FontFamily="Segoe Ui Dark"  
 								Foreground="#014A81" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="3" />
-							</Grid>
-							<Border Margin="0,0,0,0" Grid.Row="1" SnapsToDevicePixels="True"  Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0">
-								<ItemsPresenter />
-							</Border>
-						</Grid>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
+                            </Grid>
+                            <Border Margin="0,0,0,0" Grid.Row="1" SnapsToDevicePixels="True"  Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0">
+                                <ItemsPresenter />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
 
-		<Style x:Key="NotificationListBox"  TargetType="ListBox">
-			<Setter Property="SnapsToDevicePixels" Value="True"/>
-			<Setter Property="OverridesDefaultStyle" Value="True"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="ListBox">
-						<Grid>
-							<Grid.RowDefinitions>
-								<RowDefinition Height="50"></RowDefinition>
-								<RowDefinition></RowDefinition>
-							</Grid.RowDefinitions>
-							<Grid Grid.Row="0" Height="50" VerticalAlignment="Center" Background="#E1E1E1">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="85"/>
-									<ColumnDefinition Width="425"/>
-									<ColumnDefinition Width="420"/>
-								</Grid.ColumnDefinitions>
-								<Border BorderThickness="1" BorderBrush="#999999" Grid.Column="0"></Border>
-								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
-								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="2"></Border>
-								<Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="3"></Border>
-								<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.NumberCount]}"
+        <Style x:Key="NotificationListBox"  TargetType="ListBox">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Height="50" VerticalAlignment="Center" Background="#E1E1E1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="85"/>
+                                    <ColumnDefinition Width="425"/>
+                                    <ColumnDefinition Width="420"/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderThickness="1" BorderBrush="#999999" Grid.Column="0"></Border>
+                                <Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
+                                <Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="2"></Border>
+                                <Border BorderThickness="0,1,1,1" BorderBrush="#999999" Grid.Column="3"></Border>
+                                <TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.NumberCount]}"
 								 FontSize="20" FontFamily="Segoe Ui Dark"
 								 Foreground="#014A81" SnapsToDevicePixels="True" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-								<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Member]}"
+                                <TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Member]}"
 								 FontSize="20" FontFamily="Segoe Ui Dark" 
 								 Foreground="#014A81" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
 
-								<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Menu]}"
+                                <TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Menu]}"
 								FontSize="20" FontFamily="Segoe Ui Dark"  
 								 Foreground="#014A81" SnapsToDevicePixels="True"  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="2" />
 
-							</Grid>
-							<Border Margin="0,0,0,0" Grid.Row="1" SnapsToDevicePixels="True"  Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0">
-								<ItemsPresenter />
-							</Border>
-						</Grid>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
+                            </Grid>
+                            <Border Margin="0,0,0,0" Grid.Row="1" SnapsToDevicePixels="True"  Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0">
+                                <ItemsPresenter />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-		<Style x:Key="noStyleToListboxItem" TargetType="ListBoxItem">
-			<Setter Property="SnapsToDevicePixels" Value="True"/>
-			<Setter Property="OverridesDefaultStyle" Value="True"/>
-			<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="ListBoxItem">
-						<Border>
-							<ContentPresenter></ContentPresenter>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-	</UserControl.Resources>
-	<Grid>
-		<Grid>
-			<Grid.Background>
-				<ImageBrush ImageSource="pack://application:,,,/Images/bg.jpg"/>
-			</Grid.Background>
-		</Grid>
+        <Style x:Key="noStyleToListboxItem" TargetType="ListBoxItem">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border>
+                            <ContentPresenter></ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="pack://application:,,,/Images/bg.jpg"/>
+            </Grid.Background>
+        </Grid>
 
-		<!--Screen Order-->
-		<Grid Margin="12,0,0,0" Visibility="{Binding Path=ScreenOrderVisible}">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="120"/>
-				<RowDefinition Height="*"/>
-			</Grid.RowDefinitions>
-			<Grid HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.Row="0" Margin="12,0,0,0">
-				<Grid Grid.Row="0">
-					<Grid.RowDefinitions>
-						<RowDefinition></RowDefinition>
-						<RowDefinition></RowDefinition>
-					</Grid.RowDefinitions>
-					<Rectangle Width="550" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,10,0,0" />
-					<Rectangle Width="550" HorizontalAlignment="Left" Grid.Row="1" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,0,0,10" />
+        <!--Screen Order-->
+        <Grid Margin="12,0,0,0" Visibility="{Binding Path=ScreenOrderVisible}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.Row="0" Margin="12,0,0,0">
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Rectangle Width="550" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,10,0,0" />
+                    <Rectangle Width="550" HorizontalAlignment="Left" Grid.Row="1" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,0,0,10" />
 
-					<StackPanel Orientation="Horizontal" Margin="5,3,0,0">
-						<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}"
+                    <StackPanel Orientation="Horizontal" Margin="5,3,0,0">
+                        <Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}"
 						 HorizontalAlignment="Left" Margin="15,15,5,0" VerticalAlignment="Top" FontSize="22" Foreground="#fff"/>
-						<Label Content="{Binding Path=OrderOwner.DisplayOrderNickname}" Foreground="#2c98e0" FontWeight="Black"
+                        <Label Content="{Binding Path=OrderOwner.DisplayOrderNickname}" Foreground="#2c98e0" FontWeight="Black"
 						 HorizontalAlignment="Left" Margin="-8,15,0,0"  VerticalAlignment="Top" FontSize="22"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5,0,0,0">
-						<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.SwipeCardLabel]}"
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5,0,0,0">
+                        <Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.SwipeCardLabel]}"
 						 HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#fff"/>
-					</StackPanel>
+                    </StackPanel>
 
-				</Grid>
-			</Grid>
+                </Grid>
+            </Grid>
 
-			<Grid Grid.Row="1" Margin="0,0,0,0">
-				<Grid HorizontalAlignment="Left" Margin="12,0,0,0" Grid.Row="1" Name="grid2" VerticalAlignment="Top">
-					<StackPanel Orientation="Vertical">
-						<Grid MaxHeight="350" Background="#fff">
-							<ScrollViewer>
-								<ListBox BorderThickness="1,0,1,1" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
+            <Grid Grid.Row="1" Margin="0,0,0,0">
+                <Grid HorizontalAlignment="Left" Margin="12,0,0,0" Grid.Row="1" Name="grid2" VerticalAlignment="Top">
+                    <StackPanel Orientation="Vertical">
+                        <Grid MaxHeight="350" Background="#fff">
+                            <ScrollViewer>
+                                <ListBox BorderThickness="1,0,1,1" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
 							 ItemsSource="{Binding ObservableListEmployee}" Style="{StaticResource OrderListBox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}"
 							 x:Name="ContentListBox" lb:ListBoxBehavior.ScrollOnNewItem="true">
-									<ListBox.ItemTemplate>
-										<DataTemplate>
-											<Grid MinHeight="50" Height="auto" Margin="0">
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition Width="85"/>
-													<ColumnDefinition Width="425"/>
-													<ColumnDefinition Width="420"/>
-													<ColumnDefinition Width="170"/>
-												</Grid.ColumnDefinitions>
-												<Border BorderThickness="1,0,1,1" BorderBrush="#999999" Grid.Column="0"></Border>
-												<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
-												<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="2"></Border>
-												<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="3"></Border>
-												<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="4"></Border>
-												<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=OrderNo}" FontSize="20" HorizontalAlignment="Center" Grid.Column="0"/>
-												<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=NickName}" FontSize="20" HorizontalAlignment="Left" Grid.Column="1"/>
-												<StackPanel Orientation="Horizontal" Grid.Column="2" Visibility="{Binding Path=FoodInfoVisibility}">
-													<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=DisplayMenuName}" 
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid MinHeight="50" Height="auto" Margin="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="85"/>
+                                                    <ColumnDefinition Width="425"/>
+                                                    <ColumnDefinition Width="420"/>
+                                                    <ColumnDefinition Width="170"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Border BorderThickness="1,0,1,1" BorderBrush="#999999" Grid.Column="0"></Border>
+                                                <Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
+                                                <Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="2"></Border>
+                                                <Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="3"></Border>
+                                                <Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="4"></Border>
+                                                <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=OrderNo}" FontSize="20" HorizontalAlignment="Center" Grid.Column="0"/>
+                                                <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=NickName}" FontSize="20" HorizontalAlignment="Left" Grid.Column="1"/>
+                                                <StackPanel Orientation="Horizontal" Grid.Column="2" Visibility="{Binding Path=FoodInfoVisibility}">
+                                                    <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=DisplayMenuName}" 
 													MaxWidth="290" Width="auto" FontSize="20" Foreground="{Binding Path=Color}" 
 													HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"/>
 
-													<Button Style="{StaticResource TileButton}" CommandParameter="{Binding Path=SysId}" FontSize="20"
+                                                    <Button Style="{StaticResource TileButton}" CommandParameter="{Binding Path=SysId}" FontSize="20"
 													Command="{Binding DataContext.EditMenu, RelativeSource={RelativeSource AncestorType=ListBox}}"
 													Background="#99D9EA" Width="auto" VerticalAlignment="Center" Height="40" Margin="10,2,2,3" Foreground="#fff">
-														<TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Change]}" Margin="7,0,7,0"/>
-													</Button>
+                                                        <TextBlock Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Change]}" Margin="7,0,7,0"/>
+                                                    </Button>
 
-												</StackPanel>
+                                                </StackPanel>
 
-												<ComboBox x:Name="MenuList"  Grid.Column="2"  ItemsSource="{Binding ListAlternativeFood, Mode=TwoWay}"
+                                                <ComboBox x:Name="MenuList"  Grid.Column="2"  ItemsSource="{Binding ListAlternativeFood, Mode=TwoWay}"
 											 Visibility="{Binding Path=FoodListVisibility}" 
 											 DisplayMemberPath="DisplayFoodName"
 											 SelectedValuePath="FoodId"
@@ -199,158 +199,169 @@
 											 SelectedItem="{Binding DataContext.SelectedFood, RelativeSource={RelativeSource AncestorType=ListBox}}"
 											 Style="{StaticResource ComboBoxFlatStyle}" FontSize="20"
 											 Height="44" VerticalAlignment="Center" Width="410" BorderBrush="Silver" BorderThickness="1">
-													<ComboBox.ItemContainerStyle>
-														<Style TargetType="ComboBoxItem">
-															<Setter Property="Padding" Value="7"/>
-														</Style>
-													</ComboBox.ItemContainerStyle>
-												</ComboBox>
-												<Button Style="{StaticResource TileButton}"
+                                                    <ComboBox.ItemContainerStyle>
+                                                        <Style TargetType="ComboBoxItem">
+                                                            <Setter Property="Padding" Value="7"/>
+                                                        </Style>
+                                                    </ComboBox.ItemContainerStyle>
+                                                </ComboBox>
+                                                <Button Style="{StaticResource TileButton}"
 											Command="{Binding DataContext.RemoveEmployeeOrder, RelativeSource={RelativeSource AncestorType=ListBox}}"
 											CommandParameter="{Binding Path=SysId}" Grid.Column="3" >
-													<Button.Template>
-														<ControlTemplate>
-															<Border Background="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" >
-																<Image Width="150" Height="30" Source="pack://application:,,,/Images/remove1.png" 
+                                                    <Button.Template>
+                                                        <ControlTemplate>
+                                                            <Border Background="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                                <Image Width="150" Height="30" Source="pack://application:,,,/Images/remove1.png" 
 																Visibility="{Binding DataContext.DeleteButtonVisible, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
-															</Border>
-														</ControlTemplate>
-													</Button.Template>
-												</Button>
-											</Grid>
-										</DataTemplate>
-									</ListBox.ItemTemplate>
-								</ListBox>
-							</ScrollViewer>
-						</Grid>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </ScrollViewer>
+                        </Grid>
 
-						<Grid VerticalAlignment="Bottom" Margin="0,30,0,10">
+                        <Grid VerticalAlignment="Bottom" Margin="0,30,0,10">
 
-							<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-								<Button Background="#66B5D6" Foreground="White" Command="{Binding Path=ConfirmCommand}" Margin="0,0,50,0"
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Background="#66B5D6" Foreground="White" Command="{Binding Path=ConfirmCommand}" Margin="0,0,50,0"
 									Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Confirm]}" Height="70" Style="{StaticResource TileButton}"
 									HorizontalAlignment="Right" Name="button1" VerticalAlignment="Top" Width="150" FontSize="22"/>
 
-								<Button Command="{Binding DataContext.CombinedDishesCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                <Button Command="{Binding DataContext.CombinedDishesCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 									Background="#6CB23E" Foreground="White" Margin="50,0,50,0"
 									Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.AddMoreSideDish]}" Height="70" Style="{StaticResource TileButton}"
 									HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" FontSize="22"/>
 
-								<Button Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                <Button Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 									Background="#EF4339" Foreground="White" Margin="50,0,0,0"
 									Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Cancel]}" Height="70" Style="{StaticResource TileButton}"
 									HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" FontSize="22"/>
-							</StackPanel>
+                            </StackPanel>
 
-						</Grid>
-					</StackPanel>
-				</Grid>
-			</Grid>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Grid>
 
-		</Grid>
+        </Grid>
 
-		<!--Screen Notification-->
-		<Grid Margin="12,0,0,0" Visibility="{Binding Path=ScreenNotificationVisible}">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="120"/>
-				<RowDefinition Height="*"/>
-			</Grid.RowDefinitions>
-			<Grid HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.Row="0" Margin="12,0,0,0">
-				<Grid Grid.Row="0">
-					<Grid.RowDefinitions>
-						<RowDefinition></RowDefinition>
-						<RowDefinition></RowDefinition>
-					</Grid.RowDefinitions>
+        <!--Screen Notification-->
+        <Grid Margin="12,0,0,0" Visibility="{Binding Path=ScreenNotificationVisible}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.Row="0" Margin="12,0,0,0">
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
 
-					<Rectangle Width="550" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,10,0,0" />
-					<Rectangle Width="550" HorizontalAlignment="Left" Grid.Row="1" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,0,0,10" />
+                    <Rectangle Width="550" HorizontalAlignment="Left" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,10,0,0" />
+                    <Rectangle Width="550" HorizontalAlignment="Left" Grid.Row="1" Panel.ZIndex="-1" Fill="#000" Opacity=".4" Margin="0,0,0,10" />
 
-					<StackPanel Orientation="Horizontal" Margin="0,3,0,0">
-						<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketLabel]}"
+                    <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
+                        <Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketLabel]}"
 						 HorizontalAlignment="Left" Margin="130,15,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#fff"/>
-						<Label Content="{Binding Path=OrderNo}" Foreground="#fff" FontWeight="Black"
+                        <Label Content="{Binding Path=OrderNo}" Foreground="#fff" FontWeight="Black"
 						 HorizontalAlignment="Left" Margin="-10,12,0,0"  VerticalAlignment="Top" FontSize="25"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,-7,0,0">
-						<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}"
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,-7,0,0">
+                        <Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.TicketCreator]}"
 						 HorizontalAlignment="Left" Margin="130,5,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#fff"/>
-						<Label Content="{Binding Path=OrderOwner.DisplayOrderNickname}" Foreground="#2c98e0" FontWeight="Black"
+                        <Label Content="{Binding Path=OrderOwner.DisplayOrderNickname}" Foreground="#2c98e0" FontWeight="Black"
 						 HorizontalAlignment="Left" Margin="-9,3,0,0"  VerticalAlignment="Top" FontSize="25"/>
-					</StackPanel>
+                    </StackPanel>
 
-					<Grid HorizontalAlignment="Left" VerticalAlignment="Center" Grid.RowSpan="2" Width="120">
-						<Border HorizontalAlignment="Center" VerticalAlignment="Center"  >
-							<TextBlock Text="{Binding Path=OrderNo}" FontSize="65" Margin="20,0,0,0" Foreground="#fff"
+                    <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Grid.RowSpan="2" Width="120">
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Center"  >
+                            <TextBlock Text="{Binding Path=OrderNo}" FontSize="65" Margin="20,0,0,0" Foreground="#fff"
 							 HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-						</Border>
-					</Grid>
+                        </Border>
+                    </Grid>
 
-				</Grid>
-			</Grid>
+                </Grid>
+            </Grid>
 
-			<Grid Grid.Row="1" Margin="0,0,0,0">
-				<Grid HorizontalAlignment="Left" Margin="12,0,0,0" Grid.Row="1" VerticalAlignment="Top">
-					<StackPanel Orientation="Vertical">
-						<Grid MaxHeight="350" Background="#fff">
-							<ScrollViewer>
-								<ListBox BorderThickness="1,0,1,1" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
+            <Grid Grid.Row="1" Margin="0,0,0,0">
+                <Grid HorizontalAlignment="Left" Margin="12,0,0,0" Grid.Row="1" VerticalAlignment="Top">
+                    <StackPanel Orientation="Vertical">
+                        <Grid MaxHeight="350" Background="#fff">
+                            <ScrollViewer>
+                                <ListBox BorderThickness="1,0,1,1" Background="{StaticResource customBlueBrushOpacity}" HorizontalContentAlignment="Stretch"
 							 ItemsSource="{Binding ObservableListEmployee}" Style="{StaticResource NotificationListBox}" ItemContainerStyle="{StaticResource noStyleToListboxItem}">
-									<ListBox.ItemTemplate>
-										<DataTemplate>
-											<Grid Height="50" Margin="0">
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition Width="85"/>
-													<ColumnDefinition Width="425"/>
-													<ColumnDefinition Width="420"/>
-												</Grid.ColumnDefinitions>
-												<Border BorderThickness="1,0,1,1" BorderBrush="#999999" Grid.Column="0"></Border>
-												<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
-												<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="2"></Border>
-												<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="3"></Border>
-												<Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="4"></Border>
-												<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=OrderNo}" FontSize="20" HorizontalAlignment="Center" Grid.Column="0"/>
-												<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=NickName}" FontSize="20" HorizontalAlignment="Left" Grid.Column="1"/>
-												<StackPanel Orientation="Horizontal" Grid.Column="2" >
-													<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=DisplayNotifyMenuName}"
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Height="50" Margin="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="85"/>
+                                                    <ColumnDefinition Width="425"/>
+                                                    <ColumnDefinition Width="420"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Border BorderThickness="1,0,1,1" BorderBrush="#999999" Grid.Column="0"></Border>
+                                                <Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="1"></Border>
+                                                <Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="2"></Border>
+                                                <Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="3"></Border>
+                                                <Border BorderThickness="0,0,1,1" BorderBrush="#999999" Grid.Column="4"></Border>
+                                                <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=OrderNo}" FontSize="20" HorizontalAlignment="Center" Grid.Column="0"/>
+                                                <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=NickName}" FontSize="20" HorizontalAlignment="Left" Grid.Column="1"/>
+                                                <StackPanel Orientation="Horizontal" Grid.Column="2" >
+                                                    <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=DisplayNotifyMenuName}"
 												 FontSize="20" Foreground="{Binding Path=Color}" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"/>
-												</StackPanel>
+                                                </StackPanel>
 
-											</Grid>
-										</DataTemplate>
-									</ListBox.ItemTemplate>
-								</ListBox>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
 
-							</ScrollViewer>
-						</Grid>
+                            </ScrollViewer>
+                        </Grid>
 
-						<Grid Background="#fff" Height="50" Visibility="{Binding Path=SuccessfullMessageVisible}" Margin="1,0,1,0">
-							<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"  Foreground="#4DB54B"
+                        <Grid Background="#fff" Height="50" Visibility="{Binding Path=SuccessfullMessageVisible}" Margin="1,0,1,0">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"  Foreground="#4DB54B"
 							Text="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Message_OrderSuccessful]}" />
-						</Grid>
+                        </Grid>
 
-						<Grid VerticalAlignment="Bottom" Margin="0,30,0,10">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition />
-							</Grid.ColumnDefinitions>
-							<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-								<Button Command="{Binding DataContext.ReturnStandByScreenCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                        <Grid VerticalAlignment="Bottom" Margin="0,30,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Command="{Binding DataContext.ReturnStandByScreenCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 									Background="#66B5D6" Foreground="White" Margin="0,0,5,0"
 									CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
 									Height="70" Style="{StaticResource TileButton}" FontSize="22"
 									HorizontalAlignment="Center" VerticalAlignment="Top" Width="150">
-									<StackPanel Orientation="Horizontal">
-										<Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Exit]}" Foreground="#fff" FontSize="20"/>
-										<Label ContentStringFormat="({0})" Content="{Binding Path=CountDownTimer}" Margin="-4,0,0,0" Foreground="#fff" FontSize="20"/>
-									</StackPanel>
-								</Button>
-							</StackPanel>
-						</Grid>
-					</StackPanel>
-				</Grid>
-			</Grid>
-		</Grid>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="{Binding Source={StaticResource localisation}, Path=[MainScreenResources.Exit]}" Foreground="#fff" FontSize="20"/>
+                                        <Label ContentStringFormat="({0})" Content="{Binding Path=CountDownTimer}" Margin="-4,0,0,0" Foreground="#fff" FontSize="20"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
 
-	</Grid>
+        <!--Screen Notification second-->
+        <Grid Margin="0,0,0,0" Visibility="{Binding Path=NotifyErrorOrder}">
+            <Grid Background="#fff" Height="50" Width="1100" Margin="-770,0,1,0">
+                <!--<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"  Foreground="#4DB54B"
+							Text="CaderCann't orderCann't orderCann't orderCann't order" />-->
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"  Foreground="#4DB54B"
+							Text="{Binding Path=ErrorEmployees}" />
+            </Grid>
+        </Grid>
+
+
+    </Grid>
 
 
 </UserControl>

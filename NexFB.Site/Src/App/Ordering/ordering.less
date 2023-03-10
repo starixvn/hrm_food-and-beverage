@@ -50,6 +50,18 @@
     height: 28px;
 }
 
+.txtMember {
+    height: 28px;
+    width: 27% !important;
+    padding: 2px 12px;
+    font-size: 13px;
+    margin-right: 20px !important;
+}
+
+.checkbox-include {
+    margin-top: 6px !important;
+}
+
 .list-group-item-order:hover {
     background-color: #b3b0b0;
     color: snow;
@@ -103,12 +115,7 @@
             .form-group {
                 margin-bottom: 10px;
 
-                .txtMember {
-                    height: 28px;
-                    width: 323px;
-                    padding: 2px 12px;
-                    font-size: 13px;
-                }
+
 
                 [class^="col-sm"] {
                     padding: 0 0 0 5px;
@@ -222,7 +229,7 @@
 
 .lbl-include-member-margin {
     margin-left: 5px;
-    margin-top: 1px;
+    margin-top: 3px !important
 }
 
 .order-status-rejected pre {
@@ -265,6 +272,12 @@
 
 .width-200 {
     width: 200px;
+}
+
+@media (max-width: 1366px) {
+    .txtMember {
+        width: 40% !important;
+    }
 }
 
 @media (min-width: 700px) and (max-width: 900px) {

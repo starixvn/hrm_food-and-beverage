@@ -925,7 +925,7 @@
     <value>Translate remark to Vietnamese (for kitchen staff)</value>
   </data>
     <data name="IncludeMemberFromOtherDepartment" xml:space="preserve">
-    <value>Include member from other department</value>
+    <value>Include from other department</value>
   </data>
     <data name="DailyMainDishReport" xml:space="preserve">
     <value>Daily Main Dish Report</value>

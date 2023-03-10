@@ -1564,7 +1564,7 @@ namespace NexFB.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include member from other department.
+        ///   Looks up a localized string similar to Include from other department.
         /// </summary>
         public static string IncludeMemberFromOtherDepartment {
             get {

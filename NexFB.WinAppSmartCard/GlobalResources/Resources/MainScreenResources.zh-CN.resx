@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+    <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,200 +59,203 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string" />
+                            <xsd:attribute name="type" type="xsd:string" />
+                            <xsd:attribute name="mimetype" type="xsd:string" />
+                            <xsd:attribute ref="xml:space" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string" />
+                            <xsd:attribute name="name" type="xsd:string" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                            <xsd:attribute ref="xml:space" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="Add" xml:space="preserve">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Add" xml:space="preserve">
     <value>加入</value>
   </data>
-  <data name="AddFood" xml:space="preserve">
+    <data name="AddFood" xml:space="preserve">
     <value>新增菜式</value>
   </data>
-  <data name="AddMoreSideDish" xml:space="preserve">
+    <data name="AddMoreSideDish" xml:space="preserve">
     <value>加入其他食單</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
+    <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="Change" xml:space="preserve">
+    <data name="Change" xml:space="preserve">
     <value>轉換餐單</value>
   </data>
-  <data name="Chinese" xml:space="preserve">
+    <data name="Chinese" xml:space="preserve">
     <value>简体中文</value>
   </data>
-  <data name="Confirm" xml:space="preserve">
+    <data name="Confirm" xml:space="preserve">
     <value>确认</value>
   </data>
-  <data name="CurrentCulture" xml:space="preserve">
+    <data name="CurrentCulture" xml:space="preserve">
     <value>越南语</value>
   </data>
-  <data name="Delete" xml:space="preserve">
+    <data name="Delete" xml:space="preserve">
     <value>删除</value>
   </data>
-  <data name="Dishes" xml:space="preserve">
+    <data name="Dishes" xml:space="preserve">
     <value>菜式</value>
   </data>
-  <data name="DropdownHeader" xml:space="preserve">
+    <data name="DropdownHeader" xml:space="preserve">
     <value>請選擇食單</value>
   </data>
-  <data name="English" xml:space="preserve">
+    <data name="English" xml:space="preserve">
     <value>英语</value>
   </data>
-  <data name="Exit" xml:space="preserve">
+    <data name="Exit" xml:space="preserve">
     <value>退出</value>
   </data>
-  <data name="FlagSource" xml:space="preserve">
+    <data name="FlagSource" xml:space="preserve">
     <value>pack://application:,,,/Images/Flag_of_China.png</value>
   </data>
-  <data name="MainDishes" xml:space="preserve">
+    <data name="MainDishes" xml:space="preserve">
     <value>正餐</value>
   </data>
-  <data name="Member" xml:space="preserve">
+    <data name="Member" xml:space="preserve">
     <value>成员</value>
   </data>
-  <data name="Menu" xml:space="preserve">
+    <data name="Menu" xml:space="preserve">
     <value>食譜</value>
   </data>
-  <data name="Message_AlreadyOrder" xml:space="preserve">
+    <data name="Message_AlreadyOrder" xml:space="preserve">
     <value>你已經存在其他訂單中</value>
   </data>
-  <data name="Message_AlreadyThisOrder" xml:space="preserve">
+    <data name="Message_AlreadyThisOrder" xml:space="preserve">
     <value>你已經存在訂單中</value>
   </data>
-  <data name="Message_CancelOrder" xml:space="preserve">
+    <data name="Message_CancelOrder" xml:space="preserve">
     <value>你是否要取消訂單 ?</value>
   </data>
-  <data name="Message_ContainEmployee" xml:space="preserve">
+    <data name="Message_ContainEmployee" xml:space="preserve">
     <value>訂單人數需要最少一個人</value>
   </data>
-  <data name="Message_ContainFood" xml:space="preserve">
+    <data name="Message_ContainFood" xml:space="preserve">
     <value>訂單需要最少一味菜式</value>
   </data>
-  <data name="Message_IdentifyCard" xml:space="preserve">
+    <data name="Message_IdentifyCard" xml:space="preserve">
     <value>無法確認你的職員編號</value>
   </data>
-  <data name="Message_NoMenu" xml:space="preserve">
+    <data name="Message_NoMenu" xml:space="preserve">
     <value>系統找不到餐單設定</value>
   </data>
-  <data name="Message_NoMoreDish" xml:space="preserve">
+    <data name="Message_NoMoreDish" xml:space="preserve">
     <value>这里没有中国的消息</value>
   </data>
-  <data name="Message_OrderSuccessful" xml:space="preserve">
+    <data name="Message_OrderSuccessful" xml:space="preserve">
     <value>完成訂單 ! 謝謝.</value>
   </data>
-  <data name="Message_PickAlternativeFood" xml:space="preserve">
+    <data name="Message_ReasonOrderFail" xml:space="preserve">
+    <value> 因为还没有注册用餐、不在工作时间或还没有打卡，所以无法点餐</value>
+  </data>
+    <data name="Message_PickAlternativeFood" xml:space="preserve">
     <value>你必須要清楚公司的規定關於轉換其他餐單. 廚房職員有權利取消你的需求.</value>
   </data>
-  <data name="Message_ReceivedOrder" xml:space="preserve">
+    <data name="Message_ReceivedOrder" xml:space="preserve">
     <value>訂單已經確認, 沒法添加組員</value>
   </data>
-  <data name="Message_UnavailableSideDish" xml:space="preserve">
+    <data name="Message_UnavailableSideDish" xml:space="preserve">
     <value>沒有其他菜單</value>
   </data>
-  <data name="Message_UnhandledError" xml:space="preserve">
+    <data name="Message_UnhandledError" xml:space="preserve">
     <value>这里没有中国的消息</value>
   </data>
-  <data name="OK" xml:space="preserve">
+    <data name="OK" xml:space="preserve">
     <value>確認</value>
   </data>
-  <data name="OrderSideDish" xml:space="preserve">
+    <data name="OrderSideDish" xml:space="preserve">
     <value>其他菜單</value>
   </data>
-  <data name="Payment" xml:space="preserve">
+    <data name="Payment" xml:space="preserve">
     <value>付款</value>
   </data>
-  <data name="Quantity" xml:space="preserve">
+    <data name="Quantity" xml:space="preserve">
     <value>数量</value>
   </data>
-  <data name="Return" xml:space="preserve">
+    <data name="Return" xml:space="preserve">
     <value>返回</value>
   </data>
-  <data name="SelectDishes" xml:space="preserve">
+    <data name="SelectDishes" xml:space="preserve">
     <value>请选择菜</value>
   </data>
-  <data name="SideDishCharged" xml:space="preserve">
+    <data name="SideDishCharged" xml:space="preserve">
     <value>其他食單(帶回)</value>
   </data>
-  <data name="SideDishes" xml:space="preserve">
+    <data name="SideDishes" xml:space="preserve">
     <value>其他菜單</value>
   </data>
-  <data name="SidedishOrderer" xml:space="preserve">
+    <data name="SidedishOrderer" xml:space="preserve">
     <value>訂單人 : </value>
   </data>
-  <data name="Submit" xml:space="preserve">
+    <data name="Submit" xml:space="preserve">
     <value>确认</value>
   </data>
-  <data name="SwipeCardLabel" xml:space="preserve">
+    <data name="SwipeCardLabel" xml:space="preserve">
     <value>請繼續刷卡加入組員</value>
   </data>
-  <data name="TakeAway" xml:space="preserve">
+    <data name="TakeAway" xml:space="preserve">
     <value>带走</value>
   </data>
-  <data name="TicketCreator" xml:space="preserve">
+    <data name="TicketCreator" xml:space="preserve">
     <value>訂單者 :</value>
   </data>
-  <data name="TicketLabel" xml:space="preserve">
+    <data name="TicketLabel" xml:space="preserve">
     <value>訂單編號 :</value>
   </data>
-  <data name="Total" xml:space="preserve">
+    <data name="Total" xml:space="preserve">
     <value>總數</value>
   </data>
-  <data name="VietNamese" xml:space="preserve">
+    <data name="VietNamese" xml:space="preserve">
     <value>越南语</value>
   </data>
 </root>

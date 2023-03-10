@@ -5,6 +5,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Threading;
     using AutoMapper;
@@ -29,9 +30,10 @@
         public MainDishesViewModel()
         {
             EditMenu = new RelayCommand((y) => ExecuteEditMenu(y));
-            ConfirmCommand = new RelayCommand((y) => ExecuteConfirmCommand());
+            ConfirmCommand = new RelayCommand(async (y) => await ExecuteConfirmCommand());
             RemoveEmployeeOrder = new RelayCommand((y) => ExecuteRemoveEmployeeOrder(y));
             ShowOrderScreen();
+            HideNotifyErrorOrder();
         }
 
         #region Properties
@@ -207,7 +209,17 @@
             ScreenNotificationVisible = CommonResources.Visible;
         }
 
-        public void ExecuteConfirmCommand()
+        public void ShowNotifyErrorOrder()
+        {
+            NotifyErrorOrder = CommonResources.Visible;
+        }
+
+        public void HideNotifyErrorOrder()
+        {
+            NotifyErrorOrder = CommonResources.Hidden;
+        }
+
+        public async Task ExecuteConfirmCommand()
         {
             if (ObservableListEmployee.Count == 0)
             {
@@ -233,24 +245,66 @@
                     }
                 }
 
-                var insertOrderCriteria = new InsertOrderMealByUserCriteria()
+                string errorEmployees = CheckValidOrder(ObservableListEmployee);
+                if (errorEmployees != "")
                 {
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = OrderOwner.SysId,
-                    TakeAway = false,
-                    ListDetail = orderDetails.Append(ConstantValue.EndRootTag).ToString()
-                };
-
-                OrderResult result = this.SmartCardOrderService.InsertOrderFood(insertOrderCriteria);
-                if (result.CommandResult.Code == 0)
-                {
-                    OrderSuccessAction(result);
+                    ErrorEmployees = errorEmployees + MainScreenResources.Message_ReasonOrderFail;
+                    ShowNotifyErrorOrder();
+                    await Task.Delay(5000);
+                    HideNotifyErrorOrder();
                 }
                 else
                 {
-                    this.ShowErrorMessage(MainViewModel.CurrentCulture, result.CommandResult.Message);
+                    var insertOrderCriteria = new InsertOrderMealByUserCriteria()
+                    {
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = OrderOwner.SysId,
+                        TakeAway = false,
+                        ListDetail = orderDetails.Append(ConstantValue.EndRootTag).ToString()
+                    };
+
+                    OrderResult result = this.SmartCardOrderService.InsertOrderFood(insertOrderCriteria);
+                    if (result.CommandResult.Code == 0)
+                    {
+                        OrderSuccessAction(result);
+                    }
+                    else
+                    {
+                        this.ShowErrorMessage(MainViewModel.CurrentCulture, result.CommandResult.Message);
+                    }
                 }
             }
+        }
+
+        private string CheckValidOrder(ObservableCollection<Employee> observableListEmployee)
+        {
+            var infoMainDishOrder = GetInfoMainDishOrder(observableListEmployee);
+            var errorEmployee = "";
+            foreach (var item in infoMainDishOrder)
+            {
+                if (item.IsRegistration == null && !item.IsFreeOrder)
+                {
+                    errorEmployee += item.NickName + ", ";
+                }
+            }
+            errorEmployee = errorEmployee.Trim().TrimEnd(',');
+            return errorEmployee;
+        }
+
+        private List<SCMainDishEmployeeOrder> GetInfoMainDishOrder(ObservableCollection<Employee> observableListEmployee)
+        {
+            string userIds = "";
+            foreach (var item in observableListEmployee)
+            {
+                userIds += item.SysId.ToString() + ",";
+            }
+            userIds = userIds.TrimEnd(',');
+
+            var criteria = new GetInfoMainDishOrderCriteria()
+            {
+                UserIds = userIds
+            };
+            return this.SmartCardOrderService.GetInfoMainDishOrder(criteria);
         }
 
         #endregion

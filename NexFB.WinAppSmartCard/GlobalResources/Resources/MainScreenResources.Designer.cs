@@ -19,7 +19,7 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class MainScreenResources {
@@ -300,6 +300,15 @@ namespace NexFB.WinAppSmartCard.GlobalResources.Resources {
         internal static string Message_PickAlternativeFood {
             get {
                 return ResourceManager.GetString("Message_PickAlternativeFood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  can&apos;t order because the meal is not registered, not in the shift or not checked in.
+        /// </summary>
+        internal static string Message_ReasonOrderFail {
+            get {
+                return ResourceManager.GetString("Message_ReasonOrderFail", resourceCulture);
             }
         }
         

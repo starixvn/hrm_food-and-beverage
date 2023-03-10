@@ -94,7 +94,6 @@
                     string cardValue = newCardNumber.Substring(newCardNumber.Length - 5, 5);
                     var criteria = new GetEmployeeByCardNumberCriteria { CardNumber = cardValue };
                     EmployeeInfo employeeData = this.SmartCardOrderService.GetEmployeeByCardId(criteria);
-
                     CheckForValidCard(employeeData, currentViewModel);
 
                     AutoLogOff.ResetLogoffTimer();
@@ -107,6 +106,21 @@
         {
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
             {
+                //var newCardNumber = "02986";
+                //this.CurrentCardNumber = newCardNumber;
+                //string currentViewModel = this.CurrentViewModel.GetType().Name;
+                //string cardValue = newCardNumber.Substring(newCardNumber.Length - 5, 5);
+                //var criteria1 = new GetEmployeeByCardNumberCriteria { CardNumber = cardValue };
+                //EmployeeInfo employeeData1 = this.SmartCardOrderService.GetEmployeeByCardId(criteria1);
+                //var criteria2 = new GetEmployeeByCardNumberCriteria { CardNumber = "11492" };
+                //EmployeeInfo employeeData2 = this.SmartCardOrderService.GetEmployeeByCardId(criteria2);
+                //var criteria3 = new GetEmployeeByCardNumberCriteria { CardNumber = "18607" };
+                //EmployeeInfo employeeData3 = this.SmartCardOrderService.GetEmployeeByCardId(criteria3);
+
+                //CheckForValidCard(employeeData1, currentViewModel);
+                //CheckForValidCard(employeeData2, currentViewModel);
+                //CheckForValidCard(employeeData3, currentViewModel);
+
                 var criteria = new GetMemberNewOrderCriteria
                 {
                     UserId = 1

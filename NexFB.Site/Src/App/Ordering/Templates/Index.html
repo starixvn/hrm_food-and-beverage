@@ -204,6 +204,9 @@
                                    placeholder="Enter full name or nick name" search-auto-complete search-employees="getNewEmployee()"
                                    ng-change="unSelectNewEmployee()" employee="newMember.employee" name="txtEmployeeForNewOrder"
                                    ng-enter="add(false)" />
+                            <input type="checkbox" ng-model="includeMember" class="checkbox-include" />
+                            <label data-translate="IncludeMemberFromOtherDepartment" class="lbl-include-member-margin">
+                            </label>
                             <div class="pull-right">
                                 <a ng-click="add(false)" class="button">
                                     <i class="glyphicon glyphicon-plus icon-plus">
@@ -211,13 +214,6 @@
                                     <label data-translate="Add">
                                     </label>
                                 </a>
-                            </div>
-                        </div>
-                        <div class="row form-inline form-order">
-                            <div class="form-group">
-                                <input type="checkbox" ng-model="includeMember" />
-                                <label data-translate="IncludeMemberFromOtherDepartment" class="lbl-include-member-margin ">
-                                </label>
                             </div>
                         </div>
                     </form>
@@ -346,6 +342,9 @@
                                    placeholder="Enter full name or nick name" search-auto-complete search-employees="getSavedEmployee()"
                                    ng-change="unSelectSavedEmployee()" employee="savedMember.employee" name="txtEmployeeForSavedOrder"
                                    ng-enter="add(true)" />
+                            <input type="checkbox" ng-model="includeMember" class="checkbox-include" />
+                            <label data-translate="IncludeMemberFromOtherDepartment" class="lbl-include-member-margin">
+                            </label>
                             <div class="pull-right btn-add">
                                 <a ng-click="add(true)" class="button pull-right">
                                     <i class="glyphicon glyphicon-plus icon-plus">
@@ -353,13 +352,6 @@
                                     <label data-translate="Add">
                                     </label>
                                 </a>
-                            </div>
-                        </div>
-                        <div class="row form-inline form-order">
-                            <div class="form-group">
-                                <input type="checkbox" ng-model="includeMember" />
-                                <label data-translate="IncludeMemberFromOtherDepartment" class="lbl-include-member-margin ">
-                                </label>
                             </div>
                         </div>
                     </form>
@@ -487,19 +479,15 @@
                             <input class="form-control txtMember custom-padding" ng-model="searchSideDishMember" placeholder="Enter full name or nick name"
                                    search-auto-complete search-employees="getSideDishEmployee()" ng-change="unSelectSideDishEmployee()"
                                    employee="sideDishMember.employee" name="txtMemberSideDish" ng-enter="add(false, true)" />
+                            <input type="checkbox" ng-model="includeMember" class="checkbox-include" />
+                            <label data-translate="IncludeMemberFromOtherDepartment" class="lbl-include-member-margin">
+                            </label>
                             <div class="pull-right btn-add">
                                 <a ng-click="add(false, true)" class="button pull-right">
                                     <i class="glyphicon glyphicon-plus icon-plus">
                                     </i>
                                     <label data-translate="Add"></label>
                                 </a>
-                            </div>
-                        </div>
-                        <div class="row form-inline form-order">
-                            <div class="form-group">
-                                <input type="checkbox" ng-model="includeMember" />
-                                <label data-translate="IncludeMemberFromOtherDepartment" class="lbl-include-member-margin ">
-                                </label>
                             </div>
                         </div>
                     </form>

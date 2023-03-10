@@ -95,5 +95,16 @@
 
             return employeeOrders;
         }
+
+        public List<SCMainDishEmployeeOrder> GetInfoMainDishOrder(GetInfoMainDishOrderCriteria criteria)
+        {
+            List<SCMainDishEmployeeOrder> result = null;
+            if (criteria.IsValid())
+            {
+                result = this.GetData<SCMainDishEmployeeOrder>(criteria).ToList();
+            }
+
+            return result;
+        }
     }
 }
