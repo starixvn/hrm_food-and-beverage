@@ -3,12 +3,8 @@
     using System;
     using System.Web.Mvc;
     using System.Web.Security;
-    using HRM.UserControl.Client.AspNetMvc.Configurations;
-    using HRM.UserControl.Client.AspNetMvc.Session;
-    using HRM.UserControl.Client.Core.Configurations;
     using HRM.UserControl.Client.Core.Models.Auth;
     using HRM.UserControl.Client.Core.Services;
-    using HRM.UserControl.Client.Core.Session;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Criteria.Employee;
@@ -23,25 +19,19 @@
         private readonly IEmployeeService _employeeService;
         private readonly IAuthService _authService;
         private readonly ICryptoService _cryptoService;
-        private readonly IUserControlSession _userControlSession;
-        private readonly IUserControlSettings _userControlSettings;
 
         public AuthController()
-            : this(null, null, null, null, null)
+            : this(null, null, null)
         {
         }
 
         public AuthController(IEmployeeService employeeService,
             IAuthService authService,
-            ICryptoService cryptoService,
-            IUserControlSession userControlSession,
-            IUserControlSettings userControlSettings)
+            ICryptoService cryptoService)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _authService = authService ?? new AuthService();
             _cryptoService = cryptoService ?? new CryptoService();
-            _userControlSession = userControlSession ?? new UserControlSession();
-            _userControlSettings = userControlSettings ?? new UserControlSettings();
         }
 
         [HttpGet]
@@ -96,11 +86,11 @@
 
             if (user != null)
             {
-                var getallFunctionCriteria = new GetAllEmployeeFunctionCriteria
+                var criteria = new GetAllEmployeeFunctionCriteria
                 {
                     SystemId = user.UserId
                 };
-                user.Functions = _employeeService.GetAllEmployeeFunction(getallFunctionCriteria);
+                user.Functions = _employeeService.GetAllEmployeeFunction(criteria);
                 return user;
             }
 
@@ -158,13 +148,6 @@
                 if (!loginResult.IsSuccessfull)
                 {
                     user = null;
-                }
-                else
-                {
-                    _userControlSession.UserId = loginResult.UserId;
-                    _userControlSession.SiteId = _userControlSettings.SiteId;
-                    _userControlSession.JwtToken = loginResult.JwtToken;
-                    _userControlSession.OnUserId = loginResult.OnUserId;
                 }
             }
 
