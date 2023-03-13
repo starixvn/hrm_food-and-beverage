@@ -276,7 +276,7 @@
             }
         }
 
-        private string CheckValidOrder(ObservableCollection<Employee> observableListEmployee)
+        public string CheckValidOrder(ObservableCollection<Employee> observableListEmployee)
         {
             var infoMainDishOrder = GetInfoMainDishOrder(observableListEmployee);
             var errorEmployee = "";
@@ -291,7 +291,7 @@
             return errorEmployee;
         }
 
-        private List<SCMainDishEmployeeOrder> GetInfoMainDishOrder(ObservableCollection<Employee> observableListEmployee)
+        public List<SCMainDishEmployeeOrder> GetInfoMainDishOrder(ObservableCollection<Employee> observableListEmployee)
         {
             string userIds = "";
             foreach (var item in observableListEmployee)

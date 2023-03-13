@@ -137,14 +137,14 @@ namespace NexFB.WinAppSmartCard
         /// </summary>
         /// <param name="sender">The object sender.</param>
         /// <param name="e">The key event.</param>
-        private void KeyboardEventHandler(object sender, KeyEventArgs e)
+        private async void KeyboardEventHandler(object sender, KeyEventArgs e)
         {
             var currentViewModel = (MainViewModel)this.DataContext;
 
             if (e.Key == Key.Enter
                 && ((MainDishesViewModel)currentViewModel.CurrentViewModel).ObservableListEmployee.Count > 0)
             {
-                ((MainDishesViewModel)currentViewModel.CurrentViewModel).ExecuteConfirmCommand();
+                await ((MainDishesViewModel)currentViewModel.CurrentViewModel).ExecuteConfirmCommand();
             }
             else if (e.Key == Key.NumLock)
             {

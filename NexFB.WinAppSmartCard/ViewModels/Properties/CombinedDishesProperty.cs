@@ -31,6 +31,8 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
         private string _deleteButtonVisible;
         private string _screenOrderVisible;
         private string _screenNotificationVisible;
+        private string _notifyErrorOrder;
+        private string _errorEmployees;
         private bool _takeAwayChecked;
         private bool _canTakeAway;
         private int _countDownTimer;
@@ -120,6 +122,34 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
             {
                 _totalOrder = value;
                 OnPropertyChanged("TotalOrder");
+            }
+        }
+
+        public string NotifyErrorOrder
+        {
+            get
+            {
+                return _notifyErrorOrder;
+            }
+
+            set
+            {
+                _notifyErrorOrder = value;
+                OnPropertyChanged("NotifyErrorOrder");
+            }
+        }
+
+        public string ErrorEmployees
+        {
+            get
+            {
+                return _errorEmployees;
+            }
+
+            set
+            {
+                _errorEmployees = value;
+                OnPropertyChanged("ErrorEmployees");
             }
         }
 

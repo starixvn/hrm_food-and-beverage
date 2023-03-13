@@ -6,11 +6,13 @@
     using System.Globalization;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Threading;
     using AutoMapper;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Kitchen;
+    using NexFB.Models.SmartCardOrder;
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.Enums;
     using NexFB.WinAppSmartCard.Core.Constants;
@@ -30,6 +32,7 @@
             OrderOwner = orderOwner;
             MainViewModel = mainViewModel;
             MainViewModel.SideButtonEnable = true;
+            HideNotifyErrorOrder();
 
             CanTakeAway = false;
             foreach (var employee in listEmployee)
@@ -49,7 +52,7 @@
             SubQuantityCommand = new RelayCommand((x) => ExecuteSubQuantityCommand(x));
             AddQuantityCommand = new RelayCommand((x) => ExecuteAddQuantityCommand(x));
 
-            SaveOrderFood = new RelayCommand((x) => ExecuteSaveOrderSideFood());
+            SaveOrderFood = new RelayCommand(async (x) => await ExecuteSaveOrderSideFood());
         }
 
         #region Public Methods
@@ -59,6 +62,16 @@
             SideDishTimerLive = false;
             _digitalClockDispatcher.Stop();
             CountDownTimer = 0;
+        }
+
+        public void ShowNotifyErrorOrder()
+        {
+            NotifyErrorOrder = CommonResources.Visible;
+        }
+
+        public void HideNotifyErrorOrder()
+        {
+            NotifyErrorOrder = CommonResources.Hidden;
         }
 
         public void CheckDataForLanguageChange()
@@ -236,7 +249,7 @@
             }
         }
 
-        private void ExecuteSaveOrderSideFood()
+        private async Task ExecuteSaveOrderSideFood()
         {
             var mainDishes = new StringBuilder(ConstantValue.BeginRootTag);
             var sideDishes = new StringBuilder(ConstantValue.BeginRootTag);
@@ -264,25 +277,66 @@
                     }
                 }
             }
-
-            var insertOrderCriteria = new InsertOrderMealByUserCriteria()
+            string errorEmployees = CheckValidOrder(ObservableListEmployee);
+            if (errorEmployees != "")
             {
-                CreatedDate = DateTime.Now,
-                CreatedBy = OrderOwner.SysId,
-                TakeAway = TakeAwayChecked,
-                ListDetail = mainDishes.Append(ConstantValue.EndRootTag).ToString(),
-                Foods = sideDishes.Append(ConstantValue.EndRootTag).ToString()
-            };
-
-            OrderResult result = this.SmartCardOrderService.InsertOrderFood(insertOrderCriteria);
-            if (result.CommandResult.Code == 0)
-            {
-                PrepareDataNotificationView(result);
+                ErrorEmployees = errorEmployees + MainScreenResources.Message_ReasonOrderFail;
+                ShowNotifyErrorOrder();
+                await Task.Delay(5000);
+                HideNotifyErrorOrder();
             }
             else
             {
-                this.ShowErrorMessage(MainViewModel.CurrentCulture, result.CommandResult.Message);
+                var insertOrderCriteria = new InsertOrderMealByUserCriteria()
+                {
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = OrderOwner.SysId,
+                    TakeAway = TakeAwayChecked,
+                    ListDetail = mainDishes.Append(ConstantValue.EndRootTag).ToString(),
+                    Foods = sideDishes.Append(ConstantValue.EndRootTag).ToString()
+                };
+
+                OrderResult result = this.SmartCardOrderService.InsertOrderFood(insertOrderCriteria);
+                if (result.CommandResult.Code == 0)
+                {
+                    PrepareDataNotificationView(result);
+                }
+                else
+                {
+                    this.ShowErrorMessage(MainViewModel.CurrentCulture, result.CommandResult.Message);
+                }
             }
+        }
+
+        private string CheckValidOrder(ObservableCollection<Employee> observableListEmployee)
+        {
+            var infoMainDishOrder = GetInfoMainDishOrder(observableListEmployee);
+            var errorEmployee = "";
+            foreach (var item in infoMainDishOrder)
+            {
+                if (item.IsRegistration == null && !item.IsFreeOrder)
+                {
+                    errorEmployee += item.NickName + ", ";
+                }
+            }
+            errorEmployee = errorEmployee.Trim().TrimEnd(',');
+            return errorEmployee;
+        }
+
+        private List<SCMainDishEmployeeOrder> GetInfoMainDishOrder(ObservableCollection<Employee> observableListEmployee)
+        {
+            string userIds = "";
+            foreach (var item in observableListEmployee)
+            {
+                userIds += item.SysId.ToString() + ",";
+            }
+            userIds = userIds.TrimEnd(',');
+
+            var criteria = new GetInfoMainDishOrderCriteria()
+            {
+                UserIds = userIds
+            };
+            return this.SmartCardOrderService.GetInfoMainDishOrder(criteria);
         }
 
         private void PrepareDataNotificationView(OrderResult result)
