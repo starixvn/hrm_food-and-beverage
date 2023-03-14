@@ -119,7 +119,16 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
 
         var formatOrderTime = function (time) {
             var date = new Date(time);
+            console.log(date.toLocaleString())
             return date.toLocaleString();
+        }
+
+        var formatTime = function (time) {
+            var date = new Date(time);
+            var hour = (date.getHours() < 10 ? "0" : "") + date.getHours();
+            var minute = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
+
+            return `${hour}:${minute}`
         }
 
         var rows = [];
@@ -136,7 +145,8 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                 currentRow = {
                     Columns: [
                         { Name: "Count", Value: rowIndex },
-                        { Name: "Time", Value: formatOrderTime(moment(employeeOrder.OrderTime)) },
+                        { Name: "Time", Value: formatTime(moment(employeeOrder.OrderTime)) },
+                        { Name: "Date", Value: moment(employeeOrder.OrderTime).format(scope.dateFormat) },
                         { Name: "Meal", Value: employeeOrder, CustomCellRender: selectMeal },
                         { Name: "Order", Value: employeeOrder.Order.OrderNo },
                         { Name: "Ref", Value: employeeOrder.Order.OrderId },
@@ -144,7 +154,7 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
                         { Name: "Status", Value: employeeOrder.Status.Name, CssClass: cssClass },
                         { Name: "OrderedBy", Value: employeeOrder.OrderBy.NickName },
                         { Name: "FullName", Value: employeeOrder.OrderBy.FullName },
-                        { Name: "Section", Value: employeeOrder.OrderBy.Team },
+                        { Name: "Section", Value: employeeOrder.OrderBy.Section },
                         { Name: "Company", Value: employeeOrder.OrderBy.CompanyName },
                         { Name: "MainDish", Value: employeeOrder.Menus, CustomCellRender: getMainDish },
                         { Name: "SideDish", Value: employeeOrder.Menus, CustomCellRender: getSideDish }
@@ -174,21 +184,22 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
 
     var generateDataHeader = function (numberFormat) {
         var columns = [
-            { HeaderText: "#", Width: 70, Name: "Count", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Time", Width: 80, Name: "Time", HeaderAlign: "center", CellAlign: "right" },
-            { HeaderText: "Meal", Width: 90, Name: "Meal", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Order #", Width: 90, Name: "Order", HeaderAlign: "center", CellAlign: "center", FormatNumber: numberFormat },
-            { HeaderText: "Ref", Width: 90, Name: "Ref", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Order Platform", Width: 150, Name: "OrderPlatform", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: "Status", Width: 100, Name: "Status", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: "#", Width: 50, Name: "Count", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Time", Width: 60, Name: "Time", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Date", Width: 80, Name: "Date", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Meal", Width: 60, Name: "Meal", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Order #", Width: 60, Name: "Order", HeaderAlign: "center", CellAlign: "center", FormatNumber: numberFormat },
+            { HeaderText: "Ref", Width: 60, Name: "Ref", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Order Platform", Width: 120, Name: "OrderPlatform", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: "Status", Width: 70, Name: "Status", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Ordered By", Width: 120, Name: "OrderedBy", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Full Name", Width: 120, Name: "FullName", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Section", Width: 120, Name: "Section", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Company", Width: 80, Name: "Company", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: "Main Dish", Width: 80, Name: "MainDish", HeaderAlign: "center", CellAlign: "right" },
-            { HeaderText: "Side Dish", Width: 80, Name: "SideDish", HeaderAlign: "center", CellAlign: "right" },
-            { HeaderText: "Amount", Width: 100, Name: "Amount", HeaderAlign: "center", CellAlign: "right" },
-            { HeaderText: "Order Detail", Width: 100, Name: "OrderDetail", HeaderAlign: "center", CellAlign: "center" }
+            { HeaderText: "Main Dish", Width: 60, Name: "MainDish", HeaderAlign: "center", CellAlign: "right" },
+            { HeaderText: "Side Dish", Width: 60, Name: "SideDish", HeaderAlign: "center", CellAlign: "right" },
+            { HeaderText: "Amount", Width: 70, Name: "Amount", HeaderAlign: "center", CellAlign: "right" },
+            { HeaderText: "Order Detail", Width: 80, Name: "OrderDetail", HeaderAlign: "center", CellAlign: "center" }
         ];
 
         return columns;
@@ -203,7 +214,7 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
         footerRow = [
             {
                 Columns: [
-                    { Name: "Count", Value: "Total", MergeColNumber: 11, CellAlign: "right" },
+                    { Name: "Count", Value: "Total", MergeColNumber: 12, CellAlign: "right" },
                     { Name: "MainDish", Value: totalMainDish, CellAlign: "right" },
                     { Name: "SideDish", Value: totalSideDish, CellAlign: "right" },
                     { Name: "Amount", Value: numeral(totalAmount).format(numberFormat), CellAlign: "right" }

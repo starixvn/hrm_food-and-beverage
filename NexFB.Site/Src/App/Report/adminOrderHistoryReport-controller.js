@@ -37,7 +37,7 @@ function adminOrderHistoryReportController($scope, reportFactory, ErrorFactory, 
 
     $scope.joinStatus = $scope.orderStatus.New + ',' + $scope.orderStatus.Accepted + ',' + $scope.orderStatus.Reduced + ',';
     $scope.filter = {
-        fromDate: new Date($scope.toDate.getFullYear(), $scope.toDate.getMonth(), 1),
+        fromDate: new Date(),
         toDate: new Date(),
         userId: null,
         employeeMenu: 0,
