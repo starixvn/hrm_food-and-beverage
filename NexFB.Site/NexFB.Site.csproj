@@ -196,7 +196,6 @@
     <Compile Include="Controllers\API\DeliveryAreaController.cs" />
     <Compile Include="Controllers\API\KitchenStaffController.cs" />
     <Compile Include="Controllers\API\MealTimeManagementController.cs" />
-    <Compile Include="Controllers\API\Report\AdminOrderHistoryReportController.cs" />
     <Compile Include="Controllers\API\Report\LunchAndDinnerReportController.cs" />
     <Compile Include="Controllers\API\Report\BreakfastAndSupperReportController.cs" />
     <Compile Include="Controllers\API\Report\ReportController.cs" />

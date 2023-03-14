@@ -84,7 +84,7 @@ reportModule.factory('reportFactory', ['$http', 'baseUrl', function ($http, base
                 });
         },
         getAdminOrderHistoryReport: function (filter) {
-            return $http.get(baseUrl + 'api/AdminOrderHistoryReport/GetData',
+            return $http.get(baseUrl + 'api/Report/GetAdminOrderHistoryReport',
                 {
                     params: {
                         fromDate: filter.fromDate.toDateString(),

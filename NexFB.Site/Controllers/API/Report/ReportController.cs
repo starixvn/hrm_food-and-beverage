@@ -15,6 +15,7 @@ namespace NexFB.Site.Controllers.API.Report
     using NexFB.Models;
     using NexFB.Models.Employee;
     using NexFB.Models.Entities;
+    using NexFB.Models.Report.AdminOrderHistoryReport;
     using NexFB.Models.Report.DailyMainDishPricePerMealReport;
     using NexFB.Models.Report.EmployeeOrderHistory;
     using NexFB.Models.Report.MealForecastReport;
@@ -46,9 +47,10 @@ namespace NexFB.Site.Controllers.API.Report
         private readonly IMealForecastDetailReportService _mealForecastDetailReportService;
         private readonly ISideDishSummaryReportService _sideDishSummaryReportService;
         private readonly IEmployeeService _employeeService;
+        private readonly IAdminOrderHistoryService adminOrderHistoryService;
 
         public ReportController()
-            : this(null, null, null, null, null, null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -65,7 +67,8 @@ namespace NexFB.Site.Controllers.API.Report
             IMealForecastDetailReportService mealForecastDetailReportService,
             ISideDishService sideDishService,
             ISideDishSummaryReportService sideDishSummaryReportService,
-            IEmployeeService employeeService)
+            IEmployeeService employeeService,
+            IAdminOrderHistoryService adminOrderHistoryService)
         {
             _monthlyMainDishReportService = monthlyMainDishReportService ?? new MonthlyMainDishReportService();
             _dailyMainDishReportService = dailyMainDishReportService ?? new DailyMainDishReportService();
@@ -80,6 +83,7 @@ namespace NexFB.Site.Controllers.API.Report
             _sideDishService = sideDishService ?? new SideDishService();
             _sideDishSummaryReportService = sideDishSummaryReportService ?? new SideDishSummaryReportService();
             _employeeService = employeeService ?? new EmployeeService();
+            this.adminOrderHistoryService = adminOrderHistoryService ?? new AdminOrderHistoryService();
         }
 
         [HttpGet]
@@ -364,6 +368,27 @@ namespace NexFB.Site.Controllers.API.Report
             }
 
             EmployeeRegistrationReportModel pagingReport = _mealForecastDetailReportService.GetPagingEmployeeNonRegistration(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
+            return pagingReport;
+        }
+
+        [HttpGet]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.AdminOrderHistoryReport, Policy = Policy.Read)]
+        public AdminOrderHistoryReport GetAdminOrderHistoryReport([FromUri] GetAdminOrderHistoryCriteria criteria)
+        {
+            AdminOrderHistoryReport fullReport = null;
+            if (criteria.IsPagingCallback)
+            {
+                fullReport = SessionManager.Get<AdminOrderHistoryReport>(ReportConstant.AdminOrderHistoryReportSessionKey + criteria.UserId);
+            }
+
+            if (fullReport == null)
+            {
+                fullReport = adminOrderHistoryService.GetAdminOrderHistoryReport(criteria);
+                SessionManager.Set<AdminOrderHistoryReport>(ReportConstant.AdminOrderHistoryReportSessionKey + criteria.UserId, fullReport);
+            }
+
+            var pagingReport = adminOrderHistoryService.GetPagingReport(fullReport, criteria.StartIndex, criteria.ItemsPerPage);
+
             return pagingReport;
         }
 
