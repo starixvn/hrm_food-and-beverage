@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="Global.asax.cs" company="Nexcel Solutions Viet Nam">
-// Copyright statement. All right reserved
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/22/2014 9:35:09 AM">Created.</change>
-// </history>
-
-namespace NexFB.Site
+﻿namespace NexFB.Site
 {
     using System;
     using System.Web;
@@ -17,11 +8,10 @@ namespace NexFB.Site
     using System.Web.Routing;
     using System.Web.SessionState;
     using Fanex.Data.Configuration;
-    using Fanex.Logging;
+    using HRM.UserControl.Client.AspNetMvc.Configurations;
+    using HRM.UserControl.Client.AspNetMvc.Session;
+    using HRM.UserControl.Client.Core;
 
-    /// <summary>
-    /// The MVC Application.
-    /// </summary>
     public class MvcApplication : HttpApplication
     {
         private const string _WebApiPrefix = "api";
@@ -38,13 +28,11 @@ namespace NexFB.Site
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             DbSettingProviderManager.Current.Start();
+            UserControlClientManager
+              .UseSettings(new UserControlSettings())
+              .UseSession(new UserControlSession());
         }
 
-        /// <summary>
-        /// Application Error.
-        /// </summary>
-        /// <param name="sender">Sender object.</param>
-        /// <param name="e">The EventArgs.</param>
         protected void Application_Error(object sender, EventArgs e)
         {
             
@@ -56,9 +44,6 @@ namespace NexFB.Site
                         "\r\nStackTrace: " + ex.StackTrace;
         }
 
-        /// <summary>
-        /// Post authorize request.
-        /// </summary>
         protected void Application_PostAuthorizeRequest()
         {
             if (IsWebApiRequest())

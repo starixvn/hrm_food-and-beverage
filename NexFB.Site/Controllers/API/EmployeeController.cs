@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
-    using HRM.UserControl.Client.Core.Models.User;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
