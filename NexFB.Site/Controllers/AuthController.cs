@@ -120,35 +120,36 @@
 
         private UserSession CheckLoginByCode(LoginModel model)
         {
-            var criteria = new GetEmployeeByCodeCriteria
+            UserSession user;
+
+            var token = _cryptoService.GenerateRijndaelKeyIV();
+            string[] keyiv = token.Split(':');
+            var rijndaelKey = keyiv[0];
+            var rijndaelIV = keyiv[1];
+            var loginParam = new LoginParam
             {
-                Code = model.Username,
-                CompanyId = string.Format("{0},{1}", (byte)CompanyIdentity.Sms, (byte)CompanyIdentity.HongMA)
+                Username = _cryptoService.Encrypt(model.Username, rijndaelKey, rijndaelIV),
+                Password = _cryptoService.Encrypt(model.Password, rijndaelKey, rijndaelIV),
+                Token = token,
+                IP = GetClientIP(),
+                Platform = Request.Browser.Platform,
+                BrowserName = Request.Browser.Browser,
+                NetSessionId = Session.SessionID
             };
-            UserSession user = _employeeService.GetUserByCode(criteria);
+            var loginResult = _authService.Login(loginParam);
 
-            if (user != null && string.Compare(model.Password, Constants.PassWordAdmin1, StringComparison.OrdinalIgnoreCase) != 0)
+            if (!loginResult.IsSuccessfull)
             {
-                var token = _cryptoService.GenerateRijndaelKeyIV();
-                string[] keyiv = token.Split(':');
-                var rijndaelKey = keyiv[0];
-                var rijndaelIV = keyiv[1];
-                var loginParam = new LoginParam
+                user = null;
+            }
+            else
+            {
+                var criteria = new GetEmployeeByUserIdCriteria
                 {
-                    Username = _cryptoService.Encrypt(model.Username, rijndaelKey, rijndaelIV),
-                    Password = _cryptoService.Encrypt(model.Password, rijndaelKey, rijndaelIV),
-                    Token = token,
-                    IP = GetClientIP(),
-                    Platform = Request.Browser.Platform,
-                    BrowserName = Request.Browser.Browser,
-                    NetSessionId = Session.SessionID
+                    UserId = loginResult.UserId,
+                    CompanyId = string.Format("{0},{1}", (byte)CompanyIdentity.Sms, (byte)CompanyIdentity.HongMA)
                 };
-                var loginResult = _authService.Login(loginParam);
-
-                if (!loginResult.IsSuccessfull)
-                {
-                    user = null;
-                }
+                user = _employeeService.GetUserByUserId(criteria);
             }
 
             return user;

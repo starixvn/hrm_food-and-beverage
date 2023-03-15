@@ -15,6 +15,8 @@
 
         UserSession GetUserByCode(GetEmployeeByCodeCriteria criteria);
 
+        UserSession GetUserByUserId(GetEmployeeByUserIdCriteria criteria);
+
         bool IsValidateUser(UserSession user, string password);
 
         CommandResult UpdatePassword(ChangePasswordCriteria criteria);

@@ -16,6 +16,9 @@
         <Setting Key="Employee_GetEmployeeByCode" SpName="Employee_GetEmployeeByCode" DbName="FBM" Plain="0">
             <Mapping DataField="SysID" ObjectProperty="UserId" />
         </Setting>
+        <Setting Key="Employee_GetByUserId" SpName="Employee_GetByUserId" DbName="FBM" Plain="0">
+            <Mapping DataField="SysID" ObjectProperty="UserId" />
+        </Setting>
         <Setting Key="Employee_GetEmployees" SpName="Employee_GetEmployees" DbName="FBM" Plain="0">
             <Mapping DataField="SysID" ObjectProperty="UserId" />
         </Setting>

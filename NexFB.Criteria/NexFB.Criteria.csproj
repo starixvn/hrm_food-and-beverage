@@ -76,6 +76,7 @@
     <Compile Include="Company\GetCompanyByIdCriteria.cs" />
     <Compile Include="Employee\ActivateSpecialUserCriteria.cs" />
     <Compile Include="Employee\ChangePasswordCriteria.cs" />
+    <Compile Include="Employee\GetEmployeeByUserIdCriteria.cs" />
     <Compile Include="Employee\GetEmployeeShiftInMonthCriteria.cs" />
     <Compile Include="Employee\GetSpecialUserByIdCriteria.cs" />
     <Compile Include="Employee\DeleteSpecialUserCriteria.cs" />

@@ -48,6 +48,17 @@
             return user;
         }
 
+        public UserSession GetUserByUserId(GetEmployeeByUserIdCriteria criteria)
+        {
+            UserSession user = null;
+            if (criteria.IsValid())
+            {
+                user = GetDataEntity<UserSession>(criteria);
+            }
+
+            return user;
+        }
+
         public bool IsValidateUser(UserSession user, string password)
         {
             bool isValid = user != null
