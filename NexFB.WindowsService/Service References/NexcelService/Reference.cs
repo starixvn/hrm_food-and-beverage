@@ -35,6 +35,9 @@ namespace NexFB.WindowsService.NexcelService {
         private string EmailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EmpIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EmployeeCardField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -131,6 +134,19 @@ namespace NexFB.WindowsService.NexcelService {
                 if ((object.ReferenceEquals(this.EmailField, value) != true)) {
                     this.EmailField = value;
                     this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EmpId {
+            get {
+                return this.EmpIdField;
+            }
+            set {
+                if ((this.EmpIdField.Equals(value) != true)) {
+                    this.EmpIdField = value;
+                    this.RaisePropertyChanged("EmpId");
                 }
             }
         }
@@ -1115,6 +1131,9 @@ namespace NexFB.WindowsService.NexcelService {
         private System.Nullable<int> EarlyOutField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> HasCheckInField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<bool> IsHolidayField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1188,6 +1207,19 @@ namespace NexFB.WindowsService.NexcelService {
                 if ((this.EarlyOutField.Equals(value) != true)) {
                     this.EarlyOutField = value;
                     this.RaisePropertyChanged("EarlyOut");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> HasCheckIn {
+            get {
+                return this.HasCheckInField;
+            }
+            set {
+                if ((this.HasCheckInField.Equals(value) != true)) {
+                    this.HasCheckInField = value;
+                    this.RaisePropertyChanged("HasCheckIn");
                 }
             }
         }

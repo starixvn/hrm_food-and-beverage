@@ -425,11 +425,11 @@
             }
         }
 
-        public DateTime GetDateFromBeforeUpdateUser(int departmentId)
+        public DateTime GetDateFromBeforeUpdateUser(int companyId)
         {
             var criteria = new GetLastUserModifiedDateCriteria
             {
-                CompanyId = departmentId
+                CompanyId = companyId
             };
             return this.GetDataEntity<DateTime>(criteria);
         }

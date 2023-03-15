@@ -10,6 +10,9 @@
         public int UserId { get; set; }
 
         [DataMember]
+        public int EmpId { get; set; }
+
+        [DataMember]
         public string Password { get; set; }
 
         [DataMember]

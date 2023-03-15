@@ -35,6 +35,9 @@ namespace NexFB.WindowsService.HongMaService {
         private string EmailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EmpIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EmployeeCardField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -131,6 +134,19 @@ namespace NexFB.WindowsService.HongMaService {
                 if ((object.ReferenceEquals(this.EmailField, value) != true)) {
                     this.EmailField = value;
                     this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EmpId {
+            get {
+                return this.EmpIdField;
+            }
+            set {
+                if ((this.EmpIdField.Equals(value) != true)) {
+                    this.EmpIdField = value;
+                    this.RaisePropertyChanged("EmpId");
                 }
             }
         }

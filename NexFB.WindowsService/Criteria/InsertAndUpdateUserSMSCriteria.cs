@@ -8,10 +8,10 @@
     public class InsertAndUpdateUserSmsCriteria : CriteriaBase
     {
         private const string _UserTpl =
-            "<User EmpId='{0}' Password='{1}' Code='{2}' "
-            + "NickName='{3}' FullName='{4}' DomainName='{5}' CompanyId='{6}' IsEnabled='{7}' "
-            + " IsDeleted='{8}' JoinedDate='{9}' ModifiedDate='{10}' TeamId='{11}' IsLocal='{12}' "
-            + " CardNumber='{13}' CostCenter='{14}'></User>";
+            "<User UserId='{0}' EmpId='{1}' Password='{2}' Code='{3}' "
+            + "NickName='{4}' FullName='{5}' DomainName='{6}' CompanyId='{7}' IsEnabled='{8}' "
+            + " IsDeleted='{9}' JoinedDate='{10}' ModifiedDate='{11}' TeamId='{12}' IsLocal='{13}' "
+            + " CardNumber='{14}' CostCenter='{15}'></User>";
 
         [SpParam(Ignored = true)]
         public int CompanyId { get; set; }
@@ -32,6 +32,7 @@
                         value.AppendFormat(
                             _UserTpl,
                             user.UserId,
+                            user.EmpId,
                             user.Password,
                             user.Code,
                             user.NickName,

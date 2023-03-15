@@ -12,6 +12,7 @@
       <xs:element minOccurs="0" name="CostCenter" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DomainName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmpId" type="xs:int" />
       <xs:element minOccurs="0" name="EmployeeCard" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
@@ -133,6 +134,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="ChangeShiftId" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="EarlyOut" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="HasCheckIn" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsHoliday" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsKeepInView" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsLeaveDay" nillable="true" type="xs:boolean" />
