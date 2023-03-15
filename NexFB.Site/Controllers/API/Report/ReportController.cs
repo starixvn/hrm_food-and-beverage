@@ -259,7 +259,8 @@ namespace NexFB.Site.Controllers.API.Report
         public EmployeeOrderHistoryReport GetEmployeeOrderHistoryReport([FromUri] GetEmployeeOrderHistoryCriteria criteria)
         {
             EmployeeOrderHistoryReport fullReport;
-            GetOrderedByEnum();
+
+            criteria.UserId = CurrentUser.UserId;
             if (criteria.IsPagingCallback)
             {
                 fullReport = SessionManager.Get<EmployeeOrderHistoryReport>(ReportConstant.EmployeeOrderHistoryReportSessionKey + CurrentUser.UserId);
