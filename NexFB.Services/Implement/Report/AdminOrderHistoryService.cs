@@ -117,7 +117,8 @@
                 var record = new
                 {
                     Count = i + 1,
-                    Time = employeeOrder.OrderTime.ToString("MM/dd/yyyy hh:mm tt"),
+                    Time = employeeOrder.OrderTime.ToString("HH:mm"),
+                    Date = employeeOrder.OrderTime.ToString("dd/MM/yyyy"),
                     Meal = employeeOrder.Meal.MealEngName,
                     Order = employeeOrder.Order.OrderNo,
                     Ref = employeeOrder.Order.OrderId,
@@ -125,7 +126,7 @@
                     Status = employeeOrder.Status.Name,
                     OrderedBy = employeeOrder.OrderBy.NickName,
                     FullName = employeeOrder.OrderBy.FullName,
-                    Section = employeeOrder.OrderBy.Team,
+                    Section = employeeOrder.OrderBy.Section,
                     Company = employeeOrder.OrderBy.CompanyName,
                     MainDish = CreateMainDish(employeeOrder.Menus),
                     SideDish = CreateSideDish(employeeOrder.Menus),

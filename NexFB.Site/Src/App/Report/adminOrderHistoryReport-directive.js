@@ -117,12 +117,6 @@ reportModule.directive('renderAdminOrderHistoryReport', function () {
             return result;
         }
 
-        var formatOrderTime = function (time) {
-            var date = new Date(time);
-            console.log(date.toLocaleString())
-            return date.toLocaleString();
-        }
-
         var formatTime = function (time) {
             var date = new Date(time);
             var hour = (date.getHours() < 10 ? "0" : "") + date.getHours();
