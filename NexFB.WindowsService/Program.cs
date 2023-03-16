@@ -24,13 +24,15 @@ namespace NexFB.WindowsService
         public static void Main()
         {
             DbSettingProviderManager.Current.Start();
-            log4net.Config.XmlConfigurator.Configure();
-            ServiceBase[] servicesToRun;
-            servicesToRun = new ServiceBase[] 
-            { 
-                new AutoService() 
-            };
-            ServiceBase.Run(servicesToRun);
+            //log4net.Config.XmlConfigurator.Configure();
+            //ServiceBase[] servicesToRun;
+            //servicesToRun = new ServiceBase[] 
+            //{ 
+            //    new AutoService() 
+            //};
+            //ServiceBase.Run(servicesToRun);
+            var service = new CommonService();
+            service.SetDefaultVegetarianRegistration();
         }
 
         ////public static void Main()

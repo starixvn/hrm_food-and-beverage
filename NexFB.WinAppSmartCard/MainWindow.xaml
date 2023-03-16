@@ -62,46 +62,55 @@
 				HorizontalAlignment="Center" FontSize="28" VerticalAlignment="Center"/>
             </StackPanel>
 
-            <Rectangle Width="590" HorizontalAlignment="Left" Height="460" VerticalAlignment="Bottom"
-			 Panel.ZIndex="-1" Fill="#000" Opacity=".7" Margin="100,-25,0,-10" Grid.Row="2">
+            <Rectangle Width="360" HorizontalAlignment="Left" Height="1000" VerticalAlignment="Bottom"
+			 Panel.ZIndex="-1" Fill="#61615c" Opacity=".7" Margin="50,0,0,0" Grid.Row="1">
             </Rectangle>
-
-            <StackPanel x:Name="stackPanelCurrentMenu" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" >
-                <TextBlock Name="CurrentMenu" Text="Current Menu" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold" Margin="330,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="meal1" Text="{Binding Path=CurrentMeals[0]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="mealeng1" Text="{Binding Path=CurrentMealsEng[0]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
-                <TextBlock TextWrapping="Wrap" Name="meal2" Text="{Binding Path=CurrentMeals[1]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="mealeng2" Text="{Binding Path=CurrentMealsEng[1]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
-                <TextBlock TextWrapping="Wrap" Name="meal3" Text="{Binding Path=CurrentMeals[2]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="mealeng3" Text="{Binding Path=CurrentMealsEng[2]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
-                <TextBlock TextWrapping="Wrap" Name="meal4" Text="{Binding Path=CurrentMeals[3]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="mealeng4" Text="{Binding Path=CurrentMealsEng[3]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
-                <TextBlock TextWrapping="Wrap" Name="meal5" Text="{Binding Path=CurrentMeals[4]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="mealeng5" Text="{Binding Path=CurrentMealsEng[4]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
-                <TextBlock TextWrapping="Wrap" Name="meal6" Text="{Binding Path=CurrentMeals[5]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="mealeng6" Text="{Binding Path=CurrentMealsEng[5]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+            <Rectangle Width="360" HorizontalAlignment="Left" Height="1000" VerticalAlignment="Bottom"
+			 Panel.ZIndex="-1" Fill="#61615c" Opacity=".7" Margin="50,0,0,-10" Grid.Row="2">
+            </Rectangle>
+            <StackPanel Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" >
+                <TextBlock Text="Thực đơn hiện tại" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="#e6e222" FontWeight="Bold" FontStyle="Italic" Margin="150,0,0,0"/>
+                <TextBlock Text="(Current Menu)" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="#e6e222" FontWeight="Light"  FontStyle="Italic" Margin="170,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentMeals[0]}" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentMealsEng[0]}" FontStyle="Italic" FontWeight="Light" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentMeals[1]}" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentMealsEng[1]}" FontStyle="Italic" FontWeight="Light" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentMeals[2]}" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentMealsEng[2]}" FontStyle="Italic" FontWeight="Light" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,5"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,-5,0,0">
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentMeals[3]}" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentMealsEng[3]}" FontStyle="Italic" FontWeight="Light" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentMeals[4]}" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentMealsEng[4]}" FontStyle="Italic" FontWeight="Light" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentMeals[5]}" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentMealsEng[5]}" FontStyle="Italic" FontWeight="Light" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,5"/>
             </StackPanel>
 
-            <Rectangle Width="590" HorizontalAlignment="Right" Height="360" VerticalAlignment="Bottom"
-			 Panel.ZIndex="-1" Fill="#000" Opacity=".7" Margin="0,-25,100,-10" Grid.Row="2">
+            <Rectangle Width="360" HorizontalAlignment="Right" Height="360" VerticalAlignment="Bottom"
+			 Panel.ZIndex="-1" Fill="#61615c" Opacity=".7" Margin="0,0,50,0" Grid.Row="1">
             </Rectangle>
-
-            <StackPanel x:Name="stackPanelNextMenu" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="1130,0,0,0">
-                <TextBlock Name="NextMenu" Text="Next Menu" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold" Margin="350,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="nmeal1" Text="{Binding Path=NextMeals[0]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="nmealeng1" Text="{Binding Path=NextMealsEng[0]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
-                <TextBlock TextWrapping="Wrap" Name="nmeal2" Text="{Binding Path=NextMeals[1]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="nmealeng2" Text="{Binding Path=NextMealsEng[1]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
-                <TextBlock TextWrapping="Wrap" Name="nmeal3" Text="{Binding Path=NextMeals[2]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="nmealeng3" Text="{Binding Path=NextMealsEng[2]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
-                <TextBlock TextWrapping="Wrap" Name="nmeal4" Text="{Binding Path=NextMeals[3]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="nmealeng4" Text="{Binding Path=NextMealsEng[3]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
-                <TextBlock TextWrapping="Wrap" Name="nmeal5" Text="{Binding Path=NextMeals[4]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="nmealeng5" Text="{Binding Path=NextMealsEng[4]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,5"/>
-                <TextBlock TextWrapping="Wrap" Name="nmeal6" Text="{Binding Path=NextMeals[5]}" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
-                <TextBlock TextWrapping="Wrap" Name="nmealeng6" Text="{Binding Path=NextMealsEng[5]}" FontWeight="Light" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Foreground="White" Margin="110,0,0,0"/>
+            <Rectangle Width="360" HorizontalAlignment="Right" Height="360" VerticalAlignment="Bottom"
+			 Panel.ZIndex="-1" Fill="#61615c" Opacity=".7" Margin="0,0,50,-10" Grid.Row="2">
+            </Rectangle>
+            <StackPanel Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="905,0,0,0">
+                <TextBlock Text="Thực đơn tiếp theo" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="#e6e222" FontWeight="Bold" FontStyle="Italic" Margin="145,0,40,0"/>
+                <TextBlock Text="(Next Menu)" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="#e6e222" FontWeight="Light" Margin="185,0,40,0" FontStyle="Italic"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=NextMeals[0]}" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=NextMealsEng[0]}" FontStyle="Italic" FontWeight="Light" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=NextMeals[1]}" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=NextMealsEng[1]}" FontStyle="Italic" FontWeight="Light" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=NextMeals[2]}" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=NextMealsEng[2]}" FontStyle="Italic" FontWeight="Light" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,5"/>
             </StackPanel>
-
+            <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="905,-5,0,0">
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=NextMeals[3]}" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=NextMealsEng[3]}" FontStyle="Italic" FontWeight="Light" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=NextMeals[4]}" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=NextMealsEng[4]}" FontStyle="Italic" FontWeight="Light" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=NextMeals[5]}" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=NextMealsEng[5]}" FontStyle="Italic" FontWeight="Light" HorizontalAlignment="Left" FontSize="15" VerticalAlignment="Center" Foreground="White" Margin="60,0,0,5"/>
+            </StackPanel>
 
         </Grid>
         <Grid Visibility="{Binding Path=MainScreenVisible}">

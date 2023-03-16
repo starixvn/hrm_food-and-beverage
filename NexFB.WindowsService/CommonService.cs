@@ -49,6 +49,36 @@
             set { _luminetService = value; }
         }
 
+        public CommandResult SetDefaultVegetarianRegistration()
+        {
+            CommandResult result = null;
+            DateTime currentDate = DateTime.Today;
+            DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            DateTime lastDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
+            if (currentDate.Day == firstDayOfMonth.Day)
+            {
+                var listLunarDateInMonth = GetListLunarDateInCurrentMonth();
+            }
+
+            //if (users != null && users.Any())
+            //{
+            //    var insertCriteria = new InsertAndUpdateUserNexcelCriteria
+            //    {
+            //        CompanyId = (int)CompanyIdentity.Nexcel,
+            //        Users = users
+            //    };
+
+            //    result = Repository.Update(insertCriteria);
+            //}
+
+            return result;
+        }
+
+        private object GetListLunarDateInCurrentMonth()
+        {
+            var test = CheckVegetarianDay
+        }
+
         public CommandResult UpdateUserForNexcel()
         {
             CommandResult result = null;
