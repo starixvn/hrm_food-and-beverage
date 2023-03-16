@@ -16,6 +16,9 @@
         <Setting Key="Employee_GetEmployeeByCode" SpName="Employee_GetEmployeeByCode" DbName="FBM" Plain="0">
             <Mapping DataField="SysID" ObjectProperty="UserId" />
         </Setting>
+        <Setting Key="Employee_GetByUserId" SpName="Employee_GetByUserId" DbName="FBM" Plain="0">
+            <Mapping DataField="SysID" ObjectProperty="UserId" />
+        </Setting>
         <Setting Key="Employee_GetEmployees" SpName="Employee_GetEmployees" DbName="FBM" Plain="0">
             <Mapping DataField="SysID" ObjectProperty="UserId" />
         </Setting>
@@ -65,8 +68,7 @@
             <Mapping DataField="EmpTeamName" ObjectProperty="Name" />
             <Mapping DataField="RoleName" ObjectProperty="Name" />
         </Setting>
-        <Setting Key="UserCtrl_SetEmployee" SpName="UserCtrl_SetEmployee" DbName="FBM" Plain="0">
-        </Setting>
+        <Setting Key="UserCtrl_SetEmployee" SpName="UserCtrl_SetEmployee" DbName="FBM" Plain="0" />
     </Function>
     <Function Name="Location">
         <Setting Key="Location_GetAll" SpName="Location_GetAll" DbName="FBM" Plain="0">
@@ -332,8 +334,7 @@
             <Mapping DataField="Meal_D_1" ObjectProperty="MealNextDinner" />
             <Mapping DataField="Meal_S_1" ObjectProperty="MealNextSupper" />
         </Setting>
-        <Setting Key="Shift_Edit_ByShiftID" SpName="Shift_Edit_ByShiftID" DbName="FBM" Plain="0">
-        </Setting>
+        <Setting Key="Shift_Edit_ByShiftID" SpName="Shift_Edit_ByShiftID" DbName="FBM" Plain="0" />
     </Function>
     <Function Name="Report">
         <Setting Key="RPT_MonthMainDishByLocal" SpName="RPT_MonthMainDishByLocal" DbName="FBM" Plain="0">
@@ -352,6 +353,7 @@
         <Setting Key="Rpt_Get_OrderHistory" SpName="Rpt_Get_OrderHistory" DbName="FBM" Plain="0">
             <Mapping DataField="OrderBy" ObjectProperty="UserId" Class="Employee" />
             <Mapping DataField="OrderFullName" ObjectProperty="FullName" Class="Employee" />
+            <Mapping DataField="OrderCompanyName" ObjectProperty="CompanyName" Class="Employee" />
             <Mapping DataField="OrderNickName" ObjectProperty="NickName" Class="Employee" />
             <Mapping DataField="OrderTeamName" ObjectProperty="Team" Class="Employee" />
             <Mapping DataField="CurrentStatusID" ObjectProperty="StatusId" Class="Status" />
