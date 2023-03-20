@@ -275,7 +275,11 @@
                                        class="glyphicon glyphicon-remove margin-icon icon-remove"></a>
                                 </td>
                             </tr>
-                            <tr ng-show="newOrder == '' || newOrder.Members == ''">
+                            <tr ng-show="(newOrderShowMoreInfo == 2 || newOrderShowMoreInfo == 3) && (newOrder == '' || newOrder.Members == '')">
+                                <td class="empty-result" colspan="7" data-translate="EmptyResult">
+                                </td>
+                            </tr>
+                            <tr ng-show="newOrderShowMoreInfo != 2 && newOrderShowMoreInfo != 3 && (newOrder == '' || newOrder.Members == '')">
                                 <td class="empty-result" colspan="4" data-translate="EmptyResult">
                                 </td>
                             </tr>

@@ -340,7 +340,7 @@ orderingModule.controller("OrderingController",
                     data.TakeAway = false;
 
                     $scope.newOrder = data;
-                    $scope.newOrderShowMoreInfo = data.Members[0].Member.CompanyId
+                    $scope.newOrderShowMoreInfo = $scope.currentUser.CompanyId
                     orderingService.setMemberNewOrder(data.Members);
                 };
 
@@ -357,7 +357,7 @@ orderingModule.controller("OrderingController",
                     data.TakeAway = false;
                     data.Members = newMembers;
                     $scope.sideDishOrder = data;
-                    $scope.sideDishOrderShowMoreInfo = data.Members[0].Member.CompanyId
+                    $scope.sideDishOrderShowMoreInfo = $scope.currentUser.CompanyId
                     orderingService.setMemberSideDishOrder(data.Members);
                 };
 
@@ -386,7 +386,7 @@ orderingModule.controller("OrderingController",
                     orderingFactory.getSavedOrder()
                         .success(function (data) {
                             $scope.savedOrder = data;
-                            $scope.savedOrderShowMoreInfo = data.Members[0].Member.CompanyId
+                            $scope.savedOrderShowMoreInfo = $scope.currentUser.CompanyId
                             var members = $scope.savedOrder.Members;
 
                             $scope.savedOrder.Members.forEach((member, index) => {
@@ -867,6 +867,9 @@ orderingModule.controller("OrderingController",
                                     }
                                     else {
                                         var members = orderingService.getMemberNewOrder();
+                                        if (members === undefined) {
+                                            members = [];
+                                        }
 
                                         angular.forEach(members, function (value) {
                                             if (value.Member.UserId === member.Member.UserId) {
@@ -890,6 +893,9 @@ orderingModule.controller("OrderingController",
                             }
                             else if (isSideDishOrder) {
                                 var sideDishMembers = orderingService.getMemberSideDishOrder();
+                                if (sideDishMembers === undefined) {
+                                    sideDishMembers = [];
+                                }
 
                                 angular.forEach(sideDishMembers, function (value) {
                                     if (value.Member.UserId === member.Member.UserId) {

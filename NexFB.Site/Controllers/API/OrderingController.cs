@@ -245,9 +245,10 @@
         {
             var user = new Employee()
             {
-                UserId = this.CurrentUser.UserId,
-                NickName = this.CurrentUser.NickName,
-                FullName = this.CurrentUser.FullName
+                UserId = CurrentUser.UserId,
+                NickName = CurrentUser.NickName,
+                FullName = CurrentUser.FullName,
+                CompanyId = CurrentUser.CompanyId
             };
 
             return user;
