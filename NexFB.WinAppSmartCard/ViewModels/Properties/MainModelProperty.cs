@@ -10,6 +10,7 @@
 namespace NexFB.WinAppSmartCard.ViewModels.Properties
 {
     using Microsoft.AspNet.SignalR.Client.Hubs;
+    using NexFB.Models.Entities;
     using NexFB.Models.Ordering;
     using NexFB.Models.Report.ViewMenuReport;
     using NexFB.Pos.Core.Models;
@@ -21,6 +22,7 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
     using System.Threading;
     using System.Windows;
     using System.Windows.Input;
+    using Employee = Core.Models.Employee;
 
     /// <summary>
     /// Main Model Property.
@@ -40,6 +42,7 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
         private ObservableCollection<string> _nextMeals = new ObservableCollection<string>(new string[10]);
         private ObservableCollection<string> _currentMealsEng = new ObservableCollection<string>(new string[10]);
         private ObservableCollection<string> _nextMealsEng = new ObservableCollection<string>(new string[10]);
+        private ObservableCollection<MealTimesheet> _mealTime;
         private MenuColor _mainDishesMenu = new MenuColor();
         private MenuColor _sideDishesMenu = new MenuColor();
         private bool _mainTabReadOnly;
@@ -259,7 +262,7 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
             set
             {
                 _currentMeals = value;
-                OnPropertyChanged("CurrentMeal");
+                OnPropertyChanged("CurrentMeals");
             }
         }
 
@@ -302,6 +305,20 @@ namespace NexFB.WinAppSmartCard.ViewModels.Properties
             {
                 _nextMealsEng = value;
                 OnPropertyChanged("NextMealsEng");
+            }
+        }
+
+        public ObservableCollection<MealTimesheet> MealTime
+        {
+            get
+            {
+                return _mealTime;
+            }
+
+            set
+            {
+                _mealTime = value;
+                OnPropertyChanged("MealTime");
             }
         }
 

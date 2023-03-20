@@ -30,17 +30,19 @@ namespace NexFB.WinAppSmartCard.ViewModels
         private ISmartCardOrderService _smartCardOrderService;
         private IOrderingService _orderingService;
         private IViewMenuReportService _viewMenuReportService;
+        private ICommonService _commonService;
 
-        public ViewModelBase(IKitchenService kitchenService, ISmartCardOrderService smartCardOrderService, IOrderingService orderingService, IViewMenuReportService viewMenuReportService)
+        public ViewModelBase(ICommonService commonService, IKitchenService kitchenService, ISmartCardOrderService smartCardOrderService, IOrderingService orderingService, IViewMenuReportService viewMenuReportService)
         {
             _kitchenService = kitchenService ?? new KitchenService();
             _smartCardOrderService = smartCardOrderService ?? new SmartCardOrderService();
             _orderingService = orderingService ?? new OrderingService();
             _viewMenuReportService = viewMenuReportService ?? new ViewMenuReportService();
+            _commonService = commonService ?? new CommonService();
         }
 
         public ViewModelBase()
-            : this(null, null, null, null)
+            : this(null, null, null, null, null)
         {
         }
 
@@ -81,6 +83,25 @@ namespace NexFB.WinAppSmartCard.ViewModels
 
                 _kitchenService = value;
                 OnPropertyChanged("KitchenService");
+            }
+        }
+
+        public ICommonService CommonService
+        {
+            get
+            {
+                return _commonService;
+            }
+
+            set
+            {
+                if (_commonService == value)
+                {
+                    return;
+                }
+
+                _commonService = value;
+                OnPropertyChanged("CommonService");
             }
         }
 

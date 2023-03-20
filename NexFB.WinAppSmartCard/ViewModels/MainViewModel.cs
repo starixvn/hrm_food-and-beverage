@@ -1,6 +1,7 @@
 ﻿namespace NexFB.WinAppSmartCard.ViewModels
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Configuration;
     using System.Globalization;
     using System.IO;
@@ -15,9 +16,11 @@
     using Microsoft.AspNet.SignalR.Client;
     using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.Criteria.Kitchen;
+    using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.Ordering;
     using NexFB.Criteria.Report;
     using NexFB.Criteria.SmartCardOrder;
+    using NexFB.Models.Entities;
     using NexFB.Models.Kitchen;
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.Enums;
@@ -28,16 +31,19 @@
     using NexFB.WinAppSmartCard.GlobalResources.Services;
     using NexFB.WinAppSmartCard.ViewModels.Properties;
     using WPFMessageBoxCustomControl.Enums;
+    using Employee = Core.Models.Employee;
 
     public partial class MainViewModel : MainModelProperty
     {
         private static readonly string _host = ConfigurationManager.AppSettings[ConstantValue.HubHost];
         private static readonly DispatcherTimer _dailyClockDispatcher = new DispatcherTimer();
+        private static readonly DispatcherTimer _updateCurrentMenuDispatcher = new DispatcherTimer();
         private ViewModelBase _currentViewModel;
 
         public MainViewModel()
         {
-            GetMealsToShowOnCreen();
+            GetMealTime();
+            GetMealsToShowOnScreen();
             SetApplicationThemes();
             InitializeHubConnection();
             ExecuteMainDishesCommand();
@@ -54,6 +60,7 @@
             this.MainButtonEnable = true;
 
             TimerDailyClock();
+            UpdateCurrentMeal();
         }
 
         #region Properties
@@ -102,33 +109,32 @@
             }
         }
 
-        public void GetMealsToShowOnCreen()
+        public void GetMealTime()
         {
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
             {
-                //var newCardNumber = "02986";
-                //this.CurrentCardNumber = newCardNumber;
-                //string currentViewModel = this.CurrentViewModel.GetType().Name;
-                //string cardValue = newCardNumber.Substring(newCardNumber.Length - 5, 5);
-                //var criteria1 = new GetEmployeeByCardNumberCriteria { CardNumber = cardValue };
-                //EmployeeInfo employeeData1 = this.SmartCardOrderService.GetEmployeeByCardId(criteria1);
-                //var criteria2 = new GetEmployeeByCardNumberCriteria { CardNumber = "11492" };
-                //EmployeeInfo employeeData2 = this.SmartCardOrderService.GetEmployeeByCardId(criteria2);
-                //var criteria3 = new GetEmployeeByCardNumberCriteria { CardNumber = "18607" };
-                //EmployeeInfo employeeData3 = this.SmartCardOrderService.GetEmployeeByCardId(criteria3);
+                var criteria = new GetMealTimesheetCriteria();
+                MealTime = new ObservableCollection<MealTimesheet>(this.CommonService.GetAllMealTimesheet(criteria));
+            }));
+        }
 
-                //CheckForValidCard(employeeData1, currentViewModel);
-                //CheckForValidCard(employeeData2, currentViewModel);
-                //CheckForValidCard(employeeData3, currentViewModel);
-
+        public void GetMealsToShowOnScreen()
+        {
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+            {
                 var criteria = new GetMemberNewOrderCriteria
                 {
                     UserId = 1
                 };
                 var mealId = this.OrderingService.GetMemberNewOrder(criteria).MealID;
 
-                GetCurrentNameMeals(mealId);
+                //reset data
+                NextMeals = new ObservableCollection<string>(new string[10]);
+                NextMealsEng = new ObservableCollection<string>(new string[10]);
+                CurrentMeals = new ObservableCollection<string>(new string[10]);
+                CurrentMealsEng = new ObservableCollection<string>(new string[10]);
 
+                GetCurrentNameMeals(mealId);
                 GetNextNameMeals(mealId);
             }));
         }
@@ -621,6 +627,22 @@
             _dailyClockDispatcher.Interval = new TimeSpan(0, 45, 0);
             _dailyClockDispatcher.Tick += new EventHandler(TimerTick);
             _dailyClockDispatcher.Start();
+        }
+
+        private void UpdateCurrentMeal()
+        {
+            _updateCurrentMenuDispatcher.Interval = new TimeSpan(0, 0, 60);
+            _updateCurrentMenuDispatcher.Tick += new EventHandler(UpdateMeal_Tick);
+            _updateCurrentMenuDispatcher.Start();
+        }
+
+        private void UpdateMeal_Tick(object sender, EventArgs e)
+        {
+            var timeNow = DateTime.Now.ToString("HH:mm");
+            if (MealTime.Any(m => m.StartTime.ToString("HH:mm") == timeNow))
+            {
+                GetMealsToShowOnScreen();
+            }
         }
 
         private void TimerTick(object sender, EventArgs e)
