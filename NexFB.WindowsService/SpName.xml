@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
-  <Function Name="Attendance">
-    <Setting Key="API_SYN_Employee" SpName="API_SYN_Employee" DbName="NexFB" Plain="0"></Setting>
-    <Setting Key="API_SYN_Team" SpName="API_SYN_Team" DbName="NexFB" Plain="0"></Setting>
-    <Setting Key="API_SYN_Section" SpName="API_SYN_Section" DbName="NexFB" Plain="0"></Setting>
-    <Setting Key="API_SYN_Department" SpName="API_SYN_Department" DbName="NexFB" Plain="0"></Setting>
-    <Setting Key="API_SYN_Unit" SpName="API_SYN_Unit" DbName="NexFB" Plain="0"></Setting>
-    <Setting Key="API_SYN_Shift" SpName="API_SYN_Shift" DbName="NexFB" Plain="0"></Setting>
-    <Setting Key="API_SYN_Calendar" SpName="API_SYN_Calendar" DbName="NexFB" Plain="0"></Setting>
-    <Setting Key="Employee_GetLastModifiedDate" SpName="Employee_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
-    <Setting Key="EmpTeam_GetLastModifiedDate" SpName="EmpTeam_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
-    <Setting Key="Section_GetLastModifiedDate" SpName="Section_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
-    <Setting Key="Department_GetLastModifiedDate" SpName="Department_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
-    <Setting Key="Unit_GetLastModifiedDate" SpName="Unit_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
-    <Setting Key="EmpCalendar_GetLastModifiedDate" SpName="EmpCalendar_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
-  </Function>
+    <Function Name="Attendance">
+        <Setting Key="API_SYN_Employee" SpName="API_SYN_Employee" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="API_SYN_Team" SpName="API_SYN_Team" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="API_SYN_Section" SpName="API_SYN_Section" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="API_SYN_Department" SpName="API_SYN_Department" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="API_SYN_Unit" SpName="API_SYN_Unit" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="API_SYN_Shift" SpName="API_SYN_Shift" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="API_SYN_Calendar" SpName="API_SYN_Calendar" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="Employee_GetLastModifiedDate" SpName="Employee_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="EmpTeam_GetLastModifiedDate" SpName="EmpTeam_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="Section_GetLastModifiedDate" SpName="Section_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="Department_GetLastModifiedDate" SpName="Department_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="Unit_GetLastModifiedDate" SpName="Unit_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="EmpCalendar_GetLastModifiedDate" SpName="EmpCalendar_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="VegetarianManagement_SetBySingleDate" SpName="VegetarianManagement_SetBySingleDate" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="VegetarianManagement_GetByRangeDate" SpName="VegetarianManagement_GetByRangeDate" DbName="NexFB" Plain="0"></Setting>
+    </Function>
 </Functions>

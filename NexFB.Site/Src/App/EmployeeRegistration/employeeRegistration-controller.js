@@ -927,38 +927,6 @@ mealRegistrationModule.controller('RegisterMealController',
                 }).error(function (response, status) {
                     ErrorFactory.errorHandle(status);
                 });
-
-                var isVegetarianDay = mealRegistrationUtilities.checkVegetarianDay(timePeriod.getDate(), timePeriod.getMonth() + 1, timePeriod.getFullYear(), 7);
-                var getLunarDayWorkDate = mealRegistrationUtilities.getLunarDay(timePeriod.getDate(), timePeriod.getMonth() + 1, timePeriod.getFullYear(), 7);
-
-                if (isVegetarianDay || getLunarDayWorkDate.month === 7) {
-                    $scope.disableRegisterVegetarian = {
-                        1: false,
-                        2: false,
-                        3: false,
-                        4: false
-                    };
-                }
-
-                timePeriod.setDate(timePeriod.getDate() + 1);
-                var isBeforeVegetarianDay = mealRegistrationUtilities.checkVegetarianDay(timePeriod.getDate(), timePeriod.getMonth() + 1, timePeriod.getFullYear(), 7);
-                if (isBeforeVegetarianDay) {
-                    $scope.disableRegisterVegetarian = {
-                        1: true,
-                        2: true,
-                        3: true,
-                        4: false
-                    };
-                }
-
-                if (getLunarDayWorkDate.month === 7) {
-                    $scope.disableRegisterVegetarian = {
-                        1: false,
-                        2: false,
-                        3: false,
-                        4: false
-                    };
-                }
             }
 
             //check radio button

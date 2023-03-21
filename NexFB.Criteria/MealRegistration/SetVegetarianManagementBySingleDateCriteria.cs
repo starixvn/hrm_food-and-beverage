@@ -12,7 +12,7 @@ namespace NexFB.Criteria.MealRegistration
 
         public string OnDate { get; set; }
 
-        public int ModifiedBy { get; set; }
+        public int? ModifiedBy { get; set; }
 
         public DateTime ModifiedDate { get; set; }
 

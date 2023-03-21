@@ -75,8 +75,23 @@
                 UpdateInfoForHM();
                 UpdateInfoForSMS();
                 UpdateInfoForLuminet();
+                SetDefaultVegetarianManagement();
 
                 _isBusy = false;
+            }
+        }
+
+        private void SetDefaultVegetarianManagement()
+        {
+            try
+            {
+                _LOG.Info("Set Default Vegetarian Management started at " + DateTime.Now.ToString());
+                CommandResult result = _commonService.SetDefaultVegetarianManagement();
+                _LOG.Info("Result of Set Default Vegetarian Management: " + (result == null ? "0" : result.Message));
+            }
+            catch (Exception ex)
+            {
+                _LOG.Error("Error: " + ex.InnerException.Message);
             }
         }
 
