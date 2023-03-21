@@ -103,10 +103,11 @@ function sideDishReportController($scope, $location, $routeParams, reportFactory
             userId: $scope.criteria.employee ? $scope.criteria.employee.UserId : '',
             fromDate: $scope.criteria.fromDate.toString("MM/dd/yyyy"),
             toDate: $scope.criteria.toDate.toString("MM/dd/yyyy"),
-            sideDishItemId: $scope.criteria.sideDishItemIds,
+            sideDishItemIds: $scope.criteria.sideDishItemIds,
             pageIndex: null,
             itemsPerPage: null
         };
+        console.log(criteria)
 
         var data = $.param(criteria),
             url = baseUrl + 'ExportReport/ExportSideDishReport',
