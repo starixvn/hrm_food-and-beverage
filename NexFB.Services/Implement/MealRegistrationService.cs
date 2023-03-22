@@ -93,6 +93,17 @@
             return commandResult;
         }
 
+        public CommandResult SetDefaultVegetarianManagementAnnual(SetDefaultVegetarianManagementAnnualCriteria criteria)
+        {
+            var commandResult = new CommandResult();
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
         public IList<MealDateModel> GetDefaultRegisterMeal(GetRegisterMealByDefaultCriteria criteria)
         {
             IList<MealDateModel> defaultMeals = null;

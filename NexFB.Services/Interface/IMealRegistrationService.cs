@@ -28,6 +28,7 @@ namespace NexFB.Services.Interface
         CommandResult SetVegetarianByDate(SetVegetarianByDateCriteria criteria);
 
         CommandResult SetVegetarianManagementBySingleDate(SetVegetarianManagementBySingleDateCriteria criteria);
+        CommandResult SetDefaultVegetarianManagementAnnual(SetDefaultVegetarianManagementAnnualCriteria criteria);
 
         IList<MealDateModel> GetDefaultRegisterMeal(GetRegisterMealByDefaultCriteria criteria);
 

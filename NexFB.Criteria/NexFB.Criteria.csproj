@@ -145,6 +145,7 @@
     <Compile Include="Kitchen\UndoOrderCriteria.cs" />
     <Compile Include="MealRegistration\GetRegisterMealSettingCriteria.cs" />
     <Compile Include="MealRegistration\GetVegetarianManagementByRangeDateCriteria.cs" />
+    <Compile Include="MealRegistration\SetDefaultVegetarianManagementAnnualCriteria.cs" />
     <Compile Include="MealRegistration\SetRegisterMealByDefaultCriteria.cs" />
     <Compile Include="MealRegistration\SetVegetarianByDateCriteria.cs" />
     <Compile Include="MealRegistration\SetVegetarianManagementBySingleDateCriteria.cs" />

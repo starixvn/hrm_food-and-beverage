@@ -1,5 +1,6 @@
 ﻿namespace NexFB.WindowsService
 {
+    using Fanex.Data.DNAide;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
     using NexFB.Core.Services;
@@ -12,6 +13,7 @@
     using System.Configuration;
     using System.IO;
     using System.Linq;
+    using System.Web.UI;
 
     public class CommonService : BaseService
     {
@@ -20,8 +22,6 @@
         private SMSService.SynchronizeDataServiceClient _smsService = null;
         private LuminetService.SynchronizeDataServiceClient _luminetService = null;
         private readonly IMealRegistrationService _mealRegistrationService;
-        private string _templateAllMeal = "<ROOT><Meal MealID='1' IsAllowRegisteringVegetarian='1' /><Meal MealID='2' IsAllowRegisteringVegetarian='1' /><Meal MealID='3' IsAllowRegisteringVegetarian='1' /><Meal MealID='4' IsAllowRegisteringVegetarian='1' /></ROOT>";
-        private string _templateSupper = "<ROOT><Meal MealID='1' IsAllowRegisteringVegetarian='0' /><Meal MealID='2' IsAllowRegisteringVegetarian='0' /><Meal MealID='3' IsAllowRegisteringVegetarian='0' /><Meal MealID='4' IsAllowRegisteringVegetarian='1' /></ROOT>";
 
         public CommonService()
         {
@@ -61,14 +61,59 @@
             CommandResult result = null;
             if (!IsHasDataVegetarianManagement())
             {
-                result = SetDefaultVegetarianManagementSupper();
-                if (result != null && !result.IsSuccessful)
+                string dateApplyAllMeal = "";
+                string dateApplySupperMeal = "";
+                GetDateApply(ref dateApplyAllMeal, ref dateApplySupperMeal);
+
+                var criteria = new SetDefaultVegetarianManagementAnnualCriteria
                 {
-                    return result;
-                }
-                result = SetDefaultVegetarianManagementAllMeal();
+                    DateApplyAllMeal = dateApplyAllMeal,
+                    DateApplySupperMeal = dateApplySupperMeal
+                };
+
+                result = _mealRegistrationService.SetDefaultVegetarianManagementAnnual(criteria);
             }
             return result;
+        }
+
+        private void GetDateApply(ref string dateApplyAllMeal, ref string dateApplySupperMeal)
+        {
+            List<DateTime> listDateApplyAllMeal = new List<DateTime>();
+            List<DateTime> listDateApplySupperMeal = new List<DateTime>();
+            DateTime firstDayOfYear = new DateTime(DateTime.Now.Year, 1, 1);
+            DateTime lastDayOfYear = new DateTime(DateTime.Now.Year, 12, 31);
+            DateTime tempDate = firstDayOfYear;
+
+            while (tempDate <= lastDayOfYear)
+            {
+                if (IsVegetarianDate(tempDate))
+                {
+                    listDateApplyAllMeal.Add(tempDate);
+                    listDateApplySupperMeal.Add(tempDate.AddDays(-1));
+                }
+                tempDate = tempDate.AddDays(1);
+            }
+
+            listDateApplySupperMeal.RemoveAll(x => listDateApplyAllMeal.Contains(x));
+
+            dateApplyAllMeal = String.Join(",", listDateApplyAllMeal.Select(date => date.ToString("yyyy/MM/dd")));
+            dateApplySupperMeal = String.Join(",", listDateApplySupperMeal.Select(date => date.ToString("yyyy/MM/dd")));
+        }
+
+        private bool IsVegetarianDate(DateTime date)
+        {
+            var solarDate = new Solar
+            {
+                solarDay = date.Day,
+                solarMonth = date.Month,
+                solarYear = date.Year
+            };
+            var lunarDate = LunarSolarConverter.SolarToLunar(solarDate);
+
+            bool isVegetarianMonth = lunarDate.lunarMonth == 7;
+            bool isVegetarianDay = lunarDate.lunarDay == 1 || lunarDate.lunarDay == 15;
+
+            return isVegetarianMonth || isVegetarianDay;
         }
 
         private bool IsHasDataVegetarianManagement()
@@ -81,85 +126,6 @@
             };
 
             return _mealRegistrationService.GetVegetarianManagementByRangeDate(criteria).Any();
-        }
-
-        private CommandResult SetDefaultVegetarianManagementSupper()
-        {
-            CommandResult result = null;
-            DateTime firstDayOfYear = new DateTime(DateTime.Now.Year, 1, 1);
-            DateTime lastDayOfYear = new DateTime(DateTime.Now.Year, 12, 31);
-            DateTime tempDate = firstDayOfYear;
-
-            while (tempDate <= lastDayOfYear)
-            {
-                var solarDate = new Solar
-                {
-                    solarDay = tempDate.Day,
-                    solarMonth = tempDate.Month,
-                    solarYear = tempDate.Year
-                };
-                var lunarDate = LunarSolarConverter.SolarToLunar(solarDate);
-
-                bool isVegetarianMonth = lunarDate.lunarMonth == 7;
-                bool isVegetarianDay = lunarDate.lunarDay == 1 || lunarDate.lunarDay == 15;
-
-                if (isVegetarianMonth || isVegetarianDay)
-                {
-                    result = SetDefaultVegetarianManagement(tempDate.AddDays(-1), _templateSupper);
-                }
-
-                if (result != null && !result.IsSuccessful)
-                {
-                    return result;
-                }
-                tempDate = tempDate.AddDays(1);
-            }
-            return result;
-        }
-
-        private CommandResult SetDefaultVegetarianManagementAllMeal()
-        {
-            CommandResult result = null;
-            DateTime firstDayOfYear = new DateTime(DateTime.Now.Year, 1, 1);
-            DateTime lastDayOfYear = new DateTime(DateTime.Now.Year, 12, 31);
-            DateTime tempDate = firstDayOfYear;
-            while (tempDate <= lastDayOfYear)
-            {
-                var solarDate = new Solar
-                {
-                    solarDay = tempDate.Day,
-                    solarMonth = tempDate.Month,
-                    solarYear = tempDate.Year
-                };
-                var lunarDate = LunarSolarConverter.SolarToLunar(solarDate);
-
-                bool isVegetarianMonth = lunarDate.lunarMonth == 7;
-                bool isVegetarianDay = lunarDate.lunarDay == 1 || lunarDate.lunarDay == 15;
-
-                if (isVegetarianMonth || isVegetarianDay)
-                {
-                    result = SetDefaultVegetarianManagement(tempDate, _templateAllMeal);
-                }
-
-                if (result != null && !result.IsSuccessful)
-                {
-                    return result;
-                }
-                tempDate = tempDate.AddDays(1);
-            }
-            return result;
-        }
-
-        private CommandResult SetDefaultVegetarianManagement(DateTime tempDate, string template)
-        {
-            var criteria = new SetVegetarianManagementBySingleDateCriteria
-            {
-                Meal = template,
-                OnDate = tempDate.ToString(),
-                ModifiedDate = DateTime.Now,
-                ModifiedBy = 0
-            };
-            return _mealRegistrationService.SetVegetarianManagementBySingleDate(criteria);
         }
 
         public CommandResult UpdateUserForNexcel()

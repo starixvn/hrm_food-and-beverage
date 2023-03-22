@@ -1,11 +1,8 @@
-﻿using Fanex.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NexFB.Criteria.MealRegistration
+﻿namespace NexFB.Criteria.MealRegistration
 {
+    using Fanex.Data.Repository;
+    using System;
+
     public class SetVegetarianManagementBySingleDateCriteria : CriteriaBase
     {
         public string Meal { get; set; }

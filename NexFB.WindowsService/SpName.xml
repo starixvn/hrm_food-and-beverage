@@ -14,7 +14,7 @@
         <Setting Key="Department_GetLastModifiedDate" SpName="Department_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
         <Setting Key="Unit_GetLastModifiedDate" SpName="Unit_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
         <Setting Key="EmpCalendar_GetLastModifiedDate" SpName="EmpCalendar_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
-        <Setting Key="VegetarianManagement_SetBySingleDate" SpName="VegetarianManagement_SetBySingleDate" DbName="NexFB" Plain="0"></Setting>
         <Setting Key="VegetarianManagement_GetByRangeDate" SpName="VegetarianManagement_GetByRangeDate" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="VegetarianManagement_SetDefaultAnnual" SpName="VegetarianManagement_SetDefaultAnnual" DbName="NexFB" Plain="0"></Setting>
     </Function>
 </Functions>
