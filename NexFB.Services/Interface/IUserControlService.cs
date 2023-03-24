@@ -31,6 +31,7 @@ namespace NexFB.Services.Interface
         EmployeeModel GetEmployeeRoleById(GetEmployeeRoleByIdCriteria criteria);
 
         CommandResult AssignRoleToUser(AssignRoleToUserCriteria criteria);
+        CommandResult AssignFreeOrderToUser(AssignFreeOrderToUserCriteria criteria);
 
         IEnumerable<Company> GetCompanyUserHasPermission(GetEmployeeRoleByIdCriteria criteria);
     }

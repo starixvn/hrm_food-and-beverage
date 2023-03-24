@@ -69,6 +69,7 @@
             <Mapping DataField="RoleName" ObjectProperty="Name" />
         </Setting>
         <Setting Key="UserCtrl_SetEmployee" SpName="UserCtrl_SetEmployee" DbName="FBM" Plain="0" />
+        <Setting Key="UserCtrl_SetFreeOrder" SpName="UserCtrl_SetFreeOrder" DbName="FBM" Plain="0" />
     </Function>
     <Function Name="Location">
         <Setting Key="Location_GetAll" SpName="Location_GetAll" DbName="FBM" Plain="0">

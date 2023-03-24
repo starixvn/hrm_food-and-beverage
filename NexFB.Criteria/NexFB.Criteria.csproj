@@ -212,6 +212,7 @@
     <Compile Include="Team\GetAllTeamByCompanyCriteria.cs" />
     <Compile Include="Kitchen\GetDeliveredMealOrderCriteria.cs" />
     <Compile Include="Kitchen\GetWaitingMealOrderCriteria.cs" />
+    <Compile Include="UserControl\AssignFreeOrderToUserCriteria.cs" />
     <Compile Include="UserControl\AssignPermissionToRoleCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByCodeCriteria.cs" />
     <Compile Include="UserControl\AssignRoleToUserCriteria.cs" />

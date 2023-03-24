@@ -120,20 +120,6 @@ orderingModule.controller("OrderingController",
                     });
             }
 
-            const compareFunction = (a, b) => {
-                const dateA = new Date(a.RegisterDate); // trích xuất ngày đăng ký của phần tử A
-                const dateB = new Date(b.RegisterDate); // trích xuất ngày đăng ký của phần tử B
-
-                // So sánh thời gian giữa A và B
-                if (dateA > dateB) {
-                    return -1;
-                } else if (dateA < dateB) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            };
-
             $scope.getRemarkList()
             $scope.remarkListResult = []
             $scope.hoverRemark = ""

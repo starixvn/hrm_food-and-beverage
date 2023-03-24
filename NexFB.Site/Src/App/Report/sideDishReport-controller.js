@@ -107,7 +107,6 @@ function sideDishReportController($scope, $location, $routeParams, reportFactory
             pageIndex: null,
             itemsPerPage: null
         };
-        console.log(criteria)
 
         var data = $.param(criteria),
             url = baseUrl + 'ExportReport/ExportSideDishReport',

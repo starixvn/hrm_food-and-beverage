@@ -123,6 +123,13 @@
             return _userControlService.AssignRoleToUser(criteria);
         }
 
+        [HttpPost]
+        [ApiAuthorize(FunctionKey = FBFunctionKey.ManageUser, Policy = Policy.Host)]
+        public CommandResult AssignFreeOrderToUser(AssignFreeOrderToUserCriteria criteria)
+        {
+            return _userControlService.AssignFreeOrderToUser(criteria);
+        }
+
         [HttpGet]
         public int GetManageUserPermission()
         {

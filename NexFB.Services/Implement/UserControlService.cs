@@ -95,6 +95,19 @@
             return commandResult;
         }
 
+        public CommandResult AssignFreeOrderToUser(AssignFreeOrderToUserCriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+            var commandResult = new CommandResult();
+
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
         public IEnumerable<Company> GetCompanyUserHasPermission(GetEmployeeRoleByIdCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");

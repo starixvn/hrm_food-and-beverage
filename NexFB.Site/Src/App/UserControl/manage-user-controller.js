@@ -102,20 +102,12 @@ function manageUserController($scope, $route, $modal, userControlFactory, notifi
         });
 
         $scope.modalInstance.result.then(function () {
-            var roleID = ""
-            for (let i = 0; i < employee.RoleItems.length; i++) {
-                roleID += employee.RoleItems[i].RoleId + ",";
-            }
-            roleID = roleID.slice(0, -1);
-
-            var roleFunction = {
-                systemID: employee.UserId,
-                roleID,
-                roleCompanies: "<ROOT></ROOT>",
+            var criteria = {
+                userId: employee.UserId,
                 isFreeOrder: employee.IsFreeOrder
             }
 
-            userControlFactory.assignRoleToUser(roleFunction).success(function (response) {
+            userControlFactory.assignFreeOrderToUser(criteria).success(function (response) {
                 if (response.IsSuccessful) {
                     notificationFactory.success("DataChangeSuccessfully");
                 }

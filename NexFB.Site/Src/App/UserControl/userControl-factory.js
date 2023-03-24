@@ -31,6 +31,9 @@ userControlModule.factory('userControlFactory', ['$http', 'baseUrl', function ($
         assignRoleToUser: function (userRoles) {
             return $http.post(baseUrl + 'api/UserControl/AssignRoleToUser', userRoles);
         },
+        assignFreeOrderToUser: function (userFreeOrder) {
+            return $http.post(baseUrl + 'api/UserControl/AssignFreeOrderToUser', userFreeOrder);
+        },
         getManageRolePermission: function () {
             return $http.get(baseUrl + 'api/UserControl/GetManageRolePermission');
         },
