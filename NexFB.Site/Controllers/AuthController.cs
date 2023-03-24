@@ -3,8 +3,13 @@
     using System;
     using System.Web.Mvc;
     using System.Web.Security;
+    using Fanex.Data.Repository;
+    using HRM.UserControl.Client.AspNetMvc.Configurations;
+    using HRM.UserControl.Client.AspNetMvc.Session;
+    using HRM.UserControl.Client.Core.Configurations;
     using HRM.UserControl.Client.Core.Models.Auth;
     using HRM.UserControl.Client.Core.Services;
+    using HRM.UserControl.Client.Core.Session;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Criteria.Employee;
@@ -12,26 +17,37 @@
     using NexFB.Resources;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
+    using NexFB.Site.TranslatorService;
     using NexFB.Web;
+    using IUserService = HRM.UserControl.Client.Core.Services.IUserService;
 
     public class AuthController : Controller
     {
         private readonly IEmployeeService _employeeService;
         private readonly IAuthService _authService;
         private readonly ICryptoService _cryptoService;
+        private readonly IUserControlSession _userControlSession;
+        private readonly IUserService _userService;
+        private readonly IUserControlSettings _userControlSettings;
 
         public AuthController()
-            : this(null, null, null)
+            : this(null, null, null, null, null, null)
         {
         }
 
         public AuthController(IEmployeeService employeeService,
             IAuthService authService,
-            ICryptoService cryptoService)
+            ICryptoService cryptoService,
+            IUserService userService,
+            IUserControlSession userControlSession,
+            IUserControlSettings userControlSettings)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _authService = authService ?? new AuthService();
             _cryptoService = cryptoService ?? new CryptoService();
+            _userService = userService ?? new UserService();
+            _userControlSession = userControlSession ?? new UserControlSession();
+            _userControlSettings = userControlSettings ?? new UserControlSettings();
         }
 
         [HttpGet]
@@ -104,6 +120,7 @@
                 Username = model.Username,
                 CompanyId = companyId.ToString()
             };
+
             UserSession user = _employeeService.GetUserByDomain(criteria);
 
             if (user != null && string.Compare(model.Password, Constants.PassWordAdmin2, StringComparison.OrdinalIgnoreCase) != 0)
@@ -153,6 +170,58 @@
             }
 
             return user;
+        }
+
+        public ActionResult SSO(string userId, string onUserId, string time, string redirectUrl = null)
+        {
+            const string DateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
+            var userIdValue = Cryptography.DecryptPassword(userId.Replace(" ", "+"));
+            var onUserIdValue = Cryptography.DecryptPassword(onUserId.Replace(" ", "+"));
+            var timeValue = Cryptography.DecryptPassword(time.Replace(" ", "+"));
+            var currentTime = _authService.SSOGetTime();
+            TimeSpan expiration = DateTime.ParseExact(currentTime, DateTimeFormat, null) - DateTime.ParseExact(timeValue, DateTimeFormat, null);
+            const byte TimeExpiration = 30;
+            if (expiration.TotalSeconds <= TimeExpiration)
+            {
+                var ssoParam = new SSOLoginParam
+                {
+                    UserId = Convert.ToInt32(userIdValue),
+                    CheckOnUserId = Convert.ToInt64(onUserIdValue),
+                    OnUserId = 0,
+                    IP = GetClientIP(),
+                    Platform = Request.Browser.Platform,
+                    BrowserName = Request.Browser.Browser,
+                    NetSessionId = Session.SessionID
+                };
+                LoginResult loginResult = _authService.SSOLogin(ssoParam);
+                if (loginResult.IsSuccessfull)
+                {
+                    var criteria = new GetEmployeeByUserIdCriteria
+                    {
+                        UserId = loginResult.UserId,
+                        CompanyId = string.Format("{0},{1}", (byte)CompanyIdentity.Sms, (byte)CompanyIdentity.HongMA)
+                    };
+
+                    var employee = _employeeService.GetUserByUserId(criteria);
+
+                    if (employee == null)
+                    {
+                        return RedirectToAction("Login");
+                    }
+
+                    _userControlSession.UserId = Convert.ToInt32(userIdValue);
+                    _userControlSession.SiteId = _userControlSettings.SiteId;
+                    _userControlSession.JwtToken = loginResult.JwtToken;
+                    _userControlSession.OnUserId = loginResult.OnUserId;
+                    _userControlSession.MenuItems = _userService.GetMenuItem();
+                    _userControlSession.Functions = _userService.GetFunctionPermission(_userControlSession.SiteId, _userControlSession.UserId);
+
+                    FormsAuthentication.SetAuthCookie(employee.UserId.ToString(), false);
+                    return !string.IsNullOrWhiteSpace(redirectUrl) && Url.IsLocalUrl(redirectUrl) ? Redirect(redirectUrl) : Redirect("~/Ordering/Index");
+                }
+            }
+
+            return RedirectToAction("Login");
         }
 
         private string GetClientIP()
