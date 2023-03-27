@@ -115,22 +115,17 @@ userControlModule.controller('AssignRoleToUserController',
                 return isChecked;
             };
 
-            $scope.save = function (roles, roleCompanies, isFreeOrder) {
+            $scope.save = function (roles, roleCompanies) {
                 var userRoles = {
                     systemID: userId,
                     roleID: roles,
                     roleCompanies: roleCompanies,
-                    isFreeOrder: isFreeOrder
                 };
                 $modalInstance.close(userRoles);
             };
 
             $scope.cancel = function () {
                 $modalInstance.dismiss("cancel");
-            };
-
-            $scope.ChangeFreeOrder = function (employee) {
-                employee.IsFreeOrder = !employee.IsFreeOrder;
             };
         }]);
 

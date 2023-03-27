@@ -158,8 +158,7 @@ userControlModule.directive('getUserPermission', function () {
                 var roleDiv = $("[name='userRoles']"),
                     roleItems = $(roleDiv).find("[name='role']:checked"),
                     roles = '',
-                    roleCompanies = '<ROOT>',
-                    isFreeOrder = $('#free-order').is(':checked');
+                    roleCompanies = '<ROOT>'
 
                 if (roleItems) {
                     for (var i = 0; i < roleItems.length; i++) {
@@ -177,7 +176,7 @@ userControlModule.directive('getUserPermission', function () {
                 roleCompanies += '</ROOT>';
 
                 // call save function
-                scope.save.call(this, roles, roleCompanies, isFreeOrder);
+                scope.save.call(this, roles, roleCompanies);
             });
         }
     };
