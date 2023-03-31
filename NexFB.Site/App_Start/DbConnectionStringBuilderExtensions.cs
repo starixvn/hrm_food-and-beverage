@@ -16,13 +16,13 @@ namespace NexFB.Site
 
         internal const string DefaultPasswordKeyword = "password";
 
-        internal static readonly string[] ServerAliases = new string[7] { "data source", "server", "host", "datasource", "address", "addr", "network address" };
+        internal static readonly string[] ServerAliases = new[] { "data source", "server", "host", "datasource", "address", "addr", "network address" };
 
-        internal static readonly string[] DatabaseAliases = new string[2] { "initial catalog", "database" };
+        internal static readonly string[] DatabaseAliases = new[] { "initial catalog", "database" };
 
-        internal static readonly string[] UserIdAliases = new string[6] { "user id", "uid", "username", "user name", "user", "userid" };
+        internal static readonly string[] UserIdAliases = new[] { "user id", "uid", "username", "user name", "user", "userid" };
 
-        internal static readonly string[] PasswordAliases = new string[2] { "password", "pwd" };
+        internal static readonly string[] PasswordAliases = new[] { "password", "pwd" };
 
         public static string GetServer(this DbConnectionStringBuilder connectionStringBuilder)
         {

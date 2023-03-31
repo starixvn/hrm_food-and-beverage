@@ -13,7 +13,7 @@ namespace NexFB.Site
     {
         private static readonly DESCryptoServiceProvider CryptoServiceProvider = new DESCryptoServiceProvider();
 
-        private static readonly byte[] RgbKey = new byte[8] { 33, 99, 84, 90, 145, 172, 110, 204 };
+        private static readonly byte[] RgbKey = new byte[] { 33, 99, 84, 90, 145, 172, 110, 204 };
 
         private static readonly byte[] RgbIv = Encoding.UTF8.GetBytes("&％#@?,:*!~^.");
 
