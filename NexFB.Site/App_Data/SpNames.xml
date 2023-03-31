@@ -343,6 +343,8 @@
     <Function Name="Report">
         <Setting Key="RPT_MonthMainDishByLocal" SpName="RPT_MonthMainDishByLocal" DbName="FBM" Plain="0">
         </Setting>
+        <Setting Key="RPT_GetBreakRuleOrder" SpName="RPT_GetBreakRuleOrder" DbName="FBM" Plain="0">
+        </Setting>
         <Setting Key="RPT_DailyMainDishPricePerMeal" SpName="RPT_DailyMainDishPricePerMeal" DbName="FBM" Plain="0">
             <Mapping DataField="GroupDesc" ObjectProperty="Total" Class="TotalPriceModel" />
             <Mapping DataField="SysID" ObjectProperty="UserId" Class="Employee" />

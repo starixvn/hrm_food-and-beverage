@@ -279,6 +279,7 @@ namespace NexFB.Site.Controllers.API.Report
         [ApiAuthorize(FunctionKey = FBFunctionKey.MonthlyMainDishReportPerDay, Policy = Policy.Read)]
         public MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport([FromUri] GetMonthlyMainDishPerDayReportCriteria criteria)
         {
+
             MonthlyMainDishPerDayModel fullReport;
             if (criteria.IsPagingCallback)
             {
@@ -288,6 +289,14 @@ namespace NexFB.Site.Controllers.API.Report
             else
             {
                 fullReport = _monthlyPerDayService.GetMonthlyMainDishPerDayReport(criteria);
+                if (fullReport != null)
+                {
+                    var criteriaGetBreakRuleOrder = new GetBreakRuleOrderCriteria
+                    {
+                        ReportDate = criteria.ReportDate
+                    };
+                    fullReport.BreakRuleOrders = (List<BreakRuleOrder>)_monthlyPerDayService.GetBreakRuleOrder(criteriaGetBreakRuleOrder);
+                }
                 SessionManager.Set<MonthlyMainDishPerDayModel>(
                         ReportConstant.MonthlyMainDishPerDayReportSessionKey + CurrentUser.UserId, fullReport);
             }

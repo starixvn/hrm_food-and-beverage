@@ -38,5 +38,8 @@ namespace NexFB.Models.Report.MonthlyMainDishPerDay
         public MealDayOfMonthModel WeekDays { get; set; }
 
         public int TotalItem { get; set; }
+
+        public List<BreakRuleOrder> BreakRuleOrders { get; set; }
+
     }
 }

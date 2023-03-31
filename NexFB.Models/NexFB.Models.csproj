@@ -110,6 +110,7 @@
     <Compile Include="Report\EmployeeOrderHistory\EmployeeOrderHistoryReport.cs" />
     <Compile Include="Report\EmployeeOrderHistory\EmployeeOrderModel.cs" />
     <Compile Include="Report\MealForecastReport\EmployeeRegistrationReportModel.cs" />
+    <Compile Include="Report\MonthlyMainDishPerDay\BreakRuleOrder.cs" />
     <Compile Include="Report\MonthlyMainDishPerDay\MainDishPerDayModel.cs" />
     <Compile Include="Report\MonthlyMainDishPerDay\MonthlyMainDishPerDayModel.cs" />
     <Compile Include="Report\MealForecastReport\MealForecastDetailReport.cs" />

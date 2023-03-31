@@ -2,12 +2,13 @@
 /*global reportModule, moment*/
 
 reportModule.directive('renderMonthlyMainDishPerDay', function () {
-    var generateNumberMealsRow = function (numberMealsMonth) {
+    var generateNumberMealsRow = function (numberMealsMonth, userId, breakRuleOrders) {
         var numberMealsRow = [],
             numberMeals = numberMealsMonth.NumberMeals;
 
         for (var i = 0; i < numberMeals.length; i++) {
-            var row = { Name: "" + (i + 1), Value: numberMeals[i] };
+            var cssClass = getCssClass(userId, i + 1, breakRuleOrders);
+            var row = { Name: "" + (i + 1), Value: numberMeals[i], CssClass: cssClass };
             numberMealsRow.push(row);
         }
 
@@ -16,6 +17,20 @@ reportModule.directive('renderMonthlyMainDishPerDay', function () {
 
         return numberMealsRow;
     };
+
+    var getCssClass = function (userId, dayInMonth, breakRuleOrders) {
+        if (userId === 0) {
+            return "";
+        }
+        var breakRuleOrder = breakRuleOrders.find(x => {
+            return x.SysId === userId && (new Date(x.OnDate)).getDate() === dayInMonth
+        })
+        if (breakRuleOrder === undefined) {
+            return ""
+        } else {
+            return breakRuleOrder.IsBreakRule ? "br-order-red" : "br-order-green"
+        }
+    }
 
     var generateDataBody = function (report, scope) {
         var rows = [];
@@ -52,8 +67,10 @@ reportModule.directive('renderMonthlyMainDishPerDay', function () {
 
                 for (var j = 0; j < mealItems.length; j++) {
                     var mealItem = mealItems[j];
+                    var userId = 0;
 
                     if (report.IsGroupByEmployee) {
+                        userId = mealItem.Employee.UserId;
                         currentSubRow = {
                             Columns: [
                                 { Name: "Meal", Value: rowIndex, CssClass: "remove-padding-left" },
@@ -72,7 +89,7 @@ reportModule.directive('renderMonthlyMainDishPerDay', function () {
                         };
                     }
 
-                    var numberMealsRow = generateNumberMealsRow(mealItem.NumberMealsMonth);
+                    var numberMealsRow = generateNumberMealsRow(mealItem.NumberMealsMonth, userId, report.BreakRuleOrders);
                     currentSubRow.Columns = currentSubRow.Columns.concat(numberMealsRow);
                     currentRow.SubRows.push(currentSubRow);
                     rowIndex++;

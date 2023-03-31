@@ -6,7 +6,9 @@
     using NexFB.Core.Enums;
     using NexFB.Core.Services;
     using NexFB.Core.Utilities;
+    using NexFB.Criteria.Employee;
     using NexFB.Criteria.Report;
+    using NexFB.Models.Employee;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;
@@ -45,6 +47,17 @@
             return report;
         }
 
+        public IList<BreakRuleOrder> GetBreakRuleOrder(GetBreakRuleOrderCriteria criteria)
+        {
+            IList<BreakRuleOrder> result = null;
+            if (criteria.IsValid())
+            {
+                result = GetData<BreakRuleOrder>(criteria).ToList();
+            }
+
+            return result;
+        }
+
         public MonthlyMainDishPerDayModel GetPagingReport(
             MonthlyMainDishPerDayModel fullReport,
             int startIndex,
@@ -56,7 +69,8 @@
                 Month = fullReport.Month,
                 Total = fullReport.Total,
                 TotalItem = fullReport.TotalItem,
-                WeekDays = fullReport.WeekDays
+                WeekDays = fullReport.WeekDays,
+                BreakRuleOrders = fullReport.BreakRuleOrders,
             };
 
             pagingReport.TypeDays = LoopAndGetPagingReport(fullReport, startIndex, itemsPerPage);

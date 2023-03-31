@@ -9,8 +9,11 @@
 
 namespace NexFB.Services.Interface.Report
 {
+    using NexFB.Criteria.Employee;
     using NexFB.Criteria.Report;
+    using NexFB.Models.Employee;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
+    using System.Collections.Generic;
 
     /// <summary>
     /// The interface of Monthly Main Dish Per .
@@ -20,6 +23,8 @@ namespace NexFB.Services.Interface.Report
         MonthlyMainDishPerDayModel GetMonthlyMainDishPerDayReport(GetMonthlyMainDishPerDayReportCriteria criteria);
 
         MonthlyMainDishPerDayModel GetPagingReport(MonthlyMainDishPerDayModel fullReport, int startIndex, int itemsPerPage);
+
+        IList<BreakRuleOrder> GetBreakRuleOrder(GetBreakRuleOrderCriteria criteria);
 
         void ExportMonthlyMainDishPerDayReport(MonthlyMainDishPerDayModel report, string templatePath);
     }
