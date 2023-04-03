@@ -298,7 +298,7 @@
 
         private static void WriteDayHeaderInMonth(List<int> weekdays, ref ExcelTemplateWriter writer)
         {
-            const byte StartCol = 4;
+            const byte StartCol = 8;
             const byte TotalDays = 31;
 
             for (byte i = 0; i < TotalDays; i++)
@@ -506,9 +506,13 @@
             var record = new
             {
                 Count = Lang.Total,
+                FullName = string.Empty,
                 Nick = string.Empty,
                 EmployeeType = string.Empty,
-                DepartmentSection = string.Empty,
+                Unit = string.Empty,
+                Department = string.Empty,
+                Section = string.Empty,
+                Team = string.Empty,
                 Day1 = numberMeals[0],
                 Day2 = numberMeals[1],
                 Day3 = numberMeals[2],
