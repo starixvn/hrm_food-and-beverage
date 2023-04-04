@@ -63,11 +63,11 @@ function monthlyMainDishReportPerDayController($scope, reportFactory, ErrorFacto
 
         if (companies) {
             if (companies.length === 1) {
-                companyId = companies[0].companyId;
+                companyId = companies[0].CompanyId;
             }
             else {
                 angular.forEach(companies, function (company) {
-                    companyId = companyId ? companyId + ',' + company.companyId : company.companyId;
+                    companyId = companyId ? companyId + ',' + company.CompanyId : company.CompanyId;
                 });
             }
         }

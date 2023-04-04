@@ -11,8 +11,8 @@
                 </label>
                 <div class="col-sm-2 field">
                     <select ng-model="filter.companyId" ng-options="opt.CompanyId as opt.Name for opt in companyOptions"
-                            ng-show="companyOptions.length > 1" class="form-control" ng-change="getEmployeeTypeOfCompany(filter.companyId)">
-                        <option value="">-- {{"All" | translate}} --</option>
+                            ng-show="companyOptions.length >= 1" class="form-control" ng-change="getEmployeeTypeOfCompany(filter.companyId)">
+                        <option value="" ng-if="companyOptions.length > 1">-- {{"All" | translate}} --</option>
                     </select>
                     <!--<select ng-model="filter.companyId" ng-options="opt.CompanyId as opt.Name for opt in companyOptions"
                         ng-show="companyOptions.length == 1" class="form-control" ng-change="getEmployeeTypeOfCompany(filter.companyId)">
