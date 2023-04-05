@@ -98,8 +98,8 @@ function sideDishReportController($scope, $location, $routeParams, reportFactory
 
         var criteria = {
             companyId: $scope.criteria.companyIds,
-            employeeTypeId: $scope.criteria.employeeTypeIds,
-            teamId: $scope.criteria.teamIds,
+            employeeTypeIds: $scope.criteria.employeeTypeIds,
+            teamIds: $scope.criteria.teamIds,
             userId: $scope.criteria.employee ? $scope.criteria.employee.UserId : '',
             fromDate: $scope.criteria.fromDate.toString("MM/dd/yyyy"),
             toDate: $scope.criteria.toDate.toString("MM/dd/yyyy"),
