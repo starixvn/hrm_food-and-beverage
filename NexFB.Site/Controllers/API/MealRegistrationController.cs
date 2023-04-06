@@ -1,10 +1,5 @@
 ﻿namespace NexFB.Site.Controllers.API
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Http;
-    using System.Xml;
     using NexFB.Core.Constants;
     using NexFB.Core.Enums;
     using NexFB.Core.Models;
@@ -16,6 +11,11 @@
     using NexFB.Web.Attributes;
     using NexFB.Web.Services.Implement;
     using NexFB.Web.Services.Interface;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Http;
+    using System.Xml;
 
     public class MealRegistrationController : BaseController
     {
@@ -119,7 +119,7 @@
             return _mealRegistrationService.RegisterMealByRangeDate(criteria);
         }
 
-        private static bool CheckRegisterMeal(XmlNodeList mealList, List<VegetarianManagement> isAllowRegisterVegetarian, int index)
+        public static bool CheckRegisterMeal(XmlNodeList mealList, List<VegetarianManagement> isAllowRegisterVegetarian, int index)
         {
             if (mealList[index].Attributes?[IsVeg]?.Value == "1")
             {
