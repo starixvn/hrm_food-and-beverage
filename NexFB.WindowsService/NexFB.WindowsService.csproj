@@ -143,6 +143,7 @@
     <Compile Include="Criteria\InsertAndUpdateTeamNexcelCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateUserHMCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateUserNexcelCriteria.cs" />
+    <Compile Include="Criteria\UpdateBreakRuleOrderCriteria.cs" />
     <Compile Include="LunarCalendarCalculation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">

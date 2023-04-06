@@ -76,6 +76,14 @@
             return result;
         }
 
+        public CommandResult UpdateBreakRuleOrder()
+        {
+            CommandResult result = null;
+            var criteria = new UpdateBreakRuleOrderCriteria();
+            result = Repository.Update(criteria);
+            return result;
+        }
+
         private void GetDateApply(ref string dateApplyAllMeal, ref string dateApplySupperMeal)
         {
             List<DateTime> listDateApplyAllMeal = new List<DateTime>();
