@@ -9,7 +9,10 @@
 
 namespace NexFB.Core.Utilities.NPOIExtensions
 {
+    using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Row extensions.
@@ -44,6 +47,55 @@ namespace NexFB.Core.Utilities.NPOIExtensions
             foreach (var value in values)
             {
                 row.GetCell(id).SetCellValue(value);
+                id++;
+            }
+        }
+
+        public static void WriteCellsMainDishPerMeal(this IRow row, int colIndex, object[] values, string redOrder, string greenOrder)
+        {
+            List<int> listRedOrder = redOrder != "" ? redOrder.Split(',').Select(int.Parse).ToList() : new List<int>();
+            List<int> listGreenOrder = greenOrder != "" ? greenOrder.Split(',').Select(int.Parse).ToList() : new List<int>();
+            int numberColumnOfInfoEmployee = 7;
+            int id = colIndex;
+
+            foreach (var value in values)
+            {
+                var dayInMonth = id - numberColumnOfInfoEmployee;
+                var cell = row.GetCell(id);
+                if (listRedOrder.Contains(dayInMonth))
+                {
+                    var cellStyle = row.Sheet.Workbook.CreateCellStyle();
+                    cellStyle.VerticalAlignment = VerticalAlignment.Center;
+                    cellStyle.FillForegroundColor = HSSFColor.Orange.Index;
+                    cellStyle.FillPattern = FillPattern.SolidForeground;
+                    cellStyle.BorderTop = BorderStyle.Thin;
+                    cellStyle.BorderLeft = BorderStyle.Thin;
+                    cellStyle.BorderBottom = BorderStyle.Thin;
+                    cellStyle.BorderRight = BorderStyle.Thin;
+                    cellStyle.TopBorderColor = HSSFColor.Black.Index;
+                    cellStyle.LeftBorderColor = HSSFColor.Black.Index;
+                    cellStyle.BottomBorderColor = HSSFColor.Black.Index;
+                    cellStyle.RightBorderColor = HSSFColor.Black.Index;
+                    cell.CellStyle = cellStyle;
+                }
+                else if (listGreenOrder.Contains(dayInMonth))
+                {
+                    var cellStyle = row.Sheet.Workbook.CreateCellStyle();
+                    cellStyle.VerticalAlignment = VerticalAlignment.Center;
+                    cellStyle.FillForegroundColor = HSSFColor.LightGreen.Index;
+                    cellStyle.FillPattern = FillPattern.SolidForeground;
+                    cellStyle.BorderTop = BorderStyle.Thin;
+                    cellStyle.BorderLeft = BorderStyle.Thin;
+                    cellStyle.BorderBottom = BorderStyle.Thin;
+                    cellStyle.BorderRight = BorderStyle.Thin;
+                    cellStyle.TopBorderColor = HSSFColor.Black.Index;
+                    cellStyle.LeftBorderColor = HSSFColor.Black.Index;
+                    cellStyle.BottomBorderColor = HSSFColor.Black.Index;
+                    cellStyle.RightBorderColor = HSSFColor.Black.Index;
+                    cell.CellStyle = cellStyle;
+                }
+
+                cell.SetCellValue(value);
                 id++;
             }
         }

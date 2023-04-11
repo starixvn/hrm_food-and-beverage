@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using Fanex.Common.Helper;
     using NexFB.Core.Enums;
     using NexFB.Core.Services;
@@ -92,7 +93,7 @@
             // Fill report header.
             writer.CopyRows(3, 1);
             writer.CopyRows(4, 1);
-            writer.WriteCellRange(3, 1, 4, 31, report.Month);
+            writer.WriteCellRange(3, 1, 8, 31, report.Month);
             WriteDayHeaderInMonth(report.WeekDays.NumberMeals, ref writer);
 
             FillContentRow(report, ref writer);
@@ -104,7 +105,7 @@
 
         private void WriteDayHeaderInMonth(List<int> weekdays, ref ExcelTemplateWriter writer)
         {
-            int startCol = 4;
+            int startCol = 8;
 
             for (int i = 0; i < 31; i++)
             {
@@ -123,21 +124,28 @@
 
             foreach (MainDishPerDayModel typeDay in report.TypeDays)
             {
-                FillContentMeal(typeDay, ref writer, report.GroupBy, ref rowIndex);
+                FillContentMeal(typeDay, ref writer, report, ref rowIndex);
             }
         }
 
         private void FillContentMeal(
             MainDishPerDayModel typeDay,
             ref ExcelTemplateWriter writer,
-            GroupByReport groupBy,
+            MonthlyMainDishPerDayModel report,
             ref int rowIndex)
         {
-            RecordModel mealRecord = _monthlyMainDishPerMealReportService.CreateMealRecord(typeDay.MealItems, groupBy, rowIndex);
+            RecordModel mealRecord = _monthlyMainDishPerMealReportService.CreateMealRecord(typeDay.MealItems, report.GroupBy, rowIndex, report.BreakRuleOrders);
             rowIndex = mealRecord.RowIndex;
 
             writer.WriteRow(5, new object[] { typeDay.TypeDay });
-            writer.WriteRows(6, mealRecord.Records);
+            if (report.IsGroupByEmployee)
+            {
+                writer.WriteRowsMainDishPerMeal(6, mealRecord.Records, mealRecord.DaysOfRedOrder, mealRecord.DaysOfGreenOrder);
+            }
+            else
+            {
+                writer.WriteRows(6, mealRecord.Records);
+            }
         }
 
         private int CalculateTotelItem(List<MainDishPerDayModel> typeDays)

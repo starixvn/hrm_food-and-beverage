@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using NexFB.Core.Utilities.NPOIExtensions;
     using NPOI.HSSF.UserModel;
@@ -113,6 +114,12 @@
             row.WriteCells(0, values);
         }
 
+        public void WriteRowMainDishPerMeal(int rowIndex, object[] values, string redOrder, string greenOrder)
+        {
+            IRow row = CreateRow(rowIndex);
+            row.WriteCellsMainDishPerMeal(0, values, redOrder, greenOrder);
+        }
+
         public void WriteRows(int rowIndex, List<object[]> arrayList)
         {
             int total = arrayList.Count;
@@ -136,11 +143,33 @@
             WriteRow(rowIndex, list.ToArray());
         }
 
+        public void WriteRowMainDishPerMeal(int rowIndex, object value, string redOrder, string greenOrder)
+        {
+            var list = new List<object>();
+
+            foreach (PropertyInfo propertyInfo in value.GetType().GetProperties())
+            {
+                list.Add(propertyInfo.GetValue(value, null));
+            }
+
+            WriteRowMainDishPerMeal(rowIndex, list.ToArray(), redOrder, greenOrder);
+        }
+
         public void WriteRows(int rowId, IEnumerable<object> recordList)
         {
             foreach (var record in recordList)
             {
                 WriteRow(rowId, record);
+            }
+        }
+
+        public void WriteRowsMainDishPerMeal(int rowId, IEnumerable<object> recordList, List<string> redOrders, List<string> greenOrders)
+        {
+            int index = 0;
+            foreach (var record in recordList)
+            {
+                WriteRowMainDishPerMeal(rowId, record, redOrders[index], greenOrders[index]);
+                index++;
             }
         }
 

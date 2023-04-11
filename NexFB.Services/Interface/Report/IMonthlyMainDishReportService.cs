@@ -28,6 +28,7 @@ namespace NexFB.Services.Interface.Report
         void ExportMonthlyMainDishReportLocal(MonthlyLocalReportModel report, string templateLink);
 
         RecordModel CreateMealRecord(List<MealItemMonthModel> mealItems, GroupByReport groupBy, int rowIndex);
+        RecordModel CreateMealRecord(List<MealItemMonthModel> mealItems, GroupByReport groupBy, int rowIndex, List<BreakRuleOrder> breakRuleOrders);
 
         ExcelTemplateWriter FillTotalRow(MealDayOfMonthModel total, GroupByReport groupBy, ExcelTemplateWriter writer);
     }

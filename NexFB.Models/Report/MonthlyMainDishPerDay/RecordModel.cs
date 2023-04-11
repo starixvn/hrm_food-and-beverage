@@ -19,5 +19,8 @@ namespace NexFB.Models.Report.MonthlyMainDishPerDay
         public IEnumerable<object> Records { get; set; }
 
         public int RowIndex { get; set; }
+
+        public List<string> DaysOfRedOrder { get; set; }
+        public List<string> DaysOfGreenOrder { get; set; }
     }
 }

@@ -102,7 +102,41 @@
             var mealRecords = new RecordModel
             {
                 Records = records,
-                RowIndex = rowIndex
+                RowIndex = rowIndex,
+            };
+
+            return mealRecords;
+        }
+
+        public RecordModel CreateMealRecord(
+            List<MealItemMonthModel> mealItems,
+            GroupByReport groupBy,
+            int rowIndex,
+            List<BreakRuleOrder> breakRuleOrders)
+        {
+            bool isGroupByCostCenter = groupBy == GroupByReport.CostCenter;
+
+            IEnumerable<object> records = groupBy == GroupByReport.Employee
+                ? CreateMealGroupByEmployee(mealItems, ref rowIndex)
+                : CreateMealGroupByCompanyOrCostCenter(mealItems, ref rowIndex, isGroupByCostCenter);
+
+            List<string> redOrders = new List<string>();
+            List<string> greenOrders = new List<string>();
+            foreach (var item in mealItems)
+            {
+                var id = item.Employee.UserId;
+                var redOrder = string.Join(",", breakRuleOrders.Where(od => od.IsBreakRule == true && od.SysId == id).Select(od => od.OnDate.Day.ToString()));
+                redOrders.Add(redOrder);
+                var greenOrder = string.Join(",", breakRuleOrders.Where(od => od.IsBreakRule == false && od.SysId == id).Select(od => od.OnDate.Day.ToString()));
+                greenOrders.Add(greenOrder);
+            }
+
+            var mealRecords = new RecordModel
+            {
+                Records = records,
+                RowIndex = rowIndex,
+                DaysOfRedOrder = redOrders,
+                DaysOfGreenOrder = greenOrders
             };
 
             return mealRecords;
