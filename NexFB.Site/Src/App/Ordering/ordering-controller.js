@@ -814,6 +814,7 @@ orderingModule.controller("OrderingController",
                                 member.IsVegetarianRegister = order.Members[0].IsVegetarianRegister;
                                 member.IsAllowOrderByShift = order.Members[0].IsAllowOrderByShift;
                                 member.Member.IsFreeOrder = order.Members[0].Member.IsFreeOrder;
+                                member.Member.HasCheckIn = order.Members[0].Member.HasCheckIn;
                             }
 
                             var isExisted = false;
