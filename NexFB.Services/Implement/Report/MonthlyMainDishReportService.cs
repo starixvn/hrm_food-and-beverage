@@ -130,9 +130,9 @@
                 foreach (var item in mealItems)
                 {
                     var id = item.Employee.UserId;
-                    var redOrder = string.Join(",", breakRuleOrders.Where(od => od.IsBreakRule == true && od.SysId == id).Select(od => od.OnDate.Day.ToString()));
+                    var redOrder = string.Join(",", breakRuleOrders.Where(od => od.IsBreakRule && od.SysId == id).Select(od => od.OnDate.Day.ToString()));
                     redOrders.Add(redOrder);
-                    var greenOrder = string.Join(",", breakRuleOrders.Where(od => od.IsBreakRule == false && od.SysId == id).Select(od => od.OnDate.Day.ToString()));
+                    var greenOrder = string.Join(",", breakRuleOrders.Where(od => !od.IsBreakRule && od.SysId == id).Select(od => od.OnDate.Day.ToString()));
                     greenOrders.Add(greenOrder);
                 }
 

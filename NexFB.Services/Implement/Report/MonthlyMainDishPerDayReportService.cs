@@ -85,6 +85,8 @@
             string reportName = Lang.MonthlyMainDishPerDayReportName;
             string reportTitle = Lang.MonthlyMainDishPerDayReportTitle;
             var indexColumnMonth = report.IsGroupByEmployee ? 8 : 2;
+            var rowIndexHeader = 3;
+            var dayInMonth = 31;
             var writer = new ExcelTemplateWriter(templatePath, reportName, Lang.MonthlyMainDishPerDaySheetName);
 
             // Fill report title.
@@ -94,7 +96,7 @@
             // Fill report header.
             writer.CopyRows(3, 1);
             writer.CopyRows(4, 1);
-            writer.WriteCellRange(3, 1, indexColumnMonth, 31, report.Month);
+            writer.WriteCellRange(rowIndexHeader, 1, indexColumnMonth, dayInMonth, report.Month);
             WriteDayHeaderInMonth(report.WeekDays.NumberMeals, ref writer);
 
             FillContentRow(report, ref writer);
@@ -106,7 +108,7 @@
 
         private void WriteDayHeaderInMonth(List<int> weekdays, ref ExcelTemplateWriter writer)
         {
-            int startCol = 8;
+            const int startCol = 8;
 
             for (int i = 0; i < 31; i++)
             {
@@ -135,17 +137,18 @@
             MonthlyMainDishPerDayModel report,
             ref int rowIndex)
         {
+            var rowIdRecord = 6;
             RecordModel mealRecord = _monthlyMainDishPerMealReportService.CreateMealRecord(typeDay.MealItems, report.GroupBy, rowIndex, report.BreakRuleOrders, report.IsGroupByEmployee);
             rowIndex = mealRecord.RowIndex;
 
             writer.WriteRow(5, new object[] { typeDay.TypeDay });
             if (report.IsGroupByEmployee)
             {
-                writer.WriteRowsMainDishPerMeal(6, mealRecord.Records, mealRecord.DaysOfRedOrder, mealRecord.DaysOfGreenOrder);
+                writer.WriteRowsMainDishPerMeal(rowIdRecord, mealRecord.Records, mealRecord.DaysOfRedOrder, mealRecord.DaysOfGreenOrder);
             }
             else
             {
-                writer.WriteRows(6, mealRecord.Records);
+                writer.WriteRows(rowIdRecord, mealRecord.Records);
             }
         }
 
