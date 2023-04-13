@@ -78,7 +78,7 @@
             WriteDayHeaderInMonth(report.WeekDays.NumberMeals, ref writer);
 
             FillContentRow(report, ref writer);
-            writer = FillTotalRow(report.Total, report.GroupBy, writer);
+            writer = FillTotalRow(report.Total, report.GroupBy, writer, report.IsGroupByEmployee);
             if (report.GroupBy == GroupByReport.CostCenter)
             {
                 WriteSummaryTableGroupByCostCenter(report, ref writer);
@@ -112,32 +112,38 @@
             List<MealItemMonthModel> mealItems,
             GroupByReport groupBy,
             int rowIndex,
-            List<BreakRuleOrder> breakRuleOrders)
+            List<BreakRuleOrder> breakRuleOrders,
+            bool IsGroupByEmployee)
         {
             bool isGroupByCostCenter = groupBy == GroupByReport.CostCenter;
 
-            IEnumerable<object> records = groupBy == GroupByReport.Employee
+            IEnumerable<object> records = IsGroupByEmployee
                 ? CreateMealGroupByEmployee(mealItems, ref rowIndex)
                 : CreateMealGroupByCompanyOrCostCenter(mealItems, ref rowIndex, isGroupByCostCenter);
 
-            List<string> redOrders = new List<string>();
-            List<string> greenOrders = new List<string>();
-            foreach (var item in mealItems)
+            var mealRecords = new RecordModel();
+
+            if (IsGroupByEmployee)
             {
-                var id = item.Employee.UserId;
-                var redOrder = string.Join(",", breakRuleOrders.Where(od => od.IsBreakRule == true && od.SysId == id).Select(od => od.OnDate.Day.ToString()));
-                redOrders.Add(redOrder);
-                var greenOrder = string.Join(",", breakRuleOrders.Where(od => od.IsBreakRule == false && od.SysId == id).Select(od => od.OnDate.Day.ToString()));
-                greenOrders.Add(greenOrder);
+                List<string> redOrders = new List<string>();
+                List<string> greenOrders = new List<string>();
+                foreach (var item in mealItems)
+                {
+                    var id = item.Employee.UserId;
+                    var redOrder = string.Join(",", breakRuleOrders.Where(od => od.IsBreakRule == true && od.SysId == id).Select(od => od.OnDate.Day.ToString()));
+                    redOrders.Add(redOrder);
+                    var greenOrder = string.Join(",", breakRuleOrders.Where(od => od.IsBreakRule == false && od.SysId == id).Select(od => od.OnDate.Day.ToString()));
+                    greenOrders.Add(greenOrder);
+                }
+
+                mealRecords.Records = records;
+                mealRecords.RowIndex = rowIndex;
+                mealRecords.DaysOfRedOrder = redOrders;
+                mealRecords.DaysOfGreenOrder = greenOrders;
             }
 
-            var mealRecords = new RecordModel
-            {
-                Records = records,
-                RowIndex = rowIndex,
-                DaysOfRedOrder = redOrders,
-                DaysOfGreenOrder = greenOrders
-            };
+            mealRecords.Records = records;
+            mealRecords.RowIndex = rowIndex;
 
             return mealRecords;
         }
@@ -145,9 +151,10 @@
         public ExcelTemplateWriter FillTotalRow(
             MealDayOfMonthModel total,
             GroupByReport groupBy,
-            ExcelTemplateWriter writer)
+            ExcelTemplateWriter writer,
+            bool IsGroupByEmployee)
         {
-            object record = groupBy == GroupByReport.Employee ? CreateTotalMealEmployeeRecord(total) : CreateTotalMealCompanyRecord(total);
+            object record = IsGroupByEmployee ? CreateTotalMealEmployeeRecord(total) : CreateTotalMealCompanyRecord(total);
 
             var rowId = groupBy == GroupByReport.CostCenter ? 8 : 7;
             writer.WriteRow(rowId, record);

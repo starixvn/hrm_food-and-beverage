@@ -60,38 +60,17 @@ namespace NexFB.Core.Utilities.NPOIExtensions
 
             foreach (var value in values)
             {
-                var dayInMonth = id - numberColumnOfInfoEmployee;
+                int dayInMonth = id - numberColumnOfInfoEmployee;
                 var cell = row.GetCell(id);
-                if (listRedOrder.Contains(dayInMonth))
+                bool isColorCell = listRedOrder.Contains(dayInMonth) || listGreenOrder.Contains(dayInMonth);
+                if (isColorCell)
                 {
                     var cellStyle = row.Sheet.Workbook.CreateCellStyle();
                     cellStyle.VerticalAlignment = VerticalAlignment.Center;
-                    cellStyle.FillForegroundColor = HSSFColor.Orange.Index;
                     cellStyle.FillPattern = FillPattern.SolidForeground;
-                    cellStyle.BorderTop = BorderStyle.Thin;
-                    cellStyle.BorderLeft = BorderStyle.Thin;
-                    cellStyle.BorderBottom = BorderStyle.Thin;
-                    cellStyle.BorderRight = BorderStyle.Thin;
-                    cellStyle.TopBorderColor = HSSFColor.Black.Index;
-                    cellStyle.LeftBorderColor = HSSFColor.Black.Index;
-                    cellStyle.BottomBorderColor = HSSFColor.Black.Index;
-                    cellStyle.RightBorderColor = HSSFColor.Black.Index;
-                    cell.CellStyle = cellStyle;
-                }
-                else if (listGreenOrder.Contains(dayInMonth))
-                {
-                    var cellStyle = row.Sheet.Workbook.CreateCellStyle();
-                    cellStyle.VerticalAlignment = VerticalAlignment.Center;
-                    cellStyle.FillForegroundColor = HSSFColor.LightGreen.Index;
-                    cellStyle.FillPattern = FillPattern.SolidForeground;
-                    cellStyle.BorderTop = BorderStyle.Thin;
-                    cellStyle.BorderLeft = BorderStyle.Thin;
-                    cellStyle.BorderBottom = BorderStyle.Thin;
-                    cellStyle.BorderRight = BorderStyle.Thin;
-                    cellStyle.TopBorderColor = HSSFColor.Black.Index;
-                    cellStyle.LeftBorderColor = HSSFColor.Black.Index;
-                    cellStyle.BottomBorderColor = HSSFColor.Black.Index;
-                    cellStyle.RightBorderColor = HSSFColor.Black.Index;
+                    cellStyle.BorderTop = cellStyle.BorderLeft = cellStyle.BorderBottom = cellStyle.BorderRight = BorderStyle.Thin;
+                    cellStyle.TopBorderColor = cellStyle.LeftBorderColor = cellStyle.BottomBorderColor = cellStyle.RightBorderColor = HSSFColor.Black.Index;
+                    cellStyle.FillForegroundColor = listRedOrder.Contains(dayInMonth) ? HSSFColor.Orange.Index : HSSFColor.LightGreen.Index;
                     cell.CellStyle = cellStyle;
                 }
 

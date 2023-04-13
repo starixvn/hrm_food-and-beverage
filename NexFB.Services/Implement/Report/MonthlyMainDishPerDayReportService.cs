@@ -84,6 +84,7 @@
         {
             string reportName = Lang.MonthlyMainDishPerDayReportName;
             string reportTitle = Lang.MonthlyMainDishPerDayReportTitle;
+            var indexColumnMonth = report.IsGroupByEmployee ? 8 : 2;
             var writer = new ExcelTemplateWriter(templatePath, reportName, Lang.MonthlyMainDishPerDaySheetName);
 
             // Fill report title.
@@ -93,11 +94,11 @@
             // Fill report header.
             writer.CopyRows(3, 1);
             writer.CopyRows(4, 1);
-            writer.WriteCellRange(3, 1, 8, 31, report.Month);
+            writer.WriteCellRange(3, 1, indexColumnMonth, 31, report.Month);
             WriteDayHeaderInMonth(report.WeekDays.NumberMeals, ref writer);
 
             FillContentRow(report, ref writer);
-            writer = _monthlyMainDishPerMealReportService.FillTotalRow(report.Total, report.GroupBy, writer);
+            writer = _monthlyMainDishPerMealReportService.FillTotalRow(report.Total, report.GroupBy, writer, report.IsGroupByEmployee);
             writer.SyncColumnsWidth(37);
 
             writer.Render();
@@ -134,7 +135,7 @@
             MonthlyMainDishPerDayModel report,
             ref int rowIndex)
         {
-            RecordModel mealRecord = _monthlyMainDishPerMealReportService.CreateMealRecord(typeDay.MealItems, report.GroupBy, rowIndex, report.BreakRuleOrders);
+            RecordModel mealRecord = _monthlyMainDishPerMealReportService.CreateMealRecord(typeDay.MealItems, report.GroupBy, rowIndex, report.BreakRuleOrders, report.IsGroupByEmployee);
             rowIndex = mealRecord.RowIndex;
 
             writer.WriteRow(5, new object[] { typeDay.TypeDay });
