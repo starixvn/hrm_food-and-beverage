@@ -98,6 +98,9 @@
         </Setting>
         <Setting Key="VegetarianManagement_GetByRangeDate" SpName="VegetarianManagement_GetByRangeDate" DbName="FBM" Plain="0">
         </Setting>
+      <Setting Key="RegisterMeal_SetVegetarian" SpName="RegisterMeal_SetVegetarian" DbName="FBM" Plain="0">
+      </Setting>
+      
         <Setting Key="RegisterMeal_GetDefault" SpName="RegisterMeal_GetDefault" DbName="FBM" Plain="0">
             <Mapping DataField="SysID" ObjectProperty="UserId" />
         </Setting>
