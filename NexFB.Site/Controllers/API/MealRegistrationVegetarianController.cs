@@ -28,18 +28,17 @@
             _mealRegistrationService = mealRegistrationService ?? new MealRegistrationService();
         }
 
-
-
         [HttpPost]
         public CommandResult RegisterMealByRangeDate(RegisterMealByRangeDateCriteria criteria)
         {
+
             bool isValidRegister = true;
 
             bool isValidDate = DateTime.TryParse(criteria.OnDate, out var onDate);
             if (isValidDate)
             {
-                var isAllowRegisterVegetarian = GetMealVegetarianManagementByRangeDate(onDate, onDate).ToList<VegetarianManagement>();
-                criteria.Meal = CreateXMLMeal(criteria.ModifiedBy);
+                var isAllowRegisterVegetarian = GetMealVegetarianManagementByRangeDate(onDate, onDate).ToList();
+                criteria.Meal = CreateXMLMeal(criteria.SystemId);
                 XmlDocument xml = new XmlDocument();
                 xml.LoadXml(criteria.Meal);
                 XmlNodeList mealList = xml.GetElementsByTagName("Meal");
@@ -55,10 +54,24 @@
 
             if (isValidRegister)
             {
-                criteria.SystemId = criteria.ModifiedBy;
+                criteria.ModifiedBy = criteria.SystemId;
             }
 
             return _mealRegistrationService.RegisterMealByRangeDate(criteria);
+        }
+
+        [HttpPost]
+        public string RegistVegetarian(int EmpId, int CompanyId, DateTime OnDate)
+        {
+            var criteria = new SetVegetarianByDateCriteria
+            {
+                EmpId = EmpId,
+                CompanyId = CompanyId,
+                OnDate = OnDate
+            };
+
+            _mealRegistrationService.SetVegetarianByDate(criteria);
+            return "Ok";
         }
 
         private IEnumerable<VegetarianManagement> GetMealVegetarianManagementByRangeDate(
@@ -106,8 +119,8 @@
             {
                 MealId = null,
                 SystemId = userId,
-                ToDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day),
-                FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)
+                ToDate = DateTime.Now.Date,
+                FromDate = DateTime.Now.Date
             };
 
             return _mealRegistrationService.GetEmployeeRegisterFoodByRangeDate(criteria).ToList();

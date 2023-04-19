@@ -71,6 +71,17 @@
             return commandResult;
         }
 
+        public CommandResult SetVegetarianByDate(SetVegetarianByDateCriteria criteria)
+        {
+            var commandResult = new CommandResult();
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
         public CommandResult SetVegetarianManagementBySingleDate(SetVegetarianManagementBySingleDateCriteria criteria)
         {
             var commandResult = new CommandResult();
