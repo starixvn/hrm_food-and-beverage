@@ -61,7 +61,7 @@
         }
 
         [HttpPost]
-        public string RegistVegetarian(int EmpId, int CompanyId, DateTime OnDate)
+        public CommandResult RegistVegetarian(int EmpId, int CompanyId, DateTime OnDate)
         {
             var criteria = new SetVegetarianByDateCriteria
             {
@@ -70,8 +70,8 @@
                 OnDate = OnDate
             };
 
-            _mealRegistrationService.SetVegetarianByDate(criteria);
-            return "Ok";
+            var result = _mealRegistrationService.SetVegetarianByDate(criteria);
+            return result;
         }
 
         private IEnumerable<VegetarianManagement> GetMealVegetarianManagementByRangeDate(
