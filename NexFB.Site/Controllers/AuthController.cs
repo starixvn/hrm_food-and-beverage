@@ -3,7 +3,6 @@
     using System;
     using System.Web.Mvc;
     using System.Web.Security;
-    using Fanex.Data.Repository;
     using HRM.UserControl.Client.AspNetMvc.Configurations;
     using HRM.UserControl.Client.AspNetMvc.Session;
     using HRM.UserControl.Client.Core.Configurations;
@@ -17,7 +16,6 @@
     using NexFB.Resources;
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
-    using NexFB.Site.TranslatorService;
     using NexFB.Web;
     using IUserService = HRM.UserControl.Client.Core.Services.IUserService;
 
@@ -102,11 +100,7 @@
 
             if (user != null)
             {
-                var criteria = new GetAllEmployeeFunctionCriteria
-                {
-                    SystemId = user.UserId
-                };
-                user.Functions = _employeeService.GetAllEmployeeFunction(criteria);
+                AddFunctionToUser(user);
                 return user;
             }
 
@@ -161,12 +155,7 @@
             }
             else
             {
-                var criteria = new GetEmployeeByUserIdCriteria
-                {
-                    UserId = loginResult.UserId,
-                    CompanyId = string.Format("{0},{1}", (byte)CompanyIdentity.Sms, (byte)CompanyIdentity.HongMA)
-                };
-                user = _employeeService.GetUserByUserId(criteria);
+                user = GetEmployeeByUserId(loginResult.UserId);
             }
 
             return user;
@@ -196,32 +185,47 @@
                 LoginResult loginResult = _authService.SSOLogin(ssoParam);
                 if (loginResult.IsSuccessfull)
                 {
-                    var criteria = new GetEmployeeByUserIdCriteria
-                    {
-                        UserId = loginResult.UserId,
-                        CompanyId = string.Format("{0},{1}", (byte)CompanyIdentity.Sms, (byte)CompanyIdentity.HongMA)
-                    };
-
-                    var employee = _employeeService.GetUserByUserId(criteria);
-
+                    var employee = GetEmployeeByUserId(ssoParam.UserId);
                     if (employee == null)
                     {
                         return RedirectToAction("Login");
+                    }
+                    else
+                    {
+                        AddFunctionToUser(employee);
                     }
 
                     _userControlSession.UserId = Convert.ToInt32(userIdValue);
                     _userControlSession.SiteId = _userControlSettings.SiteId;
                     _userControlSession.JwtToken = loginResult.JwtToken;
                     _userControlSession.OnUserId = loginResult.OnUserId;
-                    _userControlSession.MenuItems = _userService.GetMenuItem();
-                    _userControlSession.Functions = _userService.GetFunctionPermission(_userControlSession.SiteId, _userControlSession.UserId);
 
+                    SessionManager.CurrentUser = employee;
                     FormsAuthentication.SetAuthCookie(employee.UserId.ToString(), false);
                     return !string.IsNullOrWhiteSpace(redirectUrl) && Url.IsLocalUrl(redirectUrl) ? Redirect(redirectUrl) : Redirect("~/Ordering/Index");
                 }
             }
 
             return RedirectToAction("Login");
+        }
+        private UserSession GetEmployeeByUserId(int id)
+        {
+            var criteria = new GetEmployeeByUserIdCriteria
+            {
+                UserId = id,
+                CompanyId = string.Format("{0},{1}", (byte)CompanyIdentity.Sms, (byte)CompanyIdentity.HongMA)
+            };
+
+            return _employeeService.GetUserByUserId(criteria);
+        }
+
+        private void AddFunctionToUser(UserSession user)
+        {
+            var criteria = new GetAllEmployeeFunctionCriteria
+            {
+                SystemId = user.UserId
+            };
+            user.Functions = _employeeService.GetAllEmployeeFunction(criteria);
         }
 
         private string GetClientIP()
