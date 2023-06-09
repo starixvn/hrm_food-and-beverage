@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web;
-
-namespace NexFB.Site
+﻿namespace NexFB.Site
 {
+    using System;
+    using System.Data.Common;
+    using System.IO;
+    using System.Security.Cryptography;
+    using System.Text;
+
     public static class Cryptography
     {
         private static readonly DESCryptoServiceProvider CryptoServiceProvider = new DESCryptoServiceProvider();

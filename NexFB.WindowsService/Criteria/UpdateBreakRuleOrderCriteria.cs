@@ -12,7 +12,7 @@ namespace NexFB.WindowsService.Criteria
     {
         public override string GetSettingKey()
         {
-            return "Update_BreakRuleOrder";
+            return "MealOrder_Update_BreakRuleOrder";
         }
 
         public override bool IsValid()

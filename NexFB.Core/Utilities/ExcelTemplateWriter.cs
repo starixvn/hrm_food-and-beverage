@@ -1,13 +1,12 @@
 ﻿namespace NexFB.Core.Utilities
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
     using NexFB.Core.Utilities.NPOIExtensions;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
 
     public class ExcelTemplateWriter
     {

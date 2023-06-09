@@ -12,7 +12,7 @@
 
         public override bool IsValid()
         {
-            return true;
+            return !string.IsNullOrEmpty(DateApplyAllMeal) || !string.IsNullOrEmpty(DateApplySupperMeal);
         }
     }
 }

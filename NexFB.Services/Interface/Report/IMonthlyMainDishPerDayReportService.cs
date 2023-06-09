@@ -9,11 +9,9 @@
 
 namespace NexFB.Services.Interface.Report
 {
-    using NexFB.Criteria.Employee;
-    using NexFB.Criteria.Report;
-    using NexFB.Models.Employee;
-    using NexFB.Models.Report.MonthlyMainDishPerDay;
     using System.Collections.Generic;
+    using NexFB.Criteria.Report;
+    using NexFB.Models.Report.MonthlyMainDishPerDay;
 
     /// <summary>
     /// The interface of Monthly Main Dish Per .

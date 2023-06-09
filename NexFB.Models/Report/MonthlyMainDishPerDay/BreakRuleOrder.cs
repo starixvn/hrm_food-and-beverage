@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NexFB.Models.Report.MonthlyMainDishPerDay
+﻿namespace NexFB.Models.Report.MonthlyMainDishPerDay
 {
+    using System;
 
     [Serializable]
     public class BreakRuleOrder

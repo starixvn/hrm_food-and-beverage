@@ -16,6 +16,6 @@
         <Setting Key="EmpCalendar_GetLastModifiedDate" SpName="EmpCalendar_GetLastModifiedDate" DbName="NexFB" Plain="0"></Setting>
         <Setting Key="VegetarianManagement_GetByRangeDate" SpName="VegetarianManagement_GetByRangeDate" DbName="NexFB" Plain="0"></Setting>
         <Setting Key="VegetarianManagement_SetDefaultAnnual" SpName="VegetarianManagement_SetDefaultAnnual" DbName="NexFB" Plain="0"></Setting>
-        <Setting Key="Update_BreakRuleOrder" SpName="Update_BreakRuleOrder" DbName="NexFB" Plain="0"></Setting>
+        <Setting Key="MealOrder_Update_BreakRuleOrder" SpName="MealOrder_Update_BreakRuleOrder" DbName="NexFB" Plain="0"></Setting>
     </Function>
 </Functions>

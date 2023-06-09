@@ -78,9 +78,8 @@
 
         public CommandResult UpdateBreakRuleOrder()
         {
-            CommandResult result = null;
             var criteria = new UpdateBreakRuleOrderCriteria();
-            result = Repository.Update(criteria);
+            CommandResult result = Repository.Update(criteria);
             return result;
         }
 

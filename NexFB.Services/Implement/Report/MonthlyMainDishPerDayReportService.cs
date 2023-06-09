@@ -2,14 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text.RegularExpressions;
-    using Fanex.Common.Helper;
     using NexFB.Core.Enums;
     using NexFB.Core.Services;
     using NexFB.Core.Utilities;
-    using NexFB.Criteria.Employee;
     using NexFB.Criteria.Report;
-    using NexFB.Models.Employee;
     using NexFB.Models.Report.MonthlyMainDishPerDay;
     using NexFB.Repositories.Implement;
     using NexFB.Repositories.Interface;

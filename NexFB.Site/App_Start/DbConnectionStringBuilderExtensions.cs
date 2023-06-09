@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Web;
-
-namespace NexFB.Site
+﻿namespace NexFB.Site
 {
+    using System.Data.Common;
+
     public static class DbConnectionStringBuilderExtensions
     {
         internal const string DefaultServerKeyword = "data source";

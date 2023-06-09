@@ -1,12 +1,8 @@
-﻿using Fanex.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NexFB.Criteria.Report
+﻿namespace NexFB.Criteria.Report
 {
+    using System;
+    using Fanex.Data.Repository;
+
     public class GetBreakRuleOrderCriteria : CriteriaBase
     {
         public DateTime ReportDate { get; set; }

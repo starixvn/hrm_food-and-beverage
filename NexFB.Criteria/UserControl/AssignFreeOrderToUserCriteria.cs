@@ -1,6 +1,4 @@
-﻿
-
-namespace NexFB.Criteria.UserControl
+﻿namespace NexFB.Criteria.UserControl
 {
     using Fanex.Data.Repository;
 

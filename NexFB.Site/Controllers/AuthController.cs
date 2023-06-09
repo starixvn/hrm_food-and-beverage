@@ -149,14 +149,7 @@
             };
             var loginResult = _authService.Login(loginParam);
 
-            if (!loginResult.IsSuccessfull)
-            {
-                user = null;
-            }
-            else
-            {
-                user = GetEmployeeByUserId(loginResult.UserId);
-            }
+            user = !loginResult.IsSuccessfull ? null : GetEmployeeByUserId(loginResult.UserId);
 
             return user;
         }

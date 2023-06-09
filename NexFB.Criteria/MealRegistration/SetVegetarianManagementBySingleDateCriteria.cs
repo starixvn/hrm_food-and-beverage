@@ -1,7 +1,7 @@
 ﻿namespace NexFB.Criteria.MealRegistration
 {
-    using Fanex.Data.Repository;
     using System;
+    using Fanex.Data.Repository;
 
     public class SetVegetarianManagementBySingleDateCriteria : CriteriaBase
     {
