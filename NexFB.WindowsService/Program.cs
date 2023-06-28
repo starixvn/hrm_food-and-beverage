@@ -1,36 +1,46 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Program.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.9.4">Created</change>
-// </history>
-
-namespace NexFB.WindowsService
+﻿namespace NexFB.WindowsService
 {
     using System;
     using System.ServiceProcess;
     using Fanex.Data.Configuration;
+    using Fanex.Logging;
+    using Fanex.Logging.Extensions;
+    using Fanex.Logging.Extensions.Database;
+    using Fanex.Logging.Sentry.RavenClient;
+    using SharpRaven;
 
-    /// <summary>
-    /// Program Class.
-    /// </summary>
     public static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         public static void Main()
         {
-            DbSettingProviderManager.Current.Start();
-            log4net.Config.XmlConfigurator.Configure();
-            ServiceBase[] servicesToRun;
-            servicesToRun = new ServiceBase[]
+            try
             {
-                new AutoService()
-            };
-            ServiceBase.Run(servicesToRun);
+                LogManager
+                    .SetDefaultLogCategory(AppSettings.Sentry_Category)
+                    .Use(new SentryLogging(new SentryEngineOptions
+                    {
+                        Dsn = new Dsn(AppSettings.Sentry_Dsn),
+                        WriteLogTimeoutSeconds = AppSettings.Sentry_Timeout
+                    }));
+
+                DbSettingProviderManager.Current.Start();
+                log4net.Config.XmlConfigurator.Configure();
+
+                var servicesToRun = new ServiceBase[]
+                {
+                    new AutoService()
+                };
+                ServiceBase.Run(servicesToRun);
+            } catch(Exception exception)
+            {
+                var logMessage = new LogMessage(exception.Message)
+                    .AddSection("Database Info", DatabaseInfoGetters.GetDbExceptionInfo(exception))
+                    .AddSection("Server Info", CommonInfoGetters.GetServerInfo())
+                    .AddSection("Exception", CommonInfoGetters.GetExceptionInfo(exception))
+                    .ToString();
+
+                LogService.Error(logMessage);
+            }
         }
 
         ////public static void Main()

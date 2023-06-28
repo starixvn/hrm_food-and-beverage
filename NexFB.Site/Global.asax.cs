@@ -1,6 +1,8 @@
 ﻿namespace NexFB.Site
 {
     using System;
+    using System.Configuration;
+    using System.Diagnostics;
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
@@ -8,9 +10,15 @@
     using System.Web.Routing;
     using System.Web.SessionState;
     using Fanex.Data.Configuration;
+    using Fanex.Logging;
+    using Fanex.Logging.Extensions;
+    using Fanex.Logging.Extensions.Database;
+    using Fanex.Logging.Extensions.Web;
+    using Fanex.Logging.Sentry.RavenClient;
     using HRM.UserControl.Client.AspNetMvc.Configurations;
     using HRM.UserControl.Client.AspNetMvc.Session;
     using HRM.UserControl.Client.Core;
+    using SharpRaven;
 
     public class MvcApplication : HttpApplication
     {
@@ -21,12 +29,27 @@
 
         protected void Application_Start()
         {
+            LogManager
+                .SetDefaultLogCategory(ConfigurationManager.AppSettings["Sentry:Category"])
+                .Use(new SentryLogging(new SentryEngineOptions
+                {
+                    Dsn = new Dsn(ConfigurationManager.AppSettings["Sentry:Dsn"]),
+                    WriteLogTimeoutSeconds = Convert.ToInt32(ConfigurationManager.AppSettings["Sentry:Timeout"])
+                }));
+
+            ExceptionHandler
+                .UseConfig(new LoggingConfiguration())
+                .GetHttpHeaderInfo()
+                .GetHttpSessionInfo()
+                .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
+
             AreaRegistration.RegisterAllAreas();
             RouteTable.Routes.MapHubs();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
             DbSettingProviderManager.Current.Start();
             UserControlClientManager
               .UseSettings(new UserControlSettings())
@@ -35,27 +58,15 @@
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            
-                Exception ex = Server.GetLastError().GetBaseException();
-                string message = ex.Message +
-                        "\r\nSource: " + ex.Source +
-                        "\r\nDomain: " + HttpContext.Current.Request.Headers["Host"] +
-                        "\r\nTargetSite: " + ex.TargetSite +
-                        "\r\nStackTrace: " + ex.StackTrace;
+            var ex = Server.GetLastError();
+            ExceptionHandler.Handle(ex, TraceEventType.Error);
         }
 
         protected void Application_PostAuthorizeRequest()
         {
             if (IsWebApiRequest())
             {
-                if (IsReportApiRequest())
-                {
-                    HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
-                }
-                else
-                {
-                    HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.ReadOnly);
-                }
+                HttpContext.Current.SetSessionStateBehavior(IsReportApiRequest() ? SessionStateBehavior.Required : SessionStateBehavior.ReadOnly);
             }
         }
 
