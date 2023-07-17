@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="EmployeeRegistrationReportModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2015.9.4">Created</change>
-// </history>
-
-namespace NexFB.Models.Report.MealForecastReport
+﻿namespace NexFB.Models.Report.MealForecastReport
 {
     using System;
     using System.Collections.Generic;

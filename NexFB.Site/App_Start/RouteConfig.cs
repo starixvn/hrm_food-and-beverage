@@ -1,29 +1,11 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="RouteConfig.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/21/2014 3:31:02 PM">Created.</change>
-// </history>
-
-namespace NexFB.Site
+﻿namespace NexFB.Site
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using System.Web.Routing;
 
-    /// <summary>
-    /// Route Config.
-    /// </summary>
     public static class RouteConfig
     {
-        /// <summary>
-        /// Register Routes.
-        /// </summary>
-        /// <param name="routes">The routes collection.</param>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");

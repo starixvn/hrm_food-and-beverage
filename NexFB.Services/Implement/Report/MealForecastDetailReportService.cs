@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="MealForecastDetailReportService.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2015/1/16">Created.</change>
-// </history>
-
-namespace NexFB.Services.Implement.Report
+﻿namespace NexFB.Services.Implement.Report
 {
     using System;
     using System.Collections.Generic;
@@ -22,9 +13,6 @@ namespace NexFB.Services.Implement.Report
     using NexFB.Resources;
     using NexFB.Services.Interface.Report;
 
-    /// <summary>
-    /// The implement of meal forecast detail report service.
-    /// </summary>
     public class MealForecastDetailReportService : IMealForecastDetailReportService
     {
         private readonly IMealForecastDetailReportRepository _mealForecastDetailReportRepository;
@@ -39,11 +27,6 @@ namespace NexFB.Services.Implement.Report
             _mealForecastDetailReportRepository = mealForecastDetailReportRepository ?? new MealForecastDetailReportRepository();
         }
 
-        /// <summary>
-        /// Get meal forecast detail report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The meal forecast detail history report.</returns>
         public MealForecastDetailReport GetMealForecastDetailReport(GetMealForecastDetailReportCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -85,6 +68,7 @@ namespace NexFB.Services.Implement.Report
 
             return report;
         }
+
         public EmployeeRegistrationReportModel GetEmployeeNonRegistration(GetEmployeeNonRegistrationCriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
@@ -114,13 +98,7 @@ namespace NexFB.Services.Implement.Report
 
             return pagingReport;
         }
-        /// <summary>
-        /// Get paging report.
-        /// </summary>
-        /// <param name="fullReport">The full report.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The paging report.</returns>
+
         public MealForecastDetailReport GetPagingReport(
             MealForecastDetailReport fullReport,
             int startIndex,
@@ -157,13 +135,6 @@ namespace NexFB.Services.Implement.Report
             return pagingReport;
         }
 
-        /// <summary>
-        /// Export report.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <param name="templatePath">The template path.</param>
-        /// <param name="isVegetarian">The is vegetarian.</param>
-        /// <param name="dateSelected">The date selected.</param>
         public void ExportMealForecastDetailReport(
             MealForecastDetailReport report,
             string templatePath,
@@ -228,6 +199,7 @@ namespace NexFB.Services.Implement.Report
             writer.SyncColumnsWidth(9);
             writer.Render();
         }
+
         public void ExportEmployeeNonRegistrationReport(
             EmployeeRegistrationReportModel report,
             string templatePath,
@@ -254,13 +226,6 @@ namespace NexFB.Services.Implement.Report
             writer.Render();
         }
 
-        /// <summary>
-        /// Get meal forecast detail of paging report.
-        /// </summary>
-        /// <param name="fullReport">The full report.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="itemsPerPage">The items per page.</param>
-        /// <returns>The list meal forecast detail.</returns>
         public List<MealForecastDetailModel> GetPagingReportDetail(
             MealForecastDetailReport fullReport,
             int startIndex,
@@ -300,6 +265,7 @@ namespace NexFB.Services.Implement.Report
 
             return fullReport.EmployeeRegistrations.Skip(startIndex).Take(numberTakenItems).ToList();
         }
+
         public IList<EmployeeRegistrationModel> GetPagingEmployeeNonRegistrationDetail(
             EmployeeRegistrationReportModel fullReport,
             int startIndex,
@@ -320,16 +286,11 @@ namespace NexFB.Services.Implement.Report
             return fullReport.EmployeeNonRegistrations.Skip(startIndex).Take(numberTakenItems).ToList();
         }
 
-        /// <summary>
-        /// Calculate total meal.
-        /// </summary>
-        /// <param name="report">The report.</param>
-        /// <returns>The meal forecast detail history report.</returns>
         private MealForecastDetailReport CalculateTotalMeal(MealForecastDetailReport report)
         {
             foreach (var item in report.MealForecastDetails)
             {
-                if (item.IsVegetarian == false)
+                if (!item.IsVegetarian)
                 {
                     report.TotalNonVegetarian.Registration += item.Registration;
                     report.TotalNonVegetarian.NonRegistration += item.NonRegistration;
@@ -349,10 +310,10 @@ namespace NexFB.Services.Implement.Report
                 }
             }
 
-            int numberActualOrderVeg = report.MealForecastDetails.Where(x => x.IsVegetarian == true).ToList().Count,
-                numberActualOrderNonVeg = report.MealForecastDetails.Where(x => x.IsVegetarian == false).ToList().Count,
-                numberActualOrderVegNA = report.MealForecastDetails.Where(x => x.IsVegetarian == true && x.ActualOrder < 0).ToList().Count,
-                numberActualOrderNonVegNA = report.MealForecastDetails.Where(x => x.IsVegetarian == false && x.ActualOrder < 0).ToList().Count;
+            int numberActualOrderVeg = report.MealForecastDetails.Count(x => x.IsVegetarian),
+                numberActualOrderNonVeg = report.MealForecastDetails.Count(x => !x.IsVegetarian),
+                numberActualOrderVegNA = report.MealForecastDetails.Count(x => x.IsVegetarian && x.ActualOrder < 0),
+                numberActualOrderNonVegNA = report.MealForecastDetails.Count(x => !x.IsVegetarian && x.ActualOrder < 0);
 
             if (numberActualOrderNonVegNA.Equals(numberActualOrderNonVeg))
             {
@@ -375,11 +336,6 @@ namespace NexFB.Services.Implement.Report
             return report;
         }
 
-        /// <summary>
-        /// Fill content report.
-        /// </summary>
-        /// <param name="mealForecastDetails">The list meal forecast detail.</param>
-        /// <param name="writer">The writer.</param>
         private void FillContentRow(List<MealForecastDetailModel> mealForecastDetails, ref ExcelTemplateWriter writer)
         {
             int numberRecords = mealForecastDetails.Count, rowIndex = 4;
@@ -445,6 +401,7 @@ namespace NexFB.Services.Implement.Report
                 writer.WriteRow(rowIndex, record);
             }
         }
+
         private void FillContentRowForEmployeeNonRegistration(IList<EmployeeRegistrationModel> nonregistrations, ref ExcelTemplateWriter writer)
         {
             int rowIndex = 4;
@@ -468,12 +425,6 @@ namespace NexFB.Services.Implement.Report
             }
         }
 
-        /// <summary>
-        /// Fill total row.
-        /// </summary>
-        /// <param name="totalMeal">The total meal forecast.</param>
-        /// <param name="totalName">The total name.</param>
-        /// <param name="writer">The writer.</param>
         private void FillTotalRow(TotalMealForecastModel totalMeal, string totalName, ref ExcelTemplateWriter writer)
         {
             int rowIndex = 8;
@@ -528,6 +479,7 @@ namespace NexFB.Services.Implement.Report
 
             writer.WriteRow(rowIndex, record);
         }
+
         private void FillTotalRowForEmployeeNonRegistration(TotalMealForecastModel totalMeal, string totalName, ref ExcelTemplateWriter writer)
         {
             int rowIndex = 6;
@@ -546,12 +498,7 @@ namespace NexFB.Services.Implement.Report
             writer.WriteRow(rowIndex, record);
         }
 
-        /// <summary>
-        /// Create meal.
-        /// </summary>
-        /// <param name="meals">The list meal.</param>
-        /// <returns>The meal template.</returns>
-        private string CreateMeal(List<MealModel> meals)
+        private static string CreateMeal(List<MealModel> meals)
         {
             string mealTemplate = string.Empty;
 
@@ -564,21 +511,18 @@ namespace NexFB.Services.Implement.Report
             return mealTemplate;
         }
 
-        /// <summary>
-        /// Format number.
-        /// </summary>
-        /// <param name="number">The number.</param>
-        /// <param name="isPercent">Is percent.</param>
-        /// <returns>The dynamic type.</returns>
-        private dynamic FormatNumber(dynamic number, bool isPercent)
+        private static dynamic FormatNumber(dynamic number, bool isPercent)
         {
             if (number < 0)
             {
                 return "-";
             }
-            else if (isPercent)
+            else
             {
-                return number + "%";
+                if (isPercent)
+                {
+                    return number + "%";
+                }
             }
 
             return number;
@@ -586,20 +530,19 @@ namespace NexFB.Services.Implement.Report
 
         private TotalMealForecastModel GetTotalMeal(EmployeeRegistrationReportModel registrations)
         {
-            TotalMealForecastModel total = new TotalMealForecastModel();
-
-            total.Registration = registrations.EmployeeRegistrations.Where(t => t.IsVegetarian != null).Count();
-            total.ActualOrder = registrations.EmployeeRegistrations.Sum(t => t.ActualOrder);
-
-            return total;
+            return new TotalMealForecastModel
+            {
+                Registration = registrations.EmployeeRegistrations.Count(t => t.IsVegetarian != null),
+                ActualOrder = registrations.EmployeeRegistrations.Sum(t => t.ActualOrder)
+            };
         }
+
         private TotalMealForecastModel GetTotalNonRegMeal(EmployeeRegistrationReportModel Nonregistrations)
         {
-            TotalMealForecastModel total = new TotalMealForecastModel();
-
-            total.NonRegistration = Nonregistrations.EmployeeNonRegistrations.Where(t => t.IsVegetarian != null).Count();
-            return total;
+            return new TotalMealForecastModel
+            {
+                NonRegistration = Nonregistrations.EmployeeNonRegistrations.Count(t => t.IsVegetarian != null)
+            };
         }
-
     }
 }

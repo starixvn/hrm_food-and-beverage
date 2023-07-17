@@ -1,7 +1,6 @@
 ﻿namespace NexFB.Site
 {
     using System;
-    using System.Data.Common;
     using System.IO;
     using System.Security.Cryptography;
     using System.Text;
@@ -60,31 +59,6 @@
                     }
                 }
             }
-        }
-
-        public static string DecryptConnectionString(string connectionString)
-        {
-            if (connectionString == null)
-            {
-                throw new ArgumentNullException(nameof(connectionString));
-            }
-
-            var connectionStringBuilder = new DbConnectionStringBuilder
-            {
-                ConnectionString = connectionString
-            };
-            var encryptedPassword = connectionStringBuilder.GetPassword();
-
-            if (!string.IsNullOrEmpty(encryptedPassword))
-            {
-                var decryptedPassword = DecryptPassword(encryptedPassword);
-
-                connectionStringBuilder.SetPassword(decryptedPassword);
-
-                return connectionStringBuilder.ToString();
-            }
-
-            return connectionString;
         }
 
         private static string StandardizeEncryptedPasswordLength(string encryptedPassword)

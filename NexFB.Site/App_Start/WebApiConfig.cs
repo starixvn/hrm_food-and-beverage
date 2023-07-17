@@ -1,27 +1,11 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="WebApiConfig.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/21/2014 3:32:16 PM">Created.</change>
-// </history>
-
-namespace NexFB.Site
+﻿namespace NexFB.Site
 {
     using System.Web.Http;
     using Newtonsoft.Json.Serialization;
     using NexFB.Web.Attributes;
 
-    /// <summary>
-    /// Web API config.
-    /// </summary>
     public static class WebApiConfig
     {
-        /// <summary>
-        /// Register API route.
-        /// </summary>
-        /// <param name="config">The http configuration.</param>
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
