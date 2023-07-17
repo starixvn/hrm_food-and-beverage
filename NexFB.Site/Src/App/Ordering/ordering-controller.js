@@ -266,7 +266,9 @@ orderingModule.controller("OrderingController",
                 }
             };
 
-            $.connection.hub.start();
+            $.connection.hub.start().done(function () {
+                console.log("Connected, transport = " + $.connection.hub.transport.name);
+            });
 
             $scope.$watch(function () {
                 return orderingService.getMyOrder();

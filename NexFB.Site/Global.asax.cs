@@ -18,6 +18,7 @@
     using HRM.UserControl.Client.AspNetMvc.Configurations;
     using HRM.UserControl.Client.AspNetMvc.Session;
     using HRM.UserControl.Client.Core;
+    using Microsoft.AspNet.SignalR;
     using SharpRaven;
 
     public class MvcApplication : HttpApplication
@@ -54,6 +55,8 @@
             UserControlClientManager
               .UseSettings(new UserControlSettings())
               .UseSession(new UserControlSession());
+
+            GlobalHost.HubPipeline.RequireAuthentication();
         }
 
         protected void Application_Error(object sender, EventArgs e)
