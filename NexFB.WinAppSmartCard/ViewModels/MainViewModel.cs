@@ -1,6 +1,7 @@
 ﻿namespace NexFB.WinAppSmartCard.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Configuration;
     using System.Globalization;
@@ -17,15 +18,12 @@
     using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.MealRegistration;
-    using NexFB.Criteria.Ordering;
-    using NexFB.Criteria.Report;
     using NexFB.Criteria.SmartCardOrder;
     using NexFB.Models.Entities;
     using NexFB.Models.Kitchen;
     using NexFB.Pos.Core.Commands;
     using NexFB.Pos.Core.Enums;
     using NexFB.WinAppSmartCard.Core.Constants;
-    using NexFB.WinAppSmartCard.Core.Models;
     using NexFB.WinAppSmartCard.Core.Resources;
     using NexFB.WinAppSmartCard.GlobalResources.Resources;
     using NexFB.WinAppSmartCard.GlobalResources.Services;
@@ -111,75 +109,47 @@
 
         public void GetMealTime()
         {
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
-            {
-                var criteria = new GetMealTimesheetCriteria();
-                MealTime = new ObservableCollection<MealTimesheet>(this.CommonService.GetAllMealTimesheet(criteria));
-            }));
+            var criteria = new GetMealTimesheetCriteria();
+            MealTime = new ObservableCollection<MealTimesheet>(this.CommonService.GetAllMealTimesheet(criteria));
         }
 
         public void GetMealsToShowOnScreen()
         {
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
-            {
-                var criteria = new GetMemberNewOrderCriteria
-                {
-                    UserId = 1
-                };
-                var mealId = this.OrderingService.GetMemberNewOrder(criteria).MealID;
+            var criteria = new GetMenuShowOnScreenCriteria();
+            var menu = this.SmartCardOrderService.GetMenuShowOnScreen(criteria);
 
-                //reset data
-                NextMeals = new ObservableCollection<string>(new string[10]);
-                NextMealsEng = new ObservableCollection<string>(new string[10]);
-                CurrentMeals = new ObservableCollection<string>(new string[10]);
-                CurrentMealsEng = new ObservableCollection<string>(new string[10]);
+            var currentMenu = menu.Where(item => item.IsCurrentMeal).ToList();
+            var nextMenu = menu.Where(item => !item.IsCurrentMeal).ToList();
 
-                GetCurrentNameMeals(mealId);
-                GetNextNameMeals(mealId);
-            }));
+            NextMeals = new ObservableCollection<string>(new string[10]);
+            NextMealsEng = new ObservableCollection<string>(new string[10]);
+            CurrentMeals = new ObservableCollection<string>(new string[10]);
+            CurrentMealsEng = new ObservableCollection<string>(new string[10]);
+
+            GetCurrentNameMeals(currentMenu);
+            GetNextNameMeals(nextMenu);
         }
 
-        private void GetNextNameMeals(int mealId)
+        private void GetNextNameMeals(List<FoodMenu> menu)
         {
-            mealId++;
-            var criteriaGetNextMeals = new GetViewMenuReportCriteria
+            if (menu.Count != 0)
             {
-                MealId = mealId == 5 ? "1" : mealId.ToString(),
-                FromDate = mealId == 5 ? DateTime.Now.AddDays(1) : DateTime.Now,
-                ToDate = mealId == 5 ? DateTime.Now.AddDays(1) : DateTime.Now,
-                SysId = 1
-            };
-            var nextMealsReport = this.ViewMenuReportService.GetViewMenuReport(criteriaGetNextMeals);
-            var nextMeals = nextMealsReport.Menus.Count != 0 ? nextMealsReport.Menus[0].MenuForEachDay[0].Menus : null;
-
-            if (nextMeals != null)
-            {
-                for (int i = 0; i < nextMeals.Count; i++)
+                for (int i = 0; i < menu.Count; i++)
                 {
-                    NextMeals[i] = $"{i + 1}. {nextMeals[i].FoodVNMName}";
-                    NextMealsEng[i] = $"({nextMeals[i].FoodEngName})";
+                    NextMeals[i] = $"{i + 1}. {menu[i].FoodVNMName}";
+                    NextMealsEng[i] = $"({menu[i].FoodEngName})";
                 }
             }
         }
 
-        private void GetCurrentNameMeals(int mealId)
+        private void GetCurrentNameMeals(List<FoodMenu> menu)
         {
-            var criteriaGetCurrentMeals = new GetViewMenuReportCriteria
+            if (menu.Count != 0)
             {
-                MealId = mealId.ToString(),
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now,
-                SysId = 1
-            };
-            var currentMealsReport = this.ViewMenuReportService.GetViewMenuReport(criteriaGetCurrentMeals);
-            var currentMenus = currentMealsReport.Menus.Count != 0 ? currentMealsReport.Menus[0].MenuForEachDay[0].Menus : null;
-
-            if (currentMenus != null)
-            {
-                for (int i = 0; i < currentMenus.Count; i++)
+                for (int i = 0; i < menu.Count; i++)
                 {
-                    CurrentMeals[i] = $"{i + 1}. {currentMenus[i].FoodVNMName}";
-                    CurrentMealsEng[i] = $"({currentMenus[i].FoodEngName})";
+                    CurrentMeals[i] = $"{i + 1}. {menu[i].FoodVNMName}";
+                    CurrentMealsEng[i] = $"({menu[i].FoodEngName})";
                 }
             }
         }

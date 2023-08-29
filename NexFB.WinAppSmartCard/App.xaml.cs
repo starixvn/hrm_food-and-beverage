@@ -93,6 +93,7 @@ namespace NexFB.WinAppSmartCard
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]        
         private void InitializeApp()
         {
+            DbSettingProviderManager.Current.Start();
             IMappingRegister mappingRegister = new CoreMappingRegister();
             SmartcardManager manager = new SmartcardManager();
             MainWindow mainWindow = new MainWindow();
@@ -103,7 +104,6 @@ namespace NexFB.WinAppSmartCard
             manager.CardNumberChanged += new EventHandler<CardNumberChangedEventArgs>((sender, ex) => OnCardNumberChange(ex, mainViewModel, mainWindow));
             ResourceManagerService.RegisterManager(@"MainScreenResources", MainScreenResources.ResourceManager, true);
             mappingRegister.Register();
-            DbSettingProviderManager.Current.Start();
         }
 
         /// <summary>

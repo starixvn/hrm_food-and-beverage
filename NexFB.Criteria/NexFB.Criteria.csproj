@@ -201,6 +201,7 @@
     <Compile Include="SmartCardOrder\GetAlternativeFoodBySysIdCriteria.cs" />
     <Compile Include="SmartCardOrder\GetEmployeeByCardNumberCriteria.cs" />
     <Compile Include="SmartCardOrder\GetInfoMainDishOrderCriteria.cs" />
+    <Compile Include="SmartCardOrder\GetMenuShowOnScreenCriteria.cs" />
     <Compile Include="SmartCardOrder\GetMyOrderBySysIdCriteria.cs" />
     <Compile Include="SmartCardOrder\GetSideFoodBySysIdCriteria.cs" />
     <Compile Include="SmartCardOrder\InsertOrderMealByUserCriteria.cs" />

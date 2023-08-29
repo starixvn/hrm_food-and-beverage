@@ -28,6 +28,7 @@ namespace NexFB.Services.Interface
         OrderResult InsertOrderSideFood(InsertOrderSideDishesByUserCriteria criteria);
 
         List<FoodOrder> GetSideFoodBySysId(GetSideFoodBySysIdCriteria criteria);
+        List<FoodMenu> GetMenuShowOnScreen(GetMenuShowOnScreenCriteria criteria);
 
         List<SCEmployeeOrder> GetMyOrderBySysId(GetMyOrderBySysIdCriteria criteria);
         List<SCMainDishEmployeeOrder> GetInfoMainDishOrder(GetInfoMainDishOrderCriteria criteria);

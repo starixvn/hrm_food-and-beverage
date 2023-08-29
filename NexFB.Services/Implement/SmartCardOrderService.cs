@@ -45,6 +45,17 @@
             return sideFoods;
         }
 
+        public List<FoodMenu> GetMenuShowOnScreen(GetMenuShowOnScreenCriteria criteria)
+        {
+            List<FoodMenu> menu = null;
+            if (criteria.IsValid())
+            {
+                menu = this.GetData<FoodMenu>(criteria).ToList();
+            }
+
+            return menu;
+        }
+
         public OrderResult InsertOrderFood(InsertOrderMealByUserCriteria criteria)
         {
             var result = new OrderResult

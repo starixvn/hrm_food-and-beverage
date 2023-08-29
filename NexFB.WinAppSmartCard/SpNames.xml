@@ -39,5 +39,7 @@
         </Setting>
         <Setting Key="Meal_GetAll" SpName="Meal_GetAll" DbName="NexFB" Plain="0">
         </Setting>
+		<Setting Key="POS_GetMenu_ShowOnScreen" SpName="POS_GetMenu_ShowOnScreen" DbName="NexFB" Plain="0">
+		</Setting>
     </Function>
 </Functions>
