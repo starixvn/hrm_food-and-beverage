@@ -35,8 +35,6 @@
             <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" Class="Location" />
             <Mapping DataField="IsAllowOrder" ObjectProperty="RawIsAllowOrder" Class="MealOrderingModel" />
         </Setting>
-        <Setting Key="RPT_ViewMenuReport" SpName="RPT_ViewMenuReport" DbName="NexFB" Plain="0">
-        </Setting>
         <Setting Key="Meal_GetAll" SpName="Meal_GetAll" DbName="NexFB" Plain="0">
         </Setting>
 		<Setting Key="POS_GetMenu_ShowOnScreen" SpName="POS_GetMenu_ShowOnScreen" DbName="NexFB" Plain="0">

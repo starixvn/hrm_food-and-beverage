@@ -35,7 +35,7 @@
     {
         private static readonly string _host = ConfigurationManager.AppSettings[ConstantValue.HubHost];
         private static readonly DispatcherTimer _dailyClockDispatcher = new DispatcherTimer();
-        private static readonly DispatcherTimer _updateCurrentMenuDispatcher = new DispatcherTimer();
+        private static bool isUpdateBackground = false;
         private ViewModelBase _currentViewModel;
 
         public MainViewModel()
@@ -58,7 +58,6 @@
             this.MainButtonEnable = true;
 
             TimerDailyClock();
-            UpdateCurrentMeal();
         }
 
         #region Properties
@@ -594,16 +593,9 @@
 
         private void TimerDailyClock()
         {
-            _dailyClockDispatcher.Interval = new TimeSpan(0, 45, 0);
+            _dailyClockDispatcher.Interval = new TimeSpan(0, 1, 0);
             _dailyClockDispatcher.Tick += new EventHandler(TimerTick);
             _dailyClockDispatcher.Start();
-        }
-
-        private void UpdateCurrentMeal()
-        {
-            _updateCurrentMenuDispatcher.Interval = new TimeSpan(0, 0, 60);
-            _updateCurrentMenuDispatcher.Tick += new EventHandler(UpdateMeal_Tick);
-            _updateCurrentMenuDispatcher.Start();
         }
 
         private void UpdateMeal_Tick(object sender, EventArgs e)
@@ -617,9 +609,22 @@
 
         private void TimerTick(object sender, EventArgs e)
         {
-            if (DateTime.Now.Hour == 0)
+            var currentTime = DateTime.Now;
+            var formattedTime = currentTime.ToString("HH:mm");
+
+            if (!isUpdateBackground && currentTime.Hour == 0)
             {
                 SetApplicationThemes();
+                isUpdateBackground = true;
+            }
+            else if (isUpdateBackground && currentTime.Hour != 0)
+            {
+                isUpdateBackground = false;
+            }
+
+            if (MealTime.Any(meal => meal.StartTime.ToString("HH:mm") == formattedTime))
+            {
+                GetMealsToShowOnScreen();
             }
         }
 
