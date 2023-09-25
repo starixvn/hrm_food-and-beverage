@@ -522,33 +522,19 @@ orderingModule.controller("OrderingController",
                         notificationFactory.error("", message);
                     }
 
-                    //check non-registration but order
+                    
                     var arrErrorMembers = []
-                    if (typeOrder !== $scope.typeOrder.sideDishOrder) {
-                        order.Members.forEach(member => {
-                            if (member.IsVegetarianRegister === null && member.IsOrder && !member.Member.IsFreeOrder) {
-                                isValid = false;
-                                arrErrorMembers.push(member.Member.NickName);
-                            }
-                        });
-                    }
 
-                    //check not in shift but order
                     if (typeOrder !== $scope.typeOrder.sideDishOrder) {
                         order.Members.forEach(member => {
-                            if (!member.IsAllowOrderByShift && member.IsOrder && !member.Member.IsFreeOrder) {
-                                isValid = false;
-                                arrErrorMembers.push(member.Member.NickName);
-                            }
-                        });
-                    }
+                            const isMemberNeedChecking = member.IsOrder && !member.Member.IsFreeOrder && member.Member.EmployeeId < 99990;
+                            const memberNickName = member.Member.NickName;
 
-                    //check not checkin but order
-                    if (typeOrder !== $scope.typeOrder.sideDishOrder) {
-                        order.Members.forEach(member => {
-                            if (!member.Member.HasCheckIn && member.IsOrder && !member.Member.IsFreeOrder) {
-                                isValid = false;
-                                arrErrorMembers.push(member.Member.NickName);
+                            if (isMemberNeedChecking) {
+                                if (member.IsVegetarianRegister === null || !member.IsAllowOrderByShift || !member.Member.HasCheckIn) {
+                                    isValid = false;
+                                    arrErrorMembers.push(memberNickName);
+                                }
                             }
                         });
                     }
