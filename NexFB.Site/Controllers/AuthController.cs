@@ -25,25 +25,22 @@
         private readonly IAuthService _authService;
         private readonly ICryptoService _cryptoService;
         private readonly IUserControlSession _userControlSession;
-        private readonly IUserService _userService;
         private readonly IUserControlSettings _userControlSettings;
 
         public AuthController()
-            : this(null, null, null, null, null, null)
+            : this(null, null, null, null, null)
         {
         }
 
         public AuthController(IEmployeeService employeeService,
             IAuthService authService,
             ICryptoService cryptoService,
-            IUserService userService,
             IUserControlSession userControlSession,
             IUserControlSettings userControlSettings)
         {
             _employeeService = employeeService ?? new EmployeeService();
             _authService = authService ?? new AuthService();
             _cryptoService = cryptoService ?? new CryptoService();
-            _userService = userService ?? new UserService();
             _userControlSession = userControlSession ?? new UserControlSession();
             _userControlSettings = userControlSettings ?? new UserControlSettings();
         }

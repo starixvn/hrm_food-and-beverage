@@ -14,7 +14,7 @@
             {
                 return CompanyId == ((byte)CompanyIdentity.Nexcel).ToString()
                     ? string.Format("spvn\\{0}", Username)
-                    : string.Format("luminet\\{0}", Username);
+                    : string.Format("lumiplus\\{0}", Username);
             }
         }
 

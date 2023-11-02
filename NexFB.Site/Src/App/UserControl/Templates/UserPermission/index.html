@@ -80,9 +80,9 @@
                 </td>
                 <td class="text-center authority-employee-reset-password" ng-if="policy.permission == 2">
                     <a class="glyphicon glyphicon-refresh icon-refresh" href="" title="Reset Password"
-                       ng-show="employee.CompanyId == 1" ng-click="resetPassword(employee)" />
+                       ng-show="employee.IsAllowResetPassword" ng-click="resetPassword(employee)" />
                     <a class="glyphicon glyphicon-ban-circle icon-ban-circle disabled" href=""
-                       ng-show="employee.CompanyId != 1"></a>
+                       ng-show="!employee.IsAllowResetPassword"></a>
                 </td>
             </tr>
             <tr ng-show="employees == '' || employees == 'null' || pagedItems.length == 0">

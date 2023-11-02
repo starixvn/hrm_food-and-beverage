@@ -13,5 +13,13 @@
         public Team Team { get; set; }
 
         public List<Role> RoleItems { get; set; }
+
+        public bool IsAllowResetPassword
+        {
+            get
+            {
+                return CompanyId == 1 || CompanyId == 4;
+            }
+        }
     }
 }
