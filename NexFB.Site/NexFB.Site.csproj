@@ -321,6 +321,7 @@
     <Content Include="Src\App\KitchenStaff\kitchenstaff-controller.js" />
     <Content Include="Src\App\KitchenStaff\Templates\EditOrder.html" />
     <Content Include="Src\App\KitchenStaff\Templates\Index.html" />
+    <Content Include="Src\App\login.js" />
     <Content Include="Src\App\ManageUserInGroup\assign-group-to-member-controller.js" />
     <Content Include="Src\App\ManageVegetarian\manageVegetarian-factory.js" />
     <Content Include="Src\App\ManageVegetarian\manageVegetarian-controller.js" />

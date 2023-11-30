@@ -13,6 +13,11 @@
                 "~/Src/Content/Less/bootstrap.less",
                 "~/Src/Content/site/auth/style.less");
 
+            bundles.Add(new ScriptBundle("~/bundles/login").Include(
+                "~/Src/Components/Libs/jquery-2.1.0.min.js",
+                "~/Src/App/login.js"
+                ));
+
             bundles.AddAndInclude(
                 "~/bundles/less",
                 "~/Src/Content/Less/bootstrap.less",

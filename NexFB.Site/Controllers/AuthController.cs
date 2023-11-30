@@ -1,6 +1,7 @@
 ﻿namespace NexFB.Site.Controllers
 {
     using System;
+    using System.Text;
     using System.Web.Mvc;
     using System.Web.Security;
     using HRM.UserControl.Client.AspNetMvc.Configurations;
@@ -17,7 +18,6 @@
     using NexFB.Services.Implement;
     using NexFB.Services.Interface;
     using NexFB.Web;
-    using IUserService = HRM.UserControl.Client.Core.Services.IUserService;
 
     public class AuthController : Controller
     {
@@ -56,6 +56,7 @@
         {
             if (ModelState.IsValid)
             {
+                model.Password = Encoding.UTF8.GetString(Convert.FromBase64String(model.Password));
                 UserSession user = GetUserLogin(model);
                 if (user != null)
                 {
