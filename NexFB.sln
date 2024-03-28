@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1062
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{B9712FC6-9A58-439A-8D53-088375132DBC}"
 EndProject
@@ -66,6 +66,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Background", "Background", "{4E3AFDA7-97AA-48A4-9163-0287367778E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{35955B44-B278-47DC-847A-411E8EA69B7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexFB.WCFService", "NexFB.WCFService\NexFB.WCFService.csproj", "{40951596-CAFC-42C8-B266-A688B0EBEA62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -461,6 +463,36 @@ Global
 		{92F81CC6-4794-471E-9FFE-89D61CDAF2A8}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{92F81CC6-4794-471E-9FFE-89D61CDAF2A8}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{92F81CC6-4794-471E-9FFE-89D61CDAF2A8}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.CD_ROM|Any CPU.ActiveCfg = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.CD_ROM|Any CPU.Build.0 = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.CD_ROM|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.CD_ROM|Mixed Platforms.Build.0 = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.CD_ROM|x86.ActiveCfg = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.CD_ROM|x86.Build.0 = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.Debug|x86.Build.0 = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.DVD-5|x86.Build.0 = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.Release|x86.ActiveCfg = Release|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.Release|x86.Build.0 = Release|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.SingleImage|Any CPU.ActiveCfg = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.SingleImage|Any CPU.Build.0 = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.SingleImage|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.SingleImage|Mixed Platforms.Build.0 = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.SingleImage|x86.ActiveCfg = Debug|Any CPU
+		{40951596-CAFC-42C8-B266-A688B0EBEA62}.SingleImage|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -481,9 +513,10 @@ Global
 		{09E8D442-CFB1-41DD-B479-590864561ABB} = {C4674C83-2B10-4406-B68B-50E31F0C4D49}
 		{3693F6BE-D439-45A7-B1FD-6CF54FD07DE4} = {BD2BADD7-CA61-4393-B78E-18B5F03EA365}
 		{92F81CC6-4794-471E-9FFE-89D61CDAF2A8} = {BD2BADD7-CA61-4393-B78E-18B5F03EA365}
+		{40951596-CAFC-42C8-B266-A688B0EBEA62} = {4E3AFDA7-97AA-48A4-9163-0287367778E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35
 		SolutionGuid = {DB9943D6-A34C-4047-B28B-4545F4F68C9A}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35
 	EndGlobalSection
 EndGlobal

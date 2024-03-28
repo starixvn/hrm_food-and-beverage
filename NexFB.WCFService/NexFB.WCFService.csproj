@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>true</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="App_Data\SpNames.xml" />
+  </ItemGroup>
+  <ItemGroup>
+      <Reference Include="NLangDetect.Core">
+          <HintPath>..\Dependencies\AutoDetectLanguage\NLangDetect.Core.dll</HintPath>
+      </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\SpNames.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="CoreWCF" />
+    <Using Include="CoreWCF.Configuration" />
+    <Using Include="CoreWCF.Channels" />
+    <Using Include="CoreWCF.Description" />
+    <Using Include="System.Runtime.Serialization " />
+    <Using Include="NexFB.WCFService" />
+    <Using Include="Microsoft.Extensions.DependencyInjection.Extensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CoreWCF.Primitives" Version="1.*" />
+    <PackageReference Include="CoreWCF.Http" Version="1.*" />
+    <PackageReference Include="Fanex.Data" Version="4.2.3" />
+    <PackageReference Include="Fanex.Data.Repository" Version="4.2.3" />
+    <PackageReference Include="Fanex.Data.SqlServer" Version="4.2.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="6.0.8" />
+  </ItemGroup>
+</Project>
