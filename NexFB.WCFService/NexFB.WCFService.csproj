@@ -36,5 +36,6 @@
     <PackageReference Include="Fanex.Data.Repository" Version="4.2.3" />
     <PackageReference Include="Fanex.Data.SqlServer" Version="4.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.8" />
   </ItemGroup>
 </Project>

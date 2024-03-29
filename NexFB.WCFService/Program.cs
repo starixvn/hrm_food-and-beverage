@@ -1,16 +1,26 @@
 ﻿namespace NexFB.WCFService
 {
+    using NLog;
+    using NLog.Web;
+
     public static class Program
     {
         public static void Main(string[] args)
         {
+            var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
             try
             {
+                logger.Info("Service start!");
                 CreateHostBuilder(args).Build().Run();
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Console.WriteLine(ex.Message);
+                logger.Error(exception, "Stopped program because of exception.");
+                throw;
+            }
+            finally
+            {
+                LogManager.Shutdown();
             }
         }
 
@@ -19,6 +29,6 @@
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                }).UseNLog();
     }
 }

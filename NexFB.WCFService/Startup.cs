@@ -2,6 +2,7 @@
 {
     using Fanex.Data.Repository;
     using Fanex.Data.SqlServer;
+    using NexFB.WCFService.Middlewares;
     using NexFB.WCFService.Services;
 
     public class Startup
@@ -24,8 +25,18 @@
             services.AddSingleton<SynchronizeDataService>();
         }
 
-        public static void Configure(IApplicationBuilder app, IServiceProvider serviceProvider)
+        public static void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IWebHostEnvironment env)
         {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseMiddleware<ErrorHandlerMiddleware>();
+                app.UseHsts();
+            }
+
             app.UseServiceModel(serviceBuilder =>
             {
                 serviceBuilder.AddService<SynchronizeDataService>();
