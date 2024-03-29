@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -203,40 +203,10 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.DepartmentModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.EmployeeCalendarModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.PhotoModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.SectionModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.ShiftModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.TeamModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.UnitModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.UserModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\HongMaService\Service3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HongMaService\Service31.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HongMaService\Service32.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HongMaService\SynchronizeDataService1.wsdl" />
+    <None Include="Service References\HongMaService\SynchronizeDataService.wsdl" />
     <None Include="Service References\LuminetService\NexFB.WindowsService.LuminetService.DepartmentModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -261,16 +231,7 @@
     <None Include="Service References\LuminetService\NexFB.WindowsService.LuminetService.UserModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\LuminetService\Service3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\LuminetService\Service31.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\LuminetService\Service32.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\LuminetService\SynchronizeDataService1.wsdl" />
+    <None Include="Service References\LuminetService\SynchronizeDataService.wsdl" />
     <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.DepartmentModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -294,15 +255,6 @@
     </None>
     <None Include="Service References\NexcelService\NexFB.WindowsService.NexcelService.UserModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\NexcelService\Service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\NexcelService\Service1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\NexcelService\Service2.xsd">
-      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\NexcelService\SynchronizeDataService.wsdl" />
     <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.DepartmentModel.datasource">
@@ -328,15 +280,6 @@
     </None>
     <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.UserModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\Service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SMSService\Service1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SMSService\Service2.xsd">
-      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\SMSService\SynchronizeDataService.wsdl" />
   </ItemGroup>
@@ -389,9 +332,22 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="logs\log.txt" />
+    <None Include="Service References\NexcelService\configuration91.svcinfo" />
+    <None Include="Service References\NexcelService\configuration.svcinfo" />
+    <None Include="Service References\NexcelService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <None Include="Service References\HongMaService\configuration91.svcinfo" />
     <None Include="Service References\HongMaService\configuration.svcinfo" />
     <None Include="Service References\HongMaService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\SMSService\configuration91.svcinfo" />
+    <None Include="Service References\SMSService\configuration.svcinfo" />
+    <None Include="Service References\SMSService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -401,23 +357,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\HongMaService\Service1.disco" />
-    <None Include="Service References\LuminetService\Service1.disco" />
-    <None Include="Service References\NexcelService\Service.disco" />
-    <None Include="Service References\NexcelService\configuration91.svcinfo" />
-    <None Include="Service References\NexcelService\configuration.svcinfo" />
-    <None Include="Service References\NexcelService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\SMSService\Service.disco" />
-    <None Include="Service References\SMSService\configuration91.svcinfo" />
-    <None Include="Service References\SMSService\configuration.svcinfo" />
-    <None Include="Service References\SMSService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <Content Include="logs\log.txt" />
     <Content Include="SpName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

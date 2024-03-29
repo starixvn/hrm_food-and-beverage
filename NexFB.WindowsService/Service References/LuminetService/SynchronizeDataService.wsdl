@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="SynchronizeDataService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpBinding_ISynchronizeDataService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" />
+      <xs:element name="GetUser">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="fromDate" nillable="true" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetUserResult" nillable="true" type="q1:ArrayOfUserModel" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetTeam">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="fromDate" nillable="true" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetTeamResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetTeamResult" nillable="true" type="q2:ArrayOfTeamModel" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetSection">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="fromDate" nillable="true" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetSectionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetSectionResult" nillable="true" type="q3:ArrayOfSectionModel" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDepartment">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="fromDate" nillable="true" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetDepartmentResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetDepartmentResult" nillable="true" type="q4:ArrayOfDepartmentModel" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUnit">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="fromDate" nillable="true" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUnitResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetUnitResult" nillable="true" type="q5:ArrayOfUnitModel" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetShift">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetShiftResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetShiftResult" nillable="true" type="q6:ArrayOfShiftModel" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEmployeeCalendar">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="fromDate" nillable="true" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEmployeeCalendarResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetEmployeeCalendarResult" nillable="true" type="q7:ArrayOfEmployeeCalendarModel" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetPhoto">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="fromDate" nillable="true" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetPhotoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetPhotoResult" nillable="true" type="q8:ArrayOfPhotoModel" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetTextTranslation">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="sourceText" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetTextTranslationResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetTextTranslationResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfUserModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="UserModel" nillable="true" type="tns:UserModel" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfUserModel" nillable="true" type="tns:ArrayOfUserModel" />
+      <xs:complexType name="UserModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CostCenter" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DomainName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EmpId" type="xs:int" />
+          <xs:element minOccurs="0" name="EmployeeCard" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsEnabled" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsLocal" type="xs:boolean" />
+          <xs:element minOccurs="0" name="JobTitleId" type="xs:int" />
+          <xs:element minOccurs="0" name="JoinedDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TeamId" type="xs:int" />
+          <xs:element minOccurs="0" name="UserId" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="UserModel" nillable="true" type="tns:UserModel" />
+      <xs:complexType name="ArrayOfTeamModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="TeamModel" nillable="true" type="tns:TeamModel" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfTeamModel" nillable="true" type="tns:ArrayOfTeamModel" />
+      <xs:complexType name="TeamModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AssistantLeaderId" type="xs:int" />
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
+          <xs:element minOccurs="0" name="LeaderId" type="xs:int" />
+          <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Rank" type="xs:int" />
+          <xs:element minOccurs="0" name="SectionId" type="xs:int" />
+          <xs:element minOccurs="0" name="TeamId" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="TeamModel" nillable="true" type="tns:TeamModel" />
+      <xs:complexType name="ArrayOfSectionModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="SectionModel" nillable="true" type="tns:SectionModel" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfSectionModel" nillable="true" type="tns:ArrayOfSectionModel" />
+      <xs:complexType name="SectionModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DepartmentId" type="xs:int" />
+          <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SectionId" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="SectionModel" nillable="true" type="tns:SectionModel" />
+      <xs:complexType name="ArrayOfDepartmentModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="DepartmentModel" nillable="true" type="tns:DepartmentModel" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfDepartmentModel" nillable="true" type="tns:ArrayOfDepartmentModel" />
+      <xs:complexType name="DepartmentModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DepartmentId" type="xs:int" />
+          <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UnitId" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="DepartmentModel" nillable="true" type="tns:DepartmentModel" />
+      <xs:complexType name="ArrayOfUnitModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="UnitModel" nillable="true" type="tns:UnitModel" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfUnitModel" nillable="true" type="tns:ArrayOfUnitModel" />
+      <xs:complexType name="UnitModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UnitId" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="UnitModel" nillable="true" type="tns:UnitModel" />
+      <xs:complexType name="ArrayOfShiftModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ShiftModel" nillable="true" type="tns:ShiftModel" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfShiftModel" nillable="true" type="tns:ArrayOfShiftModel" />
+      <xs:complexType name="ShiftModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BeginCheckInTime" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BeginCheckOutTime" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EndCheckInTime" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EndCheckOutTime" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IsDisabled" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsInAfterDay" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsOutAfterDay" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ShiftId" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ShiftModel" nillable="true" type="tns:ShiftModel" />
+      <xs:complexType name="ArrayOfEmployeeCalendarModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="EmployeeCalendarModel" nillable="true" type="tns:EmployeeCalendarModel" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfEmployeeCalendarModel" nillable="true" type="tns:ArrayOfEmployeeCalendarModel" />
+      <xs:complexType name="EmployeeCalendarModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ChangeShiftId" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="EarlyOut" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="HasCheckIn" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsHoliday" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsKeepInView" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsLeaveDay" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsOffDay" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="LateIn" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="LeaveDay" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="LeaveTypeId" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="LeaveTypeId2" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="ModifiedDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="RequestedCheckinTime" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="RequestedCheckoutTime" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="ShiftId" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="UserId" type="xs:int" />
+          <xs:element minOccurs="0" name="WorkDate" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="EmployeeCalendarModel" nillable="true" type="tns:EmployeeCalendarModel" />
+      <xs:complexType name="ArrayOfPhotoModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="PhotoModel" nillable="true" type="tns:PhotoModel" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfPhotoModel" nillable="true" type="tns:ArrayOfPhotoModel" />
+      <xs:complexType name="PhotoModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Photo" nillable="true" type="xs:base64Binary" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="PhotoModel" nillable="true" type="tns:PhotoModel" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ISynchronizeDataService_GetUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUser" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetTeam_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeam" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetTeam_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeamResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetSection_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSection" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetSection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetDepartment_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDepartment" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetDepartment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDepartmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetUnit_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnit" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetUnit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnitResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetShift_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetShift" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetShift_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetShiftResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeCalendar_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeCalendar" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetEmployeeCalendar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeCalendarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetPhoto_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhoto" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetPhoto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhotoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetTextTranslation_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTextTranslation" />
+  </wsdl:message>
+  <wsdl:message name="ISynchronizeDataService_GetTextTranslation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTextTranslationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ISynchronizeDataService">
+    <wsdl:operation name="GetUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetUser" message="tns:ISynchronizeDataService_GetUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetUserResponse" message="tns:ISynchronizeDataService_GetUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTeam">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetTeam" message="tns:ISynchronizeDataService_GetTeam_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetTeamResponse" message="tns:ISynchronizeDataService_GetTeam_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSection">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetSection" message="tns:ISynchronizeDataService_GetSection_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetSectionResponse" message="tns:ISynchronizeDataService_GetSection_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetDepartment" message="tns:ISynchronizeDataService_GetDepartment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetDepartmentResponse" message="tns:ISynchronizeDataService_GetDepartment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnit">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetUnit" message="tns:ISynchronizeDataService_GetUnit_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetUnitResponse" message="tns:ISynchronizeDataService_GetUnit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShift">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetShift" message="tns:ISynchronizeDataService_GetShift_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetShiftResponse" message="tns:ISynchronizeDataService_GetShift_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeCalendar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendar" message="tns:ISynchronizeDataService_GetEmployeeCalendar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendarResponse" message="tns:ISynchronizeDataService_GetEmployeeCalendar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPhoto">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetPhoto" message="tns:ISynchronizeDataService_GetPhoto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetPhotoResponse" message="tns:ISynchronizeDataService_GetPhoto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTextTranslation">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetTextTranslation" message="tns:ISynchronizeDataService_GetTextTranslation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISynchronizeDataService/GetTextTranslationResponse" message="tns:ISynchronizeDataService_GetTextTranslation_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ISynchronizeDataService" type="tns:ISynchronizeDataService">
+    <wsp:PolicyReference URI="#BasicHttpBinding_ISynchronizeDataService_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetUser">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTeam">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetTeam" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSection">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetSection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartment">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetDepartment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnit">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetUnit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShift">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetShift" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeCalendar">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhoto">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetPhoto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTextTranslation">
+      <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetTextTranslation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SynchronizeDataService">
+    <wsdl:port name="BasicHttpBinding_ISynchronizeDataService" binding="tns:BasicHttpBinding_ISynchronizeDataService">
+      <soap:address location="https://localhost:7153/Service.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

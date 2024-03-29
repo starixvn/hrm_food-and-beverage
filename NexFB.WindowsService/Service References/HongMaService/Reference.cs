@@ -15,7 +15,7 @@ namespace NexFB.WindowsService.HongMaService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
     [System.SerializableAttribute()]
     public partial class UserModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -332,7 +332,7 @@ namespace NexFB.WindowsService.HongMaService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TeamModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TeamModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
     [System.SerializableAttribute()]
     public partial class TeamModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -505,7 +505,7 @@ namespace NexFB.WindowsService.HongMaService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SectionModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SectionModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
     [System.SerializableAttribute()]
     public partial class SectionModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -646,7 +646,7 @@ namespace NexFB.WindowsService.HongMaService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DepartmentModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DepartmentModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
     [System.SerializableAttribute()]
     public partial class DepartmentModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -787,7 +787,7 @@ namespace NexFB.WindowsService.HongMaService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UnitModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UnitModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
     [System.SerializableAttribute()]
     public partial class UnitModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -912,7 +912,7 @@ namespace NexFB.WindowsService.HongMaService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ShiftModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ShiftModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
     [System.SerializableAttribute()]
     public partial class ShiftModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1117,7 +1117,7 @@ namespace NexFB.WindowsService.HongMaService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EmployeeCalendarModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EmployeeCalendarModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
     [System.SerializableAttribute()]
     public partial class EmployeeCalendarModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1418,7 +1418,7 @@ namespace NexFB.WindowsService.HongMaService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PhotoModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PhotoModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
     [System.SerializableAttribute()]
     public partial class PhotoModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1484,29 +1484,56 @@ namespace NexFB.WindowsService.HongMaService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetUser", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetUserResponse")]
         NexFB.WindowsService.HongMaService.UserModel[] GetUser(System.Nullable<System.DateTime> fromDate);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetUser", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetUserResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.UserModel[]> GetUserAsync(System.Nullable<System.DateTime> fromDate);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetTeam", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetTeamResponse")]
         NexFB.WindowsService.HongMaService.TeamModel[] GetTeam(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetTeam", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetTeamResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.TeamModel[]> GetTeamAsync(System.Nullable<System.DateTime> fromDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetSection", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetSectionResponse")]
         NexFB.WindowsService.HongMaService.SectionModel[] GetSection(System.Nullable<System.DateTime> fromDate);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetSection", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetSectionResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.SectionModel[]> GetSectionAsync(System.Nullable<System.DateTime> fromDate);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetDepartment", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetDepartmentResponse")]
         NexFB.WindowsService.HongMaService.DepartmentModel[] GetDepartment(System.Nullable<System.DateTime> fromDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetDepartment", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetDepartmentResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.DepartmentModel[]> GetDepartmentAsync(System.Nullable<System.DateTime> fromDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetUnit", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetUnitResponse")]
         NexFB.WindowsService.HongMaService.UnitModel[] GetUnit(System.Nullable<System.DateTime> fromDate);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetUnit", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetUnitResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.UnitModel[]> GetUnitAsync(System.Nullable<System.DateTime> fromDate);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetShift", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetShiftResponse")]
         NexFB.WindowsService.HongMaService.ShiftModel[] GetShift();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetShift", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetShiftResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.ShiftModel[]> GetShiftAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendar", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendarResponse")]
         NexFB.WindowsService.HongMaService.EmployeeCalendarModel[] GetEmployeeCalendar(System.Nullable<System.DateTime> fromDate);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendar", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetEmployeeCalendarResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.EmployeeCalendarModel[]> GetEmployeeCalendarAsync(System.Nullable<System.DateTime> fromDate);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetPhoto", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetPhotoResponse")]
         NexFB.WindowsService.HongMaService.PhotoModel[] GetPhoto(System.Nullable<System.DateTime> fromDate);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetPhoto", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetPhotoResponse")]
+        System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.PhotoModel[]> GetPhotoAsync(System.Nullable<System.DateTime> fromDate);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetTextTranslation", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetTextTranslationResponse")]
         string GetTextTranslation(string sourceText);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISynchronizeDataService/GetTextTranslation", ReplyAction="http://tempuri.org/ISynchronizeDataService/GetTextTranslationResponse")]
+        System.Threading.Tasks.Task<string> GetTextTranslationAsync(string sourceText);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1540,36 +1567,72 @@ namespace NexFB.WindowsService.HongMaService {
             return base.Channel.GetUser(fromDate);
         }
         
+        public System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.UserModel[]> GetUserAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetUserAsync(fromDate);
+        }
+        
         public NexFB.WindowsService.HongMaService.TeamModel[] GetTeam(System.Nullable<System.DateTime> fromDate) {
             return base.Channel.GetTeam(fromDate);
+        }
+        
+        public System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.TeamModel[]> GetTeamAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetTeamAsync(fromDate);
         }
         
         public NexFB.WindowsService.HongMaService.SectionModel[] GetSection(System.Nullable<System.DateTime> fromDate) {
             return base.Channel.GetSection(fromDate);
         }
         
+        public System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.SectionModel[]> GetSectionAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetSectionAsync(fromDate);
+        }
+        
         public NexFB.WindowsService.HongMaService.DepartmentModel[] GetDepartment(System.Nullable<System.DateTime> fromDate) {
             return base.Channel.GetDepartment(fromDate);
+        }
+        
+        public System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.DepartmentModel[]> GetDepartmentAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetDepartmentAsync(fromDate);
         }
         
         public NexFB.WindowsService.HongMaService.UnitModel[] GetUnit(System.Nullable<System.DateTime> fromDate) {
             return base.Channel.GetUnit(fromDate);
         }
         
+        public System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.UnitModel[]> GetUnitAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetUnitAsync(fromDate);
+        }
+        
         public NexFB.WindowsService.HongMaService.ShiftModel[] GetShift() {
             return base.Channel.GetShift();
+        }
+        
+        public System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.ShiftModel[]> GetShiftAsync() {
+            return base.Channel.GetShiftAsync();
         }
         
         public NexFB.WindowsService.HongMaService.EmployeeCalendarModel[] GetEmployeeCalendar(System.Nullable<System.DateTime> fromDate) {
             return base.Channel.GetEmployeeCalendar(fromDate);
         }
         
+        public System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.EmployeeCalendarModel[]> GetEmployeeCalendarAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetEmployeeCalendarAsync(fromDate);
+        }
+        
         public NexFB.WindowsService.HongMaService.PhotoModel[] GetPhoto(System.Nullable<System.DateTime> fromDate) {
             return base.Channel.GetPhoto(fromDate);
         }
         
+        public System.Threading.Tasks.Task<NexFB.WindowsService.HongMaService.PhotoModel[]> GetPhotoAsync(System.Nullable<System.DateTime> fromDate) {
+            return base.Channel.GetPhotoAsync(fromDate);
+        }
+        
         public string GetTextTranslation(string sourceText) {
             return base.Channel.GetTextTranslation(sourceText);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetTextTranslationAsync(string sourceText) {
+            return base.Channel.GetTextTranslationAsync(sourceText);
         }
     }
 }

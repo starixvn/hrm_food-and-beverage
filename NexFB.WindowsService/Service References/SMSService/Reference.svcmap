@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="9fd2bb69-a028-445c-93ed-1ca4d4048799" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="f3ed2cae-99d0-4c6b-b9c3-716cd5ef15db" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,14 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://10.18.200.116:8089/service.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="https://localhost:7153/Service.svc?singleWsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SynchronizeDataService.wsdl" MetadataType="Wsdl" ID="5a7b5a1e-dcf4-4278-860a-92311ad9afea" SourceId="1" SourceUrl="http://web116.spvn.local:8089/Service.svc?wsdl" />
-    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="b51a254f-8160-435f-beec-b82a98b34f07" SourceId="1" SourceUrl="http://web116.spvn.local:8089/Service.svc?xsd=xsd2" />
-    <MetadataFile FileName="Service.disco" MetadataType="Disco" ID="56783c45-37e8-425b-a883-587f0035e165" SourceId="1" SourceUrl="http://web116.spvn.local:8089/Service.svc?disco" />
-    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="d1d1b1f8-582e-4b73-91d0-4e80fe408e86" SourceId="1" SourceUrl="http://web116.spvn.local:8089/Service.svc?xsd=xsd0" />
-    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="ef5527e2-892b-4ec7-a28c-16762ddaeda3" SourceId="1" SourceUrl="http://web116.spvn.local:8089/Service.svc?xsd=xsd1" />
+    <MetadataFile FileName="SynchronizeDataService.wsdl" MetadataType="Wsdl" ID="ff3925c1-6c44-4588-9c1b-7535333c50f7" SourceId="1" SourceUrl="https://localhost:7153/Service.svc?singleWsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
