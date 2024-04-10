@@ -1,6 +1,10 @@
 ﻿namespace NexFB.WCFService.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using NexFB.WCFService.Models;
+
     [ServiceContract]
     public interface ISynchronizeDataService
     {

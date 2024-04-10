@@ -1,5 +1,8 @@
 ﻿namespace NexFB.WCFService
 {
+    using System;
+    using Microsoft.AspNetCore;
+    using Microsoft.AspNetCore.Hosting;
     using NLog;
     using NLog.Web;
 
@@ -11,7 +14,7 @@
             try
             {
                 logger.Info("Service start!");
-                CreateHostBuilder(args).Build().Run();
+                CreateWebHostBuilder(args).Build().Run();
             }
             catch (Exception exception)
             {
@@ -24,11 +27,10 @@
             }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                }).UseNLog();
+        private static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseNLog()
+                .UseStartup<Startup>();
+
     }
 }

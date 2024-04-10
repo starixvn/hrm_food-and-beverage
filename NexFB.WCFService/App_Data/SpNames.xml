@@ -1,22 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
   <Function Name="Employee">
-    <Setting Key="Employee_Get" SpName="Employee_Get" DbName="nexhr" Plain="0" >
-    </Setting>
-    <Setting Key="EmployeeGroup_Get" SpName="FB_Group_Get" DbName="nexhr" Plain="0" >
-    </Setting>
-    <Setting Key="Section_GetByModifiedDate" SpName="Section_GetByModifiedDate" DbName="nexhr" Plain="0" >
-    </Setting>
-    <Setting Key="Department_GetByModifiedDate" SpName="Department_GetByModifiedDate" DbName="nexhr" Plain="0" >
-    </Setting>
-    <Setting Key="Unit_GetByModifiedDate" SpName="Unit_GetByModifiedDate" DbName="nexhr" Plain="0" >
-    </Setting>
-    <Setting Key="Shift_Get" SpName="Shift_Get" DbName="nexhr" Plain="0" >
-    </Setting>
-    <Setting Key="EmployeeCalendar_Get" SpName="EmployeeCalendar_Get" DbName="nexhr" Plain="0" >
-    </Setting>
-    <Setting Key="Employee_GetLastModifiedDate" SpName="Employee_GetLastModifiedDate" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="EmpTeam_GetLastModifiedDate" SpName="EmpTeam_GetLastModifiedDate" DbName="nexhr" Plain="0"></Setting>
-    <Setting Key="EmpCalendar_GetLastModifiedDate" SpName="EmpCalendar_GetLastModifiedDate" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="Employee_Get" SpName="Employee_Get" DbName="nexhr" Plain="0" />
+    <Setting Key="EmployeeGroup_Get" SpName="FB_Group_Get" DbName="nexhr" Plain="0" />
+    <Setting Key="Section_GetByModifiedDate" SpName="Section_GetByModifiedDate" DbName="nexhr" Plain="0" />
+    <Setting Key="Department_GetByModifiedDate" SpName="Department_GetByModifiedDate" DbName="nexhr" Plain="0" />
+    <Setting Key="Unit_GetByModifiedDate" SpName="Unit_GetByModifiedDate" DbName="nexhr" Plain="0" />
+    <Setting Key="Shift_Get" SpName="Shift_Get" DbName="nexhr" Plain="0" />
+    <Setting Key="EmployeeCalendar_Get" SpName="EmployeeCalendar_Get" DbName="nexhr" Plain="0" />
+    <Setting Key="Employee_GetLastModifiedDate" SpName="Employee_GetLastModifiedDate" DbName="nexhr" Plain="0" />
+    <Setting Key="EmpTeam_GetLastModifiedDate" SpName="EmpTeam_GetLastModifiedDate" DbName="nexhr" Plain="0" />
+    <Setting Key="EmpCalendar_GetLastModifiedDate" SpName="EmpCalendar_GetLastModifiedDate" DbName="nexhr" Plain="0" />
   </Function>
 </Functions>

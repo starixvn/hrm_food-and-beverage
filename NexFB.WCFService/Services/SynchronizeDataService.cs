@@ -1,20 +1,20 @@
 ﻿namespace NexFB.WCFService.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.Extensions.Configuration;
     using NexFB.WCFService.Criteria;
     using NexFB.WCFService.Models;
     using NexFB.WCFService.Translator;
 
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
-    public class SynchronizeDataService : ISynchronizeDataService
+    public class SynchronizeDataService(
+        IBaseService baseService,
+        IConfiguration configuration) : ISynchronizeDataService
     {
-        private readonly IBaseService baseService;
-        private readonly IConfiguration configuration;
-        public SynchronizeDataService(IBaseService baseService, IConfiguration configuration)
-        {
-            this.baseService = baseService;
-            this.configuration = configuration;
-        }
-
         public async Task<IEnumerable<UserModel>> GetUser(DateTime? fromDate)
         {
             var criteria = new GetEmployeeCriteria
@@ -80,10 +80,10 @@
             var imagePath = configuration["AppSettings:ImagePath"];
             var photos = new List<PhotoModel>();
             var directory = new DirectoryInfo(imagePath);
-            var modifiedDate = fromDate ?? new DateTime(2010, 1, 1);
-            IEnumerable<FileInfo> files = directory.GetFiles()
-                .Where(file => file.LastWriteTime >= modifiedDate && file.Extension.Equals(".jpg", StringComparison.OrdinalIgnoreCase));
-            foreach (FileInfo file in files)
+            var modifiedDate = fromDate ?? new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero);
+            var files = directory.GetFiles()
+                .Where(file => file.LastWriteTime >= modifiedDate && file.Extension.Equals(".jpg", StringComparison.OrdinalIgnoreCase)).ToList();
+            foreach (var file in files)
             {
                 photos.Add(new PhotoModel
                 {

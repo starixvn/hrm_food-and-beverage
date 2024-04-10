@@ -1,5 +1,10 @@
 ﻿namespace NexFB.WCFService.Middlewares
 {
+    using System;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Logging;
+
     public class ErrorHandlerMiddleware
     {
         private readonly RequestDelegate next;
