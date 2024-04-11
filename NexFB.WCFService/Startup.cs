@@ -36,6 +36,7 @@
                     })
                });
 
+            services.AddHttpClient();
             services.AddFanexSql(Configuration);
             services.AddServiceModelServices();
             services.AddServiceModelMetadata();
@@ -44,6 +45,7 @@
             services.AddSingleton<IDynamicRepository, DynamicRepository>();
             services.AddSingleton<IBaseService, BaseService>();
             services.AddSingleton<ILogServiceProvider, LogServiceProvider>();
+            services.AddSingleton<IFBTranslatorService, FBTranslatorService>();
             services.AddSingleton<ILogger, Logger>();
             services.AddSingleton<SynchronizeDataService>();
 

@@ -1,16 +1,21 @@
-﻿namespace NexFB.WCFService.Translator
+﻿namespace NexFB.WCFService.Services
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using System;
     using System.Net.Http;
     using System.Threading.Tasks;
-    using System.Web;
     using NLangDetect.Core;
+    using System.Linq;
+    using System.Web;
 
-    public static class FBTranslator
+    public interface IFBTranslatorService
     {
-        public static async Task<string> AutoTranslation(string sourceText)
+        Task<string> AutoTranslation(string sourceText);
+    }
+
+    public class FBTranslatorService(IHttpClientFactory httpClientFactory) : IFBTranslatorService
+    {
+        public async Task<string> AutoTranslation(string sourceText)
         {
             LanguageDetector.Initialize();
             string translatedText = sourceText;
@@ -36,7 +41,7 @@
             return translatedText;
         }
 
-        private static async Task<string> TranslateText(string sourceText)
+        private async Task<string> TranslateText(string sourceText)
         {
             string translatedText = "";
 
@@ -46,15 +51,13 @@
                     "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=vi&dt=t&q={0}",
                     HttpUtility.UrlEncode(sourceText));
 
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    httpClient.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0");
-                    string result = await httpClient.GetStringAsync(url);
+                var httpClient = httpClientFactory.CreateClient();
+                httpClient.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0");
+                string result = await httpClient.GetStringAsync(url);
 
-                    int startIndex = result.IndexOf("[[[\"") + 4;
-                    int endIndex = result.IndexOf("\",\"", startIndex);
-                    translatedText = result.Substring(startIndex, endIndex - startIndex);
-                }
+                int startIndex = result.IndexOf("[[[\"") + 4;
+                int endIndex = result.IndexOf("\",\"", startIndex);
+                translatedText = result.Substring(startIndex, endIndex - startIndex);
             }
             catch (Exception ex)
             {

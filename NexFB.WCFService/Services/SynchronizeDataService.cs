@@ -8,11 +8,11 @@
     using Microsoft.Extensions.Configuration;
     using NexFB.WCFService.Criteria;
     using NexFB.WCFService.Models;
-    using NexFB.WCFService.Translator;
 
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class SynchronizeDataService(
         IBaseService baseService,
+        IFBTranslatorService fbTranslatorService,
         IConfiguration configuration) : ISynchronizeDataService
     {
         public async Task<IEnumerable<UserModel>> GetUser(DateTime? fromDate)
@@ -97,7 +97,7 @@
 
         public async Task<string> GetTextTranslation(string sourceText)
         {
-            return await FBTranslator.AutoTranslation(sourceText);
+            return await fbTranslatorService.AutoTranslation(sourceText);
         }
     }
 }
