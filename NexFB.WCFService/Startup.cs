@@ -65,9 +65,7 @@
             app.UseServiceModel(serviceBuilder =>
             {
                 serviceBuilder.AddService<SynchronizeDataService>();
-                serviceBuilder.AddServiceEndpoint<SynchronizeDataService, ISynchronizeDataService>(new BasicHttpBinding(BasicHttpSecurityMode.Transport), "/Service.svc");
-                var serviceMetadataBehavior = serviceProvider.GetRequiredService<ServiceMetadataBehavior>();
-                serviceMetadataBehavior.HttpsGetEnabled = true;
+                serviceBuilder.AddServiceEndpoint<SynchronizeDataService, ISynchronizeDataService>(new BasicHttpBinding(BasicHttpSecurityMode.None), "/Service.svc");
             });
 
             app.UseHttpsRedirection();
@@ -79,7 +77,6 @@
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
         }
     }
 }

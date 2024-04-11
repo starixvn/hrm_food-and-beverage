@@ -30,6 +30,7 @@
         private static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseNLog()
+                .UseUrls($"http://*:5000")
                 .UseStartup<Startup>();
 
     }
