@@ -3,17 +3,16 @@
     using System;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.Extensions.Logging;
-
+    using NexFB.WCFService.Services;
     public class ErrorHandlerMiddleware
     {
         private readonly RequestDelegate next;
-        private readonly ILogger logger;
+        private readonly ILogServiceProvider logServiceProvider;
 
-        public ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMiddleware> logger)
+        public ErrorHandlerMiddleware(RequestDelegate next, ILogServiceProvider logServiceProvider)
         {
             this.next = next;
-            this.logger = logger;
+            this.logServiceProvider = logServiceProvider;
         }
 
         public async Task Invoke(HttpContext context)
@@ -31,7 +30,9 @@
                     context.Request.Headers["Host"],
                     ex.TargetSite,
                     ex.StackTrace);
-                logger.LogError(message);
+
+                logServiceProvider.LogException(ex);
+                logServiceProvider.LogFile(message);
             }
         }
     }
