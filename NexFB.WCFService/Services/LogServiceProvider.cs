@@ -1,6 +1,9 @@
 ﻿namespace NexFB.WCFService.Services
 {
     using System;
+    using System.Threading.Tasks;
+    using Fanex.Logging.Extensions;
+    using Fanex.Logging.Extensions.Database;
     using Microsoft.Extensions.Logging;
 
     public class LogServiceProvider : ILogServiceProvider
@@ -21,9 +24,13 @@
             logfile.LogError(message);
         }
 
-        public void LogException(Exception exception)
+        public async Task LogExceptionAsync(Exception exception)
         {
-            logger.Error(exception.ToString());
+            var logMessage = new LogMessage(exception.Message)
+                .AddSection("Database Info", DatabaseInfoGetters.GetDbExceptionInfo(exception))
+                .AddSection("Exception Info", CommonInfoGetters.GetExceptionInfo(exception))
+                .ToString();
+            await logger.ErrorAsync(logMessage);
         }
     }
 }

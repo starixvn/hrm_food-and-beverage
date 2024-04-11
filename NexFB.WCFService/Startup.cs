@@ -41,10 +41,10 @@
             services.AddServiceModelMetadata();
             services.AddSingleton<IServiceBehavior, UseRequestHeadersForMetadataAddressBehavior>();
 
-            services.AddSingleton<ILogger, Logger>();
             services.AddSingleton<IDynamicRepository, DynamicRepository>();
             services.AddSingleton<IBaseService, BaseService>();
             services.AddSingleton<ILogServiceProvider, LogServiceProvider>();
+            services.AddSingleton<ILogger, Logger>();
             services.AddSingleton<SynchronizeDataService>();
 
             services.AddControllers();

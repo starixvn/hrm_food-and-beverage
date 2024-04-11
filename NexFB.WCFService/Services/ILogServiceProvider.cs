@@ -1,10 +1,12 @@
 ﻿namespace NexFB.WCFService.Services
 {
     using System;
+    using System.Threading.Tasks;
+
     public interface ILogServiceProvider
     {
         void LogFile(string message);
 
-        void LogException(Exception exception);
+        Task LogExceptionAsync(Exception exception);
     }
 }

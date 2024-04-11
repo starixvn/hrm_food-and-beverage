@@ -23,16 +23,7 @@
             }
             catch (Exception ex)
             {
-                var message = string.Format(
-                    "{0}\n\rSource: {1}\n\rDomain: {2}\n\rTargetSite: {3}\n\rStackTrace: {4}",
-                    ex.Message,
-                    ex.Source,
-                    context.Request.Headers["Host"],
-                    ex.TargetSite,
-                    ex.StackTrace);
-
-                logServiceProvider.LogException(ex);
-                logServiceProvider.LogFile(message);
+                await logServiceProvider.LogExceptionAsync(ex);
             }
         }
     }
