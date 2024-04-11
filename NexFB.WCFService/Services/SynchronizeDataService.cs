@@ -95,9 +95,9 @@
             return photos;
         }
 
-        public string GetTextTranslation(string sourceText)
+        public async Task<string> GetTextTranslation(string sourceText)
         {
-            return FBTranslator.AutoTranslation(sourceText);
+            return await FBTranslator.AutoTranslation(sourceText);
         }
     }
 }

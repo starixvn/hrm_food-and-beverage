@@ -33,6 +33,6 @@
         IList<PhotoModel> GetPhoto(DateTime? fromDate);
 
         [OperationContract]
-        string GetTextTranslation(string sourceText);
+        Task<string> GetTextTranslation(string sourceText);
     }
 }
