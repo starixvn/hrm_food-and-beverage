@@ -207,6 +207,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\HongMaService\SynchronizeDataService.wsdl" />
+    <None Include="Service References\HongMaService\SynchronizeDataService1.wsdl" />
     <None Include="Service References\LuminetService\NexFB.WindowsService.LuminetService.DepartmentModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -282,6 +283,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\SMSService\SynchronizeDataService.wsdl" />
+    <None Include="Service References\SMSService\SynchronizeDataService1.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

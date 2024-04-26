@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="f3ed2cae-99d0-4c6b-b9c3-716cd5ef15db" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f3ed2cae-99d0-4c6b-b9c3-716cd5ef15db" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="https://localhost:7153/Service.svc?singleWsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://10.18.114.24:8466/service.svc?singleWsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SynchronizeDataService.wsdl" MetadataType="Wsdl" ID="ff3925c1-6c44-4588-9c1b-7535333c50f7" SourceId="1" SourceUrl="https://localhost:7153/Service.svc?singleWsdl" />
+    <MetadataFile FileName="SynchronizeDataService1.wsdl" MetadataType="Wsdl" ID="33a93573-e51b-4a5a-b2f5-f328cba2b16a" SourceId="1" SourceUrl="http://10.18.114.24:8466/service.svc?singleWsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

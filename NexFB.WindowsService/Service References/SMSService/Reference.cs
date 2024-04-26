@@ -15,7 +15,7 @@ namespace NexFB.WindowsService.SMSService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
     [System.SerializableAttribute()]
     public partial class UserModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -332,7 +332,7 @@ namespace NexFB.WindowsService.SMSService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TeamModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TeamModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
     [System.SerializableAttribute()]
     public partial class TeamModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -505,7 +505,7 @@ namespace NexFB.WindowsService.SMSService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SectionModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SectionModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
     [System.SerializableAttribute()]
     public partial class SectionModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -646,7 +646,7 @@ namespace NexFB.WindowsService.SMSService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DepartmentModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DepartmentModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
     [System.SerializableAttribute()]
     public partial class DepartmentModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -787,7 +787,7 @@ namespace NexFB.WindowsService.SMSService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UnitModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UnitModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
     [System.SerializableAttribute()]
     public partial class UnitModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -912,7 +912,7 @@ namespace NexFB.WindowsService.SMSService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ShiftModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ShiftModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
     [System.SerializableAttribute()]
     public partial class ShiftModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1117,7 +1117,7 @@ namespace NexFB.WindowsService.SMSService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EmployeeCalendarModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EmployeeCalendarModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
     [System.SerializableAttribute()]
     public partial class EmployeeCalendarModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1418,7 +1418,7 @@ namespace NexFB.WindowsService.SMSService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PhotoModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PhotoModel", Namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models")]
     [System.SerializableAttribute()]
     public partial class PhotoModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         

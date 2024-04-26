@@ -1,33 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="SynchronizeDataService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsp:Policy wsu:Id="BasicHttpBinding_ISynchronizeDataService_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <wsp:Policy>
-            <sp:TransportToken>
-              <wsp:Policy>
-                <sp:HttpsToken RequireClientCertificate="false" />
-              </wsp:Policy>
-            </sp:TransportToken>
-            <sp:AlgorithmSuite>
-              <wsp:Policy>
-                <sp:Basic256 />
-              </wsp:Policy>
-            </sp:AlgorithmSuite>
-            <sp:Layout>
-              <wsp:Policy>
-                <sp:Strict />
-              </wsp:Policy>
-            </sp:Layout>
-          </wsp:Policy>
-        </sp:TransportBinding>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SynchronizeDataService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:import namespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" />
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" />
       <xs:element name="GetUser">
         <xs:complexType>
           <xs:sequence>
@@ -38,7 +13,7 @@
       <xs:element name="GetUserResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetUserResult" nillable="true" type="q1:ArrayOfUserModel" />
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" minOccurs="0" name="GetUserResult" nillable="true" type="q1:ArrayOfUserModel" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -52,7 +27,7 @@
       <xs:element name="GetTeamResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetTeamResult" nillable="true" type="q2:ArrayOfTeamModel" />
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" minOccurs="0" name="GetTeamResult" nillable="true" type="q2:ArrayOfTeamModel" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -66,7 +41,7 @@
       <xs:element name="GetSectionResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetSectionResult" nillable="true" type="q3:ArrayOfSectionModel" />
+            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" minOccurs="0" name="GetSectionResult" nillable="true" type="q3:ArrayOfSectionModel" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -80,7 +55,7 @@
       <xs:element name="GetDepartmentResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetDepartmentResult" nillable="true" type="q4:ArrayOfDepartmentModel" />
+            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" minOccurs="0" name="GetDepartmentResult" nillable="true" type="q4:ArrayOfDepartmentModel" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -94,7 +69,7 @@
       <xs:element name="GetUnitResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetUnitResult" nillable="true" type="q5:ArrayOfUnitModel" />
+            <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" minOccurs="0" name="GetUnitResult" nillable="true" type="q5:ArrayOfUnitModel" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -106,7 +81,7 @@
       <xs:element name="GetShiftResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetShiftResult" nillable="true" type="q6:ArrayOfShiftModel" />
+            <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" minOccurs="0" name="GetShiftResult" nillable="true" type="q6:ArrayOfShiftModel" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -120,7 +95,7 @@
       <xs:element name="GetEmployeeCalendarResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetEmployeeCalendarResult" nillable="true" type="q7:ArrayOfEmployeeCalendarModel" />
+            <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" minOccurs="0" name="GetEmployeeCalendarResult" nillable="true" type="q7:ArrayOfEmployeeCalendarModel" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -134,7 +109,7 @@
       <xs:element name="GetPhotoResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" minOccurs="0" name="GetPhotoResult" nillable="true" type="q8:ArrayOfPhotoModel" />
+            <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" minOccurs="0" name="GetPhotoResult" nillable="true" type="q8:ArrayOfPhotoModel" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -194,7 +169,7 @@
       <xs:attribute name="Id" type="xs:ID" />
       <xs:attribute name="Ref" type="xs:IDREF" />
     </xs:schema>
-    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/NexFB.WCFService.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/NexFB.WebService.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:complexType name="ArrayOfUserModel">
         <xs:sequence>
           <xs:element minOccurs="0" maxOccurs="unbounded" name="UserModel" nillable="true" type="tns:UserModel" />
@@ -455,7 +430,6 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISynchronizeDataService" type="tns:ISynchronizeDataService">
-    <wsp:PolicyReference URI="#BasicHttpBinding_ISynchronizeDataService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetUser">
       <soap:operation soapAction="http://tempuri.org/ISynchronizeDataService/GetUser" style="document" />
@@ -541,7 +515,7 @@
   </wsdl:binding>
   <wsdl:service name="SynchronizeDataService">
     <wsdl:port name="BasicHttpBinding_ISynchronizeDataService" binding="tns:BasicHttpBinding_ISynchronizeDataService">
-      <soap:address location="https://localhost:7153/Service.svc" />
+      <soap:address location="http://hrm24:8466/Service.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
