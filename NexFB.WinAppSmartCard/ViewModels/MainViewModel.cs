@@ -598,15 +598,6 @@
             _dailyClockDispatcher.Start();
         }
 
-        private void UpdateMeal_Tick(object sender, EventArgs e)
-        {
-            var timeNow = DateTime.Now.ToString("HH:mm");
-            if (MealTime.Any(m => m.StartTime.ToString("HH:mm") == timeNow))
-            {
-                GetMealsToShowOnScreen();
-            }
-        }
-
         private void TimerTick(object sender, EventArgs e)
         {
             var currentTime = DateTime.Now;
@@ -622,7 +613,7 @@
                 isUpdateBackground = false;
             }
 
-            if (MealTime.Any(meal => meal.StartTime.ToString("HH:mm") == formattedTime))
+            if (MealTime.Any(meal => meal.StartTime.AddMinutes(1).ToString("HH:mm") == formattedTime))
             {
                 GetMealsToShowOnScreen();
             }
