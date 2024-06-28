@@ -14,8 +14,10 @@
     using System.Xml;
     using AutoLogOffHelper;
     using AutoMapper;
+    using Fanex.Logging;
     using Microsoft.AspNet.SignalR.Client;
     using Microsoft.AspNet.SignalR.Client.Hubs;
+    using Newtonsoft.Json;
     using NexFB.Criteria.Kitchen;
     using NexFB.Criteria.MealRegistration;
     using NexFB.Criteria.SmartCardOrder;
@@ -35,7 +37,8 @@
     {
         private static readonly string _host = ConfigurationManager.AppSettings[ConstantValue.HubHost];
         private static readonly DispatcherTimer _dailyClockDispatcher = new DispatcherTimer();
-        private static bool isUpdateBackground = false;
+        private bool isUpdateBackground = false;
+        private bool isUpdateMeal = false;
         private ViewModelBase _currentViewModel;
 
         public MainViewModel()
@@ -127,6 +130,9 @@
 
             GetCurrentNameMeals(currentMenu);
             GetNextNameMeals(nextMenu);
+
+            LogService.Info("CurrentMenu: " + JsonConvert.SerializeObject(currentMenu)
+                + "\nNextMenu: " + JsonConvert.SerializeObject(nextMenu));
         }
 
         private void GetNextNameMeals(List<FoodMenu> menu)
@@ -600,8 +606,8 @@
 
         private void TimerTick(object sender, EventArgs e)
         {
-            var currentTime = DateTime.Now;
-            var formattedTime = currentTime.ToString("HH:mm");
+            var currentTime = DateTimeOffset.Now;
+            var time = DateTime.Parse("1900-01-01 " + currentTime.ToString("HH:mm"), DateTimeFormatInfo.InvariantInfo);
 
             if (!isUpdateBackground && currentTime.Hour == 0)
             {
@@ -613,7 +619,7 @@
                 isUpdateBackground = false;
             }
 
-            if (MealTime.Any(meal => meal.StartTime.AddMinutes(1).ToString("HH:mm") == formattedTime))
+            if (MealTime.Any(meal => (time - meal.StartTime).TotalMinutes < 5 && (time - meal.StartTime).TotalMinutes >= 0))
             {
                 GetMealsToShowOnScreen();
             }

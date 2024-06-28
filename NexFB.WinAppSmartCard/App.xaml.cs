@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="App.xaml.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.10.14">Created</change>
-// </history>
-
-namespace NexFB.WinAppSmartCard
+﻿namespace NexFB.WinAppSmartCard
 {
     using System;
     using System.Configuration;
@@ -18,6 +9,7 @@ namespace NexFB.WinAppSmartCard
     using Fanex.Data;
     using Fanex.Data.Configuration;
     using Fanex.Logging;
+    using Fanex.Logging.Sentry.RavenClient;
     using NexFB.Pos.Core.InternetBased;
     using NexFB.Resources;
     using NexFB.WinAppSmartCard.Core.Constants;
@@ -27,10 +19,8 @@ namespace NexFB.WinAppSmartCard
     using NexFB.WinAppSmartCard.GlobalResources.Services;
     using NexFB.WinAppSmartCard.SmartCardHelper;
     using NexFB.WinAppSmartCard.ViewModels;
+    using SharpRaven;
 
-    /// <summary>
-    /// Interaction logic for App.
-    /// </summary>
     public partial class App : Application
     {
         public App()
@@ -93,6 +83,14 @@ namespace NexFB.WinAppSmartCard
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed. Suppression is OK here.")]        
         private void InitializeApp()
         {
+            LogManager
+                .SetDefaultLogCategory(ConfigurationManager.AppSettings["Sentry:Category"])
+                .Use(new SentryLogging(new SentryEngineOptions
+                {
+                    Dsn = new Dsn(ConfigurationManager.AppSettings["Sentry:Dsn"]),
+                    WriteLogTimeoutSeconds = Convert.ToInt32("100")
+                }));
+
             DbSettingProviderManager.Current.Start();
             IMappingRegister mappingRegister = new CoreMappingRegister();
             SmartcardManager manager = new SmartcardManager();

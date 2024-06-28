@@ -15,6 +15,7 @@ namespace NexFB.WinAppSmartCard
     using System.Windows.Input;
     using System.Windows.Interop;
     using AutoLogOffHelper;
+    using Fanex.Logging;
     using NexFB.WinAppSmartCard.Core.Constants;
     using NexFB.WinAppSmartCard.Core.Resources;
     using NexFB.WinAppSmartCard.ViewModels;
@@ -132,11 +133,6 @@ namespace NexFB.WinAppSmartCard
             System.Windows.Forms.Application.Restart();
         }
 
-        /// <summary>
-        /// Keyboard event.
-        /// </summary>
-        /// <param name="sender">The object sender.</param>
-        /// <param name="e">The key event.</param>
         private async void KeyboardEventHandler(object sender, KeyEventArgs e)
         {
             var currentViewModel = (MainViewModel)this.DataContext;
