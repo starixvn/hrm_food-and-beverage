@@ -7,5 +7,7 @@
         public const string EmployeeTeam = "employee/team";
 
         public const string EmployeeCalendar = "employee/calendar";
+
+        public const string Department = "department";
     }
 }
