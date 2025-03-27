@@ -9,5 +9,7 @@
         public const string EmployeeCalendar = "employee/calendar";
 
         public const string Department = "department";
+
+        public const string Section = "section";
     }
 }

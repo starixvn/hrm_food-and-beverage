@@ -1,8 +1,12 @@
 using NexFB.WorkerService.Services;
+using VaultSharp.V1.AuthMethods.AWS;
 
 namespace NexFB.WorkerService
 {
-    public class Worker(ILogger<Worker> logger, IEmployeeService employeeService) : BackgroundService
+    public class Worker(ILogger<Worker> logger, 
+        IEmployeeService employeeService,
+        IDepartmentService departmentService,
+        ISectionService sectionService) : BackgroundService
     {
         private readonly ILogger<Worker> _logger = logger;
 
@@ -10,7 +14,12 @@ namespace NexFB.WorkerService
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await employeeService.StartEmployeeJobAsync();
+                //await employeeService.StartEmployeeJobAsync();
+                //await departmentService.StartDepartmentJobAsync();
+                //await sectionService.StartSectionJobAsync();
+
+
+
                 //if (_logger.IsEnabled(LogLevel.Information))
                 //{
                 //    _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);

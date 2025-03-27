@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Criteria;
 using NexFB.WorkerService.Models;
-using static Dapper.SqlMapper;
 
 namespace NexFB.WorkerService.Services
 {
@@ -36,7 +29,8 @@ namespace NexFB.WorkerService.Services
         private async Task<CommandResult> SyncDepartments(int companyId)
         {
             var result = new CommandResult();
-            var departments = await GetDepartmentsByLastModifiedDate(companyId);
+            var lastModifiedDate = await GetDepartmentLastModifiedDate(companyId);
+            var departments = await GetDepartmentsByLastModifiedDate(lastModifiedDate);
             if (departments == null) return result;
             var criteria = new SyncDepartmentCriteria()
             {
@@ -47,10 +41,8 @@ namespace NexFB.WorkerService.Services
             return result;
         }
 
-        private async Task<List<Department>?> GetDepartmentsByLastModifiedDate(int companyId)
+        private async Task<List<Department>?> GetDepartmentsByLastModifiedDate(DateTime lastModifiedDate)
         {
-
-            var lastModifiedDate = await GetDepartmentLastModifiedDate(companyId);
             var httpClient = httpClientFactory.CreateClient();
             if (!string.IsNullOrWhiteSpace(settings.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
 

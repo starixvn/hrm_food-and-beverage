@@ -30,7 +30,8 @@ public class EmployeeService(IBaseService baseService,
     private async Task<CommandResult> SyncEmployees(int companyId)
     {
         var result = new CommandResult();
-        var employees = await GetEmployeesByLastModifiedDate(companyId);
+        var lastModifiedDate = await GetEmployeeLastModifiedDate(companyId);
+        var employees = await GetEmployeesByLastModifiedDate(lastModifiedDate);
         if (employees == null) return result;
         var criteria = new SyncEmployeesCriteria
         {
@@ -42,10 +43,34 @@ public class EmployeeService(IBaseService baseService,
         return result;
     }
 
+    private async Task<List<Employee>?> GetEmployeesByLastModifiedDate(DateTime lastModifiedDate)
+    {
+        var httpClient = httpClientFactory.CreateClient();
+        if (!string.IsNullOrWhiteSpace(settings.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
+
+        var response = await httpClient.GetAsync($"{settings.Url}/{Endpoint.Employee}?lastModifiedDate={lastModifiedDate}");
+
+        if (!response.IsSuccessStatusCode) return null;
+        var content = await response.Content.ReadAsStringAsync();
+        if (string.IsNullOrWhiteSpace(content)) return null;
+        var result = JsonConvert.DeserializeObject<List<Employee>>(content);
+        return result ?? null;
+    }
+
+    private async Task<DateTime> GetEmployeeLastModifiedDate(int companyId)
+    {
+        var criteria = new GetEmployeeLastModifiedDateCriteria
+        {
+            CompanyId = companyId
+        };
+        return await baseService.GetDataEntityAsync<DateTime>(criteria);
+    }
+
     private async Task<CommandResult> SyncTeams(int companyId)
     {
         var result = new CommandResult();
-        var teams = await GetTeamByLastModifiedDate(companyId);
+        var lastModifiedDate = await GetEmployeeTeamLastModifiedDate(companyId);
+        var teams = await GetTeamByLastModifiedDate(lastModifiedDate);
         if (teams == null) return result;
         var criteria = new SyncEmployeeTeamCriteria
         {
@@ -57,50 +82,8 @@ public class EmployeeService(IBaseService baseService,
         return result;
     }
 
-    private async Task<CommandResult> SyncCalendar(int companyId)
+    private async Task<List<Team>?> GetTeamByLastModifiedDate(DateTime lastModifiedDate)
     {
-        var result = new CommandResult();
-        var employeeCalendars = await GetCalendarByLastModifiedDate(companyId);
-        if (employeeCalendars == null) return result;
-        var criteria = new SyncEmployeesCalendarCriteria
-        {
-            CompanyId = companyId,
-            EmployeeCalendars = employeeCalendars
-        };
-
-        result = await baseService.ExecuteNonQueryAsync(criteria);
-        return result;
-    }
-
-    private async Task<List<EmployeeCalendar>?> GetCalendarByLastModifiedDate(int companyId)
-    {
-        var lastModifiedDate = await GetEmployeeCalendarLastModifiedDate(companyId);
-
-        var httpClient = httpClientFactory.CreateClient();
-        if (!string.IsNullOrWhiteSpace(settings.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
-
-        var response = await httpClient.GetAsync($"{settings.Url}/{Endpoint.EmployeeCalendar}?lastModifiedDate={lastModifiedDate}");
-
-        if (!response.IsSuccessStatusCode) return null;
-        var content = await response.Content.ReadAsStringAsync();
-        if (string.IsNullOrWhiteSpace(content)) return null;
-        var result = JsonConvert.DeserializeObject<List<EmployeeCalendar>>(content);
-        return result ?? null;
-    }
-
-    private async Task<DateTime> GetEmployeeCalendarLastModifiedDate(int companyId)
-    {
-        var criteria = new GetEmployeeTeamLastModifiedDateCriteria
-        {
-            CompanyId = companyId
-        };
-        return await baseService.GetDataEntityAsync<DateTime>(criteria);
-    }
-
-    private async Task<List<Team>?> GetTeamByLastModifiedDate(int companyId)
-    {
-        var lastModifiedDate = await GetEmployeeTeamLastModifiedDate(companyId);
-
         var httpClient = httpClientFactory.CreateClient();
         if (!string.IsNullOrWhiteSpace(settings.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
 
@@ -122,25 +105,39 @@ public class EmployeeService(IBaseService baseService,
         return await baseService.GetDataEntityAsync<DateTime>(criteria);
     }
 
-    private async Task<List<Employee>?> GetEmployeesByLastModifiedDate(int companyId)
+    private async Task<CommandResult> SyncCalendar(int companyId)
     {
-        var lastModifiedDate = await GetEmployeeLastModifiedDate(companyId);
+        var result = new CommandResult();
+        var lastModifiedDate = await GetEmployeeCalendarLastModifiedDate(companyId);
+        var employeeCalendars = await GetCalendarByLastModifiedDate(lastModifiedDate);
+        if (employeeCalendars == null) return result;
+        var criteria = new SyncEmployeesCalendarCriteria
+        {
+            CompanyId = companyId,
+            EmployeeCalendars = employeeCalendars
+        };
 
+        result = await baseService.ExecuteNonQueryAsync(criteria);
+        return result;
+    }
+
+    private async Task<List<EmployeeCalendar>?> GetCalendarByLastModifiedDate(DateTime lastModifiedDate)
+    {
         var httpClient = httpClientFactory.CreateClient();
         if (!string.IsNullOrWhiteSpace(settings.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
 
-        var response = await httpClient.GetAsync($"{settings.Url}/{Endpoint.Employee}?lastModifiedDate={lastModifiedDate}");
+        var response = await httpClient.GetAsync($"{settings.Url}/{Endpoint.EmployeeCalendar}?lastModifiedDate={lastModifiedDate}");
 
         if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();
         if (string.IsNullOrWhiteSpace(content)) return null;
-        var result = JsonConvert.DeserializeObject<List<Employee>>(content);
+        var result = JsonConvert.DeserializeObject<List<EmployeeCalendar>>(content);
         return result ?? null;
     }
 
-    private async Task<DateTime> GetEmployeeLastModifiedDate(int companyId)
+    private async Task<DateTime> GetEmployeeCalendarLastModifiedDate(int companyId)
     {
-        var criteria = new GetEmployeeLastModifiedDateCriteria
+        var criteria = new GetEmployeeTeamLastModifiedDateCriteria
         {
             CompanyId = companyId
         };

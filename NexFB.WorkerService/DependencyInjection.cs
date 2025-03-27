@@ -16,6 +16,8 @@ namespace NexFB.WorkerService
             services.AddSingleton<IBaseRepository, BaseRepository>();
 
             services.AddSingleton<IEmployeeService, EmployeeService>();
+            services.AddSingleton<IDepartmentService, DepartmentService>();
+            services.AddSingleton<ISectionService, SectionService>();
         }
     }
 }

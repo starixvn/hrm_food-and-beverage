@@ -7,7 +7,7 @@ using Fanex.Data.Repository;
 
 namespace NexFB.WorkerService.Criteria
 {
-    public class GetDepartmentLastModifiedDate : CriteriaBase
+    public class GetDepartmentLastModifiedDateCriteria : CriteriaBase
     {
         public int CompanyId { get; set; }
 
