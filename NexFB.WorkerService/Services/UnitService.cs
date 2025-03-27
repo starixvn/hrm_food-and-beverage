@@ -12,7 +12,7 @@ public interface IUnitService
 }
 public class UnitService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
-    FnBSyncApiSettings settings) : IUnitService
+    List<FnBSyncApiSettings> settings) : IUnitService
 {
     private const string function = "Unit";
 
@@ -24,15 +24,17 @@ public class UnitService(IBaseService baseService,
     private async Task GetSyncSms()
     {
         const int companyId = (int)CompanyIdentity.Sms;
-        await SyncUnits(companyId);
+        var company = CompanyIdentity.Sms.GetDescription();
+        var setting = settings.FirstOrDefault(x => string.Equals(x.Name, company, StringComparison.CurrentCultureIgnoreCase));
+        await SyncUnits(setting, companyId);
     }
 
-    private async Task SyncUnits(int companyId)
+    private async Task SyncUnits(FnBSyncApiSettings setting, int companyId)
     {
         LoggingExtension.LogUpdateNotify(companyId, function);
         var result = new CommandResult();
         var lastModifiedDate = await GetUnitLastModifiedDate(companyId);
-        var units = await GetUnitsByLastModifiedDate(lastModifiedDate);
+        var units = await GetUnitsByLastModifiedDate(setting, lastModifiedDate);
         if (units == null)
         {
             LoggingExtension.LogResultNotify(companyId, result, function);
@@ -48,12 +50,12 @@ public class UnitService(IBaseService baseService,
         LoggingExtension.LogResultNotify(companyId, result, function);
     }
 
-    private async Task<List<Unit>?> GetUnitsByLastModifiedDate(DateTime lastModifiedDate)
+    private async Task<List<Unit>?> GetUnitsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
         var httpClient = httpClientFactory.CreateClient();
-        if (!string.IsNullOrWhiteSpace(settings.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
-        var response = await httpClient.GetAsync($"{settings.Url}/{Endpoint.Unit}?lastModifiedDate={lastModifiedDate}");
+        var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Unit}?lastModifiedDate={lastModifiedDate}");
 
         if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();

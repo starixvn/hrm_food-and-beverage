@@ -12,8 +12,7 @@ public interface IDepartmentService
 }
 public class DepartmentService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
-    FnBSyncApiSettings settings,
-    ILogger<Worker> logger) : IDepartmentService
+    List<FnBSyncApiSettings> settings) : IDepartmentService
 {
     private const string function = "Department";
     public async Task StartDepartmentJobAsync()
@@ -24,15 +23,17 @@ public class DepartmentService(IBaseService baseService,
     private async Task GetSyncSms()
     {
         const int companyId = (int)CompanyIdentity.Sms;
-        await SyncDepartments(companyId);
+        var company = CompanyIdentity.Sms.GetDescription();
+        var setting = settings.FirstOrDefault(x => string.Equals(x.Name, company, StringComparison.CurrentCultureIgnoreCase));
+        await SyncDepartments(setting, companyId);
     }
 
-    private async Task SyncDepartments(int companyId)
+    private async Task SyncDepartments(FnBSyncApiSettings setting, int companyId)
     {
         LoggingExtension.LogUpdateNotify(companyId, function);
         var result = new CommandResult();
         var lastModifiedDate = await GetDepartmentLastModifiedDate(companyId);
-        var departments = await GetDepartmentsByLastModifiedDate(lastModifiedDate);
+        var departments = await GetDepartmentsByLastModifiedDate(setting, lastModifiedDate);
         if (departments == null)
         {
             LoggingExtension.LogResultNotify(companyId, result, function); 
@@ -47,12 +48,12 @@ public class DepartmentService(IBaseService baseService,
         LoggingExtension.LogResultNotify(companyId, result, function);
     }
 
-    private async Task<List<Department>?> GetDepartmentsByLastModifiedDate(DateTime lastModifiedDate)
+    private async Task<List<Department>?> GetDepartmentsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
         var httpClient = httpClientFactory.CreateClient();
-        if (!string.IsNullOrWhiteSpace(settings.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
-        var response = await httpClient.GetAsync($"{settings.Url}/{Endpoint.Department}?lastModifiedDate={lastModifiedDate}");
+        var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Department}?lastModifiedDate={lastModifiedDate}");
 
         if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();

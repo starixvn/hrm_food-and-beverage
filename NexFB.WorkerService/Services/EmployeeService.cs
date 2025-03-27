@@ -13,8 +13,7 @@ public interface IEmployeeService
 
 public class EmployeeService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
-    FnBSyncApiSettings settings,
-    ILogger<Worker> logger) : IEmployeeService
+    List<FnBSyncApiSettings> settings) : IEmployeeService
 {
     private const string employeeFunction = "Employee";
     private const string teamFunction = "Team";
@@ -28,17 +27,19 @@ public class EmployeeService(IBaseService baseService,
     private async Task GetSyncSms()
     {
         const int companyId = (int)CompanyIdentity.Sms;
-        await SyncEmployees(companyId);
-        await SyncTeams(companyId);
-        await SyncCalendar(companyId);
+        var company = CompanyIdentity.Sms.GetDescription();
+        var setting = settings.FirstOrDefault(x => string.Equals(x.Name, company, StringComparison.CurrentCultureIgnoreCase));
+        await SyncEmployees(setting, companyId);
+        await SyncTeams(setting, companyId);
+        await SyncCalendar(setting, companyId);
     }
 
-    private async Task SyncEmployees(int companyId)
+    private async Task SyncEmployees(FnBSyncApiSettings setting, int companyId)
     {
         LoggingExtension.LogUpdateNotify(companyId, employeeFunction);
         var result = new CommandResult();
         var lastModifiedDate = await GetEmployeeLastModifiedDate(companyId);
-        var employees = await GetEmployeesByLastModifiedDate(lastModifiedDate);
+        var employees = await GetEmployeesByLastModifiedDate(setting, lastModifiedDate);
         if (employees == null)
         {
             LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
@@ -54,12 +55,13 @@ public class EmployeeService(IBaseService baseService,
         LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
     }
 
-    private async Task<List<Employee>?> GetEmployeesByLastModifiedDate(DateTime lastModifiedDate)
+    private async Task<List<Employee>?> GetEmployeesByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
-        var httpClient = httpClientFactory.CreateClient();
-        if (!string.IsNullOrWhiteSpace(settings.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
 
-        var response = await httpClient.GetAsync($"{settings.Url}/{Endpoint.Employee}?lastModifiedDate={lastModifiedDate}");
+        var httpClient = httpClientFactory.CreateClient();
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+
+        var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Employee}?lastModifiedDate={lastModifiedDate}");
 
         if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();
@@ -77,12 +79,12 @@ public class EmployeeService(IBaseService baseService,
         return await baseService.GetDataEntityAsync<DateTime>(criteria);
     }
 
-    private async Task SyncTeams(int companyId)
+    private async Task SyncTeams(FnBSyncApiSettings setting, int companyId)
     {
         LoggingExtension.LogUpdateNotify(companyId, teamFunction);
         var result = new CommandResult();
         var lastModifiedDate = await GetEmployeeTeamLastModifiedDate(companyId);
-        var teams = await GetTeamByLastModifiedDate(lastModifiedDate);
+        var teams = await GetTeamByLastModifiedDate(setting, lastModifiedDate);
         if (teams == null)
         {
             LoggingExtension.LogResultNotify(companyId, result, teamFunction);
@@ -98,12 +100,12 @@ public class EmployeeService(IBaseService baseService,
         LoggingExtension.LogResultNotify(companyId, result, teamFunction);
     }
 
-    private async Task<List<Team>?> GetTeamByLastModifiedDate(DateTime lastModifiedDate)
+    private async Task<List<Team>?> GetTeamByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
         var httpClient = httpClientFactory.CreateClient();
-        if (!string.IsNullOrWhiteSpace(settings.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
-        var response = await httpClient.GetAsync($"{settings.Url}/{Endpoint.EmployeeTeam}?lastModifiedDate={lastModifiedDate}");
+        var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.EmployeeTeam}?lastModifiedDate={lastModifiedDate}");
 
         if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();
@@ -121,12 +123,12 @@ public class EmployeeService(IBaseService baseService,
         return await baseService.GetDataEntityAsync<DateTime>(criteria);
     }
 
-    private async Task SyncCalendar(int companyId)
+    private async Task SyncCalendar(FnBSyncApiSettings setting, int companyId)
     {
         LoggingExtension.LogUpdateNotify(companyId, calendarFunction);
         var result = new CommandResult();
         var lastModifiedDate = await GetEmployeeCalendarLastModifiedDate(companyId);
-        var employeeCalendars = await GetCalendarByLastModifiedDate(lastModifiedDate);
+        var employeeCalendars = await GetCalendarByLastModifiedDate(setting, lastModifiedDate);
         if (employeeCalendars == null)
         {
             LoggingExtension.LogResultNotify(companyId, result, calendarFunction);
@@ -142,12 +144,12 @@ public class EmployeeService(IBaseService baseService,
         LoggingExtension.LogResultNotify(companyId, result, calendarFunction);
     }
 
-    private async Task<List<EmployeeCalendar>?> GetCalendarByLastModifiedDate(DateTime lastModifiedDate)
+    private async Task<List<EmployeeCalendar>?> GetCalendarByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
         var httpClient = httpClientFactory.CreateClient();
-        if (!string.IsNullOrWhiteSpace(settings.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
-        var response = await httpClient.GetAsync($"{settings.Url}/{Endpoint.EmployeeCalendar}?lastModifiedDate={lastModifiedDate}");
+        var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.EmployeeCalendar}?lastModifiedDate={lastModifiedDate}");
 
         if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();

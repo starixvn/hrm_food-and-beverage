@@ -12,7 +12,7 @@ public interface IShiftService
 }
 public class ShiftService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
-    FnBSyncApiSettings settings) : IShiftService
+    List<FnBSyncApiSettings> settings) : IShiftService
 {
     private const string function = "Shift";
 
@@ -24,14 +24,16 @@ public class ShiftService(IBaseService baseService,
     private async Task GetSyncSms()
     {
         const int companyId = (int)CompanyIdentity.Sms;
-        await SyncShifts(companyId);
+        var company = CompanyIdentity.Sms.GetDescription();
+        var setting = settings.FirstOrDefault(x => string.Equals(x.Name, company, StringComparison.CurrentCultureIgnoreCase));
+        await SyncShifts(setting, companyId);
     }
 
-    private async Task SyncShifts(int companyId)
+    private async Task SyncShifts(FnBSyncApiSettings setting, int companyId)
     {
         LoggingExtension.LogUpdateNotify(companyId, function);
         var result = new CommandResult();
-        var shifts = await GetShifts();
+        var shifts = await GetShifts(setting);
         if (shifts == null)
         {
             LoggingExtension.LogResultNotify(companyId, result, function);
@@ -47,12 +49,12 @@ public class ShiftService(IBaseService baseService,
         LoggingExtension.LogResultNotify(companyId, result, function);
     }
 
-    private async Task<List<Shift>?> GetShifts()
+    private async Task<List<Shift>?> GetShifts(FnBSyncApiSettings setting)
     {
         var httpClient = httpClientFactory.CreateClient();
-        if (!string.IsNullOrWhiteSpace(settings.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
-        var response = await httpClient.GetAsync($"{settings.Url}/{Endpoint.Shift}");
+        var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Shift}");
 
         if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();
