@@ -3,65 +3,63 @@ using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Criteria;
 using NexFB.WorkerService.Models;
 
-namespace NexFB.WorkerService.Services
+namespace NexFB.WorkerService.Services;
+
+public interface IDepartmentService
 {
-
-    public interface IDepartmentService
+    Task StartDepartmentJobAsync();
+}
+public class DepartmentService(IBaseService baseService,
+    IHttpClientFactory httpClientFactory,
+    FnBSyncApiSettings settings) : IDepartmentService
+{
+    public async Task StartDepartmentJobAsync()
     {
-        Task StartDepartmentJobAsync();
+
+        await GetSyncSms();
     }
-    public class DepartmentService(IBaseService baseService,
-        IHttpClientFactory httpClientFactory,
-        FnBSyncApiSettings settings) : IDepartmentService
+
+    private async Task GetSyncSms()
     {
-        public async Task StartDepartmentJobAsync()
+        const int companyId = (int)CompanyIdentity.Sms;
+        await SyncDepartments(companyId);
+    }
+
+    private async Task<CommandResult> SyncDepartments(int companyId)
+    {
+        var result = new CommandResult();
+        var lastModifiedDate = await GetDepartmentLastModifiedDate(companyId);
+        var departments = await GetDepartmentsByLastModifiedDate(lastModifiedDate);
+        if (departments == null) return result;
+        var criteria = new SyncDepartmentCriteria()
         {
+            CompanyId = companyId,
+            Departments = departments
+        };
+        result = await baseService.ExecuteNonQueryAsync(criteria);
+        return result;
+    }
 
-            await GetSyncSms();
-        }
+    private async Task<List<Department>?> GetDepartmentsByLastModifiedDate(DateTime lastModifiedDate)
+    {
+        var httpClient = httpClientFactory.CreateClient();
+        if (!string.IsNullOrWhiteSpace(settings.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
 
-        private async Task GetSyncSms()
+        var response = await httpClient.GetAsync($"{settings.Url}/{Endpoint.Department}?lastModifiedDate={lastModifiedDate}");
+
+        if (!response.IsSuccessStatusCode) return null;
+        var content = await response.Content.ReadAsStringAsync();
+        if (string.IsNullOrWhiteSpace(content)) return null;
+        var result = JsonConvert.DeserializeObject<List<Department>>(content);
+        return result ?? null;
+    }
+
+    private async Task<DateTime> GetDepartmentLastModifiedDate(int companyId)
+    {
+        var criteria = new GetDepartmentLastModifiedDateCriteria
         {
-            const int companyId = (int)CompanyIdentity.Sms;
-            await SyncDepartments(companyId);
-        }
-
-        private async Task<CommandResult> SyncDepartments(int companyId)
-        {
-            var result = new CommandResult();
-            var lastModifiedDate = await GetDepartmentLastModifiedDate(companyId);
-            var departments = await GetDepartmentsByLastModifiedDate(lastModifiedDate);
-            if (departments == null) return result;
-            var criteria = new SyncDepartmentCriteria()
-            {
-                CompanyId = companyId,
-                Departments = departments
-            };
-            result = await baseService.ExecuteNonQueryAsync(criteria);
-            return result;
-        }
-
-        private async Task<List<Department>?> GetDepartmentsByLastModifiedDate(DateTime lastModifiedDate)
-        {
-            var httpClient = httpClientFactory.CreateClient();
-            if (!string.IsNullOrWhiteSpace(settings.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
-
-            var response = await httpClient.GetAsync($"{settings.Url}/{Endpoint.Department}?lastModifiedDate={lastModifiedDate}");
-
-            if (!response.IsSuccessStatusCode) return null;
-            var content = await response.Content.ReadAsStringAsync();
-            if (string.IsNullOrWhiteSpace(content)) return null;
-            var result = JsonConvert.DeserializeObject<List<Department>>(content);
-            return result ?? null;
-        }
-
-        private async Task<DateTime> GetDepartmentLastModifiedDate(int companyId)
-        {
-            var criteria = new GetDepartmentLastModifiedDateCriteria
-            {
-                CompanyId = companyId
-            };
-            return await baseService.GetDataEntityAsync<DateTime>(criteria);
-        }
+            CompanyId = companyId
+        };
+        return await baseService.GetDataEntityAsync<DateTime>(criteria);
     }
 }

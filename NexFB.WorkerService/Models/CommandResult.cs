@@ -1,14 +1,13 @@
-﻿namespace NexFB.WorkerService.Models
+﻿namespace NexFB.WorkerService.Models;
+
+public class CommandResult
 {
-    public class CommandResult
-    {
-        public int Code { get; set; } = 1;
-        public string Message { get; set; } = "Invalid input data";
+    public int Code { get; set; } = 1;
+    public string Message { get; set; } = "Invalid input data";
 
-        public short CompanyId { get; set; }
+    public short CompanyId { get; set; }
 
-        public bool IsSuccessful => Code == 0;
+    public bool IsSuccessful => Code == 0;
 
-        public long OutputId { get; set; }
-    }
+    public long OutputId { get; set; }
 }

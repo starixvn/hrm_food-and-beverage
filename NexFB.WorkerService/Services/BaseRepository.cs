@@ -3,34 +3,33 @@ using Fanex.Data;
 using Fanex.Data.Repository;
 using NexFB.WorkerService.Models;
 
-namespace NexFB.WorkerService.Services
+namespace NexFB.WorkerService.Services;
+
+public interface IBaseRepository
 {
-    public interface IBaseRepository
+    Task<CommandResult> ExecuteNonQueryAsync(ICriteria command);
+}
+
+public class BaseRepository : IBaseRepository
+{
+    public async Task<CommandResult> ExecuteNonQueryAsync(ICriteria command)
     {
-        Task<CommandResult> ExecuteNonQueryAsync(ICriteria command);
+        using var db = ObjectDbFactory.CreateInstance(command.GetSettingKey());
+        await db.ExecuteNonQueryAsync(command);
+        var commandResult = GetCommandResult(db.GetOutputParams());
+
+        return commandResult;
     }
 
-    public class BaseRepository : IBaseRepository
+    private static CommandResult GetCommandResult(Hashtable hash)
     {
-        public async Task<CommandResult> ExecuteNonQueryAsync(ICriteria command)
+        var errCode = hash["errcode"];
+        var errMsg = hash["errmsg"];
+
+        return new CommandResult
         {
-            using var db = ObjectDbFactory.CreateInstance(command.GetSettingKey());
-            await db.ExecuteNonQueryAsync(command);
-            var commandResult = GetCommandResult(db.GetOutputParams());
-
-            return commandResult;
-        }
-
-        private static CommandResult GetCommandResult(Hashtable hash)
-        {
-            var errCode = hash["errcode"];
-            var errMsg = hash["errmsg"];
-
-            return new CommandResult
-            {
-                Code = errCode is DBNull ? 0 : Convert.ToInt32(errCode),
-                Message = errMsg is DBNull ? string.Empty : Convert.ToString(errMsg)
-            };
-        }
+            Code = errCode is DBNull ? 0 : Convert.ToInt32(errCode),
+            Message = errMsg is DBNull ? string.Empty : Convert.ToString(errMsg)
+        };
     }
 }

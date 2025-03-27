@@ -1,22 +1,21 @@
 ﻿using System.ComponentModel;
 
-namespace NexFB.WorkerService.Common
+namespace NexFB.WorkerService.Common;
+
+public enum CompanyIdentity
 {
-    public enum CompanyIdentity
-    {
-        [Description("None")]
-        None,
+    [Description("None")]
+    None,
 
-        [Description("Nexcel")]
-        Nexcel,
+    [Description("Nexcel")]
+    Nexcel,
 
-        [Description("Sms")]
-        Sms,
+    [Description("Sms")]
+    Sms,
 
-        [Description("Hong Ma")]
-        HongMA,
+    [Description("Hong Ma")]
+    HongMA,
 
-        [Description("Luminet")]
-        Luminet,
-    }
+    [Description("Luminet")]
+    Luminet,
 }

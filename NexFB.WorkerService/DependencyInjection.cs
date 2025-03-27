@@ -2,22 +2,23 @@
 using NexFB.WorkerService.Models;
 using NexFB.WorkerService.Services;
 
-namespace NexFB.WorkerService
+namespace NexFB.WorkerService;
+
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static void AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
-        public static void AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            var apiSettings = configuration.GetSection("FnBSyncApiSettings").Get<FnBSyncApiSettings>();
-            services.AddSingleton(apiSettings);
+        var apiSettings = configuration.GetSection("FnBSyncApiSettings").Get<FnBSyncApiSettings>();
+        services.AddSingleton(apiSettings);
 
-            services.AddSingleton<IBaseService, BaseService>();
-            services.AddSingleton<IDynamicRepository, DynamicRepository>();
-            services.AddSingleton<IBaseRepository, BaseRepository>();
+        services.AddSingleton<IBaseService, BaseService>();
+        services.AddSingleton<IDynamicRepository, DynamicRepository>();
+        services.AddSingleton<IBaseRepository, BaseRepository>();
 
-            services.AddSingleton<IEmployeeService, EmployeeService>();
-            services.AddSingleton<IDepartmentService, DepartmentService>();
-            services.AddSingleton<ISectionService, SectionService>();
-        }
+        services.AddSingleton<IEmployeeService, EmployeeService>();
+        services.AddSingleton<IDepartmentService, DepartmentService>();
+        services.AddSingleton<ISectionService, SectionService>();
+        services.AddSingleton<IUnitService, UnitService>();
+        services.AddSingleton<IShiftService, ShiftService>();
     }
 }

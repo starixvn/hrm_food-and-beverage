@@ -1,19 +1,18 @@
 ﻿using Fanex.Data.Repository;
 
-namespace NexFB.WorkerService.Criteria
+namespace NexFB.WorkerService.Criteria;
+
+public class GetEmployeeCalendarLastModifiedDateCriteria : CriteriaBase
 {
-    public class GetEmployeeCalendarLastModifiedDateCriteria : CriteriaBase
+    public int CompanyId { get; set; }
+
+    public override string GetSettingKey()
     {
-        public int CompanyId { get; set; }
+        return "EmpCalendar_GetLastModifiedDate";
+    }
 
-        public override string GetSettingKey()
-        {
-            return "EmpCalendar_GetLastModifiedDate";
-        }
-
-        public override bool IsValid()
-        {
-            return CompanyId > 0;
-        }
+    public override bool IsValid()
+    {
+        return CompanyId > 0;
     }
 }
