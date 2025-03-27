@@ -1,3 +1,4 @@
+using NexFB.WorkerService.Models;
 using NexFB.WorkerService.Services;
 
 namespace NexFB.WorkerService;
@@ -7,26 +8,25 @@ public class Worker(ILogger<Worker> logger,
     IDepartmentService departmentService,
     ISectionService sectionService,
     IShiftService shiftService,
-    IUnitService unitService) : BackgroundService
+    IUnitService unitService,
+    AppSettings appSettings) : BackgroundService
 {
-    //private readonly ILogger<Worker> _logger = logger;
-
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        const int millisecond = 1000;
+
         while (!stoppingToken.IsCancellationRequested)
         {
+            logger.LogInformation("Service started at " + DateTime.Now);
             await employeeService.StartEmployeeJobAsync();
             await departmentService.StartDepartmentJobAsync();
             await sectionService.StartSectionJobAsync();
             await shiftService.StartShiftJobAsync();
             await unitService.StartUnitJobAsync();
+            logger.LogInformation("Service stopped at " + DateTime.Now);
 
-
-            //if (_logger.IsEnabled(LogLevel.Information))
-            //{
-            //    _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            //}
-            //await Task.Delay(1000, stoppingToken);
+            var stopTime = appSettings.TimeInterval * millisecond;
+            await Task.Delay(stopTime, stoppingToken);
         }
     }
 }

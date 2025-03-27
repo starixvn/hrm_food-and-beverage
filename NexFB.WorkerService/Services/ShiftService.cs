@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Criteria;
+using NexFB.WorkerService.Helper;
 using NexFB.WorkerService.Models;
 
 namespace NexFB.WorkerService.Services;
@@ -13,6 +14,8 @@ public class ShiftService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
     FnBSyncApiSettings settings) : IShiftService
 {
+    private const string function = "Shift";
+
     public async Task StartShiftJobAsync()
     {
         await GetSyncSms();
@@ -24,11 +27,16 @@ public class ShiftService(IBaseService baseService,
         await SyncShifts(companyId);
     }
 
-    private async Task<CommandResult> SyncShifts(int companyId)
+    private async Task SyncShifts(int companyId)
     {
+        LoggingExtension.LogUpdateNotify(companyId, function);
         var result = new CommandResult();
         var shifts = await GetShifts();
-        if (shifts == null) return result;
+        if (shifts == null)
+        {
+            LoggingExtension.LogResultNotify(companyId, result, function);
+            return;
+        }
         var criteria = new SyncShiftCriteria
         {
             CompanyId = companyId,
@@ -36,7 +44,7 @@ public class ShiftService(IBaseService baseService,
         };
 
         result = await baseService.ExecuteNonQueryAsync(criteria);
-        return result;
+        LoggingExtension.LogResultNotify(companyId, result, function);
     }
 
     private async Task<List<Shift>?> GetShifts()

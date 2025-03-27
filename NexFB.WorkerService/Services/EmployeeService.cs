@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Criteria;
+using NexFB.WorkerService.Helper;
 using NexFB.WorkerService.Models;
 
 namespace NexFB.WorkerService.Services;
@@ -12,8 +13,13 @@ public interface IEmployeeService
 
 public class EmployeeService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
-    FnBSyncApiSettings settings) : IEmployeeService
+    FnBSyncApiSettings settings,
+    ILogger<Worker> logger) : IEmployeeService
 {
+    private const string employeeFunction = "Employee";
+    private const string teamFunction = "Team";
+    private const string calendarFunction = "Calendar";
+
     public async Task StartEmployeeJobAsync()
     {
         await GetSyncSms();
@@ -27,12 +33,17 @@ public class EmployeeService(IBaseService baseService,
         await SyncCalendar(companyId);
     }
 
-    private async Task<CommandResult> SyncEmployees(int companyId)
+    private async Task SyncEmployees(int companyId)
     {
+        LoggingExtension.LogUpdateNotify(companyId, employeeFunction);
         var result = new CommandResult();
         var lastModifiedDate = await GetEmployeeLastModifiedDate(companyId);
         var employees = await GetEmployeesByLastModifiedDate(lastModifiedDate);
-        if (employees == null) return result;
+        if (employees == null)
+        {
+            LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
+            return;
+        }
         var criteria = new SyncEmployeesCriteria
         {
             CompanyId = companyId,
@@ -40,7 +51,7 @@ public class EmployeeService(IBaseService baseService,
         };
 
         result = await baseService.ExecuteNonQueryAsync(criteria);
-        return result;
+        LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
     }
 
     private async Task<List<Employee>?> GetEmployeesByLastModifiedDate(DateTime lastModifiedDate)
@@ -66,12 +77,17 @@ public class EmployeeService(IBaseService baseService,
         return await baseService.GetDataEntityAsync<DateTime>(criteria);
     }
 
-    private async Task<CommandResult> SyncTeams(int companyId)
+    private async Task SyncTeams(int companyId)
     {
+        LoggingExtension.LogUpdateNotify(companyId, teamFunction);
         var result = new CommandResult();
         var lastModifiedDate = await GetEmployeeTeamLastModifiedDate(companyId);
         var teams = await GetTeamByLastModifiedDate(lastModifiedDate);
-        if (teams == null) return result;
+        if (teams == null)
+        {
+            LoggingExtension.LogResultNotify(companyId, result, teamFunction);
+            return;
+        }
         var criteria = new SyncEmployeeTeamCriteria
         {
             CompanyId = companyId,
@@ -79,7 +95,7 @@ public class EmployeeService(IBaseService baseService,
         };
 
         result = await baseService.ExecuteNonQueryAsync(criteria);
-        return result;
+        LoggingExtension.LogResultNotify(companyId, result, teamFunction);
     }
 
     private async Task<List<Team>?> GetTeamByLastModifiedDate(DateTime lastModifiedDate)
@@ -105,12 +121,17 @@ public class EmployeeService(IBaseService baseService,
         return await baseService.GetDataEntityAsync<DateTime>(criteria);
     }
 
-    private async Task<CommandResult> SyncCalendar(int companyId)
+    private async Task SyncCalendar(int companyId)
     {
+        LoggingExtension.LogUpdateNotify(companyId, calendarFunction);
         var result = new CommandResult();
         var lastModifiedDate = await GetEmployeeCalendarLastModifiedDate(companyId);
         var employeeCalendars = await GetCalendarByLastModifiedDate(lastModifiedDate);
-        if (employeeCalendars == null) return result;
+        if (employeeCalendars == null)
+        {
+            LoggingExtension.LogResultNotify(companyId, result, calendarFunction);
+            return;
+        }
         var criteria = new SyncEmployeesCalendarCriteria
         {
             CompanyId = companyId,
@@ -118,7 +139,7 @@ public class EmployeeService(IBaseService baseService,
         };
 
         result = await baseService.ExecuteNonQueryAsync(criteria);
-        return result;
+        LoggingExtension.LogResultNotify(companyId, result, calendarFunction);
     }
 
     private async Task<List<EmployeeCalendar>?> GetCalendarByLastModifiedDate(DateTime lastModifiedDate)

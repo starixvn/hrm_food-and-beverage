@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Criteria;
+using NexFB.WorkerService.Helper;
 using NexFB.WorkerService.Models;
 
 namespace NexFB.WorkerService.Services;
@@ -11,11 +12,12 @@ public interface IDepartmentService
 }
 public class DepartmentService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
-    FnBSyncApiSettings settings) : IDepartmentService
+    FnBSyncApiSettings settings,
+    ILogger<Worker> logger) : IDepartmentService
 {
+    private const string function = "Department";
     public async Task StartDepartmentJobAsync()
     {
-
         await GetSyncSms();
     }
 
@@ -25,19 +27,24 @@ public class DepartmentService(IBaseService baseService,
         await SyncDepartments(companyId);
     }
 
-    private async Task<CommandResult> SyncDepartments(int companyId)
+    private async Task SyncDepartments(int companyId)
     {
+        LoggingExtension.LogUpdateNotify(companyId, function);
         var result = new CommandResult();
         var lastModifiedDate = await GetDepartmentLastModifiedDate(companyId);
         var departments = await GetDepartmentsByLastModifiedDate(lastModifiedDate);
-        if (departments == null) return result;
-        var criteria = new SyncDepartmentCriteria()
+        if (departments == null)
+        {
+            LoggingExtension.LogResultNotify(companyId, result, function); 
+            return;
+        }
+        var criteria = new SyncDepartmentCriteria
         {
             CompanyId = companyId,
             Departments = departments
         };
         result = await baseService.ExecuteNonQueryAsync(criteria);
-        return result;
+        LoggingExtension.LogResultNotify(companyId, result, function);
     }
 
     private async Task<List<Department>?> GetDepartmentsByLastModifiedDate(DateTime lastModifiedDate)

@@ -11,6 +11,9 @@ public static class DependencyInjection
         var apiSettings = configuration.GetSection("FnBSyncApiSettings").Get<FnBSyncApiSettings>();
         services.AddSingleton(apiSettings);
 
+        var appSettings = configuration.GetSection("AppSettings").Get<AppSettings>();
+        services.AddSingleton(appSettings);
+
         services.AddSingleton<IBaseService, BaseService>();
         services.AddSingleton<IDynamicRepository, DynamicRepository>();
         services.AddSingleton<IBaseRepository, BaseRepository>();

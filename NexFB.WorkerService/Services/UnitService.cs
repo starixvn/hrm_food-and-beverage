@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Criteria;
+using NexFB.WorkerService.Helper;
 using NexFB.WorkerService.Models;
 
 namespace NexFB.WorkerService.Services;
@@ -13,6 +14,8 @@ public class UnitService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
     FnBSyncApiSettings settings) : IUnitService
 {
+    private const string function = "Unit";
+
     public async Task StartUnitJobAsync()
     {
         await GetSyncSms();
@@ -24,12 +27,17 @@ public class UnitService(IBaseService baseService,
         await SyncUnits(companyId);
     }
 
-    private async Task<CommandResult> SyncUnits(int companyId)
+    private async Task SyncUnits(int companyId)
     {
+        LoggingExtension.LogUpdateNotify(companyId, function);
         var result = new CommandResult();
         var lastModifiedDate = await GetUnitLastModifiedDate(companyId);
         var units = await GetUnitsByLastModifiedDate(lastModifiedDate);
-        if (units == null) return result;
+        if (units == null)
+        {
+            LoggingExtension.LogResultNotify(companyId, result, function);
+            return;
+        }
         var criteria = new SyncUnitCriteria
         {
             CompanyId = companyId,
@@ -37,7 +45,7 @@ public class UnitService(IBaseService baseService,
         };
 
         result = await baseService.ExecuteNonQueryAsync(criteria);
-        return result;
+        LoggingExtension.LogResultNotify(companyId, result, function);
     }
 
     private async Task<List<Unit>?> GetUnitsByLastModifiedDate(DateTime lastModifiedDate)

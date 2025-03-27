@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Criteria;
+using NexFB.WorkerService.Helper;
 using NexFB.WorkerService.Models;
 
 namespace NexFB.WorkerService.Services;
@@ -11,8 +12,10 @@ public interface ISectionService
 }
 public class SectionService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
-    FnBSyncApiSettings settings) : ISectionService
+    FnBSyncApiSettings settings,
+    ILogger<Worker> logger) : ISectionService
 {
+   private const string function = "Section";
     public async Task StartSectionJobAsync()
     {
         await GetSyncSms();
@@ -24,12 +27,17 @@ public class SectionService(IBaseService baseService,
         await SyncSections(companyId);
     }
 
-    private async Task<CommandResult> SyncSections(int companyId)
+    private async Task SyncSections(int companyId)
     {
+        LoggingExtension.LogUpdateNotify(companyId, function);
         var result = new CommandResult();
         var lastModifiedDate = await GetSectionLastModifiedDate(companyId);
         var sections = await GetSectionsByLastModifiedDate(lastModifiedDate);
-        if (sections == null) return result;
+        if (sections == null)
+        {
+            LoggingExtension.LogResultNotify(companyId, result, function);
+            return;
+        }
         var criteria = new SyncSectionCriteria
         {
             CompanyId = companyId,
@@ -37,7 +45,7 @@ public class SectionService(IBaseService baseService,
         };
 
         result = await baseService.ExecuteNonQueryAsync(criteria);
-        return result;
+        LoggingExtension.LogResultNotify(companyId, result, function);
     }
 
     private async Task<List<Section>?> GetSectionsByLastModifiedDate(DateTime lastModifiedDate)
