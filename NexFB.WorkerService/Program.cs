@@ -5,6 +5,7 @@ using NexFB.WorkerService.Helper;
 var builder = Host.CreateApplicationBuilder(args);
 var configuration = builder.Configuration;
 
+builder.Services.AddWindowsService();
 builder.Services.AddFanexSql(configuration);
 builder.Services.AddApplicationServices(configuration);
 builder.Services.AddHttpClient();
