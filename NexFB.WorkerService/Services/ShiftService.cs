@@ -31,22 +31,29 @@ public class ShiftService(IBaseService baseService,
 
     private async Task SyncShifts(FnBSyncApiSettings setting, int companyId)
     {
-        LoggingExtension.LogUpdateNotify(companyId, function);
-        var result = new CommandResult();
-        var shifts = await GetShifts(setting);
-        if (shifts == null)
+        try
         {
-            LoggingExtension.LogResultNotify(companyId, result, function);
-            return;
-        }
-        var criteria = new SyncShiftCriteria
-        {
-            CompanyId = companyId,
-            Shifts = shifts
-        };
+            LoggingExtension.LogUpdateNotify(companyId, function);
+            var result = new CommandResult();
+            var shifts = await GetShifts(setting);
+            if (shifts == null)
+            {
+                LoggingExtension.LogResultNotify(companyId, result, function);
+                return;
+            }
+            var criteria = new SyncShiftCriteria
+            {
+                CompanyId = companyId,
+                Shifts = shifts
+            };
 
-        result = await baseService.ExecuteNonQueryAsync(criteria);
-        LoggingExtension.LogResultNotify(companyId, result, function);
+            result = await baseService.ExecuteNonQueryAsync(criteria);
+            LoggingExtension.LogResultNotify(companyId, result, function);
+        }
+        catch (Exception ex)
+        {
+            LoggingExtension.LogExceptionNotify(companyId, function, ex);
+        }
     }
 
     private async Task<List<Shift>?> GetShifts(FnBSyncApiSettings setting)

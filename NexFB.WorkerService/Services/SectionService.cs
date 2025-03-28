@@ -30,23 +30,30 @@ public class SectionService(IBaseService baseService,
 
     private async Task SyncSections(FnBSyncApiSettings setting, int companyId)
     {
-        LoggingExtension.LogUpdateNotify(companyId, function);
-        var result = new CommandResult();
-        var lastModifiedDate = await GetSectionLastModifiedDate(companyId);
-        var sections = await GetSectionsByLastModifiedDate(setting, lastModifiedDate);
-        if (sections == null)
+        try
         {
-            LoggingExtension.LogResultNotify(companyId, result, function);
-            return;
-        }
-        var criteria = new SyncSectionCriteria
-        {
-            CompanyId = companyId,
-            Sections = sections
-        };
+            LoggingExtension.LogUpdateNotify(companyId, function);
+            var result = new CommandResult();
+            var lastModifiedDate = await GetSectionLastModifiedDate(companyId);
+            var sections = await GetSectionsByLastModifiedDate(setting, lastModifiedDate);
+            if (sections == null)
+            {
+                LoggingExtension.LogResultNotify(companyId, result, function);
+                return;
+            }
+            var criteria = new SyncSectionCriteria
+            {
+                CompanyId = companyId,
+                Sections = sections
+            };
 
-        result = await baseService.ExecuteNonQueryAsync(criteria);
-        LoggingExtension.LogResultNotify(companyId, result, function);
+            result = await baseService.ExecuteNonQueryAsync(criteria);
+            LoggingExtension.LogResultNotify(companyId, result, function);
+        }
+        catch (Exception ex)
+        {
+            LoggingExtension.LogExceptionNotify(companyId, function, ex);
+        }
     }
 
     private async Task<List<Section>?> GetSectionsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)

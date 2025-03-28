@@ -31,23 +31,30 @@ public class UnitService(IBaseService baseService,
 
     private async Task SyncUnits(FnBSyncApiSettings setting, int companyId)
     {
-        LoggingExtension.LogUpdateNotify(companyId, function);
-        var result = new CommandResult();
-        var lastModifiedDate = await GetUnitLastModifiedDate(companyId);
-        var units = await GetUnitsByLastModifiedDate(setting, lastModifiedDate);
-        if (units == null)
+        try
         {
-            LoggingExtension.LogResultNotify(companyId, result, function);
-            return;
-        }
-        var criteria = new SyncUnitCriteria
-        {
-            CompanyId = companyId,
-            Units = units
-        };
+            LoggingExtension.LogUpdateNotify(companyId, function);
+            var result = new CommandResult();
+            var lastModifiedDate = await GetUnitLastModifiedDate(companyId);
+            var units = await GetUnitsByLastModifiedDate(setting, lastModifiedDate);
+            if (units == null)
+            {
+                LoggingExtension.LogResultNotify(companyId, result, function);
+                return;
+            }
+            var criteria = new SyncUnitCriteria
+            {
+                CompanyId = companyId,
+                Units = units
+            };
 
-        result = await baseService.ExecuteNonQueryAsync(criteria);
-        LoggingExtension.LogResultNotify(companyId, result, function);
+            result = await baseService.ExecuteNonQueryAsync(criteria);
+            LoggingExtension.LogResultNotify(companyId, result, function);
+        }
+        catch (Exception ex)
+        {
+            LoggingExtension.LogExceptionNotify(companyId, function, ex);
+        }
     }
 
     private async Task<List<Unit>?> GetUnitsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)

@@ -36,23 +36,30 @@ public class EmployeeService(IBaseService baseService,
 
     private async Task SyncEmployees(FnBSyncApiSettings setting, int companyId)
     {
-        LoggingExtension.LogUpdateNotify(companyId, employeeFunction);
-        var result = new CommandResult();
-        var lastModifiedDate = await GetEmployeeLastModifiedDate(companyId);
-        var employees = await GetEmployeesByLastModifiedDate(setting, lastModifiedDate);
-        if (employees == null)
+        try
         {
-            LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
-            return;
-        }
-        var criteria = new SyncEmployeesCriteria
-        {
-            CompanyId = companyId,
-            Users = employees
-        };
+            var result = new CommandResult();
+            LoggingExtension.LogUpdateNotify(companyId, employeeFunction);
+            var lastModifiedDate = await GetEmployeeLastModifiedDate(companyId);
+            var employees = await GetEmployeesByLastModifiedDate(setting, lastModifiedDate);
+            if (employees == null)
+            {
+                LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
+                return;
+            }
+            var criteria = new SyncEmployeesCriteria
+            {
+                CompanyId = companyId,
+                Users = employees
+            };
 
-        result = await baseService.ExecuteNonQueryAsync(criteria);
-        LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
+            result = await baseService.ExecuteNonQueryAsync(criteria);
+            LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
+        }
+        catch (Exception ex)
+        {
+            LoggingExtension.LogExceptionNotify(companyId, employeeFunction, ex);
+        }
     }
 
     private async Task<List<Employee>?> GetEmployeesByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
@@ -81,23 +88,30 @@ public class EmployeeService(IBaseService baseService,
 
     private async Task SyncTeams(FnBSyncApiSettings setting, int companyId)
     {
-        LoggingExtension.LogUpdateNotify(companyId, teamFunction);
-        var result = new CommandResult();
-        var lastModifiedDate = await GetEmployeeTeamLastModifiedDate(companyId);
-        var teams = await GetTeamByLastModifiedDate(setting, lastModifiedDate);
-        if (teams == null)
+        try 
         {
-            LoggingExtension.LogResultNotify(companyId, result, teamFunction);
-            return;
-        }
-        var criteria = new SyncEmployeeTeamCriteria
-        {
-            CompanyId = companyId,
-            Teams = teams
-        };
+            LoggingExtension.LogUpdateNotify(companyId, teamFunction);
+            var result = new CommandResult();
+            var lastModifiedDate = await GetEmployeeTeamLastModifiedDate(companyId);
+            var teams = await GetTeamByLastModifiedDate(setting, lastModifiedDate);
+            if (teams == null)
+            {
+                LoggingExtension.LogResultNotify(companyId, result, teamFunction);
+                return;
+            }
+            var criteria = new SyncEmployeeTeamCriteria
+            {
+                CompanyId = companyId,
+                Teams = teams
+            };
 
-        result = await baseService.ExecuteNonQueryAsync(criteria);
-        LoggingExtension.LogResultNotify(companyId, result, teamFunction);
+            result = await baseService.ExecuteNonQueryAsync(criteria);
+            LoggingExtension.LogResultNotify(companyId, result, teamFunction);
+        }
+        catch (Exception ex)
+        {
+            LoggingExtension.LogExceptionNotify(companyId, teamFunction, ex);
+        }
     }
 
     private async Task<List<Team>?> GetTeamByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
@@ -125,23 +139,30 @@ public class EmployeeService(IBaseService baseService,
 
     private async Task SyncCalendar(FnBSyncApiSettings setting, int companyId)
     {
-        LoggingExtension.LogUpdateNotify(companyId, calendarFunction);
-        var result = new CommandResult();
-        var lastModifiedDate = await GetEmployeeCalendarLastModifiedDate(companyId);
-        var employeeCalendars = await GetCalendarByLastModifiedDate(setting, lastModifiedDate);
-        if (employeeCalendars == null)
+        try 
         {
-            LoggingExtension.LogResultNotify(companyId, result, calendarFunction);
-            return;
-        }
-        var criteria = new SyncEmployeesCalendarCriteria
-        {
-            CompanyId = companyId,
-            EmployeeCalendars = employeeCalendars
-        };
+            LoggingExtension.LogUpdateNotify(companyId, calendarFunction);
+            var result = new CommandResult();
+            var lastModifiedDate = await GetEmployeeCalendarLastModifiedDate(companyId);
+            var employeeCalendars = await GetCalendarByLastModifiedDate(setting, lastModifiedDate);
+            if (employeeCalendars == null)
+            {
+                LoggingExtension.LogResultNotify(companyId, result, calendarFunction);
+                return;
+            }
+            var criteria = new SyncEmployeesCalendarCriteria
+            {
+                CompanyId = companyId,
+                EmployeeCalendars = employeeCalendars
+            };
 
-        result = await baseService.ExecuteNonQueryAsync(criteria);
-        LoggingExtension.LogResultNotify(companyId, result, calendarFunction);
+            result = await baseService.ExecuteNonQueryAsync(criteria);
+            LoggingExtension.LogResultNotify(companyId, result, calendarFunction);
+        }
+        catch (Exception ex)
+        {
+            LoggingExtension.LogExceptionNotify(companyId, calendarFunction, ex);
+        }
     }
 
     private async Task<List<EmployeeCalendar>?> GetCalendarByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)

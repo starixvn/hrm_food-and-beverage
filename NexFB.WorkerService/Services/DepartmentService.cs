@@ -30,22 +30,29 @@ public class DepartmentService(IBaseService baseService,
 
     private async Task SyncDepartments(FnBSyncApiSettings setting, int companyId)
     {
-        LoggingExtension.LogUpdateNotify(companyId, function);
-        var result = new CommandResult();
-        var lastModifiedDate = await GetDepartmentLastModifiedDate(companyId);
-        var departments = await GetDepartmentsByLastModifiedDate(setting, lastModifiedDate);
-        if (departments == null)
+        try
         {
-            LoggingExtension.LogResultNotify(companyId, result, function); 
-            return;
+            LoggingExtension.LogUpdateNotify(companyId, function);
+            var result = new CommandResult();
+            var lastModifiedDate = await GetDepartmentLastModifiedDate(companyId);
+            var departments = await GetDepartmentsByLastModifiedDate(setting, lastModifiedDate);
+            if (departments == null)
+            {
+                LoggingExtension.LogResultNotify(companyId, result, function);
+                return;
+            }
+            var criteria = new SyncDepartmentCriteria
+            {
+                CompanyId = companyId,
+                Departments = departments
+            };
+            result = await baseService.ExecuteNonQueryAsync(criteria);
+            LoggingExtension.LogResultNotify(companyId, result, function);
         }
-        var criteria = new SyncDepartmentCriteria
+        catch (Exception ex)
         {
-            CompanyId = companyId,
-            Departments = departments
-        };
-        result = await baseService.ExecuteNonQueryAsync(criteria);
-        LoggingExtension.LogResultNotify(companyId, result, function);
+            LoggingExtension.LogExceptionNotify(companyId, function, ex);
+        }
     }
 
     private async Task<List<Department>?> GetDepartmentsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
