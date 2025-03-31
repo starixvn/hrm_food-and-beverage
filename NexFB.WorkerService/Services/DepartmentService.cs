@@ -57,7 +57,7 @@ public class DepartmentService(IBaseService baseService,
 
     private async Task<List<Department>?> GetDepartmentsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
-        var httpClient = httpClientFactory.CreateClient();
+        var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
         if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Department}?lastModifiedDate={lastModifiedDate}");

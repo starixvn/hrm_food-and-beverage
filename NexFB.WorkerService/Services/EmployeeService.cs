@@ -65,7 +65,7 @@ public class EmployeeService(IBaseService baseService,
     private async Task<List<Employee>?> GetEmployeesByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
 
-        var httpClient = httpClientFactory.CreateClient();
+        var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
         if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Employee}?lastModifiedDate={lastModifiedDate}");
@@ -116,7 +116,7 @@ public class EmployeeService(IBaseService baseService,
 
     private async Task<List<Team>?> GetTeamByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
-        var httpClient = httpClientFactory.CreateClient();
+        var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
         if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.EmployeeTeam}?lastModifiedDate={lastModifiedDate}");
@@ -167,7 +167,7 @@ public class EmployeeService(IBaseService baseService,
 
     private async Task<List<EmployeeCalendar>?> GetCalendarByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
-        var httpClient = httpClientFactory.CreateClient();
+        var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
         if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.EmployeeCalendar}?lastModifiedDate={lastModifiedDate}");

@@ -59,7 +59,7 @@ public class UnitService(IBaseService baseService,
 
     private async Task<List<Unit>?> GetUnitsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
-        var httpClient = httpClientFactory.CreateClient();
+        var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
         if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Unit}?lastModifiedDate={lastModifiedDate}");

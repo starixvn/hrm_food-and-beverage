@@ -58,7 +58,7 @@ public class SectionService(IBaseService baseService,
 
     private async Task<List<Section>?> GetSectionsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
-        var httpClient = httpClientFactory.CreateClient();
+        var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
         if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Section}?lastModifiedDate={lastModifiedDate}");

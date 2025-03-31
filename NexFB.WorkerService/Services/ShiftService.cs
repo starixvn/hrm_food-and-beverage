@@ -58,7 +58,7 @@ public class ShiftService(IBaseService baseService,
 
     private async Task<List<Shift>?> GetShifts(FnBSyncApiSettings setting)
     {
-        var httpClient = httpClientFactory.CreateClient();
+        var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
         if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Shift}");
