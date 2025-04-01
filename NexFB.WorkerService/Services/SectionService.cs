@@ -36,8 +36,9 @@ public class SectionService(IBaseService baseService,
             var result = new CommandResult();
             var lastModifiedDate = await GetSectionLastModifiedDate(companyId);
             var sections = await GetSectionsByLastModifiedDate(setting, lastModifiedDate);
-            if (sections == null)
+            if (sections == null || !sections.Any())
             {
+                result.Message = Messages.NoRecordToBeSync;
                 LoggingExtension.LogResultNotify(companyId, result, function);
                 return;
             }

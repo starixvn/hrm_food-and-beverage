@@ -36,8 +36,9 @@ public class ShiftService(IBaseService baseService,
             LoggingExtension.LogUpdateNotify(companyId, function);
             var result = new CommandResult();
             var shifts = await GetShifts(setting);
-            if (shifts == null)
+            if (shifts == null || !shifts.Any())
             {
+                result.Message = Messages.NoRecordToBeSync;
                 LoggingExtension.LogResultNotify(companyId, result, function);
                 return;
             }

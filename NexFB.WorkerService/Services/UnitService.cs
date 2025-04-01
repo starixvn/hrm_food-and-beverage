@@ -37,8 +37,9 @@ public class UnitService(IBaseService baseService,
             var result = new CommandResult();
             var lastModifiedDate = await GetUnitLastModifiedDate(companyId);
             var units = await GetUnitsByLastModifiedDate(setting, lastModifiedDate);
-            if (units == null)
+            if (units == null || !units.Any())
             {
+                result.Message = Messages.NoRecordToBeSync;
                 LoggingExtension.LogResultNotify(companyId, result, function);
                 return;
             }

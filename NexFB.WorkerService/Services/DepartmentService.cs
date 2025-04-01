@@ -36,8 +36,9 @@ public class DepartmentService(IBaseService baseService,
             var result = new CommandResult();
             var lastModifiedDate = await GetDepartmentLastModifiedDate(companyId);
             var departments = await GetDepartmentsByLastModifiedDate(setting, lastModifiedDate);
-            if (departments == null)
+            if (departments == null || !departments.Any())
             {
+                result.Message = Messages.NoRecordToBeSync;
                 LoggingExtension.LogResultNotify(companyId, result, function);
                 return;
             }

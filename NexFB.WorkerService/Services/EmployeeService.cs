@@ -42,9 +42,10 @@ public class EmployeeService(IBaseService baseService,
             LoggingExtension.LogUpdateNotify(companyId, employeeFunction);
             var lastModifiedDate = await GetEmployeeLastModifiedDate(companyId);
             var employees = await GetEmployeesByLastModifiedDate(setting, lastModifiedDate);
-            if (employees == null)
+            if (employees == null || !employees.Any())
             {
-                LoggingExtension.LogResultNotify(companyId, result, employeeFunction + $" null {lastModifiedDate.ToString("MM/dd/yyyy hh:mm:ss")}");
+                result.Message = Messages.NoRecordToBeSync;
+                LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
                 return;
             }
             var criteria = new SyncEmployeesCriteria
@@ -54,7 +55,7 @@ public class EmployeeService(IBaseService baseService,
             };
 
             result = await baseService.ExecuteNonQueryAsync(criteria);
-            LoggingExtension.LogResultNotify(companyId, result, employeeFunction + $" {employees.Count}");
+            LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
         }
         catch (Exception ex)
         {
@@ -67,7 +68,6 @@ public class EmployeeService(IBaseService baseService,
 
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
         if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
-
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Employee}?lastModifiedDate={lastModifiedDate}");
 
         if (!response.IsSuccessStatusCode) return null;
@@ -94,8 +94,9 @@ public class EmployeeService(IBaseService baseService,
             var result = new CommandResult();
             var lastModifiedDate = await GetEmployeeTeamLastModifiedDate(companyId);
             var teams = await GetTeamByLastModifiedDate(setting, lastModifiedDate);
-            if (teams == null)
+            if (teams == null || !teams.Any())
             {
+                result.Message = Messages.NoRecordToBeSync;
                 LoggingExtension.LogResultNotify(companyId, result, teamFunction);
                 return;
             }
@@ -145,8 +146,9 @@ public class EmployeeService(IBaseService baseService,
             var result = new CommandResult();
             var lastModifiedDate = await GetEmployeeCalendarLastModifiedDate(companyId);
             var employeeCalendars = await GetCalendarByLastModifiedDate(setting, lastModifiedDate);
-            if (employeeCalendars == null)
+            if (employeeCalendars == null || !employeeCalendars.Any())
             {
+                result.Message = Messages.NoRecordToBeSync;
                 LoggingExtension.LogResultNotify(companyId, result, calendarFunction);
                 return;
             }
