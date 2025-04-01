@@ -44,7 +44,7 @@ public class EmployeeService(IBaseService baseService,
             var employees = await GetEmployeesByLastModifiedDate(setting, lastModifiedDate);
             if (employees == null)
             {
-                LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
+                LoggingExtension.LogResultNotify(companyId, result, employeeFunction + $" null {lastModifiedDate.ToString("MM/dd/yyyy hh:mm:ss")}");
                 return;
             }
             var criteria = new SyncEmployeesCriteria
@@ -54,7 +54,7 @@ public class EmployeeService(IBaseService baseService,
             };
 
             result = await baseService.ExecuteNonQueryAsync(criteria);
-            LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
+            LoggingExtension.LogResultNotify(companyId, result, employeeFunction + $" {employees.Count}");
         }
         catch (Exception ex)
         {
