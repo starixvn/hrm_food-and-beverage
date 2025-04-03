@@ -6,7 +6,6 @@ namespace NexFB.WorkerService;
 public class Worker(ILogger<Worker> logger, 
     IEmployeeService employeeService,
     IDepartmentService departmentService,
-    ISectionService sectionService,
     IShiftService shiftService,
     IUnitService unitService,
     AppSettings appSettings) : BackgroundService
@@ -20,7 +19,6 @@ public class Worker(ILogger<Worker> logger,
             logger.LogInformation("Service started at " + DateTime.Now);
             await employeeService.StartEmployeeJobAsync();
             await departmentService.StartDepartmentJobAsync();
-            await sectionService.StartSectionJobAsync();
             await shiftService.StartShiftJobAsync();
             await unitService.StartUnitJobAsync();
             logger.LogInformation("Service stopped at " + DateTime.Now);

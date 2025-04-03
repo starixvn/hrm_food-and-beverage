@@ -20,7 +20,6 @@ public static class DependencyInjection
 
         services.AddSingleton<IEmployeeService, EmployeeService>();
         services.AddSingleton<IDepartmentService, DepartmentService>();
-        services.AddSingleton<ISectionService, SectionService>();
         services.AddSingleton<IShiftService, ShiftService>();
         services.AddSingleton<IUnitService, UnitService>();
     }
