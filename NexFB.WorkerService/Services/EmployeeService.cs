@@ -100,7 +100,7 @@ public class EmployeeService(IBaseService baseService,
                 LoggingExtension.LogResultNotify(companyId, result, teamFunction);
                 return;
             }
-            var criteria = new SyncTeamCriteria
+            var criteria = new SyncEmployeeTeamCriteria
             {
                 CompanyId = companyId,
                 Teams = teams
@@ -115,7 +115,6 @@ public class EmployeeService(IBaseService baseService,
         }
     }
 
-    //* TODO: Fix method response name when integrations are ready
     private async Task<List<Team>?> GetTeamByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);

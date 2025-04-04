@@ -8,7 +8,7 @@ public class GetEmployeeTeamLastModifiedDateCriteria : CriteriaBase
 
     public override string GetSettingKey()
     {
-        return "Section_GetLastModifiedDate";
+        return "EmpTeam_GetLastModifiedDate";
     }
 
     public override bool IsValid()

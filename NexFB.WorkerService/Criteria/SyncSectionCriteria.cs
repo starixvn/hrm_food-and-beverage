@@ -5,35 +5,35 @@ using NexFB.WorkerService.Models;
 
 namespace NexFB.WorkerService.Criteria;
 
-public class SyncTeamCriteria : CriteriaBase
+public class SyncSectionCriteria : CriteriaBase
 {
-    private const string _TeamTpl = "<Section SectionId='{0}' CompanyId='{1}' Code='{2}' "
+    private const string _SectionTpl = "<Section SectionId='{0}' CompanyId='{1}' Code='{2}' "
                                        + "Name='{3}' DepartmentId='{4}' IsActive='{5}' ModifiedDate='{6}' IsDeleted='{7}'></Section>";
 
     [SpParam(Ignored = true)]
     public int CompanyId { get; set; }
 
     [SpParam(Ignored = true)]
-    public IList<Team> Teams { get; set; }
+    public IList<Section> Sections { get; set; }
 
-    public string SectionXML
+    public string SectionXml
     {
         get
         {
             var value = new StringBuilder("<ROOT>");
 
-            foreach (var team in Teams)
+            foreach (var section in Sections)
             {
                 value.AppendFormat(
-                    _TeamTpl,
-                    team.TeamId,
+                    _SectionTpl,
+                    section.SectionId,
                     CompanyId,
-                    team.Code,
-                    team.Name,
-                    team.DepartmentId,
-                    true,
-                    team.ModifiedDate,
-                    team.IsDeleted);
+                    section.Code,
+                    section.Name,
+                    section.DepartmentId,
+                    section.IsActive,
+                    section.ModifiedDate,
+                    section.IsDeleted);
             }
 
             return value.Append("</ROOT>").ToString();
@@ -47,6 +47,6 @@ public class SyncTeamCriteria : CriteriaBase
 
     public override bool IsValid()
     {
-        return CompanyId > 0 && Teams.Any();
+        return CompanyId > 0 && Sections.Any();
     }
 }
