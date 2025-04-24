@@ -69,6 +69,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexFB.WCFService", "NexFB.WCFService\NexFB.WCFService.csproj", "{40951596-CAFC-42C8-B266-A688B0EBEA62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexFB.WorkerService", "NexFB.WorkerService\NexFB.WorkerService.csproj", "{06A8F143-8529-4C59-9E83-D4FFF5B87B18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -493,6 +495,36 @@ Global
 		{40951596-CAFC-42C8-B266-A688B0EBEA62}.SingleImage|Mixed Platforms.Build.0 = Debug|Any CPU
 		{40951596-CAFC-42C8-B266-A688B0EBEA62}.SingleImage|x86.ActiveCfg = Debug|Any CPU
 		{40951596-CAFC-42C8-B266-A688B0EBEA62}.SingleImage|x86.Build.0 = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.CD_ROM|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.CD_ROM|Any CPU.Build.0 = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.CD_ROM|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.CD_ROM|Mixed Platforms.Build.0 = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.CD_ROM|x86.ActiveCfg = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.CD_ROM|x86.Build.0 = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.Debug|x86.Build.0 = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.DVD-5|x86.Build.0 = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.Release|x86.ActiveCfg = Release|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.Release|x86.Build.0 = Release|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.SingleImage|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.SingleImage|Any CPU.Build.0 = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.SingleImage|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.SingleImage|Mixed Platforms.Build.0 = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.SingleImage|x86.ActiveCfg = Debug|Any CPU
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18}.SingleImage|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -514,9 +546,10 @@ Global
 		{3693F6BE-D439-45A7-B1FD-6CF54FD07DE4} = {BD2BADD7-CA61-4393-B78E-18B5F03EA365}
 		{92F81CC6-4794-471E-9FFE-89D61CDAF2A8} = {BD2BADD7-CA61-4393-B78E-18B5F03EA365}
 		{40951596-CAFC-42C8-B266-A688B0EBEA62} = {4E3AFDA7-97AA-48A4-9163-0287367778E9}
+		{06A8F143-8529-4C59-9E83-D4FFF5B87B18} = {4E3AFDA7-97AA-48A4-9163-0287367778E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {DB9943D6-A34C-4047-B28B-4545F4F68C9A}
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35
+		SolutionGuid = {DB9943D6-A34C-4047-B28B-4545F4F68C9A}
 	EndGlobalSection
 EndGlobal
