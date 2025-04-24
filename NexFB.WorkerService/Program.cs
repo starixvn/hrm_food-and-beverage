@@ -1,4 +1,5 @@
 using Fanex.Data.SqlServer;
+using Fanex.Logging.Sentry.RavenClient;
 using NexFB.WorkerService;
 using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Helper;
@@ -27,6 +28,7 @@ builder.Logging.AddSerilog();
 
 builder.Services.AddWindowsService();
 builder.Services.AddFanexSql(configuration);
+builder.Services.AddFanexLogSentry(configuration);
 builder.Services.AddApplicationServices(configuration);
 builder.Services.AddHttpClient();
 builder.Services.AddHostedService<Worker>();
@@ -39,4 +41,4 @@ builder.Services.AddHttpClient(Constants.FnBClient)
 var host = builder.Build();
 
 LoggingExtension.Config(host.Services.GetRequiredService<ILogger<Worker>>());
-host.Run();
+await host.RunAsync();
