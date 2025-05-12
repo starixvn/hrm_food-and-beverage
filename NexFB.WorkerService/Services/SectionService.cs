@@ -12,19 +12,27 @@ public interface ISectionService
 }
 public class SectionService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
-    List<FnBSyncApiSettings> settings) : ISectionService
+    List<FnBSyncApiSettings> settings,
+    Fanex.Logging.ILogger logger) : ISectionService
 {
    private const string function = "Section";
     public async Task StartSectionJobAsync()
     {
-        await GetSyncSms();
+        foreach (var setting in settings)
+        {
+            var companyName = setting.Name;
+            var companyId = (int)Enum.Parse<CompanyIdentity>(companyName, true);
+            if (companyId == (int)CompanyIdentity.None)
+            {
+                throw new ArgumentException($"Company {companyName} not found");
+            }
+
+            await GetSync(setting, companyId);
+        }
     }
 
-    private async Task GetSyncSms()
+    private async Task GetSync(FnBSyncApiSettings setting, int companyId)
     {
-        const int companyId = (int)CompanyIdentity.Sms;
-        var company = CompanyIdentity.Sms.GetDescription();
-        var setting = settings.FirstOrDefault(x => string.Equals(x.Name, company, StringComparison.CurrentCultureIgnoreCase));
         await SyncSections(setting, companyId);
     }
 
@@ -53,13 +61,16 @@ public class SectionService(IBaseService baseService,
         }
         catch (Exception ex)
         {
-            LoggingExtension.LogExceptionNotify(companyId, function, ex);
+            logger.Error(companyId.ToString(), function, ex);
         }
     }
 
     private async Task<List<Section>?> GetSectionsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
+        var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator };
+        httpClient = new HttpClient(handler);
+        
         if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Section}?lastModifiedDate={lastModifiedDate}");

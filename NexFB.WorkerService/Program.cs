@@ -31,6 +31,8 @@ builder.Services.AddFanexSql(configuration);
 builder.Services.AddFanexLogSentry(configuration);
 builder.Services.AddApplicationServices(configuration);
 builder.Services.AddHttpClient();
+builder.Services.AddFanexLogSentry(configuration);
+
 builder.Services.AddHostedService<Worker>();
 
 builder.Services.AddTransient<LoggingRequestMiddleware>();
