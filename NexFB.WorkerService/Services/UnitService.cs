@@ -62,7 +62,7 @@ public class UnitService(IBaseService baseService,
         }
         catch (Exception ex)
         {
-            logger.Error(companyId.ToString(), function, ex);
+            await logger.ErrorAsync($"Error sync unit {companyId}, Message: {ex.Message}", ex);
         }
     }
 

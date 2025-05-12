@@ -67,7 +67,7 @@ public class EmployeeService(IBaseService baseService,
         }
         catch (Exception ex)
         {
-            logger.Error(companyId.ToString(), employeeFunction, ex);
+            await logger.ErrorAsync($"Error sync employee {companyId}, Message: {ex.Message}", ex);
         }
     }
 
@@ -122,7 +122,7 @@ public class EmployeeService(IBaseService baseService,
         }
         catch (Exception ex)
         {
-            logger.Error(companyId.ToString(), teamFunction, ex);
+            await logger.ErrorAsync($"Error sync employee team {companyId}, Message: {ex.Message}", ex);
         }
     }
 
@@ -177,7 +177,7 @@ public class EmployeeService(IBaseService baseService,
         }
         catch (Exception ex)
         {
-            logger.Error(companyId.ToString(), calendarFunction, ex);
+            await logger.ErrorAsync($"Error sync employee calendar {companyId}, Message: {ex.Message}", ex);
         }
     }
 

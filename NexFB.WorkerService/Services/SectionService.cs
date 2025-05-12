@@ -61,7 +61,7 @@ public class SectionService(IBaseService baseService,
         }
         catch (Exception ex)
         {
-            logger.Error(companyId.ToString(), function, ex);
+            await logger.ErrorAsync($"Error sync section {companyId}, Message: {ex.Message}", ex);
         }
     }
 

@@ -61,7 +61,7 @@ public class ShiftService(IBaseService baseService,
         }
         catch (Exception ex)
         {
-            logger.Error(companyId.ToString(), function, ex);
+            await logger.ErrorAsync($"Error sync shift {companyId}, Message: {ex.Message}", ex);
         }
     }
 
