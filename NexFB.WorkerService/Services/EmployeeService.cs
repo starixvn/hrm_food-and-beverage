@@ -13,7 +13,8 @@ public interface IEmployeeService
 
 public class EmployeeService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
-    List<FnBSyncApiSettings> settings) : IEmployeeService
+    List<FnBSyncApiSettings> settings,
+    Fanex.Logging.ILogger logger) : IEmployeeService
 {
     private const string employeeFunction = "Employee";
     private const string teamFunction = "Team";
@@ -21,14 +22,21 @@ public class EmployeeService(IBaseService baseService,
 
     public async Task StartEmployeeJobAsync()
     {
-        await GetSyncSms();
+        foreach (var setting in settings)
+        {
+            var companyName = setting.Name;
+            var companyId = (int)Enum.Parse<CompanyIdentity>(companyName, true);
+            if (companyId == (int)CompanyIdentity.None)
+            {
+                throw new ArgumentException($"Company {companyName} not found");
+            }
+
+            await GetSyncSms(setting, companyId);
+        }
     }
 
-    private async Task GetSyncSms()
+    private async Task GetSyncSms(FnBSyncApiSettings setting, int companyId)
     {
-        const int companyId = (int)CompanyIdentity.Sms;
-        var company = CompanyIdentity.Sms.GetDescription();
-        var setting = settings.FirstOrDefault(x => string.Equals(x.Name, company, StringComparison.CurrentCultureIgnoreCase));
         await SyncEmployees(setting, companyId);
         await SyncTeams(setting, companyId);
         await SyncCalendar(setting, companyId);
@@ -59,7 +67,7 @@ public class EmployeeService(IBaseService baseService,
         }
         catch (Exception ex)
         {
-            LoggingExtension.LogExceptionNotify(companyId, employeeFunction, ex);
+            await logger.ErrorAsync($"Error sync employee {companyId}, Message: {ex.Message}", ex);
         }
     }
 
@@ -67,6 +75,9 @@ public class EmployeeService(IBaseService baseService,
     {
 
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
+        var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator };
+        httpClient = new HttpClient(handler);
+
         if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Employee}?lastModifiedDate={lastModifiedDate}");
 
@@ -111,13 +122,16 @@ public class EmployeeService(IBaseService baseService,
         }
         catch (Exception ex)
         {
-            LoggingExtension.LogExceptionNotify(companyId, teamFunction, ex);
+            await logger.ErrorAsync($"Error sync employee team {companyId}, Message: {ex.Message}", ex);
         }
     }
 
     private async Task<List<Team>?> GetTeamByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
+        var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator };
+        httpClient = new HttpClient(handler);
+
         if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.EmployeeTeam}?lastModifiedDate={lastModifiedDate}");
@@ -163,27 +177,39 @@ public class EmployeeService(IBaseService baseService,
         }
         catch (Exception ex)
         {
-            LoggingExtension.LogExceptionNotify(companyId, calendarFunction, ex);
+            await logger.ErrorAsync($"Error sync employee calendar {companyId}, Message: {ex.Message}", ex);
         }
     }
 
     private async Task<List<EmployeeCalendar>?> GetCalendarByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
-        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+        var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator };
+        httpClient = new HttpClient(handler);
+        
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey))
+        {
+            httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+        }
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.EmployeeCalendar}?lastModifiedDate={lastModifiedDate}");
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
 
-        if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();
-        if (string.IsNullOrWhiteSpace(content)) return null;
-        var result = JsonConvert.DeserializeObject<List<EmployeeCalendar>>(content);
-        return result ?? null;
+        if (string.IsNullOrWhiteSpace(content))
+        {
+            return null;
+        }
+
+        return JsonConvert.DeserializeObject<List<EmployeeCalendar>>(content);
     }
 
     private async Task<DateTime> GetEmployeeCalendarLastModifiedDate(int companyId)
     {
-        var criteria = new GetEmployeeTeamLastModifiedDateCriteria
+        var criteria = new GetEmployeeCalendarLastModifiedDateCriteria()
         {
             CompanyId = companyId
         };

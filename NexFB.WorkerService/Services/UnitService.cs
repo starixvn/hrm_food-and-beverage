@@ -12,20 +12,28 @@ public interface IUnitService
 }
 public class UnitService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
-    List<FnBSyncApiSettings> settings) : IUnitService
+    List<FnBSyncApiSettings> settings,
+    Fanex.Logging.ILogger logger) : IUnitService
 {
     private const string function = "Unit";
 
     public async Task StartUnitJobAsync()
     {
-        await GetSyncSms();
+        foreach (var setting in settings)
+        {
+            var companyName = setting.Name;
+            var companyId = (int)Enum.Parse<CompanyIdentity>(companyName, true);
+            if (companyId == (int)CompanyIdentity.None)
+            {
+                throw new ArgumentException($"Company {companyName} not found");
+            }
+
+            await GetSync(setting, companyId);
+        }
     }
 
-    private async Task GetSyncSms()
+    private async Task GetSync(FnBSyncApiSettings setting, int companyId)
     {
-        const int companyId = (int)CompanyIdentity.Sms;
-        var company = CompanyIdentity.Sms.GetDescription();
-        var setting = settings.FirstOrDefault(x => string.Equals(x.Name, company, StringComparison.CurrentCultureIgnoreCase));
         await SyncUnits(setting, companyId);
     }
 
@@ -54,13 +62,16 @@ public class UnitService(IBaseService baseService,
         }
         catch (Exception ex)
         {
-            LoggingExtension.LogExceptionNotify(companyId, function, ex);
+            await logger.ErrorAsync($"Error sync unit {companyId}, Message: {ex.Message}", ex);
         }
     }
 
     private async Task<List<Unit>?> GetUnitsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
+        var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator };
+        httpClient = new HttpClient(handler);
+        
         if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Unit}?lastModifiedDate={lastModifiedDate}");

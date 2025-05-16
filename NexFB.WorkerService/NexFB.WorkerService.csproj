@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Fanex.Data" Version="4.3.3" />
     <PackageReference Include="Fanex.Data.Repository" Version="4.3.3" />
     <PackageReference Include="Fanex.Data.SqlServer" Version="4.3.3" />
@@ -27,5 +28,6 @@
     <PackageReference Include="Serilog" Version="4.2.0" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="Fanex.Logging.Sentry.RavenClient" Version="2.0.2" />
   </ItemGroup>
 </Project>
