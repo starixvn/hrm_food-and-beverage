@@ -4,6 +4,8 @@ public class Endpoint
 {
     public const string Employee = "employee";
 
+    public const string EmployeeSecondment = "employee/secondment";
+
     public const string EmployeeTeam = "employee/team";
 
     public const string EmployeeCalendar = "employee/calendar";

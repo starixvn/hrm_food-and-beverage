@@ -38,6 +38,7 @@ public class EmployeeService(IBaseService baseService,
     private async Task GetSyncSms(FnBSyncApiSettings setting, int companyId)
     {
         await SyncEmployees(setting, companyId);
+        await SyncEmployeesSecondment(setting, companyId);
         await SyncTeams(setting, companyId);
         await SyncCalendar(setting, companyId);
     }
@@ -71,6 +72,34 @@ public class EmployeeService(IBaseService baseService,
         }
     }
 
+    private async Task SyncEmployeesSecondment(FnBSyncApiSettings setting, int companyId)
+    {
+        try
+        {
+            var result = new CommandResult();
+            LoggingExtension.LogUpdateNotify(companyId, employeeFunction);
+            var employees = await GetEmployeesSecondment(setting);
+            if (employees == null || !employees.Any())
+            {
+                result.Message = Messages.NoRecordToBeSync;
+                LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
+                return;
+            }
+            var criteria = new SyncEmployeesSecondmentCriteria()
+            {
+                CompanyId = companyId,
+                Users = employees
+            };
+
+            result = await baseService.ExecuteNonQueryAsync(criteria);
+            LoggingExtension.LogResultNotify(companyId, result, employeeFunction);
+        }
+        catch (Exception ex)
+        {
+            await logger.ErrorAsync($"Error sync employee {companyId}, Message: {ex.Message}", ex);
+        }
+    }
+
     private async Task<List<Employee>?> GetEmployeesByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
 
@@ -80,6 +109,23 @@ public class EmployeeService(IBaseService baseService,
 
         if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Employee}?lastModifiedDate={lastModifiedDate}");
+
+        if (!response.IsSuccessStatusCode) return null;
+        var content = await response.Content.ReadAsStringAsync();
+        if (string.IsNullOrWhiteSpace(content)) return null;
+        var result = JsonConvert.DeserializeObject<List<Employee>>(content);
+        return result ?? null;
+    }
+
+    private async Task<List<Employee>?> GetEmployeesSecondment(FnBSyncApiSettings setting)
+    {
+
+        var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
+        var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator };
+        httpClient = new HttpClient(handler);
+
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+        var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.EmployeeSecondment}");
 
         if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();
