@@ -11,7 +11,7 @@ internal class SyncEmployeesSecondmentCriteria : CriteriaBase
         "<User UserId='{0}' EmpId='{1}' Password='{2}' Code='{3}' "
         + "NickName='{4}' FullName='{5}' DomainName='{6}' CompanyId='{7}' IsEnabled='{8}' "
         + " IsDeleted='{9}' JoinedDate='{10}' ModifiedDate='{11}' TeamId='{12}' IsLocal='{13}' "
-        + " CardNumber='{14}' CostCenter='{15}'></User>";
+        + " CardNumber='{14}' CostCenter='{15}' IsSecondment='{16}'></User>";
 
     [SpParam(Ignored = true)]
     public int CompanyId { get; set; }
@@ -44,7 +44,8 @@ internal class SyncEmployeesSecondmentCriteria : CriteriaBase
                     user.TeamId,
                     user.IsLocal,
                     user.EmployeeCard,
-                    user.CostCenter);
+                    user.CostCenter,
+                    1);
             }
 
             return value.Append("</ROOT>").ToString();
