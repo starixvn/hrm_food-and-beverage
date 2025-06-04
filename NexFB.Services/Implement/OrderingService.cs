@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="OrderingService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.9.10">Created</change>
-// </history>
-
-namespace NexFB.Services.Implement
+﻿namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;

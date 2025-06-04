@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UndoOrderCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.9.5">Created</change>
-// </history>
-
-namespace NexFB.Criteria.Kitchen
+﻿namespace NexFB.Criteria.Kitchen
 {
     using System;
     using Fanex.Data.Repository;

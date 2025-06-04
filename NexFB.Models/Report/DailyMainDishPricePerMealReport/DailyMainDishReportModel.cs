@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="DailyMainDishReportModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="12/12/2014 9:44:29 AM">Created.</change>
-// </history>
-
-namespace NexFB.Models.Report.DailyMainDishPricePerMealReport
+﻿namespace NexFB.Models.Report.DailyMainDishPricePerMealReport
 {
     using System;
     using System.Collections.Generic;

@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="FoodItemModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/23/2014 9:12:30 AM">Created.</change>
-// </history>
-
-namespace NexFB.Models.FoodItemManagement
+﻿namespace NexFB.Models.FoodItemManagement
 {
     using System.Collections.Generic;
     using NexFB.Models.SetMenuManagement;

@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="MealDateModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/4/2014 2:18:29 PM">Created.</change>
-// </history>
-
-namespace NexFB.Models.MealRegistration
+﻿namespace NexFB.Models.MealRegistration
 {
     using System;
     using System.Collections.Generic;

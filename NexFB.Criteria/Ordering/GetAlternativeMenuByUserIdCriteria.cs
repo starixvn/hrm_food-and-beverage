@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="GetAlternativeMenuByUserIdCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/16/2014 1:01:49 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.Ordering
+﻿namespace NexFB.Criteria.Ordering
 {
     using Fanex.Data.Repository;
 

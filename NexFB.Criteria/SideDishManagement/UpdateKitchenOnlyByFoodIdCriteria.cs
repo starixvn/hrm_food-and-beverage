@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="UpdateKitchenOnlyByFoodIdCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="11/26/2014 1:27:09 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.SideDishManagement
+﻿namespace NexFB.Criteria.SideDishManagement
 {
     using System;
     using Fanex.Data.Repository;

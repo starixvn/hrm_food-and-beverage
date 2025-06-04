@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="FoodMenuService.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/23/2014 11:05:16 AM">Created.</change>
-// </history>
-
-namespace NexFB.Services.Implement
+﻿namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;

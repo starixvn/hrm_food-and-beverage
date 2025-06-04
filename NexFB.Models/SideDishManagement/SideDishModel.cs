@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="SideDishModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/9/2014 9:52:06 AM">Created.</change>
-// </history>
-
-namespace NexFB.Models.SideDishManagement
+﻿namespace NexFB.Models.SideDishManagement
 {
     using System.Collections.Generic;
     using NexFB.Models.Employee;

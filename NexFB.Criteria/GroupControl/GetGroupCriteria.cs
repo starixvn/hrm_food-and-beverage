@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="GetGroupCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/28/2014 2:24:11 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.GroupControl
+﻿namespace NexFB.Criteria.GroupControl
 {
     using Fanex.Data.Repository;
 

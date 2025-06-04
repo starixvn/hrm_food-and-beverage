@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DeleteOrderCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.9.15">Created</change>
-// </history>
-
-namespace NexFB.Criteria.Ordering
+﻿namespace NexFB.Criteria.Ordering
 {
     using System;
     using Fanex.Data.Repository;

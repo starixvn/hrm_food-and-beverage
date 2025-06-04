@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="GetAllEmployeeFunctionCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/3/2014 1:56:09 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.Employee
+﻿namespace NexFB.Criteria.Employee
 {
     using Fanex.Data.Repository;
 

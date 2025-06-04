@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="DefaultMealModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/12/2014 3:06:25 PM">Created.</change>
-// </history>
-
-namespace NexFB.Models.MealRegistration
+﻿namespace NexFB.Models.MealRegistration
 {
     /// <summary>
     /// The default meal model.

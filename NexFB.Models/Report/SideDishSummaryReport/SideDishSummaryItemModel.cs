@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SideDishSummaryItemModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2015/1/30">Created</change>
-// </history>
-
-namespace NexFB.Models.Report.SideDishSummaryReport
+﻿namespace NexFB.Models.Report.SideDishSummaryReport
 {
     using System;
 

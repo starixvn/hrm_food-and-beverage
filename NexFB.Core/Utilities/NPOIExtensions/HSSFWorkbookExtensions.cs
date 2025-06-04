@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="HSSFWorkbookExtensions.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="11/27/2014 3:02:15 PM">Created.</change>
-// </history>
-
-namespace NexFB.Core.Utilities.NPOIExtensions
+﻿namespace NexFB.Core.Utilities.NPOIExtensions
 {
     using System.Web;
     using NPOI.SS.UserModel;

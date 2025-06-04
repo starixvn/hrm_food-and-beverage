@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="SideDishService.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/9/2014 10:57:19 AM">Created.</change>
-// </history>
-
-namespace NexFB.Services.Implement
+﻿namespace NexFB.Services.Implement
 {
     using System.Collections.Generic;
     using Fanex.Common.Helper;

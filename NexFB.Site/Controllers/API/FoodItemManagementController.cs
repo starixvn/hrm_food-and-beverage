@@ -1,14 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="FoodItemManagementController.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/16/2014 2:09:44 PM">Created.</change>
-//   <change who="Quinn.Vo" date="2014.10.27">Add UpdateStatusFoodItem.</change>
-// </history>
-
-namespace NexFB.Site.Controllers.API
+﻿namespace NexFB.Site.Controllers.API
 {
     using System;
     using System.Collections.Generic;

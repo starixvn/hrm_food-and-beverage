@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="IMonthlyMainDishReportService.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="1/15/2015 12:33:27 PM">Created.</change>
-// </history>
-
-namespace NexFB.Services.Interface.Report
+﻿namespace NexFB.Services.Interface.Report
 {
     using System.Collections.Generic;
     using Core.Enums;

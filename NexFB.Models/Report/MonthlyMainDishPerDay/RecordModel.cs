@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="RecordModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="12/30/2014 12:58:14 PM">Created.</change>
-// </history>
-
-namespace NexFB.Models.Report.MonthlyMainDishPerDay
+﻿namespace NexFB.Models.Report.MonthlyMainDishPerDay
 {
     using System.Collections.Generic;
 

@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="MainWindow.xaml.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.8.27">Created</change>
-// </history>
-
-namespace NexFB.PosKitchen
+﻿namespace NexFB.PosKitchen
 {
     using System.Windows;
     using System.Windows.Controls;

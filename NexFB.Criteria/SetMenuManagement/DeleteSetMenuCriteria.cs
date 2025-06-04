@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DeleteSetMenuCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.10.22">Created</change>
-// </history>
-
-namespace NexFB.Criteria.SetMenuManagement
+﻿namespace NexFB.Criteria.SetMenuManagement
 {
     using System;
     using Fanex.Data.Repository;

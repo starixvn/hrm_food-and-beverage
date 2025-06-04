@@ -1,66 +1,30 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="OrderStatus.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.9.16">Created</change>
-// </history>
-
-namespace NexFB.Core.Enums
+﻿namespace NexFB.Core.Enums
 {
     using System.ComponentModel;
 
-    /// <summary>
-    /// Order Status.
-    /// </summary>
     public enum OrderStatus
     {
-        /// <summary>
-        /// None item.
-        /// </summary>
         [Description("None")]
         None = 0,
 
-        /// <summary>
-        /// New order.
-        /// </summary>
         [Description("New")]
         NewOrder = 1,
 
-        /// <summary>
-        /// Received Order.
-        /// </summary>
         [Description("Accepted")]
         ReceivedOrder = 2,
 
-        /// <summary>
-        /// Reduced order.
-        /// </summary>
         [Description("Reduced")]
         ReducedOrder = 3,
 
-        /// <summary>
-        /// Delivered order.
-        /// </summary>
         [Description("Delivered")]
         DeliveredOrder = 4,
 
-        /// <summary>
-        /// Edited order.
-        /// </summary>
         [Description("Edited")]
         EditedOrder = 5,
 
-        /// <summary>
-        /// Canceled order.
-        /// </summary>
         [Description("Rejected")]
         CanceledOrder = 6,
 
-        /// <summary>
-        /// Deleted order.
-        /// </summary>
         [Description("Deleted")]
         DeletedOrder = 99,
     }

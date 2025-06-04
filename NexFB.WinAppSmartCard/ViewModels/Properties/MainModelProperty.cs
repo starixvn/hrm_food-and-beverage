@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="MainModelProperty.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.11.18">Created</change>
-// </history>
-
-namespace NexFB.WinAppSmartCard.ViewModels.Properties
+﻿namespace NexFB.WinAppSmartCard.ViewModels.Properties
 {
     using Microsoft.AspNet.SignalR.Client.Hubs;
     using NexFB.Models.Entities;

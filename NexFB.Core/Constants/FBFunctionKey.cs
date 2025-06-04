@@ -1,17 +1,5 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="FBFunctionKey.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/27/2014 10:02:25 AM">Created.</change>
-// </history>
-
-namespace NexFB.Core.Constants
+﻿namespace NexFB.Core.Constants
 {
-    /// <summary>
-    /// The function key.
-    /// </summary>
     public static class FBFunctionKey
     {
         public const string Order = "Order";

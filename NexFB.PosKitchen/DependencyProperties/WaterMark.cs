@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="WaterMark.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.9.26">Created</change>
-// </history>
-
-namespace NexFB.PosKitchen.DependencyProperties
+﻿namespace NexFB.PosKitchen.DependencyProperties
 {
     using System;
     using System.Collections.Generic;

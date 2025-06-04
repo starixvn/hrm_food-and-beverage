@@ -1,14 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="FoodMenuModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/23/2014 9:15:20 AM">Created.</change>
-//   <change who="Quinn.Vo" date="2014.10.23">Change Food Item to Set Menu.</change>
-// </history>
-
-namespace NexFB.Models.FoodMenuManagement
+﻿namespace NexFB.Models.FoodMenuManagement
 {
     using System.Collections.Generic;
     using NexFB.Models.Employee;

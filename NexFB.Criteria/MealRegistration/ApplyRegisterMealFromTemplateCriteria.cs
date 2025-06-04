@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ApplyRegisterMealFromTemplateCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/15/2014">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.MealRegistration
+﻿namespace NexFB.Criteria.MealRegistration
 {
     using System;
     using Fanex.Data.Repository;

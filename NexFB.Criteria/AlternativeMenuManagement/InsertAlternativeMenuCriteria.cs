@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="InsertAlternativeMenuCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/13/2014 9:14:32 AM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.AlternativeMenuManagement
+﻿namespace NexFB.Criteria.AlternativeMenuManagement
 {
     using System;
     using Fanex.Data.Repository;

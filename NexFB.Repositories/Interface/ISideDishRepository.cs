@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ISideDishRepository.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/9/2014 10:06:23 AM">Created.</change>
-// </history>
-
-namespace NexFB.Repositories.Interface
+﻿namespace NexFB.Repositories.Interface
 {
     using System.Collections.Generic;
     using Fanex.Data.Repository;

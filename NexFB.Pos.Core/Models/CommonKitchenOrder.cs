@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CommonKitchenOrder.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.9.30">Created</change>
-// </history>
-
-namespace NexFB.Pos.Core.Models
+﻿namespace NexFB.Pos.Core.Models
 {
     using NexFB.Pos.Core.NotifyBase;
 

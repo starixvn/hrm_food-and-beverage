@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ICommonRepository.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/2/2014 3:20:48 PM">Created.</change>
-// </history>
-
-namespace NexFB.Repositories.Interface
+﻿namespace NexFB.Repositories.Interface
 {
     using System;
     using System.Collections.Generic;

@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="DeleteFoodItemCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/24/2014 4:47:58 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.FoodItemManagement
+﻿namespace NexFB.Criteria.FoodItemManagement
 {
     using System;
     using Fanex.Data.Repository;

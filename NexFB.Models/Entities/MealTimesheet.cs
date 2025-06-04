@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="MealTimesheet.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/11/2014 10:02:36 AM">Created.</change>
-// </history>
-
-namespace NexFB.Models.Entities
+﻿namespace NexFB.Models.Entities
 {
     using System;
 
