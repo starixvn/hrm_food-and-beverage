@@ -115,6 +115,8 @@
         </Setting>
         <Setting Key="RegisterMeal_Setting" SpName="RegisterMeal_Setting" DbName="FBM" Plain="0">
         </Setting>
+        <Setting Key="RegisterMeal_CancelByDate" SpName="RegisterMeal_CancelByDate" DbName="FBM" Plain="0"></Setting>
+        <Setting Key="RegisterMeal_GetEmployeeRegisterByDate" SpName="RegisterMeal_GetEmployeeRegisterByDate" DbName="FBM" Plain="0"></Setting>
     </Function>
     <Function Name="Ordering">
         <Setting Key="Remark_GetTopTen" SpName="Remark_GetTopTen" DbName="FBM" Plain="0">

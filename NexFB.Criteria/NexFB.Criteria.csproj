@@ -133,6 +133,8 @@
     <Compile Include="Kitchen\ProcessDeliverOrderCriteria.cs" />
     <Compile Include="Kitchen\ProcessReceiveOrderCriteria.cs" />
     <Compile Include="MealRegistration\ApplyRegisterMealFromTemplateCriteria.cs" />
+    <Compile Include="MealRegistration\CancelRegisterMealByDateCriteria.cs" />
+    <Compile Include="MealRegistration\GetEmployeeRegisterMealByDateCriteria.cs" />
     <Compile Include="MealRegistration\GetEmployeeNonRegistrationCriteria.cs" />
     <Compile Include="MealRegistration\GetEmployeeRegisterFoodByRangeDateCriteria.cs" />
     <Compile Include="MealRegistration\GetEmployeeRegistrationCriteria.cs" />

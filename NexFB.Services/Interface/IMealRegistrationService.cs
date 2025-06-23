@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using NexFB.Core.Models;
     using NexFB.Criteria.MealRegistration;
+    using NexFB.Models.Entities;
     using NexFB.Models.MealRegistration;
 
     /// <summary>
@@ -28,5 +29,9 @@
         CommandResult ApplyRegisterMealFromTemplate(ApplyRegisterMealFromTemplateCriteria criteria);
 
         RegisterMealSetting GetRegisterMealSetting(GetRegisterMealSettingCriteria criteria);
+
+        CommandResult CancelRegisterMealByDate(CancelRegisterMealByDateCriteria criteria);
+
+        IList<EmployeeRegister> GetEmployeeRegisterByDate(GetEmployeeRegisterMealByDateCriteria criteria);
     }
 }
