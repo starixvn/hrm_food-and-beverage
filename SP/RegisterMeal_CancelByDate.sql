@@ -27,7 +27,7 @@ BEGIN
 
         UPDATE er
         SET er.IsVegetarianManual = NULL,
-            er.IsVegetarian = NULL,
+			er.IsOverride = 1,
             er.ModifiedBy = @ModifiedBy,
             er.ModifiedDate = @ModifiedDate
         FROM EmpRegisterFood er
