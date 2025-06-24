@@ -28,10 +28,14 @@
         }
 
         [HttpPost]
-        public CommandResult CancelRegisterMealByDate(CancelRegisterMealByDateCriteria criteria)
+        public CommandResult CancelRegisterMealByDate(int SysId, int MealId, DateTime OnDate)
         {
-            criteria.ModifiedBy = criteria.SysId;
-            criteria.ModifiedDate = DateTime.Now;
+            var criteria = new CancelRegisterMealByDateCriteria
+            {
+                SysId = SysId,
+                MealId = MealId,
+                OnDate = OnDate
+            };
 
             return _mealRegistrationService.CancelRegisterMealByDate(criteria);
         }
