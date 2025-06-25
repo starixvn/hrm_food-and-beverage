@@ -1,10 +1,4 @@
-USE [FBM]
-GO
-/****** Object:  StoredProcedure [dbo].[RegisterMeal_SetByRangeDate]    Script Date: 6/23/2025 10:10:24 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 
  ALTER PROCEDURE [dbo].[RegisterMeal_SetByRangeDate] @SysId VARCHAR(500)
 	,@Meal VARCHAR(max) /*<ROOT><Meal MealID="1" IsVeg="1/><Meal MealID="2" IsVeg="0/><Meal MealID="3" IsVeg="1/><Meal MealID="4" IsVeg="0"/></ROOT>'*/
