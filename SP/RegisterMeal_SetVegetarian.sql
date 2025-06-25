@@ -64,6 +64,15 @@ BEGIN
             RETURN
         END
 
+		-- Check if trying to register after cutoff time (14:00 of previous day)
+		DECLARE @CutoffTime DATETIME = DATEADD(HOUR, 14, CAST(DATEADD(DAY, -1, @OnDate) AS DATETIME))
+		IF GETDATE() > @CutoffTime
+		BEGIN
+			SET @ErrCode = 4
+			SET @ErrMsg = N'Không thể đăng ký suất ăn chay sau 14:00.'
+			RETURN
+		END
+
 		UPDATE dbo.EmpRegisterFood WITH(ROWLOCK,UPDLOCK)
 		SET IsVegetarian = 1, IsVegetarianManual = 1, ModifiedBy = @SysId 
 			,IsOverride = 1
