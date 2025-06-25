@@ -151,7 +151,7 @@ BEGIN
 	)
 	BEGIN
 		SELECT @ErrCode = 100,
-			   @ErrMsg = N'Some users have not registered for meals on this date. Please register meals first.'
+			   @ErrMsg = N'Users have not registered for meals on this date. Please register meals first.'
 		RETURN
 	END
 

@@ -1,5 +1,3 @@
-/****** Object:  Stored Procedure dbo.MealOrder_Edit_RequestByWeb    Script Date: 4/13/2015 9:50:19 AM ******/
-/****** Object:  Stored Procedure dbo.MealOrder_Edit_RequestByWeb    Script Date: 3/27/2015 3:36:46 PM ******/
 ALTER PROCEDURE [dbo].[MealOrder_Edit_RequestByWeb]
 	@OrderID INT
 	,@Remark nvarchar(500)	=''
@@ -151,6 +149,27 @@ BEGIN
 		,@OrderTime_Old = ord.OrderTime
 	FROM [dbo].[Order] ord WITH(NOLOCK) 
 	WHERE ord.OrderID  = @OrderID
+
+	-- Check for users who haven't registered food in EmpRegisterFood
+	IF EXISTS (
+		SELECT 1 
+		FROM #EmpRegister er
+		INNER JOIN dbo.Employee e WITH (NOLOCK) ON er.SysId = e.SysID 
+		WHERE er.IsOrder = 1
+		AND NOT EXISTS (
+			SELECT 1 
+			FROM dbo.EmpRegisterFood erf WITH (NOLOCK)
+			WHERE erf.SysId = er.SysId
+			AND erf.WorkDate = @OnDate 
+			AND erf.MealID = @MealID
+			AND erf.IsVegetarian IS NOT NULL
+		)
+	)
+	BEGIN
+		SELECT @ErrCode = 100,
+			   @ErrMsg = N'Users have not registered for meals on this date. Please register meals first.'
+		RETURN
+	END
 
 	IF @CurrentStatusID > 3
 	BEGIN
@@ -659,4 +678,3 @@ IF OBJECT_ID('tempdb..#tmpOrder') IS NOT NULL
 			@Data		= @LogTraderData,
 			@OldData	= @LogTraderOldData
 END
-
