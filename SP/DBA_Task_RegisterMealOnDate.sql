@@ -128,7 +128,9 @@ BEGIN
 	INNER JOIN #EmpRegisterFood AS t_reg ON reg.SysId = t_reg.SysId
 		AND reg.WorkDate = t_reg.WorkDate
 		AND reg.MealID = t_reg.MealID
-	WHERE GETDATE() <= DATEADD(HOUR, 14, CAST(DATEADD(DAY, -1, reg.WorkDate) AS DATETIME))
+	INNER JOIN dbo.Employee AS emp ON reg.SysId = emp.SysID
+	WHERE (emp.CompanyID IN (1, 4) AND GETDATE() <= DATEADD(HOUR, 14, CAST(DATEADD(DAY, -1, reg.WorkDate) AS DATETIME)))
+		OR emp.CompanyID NOT IN (1, 4)
 
 	INSERT INTO dbo.EmpRegisterFood(
 		SysId
