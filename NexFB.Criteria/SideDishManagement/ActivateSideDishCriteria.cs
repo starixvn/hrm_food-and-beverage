@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ActivateSideDishCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/9/2014 2:56:41 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.SideDishManagement
+﻿namespace NexFB.Criteria.SideDishManagement
 {
     using System;
     using Fanex.Data.Repository;

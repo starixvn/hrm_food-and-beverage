@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ChangePasswordCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.11.12">Created</change>
-// </history>
-
-namespace NexFB.Criteria.Employee
+﻿namespace NexFB.Criteria.Employee
 {
     using Fanex.Data.Repository;
 

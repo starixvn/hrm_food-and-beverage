@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="DeleteMealPlanningCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/7/2014 3:12:31 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.FoodMealPlanning
+﻿namespace NexFB.Criteria.FoodMealPlanning
 {
     using System;
     using Fanex.Data.Repository;

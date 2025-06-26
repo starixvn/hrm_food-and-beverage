@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="AssemblyInfo.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/22/2014 3:47:33 PM">Created.</change>
-// </history>
-
-using System;
+﻿using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 

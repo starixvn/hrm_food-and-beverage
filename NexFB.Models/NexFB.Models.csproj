@@ -86,6 +86,7 @@
     </Compile>
     <Compile Include="Kitchen\OrderResult.cs" />
     <Compile Include="MealRegistration\DefaultMealModel.cs" />
+    <Compile Include="MealRegistration\EmployeeRegister.cs" />
     <Compile Include="MealRegistration\EmployeeRegisterFood.cs" />
     <Compile Include="MealRegistration\VegetarianManagement.cs" />
     <Compile Include="Ordering\OrderRemarkModel.cs" />

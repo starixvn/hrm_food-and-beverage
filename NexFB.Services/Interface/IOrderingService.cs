@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="IOrderingService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.9.10">Created</change>
-// </history>
-
-namespace NexFB.Services.Interface
+﻿namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
     using NexFB.Core.Models;

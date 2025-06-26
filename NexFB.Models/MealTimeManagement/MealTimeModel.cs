@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="MealTimeModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2015/3/20">Created.</change>
-// </history>
-
-namespace NexFB.Models.MealTimeManagement
+﻿namespace NexFB.Models.MealTimeManagement
 {
     /// <summary>
     /// The meal time management model.

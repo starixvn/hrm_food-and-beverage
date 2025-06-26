@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="IUserControlService.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="8/26/2014 4:49:30 PM">Created.</change>
-// </history>
-
-namespace NexFB.Services.Interface
+﻿namespace NexFB.Services.Interface
 {
     using System.Collections.Generic;
     using NexFB.Core.Models;

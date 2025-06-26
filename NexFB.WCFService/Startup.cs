@@ -1,7 +1,6 @@
 ﻿namespace NexFB.WCFService
 {
     using System;
-    using System.Collections.Generic;
     using Fanex.Data.Repository;
     using Fanex.Data.SqlServer;
     using Fanex.Logging;
@@ -13,31 +12,14 @@
     using Microsoft.Extensions.Hosting;
     using NexFB.WCFService.Middlewares;
     using NexFB.WCFService.Services;
-    using Sentry;
 
-    public class Startup
+    public class Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
         public void ConfigureServices(IServiceCollection services)
         {
-            LogManager
-               .SetDefaultLogCategory(Configuration.GetSection("Fanex.Logging:LogCategory").Value)
-               .Use(new List<ILogEngine>
-               {
-                    new SentryLogging(new SentryEngineOptions
-                    {
-                        Dsn = new Dsn(Configuration.GetSection("Fanex.Logging:SentryEngineOptions:Dsn").Value)
-                    })
-               });
-
             services.AddHttpClient();
-            services.AddFanexSql(Configuration);
+            services.AddFanexLogSentry(configuration);
+            services.AddFanexSql(configuration);
             services.AddServiceModelServices();
             services.AddServiceModelMetadata();
             services.AddSingleton<IServiceBehavior, UseRequestHeadersForMetadataAddressBehavior>();

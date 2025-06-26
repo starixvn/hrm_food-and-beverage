@@ -151,6 +151,10 @@
                 var loginResult = _authService.Login(loginParam);
 
                 user = !loginResult.IsSuccessfull ? null : GetEmployeeByUserId(loginResult.UserId);
+                if (user == null)
+                {
+                    user = LoginByCode(model);
+                }
             }
             catch (Exception exception)
             {

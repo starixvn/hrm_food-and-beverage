@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="UpdateMealTimeCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2015/2/5">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.MealTimeManagement
+﻿namespace NexFB.Criteria.MealTimeManagement
 {
     using System;
     using Fanex.Data.Repository;

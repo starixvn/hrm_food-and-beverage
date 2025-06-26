@@ -141,9 +141,9 @@
             bool? isVegetarian,
             DateTime dateSelected)
         {
-            string reportName = Lang.MealForecastDetailReportName + dateSelected.ToString("dd_MMM_yyyy");
-            string reportTitle = Lang.MealForecastDetailReportTitle + dateSelected.ToString("dd MMM, yyyy");
-            string reportSheetName = Lang.MealForecastDetailReportSheetName + dateSelected.ToString("dd MMM, yyyy");
+            var reportName = Lang.MealForecastDetailReportName + dateSelected.ToString("dd_MMM_yyyy");
+            var reportTitle = Lang.MealForecastDetailReportTitle + dateSelected.ToString("dd MMM, yyyy");
+            var reportSheetName = $"Meal_Forecast_Report_{dateSelected:ddMMMyyyy}";
             var writer = new ExcelTemplateWriter(templatePath, reportName, reportSheetName);
 
             // Fill report title.

@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="MoneyConverter.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.10.23">Created</change>
-// </history>
-
-namespace NexFB.WinAppSmartCard.Converter
+﻿namespace NexFB.WinAppSmartCard.Converter
 {
     using System;
     using System.Globalization;

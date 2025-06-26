@@ -149,6 +149,28 @@
             return setting;
         }
 
+        public CommandResult CancelRegisterMealByDate(CancelRegisterMealByDateCriteria criteria)
+        {
+            var commandResult = new CommandResult();
+            if (criteria.IsValid())
+            {
+                commandResult = Repository.Update(criteria);
+            }
+
+            return commandResult;
+        }
+
+        public IList<EmployeeRegister> GetEmployeeRegisterByDate(GetEmployeeRegisterMealByDateCriteria criteria)
+        {
+            IList<EmployeeRegister> employeeRegisters = new List<EmployeeRegister>();
+            if (criteria.IsValid())
+            {
+                employeeRegisters = GetData<EmployeeRegister>(criteria).ToList();
+            }
+
+            return employeeRegisters;
+        }
+
         private void CheckDisableDate(IList<MealRegisterModel> allWeeks)
         {
             foreach (MealRegisterModel week in allWeeks)

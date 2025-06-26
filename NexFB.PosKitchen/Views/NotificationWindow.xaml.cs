@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="NotificationWindow.xaml.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.9.23">Created</change>
-// </history>
-
-namespace NexFB.PosKitchen.Views
+﻿namespace NexFB.PosKitchen.Views
 {
     using System.Windows;
 

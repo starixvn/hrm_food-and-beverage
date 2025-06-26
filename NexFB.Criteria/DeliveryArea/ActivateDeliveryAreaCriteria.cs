@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ActivateDeliveryAreaCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="12/17/2014 3:11:01 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.DeliveryArea
+﻿namespace NexFB.Criteria.DeliveryArea
 {
     using System;
     using Fanex.Data.Repository;

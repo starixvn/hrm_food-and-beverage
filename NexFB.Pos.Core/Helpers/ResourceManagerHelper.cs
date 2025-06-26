@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ResourceManagerHelper.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.11.10">Created</change>
-// </history>
-
-namespace NexFB.Pos.Core.Helpers
+﻿namespace NexFB.Pos.Core.Helpers
 {
     using System.IO;
 

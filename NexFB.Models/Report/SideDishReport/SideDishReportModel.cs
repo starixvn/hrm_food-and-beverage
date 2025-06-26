@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SideDishReportModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Larry.Tran" date="1/7/2015 3:58 PM">Created.</change>
-// </history>
-
-namespace NexFB.Models.Report.SideDishReport
+﻿namespace NexFB.Models.Report.SideDishReport
 {
     using System.Collections.Generic;
 

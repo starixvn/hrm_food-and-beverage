@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="ActivateFoodMenuCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/30/2014 11:02:31 AM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.FoodMenuManagement
+﻿namespace NexFB.Criteria.FoodMenuManagement
 {
     using System;
     using Fanex.Data.Repository;

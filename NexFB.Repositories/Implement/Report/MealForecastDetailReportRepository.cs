@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="MealForecastDetailReportRepository.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2015/1/16">Created.</change>
-// </history>
-
-namespace NexFB.Repositories.Implement.Report
+﻿namespace NexFB.Repositories.Implement.Report
 {
     using System.Collections.Generic;
     using System.Linq;

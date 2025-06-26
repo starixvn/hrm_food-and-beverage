@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="GetBasicFoodItemCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/3/2014 2:23:49 PM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.FoodItemManagement
+﻿namespace NexFB.Criteria.FoodItemManagement
 {
     using Fanex.Data.Repository;
 

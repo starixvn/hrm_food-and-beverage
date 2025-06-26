@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="MealPlanningModel.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/2/2014 1:39:24 PM">Created.</change>
-// </history>
-
-namespace NexFB.Models.FoodMealPlanning
+﻿namespace NexFB.Models.FoodMealPlanning
 {
     using System;
     using NexFB.Models.FoodMenuManagement;

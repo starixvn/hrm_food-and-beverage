@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="GetFoodMealPlanningByOnDateCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="10/8/2014 9:47:43 AM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.FoodMealPlanning
+﻿namespace NexFB.Criteria.FoodMealPlanning
 {
     using System;
     using Fanex.Data.Repository;

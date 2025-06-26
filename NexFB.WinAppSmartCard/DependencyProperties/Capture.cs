@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Capture.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.12.30">Created</change>
-// </history>
-
-namespace NexFB.WinAppSmartCard.DependencyProperties
+﻿namespace NexFB.WinAppSmartCard.DependencyProperties
 {
     using System;
     using System.Collections.Specialized;

@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DeleteSpecialUserCriteria.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.12.5">Created</change>
-// </history>
-
-namespace NexFB.Criteria.Employee
+﻿namespace NexFB.Criteria.Employee
 {
     using System;
     using Fanex.Data.Repository;

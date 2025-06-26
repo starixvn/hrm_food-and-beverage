@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="RegisterMealByRangeDateCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="9/10/2014 10:52:33 AM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.MealRegistration
+﻿namespace NexFB.Criteria.MealRegistration
 {
     using System;
     using Fanex.Data.Repository;

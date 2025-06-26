@@ -2,6 +2,7 @@
 <Functions>
     <Function Name="Attendance">
         <Setting Key="API_SYN_Employee" SpName="API_SYN_Employee" DbName="FBM" Plain="0"></Setting>
+        <Setting Key="API_SYN_Employee_Secondment" SpName="API_SYN_Employee_Secondment" DbName="FBM" Plain="0"></Setting>
         <Setting Key="API_SYN_Team" SpName="API_SYN_Team" DbName="FBM" Plain="0"></Setting>
         <Setting Key="API_SYN_Section" SpName="API_SYN_Section" DbName="FBM" Plain="0"></Setting>
         <Setting Key="API_SYN_Department" SpName="API_SYN_Department" DbName="FBM" Plain="0"></Setting>

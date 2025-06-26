@@ -1,13 +1,4 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="AssignGroupToMemberCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="1/22/2015 9:40:36 AM">Created.</change>
-// </history>
-
-namespace NexFB.Criteria.GroupControl
+﻿namespace NexFB.Criteria.GroupControl
 {
     using System;
     using Fanex.Data.Repository;
