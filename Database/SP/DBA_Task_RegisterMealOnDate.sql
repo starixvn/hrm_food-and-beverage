@@ -117,8 +117,6 @@ BEGIN
 	LEFT JOIN dbo.EmpRegisterFood AS reg WITH (NOLOCK) ON a.SysId = reg.SysId AND b.WorkDate = reg.WorkDate AND me.MealID = reg.MealID
 	ORDER BY a.SysId, b.WorkDate
 
-	select * from #EmpRegisterFood;
-
 	UPDATE reg 
 	SET reg.IsVegetarian = t_reg.IsVegetarian
 		,reg.IsVegetarianOriginal = t_reg.IsVegetarianOriginal
@@ -163,4 +161,3 @@ BEGIN
 	IF OBJECT_ID('tempdb..#tmpSys') IS NOT NULL
 		DROP TABLE #tmpSys 
 END
-

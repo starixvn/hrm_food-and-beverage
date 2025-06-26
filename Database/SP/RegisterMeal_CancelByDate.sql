@@ -1,5 +1,5 @@
 
-CREATE OR ALTER PROCEDURE [dbo].[RegisterMeal_CancelByDate]
+CREATE OR ALTER   PROCEDURE [dbo].[RegisterMeal_CancelByDate]
     @SysId INT,
     @OnDate DATE,
     @MealId INT,
