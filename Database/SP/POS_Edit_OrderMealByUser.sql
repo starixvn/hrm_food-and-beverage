@@ -99,23 +99,26 @@ BEGIN
 	FROM [dbo].[Order] ord WITH(NOLOCK) 
 	WHERE ord.OrderID  = @OrderID
 
-	-- Check for users who haven't registered food in EmpRegisterFood
-	IF EXISTS (
+	-- Check for users who haven't registered food in EmpRegisterFood (only for CompanyID 1 and 4)
+	DECLARE @ViolatingUsers NVARCHAR(MAX) = ''
+	
+	SELECT @ViolatingUsers = COALESCE(@ViolatingUsers + '<br/>&nbsp;', '') + CONVERT(NVARCHAR(50), ISNULL(e.NickName, ''))
+	FROM #EmpRegister er
+	INNER JOIN dbo.Employee e WITH (NOLOCK) ON er.SysId = e.SysID 
+	WHERE e.CompanyID IN (1, 4)
+	AND NOT EXISTS (
 		SELECT 1 
-		FROM #EmpRegister er
-		INNER JOIN dbo.Employee e WITH (NOLOCK) ON er.SysId = e.SysID 
-		WHERE NOT EXISTS (
-			SELECT 1 
-			FROM dbo.EmpRegisterFood erf WITH (NOLOCK)
-			WHERE erf.SysId = er.SysId
-			AND erf.WorkDate = @OnDate 
-			AND erf.MealID = @MealID
-			AND erf.IsVegetarian IS NOT NULL
-		)
+		FROM dbo.EmpRegisterFood erf WITH (NOLOCK)
+		WHERE erf.SysId = er.SysId
+		AND erf.WorkDate = @OnDate 
+		AND erf.MealID = @MealID
+		AND erf.IsVegetarian IS NOT NULL
 	)
+	
+	IF @ViolatingUsers != ''
 	BEGIN
 		SELECT @ErrCode = 100,
-			   @ErrMsg = N'Some users have not registered for meals on this date. Please register meals first.'
+			   @ErrMsg = N'Users have not registered for meals on this date. Please register meals first:' + @ViolatingUsers
 		RETURN
 	END
 
