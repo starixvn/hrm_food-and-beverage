@@ -1,4 +1,7 @@
-﻿using Fanex.Data.Repository;
+﻿using System.Collections.Generic;
+using Fanex.Data.Repository;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using NexFB.WorkerService.Models;
 using NexFB.WorkerService.Services;
 

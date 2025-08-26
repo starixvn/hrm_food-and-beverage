@@ -1,5 +1,10 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Fanex.Logging.Extensions;
 using Fanex.Logging.Extensions.Database;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using NexFB.WorkerService.Models;
 using NexFB.WorkerService.Services;
 
@@ -21,7 +26,7 @@ public class Worker(
 
         while (!stoppingToken.IsCancellationRequested)
         {
-            logfile.LogInformation("Service started at " + DateTime.Now);
+            logfile.LogInformation("Service started at {0}", DateTimeOffset.Now.DateTime);
 
             try
             {
@@ -36,7 +41,7 @@ public class Worker(
                 await HandleExceptionAsync(e);
             }
 
-            logfile.LogInformation("Service stopped at " + DateTime.Now);
+            logfile.LogInformation("Service stopped at {0}", DateTimeOffset.Now.DateTime);
 
             var stopTime = appSettings.TimeInterval * millisecond;
             await Task.Delay(stopTime, stoppingToken);

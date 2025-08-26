@@ -1,14 +1,15 @@
-﻿using System.Text;
-using Fanex.Data.Repository;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Fanex.Data;
+using Fanex.Data.Repository;
 using NexFB.WorkerService.Models;
 
 namespace NexFB.WorkerService.Criteria;
 
 internal class SyncEmployeesCalendarCriteria : CriteriaBase
 {
-    private const string _EmployeeCalendarTpl =
-        "<Calendar EmpId='{0}' WorkDate='{1}' CompanyId='{2}' "
+    private const string EmployeeCalendarTpl = "<Calendar EmpId='{0}' WorkDate='{1}' CompanyId='{2}' "
         + "ShiftId='{3}' IsHoliday='{4}' IsOffDay='{5}' IsLeaveDay='{6}' LeaveTypeId='{7}' "
         + " LeaveDay='{8}'  ModifiedDate='{9}' HasCheckIn='{10}'></Calendar>";
 
@@ -27,7 +28,7 @@ internal class SyncEmployeesCalendarCriteria : CriteriaBase
             foreach (var calendar in EmployeeCalendars)
             {
                 value.AppendFormat(
-                    _EmployeeCalendarTpl,
+                    EmployeeCalendarTpl,
                     calendar.UserId,
                     calendar.WorkDate,
                     CompanyId,
@@ -37,8 +38,8 @@ internal class SyncEmployeesCalendarCriteria : CriteriaBase
                     calendar.IsLeaveDay,
                     calendar.LeaveTypeId,
                     calendar.LeaveDay,
-                    calendar is { LeaveDay: not null, ModifiedDate: not null } ? 
-                        calendar.ModifiedDate.Value.ToString("yyyy-MM-dd HH:mm:ss:fff") 
+                    calendar is { LeaveDay: not null, ModifiedDate: not null } ?
+                        calendar.ModifiedDate.Value.ToString("yyyy-MM-dd HH:mm:ss:fff")
                         : string.Empty,
                     calendar.HasCheckIn);
             }
@@ -47,13 +48,7 @@ internal class SyncEmployeesCalendarCriteria : CriteriaBase
         }
     }
 
-    public override string GetSettingKey()
-    {
-        return "API_SYN_Calendar";
-    }
+    public override string GetSettingKey() => "API_SYN_Calendar";
 
-    public override bool IsValid()
-    {
-        return CompanyId > 0 && EmployeeCalendars.Any();
-    }
+    public override bool IsValid() => CompanyId > 0 && EmployeeCalendars.Any();
 }

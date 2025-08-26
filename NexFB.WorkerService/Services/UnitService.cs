@@ -1,4 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Criteria;
 using NexFB.WorkerService.Helper;
@@ -10,6 +15,7 @@ public interface IUnitService
 {
     Task StartUnitJobAsync();
 }
+
 public class UnitService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
     List<FnBSyncApiSettings> settings,
@@ -66,21 +72,28 @@ public class UnitService(IBaseService baseService,
         }
     }
 
-    private async Task<List<Unit>?> GetUnitsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
+    private async Task<List<Unit>> GetUnitsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
-        var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator };
-        httpClient = new HttpClient(handler);
-        
-        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey))
+        {
+            httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+        }
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Unit}?lastModifiedDate={lastModifiedDate}");
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
 
-        if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();
-        if (string.IsNullOrWhiteSpace(content)) return null;
+        if (string.IsNullOrWhiteSpace(content))
+        {
+            return null;
+        }
+
         var result = JsonConvert.DeserializeObject<List<Unit>>(content);
-        return result ?? null;
+        return result;
     }
 
     private async Task<DateTime> GetUnitLastModifiedDate(int companyId)

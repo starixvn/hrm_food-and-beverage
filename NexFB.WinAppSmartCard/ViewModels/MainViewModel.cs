@@ -38,7 +38,6 @@
         private static readonly string _host = ConfigurationManager.AppSettings[ConstantValue.HubHost];
         private static readonly DispatcherTimer _dailyClockDispatcher = new DispatcherTimer();
         private bool isUpdateBackground = false;
-        private bool isUpdateMeal = false;
         private ViewModelBase _currentViewModel;
 
         public MainViewModel()

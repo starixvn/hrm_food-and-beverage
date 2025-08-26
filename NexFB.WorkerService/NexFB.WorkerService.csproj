@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dotnet-NexFB.WorkerService-7d7b4e9b-3917-4a00-ba51-6d74c86b6e6c</UserSecretsId>
   </PropertyGroup>
 

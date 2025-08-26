@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Fanex.Data;
 using Fanex.Data.Repository;
 using NexFB.WorkerService.Models;
@@ -7,8 +9,8 @@ namespace NexFB.WorkerService.Criteria;
 
 internal class SyncEmployeeTeamCriteria : CriteriaBase
 {
-    private const string _TeamTpl = "<Team TeamId='{0}' CompanyId='{1}' Code='{2}' "
-                                    + "Name='{3}' IsDeleted='{4}' ModifiedDate='{5}' SectionId='{6}'></Team>";
+    private const string TeamTpl = "<Team TeamId='{0}' CompanyId='{1}' Code='{2}' "
+        + "Name='{3}' IsDeleted='{4}' ModifiedDate='{5}' SectionId='{6}'></Team>";
 
     [SpParam(Ignored = true)]
     public int CompanyId { get; set; }
@@ -24,10 +26,10 @@ internal class SyncEmployeeTeamCriteria : CriteriaBase
 
             if (Teams != null)
             {
-                foreach (Team team in Teams)
+                foreach (var team in Teams)
                 {
                     value.AppendFormat(
-                        _TeamTpl,
+                        TeamTpl,
                         team.TeamId,
                         CompanyId,
                         team.Code,
@@ -42,13 +44,7 @@ internal class SyncEmployeeTeamCriteria : CriteriaBase
         }
     }
 
-    public override string GetSettingKey()
-    {
-        return "API_SYN_Team";
-    }
+    public override string GetSettingKey() => "API_SYN_Team";
 
-    public override bool IsValid()
-    {
-        return CompanyId > 0 && Teams != null && Teams.Any();
-    }
+    public override bool IsValid() => CompanyId > 0 && Teams != null && Teams.Any();
 }

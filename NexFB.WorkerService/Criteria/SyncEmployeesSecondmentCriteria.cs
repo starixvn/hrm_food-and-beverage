@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Fanex.Data.Repository;
 using Fanex.Data;
 using NexFB.WorkerService.Models;
@@ -7,7 +9,7 @@ namespace NexFB.WorkerService.Criteria;
 
 internal class SyncEmployeesSecondmentCriteria : CriteriaBase
 {
-    private const string _UserTpl =
+    private const string UserTpl =
         "<User UserId='{0}' EmpId='{1}' Password='{2}' Code='{3}' "
         + "NickName='{4}' FullName='{5}' DomainName='{6}' CompanyId='{7}' IsEnabled='{8}' "
         + " IsDeleted='{9}' JoinedDate='{10}' ModifiedDate='{11}' TeamId='{12}' IsLocal='{13}' "
@@ -28,7 +30,7 @@ internal class SyncEmployeesSecondmentCriteria : CriteriaBase
             foreach (var user in Users)
             {
                 value.AppendFormat(
-                    _UserTpl,
+                    UserTpl,
                     user.UserId,
                     user.EmpId,
                     user.Password,
@@ -52,13 +54,7 @@ internal class SyncEmployeesSecondmentCriteria : CriteriaBase
         }
     }
 
-    public override string GetSettingKey()
-    {
-        return "API_SYN_Employee_Secondment";
-    }
+    public override string GetSettingKey() => "API_SYN_Employee_Secondment";
 
-    public override bool IsValid()
-    {
-        return CompanyId > 0 && Users.Any();
-    }
+    public override bool IsValid() => CompanyId > 0 && Users.Any();
 }

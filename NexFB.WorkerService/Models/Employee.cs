@@ -1,4 +1,6 @@
-﻿namespace NexFB.WorkerService.Models;
+﻿using System;
+
+namespace NexFB.WorkerService.Models;
 
 public class Employee
 {

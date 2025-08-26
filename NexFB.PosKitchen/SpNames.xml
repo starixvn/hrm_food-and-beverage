@@ -1,74 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
-	<Function Name="Employee">
-		<Setting Key="Employee_GetEmployeeByDomain" SpName="Employee_GetEmployeeByDomain" DbName="NexFB" Plain="0" >
-			<Mapping DataField="EmpId" ObjectProperty="UserId"/>
-		</Setting>
-		<Setting Key="Employee_GetEmployeeByCode" SpName="Employee_GetEmployeeByCode" DbName="NexFB" Plain="0" >
-			<Mapping DataField="EmpId" ObjectProperty="UserId"/>
-		</Setting>
-	</Function>
+    <Function Name="Employee">
+        <Setting Key="Employee_GetEmployeeByDomain" SpName="Employee_GetEmployeeByDomain" DbName="NexFB" Plain="0">
+            <Mapping DataField="EmpId" ObjectProperty="UserId" />
+        </Setting>
+        <Setting Key="Employee_GetEmployeeByCode" SpName="Employee_GetEmployeeByCode" DbName="NexFB" Plain="0">
+            <Mapping DataField="EmpId" ObjectProperty="UserId" />
+        </Setting>
+    </Function>
 
-	<Function Name="ManageRole">
-		<Setting Key="Function_GetByRole" SpName="Function_GetByRole" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="SystemRole_GetAll" SpName="SystemRole_GetAll" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="RoleFunction_Assign" SpName="RoleFunction_Assign" DbName="NexFB" Plain="0" ></Setting>
-	</Function>
+    <Function Name="ManageRole">
+        <Setting Key="Function_GetByRole" SpName="Function_GetByRole" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="SystemRole_GetAll" SpName="SystemRole_GetAll" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="RoleFunction_Assign" SpName="RoleFunction_Assign" DbName="NexFB" Plain="0" ></Setting>
+    </Function>
 
-	<Function Name="Kitchen">
-		<Setting Key="POS_Get_ListRequestNewByPOS" SpName="POS_Get_ListRequestNewByPOS" DbName="NexFB" Plain="0" >
-			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
-		</Setting>
-		<Setting Key="POS_Get_ListRequestReceivedByPOS" SpName="POS_Get_ListRequestReceivedByPOS" DbName="NexFB" Plain="0" >
-			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
-		</Setting>
-		<Setting Key="POS_Get_ListRequestDeliverByPOS" SpName="POS_Get_ListRequestDeliverByPOS" DbName="NexFB" Plain="0" >
-			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
-		</Setting>
-		<Setting Key="POS_Get_OrderRequestByOrderID" SpName="POS_Get_OrderRequestByOrderID" DbName="NexFB" Plain="0" >
-			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
-		</Setting>
-		<Setting Key="POS_ReceiveOrder" SpName="POS_ReceiveOrder" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_DeliverOrder" SpName="POS_DeliverOrder" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_UndoOrder" SpName="POS_UndoOrder" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Get_OrderDetail" SpName="POS_Get_OrderDetail" DbName="NexFB" Plain="0" >
-			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
-		</Setting>
-	</Function>
+    <Function Name="Kitchen">
+        <Setting Key="POS_Get_ListRequestNewByPOS" SpName="POS_Get_ListRequestNewByPOS" DbName="NexFB" Plain="0">
+            <Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder" />
+        </Setting>
+        <Setting Key="POS_Get_ListRequestReceivedByPOS" SpName="POS_Get_ListRequestReceivedByPOS" DbName="NexFB" Plain="0">
+            <Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder" />
+        </Setting>
+        <Setting Key="POS_Get_ListRequestDeliverByPOS" SpName="POS_Get_ListRequestDeliverByPOS" DbName="NexFB" Plain="0">
+            <Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder" />
+        </Setting>
+        <Setting Key="POS_Get_OrderRequestByOrderID" SpName="POS_Get_OrderRequestByOrderID" DbName="NexFB" Plain="0">
+            <Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder" />
+        </Setting>
+        <Setting Key="POS_ReceiveOrder" SpName="POS_ReceiveOrder" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_DeliverOrder" SpName="POS_DeliverOrder" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_UndoOrder" SpName="POS_UndoOrder" DbName="NexFB" Plain="0" />
+        <Setting Key="POS_Get_OrderDetail" SpName="POS_Get_OrderDetail" DbName="NexFB" Plain="0">
+            <Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder" />
+        </Setting>
+    </Function>
 
-	<Function Name="KitchenOrder">
-		<Setting Key="Location_GetAll" SpName="Location_GetAll" DbName="NexFB" Plain="0" >
-			<Mapping DataField="LocationVNMName" ObjectProperty="NameVN"/>
-			<Mapping DataField="LocationENGName" ObjectProperty="NameEN"/>
-		</Setting>
-		<Setting Key="POS_Get_GroupName" SpName="POS_Get_GroupName" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Get_FoodOrder" SpName="POS_Get_FoodOrder" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Get_GroupUserByGroupID" SpName="POS_Get_GroupUserByGroupID" DbName="NexFB" Plain="0" >
-			<Mapping DataField="Qty" ObjectProperty="Quantity"/>
-		</Setting>
-		<Setting Key="Employee_GetEmployeeByCode" SpName="Employee_GetEmployeeByCode" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Get_GroupUserBySysID" SpName="POS_Get_GroupUserBySysID" DbName="NexFB" Plain="0" >
-			<Mapping DataField="Qty" ObjectProperty="Quantity"/>
-		</Setting>
-		<Setting Key="Employee_GetEmployeeBySysID" SpName="Employee_GetEmployeeBySysID" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Get_FoodAlternative" SpName="POS_Get_FoodAlternative" DbName="NexFB" Plain="0" >
-			<Mapping DataField="AltMenuId" ObjectProperty="FoodId"/>
-			<Mapping DataField="AltMenuCode" ObjectProperty="FoodCode"/>
-			<Mapping DataField="AltMenuVNMName" ObjectProperty="FoodVnmName"/>
-			<Mapping DataField="AltMenuEngName" ObjectProperty="FoodEngName"/>
-			<Mapping DataField="AltMenuPhoto" ObjectProperty="FoodPhoto"/>
-		</Setting>
-		<Setting Key="POS_Insert_OrderMeal" SpName="POS_Insert_OrderMeal" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Edit_OrderMeal" SpName="POS_Edit_OrderMeal" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Get_OrderRequestByOrderNo" SpName="POS_Get_OrderRequestByOrderNo" DbName="NexFB" Plain="0" >
-			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
-		</Setting>
-		<Setting Key="POS_Cancel_OrderMeal" SpName="POS_Cancel_OrderMeal" DbName="NexFB" Plain="0" ></Setting>
-		<Setting Key="POS_Get_ListRequestRejectedByPOS" SpName="POS_Get_ListRequestRejectedByPOS" DbName="NexFB" Plain="0" >
-			<Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder"/>
-		</Setting>
-		<Setting Key="POS_Get_MyStatusBySysID" SpName="POS_Get_MyStatusBySysID" DbName="NexFB" Plain="0" ></Setting>
-
-	</Function>
-
+    <Function Name="KitchenOrder">
+        <Setting Key="Location_GetAll" SpName="Location_GetAll" DbName="NexFB" Plain="0">
+            <Mapping DataField="LocationVNMName" ObjectProperty="NameVN" />
+            <Mapping DataField="LocationENGName" ObjectProperty="NameEN" />
+        </Setting>
+        <Setting Key="POS_Get_GroupName" SpName="POS_Get_GroupName" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_Get_FoodOrder" SpName="POS_Get_FoodOrder" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_Get_GroupUserByGroupID" SpName="POS_Get_GroupUserByGroupID" DbName="NexFB" Plain="0">
+            <Mapping DataField="Qty" ObjectProperty="Quantity" />
+        </Setting>
+        <Setting Key="Employee_GetEmployeeByCode" SpName="Employee_GetEmployeeByCode" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_Get_GroupUserBySysID" SpName="POS_Get_GroupUserBySysID" DbName="NexFB" Plain="0">
+            <Mapping DataField="Qty" ObjectProperty="Quantity" />
+        </Setting>
+        <Setting Key="Employee_GetEmployeeBySysID" SpName="Employee_GetEmployeeBySysID" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_Get_FoodAlternative" SpName="POS_Get_FoodAlternative" DbName="NexFB" Plain="0">
+            <Mapping DataField="AltMenuId" ObjectProperty="FoodId" />
+            <Mapping DataField="AltMenuCode" ObjectProperty="FoodCode" />
+            <Mapping DataField="AltMenuVNMName" ObjectProperty="FoodVnmName" />
+            <Mapping DataField="AltMenuEngName" ObjectProperty="FoodEngName" />
+            <Mapping DataField="AltMenuPhoto" ObjectProperty="FoodPhoto" />
+        </Setting>
+        <Setting Key="POS_Insert_OrderMeal" SpName="POS_Insert_OrderMeal" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_Edit_OrderMeal" SpName="POS_Edit_OrderMeal" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_Get_OrderRequestByOrderNo" SpName="POS_Get_OrderRequestByOrderNo" DbName="NexFB" Plain="0">
+            <Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder" />
+        </Setting>
+        <Setting Key="POS_Cancel_OrderMeal" SpName="POS_Cancel_OrderMeal" DbName="NexFB" Plain="0" ></Setting>
+        <Setting Key="POS_Get_ListRequestRejectedByPOS" SpName="POS_Get_ListRequestRejectedByPOS" DbName="NexFB" Plain="0">
+            <Mapping DataField="QtyOrd" ObjectProperty="QuantityOrder" />
+        </Setting>
+        <Setting Key="POS_Get_MyStatusBySysID" SpName="POS_Get_MyStatusBySysID" DbName="NexFB" Plain="0" ></Setting>
+    </Function>
 </Functions>

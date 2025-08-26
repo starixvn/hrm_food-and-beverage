@@ -1,4 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Criteria;
 using NexFB.WorkerService.Helper;
@@ -11,7 +16,8 @@ public interface IEmployeeService
     Task StartEmployeeJobAsync();
 }
 
-public class EmployeeService(IBaseService baseService,
+public class EmployeeService(
+    IBaseService baseService,
     IHttpClientFactory httpClientFactory,
     List<FnBSyncApiSettings> settings,
     Fanex.Logging.ILogger logger) : IEmployeeService
@@ -100,38 +106,40 @@ public class EmployeeService(IBaseService baseService,
         }
     }
 
-    private async Task<List<Employee>?> GetEmployeesByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
+    private async Task<List<Employee>> GetEmployeesByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
-
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
-        var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator };
-        httpClient = new HttpClient(handler);
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey))
+        {
+            httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+        }
 
-        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Employee}?lastModifiedDate={lastModifiedDate}");
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
 
-        if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();
-        if (string.IsNullOrWhiteSpace(content)) return null;
-        var result = JsonConvert.DeserializeObject<List<Employee>>(content);
-        return result ?? null;
+        return string.IsNullOrWhiteSpace(content) ? null : JsonConvert.DeserializeObject<List<Employee>>(content);
     }
 
-    private async Task<List<Employee>?> GetEmployeesSecondment(FnBSyncApiSettings setting)
+    private async Task<List<Employee>> GetEmployeesSecondment(FnBSyncApiSettings setting)
     {
-
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
-        var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator };
-        httpClient = new HttpClient(handler);
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey))
+        {
+            httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+        }
 
-        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.EmployeeSecondment}");
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
 
-        if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();
-        if (string.IsNullOrWhiteSpace(content)) return null;
-        var result = JsonConvert.DeserializeObject<List<Employee>>(content);
-        return result ?? null;
+        return string.IsNullOrWhiteSpace(content) ? null : JsonConvert.DeserializeObject<List<Employee>>(content);
     }
 
     private async Task<DateTime> GetEmployeeLastModifiedDate(int companyId)
@@ -172,21 +180,22 @@ public class EmployeeService(IBaseService baseService,
         }
     }
 
-    private async Task<List<Team>?> GetTeamByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
+    private async Task<List<Team>> GetTeamByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
-        var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator };
-        httpClient = new HttpClient(handler);
-
-        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey))
+        {
+            httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+        }
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.EmployeeTeam}?lastModifiedDate={lastModifiedDate}");
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
 
-        if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();
-        if (string.IsNullOrWhiteSpace(content)) return null;
-        var result = JsonConvert.DeserializeObject<List<Team>>(content);
-        return result ?? null;
+        return string.IsNullOrWhiteSpace(content) ? null : JsonConvert.DeserializeObject<List<Team>>(content);
     }
 
     private async Task<DateTime> GetEmployeeTeamLastModifiedDate(int companyId)
@@ -227,12 +236,9 @@ public class EmployeeService(IBaseService baseService,
         }
     }
 
-    private async Task<List<EmployeeCalendar>?> GetCalendarByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
+    private async Task<List<EmployeeCalendar>> GetCalendarByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
-        var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator };
-        httpClient = new HttpClient(handler);
-        
         if (!string.IsNullOrWhiteSpace(setting.ApiKey))
         {
             httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
@@ -245,12 +251,7 @@ public class EmployeeService(IBaseService baseService,
         }
 
         var content = await response.Content.ReadAsStringAsync();
-        if (string.IsNullOrWhiteSpace(content))
-        {
-            return null;
-        }
-
-        return JsonConvert.DeserializeObject<List<EmployeeCalendar>>(content);
+        return string.IsNullOrWhiteSpace(content) ? null : JsonConvert.DeserializeObject<List<EmployeeCalendar>>(content);
     }
 
     private async Task<DateTime> GetEmployeeCalendarLastModifiedDate(int companyId)

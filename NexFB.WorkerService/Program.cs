@@ -1,5 +1,13 @@
+using System;
+using System.IO;
+using System.Net.Http;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using Fanex.Data.SqlServer;
 using Fanex.Logging.Sentry.RavenClient;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using NexFB.WorkerService;
 using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Helper;
@@ -37,9 +45,16 @@ builder.Services.AddHostedService<Worker>();
 builder.Services.AddTransient<LoggingRequestMiddleware>();
 
 builder.Services.AddHttpClient(Constants.FnBClient)
+    .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = ServerCertificateCustomValidationCallback
+    })
     .AddHttpMessageHandler<LoggingRequestMiddleware>();
 
 var host = builder.Build();
 
 LoggingExtension.Config(host.Services.GetRequiredService<ILogger<Worker>>());
 await host.RunAsync();
+return;
+
+bool ServerCertificateCustomValidationCallback(HttpRequestMessage message, X509Certificate2 cert, X509Chain chain, SslPolicyErrors errors) => true;

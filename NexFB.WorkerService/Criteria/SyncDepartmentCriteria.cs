@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Fanex.Data;
 using Fanex.Data.Repository;
 using NexFB.WorkerService.Models;
@@ -7,8 +9,8 @@ namespace NexFB.WorkerService.Criteria;
 
 public class SyncDepartmentCriteria : CriteriaBase
 {
-    private const string _DepartmentTpl = "<Department DepartmentId='{0}' CompanyId='{1}' Code='{2}' "
-                                          + "Name='{3}' UnitId='{4}' IsActive='{5}' ModifiedDate='{6}' IsDeleted='{7}'></Department>";
+    private const string DepartmentTpl = "<Department DepartmentId='{0}' CompanyId='{1}' Code='{2}' "
+        + "Name='{3}' UnitId='{4}' IsActive='{5}' ModifiedDate='{6}' IsDeleted='{7}'></Department>";
 
     [SpParam(Ignored = true)]
     public int CompanyId { get; set; }
@@ -25,7 +27,7 @@ public class SyncDepartmentCriteria : CriteriaBase
             foreach (var department in Departments)
             {
                 value.AppendFormat(
-                    _DepartmentTpl,
+                    DepartmentTpl,
                     department.DepartmentId,
                     CompanyId,
                     department.Code,
@@ -40,13 +42,7 @@ public class SyncDepartmentCriteria : CriteriaBase
         }
     }
 
-    public override string GetSettingKey()
-    {
-        return "API_SYN_Department";
-    }
+    public override string GetSettingKey() => "API_SYN_Department";
 
-    public override bool IsValid()
-    {
-        return CompanyId > 0 && Departments != null && Departments.Any();
-    }
+    public override bool IsValid() => CompanyId > 0 && Departments != null && Departments.Any();
 }

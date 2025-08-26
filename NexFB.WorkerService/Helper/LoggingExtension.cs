@@ -1,4 +1,6 @@
-﻿using NexFB.WorkerService.Common;
+﻿using System;
+using Microsoft.Extensions.Logging;
+using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Models;
 
 namespace NexFB.WorkerService.Helper;

@@ -1,4 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Criteria;
 using NexFB.WorkerService.Helper;
@@ -10,12 +15,15 @@ public interface IDepartmentService
 {
     Task StartDepartmentJobAsync();
 }
-public class DepartmentService(IBaseService baseService,
+
+public class DepartmentService(
     IHttpClientFactory httpClientFactory,
+    IBaseService baseService,
     List<FnBSyncApiSettings> settings,
     Fanex.Logging.ILogger logger) : IDepartmentService
 {
     private const string function = "Department";
+
     public async Task StartDepartmentJobAsync()
     {
         foreach (var setting in settings)
@@ -63,21 +71,22 @@ public class DepartmentService(IBaseService baseService,
         }
     }
 
-    private async Task<List<Department>?> GetDepartmentsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
+    private async Task<List<Department>> GetDepartmentsByLastModifiedDate(FnBSyncApiSettings setting, DateTime lastModifiedDate)
     {
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
-        var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator };
-        httpClient = new HttpClient(handler);
-        
-        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey))
+        {
+            httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+        }
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Department}?lastModifiedDate={lastModifiedDate}");
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
 
-        if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();
-        if (string.IsNullOrWhiteSpace(content)) return null;
-        var result = JsonConvert.DeserializeObject<List<Department>>(content);
-        return result ?? null;
+        return string.IsNullOrWhiteSpace(content) ? null : JsonConvert.DeserializeObject<List<Department>>(content);
     }
 
     private async Task<DateTime> GetDepartmentLastModifiedDate(int companyId)

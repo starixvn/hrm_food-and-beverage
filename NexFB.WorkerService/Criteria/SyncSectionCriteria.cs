@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Fanex.Data;
 using Fanex.Data.Repository;
 using NexFB.WorkerService.Models;
@@ -7,8 +9,8 @@ namespace NexFB.WorkerService.Criteria;
 
 public class SyncSectionCriteria : CriteriaBase
 {
-    private const string _SectionTpl = "<Section SectionId='{0}' CompanyId='{1}' Code='{2}' "
-                                       + "Name='{3}' DepartmentId='{4}' IsActive='{5}' ModifiedDate='{6}' IsDeleted='{7}'></Section>";
+    private const string SectionTpl = "<Section SectionId='{0}' CompanyId='{1}' Code='{2}' "
+        + "Name='{3}' DepartmentId='{4}' IsActive='{5}' ModifiedDate='{6}' IsDeleted='{7}'></Section>";
 
     [SpParam(Ignored = true)]
     public int CompanyId { get; set; }
@@ -25,7 +27,7 @@ public class SyncSectionCriteria : CriteriaBase
             foreach (var section in Sections)
             {
                 value.AppendFormat(
-                    _SectionTpl,
+                    SectionTpl,
                     section.SectionId,
                     CompanyId,
                     section.Code,

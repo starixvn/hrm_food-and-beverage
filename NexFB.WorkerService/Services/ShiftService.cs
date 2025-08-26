@@ -1,4 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using NexFB.WorkerService.Common;
 using NexFB.WorkerService.Criteria;
 using NexFB.WorkerService.Helper;
@@ -10,6 +15,7 @@ public interface IShiftService
 {
     Task StartShiftJobAsync();
 }
+
 public class ShiftService(IBaseService baseService,
     IHttpClientFactory httpClientFactory,
     List<FnBSyncApiSettings> settings,
@@ -65,20 +71,21 @@ public class ShiftService(IBaseService baseService,
         }
     }
 
-    private async Task<List<Shift>?> GetShifts(FnBSyncApiSettings setting)
+    private async Task<List<Shift>> GetShifts(FnBSyncApiSettings setting)
     {
         var httpClient = httpClientFactory.CreateClient(Constants.FnBClient);
-        var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator };
-        httpClient = new HttpClient(handler);
-        
-        if (!string.IsNullOrWhiteSpace(setting.ApiKey)) httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+        if (!string.IsNullOrWhiteSpace(setting.ApiKey))
+        {
+            httpClient.DefaultRequestHeaders.Add("X-API-Key", setting.ApiKey);
+        }
 
         var response = await httpClient.GetAsync($"{setting.Url}/{Endpoint.Shift}");
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
 
-        if (!response.IsSuccessStatusCode) return null;
         var content = await response.Content.ReadAsStringAsync();
-        if (string.IsNullOrWhiteSpace(content)) return null;
-        var result = JsonConvert.DeserializeObject<List<Shift>>(content);
-        return result ?? null;
+        return string.IsNullOrWhiteSpace(content) ? null : JsonConvert.DeserializeObject<List<Shift>>(content);
     }
 }

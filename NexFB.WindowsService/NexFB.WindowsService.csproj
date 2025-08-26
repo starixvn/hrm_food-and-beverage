@@ -156,30 +156,16 @@
     <Compile Include="Criteria\GetLastUnitModifiedDateCriteria.cs" />
     <Compile Include="Criteria\GetLastDepartmentModifiedDateCriteria.cs" />
     <Compile Include="Criteria\GetLastSectionModifiedDateCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateUnitSMSCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateUnitHMCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateDepartmentSMSCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateEmployeeCalendarLuminetCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateDepartmentHMCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateSectionSMSCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateShiftLuminetCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateSectionHMCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateTeamLuminetCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateUserLuminetCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateEmployeeCalendarSMSCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateEmployeeCalendarHMCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateShiftSMSCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateShiftHMCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateEmployeeCalendarNexcelCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateShiftNexcelCriteria.cs" />
     <Compile Include="Criteria\GetLastEmployeeCalendarModifiedDateCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateTeamSMSCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateUserSMSCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateTeamHMCriteria.cs" />
     <Compile Include="Criteria\GetLastTeamModifiedDateCriteria.cs" />
     <Compile Include="Criteria\GetLastUserModifiedDateCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateTeamNexcelCriteria.cs" />
-    <Compile Include="Criteria\InsertAndUpdateUserHMCriteria.cs" />
     <Compile Include="Criteria\InsertAndUpdateUserNexcelCriteria.cs" />
     <Compile Include="Criteria\UpdateBreakRuleOrderCriteria.cs" />
     <Compile Include="LunarCalendarCalculation.cs" />
@@ -191,22 +177,12 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\HongMaService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Service References\LuminetService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\NexcelService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\SMSService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -220,11 +196,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="Service References\HongMaService\NexFB.WindowsService.HongMaService.UserModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\HongMaService\SynchronizeDataService.wsdl" />
-    <None Include="Service References\HongMaService\SynchronizeDataService1.wsdl" />
     <None Include="Service References\LuminetService\NexFB.WindowsService.LuminetService.DepartmentModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -275,32 +246,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\NexcelService\SynchronizeDataService.wsdl" />
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.DepartmentModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.EmployeeCalendarModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.PhotoModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.SectionModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.ShiftModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.TeamModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.UnitModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\NexFB.WindowsService.SMSService.UserModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SMSService\SynchronizeDataService.wsdl" />
-    <None Include="Service References\SMSService\SynchronizeDataService1.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -358,18 +303,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\HongMaService\configuration91.svcinfo" />
-    <None Include="Service References\HongMaService\configuration.svcinfo" />
-    <None Include="Service References\HongMaService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\SMSService\configuration91.svcinfo" />
-    <None Include="Service References\SMSService\configuration.svcinfo" />
-    <None Include="Service References\SMSService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Service References\LuminetService\configuration91.svcinfo" />
     <None Include="Service References\LuminetService\configuration.svcinfo" />
     <None Include="Service References\LuminetService\Reference.svcmap">
@@ -385,10 +318,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\HongMaService\" />
     <WCFMetadataStorage Include="Service References\LuminetService\" />
     <WCFMetadataStorage Include="Service References\NexcelService\" />
-    <WCFMetadataStorage Include="Service References\SMSService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
