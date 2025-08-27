@@ -3,6 +3,7 @@
     using System;
     using System.Configuration;
     using System.Diagnostics;
+    using System.Net;
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
@@ -25,11 +26,13 @@
     {
         private const string _WebApiPrefix = "api";
         private const string _WebReportApiPrefix = "api/report";
-        private static string _webApiExecutionPath = string.Format("~/{0}", _WebApiPrefix);
-        private static string _webReportApiExecutionPath = string.Format("~/{0}", _WebReportApiPrefix);
+        private static string _webApiExecutionPath = $"~/{_WebApiPrefix}";
+        private static string _webReportApiExecutionPath = $"~/{_WebReportApiPrefix}";
 
         protected void Application_Start()
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
             LogManager
                 .SetDefaultLogCategory(ConfigurationManager.AppSettings["Sentry:Category"])
                 .Use(new SentryLogging(new SentryEngineOptions

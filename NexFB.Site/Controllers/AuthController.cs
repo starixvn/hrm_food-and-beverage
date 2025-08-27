@@ -171,7 +171,7 @@
             var criteria = new GetEmployeeByCodeCriteria
             {
                 Code = model.Username,
-                CompanyId = string.Format("{0},{1}", (byte)CompanyIdentity.Sms, (byte)CompanyIdentity.HongMA)
+                CompanyId = $"{(byte)CompanyIdentity.Sms},{(byte)CompanyIdentity.HongMA}"
             };
             UserSession user = _employeeService.GetUserByCode(criteria);
 
