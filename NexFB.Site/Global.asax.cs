@@ -30,8 +30,10 @@
 
         protected void Application_Start()
         {
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
             LogManager
-                .SetDefaultLogCategory(ConfigurationManager.AppSettings["Sentry:Category"])
+                            .SetDefaultLogCategory(ConfigurationManager.AppSettings["Sentry:Category"])
                 .Use(new SentryLogging(new SentryEngineOptions
                 {
                     Dsn = new Dsn(ConfigurationManager.AppSettings["Sentry:Dsn"]),
